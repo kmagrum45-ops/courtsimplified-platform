@@ -57,6 +57,13 @@ import {
 import { getOutOfScopeForum, type OutOfScopeForum } from "./outOfScopeForums";
 import { withAiCallContext } from "../../audit/aiCallLog";
 import { modelParams } from "../aiModels";
+import {
+  ISSUE_KINDS,
+  NO_MATTERS,
+  type IssueKind,
+  type StoryIssue,
+  type StoryMatters,
+} from "../../content-library/crossForumNotes";
 
 // The three paths CourtSimplified actually routes to. The keyword pass can
 // return other areas (ltb, immigration, criminal-related); those are reported
@@ -78,6 +85,13 @@ export type CourtPathClassification = {
   source: "keyword" | "ai" | "ai-unavailable" | "ai-error";
   /** True only when a network call was actually made. */
   aiCalled: boolean;
+  /**
+   * The separate matters the story mentions, each with the user's OWN words.
+   * Empty unless the model ran. Only the kind (from a fixed list) and a quote
+   * that is verifiably a substring of the story survive coercion, so nothing
+   * the model wrote can reach a user through this field.
+   */
+  matters: StoryMatters;
 };
 
 export type CourtPathClassifierInput = {
@@ -388,10 +402,21 @@ function decideEscalation(args: {
   keywordArea: CasePartnerCourtArea;
   declaredPath: CourtPathValue | null;
 }): EscalationDecision {
-  // A detected cross-area conflict is a final answer, whatever was declared
-  // and however long the story is.
+  // A cross-area tie used to be a final answer that never reached the model.
+  // Changed 2026-09-30: a tie between two areas is exactly the story that has
+  // more than one matter, and the model is the only stage that can list them
+  // (and name the operative claim). The keyword "mixed" was also dropped
+  // silently by the home page, so being free bought the user nothing.
   if (args.keywordArea === "mixed") {
-    return { escalate: false, reason: "keyword pass detected a cross-area conflict" };
+    return { escalate: true, reason: "keyword pass detected a cross-area conflict" };
+  }
+
+  const families = issueFamiliesMentioned(args.story);
+  if (families.length >= 2) {
+    return {
+      escalate: true,
+      reason: `story mentions more than one kind of matter (${families.join(", ")})`,
+    };
   }
 
   if (AMBIGUOUS_AREAS.has(args.keywordArea)) {
@@ -428,13 +453,35 @@ function decideEscalation(args: {
   return { escalate: false, reason: "short story, one clear court area" };
 }
 
+/**
+ * Rough word families for "this short story mentions two different kinds of
+ * matter". Used ONLY to decide whether to ask the model; it never classifies
+ * anything itself, so a miss costs a model call and a false hit costs one too.
+ */
+const ISSUE_FAMILY_SIGNALS: Record<string, RegExp> = {
+  employment: /\b(fired|laid off|layoff|let go|terminated|severance|wages?|paycheque|paycheck|overtime|my (boss|employer|manager))\b/i,
+  discrimination: /\b(discriminat\w*|harass\w*|racis\w*|because of my (race|religion|disability|age|pregnancy|gender|sex|colou?r))\b/i,
+  tenancy: /\b(landlord|tenant|evict\w*|my rent|the rent|lease)\b/i,
+  family: /\b(custody|child support|spousal support|separat(ed|ion)|divorce|parenting time|my ex)\b/i,
+  injury: /\b(injur\w*|hurt|broke my|concussion|fractured?)\b/i,
+};
+
+function issueFamiliesMentioned(story: string): string[] {
+  return Object.entries(ISSUE_FAMILY_SIGNALS)
+    .filter(([, pattern]) => pattern.test(story))
+    .map(([family]) => family);
+}
+
 const SYSTEM_PROMPT =
   "You classify which Ontario forum a self-represented litigant's story belongs to. " +
   "Reply with JSON only: " +
   '{"primaryPath":"family|small-claims|civil|mixed|out-of-scope",' +
   '"secondaryPath":"family|small-claims|civil|null",' +
   '"outOfScopeForum":"ltb|hrto|wsiat|cat|social-benefits-tribunal|lat|divisional-court|immigration|criminal-related|null",' +
-  '"confidence":0-1,"reasoning":"one short sentence"}. ' +
+  '"confidence":0-1,"reasoning":"one short sentence",' +
+  '"issues":[{"kind":"employment-pay|employment-termination|discrimination|residential-tenancy|injury|' +
+  'property-damage|debt-or-contract|family|defamation|other","quote":"exact words copied from the story"}],' +
+  '"severalOtherParties":true|false,"earlierDecision":true|false}. ' +
   "CourtSimplified only handles Family, Small Claims, and Civil matters in the Ontario court system. The other " +
   "nine ids are different forums entirely: ltb (Landlord and Tenant Board -- residential tenancy), hrto (Human " +
   "Rights Tribunal of Ontario -- discrimination, protected grounds, accommodation), wsiat (workplace injury or " +
@@ -480,7 +527,24 @@ const SYSTEM_PROMPT =
   "words that justify it) in the reasoning. " +
   "Decide reasoning first, then set primaryPath and outOfScopeForum to exactly match what reasoning concludes -- " +
   "if reasoning names a specific out-of-scope forum, primaryPath MUST be \"out-of-scope\" and outOfScopeForum " +
-  "MUST be that same forum's id; the two must never disagree. Do not give legal advice, cite law, or add fields.";
+  "MUST be that same forum's id; the two must never disagree. " +
+  // 2026-09-30. The list of separate matters. The model only NAMES topics from
+  // a fixed list and COPIES the user's words; coerceStoryMatters drops any
+  // quote that is not in the story. See src/lib/content-library/crossForumNotes.ts.
+  "In issues, list each separate matter the story describes, at most five, whatever forum each belongs to: " +
+  "employment-pay (wages, overtime, vacation or other pay an employer owes), employment-termination (being " +
+  "fired, laid off, or pushed out of a job; termination or severance pay), discrimination (treated differently " +
+  "because of a personal characteristic such as race, religion, disability, sex, age, pregnancy or family " +
+  "status), residential-tenancy (a landlord and tenant of a home: rent, repairs, deposits, eviction), injury, " +
+  "property-damage, debt-or-contract (money owed, a loan, an unpaid bill, an agreement not kept, a contractor or " +
+  "seller), family (separation, divorce, parenting, child or spousal support, family property), defamation " +
+  "(something false said or written about a person), other. Two events of the same kind are one issue. For each " +
+  "issue, quote copies a short phrase from the story exactly, character for character, that shows the matter -- " +
+  "never paraphrase, never add words. List only matters the story actually describes; never add one the person " +
+  "might also have. severalOtherParties is true only when the story names more than one person or business the " +
+  "person holds responsible. earlierDecision is true only when the story says a court or tribunal has already " +
+  "decided something between these people. " +
+  "Do not give legal advice, cite law, or add fields.";
 
 function buildUserPrompt(args: {
   story: string;
@@ -499,6 +563,9 @@ export type ModelPayload = {
   outOfScopeForum?: unknown;
   confidence?: unknown;
   reasoning?: unknown;
+  issues?: unknown;
+  severalOtherParties?: unknown;
+  earlierDecision?: unknown;
 };
 
 /**
@@ -521,7 +588,7 @@ export function coerceModelPayload(
   payload: ModelPayload,
   fallbackArea: CasePartnerCourtArea,
   story: string,
-): Omit<CourtPathClassification, "source" | "aiCalled"> {
+): Omit<CourtPathClassification, "source" | "aiCalled" | "matters"> {
   const rawPrimary = clean(payload.primaryPath).toLowerCase();
   /** A forum the model named and `coherentForum` refused. Changes the reasoning. */
   let refusedForum: OutOfScopeForum | null = null;
@@ -581,6 +648,58 @@ export function coerceModelPayload(
   };
 }
 
+/** At most this many issues are kept; a story with more is still shown five. */
+const MAX_ISSUES = 5;
+
+/**
+ * Keeps only what the model is allowed to contribute: a kind from the fixed
+ * list, and a quote that IS the user's own text. The quote is located in the
+ * story ignoring case and spacing, and the story's own characters are what is
+ * kept, so a user only ever sees words they typed. Anything else is dropped.
+ *
+ * EXPORTED AS A TEST SEAM, like coerceModelPayload: the checks feed it the
+ * shapes a model can return without paying for a model call.
+ */
+export function coerceStoryMatters(payload: unknown, story: string): StoryMatters {
+  if (!payload || typeof payload !== "object") return NO_MATTERS;
+  const raw = payload as { issues?: unknown; severalOtherParties?: unknown; earlierDecision?: unknown };
+  const issues: StoryIssue[] = [];
+  const seen = new Set<string>();
+
+  if (Array.isArray(raw.issues)) {
+    for (const entry of raw.issues) {
+      if (issues.length >= MAX_ISSUES) break;
+      if (!entry || typeof entry !== "object") continue;
+      const { kind, quote } = entry as { kind?: unknown; quote?: unknown };
+      if (typeof kind !== "string" || !(ISSUE_KINDS as readonly string[]).includes(kind)) continue;
+      const own = findOwnWords(story, typeof quote === "string" ? quote : "");
+      if (!own) continue;
+      const key = `${kind}|${own.toLowerCase()}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      issues.push({ kind: kind as IssueKind, quote: own });
+    }
+  }
+
+  return {
+    issues,
+    severalOtherParties: raw.severalOtherParties === true,
+    earlierDecision: raw.earlierDecision === true,
+  };
+}
+
+/** The story's own text matching `quote`, ignoring case and runs of spaces; null if absent. */
+function findOwnWords(story: string, quote: string): string | null {
+  const words = quote.trim().split(/\s+/).filter(Boolean);
+  if (words.length === 0 || quote.trim().length < 3) return null;
+  const pattern = new RegExp(
+    words.map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("\\s+"),
+    "i",
+  );
+  const match = story.match(pattern);
+  return match ? match[0] : null;
+}
+
 function keywordOnlyResult(args: {
   story: string;
   keywordArea: CasePartnerCourtArea;
@@ -616,6 +735,7 @@ function keywordOnlyResult(args: {
           "this is a boundary CourtSimplified can't resolve. The LTB or a paralegal can confirm which applies.",
         source: args.source,
         aiCalled: false,
+        matters: NO_MATTERS,
       };
     }
 
@@ -627,6 +747,7 @@ function keywordOnlyResult(args: {
       reasoning: args.reason,
       source: args.source,
       aiCalled: false,
+      matters: NO_MATTERS,
     };
   }
 
@@ -642,6 +763,7 @@ function keywordOnlyResult(args: {
     reasoning: args.reason,
     source: args.source,
     aiCalled: false,
+    matters: NO_MATTERS,
   };
 }
 
@@ -678,6 +800,7 @@ async function classifyCourtPathInner(
       reasoning: "No story text was provided.",
       source: "keyword",
       aiCalled: false,
+      matters: NO_MATTERS,
     };
   }
 
@@ -718,10 +841,11 @@ async function classifyCourtPathInner(
     const response = await client.chat.completions.create({
       ...modelParams("deep", {
         temperature: 0,
-        // Caps spend on a job whose answer is four short fields. modelParams
+        // Caps spend. Four short fields plus up to MAX_ISSUES short quotes
+        // (2026-09-30: was 200 before the issue list was added). modelParams
         // adds reasoning headroom on top: thinking tokens count against this
-        // cap, and 200 alone would be spent before the answer was written.
-        maxOutputTokens: 200,
+        // cap.
+        maxOutputTokens: 500,
       }),
       response_format: { type: "json_object" },
       messages: [
@@ -746,7 +870,12 @@ async function classifyCourtPathInner(
       story,
     );
 
-    return { ...parsed, source: "ai", aiCalled: true };
+    return {
+      ...parsed,
+      source: "ai",
+      aiCalled: true,
+      matters: coerceStoryMatters(JSON.parse(content) as ModelPayload & { matters?: unknown }, story),
+    };
   } catch (error) {
     console.error("Court path classification failed.", {
       errorName: error instanceof Error ? error.name : "UnknownError",

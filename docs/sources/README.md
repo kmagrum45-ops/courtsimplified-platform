@@ -590,3 +590,24 @@ recorded in full. Those 6 are flagged individually below.
 - **Downloaded:** 2026-09-13
 - **Note:** sourcing only. No `legal_form_mapping_rules` row has been
   written from this; that is a separate decision under CLAUDE.md §6.
+
+## Decisions from the courts' own databases (2026-09-30)
+
+Fetched by the **CourtSimplified Fetch Decisions** workflow on a GitHub runner
+(run 36752823868, branch `sources-vendor-decisions-36752823868`), text
+extracted with `pdftotext -layout`, saved under `docs/sources/decisions/`.
+Downloaded 2026-09-30. Cited in `src/lib/content-library/crossForumNotes.ts`;
+`npm run test:cross-forum-notes` checks every quote against these files.
+
+| File | Neutral citation | Retrieved from |
+|---|---|---|
+| `decisions/kaiman-v-graham-2009-ONCA-77.txt` | Kaiman v. Graham, 2009 ONCA 77 | https://coadecisions.ontariocourts.ca/coa/coa/en/8644/1/document.do |
+| `decisions/letestu-estate-v-ritlyn-2017-ONCA-442.txt` | Letestu Estate v. Ritlyn Investments Limited, 2017 ONCA 442 | https://coadecisions.ontariocourts.ca/coa/coa/en/15837/1/document.do |
+| `decisions/jesan-real-estate-v-doyle-2020-ONCA-714.txt` | Jesan Real Estate Ltd. v. Doyle, 2020 ONCA 714 | https://coadecisions.ontariocourts.ca/coa/coa/en/19170/1/document.do |
+| `decisions/jaffer-v-york-university-2010-ONCA-654.txt` | Jaffer v. York University, 2010 ONCA 654 | https://coadecisions.ontariocourts.ca/coa/coa/en/9970/1/document.do |
+| `decisions/brake-v-pj-m2r-restaurant-2017-ONCA-402.txt` | Brake v. PJ-M2R Restaurant Inc., 2017 ONCA 402 | https://coadecisions.ontariocourts.ca/coa/coa/en/15800/1/document.do |
+| `decisions/danyluk-v-ainsworth-2001-SCC-44.txt` | Danyluk v. Ainsworth Technologies Inc., 2001 SCC 44 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/1882/1/document.do |
+| `decisions/danyluk-v-ainsworth-2001-SCC-44.english.txt` | (derived: English column of the above) | -- |
+
+The case page cited to users is `.../en/item/{id}/index.do` with the same id.
+None of these has been noted up (see "Noting up" in docs/SOURCING_NOTES.md).

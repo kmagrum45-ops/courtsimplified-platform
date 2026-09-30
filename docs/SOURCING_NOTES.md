@@ -34,6 +34,71 @@ replacement for these):
 
 ## Techniques that work
 
+### Court of Appeal for Ontario and SCC decisions: the Fetch Decisions workflow (2026-09-30)
+
+**This closes the "no Ontario appellate law at all" gap recorded under Noting up.**
+The Court of Appeal publishes its own decisions database at
+`coadecisions.ontariocourts.ca` (Lexum/Decisia, the same software as
+`decisions.scc-csc.ca`). The cloud workspace cannot reach it (the shell's proxy
+refuses the CONNECT; WebFetch gets 403 on the Lexum pages, and asks for approval
+on others). **GitHub's runners reach both, first time, HTTP 200.**
+
+- **Run it:** dispatch **CourtSimplified Fetch Decisions**
+  (`.github/workflows/courtsimplified-fetch-decisions.yml`) with a
+  space-separated `urls` input:
+  `POST .../actions/workflows/courtsimplified-fetch-decisions.yml/dispatches`,
+  body `{"ref":"main","inputs":{"urls":"..."}}`. It publishes raw bytes plus
+  extracted text (PDF via `pdftotext -layout`; HTML with links kept as
+  `[LINK href]`) to `sources-vendor-decisions-<run>` (Vercel-excluded by
+  `sources-vendor-*`). About a minute for 20 documents.
+- **Allowed hosts only:** `coadecisions.ontariocourts.ca`,
+  `decisions.scc-csc.ca`, `ontariocourts.ca`. The script refuses any URL
+  containing `canlii`, whatever it looks like.
+- **URL shapes (ONCA):** full text PDF `/coa/coa/en/{id}/1/document.do`;
+  case page `/coa/coa/en/item/{id}/index.do` (cite this one as the
+  `officialUrl`); **search is `/coa/en/d/s/index.do?cont=<query>&ref=&d=&p=&col=1&or=&iframe=true`**
+  -- note ONE `coa`, not two. `/coa/coa/en/d/s/index.do` returns a JSON 404,
+  which cost a run. SCC search: `/scc-csc/en/d/s/index.do?cont=...`. The RSS
+  feed (`/coa/coa/en/rss.do`) and year pages (`/coa/coa/en/{year}/nav_date.do`)
+  also work. Search results list `item/{id}` links with the citation and date,
+  so a search run followed by a document run is the whole workflow.
+- **Search result ids are not citations.** One file came back named after a
+  case cited inside it (the first `ONCA` citation in the text): the file for
+  item 17952 is Dawe v. The Equitable Life Insurance Company of Canada, 2019
+  ONCA 512, not 2016 ONCA 79. Take the citation from the header.
+- **Bilingual SCC judgments:** the English and French columns interleave line
+  by line, so a quote longer than one line never matches the raw text. Keep the
+  original and save a derived English-column copy beside it
+  (`*.english.txt`: each line cut at the first run of 3+ spaces, lines that
+  start in the right column dropped). Words hyphenated across lines
+  ("cre-\nate") need joining before comparing.
+- **What was fetched and read on 2026-09-30** (23 decisions, for how
+  multi-part disputes divide between forums): the six cited are saved in
+  `docs/sources/decisions/` and listed in `docs/sources/README.md`. Read and
+  NOT used, with the reason, so nobody re-reads them for the same purpose:
+  Spirleanu 2015 ONCA 187 (endorsement, rests on re-litigation); Kiselman v.
+  Klerer 2022 ONCA 489 (former RTA ss. 87(1), 89(1), since repealed; footnote 3
+  says the 2020 amendments may change the result -- the current RTA must be
+  read before saying anything about landlord claims against former tenants);
+  Schram 2025 ONCA 337 (single-judge extension motion); Partridge 2015 ONCA 836
+  (fact-specific); Holland 2015 ONCA 762, Wood 2018 ONCA 758, Dawe 2019 ONCA
+  512, Wigdor 2026 ONCA 572 (termination-clause and notice law, not forum --
+  Wigdor paras. 30-31 and 91 are good general statements for a future
+  termination-clause topic); Davis v. Amazon 2025 ONCA 421 (arbitration stay,
+  merits expressly left open at para. 4); Kondaj 2026 ONCA 636 (footnote 1
+  paraphrases ESA ss. 97-98; cite the statute instead); Strudwick 2016 ONCA 520
+  (s. 46.1 damages follow Tribunal principles, paras. 55-60, not used yet);
+  Kempf 2015 ONCA 114, Kovach 2010 ONCA 126, Rider 2007 ONCA 687 (not about
+  Small Claims despite the search hit); Kelava 2021 ONCA 428 (Small Claims
+  pleadings read liberally, para. 22; a union is sued by representation order,
+  para. 37 -- the $35,000 figure at para. 15 is historical); Theberge-Lindsay
+  2019 ONCA 550 (costs endorsement; cite r. 57.05(1) itself); Elkins 2023 ONCA
+  789 (LTB own-use bad faith; purchaser named as a respondent, paras. 52, 60).
+- **Still not found:** an appellate statement on splitting a claim to fit the
+  Small Claims limit, a counterclaim above the limit, or several defendants in
+  Small Claims. None of the six Small Claims search hits was about those. The
+  rules (r. 6.02) and the Negligence Act s. 1 are cited instead.
+
 ### ontario.ca e-Laws pages are JS-rendered — use the `.doc` fallback instead
 
 `ontario.ca/laws/statute/<id>` and `ontario.ca/laws/regulation/<id>` (the
@@ -859,7 +924,7 @@ One trap worth knowing, because the first version of the check fell into it: `DE
 
 Separate from noting up, and worth stating in the same breath: **every case in these registries is a Supreme Court of Canada decision. There are zero Ontario Court of Appeal decisions.** SCC decisions bind all Canadian courts, so nothing cited is *wrong* on hierarchy — but ONCA binds Ontario courts and is where most Ontario-specific doctrine actually gets worked out. The termination-clause content in `sc-claim-wrongful-dismissal` is the sharpest example: Machtinger sets the framework, but when a *specific* clause is valid has been developed extensively at the Ontario appellate level since 1992, and that entry deliberately says the question "is not something this content can answer" rather than pretending otherwise.
 
-ONCA decisions are not on `decisions.scc-csc.ca`, and CanLII is off-limits for scraping. **Finding a permitted retrieval route for Ontario appellate decisions is an unsolved, one-time infrastructure question** — solve it once rather than per-entry, and record the answer here.
+ONCA decisions are not on `decisions.scc-csc.ca`, and CanLII is off-limits for scraping. ~~Finding a permitted retrieval route for Ontario appellate decisions is an unsolved, one-time infrastructure question.~~ **Solved 2026-09-30:** the Court of Appeal's own database, through the Fetch Decisions workflow -- see "Court of Appeal for Ontario and SCC decisions" under Techniques that work. The first six ONCA/SCC decisions from that route are cited in `src/lib/content-library/crossForumNotes.ts`.
 
 ---
 

@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-93 documented, 30 without a header.
+94 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -31,6 +31,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:claim-type-matcher` | **The claim-type matcher works on prose a person would actually write.**<br>COSTS NOTHING. Pure string matching, no AI, no network. |
 | `npm run test:claim-types` | **The claim-type catalogue is internally honest: ids are unique and stable,**<br>authored profiles carry their sources, declared profiles carry nothing, and the synthetic scenarios can never reach a user. |
 | `npm run test:classifier-gating` | **Proves the AI claim-type classifier runs ONLY on the opening story, and**<br>replays story 4's real turn sequence to show what the retained claim type is at each turn, before and after the fix. |
+| `npm run test:cross-forum-notes` | **Connection notes quote their sources exactly, are selected by topic alone,**<br>and a story's issues can only carry the user's own words. |
 | `npm run test:db-environments` | **Nothing in this repository says "dev" when it means production, and no**<br>migration can reach production without passing staging. |
 | `npm run test:deadlines` | **Does the deadline engine count correctly?**<br>Every case here is one somebody could actually be in, and every one of them is a date a person would get wrong by reasoning casually. A deadline that is right in the ordinary case and wrong across a long weekend is not 95% correct; it is a trap that springs ex |
 | `npm run test:depth-questions` | **Verifies the intake depth layer, offline.**<br>COSTS NOTHING. Every decision the depth layer makes about WHICH questions are asked is pure, so all four load-bearing properties are checkable without a single API call. The only model involvement is the voice lead-in, which is exercised by the paraphrase harn |
@@ -67,7 +68,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:output-guard` | **Arbitrary model text cannot reach a user, and every user-facing model call**<br>returns structured output. |
 | `npm run test:overview-labels` | **Guards the two leaks the browser scenario harness found on 2026-08-22, across**<br>16 and 8 scenarios respectively: |
 | `npm run test:overview-relevance` | **The overview shows what fits the claim the user confirmed, and nothing is**<br>silently dropped or reworded. |
-| `npm run test:phase-scope` | **Phase 1 is Small Claims only, and no user reaches an empty screen.**<br>COSTS NOTHING. Reads source off disk and calls pure functions. |
+| `npm run test:phase-scope` | **No user reaches an empty screen: a pathway is open only when it has real**<br>content, and a closed one says so at every door. |
 | `npm run test:presentation-help` | **Presentation help stays at Level 1: organise, never rewrite, never advise.**<br>COSTS NOTHING. No model call. Reads the vendored corpus off disk and calls pure functions. |
 | `npm run test:public-data` | **Public reference data must not be read through a session-carrying client.**<br>The forms page went blank with "Could not load forms — JWT issued in the future". The court form catalogue is public: a read with the anon key alone returns rows from every one of those tables, and nothing about them depends on who is asking. |
 | `npm run test:published-library` | **The published set is what it says it is, and nothing else is servable.**<br>1. IMMUTABLE. The release carries a hash over its own blocks. Editing a published block by hand — fixing a typo, softening a sentence — changes the content without it having passed a single gate, and nothing downstream would know. Recomputing the hash makes th |

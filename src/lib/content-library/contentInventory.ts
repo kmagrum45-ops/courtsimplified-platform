@@ -37,6 +37,11 @@ import { REMEDY_TYPES } from "../case-system/intake/remedyTypes";
 import { OUT_OF_SCOPE_FORUMS } from "../case-system/intelligence/outOfScopeForums";
 import { NEXT_STEP_BLOCKS } from "./nextSteps";
 import { PATHWAY_DESCRIPTIONS } from "./pathwayDescriptions";
+import {
+  CROSS_FORUM_NOTES,
+  ISSUE_KIND_LABELS,
+  SEVERAL_MATTERS_INTRO,
+} from "./crossForumNotes";
 import { QUESTION_EXPLANATIONS } from "./questionExplanations";
 import { PROCEDURAL_STAGES } from "./proceduralStages";
 import { ASSISTANT_BLOCKS } from "./assistantBlocks";
@@ -180,6 +185,57 @@ export function collectContentInventory(): ContentItem[] {
         text: description.text,
         sourceUrl: description.sourceUrl,
         appearsIn: "Home, after court-path classification",
+      }),
+    );
+  }
+
+  // ---- Several matters in one story (2026-09-30) ----
+  // The card on the home page when a story involves more than one matter.
+  // Topic labels and the intro state no law; each note quotes its sources,
+  // and test:cross-forum-notes checks every quote against the saved text.
+  items.push(
+    item({
+      id: SEVERAL_MATTERS_INTRO.id,
+      type: "pathway-description",
+      pathway: "all",
+      stage: "routing",
+      text: SEVERAL_MATTERS_INTRO.text,
+      sourceUrl: "",
+      appearsIn: "Home, when a story involves more than one matter",
+    }),
+  );
+  for (const label of Object.values(ISSUE_KIND_LABELS)) {
+    items.push(
+      item({
+        id: label.id,
+        type: "pathway-description",
+        pathway: "all",
+        stage: "routing",
+        text: label.text,
+        sourceUrl: "",
+        appearsIn: "Home, the list of matters a story mentions",
+      }),
+    );
+  }
+  for (const note of CROSS_FORUM_NOTES) {
+    items.push(
+      item({
+        id: `${note.id}:title`,
+        type: "pathway-description",
+        pathway: "all",
+        stage: "routing",
+        text: note.title,
+        sourceUrl: note.sources[0].officialUrl,
+        appearsIn: "Home, heading of a note about how two matters connect",
+      }),
+      item({
+        id: note.id,
+        type: "pathway-description",
+        pathway: "all",
+        stage: "routing",
+        text: note.text,
+        sourceUrl: note.sources[0].officialUrl,
+        appearsIn: "Home, a note about how two matters connect",
       }),
     );
   }

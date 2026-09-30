@@ -15,6 +15,13 @@ import LegalAdviceDeflection from "./LegalAdviceDeflection";
 import AiUseNotice from "./AiUseNotice";
 import PathwayUnavailable from "./PathwayUnavailable";
 import { isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
+import {
+  CROSS_FORUM_NOTES,
+  ISSUE_KIND_LABELS,
+  SEVERAL_MATTERS_INTRO,
+  type CrossForumNote,
+  type IssueKind,
+} from "../../src/lib/content-library/crossForumNotes";
 
 const pathLabels: Record<BuilderDraftCourtPath, string> = {
   family: "Family",
@@ -41,7 +48,33 @@ type CourtPathSuggestion =
        */
       reasoningForAuditLogOnly: string;
     }
-  | { kind: "out-of-scope"; forumName: string; message: string };
+  | { kind: "out-of-scope"; forumName: string; message: string }
+  | {
+      /**
+       * The story involves more than one matter (2026-09-30). Shows each
+       * matter as a fixed topic label beside the user's OWN words, and the
+       * fixed, sourced notes on how those matters connect. Nothing here is
+       * model-written: the model picked kinds from a list and quoted the story.
+       */
+      kind: "several-matters";
+      issues: { kind: IssueKind; quote: string }[];
+      notes: CrossForumNote[];
+      /** A different in-scope path the classifier suggested, if any. */
+      suggestedPath: BuilderDraftCourtPath | null;
+    };
+
+function asIssues(value: unknown): { kind: IssueKind; quote: string }[] {
+  if (!value || typeof value !== "object") return [];
+  const issues = (value as { issues?: unknown }).issues;
+  if (!Array.isArray(issues)) return [];
+  return issues.flatMap((entry) => {
+    const kind = (entry as { kind?: unknown })?.kind;
+    const quote = (entry as { quote?: unknown })?.quote;
+    return typeof kind === "string" && kind in ISSUE_KIND_LABELS && typeof quote === "string" && quote.trim()
+      ? [{ kind: kind as IssueKind, quote: quote.trim() }]
+      : [];
+  });
+}
 
 function asCourtPath(value: unknown): BuilderDraftCourtPath | null {
   return value === "family" || value === "small-claims" || value === "civil"
@@ -160,6 +193,9 @@ export default function HomeLocationGate() {
           confidence?: unknown;
           reasoning?: unknown;
           outOfScopeForum?: { name?: unknown; redirectMessage?: unknown } | null;
+          matters?: unknown;
+          crossForumNoteIds?: unknown;
+          showSeveralMatters?: unknown;
         };
 
         const confidence = typeof result.confidence === "number" ? result.confidence : 0;
@@ -183,6 +219,20 @@ export default function HomeLocationGate() {
         }
 
         const suggested = asCourtPath(result.primaryPath);
+        const differentPath =
+          suggested && suggested !== path && confidence >= SUGGESTION_CONFIDENCE_FLOOR ? suggested : null;
+
+        if (result.showSeveralMatters === true) {
+          const noteIds = Array.isArray(result.crossForumNoteIds) ? result.crossForumNoteIds : [];
+          setSuggestion({
+            kind: "several-matters",
+            issues: asIssues(result.matters),
+            notes: CROSS_FORUM_NOTES.filter((note) => noteIds.includes(note.id)),
+            suggestedPath: differentPath,
+          });
+          setChecking(false);
+          return;
+        }
 
         if (suggested && suggested !== path && confidence >= SUGGESTION_CONFIDENCE_FLOOR) {
           setSuggestion({
@@ -313,6 +363,91 @@ export default function HomeLocationGate() {
                   className="rounded-xl border border-[#bdd4ca] bg-white px-5 py-3 text-sm font-semibold text-[#1c473d]"
                 >
                   Keep {pathLabels[path]}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {suggestion && suggestion.kind === "several-matters" && (
+            <div
+              ref={suggestionRef}
+              tabIndex={-1}
+              role="group"
+              aria-label="More than one matter"
+              data-testid="court-path-several-matters"
+              className="mt-6 rounded-3xl border border-[#cde7dc] bg-[#f8fcfa] p-5"
+            >
+              <h2 className="text-lg font-bold text-[#10231f]">Your description may involve more than one matter</h2>
+              <p className="mt-2 text-sm leading-6 text-[#4d675f]">
+                {assertApprovedUserContent(SEVERAL_MATTERS_INTRO.text, "HomeLocationGate:several-matters-intro")}
+              </p>
+              {suggestion.issues.length > 0 && (
+                <ul className="mt-4 space-y-2" data-testid="several-matters-issues">
+                  {suggestion.issues.map((issue, index) => (
+                    <li key={`${issue.kind}-${index}`} className="rounded-2xl border border-[#d8e6df] bg-white px-4 py-3 text-sm">
+                      <span className="font-semibold text-[#16302b]">
+                        {assertApprovedUserContent(
+                          ISSUE_KIND_LABELS[issue.kind].text,
+                          "HomeLocationGate:issue-kind-label",
+                        )}
+                      </span>
+                      {/* The user's own words, located verbatim in their story by the classifier. */}
+                      <span className="mt-1 block text-[#4d675f]">You wrote: &ldquo;{issue.quote}&rdquo;</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {suggestion.notes.map((note) => (
+                <div key={note.id} className="mt-4 rounded-2xl border border-[#d8e6df] bg-white p-4" data-testid="cross-forum-note">
+                  <h3 className="font-bold text-[#10231f]">
+                    {assertApprovedUserContent(note.title, "HomeLocationGate:cross-forum-note-title")}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-[#24463d]">
+                    {assertApprovedUserContent(note.text, "HomeLocationGate:cross-forum-note")}
+                  </p>
+                  <ul className="mt-2 space-y-1 text-xs text-[#4d675f]">
+                    {note.sources.map((source) => (
+                      <li key={source.officialUrl}>
+                        Source:{" "}
+                        <a href={source.officialUrl} target="_blank" rel="noreferrer" className="underline">
+                          {source.sourceName}
+                        </a>
+                        , {source.pinpoint} (checked {source.verifiedAt})
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              <p className="mt-4 text-sm leading-6 text-[#4d675f]">
+                This is a suggestion based on the words you used, not a decision about your case. You choose where to start, and you can change it later.
+              </p>
+              {suggestion.suggestedPath && !isPathwayAvailable(suggestion.suggestedPath) && (
+                <div className="mt-4">
+                  <PathwayUnavailable pathway={suggestion.suggestedPath as KnownPathway} />
+                </div>
+              )}
+              <div className="mt-4 flex flex-wrap gap-3">
+                {suggestion.suggestedPath && isPathwayAvailable(suggestion.suggestedPath) && (
+                  <button
+                    type="button"
+                    data-testid="several-matters-switch"
+                    onClick={() => goToIntake(suggestion.suggestedPath!)}
+                    className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
+                  >
+                    Start with {pathLabels[suggestion.suggestedPath]}
+                  </button>
+                )}
+                <button
+                  type="button"
+                  data-testid="several-matters-continue"
+                  onClick={() => goToIntake(path)}
+                  className={
+                    suggestion.suggestedPath
+                      ? "rounded-xl border border-[#bdd4ca] bg-white px-5 py-3 text-sm font-semibold text-[#1c473d]"
+                      : "rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
+                  }
+                >
+                  Continue with {pathLabels[path]}
                 </button>
               </div>
             </div>

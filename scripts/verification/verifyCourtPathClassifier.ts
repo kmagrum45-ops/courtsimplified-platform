@@ -58,7 +58,10 @@ const cases: Expectation[] = [
     id: "collision-mixed-relief",
     story:
       "Someone sent false messages about me and I want compensation, but I also need a custody order changing parenting time.",
-    expectAlwaysFree: true,
+    // Was expectAlwaysFree until 2026-09-30. A tie between two areas is the
+    // story with more than one matter, and only the model can list them, so it
+    // now escalates; offline it still falls back to "mixed".
+    expectEscalation: true,
     expectKeywordPrimary: "mixed",
   },
   {
@@ -70,7 +73,8 @@ const cases: Expectation[] = [
   {
     id: "collision-defamation-in-family-context",
     story: TESTER_STORY,
-    expectAlwaysFree: true,
+    // Escalates since 2026-09-30 for the same reason as collision-mixed-relief.
+    expectEscalation: true,
     expectKeywordPrimary: "mixed",
   },
 
@@ -298,9 +302,7 @@ async function main() {
   assert.equal(empty.aiCalled, false);
   checks += 2;
 
-  // Explicit offline switch must be honoured even when a key is present. Uses a
-  // story that genuinely escalates: TESTER_STORY now terminates at the keyword
-  // stage, so it would never reach the switch.
+  // Explicit offline switch must be honoured even when a key is present.
   const forcedOffline = await classifyCourtPath({
     story:
       "A written agreement required delivery after payment, but delivery never occurred.",

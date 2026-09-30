@@ -1,0 +1,1719 @@
+English column of danyluk-v-ainsworth-2001-SCC-44.txt, derived mechanically (each line cut at the first run of 3+ spaces; lines starting in the right column dropped). The bilingual original is the source; this copy exists so quotes can be checked against English text alone.
+
+460
+
+
+Mary Danyluk
+
+v.
+
+Ainsworth Technologies Inc., Ainsworth
+Electric Co. Limited, F. Jack Purchase, Paul
+S. Gooderham, Jack A. Taylor, Ross
+A. Pool, Donald W. Roberts, Timothy
+I. Pryor, Clifford J. Ainsworth, John
+F. Ainsworth, Kenneth D. Ainsworth,
+Melville O’Donohue, Donald J. Hawthorne,
+William I. Welsh and Joseph McBride
+Watson Respondents
+INDEXED AS: DANYLUK v. AINSWORTH TECHNOLOGIES INC.
+Neutral citation: 2001 SCC 44.
+File No.: 27118.
+2000: October 31; 2001: July 12.
+Present: McLachlin C.J. and Iacobucci,
+Bastarache, Binnie, Arbour and LeBel JJ.
+
+ON APPEAL FROM THE COURT OF APPEAL FOR
+ONTARIO
+Administrative law — Issue estoppel — Employee fil-
+ing complaint against employer under Employment
+Standards Act seeking unpaid wages and commissions
+— Employee subsequently commencing court action
+against employer for wrongful dismissal and unpaid
+wages and commissions — Employment standards
+officer dismissing employee’s complaint — Employer
+arguing that employee’s claim for unpaid wages and
+commissions before court barred by issue estoppel —
+Whether officer’s failure to observe procedural fairness
+in deciding employee’s complaint preventing applica-
+tion of issue estoppel — Whether preconditions to appli-
+cation of issue estoppel satisfied — If so, whether this
+Court should exercise its discretion and refuse to apply
+issue estoppel.
+In 1993, an employee became involved in a dispute
+with her employer over unpaid commissions. No agree-
+ment was reached, and the employee filed a complaint
+under the Employment Standards Act (“ESA”) seeking
+[2001] 2 R.C.S.
+
+
+unpaid wages, including commissions. The employer
+rejected the claim for commissions and eventually took
+the position that the employee had resigned. An employ-
+ment standards officer spoke with the employee by tele-
+phone and met with her for about an hour. Before the
+decision was made, the employee commenced a court
+action claiming damages for wrongful dismissal and the
+unpaid wages and commissions. The ESA proceedings
+continued, but the employee was not made aware of the
+employer’s submissions in the ESA claim or given an
+opportunity to respond to them. The ESA officer
+rejected the employee’s claim and ordered the employer
+to pay her $2,354.55, representing two weeks’ pay in
+lieu of notice. She advised the employer of her decision
+and, 10 days later, notified the employee. Although she
+had no appeal as of right, the employee was entitled to
+apply under the ESA for a statutory review of this deci-
+sion. She elected not to do so and carried on with her
+wrongful dismissal action. The employer moved to
+strike the part of the statement of claim that overlapped
+the ESA proceeding. The motions judge considered the
+ESA decision to be final and concluded that the claim
+for unpaid wages and commissions was barred by issue
+estoppel. The Court of Appeal affirmed the decision.
+
+Held: The appeal should be allowed.
+
+Although, in general, issue estoppel is available to
+preclude an unsuccessful party from relitigating in the
+courts what has already been litigated before an admin-
+istrative tribunal, this is not a proper case for its applica-
+tion. Finality is a compelling consideration and judicial
+decisions should generally be conclusive of the issues
+decided unless and until reversed on appeal. However,
+estoppel is a public policy doctrine designed to advance
+the interests of justice. Where, as here, its application
+bars the courthouse door against a claim because of an
+administrative decision made in a manifestly improper
+and unfair manner, a re-examination of some basic prin-
+ciples is warranted.
+462
+
+
+The preconditions to the operation of issue estoppel
+are threefold: (1) that the same question has been
+decided in earlier proceedings; (2) that the earlier judi-
+cial decision was final; and (3) that the parties to that
+decision or their privies are the same in both the pro-
+ceedings. If the moving party successfully establishes
+these preconditions, a court must still determine
+whether, as a matter of discretion, issue estoppel ought
+to be applied.
+The preconditions require the prior proceeding to be
+judicial. Here, the ESA decision was judicial. First, the
+administrative authority issuing the decision is capable
+of receiving and exercising adjudicative authority. Sec-
+ond, as a matter of law, the decision was required to be
+made in a judicial manner. While the ESA officers util-
+ize procedures more flexible than those that apply in the
+courts, their adjudicative decisions must be based on
+findings of fact and the application of an objective legal
+standard to those facts.
+The appellant denies the applicability of issue estop-
+pel because, as found by the Court of Appeal, the ESA
+decision was taken without proper notice to the appel-
+lant and she was not given an opportunity to meet the
+employer’s case. It is clear that an administrative deci-
+sion which is made without jurisdiction from the outset
+cannot form the basis of an estoppel. Where an adminis-
+trative officer or tribunal initially possessed the jurisdic-
+tion to make a decision in a judicial manner but erred in
+the exercise of that jurisdiction, the resulting decision is
+nevertheless capable of forming the basis of an estoppel.
+Alleged errors in carrying out the mandate are matters
+to be considered by the court in the exercise of its dis-
+cretion. This result makes the principle governing estop-
+pel consistent with the law governing judicial review in
+Harelkin and collateral attack in Maybrun.
+In this case, the pre-conditions for issue estoppel have
+been met: the same issue is raised in both proceedings,
+the decision of the ESA officer was final for the pur-
+poses of the Act since neither the employer nor the
+employee took advantage of the internal review proce-
+dure, and the parties are identical. The Court must there-
+fore decide whether to refuse to apply estoppel as a mat-
+[2001] 2 R.C.S.
+
+
+ter of discretion. Here this Court is entitled to intervene
+because the lower courts committed an error of principle
+in failing to address the issue of the discretion. The list
+of factors to be considered with respect to its exercise is
+open. The objective is to ensure that the operation of
+issue estoppel promotes the orderly administration of
+justice, but not at the cost of real injustice in the particu-
+lar case. The factors relevant to this case include the
+wording of the statute from which the power to issue the
+administrative order derives, the purpose of the legisla-
+tion, the availability of an appeal, the safeguards availa-
+ble to the parties in the administrative procedure, the
+expertise of the administrative decision maker, the cir-
+cumstances giving rise to the prior administrative pro-
+ceeding and, the most important factor, the potential
+injustice. On considering the cumulative effect of the
+foregoing factors, the Court in its discretion should
+refuse to apply issue estoppel in this case. The stubborn
+fact remains that the employee’s claim to commissions
+worth $300,000 has simply never been properly consid-
+ered and adjudicated.
+
+Cases Cited
+
+
+Considered: Angle v. Minister of National Revenue,
+[1975] 2 S.C.R. 248; disapproved in part: Rasanen v.
+Rosemount Instruments Ltd. (1994), 17 O.R. (3d) 267;
+referred to: Re Downing and Graydon (1978), 21 O.R.
+(2d) 292; Farwell v. The Queen (1894), 22 S.C.R. 553;
+Wilson v. The Queen, [1983] 2 S.C.R. 594; R. v.
+Litchfield, [1993] 4 S.C.R. 333; R. v. Sarson, [1996]
+2 S.C.R. 223; Robinson v. McQuaid (1854), 1 P.E.I.R.
+103; Bell v. Miller (1862), 9 Gr. 385; Raison v. Fenwick
+(1981), 120 D.L.R. (3d) 622; Wong v. Shell Canada Ltd.
+(1995), 15 C.C.E.L. (2d) 182; Machin v. Tomlinson
+(2000), 194 D.L.R. (4th) 326; Hamelin v. Davis (1996),
+18 B.C.L.R. (3d) 112; Thrasyvoulou v. Environment
+Secretary, [1990] 2 A.C. 273; R. v. Consolidated
+Maybrun Mines Ltd., [1998] 1 S.C.R. 706; McIntosh v.
+Parent, [1924] 4 D.L.R. 420; British Columbia
+(Minister of Forests) v. Bugbusters Pest Management
+Inc. (1998), 50 B.C.L.R. (3d) 1; Schweneke v. Ontario
+(2000), 47 O.R. (3d) 97; Braithwaite v. Nova Scotia
+Public Service Long Term Disability Plan Trust Fund
+(1999), 176 N.S.R. (2d) 173; Guay v. Lafleur, [1965]
+S.C.R. 12; Thoday v. Thoday, [1964] P. 181; Machado
+464
+
+
+v. Pratt & Whitney Canada Inc. (1995), 12 C.C.E.L.
+(2d) 132; Randhawa v. Everest & Jennings Canadian
+Ltd. (1996), 22 C.C.E.L. (2d) 19; Heynen v. Frito-Lay
+Canada Ltd. (1997), 32 C.C.E.L. (2d) 183; Perez v. GE
+Capital Technology Management Services Canada Inc.
+(1999), 47 C.C.E.L. (2d) 145; Munyal v. Sears Canada
+Inc. (1997), 29 C.C.E.L. (2d) 58; Alderman v. North
+Shore Studio Management Ltd., [1997] 5 W.W.R. 535;
+R. v. Nat Bell Liquors Ltd., [1922] 2 A.C. 128; Harelkin
+v. University of Regina, [1979] 2 S.C.R. 561; Poucher v.
+Wilkins (1915), 33 O.L.R. 125; Minott v. O’Shanter
+Development Co. (1999), 42 O.R. (3d) 321; Saskatoon
+Credit Union Ltd. v. Central Park Ent. Ltd. (1988), 22
+B.C.L.R. (2d) 89; General Motors of Canada Ltd. v.
+Naken, [1983] 1 S.C.R. 72; Arnold v. National
+Westminster Bank plc, [1991] 3 All E.R. 41; Susan Shoe
+Industries Ltd. v. Ricciardi (1994), 18 O.R. (3d) 660;
+Iron v. Saskatchewan (Minister of the Environment &
+Public Safety), [1993] 6 W.W.R. 1.
+
+Statutes and Regulations Cited
+
+Courts of Justice Act, R.S.O. 1990, c. C.43, s. 23(1).
+Employment Standards Act, R.S.O. 1990, c. E.14, ss. 1
+“wages”, 2(2), 6, 65(1)(a), (b), (c) [rep. & sub. 1991,
+c. 16 (Supp.), s. 9(1)], (7) [ad. idem, s. 9(2)], 67(1)
+[am. idem, s. 10(1)], (2) [rep. & sub. idem, s. 10(2)],
+(3) [ad. idem], (5) [idem], (7) [idem], 68(1) [am. idem,
+s. 11(1); am. 1991, c. 5, s. 16; am. 1993, c. 27, sch.],
+(3) [rep. & sub. 1991, c. 16 (Supp.), s. 11(2)], (7).
+Employment Standards Improvement Act, 1996, S.O.
+1996, c. 23, s. 19(1).
+O. Reg. 626/00, s. 1(1).
+
+Authors Cited
+
+American Law Institute. Restatement of the Law, Sec-
+ond: Judgments 2d, vol. 2. St. Paul, Minn.: American
+Law Institute Publishers, 1982.
+Brown, Donald J. M., and John M. Evans. Judicial
+Review of Administrative Action in Canada, vol. 2.
+Toronto: Canvasback, 1998 (loose-leaf updated 2001,
+release 2).
+Handley, K. R. “Res Judicata: General Principles and
+Recent Developments” (1999), 18 Aust. Bar Rev. 214.
+Holmested, George Smith, and Garry D. Watson. Onta-
+rio Civil Procedure, vol. 3 Supp. Toronto: Carswell,
+1984 (loose-leaf updated 2000, release 3).
+[2001] 2 R.C.S.
+
+
+Lange, Donald J. The Doctrine of Res Judicata in
+Canada. Markham, Ont.: Butterworths, 2000.
+Sopinka, John, Sidney N. Lederman, and Alan W. Bry-
+ant. The Law of Evidence in Canada, 2nd ed. Toronto:
+Butterworths, 1999.
+Spencer Bower, George, and Sir Alexander Kingcome
+Turner. The Doctrine of Res Judicata, 3rd ed. by
+K. R. Handley. London, U.K.: Butterworths, 1996.
+Watson, Garry D. “Duplicative Litigation: Issue Estop-
+pel, Abuse of Process and the Death of Mutuality”
+(1990), 69 Can. Bar Rev. 623.
+
+APPEAL from a judgment of the Ontario Court
+of Appeal (1998), 42 O.R. (3d) 235, 167 D.L.R.
+(4th) 385, 116 O.A.C. 225, 12 Admin. L.R. (3d) 1,
+41 C.C.E.L. (2d) 19, 27 C.P.C. (4th) 91, [1998]
+O.J. No. 5047 (QL), dismissing the appellant’s
+appeal from a decision of the Ontario Court (Gen-
+eral Division) rendered on June 10, 1996. Appeal
+allowed.
+
+Howard A. Levitt and J. Michael Mulroy, for the
+appellant.
+
+John E. Brooks and Rita M. Samson, for the
+respondents.
+
+The judgment of the Court was delivered by
+
+BINNIE J. — The appellant claims that she was
+fired from her position as an account executive
+with the respondent Ainsworth Technologies Inc.
+on October 12, 1993. She says that at the time of
+her dismissal she was owed by her employer some
+$300,000 in unpaid commissions. The courts in
+Ontario have held that she is “estopped” from hav-
+ing her day in court on this issue because of an ear-
+lier failed attempt to claim the same unpaid monies
+under the Employment Standards Act, R.S.O. 1990,
+c. E.14 (“ESA” or “Act”). An employment stan-
+dards officer, adopting a procedure which the
+Ontario Court of Appeal held to be improper and
+unfair, denied the claim. I agree that in general
+issue estoppel is available to preclude an unsuc-
+cessful party from relitigating in the courts what
+has already been unsuccessfully litigated before an
+administrative tribunal, but in my view this was
+not a proper case for its application. A judicial
+doctrine developed to serve the ends of justice
+466
+
+
+should not be applied mechanically to work an
+injustice. I would allow the appeal.
+I. Facts
+2
+involved in a dispute with her employer, the
+respondent Ainsworth Technologies Inc., over
+unpaid commissions. The appellant met with her
+superiors and sent various letters to them outlining
+her position. These letters were generally copied to
+her lawyer, Mr. Howard A. Levitt. Her principal
+complaint concerned an alleged entitlement to
+commissions of about $200,000 in respect of a
+project known as the CIBC Lan project, plus other
+commissions which brought the total to about
+$300,000.
+3
+from the employer. On October 4, 1993, she filed a
+complaint under the ESA seeking unpaid wages,
+including commissions. It is not clear on the
+record whether she had legal advice on this aspect
+of the matter. On October 5, the employer wrote to
+the appellant rejecting her claim for commissions
+and eventually took the position that she had
+resigned and physically escorted her off the prem-
+ises.
+4
+Burke, was assigned to investigate the appellant’s
+complaint. She spoke with the appellant by tele-
+phone and on or about January 30, 1994 met with
+her for about an hour. The appellant gave Ms.
+Burke various documents including her correspon-
+dence with the employer. They had no further
+meetings.
+5
+filing her claim under the Act, but as yet without
+an ESA decision, the appellant, through Mr. Levitt,
+commenced a court action in which she claimed
+[2001] 2 R.C.S.
+
+
+damages for wrongful dismissal. She also claimed
+the unpaid wages and commissions that were
+already the subject-matter of her ESA claim.
+
+On June 1, 1994, solicitors for the employer
+wrote to Ms. Burke responding to the appellant’s
+claim. The employer’s letter included a number of
+documents to substantiate its position. None of this
+was copied to the appellant. Nor did Ms. Burke
+provide the appellant with information about the
+employer’s position; nor did she give the appellant
+the opportunity to respond to whatever the appel-
+lant may have assumed to be the position the
+employer was likely to take. The appellant, in
+short, was left out of the loop.
+
+On September 23, 1994, the ESA officer advised
+the respondent employer (but not the appellant)
+that she had rejected the appellant’s claim for
+unpaid commissions. At the same time she ordered
+the employer to pay the appellant $2,354.55, repre-
+senting two weeks’ pay in lieu of notice. Ten days
+later, by letter dated October 3, 1994, Ms. Burke
+for the first time advised the appellant of the order
+made against the employer for two weeks’ termi-
+nation pay and the rejection of her claim for the
+commissions. The letter stated in part: “[w]ith
+respect to your claim for unpaid wages, the investi-
+gation revealed there is no entitlement to
+$300,000.00 commission as claimed by you”. The
+letter went on to explain that the appellant could
+apply to the Director of Employment Standards for
+a review of this decision. Ms. Burke repeated this
+advice in a subsequent telephone conversation with
+the appellant. The appellant did not apply to the
+Director for a review of Ms. Burke’s decision;
+instead, she decided to carry on with her wrongful
+dismissal action in the civil courts.
+
+The respondents contended that the claim for
+unpaid wages and commissions was barred by
+issue estoppel. They brought a motion in the appel-
+lant’s civil action to strike the relevant paragraphs
+468
+
+
+from the statement of claim. On June 10, 1996,
+McCombs J. of the Ontario Court (General Divi-
+sion) granted the respondents’ motion. Only her
+claim for damages for wrongful dismissal was
+allowed to proceed. On December 2, 1998, the
+appellant’s appeal was dismissed by the Court of
+Appeal for Ontario.
+
+II. Judgments
+
+A. Ontario Court (General Division) (June 10,
+1996)
+9
+doctrine of issue estoppel applied in the present
+case. Following Rasanen v. Rosemount Instru-
+ments Ltd. (1994), 17 O.R. (3d) 267 (C.A.), he
+concluded that issue estoppel could apply to issues
+previously determined by an administrative officer
+or tribunal. In his view, the sole issue to be deter-
+mined was whether the ESA officer’s decision was
+a final determination. The motions judge noted
+that the appellant did not seek to appeal or review
+the ESA officer’s decision under s. 67(2) of the
+Act, as she was entitled to do if she wished to con-
+test that decision. He considered the ESA decision
+to be final. The criteria for the application of issue
+estoppel were therefore met. The paragraphs relat-
+ing to the appellant’s claim for unpaid wages and
+commissions were struck from her statement of
+claim.
+
+B. Court of Appeal for Ontario (1998), 42 O.R.
+(3d) 235
+10
+J.A. for the court identified, at pp. 239-40, the
+issues raised by the appellant’s appeal:
+This case concerns the second requirement of issue
+estoppel, that the decision which is said to create the
+estoppel be a final judicial decision. The appellant sub-
+mits that the decision of an employment standards
+officer is neither judicial nor final. She also submits
+that, in any event, the process followed by Ms. Burke in
+this particular case was unfair and therefore her decision
+[2001] 2 R.C.S.
+
+
+should not create an estoppel. Specifically, the appellant
+argues she was not treated fairly as she was not provided
+with a copy of the submissions made by the employer
+and thus not given an opportunity to respond to those
+submissions.
+
+In rejecting these submissions, Rosenberg J.A.
+grouped them under three headings: whether the
+ESA officer’s decision was final; whether the ESA
+officer’s decision was judicial; and the effect of
+procedural unfairness on the application of the
+doctrine of issue estoppel.
+
+In his view, the decision of the officer in the
+present case was final because neither party exer-
+cised the right of internal appeal under s. 67(2) of
+the Act. Moreover, while not all administrative
+decisions that finally determine the rights of par-
+ties will be “judicial” for purposes of issue estop-
+pel, Rosenberg J.A. found that the statutory proce-
+dure set out in the Act satisfied the requirements.
+He considered Re Downing and Graydon (1978),
+21 O.R. (2d) 292 (C.A.), to be “determinative of
+this issue” (p. 249).
+
+Lastly, Rosenberg J.A. addressed the issue of
+whether failure by the ESA officer to observe pro-
+cedural fairness affected the application of the doc-
+trine of issue estoppel in this case. He agreed that
+the ESA officer had in fact failed to observe proce-
+dural fairness in deciding upon the appellant’s
+complaint. Nevertheless, this failure did not pre-
+vent the operation of issue estoppel (at p. 252):
+The officer was required to give the appellant access to,
+and an opportunity to refute, any information gathered
+by the officer in the course of her investigation that was
+prejudicial to the appellant’s claim. At a minimum, the
+appellant was entitled to a copy of the June 1, 1994 let-
+ter and a summary of any other information gathered in
+the course of the investigation that was prejudicial to her
+claim. She was also entitled to a fair opportunity to con-
+470
+
+
+sider and reply to that information. The appellant was
+denied the opportunity to know the case against her and
+have an opportunity to meet it: Ms. Burke failed to act
+judicially. In this particular case, this failure does not,
+however, affect the operation of issue estoppel.
+
+14
+are obliged to act judicially, failure to do so in a
+particular case, at least if there is a possibility of
+appeal, will not preclude the operation of issue
+estoppel. This conclusion is based on the policy
+considerations underlying two rules of administra-
+tive law (at p. 252):
+
+These two rules are: (1) that the discretionary remedies
+of judicial review will be refused where an adequate
+alternative remedy exists; and (2) the rule against collat-
+eral attack. These rules, in effect, require that the parties
+pursue their remedies through the administrative process
+established by the legislature. Where an appeal route is
+available the parties will not be permitted to ignore it in
+favour of the court process.
+
+15
+applied, under s. 67(3) of the Act for a review of
+the ESA officer’s decision, the adjudicator con-
+ducting such a review would have been required to
+hold a hearing. This supported his view that the
+review process provided by the Act is an adequate
+alternative remedy. Rosenberg J.A. concluded, at
+p. 256:
+
+In summary, Ms. Burke did not accord this appellant
+natural justice. The appellant’s recourse was to seek
+review of Ms. Burke’s decision. She failed to do so.
+That decision is binding upon her and her employer.
+
+16
+estoppel and dismissed the appellant’s appeal.
+[2001] 2 R.C.S.
+
+
+III. Relevant Statutory Provisions
+
+Employment Standards Act, R.S.O. 1990, c. E.14
+
+1. In this Act,
+.
+
+“wages” means any monetary remuneration payable by
+an employer to an employee under the terms of a con-
+tract of employment, oral or written, express or implied,
+any payment to be made by an employer to an employee
+under this Act and any allowances for room or board as
+prescribed in the regulations or under an agreement or
+arrangement therefor but does not include,
+(a) tips and other gratuities,
+(b) any sums paid as gifts or bonuses that are dependent
+on the discretion of the employer and are not related
+to hours, production or efficiency,
+(c) travelling allowances or expenses,
+(d) contributions made by an employer to a fund, plan
+or arrangement to which Part X of this Act applies;
+(“salaire”)
+.
+
+6. — (1) No civil remedy of an employee against his
+or her employer is suspended or affected by this Act.
+(2) Where an employee initiates a civil proceeding
+against his or her employer under this Act, notice of the
+proceeding shall be served on the Director in the pre-
+scribed form on the same date the civil proceeding is set
+down for trial.
+65. — (1) Where an employment standards officer
+finds that an employee is entitled to any wages from an
+employer, the officer may,
+(a) arrange with the employer that the employer pay
+directly to the employee the wages to which the
+employee is entitled;
+(b) receive from the employer on behalf of the
+employee any wages to be paid to the employee as
+the result of a compromise or settlement; or
+(c) issue an order in writing to the employer to pay
+forthwith to the Director in trust any wages to which
+an employee is entitled and in addition such order
+shall provide for payment, by the employer to the
+472
+
+
+Director, of administration costs in the amount of 10
+per cent of the wages or $100, whichever is the
+greater.
+.
+
+(7) If an employer fails to apply under section 68 for
+a review of an order issued by an employment standards
+officer, the order becomes final and binding against the
+employer even though a review hearing is held to deter-
+mine another person’s liability under this Act.
+.
+
+67. — (1) Where, following a complaint in writing by
+an employee, an employment standards officer finds that
+an employer has paid the wages to which an employee is
+entitled or has found that the employee has no other
+entitlements or that there are no actions which the
+employer is to do or is to refrain from doing in order to
+be in compliance with this Act, the officer may refuse to
+issue an order to an employer and upon refusing to do so
+shall advise the employee of the refusal by prepaid letter
+addressed to the employee at his or her last known
+address.
+
+(2) An employee who considers himself or herself
+aggrieved by the refusal to issue an order to an employer
+or by the issuance of an order that in his or her view
+does not include all of the wages or other entitlements to
+which he or she is entitled may apply to the Director in
+writing within fifteen days of the date of the mailing of
+the letter mentioned in subsection (1) or the date of the
+issue of the order or such longer period as the Director
+may for special reasons allow for a review of the refusal
+or of the amount of the order.
+
+(3) Upon receipt of an application for review, the
+Director may appoint an adjudicator who shall hold a
+hearing.
+.
+
+(5) The adjudicator who is conducting the hearing
+may with necessary modifications exercise the powers
+conferred on an employment standards officer under this
+Act and may make an order with respect to the refusal
+or an order to amend, rescind or affirm the order of the
+employment standards officer.
+.
+[2001] 2 R.C.S.
+
+
+(7) The order of the adjudicator is not subject to a
+review under section 68 and is final and binding on the
+parties.
+68. — (1) An employer who considers themself
+aggrieved by an order made under section 45, 48, 51,
+56.2, 58.22 or 65, upon paying the wages ordered to be
+paid and the penalty thereon, if any, may, within a
+period of fifteen days after the date of delivery or ser-
+vice of the order, or such longer period as the Director
+may for special reasons allow and provided that the
+wages have not been paid out under subsection 72 (2),
+apply for a review of the order by way of a hearing.
+.
+
+(3) The Director shall select a referee from the panel
+of referees to hear the review.
+.
+
+(7) A decision of the referee under this section is final
+and binding upon the parties thereto and such other par-
+ties as the referee may specify.
+
+IV. Analysis
+
+The law rightly seeks a finality to litigation. To
+advance that objective, it requires litigants to put
+their best foot forward to establish the truth of their
+allegations when first called upon to do so. A liti-
+gant, to use the vernacular, is only entitled to one
+bite at the cherry. The appellant chose the ESA as
+her forum. She lost. An issue, once decided, should
+not generally be re-litigated to the benefit of the
+losing party and the harassment of the winner. A
+person should only be vexed once in the same
+cause. Duplicative litigation, potential inconsistent
+results, undue costs, and inconclusive proceedings
+are to be avoided.
+
+Finality is thus a compelling consideration and
+judicial decisions should generally be conclusive
+of the issues decided unless and until reversed on
+appeal. However, estoppel is a doctrine of public
+policy that is designed to advance the interests of
+474
+
+
+justice. Where as here, its application bars the
+courthouse door against the appellant’s $300,000
+claim because of an administrative decision taken
+in a manner which was manifestly improper and
+unfair (as found by the Court of Appeal itself), a
+re-examination of some basic principles is war-
+ranted.
+
+20
+to prevent abuse of the decision-making process.
+One of the oldest is the doctrine estoppel per rem
+judicatem with its roots in Roman law, the idea
+that a dispute once judged with finality is not sub-
+ject to relitigation: Farwell v. The Queen (1894),
+22 S.C.R. 553, at p. 558; Angle v. Minister of
+National Revenue, [1975] 2 S.C.R. 248, at pp. 267-
+68. The bar extends both to the cause of action
+thus adjudicated (variously referred to as claim or
+cause of action or action estoppel), as well as pre-
+cluding relitigation of the constituent issues or
+material facts necessarily embraced therein (usu-
+ally called issue estoppel): G. S. Holmested and
+G. D. Watson, Ontario Civil Procedure (loose-
+leaf), vol. 3 Supp., at 21§17 et seq. Another aspect
+of the judicial policy favouring finality is the rule
+against collateral attack, i.e., that a judicial order
+pronounced by a court of competent jurisdiction
+should not be brought into question in subsequent
+proceedings except those provided by law for the
+express purpose of attacking it: Wilson v. The
+Queen, [1983] 2 S.C.R. 594; R. v. Litchfield,
+[1993] 4 S.C.R. 333; R. v. Sarson, [1996] 2 S.C.R.
+223.
+
+21
+text of prior court proceedings. They have since
+been extended, with some necessary modifications,
+to decisions classified as being of a judicial or
+quasi-judicial nature pronounced by administrative
+officers and tribunals. In that context the more spe-
+cific objective is to balance fairness to the parties
+with the protection of the administrative decision-
+[2001] 2 R.C.S.
+
+
+making process, whose integrity would be under-
+mined by too readily permitting collateral attack or
+relitigation of issues once decided.
+
+The extension of the doctrine of issue estoppel
+in Canada to administrative agencies is traced back
+to cases in the mid-1800s by D. J. Lange in The
+Doctrine of Res Judicata in Canada (2000), at
+p. 94 et seq., including Robinson v. McQuaid
+(1854), 1 P.E.I.R. 103 (S.C.), at pp. 104-5, and
+Bell v. Miller (1862), 9 Gr. 385 (U.C. Ch.), at
+p. 386. The modern cases at the appellate level
+include Raison v. Fenwick (1981), 120 D.L.R. (3d)
+622 (B.C.C.A.); Rasanen, supra; Wong v. Shell
+Canada Ltd. (1995), 15 C.C.E.L. (2d) 182 (Alta.
+C.A.); Machin v. Tomlinson (2000), 194 D.L.R.
+(4th) 326 (Ont. C.A.); and Hamelin v. Davis
+(1996), 18 B.C.L.R. (3d) 112 (C.A.). See also
+Thrasyvoulou v. Environment Secretary, [1990] 2
+A.C. 273 (H.L.). Modifications were necessary
+because of the “major differences that can exist
+between [administrative orders and court orders]
+in relation, inter alia, to their legal nature and the
+position within the state structure of the institu-
+tions that issue them”: R. v. Consolidated Maybrun
+Mines Ltd., [1998] 1 S.C.R. 706, at para. 4. There
+is generally no dispute that court orders are judicial
+orders; the same cannot be said of the myriad of
+orders that are issued across the range of adminis-
+trative tribunals.
+
+In this appeal the parties have not argued “cause
+of action” estoppel, apparently taking the view that
+the statutory framework of the ESA claim suffi-
+ciently distinguishes it from the common law
+framework of the court case. I therefore say no
+more about it. They have however, joined issue on
+476
+
+
+the application of issue estoppel and the relevance
+of the rule against collateral attack.
+24
+Middleton J.A. of the Ontario Court of Appeal in
+McIntosh v. Parent, [1924] 4 D.L.R. 420, at p. 422:
+When a question is litigated, the judgment of the Court
+is a final determination as between the parties and their
+privies. Any right, question, or fact distinctly put in
+issue and directly determined by a Court of competent
+jurisdiction as a ground of recovery, or as an answer to a
+claim set up, cannot be re-tried in a subsequent suit
+between the same parties or their privies, though for a
+different cause of action. The right, question, or fact,
+once determined, must, as between them, be taken to be
+conclusively established so long as the judgment
+remains. [Emphasis added.]
+
+This statement was adopted by Laskin J. (later
+C.J.), dissenting in Angle, supra, at pp. 267-68.
+This description of the issues subject to estoppel
+(“[a]ny right, question or fact distinctly put in
+issue and directly determined”) is more stringent
+than the formulation in some of the older cases for
+cause of action estoppel (e.g., “all matters which
+were, or might properly have been, brought into
+litigation”, Farwell, supra, at p. 558). Dickson J.
+(later C.J.), speaking for the majority in Angle,
+supra, at p. 255, subscribed to the more stringent
+definition for the purpose of issue estoppel. “It will
+not suffice” he said, “if the question arose collater-
+ally or incidentally in the earlier proceedings or is
+one which must be inferred by argument from the
+judgment.” The question out of which the estoppel
+is said to arise must have been “fundamental to the
+decision arrived at” in the earlier proceeding. In
+other words, as discussed below, the estoppel
+extends to the material facts and the conclusions of
+law or of mixed fact and law (“the questions”) that
+[2001] 2 R.C.S.
+
+
+were necessarily (even if not explicitly) deter-
+mined in the earlier proceedings.
+
+The preconditions to the operation of issue
+estoppel were set out by Dickson J. in Angle,
+supra, at p. 254:
+(1) that the same question has been decided;
+(2) that the judicial decision which is said to cre-
+ate the estoppel was final; and,
+(3) that the parties to the judicial decision or their
+privies were the same persons as the parties to
+the proceedings in which the estoppel is raised
+or their privies.
+
+The appellant’s argument is that even though the
+ESA officer was required to make a decision in a
+judicial manner, she failed to do so. Although she
+had jurisdiction under the ESA to deal with the
+claim, the ESA officer lost jurisdiction when she
+failed to disclose to the appellant the case the
+appellant had to meet and to give the appellant the
+opportunity to be heard in answer to the case put
+against her. The ESA officer therefore never made
+a “judicial decision” as required. The appellant
+also says that her own failure to exercise her right
+to seek internal administrative review of the deci-
+sion should not be given the conclusive effect
+adopted by the Ontario Court of Appeal. Even if
+the conditions precedent to issue estoppel were
+present, she says, the court had a discretion to
+relieve against the harsh effects of estoppel per
+rem judicatem in the circumstances of this case,
+and erred in failing to do so.
+
+A. The Statutory Scheme
+
+1. The Employment Standards Officer
+
+The ESA applies to “every contract of employ-
+ment, oral or written, express or implied” in Onta-
+rio (s. 2(2)) subject to certain exceptions under the
+regulations, and establishes a number of minimum
+478
+
+
+employment standards for the protection of
+employees. These include hours of work, mini-
+mum wages, overtime pay, benefit plans, public
+holidays and vacation with pay. More specifically,
+the Act provides a summary procedure under
+which aggrieved employees can seek redress with
+respect to an employer’s alleged failure to comply
+with these standards. The objective is to make
+redress available, where it is appropriate at all,
+expeditiously and cheaply. In the first instance, the
+dispute is referred to an employment standards
+officer. ESA officers are public servants in the
+Ministry of Labour. They are generally not legally
+trained, but have some experience in labour rela-
+tions. The statute does not set out any particular
+procedure that must be followed in disposing of
+claims. ESA officers are given wide powers to
+enter premises, inspect and remove documents and
+make other relevant inquiries. If liability is found,
+ESA officers have broad powers of enforcement
+(s. 65).
+
+28
+speaking, the ESA officer contacts the employer to
+ascertain whether in fact wages are unpaid and if
+so for what reason. Although in this case there was
+a one-hour meeting between the ESA officer and
+the appellant, there is no requirement for such a
+face-to-face meeting, and clearly there is no con-
+templation of any sort of oral hearing in which
+both parties are present. It is a rough-and-ready
+procedure that is wholly inappropriate, one might
+think, to the definitive resolution of a contractual
+claim of some legal and factual complexity.
+
+29
+such a forum. The services of the ESA officer are
+supplied free of charge. Legal representation is
+unnecessary. The process moves more rapidly than
+could realistically be expected in the courts. There
+[2001] 2 R.C.S.
+
+
+are corresponding disadvantages. The ESA officer
+is likely not to have legal training and has neither
+the time nor the resources to deal with a contract
+claim in a manner comparable to the courtroom
+setting. At the time of these proceedings a double
+standard was applied to an appeal (or, as it is
+called, a “review”). The employer was entitled as
+of right to a review (s. 68) but, as discussed below,
+the employee could ask for one but the request
+could be refused by the Director (s. 67(3)). At the
+time, as well, there was no monetary limit on the
+ESA officer’s jurisdiction. The Act has since been
+amended to provide an upper limit on claims of
+$10,000 (S.O. 1996, c. 23, s. 19(1)). Had the ESA
+officer’s determination gone the other way, the
+employer could have been saddled with a $300,000
+liability arising out of a deeply flawed decision
+unless reversed on an administrative review or
+quashed by a supervising court.
+
+2. The Review Process
+
+The employee, as stated, has no appeal as of
+right. Section 67(2) of the Act provides that an
+employee dissatisfied with the decision at first
+instance may apply to the Director for an adminis-
+trative review in writing within 15 days of the date
+of the mailing of the employment standards
+officer’s decision. Under s. 67(3), “the Director
+may appoint an adjudicator who shall hold a hear-
+ing” (emphasis added). The word “may” grants the
+Director a discretion to hold or not to hold a hear-
+ing. The Ontario Court of Appeal noted this point,
+but said the parties had attached little importance
+to it.
+
+
+It seems clear the legislature did not intend to
+confer an appeal as of right. Where the Director
+480
+
+
+does appoint an adjudicator a hearing is mandated
+by the Act. Further delay and expense to the Min-
+istry and the parties would follow as a matter of
+course. The juxtaposition in s. 67(3) of “may” and
+“shall” (and in the French text, the instruction that
+the Director “peut nommer un arbitre de griefs
+pour tenir une audience” (emphasis added)) puts
+the matter beyond doubt. The Ontario legislature
+intended the Director to have a discretion to
+decline to refer a matter to an adjudicator which, in
+his or her opinion, is simply not justified. Even the
+adjudicators hearing a review under s. 67(3) of the
+Act are not by statute required to be legally
+trained. It was likely considered undesirable by the
+Ontario legislature to give each and every dissatis-
+fied employee a review as of right, particularly
+where the amounts in issue are often relatively
+modest. The discretion must be exercised accord-
+ing to proper principles, of course, but a discretion
+it remains.
+
+
+32
+tor would then have looked at the appellant’s claim
+de novo and would undoubtedly have shared the
+employer documents with the appellant and given
+her every opportunity to respond and comment. I
+agree that under the scheme of the Act procedural
+defects at the ESA officer level, including a failure
+to provide proper notice and an opportunity to be
+heard in response to the opposing case, can be rec-
+tified on review. The respondent says the appel-
+lant, having elected to proceed under the Act, was
+required to seek an internal review if she was dis-
+satisfied with the initial outcome. Not having done
+so, she is estopped from pursuing her $300,000
+claim. The appellant says that the ESA procedure
+was so deeply flawed that she was entitled to walk
+away from it.
+[2001] 2 R.C.S.
+
+
+B. The Applicability of Issue Estoppel
+1. Issue Estoppel: A Two-Step Analysis
+
+The rules governing issue estoppel should not
+be mechanically applied. The underlying purpose
+is to balance the public interest in the finality of
+litigation with the public interest in ensuring that
+justice is done on the facts of a particular case.
+(There are corresponding private interests.) The
+first step is to determine whether the moving party
+(in this case the respondent) has established the
+preconditions to the operation of issue estoppel set
+out by Dickson J. in Angle, supra. If successful,
+the court must still determine whether, as a matter
+of discretion, issue estoppel ought to be applied:
+British Columbia (Minister of Forests) v. Bugbus-
+ters Pest Management Inc. (1998), 50 B.C.L.R.
+(3d) 1 (C.A.), at para. 32; Schweneke v. Ontario
+(2000), 47 O.R. (3d) 97 (C.A.), at paras. 38-39;
+Braithwaite v. Nova Scotia Public Service Long
+Term Disability Plan Trust Fund (1999), 176
+N.S.R. (2d) 173 (C.A.), at para. 56.
+
+The appellant was quite entitled, in the first
+instance, to invoke the jurisdiction of the Ontario
+superior court to deal with her various monetary
+claims. The respondent was not entitled as of right
+to the imposition of an estoppel. It was up to the
+court to decide whether, in the exercise of its dis-
+cretion, it would decline to hear aspects of the
+claims that were previously the subject of ESA
+administrative proceedings.
+2. The Judicial Nature of the Decision
+
+A common element of the preconditions to issue
+estoppel set out by Dickson J. in Angle, supra, is
+the fundamental requirement that the decision in
+the prior proceeding be a judicial decision.
+According to the authorities (see e.g., G. Spencer
+Bower, A. K. Turner and K. R. Handley, The Doc-
+482
+
+
+trine of Res Judicata (3rd ed. 1996), at paras.
+18-20), there are three elements that may be taken
+into account. First is to examine the nature of the
+administrative authority issuing the decision. Is it
+an institution that is capable of receiving and exer-
+cising adjudicative authority? Secondly, as a mat-
+ter of law, is the particular decision one that was
+required to be made in a judicial manner? Thirdly,
+as a mixed question of law and fact, was the deci-
+sion made in a judicial manner? These are distinct
+requirements:
+It is of no avail to prove that the alleged res judicata was
+a decision, or that it was pronounced according to judi-
+cial principles, unless it emanated from such a tribunal
+in the exercise of its adjudicative functions; nor is it suf-
+ficient that it was pronounced by such a tribunal unless
+it was a judicial decision on the merits. It is important,
+therefore, at the outset to have a proper understanding of
+what constitutes a judicial tribunal and a judicial deci-
+sion for present purposes.
+
+(Spencer Bower, Turner and Handley, supra, para.
+20)
+36
+ular decision in question was actually made in
+accordance with judicial requirements, I note the
+recent ex curia statement of Handley J. (the current
+editor of The Doctrine of Res Judicata) that:
+The prior decision judicial, arbitral, or administrative,
+must have been made within jurisdiction before it can
+give rise to res judicata estoppels.
+
+(“Res Judicata: General Principles and Recent
+Developments” (1999), 18 Aust. Bar Rev. 214, at
+p. 215)
+37
+this third aspect, i.e., is a decision taken without
+regard to requirements of notice and an opportu-
+nity to be heard capable of supporting an issue
+[2001] 2 R.C.S.
+
+
+estoppel? In my opinion, the answer to this ques-
+tion is yes.
+(a) The Institutional Framework
+
+The decision relied on by Rosenberg J.A. in this
+respect relates to the generic role and function of
+the ESA officer: Re Downing and Graydon, supra,
+per Blair J.A., at p. 305:
+In the present case, the employment standards officers
+have the power to adjudicate as well as to investigate.
+Their investigation is made for the purpose of providing
+them with information on which to base the decision
+they must make. The duties of the employment stan-
+dards officers embrace all the important indicia of the
+exercise of a judicial power including the ascertainment
+of facts, the application of the law to those facts and the
+making of a decision which is binding upon the parties.
+The parties did not dispute that ESA officials could
+properly be given adjudicative responsibilities to
+be discharged in a judicial manner. An earlier leg-
+islative limit of $4,000 on unpaid wages (exclud-
+ing severance pay and benefits payable under preg-
+nancy and parental provisions) was eliminated in
+1991 by S.O. 1991, c. 16, s. 9(1), but subsequent to
+the ESA decision in the present case a new limit of
+$10,000 was imposed. This is the same limit as is
+imposed on the Small Claims Court by the Courts
+of Justice Act, R.S.O. 1990, c. C.43, s. 23(1), and
+O. Reg. 626/00, s. 1(1).
+(b) The Nature of ESA Decisions Under Section
+65(1)
+
+An administrative tribunal may have judicial as
+well as administrative or ministerial functions. So
+may an administrative officer.
+
+One distinction between administrative and
+judicial decisions lies in differentiating adjudica-
+484
+
+
+tive from investigative functions. In the latter
+mode the ESA officer is taking the initiative to
+gather information. The ESA officer acts as a self-
+starting investigator who is not confined within the
+limits of the adversarial process. The distinction
+between investigative and adjudicative powers is
+discussed in Guay v. Lafleur, [1965] S.C.R. 12, at
+pp. 17-18. The inapplicability of issue estoppel to
+investigations is noted by Diplock L.J. in Thoday
+v. Thoday, [1964] P. 181 (Eng. C.A.), at p. 197.
+41
+tive functions, they must exercise their adjudica-
+tive functions in a judicial manner. While they util-
+ize procedures more flexible than those that apply
+in the courts, their decisions must be based on
+findings of fact and the application of an objective
+legal standard to those facts. This is characteristic
+of a judicial function: D. J. M. Brown and
+J. M. Evans, Judicial Review of Administrative
+Action in Canada (1998), vol. 2, § 7:1310, p. 7-7.
+42
+information had been gathered, is of a judicial
+nature.
+(c) Particulars of the Decision in Question
+43
+decision of the ESA officer in this case was in fact
+reached contrary to the principles of natural jus-
+tice. The appellant had neither notice of the
+employer’s case nor an opportunity to respond.
+44
+say the decision ought to have been reached in a
+judicial manner. The question is: Was it decided in
+a judicial manner in this case? There is some sup-
+port for this view in Rasanen, supra, per Abella
+J.A., at p. 280:
+[2001] 2 R.C.S.
+
+
+As long as the hearing process in the tribunal pro-
+vides parties with an opportunity to know and meet the
+case against them, and so long as the decision is within
+the tribunal’s jurisdiction, then regardless of how
+closely the process mirrors a trial or its procedural ante-
+cedents, I can see no principled basis for exempting
+issues adjudicated by tribunals from the operation of
+issue estoppel in a subsequent action. [Emphasis added.]
+
+
+Trial level decisions in Ontario subsequently
+adopted this approach: Machado v. Pratt &
+Whitney Canada Inc. (1995), 12 C.C.E.L. (2d) 132
+(Ont. Ct. (Gen. Div.)); Randhawa v. Everest &
+Jennings Canadian Ltd. (1996), 22 C.C.E.L. (2d)
+19 (Ont. Ct. (Gen. Div.)); Heynen v. Frito-Lay
+Canada Ltd. (1997), 32 C.C.E.L. (2d) 183 (Ont.
+Ct. (Gen. Div.)); Perez v. GE Capital Technology
+Management Services Canada Inc. (1999), 47
+C.C.E.L. (2d) 145 (Ont. S.C.J.). The statement of
+Métivier J. in Munyal v. Sears Canada Inc. (1997),
+29 C.C.E.L. (2d) 58 (Ont. Ct. (Gen. Div.)), at p.
+60, reflects that position:
+
+The plaintiff relies on [Rasanen] and other similar
+decisions to assert that the principle of issue estoppel
+should apply to administrative decisions. This is true
+only where the decision is the result of a fair, unbiased
+adjudicative process where “the hearing process pro-
+vides parties with an opportunity to know and meet the
+case against them”.
+
+
+In Wong, supra, the Alberta Court of Appeal
+rejected an attack on the decision of an employ-
+ment standards review officer and held that the
+ESA decision was adequate to create an estoppel
+as long as “the appellant knew of the case against
+him and was given an opportunity to state his posi-
+tion” (para. 20). See also Alderman v. North Shore
+Studio Management Ltd., [1997] 5 W.W.R. 535
+(B.C.S.C.).
+486
+
+
+47
+denial of natural justice deprives the ESA decision
+of its character as a “judicial” decision rests on a
+misconception. Flawed the decision may be, but
+“judicial” (as distinguished from administrative or
+legislative) it remains. Once it is determined that
+the decision maker was capable of receiving and
+exercising adjudicative authority and that the par-
+ticular decision was one that was required to be
+made in a judicial manner, the decision does not
+cease to have that character (“judicial”) because
+the decision maker erred in carrying out his or her
+functions. As early as R. v. Nat Bell Liquors Ltd.,
+[1922] 2 A.C. 128 (H.L.), it was held that a con-
+viction entered by an Alberta magistrate could not
+be quashed for lack of jurisdiction on the grounds
+that the depositions showed that there was no evi-
+dence to support the conviction or that the magis-
+trate misdirected himself in considering the evi-
+dence. The jurisdiction to try the charges was
+distinguished from alleged errors in “the obser-
+vance of the law in the course of its exercise”
+(p. 156). If the conditions precedent to the exercise
+of a judicial jurisdiction are satisfied (as here),
+subsequent errors in its exercise, including viola-
+tions of natural justice, render the decision voida-
+ble, not void: Harelkin v. University of Regina,
+[1979] 2 S.C.R. 561, at pp. 584-85. The decision
+remains a “judicial decision”, although seriously
+flawed by the want of proper notice and the denial
+of the opportunity to be heard.
+
+48
+judicatem is closely linked to the rule against col-
+lateral attack, and indeed to the principles of judi-
+cial review. If the appellant had gone to court to
+seek judicial review of the ESA officer’s decision
+without first following the internal administrative
+review route, she would have been confronted with
+the decision of this Court in Harelkin, supra. In
+that case a university student failed in his judicial
+review application to quash the decision of a
+[2001] 2 R.C.S.
+
+
+faculty committee of the University of Regina
+which found his academic performance to be
+unsatisfactory. The faculty committee was required
+to act in a judicial manner but failed, as here, to
+give proper notice and an opportunity to be heard.
+It was held that the failure did not deprive the
+faculty committee of its adjudicative jurisdiction.
+Its decision was subject to judicial review, but this
+was refused in the exercise of the Court’s discre-
+tion. Adoption of the appellant’s theory in this case
+would create an anomalous result. If she is correct
+that the ESA officer stepped outside her judicial
+role and lost jurisdiction for all purposes, including
+issue estoppel, the Harelkin barrier to judicial
+review would be neatly sidestepped. She would
+have no need to seek judicial review to set aside
+the ESA decision. She would be, on her theory,
+entitled as of right to have it ignored in her civil
+action.
+
+The appellant’s position would also create an
+anomalous situation under the rule against collat-
+eral attack. As noted by the respondent, the rejec-
+tion of issue estoppel in this case would constitute,
+in a sense, a successful collateral attack on the
+ESA decision, which has been impeached neither
+by administrative review nor judicial review. On
+the appellant’s theory, an excess of jurisdiction in
+the course of the ESA proceeding would prevent
+issue estoppel, even though Maybrun, supra, says
+that an act in excess of a jurisdiction which the
+decision maker initially possessed does not neces-
+sarily open the decision to collateral attack. It
+depends, according to Maybrun, on which forum
+488
+
+
+the legislature intended the jurisdictional attack to
+be made in, the administrative review forum or the
+court (para. 49).
+
+50
+administrative proceedings should be encouraged
+to pursue whatever administrative remedy is avail-
+able. Here, it is worth repeating, she elected the
+ESA forum. Employers and employees should be
+able to rely on ESA determinations unless steps
+are taken promptly to set them aside. One major
+legislative objective of the ESA scheme is to facili-
+tate a quick resolution of termination benefits so
+that both employee and employer can get on to
+other things. Where, as here, the ESA issues are
+determined within a year, a contract claim could
+nevertheless still be commenced thereafter in
+Ontario within six years of the alleged breach, pro-
+ducing a lingering five years of uncertainty. This is
+to be discouraged.
+
+51
+decision which is made without jurisdiction from
+the outset cannot form the basis of an estoppel.
+The conditions precedent to the adjudicative juris-
+diction must be satisfied. Where arguments can be
+made that an administrative officer or tribunal ini-
+tially possessed the jurisdiction to make a decision
+in a judicial manner but erred in the exercise of
+that jurisdiction, the resulting decision is neverthe-
+less capable of forming the basis of an estoppel.
+Alleged errors in carrying out the mandate are
+matters to be considered by the court in the exer-
+cise of its discretion. This result makes the princi-
+ple governing estoppel consistent with the law
+[2001] 2 R.C.S.
+
+
+governing judicial review in Harelkin, supra, and
+collateral attack in Maybrun, supra.
+
+Where I differ from the Ontario Court of Appeal
+in this case is in its conclusion that the failure of
+the appellant to seek such an administrative review
+of the ESA officer’s flawed decision was fatal to
+her position. In my view, with respect, the refusal
+of the ESA officer to afford the appellant proper
+notice and the opportunity to be heard are matters
+of great importance in the exercise of the court’s
+discretion, as will be seen.
+
+I turn now to the three preconditions to issue
+estoppel set out by Dickson J. in Angle, supra, at
+p. 254.
+3. Issue Estoppel: Applying the Tests
+(a) That the Same Question Has Been Decided
+
+A cause of action has traditionally been defined
+as comprising every fact which it would be neces-
+sary for the plaintiff to prove, if disputed, in order
+to support his or her right to the judgment of the
+court: Poucher v. Wilkins (1915), 33 O.L.R. 125
+(C.A.). Establishing each such fact (sometimes
+referred to as material facts) constitutes a precon-
+dition to success. It is apparent that different
+causes of action may have one or more material
+facts in common. In this case, for example, the
+existence of an employment contract is a material
+fact common to both the ESA proceeding and to
+the appellant’s wrongful dismissal claim in court.
+Issue estoppel simply means that once a material
+fact such as a valid employment contract is found
+to exist (or not to exist) by a court or tribunal of
+competent jurisdiction, whether on the basis of evi-
+dence or admissions, the same issue cannot be
+relitigated in subsequent proceedings between the
+same parties. The estoppel, in other words, extends
+to the issues of fact, law, and mixed fact and law
+490
+
+
+that are necessarily bound up with the determina-
+tion of that “issue” in the prior proceeding.
+55
+requirement is satisfied. In the appellant’s wrong-
+ful dismissal action, she is claiming $300,000 in
+unpaid commissions. This puts in issue the same
+entitlement as was refused her in the ESA proceed-
+ing. One or more of the factual or legal issues
+essential to this entitlement were necessarily deter-
+mined against her in the earlier ESA proceeding. If
+issue estoppel applies, it prevents her from assert-
+ing that these adverse findings ought now to be
+found in her favour.
+(b) That the Judicial Decision Which Is Said to
+Create the Estoppel Was Final
+56
+prior decision be “judicial” (as opposed to admin-
+istrative or legislative) is satisfied in this case.
+57
+Appeal that the employee not having taken advan-
+tage of the internal review procedure, the decision
+of the ESA officer was final for the purposes of the
+Act and therefore capable in the normal course of
+events of giving rise to an estoppel.
+58
+Harelkin, supra, the appellant had no right of
+appeal. She could merely make a request to the
+ESA Director for a review by an ESA adjudicator.
+While this may be a factor in the exercise of the
+discretion to deny issue estoppel, it does not affect
+the finality of the ESA decision. The appellant
+could fairly argue on a judicial review application
+that unlike Harelkin she had no “adequate alterna-
+tive remedy” available to her as of right. The ESA
+[2001] 2 R.C.S.
+
+
+decision must nevertheless be treated as final for
+present purposes.
+(c) That the Parties to the Judicial Decision or
+Their Privies Were the Same Persons as the
+Parties to the Proceedings in Which the
+Estoppel Is Raised or Their Privies
+
+This requirement assures mutuality. If the limi-
+tation did not exist, a stranger to the earlier pro-
+ceeding could insist that a party thereto be bound
+in subsequent litigation by the findings in the ear-
+lier litigation even though the stranger, who
+became a party only to the subsequent litigation,
+would not be: Machin, supra; Minott v. O’Shanter
+Development Co. (1999), 42 O.R. (3d) 321 (C.A.),
+per Laskin J.A., at pp. 339-40. The mutuality
+requirement was subject to some critical comment
+by McEachern C.J.B.C. when sitting as a trial
+judge in Saskatoon Credit Union Ltd. v. Central
+Park Ent. Ltd. (1988), 22 B.C.L.R. (2d) 89 (S.C.),
+at p. 96, and has been substantially modified in
+many jurisdictions in the United States: see
+Holmested and Watson, supra, at 21§24, and G. D.
+Watson, “Duplicative Litigation: Issue Estoppel,
+Abuse of Process and the Death of Mutuality”
+(1990), 69 Can. Bar Rev. 623.
+
+The concept of “privity” of course is somewhat
+elastic. The learned editors of J. Sopinka, S. N.
+Lederman and A. W. Bryant in The Law of Evi-
+dence in Canada (2nd ed. 1999), at p. 1088 say,
+somewhat pessimistically, that “[i]t is impossible
+to be categorical about the degree of interest which
+will create privity” and that determinations must
+be made on a case-by-case basis. In this case, the
+parties are identical and the outer limits of “mutu-
+ality” and of the “same parties” requirement need
+not be further addressed.
+492
+
+
+61
+pel are met in this case.
+
+4. The Exercise of the Discretion
+62
+nevertheless refuse to apply estoppel as a matter of
+discretion. There is no doubt that such a discretion
+exists. In General Motors of Canada Ltd. v. Naken,
+[1983] 1 S.C.R. 72, Estey J. noted, at p. 101, that
+in the context of court proceedings “such a discre-
+tion must be very limited in application”. In my
+view the discretion is necessarily broader in rela-
+tion to the prior decisions of administrative tribu-
+nals because of the enormous range and diversity
+of the structures, mandates and procedures of
+administrative decision makers.
+63
+observed, at para. 32:
+It must always be remembered that although the three
+requirements for issue estoppel must be satisfied before
+it can apply, the fact that they may be satisfied does not
+automatically give rise to its application. Issue estoppel
+is an equitable doctrine, and as can be seen from the
+cases, is closely related to abuse of process. The doc-
+trine of issue estoppel is designed as an implement of
+justice, and a protection against injustice. It inevitably
+calls upon the exercise of a judicial discretion to achieve
+fairness according to the circumstances of each case.
+
+Apart from noting parenthetically that estoppel per
+rem judicatem is generally considered a common
+law doctrine (unlike promissory estoppel which is
+clearly equitable in origin), I think this is a correct
+statement of the law. Finch J.A.’s dictum was
+adopted and applied by the Ontario Court of
+Appeal in Schweneke, supra, at paras. 38 and 43:
+[2001] 2 R.C.S.
+
+
+The discretion to refuse to give effect to issue estop-
+pel becomes relevant only where the three prerequisites
+to the operation of the doctrine exist. . . . The exercise of
+the discretion is necessarily case specific and depends
+on the entirety of the circumstances. In exercising the
+discretion the court must ask — is there something in
+the circumstances of this case such that the usual opera-
+tion of the doctrine of issue estoppel would work an
+injustice?
+.
+
+. . . The discretion must respond to the realities of each
+case and not to abstract concerns that arise in virtually
+every case where the finding relied on to support the
+doctrine was made by a tribunal and not a court.
+See also Braithwaite, supra, at para. 56.
+
+Courts elsewhere in the Commonwealth apply
+similar principles. In Arnold v. National Westmin-
+ster Bank plc, [1991] 3 All E.R. 41, the House of
+Lords exercised its discretion against the applica-
+tion of issue estoppel arising out of an earlier arbi-
+tration, per Lord Keith of Kinkel, at p. 50:
+One of the purposes of estoppel being to work justice
+between the parties, it is open to courts to recognise that
+in special circumstances inflexible application of it may
+have the opposite result . . . .
+
+In the present case Rosenberg J.A. noted in
+passing at pp. 248-49 the possible existence of a
+potential discretion but, with respect, he gave it
+short shrift. There was no discussion or analysis of
+the merits of its exercise. He simply concluded, at
+p. 256:
+In summary, Ms. Burke did not accord this appellant
+natural justice. The appellant’s recourse was to seek
+review of Ms. Burke’s decision. She failed to do so.
+That decision is binding upon her and her employer.
+
+In my view it was an error of principle not to
+address the factors for and against the exercise of
+494
+
+
+the discretion which the court clearly possessed.
+This is not a situation where this Court is being
+asked by an appellant to substitute its opinion for
+that of the motions judge or the Court of Appeal.
+The appellant is entitled at some stage to appropri-
+ate consideration of the discretionary factors and to
+date this has not happened.
+
+67
+the same factors listed in Maybrun in connection
+with the rule against collateral attack. A similarly
+helpful list was proposed by Laskin J.A. in Minott,
+supra. The objective is to ensure that the operation
+of issue estoppel promotes the orderly administra-
+tion of justice but not at the cost of real injustice in
+the particular case. Seven factors, discussed below,
+are relevant in this case.
+
+(a) The Wording of the Statute from which the
+Power to Issue the Administrative Order
+Derives
+
+68
+vides that:
+No civil remedy of an employee against his or her
+employer is suspended or affected by this Act. [Empha-
+sis added.]
+
+69
+Ontario legislature did not intend ESA proceedings
+to become an exclusive forum. (Recent amend-
+ments to the Act now require an employee to elect
+either the ESA procedure or the court. Even prior
+to the new amendments, however, a court could
+properly conclude that relitigation of an issue
+would be an abuse: Rasanen, supra, per Morden
+A.C.J.O., at p. 293, Carthy J.A., at p. 288.)
+[2001] 2 R.C.S.
+
+
+While it is generally reasonable for defendants
+to expect to be able to move on with their lives
+once one set of proceedings — including any
+available appeals — has ended in a rejection of lia-
+bility, here, the appellant commenced her civil
+action against the respondents before the ESA
+officer reached a decision (as was clearly author-
+ized by the statute at that time). Thus, the respon-
+dents were well aware, in law and in fact, that they
+were expected to respond to parallel and to some
+extent overlapping proceedings.
+(b) The Purpose of the Legislation
+
+The focus of an earlier administrative proceed-
+ing might be entirely different from that of the sub-
+sequent litigation, even though one or more of the
+same issues might be implicated. In Bugbusters,
+supra, a forestry company was compulsorily
+recruited to help fight a forest fire in British
+Columbia. It subsequently sought reimbursement
+for its expenses under the B.C. Forest Act,
+R.S.B.C. 1979, c. 140. The expense claim was
+allowed despite an allegation that the fire had been
+started by a Bugbusters employee who carelessly
+discarded his cigarette. (This, if proved, would
+have disentitled Bugbusters to reimbursement.)
+The Crown later started a $5 million negligence
+claim against Bugbusters, for losses occasioned by
+the forest fire. Bugbusters invoked issue estoppel.
+The court, in the exercise of its discretion, denied
+relief. One reason, per Finch J.A., at para. 30, was
+that
+a final decision on the Crown’s right to recover its
+losses was not within the reasonable expectation of
+either party at the time of those [reimbursement] pro-
+ceedings [under the Forest Act].
+A similar point was made in Rasanen, supra, by
+Carthy J.A., at p. 290:
+It would be unfair to an employee who sought out
+immediate and limited relief of $4,000, forsaking dis-
+496
+
+
+covery and representation in doing so, to then say that
+he is bound to the result as it affects a claim for ten
+times that amount.
+A similar qualification is made in the American
+Restatement of the Law, Second: Judgments 2d
+(1982), vol. 2 § 83(2)(e), which refers to
+procedural elements as may be necessary to constitute
+the proceeding a sufficient means of conclusively deter-
+mining the matter in question, having regard for the
+magnitude and complexity of the matter in question, the
+urgency with which the matter must be resolved, and the
+opportunity of the parties to obtain evidence and formu-
+late legal contentions.
+72
+chose the ESA forum. Counsel for the respondent
+justly observed, with some exasperation:
+As the record makes clear, Danyluk was represented by
+legal counsel prior to, at the time of, and subsequent to
+the cessation of her employment. Danyluk and her coun-
+sel were well aware of the fact that Danyluk had an ini-
+tial choice of forums with respect to her claim for
+unpaid commissions and wages. . . .
+73
+vide a relatively quick and cheap means of resolv-
+ing employment disputes. Putting excessive weight
+on the ESA decision in terms of issue estoppel
+would likely compel the parties in such cases to
+mount a full-scale trial-type offence and defence,
+thus tending to defeat the expeditious operation of
+the ESA scheme as a whole. This would under-
+mine fulfilment of the purpose of the legislation.
+(c) The Availability of an Appeal
+74
+tive remedy” issue in judicial review: Harelkin,
+supra, at p. 592. Here the employee had no right of
+appeal, but the existence of a potential administra-
+tive review and her failure to take advantage of it
+[2001] 2 R.C.S.
+
+
+must be counted against her: Susan Shoe Industries
+Ltd. v. Ricciardi (1994), 18 O.R. (3d) 660 (C.A.),
+at p. 662.
+
+(d) The Safeguards Available to the Parties in
+the Administrative Procedure
+
+As already mentioned, quick and expeditious
+procedures suitable to accomplish the objectives of
+the ESA scheme may simply be inadequate to deal
+with complex issues of fact or law. Administrative
+bodies, being masters of their own procedures,
+may exclude evidence the court thinks probative,
+or act on evidence the court considers less than
+reliable. If it has done so, this may be a factor in
+the exercise of the court’s discretion. Here the
+breach of natural justice is a key factor in the
+appellant’s favour.
+
+Morden A.C.J.O. pointed out in his concurring
+judgment in Rasanen, supra, at p. 295: “I do not
+exclude the possibility that deficiencies in the pro-
+cedure relating to the first decision could properly
+be a factor in deciding whether or not to apply
+issue estoppel.” Laskin J.A. made a similar point
+in Minott, supra, at pp. 341-42.
+
+(e) The Expertise of the Administrative Deci-
+sion Maker
+
+In this case the ESA officer was a non-legally
+trained individual asked to decide a potentially
+complex issue of contract law. The rough-and-
+ready approach suitable to getting things done in
+the vast majority of ESA claims is not the exper-
+tise required here. A similar factor operates with
+respect to the rule against collateral attack
+(Maybrun, supra, at para. 50):
+498
+
+
+. . . where an attack on an order is based on considera-
+tions which are foreign to an administrative appeal
+tribunal’s expertise or raison d’être, this suggests,
+although it is not conclusive in itself, that the legislature
+did not intend to reserve the exclusive authority to rule
+on the validity of the order to that tribunal.
+
+(f) The Circumstances Giving Rise to the Prior
+Administrative Proceedings
+78
+invoked the ESA procedure at a time of personal
+vulnerability with her dismissal looming. It is
+unlikely the legislature intended a summary proce-
+dure for smallish claims to become a barrier to
+closer consideration of more substantial claims.
+(The legislature’s subsequent reduction of the
+monetary limit of an ESA claim to $10,000 is con-
+sistent with this view.) As Laskin J.A. pointed out
+in Minott, supra, at pp. 341-42:
+. . . employees apply for benefits when they are most
+vulnerable, immediately after losing their job. The
+urgency with which they must invariably seek relief
+compromises their ability to adequately put forward
+their case for benefits or to respond to the case against
+them . . . .
+79
+be said that the appellant with or without legal
+advice, included in her ESA claim the $300,000
+commissions, and she must shoulder at least part
+of the responsibility for her resulting difficulties.
+(g) The Potential Injustice
+80
+should stand back and, taking into account the
+entirety of the circumstances, consider whether
+application of issue estoppel in the particular case
+would work an injustice. Rosenberg J.A. con-
+cluded that the appellant had received neither
+notice of the respondent’s allegation nor an oppor-
+tunity to respond. He was thus confronted with the
+[2001] 2 R.C.S.
+
+
+problem identified by Jackson J.A., dissenting, in
+Iron v. Saskatchewan (Minister of the Environment
+& Public Safety), [1993] 6 W.W.R. 1 (Sask. C.A.),
+at p. 21:
+The doctrine of res judicata, being a means of doing jus-
+tice between the parties in the context of the adversarial
+system, carries within its tenets the seeds of injustice,
+particularly in relation to issues of allowing parties to be
+heard.
+Whatever the appellant’s various procedural mis-
+takes in this case, the stubborn fact remains that
+her claim to commissions worth $300,000 has sim-
+ply never been properly considered and adjudi-
+cated.
+
+On considering the cumulative effect of the
+foregoing factors it is my view that the Court in its
+discretion should refuse to apply issue estoppel in
+this case.
+V. Disposition
+
+I would therefore allow the appeal with costs
+throughout.
+
+Appeal allowed with costs.
+
+Solicitors for the appellant: Lang Michener,
+Toronto.
+
+Solicitors for the respondents: Heenan Blaikie,
+Toronto.

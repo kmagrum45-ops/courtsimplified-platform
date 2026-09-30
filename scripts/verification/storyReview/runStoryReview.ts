@@ -58,7 +58,11 @@ import { QUESTION_BANK } from "../../../src/lib/case-system/intake/questionBank"
 import { CLAIM_TYPES } from "../../../src/lib/case-system/intake/claimTypes";
 import type { IntakeFacts } from "../../../src/lib/case-system/intake/selectQuestions";
 import { runSafetyPass, type SafetyPassResult } from "../../../src/lib/case-system/intake/safetyPass";
-import { classifyCourtPath } from "../../../src/lib/case-system/intelligence/courtPathClassifier";
+import {
+  classifyCourtPath,
+  statedDollarAmounts,
+} from "../../../src/lib/case-system/intelligence/courtPathClassifier";
+import { selectCrossForumNotes } from "../../../src/lib/content-library/crossForumNotes";
 import { selectDepthQuestions } from "../../../src/lib/case-system/intake/depth/selectDepthQuestions";
 import { orchestrateDepthTurn } from "../../../src/lib/case-system/intake/depth/orchestrateDepthTurn";
 import type { ElementStateMap } from "../../../src/lib/case-system/intake/depth/elementStateMap";
@@ -78,7 +82,7 @@ const MAX_TURNS = 25;
 const CONCURRENCY = 3;
 const UNSCRIPTED = "I'm not sure.";
 
-type Shown = { stage: "question" | "depth" | "proposal" | "review" | "notice"; id: string; text: string };
+type Shown = { stage: "question" | "depth" | "proposal" | "review" | "notice" | "matters"; id: string; text: string };
 
 type CheckResult = { check: string; pass: boolean; detail: string };
 
@@ -196,6 +200,37 @@ async function runOne(story: ReviewStory, apiKey: string, offline: boolean): Pro
     pass: story.expect.courtPath.includes(court.primaryPath),
     detail: `routed to "${run.courtPath}" (${court.source}: ${court.reasoning}), expected ${story.expect.courtPath.join(" or ")}`,
   });
+
+  // 1b. Several matters (2026-09-30). The model lists the separate matters a
+  // story contains; the notes follow from those topics. Only checked when the
+  // model ran -- offline, the list is empty by design.
+  if (court.aiCalled && (story.expect.matterKinds || story.expect.notes)) {
+    const kinds = court.matters.issues.map((issue) => issue.kind);
+    const noteIds = selectCrossForumNotes(court.matters, statedDollarAmounts(story.story)).map((note) => note.id);
+    run.shown.push({
+      stage: "matters",
+      id: "several-matters",
+      text:
+        court.matters.issues.map((issue) => `${issue.kind}: "${issue.quote}"`).join("; ") +
+        (noteIds.length ? ` | notes: ${noteIds.join(", ")}` : "") +
+        (court.matters.severalOtherParties ? " | several parties" : "") +
+        (court.matters.earlierDecision ? " | earlier decision" : ""),
+    });
+    for (const kind of story.expect.matterKinds || []) {
+      run.checks.push({
+        check: "matter-kind",
+        pass: kinds.includes(kind as (typeof kinds)[number]),
+        detail: `expected the story's matters to include ${kind}; got ${kinds.join(", ") || "none"}`,
+      });
+    }
+    for (const id of story.expect.notes || []) {
+      run.checks.push({
+        check: "connection-note",
+        pass: noteIds.includes(id),
+        detail: `expected note ${id}; selected ${noteIds.join(", ") || "none"}`,
+      });
+    }
+  }
 
   if (story.area !== "small-claims") {
     const safety = offline ? await fakeSafety() : await runSafetyPass(story.story, apiKey);
@@ -511,7 +546,13 @@ async function main() {
     return;
   }
 
-  const stories = STORIES.filter((s) => !only || s.id === only);
+  // --only=ID, --only=ID1,ID2, or a prefix with a star (--only=MX*).
+  const wanted = (only || "").split(",").map((id) => id.trim()).filter(Boolean);
+  const stories = STORIES.filter(
+    (s) =>
+      wanted.length === 0 ||
+      wanted.some((id) => (id.endsWith("*") ? s.id.startsWith(id.slice(0, -1)) : s.id === id)),
+  );
   // Three stories at a time: each story's own turns stay strictly in order,
   // and the report keeps the story order whatever finishes first.
   const runs: StoryRun[] = new Array(stories.length);
