@@ -1,0 +1,51 @@
+name: CourtSimplified Fetch Decisions
+
+# Fetches named pages from the courts' own decision databases (Court of Appeal
+# for Ontario, Supreme Court of Canada, ontariocourts.ca) and publishes them to
+# a `sources-vendor-decisions-<run>` branch for a session to read and bring the
+# ones it cites into main through a PR. CanLII is never fetched.
+#
+# WHY: the cloud workspace cannot reach these sites; GitHub's runners can. See
+# scripts/sources/fetchDecisionPages.sh and docs/SOURCING_NOTES.md.
+# `sources-vendor-*` is excluded from Vercel builds in vercel.json.
+
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: "Space-separated URLs on the courts' own decision sites"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install the PDF text extractor
+        run: sudo apt-get update -q && sudo apt-get install -y -q poppler-utils
+
+      - name: Fetch the named pages
+        env:
+          URLS: ${{ inputs.urls }}
+        run: bash scripts/sources/fetchDecisionPages.sh 2>&1 | tee fetch-run.log
+
+      - name: Publish to a sources-vendor-decisions branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          branch="sources-vendor-decisions-${GITHUB_RUN_ID}"
+          git config user.name "fetch-decisions-bot"
+          git config user.email "fetch-decisions-bot@users.noreply.github.com"
+          git checkout -q -b "$branch"
+          cp fetch-run.log docs/sources/decisions/_fetched/_run.log
+          git add -f docs/sources/decisions/_fetched
+          git commit -q -m "Fetched decision pages (run ${GITHUB_RUN_ID})" || echo "nothing changed"
+          git push -q "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/$branch"
+          echo "Published to $branch" >> "$GITHUB_STEP_SUMMARY"
+          cat fetch-run.log >> "$GITHUB_STEP_SUMMARY"
