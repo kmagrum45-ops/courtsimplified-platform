@@ -1,0 +1,1122 @@
+                    COURT OF APPEAL FOR ONTARIO
+
+                     CITATION: Jesan Real Estate Ltd. v. Doyle, 2020 ONCA 714
+                                                               DATE: 20201110
+                                                             DOCKET: C67768
+
+                     Feldman, Fairburn and Nordheimer JJ.A.
+
+BETWEEN
+
+                                 Jesan Real Estate Ltd.
+
+                                                               Applicant (Appellant)
+
+                                          and
+
+      Sean Doyle, John Koutsoukos, Deena Koutsoukos and Anthy Koutsoukos
+
+                                                          Respondents (Respondent)
+
+Pathik Baxi, for the appellant
+
+Sean Doyle, acting in person
+
+Heard: in writing
+
+On appeal from the judgment of Justice M.J. Lucille Shaw of the Superior Court of
+Justice dated November 6, 2019, with reasons reported at 2019 ONSC 6448.
+
+Feldman J.A.:
+
+[1]     The appellant, Jesan Real Estate Ltd. (“Jesan”), rented a home to the
+
+respondents pursuant to a written Occupancy Agreement (“OA”). The parties also
+
+entered into a written Option to Purchase Agreement (“OPA”) whereby the
+
+respondents could elect to purchase the property at the end of the term for a fixed
+
+price on defined conditions. One of the respondents, Sean Doyle, purported to
+
+exercise the option but the attempted exercise was rejected by Jesan. Mr. Doyle
+                                     Page: 2
+
+
+and Jesan then entered into an agreement to purchase the property for a higher
+
+price, but Mr. Doyle did not complete the purchase on the date set for closing. Mr.
+
+Doyle and the other respondents remained in the premises as renters.
+
+[2]   Jesan brought an application seeking the following relief: an order that the
+
+OA and the OPA are null and void; leave to issue a writ of possession; an order
+
+that the deposit paid in respect of the agreement of purchase and sale be forfeited.
+
+Only Mr. Doyle responded to the application. The remaining named respondents,
+
+who are all members of Mr. Doyle’s family, did not participate in the hearing.
+
+[3]   The application judge dismissed Jesan’s application without addressing the
+
+status of the uncompleted agreement of purchase and sale and the tenancy. I
+
+would allow the appeal, set aside the order and address the result as set out below.
+
+Background facts
+
+[4]   Through the agency of Wayne Muir, a real estate agent acting for all parties,
+
+Jesan, acting through Mr. Khan, and the respondents entered into the OA in
+
+respect of 25 Napa Valley Crescent on February 17, 2014 for a term of 36 months
+
+beginning March 31, 2014 and ending on February 28, 2017. The monthly rent
+
+was $2515. On the same day they also entered into the OPA. The intent was that
+
+the respondents would rent with a view to purchasing the property.
+
+[5]   Under the OPA, the respondents, described as the Occupant, were granted
+
+the option to purchase the property at the end of the occupancy agreement, “so
+                                      Page: 3
+
+
+long as the Occupant complies with all conditions of the Occupancy Agreement,
+
+and, as long as the Occupant is not in default (all outlined in the Occupancy
+
+Agreement) for the Purchase Price of…$489,000.00 CDN”
+
+[6]   A number of the terms of the OPA are reproduced here as they form the
+
+basis for determining the rights of the parties:
+
+             TERMS:
+
+                   …
+
+                   (e) Initial Option Deposit will be credited to the Occupant to go
+                   toward the down payment upon successful Purchase of the
+                   property. The Initial deposit is non refundable. Should the
+                   Occupant not exercise their right to Purchase the property, the
+                   Occupant shall forfeit this initial deposit in its entirety
+
+                   (f) Monthly Option Payment credit will be credited back to the
+                   Occupant to go toward their down payment upon successful
+                   Agreement to purchase the property. Monthly option payment
+                   is only credited for months in which payments are made as
+                   agreed, on time. Monthly payment option credit will be forfeited
+                   for the month in which monthly payment is not made on time.
+                   Should the Occupant not exercise his right to purchase the
+                   Property, the Occupant forfeits all monthly option payment
+                   credits
+
+             OPTION DEPOSIT AND MONTHLY CREDITS:
+
+                   Initial Option Deposit (Non Refundable) at time of signing of this
+                   Agreement $20,000.00 held in ReMax Realtron Realty Inc trust
+                   account until day of Occupancy when it is to be released to the
+                   Owner
+
+                   Second Option Deposit (Non Refundable) on date of
+                   closing/occupancy $ 0.00
+                      Page: 4
+
+
+    Monthly Option Payment Credit (Non Refundable) $375.00
+
+EXERCISE OF OPTION:
+
+    The option may be exercised 60 days prior to the end of the
+    term of the Occupancy Agreement unless mutually agreed to
+    accelerate the Option, but not earlier than 2 years and shall be
+    exercised by mailing or personally delivering written notice of
+    intent to purchase to the Owner and by an additional deposit in
+    the amount of $1,000.00 (CDN) One Thousand Dollars payable
+    in Trust to the Owner’s Solicitor.
+
+    Notice, if mailed, it shall be registered mail, to the Owner at the
+    address set forth below and shall be deemed to have been
+    given upon the day following the day shown on the post office
+    receipt.
+
+    In the event the option is exercised, the Option Deposit shall be
+    credited back to the Occupant. The Monthly Option Payment
+    Credits, if any shall be credited back to the Occupant, for each
+    month the Occupancy Payment has been paid when due. If the
+    Occupancy fee was late for any month, even for one business
+    day, credit will not be given for that month. These funds will only
+    be credited if the option is exercised and the sale of the Property
+    closes. In particular, if the option is not exercised, the Occupant
+    forfeits and the Owner retains all Option Deposits and Credits.
+    If the Occupant is not in breach of contract and the Owner
+    decides to terminate the contract, the Option Deposit shall be
+    credited back to the Occupant. By exercising the option, the
+    Occupant states that their obligation to purchase is
+    unconditional. In particular, the Occupant states that the
+    required financing is in place. The Investor hereby
+    acknowledges that the Occupant is not in default and that this
+    agreement is firm and binding for title transfer to the Occupant
+    and must abide by this agreement.
+
+EXPIRATION OF OPTION
+
+    Notice of Intent to purchase may be made at least 90 days
+    before the last day of the term of the Occupancy Agreement. If
+                                      Page: 5
+
+
+                    notice is not received and/or the Property is not purchased, the
+                    Option to Purchase expires. Upon expiration, the owner shall
+                    be released from all obligations hereunder and all Occupants
+                    rights hereunder, legal or equitable shall cease.
+
+            EXTENSION OF AGREEMENT:
+
+                    If financing cannot be obtained on behalf of the Occupant by
+                    the designated mortgage team, and the Occupant is not in
+                    default, then this Agreement shall continue on a month to month
+                    basis for an additional (6) six months with no increase in the
+                    Occupancy payment or change in the Monthly Option Payment
+                    Credit. The Purchase Price shall however increase at the rate
+                    of 0.25% per month. If after these additional (6) six months, the
+                    Property still has not closed, then the Monthly Option Payment
+                    Credit can, at the option and absolute full discretion of the
+                    Owner, be increased. The Purchase Price shall increase at the
+                    rate of .3% per month.
+
+            NOTICES:
+
+                    Any notice which either Party may or is required to give, may
+                    be given by mailing the same postage prepaid, to Occupant at
+                    the Property or to the Owner at the address shown below or at
+                    such other places as may be designated by the Parties from
+                    time to time.
+
+            TIME:
+
+                    Time shall be of the essence of this Agreement.
+
+[7]   According to the OPA, the option to purchase was conditional on the
+
+respondents’ compliance with all the conditions of the OA and not being in default.
+
+The respondents agreed to pay to the agent an initial non-refundable deposit of
+
+$20,000 upon signing the OPA, which was to be released to Jesan on the date of
+
+occupancy. If the option was exercised, the initial deposit would be credited to the
+                                     Page: 6
+
+
+purchase price as a down payment, together with a non-refundable credit of $375
+
+per month. As a result, the amount of $33,500, paid to Jesan by the end of the
+
+lease term, would be credited to the purchase price as a down payment if the
+
+option to purchase was exercised. If the option to purchase was not exercised, this
+
+sum would be forfeited to Jesan.
+
+[8]   The option was to be exercised by registered mail or personal service of a
+
+written notice of intent to purchase on Jesan and by an additional deposit of $1000
+
+payable in trust to Jesan’s solicitor. The mailing address was not included in the
+
+agreement. The time limits for exercising the option were set out in the OPA.
+
+[9]   On February 3, 2017, Mr. Muir emailed an offer to purchase on behalf of Mr.
+
+Doyle to Jesan for the agreed price of $489,000. The offer referred to a down
+
+payment of $35,000. However, the further $1000 called for in the OPA was not
+
+included. Jesan refused to agree to the offer. The application judge found that Mr.
+
+Khan did not communicate at that time that the offer did not comply with the OPA,
+
+but discussed with Mr. Muir the fact that the property was worth a lot more than
+
+the option price. Mr. Muir advised Mr. Doyle to make an offer for more money in
+
+order to avoid litigation. Mr. Muir prepared a second offer to purchase which was
+
+signed by Mr. Doyle on March 1 and by Mr. Khan on behalf of Jesan on March 7,
+
+2017. The offer was for $550,000, again with $35,000 as the down payment and
+
+with the same closing date as the first offer, March 31. Mr. Doyle sent a bank draft
+                                     Page: 7
+
+
+on March 3 to Jesan for $1500 “re RTO Final Payment”, with RTO meaning rent
+
+to own.
+
+[10]   Following acceptance of the second offer, Jesan asked for and received
+
+from Mr. Doyle three payments of $375 each because the rent had been late three
+
+times over the term, and the OPA provided that late payments would not count
+
+toward the down payment.
+
+[11]   Mr. Doyle had difficulty arranging financing to close the transaction. Some
+
+of the other respondents contacted Jesan and advised that Mr. Doyle wanted to
+
+add a family member as a purchaser to facilitate financing. Jesan refused to
+
+amend and relied on the time of the essence provision of the agreement of
+
+purchase and sale.
+
+[12]   Mr. Doyle failed to close on March 31. Instead, on that same day, Mr. Doyle’s
+
+lawyer advised Jesan by letter that Mr. Doyle was exercising his right to extend the
+
+OPA by six months because he was still arranging financing. The letter alleged
+
+that Mr. Doyle’s inability to close was due to Jesan breaching the OPA and
+
+increasing the purchase price to $550,000.
+
+[13]   In response, Jesan’s lawyer took the position that the February 3 email was
+
+not a valid notice of exercising the option to purchase because of a number of non-
+
+compliances including: it was not delivered personally or by registered mail; it did
+
+not enclose the $1000 deposit; and it was not delivered within 60 days prior to the
+                                       Page: 8
+
+
+end of the term of the OA. The letter also stated that the OA term ended on
+
+February 28 and that the OPA had expired. In response, Mr. Doyle registered a
+
+caution on the property and continued to reside there and pay monthly rent of
+
+$2515.
+
+[14]   As indicated above, this litigation was commenced by Jesan seeking a
+
+declaration that the OA and OPA were null and void and for leave to issue a writ
+
+of possession. The respondents did not file a cross-application seeking any relief
+
+such as specific performance or relief from forfeiture.
+
+Findings by the application judge
+
+[15]   The evidence on the application consisted of an affidavit of Mr. Khan, an
+
+affidavit of Mr. Doyle, and the transcripts of the cross-examinations on those
+
+affidavits together with the answers to undertakings. The application judge
+
+explained that there was conflicting evidence on issues such as whether Mr. Doyle
+
+first notified Jesan in December 2016 that he wanted to purchase the property,
+
+and whether Jesan communicated in February after the February 3 email with no
+
+deposit that Mr. Doyle was in breach of the OPA.
+
+[16]   The application judge found that Mr. Doyle first notified Jesan of his intention
+
+to exercise the option on February 3, 2017. She also found that Jesan first notified
+
+Mr. Doyle by letter dated April 18, 2017, after the second agreement failed to close,
+
+that his purported exercise of the option to purchase breached the OPA.
+                                     Page: 9
+
+
+[17]   Relying on the Supreme Court of Canada decision in Sail Labrador Ltd. v.
+
+Navimar Corp., [1999] 1 S.C.R. 265 (S.C.C.), the application judge found that the
+
+OA and the OPA constituted a bilateral contract, and that the legal result of that
+
+characterization was that only “substantial non-performance” of the terms of the
+
+contract by Mr. Doyle would be sufficient to disentitle him to performance by Jesan.
+
+The application judge defined substantial non-performance as requiring a finding
+
+that “Mr. Doyle’s failure in performance substantially deprived Jesan of what was
+
+bargained for.”
+
+[18]   The application judge considered the effect of the “time is of the essence”
+
+clause, and found, based on the parties’ conduct during the term of the lease, that
+
+they did not intend time to be of the essence, “or, at the very least, that Jesan
+
+acquiesced to delayed payments on multiple occasions.” As examples, the
+
+application judge identified: the $20,000 deposit was not paid when the
+
+respondents took possession, but after, contrary to the OPA, and Jesan accepted
+
+late lease payments by etransfer made more than 120 hours after a cheque was
+
+returned for insufficient funds, which was not in accordance with the OA. The
+
+application judge concluded that by acquiescing to late occupancy payments and
+
+a late deposit, Jesan had waived the time of the essence requirement, and could
+
+not rely on the time of the essence provision of the OPA.
+
+[19]   The application judge also noted, applying Sail at para. 50, that in this
+
+bilateral agreement, there was no provision requiring strict performance that would
+                                    Page: 10
+
+
+preclude the application of the substantial non-performance doctrine. She then
+
+concluded that Mr. Doyle had substantially complied with the option exercise terms
+
+and therefore, with the OPA. She added that if she was in error and the OPA was
+
+a unilateral contract, then any non-performance by Mr. Doyle was de minimis and
+
+did not amount to a fundamental breach.
+
+[20]   The application judge specifically addressed each of the three alleged
+
+breaches of the option conditions and found that each one did not amount to
+
+substantial non-performance:
+
+       1) The requirement to pay an extra $1000 deposit did not specifically say it
+
+          had to be paid at the same time the option was exercised. Mr. Doyle paid
+
+          it on March 3, 2017 as part of the bank draft of $1500 following the
+
+          agreement on the second offer and it was accepted by Jesan.
+
+       2) Mr. Doyle could not strictly comply with the requirement to serve the
+
+          notice of exercising the option by mail because no address for service
+
+          was included in the agreement. The email notice gave functionally clear
+
+          and unambiguous notice to Jesan with no disadvantage to it. Also, email
+
+          was not specifically prohibited by the OPA or OA.
+
+       3) The notice served on February 3 was not out of time. There was
+
+          ambiguity because the OPA provided for both 60 days and 90 days
+
+          notice, and used the word “may” rather than “must”. Because of the
+
+          ambiguity, there was no requirement for strict compliance. It was enough
+                                     Page: 11
+
+
+          for Jesan to receive notice of Mr. Doyle’s intention to exercise the option
+
+          prior to the end of the term of the OA.
+
+[21]   The application judge concluded that Jesan did not accept the first offer, not
+
+because of any breach of the OPA in exercising the option to purchase, but
+
+because the price was too low. She concluded that the parties were still operating
+
+under the OPA because: 1) Mr. Doyle paid $1125 on March 27 to make up the
+
+down payment because the three late rental payments under the OA did not count
+
+toward the down payment under the OPA; and 2) Mr. Doyle paid the $1500 deposit
+
+to satisfy the OPA requirement for a further $1000 deposit upon exercise of the
+
+option to purchase.
+
+[22]   Based on these findings, the application judge concluded that she did not
+
+have to address whether Mr. Doyle was in breach of the March agreement of
+
+purchase and sale based on the second offer, whether he had forfeited the
+
+$35,000 deposit, or whether he was entitled to an extension of the March 31
+
+closing date. Instead, she found that Jesan failed to comply with its obligation to
+
+sell the property for the option price of $489,000 and dismissed the application.
+
+Issues
+
+[23]   This appeal raises four issues:
+
+          1. Was Jesan entitled to reject the exercise of the option by Mr. Doyle
+
+             because his notice did not comply with the OPA?
+                                       Page: 12
+
+
+           2. Was the second agreement a new contract or an extension of the
+
+              OPA?
+
+           3. Is the deposit of $35,000 to be forfeited to Jesan or is Mr. Doyle
+
+              entitled to any relief from forfeiture?
+
+           4. Is Jesan entitled to an order for a writ of possession?
+
+Analysis
+
+Issue 1: Was Jesan entitled to reject the exercise of the option by Mr. Doyle
+
+because his notice did not comply with the OPA?
+
+[24]   The respondents purported to exercise their option to purchase the leased
+
+premises, contained in the OPA, by way of an email to Jesan on February 3, 2017.
+
+The OPA required the option to be exercised by mail or personal service, and that
+
+it be exercised 60 days before the end date of the OA which was February 28,
+
+2017, or up to two years before that date. It also required a further $1000 deposit.
+
+[25]   When Jesan did not accept the exercise of the option at the option price of
+
+$489,000, Mr. Doyle agreed with Jesan to purchase the leased property for the
+
+price of $550,000, but with the same terms as contained in the OPA regarding
+
+crediting of the initial down payment of $20,000, plus $375 from each lease
+
+payment that had been made on time, plus adding the $1000 deposit plus an
+
+additional $500 in order to “round up” the down payment amount to $35,000.
+                                      Page: 13
+
+
+[26]   Mr. Doyle failed to close the transaction on the closing date of March 31,
+
+2017. He has remained in the premises paying the same rent as before.
+
+[27]   Because the contract is an option to purchase, the application judge referred
+
+to the decision of the Supreme Court of Canada in Sail, where the court explained
+
+that while an option is often viewed as a unilateral contract where the conditions
+
+for exercise must be strictly complied with, if the option is closely linked with
+
+another contract between the parties, then it is a bilateral contract which requires
+
+only substantial performance of the conditions to be enforceable. However, the
+
+substantial non-performance doctrine is always subject to the express terms of the
+
+contract. In Sail, at para. 50, the court explained:
+
+             Having found that the option in the present case is a
+             clause of the bilateral charter party, it must next be
+             determined whether the parties have expressly provided
+             for literal and strict enforcement of any or all of the terms
+             of this contract. Courts will generally give effect to the
+             parties’ intentions by upholding any clear contractual
+             provisions which provide that the breach of a certain
+             term, no matter how slight, will justify rescission of the
+             entire contract by the non-offending party [Waddams, pp.
+             400-401; Treitel, pp. 694-95; Lombard North Central plc
+             v. Butterwort, [1987] Q.B. 527 (Eng. C.A.) ]. If the parties
+             have made no such provisions, the bilateral nature of the
+             contract in the present case will require that this Court
+             apply the substantial non-performance doctrine.
+
+[28]   Therefore, if the OPA is part of a bilateral agreement, to which the doctrine
+
+of substantial non-performance would generally apply, in order to assess whether
+
+Mr. Doyle’s non-compliance with the requirements for exercising the option
+                                       Page: 14
+
+
+amounted to a breach of the OPA that allowed Jesan to reject the exercise of the
+
+option, the court was required to read the OPA to determine its requirements and
+
+whether there are any provisions that speak to strict performance of the contract,
+
+or, conversely, that allow for some leeway in performance of the contractual
+
+obligations.
+
+[29]   The application judge found that the OPA was part of a bilateral contract
+
+with the OA, and that there was no provision of the contract that required strict
+
+performance of its terms. I agree that the OPA is linked to the OA and that the OPA
+
+is part of a bilateral contract. However, by finding that no clause in the agreement
+
+had the effect of requiring strict performance of the conditions of exercise of the
+
+option, the application judge failed to address a number of specific clauses in the
+
+OPA that speak to the requirement for strict compliance.
+
+[30]   For example, two clauses in the agreement govern the operation of the
+
+monthly option credit toward the down payment. The first is under the heading
+
+“Terms” subparagraph (f) which provides:
+
+               (f) Monthly Option Payment credit will be credited back to
+               the Occupant to go toward their down payment upon
+               successful Agreement to purchase the property. Monthly
+               option payment is only credited for months in which
+               payments are made as agreed, on time. Monthly
+               payment option credit will be forfeited for the month in
+               which monthly payment is not made on time. Should the
+               Occupant not exercise his right to purchase the Property,
+               the Occupant forfeits all monthly option payment credits.
+
+[31]   The second is under the heading “Exercise of Option”:
+                                    Page: 15
+
+
+             …In the event the option is exercised, the Option Deposit
+             shall be credited back to the Occupant. The Monthly
+             Option Payment Credits, if any shall be credited back to
+             the Occupant, for each month the Occupancy Payment
+             has been paid when due. If the Occupancy fee was late
+             for any month, even for one business day, credit will not
+             be given for that month…. [Emphasis added].
+
+[32]   These two provisions make it clear that the monthly option payment of
+
+$375.00 would only be credited toward the down payment for each month that the
+
+rent was paid on time, and that it would not be credited even if payment was late
+
+by only a day. It is indisputable that these provisions speak to strict performance
+
+of the monthly credit provision.
+
+[33]   Other clauses that also speak to the requirement for strict performance are
+
+the two waiver clauses, the time of the essence clause, the entire agreement
+
+clause and the severability clause. I will set out the two waiver clauses and the
+
+time of the essence clause here:
+
+             WAIVER OF CONTRACTUAL RIGHT: The failure of
+             either party to enforce any provision of this Agreement
+             will not be construed as a waiver or limitation of that
+             Party’s right to subsequently enforce and compel strict
+             compliance with every provision of this agreement.
+
+             WAIVERS: No failure of the Owner to enforce any term
+             hereof shall be deemed a waiver, nor shall any
+             acceptance of partial payment of monthly Occupancy
+             payment be deemed a waiver of Owner’s right to full
+             amount of refund.
+
+             TIME: Time shall be of the essence of this Agreement.
+                                      Page: 16
+
+
+[34]   While the application judge briefly discussed the “time is of the essence”
+
+clause in the OPA, she concluded that Jesan waived the right to enforce it because
+
+it had accepted some late lease payments under the OA and the late $20,000
+
+deposit. In reaching the conclusion that Jesan had waived its right to insist on strict
+
+compliance with time requirements in the OPA, the application judge failed to give
+
+effect to the two waiver provisions above.
+
+[35]   While the standard of review for the interpretation of contracts set out in
+
+Creston Moly Corp. v. Sattva Capital Corp., 2014 SCC 53, [2014] 2 S.C.R. 633, is
+
+deferential on issues of fact as well as on the factual aspect of questions of mixed
+
+fact and law, the failure to read a disputed contract as a whole is a question of law:
+
+Sattva, at paras. 53, 63-64. Since the application judge did not consider the
+
+specific clauses in the contract which contradict her findings, and there is no
+
+indication that she took them into account when interpreting the contract, she
+
+committed an error of law and no deference is owed on appeal: Fuller v. Aphria
+
+Inc., 2020 ONCA 403, at para. 50; Thunder Bay (City) v. Canadian National
+
+Railway Company, 2018 ONCA 517, 424 D.L.R. (4th) 588, at para. 46, leave to
+
+appeal to S.C.C. refused, 38247 (March 28, 2019).
+
+[36]   With the whole contract in mind, the court must reconsider the three
+
+impugned instances of non-compliance with the conditions for the notice to
+
+exercise the option to purchase: 1) the timing; 2) the method of delivery; 3) the
+
+$1000 deposit.
+                                      Page: 17
+
+
+(a)    Timing of the Notice
+
+[37]   The OPA provides under “Exercise of Option” that the option “may be
+
+exercised 60 days prior to the end of the term of the [OA] unless mutually agreed
+
+to accelerate the Option, but not earlier than 2 years.” Another provision, entitled
+
+“Expiration of Option”, provides that “Notice of Intent to purchase may be made at
+
+least 90 days before the last day of the term of the [OA]. If notice is not received
+
+and/or the property is not purchased, the Option to Purchase expires.”
+
+[38]   As noted, the OPA also contains a clause that makes time of the essence.
+
+A “time is of the essence” clause is engaged where a time limit is stipulated in a
+
+contract. It means that a time limit in an agreement is essential such that breach
+
+of the time limit will permit the innocent party to terminate the contract. Di Millo v.
+
+2099232 Ontario Inc., 2018 ONCA 1051, 430 D.L.R. (4th) 296, at paras. 32-33,
+
+leave to appeal refused, [2019] S.C.C.A. No. 55.
+
+[39]   Despite the timing requirements, and the time of the essence clause, the
+
+application judge concluded that Jesan could not insist on strict compliance with
+
+these provisions. She concluded that time was not of the essence because Jesan
+
+accepted some late lease payments and a late deposit and had thereby waived
+
+the time of the essence requirement. She also found the terms of exercise of the
+
+option ambiguous on the issue of timing. She noted that the OPA references both
+
+a 60 day and 90 day notice period, and uses the word “may” rather than “must”.
+                                     Page: 18
+
+
+Accordingly, “one interpretation”, she stated, “is that the earliest Mr. Doyle could
+
+exercise the option was 60 days before the end of the OA term, unless the parties
+
+agreed to an earlier date.” [Emphasis added]. She concluded that if Jesan had
+
+wanted strict timing compliance, it should have drafted the terms in an
+
+unambiguous and internally consistent way.
+
+[40]   In my view, the application judge erred in law by effectively reading out the
+
+timing requirements of the notice provision. Jesan was entitled to insist on strict
+
+compliance with the timely notice requirements of the OPA.
+
+[41]   First, Jesan did not waive the time of the essence clause by accepting a late
+
+deposit and some late lease payments by etransfer. The application judge’s
+
+conclusion to that effect ignores the waiver clauses that state that any non-
+
+enforcement of any right under the contract will not be construed as a waiver of
+
+strict compliance with the Agreement.
+
+[42]   Second, there was no ambiguity in this case. While the agreement
+
+contemplates both a 60 day and a 90 day notice, which in some circumstances
+
+could create ambiguity, such circumstances did not arise in this case. The notice
+
+was given 25 days before the end of the lease term.
+
+[43]   The use of the word “may”, rather than “must”, similarly does not create any
+
+ambiguity. Mr. Doyle was not required to exercise the option to purchase. But if he
+
+did, then it had to be exercised at least 60 days prior to the end of the OA.
+                                     Page: 19
+
+
+Moreover, there is no indication that the parties understood the OPA as operating
+
+in the manner proffered by the application judge. During cross-examination, Mr.
+
+Doyle agreed that the OPA required him to exercise his option to purchase “60
+
+days prior to the end of the term”. He did not suggest that his February 3 notice
+
+was in time. Rather, he claimed that he in fact had exercised the option 60 days
+
+prior to the end of the OA term – an assertion the application judge considered and
+
+rejected in her findings of fact.
+
+[44]   As time was of the essence of the agreement and any forgiveness of late
+
+payment under the OA could not be construed as a waiver of the requirement of
+
+strict compliance with the time of the essence provision, the notice of exercise of
+
+the option was not made in a timely manner and was ineffective under the
+
+agreement. Jesan was entitled to insist on strict compliance with the timing
+
+requirements in the OPA and treat the OPA as terminated when notice was not
+
+provided in time. In the context of strict compliance analysis, a notice delivered 35
+
+days late was not de minimis.
+
+(b)    Method of Delivery
+
+[45]   The “Exercise of Option” clause required that the notice be delivered by
+
+registered mail to the address set out in the agreement or by personal service. As
+
+no address for Jesan was set out on the agreement, service by registered mail in
+
+compliance with the agreement was not possible. However, there was no
+                                      Page: 20
+
+
+impediment to personal service. Had the notice by email been delivered on time,
+
+an argument could have been made that the email constituted substantial
+
+performance of the contract, if it was proved that the notice came to the attention
+
+of Jesan. However, because it was delivered out of time, that issue need not be
+
+finally decided.
+
+(c)    $1000 Deposit
+
+[46]   The “Exercise of Option” clause states that the option is to be exercised by
+
+a written notice of intent “and by an additional deposit in the amount of $1000.00
+
+(CDN)” payable in trust to the owner’s solicitor. In this case, the amount was paid,
+
+not as part of the notice of intention to exercise the option, but later as part of the
+
+agreement of purchase and sale on the second offer. Based on what occurred, no
+
+deposit was ever paid with the notice of intent.
+
+[47]   I disagree with the application judge’s conclusion that the deposit could be
+
+paid after the OA had expired because its timing requirement was ambiguous. The
+
+“Exercise of Option” clause states that “The option may be exercised 60 days prior
+
+to the end of the term of the [OA]…and shall be exercised by mailing or personally
+
+delivering written notice of intent to purchase to the owner and by an additional
+
+deposit in the amount of $1,000.00 (CDN).” [Emphasis added]. The option is only
+
+exercised upon receipt of written notice of intent and a $1000 deposit. Without a
+                                     Page: 21
+
+
+deposit paid 60 days before the end of the OA, the option to purchase would expire
+
+because it had not been properly exercised.
+
+[48]   In any event, even if the timing for the deposit payment is ambiguous, Mr.
+
+Doyle was not entitled to pay the deposit anytime, as the application judge’s
+
+reasons imply. When an agreement does not expressly reference a time for
+
+performance, the law will imply a term that it must be performed within a
+
+reasonable time: Ju v. Tahmasebi, 2020 ONCA 383, 447 D.L.R. (4th) 349, at para.
+
+20; Di Millo, at para. 38. Here, the $1500 purportedly satisfying the $1000 OPA
+
+deposit requirement was paid on March 3, 2017, after the expiry of the term of the
+
+OA. In the circumstances of this case, this could not be payment within a
+
+reasonable time.
+
+Conclusion: Issue 1
+
+[49]   In my view, the application judge erred in law by failing to analyze the
+
+deficiencies in compliance with the conditions of the exercise of the option in the
+
+context of the specific contractual requirements of non-waiver and the time of the
+
+essence provision. She also made a palpable and overriding error by finding that
+
+the payment of the $1000 deposit satisfied the condition of exercise of the option
+
+when no deposit of $1000 was paid until a new agreement was reached.
+
+[50]   I conclude that in light of the failure by Mr. Doyle to exercise the option in
+
+accordance with the requirements of the OPA, Jesan was entitled to reject the
+                                     Page: 22
+
+
+notice of intent. Although Jesan’s motivation for rejecting the notice may well have
+
+been because of the increase in value of the property, his legal entitlement to take
+
+that position was justified only by Mr. Doyle’s failure to comply with the OPA in
+
+exercising the option to purchase.
+
+Issue 2: Was the second agreement a new contract or an extension of the
+
+OPA?
+
+[51]   The agreement of purchase and sale for $550,000 was entered into
+
+following Jesan’s rejection of the notice of exercise of the option. That agreement
+
+included a deposit of $35,000 which was made up of the same components
+
+contemplated by the OPA, but with an additional $500. The application judge
+
+viewed the parties’ treatment of this deposit as evidence that the OPA was not null
+
+and void. Mr. Doyle tried to exercise his right under the OPA to a six-month
+
+extension of the agreement, as if the agreement was made in accordance with and
+
+was governed by the OPA. By dismissing Jesan’s application for an order declaring
+
+the OPA null and void, the application judge appeared to find that the OPA had not
+
+been terminated.
+
+[52]   However, in so concluding, the application judge failed to consider the
+
+“Expiration of Option” provision of the OPA, which provides that where the option
+
+is not exercised, the agreement expires. In this case, Mr. Doyle did not exercise
+
+the option in accordance with the conditions of the OPA. As a result, the OPA
+                                       Page: 23
+
+
+expired. The agreement of purchase and sale for $550,000 was a new agreement.
+
+While it included the same credit for the deposit as Jesan had agreed to in the
+
+OPA, that did not have the effect of extending the OPA in contradiction to its
+
+express terms. As a result, Mr. Doyle was not entitled to the six-month extension
+
+provided in the OPA.
+
+Issue 3: Is the deposit of $35,000 to be forfeited to Jesan or is Mr. Doyle
+
+entitled to any relief from forfeiture?
+
+[53]   The deposit of $35,000 consisted of the $20,000 initially paid in 2014 and
+
+referred to as the Initial Option Deposit in the OPA; $375 per month for 33 months
+
+of the lease, plus $375 for three months that had to be made up because of three
+
+late lease payments that became disqualified for credit under the terms of the OPA;
+
+plus the $1500 extra deposit paid on March 3, 2017.
+
+[54]   When a purchaser fails to close an agreement of purchase and sale, the
+
+vendor is entitled to retain the deposit regardless of whether he or she suffers a
+
+loss, subject to the court’s ability to grant relief from forfeiture: Azzarello v. Shawqi,
+
+2019 ONCA 820, 439 D.L.R. (4th) 127, at paras. 45-47, leave to appeal to S.C.C.
+
+refused, 38982 (April 16, 2020):
+
+             However, forfeiture is always subject to the equitable
+             remedy of relief from forfeiture. Section 98 of the Courts
+             of Justice Act, R.S.O. 1990, c. C.43, provides that: “[a]
+             court may grant relief against penalties and forfeitures,
+             on such terms as to compensation or otherwise as are
+             considered just.” In Stockloser v. Johnson, [1954] 1 Q.B.
+                                     Page: 24
+
+
+             476 (Eng. C.A.), the English Court of Appeal set out the
+             two pronged test that has been followed in Ontario for
+             applying the relief from forfeiture provision: 1) whether
+             the forfeited deposit was out of all proportion to the
+             damages suffered; and 2) whether it would be
+             unconscionable for the seller to retain the deposit:
+             Redstone at para. 15 (para. 47).
+
+[55]   In Redstone Enterprises Ltd. v. Simple Technology Inc., 2017 ONCA 282,
+
+137 O.R. (3d) 374, the court stated at para. 25 that “the finding of unconscionability
+
+must be an exceptional one, strongly compelled on the facts of the case.” Where
+
+there is no gross disproportionality in the size of the deposit, the court must
+
+consider other indicia of unconscionability. The list of the indicia of
+
+unconscionability is never closed and is context specific. Relevant factors include
+
+the gravity of the breach and the conduct of the parties: Redstone, at paras. 29-
+
+30.
+
+[56]   In order to consider the question whether forfeiture of the deposit is
+
+unconscionable, the following facts are relevant:
+
+       (a) $20,000 of the deposit was paid as the initial option deposit under the
+
+           OPA which provides in Term e) that the initial deposit is non-refundable
+
+           and will be forfeited if the right to purchase is not exercised;
+
+       (b) the credits of $375/month from the monthly rental were also credited to
+
+           the deposit in accordance with the OPA Term f) which provides that if
+
+           the option is not exercised, then the monthly credits are forfeited;
+                                      Page: 25
+
+
+       (c) the amounts paid in March 2017 were the $1500 deposit and the $1125
+
+             to replace three monthly credits for months when the rent was paid late;
+
+       (d) Jesan suffered no loss as the value of the property had increased;
+
+       (e) Jesan did not try to accommodate Mr. Doyle by granting an amendment
+
+             to help him secure financing, but it is unclear whether that would have
+
+             made any difference to the outcome.
+
+[57]   In my view, it is not unconscionable for Jesan to retain the $20,000 initial
+
+deposit and the 33 monthly credits. These amounts had been paid under the OPA,
+
+and the respondents had agreed in the OPA that those amounts would be forfeited
+
+if the option to purchase was not exercised. While this was a new agreement, I see
+
+no basis for finding unconscionability with respect to those amounts.
+
+[58]   However, in the circumstances, it would be unconscionable for Jesan to
+
+retain the amounts paid in March 2017 to top up the deposit (the $1500 deposit
+
+and $1125 monthly credit payments), when Jesan suffered no loss and took no
+
+steps to try to facilitate Mr. Doyle securing financing to close the transaction.
+
+Issue 4: Is Jesan entitled to an order for a writ of possession?
+
+[59]   The OA provides for a three year lease term ending on February 28, 2017.
+
+Under the heading “Applicable Law”, there is a handwritten statement that “This is
+
+not a tenancy under the Landlord and Tenant Act of Ontario.” This addition is not
+
+initialed.
+                                              Page: 26
+
+
+[60]    Regardless of the validity or effectiveness of the handwritten addition, the
+
+bigger problem is that the agreement is, in fact, a residential lease governed by
+
+the Residential Tenancies Act, 2006, S.O. 2006, c. 17 (“RTA”).1 The RTA does not
+
+allow contracting out of its provisions: ss.3(1), s.4; Matthews v. Algoma
+
+Timberlakes Corp., 2010 ONCA 468, 102 O.R. (3d) 590, at para. 24, leave to
+
+appeal refused, [2010] S.C.C.A. No. 369. Although this issue was not addressed
+
+by the application judge or referred to by the parties in their factums, the provisions
+
+of the RTA regarding security of tenure govern the issue of eviction: see. RTA,
+
+Part V. Since the Landlord and Tenant Board has exclusive jurisdiction to
+
+determine applications between landlords and tenants under the RTA, Jesan and
+
+the respondents must have their possessory rights determined before that Board:
+
+ss.168(2).
+
+Conclusion
+
+[61]    In the result, I would allow the appeal and set aside the order of the
+
+application judge dismissing Jesan’s application. I would grant the application for
+
+an order that the OPA is terminated. I would grant the order for forfeiture of $32,375
+
+of the deposit to Jesan and order the balance to be paid to Mr. Doyle. I would not
+
+order a writ of possession as that matter must be addressed by the Landlord and
+
+
+
+
+1 The OA states that the “premises shall be used as a residence” and the OPA further confirms that the
+
+agreement is “first and foremost a residential occupancy agreement.”
+                                     Page: 27
+
+
+Tenant Board if the parties cannot agree. Finally, I would order costs of the appeal
+
+to Jesan based on its success on the main issue and substantial success on the
+
+forfeiture issue. If the parties cannot agree on the amount of costs, they may each
+
+make brief (3 pages) written submissions within four weeks of the release of these
+
+reasons.
+
+Released: “K.F.” November 10, 2020
+
+                                             “K. Feldman J.A.”
+                                             “I agree. Fairburn J.A.”
+                                             “I agree. I.V.B. Nordheimer J.A.”
+

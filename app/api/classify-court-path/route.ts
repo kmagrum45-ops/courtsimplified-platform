@@ -1,6 +1,13 @@
 import { NextResponse } from "next/server";
 
-import { classifyCourtPath } from "../../../src/lib/case-system/intelligence/courtPathClassifier";
+import {
+  classifyCourtPath,
+  statedDollarAmounts,
+} from "../../../src/lib/case-system/intelligence/courtPathClassifier";
+import {
+  hasSeveralMattersContent,
+  selectCrossForumNotes,
+} from "../../../src/lib/content-library/crossForumNotes";
 
 /**
  * Thin server wrapper around the existing court-path classifier.
@@ -44,7 +51,14 @@ export async function POST(request: Request) {
 
   try {
     const classification = await classifyCourtPath({ story, declaredCourtPath });
-    return NextResponse.json(classification);
+    // Which fixed, sourced connection notes the story's topics call for. Ids
+    // only: the page renders the registry's own text for each.
+    const amounts = statedDollarAmounts(story);
+    return NextResponse.json({
+      ...classification,
+      crossForumNoteIds: selectCrossForumNotes(classification.matters, amounts).map((note) => note.id),
+      showSeveralMatters: hasSeveralMattersContent(classification.matters, amounts),
+    });
   } catch (error) {
     // classifyCourtPath is documented as never throwing. If that ever changes,
     // the intake must still be able to continue, so fail open and let the
@@ -62,6 +76,9 @@ export async function POST(request: Request) {
         reasoning: "Classification unavailable.",
         source: "ai-error",
         aiCalled: false,
+        matters: { issues: [], severalOtherParties: false, earlierDecision: false },
+        crossForumNoteIds: [],
+        showSeveralMatters: false,
       },
       { status: 200 },
     );

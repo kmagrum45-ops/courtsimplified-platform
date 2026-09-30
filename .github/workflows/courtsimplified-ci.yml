@@ -158,6 +158,9 @@ jobs:
       - name: Unapproved capabilities are on only as flagged testing, behind the site password
         run: npm run test:a2i-scope
 
+      - name: Connection notes quote their sources exactly
+        run: npm run test:cross-forum-notes
+
       - name: AI model configuration verification
         run: npm run test:ai-models
 

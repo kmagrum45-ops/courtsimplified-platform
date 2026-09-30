@@ -76,6 +76,7 @@
     "test:scenario-matrix": "node --import tsx scripts/verification/verifyScenarioMatrix.ts",
     "test:scenario-registry": "node --import tsx scripts/verification/verifyScenarioRegistry.ts",
     "test:story-answer-proposals": "node --import tsx scripts/verification/verifyStoryAnswerProposals.ts",
+    "test:cross-forum-notes": "node --import tsx scripts/verification/verifyCrossForumNotes.ts",
     "test:overview-relevance": "node --import tsx scripts/verification/verifyOverviewRelevance.ts",
     "test:a2i-scope": "node --import tsx scripts/verification/verifyA2iScope.ts",
     "test:case-review": "node --import tsx scripts/verification/verifyCaseReview.ts",

@@ -60,6 +60,14 @@ export type ReviewStory = {
     mustNotAsk?: string[];
     /** Questions this person must reach, asked or offered from the story. */
     mustReach?: string[];
+    /**
+     * Matter kinds the story plainly contains (crossForumNotes.ts IssueKind).
+     * Each must be among the classifier's listed issues. Checked only when
+     * the model ran; other kinds may also appear.
+     */
+    matterKinds?: string[];
+    /** Connection notes the story's topics must select. Others may also appear. */
+    notes?: string[];
   };
 };
 
@@ -877,5 +885,136 @@ export const STORIES: ReviewStory[] = [
       "My neighbour built a garage that sits two feet onto my property according to my survey. I want the " +
       "court to make him move it. I'm not really after money.",
     expect: { courtPath: ["civil"], safety: ["clear"] },
+  },
+  // ---- Complex, multi-matter stories (2026-09-30) --------------------------
+  // Fabricated facts, patterned on the questions the Court of Appeal and the
+  // statutes answer about how parts of one dispute divide between forums
+  // (docs/sources/decisions/, src/lib/content-library/crossForumNotes.ts).
+  {
+    id: "MX1-fired-after-accommodation-and-unpaid",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Firing, a protected ground and unpaid wages in one story.",
+    story:
+      "I worked at a restaurant for three years. In June I told my manager I needed Friday afternoons off for " +
+      "prayers, and two weeks later he fired me, saying business was slow. He still hasn't paid my last two " +
+      "weeks, about $2,400, and I got no termination pay.",
+    expect: {
+      courtPath: ["small-claims", "mixed", "out-of-scope"],
+      safety: ["clear"],
+      role: "plaintiff",
+      matterKinds: ["employment-termination", "discrimination"],
+      notes: ["cross-forum:employment-standards-or-court", "cross-forum:human-rights-with-another-claim"],
+    },
+  },
+  {
+    id: "MX2-tenant-injured-by-unrepaired-ceiling",
+    area: "tribunal",
+    side: "applicant",
+    note: "A current tenancy, a repair failure, an injury and damaged belongings.",
+    story:
+      "My landlord has ignored the leak in my apartment ceiling since March. Last week part of the ceiling fell " +
+      "and hit me on the head. I needed stitches and missed a week of work, and my couch and laptop were " +
+      "ruined, about $3,000 worth.",
+    expect: {
+      courtPath: ["out-of-scope", "small-claims", "mixed"],
+      safety: ["clear"],
+      matterKinds: ["residential-tenancy", "injury"],
+      notes: ["cross-forum:tenancy-and-court"],
+    },
+  },
+  {
+    id: "MX3-cyclist-two-drivers",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "One injury, two people each blaming the other.",
+    story:
+      "I was riding my bike downtown when a delivery van driver opened his door right in front of me, and a car " +
+      "behind me swerved and ran over my bike. I broke my wrist and the bike, worth $2,000, is destroyed. The van " +
+      "driver says it was the car's fault and the car driver blames the van.",
+    expect: {
+      courtPath: ["small-claims", "civil"],
+      safety: ["clear"],
+      role: "plaintiff",
+      matterKinds: ["injury"],
+      notes: ["cross-forum:several-people-at-fault"],
+    },
+  },
+  {
+    id: "MX4-ltb-order-unpaid",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "An earlier Board order plus a new claim against the same former landlord.",
+    story:
+      "In March the Landlord and Tenant Board ordered my former landlord to pay me back my $1,800 rent deposit, " +
+      "and he still hasn't paid. When I moved out he also threw out my dining table and chairs, which cost me $900.",
+    expect: {
+      courtPath: ["small-claims", "out-of-scope", "mixed"],
+      safety: ["clear"],
+      role: "plaintiff",
+      notes: ["cross-forum:earlier-decision"],
+    },
+  },
+  {
+    id: "MX5-renovation-over-limit-split",
+    area: "civil",
+    side: "plaintiff",
+    note: "A claim above the Small Claims limit, and a plan to split it.",
+    story:
+      "My contractor walked off my home renovation halfway through. I paid him $85,000 and another company says " +
+      "it will cost $70,000 more to finish. A friend said I could sue him in Small Claims twice so each claim is " +
+      "under the limit.",
+    expect: {
+      courtPath: ["civil"],
+      safety: ["clear"],
+      matterKinds: ["debt-or-contract"],
+      notes: ["cross-forum:over-small-claims-limit"],
+    },
+  },
+  {
+    id: "MX6-separation-and-family-loan",
+    area: "family",
+    side: "applicant",
+    note: "A settled family arrangement and a separate unpaid loan.",
+    story:
+      "My ex-husband and I separated last year. We share the kids and he pays child support, and that part is " +
+      "fine. But before we split, my mother and I lent him $15,000 for his truck, and now he refuses to pay any " +
+      "of it back.",
+    expect: {
+      courtPath: ["family", "small-claims", "mixed"],
+      safety: ["clear"],
+      matterKinds: ["family", "debt-or-contract"],
+    },
+  },
+  {
+    id: "MX7-esa-complaint-then-sue",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "An employment standards complaint already filed, and a wish to sue for the same pay.",
+    story:
+      "My employer didn't pay me for my last three weeks of work, about $3,600. I filed a complaint with the " +
+      "Ministry of Labour last month but haven't heard back, and now I want to sue him in Small Claims as well.",
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      role: "plaintiff",
+      matterKinds: ["employment-pay"],
+      notes: ["cross-forum:employment-standards-or-court"],
+    },
+  },
+  {
+    id: "MX8-neighbour-posts-and-gate",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Defamation and property damage by the same neighbour.",
+    story:
+      "My neighbour keeps posting in our street's Facebook group that I poison cats, which is a lie, and last " +
+      "month he kicked in my fence gate after an argument. Fixing the gate cost me $650.",
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      role: "plaintiff",
+      matterKinds: ["defamation", "property-damage"],
+    },
   },
 ];
