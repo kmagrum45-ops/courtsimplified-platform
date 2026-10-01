@@ -664,7 +664,7 @@ export const PRINCIPLES: PrincipleCard[] = [
     keyFacts: [
       // Was "at least 1 day's notice", which no rule says (2026-09-30 audit).
       "Generally, no motion may be served or heard before a conference dealing with the substantive issues has been completed, unless the court finds urgency, hardship or another reason in the interest of justice, and some motions are excepted (r. 14(4), (4.2), (6)).",
-      "A party making a motion with notice must serve the documents on all other parties at least six days before the motion date, file them at least four days before it, confer or try to confer with the other parties, and give the clerk a confirmation of motion (Form 14C) by 2 p.m. three days before (r. 14(11)).",
+      "A party making a motion with notice must serve the documents on all other parties at least six days before the motion date, file them at least four days before it, confer or try to confer with the other parties, give every other party a copy of the confirmation of motion (Form 14C), and then give it to the clerk by 2 p.m. three days before (r. 14(11)).",
       "A motion may be made without notice only in the situations listed in r. 14(12), such as an immediate danger to the health or safety of a child or of the party making the motion where the delay of serving notice would probably have serious consequences.",
       "An order made on a motion without notice must require the matter to come back to court within 14 days or on a date chosen by the court (r. 14(14)).",
     ],
