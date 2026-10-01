@@ -1342,3 +1342,29 @@ What broke the moment those pages became checkable, so it is not rediscovered:
   or the Ontario Court of Justice. "Family Court" as a single forum is wrong.
 - **Human Rights Code claims cannot be started in court on their own**
   (s. 46.1(2)); don't list "human rights" as a civil claim type.
+
+## Whole-corpus re-fetch and comparison (2026-09-30)
+
+All 203 sources were re-fetched (Vendor Sources run 36792894579) and each was
+compared word by word with the committed copy after normalising typography.
+**No English legal text had changed.** Differences were: French equivalents
+now decoded with accents; curly quotes and dashes; non-breaking spaces; page
+notices (CAT platform outage, HRTO new forms). Findings worth keeping:
+
+- **The fetcher now returns curly apostrophes**, so a required marker written
+  with a straight one fails: `municipal-act-2001` ("not liable for a") and
+  `occupiers-liability-act` ("Occupiers' Liability Act") were reported FAILED
+  for that reason alone. Their committed copies are unaffected.
+- **Adopting the re-fetched files is not free**: with curly quotes, 4 suites
+  (form index, glossary, published library, generic library) fail their
+  verbatim checks. The committed copies were kept; the manifest hashes, which
+  had been overwritten by an earlier re-fetch whose files were never
+  committed, were reset to the committed files (each entry carries a
+  `hashNote`). `test:rules-corpus` passes again and is now in CI.
+- **Known defect in the committed Rules of Civil Procedure**: r. 53.10's
+  discount rate reads "less per cent" where the source says "less 1½ per
+  cent" -- the ½ was lost to encoding. No content quotes it; do not quote it
+  from this copy.
+- Hashing: the suite hashes the file as read, **with CRLF intact**. Python's
+  default newline translation produced wrong hashes for three CRLF files
+  (divorce-act, federal guidelines, SCJ steps); use `newline=''`.

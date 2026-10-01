@@ -182,6 +182,9 @@ jobs:
       - name: Every Source link opens a public page
         run: npm run test:source-links
 
+      - name: The vendored law is unedited and current-consolidation
+        run: npm run test:rules-corpus
+
       - name: The published stage answers are the promoted, gated set
         run: npm run test:published-library
 
