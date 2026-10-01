@@ -226,7 +226,7 @@ async function resolveCasePositionInner(
         forum: scope.outOfScopeForum,
         confidence: scope.confidence,
         reasoning: scope.reasoning,
-        stage: await resolveStageWithModel(story, options.model, options.knownRole),
+        stage: await resolveStageWithModel(story, options.model, options.knownRole, BOUNDARY_ALREADY_FLAGGED),
       };
     }
     return { kind: "out-of-scope", forum: scope.outOfScopeForum, confidence: scope.confidence };
@@ -271,7 +271,7 @@ async function resolveCasePositionInner(
       forum: scope.outOfScopeForum,
       confidence: scope.confidence,
       reasoning: scope.reasoning,
-      stage: await resolveStageWithModel(story, options.model, options.knownRole),
+      stage: await resolveStageWithModel(story, options.model, options.knownRole, BOUNDARY_ALREADY_FLAGGED),
     };
   }
 
@@ -299,15 +299,29 @@ async function resolveCasePositionInner(
  * `withAiCallIdentity`, not from an enclosing context). So an existing context
  * wins and this only fills the gap.
  */
+/*
+ * *** THE RESOLVER'S BACKSTOP DOES NOT OVERRULE A FLAGGED BOUNDARY ***
+ *
+ * On a boundary-unclear position the classifier has already said "this may be
+ * the LTB, or it may be Small Claims, and nobody can source which". The stage
+ * resolver's out-of-scope backstop (prompt rule 9) exists to catch matters the
+ * classifier let through UNFLAGGED. Letting it fire here re-decides the very
+ * line the classifier declined to decide, and on 2026-10-01 it did: "my old
+ * landlord kept my last month's rent deposit" went from boundary-unclear to
+ * turned-away. Here the backstop is ignored and the caveat does the work.
+ */
+const BOUNDARY_ALREADY_FLAGGED = true;
+
 export async function resolveStageWithModel(
   story: string,
   model?: string,
   knownRole?: "plaintiff" | "defendant" | null,
+  boundaryAlreadyFlagged = false,
 ): Promise<StageResolution> {
   return currentAiCallContext()
-    ? resolveStageInner(story, model, knownRole)
+    ? resolveStageInner(story, model, knownRole, boundaryAlreadyFlagged)
     : withAiCallContext({ callType: "stage-resolver" }, () =>
-        resolveStageInner(story, model, knownRole),
+        resolveStageInner(story, model, knownRole, boundaryAlreadyFlagged),
       );
 }
 
@@ -326,6 +340,7 @@ async function resolveStageInner(
   story: string,
   model: string | undefined,
   knownRole?: "plaintiff" | "defendant" | null,
+  boundaryAlreadyFlagged = false,
 ): Promise<StageResolution> {
   try {
     const client = createOpenAIClient();
@@ -342,7 +357,9 @@ async function resolveStageInner(
     });
 
     const content = response.choices[0]?.message?.content;
-    return resolveFromModelOutput(content ? (JSON.parse(content) as StageModelOutput) : null);
+    const output = content ? (JSON.parse(content) as StageModelOutput) : null;
+    if (output && boundaryAlreadyFlagged) output.outOfScope = false;
+    return resolveFromModelOutput(output);
   } catch {
     return resolveFromModelOutput(null);
   }

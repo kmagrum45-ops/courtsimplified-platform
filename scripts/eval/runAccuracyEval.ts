@@ -535,7 +535,7 @@ function report(
   );
   console.log(
     `  through a block    ${deadlines.throughPublishedBlock}/${deadlines.total}                     ` +
-      `     the runtime door end to end; the rest have no published block yet`,
+      `     the runtime door end to end; the rest are arithmetic cases with no stage of their own`,
   );
 
   /*
