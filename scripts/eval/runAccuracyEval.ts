@@ -148,6 +148,9 @@ async function classify(story: Story): Promise<CasePosition> {
     return await resolveCasePosition(story.text, {
       model: MODEL,
       knownCourtPath: knownCourtPathFor(story),
+      // The side on the case record, as the product holds it. Set on the story
+      // from what it is, never from its expected answer (see accuracyStories).
+      knownRole: story.knownRole ?? null,
     });
   } catch (error) {
     console.error(`  ${story.id}: ${error instanceof Error ? error.message : String(error)}`);

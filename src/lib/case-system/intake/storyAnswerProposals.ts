@@ -155,6 +155,7 @@ Rules:
 - Write the answer in plain words, as the person would, using their facts. Keep it short.
 - For a question with choices, the answer must be exactly one of the listed choices, copied exactly.
 - For a yes/no question, begin the answer with "Yes" or "No".
+- Which side the person is on is stated by what they want: someone who says they want their money or property back from another person, or want to take them to court, and says nothing about being sued, is bringing the claim. Someone who says they have been sued or served with a claim is responding to it.
 - "storyQuote" must be words copied exactly, character for character, from the account, that show where the answer comes from. Copy a short phrase, not a whole paragraph.
 
 Return a JSON object: {"proposals": [{"questionId": "...", "answer": "...", "storyQuote": "..."}]}. Return {"proposals": []} if nothing is answered.`;

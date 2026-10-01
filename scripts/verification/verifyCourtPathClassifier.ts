@@ -554,6 +554,35 @@ async function main() {
   checks += 1;
   console.log("   [real-workplace-injury] accepted, as it must be");
 
+  /*
+   * 2026-10-01: the former-tenant boundary applies to the MODEL's LTB answer,
+   * not only the keyword path. A confident LTB payload on an ended tenancy is
+   * capped below the scope floor; on a current tenancy it is left alone.
+   */
+  const ltbPayload = {
+    primaryPath: "out-of-scope",
+    outOfScopeForum: "ltb",
+    confidence: 0.9,
+    reasoning: "Tenancy matter.",
+  } as unknown as Parameters<typeof coerceModelPayload>[0];
+  const ended = coerceModelPayload(
+    ltbPayload,
+    "unknown",
+    "My old landlord kept my last month's rent deposit when I moved out in June and won't give it back.",
+  );
+  assert.ok(
+    ended.confidence <= 0.3,
+    "a model LTB call on an ended tenancy must be capped at 0.3 — the boundary is unsourceable",
+  );
+  const current = coerceModelPayload(
+    ltbPayload,
+    "unknown",
+    "My landlord gave me a notice to end my tenancy and wants me out by the end of the month.",
+  );
+  assert.equal(current.confidence, 0.9, "a current tenancy LTB call must not be capped");
+  checks += 2;
+  console.log("   [ltb-ended-tenancy] model LTB call capped; current tenancy untouched");
+
   // And the end-to-end path stays in scope, offline, so the classifier as a
   // whole cannot regress even if the refusal moves.
   const icyEndToEnd = await classifyCourtPath({

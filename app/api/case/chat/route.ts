@@ -37,11 +37,18 @@ type Body = {
   message?: unknown;
   caseContext?: unknown;
   caseId?: unknown;
+  /** The side recorded at intake ("plaintiff" | "defendant"). Optional. */
+  role?: unknown;
   courtPath?: unknown;
   dateAnswers?: unknown;
   /** Facts the reader confirmed. See the stage map's requiresConfirmedFact. */
   confirmedFacts?: unknown;
 };
+
+/** The side recorded at intake, if the caller sends one. Anything else is ignored. */
+function roleFrom(value: unknown): "plaintiff" | "defendant" | null {
+  return value === "plaintiff" || value === "defendant" ? value : null;
+}
 
 function text(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
@@ -122,7 +129,7 @@ export async function POST(request: Request) {
    */
   const currentStage = caseContext
     ? await withAiCallContext({ callType: "stage-resolver", caseId }, async () => {
-        const position = await resolveCasePosition(caseContext, { knownCourtPath: courtPath });
+        const position = await resolveCasePosition(caseContext, { knownCourtPath: courtPath, knownRole: roleFrom(body.role) });
         if (position.kind === "out-of-scope") return null;
         const stage = position.stage;
         if (stage.kind !== "suggested") return null;

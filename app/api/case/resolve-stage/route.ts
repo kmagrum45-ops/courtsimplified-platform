@@ -54,6 +54,8 @@ const MAX_CONTEXT_BYTES = 20_000;
 type Body = {
   caseContext?: unknown;
   caseId?: unknown;
+  /** The side recorded at intake ("plaintiff" | "defendant"). Optional. */
+  role?: unknown;
   courtPath?: unknown;
   /**
    * Answers to the date questions, keyed by question bank id. All optional.
@@ -76,6 +78,11 @@ type Body = {
    */
   confirmedFacts?: unknown;
 };
+
+/** The side recorded at intake, if the caller sends one. Anything else is ignored. */
+function roleFrom(value: unknown): "plaintiff" | "defendant" | null {
+  return value === "plaintiff" || value === "defendant" ? value : null;
+}
 
 function text(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
@@ -303,7 +310,7 @@ export async function POST(request: Request) {
   }
 
   const position = await withAiCallContext({ callType: "stage-resolver", caseId }, async () => {
-    const resolved = await resolveCasePosition(caseContext, { knownCourtPath: courtPath });
+    const resolved = await resolveCasePosition(caseContext, { knownCourtPath: courtPath, knownRole: roleFrom(body.role) });
 
     const stage = resolved.kind === "out-of-scope" ? null : resolved.stage;
     recordAiValidation(
