@@ -2154,16 +2154,22 @@
   {
    "key": "sc-claim-vehicle-repair-dispute|plaintiffElement|estimate-or-max-agreed",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
-   "fingerprint": "a19cf1ad06e4a7115a3d85f4e9f9820cc5eafcf79e4d198bbc2ce7a823aa58d7",
+   "outcome": "corrected",
+   "fingerprint": "a604654c28915505efe6f470a740c2a142ec506f467d170179d6ba6968ae9001",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/page/car-repair-shops-your-rights",
      "pinpoint": "Car repair shops: your rights — estimates",
      "quote": "Before a repair shop can charge you, they must have given you a written estimate, unless you declined it and instead agreed on a maximum amount you are willing to pay for the repair."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 56 (1)-(2)",
+     "quote": "No repairer shall charge a consumer for any work or repairs unless the repairer first gives the consumer an estimate that meets the prescribed requirements. ... the cost charged for the work or repairs does not exceed the maximum amount authorized by the consumer."
     }
    ],
-   "howRead": "https://www.ontario.ca/page/car-repair-shops-your-rights: web fetch"
+   "howRead": "https://www.ontario.ca/page/car-repair-shops-your-rights: web fetch",
+   "problemCorrected": "Second random-sample audit 2026-09-30: Dropped the s. 56 (2) (c) condition (the charge may not exceed the authorized maximum) and addressed the reader as \"you\"."
   },
   {
    "key": "sc-claim-vehicle-repair-dispute|plaintiffElement|charged-over-permitted-limit",
@@ -3554,7 +3560,7 @@
    "key": "DEFENCE_CONCEPTS|defenceConcept|defence-limitation-period-expired",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "1434ee7aaa499d2a53191da24d713ee144cf0cc32e3c155727365a3c70d35202",
+   "fingerprint": "493f7abb602f0456ea271614b08bf13425cf19bbd5e0f830e4cb39e6c2112b56",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -3575,10 +3581,15 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "Limitations Act, 2002, s. 5(2)",
      "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5 (1) (a) (iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
    "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
-   "problemCorrected": "The source does not include '(or reasonably should have been discovered)', and does not say this 'is often raised as a reason the claim can't proceed at all'. Those parts are unsourced (the Limitations Act, 2002 would need to be read and cited for the discovery test).",
+   "problemCorrected": "The source does not include '(or reasonably should have been discovered)', and does not say this 'is often raised as a reason the claim can't proceed at all'. Those parts are unsourced (the Limitations Act, 2002 would need to be read and cited for the discovery test). Second random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5 (1) (a) (iv) dropped \"having regard to the nature of the injury, loss or damage\".",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported.",
     "Third re-read of the rewritten text (2026-09-30): supported."
@@ -4102,8 +4113,8 @@
   {
    "key": "civil-claim-breach-of-contract|proceduralNote|civil-claim-breach-of-contract#note4",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "debdbcf9ec7552cac50f3d8a98cbae7bda95b9aebd28f72dcf9e287dfe748314",
+   "outcome": "corrected",
+   "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -4119,12 +4130,18 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "s. 5(2)",
      "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5 (1) (a) (iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
    "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Second random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5 (1) (a) (iv) dropped \"having regard to the nature of the injury, loss or damage\"."
   },
   {
    "key": "civil-claim-debt-or-liquidated-demand|plaintiffElement|debt-owed-civdebt",
@@ -4291,8 +4308,8 @@
   {
    "key": "civil-claim-debt-or-liquidated-demand|proceduralNote|civil-claim-debt-or-liquidated-demand#note2",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "ad93bd939495f3d86b572af3c57e6f695bb96f2bbee57530931d248c633f2be8",
+   "outcome": "corrected",
+   "fingerprint": "082814c56912d9377b2487389eb355c556bf65f2ed2da8b197c54b7d12da1de6",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -4318,13 +4335,19 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "s. 5(4)",
      "quote": "Subsection (3) applies in respect of every demand obligation created on or after January 1, 2004."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5 (1) (a) (iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
    "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): partly -- Everything stated is accurate (ss. 4, 5(1), 5(2)), but for a claim type whose broughtBy names loans, it leaves out s. 5(3), which sets a different day for when loss occurs on a demand obligation (the first day of failure to perform after a demand is made). That provision changes when the two years start for a demand loan. Rewritten to the source wording.",
     "Re-read of the rewritten text (2026-09-30): partly -- The added s. 5(3) is accurate, but it leaves out s. 5(4), which limits it: 'Subsection (3) applies in respect of every demand obligation created on or after January 1, 2004.' So the demand-obligation rule is stated without its condition. This is minor, since few pre-2004 demand loans remain, but it is a condition in the same section. Rewritten to the source wording."
-   ]
+   ],
+   "problemCorrected": "Second random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5 (1) (a) (iv) dropped \"having regard to the nature of the injury, loss or damage\"."
   },
   {
    "key": "civil-claim-debt-or-liquidated-demand|proceduralNote|civil-claim-debt-or-liquidated-demand#note3",
@@ -4773,8 +4796,8 @@
   {
    "key": "civil-claim-defamation|proceduralNote|civil-claim-defamation#note1",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "796cea39986c799e8a1b1a2795579f06657d165e586f77a736944ccd6782039f",
+   "outcome": "corrected",
+   "fingerprint": "038ba9486fbfaef5d17fb496827f81aa9f2de9ef008fcbe3dc8cc207000deff2",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -4790,12 +4813,18 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "s. 5(2)",
      "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5 (1) (a) (iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
    "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Second random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5 (1) (a) (iv) dropped \"having regard to the nature of the injury, loss or damage\"."
   },
   {
    "key": "civil-claim-negligence|plaintiffElement|duty-of-care-civneg",
@@ -5110,8 +5139,8 @@
   {
    "key": "civil-claim-negligence|proceduralNote|civil-claim-negligence#note0",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "debdbcf9ec7552cac50f3d8a98cbae7bda95b9aebd28f72dcf9e287dfe748314",
+   "outcome": "corrected",
+   "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -5127,12 +5156,18 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "s. 5(2)",
      "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5 (1) (a) (iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
    "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Second random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5 (1) (a) (iv) dropped \"having regard to the nature of the injury, loss or damage\"."
   },
   {
    "key": "civil-claim-negligence|proceduralNote|civil-claim-negligence#note1",
@@ -5325,8 +5360,8 @@
   {
    "key": "civil-claim-negligent-misrepresentation|defendantConsideration|implied-representation-civmisrep",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "1ea2058b42ba2ce2ea1b9f3b4be20496a17c628611f44331c53f737110de5c12",
+   "outcome": "corrected",
+   "fingerprint": "d39e678997f5e1b125c47779685cf4e2a311041d5d88196beac5a74d5593827a",
    "sources": [
     {
      "sourceUrl": "docs/sources/queen-v-cognos-inc-1993-1-SCR-87.pdf",
@@ -5342,7 +5377,8 @@
    "howRead": "docs/sources/queen-v-cognos-inc-1993-1-SCR-87.pdf: read 2026-09-30",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Second random-sample audit 2026-09-30: Paraphrased Cognos as finding \"no reason\" where the judgment says \"no compelling reason\" (p. 130, checked by OCR); the paraphrase was removed and the holding stated without it."
   },
   {
    "key": "civil-claim-negligent-misrepresentation|defendantConsideration|future-events-statement-civmisrep",
@@ -5391,8 +5427,8 @@
   {
    "key": "civil-claim-negligent-misrepresentation|proceduralNote|civil-claim-negligent-misrepresentation#note0",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "debdbcf9ec7552cac50f3d8a98cbae7bda95b9aebd28f72dcf9e287dfe748314",
+   "outcome": "corrected",
+   "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -5408,12 +5444,18 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "s. 5(2)",
      "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5 (1) (a) (iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
    "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Second random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5 (1) (a) (iv) dropped \"having regard to the nature of the injury, loss or damage\"."
   },
   {
    "key": "civil-claim-negligent-misrepresentation|proceduralNote|civil-claim-negligent-misrepresentation#note1",
@@ -5605,8 +5647,8 @@
   {
    "key": "civil-claim-unjust-enrichment|proceduralNote|civil-claim-unjust-enrichment#note0",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "9778d91161834e6c6a45ce7f5eba9adfb29a2ad347442d00c03650613423be01",
+   "outcome": "corrected",
+   "fingerprint": "d9204d023ddeb570b7a765e353c09c151b2830e54a6b8808c0a1a7b25fb1c808",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -5627,13 +5669,19 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "s. 2(1)(a)",
      "quote": "This Act applies to claims pursued in court proceedings other than, (a) proceedings to which the Real Property Limitations Act applies;"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5 (1) (a) (iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
    "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): partly -- Limitations Act ss. 4-5 are accurately stated, but the entry's signals include house-title and property claims ('added my son to the house title', 'common-law partner kept the house I paid for'), and s. 2(1)(a) says the Limitations Act, 2002 does not apply to proceedings to which the Real Property Limitations Act applies. Omitting that exclusion can mislead a reader into treating the two-year period as the only one for every claim here. (The RPLA itself is not vendored, so no period from it should be stated.) Rewritten to the source wording.",
     "Re-read of the rewritten text (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Second random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5 (1) (a) (iv) dropped \"having regard to the nature of the injury, loss or damage\"."
   },
   {
    "key": "civil-claim-wrongful-dismissal|plaintiffElement|dismissed-without-reasonable-notice-civwd",
@@ -5871,8 +5919,8 @@
   {
    "key": "civil-claim-wrongful-dismissal|proceduralNote|civil-claim-wrongful-dismissal#note1",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "f15184c7327c7dd804187123668d3d1d3d97e43c1fa5e935d152bbfbf9014f7f",
+   "outcome": "corrected",
+   "fingerprint": "583848cf8d3647882be9fbf194056729b194aedaa96776e6b5332a4b4bcf6176",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
@@ -5923,19 +5971,25 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
      "pinpoint": "r. 76.02(2.1)",
      "quote": "If there are two or more defendants, the procedure set out in this Rule shall be used if the plaintiff's claim against each defendant, considered separately, meets the requirements of subrule (1)."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+     "pinpoint": "s. 23 (1.1)",
+     "quote": "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court."
     }
    ],
    "howRead": "https://www.ontario.ca/laws/docs/900194_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/page/suing-someone-small-claims-court: vendored text in docs/sources/corpus (see manifest.json)",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): partly -- Says the simplified procedure 'must be used' when r. 76.02(1) conditions are met, without the exclusions in r. 76.01(1) (class proceedings, Construction Act actions, actions assigned to case management, actions where a jury notice is delivered) or r. 76.02(2)/(2.1) (each plaintiff's / each defendant's claim assessed separately). The mandatory statement is therefore broader than the Rules. Minor: r. 57.05(1) summary omits r. 57.05(2) (does not apply to an action transferred under CJA s. 107). Ontario.ca $50,000 sentences match the vendored page (ll.28-29). Rewritten to the source wording.",
     "Re-read of the rewritten text (2026-09-30): partly -- The substance is now accurate. r. 76.01(1) exclusions, r. 76.02(2)/(2.1) and r. 57.05(2) have all been added and match. The remaining gap is sourcing metadata: the first two sentences come from Ontario's 'Suing someone in Small Claims Court' page (https://www.ontario.ca/page/suing-someone-small-claims-court), but sourceUrl is the Rules of Civil Procedure and alsoCites is null. So those sentences carry no source URL, contrary to the rule that every claim carries its source. Rewritten to the source wording."
-   ]
+   ],
+   "problemCorrected": "Second random-sample audit 2026-09-30: A which-court note that left out CJA s. 23 (1.1): a claim within Small Claims jurisdiction needs leave to be started in the Superior Court."
   },
   {
    "key": "civil-claim-wrongful-dismissal|proceduralNote|civil-claim-wrongful-dismissal#note2",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "debdbcf9ec7552cac50f3d8a98cbae7bda95b9aebd28f72dcf9e287dfe748314",
+   "outcome": "corrected",
+   "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -5951,12 +6005,18 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "s. 5(2)",
      "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5 (1) (a) (iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
    "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Second random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5 (1) (a) (iv) dropped \"having regard to the nature of the injury, loss or damage\"."
   },
   {
    "key": "family-matter-child-support|plaintiffElement|duty-to-pay-childsupport",
@@ -10526,7 +10586,7 @@
   {
    "id": "next:civil:conference",
    "verifiedAt": "2026-09-30",
-   "fingerprint": "5ef34d6bb58063bf37488925080d1c1175292beebb001b8a10e99da75cde3702",
+   "fingerprint": "51ea3ae188239a3693e3e381628a0408d84f30d98fd0f0943aed0b8f2ea31db0",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
@@ -10567,10 +10627,16 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
      "pinpoint": "r. 24.1.09 (2.1)",
      "quote": "In the case of an action described in paragraph 3 of subrule 24.1.04 (1), (a) subrules (1) and (6) do not apply; and (b) the court may make an order, on motion or otherwise, specifying the date by which a mediation session must take place."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+     "pinpoint": "r. 24.1.09 (3)",
+     "quote": "the mediation session may be postponed to a later date if, (a) the parties consent to the date in writing; and (b) the consent is filed with the mediation co-ordinator."
     }
    ],
    "independentReviews": [
-    "Independent re-read against the sources (2026-09-30): partly -- Minor. 'Where it applies, a mediation session must take place within 180 days after the first defence' is wrong for actions that Rule 24.1 covers because they were transferred to Ottawa, Toronto or Essex (r. 24.1.04 (1) para. 3). For those actions r. 24.1.09 (2.1) disapplies subrule (1). Everything else is accurate, including r. 50.02 (1), (2). Rewritten to the source wording."
+    "Independent re-read against the sources (2026-09-30): partly -- Minor. 'Where it applies, a mediation session must take place within 180 days after the first defence' is wrong for actions that Rule 24.1 covers because they were transferred to Ottawa, Toronto or Essex (r. 24.1.04 (1) para. 3). For those actions r. 24.1.09 (2.1) disapplies subrule (1). Everything else is accurate, including r. 50.02 (1), (2). Rewritten to the source wording.",
+    "Second random-sample audit (2026-09-30): added r. 24.1.09 (3) postponement by consent."
    ]
   },
   {

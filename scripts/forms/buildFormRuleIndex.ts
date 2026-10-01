@@ -111,7 +111,11 @@ function provisions(body: string, court: Court): { rule: string; text: string }[
   // rules keep the pattern that worked before: a bare "1." there is a list item.
   const ruleOnly = new RegExp(String.raw`^ {6,7}(${court === "family" ? String.raw`\d+\.\d+(?:\.\d+)?` : String.raw`\d+(?:\.\d)?\.\d{2}(?:\.\d+)*`})\s{2,}\S`);
   // Subrules can be "(5.0.2)" (family r. 13); "(5.1)"-only matching mislabelled them.
-  const subOnly = /^ {6,7}\((\d+(?:\.\d+)*)\)\s/;
+  // A subrule heading is "(9)" followed by two or more spaces. A wrapped line
+  // that happens to begin with a cross-reference -- "       (3.1) or (3.2) in
+  // Form 16B" -- has one, and was read as subrule (3.1) (2026-09-30: Form 74.47
+  // was labelled r. 74.18 (3.1) instead of (9)).
+  const subOnly = /^ {6,7}\((\d+(?:\.\d+)*)\)\s{2,}\S/;
   const flush = () => {
     if (current) out.push({ rule: current.rule, text: current.lines.join(" ").replace(/\s+/g, " ").trim() });
   };
