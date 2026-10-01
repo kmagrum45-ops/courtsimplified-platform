@@ -41,7 +41,10 @@ export type CorpusSourceId =
   // below, because a citation a user cannot open is not much of a citation.
   | "crown-liability-and-proceedings-act-2019"
   | "libel-and-slander-act"
-  | "trustee-act";
+  | "trustee-act"
+  // 2026-10-01: the appeal from a Small Claims judgment is started under the
+  // Rules of Civil Procedure (r. 61.04), not the Small Claims rules.
+  | "rules-of-civil-procedure";
 
 /** The page a person opens to read the law for themselves. */
 export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
@@ -58,6 +61,7 @@ export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
   "crown-liability-and-proceedings-act-2019": "https://www.ontario.ca/laws/statute/19c07",
   "libel-and-slander-act": "https://www.ontario.ca/laws/statute/90l12",
   "trustee-act": "https://www.ontario.ca/laws/statute/90t23",
+  "rules-of-civil-procedure": "https://www.ontario.ca/laws/regulation/900194",
 };
 
 /** How each source is named to a user. Shown beside the quote. */
@@ -76,6 +80,7 @@ export const SOURCE_NAMES: Record<CorpusSourceId, string> = {
     "Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17",
   "libel-and-slander-act": "Libel and Slander Act, R.S.O. 1990, c. L.12",
   "trustee-act": "Trustee Act, R.S.O. 1990, c. T.23",
+  "rules-of-civil-procedure": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
 };
 
 export type RuleCitation = {
@@ -115,6 +120,23 @@ export const R_3_01_COMPUTATION = scc(
 export const R_3_02_EXTEND = scc(
   "r. 3.02 (1)",
   "The court may lengthen or shorten any time prescribed by these rules or an order, on such terms as are just.",
+);
+
+/** 2026-10-01 audit: lengthening by consent, beside the court's power above. */
+export const R_3_02_CONSENT = scc(
+  "r. 3.02 (2)",
+  "A time prescribed by these rules for serving or filing a document may be lengthened or shortened by filing the consent of the parties.",
+);
+
+/** 2026-10-01 audit: when service by leaving a copy at home and mailing takes effect. */
+export const R_8_03_EFFECTIVE = scc(
+  "r. 8.03 (4)",
+  "Service made under subrule (2) or (3) is effective on the fifth day after the document is mailed or verified by courier that it was delivered.",
+);
+
+export const R_8_03_SIGNATURE = scc(
+  "r. 8.03 (8)",
+  "Service under subrule (7) is effective on the date on which receipt of the copy of the claim is verified by signature, as shown in a delivery confirmation provided by or obtained from Canada Post or the commercial courier, as the case may be.",
 );
 
 export const R_6_01_PLACE = scc(
@@ -187,6 +209,12 @@ export const R_11_1_01_DISMISSAL_FOR_DELAY = scc(
   "Unless the court orders otherwise, the clerk shall make an order dismissing an action for delay if, by the second anniversary of the commencement of the action, (a) the action has not been disposed of by order; and (b) no step has been taken by the plaintiff under rule 11.03 to obtain judgment, nor has a trial date been requested.",
 );
 
+/** 2026-10-01 audit: the exceptions a reader must see beside the two-year clock. */
+export const R_11_1_01_DISMISSAL_EXCEPTIONS = scc(
+  "r. 11.1.01 (2)",
+  "Subrule (1) does not apply if, (a) an offer to settle the action has been accepted and filed; (b) the defence contains an admission of liability for the plaintiff's claim in the action and a proposal of terms of payment under subrule 9.03 (1); or (c) at the time the clerk would otherwise be required under that subrule to dismiss the action, the plaintiff is under disability.",
+);
+
 export const R_13_01_SETTLEMENT_CONFERENCE = scc(
   "r. 13.01 (1)",
   "A settlement conference shall be held in every defended action.",
@@ -201,6 +229,11 @@ export const R_13_01_SETTLEMENT_CONFERENCE = scc(
 export const R_13_01_CLERK_FIXES = scc(
   "r. 13.01 (2)",
   "The clerk shall fix a time, date and place for the settlement conference and serve a notice of settlement conference, together with a list of proposed witnesses (Form 13A), on the parties.",
+);
+
+export const R_13_01_EXCEPTION = scc(
+  "r. 13.01 (4)",
+  "Subrules (1) to (3) do not apply if the defence contains an admission of liability for all of the plaintiff's claim and a proposal of terms of payment under subrule 9.03 (1).",
 );
 
 export const R_10_04_TRIED_TOGETHER = scc(
@@ -225,7 +258,7 @@ export const R_13_02_DEFENDANT_TWICE_ABSENT = scc(
 
 export const R_13_03_DISCLOSURE = scc(
   "r. 13.03 (2)",
-  "At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court, (a) a copy of any document to be relied on at the trial, including an expert report, not attached to the party's claim or defence",
+  "At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court, (a) a copy of any document to be relied on at the trial, including an expert report, not attached to the party's claim or defence; and (b) a list of proposed witnesses (Form 13A) and of other persons with knowledge of the matters in dispute in the action.",
 );
 
 export const R_13_07_SET_DOWN = scc(
@@ -294,6 +327,84 @@ export const R_17_01_SET_ASIDE_30_DAYS = scc(
   "r. 17.01 (5)",
   "The court may make an order under subrule (4) only if, (a) the party who failed to attend makes a motion for the order within 30 days after becoming aware of the judgment; or (b) the party who failed to attend makes a motion for an extension of the 30-day period mentioned in clause (a) and the court is satisfied that there are special circumstances that justify the extension.",
 );
+
+/*
+ * 2026-10-01 audit: `defendant:judgment-against-me` (judgment after a hearing
+ * the defendant took part in) cited only r. 11.06, which sets aside DEFAULT
+ * judgments and does not apply. The routes that do apply after a trial are a
+ * motion for a new trial (r. 17.04, 30 days, two narrow conditions), an appeal
+ * to the Divisional Court above the prescribed amount (CJA s. 31, O. Reg.
+ * 626/00 s. 2, Rules of Civil Procedure r. 61.04 for the 30 days), and, for a
+ * debtor who cannot pay, an order as to payment (r. 20.10 (7)) or a variation
+ * on changed circumstances (r. 20.02 (1)).
+ */
+export const R_17_04_NEW_TRIAL = scc(
+  "r. 17.04 (1)",
+  "A party may make a motion for a new trial within 30 days after a final order is made.",
+);
+
+export const R_17_04_CONDITIONS = scc(
+  "r. 17.04 (5)",
+  "The conditions referred to in clause (4) (a) are: 1. There was a purely arithmetical error in the determination of the amount of damages awarded. 2. There is relevant evidence that was not available to the party at the time of the original trial and could not reasonably have been expected to be available at that time.",
+);
+
+export const R_20_02_STAY_VARY = scc(
+  "r. 20.02 (1)",
+  "The court may, (a) stay the enforcement of an order of the court, for such time and on such terms as are just; and (b) vary the times and proportions in which money payable under an order of the court shall be paid, if it is satisfied that the debtor's circumstances have changed.",
+);
+
+export const R_20_10_ORDER_AS_TO_PAYMENT = scc(
+  "r. 20.10 (7)",
+  "After the examination or if the debtor's consent is filed, the court may make an order as to payment.",
+);
+
+export const S_CJA_31_APPEAL: RuleCitation = {
+  sourceId: "cja-courts-of-justice-act",
+  pinpoint: "s. 31",
+  quote:
+    "An appeal lies to the Divisional Court from a final order of the Small Claims Court in an action, (a) for the payment of money in excess of the prescribed amount, excluding costs; or (b) for the recovery of possession of personal property exceeding the prescribed amount in value.",
+};
+
+export const S_APPEAL_LIMIT: RuleCitation = {
+  sourceId: "oreg-626-00-monetary-jurisdiction",
+  pinpoint: "s. 2 (1)",
+  quote: "For the purposes of clause 31 (a) of the Act, the prescribed amount is $5,000.",
+};
+
+export const R_61_05_CERTIFICATE: RuleCitation = {
+  sourceId: "rules-of-civil-procedure",
+  pinpoint: "r. 61.05 (1)",
+  quote:
+    "the appellant shall serve and file, with proof of service, with the notice of appeal an appellant's certificate respecting evidence (Form 61C) setting out only the portions of the evidence that, in the appellant's opinion, are required for the appeal.",
+};
+
+export const R_63_01_STAY: RuleCitation = {
+  sourceId: "rules-of-civil-procedure",
+  pinpoint: "r. 63.01 (1)",
+  quote:
+    "The delivery of a notice of appeal from an interlocutory or final order stays, until the disposition of the appeal, any provision of the order for the payment of money, except a provision that awards support or enforces a support order.",
+};
+
+export const R_61_04_FILE_10_DAYS: RuleCitation = {
+  sourceId: "rules-of-civil-procedure",
+  pinpoint: "r. 61.04 (4)",
+  quote:
+    "The notice of appeal, with proof of service, shall be filed in accordance with subrule 4.05 (4) (leaving in or mailing to court office) in the Registrar's office within ten days after service.",
+};
+
+/** RCP's holiday definition (r. 1.03) is word-for-word the Small Claims one, so the engine's rules-regime arithmetic is correct for r. 61.04's 30 days. */
+export const R_RCP_3_01_HOLIDAY: RuleCitation = {
+  sourceId: "rules-of-civil-procedure",
+  pinpoint: "r. 3.01 (1) (c)",
+  quote: "where the time for doing an act expires on a holiday, the act may be done on the next day that is not a holiday;",
+};
+
+export const R_61_04_APPEAL_30_DAYS: RuleCitation = {
+  sourceId: "rules-of-civil-procedure",
+  pinpoint: "r. 61.04 (1)",
+  quote:
+    "An appeal to an appellate court shall be commenced by serving a notice of appeal in Form 61A.2 (Court of Appeal) or 61A.3 (Divisional Court) together with the certificate required by subrule 61.05 (1), within 30 days after the making of the order appealed from, unless a statute or these rules provide otherwise,",
+};
 
 /*
  * Same class of error: `both:filed-in-wrong-place` quoted only r. 6.01 (1),
@@ -432,6 +543,13 @@ export const S_LIMITATIONS_4_BASIC: RuleCitation = {
   pinpoint: "s. 4",
   quote:
     "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered.",
+};
+
+/** 2026-10-01 audit: the two years is "unless this Act provides otherwise"; s. 16 is the starkest case. */
+export const S_LIMITATIONS_16_NONE: RuleCitation = {
+  sourceId: "limitations-act-2002",
+  pinpoint: "s. 16 (1) (h)",
+  quote: "There is no limitation period in respect of, ... (h) a proceeding based on a sexual assault;",
 };
 
 export const S_LIMITATIONS_5_DISCOVERY: RuleCitation = {

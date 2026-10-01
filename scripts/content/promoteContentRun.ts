@@ -55,9 +55,13 @@ function main(): void {
   const args = process.argv.slice(2);
   const file = args.find((arg) => !arg.startsWith("--"));
   const confirm = args.includes("--confirm");
+  // Who drafted the run. Defaults to the pipeline's model; a run drafted another
+  // way (2026-10-01: authored and independently reviewed in agent rounds) says so,
+  // because the release record is what a regulator reads.
+  const model = args.find((arg) => arg.startsWith("--model="))?.slice("--model=".length) || "gpt-4o-mini";
 
   if (!file) {
-    console.error("Usage: npm run content:promote -- <candidate.json> [--confirm]");
+    console.error("Usage: npm run content:promote -- <candidate.json> [--model=<who drafted it>] [--confirm]");
     process.exitCode = 1;
     return;
   }
@@ -140,7 +144,7 @@ function main(): void {
 
   const release = {
     runId: path.basename(candidatePath, ".json"),
-    model: "gpt-4o-mini",
+    model,
     promotedAt: new Date().toISOString(),
     corpusGeneratedAt: manifest.generatedAt,
     blockCount: publishable.length,

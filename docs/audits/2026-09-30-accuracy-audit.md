@@ -114,8 +114,12 @@ the correction.
 
 1. **No licensed review yet.** Every statement is sourced and has been checked
    by independent reviewers, but none by a lawyer or paralegal.
-2. **14 withdrawn stage answers** need a fresh, gated pipeline run (requires
-   the OpenAI key) before those stages show a "what happens next" answer again.
+2. **Stage answers: resolved 1 October 2026.** All 35 Small Claims stages now
+   have a published answer (run-13), written from the saved sources and passed
+   through six rounds of independent review: 10, 9, 4, 0 and 0 errors per
+   round, then one error in the final check of edited sentences, fixed. One
+   known gap is recorded in `docs/ACCURACY_ENGINE.md` (periodic-payment
+   orders on the unpaid-judgment answer).
 3. **Moore v. Sweet, 2018 SCC 52** is cited without a link: no verified public
    address was recorded when it was saved.
 4. **The saved Rules of Civil Procedure lost "½" in r. 53.10** ("less per

@@ -183,9 +183,9 @@ export const DEADLINE_TEMPLATES: Record<DeadlineTemplateId, DeadlineTemplate> = 
     text:
       "{result} is a Saturday. This deadline is set by a statute rather than by the Small " +
       "Claims rules, and the list of holidays in the Legislation Act names Sunday and the " +
-      "named holidays, not Saturday — so this period ends on the Saturday. It may be " +
-      "extended if the place you have to serve or file is closed that day, which is worth " +
-      "confirming with the court office.",
+      "named holidays, not Saturday — so this period ends on the Saturday. It is extended " +
+      "to the next day the office is open if the place where it must be done is not open " +
+      "that day during its regular hours, which is worth confirming with that office.",
     cites: C.S_LEGISLATION_89_1_HOLIDAY,
   },
   "uncertain-backward-count-lands-on-holiday": {

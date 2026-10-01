@@ -232,7 +232,13 @@ function renderPublishedBlock(
    */
   const stage = findStage(stageId);
   const computed = stage
-    ? computedDeadlinesFor(stage.deadlines, dates, `stageAnswerView:${stageId}`)
+    ? computedDeadlinesFor(
+        // The court's own timetable is not a date the reader must meet, so it
+        // gets no "the last day for this is" sentence (2026-10-01 audit).
+        stage.deadlines.filter((deadline) => deadline.actor !== "court"),
+        dates,
+        `stageAnswerView:${stageId}`,
+      )
     : [];
 
   const sections: RenderedSection[] = [];

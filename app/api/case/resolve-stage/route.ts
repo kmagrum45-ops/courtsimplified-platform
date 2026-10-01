@@ -37,6 +37,8 @@ import { withAiCallContext, recordAiValidation } from "../../../../src/lib/audit
 import {
   UNKNOWN_STAGE_MESSAGE,
   UNKNOWN_STAGE_MESSAGE_NO_QUESTION,
+  STAGE_SCOPE_UNCONFIRMED_MESSAGE,
+  STAGE_ANSWER_UNAVAILABLE_MESSAGE,
   OUT_OF_SCOPE_STAGE_MESSAGE,
   STAGE_REFERRALS,
 } from "../../../../src/lib/case-system/stage-map/stageMessages";
@@ -216,9 +218,15 @@ function present(
 
   const answer = outcome.kind === "rendered" ? outcome.answer : null;
   if (!answer) {
+    // The stage WAS resolved, so "we can't tell where your case is up to" would
+    // be false. Say what is actually missing.
+    const message =
+      outcome.kind === "refused" && outcome.refusal.reason === "scope-not-established"
+        ? STAGE_SCOPE_UNCONFIRMED_MESSAGE
+        : STAGE_ANSWER_UNAVAILABLE_MESSAGE;
     return {
       outcome: "unknown" as const,
-      message: UNKNOWN_STAGE_MESSAGE_NO_QUESTION,
+      message,
       clarifyingQuestion: null,
       candidates: [resolution.stageId],
       referrals: STAGE_REFERRALS,

@@ -1597,3 +1597,48 @@ the site password (middleware.ts); `test:a2i-scope` fails if the gate goes
 while live testing is on. **Before real users are admitted**, set
 `OWNER_LIVE_TESTING.enabled` to false and decide each pathway and capability
 again -- the A2I application describes phase 1 as Small Claims only.
+
+## 2026-10-01: all 35 stage answers authored, reviewed and published (run-13)
+
+The 14 withdrawn GPT answers (and the 19 never published) were replaced by 35
+answers written from the saved corpus, every sentence carrying a verbatim
+quote, and put through **six rounds of independent review** by reviewers who
+had not seen the drafting. Errors found per round: 10, 9, 4, 0, 0, then 1 in
+the final check of edited sentences (fixed by removing the half-statement).
+Every round's fixes were re-gated (`gateFailures`) and every quote re-found
+in its *named* source, not just anywhere in the corpus.
+
+### The deadline section learned whose clock it is
+
+`StageDeadline` now has `actor` (`reader` | `other-party` | `court`) and
+`qualifier`. The renderer says "This is the court's timetable, not a step you
+take" for the 90-day settlement conference, "They have 20 days" for the
+defendant's time seen by a plaintiff, and appends the qualifier (court
+extension, consent, fifth-day service, r. 11.1.01 (2) exceptions, the
+r. 13.01 (4) no-conference case). Court-actor deadlines are excluded from
+computed dates. Every qualifier must be supported by `rule` or `exceptions`.
+
+### Things this cost and should not be relearned
+
+- **r. 11.1.01 only counts an r. 11.03 step or a trial-date request.** Noting a
+  defendant in default does not stop the two-year dismissal clock. Defended
+  stages say "Request a trial date"; undefended ones name the assessment.
+- **`defendant:judgment-against-me` had cited r. 11.06**, which only sets aside
+  DEFAULT judgments. After a hearing the routes are r. 17.04 (new trial, 30
+  days, two narrow conditions), CJA s. 31 + O. Reg. 626/00 s. 2 ($5,000) +
+  RCP r. 61.04 (1)/(4), 61.05 (1) (serve within 30 days, file within 10 more,
+  Form 61C), and RCP r. 63.01 (1) (delivering the notice stays the money parts).
+- **RCP and Small Claims holiday definitions are word for word identical**, so
+  `verifyStageMap` accepts either rules source as the computation provision of
+  a rules-regime deadline.
+- **The statutory day-count warning** now covers Legislation Act s. 89 (1), (2)
+  and (5); s. 89 (2) helps only when the office is actually closed.
+- **`verifyStageAnswers` had its own stricter readability copy** without the
+  gate's term-of-art exception; it now calls `assessReadability`, so the suite
+  and the publishing gate cannot disagree.
+- **The resolve-stage route said "we can't tell where your case is up to"
+  when it could** (stage resolved, answer refused). It now says what is
+  actually missing: forum not confirmed, or no checked answer.
+- **Known gap left on purpose:** the unpaid-judgment answer does not explain
+  periodic-payment orders (r. 20.02 (2)–(4)); a half-statement was judged an
+  error and the full one does not fit at grade 8.
