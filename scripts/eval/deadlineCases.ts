@@ -162,6 +162,7 @@ export const DEADLINE_CASES: DeadlineCase[] = [
     regime: "small-claims-rules",
     direction: "before",
     expect: "2026-05-06",
+    throughStage: { stageId: "plaintiff:awaiting-settlement-conference", event: "settlement-conference-date" },
     because:
       "r. 13.03 (2) counts BACKWARDS from the conference. 20 May less 14 is Wednesday " +
       "6 May. Counting forward here would be the opposite of what the rule requires.",
