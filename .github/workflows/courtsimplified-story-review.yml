@@ -22,6 +22,8 @@ on:
       - src/lib/case-system/caseReview/**
       - src/lib/case-system/intelligence/**
       - src/lib/content-library/phaseScope.ts
+      - src/lib/case-system/stage-map/**
+      - scripts/eval/**
       - .github/workflows/courtsimplified-story-review.yml
 
 permissions:
@@ -70,6 +72,16 @@ jobs:
           set -o pipefail
           npm run test:fixtures 2>&1 | tee fixture-run.log
 
+      # The stage-resolution eval (scripts/eval/runAccuracyEval.ts): real model
+      # calls routing every user type's story to a stage, the deadline cases and
+      # the advice deflection. Reported beside the story review, not a gate.
+      - name: Accuracy eval
+        id: accuracy
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm run eval:accuracy 2>&1 | tee accuracy-eval.log
+
       - name: Publish the report to the story-review-reports branch
         env:
           GH_TOKEN: ${{ github.token }}
@@ -81,6 +93,8 @@ jobs:
           cp scripts/verification/fixtures/*.actual.md "$out/fixtures/" || true
           cp fixture-run.log "$out/fixtures/" || true
           echo "fixture harness outcome: ${{ steps.fixtures.outcome }}" > "$out/fixtures/OUTCOME.txt"
+          cp accuracy-eval.log "$out/" || true
+          echo "accuracy eval outcome: ${{ steps.accuracy.outcome }}" >> "$out/fixtures/OUTCOME.txt"
           # This branch holds a report, not the site. Without this Vercel tries
           # to build it as a preview, fails, and emails the site owner on every
           # run (2026-09-28). Vercel reads vercel.json from the commit it deploys.
