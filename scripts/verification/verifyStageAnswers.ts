@@ -38,6 +38,7 @@ import {
   type StageAnswer,
 } from "../../src/lib/content-library/stageAnswers";
 import { readability, TARGET_GRADE } from "../../src/lib/content-library/readability";
+import { assessReadability } from "../../src/lib/content-library/readabilityExceptions";
 import { NEXT_STEP_BLOCKS } from "../../src/lib/content-library/nextSteps";
 import { R_9_01_DEFENCE } from "../../src/lib/case-system/stage-map/citations";
 
@@ -225,11 +226,16 @@ for (const answer of verified) {
       `beyond style`,
   );
 
+  // The same reading-level rule the publishing gate applies (blockGates.ts),
+  // including its term-of-art exception. Until 2026-10-01 this suite had its own
+  // stricter copy, so a block the gate published could fail here: a second copy
+  // of a gate is a second, different gate.
   const score = readability(answerText(answer));
+  const assessment = assessReadability(answerText(answer), TARGET_GRADE);
   check(
     `${answer.id}: reads at or below grade ${TARGET_GRADE}`,
-    Number(score.grade.toFixed(1)) <= TARGET_GRADE,
-    `grade ${score.grade.toFixed(1)}: "${score.hardestSentences[0]?.text ?? ""}"`,
+    assessment.withinTarget,
+    `${assessment.withinTarget ? "" : assessment.reason}; hardest: "${score.hardestSentences[0]?.text ?? ""}"`,
   );
 
   /*

@@ -48,6 +48,25 @@ export const UNKNOWN_STAGE_MESSAGE_NO_QUESTION =
   "where you stand.";
 
 /**
+ * Shown when a stage WAS identified but its answer cannot be shown.
+ *
+ * 2026-10-01 audit: these cases used UNKNOWN_STAGE_MESSAGE_NO_QUESTION, which
+ * tells the reader we cannot tell where their case is. That was false — the
+ * stage was resolved — and it sent people to work out something we knew. The
+ * honest messages say what we do know and what we are missing.
+ */
+export const STAGE_SCOPE_UNCONFIRMED_MESSAGE =
+  "We think we can see where your case is up to, but we can't yet confirm it " +
+  "belongs in Small Claims Court, and the guidance for this step is written only " +
+  "for that court. We'd rather say that than give you steps for the wrong court. " +
+  "These services can help you confirm which court your matter belongs in.";
+
+export const STAGE_ANSWER_UNAVAILABLE_MESSAGE =
+  "We can see where your case is up to, but we don't have checked guidance for " +
+  "this step yet, and we'd rather say that than give you something unchecked. " +
+  "These services can help you with it.";
+
+/**
  * Shown when the matter is not an Ontario Small Claims matter.
  *
  * Kept separate from `OUT_OF_SCOPE_MESSAGE` in referralResources.ts, which

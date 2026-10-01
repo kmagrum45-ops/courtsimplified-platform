@@ -56,6 +56,8 @@ import {
   UNKNOWN_STAGE_MESSAGE,
   UNKNOWN_STAGE_MESSAGE_NO_QUESTION,
   OUT_OF_SCOPE_STAGE_MESSAGE,
+  STAGE_SCOPE_UNCONFIRMED_MESSAGE,
+  STAGE_ANSWER_UNAVAILABLE_MESSAGE,
 } from "../case-system/stage-map/stageMessages";
 import { CHAT_NO_MATCH_MESSAGE, DEFLECTION_MESSAGE } from "./referralResources";
 import { PRESENTATION_CHECKLISTS } from "./presentationHelp";
@@ -606,6 +608,14 @@ export function collectContentInventory(): ContentItem[] {
     "message:unknown-stage-no-question": {
       text: UNKNOWN_STAGE_MESSAGE_NO_QUESTION,
       appearsIn: "When the case cannot be placed and the stage map records no boundary",
+    },
+    "message:stage-scope-unconfirmed": {
+      text: STAGE_SCOPE_UNCONFIRMED_MESSAGE,
+      appearsIn: "When the stage is identified but the matter is not yet confirmed as Small Claims",
+    },
+    "message:stage-answer-unavailable": {
+      text: STAGE_ANSWER_UNAVAILABLE_MESSAGE,
+      appearsIn: "When the stage is identified but no checked answer is published for it",
     },
     "message:cannot-give-advice": {
       text: DEFLECTION_MESSAGE,

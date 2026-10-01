@@ -180,7 +180,12 @@ for (const stage of CASE_STAGES) {
 for (const stage of CASE_STAGES) {
   for (const deadline of stage.deadlines) {
     if (deadline.regime === "small-claims-rules") {
-      if (deadline.computation.sourceId !== "oreg-258-98-small-claims-rules") {
+      // The rules regime means "counted under court rules, Saturday a holiday".
+      // A Small Claims appeal is started under the Rules of Civil Procedure
+      // (r. 61.04), whose holiday definition (r. 1.03) is word-for-word the Small
+      // Claims one (r. 1.02), so either rules' computation provision is correct.
+      const RULES_SOURCES = ["oreg-258-98-small-claims-rules", "rules-of-civil-procedure"];
+      if (!RULES_SOURCES.includes(deadline.computation.sourceId)) {
         fail(
           `${deadline.id}: counted under the Small Claims rules but the computation ` +
             `provision comes from ${deadline.computation.sourceId}.`,

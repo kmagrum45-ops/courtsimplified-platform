@@ -138,6 +138,22 @@ export type StageDeadline = {
   computation: RuleCitation;
   consequence: DeadlineConsequence;
   /**
+   * Who the period binds (2026-10-01 audit). Defaults to the reader. A period
+   * the court must keep (r. 13.01 (3)'s 90 days for the settlement conference)
+   * or one the other side has (the defendant's 20 days, read by a plaintiff)
+   * was rendered "You have 90 days", which tells the reader it is their
+   * deadline when it is not.
+   */
+  actor?: "reader" | "other-party" | "court";
+  /**
+   * The qualification a reader must see beside the number, in plain words
+   * (2026-10-01 audit). `exceptions` below records WHICH provisions qualify
+   * the deadline, but nothing rendered them -- so "serve within six months"
+   * reached readers without "the court may extend the time". Every sentence
+   * here must be supported by `exceptions` or `rule`.
+   */
+  qualifier?: string;
+  /**
    * Provisions that qualify the deadline, shown in the same breath as the
    * number. A block that gives a bar without its exceptions frightens people
    * out of claims they still have.
@@ -300,6 +316,8 @@ const BEFORE_FILING: CaseStage[] = [
       {
         id: "deadline:basic-limitation",
         what: "The general deadline to start a court case",
+        qualifier:
+          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.",
         countFrom: "the day the claim was discovered",
         countFromEvent: "claim-discovered",
         length: { unit: "years", count: 2 },
@@ -307,7 +325,7 @@ const BEFORE_FILING: CaseStage[] = [
         rule: C.S_LIMITATIONS_4_BASIC,
         computation: C.S_LEGISLATION_89_6_MONTHS,
         consequence: "bars-the-claim",
-        exceptions: [C.S_LIMITATIONS_5_DISCOVERY],
+        exceptions: [C.S_LIMITATIONS_5_DISCOVERY, C.S_LIMITATIONS_16_NONE],
       },
     ],
     /*
@@ -619,8 +637,23 @@ const PLAINTIFF: CaseStage[] = [
         by: "whether the court has issued the claim",
       },
     ],
-    rules: [C.R_7_01_COMMENCEMENT, C.R_7_01_ELECTRONIC, C.R_6_01_PLACE],
-    deadlines: [],
+    rules: [C.R_7_01_COMMENCEMENT, C.R_7_01_ELECTRONIC, C.R_6_01_PLACE, C.S_LIMITATIONS_4_BASIC],
+    deadlines: [
+      {
+        id: "deadline:basic-limitation-claim-drafted",
+        what: "The general deadline to start a court case",
+        qualifier:
+          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.",
+        countFrom: "the day the claim was discovered",
+        countFromEvent: "claim-discovered",
+        length: { unit: "years", count: 2 },
+        regime: "legislation-act",
+        rule: C.S_LIMITATIONS_4_BASIC,
+        computation: C.S_LEGISLATION_89_6_MONTHS,
+        consequence: "bars-the-claim",
+        exceptions: [C.S_LIMITATIONS_5_DISCOVERY, C.S_LIMITATIONS_16_NONE],
+      },
+    ],
   },
   {
     id: "plaintiff:claim-issued-not-served",
@@ -656,6 +689,7 @@ const PLAINTIFF: CaseStage[] = [
       {
         id: "deadline:serve-claim-six-months",
         what: "Serve the claim on the defendant",
+        qualifier: "The court may extend the time for service, before or after the six months has passed.",
         countFrom: "the date the claim was issued",
         countFromEvent: "claim-issued",
         length: { unit: "months", count: 6 },
@@ -664,6 +698,20 @@ const PLAINTIFF: CaseStage[] = [
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
         exceptions: [C.R_8_01_TIME_FOR_SERVICE, C.R_3_02_EXTEND],
+      },
+      {
+        id: "deadline:dismissal-for-delay-two-years-claim-issued-not-served",
+        what: "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default",
+        countFrom: "the commencement of the action",
+        countFromEvent: "action-commenced",
+        length: { unit: "years", count: 2 },
+        regime: "small-claims-rules",
+        qualifier:
+          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+        rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
       },
     ],
   },
@@ -706,6 +754,7 @@ const PLAINTIFF: CaseStage[] = [
       {
         id: "deadline:serve-claim-six-months:failed-service",
         what: "Serve the claim on the defendant",
+        qualifier: "The court may extend the time for service, before or after the six months has passed.",
         countFrom: "the date the claim was issued",
         countFromEvent: "claim-issued",
         length: { unit: "months", count: 6 },
@@ -714,6 +763,20 @@ const PLAINTIFF: CaseStage[] = [
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
         exceptions: [C.R_8_01_TIME_FOR_SERVICE, C.R_3_02_EXTEND],
+      },
+      {
+        id: "deadline:dismissal-for-delay-two-years-service-attempted-failed",
+        what: "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default",
+        countFrom: "the commencement of the action",
+        countFromEvent: "action-commenced",
+        length: { unit: "years", count: 2 },
+        regime: "small-claims-rules",
+        qualifier:
+          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+        rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
       },
     ],
   },
@@ -741,7 +804,22 @@ const PLAINTIFF: CaseStage[] = [
       },
     ],
     rules: [C.R_8_01_TIME_FOR_SERVICE, C.R_3_02_EXTEND],
-    deadlines: [],
+    deadlines: [
+      {
+        id: "deadline:dismissal-for-delay-two-years-six-month-service-window-expired",
+        what: "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default",
+        countFrom: "the commencement of the action",
+        countFromEvent: "action-commenced",
+        length: { unit: "years", count: 2 },
+        regime: "small-claims-rules",
+        qualifier:
+          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+        rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
+      },
+    ],
   },
   {
     id: "plaintiff:served-awaiting-defence",
@@ -776,6 +854,9 @@ const PLAINTIFF: CaseStage[] = [
       {
         id: "deadline:defence-20-days:plaintiff-view",
         what: "The defendant's time to serve and file a defence",
+        actor: "other-party",
+        qualifier:
+          "If the claim was left at the defendant's home with an adult and a copy mailed or couriered, service takes effect on the fifth day after the mailing or the courier's confirmed delivery. The same is true when a company cannot be found at its last address on record and is served by mail or courier to that address and to its directors. If the claim was sent by registered mail or courier and signed for, service takes effect on the date of the signature. The parties can lengthen the time by filing their consent, and the court can lengthen it.",
         countFrom: "the day the defendant was served with the claim",
         countFromEvent: "served-with-claim",
         length: { unit: "days", count: 20 },
@@ -783,7 +864,21 @@ const PLAINTIFF: CaseStage[] = [
         rule: C.R_9_01_DEFENCE,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [C.R_3_02_EXTEND],
+        exceptions: [C.R_3_02_EXTEND, C.R_3_02_CONSENT, C.R_8_03_EFFECTIVE, C.R_8_03_SIGNATURE],
+      },
+      {
+        id: "deadline:dismissal-for-delay-two-years-served-awaiting-defence",
+        what: "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default",
+        countFrom: "the commencement of the action",
+        countFromEvent: "action-commenced",
+        length: { unit: "years", count: 2 },
+        regime: "small-claims-rules",
+        qualifier:
+          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+        rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
       },
     ],
   },
@@ -822,7 +917,22 @@ const PLAINTIFF: CaseStage[] = [
       C.R_11_02_DEFAULT_JUDGMENT,
       C.R_11_03_ASSESSMENT,
     ],
-    deadlines: [],
+    deadlines: [
+      {
+        id: "deadline:dismissal-for-delay-two-years-defence-period-expired-no-defence",
+        what: "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default",
+        countFrom: "the commencement of the action",
+        countFromEvent: "action-commenced",
+        length: { unit: "years", count: 2 },
+        regime: "small-claims-rules",
+        qualifier:
+          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+        rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
+      },
+    ],
   },
   {
     id: "plaintiff:defendant-noted-in-default",
@@ -853,7 +963,22 @@ const PLAINTIFF: CaseStage[] = [
       },
     ],
     rules: [C.R_11_02_DEFAULT_JUDGMENT, C.R_11_03_ASSESSMENT],
-    deadlines: [],
+    deadlines: [
+      {
+        id: "deadline:dismissal-for-delay-two-years-noted",
+        what: "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default",
+        countFrom: "the commencement of the action",
+        countFromEvent: "action-commenced",
+        length: { unit: "years", count: 2 },
+        regime: "small-claims-rules",
+        qualifier:
+          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+        rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
+      },
+    ],
   },
   {
     id: "plaintiff:assessment-of-damages-needed",
@@ -877,7 +1002,22 @@ const PLAINTIFF: CaseStage[] = [
       },
     ],
     rules: [C.R_11_03_ASSESSMENT, C.R_11_02_DEFAULT_JUDGMENT],
-    deadlines: [],
+    deadlines: [
+      {
+        id: "deadline:dismissal-for-delay-two-years-assessment-of-damages-needed",
+        what: "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay",
+        countFrom: "the commencement of the action",
+        countFromEvent: "action-commenced",
+        length: { unit: "years", count: 2 },
+        regime: "small-claims-rules",
+        qualifier:
+          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, or if you are under disability. The court may order otherwise.",
+        rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
+      },
+    ],
   },
   {
     id: "plaintiff:default-judgment-signed",
@@ -938,7 +1078,9 @@ const PLAINTIFF: CaseStage[] = [
     deadlines: [
       {
         id: "deadline:settlement-conference-90-days",
-        what: "The settlement conference is to be held",
+        what: "The court holds the settlement conference",
+        actor: "court",
+        qualifier: "The clerk fixes the time, date and place and serves a notice of settlement conference on the parties. No conference is held if the defence admits all of the claim and proposes terms of payment.",
         countFrom: "the day the first defence was filed",
         countFromEvent: "first-defence-filed",
         length: { unit: "days", count: 90 },
@@ -946,7 +1088,21 @@ const PLAINTIFF: CaseStage[] = [
         rule: C.R_13_01_TIMING,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [],
+        exceptions: [C.R_13_01_EXCEPTION],
+      },
+      {
+        id: "deadline:dismissal-for-delay-two-years-defence-filed",
+        what: "Request a trial date, or the clerk will dismiss the action for delay",
+        countFrom: "the commencement of the action",
+        countFromEvent: "action-commenced",
+        length: { unit: "years", count: 2 },
+        regime: "small-claims-rules",
+        qualifier:
+          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+        rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
       },
     ],
   },
@@ -978,7 +1134,7 @@ const PLAINTIFF: CaseStage[] = [
     deadlines: [
       {
         id: "deadline:defence-to-defendants-claim-20-days",
-        what: "Serve and file a defence to the defendant's claim",
+        what: "If you want to dispute the defendant's claim, serve a defence (Form 9A) on every other party and file it, with proof of service, with the clerk",
         countFrom: "the day the defendant's claim was served",
         countFromEvent: "defendants-claim-served",
         length: { unit: "days", count: 20 },
@@ -1021,16 +1177,32 @@ const PLAINTIFF: CaseStage[] = [
         // Plain wording: this renders straight into the block. The near-verbatim
         // r. 13.03 (2) phrasing read at grade 9.3.
         what:
-          "Give every other party and the court a copy of any document you will use at trial. This includes any expert report. You do not need to send what is already attached to your claim or defence",
+          "Serve on every other party, and file with the court, your trial documents and a witness list (Form 13A)",
         countFrom: "the date of the settlement conference, counting backwards",
         countFromEvent: "settlement-conference-date",
         length: { unit: "days", count: 14 },
         direction: "before",
+        qualifier:
+          "The documents are any you will rely on at the trial that are not attached to your claim or defence, including an expert report. The list names your proposed witnesses and other people who know about the matters in dispute.",
         regime: "small-claims-rules",
         rule: C.R_13_03_DISCLOSURE,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
         exceptions: [],
+      },
+      {
+        id: "deadline:dismissal-for-delay-two-years-awaiting-settlement-conference",
+        what: "Request a trial date, or the clerk will dismiss the action for delay",
+        countFrom: "the commencement of the action",
+        countFromEvent: "action-commenced",
+        length: { unit: "years", count: 2 },
+        regime: "small-claims-rules",
+        qualifier:
+          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+        rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
       },
     ],
   },
@@ -1061,17 +1233,18 @@ const PLAINTIFF: CaseStage[] = [
     rules: [C.R_13_07_SET_DOWN, C.R_16_01_TRIAL_DATE],
     deadlines: [
       {
-        id: "deadline:request-trial-date-30-days",
-        what:
-          "One of the parties must request a trial date and pay the fee if the action is not disposed of",
-        countFrom: "the day of the settlement conference",
-        countFromEvent: "settlement-conference-date",
-        length: { unit: "days", count: 30 },
+        id: "deadline:dismissal-for-delay-two-years",
+        what: "Request a trial date, or the clerk will dismiss the action for delay",
+        countFrom: "the commencement of the action",
+        countFromEvent: "action-commenced",
+        length: { unit: "years", count: 2 },
         regime: "small-claims-rules",
-        rule: C.R_13_07_SET_DOWN,
+        qualifier:
+          "This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+        rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [],
+        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY, C.R_11_1_01_DISMISSAL_EXCEPTIONS],
       },
     ],
   },
@@ -1154,20 +1327,13 @@ const PLAINTIFF: CaseStage[] = [
       },
     ],
     rules: [C.R_11_1_01_DISMISSAL_FOR_DELAY],
-    deadlines: [
-      {
-        id: "deadline:dismissal-for-delay-two-years",
-        what: "Obtain judgment or request a trial date before the action is dismissed",
-        countFrom: "the commencement of the action",
-        countFromEvent: "action-commenced",
-        length: { unit: "years", count: 2 },
-        regime: "small-claims-rules",
-        rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
-        computation: C.R_3_01_COMPUTATION,
-        consequence: "changes-what-happens-next",
-        exceptions: [C.R_11_1_01_DISMISSAL_FOR_DELAY],
-      },
-    ],
+    /*
+     * No deadline (2026-10-01 audit). This stage is AFTER the clerk's order:
+     * the two-year clock in r. 11.1.01 (1) has already run, and rendering it
+     * here told a reader whose action was dismissed that they still had two
+     * years "before the action is dismissed".
+     */
+    deadlines: [],
   },
 ];
 
@@ -1219,6 +1385,8 @@ const DEFENDANT: CaseStage[] = [
       {
         id: "deadline:defence-20-days",
         what: "Serve a defence on every other party and file it with the clerk, with proof of service",
+        qualifier:
+          "If the claim was left at your home with an adult and a copy mailed or couriered, service takes effect on the fifth day after the mailing or the courier's confirmed delivery. The same is true when a company cannot be found at its last address on record and is served by mail or courier to that address and to its directors. If the claim was sent by registered mail or courier and signed for, service takes effect on the date of the signature. The parties can lengthen the time by filing their consent, and the court can lengthen it.",
         countFrom: "the day of being served with the claim",
         countFromEvent: "served-with-claim",
         length: { unit: "days", count: 20 },
@@ -1226,7 +1394,7 @@ const DEFENDANT: CaseStage[] = [
         rule: C.R_9_01_DEFENCE,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [C.R_3_02_EXTEND],
+        exceptions: [C.R_3_02_EXTEND, C.R_3_02_CONSENT, C.R_8_03_EFFECTIVE, C.R_8_03_SIGNATURE],
       },
     ],
   },
@@ -1353,11 +1521,26 @@ const DEFENDANT: CaseStage[] = [
         by: "whether a date for the settlement conference has been received",
       },
     ],
-    rules: [C.R_13_01_SETTLEMENT_CONFERENCE, C.R_13_01_TIMING, C.R_13_01_CLERK_FIXES],
+    rules: [C.R_13_01_SETTLEMENT_CONFERENCE, C.R_13_01_TIMING, C.R_13_01_CLERK_FIXES, C.R_10_01_DEFENDANTS_CLAIM],
     deadlines: [
       {
+        id: "deadline:issue-defendants-claim-20-days:defence-filed",
+        what: "If you want to make a defendant's claim (Form 10A), it can be issued without the court's leave",
+        qualifier: "After that, it may be issued only with leave of the court, and only before trial or default judgment.",
+        countFrom: "the day the defence is filed",
+        countFromEvent: "first-defence-filed",
+        length: { unit: "days", count: 20 },
+        regime: "small-claims-rules",
+        rule: C.R_10_01_DEFENDANTS_CLAIM,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_10_01_DEFENDANTS_CLAIM],
+      },
+      {
         id: "deadline:settlement-conference-90-days:defendant",
-        what: "The settlement conference is to be held",
+        what: "The court holds the settlement conference",
+        actor: "court",
+        qualifier: "The clerk fixes the time, date and place and serves a notice of settlement conference on the parties. No conference is held if the defence admits all of the claim and proposes terms of payment.",
         countFrom: "the day the first defence was filed",
         countFromEvent: "first-defence-filed",
         length: { unit: "days", count: 90 },
@@ -1365,7 +1548,7 @@ const DEFENDANT: CaseStage[] = [
         rule: C.R_13_01_TIMING,
         computation: C.R_3_01_COMPUTATION,
         consequence: "changes-what-happens-next",
-        exceptions: [],
+        exceptions: [C.R_13_01_EXCEPTION],
       },
     ],
   },
@@ -1397,7 +1580,8 @@ const DEFENDANT: CaseStage[] = [
     deadlines: [
       {
         id: "deadline:issue-defendants-claim-20-days",
-        what: "Issue the defendant's claim (Form 10A) without needing leave of the court",
+        what: "A defendant's claim (Form 10A) can be issued without the court's leave",
+        qualifier: "After that, it may be issued only with leave of the court, and only before trial or default judgment.",
         countFrom: "the day the defence is filed",
         countFromEvent: "first-defence-filed",
         length: { unit: "days", count: 20 },
@@ -1444,11 +1628,13 @@ const DEFENDANT: CaseStage[] = [
         // Plain wording: this renders straight into the block. The near-verbatim
         // r. 13.03 (2) phrasing read at grade 9.3.
         what:
-          "Give every other party and the court a copy of any document you will use at trial. This includes any expert report. You do not need to send what is already attached to your claim or defence",
+          "Serve on every other party, and file with the court, your trial documents and a witness list (Form 13A)",
         countFrom: "the date of the settlement conference, counting backwards",
         countFromEvent: "settlement-conference-date",
         length: { unit: "days", count: 14 },
         direction: "before",
+        qualifier:
+          "The documents are any you will rely on at the trial that are not attached to your claim or defence, including an expert report. The list names your proposed witnesses and other people who know about the matters in dispute.",
         regime: "small-claims-rules",
         rule: C.R_13_03_DISCLOSURE,
         computation: C.R_3_01_COMPUTATION,
@@ -1510,11 +1696,52 @@ const DEFENDANT: CaseStage[] = [
         by: "whether the trial has happened",
       },
     ],
-    // r. 11.06 was missing here entirely — this stage's rules list was empty, so
-    // the drafter could not say that a default judgment can be set aside. The
-    // block that most needs a route out had no rule describing one.
-    rules: [C.R_11_06_SET_ASIDE],
-    deadlines: [],
+    // 2026-10-01 audit: this stage once cited r. 11.06, which sets aside a
+    // DEFAULT judgment and does not apply after a hearing the defendant took
+    // part in (that is `defendant:default-judgment-against-me`). The routes
+    // that do apply are below. See the note above R_17_04_NEW_TRIAL.
+    rules: [
+      C.R_17_04_NEW_TRIAL,
+      C.R_17_04_CONDITIONS,
+      C.S_CJA_31_APPEAL,
+      C.S_APPEAL_LIMIT,
+      C.R_61_04_APPEAL_30_DAYS,
+      C.R_61_04_FILE_10_DAYS,
+      C.R_61_05_CERTIFICATE,
+      C.R_63_01_STAY,
+      C.R_20_10_ORDER_AS_TO_PAYMENT,
+      C.R_20_02_STAY_VARY,
+    ],
+    deadlines: [
+      {
+        id: "deadline:new-trial-motion",
+        what: "If you want to ask for a new trial, bring a motion for a new trial",
+        countFrom: "the day the final order was made",
+        countFromEvent: "judgment-date",
+        length: { unit: "days", count: 30 },
+        regime: "small-claims-rules",
+        rule: C.R_17_04_NEW_TRIAL,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        qualifier:
+          "The court can grant one only for a purely arithmetical error in the amount of damages, or for relevant evidence that was not available at the trial and could not reasonably have been expected to be.",
+        exceptions: [C.R_17_04_CONDITIONS],
+      },
+      {
+        id: "deadline:appeal-notice",
+        what: "If you want to appeal to the Divisional Court, serve a notice of appeal (Form 61A.3) with a certificate respecting evidence (Form 61C)",
+        countFrom: "the day the order was made",
+        countFromEvent: "judgment-date",
+        length: { unit: "days", count: 30 },
+        regime: "small-claims-rules",
+        rule: C.R_61_04_APPEAL_30_DAYS,
+        computation: C.R_RCP_3_01_HOLIDAY,
+        consequence: "changes-what-happens-next",
+        qualifier:
+          "File the notice, with proof of service, within 10 days after serving it, and file the certificate with it. An appeal lies only from an order for the payment of more than $5,000, not counting costs, or for the recovery of personal property worth more than $5,000.",
+        exceptions: [C.S_CJA_31_APPEAL, C.S_APPEAL_LIMIT, C.R_61_05_CERTIFICATE, C.R_61_04_FILE_10_DAYS],
+      },
+    ],
   },
 ];
 
@@ -1592,7 +1819,8 @@ const BOTH: CaseStage[] = [
       {
         id: "deadline:set-aside-after-missed-trial",
         what:
-          "Ask the court to set aside a judgment made when you did not attend, by making a motion",
+          "Ask the court, by making a motion, to set aside or change a judgment made when you did not attend",
+        qualifier: "A party may instead make a motion to extend the 30 days, and the court may extend them if satisfied that special circumstances justify it.",
         countFrom: "the day you became aware of the judgment",
         countFromEvent: "trial-judgment-awareness",
         length: { unit: "days", count: 30 },

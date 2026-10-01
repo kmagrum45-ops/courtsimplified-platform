@@ -195,11 +195,22 @@ export type StageAnswer = {
  * computes dates. A person reading "you have 10 days" needs to know that here,
  * unlike everywhere else, the weekend does not help them.
  */
+/*
+ * 2026-10-01 audit: the earlier wording ("Under the statute it does not -- only
+ * Sunday and holidays are excluded. Do not assume a weekend gives you extra
+ * time") left out Legislation Act s. 89 (2), which extends a time limit that
+ * expires on a day the place for doing it is closed. Saturday is still not a
+ * holiday under s. 88; it is the closed-office rule that can move the date.
+ */
 const STATUTORY_WEEKEND_WARNING =
-  "This deadline is set by a statute rather than by the court's rules, and that " +
-  "changes how the days are counted. Under the rules a deadline landing on a " +
-  "Saturday moves to the next working day. Under the statute it does not — only " +
-  "Sunday and holidays are excluded. Do not assume a weekend gives you extra time.";
+  "This deadline is set by a statute, not by the court's rules, so the days are " +
+  "counted under the Legislation Act, 2006. The day the time is counted from is " +
+  "not itself counted (s. 89 (5)). If the last day is a Sunday or a " +
+  "holiday, the deadline moves to the next day that is not a holiday (s. 89 (1)). " +
+  "Saturday is not a holiday under that Act, so a Saturday does not by itself move " +
+  "the deadline. A time limit for doing something at a place, such as filing at an " +
+  "office, moves to the next day that place is open only if it is closed that day " +
+  "during its regular hours (s. 89 (2)).";
 
 export function renderDeadlineSection(
   deadlines: Array<{
@@ -209,6 +220,8 @@ export function renderDeadlineSection(
     direction?: "after" | "before";
     regime?: "small-claims-rules" | "legislation-act";
     consequence?: "bars-the-claim" | "changes-what-happens-next";
+    actor?: "reader" | "other-party" | "court";
+    qualifier?: string;
   }>,
 ): string | null {
   // count === 0 marks a period the rule declines to fix — r. 11.06's "as soon
@@ -227,12 +240,22 @@ export function renderDeadlineSection(
 
       // A backwards clock reads nothing like a forwards one. "Within 14 days
       // of the conference" is the opposite of what r. 13.03 (2) requires.
+      const qualifier = deadline.qualifier ? ` ${deadline.qualifier}` : "";
       if (deadline.direction === "before") {
         const event = deadline.countFrom.replace(/,?\s*counting backwards\.?$/i, "");
-        return `${deadline.what}. Do this at least ${period} before ${event}.`;
+        return `${deadline.what}. Do this at least ${period} before ${event}.${qualifier}`;
       }
 
-      return `${deadline.what}. You have ${period}, counted from ${deadline.countFrom}.`;
+      // Whose clock it is decides the sentence (2026-10-01 audit). "You have 90
+      // days" for the court's own timetable read as the reader's deadline.
+      if (deadline.actor === "court") {
+        return `${deadline.what} within ${period} after ${deadline.countFrom}. This is the court's timetable, not a step you take.${qualifier}`;
+      }
+      if (deadline.actor === "other-party") {
+        return `${deadline.what}. They have ${period}, counted from ${deadline.countFrom}.${qualifier}`;
+      }
+
+      return `${deadline.what}. You have ${period}, counted from ${deadline.countFrom}.${qualifier}`;
     })
     .join("\n\n")
     .concat(weekendWarningFor(fixed));
