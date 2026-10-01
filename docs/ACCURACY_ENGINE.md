@@ -1642,3 +1642,25 @@ computed dates. Every qualifier must be supported by `rule` or `exceptions`.
 - **Known gap left on purpose:** the unpaid-judgment answer does not explain
   periodic-payment orders (r. 20.02 (2)–(4)); a half-statement was judged an
   error and the full one does not fit at grade 8.
+
+### The eval after the model upgrade, and two findings it cost (2026-10-01)
+
+- **Nobody had re-run `eval:accuracy` since the move to gpt-6.1-sol.** It is now
+  a reported step in the story-review workflow (with the call log published), so
+  it runs whenever stage-map, intake or eval code changes on `main`. First run:
+  **54%** stage accuracy. The call log showed the cause: the right stage, with
+  confidence hedged below the 0.85 floor on facts stated in plain words. After
+  prompt rules 5b/5c (examples deliberately not copied from eval stories) and
+  passing the side recorded at intake (`knownRole`): **97%, 0 wrong-stage
+  content shown, 9/9 deadlines, 3/3 advice deflected, 5/5 chat routing.**
+- **The new model is literal about "absence is not evidence".** One expectation
+  was wrong for exactly that reason (`d-missed-the-20-days` assumed "not yet
+  noted" from silence) and now expects the clarifying question.
+- **The model path of the court-path classifier ignored the former-tenant cap**
+  that the keyword path applied; and the stage resolver's out-of-scope backstop
+  then overruled a boundary the classifier had flagged. Both fixed.
+- **No page showed the stage answers.** `/api/case/resolve-stage` and
+  `/api/case/chat` had no caller. The builder now has `StageAnswerPanel`: on a
+  Small Claims case, after the coarse stage is confirmed, the user picks their
+  exact position (each stage's own question) and `/api/case/stage-answer` (no
+  model) renders the published block through the same gates.
