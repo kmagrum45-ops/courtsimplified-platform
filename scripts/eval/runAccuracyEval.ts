@@ -247,6 +247,17 @@ async function main(): Promise<void> {
     console.log(
       `  ${ok ? "ok  " : "MISS"}  ${story.id.padEnd(30)} want ${want.padEnd(44)} got ${got}${confidence}`,
     );
+    // Why an UNKNOWN came back. Without this a miss cannot say whether the fix
+    // is the prompt, the floor or a failed call (2026-10-01: 15 clear stories
+    // came back unknown and the log could not say which).
+    if (!ok && resolution?.kind === "unknown") {
+      console.log(
+        `          reason ${resolution.reason}; candidates ${resolution.candidates.join(", ") || "(none)"}` +
+          (position.kind === "in-scope"
+            ? `; scope ${position.scope.primaryPath} @${position.scope.confidence.toFixed(2)}`
+            : ""),
+      );
+    }
   }
 
   const chat = await runChatCases();

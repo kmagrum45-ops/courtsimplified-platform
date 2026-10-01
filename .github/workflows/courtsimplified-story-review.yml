@@ -94,6 +94,9 @@ jobs:
           cp fixture-run.log "$out/fixtures/" || true
           echo "fixture harness outcome: ${{ steps.fixtures.outcome }}" > "$out/fixtures/OUTCOME.txt"
           cp accuracy-eval.log "$out/" || true
+          # The model's recorded reasoning on the fabricated eval stories. No
+          # user data: this job has no database credentials at all.
+          cp .ai-call-log.jsonl "$out/" || true
           echo "accuracy eval outcome: ${{ steps.accuracy.outcome }}" >> "$out/fixtures/OUTCOME.txt"
           # This branch holds a report, not the site. Without this Vercel tries
           # to build it as a preview, fails, and emails the site owner on every
