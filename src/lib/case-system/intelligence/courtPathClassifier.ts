@@ -630,6 +630,27 @@ export function coerceModelPayload(
     // answer. See coherentForum: a wsiat call on a story with no work
     // connection anywhere in it contradicts wsiat's own jurisdiction.
     const forum = named ? coherentForum(named, story) : null;
+    /*
+     * The former-tenant boundary, applied to the MODEL's answer too.
+     *
+     * keywordOnlyResult already caps an LTB call at 0.3 when the tenancy has
+     * ended, because where that line falls is unsourceable (see
+     * TENANCY_ENDED_SIGNALS). The model path did not, and on 2026-10-01
+     * gpt-6.1-sol sent "my old landlord kept my deposit" and "my old landlord is
+     * suing me for damage" to the LTB at high confidence — turning people away
+     * with a certainty nobody could source. Same rule, both paths.
+     */
+    if (forum && forum.id === "ltb" && hasTenancyEndedSignal(story)) {
+      return {
+        primaryPath: "out-of-scope",
+        secondaryPath: null,
+        outOfScopeForum: forum,
+        confidence: Math.min(clampConfidence(payload.confidence), 0.3),
+        reasoning:
+          `This may involve the ${forum.name}, or it may be a Small Claims matter depending on timing -- ` +
+          "this is a boundary CourtSimplified can't resolve. The LTB or a paralegal can confirm which applies.",
+      };
+    }
     if (forum) {
       return {
         primaryPath: "out-of-scope",

@@ -130,6 +130,17 @@ export type PositionOptions = {
    * about service is asking a question that has already been answered, badly.
    */
   knownCourtPath?: string | null;
+  /**
+   * The reader's side as recorded on the case at intake (`sc-orient-role`),
+   * confirmed by the person. Passed to the stage resolver as a stated fact.
+   *
+   * 2026-10-01: without it, "I have a trial date in September" is correctly
+   * unresolvable — it does not say which side the reader is on — although the
+   * product has known the answer since intake. Same reasoning as
+   * `knownCourtPath`: a question already answered is not asked again of a
+   * fragment.
+   */
+  knownRole?: "plaintiff" | "defendant" | null;
 };
 
 /**
@@ -193,7 +204,7 @@ async function resolveCasePositionInner(
      */
     return {
       kind: "in-scope",
-      stage: await resolveStageWithModel(story, options.model),
+      stage: await resolveStageWithModel(story, options.model, options.knownRole),
       scope: { primaryPath: "small-claims", confidence: 1 },
     };
   }
@@ -215,7 +226,7 @@ async function resolveCasePositionInner(
         forum: scope.outOfScopeForum,
         confidence: scope.confidence,
         reasoning: scope.reasoning,
-        stage: await resolveStageWithModel(story, options.model),
+        stage: await resolveStageWithModel(story, options.model, options.knownRole),
       };
     }
     return { kind: "out-of-scope", forum: scope.outOfScopeForum, confidence: scope.confidence };
@@ -260,13 +271,13 @@ async function resolveCasePositionInner(
       forum: scope.outOfScopeForum,
       confidence: scope.confidence,
       reasoning: scope.reasoning,
-      stage: await resolveStageWithModel(story, options.model),
+      stage: await resolveStageWithModel(story, options.model, options.knownRole),
     };
   }
 
   return {
     kind: "in-scope",
-    stage: await resolveStageWithModel(story, options.model),
+    stage: await resolveStageWithModel(story, options.model, options.knownRole),
     scope: { primaryPath: scope.primaryPath, confidence: scope.confidence },
   };
 }
@@ -291,13 +302,31 @@ async function resolveCasePositionInner(
 export async function resolveStageWithModel(
   story: string,
   model?: string,
+  knownRole?: "plaintiff" | "defendant" | null,
 ): Promise<StageResolution> {
   return currentAiCallContext()
-    ? resolveStageInner(story, model)
-    : withAiCallContext({ callType: "stage-resolver" }, () => resolveStageInner(story, model));
+    ? resolveStageInner(story, model, knownRole)
+    : withAiCallContext({ callType: "stage-resolver" }, () =>
+        resolveStageInner(story, model, knownRole),
+      );
 }
 
-async function resolveStageInner(story: string, model: string | undefined): Promise<StageResolution> {
+/** The case-record line the resolver reads before the story. Empty when nothing is recorded. */
+export function caseRecordPreamble(knownRole?: "plaintiff" | "defendant" | null): string {
+  if (knownRole === "plaintiff") {
+    return "ON THE CASE RECORD (confirmed by the person at intake): the reader is the PLAINTIFF, the one bringing the claim.\n\n";
+  }
+  if (knownRole === "defendant") {
+    return "ON THE CASE RECORD (confirmed by the person at intake): the reader is the DEFENDANT, the one responding to the claim.\n\n";
+  }
+  return "";
+}
+
+async function resolveStageInner(
+  story: string,
+  model: string | undefined,
+  knownRole?: "plaintiff" | "defendant" | null,
+): Promise<StageResolution> {
   try {
     const client = createOpenAIClient();
     const response = await client.chat.completions.create({
@@ -307,7 +336,7 @@ async function resolveStageInner(story: string, model: string | undefined): Prom
         { role: "system", content: STAGE_RESOLVER_SYSTEM },
         {
           role: "user",
-          content: `STAGES:\n\n${stageCatalogueForPrompt()}\n\nTHE CASE:\n\n${story}`,
+          content: `STAGES:\n\n${stageCatalogueForPrompt()}\n\n${caseRecordPreamble(knownRole)}THE CASE:\n\n${story}`,
         },
       ],
     });
