@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-30",
+ "generatedAt": "2026-10-01",
  "sources": {
   "small-claims": {
    "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
@@ -1329,8 +1329,8 @@
       "quote": "16.09 (1) Service of a document may be proved by an affidavit of the person who served it (Form 16B)."
      },
      {
-      "rule": "r. 74.18 (3.1)",
-      "quote": "(3.1) or (3.2) in Form 16B (affidavit of service) or 16B.1 (lawyer's certificate of service), (ii) the notices of no objection to accounts or notices of non- participation in passing of accounts of the Children's Lawyer and Public Guardian and Trustee, if served, (iii) an affidavit (Form 74.47) of the applicant or applicant's lawyer stating that a copy of the accounts was provided to each person who was served with"
+      "rule": "r. 74.18 (9)",
+      "quote": "application, the applicant files with the court, (a) a record containing, (i) proof of service of the documents specified in subrule (3), (3.1) or (3.2) in Form 16B (affidavit of service) or 16B.1 (lawyer's certificate of service), (ii) the notices of no objection to accounts or notices of non- participation in passing of accounts of the Children's Lawyer and Public Guardian and Trustee, if served, (iii) an"
      },
      {
       "rule": "r. 74.18 (11.3)",
@@ -2446,7 +2446,7 @@
       "quote": "(6) Unless the parties have agreed on the costs that it would be appropriate to award for a step in a proceeding, every party who intends to seek costs for that step shall give to every other party involved in the same step, and bring to the hearing, a costs outline (Form 57B) not exceeding three pages in length."
      },
      {
-      "rule": "r. 74.18 (3.1)",
+      "rule": "r. 74.18 (9)",
       "quote": "requests (Form 74.49 or 74.49.1), if any, for costs of the persons served, (iv.1) any requests for increased costs (Form 74.49.2 or 74.49.3), costs outlines (Form 57B) and responses to requests for increased costs received under subrule (11.2), and (v) the certificate of a lawyer stating that all documents required by subclauses (i) to (iv.1) are included in the record; (b) a draft of the judgment sought, in"
      },
      {
@@ -3935,7 +3935,7 @@
     "revoked": false,
     "mentions": [
      {
-      "rule": "r. 74.18 (3.1)",
+      "rule": "r. 74.18 (9)",
       "quote": "to accounts or notices of non- participation in passing of accounts of the Children's Lawyer and Public Guardian and Trustee, if served, (iii) an affidavit (Form 74.47) of the applicant or applicant's lawyer stating that a copy of the accounts was provided to each person who was served with the notice of application and requested a copy, that the time for filing notices of objection to accounts has expired and"
      }
     ]
@@ -3952,7 +3952,7 @@
       "quote": "(8.4) A person who wishes to withdraw a notice of objection to accounts shall, at least 15 days before the hearing date of the application, serve on the applicant, and file with proof of service, a notice of withdrawal of objection (Form 74.48)."
      },
      {
-      "rule": "r. 74.18 (3.1)",
+      "rule": "r. 74.18 (9)",
       "quote": "was received from any person served, or that, if a notice of objection was received, it was withdrawn as evidenced by a notice of withdrawal of objection (Form 74.48) attached to the affidavit, (iv) requests (Form 74.49 or 74.49.1), if any, for costs of the persons served, (iv.1) any requests for increased costs (Form 74.49.2 or 74.49.3), costs outlines (Form 57B) and responses to requests for increased costs"
      },
      {
@@ -3973,7 +3973,7 @@
       "quote": "(8.6) Subject to subrule (11), any person served with documents under subrule (3), (3.1) or (3.2) who wishes to seek costs shall, at least 10 days before the hearing date of the application, serve on the applicant a request for costs (Form 74.49 or 74.49.1) and file the request with proof of service."
      },
      {
-      "rule": "r. 74.18 (3.1)",
+      "rule": "r. 74.18 (9)",
       "quote": "notice of objection was received, it was withdrawn as evidenced by a notice of withdrawal of objection (Form 74.48) attached to the affidavit, (iv) requests (Form 74.49 or 74.49.1), if any, for costs of the persons served, (iv.1) any requests for increased costs (Form 74.49.2 or 74.49.3), costs outlines (Form 57B) and responses to requests for increased costs received under subrule (11.2), and (v) the certificate"
      },
      {
@@ -3994,7 +3994,7 @@
       "quote": "(8.6) Subject to subrule (11), any person served with documents under subrule (3), (3.1) or (3.2) who wishes to seek costs shall, at least 10 days before the hearing date of the application, serve on the applicant a request for costs (Form 74.49 or 74.49.1) and file the request with proof of service."
      },
      {
-      "rule": "r. 74.18 (3.1)",
+      "rule": "r. 74.18 (9)",
       "quote": "notice of objection was received, it was withdrawn as evidenced by a notice of withdrawal of objection (Form 74.48) attached to the affidavit, (iv) requests (Form 74.49 or 74.49.1), if any, for costs of the persons served, (iv.1) any requests for increased costs (Form 74.49.2 or 74.49.3), costs outlines (Form 57B) and responses to requests for increased costs received under subrule (11.2), and (v) the certificate"
      },
      {
@@ -4011,7 +4011,7 @@
     "revoked": false,
     "mentions": [
      {
-      "rule": "r. 74.18 (3.1)",
+      "rule": "r. 74.18 (9)",
       "quote": "74.48) attached to the affidavit, (iv) requests (Form 74.49 or 74.49.1), if any, for costs of the persons served, (iv.1) any requests for increased costs (Form 74.49.2 or 74.49.3), costs outlines (Form 57B) and responses to requests for increased costs received under subrule (11.2), and (v) the certificate of a lawyer stating that all documents required by subclauses (i) to (iv.1) are included in the record;"
      },
      {
@@ -4032,7 +4032,7 @@
     "revoked": false,
     "mentions": [
      {
-      "rule": "r. 74.18 (3.1)",
+      "rule": "r. 74.18 (9)",
       "quote": "74.48) attached to the affidavit, (iv) requests (Form 74.49 or 74.49.1), if any, for costs of the persons served, (iv.1) any requests for increased costs (Form 74.49.2 or 74.49.3), costs outlines (Form 57B) and responses to requests for increased costs received under subrule (11.2), and (v) the certificate of a lawyer stating that all documents required by subclauses (i) to (iv.1) are included in the record;"
      },
      {
@@ -6329,7 +6329,7 @@
     "revoked": false,
     "mentions": [
      {
-      "rule": "r. 34 (2)",
+      "rule": "r. 34 (6)",
       "quote": "an affidavit (Form 34G.1) signed by an employee of a children’s aid society stating that, A."
      }
     ]

@@ -383,15 +383,16 @@ export const DEFENCE_CONCEPTS: DefenceConcept[] = [
     id: "defence-limitation-period-expired",
     name: "Limitation period expired",
     plainExplanation:
-      "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding " +
-      "cannot be started after the second anniversary of the day the claim was discovered. Section " +
-      "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
-      "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-      "omission, that the act or omission was that of the person the claim is against, and that a " +
-      "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
-      "person with their abilities and in their circumstances first ought to have known those " +
-      "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
-      "the day the act or omission the claim is based on took place, unless the contrary is proved.",
+      "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding cannot " +
+      "be started after the second anniversary of the day the claim was discovered. Section 5(1) says " +
+      "when a claim is discovered: the earlier of the day the person first knew that the injury, loss " +
+      "or damage had occurred, that it was caused or contributed to by an act or omission, that the act " +
+      "or omission was that of the person the claim is against, and that, having regard to the nature " +
+      "of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it " +
+      "-- and the day a reasonable person with their abilities and in their circumstances first ought " +
+      "to have known those things. Under s. 5(2), a person with a claim is presumed to have known of " +
+      "those matters on the day the act or omission the claim is based on took place, unless the " +
+      "contrary is proved.",
     sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
     verifiedAt: "2026-09-30",
     consolidationPeriod: "2024-12-04",
@@ -2888,10 +2889,12 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "estimate-or-max-agreed",
         name: "A written estimate was required, or a maximum amount was agreed instead",
         plainExplanation:
-          "Before a repair shop can charge you, it generally must have given a written estimate, " +
-          "unless the customer declined one and instead agreed on a maximum amount they were willing " +
-          "to pay for the repair.",
+          "Under s. 56 of the Consumer Protection Act, 2002, a repairer may not charge a consumer for work " +
+          "or repairs unless it first gives an estimate, except where the repairer offered an estimate and " +
+          "the consumer declined it, the consumer specifically authorized the maximum amount they will pay, " +
+          "and the amount charged does not exceed that maximum.",
         sourceUrl: "https://www.ontario.ca/page/car-repair-shops-your-rights",
+        alsoCites: [{ sourceUrl: "https://www.ontario.ca/laws/docs/02c30_e.doc", pinpoint: "Consumer Protection Act, 2002, s. 56 (1)-(2)" }],
         verifiedAt: "2026-09-30",
         evidenceCategories: [
           {

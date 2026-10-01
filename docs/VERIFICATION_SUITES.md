@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-99 documented, 30 without a header.
+101 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -33,6 +33,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:claim-types` | **The claim-type catalogue is internally honest: ids are unique and stable,**<br>authored profiles carry their sources, declared profiles carry nothing, and the synthetic scenarios can never reach a user. |
 | `npm run test:classifier-gating` | **Proves the AI claim-type classifier runs ONLY on the opening story, and**<br>replays story 4's real turn sequence to show what the retained claim type is at each turn, before and after the fix. |
 | `npm run test:court-locations` | **Every courthouse address and contact shown is on the court's own page.**<br>COSTS NOTHING. Reads src/lib/content-library/courts/courtLocations.json and the saved page text in docs/sources/court-locations/. |
+| `npm run test:crisis-numbers` | **Every phone number in a crisis message is on the official page it came from.**<br>COSTS NOTHING. Reads crisisMessages.ts and the vendored ontario.ca pages. |
 | `npm run test:cross-forum-notes` | **Connection notes quote their sources exactly, are selected by topic alone,**<br>and a story's issues can only carry the user's own words. |
 | `npm run test:db-environments` | **Nothing in this repository says "dev" when it means production, and no**<br>migration can reach production without passing staging. |
 | `npm run test:deadlines` | **Does the deadline engine count correctly?**<br>Every case here is one somebody could actually be in, and every one of them is a date a person would get wrong by reasoning casually. A deadline that is right in the ordinary case and wrong across a long weekend is not 95% correct; it is a trap that springs ex |
@@ -88,6 +89,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:safety-regression` | **Permanent regression suite for safetyPass.ts -- the 11 cases from**<br>Sessions 4 and 5 plus three from the 2026-09-28 story review, wired into CI (npm run test:safety-regression), same pattern as test:intake-coverage. |
 | `npm run test:service-notices` | **Court-closure notices are real, traceable to the corpus, and warn at the right**<br>times. |
 | `npm run test:snapshot-provenance` | **Every human-supplied snapshot has provenance, is second-tier, and exists.**<br>WHAT THIS CATCHES: a snapshot used as though it were a fetched source. The snapshot type exists because ten pages cannot be fetched, and it is the only source type whose content nothing can re-verify against the live web. That makes it the one type where an un |
+| `npm run test:source-links` | **Every "Source" link a reader can click opens a public page.**<br>COSTS NOTHING. Pure functions over the content modules; no network. |
 | `npm run test:stage-answers` | **Can the pipeline's output be trusted?**<br>The run log says every sentence was verified and every quote was found. This suite does not take its word for it. It re-reads each quote out of the vendored corpus, now, on this machine — because the run log is a record of what happened on one afternoon agains |
 | `npm run test:stage-map` | **Does the stage map hold up?**<br>A stage map is a list of assertions about Ontario procedure, written by someone who could be wrong or could be working from memory. Three failures matter, and each has its own check group: |
 | `npm run test:stage-resolution` | **The runtime says "we don't know" when it doesn't, and shows only published text.**<br>Part 0 traced ten realistic stories through the old runtime. Eight got the same answer. The proximate cause was `text.includes("defendant")`; the more dangerous half was `\|\| "starting-case"` — a default, which is a confident answer given without evidence, an |

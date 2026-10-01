@@ -92,7 +92,7 @@ export const NEXT_STEP_BLOCKS: NextStepBlock[] = [
     stage: "conference",
     title: "Before the settlement conference",
     text:
-      "Documents not already attached to the claim or defence must be served and filed at least 14 days before a settlement conference.\n\n" +
+      "A copy of any document to be relied on at the trial, including an expert report, that is not attached to the party's claim or defence must be served and filed at least 14 days before a settlement conference (r. 13.03 (2)).\n\n" +
       "A List of Proposed Witnesses (Form 13A) must also be served on every other party and filed with the court at least 14 days before the settlement conference (r. 13.03 (2)).",
     sourceUrl:
       "https://www.ontario.ca/document/guide-procedures-small-claims-court/getting-ready-court",
@@ -308,7 +308,7 @@ export const NEXT_STEP_BLOCKS: NextStepBlock[] = [
     stage: "conference",
     title: "Mediation and the pre-trial conference",
     text:
-      "Mandatory mediation under Rule 24.1 applies to actions that include those started on or after January 1, 2010 in the City of Ottawa, the City of Toronto or the County of Essex, subject to listed exceptions such as mortgage actions (r. 24.1.04 (1), (2)). For an action started in one of those places, a mediation session must take place within 180 days after the first defence has been filed, unless the court orders otherwise (r. 24.1.09 (1)). For an action transferred to one of those places on or after January 1, 2014, the 180-day rule does not apply and the court may set the date by which mediation must take place (r. 24.1.04 (1) para. 3; r. 24.1.09 (2.1)). The court may, on a party's motion, exempt an action from the Rule (r. 24.1.05).\n\n" +
+      "Mandatory mediation under Rule 24.1 applies to actions that include those started on or after January 1, 2010 in the City of Ottawa, the City of Toronto or the County of Essex, subject to listed exceptions such as mortgage actions (r. 24.1.04 (1), (2)). For an action started in one of those places, a mediation session must take place within 180 days after the first defence has been filed, unless the court orders otherwise (r. 24.1.09 (1)). For an action transferred to one of those places on or after January 1, 2014, the 180-day rule does not apply and the court may set the date by which mediation must take place (r. 24.1.04 (1) para. 3; r. 24.1.09 (2.1)). The session may be postponed to a later date if the parties consent to the date in writing and the consent is filed with the mediation co-ordinator (r. 24.1.09 (3)). The court may, on a party's motion, exempt an action from the Rule (r. 24.1.05).\n\n" +
       "Unless the court orders otherwise, within 180 days after an action is set down for trial, the parties must schedule with the registrar a pre-trial conference before a judge or associate judge (r. 50.02 (1)). If the parties do not, the registrar schedules one and gives the parties notice (r. 50.02 (2)).",
     sourceUrl: "https://www.ontario.ca/laws/docs/900194_e.doc",
   },

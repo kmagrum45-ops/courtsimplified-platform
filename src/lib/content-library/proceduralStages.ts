@@ -307,7 +307,7 @@ export const PRINCIPLES: PrincipleCard[] = [
       // court" is looking for the wrong counter.
       "If no defence is filed in time, the plaintiff may ask the clerk to note the defendant in default.",
       "The plaintiff asks by filing a request to note the defendant in default, which may be made in Form 9B.",
-      "The clerk also requires proof that the claim was served within the court's territorial division.",
+      "The clerk also requires proof that the claim was served within the court's territorial division, except in the situation described next (r. 11.01(1)(b), (3)).",
       "If every defendant was served outside that territorial division, no defendant can be noted in default until an Affidavit for Jurisdiction (Form 11A) is filed with the clerk, or the point is proved before a judge.",
       "A defendant noted in default cannot file a defence or take further steps without the plaintiff's consent or the court's permission.",
       "For a debt or a fixed sum of money, the clerk may sign default judgment (Form 11B).",
@@ -401,7 +401,7 @@ export const PRINCIPLES: PrincipleCard[] = [
       "If you cannot afford the fees, you can ask the court to waive them. Applying costs nothing, and a fee waiver covers one case.",
       "You may qualify if, for example, your household's main income is Ontario Works, the Ontario Disability Support Program, or Old Age Security with the Guaranteed Income Supplement, or if your household's income and assets are under the limits Ontario sets (the income limit for one person is $33,100 a year before taxes).",
       "If you think you qualify, use the Fee Waiver Request to Registrar, Clerk or Sheriff (form FW-A-3). If you do not, but still cannot afford the fees, use the Fee Waiver Request to Court (form FW-A 4) and a judge will look at your finances.",
-      "A fee waiver is not available to someone acting for a business, and it does not cover fees for serving documents, bailiff enforcement fees, or costs a court orders you to pay the other side.",
+      "A fee waiver is not available to someone acting for a business, and it does not cover fees for serving documents, bailiff enforcement fees (except to enforce an order made under s. 31(3) of the Residential Tenancies Act, 2006), or costs a court orders you to pay the other side.",
     ],
     workflowUse: [
       "Use Dashboard to budget for filing and later-stage fees.",
@@ -421,7 +421,7 @@ export const PRINCIPLES: PrincipleCard[] = [
     title: "Starting a Claim",
     summary: "A civil claim above the Small Claims limit is started in the Superior Court of Justice with its own form, service window, and limitation period.",
     keyFacts: [
-      "A claim is started with a Statement of Claim (Form 14A or 14B), or a Notice of Action (Form 14C) for extra time to prepare it.",
+      "A claim is started with a Statement of Claim (Form 14A, or Form 14B for mortgage actions), or, where there is not enough time to prepare one, a Notice of Action (Form 14C), followed by a Statement of Claim (Form 14D) filed within 30 days after the notice of action is issued (r. 14.03).",
       "The claim must generally be served on each defendant within six months of being issued (r. 14.08).",
       "Under the Limitations Act, 2002, a claim generally cannot be started more than two years after the day it was discovered (s. 4).",
       "Service is proved by an Affidavit of Service (Form 16B) or, where a lawyer served the document or caused it to be served, a Lawyer's Certificate of Service (Form 16B.1) (r. 16.09).",
@@ -570,7 +570,7 @@ export const PRINCIPLES: PrincipleCard[] = [
     summary: "Most family law cases begin with a required education session before the case proceeds.",
     keyFacts: [
       "Attendance at a Mandatory Information Program (MIP) is required in most family cases, including claims about parenting, support, property and the matrimonial home, with exceptions such as cases proceeding on consent (r. 8.1(1)-(2)).",
-      "Each party must attend within 45 days after the case is started (r. 8.1(4)).",
+      "Where the program applies, each party must attend it within 45 days after the case is started (r. 8.1(4)).",
       "Until a party's certificate of attendance is filed, that party may take no other step, except that a respondent may still serve and file an Answer and a party may make an appointment for a case conference (r. 8.1(7)).",
       "The party starting the case is the applicant; the party who receives it is the respondent.",
     ],
@@ -588,7 +588,7 @@ export const PRINCIPLES: PrincipleCard[] = [
     summary: "A respondent has a fixed window to answer, and the applicant then has a further, shorter window to reply.",
     keyFacts: [
       "An Answer (Form 10) must be served and filed within 30 days of being served with the application (60 days if the application is served outside Canada or the United States) (r. 10(1)-(2)).",
-      "The Answer can agree or disagree with the applicant's claims, state supporting facts, and make the respondent's own requests for court orders.",
+      "An Answer may include the respondent's own claim against the applicant, or against another person, who then also becomes a respondent (r. 10(3)).",
       "A party may serve and file a Reply (Form 10A) within 10 days after being served with an Answer, in response to a claim made in it (r. 10(6)).",
     ],
     workflowUse: [
@@ -684,7 +684,7 @@ export const PRINCIPLES: PrincipleCard[] = [
     summary: "Family Court uses its own set of forms under the Family Law Rules, distinct from civil or Small Claims forms.",
     keyFacts: [
       "Forms are catalogued under the Family Law Rules, O. Reg. 114/99, including Application (Form 8), Answer (Form 10), and Financial Statement (Form 13 or 13.1).",
-      "Since October 14, 2025, family court documents are filed online through the Ontario Courts Public Portal for Toronto-region matters, and through Justice Services Online for matters outside Toronto.",
+      "Since October 14, 2025, family documents filed online go through the Ontario Courts Public Portal for Toronto-region matters and Justice Services Online for matters outside Toronto; filing in person at the court counter remains available.",
     ],
     workflowUse: [
       "Use Forms to locate the correct Family Law Rules form for each stage.",

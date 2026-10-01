@@ -2591,6 +2591,42 @@
       "characters": 35407,
       "lines": 219,
       "file": "esa-guide-vacation.txt"
+    },
+    {
+      "id": "ontario-connect-supports-survivors-violence",
+      "title": "Connect to supports for survivors of violence",
+      "citation": "ontario.ca",
+      "url": "https://www.ontario.ca/page/connect-supports-survivors-violence",
+      "retrievedAt": "2026-10-01T00:20:07.221Z",
+      "sha256": "cdf2eafdaca10f836f813c4b41b812c8847aaf4b500481e42bbf2596cdc1ca03",
+      "consolidation": "(none stated)",
+      "characters": 11064,
+      "lines": 171,
+      "file": "ontario-connect-supports-survivors-violence.txt"
+    },
+    {
+      "id": "ontario-find-mental-health-support",
+      "title": "Find mental health support",
+      "citation": "ontario.ca",
+      "url": "https://www.ontario.ca/page/find-mental-health-support",
+      "retrievedAt": "2026-10-01T00:20:07.264Z",
+      "sha256": "6724553389c30d45f269fbf5255e478890913330664b09d1bb1e198f9978a91e",
+      "consolidation": "(none stated)",
+      "characters": 5097,
+      "lines": 120,
+      "file": "ontario-find-mental-health-support.txt"
+    },
+    {
+      "id": "ontario-report-child-abuse-and-neglect",
+      "title": "Report child abuse and neglect",
+      "citation": "ontario.ca",
+      "url": "https://www.ontario.ca/page/report-child-abuse-and-neglect",
+      "retrievedAt": "2026-10-01T00:20:07.303Z",
+      "sha256": "1b86e69f4bf8c576290671a07d0f79b67c7758b0dca9ac4668e9a7ab043ed095",
+      "consolidation": "(none stated)",
+      "characters": 3939,
+      "lines": 56,
+      "file": "ontario-report-child-abuse-and-neglect.txt"
     }
   ],
   "failures": []

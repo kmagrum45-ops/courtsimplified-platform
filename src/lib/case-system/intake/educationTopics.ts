@@ -378,25 +378,25 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
       "negligent act. This is a factual inquiry, applied in a robust, common-sense way -- scientific " +
       "precision about exactly how the defendant's conduct produced the injury is not required. " +
       "Exceptionally, liability may instead rest on showing the defendant's conduct materially " +
-      "contributed to the risk of the injury, -- which the Supreme Court of Canada described as not a " +
-      "test for proving factual causation, but a basis for finding legal causation -- and only where " +
-      "two conditions are both met: the plaintiff has shown that the loss would not have occurred but " +
-      "for the negligence of two or more possible wrongdoers, each possibly responsible for it, and the " +
-      "plaintiff, through no fault of their own, is unable to show which one of them actually caused " +
-      "the injury, because each can point to the others. Outside that narrow situation, the ordinary " +
-      "\"but for\" test still applies even where more than one party was negligent. The legal branch of " +
-      "causation -- remoteness -- turns on reasonable foreseeability: whether the harm was a real risk " +
-      "that would occur to a reasonable person in the defendant's position, not one they'd dismiss as " +
-      "far-fetched. For personal-injury claims, and especially mental-injury claims, foreseeability is " +
-      "judged against a person of \"ordinary fortitude,\" not the particular plaintiff's own " +
-      "sensitivities -- unusual or extreme reactions to a negligent act are imaginable but not " +
-      "reasonably foreseeable. That ordinary-fortitude threshold is a separate question from the \"thin " +
-      "skull\" rule: once it's shown that a person of ordinary fortitude would foreseeably suffer the " +
-      "injury, the defendant must then take the plaintiff as found for the purpose of assessing the " +
-      "resulting damages -- ordinary fortitude decides whether the damage is compensable at law at all, " +
-      "not how much compensation follows once it is. Where a defendant is shown to have had actual " +
-      "knowledge of a plaintiff's particular sensitivities, the ordinary-fortitude requirement doesn't " +
-      "have to be applied as strictly.",
+      "contributed to the risk of the injury, -- which, as the Supreme Court of Canada noted in " +
+      "agreeing with the Court of Appeal, is not a test for proving factual causation but a basis for " +
+      "finding legal causation -- and only where two conditions are both met: the plaintiff has shown " +
+      "that the loss would not have occurred but for the negligence of two or more possible wrongdoers, " +
+      "each possibly responsible for it, and the plaintiff, through no fault of their own, is unable to " +
+      "show which one of them actually caused the injury, because each can point to the others. Outside " +
+      "that narrow situation, the ordinary \"but for\" test still applies even where more than one " +
+      "party was negligent. The legal branch of causation -- remoteness -- turns on reasonable " +
+      "foreseeability: whether the harm was a real risk that would occur to a reasonable person in the " +
+      "defendant's position, not one they'd dismiss as far-fetched. For personal-injury claims, and " +
+      "especially mental-injury claims, foreseeability is judged against a person of \"ordinary " +
+      "fortitude,\" not the particular plaintiff's own sensitivities -- unusual or extreme reactions to " +
+      "a negligent act are imaginable but not reasonably foreseeable. That ordinary-fortitude threshold " +
+      "is a separate question from the \"thin skull\" rule: once it's shown that a person of ordinary " +
+      "fortitude would foreseeably suffer the injury, the defendant must then take the plaintiff as " +
+      "found for the purpose of assessing the resulting damages -- ordinary fortitude decides whether " +
+      "the damage is compensable at law at all, not how much compensation follows once it is. Where a " +
+      "defendant is shown to have had actual knowledge of a plaintiff's particular sensitivities, the " +
+      "ordinary-fortitude requirement doesn't have to be applied as strictly.",
     citations: [
       {
         sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",

@@ -317,19 +317,18 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
       },
       {
         note:
-          "Under r. 76.02(1) of the Rules of Civil Procedure, the simplified procedure in Rule 76 must " +
-          "be used in an action if the plaintiff's claim is exclusively for money, real property or " +
-          "personal property (or a mix of these), and the total of the money claimed and the fair " +
-          "market value of any real or personal property, as at the date the action is started, is " +
-          "$200,000 or less, not counting interest and costs. Under r. 76.02(2) and (2.1), where there " +
-          "are two or more plaintiffs or defendants, each plaintiff's claim, or the claim against each " +
-          "defendant, is considered separately. Under r. 76.02(3), the simplified procedure may be used " +
-          "in any other action at the plaintiff's option, subject to r. 76.02(4) to (9). Under r. " +
-          "76.02(4), the statement of claim or notice of action must indicate that the action is being " +
-          "brought under Rule 76. Under r. 76.01(1), Rule 76 does not apply to some actions, including " +
-          "actions under the Class Proceedings Act, 1992, actions under the Construction Act (except " +
-          "trust claims), actions assigned for case management under r. 77.05, and actions in which a " +
-          "jury notice is delivered under r. 76.02.1(2).",
+          "Under r. 76.02(1) of the Rules of Civil Procedure, the simplified procedure in Rule 76 must be " +
+          "used in an action if the plaintiff's claim is exclusively for money, real property or personal " +
+          "property (or a mix of these), and the total of the money claimed and the fair market value of " +
+          "any real or personal property, as at the date the action is started, is $200,000 or less, not " +
+          "counting interest and costs. Under r. 76.02(2) and (2.1), where there are two or more plaintiffs " +
+          "or defendants, each plaintiff's claim, or the claim against each defendant, is considered " +
+          "separately. Under r. 76.02(3), the simplified procedure may be used in any other action at the " +
+          "plaintiff's option, subject to r. 76.02(4) to (9). Under r. 76.02(4), the statement of claim or " +
+          "notice of action must indicate that the action is being brought under Rule 76. Under r. " +
+          "76.01(1), Rule 76 does not apply to some actions, including actions under the Class Proceedings " +
+          "Act, 1992, actions under the Construction Act (except trust claims), actions assigned for case " +
+          "management under r. 77.05, and actions in which a jury notice is delivered under r. 76.02.1(2).",
         sourceUrl: "https://www.ontario.ca/laws/docs/900194_e.doc",
         verifiedAt: "2026-09-30",
         consolidationPeriod: "2026-09-01",
@@ -364,15 +363,16 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
       },
       {
         note:
-          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding " +
-          "cannot be started after the second anniversary of the day the claim was discovered. Section " +
-          "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
-          "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
-          "person with their abilities and in their circumstances first ought to have known those " +
-          "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
-          "the day the act or omission the claim is based on took place, unless the contrary is proved.",
+          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding cannot " +
+          "be started after the second anniversary of the day the claim was discovered. Section 5(1) says " +
+          "when a claim is discovered: the earlier of the day the person first knew that the injury, loss " +
+          "or damage had occurred, that it was caused or contributed to by an act or omission, that the act " +
+          "or omission was that of the person the claim is against, and that, having regard to the nature " +
+          "of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it " +
+          "-- and the day a reasonable person with their abilities and in their circumstances first ought " +
+          "to have known those things. Under s. 5(2), a person with a claim is presumed to have known of " +
+          "those matters on the day the act or omission the claim is based on took place, unless the " +
+          "contrary is proved.",
         sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
         verifiedAt: "2026-09-30",
         consolidationPeriod: "2024-12-04",
@@ -628,19 +628,19 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
       },
       {
         note:
-          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding " +
-          "cannot be started after the second anniversary of the day the claim was discovered. Section " +
-          "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
-          "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
-          "person with their abilities and in their circumstances first ought to have known those " +
-          "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
-          "the day the act or omission the claim is based on took place, unless the contrary is proved. " +
-          "Under s. 5(3), for the purposes of s. 5(1)(a)(i), the day on which injury, loss or damage " +
-          "occurs in relation to a demand obligation is the first day on which there is a failure to " +
-          "perform the obligation, once a demand for the performance is made. Under s. 5(4), s. 5(3) " +
-          "applies to every demand obligation created on or after January 1, 2004.",
+          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding cannot " +
+          "be started after the second anniversary of the day the claim was discovered. Section 5(1) says " +
+          "when a claim is discovered: the earlier of the day the person first knew that the injury, loss " +
+          "or damage had occurred, that it was caused or contributed to by an act or omission, that the act " +
+          "or omission was that of the person the claim is against, and that, having regard to the nature " +
+          "of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it " +
+          "-- and the day a reasonable person with their abilities and in their circumstances first ought " +
+          "to have known those things. Under s. 5(2), a person with a claim is presumed to have known of " +
+          "those matters on the day the act or omission the claim is based on took place, unless the " +
+          "contrary is proved. Under s. 5(3), for the purposes of s. 5(1)(a)(i), the day on which injury, " +
+          "loss or damage occurs in relation to a demand obligation is the first day on which there is a " +
+          "failure to perform the obligation, once a demand for the performance is made. Under s. 5(4), s. " +
+          "5(3) applies to every demand obligation created on or after January 1, 2004.",
         sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
         verifiedAt: "2026-09-30",
         consolidationPeriod: "2024-12-04",
@@ -697,19 +697,18 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
       },
       {
         note:
-          "Under r. 76.02(1) of the Rules of Civil Procedure, the simplified procedure in Rule 76 must " +
-          "be used in an action if the plaintiff's claim is exclusively for money, real property or " +
-          "personal property (or a mix of these), and the total of the money claimed and the fair " +
-          "market value of any real or personal property, as at the date the action is started, is " +
-          "$200,000 or less, not counting interest and costs. Under r. 76.02(2) and (2.1), where there " +
-          "are two or more plaintiffs or defendants, each plaintiff's claim, or the claim against each " +
-          "defendant, is considered separately. Under r. 76.02(3), the simplified procedure may be used " +
-          "in any other action at the plaintiff's option, subject to r. 76.02(4) to (9). Under r. " +
-          "76.02(4), the statement of claim or notice of action must indicate that the action is being " +
-          "brought under Rule 76. Under r. 76.01(1), Rule 76 does not apply to some actions, including " +
-          "actions under the Class Proceedings Act, 1992, actions under the Construction Act (except " +
-          "trust claims), actions assigned for case management under r. 77.05, and actions in which a " +
-          "jury notice is delivered under r. 76.02.1(2).",
+          "Under r. 76.02(1) of the Rules of Civil Procedure, the simplified procedure in Rule 76 must be " +
+          "used in an action if the plaintiff's claim is exclusively for money, real property or personal " +
+          "property (or a mix of these), and the total of the money claimed and the fair market value of " +
+          "any real or personal property, as at the date the action is started, is $200,000 or less, not " +
+          "counting interest and costs. Under r. 76.02(2) and (2.1), where there are two or more plaintiffs " +
+          "or defendants, each plaintiff's claim, or the claim against each defendant, is considered " +
+          "separately. Under r. 76.02(3), the simplified procedure may be used in any other action at the " +
+          "plaintiff's option, subject to r. 76.02(4) to (9). Under r. 76.02(4), the statement of claim or " +
+          "notice of action must indicate that the action is being brought under Rule 76. Under r. " +
+          "76.01(1), Rule 76 does not apply to some actions, including actions under the Class Proceedings " +
+          "Act, 1992, actions under the Construction Act (except trust claims), actions assigned for case " +
+          "management under r. 77.05, and actions in which a jury notice is delivered under r. 76.02.1(2).",
         sourceUrl: "https://www.ontario.ca/laws/docs/900194_e.doc",
         verifiedAt: "2026-09-30",
         consolidationPeriod: "2026-09-01",
@@ -1076,17 +1075,17 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
       },
       {
         note:
-          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding " +
-          "cannot be started after the second anniversary of the day the claim was discovered. Section " +
-          "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
-          "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
-          "person with their abilities and in their circumstances first ought to have known those " +
-          "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
-          "the day the act or omission the claim is based on took place, unless the contrary is proved. " +
-          "The Libel and Slander Act sets a shorter three-month period for libel in an Ontario " +
-          "newspaper or broadcast -- see that part of the checklist.",
+          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding cannot " +
+          "be started after the second anniversary of the day the claim was discovered. Section 5(1) says " +
+          "when a claim is discovered: the earlier of the day the person first knew that the injury, loss " +
+          "or damage had occurred, that it was caused or contributed to by an act or omission, that the act " +
+          "or omission was that of the person the claim is against, and that, having regard to the nature " +
+          "of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it " +
+          "-- and the day a reasonable person with their abilities and in their circumstances first ought " +
+          "to have known those things. Under s. 5(2), a person with a claim is presumed to have known of " +
+          "those matters on the day the act or omission the claim is based on took place, unless the " +
+          "contrary is proved. The Libel and Slander Act sets a shorter three-month period for libel in an " +
+          "Ontario newspaper or broadcast -- see that part of the checklist.",
         sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
         verifiedAt: "2026-09-30",
         consolidationPeriod: "2024-12-04",
@@ -1474,15 +1473,16 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
     proceduralNotes: [
       {
         note:
-          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding " +
-          "cannot be started after the second anniversary of the day the claim was discovered. Section " +
-          "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
-          "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
-          "person with their abilities and in their circumstances first ought to have known those " +
-          "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
-          "the day the act or omission the claim is based on took place, unless the contrary is proved.",
+          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding cannot " +
+          "be started after the second anniversary of the day the claim was discovered. Section 5(1) says " +
+          "when a claim is discovered: the earlier of the day the person first knew that the injury, loss " +
+          "or damage had occurred, that it was caused or contributed to by an act or omission, that the act " +
+          "or omission was that of the person the claim is against, and that, having regard to the nature " +
+          "of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it " +
+          "-- and the day a reasonable person with their abilities and in their circumstances first ought " +
+          "to have known those things. Under s. 5(2), a person with a claim is presumed to have known of " +
+          "those matters on the day the act or omission the claim is based on took place, unless the " +
+          "contrary is proved.",
         sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
         verifiedAt: "2026-09-30",
         consolidationPeriod: "2024-12-04",
@@ -1773,13 +1773,12 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
         id: "implied-representation-civmisrep",
         name: "The statement was implied, not spelled out",
         plainExplanation:
-          "This topic is about a Defence that says nothing was expressly stated, only implied. In Queen " +
-          "v. Cognos Inc., [1993] 1 S.C.R. 87, Justice Iacobucci rejected, as a general rule, the " +
-          "proposition that an implied representation cannot under any circumstance give rise to " +
-          "actionable negligence, finding no reason in principle, authority or policy for it (p. 130). " +
-          "He said a flexible approach is preferable, and that it is arbitrary and premature to declare " +
-          "as a general rule that nothing less than express or direct representations can succeed (p. " +
-          "131).",
+          "This topic is about a Defence that says nothing was expressly stated, only implied. In Queen v. " +
+          "Cognos Inc., [1993] 1 S.C.R. 87, Justice Iacobucci rejected, as a general rule, the proposition " +
+          "that an implied representation cannot under any circumstance give rise to actionable negligence " +
+          "(p. 130). He said a flexible approach is preferable, and that it is arbitrary and premature to " +
+          "declare as a general rule that nothing less than express or direct representations can succeed " +
+          "(p. 131).",
         whenThisComesUp:
           "When the Statement of Defence says the defendant never actually said the thing relied on, " +
           "and that it was only an inference.",
@@ -1830,15 +1829,16 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
     proceduralNotes: [
       {
         note:
-          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding " +
-          "cannot be started after the second anniversary of the day the claim was discovered. Section " +
-          "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
-          "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
-          "person with their abilities and in their circumstances first ought to have known those " +
-          "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
-          "the day the act or omission the claim is based on took place, unless the contrary is proved.",
+          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding cannot " +
+          "be started after the second anniversary of the day the claim was discovered. Section 5(1) says " +
+          "when a claim is discovered: the earlier of the day the person first knew that the injury, loss " +
+          "or damage had occurred, that it was caused or contributed to by an act or omission, that the act " +
+          "or omission was that of the person the claim is against, and that, having regard to the nature " +
+          "of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it " +
+          "-- and the day a reasonable person with their abilities and in their circumstances first ought " +
+          "to have known those things. Under s. 5(2), a person with a claim is presumed to have known of " +
+          "those matters on the day the act or omission the claim is based on took place, unless the " +
+          "contrary is proved.",
         sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
         verifiedAt: "2026-09-30",
         consolidationPeriod: "2024-12-04",
@@ -2099,17 +2099,17 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
     proceduralNotes: [
       {
         note:
-          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding " +
-          "cannot be started after the second anniversary of the day the claim was discovered. Section " +
-          "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
-          "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
-          "person with their abilities and in their circumstances first ought to have known those " +
-          "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
-          "the day the act or omission the claim is based on took place, unless the contrary is proved. " +
-          "Under s. 2(1)(a), the Limitations Act, 2002 does not apply to proceedings to which the Real " +
-          "Property Limitations Act applies.",
+          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding cannot " +
+          "be started after the second anniversary of the day the claim was discovered. Section 5(1) says " +
+          "when a claim is discovered: the earlier of the day the person first knew that the injury, loss " +
+          "or damage had occurred, that it was caused or contributed to by an act or omission, that the act " +
+          "or omission was that of the person the claim is against, and that, having regard to the nature " +
+          "of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it " +
+          "-- and the day a reasonable person with their abilities and in their circumstances first ought " +
+          "to have known those things. Under s. 5(2), a person with a claim is presumed to have known of " +
+          "those matters on the day the act or omission the claim is based on took place, unless the " +
+          "contrary is proved. Under s. 2(1)(a), the Limitations Act, 2002 does not apply to proceedings to " +
+          "which the Real Property Limitations Act applies.",
         sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
         verifiedAt: "2026-09-30",
         consolidationPeriod: "2024-12-04",
@@ -2385,24 +2385,26 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
       {
         note:
           "Which court, and which procedure. Ontario's page on suing someone in Small Claims Court says " +
-          "that for anything over $50,000 a claim goes to the Superior Court of Justice, and that " +
-          "someone owed more than $50,000 can still file in Small Claims Court if willing to waive the " +
-          "amount over $50,000. Under r. 57.05(1) of the Rules of Civil Procedure, if a plaintiff in " +
-          "the Superior Court recovers an amount within the monetary jurisdiction of the Small Claims " +
-          "Court, the court may order that the plaintiff shall not recover any costs; under r. " +
-          "57.05(2), that does not apply to an action transferred to the Superior Court of Justice " +
-          "under section 107 of the Courts of Justice Act. In the Superior Court, under r. 76.02(1), " +
-          "the simplified procedure in Rule 76 must be used if the plaintiff's claim is exclusively for " +
-          "money, real property or personal property, and the total of the money claimed and the fair " +
-          "market value of any property is $200,000 or less, exclusive of interest and costs. Under r. " +
-          "76.02(3), it may be used in any other action at the option of the plaintiff, subject to " +
-          "subrules (4) to (9), and under r. 76.02(4) the statement of claim must indicate that the " +
-          "action is being brought under Rule 76. Under r. 76.01(1), the simplified procedure does not " +
-          "apply to actions under the Class Proceedings Act, 1992, actions under the Construction Act " +
-          "(except trust claims), actions assigned for case management under rule 77.05, or actions in " +
-          "respect of which a jury notice is delivered in accordance with subrule 76.02.1(2). Under r. " +
-          "76.02(2) and (2.1), where there are two or more plaintiffs or defendants, each plaintiff's " +
-          "claim, or the claim against each defendant, is considered separately.",
+          "that for anything over $50,000 a claim goes to the Superior Court of Justice, and that someone " +
+          "owed more than $50,000 can still file in Small Claims Court if willing to waive the amount over " +
+          "$50,000. Under r. 57.05(1) of the Rules of Civil Procedure, if a plaintiff in the Superior Court " +
+          "recovers an amount within the monetary jurisdiction of the Small Claims Court, the court may " +
+          "order that the plaintiff shall not recover any costs; under r. 57.05(2), that does not apply to " +
+          "an action transferred to the Superior Court of Justice under section 107 of the Courts of " +
+          "Justice Act. Under s. 23(1.1) of the Courts of Justice Act, an action that is within the Small " +
+          "Claims Court's jurisdiction shall not be commenced in the Superior Court of Justice except with " +
+          "leave of the Superior Court of Justice as provided in the rules of court. In the Superior Court, " +
+          "under r. 76.02(1), the simplified procedure in Rule 76 must be used if the plaintiff's claim is " +
+          "exclusively for money, real property or personal property, and the total of the money claimed " +
+          "and the fair market value of any property is $200,000 or less, exclusive of interest and costs. " +
+          "Under r. 76.02(3), it may be used in any other action at the option of the plaintiff, subject to " +
+          "subrules (4) to (9), and under r. 76.02(4) the statement of claim must indicate that the action " +
+          "is being brought under Rule 76. Under r. 76.01(1), the simplified procedure does not apply to " +
+          "actions under the Class Proceedings Act, 1992, actions under the Construction Act (except trust " +
+          "claims), actions assigned for case management under rule 77.05, or actions in respect of which a " +
+          "jury notice is delivered in accordance with subrule 76.02.1(2). Under r. 76.02(2) and (2.1), " +
+          "where there are two or more plaintiffs or defendants, each plaintiff's claim, or the claim " +
+          "against each defendant, is considered separately.",
         sourceUrl: "https://www.ontario.ca/laws/docs/900194_e.doc",
         verifiedAt: "2026-09-30",
         consolidationPeriod: "2026-09-01",
@@ -2415,15 +2417,16 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
       },
       {
         note:
-          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding " +
-          "cannot be started after the second anniversary of the day the claim was discovered. Section " +
-          "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
-          "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
-          "person with their abilities and in their circumstances first ought to have known those " +
-          "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
-          "the day the act or omission the claim is based on took place, unless the contrary is proved.",
+          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding cannot " +
+          "be started after the second anniversary of the day the claim was discovered. Section 5(1) says " +
+          "when a claim is discovered: the earlier of the day the person first knew that the injury, loss " +
+          "or damage had occurred, that it was caused or contributed to by an act or omission, that the act " +
+          "or omission was that of the person the claim is against, and that, having regard to the nature " +
+          "of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it " +
+          "-- and the day a reasonable person with their abilities and in their circumstances first ought " +
+          "to have known those things. Under s. 5(2), a person with a claim is presumed to have known of " +
+          "those matters on the day the act or omission the claim is based on took place, unless the " +
+          "contrary is proved.",
         sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
         verifiedAt: "2026-09-30",
         consolidationPeriod: "2024-12-04",

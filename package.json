@@ -85,6 +85,7 @@
     "test:claim-library": "node --import tsx scripts/verification/verifyClaimLibrary.ts",
     "test:cross-forum-notes": "node --import tsx scripts/verification/verifyCrossForumNotes.ts",
     "test:source-links": "node --import tsx scripts/verification/verifySourceLinks.ts",
+    "test:crisis-numbers": "node --import tsx scripts/verification/verifyCrisisNumbers.ts",
     "test:overview-relevance": "node --import tsx scripts/verification/verifyOverviewRelevance.ts",
     "test:a2i-scope": "node --import tsx scripts/verification/verifyA2iScope.ts",
     "test:case-review": "node --import tsx scripts/verification/verifyCaseReview.ts",
