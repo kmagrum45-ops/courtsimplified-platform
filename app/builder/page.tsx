@@ -43,6 +43,7 @@ import {
   getPathLabel,
 } from "./_components/builderTypes";
 import StageConfirmation from "./_components/StageConfirmation";
+import StageAnswerPanel from "./_components/StageAnswerPanel";
 import AiUseNotice from "../_components/AiUseNotice";
 import PathwayUnavailable from "../_components/PathwayUnavailable";
 import { FORM_COMPLETION_PAUSED, isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
@@ -1663,6 +1664,9 @@ function BuilderPageContent() {
               onConfirm={setConfirmedStage}
             />
 
+            {confirmedStage && courtPath === "small-claims" ? (
+              <StageAnswerPanel courtPath={courtPath} />
+            ) : null}
             {confirmedStage && (
               <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
             )}
