@@ -357,17 +357,18 @@ export const QUESTION_BANK: IntakeQuestion[] = [
       "day is included, and if the last day falls on a holiday the period ends on the next day that is " +
       "not a holiday -- and \"holiday\" is defined to include any Saturday or Sunday. So weekends in " +
       "the middle are counted and extend nothing; only the last day moves. When service counts as " +
-      "effective depends on how it was done. Served in person, it is the day it happened. Where a copy " +
-      "is left with an adult member of the household and another copy is mailed or couriered, it is the " +
-      "fifth day after mailing or verified courier delivery. Where a claim is sent to an individual's " +
-      "home by registered mail or courier and a signature verifying receipt is obtained, the Rules make " +
-      "service effective on the date that signature shows receipt -- not the date of mailing. (The " +
-      "separate five-day rule for documents sent by mail or courier expressly does NOT apply to a claim " +
-      "served that way.) One thing the Rules do not say: how those service-effectiveness provisions " +
-      "interact with the counting rule -- whether the effective day is the excluded first day, for " +
-      "instance. Because the regulation is silent on that, this site does not calculate the date for " +
-      "you. These are the facts to confirm so you can work it out, and the court or a licensed " +
-      "paralegal or lawyer can confirm it.",
+      "effective depends on how it was done. For personal service, the Rules do not state a separate " +
+      "effective day; the affidavit of service records when it was done. Where a copy is left with an " +
+      "adult member of the household and another copy is mailed or couriered, it is the fifth day after " +
+      "mailing or verified courier delivery. Where a claim is sent to an individual's home by " +
+      "registered mail or courier and a signature verifying receipt is obtained, the Rules make service " +
+      "effective on the date that signature shows receipt -- not the date of mailing. (The separate " +
+      "five-day rule for documents sent by mail or courier expressly does NOT apply to a claim served " +
+      "that way.) One thing the Rules do not say: how those service-effectiveness provisions interact " +
+      "with the counting rule -- whether the effective day is the excluded first day, for instance. " +
+      "Because the regulation is silent on that, this site does not calculate the date for you. These " +
+      "are the facts to confirm so you can work it out, and the court or a licensed paralegal or lawyer " +
+      "can confirm it.",
     sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
     answerType: "short-text",
     allowUnknown: true,

@@ -1,95 +1,13 @@
 {
   "release": {
-    "runId": "run-11",
+    "runId": "run-12",
     "model": "gpt-4o-mini",
-    "promotedAt": "2026-10-01T02:00:00.000Z",
+    "promotedAt": "2026-10-01T04:00:00.000Z",
     "corpusGeneratedAt": "2026-09-27T00:45:24.224Z",
-    "blockCount": 3,
-    "contentHash": "23cf62ee"
+    "blockCount": 2,
+    "contentHash": "51d1d5bc"
   },
   "blocks": [
-    {
-      "id": "answer:defendant:noted-in-default",
-      "stageId": "defendant:noted-in-default",
-      "userQuestion": "I have been noted in default — can I still fight this?",
-      "whatsHappening": "You have been noted in default. This means the clerk has recorded that you did not file a defence in time. No judgment has been signed yet.",
-      "whatToDoNext": "You may bring a motion to set aside the noting in default. To succeed, you must show that you have a meritorious defence and a reasonable explanation for the default. The motion must be made as soon as is reasonably possible in all the circumstances.",
-      "yourDeadline": null,
-      "whatHappensAfter": "If the court is satisfied with your motion, it may set aside the noting in default or any default judgment against you.",
-      "slots": [],
-      "citations": [
-        {
-          "sourceId": "oreg-258-98-small-claims-rules",
-          "pinpoint": "r. 11.06",
-          "quote": "The court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside and the court is satisfied that, (a) the party has a meritorious defence and a reasonable explanation for the default; and (b) the motion is made as soon as is reasonably possible in all the circumstances."
-        },
-        {
-          "sourceId": "oreg-258-98-small-claims-rules",
-          "pinpoint": "r. 11.01 (1)",
-          "quote": "If a defendant to a plaintiff's claim or a defendant's claim fails to file a defence to all or part of the claim with the clerk within the prescribed time, the clerk may note the defendant in default on the filing of, (a) a request to note the defendant in default, which may be made in Form 9B; and (b) proof that the claim was served within the court's territorial division, subject to subrule (3)."
-        }
-      ],
-      "sourceIds": [
-        "oreg-258-98-small-claims-rules",
-        "scj-default-proceedings"
-      ],
-      "verification": {
-        "status": "verified-draft",
-        "verifiedAt": "2026-09-25T23:53:51.050Z",
-        "attempts": 2,
-        "verdicts": [
-          {
-            "sentence": "You have been noted in default.",
-            "supported": true,
-            "quote": "The clerk has noted the defendant in default.",
-            "sourceId": "stage-premise",
-            "quoteFound": false
-          },
-          {
-            "sentence": "This means the clerk has recorded that you did not file a defence in time.",
-            "supported": true,
-            "quote": "If a defendant to a plaintiff's claim or a defendant's claim fails to file a defence to all or part of the claim with the clerk within the prescribed time, the clerk may note the defendant in default...",
-            "sourceId": "oreg-258-98-small-claims-rules",
-            "quoteFound": true
-          },
-          {
-            "sentence": "No judgment has been signed yet.",
-            "supported": true,
-            "quote": "No judgment has been signed yet.",
-            "sourceId": "stage-premise",
-            "quoteFound": false
-          },
-          {
-            "sentence": "You may bring a motion to set aside the noting in default.",
-            "supported": true,
-            "quote": "you may bring a motion to set aside the noting in default, any default judgment against you and any steps taken to enforce those default judgments.",
-            "sourceId": "scj-default-proceedings",
-            "quoteFound": true
-          },
-          {
-            "sentence": "To succeed, you must show that you have a meritorious defence and a reasonable explanation for the default.",
-            "supported": true,
-            "quote": "the party has a meritorious defence and a reasonable explanation for the default;",
-            "sourceId": "oreg-258-98-small-claims-rules",
-            "quoteFound": true
-          },
-          {
-            "sentence": "The motion must be made as soon as is reasonably possible in all the circumstances.",
-            "supported": true,
-            "quote": "the motion is made as soon as is reasonably possible in all the circumstances.",
-            "sourceId": "oreg-258-98-small-claims-rules",
-            "quoteFound": true
-          },
-          {
-            "sentence": "If the court is satisfied with your motion, it may set aside the noting in default or any default judgment against you.",
-            "supported": true,
-            "quote": "The court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside and the court is satisfied that...",
-            "sourceId": "oreg-258-98-small-claims-rules",
-            "quoteFound": true
-          }
-        ]
-      }
-    },
     {
       "id": "answer:defendant:served-defence-period-running",
       "stageId": "defendant:served-defence-period-running",
