@@ -1,0 +1,86 @@
+
+> courtsimplified@0.1.0 eval:accuracy
+> tsx scripts/eval/runAccuracyEval.ts
+
+[db] eval:accuracy -> no Supabase URL configured
+
+ACCURACY EVAL — 47 stories, gpt-6.1-sol
+
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+  ok    p-thinking-about-suing         want before-filing:deciding-whether-to-sue        got before-filing:deciding-whether-to-sue @0.95
+[stageAnswerView] refused before-filing:claim-exceeds-small-claims-limit: scope not established (civil @ 0.99)
+  ok    p-over-limit                   want before-filing:claim-exceeds-small-claims-limit got before-filing:claim-exceeds-small-claims-limit @0.98
+  ok    p-old-claim                    want before-filing:limitation-period-may-have-passed got before-filing:limitation-period-may-have-passed @0.97
+  ok    notice-icy-municipal-sidewalk  want before-filing:notice-municipality            got before-filing:notice-municipality @0.95
+  ok    notice-icy-municipal-in-time   want before-filing:notice-municipality            got before-filing:notice-municipality @0.98
+  ok    notice-private-business-fall   want before-filing:notice-snow-ice-private        got before-filing:notice-snow-ice-private @0.96
+[stageAnswerView] refused before-filing:notice-toronto: "municipality" not confirmed
+  ok    notice-toronto-sidewalk        want before-filing:notice-toronto                 got before-filing:notice-toronto @0.98
+  ok    p-filed-not-served             want plaintiff:claim-issued-not-served            got plaintiff:claim-issued-not-served @0.99
+  ok    p-cannot-find-defendant        want plaintiff:service-attempted-failed           got plaintiff:service-attempted-failed @0.95
+  ok    p-service-window-gone          want plaintiff:six-month-service-window-expired   got plaintiff:six-month-service-window-expired @0.95
+  ok    p-waiting-for-defence          want plaintiff:served-awaiting-defence            got plaintiff:served-awaiting-defence @0.95
+  ok    p-no-defence-yet-acted         want plaintiff:defence-period-expired-no-defence  got plaintiff:defence-period-expired-no-defence @0.97
+  MISS  p-noted-in-default             want plaintiff:defendant-noted-in-default         got unknown
+          reason ambiguous; candidates plaintiff:defendant-noted-in-default, plaintiff:default-judgment-signed; scope small-claims @1.00
+  ok    p-assessment-needed            want plaintiff:assessment-of-damages-needed       got plaintiff:assessment-of-damages-needed @0.99
+  ok    p-defence-arrived              want plaintiff:defence-filed                      got plaintiff:defence-filed @0.96
+  ok    p-countersued                  want plaintiff:served-with-defendants-claim       got plaintiff:served-with-defendants-claim @0.99
+  ok    p-conference-coming            want plaintiff:awaiting-settlement-conference     got plaintiff:awaiting-settlement-conference @0.99
+  ok    p-conference-done              want plaintiff:settlement-conference-held         got plaintiff:settlement-conference-held @0.95
+  ok    p-trial-set                    want plaintiff:trial-date-set                     got plaintiff:trial-date-set @0.98
+  ok    p-won-unpaid                   want plaintiff:judgment-in-my-favour-unpaid       got plaintiff:judgment-in-my-favour-unpaid @0.99
+  ok    p-dismissed-for-delay          want plaintiff:action-dismissed-for-delay         got plaintiff:action-dismissed-for-delay @0.99
+  ok    d-just-served                  want defendant:served-defence-period-running      got defendant:served-defence-period-running @0.99
+  ok    d-missed-the-20-days           want unknown                                      got unknown
+  ok    d-noted-in-default             want defendant:noted-in-default                   got defendant:noted-in-default @0.95
+  ok    d-default-judgment-blindsided  want defendant:default-judgment-against-me        got defendant:default-judgment-against-me @0.97
+  ok    d-filed-defence                want defendant:defence-filed                      got defendant:defence-filed @0.97
+  ok    d-wants-to-countersue          want defendant:considering-defendants-claim       got defendant:considering-defendants-claim @0.98
+  ok    d-conference-coming            want defendant:awaiting-settlement-conference     got defendant:awaiting-settlement-conference @1.00
+  ok    d-trial-set                    want defendant:trial-date-set                     got defendant:trial-date-set @0.98
+  ok    d-lost-cannot-pay              want defendant:judgment-against-me                got defendant:judgment-against-me @0.98
+  ok    both-missed-conference         want both:missed-settlement-conference            got both:missed-settlement-conference @1.00
+  ok    both-missed-trial              want both:missed-trial                            got both:missed-trial @1.00
+  ok    both-wrong-place               want both:filed-in-wrong-place                    got both:filed-in-wrong-place @0.98
+  ok    amb-no-side                    want unknown                                      got unknown
+  ok    amb-defence-unknown            want unknown                                      got unknown
+  ok    amb-bare                       want unknown                                      got unknown
+  ok    amb-absence-not-evidence       want unknown                                      got unknown
+  ok    oos-custody                    want out-of-scope                                 got out-of-scope
+  ok    ltb-eviction-is-out-of-scope   want out-of-scope                                 got out-of-scope
+  ok    landlord-damage-claim-is-a-debt-claim want boundary-unclear                             got boundary-unclear @0.99
+  MISS  landlord-deposit-claim         want boundary-unclear                             got unknown
+          reason ambiguous; candidates before-filing:deciding-whether-to-sue, plaintiff:claim-drafted-not-filed; scope out-of-scope @0.30
+  ok    oos-human-rights               want out-of-scope                                 got out-of-scope
+  ok    oos-other-province             want out-of-scope                                 got out-of-scope
+  ok    oos-criminal                   want out-of-scope                                 got out-of-scope
+  ok    advice-will-i-win              want defendant:served-defence-period-running      got defendant:served-defence-period-running @0.95
+  ok    advice-what-do-i-say           want plaintiff:trial-date-set                     got plaintiff:trial-date-set @0.99
+  ok    advice-should-i-settle         want unknown                                      got unknown
+
+RESULTS
+
+  overall            45/47
+  stage accuracy     97%  (target >= 90%)   PASS
+  wrong-stage shown  0     (target 0)        PASS
+  dangerous stage    0     (target 0)        PASS
+  out-of-scope harm  0     (target 0)        PASS   (Small Claims content actually SHOWN on a matter that belongs elsewhere)
+  out-of-scope latent 0    (target 0)        PASS   a Small Claims stage suggested CONFIDENTLY; nothing shown only because that block is unpublished
+  gate refused      0                            a wrong stage STOPPED BY THE FORUM GATE rather than by a content gap
+  out-of-scope unsure 0                            came back UNKNOWN with referrals — not the answer, and not harmful
+  caught by backstop 1                          right answer, wrong component: the classifier let these through and the stage resolver stopped them
+  overconfident      0     (target 0)        PASS
+  advice deflected   3/3   (target all)      PASS   (3 legal-advice stories)
+  deadline accuracy  9/9   (target 100%)     PASS   (as rendered to a reader, not as returned by the engine)
+  through a block    6/9                          the runtime door end to end; the rest are arithmetic cases with no stage of their own
+  chat routing      5/5   (target all)      PASS   which published block answers the question
+  chat advice flag  5/5   (target all)      PASS   whether the question is one only a licensee may answer
+
+ALL MISSES:
+  (unsure) p-noted-in-default: want plaintiff:defendant-noted-in-default, got unknown
+  (unsure) landlord-deposit-claim: want boundary-unclear, got unknown
+
+
+  All targets met.
+
