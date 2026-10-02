@@ -1,5 +1,11 @@
 # RLS gap analysis — 2026-10-02
 
+> **Status: all five findings fixed in
+> `supabase/migrations/20261002090000_close_rls_gaps.sql`.** `npm run test:rls-matrix`
+> now passes 488 of 488 with no known gaps, and `test:rls-matrix-catches` proves
+> that undoing any of the fixes turns it red. The fix protects the live site
+> **only once the migration is applied** — see "Applying the fix" at the end.
+
 Produced with `npm run test:rls-matrix`, which builds a private Postgres from
 `supabase/migrations/`, then attacks every table, view, function and the evidence
 bucket as an anonymous visitor, two signed-in users and the service role. Every
@@ -14,13 +20,13 @@ production, not a guarantee of it.
 465 checks. **448 pass. 17 fail, grouped into 5 findings.** None lets an anonymous
 visitor in, and none lets one litigant read another's rows or files directly.
 
-| # | Finding | Who can do it | Severity |
-|---|---|---|---|
-| F1 | Rewrite or delete the family form catalogue through a view | any signed-in user | **High** |
-| F2 | Rewrite or delete the form-filling overlay map | any signed-in user | **High** |
-| F4 | Point a document row at another user's stored file, then export it | signed-in user who knows the victim's file path | **Medium** |
-| F3 | Attach rows to another user's case or document | signed-in user who knows the case id | **Low today, rises with sharing** |
-| F5 | `TRUNCATE` held on 33 tables and views (it ignores RLS) | signed-in user, if any SQL path reaches it | **Low** (defence in depth) |
+| # | Finding | Who can do it | Severity | Fixed by |
+|---|---|---|---|---|
+| F1 | Rewrite or delete the family form catalogue through a view | any signed-in user | **High** | views made `security_invoker`; client writes revoked |
+| F2 | Rewrite or delete the form-filling overlay map | any signed-in user | **High** | writes limited to `public.site_operators` |
+| F4 | Point a document row at another user's stored file, then export it | signed-in user who knows the victim's file path | **Medium** | path must sit in its owner's folder, for every role; client writes revoked |
+| F3 | Attach rows to another user's case or document | signed-in user who knows the case id | **Low today, rises with sharing** | composite `(…, user_id)` foreign keys, for every role |
+| F5 | `TRUNCATE` held on 33 tables and views (it ignores RLS) | signed-in user, if any SQL path reaches it | **Low** (defence in depth) | revoked, and removed from default privileges |
 
 What holds, across all 11 user-owned tables and the bucket: no cross-user read,
 update or delete; no row written in someone else's name; no row handed to someone
@@ -163,3 +169,22 @@ plus `ALTER DEFAULT PRIVILEGES … REVOKE` so new tables do not get it back.
   suite fails. That is deliberate.
 - Fix a finding → delete its lines from `knownGaps`, or the suite fails with
   "fixed — still listed".
+
+## Applying the fix
+
+The migration changes nothing until it is applied. In order, as CLAUDE.md §6 requires:
+
+1. `npm run db:backup` for production, and check the file is not 0 bytes.
+2. `npm run db:migrate -- --env staging --confirm`
+3. `npm run db:migrate -- --env production --confirm`
+4. Make yourself the overlay operator, once per project, in the Supabase SQL editor
+   (the migration's F2 section has the line). Until then nobody can edit the overlay
+   map; form generation is unaffected.
+
+**Read the migration's NOTICE lines.** Rows that already break a new ownership rule
+do not stop the migration; the rule is enforced on every write from then on, and
+a `NOT VALIDATED:` notice names the table so the old rows can be looked at.
+
+Tested before merging: applied to a database holding a cross-owner row and a
+misplaced path (both NOTICEd, migration completed, new bad writes refused), and
+applied twice in a row without error.

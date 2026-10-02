@@ -40,13 +40,29 @@ export const userOwned = {
   case_documents: { parent: caseParent },
   case_evidence: { parent: caseParent },
   case_generated_documents: { parent: caseParent },
-  case_events: { parent: caseParent },
+  case_events: {
+    parent: caseParent,
+    extraParents: [
+      { column: "related_document_id", table: "case_documents" },
+      { column: "supersedes_event_id", table: "case_events" },
+    ],
+  },
   case_event_candidate_dismissals: { parent: caseParent },
-  workspace_documents: { parent: caseParent, storagePathColumn: "storage_path" },
+  // The four workspace tables are written only by server routes (service role);
+  // signed-in users read them and nothing else.
+  workspace_documents: { parent: caseParent, storagePathColumn: "storage_path", clientWrites: false },
   // Keyed by its document: one text row per document, so the primary key IS the parent.
-  workspace_document_text: { parent: documentParent, key: "document_id" },
-  workspace_timeline_events: { parent: caseParent },
-  workspace_communications: { parent: caseParent },
+  workspace_document_text: { parent: documentParent, key: "document_id", clientWrites: false },
+  workspace_timeline_events: {
+    parent: caseParent,
+    clientWrites: false,
+    extraParents: [{ column: "document_id", table: "workspace_documents" }],
+  },
+  workspace_communications: {
+    parent: caseParent,
+    clientWrites: false,
+    extraParents: [{ column: "document_id", table: "workspace_documents" }],
+  },
 };
 
 /**
@@ -56,7 +72,8 @@ export const userOwned = {
 export const catalogue = {
   court_form_library: { anonRead: true, authenticatedRead: true },
   court_form_fields: { anonRead: true, authenticatedRead: true },
-  pdf_overlay_fields: { anonRead: true, authenticatedRead: true },
+  // Written only by an account listed in site_operators (the overlay mapper page).
+  pdf_overlay_fields: { anonRead: true, authenticatedRead: true, operatorWritable: true },
   court_forms: {
     anonRead: { where: "category = 'family' AND province = 'ontario'" },
     authenticatedRead: false,
@@ -78,7 +95,7 @@ export const catalogue = {
   small_claims_form_lookup: { anonRead: false, authenticatedRead: false },
 };
 
-export const serverOnly = ["ai_call_log"];
+export const serverOnly = ["ai_call_log", "site_operators"];
 
 export const views = {
   court_form_master_view: { readers: ["anon", "authenticated"] },
@@ -86,8 +103,17 @@ export const views = {
   family_form_lookup: { readers: ["anon", "authenticated"] },
 };
 
-/** SECURITY DEFINER functions a client role is allowed to call. None today. */
-export const definerFunctionsClientsMayCall = [];
+/**
+ * SECURITY DEFINER functions a client role may call, and which roles. Each needs a
+ * reason: it runs with its owner's rights.
+ *
+ * is_site_operator(): answers "is the CALLER an operator?" for the overlay policy.
+ * No arguments, pinned search_path, reads only site_operators. Policies run as the
+ * caller, so a signed-in user must be able to execute it.
+ */
+export const definerFunctionsClientsMayCall = {
+  "is_site_operator()": ["authenticated"],
+};
 
 export const storage = {
   privateBuckets: ["case-evidence"],
@@ -95,32 +121,9 @@ export const storage = {
   userFolderBuckets: ["case-evidence"],
 };
 
-/** check id -> finding in docs/security/RLS_GAP_ANALYSIS.md */
-export const knownGaps = {
-  // F1 — any signed-in user can rewrite the family form catalogue through the view.
-  "view:family_form_lookup:owner-rights-not-writable-by-clients": "F1",
-  "view:family_form_lookup:authenticated-cannot-write": "F1",
-
-  // F2 — any signed-in user can rewrite or delete the form-filling overlay map.
-  "catalogue:pdf_overlay_fields:authenticated-cannot-insert": "F2",
-  "catalogue:pdf_overlay_fields:authenticated-cannot-update": "F2",
-  "catalogue:pdf_overlay_fields:authenticated-cannot-delete": "F2",
-
-  // F3 — a row's parent case/document is not checked against its owner.
-  "owned:case_intakes:cannot-attach-to-other-users-parent": "F3",
-  "owned:case_documents:cannot-attach-to-other-users-parent": "F3",
-  "owned:case_evidence:cannot-attach-to-other-users-parent": "F3",
-  "owned:case_generated_documents:cannot-attach-to-other-users-parent": "F3",
-  "owned:case_events:cannot-attach-to-other-users-parent": "F3",
-  "owned:case_event_candidate_dismissals:cannot-attach-to-other-users-parent": "F3",
-  "owned:workspace_documents:cannot-attach-to-other-users-parent": "F3",
-  "owned:workspace_document_text:cannot-attach-to-other-users-parent": "F3",
-  "owned:workspace_timeline_events:cannot-attach-to-other-users-parent": "F3",
-  "owned:workspace_communications:cannot-attach-to-other-users-parent": "F3",
-
-  // F4 — a workspace document row can point at another user's stored file.
-  "owned:workspace_documents:storage-path-stays-in-own-folder": "F4",
-
-  // F5 — signed-in users hold TRUNCATE (which ignores RLS) on user and catalogue tables.
-  "grants:authenticated-has-no-truncate": "F5",
-};
+/**
+ * check id -> finding in docs/security/RLS_GAP_ANALYSIS.md. Empty since
+ * 20261002090000_close_rls_gaps.sql closed F1–F5. Add an entry only with a
+ * finding to point at.
+ */
+export const knownGaps = {};

@@ -4,16 +4,16 @@
  *
  * WHAT THIS CATCHES: a test:rls-matrix that has gone blind. An RLS suite's worst
  * failure is the quiet one: zero rows is both "blocked" and "the test is broken", so a
- * suite can drift into passing everything. This plants nine real regressions — RLS
+ * suite can drift into passing everything. This plants twelve real regressions — RLS
  * switched off, a policy opened to every user, a server-only table opened to anon, a
  * new table nobody classified, cross-user storage reads, a public bucket, a callable
- * SECURITY DEFINER function, row forgery, and a FIXED gap still listed as open — and
+ * SECURITY DEFINER function, row forgery, and each of the four 2026-10-02 fixes undone — and
  * asserts the suite exits non-zero naming the right check each time.
  *
  * A planted change must be caught by the check named for it, not merely by "something
  * failed": a suite that fails for the wrong reason is as blind as one that passes.
  *
- * COSTS: nothing but time — about three minutes (each plant builds a fresh database).
+ * COSTS: nothing but time — about four minutes (each plant builds a fresh database).
  * Not in CI for that reason; run it after changing verifyRlsMatrix.mjs or its manifest.
  *
  * Run: npm run test:rls-matrix-catches
@@ -64,10 +64,24 @@ const plants = [
     expect: ["owned:case_intakes:cannot-insert-row-owned-by-someone-else"],
   },
   {
-    what: "a known gap fixed but left on the list",
-    sql: `DROP POLICY IF EXISTS "pdf_overlay_fields_write_authenticated" ON public.pdf_overlay_fields;`,
+    what: "the overlay map reopened to every signed-in account (F2 undone)",
+    sql: `CREATE POLICY plant_open_write ON public.pdf_overlay_fields FOR ALL TO authenticated USING (true) WITH CHECK (true);`,
     expect: ["catalogue:pdf_overlay_fields:authenticated-cannot-update"],
-    status: "FIXED",
+  },
+  {
+    what: "a case's rows attachable to another user's case again (F3 undone)",
+    sql: `ALTER TABLE public.case_intakes DROP CONSTRAINT case_intakes_case_owner_fk;`,
+    expect: ["owned:case_intakes:cannot-attach-to-other-users-parent"],
+  },
+  {
+    what: "a document row able to name another user's file again (F4 undone)",
+    sql: `ALTER TABLE public.workspace_documents DROP CONSTRAINT workspace_documents_storage_path_owner_check;`,
+    expect: ["owned:workspace_documents:storage-path-bound-to-owner-for-every-role"],
+  },
+  {
+    what: "the family form view running as its owner again (F1 undone)",
+    sql: `ALTER VIEW public.family_form_lookup SET (security_invoker = false); GRANT UPDATE, DELETE ON public.family_form_lookup TO authenticated;`,
+    expect: ["view:family_form_lookup:authenticated-cannot-write"],
   },
 ];
 
