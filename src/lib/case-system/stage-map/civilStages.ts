@@ -1525,7 +1525,7 @@ const RCP_29_05_BOUND = rcp(
 function discontinuanceCosts(id: string): StageDeadline {
   return {
     id,
-    what: "If you want the court to deal with the costs of the discontinued action, make a motion respecting the costs",
+    what: "If you want the court to deal with the costs of the discontinued action, make a motion about the costs",
     countFrom: "the day the action was discontinued",
     countFromEvent: "action-discontinued",
     length: { unit: "days", count: 30 },
@@ -1534,7 +1534,7 @@ function discontinuanceCosts(id: string): StageDeadline {
     computation: RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
-      "Any party to the action can make this motion, and it applies whether all or part of the action was discontinued. The time can be extended by filing a consent, or by the court.",
+      "Any party to the action can make this motion. It applies whether all or part of the action was discontinued. The time can be extended by filing a consent, or by the court.",
     exceptions: [RCP_3_02_CONSENT, RCP_3_02_EXTEND],
   };
 }
@@ -1659,10 +1659,10 @@ const RCP_26_05_DEEMED = rcp(
  * cap. All three are said here, generally, with the full text in `exceptions`.
  */
 const LIMITATION_QUALIFIER =
-  "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period. A claim is discovered on the earlier of two days: the day you first knew you had a loss, that an act or omission caused it, whose act or omission it was, and that a court case was an appropriate way to fix it; and the day a reasonable person in your position ought to have known those things. You are presumed to have known them on the day the act or omission happened, unless you prove otherwise. Separately, no case can be started more than 15 years after the act or omission, except in some situations the Act lists. Some other Acts listed in the Schedule to the Limitations Act set their own, shorter periods. For example, an action for libel in an Ontario newspaper or broadcast must be started within three months after the libel came to your knowledge.";
+  "This applies unless the Limitations Act, 2002 says otherwise. For example, a claim based on a sexual assault has no time limit. A claim is discovered on the earlier of two days. The first is the day you knew four things: you had a loss, an act or omission caused it, whose act or omission it was, and that a court case was a proper way to fix it. The second is the day a reasonable person in your place ought to have known those things. You are presumed to have known them on the day of the act or omission, unless you prove otherwise. Separately, no case can start more than 15 years after the act or omission, except in some cases the Act lists. Some other Acts, listed in a schedule to the Limitations Act, set shorter times. For example, a case for libel in an Ontario newspaper or broadcast must start within three months after you learned of the libel.";
 
 const LIMITATION_SUSPENSIONS =
-  " The two years do not run while the person with the claim is a minor with no litigation guardian, or cannot start a case because of their physical, mental or psychological condition and has no litigation guardian. A person is presumed to have been capable unless the contrary is proved. If incapacity ends with less than six months left, the period runs to six months after it ends. The two years and the 15 years also do not run while the parties have agreed to have an independent third party resolve the claim or help them resolve it. If the other side acknowledged in writing, and signed, that they are liable for a fixed sum of money, for the return of personal property, or for enforcing (or relief from enforcing) a charge on personal property, the act or omission is treated as happening on the day of the acknowledgment, if it was made to you, your agent, or an official receiver or trustee under the Bankruptcy and Insolvency Act (Canada), before the period ran out. For a claim for a fixed sum of money, a part payment by the other side or their agent has the same effect as a written, signed acknowledgment. For a debt payable on demand, the loss is treated as happening on the first day the debt is not paid after a demand for payment.";
+  " The two years do not run while the person with the claim is a minor and has no litigation guardian. They also do not run while a physical, mental or psychological condition keeps the person from starting a case, and they have no litigation guardian. A person is presumed able to start a case unless shown otherwise. If that condition ends with less than six months left, the time runs to six months after it ends. The two years and the 15 years also stop while the parties have agreed to have an independent third party resolve the claim or help resolve it. The other side may admit in writing, and sign, that they owe a fixed sum of money. The same goes for an admission that they must return personal property. It also goes for enforcing a charge on personal property, or relief from that. Then the act or omission is treated as happening on the day of that admission. This counts only if it was made before the time ran out. It must be made to you, your agent, or an official receiver or trustee under the Bankruptcy and Insolvency Act (Canada). For a fixed sum of money, a part payment by the other side or their agent works the same way as a written, signed admission. For a debt payable on demand, the loss happens on the first day it is not paid after a demand for payment.";
 
 function basicLimitation(id: string, withSuspensions = false): StageDeadline {
   return {
@@ -1711,7 +1711,12 @@ function basicLimitation(id: string, withSuspensions = false): StageDeadline {
  * signed timetable on file would be told the registrar is about to dismiss.
  */
 const REGISTRAR_DISMISSAL_QUALIFIER =
-  "This does not apply if the action has already ended some other way. It does not apply if, at least 30 days before the period ends, a party files a timetable signed by all the parties and a draft order. If the parties do not agree on a timetable, any party can ask for a status hearing before the period ends. It does not apply if the plaintiff is under a disability at that time, or to Commercial List actions or class actions. The court can order otherwise, and a dismissal can be set aside on a motion under rule 37.14.";
+  "This does not apply if the action has already ended some other way. It does not apply if a party files a timetable signed by all parties, and a draft order, at least 30 days before the time ends. If the parties do not agree on a timetable, any party can ask for a status hearing before the time ends. It does not apply if you are under a disability at that time. It does not apply to Commercial List actions or class actions. The court can order otherwise. A dismissal can be set aside on a motion under rule 37.14.";
+
+const REGISTRAR_DISMISSAL_QUALIFIER_BOTH = REGISTRAR_DISMISSAL_QUALIFIER.replace(
+  "if you are under a disability",
+  "if the plaintiff is under a disability",
+);
 
 const REGISTRAR_DISMISSAL_EXCEPTIONS = [
   RCP_48_14_EXCLUDED,
@@ -1734,7 +1739,7 @@ function fiveYearDismissal(id: string, bothSides = false): StageDeadline {
     rule: RCP_48_14_FIVE_YEARS,
     computation: C.R_RCP_3_01_HOLIDAY,
     consequence: "changes-what-happens-next",
-    qualifier: REGISTRAR_DISMISSAL_QUALIFIER,
+    qualifier: bothSides ? REGISTRAR_DISMISSAL_QUALIFIER_BOTH : REGISTRAR_DISMISSAL_QUALIFIER,
     exceptions: REGISTRAR_DISMISSAL_EXCEPTIONS,
   };
 }
@@ -1751,7 +1756,7 @@ function serveSixMonths(id: string): StageDeadline {
     computation: C.R_RCP_3_01_HOLIDAY,
     consequence: "changes-what-happens-next",
     qualifier:
-      "If the action was started with a notice of action, the notice and the statement of claim must be served together within six months after the notice was issued. The time can be extended by filing a consent. The court can also extend it, and the motion to extend can be made before or after the time runs out. If the claim is not served in time, a defendant who is not in default can ask the court to dismiss the action for delay.",
+      "If you started with a notice of action, serve the notice and the statement of claim together within six months after the notice was issued. The time can be extended by filing a consent. The court can also extend it, before or after the time runs out. If you do not serve the claim in time, a defendant who is not in default can ask the court to dismiss the action for delay.",
     exceptions: [
       RCP_14_08_NOTICE_OF_ACTION,
       RCP_3_02_CONSENT,
@@ -1774,7 +1779,7 @@ function appealDeadline(id: string, extraQualifier = "", extraExceptions: RuleCi
     computation: C.R_RCP_3_01_HOLIDAY,
     consequence: "changes-what-happens-next",
     qualifier:
-      "File the notice, with proof of service, within 10 days after serving it. Which court hears the appeal depends on the order. A final order of a Superior Court judge for a single payment of not more than $50,000, or for periodic payments of not more than $50,000 in the first 12 months, not counting costs, goes to the Divisional Court. So does an order dismissing a claim for $50,000 or less, or dismissing a larger claim where the judge or jury says the award would have been $50,000 or less. The Court of Appeal hears final orders of a Superior Court judge that do not go to the Divisional Court. A final order of an associate judge is appealed to the Divisional Court. An appeal only about costs, or from an order made with everyone's consent, needs leave first. Only a judge of the appeal court can extend the time." +
+      "File the notice, with proof of service, within 10 days after you serve it. Which court hears the appeal depends on the order. Some final orders of a Superior Court judge go to the Divisional Court. These include an order to pay one sum of $50,000 or less, or payments of $50,000 or less in the first 12 months, not counting costs. They also include an order dismissing a claim for $50,000 or less. So does an order dismissing a larger claim where the judge or jury says the award would have been $50,000 or less. Other final orders of a Superior Court judge go to the Court of Appeal. A final order of an associate judge goes to the Divisional Court. An appeal only about costs, or from an order made with everyone's consent, needs leave first. Only a judge of the appeal court can extend the time." +
       extraQualifier,
     exceptions: [
       C.R_61_04_FILE_10_DAYS,
@@ -1801,7 +1806,7 @@ function setAsideRegistrarOrder(id: string, what: string): StageDeadline {
     computation: RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
-      "The rule sets no fixed number of days. The notice of motion must be served forthwith (right away) after the order comes to your attention. It must name the first available hearing date that is at least three days after you serve it.",
+      "The rule sets no fixed number of days. Serve the notice of motion forthwith (right away) after the order comes to your attention. It must name the first available hearing date at least three days after you serve it.",
     exceptions: [RCP_37_14_POWER],
   };
 }
@@ -1818,7 +1823,7 @@ function undertakingsDeadline(id: string): StageDeadline {
     computation: RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
-      "If no answer is given in that time, you cannot use the information you did not provide at trial without the trial judge's permission. You still have to honour an undertaking.",
+      "If you do not answer in that time, you cannot use that information at trial without the trial judge's permission. You still have to keep an undertaking.",
     exceptions: [RCP_31_07_EFFECT, RCP_31_07_HONOUR],
   };
 }
@@ -1826,7 +1831,7 @@ function undertakingsDeadline(id: string): StageDeadline {
 function simplifiedAffidavit(id: string): StageDeadline {
   return {
     id,
-    what: "If your action is under the simplified procedure, serve on every other party an affidavit of documents and copies of the documents in its Schedule A, at your own expense",
+    what: "If your action is under the simplified procedure, serve every other party with an affidavit of documents. Include copies of the documents in its Schedule A. You pay the cost",
     countFrom: "the day pleadings closed",
     countFromEvent: "pleadings-closed",
     length: { unit: "days", count: 10 },
@@ -1835,7 +1840,7 @@ function simplifiedAffidavit(id: string): StageDeadline {
     computation: RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
-      "This applies only to an action under the simplified procedure. Pleadings close once the plaintiff has replied to every defence or the time for a reply has run out, and every defendant who has not delivered a defence has been noted in default. The affidavit must also list the people who might know about the matters in issue, unless the court orders otherwise. A person not named in it cannot be called as a witness at trial unless the court orders otherwise. The time can be extended by filing a consent, or by the court.",
+      "This applies only to an action under the simplified procedure. Pleadings close when every defence has been replied to, or the time for a reply has run out, and every defendant who did not defend has been noted in default. The affidavit must also list the people who might know about the issues, unless the court orders otherwise. A person not named in it cannot be a witness at trial unless the court orders otherwise. The time can be extended by filing a consent, or by the court.",
     exceptions: [RCP_25_05_CLOSE, RCP_76_03_WITNESSES, RCP_76_03_NOT_DISCLOSED, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
   };
 }
@@ -1844,8 +1849,8 @@ function simplifiedSetDown(id: string, plaintiffOnlyStage: boolean): StageDeadli
   return {
     id,
     what: plaintiffOnlyStage
-      ? "If your action is under the simplified procedure, set it down for trial by serving a notice of readiness for pre-trial conference (Form 76C) on every party and filing it with proof of service"
-      : "If you are the plaintiff, set the action down for trial by serving a notice of readiness for pre-trial conference (Form 76C) on every party and filing it with proof of service",
+      ? "If your action is under the simplified procedure, set it down for trial. Do this by serving a notice of readiness for pre-trial conference (Form 76C) on every party and filing it with proof of service"
+      : "If you are the plaintiff, set the action down for trial. Do this by serving a notice of readiness for pre-trial conference (Form 76C) on every party and filing it with proof of service",
     countFrom: "the day the first statement of defence or notice of intent to defend was filed",
     countFromEvent: "first-defence-filed",
     length: { unit: "days", count: 180 },
@@ -1854,8 +1859,8 @@ function simplifiedSetDown(id: string, plaintiffOnlyStage: boolean): StageDeadli
     computation: RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier: plaintiffOnlyStage
-      ? "This applies only to an action under the simplified procedure, and replaces the ordinary way of setting down. If you do not do it, any other party may. You must certify in the notice that there was a settlement discussion. The court can extend the time."
-      : "This applies only to an action under the simplified procedure. If you are another party, this is the plaintiff's duty, not yours. If the plaintiff does not do it, any other party may. The party who sets it down must certify that there was a settlement discussion. The court can extend the time.",
+      ? "This applies only to an action under the simplified procedure. It replaces the usual way of setting down. If you do not do it, any other party may. You must certify in the notice that there was a settlement discussion. The court can extend the time."
+      : "This applies only to an action under the simplified procedure. If you are not the plaintiff, this is not your duty. If the plaintiff does not do it, any other party may. The party who sets it down must certify that there was a settlement discussion. The court can extend the time.",
     exceptions: [RCP_76_09_ANY_PARTY, RCP_76_09_CERTIFY, RCP_3_02_EXTEND],
   };
 }
@@ -1863,7 +1868,7 @@ function simplifiedSetDown(id: string, plaintiffOnlyStage: boolean): StageDeadli
 function discoveryPlan(id: string): StageDeadline {
   return {
     id,
-    what: "If any party wants documents, an examination for discovery or other discovery evidence, agree with the other parties on a written discovery plan",
+    what: "If any party wants evidence through discovery, such as documents, an examination, an inspection or a medical exam, agree on a written discovery plan with the other parties",
     countFrom: "the day pleadings closed",
     countFromEvent: "pleadings-closed",
     length: { unit: "days", count: 60 },
@@ -1872,7 +1877,7 @@ function discoveryPlan(id: string): StageDeadline {
     computation: RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
-      "The parties can agree to a longer time. The plan must also be agreed before anyone tries to get the evidence, if that comes first. The plan must be in writing and set dates for serving each party's affidavit of documents.",
+      "The parties can agree to a longer time. But the plan must be agreed before anyone tries to get the evidence, if that comes first. The plan must be in writing. It must set dates for serving each party's affidavit of documents.",
     exceptions: [RCP_29_1_03_TIMING, RCP_29_1_03_CONTENTS],
   };
 }
@@ -1890,7 +1895,7 @@ function setDownSixMonths(id: string, bothSides = false): StageDeadline {
     computation: C.R_RCP_3_01_HOLIDAY,
     consequence: "changes-what-happens-next",
     qualifier:
-      "This is not an automatic dismissal. It is a motion a defendant may bring. The registrar's own dismissal comes at five years. Once you set the action down, you cannot start or continue discovery or motions without leave. If your action is covered by mandatory mediation, the notice naming the mediator and date (Form 24.1A) or the mediator's report must be filed with the mediation co-ordinator first. If your action is under the simplified procedure, it is set down differently: by a notice of readiness for pre-trial conference (Form 76C) within 180 days after the first defence.",
+      "This is not an automatic dismissal. It is a motion a defendant may bring. The registrar's own dismissal comes at five years. Once you set the action down, you cannot start or continue discovery or motions without leave. If your action is covered by mandatory mediation, one party must first file with the mediation co-ordinator the notice naming the mediator and date (Form 24.1A), or the mediator's report. If your action is under the simplified procedure, it is set down another way. That is by a notice of readiness for pre-trial conference (Form 76C), within 180 days after the first defence.",
     exceptions: [RCP_48_14_FIVE_YEARS, RCP_76_09_SET_DOWN, RCP_48_04_NO_MORE_DISCOVERY, RCP_24_1_09_NOTICE_BEFORE_SET_DOWN],
   };
 }
@@ -1908,10 +1913,10 @@ function juryNotice(id: string, afterCounterclaim = false): StageDeadline {
     consequence: "changes-what-happens-next",
     qualifier:
       (afterCounterclaim
-        ? "The rule fixes no number of days; the cut-off is the close of pleadings. Where there is a counterclaim, that is not before the defendant has replied to your defence to counterclaim or the 10 days for that reply have run out. Delivering the jury notice with your defence to counterclaim avoids any doubt."
-        : "The rule fixes no number of days; the cut-off is the close of pleadings, which can come 10 days after the defence if there is no reply.") +
+        ? "The rule fixes no number of days. The cut-off is the close of pleadings. With a counterclaim, that is not before the defendant replies to your defence to counterclaim, or the 10 days for that reply run out. Delivering the jury notice with your defence to counterclaim avoids any doubt."
+        : "The rule fixes no number of days. The cut-off is the close of pleadings. That can come 10 days after the defence if no reply is delivered.") +
       (afterCounterclaim ? "" : " If a reply is delivered sooner, pleadings close when it is delivered, as long as every defendant has delivered a defence or been noted in default.") +
-      " Some statutes require a trial without a jury. A simplified procedure action cannot be tried with a jury, except one involving a claim for slander, libel, malicious arrest, malicious prosecution or false imprisonment.",
+      " Some statutes require a trial without a jury. A simplified procedure action cannot have a jury. The exception is a claim for slander, libel, malicious arrest, malicious prosecution or false imprisonment.",
     exceptions: [RCP_25_04_REPLY, RCP_25_05_CLOSE, RCP_27_06_REPLY_TO_DEFENCE_TO_COUNTERCLAIM, RCP_76_02_1_NO_JURY, RCP_76_02_1_JURY_EXCEPTIONS],
   };
 }
@@ -1919,7 +1924,7 @@ function juryNotice(id: string, afterCounterclaim = false): StageDeadline {
 function dismissalCosts(id: string): StageDeadline {
   return {
     id,
-    what: "If the action was dismissed for delay and you want the court to deal with the costs of the action, make a motion respecting the costs",
+    what: "If the action was dismissed for delay, you can ask the court to deal with the costs of the action. Do this by making a motion about the costs",
     countFrom: "the day the action was dismissed",
     countFromEvent: "action-dismissed-for-delay",
     length: { unit: "days", count: 30 },
@@ -1928,16 +1933,16 @@ function dismissalCosts(id: string): StageDeadline {
     computation: RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
-      "Any party to the action can make this motion. The rule's own words cover any action that is \"dismissed for delay\", and the registrar's five-year order is a dismissal for delay. The only doubt comes from rule 48.14 (9): the rule that applies the dismissal rules to a registrar's order names only rules 24.03 to 24.05, so whether this rule, 24.05.1, reaches that order is not settled by the rules' text. The time can be extended by filing a consent, or by the court.",
+      "Any party to the action can make this motion. The rule's own words cover any action \"dismissed for delay\". The registrar's five-year order is a dismissal for delay. The only doubt comes from rule 48.14 (9). That rule applies the dismissal rules to a registrar's order, but it names only rules 24.03 to 24.05. So the rules' text does not settle whether this rule, 24.05.1, reaches that order. The time can be extended by filing a consent, or by the court.",
     exceptions: [RCP_48_14_EFFECT, RCP_48_14_FIVE_YEARS, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
   };
 }
 
 const DEFENCE_QUALIFIER_SERVICE =
-  "If the claim was left at the home with an adult and a copy mailed, service takes effect on the fifth day after the mailing. If it was mailed with an acknowledgment of receipt card, service takes effect on the day the sender gets the card back. If a corporation was served by mail to its last recorded address, service takes effect on the fifth day after the mailing.";
+  "If the claim was left at a home with an adult and a copy mailed, service takes effect on the fifth day after mailing. If it was mailed with an acknowledgment of receipt card, service takes effect on the day the sender gets the card back. If a corporation was served by mail to its last recorded address, service takes effect on the fifth day after mailing.";
 
 const MEDIATION_QUALIFIER =
-  "This applies only to actions Rule 24.1 covers, such as actions started in Ottawa, Toronto or the County of Essex on or after January 1, 2010. Some kinds of action are left out. The court can exempt an action, or order a different time. The parties can postpone the session by filing their written consent with the mediation co-ordinator. If the action is covered only because it was transferred to Ottawa, Toronto or the County of Essex, the 180 days do not apply and the court can set the date instead. If the mediation co-ordinator receives no notice of the mediator and date, mediator's report, consent, order or notice of settlement within the 180 days, the co-ordinator assigns a mediator.";
+  "This applies only to actions that Rule 24.1 covers. For example, it covers actions started in Ottawa, Toronto or the County of Essex on or after January 1, 2010. Some kinds of action are left out. The court can exempt an action, or set a different time. The parties can put off the session by filing their written consent with the mediation co-ordinator. Some actions are covered only because they were moved to Ottawa, Toronto or Essex. For those, the 180 days do not apply, and the court can set the date. The co-ordinator assigns a mediator if, within the 180 days, they receive none of these: a notice of the mediator and date, a mediator's report, a consent, an order, or a notice of settlement.";
 
 function mediationDeadline(id: string): StageDeadline {
   return {
@@ -1966,7 +1971,7 @@ function mediationDeadline(id: string): StageDeadline {
 function simplifiedSettlementDiscussion(id: string): StageDeadline {
   return {
     id,
-    what: "If your action is under the simplified procedure, meet or talk by phone with the other parties about whether all relevant documents have been shared and whether any issue can be settled",
+    what: "If your action is under the simplified procedure, meet or talk by phone with the other parties. Discuss whether all relevant documents have been shared, and whether any issue can be settled",
     countFrom: "the day the first statement of defence or notice of intent to defend was filed",
     countFromEvent: "first-defence-filed",
     length: { unit: "days", count: 60 },
@@ -1981,7 +1986,7 @@ function simplifiedSettlementDiscussion(id: string): StageDeadline {
 
 const THIRD_PARTY_CLAIM_DEADLINE: StageDeadline = {
   id: "deadline:civil:third-party-claim-10-days",
-  what: "If someone who is not yet a party is or may be liable to you for all or part of the plaintiff's claim (or for a related claim, or should be bound by the result), issue a third party claim (Form 29A)",
+  what: "You can bring in someone who is not yet a party if they are or may be liable to you for all or part of the plaintiff's claim. You can also do it for a related claim, or if they should be bound by the result. To do this, issue a third party claim (Form 29A)",
   countFrom: "the day you delivered your statement of defence",
   countFromEvent: "own-defence-delivered",
   length: { unit: "days", count: 10 },
@@ -1990,7 +1995,7 @@ const THIRD_PARTY_CLAIM_DEADLINE: StageDeadline = {
   computation: RCP_3_01_COUNT,
   consequence: "changes-what-happens-next",
   qualifier:
-    "It can also be issued at any time before you are noted in default, and within 10 days after the plaintiff delivers a reply to your defence. After that, it can be issued at any time with the plaintiff's consent or with the court's leave, which the court must give unless it would prejudice the plaintiff. It must be served within 30 days after it is issued. The two-year limitation period still applies to your claim against the third party. For a claim for contribution and indemnity, the Limitations Act, 2002 treats the day you were served with the plaintiff's claim as the day of the act or omission.",
+    "You can also issue it at any time before you are noted in default. Or you can issue it within 10 days after the plaintiff delivers a reply to your defence. After that, you can issue it at any time with the plaintiff's consent or the court's leave. The court must give leave unless it would prejudice the plaintiff. You must serve it within 30 days after it is issued. The two-year limitation period still applies to your claim against the third party. For a claim for contribution and indemnity, the Limitations Act, 2002 treats the day you were served with the plaintiff's claim as the day of the act or omission.",
   exceptions: [RCP_29_01_FULL, RCP_29_02_AFTER_REPLY, RCP_29_02_CONSENT_LEAVE, RCP_29_02_SERVE, C.S_LIMITATIONS_4_BASIC, S_LIM_18_1_CONTRIBUTION],
 };
 
@@ -2111,12 +2116,12 @@ const BEFORE_FILING: CaseStage[] = [
         computation: C.S_LEGISLATION_89_3_BETWEEN,
         consequence: "bars-the-claim",
         qualifier:
-          "None of this notice requirement applies to a counterclaim, crossclaim or claim by way of set-off. A claim against the Crown or a Crown officer or employee for misfeasance in public office or bad faith can proceed only with the court's leave, and is stayed until leave is given. Earlier is fine. The notice must be served on the Crown in the way section 15 of the Act requires, by leaving a copy with an employee at the Crown Law Office (Civil Law) of the Ministry of the Attorney General, and must give enough detail to identify the occasion the claim arose from. The Attorney General may ask for more details so the claim can be investigated. The 60 days are counted back from the day the action starts, so serving the notice on a later day, even because of a Sunday or holiday, leaves fewer than 60 days. An action started without the notice is a nullity. For a claim about a breach of a duty that comes with owning, occupying, possessing or controlling property, the notice must be served no later than 10 days after the event. If the notice is served before the limitation period ends but the 60 days end after it, the limitation period is extended to the end of the seventh day after the 60 days.",
+          "None of this applies to a counterclaim, crossclaim or set-off. A claim against the Crown or a Crown officer or employee for misfeasance in public office or bad faith needs the court's leave. Until leave is given, it is stayed. Earlier is fine. Serve the notice as section 15 of the Act requires. That means leaving a copy with an employee at the Crown Law Office (Civil Law) of the Ministry of the Attorney General. The notice must give enough detail to identify the event the claim came from. The Attorney General may ask for more details to look into the claim. The 60 days count back from the day the action starts. So serving later, even because of a Sunday or holiday, leaves fewer than 60 days. An action started without the notice has no effect (it is a nullity). A claim about a duty that comes with owning, occupying, possessing or controlling property is different. Its notice must be served no later than 10 days after the event. Sometimes the notice is served before the limitation period ends, but the 60 days end after it. Then the limitation period is extended to the end of the seventh day after the 60 days.",
         exceptions: [S_CLPA_15_SERVICE, S_CLPA_17_1_MISFEASANCE, S_CLPA_17_2_LEAVE, S_CLPA_18_2_PARTICULARS, C.S_CLPA_18_4_PROPERTY, S_CLPA_8_1_B_PROPERTY, C.S_CLPA_18_3_EXTENSION, S_CLPA_18_5_COUNTERCLAIM, S_CLPA_18_6_NULLITY],
       },
       {
         id: "deadline:civil:municipal-notice-10-days",
-        what: "If you are claiming damages because a municipality did not keep a highway (road) or bridge in repair, give written notice of the claim to the municipal clerk",
+        what: "If a municipality did not keep a highway (road) or bridge in repair and you claim damages, give written notice of the claim to the municipal clerk",
         countFrom: "the day of the injury",
         countFromEvent: "injury-occurred",
         length: { unit: "days", count: 10 },
@@ -2125,7 +2130,7 @@ const BEFORE_FILING: CaseStage[] = [
         computation: C.S_LEGISLATION_89_3_BETWEEN,
         consequence: "bars-the-claim",
         qualifier:
-          "This covers all damages a person sustains because of the failure to repair. The same section covers personal injury from snow or ice on a municipal sidewalk, where the municipality is liable only for gross negligence; if you were hurt on a municipal sidewalk, this 10-day notice to the clerk may be the one that applies, not the 60-day occupier notice. The notice must give the date, time and location, and be served on or sent by registered mail to the clerk. If two or more municipalities are jointly responsible for the road or bridge, notice goes to the clerk of each of them. In Toronto the City of Toronto Act, 2006 sets the same 10 days, with notice to the city clerk. Missing the notice is not a bar if the injured person died from the injury, or if a judge finds a reasonable excuse and no prejudice to the municipality.",
+          "This covers all damages a person suffers because of the failure to repair. The same section covers injury from snow or ice on a municipal sidewalk. There, the municipality is liable only for gross negligence. If you were hurt on a municipal sidewalk, this 10-day notice to the clerk may be the one that applies, not the 60-day notice to an occupier. The notice must give the date, time and place. Serve it on the clerk, or send it by registered mail. If two or more municipalities share the duty to repair the road or bridge, notify the clerk of each. In Toronto, the City of Toronto Act, 2006 sets the same 10 days, with notice to the city clerk. Missing the notice is not a bar if the injured person died from the injury. It is also not a bar if a judge finds a reasonable excuse and no prejudice to the municipality.",
         exceptions: [
           S_MUNICIPAL_44_1_REPAIR,
           C.S_MUNICIPAL_44_9_SIDEWALK,
@@ -2149,7 +2154,7 @@ const BEFORE_FILING: CaseStage[] = [
         computation: C.S_LEGISLATION_89_3_BETWEEN,
         consequence: "bars-the-claim",
         qualifier:
-          "The notice must give the date, time and location, and be served personally or sent by registered mail. Missing the notice is not a bar if the injured person died from the injury, or if a judge finds a reasonable excuse and no prejudice to the defendant.",
+          "The notice must give the date, time and place. Serve it in person or send it by registered mail. Missing the notice is not a bar if the injured person died from the injury. It is also not a bar if a judge finds a reasonable excuse and no prejudice to the defendant.",
         exceptions: [C.S_OLA_6_1_2_WHO, C.S_OLA_6_1_5_DEATH, C.S_OLA_6_1_6_EXCUSE],
       },
       {
@@ -2163,7 +2168,7 @@ const BEFORE_FILING: CaseStage[] = [
         computation: C.S_LEGISLATION_89_3_BETWEEN,
         consequence: "bars-the-claim",
         qualifier:
-          "The Act says six weeks, which is 42 days. The notice must be served in the same way as a statement of claim, or delivered to an adult at the defendant's chief office. This applies only to newspapers printed and published in Ontario and broadcasts from a station in Ontario. A newspaper that does not print the names of its proprietor and publisher and its address of publication at the head of the editorials or on the front page cannot rely on it.",
+          "The Act says six weeks, which is 42 days. Serve the notice the same way as a statement of claim, or give it to an adult at the defendant's chief office. This applies only to newspapers printed and published in Ontario, and to broadcasts from a station in Ontario. A newspaper cannot rely on it unless it prints its owner's and publisher's names and its address of publication. These must appear at the head of the editorials or on the front page.",
         exceptions: [C.S_LS_7_SCOPE, S_LS_8_1_NEWSPAPER_NAMES],
       },
       {
@@ -2177,7 +2182,7 @@ const BEFORE_FILING: CaseStage[] = [
         computation: C.S_LEGISLATION_89_6_MONTHS,
         consequence: "bars-the-claim",
         qualifier:
-          "This shorter period replaces the general two years because the Limitations Act lists it in its Schedule. It applies only to newspapers printed and published in Ontario and broadcasts from a station in Ontario. A newspaper that does not print the names of its proprietor and publisher and its address of publication at the head of the editorials or on the front page cannot rely on it.",
+          "This shorter time replaces the general two years, because the Limitations Act lists it in its schedule. It applies only to newspapers printed and published in Ontario, and to broadcasts from a station in Ontario. A newspaper cannot rely on it unless it prints its owner's and publisher's names and its address of publication. These must appear at the head of the editorials or on the front page.",
         exceptions: [C.S_LS_7_SCOPE, S_LS_8_1_NEWSPAPER_NAMES, S_LIM_19_1_SCHEDULE, S_LIM_SCHEDULE_LIBEL],
       },
       basicLimitation("deadline:civil:basic-limitation-notice-stage"),
@@ -2345,7 +2350,7 @@ const PLAINTIFF: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This applies only if the action was started with a notice of action. After the 30 days, the statement of claim can be filed only with the defendant's written consent or the court's permission, asked for on notice to the defendant.",
+          "This applies only if you started with a notice of action. After the 30 days, you can file the statement of claim only with the defendant's written consent or the court's permission. You must ask for that permission on notice to the defendant.",
         exceptions: [RCP_14_03_THIRTY_DAYS],
       },
       fiveYearDismissal("deadline:civil:five-year-dismissal-claim-issued"),
@@ -2484,7 +2489,7 @@ const PLAINTIFF: CaseStage[] = [
     deadlines: [
       {
         id: "deadline:civil:note-default-30-days",
-        what: "If there is more than one defendant, have the defaulting defendant noted in default by filing proof of service of the statement of claim with the registrar. Otherwise a defendant who is not in default can ask the court to dismiss your action for delay",
+        what: "If there is more than one defendant, have the one who did not defend noted in default. Do this by filing proof of service of the statement of claim with the registrar. If you do not, a defendant who is not in default can ask the court to dismiss your action for delay",
         countFrom: "the day the defendant's time to deliver a defence ran out",
         countFromEvent: "defence-time-expired",
         length: { unit: "days", count: 30 },
@@ -2493,7 +2498,7 @@ const PLAINTIFF: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "Only a defendant who is not in default can bring this motion, so it matters mainly where there is more than one defendant. Until the defendant is noted in default, they can still deliver a defence.",
+          "Only a defendant who is not in default can bring this motion. So it matters mainly where there is more than one defendant. Until a defendant is noted in default, they can still deliver a defence.",
         exceptions: [RCP_19_01_NOTING, RCP_19_01_LATE_DEFENCE],
       },
       fiveYearDismissal("deadline:civil:five-year-dismissal-defence-expired"),
@@ -2583,7 +2588,7 @@ const PLAINTIFF: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "A reply is optional. If the defendant also counterclaimed, the time for a reply and defence to counterclaim is 20 days instead. Deliver means serve it on the other parties and file it with proof of service. If your action is under the simplified procedure and the defence objects that your claim does not fit it, the action stays under the simplified procedure only if your reply gives up the parts of the claim that do not fit. The time can be extended by filing a consent, or by the court.",
+          "A reply is optional. If the defendant also counterclaimed, you have 20 days instead for a reply and defence to counterclaim. Deliver means serve it on the other parties and file it with proof of service. Your action may be under the simplified procedure, and the defence may object that your claim does not fit it. Then the action stays under that procedure only if your reply gives up the parts of the claim that do not fit. The time can be extended by filing a consent, or by the court.",
         exceptions: [RCP_27_05_COMBINED, RCP_1_03_DELIVER, RCP_76_02_OBJECTION, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
       },
       simplifiedAffidavit("deadline:civil:simplified-affidavit-of-documents:defence-received"),
@@ -2648,7 +2653,7 @@ const PLAINTIFF: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "If you also deliver a reply, the two go in one document called a reply and defence to counterclaim. If you do not deliver a defence to counterclaim in time, the defendant can have you noted in default on the counterclaim. You would then be treated as admitting the facts it alleges, and judgment could be given against you on it. The time can be extended by filing a consent, or by the court.",
+          "If you also deliver a reply, put both in one document called a reply and defence to counterclaim. If you do not deliver a defence to counterclaim in time, the defendant can have you noted in default on the counterclaim. You would then be treated as admitting the facts it alleges. Judgment could then be given against you on it. The time can be extended by filing a consent, or by the court.",
         exceptions: [RCP_27_05_COMBINED, RCP_19_09_COUNTERCLAIMS, RCP_19_02_CONSEQUENCES, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
       },
       juryNotice("deadline:civil:jury-notice:served-with-counterclaim", true),
@@ -2846,7 +2851,7 @@ const PLAINTIFF: CaseStage[] = [
     deadlines: [
       {
         id: "deadline:civil:discontinue-before-pleadings-close",
-        what: "If you want to discontinue without the court's leave or everyone's consent, serve a notice of discontinuance (Form 23A) on all parties served with the statement of claim and file it with proof of service before pleadings close",
+        what: "To discontinue without the court's leave or everyone's consent, act before pleadings close. Serve a notice of discontinuance (Form 23A) on all parties served with the statement of claim. File it with proof of service",
         countFrom: "the day pleadings close",
         countFromEvent: "pleadings-closed",
         length: { unit: "days", count: 0 },
@@ -2855,7 +2860,7 @@ const PLAINTIFF: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "The rule fixes no number of days; the cut-off is the close of pleadings. After that, you need the court's leave. You can also discontinue at any time by filing the consent of all parties. If any party is under a disability, the action can be discontinued by or against that party only with a judge's leave. A defendant who counterclaimed then has 30 days to elect to go on with the counterclaim. A discontinuance does not stop a later action on the same claim, unless the leave order or a filed consent says otherwise, but a later action can be stayed until the costs of the discontinued one are paid.",
+          "The rule fixes no number of days. The cut-off is the close of pleadings. After that, you need the court's leave. You can also discontinue at any time by filing the consent of all parties. If any party is under a disability, discontinuing by or against that party needs a judge's leave. A defendant who counterclaimed then has 30 days to choose to go on with the counterclaim. A discontinuance does not stop a later action on the same claim, unless the leave order or a filed consent says so. But a later action can be put on hold until the costs of the discontinued one are paid.",
         exceptions: [RCP_25_05_CLOSE, RCP_23_01_DISABILITY, RCP_23_02_COUNTERCLAIM_ELECTION, RCP_23_04_NOT_A_DEFENCE, RCP_23_04_STAY],
       },
       discontinuanceCosts("deadline:civil:discontinuance-costs-30-days"),
@@ -2985,9 +2990,9 @@ const DEFENDANT: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This is the time if you were served in Ontario. If you were served elsewhere in Canada or in the United States, it is 40 days. If you were served anywhere else, it is 60 days. If you deliver a notice of intent to defend (Form 18B) in that time, you get 10 more days for the statement of defence. Deliver means serve it on the other parties and file it with proof of service. " +
+          "This is the time if you were served in Ontario. If you were served elsewhere in Canada or in the United States, it is 40 days. If you were served anywhere else, it is 60 days. If you deliver a notice of intent to defend (Form 18B) in that time, you get 10 more days for the defence. Deliver means serve it on the other parties and file it with proof of service. " +
           DEFENCE_QUALIFIER_SERVICE +
-          " If you want to counterclaim against the plaintiff, it goes in the same document as your defence, by the same time. If your counterclaim also names someone who is not already a party, it must be issued within the same time as your defence (or before you are noted in default, or later with the court's leave), and then served and filed with proof of service within 30 days after it is issued. A crossclaim against a co-defendant goes with your defence by the same time or at any time before you are noted in default, or later with leave, which the court must give unless it would prejudice the plaintiff. The time can be extended by filing a consent, or by the court. A defence can still be delivered at any time before you are noted in default. But once the time is up, the plaintiff can have you noted in default without telling you, and after that you are not entitled to notice of further steps. If the claim is under the simplified procedure and you say it does not fit Rule 76, the objection goes in your statement of defence. A jury notice must be delivered before pleadings close.",
+          " A counterclaim against the plaintiff goes in the same document as your defence, by the same time. Your counterclaim may also name someone who is not yet a party. If so, issue it within the same time as your defence, or before you are noted in default, or later with the court's leave. Then serve and file it, with proof of service, within 30 days after it is issued. A crossclaim against a co-defendant goes with your defence, by the same time. It can also go in at any time before you are noted in default, or later with leave. The court must give that leave unless it would prejudice the plaintiff. The time can be extended by filing a consent, or by the court. You can still deliver a defence at any time before you are noted in default. But once the time is up, the plaintiff can have you noted in default without telling you. After that, you get no notice of further steps. If the claim is under the simplified procedure and you say it does not fit Rule 76, say so in your defence. A jury notice must be delivered before pleadings close.",
         exceptions: [
           RCP_18_02_INTENT,
           RCP_18_02_TEN_MORE,
@@ -3070,7 +3075,7 @@ const DEFENDANT: CaseStage[] = [
         rule: RCP_27_06_REPLY_TO_DEFENCE_TO_COUNTERCLAIM,
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
-        qualifier: "This applies only if you counterclaimed. A reply is optional. If you crossclaimed, a reply to a defence to crossclaim (Form 28C) has the same 10 days from service of that defence. If you brought a third party claim, a reply to the third party defence (Form 29C) also has 10 days from its service.",
+        qualifier: "This applies only if you counterclaimed. A reply is optional. If you crossclaimed, you have the same 10 days to reply to a defence to crossclaim (Form 28C). If you brought a third party claim, you also have 10 days to reply to the third party defence (Form 29C). Each runs from service of that defence.",
         exceptions: [RCP_28_08_REPLY, RCP_29_04_REPLY],
       },
       simplifiedSettlementDiscussion("deadline:civil:simplified-settlement-discussion:defence-delivered"),
@@ -3137,7 +3142,7 @@ const DEFENDANT: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This is the time if you were served in Ontario. If you were served elsewhere in Canada or in the United States, it is 40 days. If you were served anywhere else, it is 60 days. A notice of intent to defend in that time gives you 10 more days. You can also defend the plaintiff's claim by delivering a statement of defence in the main action within the same time. If you do not, you are still bound by any order or determination made in the main action between the plaintiff and the defendant who made the third party claim. If you do not deliver a third party defence in time, you can be noted in default. You would then be treated as admitting the facts the third party claim alleges, and judgment could be given against you at the trial or on a motion to a judge. The time can be extended by filing a consent, or by the court.",
+          "This is the time if you were served in Ontario. If you were served elsewhere in Canada or in the United States, it is 40 days. If you were served anywhere else, it is 60 days. A notice of intent to defend in that time gives you 10 more days. You can also defend the plaintiff's claim. Do this by delivering a statement of defence in the main action, in the same time. If you do not, you are still bound by any order or finding in the main action between the plaintiff and the defendant who brought you in. If you do not deliver a third party defence in time, you can be noted in default. You would then be treated as admitting the facts the third party claim alleges. Judgment could be given against you at the trial or on a motion to a judge. The time can be extended by filing a consent, or by the court.",
         exceptions: [RCP_18_02_THIRD_PARTY, RCP_18_02_TEN_MORE, RCP_29_05_SAME_TIME, RCP_29_05_BOUND, RCP_19_09_COUNTERCLAIMS, RCP_19_02_CONSEQUENCES, RCP_29_07_THIRD_PARTY_DEFAULT, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
       },
     ],
@@ -3181,7 +3186,7 @@ const DEFENDANT: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This is the time if you were served in Ontario. If you were served elsewhere in Canada or in the United States, it is 40 days. If you were served anywhere else, it is 60 days. A notice of intent to defend in that time gives you 10 more days. A defence can still be delivered at any time before you are noted in default, and the default rules apply to a counterclaim. The time can be extended by filing a consent, or by the court.",
+          "This is the time if you were served in Ontario. If you were served elsewhere in Canada or in the United States, it is 40 days. If you were served anywhere else, it is 60 days. A notice of intent to defend in that time gives you 10 more days. You can still deliver a defence at any time before you are noted in default. The default rules apply to a counterclaim. The time can be extended by filing a consent, or by the court.",
         exceptions: [RCP_18_02_THIRD_PARTY, RCP_18_02_TEN_MORE, RCP_19_01_LATE_DEFENCE, RCP_19_09_COUNTERCLAIMS, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
       },
     ],
@@ -3225,7 +3230,7 @@ const DEFENDANT: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "You do not need one if the crossclaim asks only for contribution or indemnity under the Negligence Act, you have delivered a statement of defence in the main action, and you rely on the facts in that defence and nothing different or surprising. Otherwise, if you do not deliver it in time, you can be noted in default on the crossclaim and treated as admitting its facts, and the co-defendant can get judgment against you at the trial or on a motion to a judge. The time can be extended by filing a consent, or by the court.",
+          "You do not need one if three things are true. First, the crossclaim asks only for contribution or indemnity under the Negligence Act. Second, you have delivered a defence in the main action. Third, you rely on the facts in that defence, with nothing different or surprising. Otherwise, if you do not deliver it in time, you can be noted in default on the crossclaim. You would then be treated as admitting its facts. The co-defendant could then get judgment against you at the trial or on a motion to a judge. The time can be extended by filing a consent, or by the court.",
         exceptions: [RCP_28_05_NOT_REQUIRED, RCP_19_09_FULL, RCP_19_02_CONSEQUENCES, RCP_28_07_CROSSCLAIM_DEFAULT, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
       },
     ],
@@ -3265,7 +3270,7 @@ const DEFENDANT: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "If you do not, the counterclaim is treated as discontinued, without costs. If you also made a crossclaim or third party claim, it is treated as dismissed 30 days after the discontinuance unless the court orders otherwise within those 30 days. The time can be extended by filing a consent, or by the court.",
+          "If you do not, the counterclaim is treated as discontinued, without costs. You may also have made a crossclaim or third party claim. If so, it is treated as dismissed 30 days after the discontinuance, unless the court orders otherwise within those 30 days. The time can be extended by filing a consent, or by the court.",
         exceptions: [RCP_23_03_DEEMED_DISMISSED, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
       },
       discontinuanceCosts("deadline:civil:discontinuance-costs-30-days:counterclaim-pending"),
@@ -3310,7 +3315,7 @@ const DEFENDANT: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "The rules set no further fixed number of days, but you can deliver it only until you are noted in default. The plaintiff can have that done at any time by filing proof of service, and after it you are not entitled to notice of further steps. The time can also be extended by filing a consent, or by the court.",
+          "The rules set no further fixed number of days. But you can deliver it only until you are noted in default. The plaintiff can have that done at any time by filing proof of service. After that, you get no notice of further steps. The time can also be extended by filing a consent, or by the court.",
         exceptions: [RCP_19_01_NOTING, RCP_19_02_NO_NOTICE, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
       },
     ],
@@ -3348,7 +3353,7 @@ const DEFENDANT: CaseStage[] = [
     deadlines: [
       {
         id: "deadline:civil:set-aside-noting",
-        what: "If you want to defend, bring a motion to set aside the noting of default, or get the plaintiff's consent to deliver a defence",
+        what: "If you want to defend, bring a motion to set aside the noting of default. Or get the plaintiff's consent to deliver a defence",
         countFrom: "the day you learned you were noted in default",
         countFromEvent: "learned-of-default",
         length: { unit: "days", count: 0 },
@@ -3411,7 +3416,7 @@ const DEFENDANT: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "The rule sets no fixed number of days. A judgment the registrar signed, or one the court granted on a motion under rule 19.04, can be set aside by the court. One granted on a motion for judgment under rule 19.05, or after a trial, can be set aside by a judge. An appeal from a final order of a judge must be started within 30 days after the order is made. Appealing a refusal to set aside a default judgment does not by itself stop the judgment from being enforced.",
+          "The rule sets no fixed number of days. The court can set aside a judgment the registrar signed, or one the court granted on a motion under rule 19.04. A judge can set aside one granted on a motion for judgment under rule 19.05, or after a trial. An appeal from a final order of a judge must start within 30 days after the order is made. Appealing a refusal to set aside a default judgment does not by itself stop the judgment from being enforced.",
         exceptions: [RCP_19_08_SET_ASIDE_JUDGE, C.R_61_04_APPEAL_30_DAYS, RCP_63_01_DEFAULT_NOT_STAYED],
       },
     ],
@@ -3495,7 +3500,7 @@ const DEFENDANT: CaseStage[] = [
     deadlines: [
       appealDeadline(
         "deadline:civil:notice-of-appeal-30-days:judgment-being-enforced",
-        " Delivering a notice of appeal stays the parts of the order for the payment of money until the appeal is decided, except support.",
+        " Delivering a notice of appeal pauses the parts of the order that say to pay money, until the appeal is decided. This does not apply to support.",
         [C.R_63_01_STAY],
       ),
     ],
@@ -3534,7 +3539,7 @@ const BOTH: CaseStage[] = [
     deadlines: [
       {
         id: "deadline:civil:after-lawyer-removed-30-days",
-        what: "If you are an individual acting for yourself, either appoint a new lawyer by serving a notice (Form 15B), or serve a notice of intention to act in person (Form 15C)",
+        what: "If you are an individual, do one of two things. Appoint a new lawyer by serving a notice (Form 15B). Or serve a notice of intention to act in person (Form 15C)",
         countFrom: "the day you were served with the order removing your lawyer",
         countFromEvent: "served-with-removal-order",
         length: { unit: "days", count: 30 },
@@ -3543,7 +3548,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "If you do not, the court may dismiss your proceeding or strike out your defence, and in an appeal it may be dismissed or you may be denied the right to be heard. A corporation instead has 30 days to appoint a new lawyer, or to get and serve an order giving it leave to be represented by someone who is not a lawyer, with the same consequences. A party acting in a representative capacity, or the litigation guardian of a party under disability, has 30 days to appoint a new lawyer. The time can be extended by the court.",
+          "If you do not, the court may dismiss your case or strike out your defence. In an appeal, the appeal may be dismissed or you may lose the right to be heard. A corporation has 30 days to do one of two things instead. It can appoint a new lawyer. Or it can get and serve an order letting someone who is not a lawyer represent it. The same results follow if it does not. A party acting in a representative role, or the litigation guardian of a party under disability, has 30 days to appoint a new lawyer. The time can be extended by the court.",
         exceptions: [RCP_15_04_OTHER_FAILS, RCP_15_04_CORPORATION, RCP_15_04_CORPORATION_FAILS, RCP_15_04_REPRESENTATIVE, RCP_3_02_EXTEND],
       },
     ],
@@ -3587,7 +3592,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "You have the longer of these 10 days and the time that was left to respond to the original pleading, unless the court orders otherwise. If you already responded to the original pleading and do not respond to the amended one in time, you are treated as relying on your original pleading.",
+          "You have the longer of two times: these 10 days, or the time that was left to respond to the original pleading. The court can order otherwise. If you already responded to the original and do not respond to the amended one in time, you are treated as relying on your original pleading.",
         exceptions: [RCP_26_05_DEEMED],
       },
     ],
@@ -3746,7 +3751,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, holidays, including Saturdays and Sundays, are not counted. The plaintiff must also include a copy of the pleadings with the mediator's copy. If a party does not comply and that makes it not practical to hold the session, the mediator cancels it and files a certificate of non-compliance. The matter then goes to a judge or associate judge, who can dismiss the action of a plaintiff who did not comply, strike out the defence of a defendant who did not comply, or make other orders.",
+          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. The plaintiff must also include a copy of the pleadings with the mediator's copy. A party may fail to do this, so that holding the session is not practical. Then the mediator cancels it and files a certificate of non-compliance. The matter then goes to a judge or associate judge. The judge can dismiss the action of a plaintiff who did not comply. The judge can strike out the defence of a defendant who did not comply, or make other orders.",
         exceptions: [RCP_24_1_10_PLEADINGS, RCP_24_1_10_CANCEL, RCP_24_1_13_REFER, RCP_24_1_13_POWERS, RCP_1_03_HOLIDAY],
       },
     ],
@@ -3847,7 +3852,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "An offer can be made at any time, but one made less than seven days before the hearing does not carry the rule 49.10 costs rules. Because the period is seven days or less, holidays, including Saturdays and Sundays, are not counted. The offer must also stay open, not withdrawn or expired, until the hearing starts. Rule 49 also applies, with necessary changes, to motions, counterclaims, crossclaims and third party claims, so for an offer on a motion the hearing is the hearing of that motion. If there are several defendants said to be jointly liable, the rule 49.10 costs rules apply only if the offer meets the conditions in rule 49.11. An offer can be withdrawn by written notice at any time before it is accepted. It ends when any time it gives for acceptance runs out, and it cannot be accepted after the court disposes of the claim.",
+          "An offer can be made at any time. But if it is made less than seven days before the hearing, the rule 49.10 costs rules do not apply. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. The offer must also stay open, not withdrawn or expired, until the hearing starts. Rule 49 also applies, with needed changes, to motions, counterclaims, crossclaims and third party claims. For an offer on a motion, the hearing is the hearing of that motion. Several defendants may be said to be jointly liable. If so, the rule 49.10 costs rules apply only if the offer meets the terms of rule 49.11. An offer can be withdrawn by written notice at any time before it is accepted. It ends when any time it gives for acceptance runs out. It cannot be accepted after the court decides the claim.",
         exceptions: [RCP_49_01_1_APPLIES, RCP_49_11_JOINT, RCP_49_10_PLAINTIFF_OFFER, RCP_49_10_DEFENDANT_OFFER, RCP_49_04_WITHDRAW, RCP_49_04_EXPIRES, RCP_49_04_DISPOSED, RCP_1_03_HOLIDAY],
       },
     ],
@@ -3896,7 +3901,7 @@ const BOTH: CaseStage[] = [
     deadlines: [
       {
         id: "deadline:civil:summary-judgment-moving-7-days",
-        what: "If you are bringing the motion for summary judgment, serve the notice of motion, motion record and your factum on the other parties and file them with proof of service",
+        what: "If you are bringing the motion for summary judgment, serve the notice of motion, motion record and your factum on the other parties. File them with proof of service",
         countFrom: "the date the motion will be heard, counting backwards",
         countFromEvent: "motion-hearing-date",
         length: { unit: "days", count: 7 },
@@ -3906,7 +3911,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "A factum is required on this motion. This is the latest it can be done; earlier is fine. Because the period is seven days or less, holidays, including Saturdays and Sundays, are not counted. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday. You must also give the registrar a confirmation of motion (Form 37B) by 2 p.m. five days before the hearing, or the motion is not heard.",
+          "A factum is required on this motion. This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday. You must also give the registrar a confirmation of motion (Form 37B) by 2 p.m. five days before the hearing. If you do not, the motion is not heard.",
         exceptions: [RCP_20_03_FACTUMS, RCP_37_07_SEVEN_DAYS, RCP_37_10_MOTION_RECORD, RCP_37_10_1_CONFIRM, RCP_37_10_1_ABANDONED, RCP_3_01_D_LATE_SERVICE, RCP_1_03_HOLIDAY],
       },
       {
@@ -3921,7 +3926,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "A factum is required on this motion. You cannot rely only on what your pleading says or denies: you must set out, in affidavits or other evidence, specific facts showing there is a genuine issue requiring a trial. This is the latest it can be done; earlier is fine. Because the period is seven days or less, holidays, including Saturdays and Sundays, are not counted. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday.",
+          "A factum is required on this motion. You cannot rely only on what your pleading says or denies. You must set out specific facts, in affidavits or other evidence, showing there is a genuine issue that needs a trial. This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday.",
         exceptions: [RCP_20_03_FACTUMS, RCP_20_02_RESPONDING_EVIDENCE, RCP_3_01_D_LATE_SERVICE, RCP_1_03_HOLIDAY],
       },
       {
@@ -3936,7 +3941,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This is how your evidence of specific facts reaches the court. This is the latest it can be done; earlier is fine. Because the period is seven days or less, holidays, including Saturdays and Sundays, are not counted. If the moving party did not email you a copy of their confirmation of motion, you may give the registrar your own confirmation of motion (Form 37B) by 10 a.m. four days before the hearing.",
+          "This is how your evidence of specific facts reaches the court. This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. If the moving party did not email you a copy of their confirmation of motion, you may give the registrar your own confirmation of motion (Form 37B) by 10 a.m. four days before the hearing.",
         exceptions: [RCP_20_02_RESPONDING_EVIDENCE, RCP_37_10_RECORD_CONTENTS, RCP_37_10_1_RESPONDING_CONFIRM, RCP_1_03_HOLIDAY],
       },
     ],
@@ -4001,7 +4006,7 @@ const BOTH: CaseStage[] = [
     deadlines: [
       {
         id: "deadline:civil:motion-moving-party-7-days",
-        what: "If you are bringing the motion, serve the notice of motion and motion record on the other parties and file them with proof of service",
+        what: "If you are bringing the motion, serve the notice of motion and motion record on the other parties. File them with proof of service",
         countFrom: "the date the motion will be heard, counting backwards",
         countFromEvent: "motion-hearing-date",
         length: { unit: "days", count: 7 },
@@ -4011,12 +4016,12 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, holidays, including Saturdays and Sundays, are not counted. Your factum, if you have one, is due by the same day; on a motion for summary judgment a factum is required. The court can order otherwise for the motion record. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday. On a motion about refusals or undertakings, your refusals and undertakings chart (Form 37C) is due by the same day. If you propose that the motion be heard in writing without the parties attending, it must be made on at least 14 days notice, and you must serve your motion record, a draft order and a factum for a motion in writing with the notice of motion and file them right away. In a simplified procedure action, you serve a motion form (Form 76B) and the motion may be made with or without supporting material or a motion record.",
+          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. Your factum, if you have one, is due by the same day. On a motion for summary judgment, a factum is required. The court can order otherwise for the motion record. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday. On a motion about refusals or undertakings, your refusals and undertakings chart (Form 37C) is due by the same day. You may propose that the motion be heard in writing, without the parties attending. If so, give at least 14 days notice. Serve your motion record, a draft order and a factum for a motion in writing with the notice of motion, and file them right away. In a simplified procedure action, you serve a motion form (Form 76B). The motion may be made with or without supporting material or a motion record.",
         exceptions: [RCP_37_08_FILE, RCP_37_10_MOTION_RECORD, RCP_37_10_MOVING_FACTUM, RCP_20_03_FACTUMS, RCP_37_10_MOVING_CHART, RCP_37_12_1_IN_WRITING, RCP_37_12_1_IN_WRITING_MATERIAL, RCP_76_05_MOTION_FORM, RCP_76_05_MATERIALS, RCP_3_01_D_LATE_SERVICE, RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:confirmation-of-motion-5-days",
-        what: "If you are bringing the motion, confer or try to confer with the other party, give the registrar a confirmation of motion (Form 37B), and email a copy to the other party, by 2 p.m. on the day",
+        what: "If you are bringing the motion, talk or try to talk with the other party. Then give the registrar a confirmation of motion (Form 37B), and email a copy to the other party, by 2 p.m. on the day",
         countFrom: "the date the motion will be heard, counting backwards",
         countFromEvent: "motion-hearing-date",
         length: { unit: "days", count: 5 },
@@ -4026,7 +4031,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "Because the period is seven days or less, holidays, including Saturdays and Sundays, are not counted. If no confirmation is given, the motion is not heard and is treated as abandoned, unless the court orders otherwise.",
+          "Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. If no confirmation is given, the motion is not heard. It is treated as abandoned, unless the court orders otherwise.",
         exceptions: [RCP_37_10_1_ABANDONED, RCP_1_03_HOLIDAY],
       },
       {
@@ -4041,12 +4046,12 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "A factum is optional on most motions but required on a motion for summary judgment. This is the latest it can be done; earlier is fine. Because the period is seven days or less, holidays, including Saturdays and Sundays, are not counted. On a motion about refusals or undertakings, your completed refusals and undertakings chart is due by the same day. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday.",
+          "A factum is optional on most motions, but required on a motion for summary judgment. This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. On a motion about refusals or undertakings, your completed chart is due by the same day. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday.",
         exceptions: [RCP_20_03_FACTUMS, RCP_37_10_CHART, RCP_3_01_D_LATE_SERVICE, RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:motion-responding-record-4-days",
-        what: "If you are responding and think the motion record is incomplete, serve a responding party's motion record on the other parties and file it with proof of service",
+        what: "If you are responding and think the motion record is incomplete, serve a responding party's motion record on the other parties. File it with proof of service",
         countFrom: "the date the motion will be heard, counting backwards",
         countFromEvent: "motion-hearing-date",
         length: { unit: "days", count: 4 },
@@ -4056,12 +4061,12 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, holidays, including Saturdays and Sundays, are not counted.",
+          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted.",
         exceptions: [RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:responding-confirmation-4-days",
-        what: "If you are responding and the moving party did not email you a copy of their confirmation of motion, you may give the registrar your own confirmation of motion (Form 37B) and email a copy to the moving party, by 10 a.m. on the day",
+        what: "If you are responding and the moving party did not email you their confirmation of motion, you may give the registrar your own (Form 37B). Email a copy to the moving party, by 10 a.m. on the day",
         countFrom: "the date the motion will be heard, counting backwards",
         countFromEvent: "motion-hearing-date",
         length: { unit: "days", count: 4 },
@@ -4071,12 +4076,12 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "Because the period is seven days or less, holidays, including Saturdays and Sundays, are not counted.",
+          "Because the period is seven days or less, Saturdays, Sundays and holidays are not counted.",
         exceptions: [RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:motion-in-writing-response-10-days",
-        what: "If the moving party asked for the motion to be heard in writing, serve and file your response: a consent, a notice that you do not oppose, your motion record and factum for a motion in writing, or a notice that you want to make oral argument",
+        what: "If the moving party asked for the motion to be heard in writing, serve and file your response, with proof of service. It is one of these: a consent; a notice that you do not oppose; your motion record, a notice that you agree to a hearing in writing, and a factum for a motion in writing; or a notice that you want to make oral argument, with your material",
         countFrom: "the day you were served with the moving party's material",
         countFromEvent: "served-with-motion-material",
         length: { unit: "days", count: 10 },
@@ -4133,7 +4138,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "File the notice, with proof of service, within five days after serving it. The motion for leave is heard in writing by a panel of the Divisional Court. The same leave process applies to a final order of a Superior Court judge that is only about costs. Within 30 days after filing the notice of motion, file your motion record, factum and any transcripts and book of authorities, with proof of service. If leave is granted, the notice of appeal must be delivered within seven days after that.",
+          "File the notice, with proof of service, within five days after you serve it. A panel of the Divisional Court hears the leave motion in writing. The same leave process applies to a final order of a Superior Court judge that is only about costs. Within 30 days after filing the notice of motion, file your motion record, factum, any transcripts and any book of authorities, with proof of service. If leave is granted, the notice of appeal must be delivered within seven days after that.",
         exceptions: [RCP_62_02_LEAVE_FROM, RCP_62_02_NOTICE, RCP_62_02_IN_WRITING, RCP_62_02_PROCEDURES, RCP_61_03_1_RECORD_30_DAYS, RCP_62_02_AFTER_LEAVE],
       },
       {
@@ -4147,7 +4152,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This appeal goes to a judge, not to the Divisional Court. Because the period is seven days or less, holidays, including Saturdays and Sundays, are not counted. The notice must name the first available hearing date at least seven days after you serve it, and be filed with proof of service no later than seven days before that hearing date.",
+          "This appeal goes to a judge, not to the Divisional Court. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. The notice must name the first available hearing date at least seven days after you serve it. File it with proof of service no later than seven days before that hearing date.",
         exceptions: [RCP_62_01_ASSOCIATE_JUDGE, S_CJA_17_ASSOCIATE_JUDGE, RCP_62_01_HEARING_DATE, RCP_62_01_FILE, RCP_1_03_HOLIDAY],
       },
       {
@@ -4162,12 +4167,12 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, holidays, including Saturdays and Sundays, are not counted.",
+          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted.",
         exceptions: [RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:associate-judge-appeal-respondent-4-days",
-        what: "If you are responding to an appeal from an associate judge's order, serve your factum, and any further material needed, on every other party and file it with proof of service",
+        what: "If you are responding to an appeal from an associate judge's order, serve your factum, and any more material needed, on every other party. File it with proof of service",
         countFrom: "the date the appeal will be heard, counting backwards",
         countFromEvent: "appeal-hearing-date",
         length: { unit: "days", count: 4 },
@@ -4177,12 +4182,12 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, holidays, including Saturdays and Sundays, are not counted.",
+          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted.",
         exceptions: [RCP_62_01_RESPONDENT_FILE, RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:leave-motion-response-25-days",
-        what: "If the other side is asking the Divisional Court for leave to appeal and you oppose it, file your factum and any motion record and book of authorities, with proof of service",
+        what: "If the other side asks the Divisional Court for leave to appeal and you oppose it, file your factum, any motion record and any book of authorities. File them with proof of service",
         countFrom: "the day you were served with the moving party's motion record",
         countFromEvent: "leave-motion-record-served",
         length: { unit: "days", count: 25 },
@@ -4252,7 +4257,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "If the parties do not schedule it in that time, the registrar schedules it and gives the parties notice. The court can order otherwise. Unless an order or practice direction says otherwise, the date must be no more than 120 days and no less than 30 days before the first trial day or the first day of the trial sittings, whichever is later.",
+          "If the parties do not schedule it in that time, the registrar schedules it and tells the parties. The court can order otherwise. The date must be 30 to 120 days before the first trial day, or before the first day of the trial sittings, whichever is later. An order or practice direction can say otherwise.",
         exceptions: [RCP_50_02_REGISTRAR, RCP_50_02_WINDOW],
       },
       {
@@ -4280,7 +4285,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This is the latest it can be done; earlier is fine. A report from an expert who answers another party's expert must be served at least 60 days before the pre-trial conference. An expert cannot testify on an issue that is not in a report served in time, except with the trial judge's leave. The time can be extended by the pre-trial judge, by the court on a motion, or by the parties' written consent, but consent cannot move the trial date.",
+          "This is the latest it can be done; earlier is fine. A report from an expert who answers another party's expert must be served at least 60 days before the pre-trial conference. An expert cannot testify on an issue that is not in a report served in time, unless the trial judge allows it. The time can be extended by the pre-trial judge, by the court on a motion, or by the parties' written consent. But consent cannot move the trial date.",
         exceptions: [RCP_53_03_RESPONDING_EXPERT, RCP_53_03_NO_REPORT, RCP_53_03_EXTEND],
       },
       {
@@ -4325,7 +4330,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, holidays, including Saturdays and Sundays, are not counted. In a simplified procedure action, each party instead files the proposed trial management plan, its affidavit of documents and the documents it relies on, any expert affidavit and any other material needed, and delivers a statement of no more than three pages on the issues and its position, and a trial management checklist (Form 76D).",
+          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. In a simplified procedure action, each party files other things instead. These are the proposed trial management plan, the party's affidavit of documents and the documents it relies on, any expert affidavit, and any other material needed. Each party also delivers a statement of no more than three pages on the issues and its position, and a trial management checklist (Form 76D).",
         exceptions: [RCP_76_10_DOCUMENTS, RCP_1_03_HOLIDAY],
       },
     ],
@@ -4371,7 +4376,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This is the latest it can be done; earlier is fine. A responding supplementary report must be served at least 15 days before trial. Otherwise the expert cannot testify on that issue without the trial judge's leave. The time can be extended by the judge at a pre-trial conference, by the court on a motion, or by the parties' written consent, but consent cannot move the trial date.",
+          "This is the latest it can be done; earlier is fine. A responding supplementary report must be served at least 15 days before trial. Otherwise the expert cannot testify on that issue without the trial judge's leave. The time can be extended by the judge at a pre-trial conference, by the court on a motion, or by the parties' written consent. But consent cannot move the trial date.",
         exceptions: [RCP_53_03_EXTEND],
       },
       {
@@ -4391,7 +4396,7 @@ const BOTH: CaseStage[] = [
       },
       {
         id: "deadline:civil:business-records-notice-7-days",
-        what: "If you want to rely on business records, such as invoices or account records, under the Evidence Act's business-records rule, give every other party notice that you intend to",
+        what: "If you want to use business records, such as invoices or account records, under the Evidence Act's business-records rule, give every other party notice that you plan to",
         countFrom: "the day you tender the records in evidence, counting backwards",
         countFromEvent: "evidence-tendered",
         length: { unit: "days", count: 7 },
@@ -4401,7 +4406,7 @@ const BOTH: CaseStage[] = [
         computation: C.S_LEGISLATION_89_3_BETWEEN,
         consequence: "changes-what-happens-next",
         qualifier:
-          "The Act requires at least seven days notice of your intention and does not name the trial date. The notice has to come before the records are offered in evidence, so notice given at least 7 days before the first day of trial covers every day of the trial. Giving notice on a later day, even because of a Sunday or holiday, leaves fewer than 7 days. This notice is set by the Evidence Act, a statute, so it is counted under the Legislation Act, 2006, not under the court rules' counting described below: the day the notice is given is not counted and the day the evidence is tendered is. Without the notice, the business-records rule does not apply. Any other party is entitled to have the records produced for inspection within five days after giving notice to produce them.",
+          "The Act requires at least seven days notice of your plan. It does not name the trial date. The notice must come before the records are offered in evidence. So notice given at least 7 days before the first day of trial covers every day of the trial. Giving notice later, even because of a Sunday or holiday, leaves fewer than 7 days. This notice is set by a statute, the Evidence Act. So it is counted under the Legislation Act, 2006, not under the court rules' counting described below. The day the notice is given is not counted, and the day the evidence is offered is. Without the notice, the business-records rule does not apply. Any other party can have the records produced for inspection within five days after giving notice to produce them.",
         exceptions: [S_EVIDENCE_35_2, RCP_3_01_SCOPE],
       },
       {
@@ -4416,7 +4421,7 @@ const BOTH: CaseStage[] = [
         computation: C.S_LEGISLATION_89_3_BETWEEN,
         consequence: "changes-what-happens-next",
         qualifier:
-          "The Act requires at least ten days notice to all other parties before the report is admitted, and does not name the trial date. Notice given at least 10 days before the first day of trial covers every day of the trial. Giving notice on a later day, even because of a Sunday or holiday, leaves fewer than 10 days. This notice is set by the Evidence Act, a statute, so it is counted under the Legislation Act, 2006, not under the court rules' counting described below: the day the notice is given is not counted and the day the report is tendered is. The report also needs the court's leave to be admitted. When notice is given, the other parties are entitled to a copy of the report, unless the court orders otherwise. A practitioner who signed a report cannot testify at trial unless the report was given to the other parties this way, except with the trial judge's leave.",
+          "The Act requires at least ten days notice to all other parties before the report is admitted. It does not name the trial date. Notice given at least 10 days before the first day of trial covers every day of the trial. Giving notice later, even because of a Sunday or holiday, leaves fewer than 10 days. This notice is set by a statute, the Evidence Act. So it is counted under the Legislation Act, 2006, not under the court rules' counting described below. The day the notice is given is not counted, and the day the report is offered is. The report also needs the court's leave to be admitted. When notice is given, the other parties can get a copy of the report, unless the court orders otherwise. A practitioner who signed a report cannot testify at trial unless the report was given to the other parties this way. The trial judge can allow it anyway.",
         exceptions: [S_EVIDENCE_52_3, S_EVIDENCE_52_4, RCP_3_01_SCOPE],
       },
       {
@@ -4436,7 +4441,7 @@ const BOTH: CaseStage[] = [
       },
       {
         id: "deadline:civil:adverse-party-witness-10-days",
-        what: "If you want to call the other side, or its officer, director, employee, sole proprietor or partner, as a witness, serve a summons to witness or serve a notice of intention to call them on the other side or its lawyer",
+        what: "You may want to call the other side as a witness, or its officer, director, employee, sole proprietor or partner. If so, serve them with a summons to witness. Or serve a notice of intention to call them on the other side or its lawyer",
         countFrom: "the first day of trial, counting backwards",
         countFromEvent: "trial-date",
         length: { unit: "days", count: 10 },
@@ -4446,7 +4451,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "The 10 days applies to the notice of intention. Attendance money under Tariff A must be paid or offered at the same time. If the person is already at the trial, no summons or attendance money is needed.",
+          "The 10 days apply to the notice of intention. Attendance money under Tariff A must be paid or offered at the same time. If the person is already at the trial, no summons or attendance money is needed.",
         exceptions: [RCP_53_07_WHO],
       },
       {
@@ -4503,7 +4508,7 @@ const BOTH: CaseStage[] = [
     deadlines: [
       appealDeadline(
         "deadline:civil:notice-of-appeal-30-days:missed-trial",
-        " Asking a judge to set aside the judgment under rule 52.01 (3) is a separate route, and that rule sets no fixed time.",
+        " You can also ask a judge to set aside the judgment under rule 52.01 (3). That rule sets no fixed time.",
         [RCP_52_01_SET_ASIDE],
       ),
     ],
@@ -4575,7 +4580,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This applies if you want the order set aside or changed, or want a different result if the appeal succeeds. Only a judge of the appeal court can extend the time.",
+          "This applies if you want the order set aside or changed. It also applies if you want a different result if the appeal succeeds. Only a judge of the appeal court can extend the time.",
         exceptions: [RCP_3_02_APPEALS],
       },
     ],
@@ -4637,7 +4642,7 @@ const BOTH: CaseStage[] = [
       },
       {
         id: "deadline:civil:respondent-certificate-15-days",
-        what: "If you are the respondent, serve on the appellant and file, with proof of service, a respondent's certificate respecting evidence (Form 61D)",
+        what: "If you are the respondent, serve a respondent's certificate respecting evidence (Form 61D) on the appellant. File it with proof of service",
         countFrom: "the day you were served with the appellant's certificate, which comes with the notice of appeal",
         countFromEvent: "served-with-notice-of-appeal",
         length: { unit: "days", count: 15 },
@@ -4646,7 +4651,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "It confirms the appellant's certificate or sets out additions or deletions. If you do not serve and file it in time, you are treated as confirming the appellant's certificate. A notice of cross-appeal has the same 15 days, and must be filed with proof of service within 10 days after it is served.",
+          "It confirms the appellant's certificate, or sets out additions or deletions. If you do not serve and file it in time, you are treated as confirming the appellant's certificate. A notice of cross-appeal has the same 15 days. It must be filed with proof of service within 10 days after it is served.",
         exceptions: [C.R_61_04_APPEAL_30_DAYS, RCP_61_05_DEEMED_CONFIRMED, RCP_61_07_CROSS_APPEAL, RCP_61_07_FILE_CROSS_APPEAL],
       },
       {
@@ -4660,7 +4665,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "If you do not, the respondent can ask the Registrar, on ten days notice, to dismiss the appeal for delay. If the default is not cured before that motion is heard, the Registrar dismisses the appeal with costs fixed at $750.",
+          "If you do not, the respondent can ask the Registrar, on ten days notice, to dismiss the appeal for delay. If the problem is not fixed before that motion is heard, the Registrar dismisses the appeal. Costs are then fixed at $750.",
         exceptions: [RCP_61_13_MOTION, RCP_61_13_DISMISS],
       },
       {
@@ -4674,7 +4679,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "If you do not, the respondent can move to have the appeal dismissed for delay, or the Registrar can give notice that it will be dismissed unless it is perfected within 10 days. If the default is not cured in time, the Registrar dismisses the appeal with costs fixed at $750. A judge of the appeal court can allow a longer period after a Registrar's notice. If there is a cross-appeal, deliver your factum as respondent to it within 10 days after the respondent's factum is served.",
+          "If you do not, the respondent can move to have the appeal dismissed for delay. Or the Registrar can give notice that it will be dismissed unless it is perfected within 10 days. If the problem is not fixed in time, the Registrar dismisses the appeal, with costs fixed at $750. A judge of the appeal court can allow more time after a Registrar's notice. If there is a cross-appeal, deliver your factum as respondent to it within 10 days after the respondent's factum is served.",
         exceptions: [RCP_61_12_CROSS_APPEAL_FACTUM, RCP_61_13_MOTION, RCP_61_13_REGISTRAR_NOTICE, RCP_61_13_DISMISS],
       },
       {
@@ -4688,7 +4693,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "If you do not, the respondent can move to have the appeal dismissed for delay. The Registrar can also give notice that the appeal will be dismissed unless it is perfected within 10 days, if the transcript is not filed within 60 days after the Registrar was told it was ready, or the appeal is not perfected within one year after the notice of appeal was filed. If the default is not cured in time, the Registrar dismisses the appeal with costs fixed at $750. If there is a cross-appeal, deliver your factum as respondent to it within 10 days after the respondent's factum is served.",
+          "If you do not, the respondent can move to have the appeal dismissed for delay. The Registrar can also give notice that the appeal will be dismissed unless it is perfected within 10 days. The Registrar can do this if the transcript is not filed within 60 days after the Registrar was told it was ready. The Registrar can also do it if the appeal is not perfected within one year after the notice of appeal was filed. If the problem is not fixed in time, the Registrar dismisses the appeal, with costs fixed at $750. If there is a cross-appeal, deliver your factum as respondent to it within 10 days after the respondent's factum is served.",
         exceptions: [RCP_61_12_CROSS_APPEAL_FACTUM, RCP_61_13_MOTION, RCP_61_13_REGISTRAR_ONE_YEAR, RCP_61_13_DISMISS],
       },
       {
