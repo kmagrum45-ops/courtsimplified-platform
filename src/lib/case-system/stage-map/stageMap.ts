@@ -64,8 +64,18 @@
 import type { DeadlineEventKey } from "../deadlines/deadlineEvents";
 import type { RuleCitation } from "./citations";
 import * as C from "./citations";
+import { CIVIL_STAGES } from "./civilStages";
+import { FAMILY_STAGES } from "./familyStages";
 
-export type Side = "plaintiff" | "defendant" | "both";
+/*
+ * "applicant" and "respondent" are the family parties (Family Law Rules r. 2 (1)).
+ * Added 2026-10-01 with the civil and family maps; a civil action has a
+ * plaintiff and a defendant exactly as Small Claims does.
+ */
+export type Side = "plaintiff" | "defendant" | "both" | "applicant" | "respondent";
+
+/** Which court's procedure a stage belongs to. Absent means Small Claims. */
+export type StagePathway = "small-claims" | "civil" | "family";
 
 /**
  * Which regime counts the days.
@@ -75,7 +85,13 @@ export type Side = "plaintiff" | "defendant" | "both";
  * deadlines. They differ, and the difference decides real dates — see the
  * Saturday note in citations.ts.
  */
-export type CountingRegime = "small-claims-rules" | "legislation-act";
+/*
+ * "civil-rules" counts under Rules of Civil Procedure r. 3.01, whose holiday
+ * definition (r. 1.03) is word for word the Small Claims one. "family-rules"
+ * counts under Family Law Rules r. 3, where a period ending on a day court
+ * offices are closed runs to the next day they are open.
+ */
+export type CountingRegime = "small-claims-rules" | "legislation-act" | "civil-rules" | "family-rules";
 
 /**
  * What missing the deadline costs.
@@ -165,6 +181,8 @@ export type StageId = (typeof CASE_STAGES)[number]["id"];
 
 export type CaseStage = {
   id: string;
+  /** Absent for the Small Claims stages, which were the whole map until 2026-10-01. */
+  pathway?: StagePathway;
   side: Side;
   /** A position where something has already gone wrong. Not an error state. */
   wentWrong: boolean;
@@ -1940,8 +1958,26 @@ export function isSpecialStage(id: string): boolean {
   return (SPECIAL_STAGE_IDS as readonly string[]).includes(id);
 }
 
+/**
+ * Every stage in every court. Small Claims stays `CASE_STAGES`, because the
+ * resolver, the eval and the Small Claims panel were built on it and must not
+ * start offering civil or family positions to a Small Claims reader.
+ */
+export const ALL_STAGES: readonly CaseStage[] = [...CASE_STAGES, ...CIVIL_STAGES, ...FAMILY_STAGES];
+
 export function findStage(id: string): CaseStage | undefined {
-  return CASE_STAGES.find((stage) => stage.id === id);
+  return ALL_STAGES.find((stage) => stage.id === id);
+}
+
+export function pathwayOf(stage: CaseStage): StagePathway {
+  return stage.pathway ?? "small-claims";
+}
+
+/** The real positions (not unknown / out-of-scope) for one court. */
+export function stagesForPathway(pathway: StagePathway): CaseStage[] {
+  return ALL_STAGES.filter(
+    (stage) => pathwayOf(stage) === pathway && !isSpecialStage(stage.id),
+  );
 }
 
 export function stagesForSide(side: Side): CaseStage[] {

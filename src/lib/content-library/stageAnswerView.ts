@@ -154,9 +154,12 @@ export function renderStageAnswerOrRefuse(
   const stage = findStage(stageId);
 
   if (stage?.requiresAffirmativeScope) {
+    // The court whose procedure the block describes must be the court the case
+    // is in: Small Claims guidance for a Small Claims case, civil for civil,
+    // family for family (2026-10-01, when the civil and family maps arrived).
     const established =
       scope !== null &&
-      scope.primaryPath === "small-claims" &&
+      scope.primaryPath === (stage.pathway ?? "small-claims") &&
       scope.confidence >= SCOPE_CONFIDENCE_FLOOR;
 
     if (!established) {

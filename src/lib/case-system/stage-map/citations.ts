@@ -44,7 +44,14 @@ export type CorpusSourceId =
   | "trustee-act"
   // 2026-10-01: the appeal from a Small Claims judgment is started under the
   // Rules of Civil Procedure (r. 61.04), not the Small Claims rules.
-  | "rules-of-civil-procedure";
+  | "rules-of-civil-procedure"
+  // 2026-10-01: the family stage map.
+  | "family-law-rules"
+  | "family-law-act"
+  | "childrens-law-reform-act"
+  | "divorce-act"
+  | "family-responsibility-support-arrears-enforcement-act"
+  | "evidence-act";
 
 /** The page a person opens to read the law for themselves. */
 export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
@@ -62,6 +69,12 @@ export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
   "libel-and-slander-act": "https://www.ontario.ca/laws/statute/90l12",
   "trustee-act": "https://www.ontario.ca/laws/statute/90t23",
   "rules-of-civil-procedure": "https://www.ontario.ca/laws/regulation/900194",
+  "family-law-rules": "https://www.ontario.ca/laws/regulation/990114",
+  "family-law-act": "https://www.ontario.ca/laws/statute/90f03",
+  "childrens-law-reform-act": "https://www.ontario.ca/laws/statute/90c12",
+  "divorce-act": "https://laws-lois.justice.gc.ca/eng/acts/D-3.4/",
+  "family-responsibility-support-arrears-enforcement-act": "https://www.ontario.ca/laws/statute/96f31",
+  "evidence-act": "https://www.ontario.ca/laws/statute/90e23",
 };
 
 /** How each source is named to a user. Shown beside the quote. */
@@ -81,6 +94,13 @@ export const SOURCE_NAMES: Record<CorpusSourceId, string> = {
   "libel-and-slander-act": "Libel and Slander Act, R.S.O. 1990, c. L.12",
   "trustee-act": "Trustee Act, R.S.O. 1990, c. T.23",
   "rules-of-civil-procedure": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+  "family-law-rules": "Family Law Rules, O. Reg. 114/99",
+  "family-law-act": "Family Law Act, R.S.O. 1990, c. F.3",
+  "childrens-law-reform-act": "Children's Law Reform Act, R.S.O. 1990, c. C.12",
+  "divorce-act": "Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.)",
+  "family-responsibility-support-arrears-enforcement-act":
+    "Family Responsibility and Support Arrears Enforcement Act, 1996, S.O. 1996, c. 31",
+  "evidence-act": "Evidence Act, R.S.O. 1990, c. E.23",
 };
 
 export type RuleCitation = {
