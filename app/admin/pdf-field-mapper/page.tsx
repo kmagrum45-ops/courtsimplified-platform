@@ -60,10 +60,13 @@ const FIELD_KEYS = [
  * table and the page are secured together rather than the table alone, since
  * a locked table behind an open page just produces a confusing failure.
  *
- * No role check. There is one operator with one account, and inventing a role
- * system for a single user would be more machinery than the problem has. If
- * this ever has a second user, that is when the check earns its place; the
- * TODO is here so the next person meets the decision rather than the absence.
+ * OPERATORS ONLY, added 2026-10-02. "Signed in" turned out to mean every person
+ * who registers, and generate-form reads these rows to decide where each answer
+ * is printed on a court form. The database now refuses the save unless the
+ * account is listed in public.site_operators
+ * (supabase/migrations/20261002090000_close_rls_gaps.sql says how to add one).
+ * The check lives in the database, not here, so it holds however the table is
+ * reached; this page only explains the refusal.
  */
 function useRequiredSession(): { checked: boolean; signedIn: boolean } {
   const [state, setState] = useState({ checked: false, signedIn: false });
@@ -252,7 +255,12 @@ export default function PdfFieldMapperPage() {
     setSaving(false);
 
     if (error) {
-      alert(`Could not save mappings: ${error.message}`);
+      // 42501: the row-level policy refused it — this account is not an operator.
+      alert(
+        error.code === "42501"
+          ? "Only an account listed as a site operator can save overlay mappings. Nothing was saved."
+          : `Could not save mappings: ${error.message}`,
+      );
       return;
     }
 

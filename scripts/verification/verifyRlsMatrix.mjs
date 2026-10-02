@@ -77,7 +77,10 @@ const uuidFor = (label) => {
 
 const VICTIM = uuidFor("user:victim");
 const ATTACKER = uuidFor("user:attacker");
-const OWNERS = { victim: VICTIM, attacker: ATTACKER };
+// A third account, listed in site_operators: the one identity allowed to edit the
+// overlay map. Proves that rule lets the operator in, not only that it keeps others out.
+const OPERATOR = uuidFor("user:operator");
+const OWNERS = { victim: VICTIM, attacker: ATTACKER, operator: OPERATOR };
 
 // ---------------------------------------------------------------------------
 // A private Postgres
@@ -252,6 +255,7 @@ const tableOverrides = {
   workspace_communications: () => ({ direction: lit("sent"), method: lit("email") }),
   court_forms: () => ({ category: lit("family"), province: lit("ontario") }),
   ai_call_log: () => ({ call_type: lit("safety-pass"), validation_result: lit("valid") }),
+  site_operators: () => ({ user_id: lit(OPERATOR) }),
 };
 
 /** Builds an INSERT for `table`. Every NOT NULL column without a default gets a value. */
@@ -304,7 +308,7 @@ function ownedRowSql(table, who, overrides = {}) {
 
 function seed() {
   const sql = [
-    `INSERT INTO auth.users (id, email, role) VALUES (${lit(VICTIM)}, 'victim@probe.invalid', 'authenticated'), (${lit(ATTACKER)}, 'attacker@probe.invalid', 'authenticated');`,
+    `INSERT INTO auth.users (id, email, role) VALUES (${lit(VICTIM)}, 'victim@probe.invalid', 'authenticated'), (${lit(ATTACKER)}, 'attacker@probe.invalid', 'authenticated'), (${lit(OPERATOR)}, 'operator@probe.invalid', 'authenticated');`,
   ];
   // Parents first: cases, then workspace_documents, then everything else.
   const order = Object.keys(manifest.userOwned).sort((a, b) => {
@@ -315,6 +319,10 @@ function seed() {
   // A victim case and document with no children, for inserts keyed by their parent.
   sql.push(`${ownedRowSql("cases", "victim-bare")};`);
   sql.push(`${ownedRowSql("workspace_documents", "victim-bare")};`);
+  // Spare victim parents for the secondary references (extraParents in the manifest).
+  for (const t of new Set(Object.values(manifest.userOwned).flatMap((s) => (s.extraParents ?? []).map((e) => e.table)))) {
+    if (t !== "cases" && t !== "workspace_documents") sql.push(`${ownedRowSql(t, "victim-bare")};`);
+  }
   for (const t of Object.keys(manifest.catalogue)) sql.push(`${insertSql(t, "catalogue")};`);
   // A court_forms row OUTSIDE anon's window, to prove the window is enforced.
   sql.push(`${insertSql("court_forms", "outside-window", { category: lit("civil"), province: lit("ontario") })};`);
@@ -494,9 +502,10 @@ function structural() {
     const callers = query(
       `SELECT r FROM unnest(ARRAY['anon','authenticated']) r WHERE has_function_privilege(r, ${lit(fn)}, 'EXECUTE')`,
     );
-    const allowed = manifest.definerFunctionsClientsMayCall.includes(fn);
-    check(`function:${fn}:security-definer-not-callable-by-clients`, allowed || callers.length === 0,
-      callers.length ? `runs with its owner's rights and ${callers.join("+")} can call it` : "");
+    const allowedRoles = manifest.definerFunctionsClientsMayCall[fn] ?? [];
+    const unexpected = callers.filter((r) => !allowedRoles.includes(r));
+    check(`function:${fn}:security-definer-not-callable-by-clients`, unexpected.length === 0,
+      unexpected.length ? `runs with its owner's rights and ${unexpected.join("+")} can call it` : "");
     if (callers.length === 0) {
       const r = as("authenticated", "attacker", `SELECT ${fn.replace(/\(.*\)$/, "")}()`);
       check(`function:${fn}:call-refused-for-authenticated`, r.denied === "42501", describe(r));
@@ -545,7 +554,22 @@ function userOwnedMatrix() {
 
     // Owner's own rights (positive — a policy that blocks everyone also "passes" the above)
     const ownUpd = affected("authenticated", "attacker", `UPDATE ${t} SET user_id = user_id WHERE ${key} = ${lit(attackerRow)}`);
-    control(`${table}:owner-can-update-own-row`, n(ownUpd) === 1, describe(ownUpd));
+    if (spec.clientWrites === false) {
+      // Written only by server routes: the owner may read their rows, not write them.
+      check(p("owner-cannot-write-directly-server-routes-only"), blocked(ownUpd), describe(ownUpd), ownUpd);
+      const svcUpd = affected("service_role", null, `UPDATE ${t} SET user_id = user_id WHERE ${key} = ${lit(attackerRow)}`);
+      control(`${table}:service-role-can-update`, n(svcUpd) === 1, describe(svcUpd));
+    } else {
+      control(`${table}:owner-can-update-own-row`, n(ownUpd) === 1, describe(ownUpd));
+    }
+
+    /*
+     * Ownership of a row's parent is enforced by a composite foreign key, which binds
+     * EVERY role — so it is attacked as the service role too, where RLS and grants are
+     * out of the picture and only the key can refuse. 23503 is that refusal.
+     */
+    const OWNERSHIP_KEY = "23503";
+    const refusedByKey = (r) => r.denied === OWNERSHIP_KEY;
 
     // Attach own row to the victim's case or document
     if (spec.parent) {
@@ -560,8 +584,32 @@ function userOwnedMatrix() {
         })} RETURNING 1) SELECT count(*) FROM w`);
       const move = affected("authenticated", "attacker",
         `UPDATE ${t} SET ${spec.parent.column} = ${lit(victimParent)} WHERE ${key} = ${lit(attackerRow)}`);
-      check(p("cannot-attach-to-other-users-parent"), blocked(attach) && blocked(move),
-        `insert under victim's ${spec.parent.table}: ${describe(attach)}; move own row there: ${describe(move)}`, attach, move);
+      // Keep storage_path consistent with the new case, so the path rule (F4) is not
+      // what refuses this — only the ownership key should.
+      const pathSet = spec.storagePathColumn
+        ? `, ${spec.storagePathColumn} = ${lit(`${ATTACKER}/${victimParent}/${uuidFor("moved-path")}`)}`
+        : "";
+      const svcMove = affected("service_role", null,
+        `UPDATE ${t} SET ${spec.parent.column} = ${lit(victimParent)}${pathSet} WHERE ${key} = ${lit(attackerRow)}`);
+      const ok = (blocked(attach) || refusedByKey(attach)) && (blocked(move) || refusedByKey(move)) && refusedByKey(svcMove);
+      const unexpected = [attach, move, svcMove].filter((r) => (r.denied && !SECURITY_REFUSALS.has(r.denied) && r.denied !== OWNERSHIP_KEY) || r.error);
+      check(p("cannot-attach-to-other-users-parent"), ok && unexpected.length === 0,
+        `insert under victim's ${spec.parent.table}: ${describe(attach)}; move own row there: ${describe(move)}; ` +
+          `same move as service role: ${describe(svcMove)}`);
+    }
+
+    for (const extra of spec.extraParents ?? []) {
+      const victimParent = rowIdOf(extra.table, "victim-bare");
+      const svcMove = affected("service_role", null,
+        `UPDATE ${t} SET ${extra.column} = ${lit(victimParent)} WHERE ${key} = ${lit(attackerRow)}`);
+      const ownParent = rowIdOf(extra.table, extra.table === table ? "attacker-alt" : "attacker");
+      check(p(`${extra.column}-cannot-point-at-other-users-${extra.table}`), refusedByKey(svcMove),
+        `service role moving ${extra.column} to the victim's ${extra.table}: ${describe(svcMove)}`);
+      if (extra.table !== table) {
+        const svcOwn = affected("service_role", null,
+          `UPDATE ${t} SET ${extra.column} = ${lit(ownParent)} WHERE ${key} = ${lit(attackerRow)}`);
+        control(`${table}:${extra.column}-may-point-at-own-${extra.table}`, n(svcOwn) === 1, describe(svcOwn));
+      }
     }
 
     if (spec.storagePathColumn) {
@@ -570,6 +618,14 @@ function userOwnedMatrix() {
         `UPDATE ${t} SET ${spec.storagePathColumn} = ${lit(victimPath)} WHERE ${key} = ${lit(attackerRow)}`);
       check(p("storage-path-stays-in-own-folder"), blocked(point),
         `point own row at the victim's stored file: ${describe(point)} (the export route signs whatever path the row holds)`, point);
+      // The constraint holds for the service role too — the routes write with it.
+      const svcPoint = affected("service_role", null,
+        `UPDATE ${t} SET ${spec.storagePathColumn} = ${lit(victimPath)} WHERE ${key} = ${lit(attackerRow)}`);
+      check(p("storage-path-bound-to-owner-for-every-role"), svcPoint.denied === "23514",
+        `service role pointing the attacker's row at the victim's file: ${describe(svcPoint)}`);
+      const svcOk = affected("service_role", null,
+        `UPDATE ${t} SET ${spec.storagePathColumn} = ${lit(`${ATTACKER}/${rowIdOf("cases", "attacker")}/${uuidFor("own-path")}`)} WHERE ${key} = ${lit(attackerRow)}`);
+      control(`${table}:own-folder-path-accepted`, n(svcOk) === 1, describe(svcOk));
     }
 
     // Anonymous visitor
@@ -617,6 +673,12 @@ function catalogueMatrix() {
       check(p(`${role}-cannot-update`), blocked(upd), describe(upd), upd);
       const del = affected(role, "attacker", `DELETE FROM ${t}`);
       check(p(`${role}-cannot-delete`), blocked(del), describe(del), del);
+    }
+
+    if (spec.operatorWritable) {
+      const col = columnsOf(table).find((c) => !c.generated && c.name !== "id")?.name ?? "id";
+      const op = affected("authenticated", "operator", `UPDATE ${t} SET "${col}" = "${col}"`);
+      control(`${table}:listed-operator-can-write`, n(op) === n(svc), `${describe(op)} of ${n(svc)}`);
     }
   }
 
@@ -710,7 +772,7 @@ function main() {
     startServer();
     const applied = buildDatabase();
     seed();
-    console.log(`rls-matrix: ${applied} migrations applied to a private Postgres; fixtures for 2 users built.\n`);
+    console.log(`rls-matrix: ${applied} migrations applied to a private Postgres; fixtures for 2 users and an operator built.\n`);
 
     structural();
     userOwnedMatrix();
