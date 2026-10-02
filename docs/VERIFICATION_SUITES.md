@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-101 documented, 30 without a header.
+103 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -84,6 +84,8 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:recorded-amount` | **A recorded amount is formatted when it is a plain number, and returned**<br>untouched when it is not. |
 | `npm run test:reference-not-shipped` | **Nothing under `app/` or `src/` reads the non-shipping reference folders, and no**<br>commercial publication is a corpus source. |
 | `npm run test:reset-intake` | **resetIntake clears everything an intake left behind, and nothing it should**<br>not. |
+| `npm run test:rls-matrix` | **Every RLS scenario, attacked for real: two litigants, an anonymous visitor and the**<br>service role against a database built from supabase/migrations/, on every table. |
+| `npm run test:rls-matrix-catches` | **The RLS suite fails on every kind of hole it exists to find. Proved by planting each**<br>one and watching it go red. |
 | `npm run test:rules-corpus` | **The vendored corpus is complete, current, and actually on disk.**<br>COSTS NOTHING. Reads the vendored files. No network — `rules:check` is the one that goes out, and it is a monthly job rather than a test. |
 | `npm run test:safety-coverage` | **Every court path that accepts a free-text narrative runs the safety pass**<br>before extraction. |
 | `npm run test:safety-regression` | **Permanent regression suite for safetyPass.ts -- the 11 cases from**<br>Sessions 4 and 5 plus three from the 2026-09-28 story review, wired into CI (npm run test:safety-regression), same pattern as test:intake-coverage. |
