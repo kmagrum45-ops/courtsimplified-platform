@@ -1738,6 +1738,25 @@ const F_R36_8_CERTIFICATE = flr(
   "When a divorce takes effect, the clerk shall, on either party’s request, (a) check the continuing record or, if there is no continuing record, the court file, to verify that, (i) no appeal has been taken from the divorce order, or any appeal from it has been disposed of, and (ii) no order has been made extending the time for an appeal, or any extended time has expired without an appeal; and (b) if satisfied of those matters, issue a divorce certificate (Form 36B)",
 );
 
+// ------------------------------------------- added after the eleventh review
+
+const F_R29_25_27_PAYOR_NOTICES = flr(
+  "r. 29 (25)-(27)",
+  "Within 10 days after returning to work for or starting to receive money again from the garnishee, the payor shall send a notice as subrule (27) requires, saying that the payor has returned to work for or started to receive money again from the garnishee. ... Within 10 days after starting to work for or receive money from a new income source, the payor shall send a notice as subrule (27) requires, saying that the payor has started to work for or to receive money from the new income source. ... A notice referred to in subrule (23), (24), (25) or (26) shall be sent to the clerk, and to the recipient or the Director (depending on who is enforcing the order), by mail or email.",
+);
+const F_R27_11_EXAMINATION = flr(
+  "r. 27 (11)",
+  "If a payment order is in default, the recipient may serve on the payor, by special service (subrule 6 (3)), an appointment for a financial examination (Form 27C), requiring the payor to, (a) come to a financial examination; (b) bring to the examination any document or thing named in the appointment that is in the payor’s control or available to the payor on request, relevant to the enforcement of the order, and not protected by a legal privilege; and (c) serve a financial statement (Form 13) on the recipient, not later than seven days before the date of the examination.",
+);
+const F_R27_13_PLACE = flr(
+  "r. 27 (13)",
+  "A financial examination shall be held, (a) in a place where the parties and the person to be examined agree; (b) where the person to be examined lives in Ontario, in the municipality where the person lives; or (c) in a place chosen by the court.",
+);
+const F_R25_5_FULL = flr(
+  "r. 25 (5)",
+  "Unless the court orders otherwise, a party who disagrees with the form or content of a draft order shall serve, on every party who was served under subrule (4) and on the party who served the draft order, (a) a notice disputing approval (Form 25E); (b) a copy of the order, redrafted as proposed; and (c) notice of a time and date at which the clerk will settle the order by telephone conference.",
+);
+
 // ---------------------------------------------------- shared deadline text
 //
 // The renderer adds one family counting paragraph (r. 3 (1), (2), (3)) to any
@@ -1763,7 +1782,7 @@ const LIMIT_QUALIFIER =
   "The time ends on the earliest of three dates. One is 2 years after a divorce or a nullity judgment ends the marriage. One is 6 years after the spouses separate with no reasonable prospect of living together again. One is 6 months after the first spouse dies. The court can extend the time on a motion. It must find three things. There are apparent grounds for relief. The delay was in good faith. No one will suffer substantial prejudice from it. This claim is only for married spouses. That includes a void or voidable marriage entered into in good faith.";
 
 const ANSWER_QUALIFIER_YOU =
-  "If you were served outside Canada and the United States, you have 60 days. If another party’s answer added you as a respondent, you have 14 days. That becomes 30 days if you were served outside Canada and the United States. Other times apply to an application to dispense with a parent’s consent before adoption placement. Service rules decide when your time starts. Papers left at your home with an adult, with a copy mailed, count as served on the fifth day after mailing. Papers left with you after 4 p.m. count as served the next day. If that day is one when court offices are closed, service counts on the next open day. For mail with an acknowledgment card, the rules set no separate start day. The general rule for mail is the fifth day after mailing. That service counts only once the card you signed is filed. If the application claims support, property or the matrimonial home against you, your financial statement is due in the same time. For a support claim with no property claim, serve the income papers in r. 13 (3.1) with it. If your answer claims decision-making responsibility, parenting time or contact, add the papers rule 35.1 requires. Your answer may make its own claim about parenting, property or support. If the clerk then issues an automatic order, serve it on every other party within 7 days after it is issued. If you miss the time, you lose the right to notice of further steps. You cannot take part in the case. The court may decide the case without you. A date may be set for an uncontested trial. The court office will refuse a late answer. It will take one only if the other parties agree in writing or the court gives more time. The parties can agree in writing to change the time. The court can also give more time.";
+  "If you were served outside Canada and the United States, you have 60 days. If another party’s answer added you as a respondent, you have 14 days. That becomes 30 days if you were served outside Canada and the United States. Other times apply to an application to dispense with a parent’s consent before adoption placement. Service rules decide when your time starts. Papers left at your home with an adult, with a copy mailed, count as served on the fifth day after mailing. Papers left with you after 4 p.m. count as served the next day. If that day is one when court offices are closed, service counts on the next open day. For mail with an acknowledgment card, the rules set no separate start day. The general rule for mail is the fifth day after mailing. That service counts only once the card you signed is filed. If the application claims support, property or the matrimonial home against you, your financial statement is due in the same time. For a support claim with no property claim, serve the income papers in r. 13 (3.1) with it. If your answer claims decision-making responsibility, parenting time or contact, add the papers rule 35.1 requires. Your answer may make its own claim about parenting, property or support. If the clerk then issues an automatic order, serve it on every other party promptly, and no later than 7 days after it is issued. If you miss the time, then unless the court orders otherwise, you lose the right to notice of further steps. Any order must still be served on you. You cannot take part in the case. The court may decide the case without you. A date may be set for an uncontested trial. The court office will refuse a late answer. It will take one only if the other parties agree in writing or the court gives more time. The parties can agree in writing to change the time. The court can also give more time.";
 
 const ANSWER_QUALIFIER_THEY =
   "If the respondent was served outside Canada and the United States, the time is 60 days. A respondent added by another party’s answer has 14 days. That becomes 30 days if they were served outside Canada and the United States. Other times apply to an application to dispense with a parent’s consent before adoption placement. Service rules decide when the time starts. Papers left at the home with an adult, with a copy mailed, count as served on the fifth day after mailing. Papers left with the respondent after 4 p.m. count as served the next day. If that day is one when court offices are closed, service counts on the next open day. For mail with an acknowledgment card, the rules set no separate start day. The general rule for mail is the fifth day after mailing. That service counts only once the card signed by the respondent is filed. If the application claims support, property or the matrimonial home, the respondent’s financial statement is due in the same time. The parties can agree in writing to change the time. The court can also give more time.";
@@ -1784,7 +1803,7 @@ const ANSWER_EXCEPTIONS = [
 ];
 
 const MIP_QUALIFIER_CORE =
-  "This applies only to some cases. They are cases about parenting, support, net family property, the matrimonial home or a restraining order. It also covers a motion to change that is not only about child or spousal support. It does not apply to a case on consent. It does not apply where the only claims are for a divorce, costs, or putting an agreement or order into an order. It does not apply where the only claims are about a family arbitration, or in an international child abduction case. It does not apply to the Director of the Family Responsibility Office, or to an agency under s. 33 (3) of the Family Law Act. It does not apply to a person who has already attended. File your certificate of attendance as soon as you can. File it no later than 2 p.m. on the second day before the case conference. The court can excuse a party because of urgency or hardship, or for another reason in the interest of justice.";
+  "This applies only to some cases. They are cases about parenting, support, net family property, the matrimonial home or a restraining order. It also covers a motion to change that is not only about child or spousal support. It does not apply to a case on consent. It does not apply where the only claims are for a divorce, costs, or putting an agreement or order into an order. It does not apply where the only claims are about a family arbitration, unless the court orders otherwise. It does not apply in an international child abduction case. It does not apply to the Director of the Family Responsibility Office, or to an agency under s. 33 (3) of the Family Law Act. It does not apply to a person who has already attended. File your certificate of attendance as soon as you can. File it no later than 2 p.m. on the second day before the case conference. The court can excuse a party because of urgency or hardship, or for another reason in the interest of justice.";
 
 const MIP_EXCEPTIONS = [F_R8_1_1_MIP_APPLIES, F_R8_1_2_MIP_EXCEPTIONS, F_R8_1_6_CERTIFICATE, F_R8_1_8_MIP_EXCUSED];
 
@@ -2156,7 +2175,7 @@ const APPLICANT: CaseStage[] = [
         what:
           "Serve the application on every other party right away, by special service. The rule sets no number of days. It says the application must be served immediately",
         qualifier:
-          "Someone other than you must do the special service, unless the court orders otherwise. Serve the continuing record on all other parties too. File it with proof of service. Some papers must go with the application. In a case about parenting, net family property, the matrimonial home or support, include the automatic order (Form 8.0.1). Include your financial statement if one is required. For a support claim with no property claim, also include the income papers in r. 13 (3.1) and a certificate of financial disclosure (Form 13A). The clerk will not accept a financial statement for a support claim without proof of your income. You need proof of your current income and of your income for the past three years. For a claim about decision-making responsibility, parenting time or contact, include the papers rule 35.1 requires. If you are not the child's parent and ask for decision-making responsibility, attach a police records check to Form 35.1. If you only have proof that you asked for the check, serve and file the check within 10 days after you get it. If the application is not served by its court date, the clerk can set a new date if you ask. You then serve it right away.",
+          "Someone other than you must do the special service, unless the court orders otherwise. Serve the continuing record on all other parties too. File it with proof of service. Some papers must go with the application. In a case about parenting, net family property, the matrimonial home or support, include the automatic order (Form 8.0.1). Include your financial statement if one is required. For a support claim with no property claim, also include the income papers in r. 13 (3.1) and a certificate of financial disclosure (Form 13A). The clerk will not accept a financial statement for a support claim without proof of your income. You need proof of your current income and of your income for the past three years. For a claim about decision-making responsibility, parenting time or contact, include the papers rule 35.1 requires. If you are not the child's parent and ask for decision-making responsibility, attach a police records check to Form 35.1. If you only have proof that you asked for the check, serve and file the check within 10 days after you get it. If the application is not served by its court date, the clerk must set a new date if you ask. You then serve it right away.",
         countFrom: "the day the application was filed",
         countFromEvent: "family-case-started",
         length: { unit: "days", count: 0 },
@@ -2906,7 +2925,7 @@ const BOTH: CaseStage[] = [
         what:
           "If the clerk serves a notice of approaching dismissal, take one of the five steps below, or the case is dismissed without further notice",
         qualifier:
-          `${DISMISSAL_STEPS} The clerk serves that notice in one situation. The missed conference was a case or settlement conference. It was set for 365 days or more after the case started. And a judge did not adjourn it. If a conference arranged as step five also does not go ahead, and a judge did not adjourn it, the case is dismissed without further notice. A judge can set aside the clerk's dismissal order on a motion. ${DISMISSAL_EXCLUSIONS}`,
+          `${DISMISSAL_STEPS} After a missed conference, the clerk serves that notice if three things are true. It was a case or settlement conference. It was set for 365 days or more after the case started. And a judge did not adjourn it. The clerk also serves one if the case was not settled, withdrawn, or scheduled or adjourned for trial before day 365. If a conference arranged as step five also does not go ahead, and a judge did not adjourn it, the case is dismissed without further notice. A judge can set aside the clerk's dismissal order on a motion. ${DISMISSAL_EXCLUSIONS}`,
         countFrom: "the day the notice of approaching dismissal was served",
         countFromEvent: "notice-of-approaching-dismissal-served",
         length: { unit: "days", count: 60 },
@@ -3258,7 +3277,7 @@ const BOTH: CaseStage[] = [
       {
         id: "deadline:family:serve-motion-to-change",
         what:
-          "Serve and file your motion to change (Form 15). Include all required attachments, a blank response (Form 15B) and a blank consent (Form 15C). Serve it by special service, not regular service",
+          "Serve and file your motion to change (Form 15). Include all required attachments, a blank response (Form 15B) and a blank consent (Form 15C). If you ask to change decision-making responsibility, parenting time or contact, include the papers rule 35.1 requires. Serve it by special service, not regular service",
         qualifier:
           "Someone other than you must serve it, unless the court orders otherwise. If the other party and any assignee agree to the change, you do not serve a motion to change. Instead the parties file a consent motion to change (Form 15C), with the papers the rule lists. If only child support is changing, use Form 15D. If you ask to change support, serve and file your financial statement with the motion. You do not need one if the only support claim is child support in the table amount. Serve the papers the rule lists with it. Examples are the income papers in r. 13 (3.1) and a current schedule of arrears from the Family Responsibility Office. Add a certificate of financial disclosure (Form 13A). If the order or agreement was assigned, serve the assignee as if it were a party.",
         countFrom: "the day the motion to change was filed",
@@ -3390,7 +3409,7 @@ const BOTH: CaseStage[] = [
         what:
           "If you do not agree, or want the court to make an added or different change, serve and file a response (Form 15B). If you agree, return a signed consent motion to change (Form 15C) to the party making the motion. Give a copy to any assignee",
         qualifier:
-          "It is 60 days if you do not live in Canada or the United States. The motion may ask to change support, or your response may ask for a support change. If so, your financial statement is due in the same time. Serve the papers the rule lists with it. Examples are the income papers in r. 13 (3.1) and a current schedule of arrears from the Family Responsibility Office. Add a certificate of financial disclosure (Form 13A). Your response may ask for its own change to parenting, property or support. If the clerk then issues an automatic order, serve it within 7 days after it is issued. Where the information program applies, your certificate must be filed before you serve the response. This is explained below. The parties can agree in writing to change the time. The court can also give more time.",
+          "It is 60 days if you do not live in Canada or the United States. The motion may ask to change support, or your response may ask for a support change. If so, your financial statement is due in the same time. Serve the papers the rule lists with it. Examples are the income papers in r. 13 (3.1) and a current schedule of arrears from the Family Responsibility Office. Add a certificate of financial disclosure (Form 13A). Your response may ask for its own change to parenting, property or support. If the clerk then issues an automatic order, serve it promptly, and no later than 7 days after it is issued. Where the information program applies, your certificate must be filed before you serve the response. This is explained below. The parties can agree in writing to change the time. The court can also give more time.",
         countFrom: "the day you receive the motion to change and its supporting documents",
         countFromEvent: "served-with-motion-to-change",
         length: { unit: "days", count: 30 },
@@ -3778,7 +3797,7 @@ const BOTH: CaseStage[] = [
         what:
           "If another party serves you a draft of the order for approval, serve your approval or a notice disputing approval (Form 25E)",
         qualifier:
-          "If you serve neither in that time, the order can be signed without your approval. The party the order favours prepares the draft and serves it for approval. Another party may prepare it if that party has no licensed representative. Another party may also prepare it if that party does not do so within 10 days. Where no party has a licensed representative, the clerk prepares the order.",
+          "If you serve neither in that time, the order can be signed without your approval. If you dispute it, serve Form 25E with a copy of the order redrafted as you propose. Also serve notice of the time the clerk sets to settle it by telephone. Serve these on the party who served the draft, and on every other party it was served on. The party the order favours prepares the draft and serves it for approval. Another party may prepare it if that party has no licensed representative. Another party may also prepare it if that party does not do so within 10 days. Where no party has a licensed representative, the clerk prepares the order.",
         countFrom: "the day the draft order was served on you for approval",
         countFromEvent: "draft-order-served",
         length: { unit: "days", count: 10 },
@@ -3786,7 +3805,7 @@ const BOTH: CaseStage[] = [
         rule: F_R25_8_NO_RESPONSE,
         computation: F_R3_1_COUNTING,
         consequence: "changes-what-happens-next",
-        exceptions: [F_R25_2_PREPARE_DRAFT, F_R25_3_OTHER_PREPARES, F_R25_4_DRAFT_APPROVAL, F_R25_5_DISPUTE, F_R25_11_A_CLERK],
+        exceptions: [F_R25_2_PREPARE_DRAFT, F_R25_3_OTHER_PREPARES, F_R25_4_DRAFT_APPROVAL, F_R25_5_DISPUTE, F_R25_5_FULL, F_R25_11_A_CLERK],
       },
       {
         id: "deadline:family:costs-submissions-15-days",
@@ -4440,7 +4459,7 @@ const BOTH: CaseStage[] = [
         what:
           "To stop the suspension, do one of three things. Make an arrangement the Director accepts for paying the support and the arrears. Or get a court order to refrain and file it in the Director's office. Or pay all the arrears",
         qualifier:
-          "These 30 days cannot be extended. A court cannot make an order to refrain after the 30 days. It can make only one for each first notice. If the 30th day is a day court offices are closed, the time does NOT move to the next open day. The order must be made by the last day court offices are open BEFORE the 30th day. To ask for an order to refrain, bring a motion to change the support order. Also bring a motion for the order to refrain, on notice to the Director. Bring both in the court that can change the support order. You can ask for the order to refrain before you bring the motion to change. To do that, you or your lawyer must give an undertaking (a formal promise) to get a court date for the motion to change. That date must be got within 20 days after the order. You do not need a motion to change if you have appealed the support order and the appeal is not decided. Serve and file a financial statement and proof of income with the notice of motion. If you cannot file proof of income before the motion is heard, the court can still make the order. You or your lawyer must then undertake to serve and file it within 20 days. This motion does not have to wait for a case conference. A motion must normally be served at least 6 days before it is heard, not counting weekends. The order must be made within the 30 days. So start right away.",
+          "For a court order to refrain, these 30 days cannot be extended. A court cannot make an order to refrain after the 30 days. It can make only one for each first notice. If the 30th day is a day court offices are closed, the time for the order does NOT move to the next open day. The order to refrain must be made by the last day court offices are open BEFORE the 30th day. To ask for an order to refrain, bring a motion to change the support order. Also bring a motion for the order to refrain, on notice to the Director. Bring both in the court that can change the support order. You can ask for the order to refrain before you bring the motion to change. To do that, you or your lawyer must give an undertaking (a formal promise) to get a court date for the motion to change. That date must be got within 20 days after the order. You do not need a motion to change if you have appealed the support order and the appeal is not decided. Serve and file a financial statement and proof of income with the notice of motion. If you cannot file proof of income before the motion is heard, the court can still make the order. You or your lawyer must then undertake to serve and file it within 20 days. This motion does not have to wait for a case conference. A motion must normally be served at least 6 days before it is heard, not counting weekends. The order must be made within the 30 days. So start right away.",
         countFrom: "the day the first notice was served",
         countFromEvent: "licence-suspension-first-notice-served",
         length: { unit: "days", count: 30 },
@@ -4499,7 +4518,7 @@ const BOTH: CaseStage[] = [
         what:
           "If you are the payor or the garnishee, you can dispute a notice of garnishment or a statutory declaration of indexed support. To do so, serve a dispute (Form 29E, 29F or 29G) on the other parties and file it",
         qualifier:
-          "Except for a joint debt, money taken under the garnishment is paid out even if a dispute is filed. The court can order otherwise. After a dispute is served and filed, the clerk issues a notice of garnishment hearing if asked. The payor's situation may later change in a way that affects their ability to pay. The payor can then bring a motion to change the garnishment. The parties can agree in writing to change this time. The court can also change it.",
+          "Except for a joint debt, money taken under the garnishment is paid out even if a dispute is filed. The court can order otherwise. After a dispute is served and filed, the clerk issues a notice of garnishment hearing if asked. The payor's situation may later change in a way that affects their ability to pay. The payor can then bring a motion to change the garnishment. While the garnishment is in place, the payor may go back to work for the garnishee or start getting money from a new source. If so, the payor sends a notice to the clerk and to the recipient or the Director within 10 days. The parties can agree in writing to change this time. The court can also change it.",
         countFrom: "the day you were served with the notice of garnishment or the statutory declaration of indexed support",
         countFromEvent: "served-with-notice-of-garnishment",
         length: { unit: "days", count: 10 },
@@ -4507,7 +4526,7 @@ const BOTH: CaseStage[] = [
         rule: F_R29_16_DISPUTE,
         computation: F_R3_1_COUNTING,
         consequence: "changes-what-happens-next",
-        exceptions: [F_R29_12_PAID_OUT, F_R29_13_NOT_PAID_OUT, F_R29_9_HELD_30_DAYS, F_R29_17_HEARING, F_R29_21_CHANGE, F_R3_6_CONSENT, F_R3_5_COURT_CHANGES_TIME],
+        exceptions: [F_R29_12_PAID_OUT, F_R29_13_NOT_PAID_OUT, F_R29_9_HELD_30_DAYS, F_R29_17_HEARING, F_R29_21_CHANGE, F_R29_25_27_PAYOR_NOTICES, F_R3_6_CONSENT, F_R3_5_COURT_CHANGES_TIME],
       },
       {
         id: "deadline:family:co-owner-dispute-30-days",
@@ -4887,7 +4906,7 @@ const BOTH: CaseStage[] = [
         id: "deadline:family:questioning-notice-3-days",
         what:
           "If you are arranging the questioning, serve every party with notice of who will be questioned, and the address, date and time",
-        qualifier: `Before you can question anyone, you must have served and filed any answer, financial statement or net family property statement the rules require. You must also promise in writing not to serve or file more papers for the next step, except in reply. The questioning takes place where the person lives, unless they agree to another place. To question someone on their financial statement, you must first have asked in writing for the missing information under r. 13 (11) (a). ${CONSENT_OR_COURT}`,
+        qualifier: `Before you can question anyone, you must have served and filed any answer, financial statement or net family property statement the rules require. You must also promise in writing not to serve or file more papers for the next step, except in reply. The questioning takes place in the city or town where the person lives, unless they and you agree on another. To question someone on their financial statement, you must first have asked in writing for the missing information under r. 13 (11) (a). ${CONSENT_OR_COURT}`,
         countFrom: "the date of the questioning, counting backwards",
         countFromEvent: "questioning-date",
         length: { unit: "days", count: 3 },
@@ -4954,6 +4973,51 @@ const BOTH: CaseStage[] = [
     // No deadline: r. 11 (1) sets none for the applicant.
     rules: [F_R11_1_AMENDED_APPLICATION, F_R11_3_PERMISSION, F_R11_3_1_PARENTING],
     deadlines: [],
+    requiresAffirmativeScope: true,
+  },
+  {
+    id: "family:both:served-with-financial-examination-appointment",
+    pathway: "family",
+    side: "both",
+    wentWrong: true,
+    userQuestion: "I was served with an appointment for a financial examination about unpaid support — what do I have to do?",
+    title: "Payor served with an appointment for a financial examination (Form 27C)",
+    description:
+      "A payment order is in default and the recipient has served the payor, by special service, with an appointment for a financial examination (Form 27C).",
+    cues: [
+      "form 27C",
+      "financial examination",
+      "appointment for a financial examination",
+      "they want to question me about my money",
+    ],
+    distinguishedFrom: [
+      {
+        stage: "family:both:served-with-request-for-financial-statement",
+        by: "whether the payor was served with an appointment for a financial examination or a request for a financial statement",
+      },
+      {
+        stage: "family:both:served-with-notice-of-default-hearing",
+        by: "whether the payor was served with an appointment for a financial examination or a notice of default hearing",
+      },
+    ],
+    rules: [F_R27_11_EXAMINATION, F_R27_13_PLACE, F_R26_3_PAYMENT_ORDERS],
+    deadlines: [
+      {
+        id: "deadline:family:financial-examination-statement-7-days",
+        what: "Serve a financial statement (Form 13) on the recipient",
+        qualifier:
+          "You must also come to the examination. Bring any document or thing named in the appointment that you control or can get, that relates to enforcing the order, and that is not protected by legal privilege. The examination is held where the parties and you agree. If not, it is in the city or town in Ontario where you live, or where the court chooses. The parties can agree in writing to change this time. The court can also change it.",
+        countFrom: "the date of the examination, counting backwards",
+        countFromEvent: "financial-examination-date",
+        length: { unit: "days", count: 7 },
+        direction: "before",
+        regime: "family-rules",
+        rule: F_R27_11_EXAMINATION,
+        computation: F_R3_1_COUNTING,
+        consequence: "changes-what-happens-next",
+        exceptions: [F_R27_13_PLACE, F_R3_6_CONSENT, F_R3_5_COURT_CHANGES_TIME],
+      },
+    ],
     requiresAffirmativeScope: true,
   },
 ];

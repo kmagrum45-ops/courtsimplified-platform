@@ -887,11 +887,6 @@ const RCP_28_04_CROSSCLAIM = rcp(
   "A statement of defence and crossclaim shall be delivered, (a) within the time prescribed by rule 18.01 for delivery of the statement of defence in the main action or at any time before the defendant is noted in default; or (b) subsequently with leave, which the court shall grant unless the plaintiff would be prejudiced thereby.",
 );
 
-const RCP_29_01_WHO = rcp(
-  "r. 29.01",
-  "A defendant may commence a third party claim against any person who is not a party to the action and who, (a) is or may be liable to the defendant for all or part of the plaintiff's claim;",
-);
-
 const RCP_29_02_ISSUE = rcp(
   "r. 29.02 (1)",
   "A third party claim (Form 29A) shall be issued within 10 days after the defendant delivers a statement of defence, or at any time before the defendant is noted in default.",
@@ -1534,8 +1529,8 @@ function discontinuanceCosts(id: string): StageDeadline {
     computation: RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
-      "Any party to the action can make this motion. It applies whether all or part of the action was discontinued. The time can be extended by filing a consent, or by the court.",
-    exceptions: [RCP_3_02_CONSENT, RCP_3_02_EXTEND],
+      "Any party to the action can make this motion. It applies whether all or part of the action was discontinued. If a crossclaim or third party claim is treated as dismissed, a costs motion about it can be made within 30 days after that deemed dismissal. The time can be extended by filing a consent, or by the court.",
+    exceptions: [RCP_23_05_DEEMED_COSTS, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
   };
 }
 
@@ -1647,6 +1642,35 @@ const RCP_26_05_DEEMED = rcp(
   "A party who has responded to a pleading that is subsequently amended and does not respond to the amended pleading within the prescribed time shall be deemed to rely on the party's original pleading in answer to the amended pleading.",
 );
 
+const S_LS_8_3_BROADCAST: RuleCitation = {
+  sourceId: "libel-and-slander-act",
+  pinpoint: "s. 8 (3)",
+  quote:
+    "Where a person, by registered letter containing the person's address and addressed to a broadcasting station, alleges that a libel against the person has been broadcast from the station and requests the name and address of the owner or operator of the station or the names and addresses of the owner and the operator of the station, sections 5 and 6 do not apply with respect to an action by such person against such owner or operator for the alleged libel unless the person whose name and address are so requested delivers the requested information to the first-mentioned person, or mails it by registered letter addressed to the person, within ten days from the date on which the first-mentioned registered letter is received at the broadcasting station.",
+};
+
+const S_LIM_15_4_C_MISLEADS = lim(
+  "s. 15 (4) (c)",
+  "(c) the person against whom the claim is made, (i) wilfully conceals from the person with the claim the fact that injury, loss or damage has occurred, that it was caused by or contributed to by an act or omission or that the act or omission was that of the person against whom the claim is made, or (ii) wilfully misleads the person with the claim as to the appropriateness of a proceeding as a means of remedying the injury, loss or damage.",
+);
+
+const S_LIM_15_5_BURDEN = lim("s. 15 (5)", "The burden of proving that subsection (4) applies is on the person with the claim.");
+
+const RCP_23_05_DEEMED_COSTS = rcp(
+  "r. 23.05 (2)",
+  "If a crossclaim or third party claim is deemed to be dismissed, any party to the crossclaim or third party claim may, within thirty days after the deemed dismissal, make a motion respecting the costs of the crossclaim or third party claim.",
+);
+
+const RCP_24_01_MUST_DISMISS = rcp(
+  "r. 24.01 (2)",
+  "The court shall, subject to subrule 24.02 (2), dismiss an action for delay if either of the circumstances described in paragraphs 1 and 2 of subrule 48.14 (1) applies to the action, unless the plaintiff demonstrates that dismissal of the action would be unjust.",
+);
+
+const RCP_24_02_DISABILITY = rcp(
+  "r. 24.02 (1)",
+  "Where the plaintiff is under disability, notice of a motion to dismiss an action for delay shall be served on the plaintiff's litigation guardian and, if the litigation guardian is not the Children's Lawyer or the Public Guardian and Trustee, (a) on the Children's Lawyer, if the plaintiff is a minor; or (b) on the Public Guardian and Trustee, in any other case.",
+);
+
 // =====================================================================
 // Deadlines used on more than one stage
 // =====================================================================
@@ -1662,7 +1686,7 @@ const LIMITATION_QUALIFIER =
   "This applies unless the Limitations Act, 2002 says otherwise. For example, a claim based on a sexual assault has no time limit. A claim is discovered on the earlier of two days. The first is the day you knew four things: you had a loss, an act or omission caused it, whose act or omission it was, and that a court case was a proper way to fix it. The second is the day a reasonable person in your place ought to have known those things. You are presumed to have known them on the day of the act or omission, unless you prove otherwise. Separately, no case can start more than 15 years after the act or omission, except in some cases the Act lists. Some other Acts, listed in a schedule to the Limitations Act, set shorter times. For example, a case for libel in an Ontario newspaper or broadcast must start within three months after you learned of the libel.";
 
 const LIMITATION_SUSPENSIONS =
-  " The two years do not run while the person with the claim is a minor and has no litigation guardian. They also do not run while a physical, mental or psychological condition keeps the person from starting a case, and they have no litigation guardian. A person is presumed able to start a case unless shown otherwise. If that condition ends with less than six months left, the time runs to six months after it ends. The two years and the 15 years also stop while the parties have agreed to have an independent third party resolve the claim or help resolve it. The other side may admit in writing, and sign, that they owe a fixed sum of money. The same goes for an admission that they must return personal property. It also goes for enforcing a charge on personal property, or relief from that. Then the act or omission is treated as happening on the day of that admission. This counts only if it was made before the time ran out. It must be made to you, your agent, or an official receiver or trustee under the Bankruptcy and Insolvency Act (Canada). For a fixed sum of money, a part payment by the other side or their agent works the same way as a written, signed admission. For a debt payable on demand, the loss happens on the first day it is not paid after a demand for payment.";
+  " The two years do not run while the person with the claim is a minor and has no litigation guardian. They also do not run while a physical, mental or psychological condition keeps the person from starting a case, and they have no litigation guardian. A person is presumed able to start a case unless shown otherwise. If that condition ends with less than six months left, the time runs to six months after it ends. The 15 years also do not run while the other side wilfully hides from you that the loss happened, that an act or omission caused it, or that it was theirs. Nor do they run while the other side wilfully misleads you about whether a court case is a proper way to fix it. You must prove this. The two years and the 15 years also stop while the parties have agreed to have an independent third party resolve the claim or help resolve it. The other side may admit in writing, and sign, that they owe a fixed sum of money. The same goes for an admission that they must return personal property. It also goes for enforcing a charge on personal property, or relief from that. Then the act or omission is treated as happening on the day of that admission. This counts only if it was made before the time ran out. It must be made to you, your agent, or an official receiver or trustee under the Bankruptcy and Insolvency Act (Canada). For a fixed sum of money, a part payment by the other side or their agent works the same way as a written, signed admission. For a debt payable on demand, the loss happens on the first day it is not paid after a demand for payment.";
 
 function basicLimitation(id: string, withSuspensions = false): StageDeadline {
   return {
@@ -1698,6 +1722,8 @@ function basicLimitation(id: string, withSuspensions = false): StageDeadline {
             S_LIM_13_10_WRITING,
             S_LIM_13_11_PART_PAYMENT,
             S_LIM_5_3_DEMAND,
+            S_LIM_15_4_C_MISLEADS,
+            S_LIM_15_5_BURDEN,
           ]
         : []),
     ],
@@ -1711,7 +1737,7 @@ function basicLimitation(id: string, withSuspensions = false): StageDeadline {
  * signed timetable on file would be told the registrar is about to dismiss.
  */
 const REGISTRAR_DISMISSAL_QUALIFIER =
-  "This does not apply if the action has already ended some other way. It does not apply if a party files a timetable signed by all parties, and a draft order, at least 30 days before the time ends. If the parties do not agree on a timetable, any party can ask for a status hearing before the time ends. It does not apply if you are under a disability at that time. It does not apply to Commercial List actions or class actions. The court can order otherwise. A dismissal can be set aside on a motion under rule 37.14.";
+  "This does not apply if the action has already ended some other way. It does not apply if a party files a timetable signed by all parties, and a draft order, at least 30 days before the time ends. The timetable must give a date, no more than two years after the time ends, by which the action will be set down or restored. If the parties do not agree on a timetable, any party can ask for a status hearing before the time ends. It does not apply if you are under a disability at that time. It does not apply to Commercial List actions or class actions. The court can order otherwise. A dismissal can be set aside on a motion under rule 37.14.";
 
 const REGISTRAR_DISMISSAL_QUALIFIER_BOTH = REGISTRAR_DISMISSAL_QUALIFIER.replace(
   "if you are under a disability",
@@ -1933,7 +1959,7 @@ function dismissalCosts(id: string): StageDeadline {
     computation: RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
-      "Any party to the action can make this motion. The rule's own words cover any action \"dismissed for delay\". The registrar's five-year order is a dismissal for delay. The only doubt comes from rule 48.14 (9). That rule applies the dismissal rules to a registrar's order, but it names only rules 24.03 to 24.05. So the rules' text does not settle whether this rule, 24.05.1, reaches that order. The time can be extended by filing a consent, or by the court.",
+      "Any party to the action can make this motion. The rule's own words cover any action \"dismissed for delay\". The registrar's five-year order is a dismissal for delay. The only doubt comes from rule 48.14 (9). That rule applies the dismissal rules to a registrar's order, but it names only rules 24.03 to 24.05. So the rules' text does not settle whether this rule, 24.05.1, reaches that order. Bringing the motion within the 30 days avoids the doubt. The time can be extended by filing a consent, or by the court.",
     exceptions: [RCP_48_14_EFFECT, RCP_48_14_FIVE_YEARS, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
   };
 }
@@ -2099,6 +2125,7 @@ const BEFORE_FILING: CaseStage[] = [
       C.S_LS_6_LIMITATION,
       C.S_LS_7_SCOPE,
       S_LS_8_1_NEWSPAPER_NAMES,
+      S_LS_8_3_BROADCAST,
       C.S_LIMITATIONS_4_BASIC,
       C.S_LEGISLATION_88_HOLIDAYS,
       C.S_LEGISLATION_89_1_HOLIDAY,
@@ -2116,7 +2143,7 @@ const BEFORE_FILING: CaseStage[] = [
         computation: C.S_LEGISLATION_89_3_BETWEEN,
         consequence: "bars-the-claim",
         qualifier:
-          "None of this applies to a counterclaim, crossclaim or set-off. A claim against the Crown or a Crown officer or employee for misfeasance in public office or bad faith needs the court's leave. Until leave is given, it is stayed. Earlier is fine. Serve the notice as section 15 of the Act requires. That means leaving a copy with an employee at the Crown Law Office (Civil Law) of the Ministry of the Attorney General. The notice must give enough detail to identify the event the claim came from. The Attorney General may ask for more details to look into the claim. The 60 days count back from the day the action starts. So serving later, even because of a Sunday or holiday, leaves fewer than 60 days. An action started without the notice has no effect (it is a nullity). A claim about a duty that comes with owning, occupying, possessing or controlling property is different. Its notice must be served no later than 10 days after the event. Sometimes the notice is served before the limitation period ends, but the 60 days end after it. Then the limitation period is extended to the end of the seventh day after the 60 days.",
+          "A claim against the Crown or a Crown officer or employee for misfeasance in public office or bad faith needs the court's leave. Until leave is given, it is stayed. Earlier is fine. Serve the notice as section 15 of the Act requires. That means leaving a copy with an employee at the Crown Law Office (Civil Law) of the Ministry of the Attorney General. The notice must give enough detail to identify the event the claim came from. The Attorney General may ask for more details to look into the claim. The 60 days count back from the day the action starts. So serving later, even because of a Sunday or holiday, leaves fewer than 60 days. An action started without the notice has no effect (it is a nullity). A claim about a duty that comes with owning, occupying, possessing or controlling property is different. Its notice must be served no later than 10 days after the event. The notice requirement does not apply to a counterclaim, crossclaim or set-off. Sometimes the notice is served before the limitation period ends, but the 60 days end after it. Then the limitation period is extended to the end of the seventh day after the 60 days.",
         exceptions: [S_CLPA_15_SERVICE, S_CLPA_17_1_MISFEASANCE, S_CLPA_17_2_LEAVE, S_CLPA_18_2_PARTICULARS, C.S_CLPA_18_4_PROPERTY, S_CLPA_8_1_B_PROPERTY, C.S_CLPA_18_3_EXTENSION, S_CLPA_18_5_COUNTERCLAIM, S_CLPA_18_6_NULLITY],
       },
       {
@@ -2168,8 +2195,8 @@ const BEFORE_FILING: CaseStage[] = [
         computation: C.S_LEGISLATION_89_3_BETWEEN,
         consequence: "bars-the-claim",
         qualifier:
-          "The Act says six weeks, which is 42 days. Serve the notice the same way as a statement of claim, or give it to an adult at the defendant's chief office. This applies only to newspapers printed and published in Ontario, and to broadcasts from a station in Ontario. A newspaper cannot rely on it unless it prints its owner's and publisher's names and its address of publication. These must appear at the head of the editorials or on the front page.",
-        exceptions: [C.S_LS_7_SCOPE, S_LS_8_1_NEWSPAPER_NAMES],
+          "The Act says six weeks, which is 42 days. Serve the notice the same way as a statement of claim, or give it to an adult at the defendant's chief office. This applies only to newspapers printed and published in Ontario, and to broadcasts from a station in Ontario. A newspaper cannot rely on it unless it prints its owner's and publisher's names and its address of publication. These must appear at the head of the editorials or on the front page. For a broadcast, you may ask the station by registered letter for the owner's or operator's name and address. If the station does not give them within ten days after it gets your letter, this does not apply against that owner or operator.",
+        exceptions: [C.S_LS_7_SCOPE, S_LS_8_1_NEWSPAPER_NAMES, S_LS_8_3_BROADCAST],
       },
       {
         id: "deadline:civil:libel-action-three-months",
@@ -2182,8 +2209,8 @@ const BEFORE_FILING: CaseStage[] = [
         computation: C.S_LEGISLATION_89_6_MONTHS,
         consequence: "bars-the-claim",
         qualifier:
-          "This shorter time replaces the general two years, because the Limitations Act lists it in its schedule. It applies only to newspapers printed and published in Ontario, and to broadcasts from a station in Ontario. A newspaper cannot rely on it unless it prints its owner's and publisher's names and its address of publication. These must appear at the head of the editorials or on the front page.",
-        exceptions: [C.S_LS_7_SCOPE, S_LS_8_1_NEWSPAPER_NAMES, S_LIM_19_1_SCHEDULE, S_LIM_SCHEDULE_LIBEL],
+          "This shorter time replaces the general two years, because the Limitations Act lists it in its schedule. It applies only to newspapers printed and published in Ontario, and to broadcasts from a station in Ontario. A newspaper cannot rely on it unless it prints its owner's and publisher's names and its address of publication. These must appear at the head of the editorials or on the front page. For a broadcast, you may ask the station by registered letter for the owner's or operator's name and address. If the station does not give them within ten days after it gets your letter, this does not apply against that owner or operator.",
+        exceptions: [C.S_LS_7_SCOPE, S_LS_8_1_NEWSPAPER_NAMES, S_LS_8_3_BROADCAST, S_LIM_19_1_SCHEDULE, S_LIM_SCHEDULE_LIBEL],
       },
       basicLimitation("deadline:civil:basic-limitation-notice-stage"),
     ],
@@ -2235,6 +2262,8 @@ const BEFORE_FILING: CaseStage[] = [
       S_LIM_19_1_SCHEDULE,
       S_LIMITATIONS_15_ULTIMATE,
       S_LIM_15_4_NOT_RUN,
+      S_LIM_15_4_C_MISLEADS,
+      S_LIM_15_5_BURDEN,
       C.S_LIMITATIONS_16_NONE,
     ],
     /*
@@ -2992,7 +3021,7 @@ const DEFENDANT: CaseStage[] = [
         qualifier:
           "This is the time if you were served in Ontario. If you were served elsewhere in Canada or in the United States, it is 40 days. If you were served anywhere else, it is 60 days. If you deliver a notice of intent to defend (Form 18B) in that time, you get 10 more days for the defence. Deliver means serve it on the other parties and file it with proof of service. " +
           DEFENCE_QUALIFIER_SERVICE +
-          " A counterclaim against the plaintiff goes in the same document as your defence, by the same time. Your counterclaim may also name someone who is not yet a party. If so, issue it within the same time as your defence, or before you are noted in default, or later with the court's leave. Then serve and file it, with proof of service, within 30 days after it is issued. A crossclaim against a co-defendant goes with your defence, by the same time. It can also go in at any time before you are noted in default, or later with leave. The court must give that leave unless it would prejudice the plaintiff. The time can be extended by filing a consent, or by the court. You can still deliver a defence at any time before you are noted in default. But once the time is up, the plaintiff can have you noted in default without telling you. After that, you get no notice of further steps. If the claim is under the simplified procedure and you say it does not fit Rule 76, say so in your defence. A jury notice must be delivered before pleadings close.",
+          " A counterclaim against the plaintiff goes in the same document as your defence, by the same time. Your counterclaim may also name someone who is not yet a party. If so, issue it within the same time as your defence, or before you are noted in default, or later with the court's leave. Then serve and file it, with proof of service, within 30 days after it is issued. You can also do this at any time before you are noted in default, or later with the court's leave. A crossclaim against a co-defendant goes with your defence, by the same time. It can also go in at any time before you are noted in default, or later with leave. The court must give that leave unless it would prejudice the plaintiff. The time can be extended by filing a consent, or by the court. You can still deliver a defence at any time before you are noted in default. But once the time is up, the plaintiff can have you noted in default without telling you. After that, you get no notice of further steps. If the claim is under the simplified procedure and you say it does not fit Rule 76, say so in your defence. A jury notice must be delivered before pleadings close.",
         exceptions: [
           RCP_18_02_INTENT,
           RCP_18_02_TEN_MORE,
@@ -3082,7 +3111,7 @@ const DEFENDANT: CaseStage[] = [
       mediationDeadline("deadline:civil:mediation-180-days:defence-delivered"),
       {
         id: "deadline:civil:simplified-set-down-180-days:defendant-view",
-        what: "If the action is under the simplified procedure, the plaintiff's time to set it down for trial by serving and filing a notice of readiness for pre-trial conference (Form 76C)",
+        what: "If the action is under the simplified procedure, the plaintiff sets it down for trial by serving and filing a notice of readiness for pre-trial conference (Form 76C)",
         actor: "other-party",
         countFrom: "the day the first statement of defence or notice of intent to defend was filed",
         countFromEvent: "first-defence-filed",
@@ -3275,6 +3304,37 @@ const DEFENDANT: CaseStage[] = [
       },
       discontinuanceCosts("deadline:civil:discontinuance-costs-30-days:counterclaim-pending"),
     ],
+    requiresAffirmativeScope: true,
+  },
+  {
+    id: "civil:defendant:plaintiff-delaying",
+    pathway: "civil",
+    side: "defendant",
+    wentWrong: false,
+    userQuestion: "The plaintiff is not moving the case forward — can I get it dismissed?",
+    title: "Plaintiff delaying, defendant may move to dismiss",
+    description:
+      "The plaintiff has let a time in the rules pass, and a defendant who is not in default is considering a motion to dismiss the action for delay.",
+    cues: [
+      "the plaintiff is doing nothing",
+      "they never set it down for trial",
+      "motion to dismiss for delay",
+      "the case has been sitting for years",
+    ],
+    distinguishedFrom: [
+      {
+        stage: "civil:plaintiff:action-dismissed-for-delay",
+        by: "whether the person is a defendant asking for a dismissal or the plaintiff whose action was dismissed",
+      },
+      {
+        stage: "civil:defendant:action-dismissed-counterclaim-pending",
+        by: "whether the action has already been dismissed",
+      },
+    ],
+    rules: [RCP_24_01_DEFENDANT_MAY_MOVE, RCP_24_01_E_RESTORE, RCP_24_01_MUST_DISMISS, RCP_24_02_DISABILITY, RCP_48_14_FIVE_YEARS],
+    // No deadline: r. 24.01 gives the defendant a motion, with no time limit
+    // of its own. The plaintiff's lapsed times are the plaintiff's deadlines.
+    deadlines: [],
     requiresAffirmativeScope: true,
   },
   {
@@ -3583,7 +3643,7 @@ const BOTH: CaseStage[] = [
     deadlines: [
       {
         id: "deadline:civil:respond-to-amended-pleading",
-        what: "If you want to respond to the amended pleading, deliver your response",
+        what: "Respond to the amended pleading",
         countFrom: "the day the amended pleading was served on you",
         countFromEvent: "served-with-amended-pleading",
         length: { unit: "days", count: 10 },
@@ -3592,7 +3652,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "You have the longer of two times: these 10 days, or the time that was left to respond to the original pleading. The court can order otherwise. If you already responded to the original and do not respond to the amended one in time, you are treated as relying on your original pleading.",
+          "You have the longer of two times: these 10 days, or the time that was left to respond to the original pleading. The court can order otherwise. If you had already responded to the original, you may choose not to respond again. You are then treated as relying on your original pleading.",
         exceptions: [RCP_26_05_DEEMED],
       },
     ],
@@ -4138,7 +4198,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "File the notice, with proof of service, within five days after you serve it. A panel of the Divisional Court hears the leave motion in writing. The same leave process applies to a final order of a Superior Court judge that is only about costs. Within 30 days after filing the notice of motion, file your motion record, factum, any transcripts and any book of authorities, with proof of service. If leave is granted, the notice of appeal must be delivered within seven days after that.",
+          "File the notice, with proof of service, within five days after you serve it. A panel of the Divisional Court hears the leave motion in writing. The same leave process applies to a final order of a Superior Court judge that is only about costs. Within 30 days after filing the notice of motion, file your motion record, factum, any transcripts and any book of authorities, with proof of service. If leave is granted, deliver the notice of appeal, with your certificate respecting evidence (Form 61C), within seven days after leave is granted.",
         exceptions: [RCP_62_02_LEAVE_FROM, RCP_62_02_NOTICE, RCP_62_02_IN_WRITING, RCP_62_02_PROCEDURES, RCP_61_03_1_RECORD_30_DAYS, RCP_62_02_AFTER_LEAVE],
       },
       {
@@ -4508,8 +4568,8 @@ const BOTH: CaseStage[] = [
     deadlines: [
       appealDeadline(
         "deadline:civil:notice-of-appeal-30-days:missed-trial",
-        " You can also ask a judge to set aside the judgment under rule 52.01 (3). That rule sets no fixed time.",
-        [RCP_52_01_SET_ASIDE],
+        " You can also ask a judge to set aside the judgment under rule 52.01 (3). That rule sets no fixed time. If no party attended and the action was struck off the trial list, other steps apply. There are 30 days to move for leave to restore it, and two years before the registrar dismisses it.",
+        [RCP_52_01_SET_ASIDE, RCP_52_01_ALL_ABSENT, RCP_24_01_E_RESTORE, RCP_48_14_FIVE_YEARS],
       ),
     ],
     requiresAffirmativeScope: true,
@@ -4665,7 +4725,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "If you do not, the respondent can ask the Registrar, on ten days notice, to dismiss the appeal for delay. If the problem is not fixed before that motion is heard, the Registrar dismisses the appeal. Costs are then fixed at $750.",
+          "If you do not, the respondent can ask the Registrar, on ten days notice, to dismiss the appeal for delay. If the problem is not fixed before that motion is heard, the Registrar dismisses the appeal. Costs are then fixed at $750. A judge of the appeal court can allow more time.",
         exceptions: [RCP_61_13_MOTION, RCP_61_13_DISMISS],
       },
       {

@@ -133,7 +133,8 @@ export type DeadlineEventKey =
   | "served-with-request-for-financial-statement"
   | "served-with-order-for-financial-statement"
   | "bjdr-hearing-date"
-  | "questioning-date";
+  | "questioning-date"
+  | "financial-examination-date";
 
 export type DeadlineEvent = {
   key: DeadlineEventKey;
@@ -311,6 +312,7 @@ export const DEADLINE_EVENTS = {
         ["served-with-order-for-financial-statement", "the day the order to serve and file a financial statement was served"],
         ["bjdr-hearing-date", "the date of the binding judicial dispute resolution hearing"],
         ["questioning-date", "the date set for questioning a person"],
+        ["financial-examination-date", "the date of the financial examination"],
         ["defence-served", "the day the statement of defence was served"],
         ["defence-time-expired", "the day the time to deliver a defence ran out"],
         ["own-defence-delivered", "the day this defendant delivered their statement of defence"],
