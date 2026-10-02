@@ -153,6 +153,11 @@ export function computedDeadlinesFor(
     // weekend, which is what it used to do.
     if (deadline.length.count === 0) continue;
 
+    // Civil and family periods are shown as periods with their rule, never as
+    // computed dates: the engine's working cites the Small Claims and
+    // Legislation Act counting provisions, and no civil or family date is asked.
+    if (deadline.regime === "civil-rules" || deadline.regime === "family-rules") continue;
+
     const from = dates[deadline.countFromEvent];
     if (!from) continue;
 

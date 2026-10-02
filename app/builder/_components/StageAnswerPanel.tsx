@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { CASE_STAGES, isSpecialStage } from "@/src/lib/case-system/stage-map/stageMap";
+import { stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
 
 /**
  * "Where exactly is your case?" — the reviewed answer for the position the
@@ -34,18 +34,32 @@ type Response =
   | { outcome: "needs-a-fact"; question: string; answer: RenderedAnswer | null }
   | { outcome: "unavailable"; message: string };
 
-const GROUPS: { side: string; label: string }[] = [
-  { side: "before-filing", label: "Before a case is started" },
-  { side: "plaintiff", label: "I am bringing the claim (plaintiff)" },
-  { side: "defendant", label: "I am responding to a claim (defendant)" },
-  { side: "both", label: "Either side — something went wrong" },
-];
+const GROUPS: Record<StagePathway, { side: string; label: string }[]> = {
+  "small-claims": [
+    { side: "before-filing", label: "Before a case is started" },
+    { side: "plaintiff", label: "I am bringing the claim (plaintiff)" },
+    { side: "defendant", label: "I am responding to a claim (defendant)" },
+    { side: "both", label: "Either side — something went wrong" },
+  ],
+  civil: [
+    { side: "plaintiff", label: "I am suing (plaintiff)" },
+    { side: "defendant", label: "I am being sued (defendant)" },
+    { side: "both", label: "Either side" },
+  ],
+  family: [
+    { side: "applicant", label: "I started the case (applicant)" },
+    { side: "respondent", label: "The case was started against me (respondent)" },
+    { side: "both", label: "Either side" },
+  ],
+};
 
-const OPTIONS = CASE_STAGES.filter((stage) => !isSpecialStage(stage.id)).map((stage) => ({
-  id: stage.id,
-  side: stage.side as string,
-  label: stage.userQuestion,
-}));
+/*
+ * Before-filing stages are Small Claims ids with side "plaintiff"; they are
+ * grouped by their id prefix so a reader who has filed nothing finds them.
+ */
+function groupOf(stage: { id: string; side: string }): string {
+  return stage.id.startsWith("before-filing:") ? "before-filing" : stage.side;
+}
 
 function AnswerView({ answer }: { answer: RenderedAnswer }) {
   return (
@@ -80,7 +94,12 @@ function AnswerView({ answer }: { answer: RenderedAnswer }) {
   );
 }
 
-export default function StageAnswerPanel({ courtPath }: { courtPath: string }) {
+export default function StageAnswerPanel({ courtPath }: { courtPath: StagePathway }) {
+  const options = stagesForPathway(courtPath).map((stage) => ({
+    id: stage.id,
+    group: groupOf(stage),
+    label: stage.userQuestion,
+  }));
   const [stageId, setStageId] = useState("");
   const [result, setResult] = useState<Response | null>(null);
   const [municipality, setMunicipality] = useState("");
@@ -137,9 +156,9 @@ export default function StageAnswerPanel({ courtPath }: { courtPath: string }) {
           className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
         >
           <option value="">Choose one…</option>
-          {GROUPS.map((group) => (
+          {GROUPS[courtPath].map((group) => (
             <optgroup key={group.side} label={group.label}>
-              {OPTIONS.filter((option) => option.side === group.side).map((option) => (
+              {options.filter((option) => option.group === group.side).map((option) => (
                 <option key={option.id} value={option.id}>
                   {option.label}
                 </option>

@@ -61,7 +61,79 @@ export type DeadlineEventKey =
   | "trial-judgment-awareness"
   | "action-commenced"
   | "claim-discovered"
-  | "injury-occurred";
+  | "injury-occurred"
+  // 2026-10-01: civil and family. Recorded, not asked — their deadlines are
+  // shown as periods with the rule (computedDeadline.ts skips their regimes).
+  | "order-made"
+  | "pleadings-closed"
+  | "motion-hearing-date"
+  | "pre-trial-conference-date"
+  | "trial-date"
+  | "served-with-application"
+  | "served-with-motion-to-change"
+  | "case-conference-date"
+  // 2026-10-01: civil map review. Recorded, not asked, like the keys above.
+  | "defence-served"
+  | "defence-time-expired"
+  | "own-defence-delivered"
+  | "order-came-to-attention"
+  | "mediation-session-date"
+  | "set-down-for-trial"
+  | "struck-off-trial-list"
+  | "action-dismissed-for-delay"
+  | "served-with-request-to-admit"
+  | "served-with-third-party-claim"
+  | "third-party-claim-issued"
+  | "writ-issued"
+  | "served-with-notice-of-appeal"
+  | "served-with-motion-material"
+  | "discovery-answer-given"
+  | "notice-of-appeal-filed"
+  | "transcript-ready-notice"
+  | "served-with-appeal-materials"
+  | "appeal-hearing-date"
+  | "leave-motion-record-served"
+  | "libel-came-to-knowledge"
+  | "evidence-tendered"
+  | "served-with-crossclaim"
+  | "action-discontinued"
+  | "third-party-defence-served"
+  | "defence-to-counterclaim-served"
+  | "served-with-removal-order"
+  | "served-with-amended-pleading"
+  // 2026-10-01: family map review. Recorded, not asked, like the keys above.
+  | "family-case-started"
+  | "marriage-terminated"
+  | "spouses-separated"
+  | "spouse-died"
+  | "answer-served"
+  | "motion-form-served"
+  | "automatic-order-issued"
+  | "financial-statement-due"
+  | "family-settlement-conference-date"
+  | "trial-management-conference-date"
+  | "witness-attendance-date"
+  | "disclosure-requested"
+  | "notice-of-approaching-dismissal-served"
+  | "served-with-notice-of-default-hearing"
+  | "motion-to-change-filed"
+  | "default-hearing-date"
+  | "documents-requested"
+  | "costs-submissions-requested"
+  | "offer-served"
+  | "draft-order-served"
+  | "served-with-amended-application"
+  | "appellant-record-served"
+  | "licence-suspension-first-notice-served"
+  | "served-with-notice-of-garnishment"
+  | "co-owner-notice-served"
+  | "stay-or-dismiss-notice-received"
+  | "stay-or-dismiss-submission-received"
+  | "childrens-lawyer-report-served"
+  | "served-with-request-for-financial-statement"
+  | "served-with-order-for-financial-statement"
+  | "bjdr-hearing-date"
+  | "questioning-date";
 
 export type DeadlineEvent = {
   key: DeadlineEventKey;
@@ -86,7 +158,7 @@ export type DeadlineEvent = {
   notAskedBecause?: string;
 };
 
-export const DEADLINE_EVENTS: Record<DeadlineEventKey, DeadlineEvent> = {
+export const DEADLINE_EVENTS = {
   "served-with-claim": {
     key: "served-with-claim",
     label: "the day the claim was served",
@@ -188,14 +260,99 @@ export const DEADLINE_EVENTS: Record<DeadlineEventKey, DeadlineEvent> = {
     label: "the date of the judgment",
     question: null,
     notAskedBecause:
-      "NO DEADLINE RUNS FROM IT. Both set-aside clocks run from awareness, not from " +
-      "the judgment: r. 17.01 (5) gives 30 days after the party becomes aware of the " +
-      "judgment, and r. 11.06 requires a motion as soon as is reasonably possible after " +
-      "learning of the default. The two dates are usually different, because a judgment " +
-      "made at a hearing nobody attended is often learned of weeks later. Asking for the " +
-      "judgment date and counting from it would take the later deadline away",
+      "The set-aside clocks do not run from it: r. 17.01 (5) gives 30 days after the " +
+      "party becomes aware of the judgment, and r. 11.06 requires a motion as soon as is " +
+      "reasonably possible after learning of the default, and asking for the judgment " +
+      "date could be mistaken for those. Two deadlines DO run from it (2026-10-01): a " +
+      "motion for a new trial within 30 days after a final order (r. 17.04 (1)) and a " +
+      "notice of appeal within 30 days (Rules of Civil Procedure r. 61.04 (1)). It is not " +
+      "yet asked at intake, so those are shown as periods with their rules",
   },
-};
+  ...Object.fromEntries(
+    (
+      [
+        ["order-made", "the day the order was made"],
+        ["pleadings-closed", "the day pleadings closed"],
+        ["motion-hearing-date", "the date the motion will be heard"],
+        ["pre-trial-conference-date", "the date of the pretrial conference"],
+        ["trial-date", "the first day of trial"],
+        ["served-with-application", "the day the application was served"],
+        ["served-with-motion-to-change", "the day the motion to change was served"],
+        ["case-conference-date", "the date of the case conference"],
+        ["family-case-started", "the day the family case was started"],
+        ["marriage-terminated", "the day the marriage was ended by divorce or a judgment of nullity"],
+        ["spouses-separated", "the day the spouses separated with no reasonable prospect of living together again"],
+        ["spouse-died", "the day the first spouse died"],
+        ["answer-served", "the day the answer was served"],
+        ["motion-form-served", "the day the motion form (Form 14B) was served"],
+        ["automatic-order-issued", "the day the automatic order was issued"],
+        ["financial-statement-due", "the day the financial statement was due to be served"],
+        ["family-settlement-conference-date", "the date of the family settlement conference"],
+        ["trial-management-conference-date", "the date of the trial management conference"],
+        ["witness-attendance-date", "the day the witness must be in court or at a questioning"],
+        ["disclosure-requested", "the day additional financial information was requested in writing"],
+        ["notice-of-approaching-dismissal-served", "the day the notice of approaching dismissal was served"],
+        ["served-with-notice-of-default-hearing", "the day the payor was served with the notice of default hearing"],
+        ["motion-to-change-filed", "the day the motion to change was filed"],
+        ["default-hearing-date", "the date of the default hearing"],
+        ["documents-requested", "the day another party requested an affidavit listing documents"],
+        ["costs-submissions-requested", "the day the court required written submissions on costs"],
+        ["offer-served", "the day the offer to settle was served"],
+        ["draft-order-served", "the day a draft order was served for approval"],
+        ["served-with-amended-application", "the day the amended application was served"],
+        ["appellant-record-served", "the day the appellant's appeal record and factum were served"],
+        ["licence-suspension-first-notice-served", "the day the first notice of driver's licence suspension was served"],
+        ["served-with-notice-of-garnishment", "the day the notice of garnishment was served"],
+        ["co-owner-notice-served", "the notice to co-owner of debt (r. 29 (9) holds the money 30 days but does not fix when they start)"],
+        ["stay-or-dismiss-notice-received", "the day the notice that the case or motion may be stayed or dismissed (Form 1.4A) was received"],
+        ["stay-or-dismiss-submission-received", "the day a copy of the other party's written submission under rule 1.4 was received"],
+        ["childrens-lawyer-report-served", "the day the Children's Lawyer's report was served"],
+        ["served-with-request-for-financial-statement", "the day the request for a financial statement (Form 27) was served"],
+        ["served-with-order-for-financial-statement", "the day the order to serve and file a financial statement was served"],
+        ["bjdr-hearing-date", "the date of the binding judicial dispute resolution hearing"],
+        ["questioning-date", "the date set for questioning a person"],
+        ["defence-served", "the day the statement of defence was served"],
+        ["defence-time-expired", "the day the time to deliver a defence ran out"],
+        ["own-defence-delivered", "the day this defendant delivered their statement of defence"],
+        ["order-came-to-attention", "the day the order came to the person's attention"],
+        ["mediation-session-date", "the date of the mediation session"],
+        ["set-down-for-trial", "the day the action was set down for trial"],
+        ["struck-off-trial-list", "the day the action was struck off the trial list"],
+        ["action-dismissed-for-delay", "the day the action was dismissed for delay"],
+        ["served-with-request-to-admit", "the day the request to admit was served"],
+        ["served-with-third-party-claim", "the day the third party claim was served"],
+        ["third-party-claim-issued", "the day the third party claim was issued"],
+        ["writ-issued", "the day the writ of seizure and sale was issued"],
+        ["served-with-notice-of-appeal", "the day the notice of appeal was served"],
+        ["served-with-motion-material", "the day the moving party's material for a motion in writing was served"],
+        ["discovery-answer-given", "the day an undertaking was given, or a question taken under advisement, at an examination for discovery"],
+        ["notice-of-appeal-filed", "the day the notice of appeal was filed"],
+        ["transcript-ready-notice", "the day notice was received that the evidence for the appeal has been transcribed"],
+        ["served-with-appeal-materials", "the day the appellant's appeal book, exhibit book, transcript and factum were served"],
+        ["appeal-hearing-date", "the date the appeal will be heard"],
+        ["leave-motion-record-served", "the day the moving party's motion record for leave to appeal was served"],
+        ["libel-came-to-knowledge", "the day the libel came to the knowledge of the person defamed"],
+        ["evidence-tendered", "the day the record or report is tendered in evidence"],
+        ["served-with-crossclaim", "the day the statement of defence and crossclaim was served"],
+        ["action-discontinued", "the day the action was discontinued"],
+        ["third-party-defence-served", "the day the third party's statement of defence in the main action was served on the plaintiff"],
+        ["defence-to-counterclaim-served", "the day the defence to counterclaim was served"],
+        ["served-with-removal-order", "the day the client was served with the order removing their lawyer from the record"],
+        ["served-with-amended-pleading", "the day the amended pleading was served"],
+      ] as const
+    ).map(([key, label]) => [
+      key,
+      {
+        key,
+        label,
+        question: null,
+        notAskedBecause:
+          "a civil or family date. Those deadlines are shown as periods with the rule " +
+          "that sets them; the engine computes Small Claims and statutory dates only",
+      },
+    ]),
+  ),
+} as Record<DeadlineEventKey, DeadlineEvent>;
 
 /** The dates a case is known to have. Every one optional, all ISO. */
 export type CaseDates = Partial<Record<DeadlineEventKey, IsoDate>>;
