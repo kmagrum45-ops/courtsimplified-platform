@@ -165,7 +165,9 @@
     "test:workspace-ai-flag": "node --import tsx scripts/verification/verifyWorkspaceAiFlag.ts",
     "test:workspace-export": "node --import tsx scripts/verification/verifyWorkspaceExport.ts",
     "test:check-oracles": "node --import tsx scripts/verification/verifyCheckOracles.ts",
-    "test:workspace-rls": "node --import tsx scripts/verification/verifyWorkspaceRls.ts"
+    "test:workspace-rls": "node --import tsx scripts/verification/verifyWorkspaceRls.ts",
+    "test:rls-matrix": "node scripts/verification/verifyRlsMatrix.mjs",
+    "test:rls-matrix-catches": "node scripts/verification/verifyRlsMatrixCatches.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

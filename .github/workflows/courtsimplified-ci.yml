@@ -59,6 +59,12 @@ jobs:
       - name: Case RLS policy contract verification
         run: npm run test:case-rls-contract
 
+      # Builds a private Postgres from supabase/migrations/ and attacks every table,
+      # view, function and the evidence bucket as anon, two users and the service role.
+      # Uses the PostgreSQL the ubuntu runner ships; no Supabase project, no secrets.
+      - name: RLS attack matrix (every table, every role)
+        run: npm run test:rls-matrix
+
       - name: Server AI reasoning route contract verification
         run: npm run test:ai-route-contract
 
