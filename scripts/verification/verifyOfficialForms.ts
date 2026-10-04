@@ -55,10 +55,14 @@ check("links are made absolute", a?.pdf === "https://ontariocourtforms.on.ca/sta
 check("a decimal form number survives", parsed[1]?.number === "1A.1" && parsed[1].docx === null);
 
 {
-  const vendored = "9.01  A defendant who wishes to dispute a claim  shall,\n    within 20 days — after being served, file a defence. Défense";
-  const refetched = "9.01 A defendant who wishes to dispute a claim shall, within 20 days - after being served, file a defence. Defense";
+  const vendored = "9.01  A defendant who wishes to dispute a claim  shall,\n    within 20 days — after being served, file a defence. D\uFFFDfense";
+  const refetched = "9.01 A defendant who wishes to dispute a claim shall, within 20 days - after being served, file a defence. Défense";
   check("rules:check ignores spacing, dashes and accents", normalizeForCompare(vendored) === normalizeForCompare(refetched));
   check("rules:check still sees a changed word", normalizeForCompare(vendored) !== normalizeForCompare(refetched.replace("20 days", "30 days")));
+  check(
+    "rules:check matches a damaged accent with the real letter",
+    normalizeForCompare("Fran\uFFFDais (\"cr\uFFFDancier\")") === normalizeForCompare("Français (\"créancier\")"),
+  );
 }
 
 /**

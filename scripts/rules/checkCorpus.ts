@@ -67,14 +67,27 @@ const CORPUS_DIR = path.join(ROOT, "docs", "sources", "corpus");
  */
 export function normalizeForCompare(text: string): string {
   return text
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .normalize("NFC")
     .replace(/[‘’‚‛′]/g, "'")
     .replace(/[“”„‟″]/g, '"')
     .replace(/[‐‑‒–—―]/g, "-")
     .replace(/\u00a0/g, " ")
+    // The vendored copies have U+FFFD where e-Laws had an accented letter
+    // ("Fran\uFFFDais"); a fresh extraction has the letter itself. Second
+    // scheduled run (2026-10-04) flagged 140 provisions, every one of them
+    // over this. Any character outside ASCII compares as one "?", so a
+    // damaged accent and a real one match, and no ASCII word can hide behind it.
+    .replace(/[^\x00-\x7f]/g, "?")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+/** Where two normalised texts first differ, with some context either side. */
+export function firstDifference(was: string, now: string, context = 200): { was: string; now: string } {
+  let i = 0;
+  while (i < was.length && i < now.length && was[i] === now[i]) i += 1;
+  const from = Math.max(0, i - context);
+  return { was: was.slice(from, i + context), now: now.slice(from, i + context) };
 }
 
 export function splitByRule(text: string): Map<string, string> {
@@ -382,7 +395,8 @@ async function main(): Promise<void> {
         changedRules.push(rule);
         // The words themselves, so a reviewer can see WHAT changed without
         // re-fetching (the cloud workspaces cannot reach ontario.ca).
-        diffLog.push(`### ${source.id} — ${rule}`, "", "Was:", "", "> " + (was || "(absent)").slice(0, 1500), "", "Now:", "", "> " + (now || "(absent)").slice(0, 1500), "");
+        const at = firstDifference(was || "(absent)", now || "(absent)");
+        diffLog.push(`### ${source.id} — ${rule}`, "", "Was (around the first difference):", "", "> " + at.was, "", "Now:", "", "> " + at.now, "");
       }
     }
 
