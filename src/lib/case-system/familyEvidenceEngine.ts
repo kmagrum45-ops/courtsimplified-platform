@@ -416,9 +416,10 @@ const RULES_VERIFIED_AT = "2026-09-13";
  * particular user that a rule applies to them, which is why the non-parent
  * requirements below are phrased conditionally ("if the person making this
  * claim is not a parent") rather than asserted from the engine's guess at the
- * user's role. `normalizeRole` infers "third-party-caregiver" from words like
- * "grandparent" and "uncle", and a keyword guess is not a basis for telling
- * someone a filing requirement binds them.
+ * user's role. `normalizeRole` once inferred "third-party-caregiver" from
+ * words like "grandparent" and "uncle" (no longer, since 2026-10-04), and a
+ * guess at someone's role is not a basis for telling them a filing
+ * requirement binds them.
  */
 function buildRuleRequiredGaps(
   normalized: FamilyNormalizedIntake,

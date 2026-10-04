@@ -52,6 +52,10 @@ test.describe("child support scenarios", () => {
       story:
         "The other parent moved to Calgary last year and has not contributed to our daughter since.",
     });
+    // The child-support screens show only once child support is a chosen
+    // issue (2026-10-04) — they used to show on every family case.
+    await page.getByTestId("family-issue-child-support").click();
+
 
     await expect(page.getByTestId("child-support-intake")).toBeVisible({ timeout: 60_000 });
 
@@ -140,6 +144,10 @@ test.describe("child support scenarios", () => {
       city: "Windsor",
       story: "I need child support but I have no idea what the other parent earns.",
     });
+    // The child-support screens show only once child support is a chosen
+    // issue (2026-10-04) — they used to show on every family case.
+    await page.getByTestId("family-issue-child-support").click();
+
 
     await expect(page.getByTestId("child-support-intake")).toBeVisible({ timeout: 60_000 });
 
