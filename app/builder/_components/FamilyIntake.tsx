@@ -862,6 +862,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
               <button
                 key={option.value}
                 type="button"
+                aria-pressed={issues.includes(option.value)}
+                data-testid={`family-issue-${option.value}`}
                 onClick={() =>
                   setIssues((current) => toggleArrayValue(current, option.value))
                 }
