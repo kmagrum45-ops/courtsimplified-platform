@@ -28,6 +28,7 @@
  */
 
 import index from "./formRuleIndex.json";
+import { OFFICIAL_FORMS_FETCHED_AT, officialFormFor } from "./officialFormLink";
 import { FORM_SUMMARIES, normalizeFormNumber } from "./formSummaries";
 
 export { normalizeFormNumber };
@@ -62,7 +63,17 @@ export type FormGuideEntry = {
   officialFormsPage: string;
   /** Date the index was generated from the regulation text. */
   verifiedAt: string;
+  /**
+   * The form itself, as the official Ontario Court Forms site lists it today:
+   * its version date and direct PDF and Word links (2026-10-04). Read from
+   * the site by scripts/forms/fetchOfficialFormLinks.ts, never constructed —
+   * the file names are dated and cannot be guessed. Null where the site does
+   * not list the form, or offers only one format.
+   */
+  official: { date: string; pdf: string | null; docx: string | null; fetchedAt: string } | null;
 };
+
+
 
 type IndexFile = {
   generatedAt: string;
@@ -112,6 +123,10 @@ function build(): Record<FormCourt, FormGuideEntry[]> {
         regulation: { citation: source.citation, url: source.url },
         officialFormsPage: source.formsPage,
         verifiedAt: INDEX.generatedAt,
+        official: (() => {
+          const found = officialFormFor(court, form.number);
+          return found ? { date: found.date, pdf: found.pdf, docx: found.docx, fetchedAt: OFFICIAL_FORMS_FETCHED_AT } : null;
+        })(),
       }));
   }
   return out;

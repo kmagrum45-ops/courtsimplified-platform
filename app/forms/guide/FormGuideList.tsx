@@ -9,6 +9,7 @@ export type FormGuideItem = {
   dateOfForm: string;
   summary: string;
   rules: { rule: string; quote: string }[];
+  official: { date: string; pdf: string | null; docx: string | null; fetchedAt: string } | null;
 };
 
 /** Search and list for the form guide. All text arrives already approved by the server. */
@@ -69,14 +70,32 @@ export default function FormGuideList({
             ) : (
               <p className="mt-3 text-sm text-[#4d675f]">No rule names this form by number; the explanation is from its title.</p>
             )}
-            <p className="mt-3 text-xs text-[#6b7f78]">
-              Form version: {item.dateOfForm || "not stated"}.{" "}
-              {officialFormsPage ? (
-                <a href={officialFormsPage} target="_blank" rel="noreferrer" className="underline">
-                  Get this form from the official site
-                </a>
-              ) : null}
-            </p>
+            {item.official && (item.official.pdf || item.official.docx) ? (
+              <p className="mt-3 flex flex-wrap items-center gap-3 text-sm">
+                {item.official.pdf ? (
+                  <a href={item.official.pdf} target="_blank" rel="noreferrer" className="rounded-lg bg-[#2f7d67] px-3 py-1.5 font-semibold text-white">
+                    Official form (PDF)
+                  </a>
+                ) : null}
+                {item.official.docx ? (
+                  <a href={item.official.docx} target="_blank" rel="noreferrer" className="rounded-lg border border-[#2f7d67] px-3 py-1.5 font-semibold text-[#2f7d67]">
+                    Official form (Word)
+                  </a>
+                ) : null}
+                <span className="text-xs text-[#6b7f78]">
+                  Current version: {item.official.date || "not stated"} (checked {item.official.fetchedAt})
+                </span>
+              </p>
+            ) : (
+              <p className="mt-3 text-xs text-[#6b7f78]">
+                Form version: {item.dateOfForm || "not stated"}.{" "}
+                {officialFormsPage ? (
+                  <a href={officialFormsPage} target="_blank" rel="noreferrer" className="underline">
+                    Get this form from the official site
+                  </a>
+                ) : null}
+              </p>
+            )}
           </li>
         ))}
       </ul>

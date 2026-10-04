@@ -46,6 +46,7 @@ export default async function FormGuidePage({
     dateOfForm: entry.dateOfForm,
     summary: assertApprovedUserContent(entry.summary, "FormGuidePage:summary"),
     rules: entry.rules,
+    official: entry.official,
   }));
   const regulation = entries[0]?.regulation;
   const officialFormsPage = entries[0]?.officialFormsPage;
