@@ -32,7 +32,7 @@
  * See docs/lso-fixes-report.md for how to wire it as a scheduled job.
  */
 
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 import { extract } from "./extractText";
@@ -268,6 +268,7 @@ async function main(): Promise<void> {
 
   const citers = collectCiters();
   let unreachable = 0;
+  const diffLog: string[] = ["# Rules check — changed provisions, word for word", ""];
   const reverify = new Map<string, Set<string>>();
 
   /*
@@ -375,8 +376,13 @@ async function main(): Promise<void> {
 
     const changedRules: string[] = [];
     for (const rule of rules) {
-      if (normalizeForCompare(before.get(rule) ?? "") !== normalizeForCompare(after.get(rule) ?? "")) {
+      const was = normalizeForCompare(before.get(rule) ?? "");
+      const now = normalizeForCompare(after.get(rule) ?? "");
+      if (was !== now) {
         changedRules.push(rule);
+        // The words themselves, so a reviewer can see WHAT changed without
+        // re-fetching (the cloud workspaces cannot reach ontario.ca).
+        diffLog.push(`### ${source.id} — ${rule}`, "", "Was:", "", "> " + (was || "(absent)").slice(0, 1500), "", "Now:", "", "> " + (now || "(absent)").slice(0, 1500), "");
       }
     }
 
@@ -423,6 +429,7 @@ async function main(): Promise<void> {
     console.log(`No source changed. ${citers.length} content item(s) cite rules by number.`);
   }
 
+  writeFileSync(path.join(ROOT, "rules-diff.md"), `${diffLog.join("\n")}\n`);
   if (unreachable > 0) {
     console.log("");
     console.log(`${unreachable} source(s) could not be reached. That is NOT a clean result —`);

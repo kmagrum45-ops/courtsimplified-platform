@@ -68,6 +68,7 @@ jobs:
           set -euo pipefail
           out="$(mktemp -d)"
           cp rules-check.log forms-check.log "$out/" || true
+          cp rules-diff.md "$out/" || true
           cp forms-check-report.md "$out/" || true
           cp src/lib/content-library/forms/officialFormLinks.json "$out/" || true
           printf '{\n  "git": { "deploymentEnabled": false }\n}\n' > "$out/vercel.json"
