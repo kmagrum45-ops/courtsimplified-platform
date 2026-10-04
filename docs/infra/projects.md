@@ -185,6 +185,25 @@ hardening must not be copied to staging without fixing the harness first.
 
 ---
 
+## GitHub Actions secrets point at PRODUCTION (found 2026-10-04)
+
+The repository secrets `NEXT_PUBLIC_SUPABASE_URL`,
+`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` and `SUPABASE_SERVICE_ROLE_KEY` resolve to
+`fddlpnibovkkkgboabqb` — **production**. Established by
+`scripts/walkthrough/guard.ts`, which posts the ref it would use as a workflow
+annotation (readable via the check-run annotations API; logs are not reachable
+from a Claude session). Every workflow that reads those secrets
+(`courtsimplified-ci.yml`, `courtsimplified-nightly-ai.yml`,
+`supabase-keep-alive.yml`) therefore runs with production credentials,
+including the service-role key.
+
+The page walkthrough (`courtsimplified-walkthrough.yml`) reads
+`STAGING_SUPABASE_URL`, `STAGING_SUPABASE_PUBLISHABLE_KEY` and
+`STAGING_SUPABASE_SERVICE_ROLE_KEY` first and refuses to run until they exist.
+Pointing the CI workflow at staging the same way is outstanding.
+
+---
+
 ## Verifying this file yourself
 
 ```
