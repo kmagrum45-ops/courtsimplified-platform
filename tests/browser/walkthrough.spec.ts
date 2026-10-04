@@ -41,6 +41,12 @@ async function capture(page: Page, persona: Persona, steps: Step[], step: string
   fs.mkdirSync(dir, { recursive: true });
   const file = `${String(n).padStart(2, "0")}-${step}.png`;
   await page.waitForTimeout(800);
+  // Open every collapsed section first: innerText skips a closed <details>,
+  // so the critic read "What you told us" as empty when it was only folded
+  // (first run, 2026-10-04).
+  await page
+    .evaluate(() => document.querySelectorAll("details").forEach((element) => element.setAttribute("open", "")))
+    .catch(() => undefined);
   const main = page.locator("main");
   const text = ((await main.count()) > 0 ? await main.first().innerText() : await page.locator("body").innerText()).trim();
   await page.screenshot({ path: path.join(dir, file), fullPage: true }).catch(() => undefined);
