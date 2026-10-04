@@ -1,0 +1,283 @@
+
+> courtsimplified@0.1.0 rules:check
+> node --import tsx scripts/rules/checkCorpus.ts
+
+
+Vendored 2026-09-27. Re-fetching 206 source(s).
+
+oreg-258-98-small-claims-rules         unchanged
+cja-courts-of-justice-act              CHANGED
+                                       was: CONSOLIDATION PERIOD: FROM DECEMBER 11, 2025 TO THE E-LAWS CURRENCY DATE.
+                                       now: CONSOLIDATION PERIOD: FROM DECEMBER 11, 2025 TO THE E-LAWS CURRENCY DATE.
+                                       rules changed: 51.4
+evidence-act                           unchanged
+oreg-332-16-small-claims-fees          unchanged
+oreg-293-92-superior-court-fees        unchanged
+oreg-333-08-motor-vehicle-dealers-general unchanged
+oreg-626-00-monetary-jurisdiction      unchanged
+limitations-act-2002                   unchanged
+legislation-act-2006                   unchanged
+small-claims-forms-table               unchanged
+negligence-act                         unchanged
+parental-responsibility-act-2000       unchanged
+dog-owners-liability-act               unchanged
+pounds-act                             CHANGED
+                                       was: CONSOLIDATION PERIOD: FROM JANUARY 1, 2007 TO THE E-LAWS CURRENCY DATE.
+                                       now: CONSOLIDATION PERIOD: FROM JANUARY 1, 2007 TO THE E-LAWS CURRENCY DATE.
+                                       rules changed: (preamble)
+forestry-act                           unchanged
+line-fences-act                        unchanged
+trespass-to-property-act               CHANGED
+                                       was: CONSOLIDATION PERIOD: FROM JUNE 5, 2025 TO THE E-LAWS CURRENCY DATE.
+                                       now: CONSOLIDATION PERIOD: FROM JUNE 5, 2025 TO THE E-LAWS CURRENCY DATE.
+                                       rules changed: (preamble)
+consumer-protection-act-2002           unchanged
+oreg-17-05-consumer-protection-general unchanged
+motor-vehicle-dealers-act-2002         unchanged
+sale-of-goods-act                      unchanged
+consumer-reporting-act                 unchanged
+collection-and-debt-settlement-services-act unchanged
+repair-and-storage-liens-act           CHANGED
+                                       was: CONSOLIDATION PERIOD: FROM JANUARY 1, 2024 TO THE E-LAWS CURRENCY DATE.
+                                       now: CONSOLIDATION PERIOD: FROM JANUARY 1, 2024 TO THE E-LAWS CURRENCY DATE.
+                                       rules changed: (preamble)
+ontario-career-colleges-act-2005       unchanged
+construction-act                       unchanged
+residential-tenancies-act-2006         unchanged
+commercial-tenancies-act               unchanged
+condominium-act-1998                   unchanged
+insurance-act                          CHANGED
+                                       was: CONSOLIDATION PERIOD: FROM JANUARY 1, 2026 TO THE E-LAWS CURRENCY DATE.
+                                       now: CONSOLIDATION PERIOD: FROM JANUARY 1, 2026 TO THE E-LAWS CURRENCY DATE.
+                                       rules changed: 65.1
+trustee-act                            unchanged
+crown-liability-and-proceedings-act-2019 unchanged
+libel-and-slander-act                  CHANGED
+                                       was: CONSOLIDATION PERIOD: FROM NOVEMBER 3, 2015 TO THE E-LAWS CURRENCY DATE.
+                                       now: CONSOLIDATION PERIOD: FROM NOVEMBER 3, 2015 TO THE E-LAWS CURRENCY DATE.
+                                       rules changed: (preamble)
+marriage-act                           unchanged
+human-rights-code                      unchanged
+provincial-offences-act                unchanged
+municipal-act-2001                     CHANGED
+                                       was: CONSOLIDATION PERIOD: FROM JUNE 2, 2026 TO THE E-LAWS CURRENCY DATE.
+                                       now: CONSOLIDATION PERIOD: FROM JUNE 2, 2026 TO THE E-LAWS CURRENCY DATE.
+                                       rules changed: 7.1
+city-of-toronto-act-2006               unchanged
+occupiers-liability-act                unchanged
+holidays-act-canada                    CHANGED
+                                       was: (none stated)
+                                       now: (none stated)
+                                       rules changed: (preamble)
+esa-2000-ontario                       unchanged
+guide-making-a-claim                   unchanged
+guide-serving-documents                unchanged
+guide-replying-to-a-claim              unchanged
+guide-getting-ready-for-court          unchanged
+guide-motions-and-clerks-orders        unchanged
+guide-after-judgment                   unchanged
+ontario-suing-someone-small-claims     unchanged
+ontario-file-small-claims-online       CHANGED
+                                       was: (none stated)
+                                       now: (none stated)
+                                       rules changed: (preamble)
+ontario-fee-waiver                     unchanged
+scj-steps-in-a-case                    unchanged
+scj-how-to-respond                     unchanged
+scj-default-proceedings                unchanged
+ontario-fees-small-claims              unchanged
+ontario-fees-civil                     unchanged
+ontario-fees-family                    unchanged
+scj-steps-to-a-civil-case              unchanged
+ontario-renting-commercial-property    unchanged
+ontario-connect-supports-survivors-violence unchanged
+ontario-find-mental-health-support     unchanged
+ontario-report-child-abuse-and-neglect unchanged
+ontario-towing-rights                  unchanged
+ontario-cpa-rights                     unchanged
+esa-guide-overtime-pay                 unchanged
+esa-guide-termination                  unchanged
+esa-guide-vacation                     unchanged
+ontario-file-civil-claim-online        CHANGED
+                                       was: (none stated)
+                                       now: (none stated)
+                                       rules changed: (preamble)
+scj-news                               unchanged
+cleo-debt-and-consumer-rights-are-there-options-other-bankruptcy-if-im-debt unchanged
+cleo-debt-and-consumer-rights-can-consumer-proposal-help-me-get-out-debt unchanged
+cleo-debt-and-consumer-rights-can-i-cancel-my-energy-contract unchanged
+cleo-debt-and-consumer-rights-can-i-cancel-payday-loan-agreement unchanged
+cleo-debt-and-consumer-rights-can-i-change-my-mind-about-buying-used-car unchanged
+cleo-debt-and-consumer-rights-can-i-get-out-debt-settlement-or-credit-counselling-agreement unchanged
+cleo-debt-and-consumer-rights-can-i-still-owe-money-after-i-have-been-discharged-bankruptcy unchanged
+cleo-debt-and-consumer-rights-can-my-service-provider-cut-my-cellphone-service unchanged
+cleo-debt-and-consumer-rights-can-repair-shop-charge-me-more-they-said-they-would unchanged
+cleo-debt-and-consumer-rights-collection-agency-called-about-debt-i-do-not-owe-what-can-i-do unchanged
+cleo-debt-and-consumer-rights-collection-agency-called-me-do-i-have-talk-them unchanged
+cleo-debt-and-consumer-rights-does-door-door-salesperson-have-give-me-written-contract unchanged
+cleo-debt-and-consumer-rights-how-can-i-extend-or-renew-my-energy-contract unchanged
+cleo-debt-and-consumer-rights-how-do-i-complain-to-the-ministry-of-public-and-business-servi unchanged
+cleo-debt-and-consumer-rights-how-do-i-file-bankruptcy unchanged
+cleo-debt-and-consumer-rights-how-do-i-get-discharged-my-bankruptcy unchanged
+cleo-debt-and-consumer-rights-how-do-i-protect-myself-identity-theft unchanged
+cleo-debt-and-consumer-rights-how-does-my-partners-bankruptcy-affect-me unchanged
+cleo-debt-and-consumer-rights-i-am-having-money-problems-should-i-file-bankruptcy unchanged
+cleo-debt-and-consumer-rights-i-am-having-trouble-managing-my-debts-where-can-i-get-help unchanged
+cleo-debt-and-consumer-rights-i-bought-something-door-door-salesperson-can-i-get-out-contrac unchanged
+cleo-debt-and-consumer-rights-i-bought-something-door-door-salesperson-i-never-got-it-what-c unchanged
+cleo-debt-and-consumer-rights-i-bought-something-mail-order-can-i-cancel-order-or-return-it unchanged
+cleo-debt-and-consumer-rights-i-bought-something-online-can-i-cancel-my-order-or-return-it unchanged
+cleo-debt-and-consumer-rights-i-bought-something-telephone-can-i-cancel-order-or-return-it unchanged
+cleo-debt-and-consumer-rights-i-cannot-repay-my-payday-loan-what-can-i-do unchanged
+cleo-debt-and-consumer-rights-i-felt-pressured-door-door-salesperson-what-can-i-do unchanged
+cleo-debt-and-consumer-rights-i-have-a-nosi-on-my-property-what-can-i-do unchanged
+cleo-debt-and-consumer-rights-i-have-low-credit-score-how-can-i-improve-it unchanged
+cleo-debt-and-consumer-rights-i-have-problems-used-car-registered-dealer-what-can-i-do unchanged
+cleo-debt-and-consumer-rights-i-hired-credit-repair-company-what-can-i-do-if-im-having-probl unchanged
+cleo-debt-and-consumer-rights-i-want-buy-car-someone-what-should-i-think-about unchanged
+cleo-debt-and-consumer-rights-i-want-buy-car-used-car-dealer-what-do-i-need-know unchanged
+cleo-debt-and-consumer-rights-i-want-cancel-my-cellphone-contract-what-should-i-know unchanged
+cleo-debt-and-consumer-rights-im-going-get-cellphone-what-do-i-need-know unchanged
+cleo-debt-and-consumer-rights-im-having-problems-my-service-provider-what-should-i-know unchanged
+cleo-debt-and-consumer-rights-my-car-needs-be-fixed-what-should-i-think-about unchanged
+cleo-debt-and-consumer-rights-my-car-was-repaired-still-isnt-working-what-does-my-warranty unchanged
+cleo-debt-and-consumer-rights-my-partners-credit-card-company-wants-me-pay-their-card-can-th unchanged
+cleo-debt-and-consumer-rights-police-seized-car-i-bought-used-car-dealer-what-can-i-do unchanged
+cleo-debt-and-consumer-rights-someone-asked-me-credit-check-what-does-mean unchanged
+cleo-debt-and-consumer-rights-theres-mistake-my-credit-report-what-can-i-do unchanged
+cleo-debt-and-consumer-rights-what-are-licensed-insolvency-trustees-credit-counsellors-and-d unchanged
+cleo-debt-and-consumer-rights-what-are-my-rights-when-i-sign-an-energy-contract unchanged
+cleo-debt-and-consumer-rights-what-are-surplus-income-payments unchanged
+cleo-debt-and-consumer-rights-what-can-i-buy-door-door-salesperson unchanged
+cleo-debt-and-consumer-rights-what-can-i-do-if-i-have-a-problem-with-my-energy-retailer unchanged
+cleo-debt-and-consumer-rights-what-can-i-do-if-identity-theft-happens-me unchanged
+cleo-debt-and-consumer-rights-what-can-i-do-if-im-not-happy-my-car-repairs unchanged
+cleo-debt-and-consumer-rights-what-identity-theft unchanged
+cleo-debt-and-consumer-rights-what-if-i-cant-find-or-afford-licensed-insolvency-trustee unchanged
+cleo-debt-and-consumer-rights-what-payday-loan-do-i-have-other-options unchanged
+cleo-debt-and-consumer-rights-what-rules-do-collection-agencies-have-follow-and-what-are-my unchanged
+cleo-debt-and-consumer-rights-what-should-i-know-getting-payday-loan unchanged
+cleo-debt-and-consumer-rights-whats-process-file-bankruptcy-will-i-lose-my-house-or-car unchanged
+cleo-help-lawyers-and-paralegals-how-do-i-complain-about-my-lawyers-bill unchanged
+cleo-help-lawyers-and-paralegals-how-do-i-complain-to-lso unchanged
+cleo-help-lawyers-and-paralegals-how-do-i-prepare-my-meeting-lawyer-or-paralegal unchanged
+cleo-human-rights-how-do-i-make-claim-human-rights-tribunal-ontario unchanged
+cleo-human-rights-i-have-mobility-issues-does-my-landlord-have-make-adjustments-rental-unit- unchanged
+cleo-human-rights-i-want-to-make-changes-to-my-tribunal-hearing-what-can-i-do unchanged
+cleo-human-rights-im-independent-contractor-disability-do-i-have-rights-work unchanged
+cleo-human-rights-im-transgender-or-non-binary-what-are-my-rights-work unchanged
+cleo-human-rights-my-case-going-hearing-hrto-how-do-i-prepare unchanged
+cleo-human-rights-what-can-i-do-if-i-experience-discrimination unchanged
+cleo-human-rights-what-if-im-not-hired-because-employer-discriminates-against-me-1 unchanged
+cleo-provincial-offences-how-does-a-speeding-ticket-affect-me unchanged
+cleo-provincial-offences-i-dont-agree-with-my-provincial-offences-trial-can-i-appeal unchanged
+cleo-provincial-offences-i-got-a-parking-or-traffic-ticket-what-are-my-options unchanged
+cleo-provincial-offences-i-have-a-noise-complaint-what-can-i-do unchanged
+cleo-provincial-offences-i-have-been-charged-with-trespassing-what-do-i-need-to-know unchanged
+cleo-provincial-offences-someone-is-trespassing-on-my-property-what-can-i-do unchanged
+cleo-provincial-offences-what-happens-at-a-provincial-offences-trial-and-how-do-i-prepare unchanged
+cleo-tribunals-and-courts-can-court-make-someone-sell-property-pay-me-if-i-have-court-order unchanged
+cleo-tribunals-and-courts-can-court-take-money-someones-bank-account-if-i-have-court-order unchanged
+cleo-tribunals-and-courts-can-i-find-out-about-finances-someone-who-owes-me-money unchanged
+cleo-tribunals-and-courts-how-can-i-sue-in-small-claims-court unchanged
+cleo-tribunals-and-courts-how-do-i-change-claim-i-filed-small-claims-online-service unchanged
+cleo-tribunals-and-courts-how-do-i-collect-money-i-am-owed unchanged
+cleo-tribunals-and-courts-how-do-i-enforce-court-order-against-someone-give-back-my-property unchanged
+cleo-tribunals-and-courts-how-do-i-fill-out-plaintiffs-claim-using-online-service unchanged
+cleo-tribunals-and-courts-how-do-i-start-claim-small-claims-court-online-service unchanged
+cleo-tribunals-and-courts-how-do-i-stop-claim-i-filed-using-small-claims-online-service unchanged
+cleo-tribunals-and-courts-i-filed-claim-small-claims-online-service-what-happens-next unchanged
+cleo-tribunals-and-courts-i-filed-online-liquidated-damages-can-i-get-default-judgment unchanged
+cleo-tribunals-and-courts-i-filed-online-non-liquidated-damages-can-i-get-default-judgment unchanged
+cleo-tribunals-and-courts-i-have-disability-what-are-my-rights-work unchanged
+cleo-tribunals-and-courts-i-lost-small-claims-court-cant-afford-pay-what-can-i-do unchanged
+cleo-tribunals-and-courts-im-being-sued-someone-small-claims-court-what-should-i-do unchanged
+cleo-tribunals-and-courts-ive-been-noted-default-small-claims-court-what-can-i-do unchanged
+cleo-tribunals-and-courts-what-can-i-do-if-theres-default-judgment-against-me unchanged
+cleo-tribunals-and-courts-what-happens-at-a-human-rights-tribunal-of-ontario-hearing unchanged
+cleo-tribunals-and-courts-what-happens-at-mediation-at-the-human-rights-tribunal-of-ontario unchanged
+cleo-tribunals-and-courts-what-happens-my-small-claims-court-trial unchanged
+cleo-tribunals-and-courts-what-if-i-dont-agree-defendants-terms-payment unchanged
+cleo-tribunals-and-courts-where-can-i-get-legal-help-and-information-about-my-small unchanged
+cleo-topic-housing-law                 unchanged
+cleo-topic-employment-and-work         unchanged
+cleo-topic-income-assistance           unchanged
+cleo-topic-landlord-and-tenant-board   unchanged
+cleo-topic-human-rights-tribunal       unchanged
+cleo-topic-social-benefits-tribunal    unchanged
+cleo-topic-small-claims-court          unchanged
+ltb-landlord-and-tenant-board          unchanged
+hrto-human-rights-tribunal             CHANGED
+                                       was: (none stated)
+                                       now: (none stated)
+                                       rules changed: (preamble)
+sbt-social-benefits-tribunal           unchanged
+cat-condominium-authority-tribunal     CHANGED
+                                       was: (none stated)
+                                       now: (none stated)
+                                       rules changed: (preamble)
+wsib-injured-or-ill-people             unchanged
+omvic                                  unchanged
+camvap                                 unchanged
+tarion                                 unchanged
+ccts-telecom-complaints                CHANGED
+                                       was: (none stated)
+                                       now: (none stated)
+                                       rules changed: (preamble)
+oeb-consumer-protection                unchanged
+reco-complaints                        unchanged
+leca-law-enforcement-complaints        unchanged
+cpo-consumer-protection-ontario        unchanged
+cpo-filing-a-consumer-complaint        unchanged
+cpo-complaints-and-enforcement         unchanged
+cpo-homes-and-renovations              unchanged
+cpo-guide-home-renovation-businesses   unchanged
+cpo-guide-auto-repair                  unchanged
+cpo-guide-towing-and-storage           unchanged
+cpo-when-shopping                      unchanged
+cpo-contracts                          unchanged
+cpo-credit-loans-and-debt-collection   unchanged
+cpo-guide-collection-agencies          unchanged
+cpo-travelling-and-entertainment       unchanged
+cpo-funerals                           unchanged
+cpo-identify-scam-or-fraud             unchanged
+cpo-protecting-consumer-rights         unchanged
+rules-of-civil-procedure               unchanged
+family-law-act                         unchanged
+family-law-rules                       unchanged
+childrens-law-reform-act               unchanged
+ontario-child-support-guidelines-full  unchanged
+family-responsibility-support-arrears-enforcement-act unchanged
+divorce-act                            unchanged
+federal-child-support-guidelines-full  unchanged
+
+CONTENT NEEDING RE-VERIFICATION:
+
+  assistant block: assistant:caution:jurisdiction
+    cites changed rule(s): (names R.S.O. 1990, c. C.43)
+  next-step block: next:civil:starting-case
+    cites changed rule(s): (names R.S.O. 1990, c. C.43)
+  next-step block: next:civil:urgent
+    cites changed rule(s): (names R.S.O. 1990, c. C.43)
+  procedural-stage card: Monetary Jurisdiction
+    cites changed rule(s): (names R.S.O. 1990, c. C.43)
+  quoted citation: s. 2 (S_HOLIDAYS_ACT_2_CANADA_DAY) — deadline engine
+    cites changed rule(s): (names R.S.C. 1985, c. H-5)
+  quoted citation: s. 3 (S_HOLIDAYS_ACT_3_REMEMBRANCE) — deadline engine
+    cites changed rule(s): (names R.S.C. 1985, c. H-5)
+  quoted citation: s. 31 (S_CJA_31_APPEAL) — e.g. defendant:judgment-against-me
+    cites changed rule(s): (names R.S.O. 1990, c. C.43)
+  quoted citation: s. 4 (S_HOLIDAYS_ACT_4_VICTORIA) — deadline engine
+    cites changed rule(s): (names R.S.C. 1985, c. H-5)
+  quoted citation: s. 44 (10) (S_MUNICIPAL_44_10_NOTICE) — e.g. before-filing:notice-municipality
+    cites changed rule(s): (names S.O. 2001, c. 25)
+  quoted citation: s. 44 (11) (S_MUNICIPAL_44_11_DEATH) — e.g. before-filing:notice-municipality
+    cites changed rule(s): (names S.O. 2001, c. 25)
+  quoted citation: s. 44 (12) (S_MUNICIPAL_44_12_EXCUSE) — e.g. before-filing:notice-municipality
+    cites changed rule(s): (names S.O. 2001, c. 25)
+  quoted citation: s. 44 (9) (S_MUNICIPAL_44_9_SIDEWALK) — e.g. before-filing:notice-municipality
+    cites changed rule(s): (names S.O. 2001, c. 25)
+
+For each: read the new rule text, confirm the block still states it
+correctly, and re-run `npm run rules:fetch` once the block is right.
+Do NOT re-vendor first — that erases the evidence anything moved.
