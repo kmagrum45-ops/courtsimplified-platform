@@ -861,7 +861,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
       <div className="mt-6 grid gap-5">
         <div className="rounded-3xl border border-[#cde7dc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">Location confirmed on Home</h3>
-          <p className="mt-2 text-sm text-[#4d675f]">Canonical intake context: {input.province}, {input.city}.</p>
+          <p className="mt-2 text-sm text-[#4d675f]">Location: {input.city}, {input.province}.</p>
         </div>
         <label className="block">
           <span className="font-semibold text-[#16302b]">Case stage</span>

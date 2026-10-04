@@ -12,7 +12,7 @@ export default function ScopePreviewNotice({ scope }: { scope: ScopeKey }) {
       data-testid="scope-preview-notice"
       className="mb-4 rounded-xl border border-amber-300 bg-amber-50 px-3 py-2 text-xs font-semibold text-[#5a4410]"
     >
-      Testing: this feature is switched on for testing and is waiting for Law Society (A2I) approval.
+      Testing: this feature is switched on while we test it, and is waiting for approval from the Law Society of Ontario under its Access to Innovation program.
     </p>
   );
 }
