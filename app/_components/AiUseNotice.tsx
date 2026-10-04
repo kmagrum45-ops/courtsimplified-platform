@@ -57,7 +57,8 @@ export default function AiUseNotice({ activity, className }: AiUseNoticeProps) {
         advance with AI help and check against the court rules and laws it cites. The AI does
         not write it for you on the spot. That information has <strong>not yet been reviewed by
         a licensed Ontario lawyer or paralegal</strong>. Please check anything here against the official
-        source before relying on it — CourtSimplified gives legal information, not legal advice.
+        source before relying on it. CourtSimplified guides you through the process; it is not a
+        law firm and is not your lawyer.
       </p>
     </aside>
   );

@@ -43,8 +43,8 @@ export default function NextStepsCard({
         </p>
       )}
       <p className="mt-3 text-xs leading-5 text-[#4d675f]">
-        This is general legal information from the source above, not advice about your case. A
-        licensed paralegal or lawyer can tell you how it applies to you.
+        Written from the official source above. CourtSimplified guides you through the process but
+        is not your lawyer, so check the source before you rely on it.
       </p>
     </section>
   );

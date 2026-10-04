@@ -108,10 +108,7 @@ export default function RootLayout({
                 </p>
 
                 <p className="mt-3 text-xs leading-5 text-[#7B8491]">
-                  CourtSimplified provides legal information and case-management
-                  tools. It does not provide legal representation, guarantee an
-                  outcome, or replace advice from a qualified legal professional
-                  when one is needed.
+                  CourtSimplified guides you through the Ontario court system and helps you organize and manage your case on your own. It does not represent you in court or guarantee an outcome.
                 </p>
               </div>
 
@@ -133,7 +130,10 @@ export default function RootLayout({
             {/*
               SITE-WIDE DISCLAIMER AND CONTACTS (LSO Step 6a).
 
-              The "legal information, not legal advice" line existed only on six
+              The site's legal notice (worded "legal information, not legal advice"
+              until 2026-10-04, when the site owner set the guide-like-a-lawyer rule in
+              CLAUDE.md; it now says what the site does and that it is not a law firm)
+              existed only on six
               pages and was absent from the builder, which is the main intake and
               the primary AI surface. In the footer it is on every page by
               construction, and cannot be missed off a new one.
@@ -146,8 +146,8 @@ export default function RootLayout({
             <div className="border-t border-[#E5ECEA]">
               <div className="mx-auto w-full max-w-7xl px-6 py-5 text-xs leading-6 text-[#7B8491]">
                 <p data-testid="site-legal-disclaimer" className="font-semibold text-[#4B5563]">
-                  CourtSimplified provides legal information, not legal advice. We are not a
-                  law firm.
+                  CourtSimplified helps you navigate the Ontario court system on your own,
+                  without a lawyer. We are not a law firm and are not your lawyer.
                 </p>
 
                 <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">

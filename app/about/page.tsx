@@ -27,10 +27,7 @@ export default function AboutPage() {
 
         <div className="mt-10 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
           <p className="text-sm font-semibold leading-6 text-[#4f685f]">
-            CourtSimplified provides legal information and case-management
-            tools. It does not provide legal representation, guarantee an
-            outcome, or replace advice from a qualified legal professional
-            when one is needed.
+            CourtSimplified guides you through the Ontario court system and helps you organize and manage your case on your own. It does not represent you in court or guarantee an outcome.
           </p>
         </div>
 
