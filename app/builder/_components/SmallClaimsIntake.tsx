@@ -1,5 +1,7 @@
 "use client";
 
+import TidyWordingReview from "./TidyWordingReview";
+
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
@@ -1282,6 +1284,30 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
             </div>
           )}
         </div>
+
+        <TidyWordingReview
+          fields={(
+            [
+              ["facts", "Case story"],
+              ["timeline", "Important dates / timeline"],
+              ["evidence", "Evidence you have"],
+              ["missingEvidence", "Evidence still missing"],
+              ["goal", "What do you want the court to order?"],
+              ["serviceDetails", "Service details"],
+              ["agreementDetails", "Agreement or contract details"],
+              ["paymentHistory", "Payment history"],
+              ["defenceResponse", "Your response to the claim"],
+              ["settlementEfforts", "Settlement efforts"],
+              ["deadlineDetails", "Deadline details"],
+              ["urgent", "Anything urgent"],
+            ] as [keyof SmallClaimsIntelligenceInput, string][]
+          ).map(([key, label]) => ({
+            key,
+            label,
+            value: String(input[key] ?? ""),
+            setValue: (next: string) => updateField(key, next as never),
+          }))}
+        />
 
         <button
           type="button"
