@@ -28,7 +28,7 @@
  */
 
 import index from "./formRuleIndex.json";
-import officialLinks from "./officialFormLinks.json";
+import { OFFICIAL_FORMS_FETCHED_AT, officialFormFor } from "./officialFormLink";
 import { FORM_SUMMARIES, normalizeFormNumber } from "./formSummaries";
 
 export { normalizeFormNumber };
@@ -73,19 +73,7 @@ export type FormGuideEntry = {
   official: { date: string; pdf: string | null; docx: string | null; fetchedAt: string } | null;
 };
 
-type OfficialLinksFile = {
-  fetchedAt: string;
-  forms: { court: FormCourt; number: string; date: string; pdf: string | null; docx: string | null }[];
-};
 
-const OFFICIAL = officialLinks as OfficialLinksFile;
-
-/** "8.0.1" and "8.01" are the same form written two ways (the site uses the second). */
-function linkKey(court: string, number: string): string {
-  return `${court}:${normalizeFormNumber(number).replace(/\.0\./g, ".0")}`;
-}
-
-const OFFICIAL_BY_KEY = new Map(OFFICIAL.forms.map((form) => [linkKey(form.court, form.number), form]));
 
 type IndexFile = {
   generatedAt: string;
@@ -136,8 +124,8 @@ function build(): Record<FormCourt, FormGuideEntry[]> {
         officialFormsPage: source.formsPage,
         verifiedAt: INDEX.generatedAt,
         official: (() => {
-          const found = OFFICIAL_BY_KEY.get(linkKey(court, form.number));
-          return found ? { date: found.date, pdf: found.pdf, docx: found.docx, fetchedAt: OFFICIAL.fetchedAt.slice(0, 10) } : null;
+          const found = officialFormFor(court, form.number);
+          return found ? { date: found.date, pdf: found.pdf, docx: found.docx, fetchedAt: OFFICIAL_FORMS_FETCHED_AT } : null;
         })(),
       }));
   }

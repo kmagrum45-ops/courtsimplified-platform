@@ -69,7 +69,7 @@ const KNOWN_SITE_GAPS: Record<string, string> = {
   "civil:74H":
     "In the Rules of Civil Procedure's table of forms (Consent, Sept. 1, 2021) but not on the official estates forms page as read on 2026-10-04.",
   "family:8.0.1":
-    "The official family forms page writes this form as \"8.01\"; formGuide.ts matches the two spellings (linkKey).",
+    "The official family forms page writes this form as \"8.01\"; officialFormLink.ts matches the two spellings (officialFormKey).",
 };
 
 const linksFile = path.join(process.cwd(), "src/lib/content-library/forms/officialFormLinks.json");

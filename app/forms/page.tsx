@@ -20,6 +20,7 @@ import {
   type FormsCourtPath,
 } from "../../src/lib/case-system/formsSelectedCase";
 import { formSummaryFor } from "../../src/lib/content-library/forms/formSummaries";
+import { OFFICIAL_FORMS_FETCHED_AT, officialFormFor } from "../../src/lib/content-library/forms/officialFormLink";
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
 
 const supabase = createClient(
@@ -1212,8 +1213,15 @@ function FormsPageContent() {
                         </span>
                       </div>
 
+                      {/*
+                        2026-10-04: 63 family rows (and two Small Claims) carried
+                        a generic or wrong title in the catalogue ("Child
+                        Protection Form" on Form 29A). The official site's own
+                        title wins wherever it lists the form.
+                      */}
                       <h2 className="mt-2 text-2xl font-bold text-[#10231f]">
-                        {cleanSpaces(form.official_title)}
+                        {officialFormFor(form.court_type, cleanSpaces(form.form_number))?.title ||
+                          cleanSpaces(form.official_title)}
                       </h2>
 
                       {/*
@@ -1285,6 +1293,31 @@ function FormsPageContent() {
                       </span>
                     ) : null}
                   </div>
+
+                  {(() => {
+                    // The current official file, straight from
+                    // ontariocourtforms.on.ca (2026-10-04). A stored copy can
+                    // fall behind a new version; this link cannot.
+                    const official = officialFormFor(form.court_type, cleanSpaces(form.form_number));
+                    if (!official || (!official.pdf && !official.docx)) return null;
+                    return (
+                      <div className="mt-5 flex flex-wrap items-center gap-3" data-testid="official-form-links">
+                        {official.pdf ? (
+                          <a href={official.pdf} target="_blank" rel="noreferrer" className="rounded-full bg-[#16302b] px-5 py-3 text-sm font-bold text-white">
+                            Current official PDF
+                          </a>
+                        ) : null}
+                        {official.docx ? (
+                          <a href={official.docx} target="_blank" rel="noreferrer" className="rounded-full border border-[#16302b] px-5 py-3 text-sm font-bold text-[#16302b]">
+                            Current official Word file
+                          </a>
+                        ) : null}
+                        <span className="text-xs text-[#4f685f]">
+                          Version {official.date || "not stated"}, checked {OFFICIAL_FORMS_FETCHED_AT} on ontariocourtforms.on.ca
+                        </span>
+                      </div>
+                    );
+                  })()}
 
                   <div className="mt-5 flex flex-wrap gap-3">
                     {form.pdf_path ? (
