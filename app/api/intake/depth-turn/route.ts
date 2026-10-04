@@ -6,7 +6,14 @@ import {
   selectDepthQuestions,
   type SelectedDepthQuestion,
 } from "@/src/lib/case-system/intake/depth/selectDepthQuestions";
-import type { ElementStateMap } from "@/src/lib/case-system/intake/depth/elementStateMap";
+import {
+  recordDepthAnswer,
+  type ElementStateMap,
+} from "@/src/lib/case-system/intake/depth/elementStateMap";
+import {
+  proposeDepthAnswersFromStory,
+  type StoryAnswerProposal,
+} from "@/src/lib/case-system/intake/storyAnswerProposals";
 import type { SlotValues } from "@/src/lib/case-system/intake/depth/slots";
 import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
@@ -37,6 +44,8 @@ export const runtime = "nodejs";
 
 const MAX_ANSWER_LENGTH = 8_000;
 const MAX_USER_TEXTS = 12;
+const MAX_CONFIRMED = 20;
+const MAX_CONFIRMED_LENGTH = 400;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value && typeof value === "object" && !Array.isArray(value));
@@ -55,6 +64,12 @@ type DepthTurnRequestBody = {
   slotValues: SlotValues;
   stateMap?: ElementStateMap;
   facts: Record<string, string | number | boolean>;
+  /**
+   * Proposals from the user's story that THEY confirmed (2026-10-04). Recorded
+   * as their answers with no model call — the safety pass already read the
+   * story they came from. Questions not listed are asked as normal.
+   */
+  confirmedAnswers?: { questionId: string; answerText: string }[];
 };
 
 function isDepthTurnRequestBody(value: unknown): value is DepthTurnRequestBody {
@@ -68,6 +83,7 @@ function isDepthTurnRequestBody(value: unknown): value is DepthTurnRequestBody {
     "slotValues",
     "stateMap",
     "facts",
+    "confirmedAnswers",
   ]);
   if (Object.keys(value).some((key) => !allowed.has(key))) return false;
 
@@ -84,6 +100,18 @@ function isDepthTurnRequestBody(value: unknown): value is DepthTurnRequestBody {
   }
   if (value.answeredQuestionId !== undefined && typeof value.answeredQuestionId !== "string") {
     return false;
+  }
+  if (value.confirmedAnswers !== undefined) {
+    if (!Array.isArray(value.confirmedAnswers) || value.confirmedAnswers.length > MAX_CONFIRMED) return false;
+    const ok = value.confirmedAnswers.every(
+      (item) =>
+        isRecord(item) &&
+        typeof item.questionId === "string" &&
+        typeof item.answerText === "string" &&
+        item.answerText.trim().length > 0 &&
+        item.answerText.length <= MAX_CONFIRMED_LENGTH,
+    );
+    if (!ok) return false;
   }
 
   return true;
@@ -139,12 +167,57 @@ export function createDepthTurnPost(
       ? selection.asked.find((item) => item.question.id === body.answeredQuestionId)
       : undefined;
 
-    // Opening call: no answer yet, just hand back the first question.
-    if (!answered) {
+    // The user confirmed answers their story already gave. Record each as
+    // their answer to that question; no model call, nothing inferred.
+    if (body.confirmedAnswers && body.confirmedAnswers.length > 0) {
+      let confirmedMap = stateMap;
+      for (const item of body.confirmedAnswers) {
+        const asked = selection.asked.find((candidate) => candidate.question.id === item.questionId);
+        if (!asked) continue;
+        confirmedMap = recordDepthAnswer(confirmedMap, {
+          elementId: asked.elementId,
+          questionId: asked.question.id,
+          answerText: item.answerText.trim(),
+        });
+      }
       return NextResponse.json({
         ok: true,
         result: {
           questions: selection.asked.map(toClientQuestion),
+          stateMap: confirmedMap,
+          leadIn: null,
+          halted: false,
+        },
+      });
+    }
+
+    // Opening call: no answer yet. Hand back the questions, plus proposals for
+    // any the user's own words already answer, for them to confirm.
+    if (!answered) {
+      let proposals: StoryAnswerProposal[] = [];
+      const story = body.userTexts.join("\n\n");
+      if (story.trim() && selection.asked.length > 0) {
+        try {
+          proposals = await proposeDepthAnswersFromStory(
+            story,
+            selection.asked.map((item) => ({
+              id: item.question.id,
+              text: item.renderedText,
+              examples: item.question.examples,
+            })),
+            apiKey,
+          );
+        } catch {
+          // A failed proposal step costs the user nothing: every question is
+          // simply asked, as before.
+          proposals = [];
+        }
+      }
+      return NextResponse.json({
+        ok: true,
+        result: {
+          questions: selection.asked.map(toClientQuestion),
+          proposals,
           stateMap,
           leadIn: null,
           halted: false,
@@ -153,7 +226,13 @@ export function createDepthTurnPost(
     }
 
     const index = selection.asked.findIndex((item) => item.question.id === answered.question.id);
-    const next = selection.asked[index + 1];
+    // The next question still to ask: one whose answer the user already
+    // confirmed from their story is skipped, so the lead-in is written for
+    // the question they will actually see.
+    const next = selection.asked.slice(index + 1).find((item) => {
+      const record = stateMap[item.elementId];
+      return !(record?.state === "provided" && record.questionId === item.question.id);
+    });
 
     try {
       const turn = await orchestrateDepthTurn({

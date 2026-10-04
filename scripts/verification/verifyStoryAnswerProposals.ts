@@ -31,10 +31,12 @@ import {
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import {
+  depthAsIntakeQuestion,
   proposableQuestions,
   validateStoryProposals,
   type StoryAnswerProposal,
 } from "../../src/lib/case-system/intake/storyAnswerProposals";
+import { questionsForElement } from "../../src/lib/case-system/intake/depth/elementQuestionRegistry";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail?: string): void {
@@ -255,6 +257,35 @@ async function main(): Promise<void> {
     },
   );
   check("no re-read unless the caller asks for it", seen.length === before2);
+
+  // ---- Depth questions (2026-10-04) ----
+  //
+  // A defamation user whose only evidence was texts to their brother was still
+  // asked about newspapers. Depth questions now go through the same proposal
+  // step: quote-verified, confirmed by the user. Checked here against the real
+  // authored newspaper question, through the real validator.
+  {
+    const newspaper = questionsForElement("limitation-if-newspaper-or-broadcast").find((q) => q.status === "reviewed");
+    check("the authored newspaper depth question exists", Boolean(newspaper));
+    if (newspaper) {
+      const offered = [depthAsIntakeQuestion(newspaper)];
+      const depthStory =
+        "My neighbour told my brother I steal from work. The only evidence I have is text messages to my brother, that's all.";
+      const kept = validateStoryProposals(
+        { proposals: [{ questionId: newspaper.id, answer: "No — only text messages to my brother", storyQuote: "The only evidence I have is text messages to my brother" }] },
+        depthStory,
+        offered,
+      );
+      check("a depth question the story answers can be proposed, with its quote", kept.length === 1 && kept[0].questionId === newspaper.id);
+      const invented = validateStoryProposals(
+        { proposals: [{ questionId: newspaper.id, answer: "No", storyQuote: "it was never in any newspaper" }] },
+        depthStory,
+        offered,
+      );
+      check("a depth proposal whose quote is not in the story is dropped (the question is asked)", invented.length === 0);
+      check("a depth question is never offered as sensitive", proposableQuestions(offered).length === 1);
+    }
+  }
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;

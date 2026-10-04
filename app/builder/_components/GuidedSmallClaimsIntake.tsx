@@ -471,6 +471,9 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
   // 2026-09-28. "Here's what I understood" -- answers the opening story
   // already gives, awaiting the user's confirmation. Null when none pending.
   const [proposalDrafts, setProposalDrafts] = useState<ProposalDraft[] | null>(null);
+  // Which phase the proposals panel is confirming: the opening intake
+  // questions, or the claim-type depth questions (2026-10-04).
+  const [proposalMode, setProposalMode] = useState<"intake" | "depth">("intake");
   // One extra read of the story after the first confirmations, never more.
   const [reproposed, setReproposed] = useState(false);
 
@@ -745,6 +748,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
     claimTypeId: string,
     currentFacts: IntakeFacts,
     answered?: { questionId: string; answerText: string },
+    confirmedAnswers?: ConfirmedStoryAnswer[],
   ) {
     const {
       data: { session },
@@ -771,6 +775,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
         ...(answered
           ? { answeredQuestionId: answered.questionId, answerText: answered.answerText }
           : {}),
+        ...(confirmedAnswers && confirmedAnswers.length > 0 ? { confirmedAnswers } : {}),
       }),
     });
 
@@ -781,6 +786,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
 
     return json.result as {
       questions: DepthClientQuestion[];
+      proposals?: StoryAnswerProposal[];
       stateMap: Record<string, unknown>;
       leadIn: string | null;
       halted: boolean;
@@ -812,6 +818,26 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
       }
 
       setDepthQuestions(result.questions);
+
+      // Questions the user's own words already answer are proposed first, for
+      // them to confirm, so they are not asked again (2026-10-04: a user whose
+      // only evidence was texts to their brother was still asked about
+      // newspapers). Confirming happens in handleConfirmDepthProposals.
+      if (result.proposals && result.proposals.length > 0) {
+        setProposalMode("depth");
+        setProposalDrafts(result.proposals.map((proposal) => ({ ...proposal, keep: true })));
+        setMessages((current) => [
+          ...current,
+          {
+            from: "assistant",
+            text:
+              "A few questions apply to this kind of claim. Your story already answers some of them — " +
+              "please check these, and I'll only ask what's still missing.",
+          },
+        ]);
+        return;
+      }
+
       setDepthIndex(0);
       setDepthActive(true);
       setMessages((current) => [
@@ -912,7 +938,77 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
     finishDepthPhase(depthStateMap);
   }
 
+  function handleConfirmDepthProposals() {
+    if (!proposalDrafts || !completionPayload?.matchedClaimType) return;
+    const confirmed: ConfirmedStoryAnswer[] = proposalDrafts
+      .filter((draft) => draft.keep && draft.answer.trim())
+      .map((draft) => ({ questionId: draft.questionId, answerText: draft.answer.trim() }));
+    setProposalDrafts(null);
+    setProposalMode("intake");
+    setMessages((current) => [
+      ...current,
+      {
+        from: "user",
+        text:
+          confirmed.length > 0
+            ? `Confirmed ${confirmed.length} answer${confirmed.length === 1 ? "" : "s"} from my story.`
+            : "None of those were right.",
+      },
+    ]);
+    const confirmedIds = new Set(confirmed.map((item) => item.questionId));
+    const remaining = depthQuestions.filter((question) => !confirmedIds.has(question.id));
+    const payload = completionPayload;
+    setLoading(true);
+
+    void (async () => {
+      let stateMap = depthStateMap;
+      try {
+        if (confirmed.length > 0) {
+          const result = await callDepthTurn(
+            payload.matchedClaimType!.claimTypeId,
+            payload.facts,
+            undefined,
+            confirmed,
+          );
+          stateMap = result.stateMap;
+          setDepthStateMap(result.stateMap);
+        }
+      } catch (err) {
+        // Not recorded means simply asked: put every question back.
+        setError(err instanceof Error ? err.message : "That didn't go through. Please try again.");
+        remaining.splice(0, remaining.length, ...depthQuestions);
+      } finally {
+        setLoading(false);
+      }
+
+      if (remaining.length === 0) {
+        setMessages((current) => [...current, { from: "assistant", text: INTAKE_CLOSING_LINE }]);
+        finishDepthPhase(stateMap, payload);
+        return;
+      }
+
+      setDepthQuestions(remaining);
+      setDepthIndex(0);
+      setDepthActive(true);
+      setMessages((current) => [
+        ...current,
+        {
+          from: "assistant",
+          text:
+            remaining.length === 1
+              ? "One more question for this kind of claim. You can skip it."
+              : "A few more questions for this kind of claim. You can skip these at any point.",
+        },
+        { from: "assistant", text: remaining[0].text },
+      ]);
+    })();
+  }
+
   function handleConfirmProposals() {
+    if (proposalMode === "depth") {
+      handleConfirmDepthProposals();
+      return;
+    }
     if (!proposalDrafts) return;
     const confirmed: ConfirmedStoryAnswer[] = proposalDrafts
       .filter((draft) => draft.keep && draft.answer.trim())

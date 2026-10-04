@@ -156,6 +156,7 @@ Rules:
 - For a question with choices, the answer must be exactly one of the listed choices, copied exactly.
 - For a yes/no question, begin the answer with "Yes" or "No".
 - Which side the person is on is stated by what they want: someone who says they want their money or property back from another person, or want to take them to court, and says nothing about being sued, is bringing the claim. Someone who says they have been sued or served with a claim is responding to it.
+- When the account says something happened ONLY one way ("the only evidence is texts to my brother", "I only told my neighbour"), you may answer "No" to a question about another way (a newspaper, a broadcast, other people), quoting the words that say "only". Without words like that, leave the question out.
 - "storyQuote" must be words copied exactly, character for character, from the account, that show where the answer comes from. Copy a short phrase, not a whole paragraph.
 
 Return a JSON object: {"proposals": [{"questionId": "...", "answer": "...", "storyQuote": "..."}]}. Return {"proposals": []} if nothing is answered.`;
@@ -227,4 +228,41 @@ export function confirmedAnswersAsText(
     })
     .filter(Boolean)
     .join("\n\n");
+}
+
+/**
+ * The same proposal step for the DEPTH questions (claim-type-specific
+ * questions asked once a claim type is confirmed).
+ *
+ * WHY (site owner, 2026-10-04): a defamation user wrote that their only
+ * evidence was text messages to their brother, and the depth phase still
+ * asked whether it was published in a newspaper or broadcast. The depth phase
+ * asks every authored question (selectDepthQuestions.ts) because keyword
+ * suppression was measured wrong five times in five. This is NOT that: the
+ * model must quote the user's own words, code verifies the quote is really in
+ * what they wrote, and the user confirms each proposal before anything is
+ * recorded. An unconfirmed or dropped proposal is simply asked as normal.
+ */
+export async function proposeDepthAnswersFromStory(
+  story: string,
+  questions: readonly { id: string; text: string; examples?: string[] }[],
+  apiKey: string,
+): Promise<StoryAnswerProposal[]> {
+  return proposeAnswersFromStory(story, questions.map(depthAsIntakeQuestion), apiKey);
+}
+
+/** A depth question in the shape the proposal step reads. Exported for the suite. */
+export function depthAsIntakeQuestion(question: { id: string; text: string; examples?: string[] }): IntakeQuestion {
+  return {
+    id: question.id,
+    courtArea: "small-claims",
+    text: question.text,
+    answerType: "short-text",
+    examples: question.examples,
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: null,
+    status: "reviewed",
+  };
 }
