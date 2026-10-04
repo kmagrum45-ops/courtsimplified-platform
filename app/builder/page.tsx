@@ -1700,7 +1700,11 @@ function BuilderPageContent() {
 
             {/* Civil and family join once their reviewed answers are published. */}
             {confirmedStage && courtPath === "small-claims" ? (
-              <StageAnswerPanel courtPath={courtPath} />
+              <StageAnswerPanel
+                courtPath={courtPath}
+                confirmedStage={confirmedStage}
+                responding={respondingSide}
+              />
             ) : null}
             {confirmedStage && (courtPath === "family" || courtPath === "civil") ? (
               <NextStepsCard pathway={courtPath} stage={confirmedStage} />

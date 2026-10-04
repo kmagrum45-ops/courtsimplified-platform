@@ -22,6 +22,8 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { userIsResponding } from "../../app/builder/_components/respondingSide";
+import { orderGroupsForReader, suggestedStageFor } from "../../app/builder/_components/StageAnswerPanel";
+import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -60,6 +62,35 @@ const buttons = [...page.matchAll(/Create ([^<{]+?) draft/g)]
 check("the builder has starting-document draft buttons to check", buttons.length >= 3, `found ${buttons.length}`);
 for (const [, condition, label] of buttons) {
   check(`"Create ${label.trim()} draft" is offered only to the starting side`, /offerOriginatingDraft/.test(condition), condition.trim());
+}
+
+// The "your exact step" panel suggests a step from the confirmed stage and
+// side. Every suggestion must be a real stage, on the reader's own side.
+for (const stage of ["starting-case", "responding", "already-started", "conference", "motion", "trial", "enforcement", "urgent", "not-sure"]) {
+  for (const responding of [false, true]) {
+    // A confirmed "responding" stage always makes the reader the responding
+    // side (userIsResponding), so that pairing cannot occur.
+    if (stage === "responding" && !responding) continue;
+    const id = suggestedStageFor("small-claims", stage, responding);
+    if (!id) continue;
+    const found = findStage(id);
+    check(`suggested step for ${stage}/${responding ? "responding" : "starting"} exists`, Boolean(found), id);
+    if (found && found.side !== "both") {
+      check(
+        `suggested step for ${stage}/${responding ? "responding" : "starting"} is on the reader's side`,
+        responding ? found.side === "defendant" : found.side === "plaintiff",
+        `${id} is ${found.side}`,
+      );
+    }
+  }
+}
+check("a served defendant is shown the defence step", suggestedStageFor("small-claims", "responding", true) === "defendant:served-defence-period-running");
+check("no suggestion where answers are not published", suggestedStageFor("civil", "responding", true) === "");
+{
+  const groups = [{ side: "plaintiff", label: "P" }, { side: "defendant", label: "D" }, { side: "both", label: "B" }];
+  check("a defendant sees their own questions first", orderGroupsForReader(groups, true)[0].side === "defendant");
+  check("a plaintiff sees their own questions first", orderGroupsForReader(groups, false)[0].side === "plaintiff");
+  check("no question group is dropped", orderGroupsForReader(groups, true).length === groups.length);
 }
 
 if (failures > 0) {

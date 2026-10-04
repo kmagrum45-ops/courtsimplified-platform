@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
 
@@ -61,6 +61,57 @@ function groupOf(stage: { id: string; side: string }): string {
   return stage.id.startsWith("before-filing:") ? "before-filing" : stage.side;
 }
 
+/**
+ * The step this user most likely means, from the stage they confirmed and the
+ * side they are on. A SUGGESTION: it is pre-selected and its answer shown, and
+ * the list stays open for them to pick another (CLAUDE.md section 4).
+ *
+ * Page walkthrough, 2026-10-04: a served Small Claims defendant confirmed "I
+ * was served and need to respond" and still saw nothing about the time to
+ * defend, because this panel showed nothing until they found the right
+ * question in a list that opened with plaintiff and injury-notice questions.
+ *
+ * Small Claims only, where the stage answers are published; "" means no
+ * suggestion, and the panel waits for the user to choose, as before.
+ */
+export function suggestedStageFor(
+  courtPath: StagePathway,
+  confirmedStage: string | null,
+  responding: boolean,
+): string {
+  if (courtPath !== "small-claims") return "";
+  const side = responding ? "defendant" : "plaintiff";
+  switch (confirmedStage) {
+    case "responding":
+      return "defendant:served-defence-period-running";
+    case "starting-case":
+      return responding ? "defendant:served-defence-period-running" : "plaintiff:claim-drafted-not-filed";
+    case "conference":
+      return `${side}:awaiting-settlement-conference`;
+    case "trial":
+      return `${side}:trial-date-set`;
+    case "enforcement":
+      return responding ? "defendant:judgment-against-me" : "plaintiff:judgment-in-my-favour-unpaid";
+    default:
+      return "";
+  }
+}
+
+/** The user's own side's groups first, then "either side", then the rest. */
+export function orderGroupsForReader<T extends { side: string; label: string }>(
+  groups: readonly T[],
+  responding: boolean,
+): T[] {
+  const own = responding ? ["defendant", "respondent"] : ["before-filing", "plaintiff", "applicant"];
+  return [
+    ...groups.filter((group) => own.includes(group.side)),
+    ...groups.filter((group) => group.side === "both"),
+    ...groups
+      .filter((group) => !own.includes(group.side) && group.side !== "both")
+      .map((group) => ({ ...group, label: `Other situations — ${group.label}` })),
+  ];
+}
+
 function AnswerView({ answer }: { answer: RenderedAnswer }) {
   return (
     <div className="mt-4 space-y-4" data-testid="stage-answer">
@@ -94,17 +145,33 @@ function AnswerView({ answer }: { answer: RenderedAnswer }) {
   );
 }
 
-export default function StageAnswerPanel({ courtPath }: { courtPath: StagePathway }) {
+export default function StageAnswerPanel({
+  courtPath,
+  confirmedStage = null,
+  responding = false,
+}: {
+  courtPath: StagePathway;
+  confirmedStage?: string | null;
+  responding?: boolean;
+}) {
+  const suggested = suggestedStageFor(courtPath, confirmedStage, responding);
   const options = stagesForPathway(courtPath).map((stage) => ({
     id: stage.id,
     group: groupOf(stage),
     label: stage.userQuestion,
   }));
-  const [stageId, setStageId] = useState("");
+  const [stageId, setStageId] = useState(suggested);
   const [result, setResult] = useState<Response | null>(null);
   const [municipality, setMunicipality] = useState("");
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
+
+  // Show the suggested step's answer straight away; the user can change it.
+  useEffect(() => {
+    setStageId(suggested);
+    if (suggested) void load(suggested);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [suggested]);
 
   async function load(id: string, facts: Record<string, string> = {}) {
     setLoading(true);
@@ -132,8 +199,9 @@ export default function StageAnswerPanel({ courtPath }: { courtPath: StagePathwa
     >
       <h3 className="text-lg font-bold text-[#10231f]">What happens next at your exact step</h3>
       <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-        Choose the question closest to where your case is. We will show what the court rules and
-        official guides say about that step, with the sources.
+        {suggested
+          ? "Based on what you told us, this is your step. If it is not right, choose the question closest to where your case is."
+          : "Choose the question closest to where your case is. We will show what the court rules and official guides say about that step, with the sources."}
       </p>
 
       <label className="mt-4 block">
@@ -156,7 +224,7 @@ export default function StageAnswerPanel({ courtPath }: { courtPath: StagePathwa
           className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
         >
           <option value="">Choose one…</option>
-          {GROUPS[courtPath].map((group) => (
+          {orderGroupsForReader(GROUPS[courtPath], responding).map((group) => (
             <optgroup key={group.side} label={group.label}>
               {options.filter((option) => option.group === group.side).map((option) => (
                 <option key={option.id} value={option.id}>
