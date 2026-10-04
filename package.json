@@ -45,6 +45,7 @@
     "test:family-no-scores": "node --import tsx scripts/verification/verifyFamilyNoScores.ts",
     "test:family-role": "node --import tsx scripts/verification/verifyFamilyRoleNormalizer.ts",
     "test:tidy-wording": "node --import tsx scripts/verification/verifyTidyWording.ts",
+    "test:responding-side": "node --import tsx scripts/verification/verifyRespondingSide.ts",
     "walkthrough": "playwright test tests/browser/walkthrough.spec.ts --workers=1",
     "walkthrough:critique": "node --import tsx scripts/walkthrough/critique.ts",
     "test:fixture-guards": "node --import tsx scripts/verification/verifyFixtureHarnessGuards.ts",

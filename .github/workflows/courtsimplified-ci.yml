@@ -224,6 +224,9 @@ jobs:
       - name: Spelling check changes spelling only
         run: npm run test:tidy-wording
 
+      - name: Starting documents only for the starting side
+        run: npm run test:responding-side
+
       - name: Production build
         run: npm run build
 
