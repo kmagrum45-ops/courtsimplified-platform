@@ -111,7 +111,10 @@ console.log("");
     ["sealed or confidential", /sealed|confidential/i],
     ["publication ban", /publication ban/i],
     ["someone else's health records", /health, medical or counselling records/i],
-    ["not stored", /not uploaded, saved or stored/i],
+    // Reworded 2026-10-04 so it no longer contradicts the separate upload
+    // card ("never leaves your device" vs "stored with your case"); the
+    // property is unchanged: the intake's list says it uploads nothing.
+    ["not uploaded by the list", /does not upload your files/i],
   ];
   const absent = required.filter(([, pattern]) => !pattern.test(notice)).map(([name]) => name);
 
