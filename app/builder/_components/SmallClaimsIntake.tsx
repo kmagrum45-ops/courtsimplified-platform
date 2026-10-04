@@ -264,16 +264,21 @@ function inferIssuesFromStory(input: SmallClaimsIntelligenceInput): SmallClaimsI
 
   const issues: SmallClaimsIssue[] = [];
 
+  // Walkthrough, 2026-10-04: an unpaid invoice was labelled "harmful
+  // communications/harassment" because the user sent reminder TEXTS and
+  // EMAILS. How people communicate is not what the dispute is about, so the
+  // medium words ("messages", "texts", "email", "posted", "spread") are gone;
+  // only words that name the harm itself remain.
   if (
     text.includes("defamation") ||
+    text.includes("defamed") ||
     text.includes("reputation") ||
     text.includes("false statement") ||
-    text.includes("false statements") ||
+    text.includes("slander") ||
+    text.includes("libel") ||
     text.includes("rumor") ||
     text.includes("rumour") ||
-    text.includes("posted") ||
-    text.includes("called me") ||
-    text.includes("spread")
+    text.includes("lies about me")
   ) {
     issues.push("defamation-reputation");
   }
@@ -281,10 +286,8 @@ function inferIssuesFromStory(input: SmallClaimsIntelligenceInput): SmallClaimsI
   if (
     text.includes("harass") ||
     text.includes("threat") ||
-    text.includes("messages") ||
-    text.includes("texts") ||
-    text.includes("email") ||
-    text.includes("social media")
+    text.includes("intimidat") ||
+    text.includes("stalk")
   ) {
     issues.push("harassment-communications");
   }
@@ -346,8 +349,12 @@ function inferStage(input: SmallClaimsIntelligenceInput): UniversalStage {
   if (input.filedDocuments.includes("enforcement-documents")) return "enforcement";
   if (input.filedDocuments.includes("plaintiffs-claim")) return "already-started";
 
+  // "i was served a plaintifs claim" (walkthrough, 2026-10-04) previewed as
+  // "starting case": only "served with a claim" was recognised.
+  const servedAsDefendant = /\b(i|we)\s+(was|were|have been|got|just got)\s+served\b/.test(text);
   if (
     input.filedDocuments.includes("defence") ||
+    servedAsDefendant ||
     text.includes("served with a claim") ||
     text.includes("defendant") ||
     text.includes("responding") ||
