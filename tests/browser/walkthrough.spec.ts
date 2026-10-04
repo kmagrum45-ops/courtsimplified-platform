@@ -62,9 +62,8 @@ async function passGate(page: Page, persona: Persona, steps: Step[]) {
   await expect(province).toBeVisible({ timeout: 90_000 });
   await province.selectOption("Ontario");
   await page.getByLabel("City or municipality").fill(persona.city);
-  if (persona.path !== "small-claims") {
-    await page.getByLabel("Tell us what happened in your own words").fill(persona.story);
-  }
+  // The builder's own gate no longer asks for the story (second run,
+  // 2026-10-04: family and civil timed out here); it is entered in the intake.
   const button =
     persona.path === "small-claims"
       ? page.getByRole("button", { name: "Continue", exact: true })
@@ -97,6 +96,13 @@ async function runSpellingCheck(page: Page, persona: Persona, steps: Step[]) {
 async function familyOrCivil(page: Page, persona: Persona, steps: Step[]) {
   await expect(page.getByLabel("Case stage").first()).toBeVisible({ timeout: 60_000 });
   await capture(page, persona, steps, "intake-form");
+
+  // The story: shown as prose with an "Edit case story" toggle.
+  const storyField = page.getByLabel("Case story", { exact: true });
+  if (!(await storyField.isVisible().catch(() => false))) {
+    await page.getByRole("button", { name: "Edit case story" }).click();
+  }
+  await storyField.fill(persona.story);
 
   if (persona.path === "family") {
     await page.getByTestId("family-role-select").selectOption(persona.role);
