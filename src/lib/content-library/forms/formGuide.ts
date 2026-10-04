@@ -28,6 +28,7 @@
  */
 
 import index from "./formRuleIndex.json";
+import officialLinks from "./officialFormLinks.json";
 import { FORM_SUMMARIES, normalizeFormNumber } from "./formSummaries";
 
 export { normalizeFormNumber };
@@ -62,7 +63,29 @@ export type FormGuideEntry = {
   officialFormsPage: string;
   /** Date the index was generated from the regulation text. */
   verifiedAt: string;
+  /**
+   * The form itself, as the official Ontario Court Forms site lists it today:
+   * its version date and direct PDF and Word links (2026-10-04). Read from
+   * the site by scripts/forms/fetchOfficialFormLinks.ts, never constructed —
+   * the file names are dated and cannot be guessed. Null where the site does
+   * not list the form, or offers only one format.
+   */
+  official: { date: string; pdf: string | null; docx: string | null; fetchedAt: string } | null;
 };
+
+type OfficialLinksFile = {
+  fetchedAt: string;
+  forms: { court: FormCourt; number: string; date: string; pdf: string | null; docx: string | null }[];
+};
+
+const OFFICIAL = officialLinks as OfficialLinksFile;
+
+/** "8.0.1" and "8.01" are the same form written two ways (the site uses the second). */
+function linkKey(court: string, number: string): string {
+  return `${court}:${normalizeFormNumber(number).replace(/\.0\./g, ".0")}`;
+}
+
+const OFFICIAL_BY_KEY = new Map(OFFICIAL.forms.map((form) => [linkKey(form.court, form.number), form]));
 
 type IndexFile = {
   generatedAt: string;
@@ -112,6 +135,10 @@ function build(): Record<FormCourt, FormGuideEntry[]> {
         regulation: { citation: source.citation, url: source.url },
         officialFormsPage: source.formsPage,
         verifiedAt: INDEX.generatedAt,
+        official: (() => {
+          const found = OFFICIAL_BY_KEY.get(linkKey(court, form.number));
+          return found ? { date: found.date, pdf: found.pdf, docx: found.docx, fetchedAt: OFFICIAL.fetchedAt.slice(0, 10) } : null;
+        })(),
       }));
   }
   return out;
