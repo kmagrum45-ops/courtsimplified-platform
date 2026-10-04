@@ -43,6 +43,10 @@
     "test:exported-document": "node --import tsx scripts/verification/verifyExportedDocument.ts",
     "test:family-forms": "node --import tsx scripts/verification/verifyFamilyForms.ts",
     "test:family-no-scores": "node --import tsx scripts/verification/verifyFamilyNoScores.ts",
+    "test:family-role": "node --import tsx scripts/verification/verifyFamilyRoleNormalizer.ts",
+    "test:tidy-wording": "node --import tsx scripts/verification/verifyTidyWording.ts",
+    "walkthrough": "playwright test tests/browser/walkthrough.spec.ts --workers=1",
+    "walkthrough:critique": "node --import tsx scripts/walkthrough/critique.ts",
     "test:fixture-guards": "node --import tsx scripts/verification/verifyFixtureHarnessGuards.ts",
     "test:fixtures": "node --import tsx scripts/verification/runFixtures.ts",
     "test:amount-consistency": "node --import tsx scripts/verification/verifyAmountConsistency.ts",
@@ -165,7 +169,9 @@
     "test:workspace-ai-flag": "node --import tsx scripts/verification/verifyWorkspaceAiFlag.ts",
     "test:workspace-export": "node --import tsx scripts/verification/verifyWorkspaceExport.ts",
     "test:check-oracles": "node --import tsx scripts/verification/verifyCheckOracles.ts",
-    "test:workspace-rls": "node --import tsx scripts/verification/verifyWorkspaceRls.ts"
+    "test:workspace-rls": "node --import tsx scripts/verification/verifyWorkspaceRls.ts",
+    "test:rls-matrix": "node scripts/verification/verifyRlsMatrix.mjs",
+    "test:rls-matrix-catches": "node scripts/verification/verifyRlsMatrixCatches.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

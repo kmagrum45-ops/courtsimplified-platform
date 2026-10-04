@@ -48,6 +48,10 @@ test.describe("child support — the common case", () => {
       story:
         "The other parent has not paid anything towards our two children since we separated.",
     });
+    // The child-support screens show only once child support is a chosen
+    // issue (2026-10-04) — they used to show on every family case.
+    await page.getByTestId("family-issue-child-support").click();
+
 
     const screen = page.getByTestId("child-support-intake");
     await expect(screen).toBeVisible({ timeout: 60_000 });

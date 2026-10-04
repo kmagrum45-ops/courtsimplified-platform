@@ -42,6 +42,22 @@ function textField(intake: StoredCaseData | null, field: string): string {
 
 function displayStage(stage: string): string { return stage.replace(/-/g, " "); }
 
+/**
+ * The side as the user would say it. Family stores the raw answer to "Who
+ * started the court case?" ("respondent"), which read as a code on the
+ * overview. "not-sure" says nothing, so the row is left out.
+ */
+function displayRole(role: string): string {
+  const known: Record<string, string> = {
+    applicant: "Applicant — you started, or plan to start, the case",
+    respondent: "Respondent — the other person started the case",
+    plaintiff: "Plaintiff — you are bringing the claim",
+    defendant: "Defendant — you are responding to a claim",
+    "not-sure": "",
+  };
+  return role in known ? known[role] : role;
+}
+
 function documentLabel(document: string): string {
   return ({
     "plaintiffs-claim": "Plaintiff’s Claim filed and served",
@@ -299,7 +315,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
     ["Court", analysis.courtPath === "small-claims" ? "Small Claims Court" : analysis.courtPath === "family" ? "Family" : "Civil (Superior Court)"],
     ...(confirmedClaimTypeName ? ([["Kind of claim you confirmed", confirmedClaimTypeName]] as Array<[string, string]>) : []),
     ...(parties ? ([["Parties recorded", parties]] as Array<[string, string]>) : []),
-    ...(role ? ([["Your role", role]] as Array<[string, string]>) : []),
+    ...(displayRole(role) ? ([["Your role", displayRole(role)]] as Array<[string, string]>) : []),
     ["Current stage", displayStage(analysis.caseStage)],
     ...(timeline ? ([["When (your words)", timeline]] as Array<[string, string]>) : []),
     ...(amount ? ([["Amount (your words)", formatRecordedAmount(amount)]] as Array<[string, string]>) : []),

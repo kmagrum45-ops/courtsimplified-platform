@@ -1,0 +1,121 @@
+name: CourtSimplified Page Walkthrough
+
+# Plays fabricated personas (family, civil and Small Claims, both sides) through
+# the real site in a browser, records what every page shows them, has a critic
+# review each journey, and publishes REPORT.md + PAGES.md + screenshots to the
+# `walkthrough-reports` branch. See tests/browser/walkthrough.spec.ts and
+# scripts/walkthrough/critique.ts.
+#
+# A review, not a gate: page problems never fail this workflow. It fails only
+# if it could not run, or if the database it would use is production.
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - app/**
+      - src/**
+      - tests/browser/walkthrough.spec.ts
+      - tests/browser/walkthrough/**
+      - scripts/walkthrough/**
+      - .github/workflows/courtsimplified-walkthrough.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: walkthrough
+  cancel-in-progress: true
+
+jobs:
+  walkthrough:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+      NEXT_TELEMETRY_DISABLED: 1
+      # Staging only. The repository's NEXT_PUBLIC_SUPABASE_* secrets point at
+      # PRODUCTION (found 2026-10-04 by the guard below), so the STAGING_*
+      # secrets are read first and the guard refuses production by ref.
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL || secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.STAGING_SUPABASE_PUBLISHABLE_KEY || secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.STAGING_SUPABASE_PUBLISHABLE_KEY || secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.STAGING_SUPABASE_SERVICE_ROLE_KEY || secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      # Audit rows go to a local file, never to a database.
+      AI_CALL_LOG: file
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Refuse a production database
+        run: node --import tsx scripts/walkthrough/guard.ts
+
+      # The site gate compares a cookie to SITE_ACCESS_PASSWORD. This run makes
+      # up its own, masked, used only by this job's own server.
+      - name: Site access password for this run only
+        run: |
+          pw="$(openssl rand -hex 24)"
+          echo "::add-mask::$pw"
+          echo "SITE_ACCESS_PASSWORD=$pw" >> "$GITHUB_ENV"
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build
+        run: npm run build
+
+      - name: Start the site
+        run: |
+          nohup npx next start -p 3100 > server.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -s -o /dev/null http://localhost:3100; then echo "up"; exit 0; fi
+            sleep 2
+          done
+          echo "server did not start"; tail -50 server.log; exit 1
+
+      - name: Walk every persona through the site
+        id: walk
+        continue-on-error: true
+        env:
+          PLAYWRIGHT_BASE_URL: http://localhost:3100
+        run: npx playwright test tests/browser/walkthrough.spec.ts --reporter=line --workers=1
+
+      - name: Critic review
+        run: node --import tsx scripts/walkthrough/critique.ts
+
+      - name: Publish to the walkthrough-reports branch
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          [ -d walkthrough-output ] || { echo "no output"; exit 0; }
+          out="$(mktemp -d)"
+          cp -r walkthrough-output/. "$out/"
+          cp server.log "$out/server.log" || true
+          echo "walk outcome: ${{ steps.walk.outcome }}" > "$out/OUTCOME.txt"
+          # A report branch, not the site: never let Vercel build it.
+          printf '{\n  "git": { "deploymentEnabled": false }\n}\n' > "$out/vercel.json"
+          cd "$out"
+          git init -q
+          git config user.name "walkthrough-bot"
+          git config user.email "walkthrough-bot@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Page walkthrough for ${GITHUB_SHA::7} (run ${GITHUB_RUN_ID})"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/walkthrough-reports
+          echo "Published to walkthrough-reports." >> "$GITHUB_STEP_SUMMARY"
+          [ -f REPORT.md ] && head -30 REPORT.md >> "$GITHUB_STEP_SUMMARY" || true

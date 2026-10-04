@@ -57,6 +57,11 @@ production is.
 
 ## Related
 
+- `RLS_GAP_ANALYSIS.md` — the 2026-10-02 attack matrix: every table, view, function
+  and the evidence bucket attacked as anon, two users and the service role, and the
+  five findings it reproduced. `npm run test:rls-matrix` re-runs it in ~20 seconds
+  with no secrets; CI runs it on every PR.
+
 - `DATA_FLOW_INVENTORY.md` — what personal data is collected, where it is
   stored, what leaves the system and to whom. Written for counsel.
 - `../OUTSTANDING_ISSUES.md` section 16 — the original anon-grant finding.
