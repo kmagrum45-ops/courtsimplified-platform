@@ -1091,7 +1091,6 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
               value: field.value,
               setValue: field.setter,
             })),
-            { key: "goal", label: "What you want the court to order", value: goal, setValue: setGoal },
           ]}
         />
 
