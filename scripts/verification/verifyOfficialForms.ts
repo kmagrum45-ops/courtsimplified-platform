@@ -16,6 +16,11 @@
  * formRuleIndex.json is in it (differences the official site itself has are
  * listed with a reason in KNOWN_SITE_GAPS).
  *
+ * Also covers rules:check's comparison (scripts/rules/checkCorpus.ts): its
+ * first scheduled run reported every source CHANGED over spacing, quotes and
+ * accents. A formatting-only difference must compare equal; a changed word
+ * must not.
+ *
  * Run: node --import tsx scripts/verification/verifyOfficialForms.ts
  */
 
@@ -23,6 +28,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import { parseFormsPage } from "../forms/fetchOfficialFormLinks";
+import { normalizeForCompare } from "../rules/checkCorpus";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -48,6 +54,13 @@ check("number, title and date are read", a?.number === "7A" && a.title === "Plai
 check("links are made absolute", a?.pdf === "https://ontariocourtforms.on.ca/static/media/uploads/courtforms/scc/07a/scr-7a-aug22-en-fil.pdf" && Boolean(a?.docx?.endsWith(".docx")));
 check("a decimal form number survives", parsed[1]?.number === "1A.1" && parsed[1].docx === null);
 
+{
+  const vendored = "9.01  A defendant who wishes to dispute a claim  shall,\n    within 20 days — after being served, file a defence. Défense";
+  const refetched = "9.01 A defendant who wishes to dispute a claim shall, within 20 days - after being served, file a defence. Defense";
+  check("rules:check ignores spacing, dashes and accents", normalizeForCompare(vendored) === normalizeForCompare(refetched));
+  check("rules:check still sees a changed word", normalizeForCompare(vendored) !== normalizeForCompare(refetched.replace("20 days", "30 days")));
+}
+
 /**
  * Forms the regulation lists that the official forms site does not offer,
  * each with why. Empty until the first recorded list shows any.
@@ -60,12 +73,11 @@ if (!existsSync(linksFile)) {
 } else {
   const links = JSON.parse(readFileSync(linksFile, "utf8")) as { forms: { court: string; number: string }[] };
   const index = JSON.parse(readFileSync(path.join(process.cwd(), "src/lib/content-library/forms/formRuleIndex.json"), "utf8")) as {
-    forms: { court: string; number: string; revoked: boolean }[];
+    forms: Record<string, { number: string; revoked: boolean }[]>;
   };
   const official = new Set(links.forms.map((f) => `${f.court}:${f.number}`));
-  const missing = index.forms
-    .filter((f) => !f.revoked)
-    .map((f) => `${f.court}:${f.number}`)
+  const missing = Object.entries(index.forms)
+    .flatMap(([court, list]) => list.filter((f) => !f.revoked).map((f) => `${court}:${f.number}`))
     .filter((key) => !official.has(key) && !(key in KNOWN_SITE_GAPS));
   check("every live form in the regulations has an official link", missing.length === 0, missing.join(", "));
 }

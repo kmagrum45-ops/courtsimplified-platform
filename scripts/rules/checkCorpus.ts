@@ -57,6 +57,26 @@ const CORPUS_DIR = path.join(ROOT, "docs", "sources", "corpus");
  * preamble and is kept under a "(preamble)" key so a change to the
  * consolidation header is still visible.
  */
+/**
+ * Text as it reads, for comparison. First scheduled run (2026-10-04): every
+ * source came back CHANGED, with every rule of O. Reg. 258/98 "changed",
+ * because a re-fetch differs from the vendored copy in spacing (antiword pads
+ * and re-wraps), curly vs straight quotes, dashes and the accents in French
+ * equivalents — none of it the law. Compare after folding those, so CHANGED
+ * means the words changed.
+ */
+export function normalizeForCompare(text: string): string {
+  return text
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[‘’‚‛′]/g, "'")
+    .replace(/[“”„‟″]/g, '"')
+    .replace(/[‐‑‒–—―]/g, "-")
+    .replace(/\u00a0/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export function splitByRule(text: string): Map<string, string> {
   const sections = new Map<string, string>();
   const lines = text.split("\n");
@@ -330,7 +350,12 @@ async function main(): Promise<void> {
       continue;
     }
 
-    if (sha256(fresh) === entry.sha256) {
+    const vendoredFile = path.join(CORPUS_DIR, entry.file);
+    const sameText =
+      sha256(fresh) === entry.sha256 ||
+      (existsSync(vendoredFile) &&
+        normalizeForCompare(readFileSync(vendoredFile, "utf8")) === normalizeForCompare(fresh));
+    if (sameText) {
       console.log("unchanged");
       continue;
     }
@@ -350,7 +375,9 @@ async function main(): Promise<void> {
 
     const changedRules: string[] = [];
     for (const rule of rules) {
-      if ((before.get(rule) ?? "") !== (after.get(rule) ?? "")) changedRules.push(rule);
+      if (normalizeForCompare(before.get(rule) ?? "") !== normalizeForCompare(after.get(rule) ?? "")) {
+        changedRules.push(rule);
+      }
     }
 
     if (changedRules.length > 0) {

@@ -120,8 +120,16 @@ async function main(): Promise<void> {
   });
 
   // Compare with the regulations' own tables of forms.
-  const index = JSON.parse(readFileSync(INDEX, "utf8")) as { forms: { court: Court; number: string; revoked: boolean }[] };
-  const regulation = new Set(index.forms.filter((f) => !f.revoked).map((f) => `${f.court}:${f.number}`));
+  // formRuleIndex.json keys its forms by court (first run, 2026-10-04, crashed
+  // reading it as an array).
+  const index = JSON.parse(readFileSync(INDEX, "utf8")) as {
+    forms: Record<Court, { number: string; revoked: boolean }[]>;
+  };
+  const regulation = new Set(
+    (Object.entries(index.forms) as [Court, { number: string; revoked: boolean }[]][]).flatMap(([court, list]) =>
+      list.filter((f) => !f.revoked).map((f) => `${court}:${f.number}`),
+    ),
+  );
   const official = new Set(forms.map((f) => `${f.court}:${f.number}`));
   const onSiteNotInRules = [...official].filter((k) => !regulation.has(k)).sort();
   const inRulesNotOnSite = [...regulation].filter((k) => !official.has(k)).sort();
