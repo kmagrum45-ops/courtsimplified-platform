@@ -66,7 +66,7 @@ export function ChildSupportTableCard() {
         How the table works
       </p>
       <h3 className="mt-1 text-lg font-bold text-[#10231f]">
-        The child support table is a formula, not a figure to look up
+        How a table amount is worked out: find the income row, then add the percentage
       </h3>
       <p className="mt-2 text-sm text-[#4f685f]">
         This explains how the table is built. It is not about your case, and no amount is
@@ -122,8 +122,10 @@ export function ChildSupportTableCard() {
         </blockquote>
         <p className="mt-3 text-sm text-[#4f685f]">
           It is where <strong>the person the order is sought against</strong> ordinarily
-          resides — not where the case is filed, not where the child lives, not where you live.
-          Paragraphs (c) and (d) go further: a court may use a different province&rsquo;s table
+          resides — not where the case is filed and not where the child lives. Your own residence
+          matters only if that person lives outside Canada or where they live is unknown: then the
+          Ontario table applies when you live in Ontario (paragraph (e)). Paragraphs (c) and (d) go
+          further: a court may use a different province&rsquo;s table
           where that residence has changed since the application, or will change in the near
           future.
         </p>

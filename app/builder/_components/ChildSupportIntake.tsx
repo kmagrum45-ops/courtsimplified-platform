@@ -255,9 +255,11 @@ export default function ChildSupportIntake() {
         <p className={HELP} data-testid="cs-residence-reason">
           This decides which table applies, so it is worth getting right. O. Reg. 391/97 s. 2 (1)
           selects the table for the province or territory where{" "}
-          <strong>the parent the order is sought against</strong> ordinarily resides — not where you
-          live, not where the children live, and not where the case is filed. If they live outside
-          Ontario, a different province&rsquo;s table applies.
+          <strong>the parent the order is sought against</strong> ordinarily resides — not where the
+          children live and not where the case is filed. If they live elsewhere in Canada, that
+          province&rsquo;s or territory&rsquo;s table applies. If they live outside Canada, or you do
+          not know where they live, the Ontario table applies when you live in Ontario
+          (s. 2 (1), &ldquo;table&rdquo;, (b) and (e)).
         </p>
         <input
           id="cs-respondent-address"
@@ -420,9 +422,14 @@ export default function ChildSupportIntake() {
           Which income documents do you already have? One per line.
         </label>
         <p className={HELP}>
-          O. Reg. 391/97 s. 21 (1) lists what has to go with the application, including income tax
-          returns and notices of assessment for the three most recent taxation years. Listing none
-          is a real answer — the application says so rather than leaving a blank.
+          Under O. Reg. 391/97 s. 21 (1), a parent applying for child support whose income
+          information is necessary to determine the amount must include with the application
+          their income tax returns and notices of assessment for the three most recent taxation
+          years, and the other documents the section lists. The parent served with the
+          application must provide the same documents, if their income information is necessary,
+          within 30 days after being served (60 days if they live outside Canada and the United
+          States) (s. 21 (2)). Listing none is a real answer — the application says so rather
+          than leaving a blank.
         </p>
         <textarea
           id="cs-documents"

@@ -9939,8 +9939,8 @@
   },
   {
    "id": "next:family:starting-case",
-   "verifiedAt": "2026-09-30",
-   "fingerprint": "b6dc21c0f4cbc6d292d9104e14378229f9fe18d2df69c63327ecbbb166538d71",
+   "verifiedAt": "2026-10-04",
+   "fingerprint": "0299a1b17244ab79322174fd7fb68314abad40fe68888020f8bf7d2beec16426",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
@@ -10011,6 +10011,16 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
      "pinpoint": "s.txt r. 13 (1.3)",
      "quote": "If the only claim for support contained in the application, answer or motion is a claim for child support in the amount specified in the table of the applicable child support guidelines, the party making the claim is not required to file a financial statement, unless the application, answer or motion also contains a property claim or a claim for exclusive possession of the matrimonial home and its contents."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+     "pinpoint": "r. 6 (4.1)",
+     "quote": "Subject to subrule (4.2), special service of the following documents shall be carried out by a person other than the party required to serve the document: 1. An application (Form 8, 8A, 8B, 8B.1, 8B.2, 8C, 8D, 8D.1, 33D.1, 34L or 34N)."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+     "pinpoint": "r. 6 (4.2)",
+     "quote": "Subrule (4.1) does not apply if, (a) the party required to serve the document or the person being served is a person referred to in clause 8 (6) (c) (officials, agencies, etc.); or (b) the court orders otherwise."
     }
    ],
    "independentReviews": [
@@ -10019,8 +10029,8 @@
   },
   {
    "id": "next:family:responding",
-   "verifiedAt": "2026-09-30",
-   "fingerprint": "c4d6ac842c0418e09ee389a0797b9ddac6cf4e9c2912c932d481b60ee56c7b0b",
+   "verifiedAt": "2026-10-04",
+   "fingerprint": "d07c59f08476afa12884c4c6d164263f4cd100aed87c22ec5021f747d4433a4d",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
@@ -10051,6 +10061,21 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
      "pinpoint": "r. 8.1 (7)",
      "quote": "A party shall not take any step in the case before his or her certificate of attendance is filed, except that a respondent may serve and file an answer and a party may make an appointment for a case conference."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+     "pinpoint": "r. 10 (4.1)",
+     "quote": "An answer containing a claim respecting decision-making responsibility, parenting time or contact with respect to a child shall be accompanied by the applicable documents referred to in rule 35.1."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+     "pinpoint": "r. 35.1 (1)",
+     "quote": "If an application, answer or motion to change a final order contains a claim respecting decision-making responsibility, parenting time or contact with respect to a child, the party making the claim shall serve and file with the document that contains the claim, (a) an affidavit in Form 35.1 and, if the child or any party to the case has been involved in a child protection case or has received services from a child protection agency, an affidavit in Form 35.1A; and"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+     "pinpoint": "r. 35.1 (6)",
+     "quote": "If these rules require a document to be accompanied by the applicable documents referred to in this rule, the clerk shall not accept the document for filing without,"
     }
    ],
    "independentReviews": [
@@ -10450,8 +10475,8 @@
   },
   {
    "id": "next:civil:starting-case",
-   "verifiedAt": "2026-09-30",
-   "fingerprint": "b16282c5767a199c11f22268cc86289bafbda0e3479c827dbff72b7dd2d46752",
+   "verifiedAt": "2026-10-04",
+   "fingerprint": "356046d40972f1b0f5fb6e16c14227570f25b4502d1ead901b114dbc8b173933",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
@@ -10507,6 +10532,11 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
      "pinpoint": "r. 76.02 (1) para 2 ii",
      "quote": "The fair market value of any real property and of any personal property, as at the date the action is commenced."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+     "pinpoint": "s. 1 (1)",
+     "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
     }
    ],
    "independentReviews": [
@@ -10515,8 +10545,8 @@
   },
   {
    "id": "next:civil:responding",
-   "verifiedAt": "2026-09-30",
-   "fingerprint": "b1ecd407ecf18a7d21a45bdb3320950fd5069bd8d07ed22378505b98bf3dcc83",
+   "verifiedAt": "2026-10-04",
+   "fingerprint": "94f62f593cde7ceb0f7fa212410cd21e0832735197ba7c0225bfdfb772b68459",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
@@ -10537,6 +10567,21 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
      "pinpoint": "r. 19.01 (5)",
      "quote": "A defendant may deliver a statement of defence at any time before being noted in default under this rule."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+     "pinpoint": "r. 19.01 (1)",
+     "quote": "Where a defendant fails to deliver a statement of defence within the prescribed time, the plaintiff may, on filing proof of service of the statement of claim, or of deemed service under subrule 16.01 (2), require the registrar to note the defendant in default."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+     "pinpoint": "r. 19.02 (1)",
+     "quote": "A defendant who has been noted in default, (a) is deemed to admit the truth of all allegations of fact made in the statement of claim; and (b) shall not deliver a statement of defence or take any other step in the action, other than a motion to set aside the noting of default or any judgment obtained by reason of the default, except with leave of the court or the consent of the plaintiff."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+     "pinpoint": "r. 3.01 (1) (a), (c)",
+     "quote": "(a) where there is a reference to a number of days between two events, they shall be counted by excluding the day on which the first event happens and including the day on which the second event happens, even if they are described as clear days or the words \"at least\" are used; ... (c) where the time for doing an act expires on a holiday, the act may be done on the next day that is not a holiday; and"
     }
    ],
    "independentReviews": [
