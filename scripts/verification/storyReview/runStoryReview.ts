@@ -65,7 +65,8 @@ import {
 import { selectCrossForumNotes } from "../../../src/lib/content-library/crossForumNotes";
 import { selectDepthQuestions } from "../../../src/lib/case-system/intake/depth/selectDepthQuestions";
 import { orchestrateDepthTurn } from "../../../src/lib/case-system/intake/depth/orchestrateDepthTurn";
-import type { ElementStateMap } from "../../../src/lib/case-system/intake/depth/elementStateMap";
+import { recordDepthAnswer, type ElementStateMap } from "../../../src/lib/case-system/intake/depth/elementStateMap";
+import { proposeDepthAnswersFromStory } from "../../../src/lib/case-system/intake/storyAnswerProposals";
 import { runCaseReview } from "../../../src/lib/case-system/caseReview/runCaseReview";
 import type { CaseReviewFinding, ConfirmedCaseFile } from "../../../src/lib/case-system/caseReview/caseReview";
 import { validateCaseStrengthLanguage } from "../../../src/lib/case-system/intelligence/caseStrengthLanguageValidator";
@@ -371,8 +372,28 @@ async function runOne(story: ReviewStory, apiKey: string, offline: boolean): Pro
       slotValues: {},
     });
     let stateMap: ElementStateMap = selection.stateMap;
-    for (let i = 0; i < selection.asked.length; i += 1) {
-      const item = selection.asked[i];
+    // As the depth route now does (2026-10-04): questions the user's own
+    // words already answer are proposed with a quote, and this reviewer
+    // confirms them as a user would; only the rest are asked.
+    const confirmedIds = new Set<string>();
+    if (!offline && selection.asked.length > 0) {
+      const depthStory = userTextsFrom(story.story, typed, facts).join("\n\n");
+      const proposals = await proposeDepthAnswersFromStory(
+        depthStory,
+        selection.asked.map((item) => ({ id: item.question.id, text: item.renderedText, examples: item.question.examples })),
+        apiKey,
+      ).catch(() => []);
+      for (const proposal of proposals) {
+        const item = selection.asked.find((candidate) => candidate.question.id === proposal.questionId);
+        if (!item) continue;
+        run.shown.push({ stage: "proposal", id: proposal.questionId, text: `${proposal.questionText} -> ${proposal.answer} ("${proposal.storyQuote}")` });
+        stateMap = recordDepthAnswer(stateMap, { elementId: item.elementId, questionId: item.question.id, answerText: proposal.answer });
+        confirmedIds.add(proposal.questionId);
+      }
+    }
+    const stillAsked = selection.asked.filter((item) => !confirmedIds.has(item.question.id));
+    for (let i = 0; i < stillAsked.length; i += 1) {
+      const item = stillAsked[i];
       run.depthAsked.push({ id: item.question.id, text: item.renderedText });
       run.shown.push({ stage: "depth", id: item.question.id, text: item.renderedText });
       if (offline) continue;
@@ -381,7 +402,7 @@ async function runOne(story: ReviewStory, apiKey: string, offline: boolean): Pro
         answeredQuestion: item,
         answerText: answer,
         stateMap,
-        nextQuestion: selection.asked[i + 1],
+        nextQuestion: stillAsked[i + 1],
         apiKey,
         facts: facts as Record<string, string | number | boolean>,
       });
