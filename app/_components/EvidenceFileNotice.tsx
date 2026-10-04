@@ -58,13 +58,14 @@ export default function EvidenceFileNotice() {
       className="mt-3 rounded-2xl border border-[#ead9a7] bg-[#fffaf0] p-4"
     >
       <p className="text-sm font-semibold text-[#10231f]">
-        Your files are not uploaded, saved or stored.
+        This list does not upload your files.
       </p>
 
       <p className="mt-2 text-sm leading-6 text-[#6e5726]">
-        The file itself never leaves your device and is not kept anywhere. Keep
-        your own copy of every document — this is a list, not a place to store
-        evidence.
+        Here you only list your documents: the file itself stays on your device.
+        Once your case is saved, you can upload copies in &ldquo;Add your documents
+        and photos&rdquo;, where they are stored privately with your case. Keep your
+        own copy of every document either way.
       </p>
 
       <p className="mt-3 text-sm font-semibold text-[#10231f]">

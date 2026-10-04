@@ -119,8 +119,9 @@ export default function EvidenceUploadCard({ caseId }: { caseId: string | null }
       <h2 className="text-xl font-bold text-[#10231f]">Add your documents and photos</h2>
       <p className="mt-2 text-sm text-[#4d675f]">
         Receipts, photos, messages, invoices, contracts: anything that shows what happened. You can add
-        PDFs, pictures and Word files, up to 25 MB each. They are stored with your case and only you can
-        see them.
+        PDFs, pictures and Word files, up to 25 MB each. Files you add here are uploaded and stored
+        privately with your case, and only you can see them. (The document list in the intake did not
+        upload anything; this is where files are actually saved.)
       </p>
 
       {!caseId ? (
