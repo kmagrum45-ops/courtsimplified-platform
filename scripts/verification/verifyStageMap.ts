@@ -36,6 +36,7 @@ import path from "node:path";
 
 import {
   CASE_STAGES,
+  ALL_STAGES,
   claimBarringDeadlines,
   isSpecialStage,
   type CaseStage,
@@ -89,7 +90,7 @@ for (const file of readdirSync(CORPUS_DIR)) {
  * this codebase without being verified, because there is nowhere else to put
  * one.
  */
-const allCitations = Object.values(CITATIONS).filter(
+const exportedCitations = Object.values(CITATIONS).filter(
   (value): value is RuleCitation =>
     typeof value === "object" &&
     value !== null &&
@@ -97,9 +98,22 @@ const allCitations = Object.values(CITATIONS).filter(
     "pinpoint" in value &&
     "sourceId" in value,
 );
+// Every citation any stage uses is checked too, wherever it is declared — the
+// civil and family maps keep their citations beside their stages.
+const allCitations = [
+  ...new Map(
+    [
+      ...exportedCitations,
+      ...ALL_STAGES.flatMap((stage) => [
+        ...stage.rules,
+        ...stage.deadlines.flatMap((d) => [d.rule, d.computation, ...d.exceptions]),
+      ]),
+    ].map((c) => [`${c.sourceId}|${c.pinpoint}|${c.quote}`, c]),
+  ).values(),
+];
 
 const reachedByStages = new Set(
-  CASE_STAGES.flatMap((stage) => [
+  ALL_STAGES.flatMap((stage) => [
     ...stage.rules,
     ...stage.deadlines.flatMap((d) => [d.rule, d.computation, ...d.exceptions]),
   ]).map((c) => `${c.sourceId} ${c.pinpoint}`),
@@ -138,12 +152,12 @@ for (const citation of allCitations) {
 // ---------------------------------------------------------------------------
 
 const ids = new Set<string>();
-for (const stage of CASE_STAGES) {
+for (const stage of ALL_STAGES) {
   if (ids.has(stage.id)) fail(`duplicate stage id: ${stage.id}`);
   ids.add(stage.id);
 }
 
-for (const stage of CASE_STAGES) {
+for (const stage of ALL_STAGES) {
   if (isSpecialStage(stage.id)) continue;
 
   if (stage.distinguishedFrom.length === 0) {
@@ -177,9 +191,26 @@ for (const stage of CASE_STAGES) {
 // 3. Deadlines: counted under a regime, and bars carry their exceptions
 // ---------------------------------------------------------------------------
 
-for (const stage of CASE_STAGES) {
+for (const stage of ALL_STAGES) {
   for (const deadline of stage.deadlines) {
-    if (deadline.regime === "small-claims-rules") {
+    if (deadline.regime === "civil-rules" || deadline.regime === "family-rules") {
+      // Each court's rules count time for that court's rules and nothing else.
+      const wanted =
+        deadline.regime === "civil-rules" ? "rules-of-civil-procedure" : "family-law-rules";
+      if (deadline.computation.sourceId !== wanted) {
+        fail(
+          `${deadline.id}: counted under ${deadline.regime} but the computation provision ` +
+            `comes from ${deadline.computation.sourceId}, not ${wanted}.`,
+        );
+      }
+      const pathway = stage.pathway ?? "small-claims";
+      if ((deadline.regime === "civil-rules") !== (pathway === "civil") && deadline.regime === "civil-rules") {
+        fail(`${deadline.id}: a civil-rules deadline on a ${pathway} stage.`);
+      }
+      if (deadline.regime === "family-rules" && pathway !== "family") {
+        fail(`${deadline.id}: a family-rules deadline on a ${pathway} stage.`);
+      }
+    } else if (deadline.regime === "small-claims-rules") {
       // The rules regime means "counted under court rules, Saturday a holiday".
       // A Small Claims appeal is started under the Rules of Civil Procedure
       // (r. 61.04), whose holiday definition (r. 1.03) is word-for-word the Small

@@ -110,8 +110,15 @@ export type DeadlineInput = {
   direction?: "after" | "before";
 };
 
-const holidayRegime = (regime: CountingRegime): HolidayRegime =>
-  regime === "small-claims-rules" ? "small-claims-rules" : "legislation-act";
+const holidayRegime = (regime: CountingRegime): HolidayRegime => {
+  // Civil and family periods are never computed (computedDeadline.ts skips
+  // them): the working below cites Small Claims and Legislation Act provisions,
+  // which would be the wrong citations for those courts.
+  if (regime === "civil-rules" || regime === "family-rules") {
+    throw new Error(`regime ${regime} is shown as a period and is not computed`);
+  }
+  return regime === "small-claims-rules" ? "small-claims-rules" : "legislation-act";
+};
 
 /** The provision that says to exclude the first day and include the last. */
 function countingRule(regime: CountingRegime): RuleCitation {
@@ -164,6 +171,7 @@ function addYears(from: IsoDate, years: number): { date: IsoDate; leapAdjusted: 
 
 export function computeDeadline(input: DeadlineInput): DeadlineResult {
   const { from, length, regime } = input;
+  holidayRegime(regime); // throws for civil-rules and family-rules: never computed here
 
   /*
    * *** A PERIOD OF ZERO IS NOT A PERIOD ***

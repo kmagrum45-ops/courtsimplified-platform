@@ -46,12 +46,15 @@ export async function POST(request: Request) {
   }
 
   /*
-   * The stored court path is the scope verdict. Only a case whose path is
-   * Small Claims gets Small Claims guidance; anything else is refused by the
-   * render door's forum gate, exactly as a model-resolved stage would be.
+   * The stored court path is the scope verdict. A case gets only its own
+   * court's guidance; a stage from another court is refused by the render
+   * door's forum gate, exactly as a model-resolved stage would be.
    */
-  const scope =
-    body.courtPath === "small-claims" ? { primaryPath: "small-claims", confidence: 1 } : null;
+  const courtPath =
+    body.courtPath === "small-claims" || body.courtPath === "civil" || body.courtPath === "family"
+      ? body.courtPath
+      : null;
+  const scope = courtPath ? { primaryPath: courtPath, confidence: 1 } : null;
 
   const facts: Record<string, string> = {};
   if (body.confirmedFacts && typeof body.confirmedFacts === "object") {

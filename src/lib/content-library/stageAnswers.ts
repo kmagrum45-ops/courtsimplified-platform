@@ -218,7 +218,7 @@ export function renderDeadlineSection(
     countFrom: string;
     length: { unit: "days" | "months" | "years"; count: number };
     direction?: "after" | "before";
-    regime?: "small-claims-rules" | "legislation-act";
+    regime?: "small-claims-rules" | "legislation-act" | "civil-rules" | "family-rules";
     consequence?: "bars-the-claim" | "changes-what-happens-next";
     actor?: "reader" | "other-party" | "court";
     qualifier?: string;
@@ -227,11 +227,19 @@ export function renderDeadlineSection(
   // count === 0 marks a period the rule declines to fix — r. 11.06's "as soon
   // as is reasonably possible". Saying "you have 0 days" would be a lie, and a
   // frightening one.
+  //
+  // 2026-10-01: such a deadline used to render NOTHING, so "serve it forthwith"
+  // and "as soon as reasonably possible" never reached the deadline section the
+  // reader looks at first. It now renders its own words and qualifier, with no
+  // number — still never "0 days".
   const fixed = deadlines.filter((deadline) => deadline.length.count > 0);
-  if (fixed.length === 0) return null;
+  if (deadlines.length === 0) return null;
 
-  return fixed
+  return deadlines
     .map((deadline) => {
+      if (deadline.length.count === 0) {
+        return `${deadline.what}.${deadline.qualifier ? ` ${deadline.qualifier}` : ""}`;
+      }
       const period = `${deadline.length.count} ${
         deadline.length.count === 1
           ? deadline.length.unit.replace(/s$/, "")
@@ -277,8 +285,41 @@ function weekendWarningFor(
     (deadline) =>
       deadline.regime === "legislation-act" && deadline.consequence === "bars-the-claim",
   );
-  return statutoryBar ? `\n\n${STATUTORY_WEEKEND_WARNING}` : "";
+  const civil = deadlines.some((deadline) => deadline.regime === "civil-rules");
+  const family = deadlines.some((deadline) => deadline.regime === "family-rules");
+  return (
+    (statutoryBar ? `\n\n${STATUTORY_WEEKEND_WARNING}` : "") +
+    (civil ? `\n\n${CIVIL_RULES_COUNTING}` : "") +
+    (family ? `\n\n${FAMILY_RULES_COUNTING}` : "")
+  );
 }
+
+/*
+ * 2026-10-01, with the civil and family maps. The only counting paragraph was
+ * the Legislation Act one, which says a Saturday does NOT move a deadline —
+ * the opposite of the court rules, where Saturday is a holiday. A civil or
+ * family reader needs their own court's rule, stated once.
+ */
+const CIVIL_RULES_COUNTING =
+  "Times set by the Rules of Civil Procedure are counted under those rules. The first day " +
+  "is not counted. If a time counted forward ends on a Saturday, Sunday or holiday, it " +
+  "ends on the next day that is not a holiday (r. 3.01 (1) (c)). For a time that must be " +
+  "met a number of days before a date, the safe course is to act by the last day before it " +
+  "that is not a holiday. For a period of seven " +
+  "days or less, holidays are not counted at all (r. 3.01 (1) (b)). Except for the " +
+  "document that starts a case, a document served after 4 p.m. or on a holiday counts as " +
+  "served on the next day that is not a holiday (r. 3.01 (1) (d)). Times set by a statute " +
+  "are counted differently, as stated beside them.";
+
+const FAMILY_RULES_COUNTING =
+  "Times set by the Family Law Rules are counted under those rules. The first day is the " +
+  "day after the event (r. 3 (1)). If the last day of a period falls on a day court " +
+  "offices are closed, the period ends on the next day they are open (r. 3 (3)). For a " +
+  "time that must be met a number of days before a date, the rules do not clearly say how " +
+  "this applies, so the safe course is to act by the last open day before it. For a period of less than " +
+  "seven days, Saturdays, Sundays and other days when all court offices are closed are not " +
+  "counted (r. 3 (2)). Times set by a statute are counted differently, as stated beside " +
+  "them.";
 
 /** The prose a user reads, in order. Used by the readability and guard checks. */
 /**

@@ -1690,6 +1690,7 @@ function BuilderPageContent() {
               onConfirm={setConfirmedStage}
             />
 
+            {/* Civil and family join once their reviewed answers are published. */}
             {confirmedStage && courtPath === "small-claims" ? (
               <StageAnswerPanel courtPath={courtPath} />
             ) : null}

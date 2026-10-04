@@ -1,11 +1,11 @@
 {
   "release": {
-    "runId": "run-13",
+    "runId": "run-14",
     "model": "claude-opus-5-5 (authored from the saved sources; six rounds of independent review)",
-    "promotedAt": "2026-10-01T15:15:00.478Z",
+    "promotedAt": "2026-10-02T03:39:32.708Z",
     "corpusGeneratedAt": "2026-09-27T00:45:24.224Z",
     "blockCount": 35,
-    "contentHash": "3c43c815"
+    "contentHash": "2d4d9f26"
   },
   "blocks": [
     {
@@ -3645,7 +3645,7 @@
       "userQuestion": "There is a judgment against me and I never knew about the case — what can I do?",
       "whatsHappening": "A default judgment has been signed against you after no defence was filed. The clerk must serve it on you by mail or email. A plaintiff can start steps to enforce a judgment as soon as it is given. The court can set aside a default judgment and any steps taken to enforce it. The court may also stay enforcement of the judgment, for a time and on terms that are just.",
       "whatToDoNext": "You can ask by motion to set aside the judgment, using a Notice of Motion and Supporting Affidavit [Form 15A]. In it, you explain what your defence is and why you did not file it in time. Even if you were deemed served, the motion can show the claim never reached you, or reached you later. The fee to file a notice of motion is $127. If all parties agree, you can file a Request for Clerk's Order on Consent [Form 11.2A] instead.",
-      "yourDeadline": null,
+      "yourDeadline": "Bring a motion to set aside. The rule sets no fixed number of days: the motion must be made as soon as is reasonably possible in all the circumstances.",
       "whatHappensAfter": "You get a hearing date from the clerk, serve all parties at least 7 days before it, and file the motion with proof of service at least 3 days before. The court may set the judgment aside on just terms if it finds a meritorious defence, a reasonable explanation for the default, and a motion made as soon as reasonably possible. A clerk's order can set aside only listed enforcement steps not yet done, and a copy is filed at each court where they were requested. If the judgment is set aside, you will need to file a Defence [Form 9A].",
       "slots": [],
       "citations": [
