@@ -840,7 +840,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
             Location confirmed on Home
           </h3>
           <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-            Canonical intake context: {location.province}, {location.city}.
+            Location: {location.city}, {location.province}.
           </p>
         </div>
 

@@ -151,7 +151,7 @@ test("Small Claims: one story reaches reviewable intake", async ({ page }) => {
     await expect(page.getByText(narrative, { exact: true })).toBeVisible({
       timeout: 8_000,
     });
-    await expect(page.getByText("Canonical intake context: Ontario, Toronto.")).toBeVisible();
+    await expect(page.getByText("Location: Toronto, Ontario.")).toBeVisible();
   });
 });
 
@@ -189,7 +189,7 @@ test("Home court cards lead directly to their selected structured intake", async
     else await expect(page.getByText(journey.heading, { exact: true })).toBeVisible();
     await expect(page.getByLabel("Tell us what happened in your own words")).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Edit case story" })).toBeVisible();
-    await expect(page.getByText("Canonical intake context: Ontario, Toronto.")).toBeVisible();
+    await expect(page.getByText("Location: Toronto, Ontario.")).toBeVisible();
     await expect(page.getByText("AI Case Partner", { exact: true })).toHaveCount(0);
   }
 });

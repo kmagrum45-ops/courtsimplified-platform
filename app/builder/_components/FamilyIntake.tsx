@@ -769,7 +769,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
       <div className="mt-6 grid gap-5">
         <div className="rounded-3xl border border-[#cde7dc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">Location confirmed on Home</h3>
-          <p className="mt-2 text-sm text-[#4d675f]">Canonical intake context: {province}, {city}.</p>
+          <p className="mt-2 text-sm text-[#4d675f]">Location: {city}, {province}.</p>
         </div>
         <label className="block">
           <span className="font-semibold text-[#16302b]">Who started the court case?</span>

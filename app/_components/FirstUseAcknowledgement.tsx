@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 import { supabase } from "@/src/lib/supabase/client";
 import {
-  ACKNOWLEDGEMENT_KEY,
   readAcknowledgement,
   writeAcknowledgement,
 } from "@/src/lib/content-library/acknowledgement";
@@ -134,8 +133,7 @@ export default function FirstUseAcknowledgement({
       </button>
 
       <p className="mt-3 text-xs leading-5 text-[#6b8078]">
-        Recorded on this device with the date and time. Storage key:{" "}
-        <code>{ACKNOWLEDGEMENT_KEY}</code>
+        Your agreement is recorded on this device with the date and time.
       </p>
     </section>
   );
