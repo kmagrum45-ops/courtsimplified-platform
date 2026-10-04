@@ -189,6 +189,9 @@ function main(): void {
     "src/lib/case-system/chat/libraryChat.ts",
     "src/lib/case-system/intake/storyAnswerProposals.ts",
     "src/lib/case-system/stage-map/resolveCasePosition.ts",
+    // Added 2026-10-04: spelling suggestions for the user's own words. JSON
+    // output, validated field by field in code before anything is shown.
+    "src/lib/case-system/intake/tidyWording.ts",
   ];
 
   for (const file of callSites) {

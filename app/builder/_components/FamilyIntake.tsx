@@ -26,6 +26,7 @@ import {
   readSelectedFiles,
 } from "../../../src/lib/case-system/evidence/evidenceReference";
 import EvidenceFileNotice from "../../_components/EvidenceFileNotice";
+import TidyWordingReview from "./TidyWordingReview";
 import {
   consumeNarrativePrefill,
   directPrefillValues,
@@ -44,7 +45,7 @@ type FiledDocument =
   | "nothing"
   | "not-sure";
 
-type FamilyIssue =
+export type FamilyIssue =
   | "decision-making-responsibility"
   | "parenting-time"
   | "child-support"
@@ -86,8 +87,20 @@ type EvidenceFile = {
   relevance: string;
 };
 
+export type FamilyRole = "applicant" | "respondent" | "not-sure";
+
+/**
+ * What the rest of the builder needs to know about this case before analysis:
+ * which issues the user chose, and which side they are on. Lifted to the page
+ * so surfaces outside this component (the child-support draft) show only for
+ * the cases they fit. Added 2026-10-04: the child-support Form 8 draft was
+ * shown on every family case, including a served father's custody case.
+ */
+export type FamilyScope = { issues: FamilyIssue[]; role: FamilyRole };
+
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
+  onScopeChange?: (scope: FamilyScope) => void;
   location: { province: "Ontario"; city: string };
   initialStory: string;
 };
@@ -100,7 +113,9 @@ type TextareaField = {
 };
 
 const filedOptions: { value: FiledDocument; label: string }[] = [
-  { value: "application", label: "Application already filed / served" },
+  // Was "Application already filed / served", which did not say by whom, and
+  // whose word "served" made the role guesser call an applicant a respondent.
+  { value: "application", label: "Application filed (by either person)" },
   { value: "answer", label: "Answer / response already filed" },
   { value: "financial-statement", label: "Financial statement already completed" },
   { value: "affidavit", label: "Affidavit already prepared" },
@@ -222,7 +237,7 @@ function buildCompactFamilyPayload(
 }
 
 
-export default function FamilyIntake({ onComplete, location, initialStory }: Props) {
+export default function FamilyIntake({ onComplete, onScopeChange, location, initialStory }: Props) {
   const [editingStory, setEditingStory] = useState(false);
   const [initialPrefill] = useState<NarrativePrefill | null>(() =>
     consumeNarrativePrefill({
@@ -236,10 +251,22 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
   const [caseStage, setCaseStage] = useState<UniversalStage>(
     () => initialValues.caseStage ? initialValues.caseStage as UniversalStage : "not-sure",
   );
+  // Which side the user is on, ASKED — never guessed from keywords. A role read
+  // from the story ("I was served") only pre-selects the answer the user sees.
+  const [yourRole, setYourRole] = useState<FamilyRole>(() => {
+    const prefilled = String(initialValues.yourRole || "").toLowerCase();
+    if (prefilled.includes("respondent")) return "respondent";
+    if (prefilled.includes("applicant")) return "applicant";
+    return "not-sure";
+  });
   const [filedDocuments, setFiledDocuments] = useState<FiledDocument[]>(
     () => Array.isArray(initialValues.documentStatus) ? ["application"] : [],
   );
   const [issues, setIssues] = useState<FamilyIssue[]>([]);
+
+  React.useEffect(() => {
+    onScopeChange?.({ issues, role: yourRole });
+  }, [issues, yourRole, onScopeChange]);
 
   const [yourName, setYourName] = useState(() => String(initialValues.yourName || ""));
   const province = location.province;
@@ -529,6 +556,7 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
       const narrative = buildNarrative();
       const familyInput: FamilyMasterCaseInput = {
         caseStage,
+        role: yourRole,
         issues: issues.map(labelForIssue),
         filedDocuments: filedDocuments.map(labelForFiledDocument),
         yourName,
@@ -614,6 +642,7 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
           authenticated: body.authenticated === true,
           completedAt: new Date().toISOString(),
         },
+        yourRole,
         filedDocuments,
         filedDocumentLabels: filedDocuments.map(labelForFiledDocument),
         issues,
@@ -742,6 +771,21 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
           <h3 className="text-lg font-bold text-[#10231f]">Location confirmed on Home</h3>
           <p className="mt-2 text-sm text-[#4d675f]">Canonical intake context: {province}, {city}.</p>
         </div>
+        <label className="block">
+          <span className="font-semibold text-[#16302b]">Who started the court case?</span>
+          <select
+            aria-label="Who started the court case?"
+            data-testid="family-role-select"
+            value={yourRole}
+            onChange={(e) => setYourRole(e.target.value as FamilyRole)}
+            className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-white px-4 py-3"
+          >
+            <option value="not-sure">Not sure</option>
+            <option value="applicant">I started it, or I plan to start it (applicant)</option>
+            <option value="respondent">The other person started it and I was served (respondent)</option>
+          </select>
+        </label>
+
         <label className="block">
           <span className="font-semibold text-[#16302b]">Case stage</span>
           <select
@@ -1035,6 +1079,19 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
             placeholder="Example: Case conference on June 15, 2026"
           />
         </label>
+
+        <TidyWordingReview
+          fields={[
+            { key: "facts", label: "Your story", value: facts, setValue: setFacts },
+            ...textareaFields.map((field) => ({
+              key: field.label,
+              label: field.label,
+              value: field.value,
+              setValue: field.setter,
+            })),
+            { key: "goal", label: "What you want the court to order", value: goal, setValue: setGoal },
+          ]}
+        />
 
         <button
           type="button"

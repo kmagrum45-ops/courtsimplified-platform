@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import FamilyIntake from "./_components/FamilyIntake";
+import FamilyIntake, { type FamilyScope } from "./_components/FamilyIntake";
 import { ChildSupportTableCard } from "./_components/ChildSupportTableCard";
 import ChildSupportIntake from "./_components/ChildSupportIntake";
 import SmallClaimsIntake, {
@@ -313,6 +313,9 @@ function BuilderPageContent() {
    * again and teaches them the answers do not stick.
    */
   const [triageState, setTriageState] = useState<FamilyTriageState>(emptyTriageState);
+  // Issues and side from the family intake (or the saved case). Decides
+  // whether the child-support draft fits this case at all.
+  const [familyScope, setFamilyScope] = useState<FamilyScope | null>(null);
   const [masterCaseId, setMasterCaseId] = useState<string | null>(queryCaseId);
   const [existingMasterResult, setExistingMasterResult] = useState<
     Record<string, unknown>
@@ -1522,7 +1525,12 @@ function BuilderPageContent() {
             </div>
 
             {courtPath === "family" && (
-              <FamilyIntake onComplete={handleComplete} location={confirmedLocation} initialStory={homeStory} />
+              <FamilyIntake
+                onComplete={handleComplete}
+                onScopeChange={setFamilyScope}
+                location={confirmedLocation}
+                initialStory={homeStory}
+              />
             )}
 
             {courtPath === "small-claims" && smallClaimsMode === "choose" && (
@@ -1605,12 +1613,29 @@ function BuilderPageContent() {
           What they actually need is both here and nothing more: the family
           path, and a confirmed location so there is a case context to sit in.
         */}
-        {courtPath === "family" && confirmedLocation && !loadingExistingCase && !caseLoadError && (
-          <div className="mt-8">
-            <ChildSupportIntake />
-            <ChildSupportTableCard />
-          </div>
-        )}
+        {/*
+          AND ONLY FOR THE CASES IT FITS (2026-10-04). It was shown on every
+          family case: a father who had been served, asking about decision-
+          making and parenting time, was given a child-support Application
+          (Form 8) draft written as if he were starting the case, and a lecture
+          on the support tables. The draft is an applicant's document, so it
+          needs both: child support among the chosen issues, and the user not
+          the respondent. The table card is general information about support,
+          so it needs only the issue.
+        */}
+        {courtPath === "family" && confirmedLocation && !loadingExistingCase && !caseLoadError && (() => {
+          const savedExtra = (caseData as (StoredCaseData & { extra?: Record<string, unknown> }) | null)?.extra;
+          const issues: string[] =
+            familyScope?.issues ?? (Array.isArray(savedExtra?.issues) ? (savedExtra.issues as string[]) : []);
+          const role = familyScope?.role ?? (typeof savedExtra?.yourRole === "string" ? savedExtra.yourRole : "not-sure");
+          if (!issues.includes("child-support")) return null;
+          return (
+            <div className="mt-8" data-testid="child-support-surfaces">
+              {role !== "respondent" && <ChildSupportIntake />}
+              <ChildSupportTableCard />
+            </div>
+          );
+        })()}
 
         {analysis && !loadingExistingCase && !caseLoadError && !canonicalIntakeSaved && (
           <section className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm" aria-live="polite">

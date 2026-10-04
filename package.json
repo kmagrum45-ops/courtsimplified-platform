@@ -43,6 +43,8 @@
     "test:exported-document": "node --import tsx scripts/verification/verifyExportedDocument.ts",
     "test:family-forms": "node --import tsx scripts/verification/verifyFamilyForms.ts",
     "test:family-no-scores": "node --import tsx scripts/verification/verifyFamilyNoScores.ts",
+    "test:family-role": "node --import tsx scripts/verification/verifyFamilyRoleNormalizer.ts",
+    "test:tidy-wording": "node --import tsx scripts/verification/verifyTidyWording.ts",
     "test:fixture-guards": "node --import tsx scripts/verification/verifyFixtureHarnessGuards.ts",
     "test:fixtures": "node --import tsx scripts/verification/runFixtures.ts",
     "test:amount-consistency": "node --import tsx scripts/verification/verifyAmountConsistency.ts",

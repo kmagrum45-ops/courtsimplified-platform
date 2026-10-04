@@ -1,5 +1,7 @@
 "use client";
 
+import TidyWordingReview from "./TidyWordingReview";
+
 import { useRef, useState } from "react";
 import {
   AnalysisResult,
@@ -522,6 +524,32 @@ function buildCivilAnalysisFromMaster(
   };
 }
 
+/** The free-text fields of the civil intake, as [field, label, placeholder]. */
+const CIVIL_TEXT_FIELDS: [keyof CivilInput, string, string][] = [
+          ["courtLocation", "Court or tribunal location", "Example: Ottawa Superior Court, HRTO, Divisional Court, tribunal location"],
+          ["courtFileNumber", "Court / tribunal file number, if already started", "Example: CV-25-00000000 or tribunal file number"],
+          ["amountClaimed", "Amount claimed or disputed", "Example: $75,000 plus costs"],
+          ["limitationDeadline", "Limitation/deadline concerns", "When did the issue happen? Any filing deadline?"],
+          ["humanRightsGrounds", "Human Rights ground, if any", "Example: disability, race, sex, family status, age, creed, reprisal, accommodation"],
+          ["discriminationFacts", "Discrimination / Human Rights facts", "What unequal treatment, denial, harassment, reprisal, or failure to accommodate happened?"],
+          ["accommodationRequests", "Accommodation requests or responses", "What was requested, when, from whom, and what response was received?"],
+          ["governmentActor", "Government / public authority involved", "Police, Crown, ministry, school board, hospital, tribunal, municipality, public institution"],
+          ["publicDecisionOrConduct", "Government decision, policy, omission, or conduct", "What decision, process, omission, failure, or action is being challenged?"],
+          ["institutionalFacts", "Institutional / professional failure facts", "What did the organization or professional know, fail to do, fail to record, or fail to communicate?"],
+          ["privacyRecordsFacts", "Privacy / records facts", "What record was accessed, disclosed, withheld, misused, altered, or requested?"],
+          ["timeline", "Timeline", "Important dates in order."],
+          ["evidence", "Evidence you have", "Contracts, texts, emails, photos, records, receipts, witnesses, policies, reports, decisions."],
+          ["missingEvidence", "Evidence still missing", "Documents, records, witnesses, disclosure, policies, recordings, or proof still needed."],
+          ["damagesBreakdown", "Damages / loss / impact breakdown", "Money loss, harm, expenses, discrimination impacts, reputational harm, emotional impact, lost opportunity, records harm."],
+          ["legalRemedy", "What do you want ordered?", "Money, declaration, injunction, accommodation, correction of records, dismissal, order, costs, tribunal remedy."],
+          ["settlementEfforts", "Settlement efforts", "Offers, letters, discussions, refusals, payment proposals, accommodation discussions."],
+          ["serviceDetails", "Service details", "Who was served, when, where, how, and by whom?"],
+          ["urgent", "Anything urgent?", "Deadlines, injunction, ongoing harm, limitation issue, enforcement urgency, accommodation urgency."],
+];
+
+/** Fields worth a spelling check: free prose, not file numbers or amounts. */
+const CIVIL_TIDY_SKIP = new Set<string>(["courtLocation", "courtFileNumber", "amountClaimed"]);
+
 export default function CivilIntake({ onComplete, caseId, location, initialStory }: Props) {
   const [editingStory, setEditingStory] = useState(false);
   const [initialPrefill] = useState<NarrativePrefill | null>(() =>
@@ -939,27 +967,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           </div>
         </div>
 
-        {[
-          ["courtLocation", "Court or tribunal location", "Example: Ottawa Superior Court, HRTO, Divisional Court, tribunal location"],
-          ["courtFileNumber", "Court / tribunal file number, if already started", "Example: CV-25-00000000 or tribunal file number"],
-          ["amountClaimed", "Amount claimed or disputed", "Example: $75,000 plus costs"],
-          ["limitationDeadline", "Limitation/deadline concerns", "When did the issue happen? Any filing deadline?"],
-          ["humanRightsGrounds", "Human Rights ground, if any", "Example: disability, race, sex, family status, age, creed, reprisal, accommodation"],
-          ["discriminationFacts", "Discrimination / Human Rights facts", "What unequal treatment, denial, harassment, reprisal, or failure to accommodate happened?"],
-          ["accommodationRequests", "Accommodation requests or responses", "What was requested, when, from whom, and what response was received?"],
-          ["governmentActor", "Government / public authority involved", "Police, Crown, ministry, school board, hospital, tribunal, municipality, public institution"],
-          ["publicDecisionOrConduct", "Government decision, policy, omission, or conduct", "What decision, process, omission, failure, or action is being challenged?"],
-          ["institutionalFacts", "Institutional / professional failure facts", "What did the organization or professional know, fail to do, fail to record, or fail to communicate?"],
-          ["privacyRecordsFacts", "Privacy / records facts", "What record was accessed, disclosed, withheld, misused, altered, or requested?"],
-          ["timeline", "Timeline", "Important dates in order."],
-          ["evidence", "Evidence you have", "Contracts, texts, emails, photos, records, receipts, witnesses, policies, reports, decisions."],
-          ["missingEvidence", "Evidence still missing", "Documents, records, witnesses, disclosure, policies, recordings, or proof still needed."],
-          ["damagesBreakdown", "Damages / loss / impact breakdown", "Money loss, harm, expenses, discrimination impacts, reputational harm, emotional impact, lost opportunity, records harm."],
-          ["legalRemedy", "What do you want ordered?", "Money, declaration, injunction, accommodation, correction of records, dismissal, order, costs, tribunal remedy."],
-          ["settlementEfforts", "Settlement efforts", "Offers, letters, discussions, refusals, payment proposals, accommodation discussions."],
-          ["serviceDetails", "Service details", "Who was served, when, where, how, and by whom?"],
-          ["urgent", "Anything urgent?", "Deadlines, injunction, ongoing harm, limitation issue, enforcement urgency, accommodation urgency."],
-        ].map(([field, label, placeholder]) => (
+        {CIVIL_TEXT_FIELDS.map(([field, label, placeholder]) => (
           <label key={field} className="block">
             <span className="font-semibold text-[#16302b]">{label}</span>
             <textarea
@@ -1126,6 +1134,18 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             </div>
           )}
         </div>
+
+        <TidyWordingReview
+          fields={[
+            { key: "facts", label: "Case story", value: input.facts, setValue: (next: string) => updateField("facts", next) },
+            ...CIVIL_TEXT_FIELDS.filter(([field]) => !CIVIL_TIDY_SKIP.has(field)).map(([field, label]) => ({
+              key: field,
+              label,
+              value: String(input[field] ?? ""),
+              setValue: (next: string) => updateField(field, next as never),
+            })),
+          ]}
+        />
 
         <button
           type="button"

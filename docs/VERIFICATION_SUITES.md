@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-101 documented, 30 without a header.
+103 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -43,6 +43,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:exported-document` | **The document a user carries out of the building asserts nothing about their**<br>case. |
 | `npm run test:family-forms` | **Every family form number shown to a user cites the rule requiring it.**<br>COSTS NOTHING. A source check plus pure-function calls. |
 | `npm run test:family-no-scores` | **The family engines grade nothing.**<br>COSTS NOTHING. A source scan plus one pure engine run. |
+| `npm run test:family-role` | **A family user's side comes from their own answer, never from stray keywords.**<br>COSTS NOTHING. Pure normalizer runs plus a source scan of the intake. |
 | `npm run test:fixture-guards` | **Asserts that runFixtures.ts cannot write a .actual.md from a run that**<br>threw, timed out, or silently degraded. |
 | `npm run test:fixtures` | **Session 35 -- runs the three whole-case fixtures in fixtures/ through the**<br>REAL pipeline the app uses, end to end, and writes what actually happened to fixtures/<id>.actual.md. |
 | `npm run test:fixtures:generated` | **Session 36 -- scales Session 35's fixture harness from 3 hand-written**<br>fixtures to a generated batch, checked against rules instead of one hand-written expectation per story. |
@@ -96,6 +97,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:status-triage` | **The family status triage records facts and concludes nothing.**<br>COSTS NOTHING. Pure function calls. |
 | `npm run test:storage-keys` | **A browser-storage key may only be named in the registry.**<br>COSTS NOTHING. Pure source scanning. |
 | `npm run test:story-answer-proposals` | **Verifies story answer proposals: the model may PROPOSE answers the opening**<br>story already gives, and nothing is applied until the user confirms. |
+| `npm run test:tidy-wording` | **The spelling check can only fix spelling — never change what the user said.**<br>COSTS NOTHING. Pure validator runs, no model call. |
 | `npm run test:topic-guides` | **The in-depth guides quote their sources exactly, cite every paragraph, and**<br>never read as advice. |
 | `npm run test:typecheck-live` | **The project's typecheck can actually fail.**<br>WHAT THIS CATCHES: a typecheck that reports success while checking nothing. |
 | `npm run test:verifier` | **Does the verifier actually reject wrong content?**<br>The whole value of a drafter/verifier split rests on the verifier being willing to say no. A verifier that agrees with plausible text is not a check, it is a second opinion from the same kind of mind, and it would turn every block green while changing nothing. |

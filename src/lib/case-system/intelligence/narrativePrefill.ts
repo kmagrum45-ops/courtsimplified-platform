@@ -159,7 +159,13 @@ export function extractNarrativePrefill(args: {
     addDirect(facts, "yourRole", args.courtPath === "small-claims" ? "Defendant / responding party" : "respondent", "I was served/received");
     addDirect(facts, "caseStage", "already-started", "I was served/received");
   } else if (served) {
-    addDirect(facts, "yourRole", args.courtPath === "small-claims" ? "Plaintiff / claimant" : "plaintiff", "I served/filed");
+    // Family's starting party is the applicant, not a "plaintiff" (FLR r. 2 (1)).
+    addDirect(
+      facts,
+      "yourRole",
+      args.courtPath === "small-claims" ? "Plaintiff / claimant" : args.courtPath === "family" ? "applicant" : "plaintiff",
+      "I served/filed",
+    );
     addDirect(facts, "caseStage", "already-started", "I served/filed");
   }
 

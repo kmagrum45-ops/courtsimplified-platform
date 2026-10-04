@@ -212,6 +212,12 @@ jobs:
         if: env.OPENAI_API_KEY != ''
         run: npm run test:safety-regression
 
+      - name: Family role comes from the user's answer
+        run: npm run test:family-role
+
+      - name: Spelling check changes spelling only
+        run: npm run test:tidy-wording
+
       - name: Production build
         run: npm run build
 

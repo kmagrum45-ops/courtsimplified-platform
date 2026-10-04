@@ -224,13 +224,65 @@ function scoreIssue<T extends string>(params: {
   };
 }
 
-function normalizeRole(value: unknown, text: string): FamilyUserRole {
-  const role = normalize(`${value || ""} ${text}`);
+const EXPLICIT_ROLES: FamilyUserRole[] = [
+  "applicant",
+  "respondent",
+  "joint-applicant",
+  "third-party-caregiver",
+];
 
-  if (includesAny(role, ["respondent", "served", "answer", "responding"])) return "respondent";
-  if (includesAny(role, ["joint", "joint applicant"])) return "joint-applicant";
-  if (includesAny(role, ["grandparent", "caregiver", "third party", "aunt", "uncle"])) return "third-party-caregiver";
-  if (includesAny(role, ["applicant", "starting", "filing", "bringing application"])) return "applicant";
+/**
+ * Which side the user is on.
+ *
+ * *** THE USER'S OWN ANSWER WINS ***
+ *
+ * Until 2026-10-04 this joined the explicit role to ALL of the intake text and
+ * sniffed keywords, with the explicit value given no priority, and the family
+ * intake never sent a role at all. Found from a real run: a father who had been
+ * SERVED, whose goal was "joint custody", came out as "joint-applicant" —
+ * the person bringing the case — because "joint" matched. The reverse also
+ * held: an applicant who ticked "Application already filed / served" came out
+ * as the respondent, because "served" matched the checkbox label. "aunt"
+ * matched "restaurant"; "filing" and "starting" matched the stage labels.
+ *
+ * Now: an explicit role is used as given. Only when there is none is the text
+ * read, and then only for first-person phrases that say which side the person
+ * is on. Anything else is "not-sure" — never a guess (CLAUDE.md §4).
+ * verifyFamilyRoleNormalizer pins both directions.
+ */
+function normalizeRole(value: unknown, text: string): FamilyUserRole {
+  const explicit = normalize(value);
+  if ((EXPLICIT_ROLES as string[]).includes(explicit)) return explicit as FamilyUserRole;
+
+  const said = normalize(text);
+  const respondentPhrases = [
+    "i am the respondent",
+    "i'm the respondent",
+    "i was served",
+    "i got served",
+    "i have been served",
+    "i've been served",
+    "served me",
+    "took me to court",
+    "taking me to court",
+    "started a case against me",
+    "filed against me",
+  ];
+  const applicantPhrases = [
+    "i am the applicant",
+    "i'm the applicant",
+    "i started the case",
+    "i filed an application",
+    "i filed the application",
+    "i want to start a case",
+    "i want to take him to court",
+    "i want to take her to court",
+  ];
+  const respondent = includesAny(said, respondentPhrases);
+  const applicant = includesAny(said, applicantPhrases);
+  if (respondent && !applicant) return "respondent";
+  if (applicant && !respondent) return "applicant";
+  if (includesAny(said, ["joint applicant", "joint application"])) return "joint-applicant";
 
   return "not-sure";
 }

@@ -88,7 +88,14 @@ export type AiCallType =
    * quoting their words. The wording shown comes from fixed templates. See
    * caseReview/caseReviewModel.ts.
    */
-  | "case-review";
+  | "case-review"
+  /**
+   * 2026-10-04. Suggests spelling and grammar fixes to what the user typed, and
+   * code drops any suggestion that changes a number, a quote, a name or adds
+   * a legal term. The user accepts or keeps their own. See
+   * intake/tidyWording.ts.
+   */
+  | "tidy-wording";
 
 export type AiValidationResult = "valid" | "invalid" | "error" | "timeout";
 
