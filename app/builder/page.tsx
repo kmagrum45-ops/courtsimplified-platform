@@ -45,6 +45,7 @@ import {
 import StageConfirmation from "./_components/StageConfirmation";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import NextStepsCard from "./_components/NextStepsCard";
+import { userIsResponding } from "./_components/respondingSide";
 import AiUseNotice from "../_components/AiUseNotice";
 import PathwayUnavailable from "../_components/PathwayUnavailable";
 import { FORM_COMPLETION_PAUSED, isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
@@ -1003,6 +1004,13 @@ function BuilderPageContent() {
     caseData,
     intakeFacts: draftIntakeFacts,
   });
+  const respondingSide = userIsResponding({
+    confirmedStage,
+    caseData,
+    intakeFacts: draftIntakeFacts,
+  });
+  // The document that STARTS a case is offered only to the side that starts it.
+  const offerOriginatingDraft = !originatingDocumentFiled && !respondingSide;
 
   function getActiveCaseId() {
     return masterCaseId || queryCaseId || null;
@@ -1738,23 +1746,29 @@ function BuilderPageContent() {
                   under &ldquo;Documents already recorded&rdquo;.
                 </p>
               ) : null}
+              {respondingSide && !originatingDocumentFiled ? (
+                <p className="mt-3 text-sm leading-6 text-[#4d675f]" data-testid="responding-side-no-originating-draft">
+                  You are responding to a case the other side started, so a draft of the document
+                  that starts a case is not offered here.
+                </p>
+              ) : null}
               {COURT_DOCUMENT_DRAFTING_ENABLED ? (
                 <div className="mt-3">
                   <ScopePreviewNotice scope="formCompletion" />
                 </div>
               ) : null}
               <div className="mt-4 flex flex-wrap gap-3">
-                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "small-claims" && getActiveCaseId() && !originatingDocumentFiled ? (
+                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "small-claims" && getActiveCaseId() && offerOriginatingDraft ? (
                   <button type="button" onClick={createSmallClaimsClaimDraft} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Plaintiff&apos;s Claim draft (Form 7A)
                   </button>
                 ) : null}
-                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "civil" && getActiveCaseId() && !originatingDocumentFiled ? (
+                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "civil" && getActiveCaseId() && offerOriginatingDraft ? (
                   <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Statement of Claim (Form 14A)", "Working draft created from your saved Ontario Civil intake — review and edit before use.", "Material facts")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Statement of Claim draft (Form 14A)
                   </button>
                 ) : null}
-                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "family" && getActiveCaseId() && !originatingDocumentFiled ? (
+                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "family" && getActiveCaseId() && offerOriginatingDraft ? (
                   <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Family Application (Form 8)", "Working draft created from your saved Ontario Family intake — review and edit before use.", "Facts for review")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Family Application draft (Form 8)
                   </button>
