@@ -920,7 +920,11 @@ function allGateFailures(answer: GateableAnswer, stage: CaseStage | null): strin
    * So: state the 30-day admissibility and you must carry the discretion with it.
    */
   const text0 = answerText(answer);
+  // r. 18.02 is a Small Claims rule. A civil or family block states its own
+  // court's evidence rules, which carry different conditions (2026-10-02).
+  const smallClaimsStage = !stage || (stage.pathway ?? "small-claims") === "small-claims";
   const statesAdmissibility =
+    smallClaimsStage &&
     /\b30 days\b/i.test(text0) &&
     /\b(received in evidence|admitted|be used (at|during) (the )?trial|part of the court record)\b/i.test(
       text0,

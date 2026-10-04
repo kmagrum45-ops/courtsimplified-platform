@@ -3608,7 +3608,7 @@ const BOTH: CaseStage[] = [
         computation: RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "If you do not, the court may dismiss your case or strike out your defence. In an appeal, the appeal may be dismissed or you may lose the right to be heard. A corporation has 30 days to do one of two things instead. It can appoint a new lawyer. Or it can get and serve an order letting someone who is not a lawyer represent it. The same results follow if it does not. A party acting in a representative role, or the litigation guardian of a party under disability, has 30 days to appoint a new lawyer. The time can be extended by the court.",
+          "If you do not, the court may dismiss your case or strike out your defence. In an appeal, a judge of the appeal court may dismiss the appeal, or the court hearing it may refuse to hear you. A corporation has 30 days to do one of two things instead. It can appoint a new lawyer. Or it can get and serve an order letting someone who is not a lawyer represent it. The same results follow if it does not. A party acting in a representative role, or the litigation guardian of a party under disability, has 30 days to appoint a new lawyer. The time can be extended by the court.",
         exceptions: [RCP_15_04_OTHER_FAILS, RCP_15_04_CORPORATION, RCP_15_04_CORPORATION_FAILS, RCP_15_04_REPRESENTATIVE, RCP_3_02_EXTEND],
       },
     ],
