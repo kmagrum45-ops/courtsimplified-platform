@@ -227,6 +227,9 @@ jobs:
       - name: Starting documents only for the starting side
         run: npm run test:responding-side
 
+      - name: Official forms watch parses and covers every form
+        run: npm run test:official-forms
+
       - name: Production build
         run: npm run build
 

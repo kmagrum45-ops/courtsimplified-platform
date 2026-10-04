@@ -1,0 +1,97 @@
+name: CourtSimplified Change Watch
+
+# Monthly: has Ontario changed a rule, a statute or a court form since we
+# saved it?
+#
+#   1. rules:check  — re-fetches every vendored rule and statute and reports
+#      which RULES changed and which content blocks cite them
+#      (scripts/rules/checkCorpus.ts).
+#   2. forms check  — reads the official Ontario Court Forms index pages and
+#      compares every form number, date and link with the last recorded list
+#      and with the regulations' own tables of forms
+#      (scripts/forms/fetchOfficialFormLinks.ts).
+#
+# WHY (2026-10-04): nothing watched for changes. Five family forms in force
+# since 2026-06-01 were missing from the catalogue, and an expert's-duty form
+# had a newer version, and nobody knew.
+#
+# Reports go to the `change-watch-reports` branch (never built by Vercel), and
+# an issue is opened when something changed. Nothing is changed in main: a
+# session reviews the report and brings any update in through a PR.
+
+on:
+  schedule:
+    # 11:23 UTC on the 1st of each month (about 07:23 in Toronto).
+    - cron: "23 11 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install the .doc and PDF text extractors
+        run: sudo apt-get update -q && sudo apt-get install -y -q antiword poppler-utils
+
+      - name: Rules and statutes
+        id: rules
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm run rules:check 2>&1 | tee rules-check.log
+
+      - name: Official court forms
+        id: forms
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          node --import tsx scripts/forms/fetchOfficialFormLinks.ts --write 2>&1 | tee forms-check.log
+
+      - name: Publish the report and open an issue if anything changed
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          out="$(mktemp -d)"
+          cp rules-check.log forms-check.log "$out/" || true
+          cp forms-check-report.md "$out/" || true
+          cp src/lib/content-library/forms/officialFormLinks.json "$out/" || true
+          printf '{\n  "git": { "deploymentEnabled": false }\n}\n' > "$out/vercel.json"
+          ( cd "$out"
+            git init -q
+            git config user.name "change-watch-bot"
+            git config user.email "change-watch-bot@users.noreply.github.com"
+            git add -A
+            git commit -q -m "Change watch ${GITHUB_SHA::7} (run ${GITHUB_RUN_ID})"
+            git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/change-watch-reports )
+
+          changed=""
+          if ! grep -q "No source changed" rules-check.log 2>/dev/null; then changed="rules"; fi
+          if [ -f forms-check-report.md ] && awk '/^## Changes since/{f=1;next} /^## /{f=0} f && /^- / && !/^- none/' forms-check-report.md | grep -q .; then changed="$changed forms"; fi
+          {
+            echo "## Change watch"
+            echo "rules step: ${{ steps.rules.outcome }} · forms step: ${{ steps.forms.outcome }} · changed: ${changed:-nothing}"
+            echo
+            cat forms-check-report.md 2>/dev/null || true
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -n "$changed" ]; then
+            body="Something Ontario publishes has changed (${changed}). Reports: branch change-watch-reports (rules-check.log, forms-check-report.md). Review and bring updates into main through a PR. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            jq -n --arg t "Change watch: Ontario rules or forms changed ($(date -u +%Y-%m-%d))" --arg b "$body" '{title:$t, body:$b}' \
+              | curl -sS -X POST -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" \
+                  "https://api.github.com/repos/${GITHUB_REPOSITORY}/issues" -d @- > /dev/null
+          fi
