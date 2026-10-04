@@ -32,7 +32,7 @@ const sections: Section[] = [
   {
     heading: "About CourtSimplified",
     paragraphs: [
-      "CourtSimplified provides legal information and case-organization tools for people representing themselves in Ontario courts. We are not a law firm, we do not provide legal advice, and using CourtSimplified does not create a lawyer-client relationship. For advice about your situation, speak with a licensed lawyer or paralegal.",
+      "CourtSimplified guides people representing themselves through the Ontario court system, with step-by-step help and tools to organize their case. We are not a law firm, and using CourtSimplified does not create a lawyer-client relationship.",
       "This policy explains how we collect, use, and protect personal information in accordance with Canada's Personal Information Protection and Electronic Documents Act (PIPEDA).",
     ],
   },
@@ -119,8 +119,8 @@ const sections: Section[] = [
     heading: "Terms of use",
     paragraphs: [
       {
-        lead: "Legal information, not legal advice.",
-        text: "CourtSimplified explains court procedures and forms. You are responsible for your own decisions and filings. Always confirm forms, rules, and deadlines with official court sources.",
+        lead: "Guidance, not representation.",
+        text: "CourtSimplified guides you through court procedures and forms. You make your own decisions and filings, and we do not decide whether you have a case or how it will turn out. Always confirm forms, rules, and deadlines with official court sources.",
       },
       {
         lead: "Accuracy.",

@@ -87,8 +87,8 @@ function AnswerView({ answer }: { answer: RenderedAnswer }) {
         </div>
       )}
       <p className="text-xs leading-5 text-[#4d675f]">
-        This is general legal information written from the sources above, not advice about your
-        case. A licensed paralegal or lawyer can tell you how it applies to you.
+        Written from the official sources above. CourtSimplified guides you through the process
+        but is not your lawyer, so check the source before you rely on it.
       </p>
     </div>
   );

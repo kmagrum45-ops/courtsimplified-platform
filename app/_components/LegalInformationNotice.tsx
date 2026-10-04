@@ -12,9 +12,9 @@ import Link from "next/link";
 export default function LegalInformationNotice() {
   return (
     <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm leading-6 text-[#4d675f]">
-      CourtSimplified provides legal information only, not legal advice, and
-      is not a law firm. Using this site does not create a lawyer-client
-      relationship.{" "}
+      CourtSimplified guides you through the Ontario court process so you can
+      handle your case on your own. It is not a law firm, and using this site
+      does not create a lawyer-client relationship.{" "}
       <Link
         href="/privacy"
         className="font-semibold text-[#2f7d67] underline"

@@ -88,8 +88,11 @@ export default function FirstUseAcknowledgement({
       <h2 className="text-xl font-bold text-[#10231f]">Before you start</h2>
 
       <p className="mt-3 text-[15px] leading-7 text-[#24463d]">
-        CourtSimplified gives <strong>legal information, not legal advice</strong>. We are not
-        a law firm and using this site does not make us your lawyer or paralegal.
+        CourtSimplified guides you through the Ontario court system step by step, so you can
+        handle your case on your own, without a lawyer. We are <strong>not a law firm</strong>,
+        and using this site does not make us your lawyer or paralegal. We don&apos;t decide
+        whether you have a case or how it will turn out. We help you prepare it and take each
+        next step.
       </p>
 
       <p className="mt-3 text-[15px] leading-7 text-[#24463d]">
@@ -110,8 +113,8 @@ export default function FirstUseAcknowledgement({
           className="mt-1 h-5 w-5"
         />
         <span className="text-[15px] leading-7 text-[#16302b]">
-          I understand this is legal information, not legal advice, and that AI is used to
-          help organize my information.
+          I understand that CourtSimplified guides me through the court process but is not my
+          lawyer, and that AI is used to help organize my information.
         </span>
       </label>
 
