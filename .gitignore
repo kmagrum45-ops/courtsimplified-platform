@@ -203,3 +203,5 @@ repomix-output.xml
 # Story review outputs: the real report is published to the story-review-reports branch.
 scripts/verification/storyReview/REPORT*.md
 scripts/verification/storyReview/results*.json
+/rules-diff.md
+/forms-check-report.md
