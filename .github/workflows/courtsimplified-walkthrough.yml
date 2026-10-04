@@ -25,9 +25,11 @@ on:
 permissions:
   contents: write
 
+# Queue, don't cancel: a run takes ~25 minutes and merges land faster than
+# that, so cancelling meant no run ever finished (2026-10-04).
 concurrency:
   group: walkthrough
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   walkthrough:
