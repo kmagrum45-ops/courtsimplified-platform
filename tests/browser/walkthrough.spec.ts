@@ -47,9 +47,18 @@ async function capture(page: Page, persona: Persona, steps: Step[], step: string
   steps.push({ n, step, url: page.url(), text, screenshot: `${persona.id}/${file}`, note });
 }
 
-async function passGate(page: Page, persona: Persona) {
+async function passGate(page: Page, persona: Persona, steps: Step[]) {
   await page.goto(`/builder?path=${persona.path}`, { waitUntil: "domcontentloaded" });
   const province = page.getByLabel("Province or territory");
+  // The first-use notice gates the builder for a new account (first run,
+  // 2026-10-04: every persona stopped here). Accepting it is what a user does.
+  const acknowledge = page.getByRole("checkbox", { name: /I understand/i });
+  await expect(province.or(acknowledge)).toBeVisible({ timeout: 90_000 });
+  if (await acknowledge.isVisible().catch(() => false)) {
+    await capture(page, persona, steps, "first-use-notice");
+    await acknowledge.check();
+    await page.getByRole("button", { name: "Continue", exact: true }).click();
+  }
   await expect(province).toBeVisible({ timeout: 90_000 });
   await province.selectOption("Ontario");
   await page.getByLabel("City or municipality").fill(persona.city);
@@ -157,7 +166,7 @@ test.describe("page walkthrough", () => {
       let failure: string | null = null;
       try {
         await authenticateRealTestUser(page);
-        await passGate(page, persona);
+        await passGate(page, persona, steps);
         if (persona.path === "small-claims") await smallClaims(page, persona, steps);
         else await familyOrCivil(page, persona, steps);
         await confirmStage(page, persona, steps);
