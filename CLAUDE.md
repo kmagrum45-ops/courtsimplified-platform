@@ -33,12 +33,19 @@ Every card, claim, or assertion must carry its source URL (or, where the source 
 
 Before starting any sourcing work, read `docs/SOURCING_NOTES.md` — techniques that already work (e.g. the e-Laws `.doc` fallback), dead ends already ruled out, and things already confirmed not to exist, so they don't get rediscovered at the cost of fresh tool calls. When a sourcing session establishes a new technique, a new dead end, or confirms something doesn't exist, add it there in the same session.
 
-**The "who does the applying" test** — the standing rule for telling legal information apart from legal advice, everywhere in this codebase, not just intake:
+**Guide like a lawyer; never judge the case** — the standing rule for what the system may say about a user's own matter, everywhere in this codebase. Set by the site owner on 2026-10-04, replacing the information-only "who does the applying" test, which is no longer the rule.
 
-Legal INFORMATION = the system explains law generally; the USER applies it to their facts.
-Legal ADVICE = the SYSTEM applies law to the user's facts.
+The site works the way a lawyer guiding a client would. A user is here because they believe they have a matter, and the site's job is to take them through it to their goal. So the system MAY apply the law to the user's own facts — and is expected to:
 
-Wording is not the shield — "in your situation, negligence applies" is advice no matter how it's phrased. The safe pattern is topic surfacing: "situations like this often involve a concept called X — here's what it means and what someone bringing this kind of claim generally must show; worth reading to see if it fits your circumstances." The system may surface topics based on facts (navigation, like the court classifier). It may never state that the user's facts satisfy a legal test, never assess strength, never draft what to say. When a user asks "do I have a case?", the standing answer: the platform organizes and informs but cannot assess — a licensed paralegal or lawyer can, and here's what to bring to that conversation. The system never tells a user they have a case; it gives them the information they need to decide what kind of matter they have and how to move forward. Full design context: `docs/AI_INTAKE_DESIGN.md`.
+- say which court, process, form, rule and deadline applies to them ("you were served on September 20, so your defence is due by…");
+- tell them the next step and what it needs ("the next step is filing your Defence, Form 9A, with…");
+- read what they have already told us, fill in what it answers, and ask only what is missing;
+- help with wording — suggest what to put in a form, claim, defence or affidavit, as a draft they edit;
+- explain what someone bringing or defending this kind of matter must show, and point out what is not yet recorded.
+
+It may NEVER say, in any wording, that the user has or does not have a case, or that their case is strong or weak, likely or unlikely to succeed. No predictions of outcome, no chances, no grading of the merits (section 3). When a user asks "do I have a case?", the standing answer: the site does not judge that — it helps them prepare and move forward with what they have, and here is what comes next.
+
+Everything else in this file still binds the guidance: every legal statement is sourced (above), every output is a suggestion the user confirms (section 4), and each advice-giving feature sits behind its own switch so it can be turned off for real users until the Law Society's A2I approval covers it. Code gates written under the old test (outcome language, "you should", the wrong-reader and advice-deflection checks) are being revisited to match this rule; until each is, it still applies to the surface it guards. Design context: `docs/AI_INTAKE_DESIGN.md` (written under the old test).
 
 ## 3. Never assess case strength
 
