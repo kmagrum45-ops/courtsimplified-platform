@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-104 documented, 30 without a header.
+105 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -71,6 +71,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:no-names-to-model` | **No name FIELD reaches a model.**<br>The user's name and the other party's name are entered in plain form fields and stored in the Canadian database. Until 2026-09-27 all three intake adapters (Small Claims, civil, family) copied them into the raw text the brain sends to OpenAI. The LSO A2I appli |
 | `npm run test:no-stale-intake` | **Nothing from an earlier session is shown before the user opens a case.**<br>2026-09-28: a signed-in user opened the Small Claims intake and found an old test story already filled in. Earlier fixes had scoped browser storage per user and cleared it for anonymous visitors, but the builder deliberately RESTORED the signed-in user's own l |
 | `npm run test:no-store` | **Every OpenAI request carries `store: false`, and no call site can bypass it.**<br>COSTS NOTHING. Reads source off disk and calls the factory with a fake key. No network, no model call. |
+| `npm run test:official-forms` | **The official-forms watch reads the Ontario Court Forms pages correctly, and**<br>the recorded official list covers every live form the regulations name. |
 | `npm run test:output-guard` | **Arbitrary model text cannot reach a user, and every user-facing model call**<br>returns structured output. |
 | `npm run test:overview-labels` | **Guards the two leaks the browser scenario harness found on 2026-08-22, across**<br>16 and 8 scenarios respectively: |
 | `npm run test:overview-relevance` | **The overview shows what fits the claim the user confirmed, and nothing is**<br>silently dropped or reworded. |
