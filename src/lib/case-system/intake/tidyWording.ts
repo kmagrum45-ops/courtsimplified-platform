@@ -151,7 +151,16 @@ export function tidyRejectionReason(original: string, suggested: string): string
   const suggestedLower = suggested.toLowerCase();
   for (const term of LEGAL_TERMS) {
     const pattern = new RegExp(`\\b${term}\\b`);
-    if (pattern.test(suggestedLower) && !pattern.test(originalLower)) return `legal term "${term}" was added`;
+    if (!pattern.test(suggestedLower) || pattern.test(originalLower)) continue;
+    // Correcting the user's own misspelling of the term is not adding it.
+    // Walkthrough, 2026-10-04: "i was served a plaintifs claim" got NO
+    // suggestions, because fixing "plaintifs" to "plaintiff's" read as the
+    // site adding the legal word "plaintiff".
+    // Long words only: a short one is a near-miss of ordinary words ("order"
+    // and "older", "claim" and "clam"), and swapping those changes meaning.
+    const misspelledByUser =
+      term.length >= 7 && term.split(" ").every((part) => !isNewName(part, originalWords));
+    if (!misspelledByUser) return `legal term "${term}" was added`;
   }
 
   const ratio = suggested.trim().length / Math.max(1, original.trim().length);

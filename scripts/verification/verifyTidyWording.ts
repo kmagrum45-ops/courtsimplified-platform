@@ -100,6 +100,20 @@ check(
   );
 }
 
+{
+  const original = "i was served a plaintifs claim saying i damaged my neighbours car";
+  const reason = tidyRejectionReason(original, "I was served a plaintiff's claim saying I damaged my neighbour's car.");
+  check("fixing the user's own misspelling of a legal word is accepted", reason === null, reason ?? "");
+  check(
+    "a legal word the user never wrote, even approximately, is still refused",
+    tidyRejectionReason("my neighbour said i owe him money", "My neighbour's claim says I owe him money.") !== null,
+  );
+  check(
+    "a short legal word is not let in as a 'spelling fix' of an ordinary word",
+    tidyRejectionReason("the older one is mine", "The order one is mine.") !== null,
+  );
+}
+
 if (failures > 0) {
   console.error(`\n${failures} check(s) failed.`);
   process.exit(1);
