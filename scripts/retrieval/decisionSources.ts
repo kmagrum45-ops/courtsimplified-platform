@@ -22,6 +22,7 @@ import { publicSourceUrl } from "../../src/lib/content-library/publicSourceUrl";
 import type { ChunkSource } from "../../src/lib/case-system/retrieval/corpusChunker";
 
 export type DecisionSource = ChunkSource & {
+  citation: string;
   kind: "decision";
   court: "SCC" | "ONCA";
   year: number;
