@@ -1,0 +1,2952 @@
+69
+[2010] 1 R.C.S.
+
+
+Tercon Contractors Ltd.
+
+v.
+
+Her Majesty The Queen in Right of the
+Province of British Columbia, by her Ministry
+of Transportation and Highways Respondent
+
+and
+
+Attorney General of Ontario Intervener
+
+Indexed as: Tercon Contractors Ltd. v.
+British Columbia (Transportation and
+Highways)
+2010 SCC 4
+File No.: 32460.
+2009: March 23; 2010: February 12.
+Present: McLachlin C.J. and Binnie, LeBel, Deschamps,
+Fish, Abella, Charron, Rothstein and Cromwell JJ.
+
+ON APPEAL FROM THE COURT OF APPEAL FOR
+BRITISH COLUMBIA
+   Contracts — Breach of terms — Tender — Ineligible
+ bidder — Exclusion of liability clause — Doctrine
+of fundamental breach — Province issuing tender call
+for construction of highway — Request for proposals
+restricting qualified bidders to six proponents — Province
+ accepting bid from ineligible bidder — Exclusion
+clause protecting Province from liability arising from
+participation in tendering process — Whether Province
+breached terms of tendering contract in entertaining
+bid from ineligible bidder — If so, whether Province’s
+conduct fell within terms of exclusion clause — If so,
+whether court should nevertheless refuse to enforce the
+exclusion clause because of unconscionability or some
+other contravention of public policy.
+   The Province of British Columbia issued a request
+for expressions of interest (“RFEI”) for the design and
+construction of a highway. Six teams responded with
+submissions including Tercon and Brentwood. A few
+months later, the Province informed the six proponents
+70
+
+
+that it now intended to design the highway itself and
+issued a request for proposals (“RFP”) for its construction
+. The RFP set out a specifically defined project and
+contemplated that proposals would be evaluated according
+ to specific criteria. Under its terms, only the six
+original proponents were eligible to submit a proposal;
+those received from any other party would not be considered
+. The RFP also included an exclusion of liability
+clause which provided: “Except as expressly and specifically
+ permitted in these Instructions to Proponents, no
+Proponent shall have any claim for compensation of any
+kind whatsoever, as a result of participating in this RFP,
+and by submitting a Proposal each Proponent shall be
+deemed to have agreed that it has no claim.” As it lacked
+expertise in drilling and blasting, Brentwood entered
+into a pre-bidding agreement with another construction
+company (“EAC”), which was not a qualified bidder,
+to undertake the work as a joint venture. This arrangement
+ allowed Brentwood to prepare a more competitive
+proposal. Ultimately, Brentwood submitted a bid in its
+own name with EAC listed as a “major member” of the
+team. Brentwood and Tercon were the two short-listed
+proponents and the Province selected Brentwood for the
+project. Tercon successfully brought an action in damages
+ against the Province. The trial judge found that the
+Brentwood bid was, in fact, submitted by a joint venture
+of Brentwood and EAC and that the Province, which
+was aware of the situation, breached the express provisions
+ of the tendering contract with Tercon by considering
+ a bid from an ineligible bidder and by awarding
+it the work. She also held that, as a matter of construction
+, the exclusion clause did not bar recovery for the
+breaches she had found. The clause was ambiguous and
+she resolved this ambiguity in Tercon’s favour. She held
+that the Province’s breach was fundamental and that
+it was not fair or reasonable to enforce the exclusion
+clause in light of the Province’s breach. The Court of
+Appeal set aside the decision, holding that the exclusion
+clause was clear and unambiguous and barred compensation
+ for all defaults.
+   Held (McLachlin C.J. and Binnie, Abella and
+Rothstein JJ. dissenting): The appeal should be allowed.
+The Court agreed on the appropriate framework of
+analysis but divided on the applicability of the exclusion
+ clause to the facts.
+  The Court: With respect to the appropriate framework
+ of analysis the doctrine of fundamental breach
+71
+[2010] 1 R.C.S.
+
+
+should be “laid to rest”. The following analysis should
+be applied when a plaintiff seeks to escape the effect of
+an exclusion clause or other contractual terms to which
+it had previously agreed. The first issue is whether, as
+a matter of interpretation, the exclusion clause even
+applies to the circumstances established in evidence.
+This will depend on the court’s interpretation of the
+intention of the parties as expressed in the contract. If
+the exclusion clause applies, the second issue is whether
+the exclusion clause was unconscionable and thus
+invalid at the time the contract was made. If the exclusion
+ clause is held to be valid at the time of contract
+formation and applicable to the facts of the case, a third
+enquiry may be raised as to whether the court should
+nevertheless refuse to enforce the exclusion clause
+because of an overriding public policy. The burden of
+persuasion lies on the party seeking to avoid enforcement
+ of the clause to demonstrate an abuse of the freedom
+ of contract that outweighs the very strong public
+interest in their enforcement. Conduct approaching
+serious criminality or egregious fraud are but examples
+of well-accepted considerations of public policy that are
+substantially incontestable and may override the public
+policy of freedom to contract and disable the defendant
+ from relying upon the exclusion clause. Despite
+agreement on the appropriate framework of analysis,
+the court divided on the applicability of the exclusion
+clause to the facts of this case as set out below.
+    Per LeBel, Deschamps, Fish, Charron and Cromwell
+JJ.: The Province breached the express provisions of the
+tendering contract with Tercon by accepting a bid from
+a party who should not even have been permitted to participate
+ in the tender process and by ultimately awarding
+the work to that ineligible bidder. This egregious conduct
+ by the Province also breached the implied duty of
+fairness to bidders. The exclusion clause, which barred
+claims for compensation “as a result of participating”
+in the tendering process, did not, when properly interpreted
+, exclude Tercon’s claim for damages. By considering
+ a bid from an ineligible bidder, the Province
+not only acted in a way that breached the express and
+implied terms of the contract, it did so in a manner that
+was an affront to the integrity and business efficacy of
+the tendering process.
+    Submitting a compliant bid in response to a tender
+call may give rise to “Contract A” between the bidder
+and the owner. Whether a Contract A arises and what
+its terms are depends on the express and implied terms
+and conditions of the tender call and the legal consequences
+ of the parties’ actual dealings in each case.
+72
+
+
+Here, there is no basis to interfere with the trial judge’s
+findings that there was an intent to create contractual
+obligations upon submission of a compliant bid and that
+only the six original proponents that qualified through
+the RFEI process were eligible to submit a response to
+the RFP. The tender documents and the required ministerial
+ approval of the process stated expressly that the
+Province was contractually bound to accept bids only
+from eligible bidders. Contract A therefore could not
+arise by the submission of a bid from any other party.
+The trial judge found that the joint venture of Brentwood
+and EAC was not eligible to bid as they had not simply
+changed the composition of their team but, in effect,
+had created a new bidder. The Province fully understood
+ this and would not consider a bid from or award
+the work to that joint venture. The trial judge did not
+err in finding that in fact, if not in form, Brentwood’s
+bid was on behalf of a joint venture between itself and
+EAC. The joint venture provided Brentwood with a
+competitive advantage in the bidding process and was
+a material consideration in favour of the Brentwood bid
+during the Province’s evaluation process. Moreover, the
+Province took active steps to obfuscate the reality of the
+true nature of the Brentwood bid. The bid by the joint
+venture constituted “material non-compliance” with
+the tendering contract and breached both the express
+eligibility provisions of the tender documents, and the
+implied duty to act fairly towards all bidders.
+    When the exclusion clause is interpreted in harmony
+with the rest of the RFP and in light of the commercial
+ context of the tendering process, it did not exclude
+a damages claim resulting from the Province unfairly
+permitting an ineligible bidder to participate in the
+tendering process. The closed list of bidders was the
+foundation of this RFP and the parties should, at the
+very least, be confident that their initial bids will not be
+skewed by some underlying advantage in the drafting
+of the call for tenders conferred only upon one potential
+ bidder. The requirement that only compliant bids be
+considered and the implied obligation to treat bidders
+fairly are factors that contribute to the integrity and
+business efficacy of the tendering process. The parties
+did not intend, through the words found in this exclusion
+clause, to waive compensation for conduct, like that of
+the Province in this case, that strikes at the heart of the
+tendering process. Clear language would be necessary
+to exclude liability for breach of the implied obligation,
+particularly in the case of public procurement where
+73
+[2010] 1 R.C.S.
+
+
+transparency is essential. Furthermore, the restric-
+tion on eligibility of bidders was a key element of the
+alternative process approved by the Minister. When
+the statutory provisions which governed the tendering
+process in this case are considered, it seems unlikely
+that the parties intended through this exclusion clause
+to effectively gut a key aspect of the approved process.
+The text of the exclusion clause in the RFP addresses
+claims that result from “participating in this RFP”.
+Central to “participating in this RFP” was participating
+ in a contest among those eligible to participate. A
+process involving other bidders — the process followed
+by the Province — is not the process called for by “this
+RFP” and being part of that other process is not in any
+meaningful sense “participating in this RFP”.
+    Per McLachlin C.J. and Binnie, Abella and Rothstein
+JJ. (dissenting): The Ministry’s conduct, while in breach
+of its contractual obligations, fell within the terms of
+the exclusion compensation clause. The clause is clear
+and unambiguous and no legal ground or rule of law
+permits a court to override the freedom of the parties
+to contract with respect to this particular term, or to
+relieve Tercon against its operation in this case. A court
+has no discretion to refuse to enforce a valid and applicable
+ contractual term unless the plaintiff can point to
+some paramount consideration of public policy sufficient
+ to override the public interest in freedom of contact
+ and defeat what would otherwise be the contractual
+rights of the parties. The public interest in the transparency
+ and integrity of the government tendering process
+, while important, did not render unenforceable the
+terms of the contract Tercon agreed to.
+    Brentwood was a legitimate competitor in the RFP
+process and all bidders knew that the road contract
+would not be performed by the proponent alone and
+required a large “team” of different trades and person-
+nel to perform. The issue was whether EAC would be
+on the job as a major sub-contractor or identified with
+Brentwood as a joint venture “proponent” with EAC.
+Tercon has legitimate reason to complain about the
+Ministry’s conduct, but its misconduct did not rise to
+the level where public policy would justify the court in
+depriving the Ministry of the protection of the exclusion
+ of compensation clause freely agreed to by Tercon
+in the contract.
+74
+
+
+   Contract A is based not on some abstract externally
+imposed rule of law but on the presumed (and occasionally
+ implied) intent of the parties. At issue is the
+intention of the actual parties not what the court may
+project in hindsight would have been the intention of
+reasonable parties. Only in rare circumstances will a
+court relieve a party from the bargain it has made.
+    The exclusion clause did not run afoul of the statutory
+ requirements. While the Ministry of Transportation
+and Highways Act favours “the integrity of the tendering
+ process”, it nowhere prohibits the parties from negotiating
+ a “no claims” clause as part of their commercial
+agreement and cannot plausibly be interpreted to have
+that effect. Tercon — a sophisticated and experienced
+contractor — chose to bid on the project, including the
+risk posed by an exclusion of compensation clause, on
+the terms proposed by the Ministry. That was its prerogative
+ and nothing in the “policy of the Act” barred
+the parties’ agreement on that point.
+   The trial judge found that Contract A was breached
+when the RFP process was not conducted by the
+Ministry with the degree of fairness and transparency
+that the terms of Contract A entitled Tercon to expect.
+The Ministry was at fault in its performance of the RFP,
+but the process did not thereby cease to be the RFP process
+ in which Tercon had elected to participate.
+    The interpretation of the majority on this point is
+disagreed with. “[P]articipating in this RFP” began
+with “submitting a Proposal” for consideration. The
+RFP process consisted of more than the final selection
+ of the winning bid and Tercon participated in it.
+Tercon’s bid was considered. To deny that such participation
+ occurred on the ground that in the end the
+Ministry chose a Brentwood joint venture (an ineligible
+ bidder) instead of Brentwood itself (an eligible
+bidder) would be to give the clause a strained and artificial
+ interpretation in order, indirectly and obliquely,
+to avoid the impact of what may seem to the majority
+ex post facto to have been an unfair and unreasonable
+clause.
+    Moreover, the exclusion clause was not unconscionable
+. While the Ministry and Tercon do not exercise the
+same level of power and authority, Tercon is a major
+contractor and is well able to look after itself in a commercial
+ context so there is no relevant imbalance of
+bargaining power. Further, the clause is not as draconian
+ as Tercon portrays it. Other remedies for breach of
+Contract A were available. The parties expected, even
+if they did not like it, that the “no claims” clause would
+75
+[2010] 1 R.C.S.
+
+
+operate even where the eligibility criteria in respect
+of the bid (including the bidder) were not complied
+with.
+    Finally, the Ministry’s misconduct did not rise to
+the level where public policy would justify the court in
+depriving the Ministry of the protection of the exclusion
+ of compensation clause freely agreed to by Tercon
+in the contract.
+Cases Cited
+By Cromwell J.
+   Applied: M.J.B. Enterprises Ltd. v. Defence
+Construction (1951) Ltd., [1999] 1 S.C.R. 619; Martel
+Building Ltd. v. Canada, 2000 SCC 60, [2000] 2 S.C.R.
+860; considered: Hunter Engineering Co. v. Syncrude
+Canada Ltd., [1989] 1 S.C.R. 426; Cahill (G.J.) & Co.
+(1979) Ltd. v. Newfoundland and Labrador (Minister of
+Municipal and Provincial Affairs), 2005 NLTD 129, 250
+Nfld. & P.E.I.R. 145; Guarantee Co. of North America
+v. Gordon Capital Corp., [1999] 3 S.C.R. 423; Fraser
+Jewellers (1982) Ltd. v. Dominion Electric Protection
+Co. (1997), 34 O.R. (3d) 1; referred to: Canadian
+Pacific Hotels Ltd. v. Bank of Montreal, [1987] 1 S.C.R.
+711; Double N Earthmovers Ltd. v. Edmonton (City),
+2007 SCC 3, [2007] 1 S.C.R. 116; Hillis Oil and Sales
+Ltd. v. Wynn’s Canada, Ltd., [1986] 1 S.C.R. 57.
+By Binnie J. (dissenting)
+   Hunter Engineering Co. v. Syncrude Canada Ltd.,
+[1989] 1 S.C.R. 426; The Queen in right of Ontario
+v. Ron Engineering & Construction (Eastern) Ltd.,
+[1981] 1 S.C.R. 111; M.J.B. Enterprises Ltd. v. Defence
+Construction (1951) Ltd., [1999] 1 S.C.R. 619; Naylor
+Group Inc. v. Ellis-Don Construction Ltd., 2001
+SCC 58, [2001] 2 S.C.R. 943; Martel Building Ltd. v.
+Canada, 2000 SCC 60, [2000] 2 S.C.R. 860; Double
+N Earthmovers Ltd. v. Edmonton (City), 2007 SCC 3,
+[2007] 1 S.C.R. 116; Tercon Contractors Ltd. v. British
+Columbia (1993), 9 C.L.R. (2d) 197, aff’d [1994] B.C.J.
+No. 2658 (QL); Karsales (Harrow) Ltd. v. Wallis, [1956] 1
+W.L.R. 936; Guarantee Co. of North America v. Gordon
+Capital Corp., [1999] 3 S.C.R. 423; ABB Inc. v. Domtar
+Inc., 2007 SCC 50, [2007] 3 S.C.R. 461; Re Millar Estate,
+[1938] S.C.R. 1; Plas-Tex Canada Ltd. v. Dow Chemical
+of Canada Ltd., 2004 ABCA 309, 245 D.L.R. (4th) 650.
+Statutes and Regulations Cited
+Ministry of Transportation and Highways Act, R.S.B.C.
+  1996, c. 311, ss. 4, 23.
+76
+
+
+Authors Cited
+Hall, Geoff R. Canadian Contractual Interpretation
+  Law. Markham, Ont.: LexisNexis, 2007.
+Kain, Brandon, and Douglas T. Yoshida. “The Doctrine
+  of Public Policy in Canadian Contract Law”, in Todd
+  L. Archibald and Randall Scott Echlin, eds., Annual
+  Review of Civil Litigation, 2007. Toronto: Thomson
+  Carswell, 2007, 1.
+McCamus, John D. The Law of Contracts. Toronto: Irwin
+  Law, 2005.
+Waddams, S. M. The Law of Contracts, 5th ed. Aurora,
+  Ont.: Canada Law Book, 2005.
+
+   APPEAL from a judgment of the British
+Columbia Court of Appeal (Donald, Mackenzie
+and Lowry JJ.A.), 2007 BCCA 592, 73 B.C.L.R.
+(4th) 201, 40 B.L.R. (4th) 26, 289 D.L.R. (4th) 647,
+[2008] 2 W.W.R. 410, 249 B.C.A.C. 103, 414 W.A.C.
+103, 66 C.L.R. (3d) 1, [2007] B.C.J. No. 2558 (QL),
+2007 CarswellBC 2880, setting aside a decision
+of Dillon J., 2006 BCSC 499, 53 B.C.L.R. (4th)
+138, [2006] 6 W.W.R. 275, 18 B.L.R. (4th) 88, 51
+C.L.R. (3d) 227, [2006] B.C.J. No. 657 (QL), 2006
+CarswellBC 730. Appeal allowed, McLachlin C.J.
+and Binnie, Abella and Rothstein JJ. dissenting.
+
+   Chris R. Armstrong, Brian G. McLean, William
+S. McLean and Marie-France Major, for the appellant
+.
+
+  J. Edward Gouge, Q.C., Jonathan Eades and
+Kate Hamm, for the respondent.
+
+   Malliha Wilson and Lucy McSweeney, for the
+intervener.
+
+  The judgment of LeBel, Deschamps, Fish,
+Charron and Cromwell JJ. was delivered by
+
+     CROMWELL J. —
+
+I.
+
+[1] The Province accepted a bid from a bidder
+who was not eligible to participate in the tender
+and then took steps to ensure that this fact was not
+disclosed. The main question on appeal, as I see
+it, is whether the Province succeeded in excluding
+77
+[2010] 1 R.C.S.
+
+
+its liability for damages flowing from this conduct
+through an exclusion clause it inserted into the contract
+. I share the view of the trial judge that it did
+not.
+
+[2] The appeal arises out of a tendering contract
+ between the appellant, Tercon Contractors
+Ltd., who was the bidder, and the respondent, Her
+Majesty the Queen in Right of the Province of
+British Columbia, who issued the tender call. The
+case turns on the interpretation of provisions in the
+contract relating to eligibility to bid and exclusion
+of compensation resulting from participation in the
+tendering process.
+
+[3] The trial judge found that the respondent
+(which I will refer to as the Province) breached the
+express provisions of the tendering contract with
+Tercon by accepting a bid from another party who
+was not eligible to bid and by ultimately awarding
+the work to that ineligible bidder. In short, a bid
+was accepted and the work awarded to a party who
+should not even have been permitted to participate
+in the tender process. The judge also found that this
+and related conduct by the Province breached the
+implied duty of fairness to bidders, holding that the
+Province had acted “egregiously” (2006 BCSC 499,
+53 B.C.L.R. (4th) 138, at para. 150). The judge then
+turned to the Province’s defence based on an exclusion
+ clause that barred claims for compensation “as
+a result of participating” in the tendering process.
+She held that this clause, properly interpreted, did
+not exclude Tercon’s claim for damages. In effect,
+she held that it was not within the contemplation of
+the parties that this clause would bar a remedy in
+damages arising from the Province’s unfair dealings
+ with a party who was not entitled to participate
+ in the tender in the first place.
+
+[4] The Province appealed and the Court of
+Appeal reversed (2007 BCCA 592, 73 B.C.L.R.
+(4th) 201). Dealing only with the exclusion clause
+issue, it held that the clause was clear and unambiguous
+ and barred compensation for all defaults.
+78
+
+
+[5] On Tercon’s appeal to this Court, the questions
+ for us are whether the successful bidder was
+eligible to participate in the request for proposals
+(“RFP”) and, if not, whether Tercon’s claim for
+damages is barred by the exclusion clause.
+[6] In my respectful view, the trial judge reached
+the right result on both issues. The Province’s
+attempts to persuade us that it did not breach the
+tendering contract are, in my view, wholly unsuccessful
+. The foundation of the tendering contract
+was that only six, pre-selected bidders would be
+permitted to participate in the bidding. As the trial
+judge held, the Province not only acted in a way
+that breached the express and implied terms of the
+contract by considering a bid from an ineligible
+bidder, it did so in a manner that was an affront to
+the integrity and business efficacy of the tendering
+ process. One must not lose sight of the fact that
+the trial judge found that the Province acted egregiously
+ by “ensuring that [the true bidder] was not
+disclosed” (para. 150) and that its breach “attacke[d]
+the underlying premise of the [tendering] process”
+(para. 146), a process which was set out in detail in
+the contract and, in addition, had been given ministerial
+ approval as required by statute.
+[7] As for its reliance on the exclusion clause, the
+Province submits that the parties were free to agree
+to limitations of liability and did so. Consideration
+of this submission requires an interpretation of the
+words of the clause to which the parties agreed in
+the context of the contract as a whole. My view is
+that, properly interpreted, the exclusion clause does
+not protect the Province from Tercon’s damage
+claim which arises from the Province’s dealings
+with a party not even eligible to bid, let alone from
+its breach of the implied duty of fairness to bidders
+. In other words, the Province’s liability did not
+arise from Tercon’s participation in the process that
+the Province established, but from the Province’s
+unfair dealings with a party who was not entitled
+to participate in that process.
+[8] I would allow the appeal and restore the judgment
+ of the trial judge.
+79
+[2010] 1 R.C.S.
+
+
+II. Brief Overview of the Facts
+[9] I will have to set out more factual detail as part
+of my analysis. For now, a very brief summary will
+suffice. In 2000, the Ministry of Transportation
+and Highways (also referred to as the “Province”)
+issued a request for expressions of interest (“RFEI”)
+for designing and building a highway in northwest-
+ern British Columbia. Six teams made submissions,
+including Tercon and Brentwood Enterprises Ltd.
+Later that year, the Province informed the six proponents
+ that it now intended to design the highway
+itself and would issue a RFP for its construction.
+[10] The RFP was formally issued on January 15,
+2001. Under its terms, only the six original proponents
+ were eligible to submit a proposal. The
+RFP also included a clause excluding all claims for
+damages “as a result of participating in this RFP”
+(s. 2.10).
+[11] Unable to submit a competitive bid on its
+own, Brentwood teamed up with Emil Anderson
+Construction Co. (“EAC”), which was not a qualified
+ bidder, and together they submitted a bid in
+Brentwood’s name. Brentwood and Tercon were
+the two short-listed proponents and the Ministry
+ultimately selected Brentwood as the preferred proponent
+.
+[12] Tercon brought an action seeking damages
+, alleging that the Ministry had considered
+and accepted an ineligible bid and that, but for that
+breach, it would have been awarded the contract.
+The trial judge agreed and awarded roughly $3.5
+million in damages and prejudgment interest. As
+noted, the Court of Appeal reversed and Tercon
+appeals by leave of the Court.
+III. Issues
+[13] The issues for decision are whether the trial
+judge erred in finding that:
+1.
+     entertaining a bid from an ineligible bidder.
+80
+
+
+2. the exclusion clause does not bar the appellant
+   ’s claim for damages for the breaches of the
+   tendering contract found by the trial judge.
+
+IV. Analysis
+
+A. Was the Brentwood Bid Ineligible?
+
+[14] The first issue is whether the Brentwood bid
+was from an eligible bidder. The judge found that
+the bid was in substance, although not in form, from
+a joint venture of Brentwood and EAC and that it
+was, therefore, an ineligible bid. The Province
+attacks this finding on three grounds:
+
+(i) a joint venture is not a legal person and therefore
+     the Province could not and did not contract
+    with a joint venture;
+
+(ii) it did not award the contract to EAC and EAC
+     had no contractual responsibility to the Province
+      for failure to perform the contract;
+
+(iii) there was no term of the RFP that restricted
+      the right of proponents to enter into joint venture
+       agreements with others; this arrangement
+      merely left Brentwood, the original proponent,
+      in place and allowed it to enhance its ability to
+      perform the work.
+
+[15] While these were the Province’s main points,
+its position became more wide-ranging during oral
+argument, at times suggesting that it had no contractual
+ obligation to deal only with eligible bidders
+. It is therefore necessary to take a step back
+and look at that threshold point before turning to
+the Province’s more focussed submissions.
+
+     1.
+          the Bidding Process
+
+[16] The judge found, and it was uncontested
+at trial, that only the six original proponents that
+81
+[2010] 1 R.C.S.
+
+
+qualified through the RFEI process were eligible
+to submit a response to the RFP. This finding is not
+challenged on appeal, although there was a passing
+suggestion during oral argument that there was no
+contractual obligation of this sort at all. The trial
+judge also held, noting that this point was uncontested
+, that a joint venture between Brentwood
+and EAC was ineligible to bid. This is also not
+contested on appeal. These two findings are criti-
+cal to the case and provide important background
+for an issue that is in dispute, namely whether the
+Brentwood bid was ineligible. It is, therefore, worth
+reviewing the relevant background in detail. I first
+briefly set out the legal framework and then turn to
+the trial judge’s findings.
+
+    2. Legal Principles
+
+[17] Submitting a compliant bid in response to
+a tender call may give rise to a contract — called
+Contract A — between the bidder and the owner, the
+express terms of which are found in the tender documents
+. The contract may also have implied terms
+according to the principles set out in Canadian
+Pacific Hotels Ltd. v. Bank of Montreal, [1987]
+1 S.C.R. 711; see also M.J.B. Enterprises Ltd. v.
+Defence Construction (1951) Ltd., [1999] 1 S.C.R.
+619, and Martel Building Ltd. v. Canada, 2000
+SCC 60, [2000] 2 S.C.R. 860. The key word, however
+, is “may”. The Contract A/Contract B framework
+ is one that arises, if at all, from the dealings
+between the parties. It is not an artificial construct
+ imposed by the courts, but a description of
+the legal consequences of the parties’ actual dealings
+. The Court emphasized in M.J.B. that whether
+Contract A arises and if it does, what its terms are,
+depend on the express and implied terms and conditions
+ of the tender call in each case. As Iacobucci
+J. put it, at para. 19:
+
+   What is important . . . is that the submission of a
+tender in response to an invitation to tender may give
+82
+
+
+rise to contractual obligations, quite apart from the obligations
+ associated with the construction contract to be
+entered into upon the acceptance of a tender, depending
+upon whether the parties intend to initiate contractual
+relations by the submission of a bid. If such a contract
+arises, its terms are governed by the terms and conditions
+ of the tender call. [Emphasis added.]
+
+     3. The Trial Judge’s Findings Concerning
+        the Existence of Contract A
+
+[18] The question of whether Tercon’s submission
+of a compliant bid gave rise to contractual relations
+between it and the Province was contested by the
+Province at trial. The trial judge gave extensive reasons
+ for finding against the Province on this issue.
+We are told that the Province did not pursue this
+point in the Court of Appeal but instead premised
+its submissions on the existence of Contract A. The
+Province took the same approach in its written submissions
+ in this Court. However, during oral argument
+, there was some passing reference in response
+to questions that there was no Contract A. In light of
+the position taken by the Province on its appeal to
+the Court of Appeal and in its written submissions
+in this Court, it is now too late to revisit whether
+there were contractual duties between Tercon and
+the Province. Even if it were open to the Province
+to make this argument now, I can see no error in
+legal principle or any palpable and overriding error
+of fact in the trial judge’s careful reasons on this
+point.
+
+[19] The trial judge did not mechanically impose
+the Contract A/Contract B framework, but considered
+ whether Contract A arose in light of her
+detailed analysis of the dealings between the parties
+. That was the right approach. She reviewed in
+detail the provisions of the RFP which supported
+her conclusion that there was an intent to create
+contractual relations upon submission of a compliant
+ bid. She noted, for example, that bids were
+to be irrevocable for 60 days and that security of
+$50,000 had to be paid by all proponents and was to
+be increased to $200,000 by the successful proponent
+. Any revisions to proposals prior to the closing
+ date had to be in writing, properly executed and
+received before the closing time. The RFP also set
+83
+[2010] 1 R.C.S.
+
+
+out detailed evaluation criteria and specified that
+they were to be the only criteria to be used to eval-
+uate proposals. A specific form of alliance agreement
+ was attached. There were detailed provisions
+about pricing that were fixed and non-negotiable.
+A proponent was required to accept this form of
+contract substantially, and security was lost if an
+agreement was not executed. The Ministry reserved
+a right to cancel the RFP under s. 2.9 but in such
+event was obliged to reimburse proponents for costs
+incurred in preparing their bids up to $15,000 each.
+Proponents had to submit a signed proposal form,
+which established that they offered to execute an
+agreement substantially in the form included in the
+RFP package. Further, they acknowledged that the
+security could be forfeited if they were selected
+as the preferred proponent and failed to enter into
+good faith discussions with the Ministry to reach
+an agreement and sign the alliance agreement.
+
+[20] In summary, as the trial judge found, the
+RFP set out a specifically defined project, invited
+proposals from a closed and specific list of eligible
+ proponents, and contemplated that proposals
+would be evaluated according to specific criteria.
+Negotiation of the alliance construction contract
+was required, but the negotiation was constrained
+and did not go to the fundamental details of either
+the procurement process or the ultimate contract.
+
+[21] There is, therefore, no basis to interfere
+with the judge’s finding that there was an intent
+to create contractual obligations upon submission
+ of a compliant bid. I add, however, that the
+tender call in this case did not give rise to the clas-
+sic Contract A/Contract B framework in which
+the bidder submits an irrevocable bid and under-
+takes to enter into Contract B on those terms if
+it is accepted. The alliance model process which
+was used here was more complicated than that and
+involved good faith negotiations for a Contract B
+in the form set out in the tender documents. But in
+my view, this should not distract us from the main
+question here. We do not have to spell out all of the
+terms of Contract A, let alone of Contract B, so as
+to define all of the duties and obligations of both
+84
+
+
+the bidders and the Province. The question here is
+much narrower: did contractual obligations arise as
+a result of Tercon’s compliant bid and, if so, was
+it a term of that contract that the Province would
+only entertain bids from eligible bidders? The trial
+judge found offer, acceptance and consideration in
+the invitation to tender and Tercon’s bid. There is
+no basis, in my respectful view, to challenge that
+finding even if it were open to the Province to try
+to do so at this late stage of the litigation.
+
+     4. The Trial Judge’s Finding Concerning
+        Eligibility
+
+[22] It was not contested at trial that only the
+six original proponents that qualified through the
+RFEI process were eligible to bid. This point is not
+in issue on appeal; the question is what this eligibility
+ requirement means. It will be helpful, therefore,
+to set out the background about this limited eligibility
+ to bid in this tendering process.
+
+[23] To begin, it is worth repeating that there is
+no doubt that the Province was contractually bound
+to accept bids only from eligible bidders. This duty
+may be implied even absent express stipulation. For
+example, in M.J.B., the Court found that an implied
+obligation to accept only compliant bids was necessary
+ to give business efficacy to the tendering process
+, noting, at para. 41, that a bidder must expend
+effort and incur expense in preparing its bid and
+must submit bid security and that it is “obvious”
+that it makes “little sense” for the bidder to comply
+with these requirements if the owner “is allowed,
+in effect, to circumscribe this process and accept a
+non-compliant bid”. But again, whether such a duty
+should be implied in any given case will depend
+on the dealings between the parties. Here, however,
+there is no need to rely on implied terms. The obligation
+ to consider only bids from eligible bidders
+85
+[2010] 1 R.C.S.
+
+
+was stated expressly in the tender documents and
+in the required ministerial approval of the process
+which they described.
+
+[24] As noted, in early 2000, the Province issued
+a RFEI based on a design-build model; the contractor
+ would both design and build the highway. The
+RFEI contemplated that a short list of three qualified
+ contractors, or teams composed of contractors
+ and consultants, would be nominated as proponents
+. Each was to provide a description of the legal
+structure of the team and to describe the role of
+each team member along with the extent of involvement
+ of each team member as a percentage of the
+total scope of the project and an organization chart
+showing each team member’s role. Any change in
+team management or key positions required notice
+in writing to the Province which reserved the right
+to disqualify the proponent if the change materi-
+ally and negatively affected the ability of the team
+to carry out the project.
+
+[25] Expressions of interest (“EOI”) were received
+from six teams including Tercon and Brentwood.
+The evaluation panel and independent review panel
+recommended a short list of three proponents with
+Tercon topping the evaluation. Brentwood was evaluated
+ fifth and was not on the short list. Brentwood
+was known to lack expertise in drilling and blasting
+ and so its EOI had included an outline of the
+key team members with that experience. EAC did
+not participate and had no role in the Brentwood
+submission. The results of this evaluation were not
+communicated and the process did not proceed
+because the Province decided to design the project
+itself and issue an RFP for an alliance model contract
+ to construct the highway.
+
+[26] It was clear from the outset that only those
+who had submitted proposals during the RFEI process
+ would be eligible to submit proposals under
+the RFP. This was specified in the approval of
+the process by the Minister of Transportation and
+86
+
+
+Highways (“Minister”) before the RFP was issued.
+It is worth pausing here to briefly look at the
+Minister’s role.
+
+[27] Pursuant to s. 23 of the Ministry of
+Transportation and Highways Act, R.S.B.C. 1996,
+c. 311, the legislation in force at the relevant time,
+the Minister was required to invite public tenders
+for road construction unless he or she determined
+that another process would result in competitively
+established costs for the work. The section provided
+:
+23 (1)
+         advertisement, or if that is impracticable, by
+         public notice, for the construction and repair
+         of all government buildings, highways and
+         public works, except for the following:
+
+                         .
+         (c) if the minister determines that an alternative
+              contracting process will result in
+             competitively established costs for the
+             performance of the work.
+     (2) The minister must cause all tenders received
+         to be opened in public, at a time and place
+         stated in the advertisement or notice.
+     (3) The prices must be made known at the time
+         the tenders are opened.
+     (4) In all cases where the minister believes it is
+         not expedient to let the work to the lowest
+         bidder, the minister must report to and obtain
+         the approval of the Lieutenant Governor in
+         Council before passing by the lowest tender,
+         except if delay would be injurious to the public
+         interest.
+
+                         .
+
+[28] These provisions make clear that the work in
+this case had to be awarded by public tender, absent
+the Minister’s approval of an alternative process,
+and had to be awarded to the lowest bidder, absent
+approval of the Lieutenant Governor in Council. As
+noted, ministerial approval was given for an alternative
+ process under s. 23(1)(c). The Minister issued
+87
+[2010] 1 R.C.S.
+
+
+a notice that, pursuant to that section, he approved
+the process set out in an attached document and had
+determined it to be an alternative contracting process
+ that would result in competitively established
+costs for the performance of the work. The attached
+document outlined in seven numbered paragraphs
+the process that had been approved.
+
+[29] The document described the background
+of the public RFEI (which I have set out earlier),
+noting that only those firms identified through the
+EOI process would be eligible to submit proposals
+for the work and that they would receive invitations
+to do so. The Minister’s approval in fact referred
+to the firms who had been short-listed from the
+RFEI process as being eligible. If this were taken
+to refer only to the three proponents identified by
+the evaluation process of the RFEI, Tercon would
+be included but Brentwood would not. However,
+no one has suggested that anything turns on this
+and it seems clear that ultimately all six of the
+RFEI proponents — including both Tercon and
+Brentwood — were intended to be eligible. The
+ministerial approval then briefly set out the process
+. Proposals “by short-listed firms” were to be
+evaluated “using the considerations set out in the
+RFP”.
+
+[30] It is clear, therefore, that participation in the
+RFP process approved by the Minister was limited
+to those who had participated in the RFEI process.
+
+[31] The Province’s factum implies that the
+Minister approved inclusion of the exclusion clause
+in the RFP. However, there is no evidence of this
+in the record before the Court. The Minister’s
+approval is before us. It is dated as having been prepared
+ on August 23, 2000 and signed on October
+19, 2000, and approves a process outlined in a
+two-page document attached to it. It says nothing
+ about exclusion of the Province’s liability.
+The RFP, containing the exclusion clause in issue
+here, is dated January 15, 2001 and was sent out
+to eligible bidders under cover of a letter of the
+88
+
+
+same date, some three months after the Minister’s
+approval.
+
+[32] The RFP is a lengthy document, containing
+detailed instructions to proponents, required forms,
+a time schedule of the work, detailed provisions
+concerning contract pricing, a draft of the ultimate
+ construction contract and many other things.
+Most relevant for our purposes are the terms of the
+instructions to proponents and in particular the eligibility
+ requirements for bidders.
+
+[33] The RFP reiterates in unequivocal terms
+that eligibility to bid was restricted as set out in
+the ministerial approval. It also underlines the sig-
+nificance of the identity of the proponent. In s. 1.1,
+the RFP specifies that only the six teams involved
+in the RFEI would be eligible. The term “proponent
+”, which refers to a bidder, is defined in s. 8 as
+“a team that has become eligible to respond to the
+RFP as described in Section 1.1 of the Instructions
+to Proponents”. Section 2.8(a) of the RFP stipulates
+ that only the six proponents qualified through
+the RFEI process were eligible and that proposals
+received from any other party would not be considered
+. In short, there were potentially only six participants
+ and “Contract A” could not arise by the
+submission of a bid from any other party.
+
+[34] The RFP also addressed material changes
+to the proponent, including changes in the proponent
+’s team members and its financial ability to
+undertake and complete the work. Section 2.8(b) of
+the RFP provided in part as follows:
+If in the opinion of the Ministry a material change
+has occurred to the Proponent since its qualification
+under the RFEI, including if the composition of the
+Proponent’s team members has changed . . . or if, for
+financial or other reasons, the Proponent’s ability to
+undertake and complete the Work has changed, then the
+89
+[2010] 1 R.C.S.
+
+
+Ministry may request the Proponent to submit further
+supporting information as the Ministry may request in
+support of the Proponent’s qualification to perform the
+Work. If in the sole discretion of the Ministry as a result
+of the changes the Proponent is not sufficiently qualified
+ to perform the Work then the Ministry reserves
+the right to disqualify that Proponent, and reject its
+Proposal.
+
+[35] The proponent was to provide an organization
+ chart outlining the proponent’s team members
+, structure and roles. If the team members were
+different from the RFEI process submission, an
+explanation was to be provided for the changes:
+s. 4.2(b)i). A list of subcontractors and suppliers
+was also to be provided and the Ministry had to be
+notified of any changes: s. 4.2(e).
+
+[36] The RFP provided proponents with a mech-
+anism to determine whether they remained qualified
+ to submit a proposal. If a proponent was concerned
+ about its eligibility as a result of a material
+change, it could make a preliminary submission to
+the Ministry describing the nature of the changes
+and the Ministry would give a written decision
+as to whether the proponent was still qualified:
+s. 2.8(b).
+
+[37] Brentwood tried to take advantage of this
+process. The trial judge thoroughly outlined this,
+at paras. 17-23 of her reasons. In brief, Brentwood
+lacked expertise in drilling and blasting and by the
+time the RFP was issued, it faced limited local bond-
+ing capacity due to commitments to other projects,
+a shorter construction period, the potential unavailability
+ of subcontractors and limited equipment to
+perform the work. It in fact considered not bidding
+at all. Instead, however, it entered into a pre-bidding
+agreement with EAC that the work would be undertaken
+ by a joint venture of Brentwood and EAC
+and that upon being awarded the work, they would
+enter into a joint venture agreement and would
+share 50/50 the costs, expenses, losses and gains.
+The trial judge noted that it was common in the
+industry for contractors to agree to a joint venture
+on the basis of a pre-bid agreement with the specif-
+ics of the joint venture to be worked out once the
+contract was awarded and that Brentwood and EAC
+90
+
+
+acted consistently throughout in accordance with
+this industry standard.
+
+[38] Brentwood sent the Province’s project manager
+, Mr. Tasaka, a preliminary submission as provided
+ for in s. 2.8(b) of the RFP, advising of a material
+ change in its team’s structure in that it wished
+to form a joint venture with EAC. This was done,
+the trial judge found, because Brentwood thought it
+would be disqualified if it submitted a proposal as a
+joint venture without the Ministry’s prior approval
+under this section of the RFP. The Province never
+responded in writing as it ought to have according
+to s. 2.8(b).
+
+[39] It seems to have been assumed by everyone
+that a joint venture of Brentwood and EAC was not
+eligible because this change would not simply be a
+change in the composition of the bidder’s team, but
+in effect a new bidder. Without reviewing in detail
+all of the evidence referred to by the trial judge, it is
+fair to say that although Brentwood ultimately submitted
+ a proposal in its own name, the proposal in
+substance was from the Brentwood/EAC joint venture
+ and was evaluated as such. As the trial judge
+concluded:
+
+The substance of the proposal was as a joint venture
+and this must have been apparent to all. The [project
+evaluation panel] approved Brentwood/EAC as joint
+venturers as the preferred proponent. The [panel] was
+satisfied that Tercon had the capacity and commitment
+to do the job but preferred the joint venture submission
+of Brentwood/EAC. [para. 53]
+
+[40] There was some suggestion by the Province
+during oral argument that the trial judge had wrongly
+imposed on it a duty to investigate Brentwood’s
+bid, a duty rejected by the majority of the Court
+in Double N Earthmovers Ltd. v. Edmonton (City),
+2007 SCC 3, [2007] 1 S.C.R. 116. In my view, the
+trial judge did no such thing. As her detailed findings
+ make clear, the Province: (1) fully understood
+that the Brentwood bid was in fact on behalf of a
+joint venture of Brentwood and EAC; (2) thought
+91
+[2010] 1 R.C.S.
+
+
+that a bid from that joint venture was not eligible;
+and (3) took active steps to obscure the reality of
+the situation. No investigation was required for
+the Province to know these things and the judge
+imposed no duty to engage in one.
+
+    5. The Province’s Submissions
+
+[41] I will address the Province’s first two points
+together:
+
+(i) a joint venture is not a legal person and therefore
+     the Province could not and did not contract
+    with a joint venture; and
+
+(ii) it did not award the contract to EAC and EAC
+     had no contractual responsibility to the Province
+      for failure to perform the contract.
+
+[42] I cannot accept these submissions. The issue
+is not, as these arguments assume, whether the
+Province contracted with a joint venture or whether
+EAC had contractual obligations to the Province.
+The issue is whether the Province considered an
+ineligible bid; the point of substance is whether the
+bid was from an eligible bidder.
+
+[43] At trial there was no contest that a bid from
+a joint venture involving an ineligible bidder would
+be ineligible. The Province’s position was that there
+was no need to look beyond the face of the bid to
+determine who was bidding: the proposal was in
+the name of Brentwood and therefore the bid was
+from a compliant bidder. Respectfully, I see no
+error in the trial judge’s rejection of this position.
+There was a mountain of evidence to support the
+judge’s conclusions that first, Brentwood’s bid, in
+fact if not in form, was on behalf of a joint venture
+ between itself and EAC; second, the Province
+knew this and took the position that it could not
+consider a bid from or award the work to that joint
+venture; third, the existence of the joint venture was
+a material consideration in favour of the Brentwood
+bid during the evaluation process; and finally, that
+steps were taken by revising and drafting documentation
+ to obfuscate the reality of the situation.
+92
+
+
+[44] Brentwood was one of the original RFEI
+proponents and was of course eligible to bid, subject
+ to material changes in the composition of its
+team. EAC had not submitted a proposal during the
+RFEI process. It had been involved in advising the
+Ministry in relation to the project in 1998 and, in
+the fall of 2000, the Ministry had asked EAC to
+prepare an internal bid for comparison purposes
+(although EAC did not do so) as EAC was not entitled
+ to bid on the Project.
+
+[45] As noted earlier, after the RFP was issued,
+Brentwood and EAC entered into a pre-bidding
+agreement that provided that the work would be
+undertaken in the name of Brentwood/Anderson,
+a joint venture, that the work would be sponsored
+and managed by the joint venture and that upon
+being awarded the contract, the parties would
+enter into a joint venture agreement. Brentwood
+advised the Ministry in writing that it was forming
+a joint venture with EAC “to submit a more competitive
+ price”; this fax was in effect a preliminary
+submission contemplated by s. 2.8(b) of the RFP
+and was written, as the trial judge found, because
+Brentwood assumed that it could be disqualified
+if it submitted a proposal as a joint venture unless
+prior arrangements had been made. The Province
+never responded in writing to this preliminary
+submission, as required by s. 2.8(b). There were,
+however, discussions with the Province’s project
+manager, Mr. Tasaka who, the trial judge found,
+understood that a joint venture from Brentwood and
+EAC would not be eligible. As the judge put it, the
+Province’s position appears to have been that the
+Brentwood/EAC proposal could proceed as long as
+the submission was in the name of Brentwood.
+
+[46] In the result, EAC was listed in the ultimate
+submission as a “major member” of the team. The
+legal relationship with EAC was not specified and
+EAC was listed as a subcontractor even though,
+as the trial judge found, their relationship bore no
+resemblance to a standard subcontractor agreement
+. The trial judge found as facts — and these
+findings are not challenged — that Brentwood and
+EAC always intended between themselves to form
+a joint venture and to formalize that arrangement
+once the contract was secured, and further, that the
+93
+[2010] 1 R.C.S.
+
+
+role of EAC was purposefully obfuscated in the bid
+to avoid an apparent conflict with s. 2.8(a) of the
+RFP.
+
+[47] During the selection process, it became clear
+that the bid was in reality on behalf of a joint venture
+. The project evaluation panel (“PEP”) requested
+better information than provided in the bid about
+the structure of the business arrangements between
+Brentwood and EAC. Brentwood responded by
+disclosing the pre-bid agreement between them to
+form a 50/50 joint venture if successful. The PEP
+understood from this that Brentwood and EAC
+had a similar interest in the risk and reward under
+the contract and that this helped satisfy them that
+the “risk/reward” aspect of the alliance contract
+could be negotiated with them flexibly. The PEP
+clearly did not consider EAC to be a subcontractor
+ although shown as such in the bid. In its step
+6 report, the PEP consistently referred to the proponent
+ as being a joint venture of Brentwood and
+EAC or as “Brentwood/EAC” and the trial judge
+found that it was on the basis that they were indeed
+a joint venture that PEP approved Brentwood/EAC
+as the preferred proponent. This step 6 report was
+ultimately revised to refer only to the Brentwood
+team as the official proponent. The trial judge
+found as a fact that this revision was made because
+“it was apparent that a joint venture was not eligible
+to submit a proposal” (para. 56).
+
+[48] The findings of the trial judge and the record
+make it clear that it was no mere question of form
+rather than a matter of substance whether the bidder
+was Brentwood with other team members or, as it
+in fact was, the Brentwood/EAC joint venture. As
+she noted, at para. 121 of her reasons, the whole
+purpose of the joint venture was to allow submission
+ of a more competitive price than it would
+have been able to do as a proponent with a team as
+allowed under s. 2.8(b) of the RFP. The joint venture
+ permitted a 50/50 sharing of risk and reward
+and co-management of the project while at the
+same time avoiding the restrictions on subcontract-
+ing in the tendering documents. As the judge put it,
+the bid by the joint venture constituted “material
+non-compliance” with the tendering contract: “. . .
+94
+
+
+the joint venture with EAC allowed Brentwood to
+put forward a more competitive price than contemplated
+ under the RFEI proposal. This went to the
+essence of the tendering process” (para. 126).
+
+[49] The Province suggests that the trial judge’s
+reasons allow form to triumph over substance. In
+my view, it is the Province’s position that better
+deserves that description. It had a bid which it
+knew to be on behalf of a joint venture, encouraged
+ the bid to proceed and took steps to obfuscate
+the reality that it was on behalf of a joint venture.
+Permitting the bid to proceed in this way gave the
+joint venture a competitive advantage in the bidding
+ process, and the record could not be clearer
+that the joint venture nature of the bid was one of
+its attractions during the selection process. The
+Province nonetheless submits that so long as only
+the name of Brentwood appears on the bid and ultimate
+ Contract B, all is well. If ever a submission
+advocated placing form above substance, this is it.
+
+[50] It is true that the Province had legal advice
+and did not proceed in defiance of it. However, the
+facts as found by the trial judge about this legal
+advice hardly advance the Province’s position. The
+judge found that the Province’s lawyer was not
+aware of the background relevant to the question
+of whether the Brentwood bid was eligible, never
+reviewed the proponent eligibility requirements in
+the RFP and was not asked to and did not direct
+his mind to the question of eligibility. As the trial
+judge put it, the lawyer “appears to have operated
+on the assumption that Brentwood had been irre-
+versibly selected” (para. 70).
+
+[51] The Brentwood/EAC joint venture having
+been selected as the preferred proponent, negotiations
+ for the alliance contract ensued. The trial judge
+found that by this time, all agreed that a joint venture
+95
+[2010] 1 R.C.S.
+
+
+was not an eligible proponent and the Ministry was
+taking the position that the contract could not be
+in the name of the joint venture. Brentwood and
+EAC executed a revised pre-contract agreement
+that provided, notwithstanding the letter of intent
+from the Ministry addressed to Brentwood indicat-
+ing that the legal relationship between them would
+be contractor/subcontractor, the contract would be
+performed and the profits shared equally between
+them. The work was to be managed by a commit-
+tee with equal representation, the bond required by
+the owner was to be provided by both parties and
+EAC indemnified Brentwood against half of any
+loss or cost incurred as a result of performance of
+the work. According to schedule B4 of the RFP, all
+subcontracts were to be attached to the RFP but
+no contract between Brentwood and EAC was ever
+provided or attached to the proposal.
+
+[52] The Province has identified no palpable and
+overriding error in these many findings of fact by
+the trial judge. I conclude, therefore, that we must
+approach the case on the basis of the judge’s finding
+ that the bid was in fact, if not in form, submitted
+ by a joint venture of Brentwood and EAC,
+that the Ministry was well aware of this, that the
+existence of the joint venture was a material consideration
+ in favour of the bid during the evaluation
+ process and that by bidding as a joint venture,
+Brentwood was given a competitive advantage in
+the bidding process.
+
+[53] I reject the Ministry’s submissions that all
+that matters is the form and not the substance of
+the arrangement. In my view, the trial judge’s finding
+ that this bid was in fact on behalf of a joint venture
+ is unassailable.
+
+[54]
+
+(iii) there was no term of the RFP that restricted
+      the right of proponents to enter into joint
+      venture agreements with others; this arrangement
+       merely left Brentwood, the original
+96
+
+
+     proponent in place and allowed it to enhance
+     its ability to perform the work.
+[55] This submission addresses the question of
+whether the joint venture was an eligible bidder.
+The Province submits that it is, arguing that s.
+2.8(b) of the RFP shows that the RFP contemplated
+that each proponent would be supported by a team,
+that the composition of the team might change and
+that the Province under that section retained the
+right to approve or reject changes in the team of
+any proponent. I cannot accept these submissions.
+[56] Section 2.8 must be read as a whole and
+in light of the ministerial approval which I have
+described earlier. Section 2.8(a), consistent with
+that approval, stipulates that only the six proponents
+ qualified through the RFEI process were eligible
+ to submit responses and that proposals from
+any other party “shall not be considered”. The word
+“proponent” is defined in s. 8 as a team that has
+become eligible to respond to the RFP. The material
+ change provisions in s. 2.8(b) should not be read
+as negating the express provisions of the RFP and
+the ministerial approval of the process. When read
+as a whole, the provisions about material change do
+not permit the addition of a new entity as occurred
+here. The process actually followed was not the
+one specified in the bidding contract and was not
+authorized by the statute because it was not the one
+approved by the Minister.
+[57] Moreover, even if one were to conclude (and
+I would not) that this change from the Brentwood
+team that participated in the RFEI to the Brentwood/
+EAC joint venture by whom the bid was submitted
+could fall within the material change provisions of
+s. 2.8(b), the Province never gave a written decision
+to permit this change as required by that provision.
+As the trial judge noted, in fact the Province’s position
+ was that such a bid would not be eligible and
+its agents took steps to obfuscate the true proponent
+ in the relevant documentation.
+[58] The trial judge also found that there was an
+implied obligation of good faith in the contract and
+97
+[2010] 1 R.C.S.
+
+
+that the Province breached this obligation by failing
+to treat all bidders equally by changing the terms of
+eligibility to Brentwood’s competitive advantage.
+This conclusion strongly reinforces the trial judge’s
+decision about eligibility. Rather than repeating her
+detailed findings, I will simply quote her summary
+at para. 138:
+    The whole of [the Province’s] conduct leaves me
+with no doubt that the [Province] breached the duty of
+fairness to [Tercon] by changing the terms of eligibility
+ to Brentwood’s competitive advantage. At best, [the
+Province] ignored significant information to its [i.e.
+Tercon’s] detriment. At worst, the [Province] covered
+up its knowledge that the successful proponent was an
+ineligible joint venture. In the circumstances here, it is
+not open to the [Province] to say that a joint venture
+was only proposed. Nor can the [Province] say that it
+was unaware of the joint venture when it acted delib-
+erately to structure contract B to include EAC as fully
+responsible within a separate contract with Brentwood,
+so minimizing the [Province’s] risk that the contract
+would be unenforceable against EAC if arrangements
+did not work out. . . . The [Province] was . . . prepared
+to take the risk that unsuccessful bidders would sue:
+this risk did materialize.
+
+[59] To conclude on this point, I find no fault with
+the trial judge’s conclusion that the bid was in fact
+submitted on behalf of a joint venture of Brentwood
+and EAC which was an ineligible bidder under the
+terms of the RFP. This breached not only the express
+eligibility provisions of the tender documents, but
+also the implied duty to act fairly towards all bidders
+.
+
+B. The Exclusion Clause
+     1.
+
+[60] As noted, the RFP includes an exclusion
+clause which reads as follows:
+2.10 . . .
+   Except as expressly and specifically permitted in
+   these Instructions to Proponents, no Proponent shall
+98
+
+
+     have any claim for compensation of any kind whatsoever
+     , as a result of participating in this RFP, and
+     by submitting a Proposal each Proponent shall be
+     deemed to have agreed that it has no claim. [Emphasis
+      added.]
+
+[61] The trial judge held that as a matter of construction
+, the clause did not bar recovery for the
+breaches she had found. The clause, in her view,
+was ambiguous and, applying the contra proferentem
+ principle, she resolved the ambiguity in
+Tercon’s favour. She also found that the Province’s
+breach was fundamental and that it was not fair
+or reasonable to enforce the exclusion clause in
+light of the nature of the Province’s breach. The
+Province contends that the judge erred both with
+respect to the construction of the clause and
+her application of the doctrine of fundamental
+breach.
+
+[62] On the issue of fundamental breach in relation
+ to exclusion clauses, my view is that the time
+has come to lay this doctrine to rest, as Dickson
+C.J. was inclined to do more than 20 years ago:
+Hunter Engineering Co. v. Syncrude Canada Ltd.,
+[1989] 1 S.C.R. 426, at p. 462. I agree with the
+analytical approach that should be followed when
+tackling an issue relating to the applicability of an
+exclusion clause set out by my colleague Binnie
+J. However, I respectfully do not agree with him
+on the question of the proper interpretation of the
+clause in issue here. In my view, the clause does not
+exclude Tercon’s claim for damages, and even if I
+am wrong about that, the clause is at best ambiguous
+ and should be construed contra proferentem as
+the trial judge held. As a result of my conclusion on
+the interpretation issue, I do not have to go on to
+apply the rest of the analytical framework set out
+by Binnie J.
+
+[63] In my view, the exclusion clause does not
+cover the Province’s breaches in this case. The RFP
+process put in place by the Province was premised
+ on a closed list of bidders; a contest with an
+ineligible bidder was not part of the RFP process
+and was in fact expressly precluded by its terms.
+A “Contract A” could not arise as a result of submission
+ of a bid from any other party. However, as
+99
+[2010] 1 R.C.S.
+
+
+a result of how the Province proceeded, the very
+premise of its own RFP process was missing, and
+the work was awarded to a party who could not
+be a participant in the RFP process. That is what
+Tercon is complaining about. Tercon’s claim is not
+barred by the exclusion clause because the clause
+only applies to claims arising “as a result of participating
+ in [the] RFP”, not to claims resulting
+from the participation of other, ineligible parties.
+Moreover, the words of this exclusion clause, in my
+view, are not effective to limit liability for breach
+of the Province’s implied duty of fairness to bidders
+. I will explain my conclusion by turning first
+to a brief account of the key legal principles and
+then to the facts of the case.
+
+    2. Legal Principles
+
+[64] The key principle of contractual interpretation
+ here is that the words of one provision must
+not be read in isolation but should be considered in
+harmony with the rest of the contract and in light of
+its purposes and commercial context. The approach
+adopted by the Court in M.J.B. is instructive. The
+Court had to interpret a privilege clause, which is
+somewhat analogous to the exclusion clause in issue
+here. The privilege clause provided that the lowest
+or any tender would not necessarily be accepted,
+and the issue was whether this barred a claim based
+on breach of an implied term that the owner would
+accept only compliant bids. In interpreting the privilege
+ clause, the Court looked at its text in light of
+the contract as a whole, its purposes and commercial
+ context. As Iacobucci J. said, at para. 44, “the
+privilege clause is only one term of Contract A and
+must be read in harmony with the rest of the tender
+documents. To do otherwise would undermine the
+rest of the agreement between the parties.”
+
+[65] In a similar way, it is necessary in the present
+case to consider the exclusion clause in the RFP
+in light of its purposes and commercial context as
+well as of its overall terms. The question is whether
+the exclusion of compensation for claims resulting
+100
+
+
+from “participating in this RFP”, properly interpreted
+, excludes liability for the Province having
+unfairly considered a bid from a bidder who was
+not supposed to have been participating in the RFP
+process at all.
+      3. Application to This Case
+[66] Having regard to both the text of the clause
+in its broader context and to the purposes and commercial
+ context of the RFP, my view is that this
+claim does not fall within the terms of the exclusion
+ clause.
+
+[67] To begin, it is helpful to recall that in interpreting
+ tendering contracts, the Court has been
+careful to consider the special commercial context
+ of tendering. Effective tendering ultimately
+depends on the integrity and business efficacy of
+the tendering process: see, e.g., Martel, at para. 88;
+M.J.B., at para. 41; Double N Earthmovers, at para.
+106. As Iacobucci and Major JJ. put it in Martel, at
+para. 116, “it is imperative that all bidders be treated
+on an equal footing . . . . Parties should at the very
+least be confident that their initial bids will not be
+skewed by some underlying advantage in the drafting
+ of the call for tenders conferred upon only one
+potential bidder.”
+[68] This factor is particularly weighty in the
+context of public procurement. In that context, in
+addition to the interests of the parties, there is the
+need for transparency for the public at large. This
+consideration is underlined by the statutory provisions
+ which governed the tendering process in this
+case. Their purpose was to assure transparency and
+fairness in public tenders. As was said by Orsborn
+J. (as he then was) in Cahill (G.J.) & Co. (1979)
+Ltd. v. Newfoundland and Labrador (Minister of
+Municipal and Provincial Affairs), 2005 NLTD
+129, 250 Nfld. & P.E.I.R. 145, at para. 35:
+   The owner — in this case the government — is in
+control of the tendering process and may define the
+101
+[2010] 1 R.C.S.
+
+
+parameters for a compliant bid and a compliant bidder.
+The corollary to this, of course, is that once the owner —
+here the government — sets the rules, it must itself play
+by those rules in assessing the bids and awarding the
+main contract.
+[69] One aspect that is generally seen as contrib-
+uting to the integrity and business efficacy of the
+tendering process is the requirement that only compliant
+ bids be considered. As noted earlier, such a
+requirement has often been implied because, as the
+Court said in M.J.B., it makes little sense to think
+that a bidder would comply with the bidding process
+ if the owner could circumscribe it by accepting
+a non-compliant bid. Respectfully, it seems to me
+to make even less sense to think that eligible bidders
+ would participate in the RFP if the Province
+could avoid liability for ignoring an express term
+concerning eligibility to bid on which the entire
+RFP was premised and which was mandated by the
+statutorily approved process.
+
+[70] The closed list of bidders was the foundation
+ of this RFP and there were important competitive
+ advantages to a bidder who could side-step
+that limitation. Thus, it seems to me that both the
+integrity and the business efficacy of the tendering
+process support an interpretation that would allow
+the exclusion clause to operate compatibly with the
+eligibility limitations that were at the very root of
+the RFP.
+
+[71] The same may be said with respect to the
+implied duty of fairness. As Iacobucci and Major
+JJ. wrote for the Court in Martel, at para. 88,
+“[i]mplying an obligation to treat all bidders fairly
+and equally is consistent with the goal of protecting
+ and promoting the integrity of the bidding process
+.” It seems to me that clear language is necessary
+ to exclude liability for breach of such a basic
+requirement of the tendering process, particularly
+in the case of public procurement.
+102
+
+
+[72] The proper interpretation of the exclusion
+clause should also take account of the statutory
+context which I have reviewed earlier. The restric-
+tion on eligibility of bidders was a key element of
+the alternative process approved by the Minister. It
+seems unlikely, therefore, that the parties intended
+through this exclusion clause to effectively gut a
+key aspect of the approved process. Of course, it is
+true that the exclusion clause does not bar all remedies
+, but only claims for compensation. However,
+the fact remains that as a practical matter, there are
+unlikely to be other, effective remedies for considering
+ and accepting an ineligible bid and that
+barring compensation for a breach of that nature
+in practical terms renders the ministerial approval
+process virtually meaningless. Whatever administrative
+ law remedies may be available, they are
+not likely to be effective remedies for awarding a
+contract to an ineligible bidder. The Province did
+not submit that injunctive relief would have been an
+option, and I can, in any event, foresee many practical
+ problems that need not detain us here in seeking
+ such relief in these circumstances.
+
+[73] The Province stresses Tercon’s commercial
+ sophistication, in effect arguing that it agreed
+to the exclusion clause and must accept the consequences
+. This line of argument, however, has
+two weaknesses. It assumes the answer to the real
+question before us which is: what does the exclusion
+ clause mean? The consequences of agreeing
+to the exclusion clause depend on its construction.
+In addition, the Province’s submission overlooks
+its own commercial sophistication and the fact that
+sophisticated parties can draft very clear exclusion
+and limitation clauses when they are minded to
+do so. Such clauses contrast starkly with the curi-
+ous clause which the Province inserted into this
+RFP. The limitation of liability clause in Hunter,
+for example, provided that “[n]otwithstanding any
+other provision in this contract or any applicable
+ statutory provisions neither the Seller nor the
+Buyer shall be liable to the other for special or con-
+sequential damages or damages for loss of use arising
+ directly or indirectly from any breach of this
+contract, fundamental or otherwise” (p. 450). The
+Court found this to be clear and unambiguous. The
+limitation clause in issue in Guarantee Co. of North
+103
+[2010] 1 R.C.S.
+
+
+America v. Gordon Capital Corp., [1999] 3 S.C.R.
+423, provided that legal proceedings for the recovery
+ of “any loss hereunder shall not be brought . . .
+after the expiration of 24 months from the discovery
+ of such loss” (para. 5). Once again, the Court
+found this language clear. The Ontario Court of
+Appeal similarly found the language of a limitation
+of liability clause to be clear in Fraser Jewellers
+(1982) Ltd. v. Dominion Electric Protection Co.
+(1997), 34 O.R. (3d) 1. The clause provided in part
+that if the defendant “should be found liable for
+loss, damage or injury due to a failure of service
+or equipment in any respect, its liability shall be
+limited to a sum equal to 100% of the annual service
+ charge or $10,000.00, whichever is less, as the
+agreed upon damages and not as a penalty, as the
+exclusive remedy” (p. 4). These, and many other
+cases which might be referred to, demonstrate that
+sophisticated parties are capable of drafting clear
+and comprehensive limitation and exclusion provisions
+.
+
+[74] I turn to the text of the clause which the
+Province inserted in its RFP. It addresses claims
+that result from “participating in this RFP”. As
+noted, the limitation on who could participate in
+this RFP was one of its premises. These words
+must, therefore, be read in light of the limit on who
+was eligible to participate in this RFP. As noted
+earlier, both the ministerial approval and the text
+of the RFP itself were unequivocal: only the six
+proponents qualified through the earlier RFEI process
+ were eligible and proposals received from any
+other party would not be considered. Thus, central
+ to “participating in this RFP” was participating
+in a contest among those eligible to participate. A
+process involving other bidders, as the trial judge
+found the process followed by the Province to be, is
+not the process called for by “this RFP” and being
+part of that other process is not in any meaningful
+sense “participating in this RFP”.
+104
+
+
+[75] The Province would have us interpret the
+phrase excluding compensation “as a result of participating
+ in this RFP” to mean that compensation is
+excluded that results from “submitting a Proposal”.
+However, that interpretation is not consistent with
+the wording of the clause as a whole. The clause
+concludes with the phrase that “by submitting a
+Proposal each Proponent shall be deemed to have
+agreed that it has no claim”. If the phrases “participating
+ in this RFP” and “submitting a Proposal”
+were intended to mean the same thing, it is hard to
+understand why different words were used in the
+same short clause to express the same idea. The
+fact that the Minister had approved a closed list of
+participants strengthens the usual inference that
+the use of different words was deliberate so as not
+to exclude compensation for a departure from that
+basic eligibility requirement.
+
+[76] This interpretation of the exclusion clause
+does not rob it of meaning, but makes it compatible
+with other provisions of the RFP. There is a parallel
+between this case and the Court’s decision in M.J.B.
+There, the Court found that there was compatibility
+between the privilege clause and the implied term
+to accept only compliant bids. Similarly, in this
+case, there is compatibility between the eligibility
+requirements of the RFP and the exclusion clause.
+Not any and every claim based on any and every
+deviation from the RFP provisions would escape
+the preclusive effect of the exclusion clause. It is
+only when the defect in the Province’s adherence to
+the RFP process is such that it is completely outside
+that process that the exclusion clause cannot have
+been intended to operate. What is important here,
+in my view, is that the RFP in its conception, in its
+express provisions and in the statutorily required
+approval it was given, was premised on limiting
+eligibility to the six proponents in the RFEI process
+. Competition among others was not at all contemplated
+ and was not part of the RFP process; in
+fact, the RFP expressly excluded that possibility. In
+short, limiting eligibility of bidders to those who
+had responded to the RFEI was the foundation of
+the whole RFP. As the judge found, acceptance of
+105
+[2010] 1 R.C.S.
+
+
+a bid from an ineligible bidder “attacks the underlying
+ premise of the process” established by the
+RFP: para. 146. Liability for such an attack is not
+excluded by a clause limiting compensation resulting
+ from participation in this RFP.
+
+[77] This interpretation is also supported by
+another provision of the RFP. Under s. 2.9, as mentioned
+ earlier, the Province reserved to itself the
+right to unilaterally cancel the RFP and the right
+to propose a new RFP allowing additional bidders
+. If the exclusion clause were broad enough to
+exclude compensation for allowing ineligible bidders
+ to participate, there seems to be little purpose
+in this reservation of the ability to cancel the RFP
+and issue a new one to a wider circle of bidders. It
+is also significant that the Province did not reserve
+to itself the right to accept a bid from an ineligible
+bidder or to unilaterally change the rules of eligibility
+. The RFP expressly did exactly the opposite.
+None of this, in my opinion, supports the view that
+the exclusion clause should be read as applying to
+the Province’s conduct in this case.
+
+[78] To hold otherwise seems to me to be incon-
+sistent with the text of the clause read in the context
+of the RFP as a whole and in light of its purposes
+and commercial context. In short, I cannot accept
+the contention that, by agreeing to exclude compensation
+ for participating in this RFP process, the
+parties could have intended to exclude a damages
+claim resulting from the Province unfairly permitting
+ a bidder to participate who was not eligible
+to do so. I cannot conclude that the provision was
+intended to gut the RFP’s eligibility requirements
+as to who may participate in it, or to render meaningless
+ the Minister’s statutorily required approval
+of the alternative process where this was a key element
+. The provision, as well, was not intended to
+allow the Province to escape a damages claim for
+applying different eligibility criteria, to the competitive
+ disadvantage of other bidders and for taking
+106
+
+
+steps designed to disguise the true state of affairs. I
+cannot conclude that the parties, through the words
+found in this exclusion clause, intended to waive
+compensation for conduct like that of the Province
+in this case that strikes at the heart of the integrity
+ and business efficacy of the tendering process
+which it undertook.
+[79] If I am wrong about my interpretation of the
+clause, I would hold, as did the trial judge, that its
+language is at least ambiguous. If, as the Province
+contends, the phrase “participating in this RFP”
+could reasonably mean “submitting a Proposal”,
+that phrase could also reasonably mean “compet-
+ing against the other eligible participants”. Any
+ambiguity in the context of this contract requires
+that the clause be interpreted against the Province
+and in favour of Tercon under the principle contra
+proferentem: see, e.g., Hillis Oil and Sales Ltd. v.
+Wynn’s Canada, Ltd., [1986] 1 S.C.R. 57, at pp.
+68-69. Following this approach, the clause would
+not apply to bar Tercon’s damages claim.
+V. Disposition
+
+[80] I conclude that the judge did not err in finding
+ that the Province breached the tendering contract
+ or in finding that Tercon’s remedy in damages
+for that breach was not precluded by the exclusion
+clause in the contract. I would therefore allow the
+appeal, set aside the order of the Court of Appeal
+and restore the judgment of the trial judge. The
+parties advise that the question of costs has been
+resolved between them and that therefore no order
+in relation to costs is required.
+  The reasons of McLachlin C.J. and Binnie,
+Abella and Rothstein JJ. were delivered by
+[81] BINNIE J. (dissenting) — The important legal
+issue raised by this appeal is whether, and in what
+107
+[2010] 1 R.C.S.
+
+
+circumstances, a court will deny a defendant contract
+ breaker the benefit of an exclusion of liability
+clause to which the innocent party, not being under
+any sort of disability, has agreed. Traditionally,
+this has involved consideration of what is known
+as the doctrine of fundamental breach, a doctrine
+which Dickson C.J. in Hunter Engineering Co. v.
+Syncrude Canada Ltd., [1989] 1 S.C.R. 426, suggested
+ should be laid to rest 21 years ago (p. 462).
+
+[82] On this occasion we should again attempt to
+shut the coffin on the jargon associated with “fundamental
+ breach”. Categorizing a contract breach
+as “fundamental” or “immense” or “colossal” is
+not particularly helpful. Rather, the principle is
+that a court has no discretion to refuse to enforce
+a valid and applicable contractual exclusion clause
+unless the plaintiff (here the appellant Tercon) can
+point to some paramount consideration of public
+policy sufficient to override the public interest in
+freedom of contact and defeat what would otherwise
+ be the contractual rights of the parties. Tercon
+points to the public interest in the transparency
+and integrity of the government tendering process
+(in this case, for a highway construction contract)
+but in my view such a concern, while important,
+did not render unenforceable the terms of the contract
+ Tercon agreed to. There is nothing inherently
+unreasonable about exclusion clauses. Tercon is
+a large and sophisticated corporation. Unlike my
+colleague Justice Cromwell, I would hold that the
+respondent Ministry’s conduct, while in breach of
+its contractual obligations, fell within the terms of
+the exclusion clause. In turn, there is no reason why
+the clause should not be enforced. I would dismiss
+the appeal.
+
+I.
+
+[83] This appeal concerns a contract to build a $35
+million road in the remote Nass Valley of British
+Columbia (the “Kincolith project”). The respondent
+ Ministry accepted a bid from Brentwood
+108
+
+
+Enterprises Ltd. that did not comply with the terms
+of tender. Tercon, as the disappointed finalist in the
+bidding battle, seeks compensation equivalent to
+the profit it expected to earn had it been awarded
+the contract.
+
+[84] Tercon alleged, and the trial judge found,
+that although the winning bid was submitted in the
+name of Brentwood (an eligible bidder), Brentwood
+in fact intended, with the Ministry’s knowledge and
+encouragement, to do the work in a co-venture with
+an ineligible bidder, Emil Anderson Construction
+Co. (“EAC”). The respondent Ministry raised
+a number of defences including the fact that
+the formal contract was signed in the name of
+Brentwood alone. This defence was rejected in the
+courts below. The Ministry’s substantial defence
+in this Court is that even if it failed to abide by
+the bidding rules, it is nonetheless protected by an
+exclusion of compensation clause set out clearly in
+the request for proposals (“RFP”). The clause provided
+ that “no Proponent shall have any claim for
+compensation of any kind whatsoever, as a result of
+participating in this RFP” and that “by submitting
+a Proposal each Proponent shall be deemed to have
+agreed that it has no claim” (s. 2.10 of the RFP).
+
+[85] The appeal thus brings into conflict the
+public policy that favours a fair, open and transparent
+ bid process, and the freedom of contract of
+sophisticated and experienced parties in a commercial
+ environment to craft their own contractual
+relations. I agree with Tercon that the public interest
+ favours an orderly and fair scheme for tendering
+ in the construction industry, but there is also
+a public interest in leaving knowledgeable parties
+free to order their own commercial affairs. In my
+view, on the facts of this case, the Court should not
+rewrite — nor should the Court refuse to give effect
+to — the terms agreed to by the parties.
+
+[86] I accept, as did the courts below, that the
+respondent Ministry breached the terms of its own
+RFP when it contracted with Brentwood, know-
+ing the work would be carried out by a co-venture
+with Brentwood and EAC. The addition of EAC, a
+109
+[2010] 1 R.C.S.
+
+
+bigger contractor with greater financial resources
+than Brentwood, created a stronger competitor
+for Tercon than Brentwood alone. However, I also
+agree with the B.C. Court of Appeal that the exclusion
+ of compensation clause is clear and unambiguous
+ and that no legal ground or rule of law permits
+us to override the freedom of the parties to contract
+(or to decline to contract) with respect to this particular
+ term, or to relieve Tercon against its operation
+ in this case.
+
+II. The Tendering Process
+
+[87] For almost three decades, the law governing
+a structured bidding process has been dominated
+by the concept of Contract A/Contract B initially
+formulated in The Queen in right of Ontario v. Ron
+Engineering & Construction (Eastern) Ltd., [1981]
+1 S.C.R. 111. The analysis advanced by Estey J. in
+that case was that the bidding process, as defined
+by the terms of the tender call, may create contractual
+ relations (“Contract A”) prior in time and quite
+independently of the contract that is the actual
+subject matter of the bid (“Contract B”). Breach
+of Contract A may, depending on its terms, give
+rise to contractual remedies for non-performance
+even if Contract B is never entered into or, as in
+the present case, it is awarded to a competitor. The
+result of this legal construct is to provide unsuccessful
+ bidders with a contractual remedy against
+an owner who departs from its own bidding rules.
+Contract A, however, arises (if at all) as a matter of
+interpretation. It is not imposed as a rule of law.
+
+[88] In Ron Engineering, the result of Estey J.’s
+analysis was that as a matter of contractual interpretation
+, the Ontario government was allowed
+to retain a $150,000 bid bond put up by Ron
+Engineering even though the government was told,
+a little over an hour after the bids were opened, that
+Ron Engineering had made a $750,058 error in the
+calculation of its bid and wished to withdraw it.
+Estey J. held:
+
+The contractor was not asked to sign a contract which
+diverged in any way from its tender but simply to sign a
+110
+
+
+contract in accordance with the instructions to tender-
+ers and in conformity with its own tender. [p. 127]
+
+In other words, harsh as it may have seemed to Ron
+Engineering, the parties were held to their bargain.
+The Court was not prepared to substitute “fair and
+reasonable” terms for what the parties had actually
+agreed to.
+[89] In M.J.B. Enterprises Ltd. v. Defence
+Construction (1951) Ltd., [1999] 1 S.C.R. 619,
+Contract A included a “privilege” clause which
+stated that the owner was not obliged to accept the
+lowest or any tender. The Court implied a term,
+based on the presumed intention of the parties, that
+notwithstanding the privilege clause, only compliant
+ bids were open to acceptance. While the owner
+was not obliged to accept the lowest compliant bid,
+the privilege clause did not, as a matter of contractual
+ interpretation, give the owner “the privilege”
+of accepting a non-compliant bid. M.J.B. stops
+short of the issue in the present appeal because in
+that case, there was a breach of Contract A but no
+clause purporting to exclude liability on the part
+of the owner to pay compensation in the event of a
+Contract A violation.
+[90] In Naylor Group Inc. v. Ellis-Don
+Construction Ltd., 2001 SCC 58, [2001] 2 S.C.R.
+943, the Court enforced the rules of the bid
+depository system against a contractor whose bid
+was based on what turned out to be a mistaken
+view of its collective bargaining status with the
+International Brotherhood of Electrical Workers.
+The Court again affirmed that “[t]he existence and
+content of Contract A will depend on the facts of
+the particular case” (para. 36). Ellis-Don sought
+relief from its bid on the basis of a labour board
+decision rendered subsequent to its bid that upheld,
+to its surprise, the bargaining rights of the union.
+This Court held that no relief was contemplated in
+the circumstances under Contract A and none was
+afforded, even though this was a costly result when
+viewed from the perspective of Ellis-Don.
+111
+[2010] 1 R.C.S.
+
+
+[91] In Martel Building Ltd. v. Canada, 2000
+SCC 60, [2000] 2 S.C.R. 860, citing M.J.B., the
+Court implied a term in Contract A obligating the
+owner to be fair and consistent in the assessment of
+tender bids. On the facts, the disappointed bidder’s
+claim of unfair treatment was rejected.
+
+[92] Finally, in Double N Earthmovers Ltd. v.
+Edmonton (City), 2007 SCC 3, [2007] 1 S.C.R. 116,
+the unsuccessful bidder claimed that Edmonton had
+accepted, in breach of Contract A, a competitor’s
+non-compliant bid to provide heavy equipment of
+a certain age to move refuse at a waste disposal
+site. The Court refused to imply a term “requir-
+ing an owner to investigate to see if bidders will
+really do what they promised in their tender” (para.
+50). Accepting the existence of a duty of “fairness
+and equality”, the majority nevertheless held that
+“[t]he best way to make sure that all bids receive
+the same treatment is for an owner to weigh bids on
+the basis of what is actually in the bid, not to weigh
+them on the basis of subsequently discovered information
+” (para. 52). In other words, the majority’s
+interpretation of the express terms of Contract A
+was enforced despite Double N Earthmovers’ com-
+plaint of double dealing by the owner.
+
+[93] On the whole, therefore, while Ron
+Engineering and its progeny have encouraged the
+establishment of a fair and transparent bidding process
+, Contract A continues to be based not on some
+abstract externally imposed rule of law but on the
+presumed (and occasionally implied) intent of the
+parties. Only in rare circumstances will the Court
+relieve a party from the bargain it has made.
+
+[94] As to implied terms, M.J.B. emphasized (at
+para. 29) that the focus is “the intentions of the
+actual parties”. A court, when dealing with a claim
+to an implied term, “must be careful not to slide
+112
+
+
+into determining the intentions of reasonable parties
+” (emphasis in original). Thus, “if there is evidence
+ of a contrary intention, on the part of either
+party, an implied term may not be found on this
+basis”.
+
+[95] Tercon is a large and experienced contractor
+. As noted by Donald J.A. in the B.C. Court of
+Appeal, it had earlier “successfully recovered damages
+ from the [Ministry] on a bidding default in
+a previous case” (2007 BCCA 592, 73 B.C.L.R.
+(4th) 201, at para. 15). See Tercon Contractors
+Ltd. v. British Columbia (1993), 9 C.L.R. (2d)
+197 (B.C.S.C.), aff’d [1994] B.C.J. No. 2658 (QL)
+(C.A.). Thus Tercon would have been more sensi-
+tive than most contractors to the risks posed by an
+exclusion of compensation clause. It nevertheless
+chose to bid on the project on the terms proposed
+by the Ministry.
+
+III. Tercon’s Claim for Relief From the Exclusionary
+      Clause It Agreed to
+
+[96] In these circumstances, the first question is
+whether there is either a statutory legal obstacle to,
+or a principled legal argument against, the freedom
+of these parties to contract out of the obligation
+that would otherwise exist for the Ministry to pay
+compensation for a breach of Contract A. If not,
+the second question is whether there is any other
+barrier to the court’s enforcement of the exclusionary
+ clause in the circumstances that occurred. On
+the first branch, Tercon relies on the Ministry of
+Transportation and Highways Act, R.S.B.C. 1996,
+c. 311 (“Transportation Act” or the “Act”). On the
+second branch, Tercon relies on the doctrine of
+fundamental breach.
+
+A. The Statutory Argument
+
+[97] Section 4 of the Transportation Act provides
+that before awarding a highway contract, “the minister
+ must invite tenders in any manner that will
+make the invitation for tenders reasonably available
+113
+[2010] 1 R.C.S.
+
+
+to the public”, but then provides for several excep-
+tions: “The minister need not invite tenders for a
+project . . . if . . . (c) the minister believes that an
+alternative contracting process will result in a competitively
+ established cost for the project”. Here the
+required ministerial authorization was obtained for
+an “alternative process”. The reason is as follows.
+As noted by Cromwell J., the Ministry’s original
+idea was to use a “design-build” model where a
+single contractor would design and build the highway
+ for a fixed price. The Ministry issued a request
+for expressions of interest (“RFEI”) which attracted
+six responses. One was from Tercon. Another was
+from Brentwood. EAC declined to bid because it
+did not think the “design-build” concept was appropriate
+ for the job.
+
+[98] On further reflection, the Ministry decided
+not to pursue the design-build approach. It decided
+to design the highway itself. The contract would be
+limited to construction, as EAC had earlier advocated
+. EAC was not allowed to bid despite the
+Ministry coming around to its point of view on the
+proper way to tender the project. The Ministry limited
+ bidding on the new contest to the six respond-
+ents to the original RFEI, all of whom had been
+found capable of performing the contract. But to
+do so, it needed, and did obtain, the Minister’s s. 4
+approval.
+
+[99] A question arose during the hearing of the
+appeal as to whether the Minister actually approved
+an “alternative process” that not only restricted eligibility
+ to the six participants in the RFEI process
+(an advantage to Tercon and the other five participants
+), but also contained the “no claims” clause
+excluding compensation for non-observance of its
+terms (no doubt considered a disadvantage). In its
+factum, the Ministry states:
+
+In this case, the Minister approved an alternate process
+under [s. 4(2) of the B.C. Transportation Act]. That process
+ was set out in the Instructions to Proponents, which
+included the No Claim Clause. Having been approved
+by the Minister, the package (including the No Claim
+114
+
+
+Clause) complied with section 4 of the Transportation
+Act. [para. 70]
+[100] Tercon argued at the hearing of this appeal
+that as a matter of law, Contract A could not have
+included the exclusion clause because
+    [t]he policy of the [Transportation Act] is to ensure
+that the Ministry is accountable; to preserve confidence
+in the integrity of the tendering process. To ensure that
+is so and that the Minister is accountable, the Ministry
+must be held liable for its breach of Contract A in considering
+ and accepting a proposal from the joint venture
+ . . . .
+
+                        .
+   MADAM JUSTICE ABELLA: Can I just ask you one
+question. Is it your position, sir, that you can never
+have -- that a government can never have a no claims
+clause?
+   MR. McLEAN: Yes. Under this statute because of the
+policy of the statute. [Transcript, at p. 27]
+[101] While it is true that the Act favours “the
+integrity of the tendering process”, it nowhere prohibits
+ the parties from negotiating a “no claims”
+clause as part of their commercial agreement, and
+cannot plausibly be interpreted to have that effect.
+
+[102] In the ordinary world of commerce, as
+Dickson C.J. commented in Hunter, “clauses limiting
+ or excluding liability are negotiated as part
+of the general contract. As they do with all other
+contractual terms, the parties bargain for the consequences
+ of deficient performance” (p. 461).
+Moreover, as Mr. Hall points out, “[t]here are many
+valid reasons for contracting parties to use exemp-
+tion clauses, most notably to allocate risks” (G. R.
+Hall, Canadian Contractual Interpretation Law
+(2007), at p. 243). Tercon, for example, is a sophisticated
+ and experienced contractor and if it decided
+that it was in its commercial interest to proceed
+with the bid despite the exclusion of compensation
+clause, that was its prerogative and nothing in the
+“policy of the Act” barred the parties’ agreement
+on that point.
+115
+[2010] 1 R.C.S.
+
+
+[103] To the extent Tercon is now saying that as a
+matter of fact the Minister, in approving the RFP,
+did not specifically approve the exclusion clause,
+and that the contract was thus somehow ultra vires
+the Ministry, this is not an issue that was either
+pleaded or dealt with in the courts below. The
+details of the ministerial approval process were not
+developed in the evidence. It is not at all evident
+that s. 4 required the Minister to approve the actual
+terms of the RFP. It is an administrative law point
+that Tercon, if so advised, ought to have pursued
+at pre-trial discovery and in the trial evidence. We
+have not been directed to any exploration of the
+matter in the testimony and it is too late in the pro-
+ceeding for Tercon to explore it now. Accordingly,
+I proceed on the basis that the exclusion clause did
+not run afoul of the statutory requirements.
+
+B. The Doctrine of the Fundamental Breach
+
+[104] The trial judge considered the applicability
+ of the doctrine of fundamental breach. Tercon
+argued that the Ministry, by reason of its fundamental
+ breach, had forfeited the protection of the
+exclusion of compensation clause.
+
+[105] The leading case is Hunter which also dealt
+with an exclusion of liability clause. The appellants
+Hunter Engineering and Allis-Chalmers Canada
+Ltd. supplied gearboxes used to drive conveyor
+belts at Syncrude’s tar sands operations in Northern
+Alberta. The gearboxes proved to be defective. At
+issue was a broad exclusion of warranty clause
+that limited time for suit and the level of recovery
+available against Allis-Chalmers (i.e. no recovery
+beyond the unit price of the defective products).
+Dickson C.J. observed: “In the face of the contractual
+ provisions, Allis-Chalmers can only be found
+liable under the doctrine of fundamental breach”
+(p. 451).
+
+[106] This doctrine was largely the creation of
+Lord Denning in the 1950s (see, e.g., Karsales
+116
+
+
+(Harrow) Ltd. v. Wallis, [1956] 1 W.L.R. 936
+(C.A.)). It was said to be a rule of law that operated
+ independently of the intention of the parties
+ in circumstances where the defendant had so
+egregiously breached the contract as to deny the
+plaintiff substantially the whole of its benefit. In
+such a case, according to the doctrine, the innocent
+ party was excused from further performance
+but the defendant could still be held liable for the
+consequences of its “fundamental” breach even
+if the parties had excluded liability by clear and
+express language. See generally S. M. Waddams,
+The Law of Contracts (5th ed. 2005), at para. 478;
+J. D. McCamus, The Law of Contracts (2005), at
+pp. 765 et seq.
+
+[107] The five-judge Hunter Court was unanimous
+ in the result and gave effect to the exclusion
+clause at issue. Dickson C.J. and Wilson J. both
+emphasized that there is nothing inherently unreasonable
+ about exclusion clauses and that they should
+be applied unless there is a compelling reason not
+to give effect to the words selected by the parties.
+At that point, there was some divergence of opinion
+.
+
+[108] Dickson C.J. (La Forest J. concurring)
+observed that the doctrine of fundamental breach
+had “spawned a host of difficulties” (p. 460), the
+most obvious being the difficulty in determining
+whether a particular breach is fundamental. The
+doctrine obliged the parties to engage in “games
+of characterization” (p. 460) which distracted from
+the real question of what agreement the parties
+themselves intended. Accordingly, in his view, the
+doctrine should be “laid to rest”. The situations in
+which the doctrine is invoked could be addressed
+more directly and effectively through the doctrine
+of “unconscionability”, as assessed at the time the
+contract was made:
+It is preferable to interpret the terms of the contract, in
+an attempt to determine exactly what the parties agreed.
+If on its true construction the contract excludes liability
+for the kind of breach that occurred, the party in breach
+will generally be saved from liability. Only where the
+contract is unconscionable, as might arise from situations
+ of unequal bargaining power between the parties,
+117
+[2010] 1 R.C.S.
+
+
+should the courts interfere with agreements the parties
+have freely concluded. [p. 462]
+Dickson C.J. explained that “[t]he courts do not
+blindly enforce harsh or unconscionable bargains”
+(p. 462), but “there is much to be gained by address-
+ing directly the protection of the weak from over-
+reaching by the strong, rather than relying on the
+artificial legal doctrine of ‘fundamental breach’”
+(p. 462). To enforce an exclusion clause in such circumstances
+ could tarnish the institutional integrity
+of the court. In that respect, it would be contrary
+to public policy. However, a valid exclusion clause
+would be enforced according to its terms.
+
+[109] Wilson J. (L’Heureux-Dubé J. concurring)
+disagreed. In her view, the courts retain some
+residual discretion to refuse to enforce exclusion
+clauses in cases of fundamental breach where the
+doctrine of pre-breach unconscionability (favoured
+by Dickson C.J.) did not apply. Importantly, she
+rejected the imposition of a general standard of
+reasonableness in the judicial scrutiny of exclusion
+clauses, affirming that “the courts . . . are quite
+unsuited to assess the fairness or reasonableness
+of contractual provisions as the parties negotiated
+them” (p. 508). Wilson J. considered it more desirable
+ to develop through the common law a post-
+breach analysis seeking a “balance between the
+obvious desirability of allowing the parties to make
+their own bargains . . . and the obvious undesirabil-
+ity of having the courts used to enforce bargains in
+favour of parties who are totally repudiating such
+bargains themselves” (p. 510).
+
+[110] Wilson J. contemplated a two-stage test, in
+which the threshold step is the identification of a
+fundamental breach where “the foundation of the
+contract has been undermined, where the very
+thing bargained for has not been provided” (p.
+500). Having found a fundamental breach to exist,
+the exclusion clause would not automatically be set
+118
+
+
+aside, but the court should go on to assess whether,
+having regard to the circumstances of the breach,
+the party in fundamental breach should escape liability
+:
+Exclusion clauses do not automatically lose their validity
+ in the event of a fundamental breach by virtue of
+some hard and fast rule of law. They should be given
+their natural and true construction so that the meaning
+and effect of the exclusion clause the parties agreed to
+at the time the contract was entered into is fully understood
+ and appreciated. But, in my view, the court must
+still decide, having ascertained the parties’ intention at
+the time the contract was made, whether or not to give
+effect to it in the context of subsequent events such as
+a fundamental breach committed by the party seeking
+its enforcement through the courts. . . . [T]he question
+essentially is: in the circumstances that have happened
+should the court lend its aid to A to hold B to this clause?
+[Emphasis added; pp. 510-11.]
+[111] Wilson J. reiterated that “as a general rule”
+courts should give effect to exclusion clauses
+even in the case of fundamental breach (p. 515).
+Nevertheless, a residual discretion to withhold
+enforcement exists:
+Lord Wilberforce [in Photo Production Ltd. v. Securicor
+Transport Ltd., [1980] A.C. 827 (H.L.)] may be right
+that parties of equal bargaining power should be left to
+live with their bargains regardless of subsequent events.
+I believe, however, that there is some virtue in a residual
+ power residing in the court to withhold its assistance
+ on policy grounds in appropriate circumstances.
+[Emphasis added; p. 517.]
+Wilson J. made it clear that such circumstances of
+disentitlement would be rare. She acknowledged
+that an exclusion clause might well be accepted
+with open eyes by a party “very anxious to get” the
+contract (p. 509). However, Wilson J. did not elabo-
+rate further on what such circumstances might be
+because she found in Hunter itself that no reason
+existed to refuse the defendant Allis-Chalmers the
+benefit of the exclusion clause.
+[112] The fifth judge, McIntyre J., in a crisp two-
+paragraph judgment, agreed with the conclusion of
+119
+[2010] 1 R.C.S.
+
+
+Wilson J. in respect of the exclusion clause issue but
+found it “unnecessary to deal further with the concept
+ of fundamental breach in this case” (p. 481).
+
+[113] The law was left in this seemingly bifur-
+cated state until Guarantee Co. of North America v.
+Gordon Capital Corp., [1999] 3 S.C.R. 423. In that
+case, the Court breathed some life into the dying
+doctrine of fundamental breach while nevertheless
+affirming (once again) that whether or not a “fundamental
+ breach prevents the breaching party from
+continuing to rely on an exclusion clause is a matter
+of construction rather than a rule of law” (para. 52).
+In other words, the question was whether the parties
+ intended at the time of contract formation that
+the exclusion or limitation clause would apply “in
+circumstances of contractual breach, whether fundamental
+ or otherwise” (para. 63). The Court thus
+emphasized that what was important was not the
+label (“fundamental or otherwise”) but the intent of
+the contracting parties when they made their bargain
+. “The only limitation placed upon enforcing
+the contract as written in the event of a fundamental
+ breach”, the Court in Guarantee Co. continued,
+
+would be to refuse to enforce an exclusion of liability
+in circumstances where to do so would be unconscionable
+, according to Dickson C.J., or [note the disjunc-
+tive “or”] unfair, unreasonable or otherwise contrary to
+public policy, according to Wilson J. [Emphasis added;
+para. 52.]
+
+(See also para. 64.)
+
+What has given rise to some concern is not the reference
+ to “public policy”, whose role in the enforcement
+ of contracts has never been doubted, but to
+the more general ideas of “unfair” and “unreasonable
+”, which seemingly confer on courts a very
+broad after-the-fact discretion.
+
+[114] The Court’s subsequent observations in
+ABB Inc. v. Domtar Inc., 2007 SCC 50, [2007] 3
+S.C.R. 461, should be seen in that light. Domtar
+was a products liability case arising under the civil
+120
+
+
+law of Quebec, but the Court observed with respect
+to the common law:
+    Once the existence of a fundamental breach has
+been established, the court must still analyse the limitation
+ of liability clause in light of the general rules of
+contract interpretation. If the words can reasonably be
+interpreted in only one way, it will not be open to the
+court, even on grounds of equity or reasonableness, to
+declare the clause to be unenforceable since this would
+amount to rewriting the contract negotiated by the parties
+. [Emphasis added; para. 84.]
+
+While the Domtar Court continued to refer to “fundamental
+ breach”, it notably repudiated any judicial
+discretion to depart from the terms of a valid contact
+ upon vague notions of “equity or reasonableness
+”. It did not, however, express any doubt about
+the residual category mentioned in Guarantee Co.,
+namely a refusal to enforce an exclusion clause on
+the grounds of public policy.
+
+[115] I agree with Professor Waddams when he
+writes:
+[I]t is surely inevitable that a court must reserve the
+ultimate power to decide when the values favouring
+enforceability are outweighed by values that society
+holds to be more important. [para. 557]
+
+[116] While memorably described as an unruly
+horse, public policy is nevertheless fundamental
+to contract law, both to contractual formation and
+enforcement and (occasionally) to the court’s relief
+against enforcement. As Duff C.J. observed:
+It is the duty of the courts to give effect to contracts and
+testamentary dispositions according to the settled rules
+and principles of law, since we are under a reign of law;
+but there are cases in which rules of law cannot have
+their normal operation because the law itself recognizes
+some paramount consideration of public policy which
+over-rides the interest and what otherwise would be the
+rights and powers of the individual.
+
+(Re Millar Estate, [1938] S.C.R. 1, at p. 4)
+
+See generally B. Kain and D. T. Yoshida, “The
+Doctrine of Public Policy in Canadian Contract
+121
+[2010] 1 R.C.S.
+
+
+Law”, in T. L. Archibald and R. S. Echlin, eds.,
+Annual Review of Civil Litigation, 2007 (2007), 1.
+
+[117] As Duff C.J. recognized, freedom of contract
+ will often, but not always, trump other soci-
+etal values. The residual power of a court to decline
+enforcement exists but, in the interest of certainty
+and stability of contractual relations, it will rarely
+be exercised. Duff C.J. adopted the view that public
+policy “should be invoked only in clear cases, in
+which the harm to the public is substantially incontestable
+, and does not depend upon the idiosyncratic
+inferences of a few judicial minds” (p. 7). While he
+was referring to public policy considerations per-
+taining to the nature of the entire contract, I accept
+that there may be well-accepted public policy considerations
+ that relate directly to the nature of the
+breach, and thus trigger the court’s narrow juris-
+diction to give relief against an exclusion clause.
+
+[118] There are cases where the exercise of what
+Professor Waddams calls the “ultimate power” to
+refuse to enforce a contract may be justified, even
+in the commercial context. Freedom of contract,
+like any freedom, may be abused. Take the case of
+the milk supplier who adulterates its baby formula
+with a toxic compound to increase its profitability
+at the cost of sick or dead babies. In China, such
+people were shot. In Canada, should the courts give
+effect to a contractual clause excluding civil liability
+ in such a situation? I do not think so. Then there
+are the people, also fortunately resident elsewhere,
+who recklessly sold toxic cooking oil to unsuspect-
+ing consumers, creating a public health crisis of
+enormous magnitude. Should the courts enforce an
+exclusion clause to eliminate contractual liability
+for the resulting losses in such circumstances? The
+answer is no, but the contract breaker’s conduct
+need not rise to the level of criminality or fraud to
+justify a finding of abuse.
+122
+
+
+[119] A less extreme example in the commercial
+context is Plas-Tex Canada Ltd. v. Dow Chemical
+of Canada Ltd., 2004 ABCA 309, 245 D.L.R.
+(4th) 650. The Alberta Court of Appeal refused
+to enforce an exclusion clause where the defendant
+ Dow knowingly supplied defective plastic resin
+to a customer who used it to fabricate natural gas
+pipelines. Instead of disclosing its prior knowledge
+ of the defect to the buyer, Dow chose to try
+to protect itself by relying upon limitation of liability
+ clauses in its sales contracts. After some years,
+the pipelines began to degrade, with considerable
+damage to property and risk to human health from
+leaks and explosions. The court concluded that “a
+party to a contract will not be permitted to engage
+in unconscionable conduct secure in the knowledge
+that no liability can be imposed upon it because
+of an exclusionary clause” (para. 53). (See also
+McCamus, at p. 774, and Hall, at p. 243.) What was
+demonstrated in Plas-Tex was that the defendant
+Dow was so contemptuous of its contractual obligation
+ and reckless as to the consequences of the
+breach as to forfeit the assistance of the court. The
+public policy that favours freedom of contract was
+outweighed by the public policy that seeks to curb
+its abuse.
+
+[120] Conduct approaching serious criminality or
+egregious fraud are but examples of well-accepted
+and “substantially incontestable” considerations
+of public policy that may override the counter-
+vailing public policy that favours freedom of contract
+. Where this type of misconduct is reflected
+in the breach of contract, all of the circumstances
+should be examined very carefully by the court.
+Such misconduct may disable the defendant from
+hiding behind the exclusion clause. But a plaintiff
+who seeks to avoid the effect of an exclusion clause
+must identify the overriding public policy that it
+says outweighs the public interest in the enforcement
+ of the contract. In the present case, for the
+reasons discussed below, I do not believe Tercon
+has identified a relevant public policy that fulfills
+this requirement.
+123
+[2010] 1 R.C.S.
+
+
+[121] The present state of the law, in summary,
+requires a series of enquiries to be addressed when
+a plaintiff seeks to escape the effect of an exclusion
+clause or other contractual terms to which it had
+previously agreed.
+[122] The first issue, of course, is whether as a
+matter of interpretation the exclusion clause even
+applies to the circumstances established in evidence
+. This will depend on the Court’s assessment
+of the intention of the parties as expressed in the
+contract. If the exclusion clause does not apply,
+there is obviously no need to proceed further with
+this analysis. If the exclusion clause applies, the
+second issue is whether the exclusion clause was
+unconscionable at the time the contract was made,
+“as might arise from situations of unequal bargaining
+ power between the parties” (Hunter, at p. 462).
+This second issue has to do with contract formation
+, not breach.
+[123] If the exclusion clause is held to be valid
+and applicable, the Court may undertake a third
+enquiry, namely whether the Court should nevertheless
+ refuse to enforce the valid exclusion clause
+because of the existence of an overriding public
+policy, proof of which lies on the party seeking to
+avoid enforcement of the clause, that outweighs the
+very strong public interest in the enforcement of
+contracts.
+IV. Application to the Facts of This Case
+[124] I proceed to deal with the issues in the
+sequence mentioned above.
+A. Did the Ministry Breach Contract A?
+[125] The trial judge found that the parties
+intended to create contractual relations at the bidding
+ stage (i.e. Contract A): 2006 BCSC 499, 53
+B.C.L.R. (4th) 138, at para. 88. I agree with that conclusion
+. If there were no intent to form Contract A,
+there would be no need to exclude liability for compensation
+ in the event of its breach.
+[126] The Ministry argued that Contract A was
+not breached. It was entitled to enter into Contract B
+124
+
+
+with Brentwood and it did so. There was no priv-
+ity between the Ministry and EAC. The Ministry
+would have had no direct claim against EAC in the
+event of deficient performance. I accept as correct
+that Brentwood, having obtained Contract B, was in
+a position of considerable flexibility as to how and
+with whom it carried out the work. Nevertheless,
+it was open to the trial judge to conclude, as she
+did, that the RFP process was not conducted by the
+Ministry with the degree of fairness and transparency
+ that the terms of Contract A entitled Tercon to
+expect. At the end of an unfair process, she found,
+Contract B was not awarded to Brentwood (the eligible
+ bidder) but to what amounted to a joint venture
+ consisting of Brentwood and EAC. I therefore
+proceed with the rest of the analysis on the basis
+that Contract A was breached.
+
+B. What Is the Proper Interpretation of the Exclusion
+    of Compensation Clause and Did the
+   Ministry’s Conduct Fall Within Its Terms?
+
+[127] It is at this stage that I part company with
+my colleague Cromwell J. The exclusion clause is
+contained in the RFP and provides as follows:
+2.10 . . .
+   Except as expressly and specifically permitted in
+   these Instructions to Proponents, no Proponent shall
+   have any claim for compensation of any kind whatsoever
+   , as a result of participating in this RFP, and
+   by submitting a Proposal each Proponent shall be
+   deemed to have agreed that it has no claim.
+
+In my view, “participating in this RFP” began with
+“submitting a Proposal” for consideration. The
+RFP process consisted of more than the final selection
+ of the winning bid and Tercon participated in
+it. Tercon’s bid was considered. To deny that such
+participation occurred on the ground that in the end
+the Ministry chose a Brentwood joint venture (ineligible
+) instead of Brentwood itself (eligible) would,
+I believe, take the Court up the dead end identified
+by Wilson J. in Hunter:
+. . . exclusion clauses, like all contractual provisions,
+should be given their natural and true construction.
+125
+[2010] 1 R.C.S.
+
+
+Great uncertainty and needless complications in the
+drafting of contracts will obviously result if courts give
+exclusion clauses strained and artificial interpretations
+in order, indirectly and obliquely, to avoid the impact of
+what seems to them ex post facto to have been an unfair
+and unreasonable clause. [p. 509]
+
+Professor McCamus expresses a similar thought:
+. . . the law concerning exculpatory clauses is likely to
+be more rather than less predictable if the underlying
+concern is openly recognized, as it is in Hunter, rather
+than suppressed and achieved indirectly through the
+subterfuge of strained interpretation of such terms.
+[p. 778]
+
+[128] I accept the trial judge’s view that the
+Ministry was at fault in its performance of the
+RFP, but the conclusion that the process thereby
+ceased to be the RFP process appears to me, with
+due respect to colleagues of a different view, to be
+a “strained and artificial interpretatio[n] in order,
+indirectly and obliquely, to avoid the impact of
+what seems to them ex post facto to have been an
+unfair and unreasonable clause”.
+
+[129] As a matter of interpretation, I agree with
+Donald J.A. speaking for the unanimous court
+below:
+    The [trial] judge said the word “participating” was
+ambiguous. With deference, I do not find it so. The sense
+it conveys is the contractor’s involvement in the RFP/
+contract A stage of the process. I fail to see how “participating
+” could bear any other meaning. [Emphasis
+added; para. 16.]
+
+Accordingly, I conclude that on the face of it, the
+exclusion clause applies to the facts described in
+the evidence before us.
+
+C. Was the Claim Excluding Compensation
+   Unconscionable at the Time Contract A Was
+   Made?
+
+[130] At this point, the focus turns to contract
+formation. Tercon advances two arguments: firstly,
+that it suffered from an inequality of bargaining
+ power and secondly, (as mentioned) that the
+126
+
+
+exclusion clause violates public policy as reflected
+in the Transportation Act.
+
+      (1) Unequal Bargaining Power
+
+[131] In Hunter, Dickson C.J. stated, at p. 462:
+“Only where the contract is unconscionable, as
+might arise from situations of unequal bargaining
+power between the parties, should the courts interfere
+ with agreements the parties have freely concluded
+.” Applying that test to the case before him,
+he concluded:
+I have no doubt that unconscionability is not an issue in
+this case. Both Allis-Chalmers and Syncrude are large
+and commercially sophisticated companies. Both parties
+ knew or should have known what they were doing
+and what they had bargained for when they entered into
+the contract. [p. 464]
+
+While Tercon is not on the same level of power and
+authority as the Ministry, Tercon is a major contractor
+ and is well able to look after itself in a commercial
+ context. It need not bid if it doesn’t like
+what is proposed. There was no relevant imbalance
+in bargaining power.
+
+      (2) Policy of the Transportation Act
+
+[132] As mentioned earlier, Tercon cites and
+relies upon the policy of the Act which undoubtedly
+favours the transparency and integrity of the bidding
+ process. I have already discussed my reasons
+for rejecting Tercon’s argument that this “policy”
+operates as a bar to the ability of the parties to
+agree on such commonplace commercial terms
+as in the circumstances they think appropriate. In
+addition, the exclusion clause is not as draconian
+as Tercon portrays it. Other remedies for breach
+of Contract A (specific performance or injunctive
+relief, for example) were available.
+
+[133] In this case, injunction relief was in fact a
+live possibility. Although Tercon was not briefed on
+the negotiations with other bidders, the trial judge
+found that Glenn Walsh, the owner of Tercon, “had
+seen representatives of EAC with Brentwood following
+ [the Brentwood/EAC interviews with the
+127
+[2010] 1 R.C.S.
+
+
+Ministry and Bill Swain of Brentwood]”, and when
+asked whether Tercon was going to sue, Walsh had
+said “no” without further comment. Had Tercon
+pushed for more information and sought an injunction
+ (as a matter of private law, not public law), at
+that stage the exclusion clause would have had no
+application, but Tercon did not do so. This is not
+to say that estoppel or waiver applies. Nor is it to
+say that injunctive relief would be readily available
+in many bidding situations (although if an injunction
+ had been sought here, the unavailability of the
+alternative remedy of monetary damages might
+have assisted Tercon). It is merely to say that the
+exclusion clause is partial, not exhaustive.
+
+[134] The Kincolith road project presented a serious
+ construction challenge on a tight time frame
+and within a tight budget. Contract A did not
+involve a bid for a fixed price contract but for the
+right to negotiate the bid details once the winning
+proponent was selected. In such a fluid situation,
+all participants could expect difficulties in the contracting
+ process. Members of the construction bar
+are nothing if not litigious. In the circumstances,
+the bidders might reasonably have accepted (however
+ reluctantly) the Ministry’s need for a bidding
+process that excluded compensation, and adjusted
+their bids accordingly. The taxpayers of British
+Columbia were not prepared to pay the contractor
+’s profit twice over — once to Brentwood/EAC
+for actually building the road, and now to Tercon,
+even though in Tercon’s case the “profit” would be
+gained without Tercon running the risks associated
+with the performance of Contract B. The Court
+should not be quick to declare such a clause, negotiated
+ between savvy participants in the construction
+ business, to be “contrary to the Act”.
+
+D. Assuming the Validity of the Exclusion Clause
+   at the Time the Contract Was Made, Is There
+   Any Overriding Public Policy That Would Justify
+    the Court’s Refusal to Enforce It?
+
+[135] If the exclusion clause is not invalid from the
+outset, I do not believe the Ministry’s performance
+128
+
+
+can be characterized as so aberrant as to forfeit the
+protection of the contractual exclusion clause on the
+basis of some overriding public policy. While there
+is a public interest in a fair and transparent tendering
+ process, it cannot be ratcheted up to defeat the
+enforcement of Contract A in this case. There was
+an RFP process and Tercon participated in it.
+
+[136] Assertions of ineligible bidders and ineligible
+ bids are the bread and butter of construction
+litigation. If a claim to defeat the exclusion clause
+succeeds here on the basis that the owner selected
+a joint venture consisting of an eligible bidder with
+an ineligible bidder, so also by a parity of reasoning
+should an exclusion clause be set aside if the owner
+accepted a bid ineligible on other grounds. There
+would be little room left for the exclusion clause
+to operate. A more sensible and realistic view is
+that the parties here expected, even if they did not
+like it, that the exclusion of compensation clause
+would operate even where the eligibility criteria in
+respect of the bid (including the bidder) were not
+complied with.
+
+[137] While the Ministry’s conduct was in breach
+of Contract A, that conduct was not so extreme as
+to engage some overriding and paramount public
+interest in curbing contractual abuse as in the Plas-
+Tex case. Brentwood was not an outsider to the RFP
+process. It was a legitimate competitor. All bidders
+knew that the road contract (i.e. Contract B) would
+not be performed by the proponent alone. The work
+required a large “team” of different trades and per-
+sonnel to perform. The issue was whether EAC
+would be on the job as a major sub-contractor (to
+which Tercon could not have objected) or identified
+ with Brentwood as a joint venture “proponent”
+with EAC. All bidders were made aware of a certain
+flexibility with respect to the composition of any
+proponent’s “team”. Section 2.8(b) of the RFP provided
+ that if “a material change has occurred to the
+Proponent since its qualification under the RFEI,
+including if the composition of the Proponent’s
+team members has changed, . . . the Ministry may
+129
+[2010] 1 R.C.S.
+
+
+request [further information and] . . . reserves the
+right to disqualify that Proponent, and reject its
+Proposal”. Equally, “[i]f a qualified Proponent is
+concerned that it has undergone a material change,
+the Proponent can, at its election, make a preliminary
+ submission to the Ministry, in advance of the
+Closing Date, and before submitting a Proposal. . . .
+The Ministry will, within three working days of
+receipt of the preliminary submission give a written
+ decision as to whether the Proponent is still
+qualified to submit a Proposal.”
+
+[138] The RFP issued on January 15, 2001. The
+Ministry was informed by Brentwood of a “proposed
+ material change to our team’s structure” in
+respect of a joint venture with EAC by fax dated
+January 24, 2001. From the Ministry’s perspective
+, the change was desirable. EAC was a bigger
+company, had greater expertise in rock drilling and
+blasting (a major part of the contract) and a stronger
+balance sheet. EAC was identified in Brentwood’s
+amended proposal as a sub-contractor. In the
+end, the Ministry did not approve the January 14,
+2001 request, presumably because it doubted that
+a change in the “composition of the Proponent’s
+team’s members” could , according to the terms of
+the RFP, include a change in the Proponent itself.
+
+[139] The Ministry did obtain legal advice and
+did not proceed in defiance of it. On March 29,
+2001, the Ministry noted in an internal e-mail that a
+Ministry lawyer (identified in the e-mail) had come
+to the conclusion that the joint venture was not an
+eligible proponent but advised that Contract B
+could lawfully be structured in a way so as to satisfy
+ both Brentwood/EAC’s concerns and avoid litigation
+ from disappointed proponents.
+
+[140] I do not wish to understate the difference
+between EAC as a sub-contractor and EAC as a
+joint-venturer. Nor do I discount the trial judge’s
+condemnation of the Ministry’s lack of fairness
+130
+
+
+and transparency in making a Contract B which
+on its face was at odds with what the trial judge
+found to be the true state of affairs. Tercon has
+legitimate reason to complain about the Ministry’s
+conduct. I say only that based on the jurispru-
+dence, the Ministry’s misconduct did not rise to the
+level where public policy would justify the court
+in depriving the Ministry of the protection of the
+exclusion of compensation clause freely agreed to
+by Tercon in the contract.
+[141] The construction industry in British
+Columbia is run by knowledgeable and sophisticated
+ people who bid upon and enter government
+contracts with eyes wide open. No statute in British
+Columbia and no principle of the common law override
+ their ability in this case to agree on a tendering
+ process including a limitation or exclusion of
+remedies for breach of its rules. A contractor who
+does not think it is in its business interest to bid on
+the terms offered is free to decline to participate.
+As Donald J.A. pointed out, if enough contractors
+refuse to participate, the Ministry would be forced
+to change its approach. So long as contractors are
+willing to bid on such terms, I do not think it is the
+court’s job to rescue them from the consequences
+of their decision to do so. Tercon’s loss of antici-
+pated profit is a paper loss. In my view, its claim is
+barred by the terms of the contract it agreed to.
+V. Disposition
+[142]
+
+   Appeal allowed, MCLACHLIN C.J. and BINNIE ,
+A BELLA and ROTHSTEIN JJ. dissenting.
+
+  Solicitors for the appellant: McLean &
+Armstrong, West Vancouver.
+
+   Solicitor for the respondent: Attorney General
+of British Columbia, Victoria.
+131
+[2010] 1 R.C.S.
+
+
+   Solicitor for the intervener: Attorney General
+of Ontario, Toronto.

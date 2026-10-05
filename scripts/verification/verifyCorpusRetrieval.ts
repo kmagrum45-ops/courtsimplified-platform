@@ -46,6 +46,8 @@ import {
   type IndexedSource,
   type LoadedIndex,
 } from "../../src/lib/case-system/retrieval/corpusIndex";
+import { chunkDecision } from "../../src/lib/case-system/retrieval/decisionChunker";
+import { DECISION_SOURCES } from "../retrieval/decisionSources";
 import {
   excludedForCourt,
   parseQueries,
@@ -211,6 +213,89 @@ async function main() {
   }
   check("passages are verbatim runs of their source", notVerbatim.length === 0, notVerbatim.slice(0, 3).join(" | "));
 
+  // ---------------------------------------------------------------- 1b. decisions
+  console.log("\n1b. Court decisions: the majority's reasoning only, under its own paragraph numbers");
+  const decisionText = (id: string) => {
+    const source = DECISION_SOURCES.find((item) => item.id === id)!;
+    return { source, text: readFileSync(path.join(ROOT, "docs", "sources", source.path), "utf8") };
+  };
+  const decisionChunks = (id: string) => {
+    const { source, text } = decisionText(id);
+    return chunkDecision(source, text);
+  };
+  const titleMismatch = DECISION_SOURCES.filter((source) => {
+    const file = path.join(ROOT, "docs", "sources", source.path);
+    if (!existsSync(file)) return true;
+    const head = collapse(readFileSync(file, "utf8").slice(0, 20000)).replace(/[‘’']/g, "'");
+    const short = source.title.replace(/[‘’']/g, "'").split(" v. ")[0];
+    return !head.includes(short) || !(head.includes(source.citation) || head.includes(source.citation.replace("SCC", "CSC")) || source.citation.startsWith("["));
+  });
+  check("every decision's file exists and names the case and citation its registry entry gives", titleMismatch.length === 0, titleMismatch.map((source) => source.id).join(", "));
+  check("every decision links to a public page", DECISION_SOURCES.every((source) => source.readableUrl.startsWith("https://")));
+  const everyDecisionChunk = DECISION_SOURCES.flatMap((source) => decisionChunks(source.id));
+  check("decisions yield passages", everyDecisionChunk.length > 500, `${everyDecisionChunk.length}`);
+  check(
+    "no decision passage is a dissent (no paragraph opens by naming its author \"dissenting\")",
+    !everyDecisionChunk.some((chunk) => /(^|\] )[A-Z][\w'’.\- ]{0,60}?(C\.J\.|J\.|JJ\.)[^—]{0,10}\((dissenting|dissident)/.test(chunk.text)),
+  );
+  const honda = decisionChunks("decision-honda");
+  const hondaParas = honda.flatMap((chunk) => (chunk.pinpoint.match(/\d+/g) ?? []).map(Number));
+  check("Honda v. Keays: the majority's para. 28 (the Bardal factors) is there", honda.some((chunk) => chunk.text.includes("the character of the employment, the length of service")));
+  check("Honda v. Keays: the dissent (paras. 81 on) is not", Math.max(...hondaParas) <= 80, `max para ${Math.max(...hondaParas)}`);
+  check("Honda v. Keays: \"Decisions Below\" (paras. 8-18) is not", !hondaParas.some((para) => para >= 8 && para <= 18));
+  const pecore = decisionChunks("decision-pecore").flatMap((chunk) => (chunk.pinpoint.match(/\d+/g) ?? []).map(Number));
+  check("Pecore: the majority runs to para. 76 and Abella J.'s dissent (77 on) is not there", Math.max(...pecore) === 76, `max ${Math.max(...pecore)}`);
+  const southcott = decisionChunks("decision-southcott").flatMap((chunk) => (chunk.pinpoint.match(/\d+/g) ?? []).map(Number));
+  check(
+    "Southcott: a majority whose heading the extraction lost is still found; the dissent (64 on) is not",
+    southcott.length > 0 && Math.max(...southcott) <= 63,
+    `max ${Math.max(...southcott)}`,
+  );
+  const machtinger = decisionChunks("decision-machtinger");
+  check(
+    "Machtinger: the Court of Appeal's view the Court reversed (\"Judgments Below\") is never a passage",
+    machtinger.length > 5 && !machtinger.some((chunk) => /Howland C\.J\.O\. held that Pickup|limited to the benefits conferred by the Act/.test(chunk.text)),
+  );
+  check(
+    "Machtinger: the Court's own holding on minimum notice is there",
+    machtinger.some((chunk) => chunk.text.includes("an approach more consistent with the objects of the Act")),
+  );
+  check(
+    "a separate concurrence is not the majority (Machtinger: McLachlin J.'s reasons are left out)",
+    !machtinger.some((chunk) => chunk.text.includes("I agree with my colleague Justice Iacobucci")),
+  );
+  const decisionNotVerbatim: string[] = [];
+  for (const id of ["decision-honda", "decision-machtinger", "decision-brake", "decision-garland"]) {
+    const { text } = decisionText(id);
+    const flat = collapse(text);
+    for (const chunk of decisionChunks(id)) {
+      let rest = chunk.text;
+      while (rest.length > 0) {
+        let low = 0;
+        let high = rest.length;
+        while (low < high) {
+          const mid = Math.ceil((low + high) / 2);
+          if (flat.includes(rest.slice(0, mid))) low = mid;
+          else high = mid - 1;
+        }
+        if (low < 12 && rest.length >= 12) {
+          // A paragraph number set on its own line (and a page header dropped
+          // after it) is a run of its own: "9", then the paragraph's text.
+          const token = /^\S{1,4}\s/.exec(rest);
+          if (token && /^\d+\s$/.test(token[0])) {
+            rest = rest.slice(token[0].length);
+            continue;
+          }
+          decisionNotVerbatim.push(`${chunk.id}: "${rest.slice(0, 40)}"`);
+          break;
+        }
+        rest = rest.slice(Math.max(low, 1)).trimStart();
+      }
+    }
+  }
+  check("decision passages are verbatim runs of the judgment's text", decisionNotVerbatim.length === 0, decisionNotVerbatim.slice(0, 3).join(" | "));
+  check("no soft hyphens left in a decision's text", !everyDecisionChunk.some((chunk) => chunk.text.includes("\u00AD")));
+
   // ---------------------------------------------------------------- 2. links
   console.log("\n2. Each passage links to the page a person can read");
   const url = (value: string) => readableUrl({ id: "x", title: "x", url: value });
@@ -331,6 +416,17 @@ async function main() {
     Boolean(item && item.text === picks[0].chunk.text && item.citation?.includes(picks[0].chunk.pinpoint) && item.sourceUrl.startsWith("https://www.ontario.ca/laws/regulation/")),
     JSON.stringify(item)?.slice(0, 200),
   );
+  const decisionSource = DECISION_SOURCES.find((source) => source.id === "decision-honda")!;
+  const decisionItem = passageItem({
+    ...decisionChunks("decision-honda")[5],
+    source: { ...decisionSource, readableUrl: decisionSource.readableUrl, tier: "case-law", file: "x", path: decisionSource.path },
+    score: 1,
+  });
+  check(
+    "a decision passage is labelled as a court decision, with the case, citation and paragraph",
+    decisionItem.kind === "decision" && decisionItem.label.startsWith("Court decision: Honda Canada Inc. v. Keays, 2008 SCC 39, para"),
+    decisionItem.label,
+  );
   check(
     "a guidance passage is labelled as guidance, not legislation",
     passageItem({ ...picks[0].chunk, source: { ...picks[0].source, tier: "practical" }, score: 1 }).label.startsWith("Official or public-legal-education guidance"),
@@ -403,7 +499,7 @@ async function main() {
   );
   check(
     "applied law carries the source's words only (id, label, citation, text, link)",
-    /\.map\(\(\{ id, label, citation, text, sourceUrl \}\)/.test(brain),
+    /\.map\(\(\{ id, label, citation, text, sourceUrl, kind \}\)/.test(brain),
   );
   for (const [court, file] of [
     ["Small Claims", "src/lib/case-system/intelligence/smallClaimsIntelligenceEngine.ts"],
@@ -418,6 +514,11 @@ async function main() {
     "the panel shows the provision's text, citation and official link, and says it is not a view on the outcome",
     panel.includes("{item.text}") && panel.includes("item.citation || item.label") && panel.includes("publicSourceUrl(item.sourceUrl)") && panel.includes("not how your case"),
   );
+  check(
+    "the panel says a court decision is an earlier case and has not been checked for later changes",
+    /item\.kind === "decision"/.test(panel) && panel.includes("has not been checked for later decisions"),
+  );
+  check("the prompt tells the analysis a court decision is not legislation", /Court decision/.test(sourcePackForPrompt(withRetrievedItems(basePack, [decisionItem]))));
 
   const retrieval = read("src/lib/case-system/retrieval/storyRetrieval.ts");
   check("the retrieval calls are in the audit log", (retrieval.match(/withAiCallContext\(/g) ?? []).length >= 2);
@@ -430,7 +531,8 @@ async function main() {
     "the three analysis routes ship the index and corpus",
     ["/api/small-claims/analyze", "/api/civil/analyze", "/api/family/analyze"].every((route) => config.includes(`"${route}": RETRIEVAL_FILES`)) &&
       config.includes("./docs/sources/retrieval/**") &&
-      config.includes("./docs/sources/corpus/*.txt"),
+      config.includes("./docs/sources/corpus/*.txt") &&
+      config.includes("./docs/sources/decisions/*.txt"),
   );
 
   // ---------------------------------------------------------------- 8. the index

@@ -2591,7 +2591,7 @@ export async function runCourtSimplifiedBrain(
   const appliedLaw = appliedLawEnabled()
     ? sourcePack.items
         .filter((item) => isRetrievedItem(item) && citedIds.has(item.id))
-        .map(({ id, label, citation, text, sourceUrl }) => ({ id, label, text, sourceUrl, ...(citation ? { citation } : {}) }))
+        .map(({ id, label, citation, text, sourceUrl, kind }) => ({ id, label, text, sourceUrl, ...(citation ? { citation } : {}), ...(kind ? { kind } : {}) }))
     : [];
   if (groundingReport && groundingReport.dropped.length) {
     // Counts and reasons only: the dropped text is about the user's case and

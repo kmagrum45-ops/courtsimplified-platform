@@ -1,0 +1,1226 @@
+537
+            [2001] 3 R.C.S.
+
+
+            Mary Francis Cooper Appellant
+
+            v.
+
+            Robert J. Hobart and Her Majesty the
+            Queen in right of the Province of British
+            Columbia Respondents
+
+            and
+
+            The Attorney General of Canada, the
+            Attorney General for Ontario, the Attorney
+            General for New Brunswick, Her Majesty
+            the Queen in right of Alberta, the Minister
+            of Justice and the Attorney General for
+            Alberta, the British Columbia Securities
+            Commission, the Ontario Securities
+            Commission, and the Alberta Securities
+            Commission Interveners
+
+            Indexed as: Cooper v. Hobart
+            Neutral citation: 2001 SCC 79.
+            File No.: 27880.
+            2001: June 20; 2001: November 16.
+            Present: McLachlin C.J. and Gonthier, Major, Basta-
+            rache, Binnie, Arbour and LeBel JJ.
+
+            ON APPEAL FROM THE COURT OF APPEAL FOR
+            BRITISH COLUMBIA
+               Torts — Negligence — Duty of care — Statutory
+            regulators — Registrar of mortgage brokers — Registered
+             mortgage broker using funds for unauthorized purposes
+             — Investors alleging that losses would have been
+            avoided or diminished if Registrar had acted sooner to
+            suspend broker’s licence — Whether Registrar owed private
+             law duty of care to members of investing public
+            giving rise to liability in negligence for economic losses
+            that investors sustained — Role of policy concerns in
+            determining scope of liability for negligence.
+                In October 1997, the Registrar of Mortgage Brokers, a
+            statutory regulator, suspended a registered mortgage broker
+            ’s licence and issued a freeze order in respect of its
+
+
+
+
+test november 1 2002.indd 536-537
+         538
+
+
+         assets because funds provided by investors were allegedly
+          used by the broker for unauthorized purposes. The
+         appellant, one of over 3,000 investors who advanced
+         money to the broker, brought an action against the Registrar
+          alleging that he breached the duty of care that he
+         owed to the appellant and other investors. The appellant
+         asserted that by August 1996 the Registrar was aware of
+         serious violations of the B.C. Mortgage Brokers Act committed
+          by the broker and should have acted earlier to suspend
+          its licence and to notify the investors that the broker
+         was under investigation. According to the appellant, if
+         the Registrar had acted more promptly, the losses suffered
+          by the investors would have been avoided or diminished
+         . The appellant applied to have the action certified
+         as a class proceeding. The trial judge concluded that the
+         pleadings disclosed a cause of action in negligence and
+         that the plaintiffs should be permitted to bring a class
+         action. The Court of Appeal reversed the trial judge’s
+         decision, holding that the pleadings did not disclose a
+         cause of action against the Registrar.
+            Held: The appeal should be dismissed. The Registrar
+         did not owe a duty of care to investors.
+             In assessing whether a duty of care should be imposed,
+         the approach set out in Anns is still appropriate in the
+         Canadian context. Different types of policy considerations
+          are involved at each stage of Anns. At the first
+         stage, the question is whether the circumstances disclose
+         reasonably foreseeable harm and proximity sufficient to
+         establish a prima facie duty of care. The proximity analysis
+          focuses on factors arising from the relationship
+         between the plaintiff and the defendant, including broad
+         considerations of policy. The starting point for the proximity
+          analysis is to determine whether there are analogous
+         categories of cases in which proximity has previously
+         been identified. If no such cases exist, the question then
+         becomes whether a new duty of care should be recognized
+          in the circumstances. In order to recognize a new
+         duty of care, mere foreseeability is not enough. The
+         plaintiff must show proximity — that the defendant was
+         in a close and direct relationship to him or her such that
+         it is just to impose a duty of care in the circumstances.
+         The factors which may satisfy the requirement of proximity
+          are diverse and depend on the circumstances of the
+         case. They must be grounded in the governing statute
+         when there is one.
+
+
+
+
+test november 1 2002.indd 538-539
+539
+            [2001] 3 R.C.S.
+
+
+               If the plaintiff is successful in establishing a prima
+            facie duty of care, the question at the second stage is
+            whether there exist residual policy considerations which
+            justify denying liability. These are not concerned with
+            the relationship between the parties, but with the effect
+            of recognizing a duty of care on other legal obligations,
+            the legal system and society more generally. The second
+            stage of Anns will seldom arise, as questions of liability
+            will be determined primarily by reference to established
+            and analogous categories of recovery. Where a duty of
+            care in a novel situation is alleged, it is necessary to consider
+             the second stage of the Anns test.
+                Here, the circumstances do not disclose proximity
+            sufficient to establish a prima facie duty of care. This
+            case does not fall within, nor is it analogous to, a category
+             of cases in which a duty of care has previously
+            been recognized. Furthermore, this is not a situation
+            in which a new duty of care should be recognized.
+            The Mortgage Brokers Act does not impose on the Registrar
+             a duty of care to investors with mortgage brokers
+            regulated by the Act. The regulatory scheme governing
+             mortgage brokers provides a general framework to
+            ensure the efficient operation of the mortgage marketplace
+            . Even though to some degree the provisions of the
+            Act serve to protect the interests of investors, the overall
+             scheme of the Act mandates that the Registrar’s duty
+            of care is not owed to investors exclusively but to the
+            public as a whole. Accordingly, although in this case
+            the Registrar might reasonably have foreseen that losses
+            to investors would result if he were careless in carrying
+            out his duties under the Act, there was insufficient proximity
+             between the Registrar and the investors to ground
+            a prima facie duty of care.
+               Even if a prima facie duty of care had been established
+            under the first branch of the Anns test, it would have been
+            negated at the second stage for overriding policy reasons.
+            The decision of whether to suspend a broker involves
+            both policy and quasi-judicial elements. The prima facie
+            duty of care is also negated on the basis of the distinction
+            between government policy and the execution of policy.
+            Further, the spectre of indeterminate liability would loom
+            large if a duty of care were recognized as between the
+            Registrar and investors in this case. Finally, to impose a
+
+
+
+
+test november 1 2002.indd 538-539
+         540
+
+
+         duty of care in these circumstances would be effectively
+         to create an insurance scheme for investors at great cost
+         to the taxpaying public.
+         Cases Cited
+            Considered: Kamloops (City of) v. Nielsen, [1984]
+         2 S.C.R. 2; Canadian National Railway Co. v. Norsk
+         Pacific Steamship Co., [1992] 1 S.C.R. 1021; Hercules
+         Managements Ltd. v. Ernst & Young, [1997] 2 S.C.R. 165;
+         referred to: Anns v. Merton London Borough Council,
+         [1978] A.C. 728; Endean v. Canadian Red Cross Society
+         (1998), 48 B.C.L.R. (3d) 90; Dorman Timber Ltd. v. British
+          Columbia (1997), 40 B.C.L.R. (3d) 230; Comeau’s
+         Sea Foods Ltd. v. Canada (Minister of Fisheries and
+         Oceans), [1997] 1 S.C.R. 12; Donoghue v. Stevenson,
+         [1932] A.C. 562; Nova Mink Ltd. v. Trans-Canada Airlines
+         , [1951] 2 D.L.R. 241; Yuen Kun Yeu v. Attorney-
+         General of Hong Kong, [1988] 1 A.C. 175; Davis v.
+         Radcliffe, [1990] 2 All E.R. 536; Alcock v. Chief Constable
+          of the South Yorkshire Police, [1991] 4 All E.R. 907;
+         Hedley Byrne & Co. v. Heller & Partners Ltd., [1963]
+         2 All E.R. 575; Rivtow Marine Ltd. v. Washington Iron
+         Works, [1974] S.C.R. 1189; Just v. British Columbia,
+         [1989] 2 S.C.R. 1228; Swinamer v. Nova Scotia (Attorney
+          General), [1994] 1 S.C.R. 445; Bow Valley Husky
+         (Bermuda) Ltd. v. Saint John Shipbuilding Ltd., [1997] 3
+         S.C.R. 1210; Edwards v. Law Society of Upper Canada,
+         [2001] 3 S.C.R. 562, 2001 SCC 80.
+         Statutes and Regulations Cited
+         Class Proceedings Act, R.S.B.C. 1996, c. 50, s. 4.
+         Mortgage Brokers Act, R.S.B.C. 1996, c. 313, ss. 4, 5, 6,
+            7, 8, 14, 20.
+         Authors Cited
+         Street, Harry. The Law of Torts, 6th ed. London: But-
+            terworths, 1976.
+            APPEAL from a judgment of the British Columbia
+          Court of Appeal (2000), 184 D.L.R. (4th) 287,
+         [2000] 6 W.W.R. 8, 135 B.C.A.C. 266, 75 B.C.L.R.
+         (3d) 54, 49 C.C.L.T. (2d) 148, [2000] B.C.J. No.
+         426 (QL), 2000 BCCA 151, allowing the respondents
+         ’ appeal from a decision of the British Columbia
+          Supreme Court (1999), 68 B.C.L.R. (3d) 274,
+         [1999] B.C.J. No. 690 (QL). Appeal dismissed.
+
+
+
+
+test november 1 2002.indd 540-541
+541
+            [2001] 3 R.C.S.
+
+
+              David P. Church, Andrew J. Pearson and Ian G.
+            Schildt, for the appellant.
+              D. Clifton Prowse, Karen Horsman and Keith L.
+            Johnston, for the respondents.
+              Donald J. Rennie, for the intervener the Attorney
+            General of Canada.
+               Sara Blake, for the intervener the Attorney General
+             for Ontario.
+              Written submissions only by Cedric L. Haines,
+            Q.C., for the intervener the Attorney General for
+            New Brunswick.
+               Tim Hurlburt, for the interveners Her Majesty
+            the Queen in right of Alberta and the Minister of
+            Justice and Attorney General for Alberta.
+               James A. Sasha Angus and Lorne Herlin, for the
+            intervener the British Columbia Securities Commission
+            .
+               Neil Finkelstein and Johanna M. Superina, for
+            the interveners the Ontario Securities Commission
+            and the Alberta Securities Commission.
+              The judgment of the Court was delivered by
+              The Chief Justice and Major J. —
+1
+               The present appeal revisits the Anns test (from
+            Anns v. Merton London Borough Council, [1978]
+            A.C. 728 (H.L.)) and, in particular, highlights
+            and hones the role of policy concerns in determining
+             the scope of liability for negligence. The
+            appellant is an investor who alleges that the Registrar
+             of Mortgage Brokers, a statutory regulator,
+            is liable in negligence for failing to oversee the
+            conduct of an investment company which the
+            Registrar licensed. The question is whether the
+            Registrar owes a private law duty of care to members
+             of the investing public giving rise to liability
+             in negligence for economic losses that the
+            investors sustained. Such a duty of care is as yet
+            unrecognized by Canadian courts. For the reasons
+             that follow, we find that this is not a proper
+            case in which to recognize a new duty of care.
+
+
+
+
+test november 1 2002.indd 540-541
+         542
+
+
+         In the course of these reasons, we attempt to clar-
+         ify the distinctive policy considerations which
+         impact each stage of the Anns analysis.
+         I.
+     2
+            Eron Mortgage Corporation (“Eron”) was registered
+          as a mortgage broker under the Mortgage Brokers
+          Act, R.S.B.C. 1996, c. 313 (“the Act”), from
+         early 1993 until 1997. On October 3, 1997, the
+         respondent, Robert J. Hobart, in his capacity as the
+         Registrar under the Act, suspended Eron’s mortgage
+         broker’s licence and issued a freeze order in respect
+         of its assets.
+     3
+             Eron acted as a mortgage broker for large syndicated
+          loans. It arranged for numerous lenders
+         (or investors) to pool their funds for the purpose of
+         making a single loan to a borrower, which was typi-
+         cally a developer of commercial real estate. The
+         syndicated loans were made in the name of Eron or
+         one of its related companies, which held the security
+          in trust for the investors.
+     4
+             It is alleged that the funds provided by the investors
+          were used by Eron for several unauthorized purposes
+         , such as funding interest payments on other
+         non-performing mortgages and paying for personal
+         items for the benefit of the principals of Eron. It
+         is currently estimated that $222 million is outstand-
+         ing to the investors on these loans. Investors will
+         likely realize only $40 million from the security
+         taken from the loans, leaving a shortfall of $182
+         million.
+     5
+            Soon after Eron’s mortgage licence was suspended
+         , it went out of business. The appellant
+         Mary Francis Cooper (“Cooper”), one of over 3000
+         investors who advanced money to Eron, brought
+         an action against the Registrar. The Statement of
+         Claim alleged that the Registrar breached the duty
+
+
+
+
+test november 1 2002.indd 542-543
+543
+            [2001] 3 R.C.S.
+
+
+            of care that he allegedly owed to the appellant
+            and other investors. The appellant asserted that by
+            August 28, 1996, the Registrar was aware of serious
+            violations of the Act committed by Eron but that he
+            failed to suspend Eron’s mortgage broker’s licence
+            until October 3, 1997 and failed to notify investors
+            that Eron was under investigation by the Registrar’s
+            office. According to the appellant, if the Registrar
+            had taken steps to suspend or cancel Eron’s mortgage
+             broker’s licence at an earlier date, the losses
+            suffered by the investors would have been avoided
+            or diminished.
+6
+               The appellant applied to have the action certified
+            as a class proceeding under the Class Proceedings
+            Act, R.S.B.C. 1996, c. 50. Pursuant to s. 4(1)(a),
+            in order to certify an action as a class proceeding,
+            a court must first determine whether the pleadings
+            disclose a cause of action. The cause of action
+            alleged in the Statement of Claim is negligence
+            which requires, among other things, that a duty
+            of care in tort law be owed by the Registrar to
+            the appellant investor. Therefore, the question was
+            whether the Registrar of Mortgage Brokers, a statutory
+             regulator, owes a private law duty of care to
+            members of the investing public for alleged negligence
+             in failing to properly oversee the conduct of
+            an investment company licensed by the regulator.
+            II. Judicial History
+            A. British Columbia Supreme Court (1999), 68
+               B.C.L.R. (3d) 274
+7
+               Tysoe J. held that the plaintiffs should be permitted
+             to bring a class action. He applied the test cited
+            in Endean v. Canadian Red Cross Society (1998),
+            48 B.C.L.R. (3d) 90 (C.A.) that unless it is plain and
+            obvious that no reasonable cause of action is disclosed
+            , the plaintiff will have met the requirement
+            set out in s. 4(1)(a) of the Class Proceedings Act
+            that there is a cause of action.
+
+
+
+
+test november 1 2002.indd 542-543
+          544
+
+
+     8
+             In determining whether there was clearly no
+          cause of action, the trial judge turned to the test set
+          out by the House of Lords in Anns as restated by
+          the British Columbia Court of Appeal in Dorman
+          Timber Ltd. v. British Columbia (1997), 40 B.C.L.R.
+          (3d) 230, at p. 247:
+          (a) Should the defendant have foreseen that damage was
+              likely to result from the negligent actions? If yes,
+              then there is a prima facie duty of care.
+          (b) Are there any considerations which would negative
+              or limit the prima facie duty of care?
+     9
+             The trial judge answered the first question in the
+          affirmative, as the Registrar would have reasonably
+           contemplated that carelessness on his part was
+          likely to cause damage to the plaintiff, a person
+          dealing with a mortgage broker. He went on to
+          answer the second question in the negative, holding
+           that there were no considerations negativing or
+          limiting the prima facie duty of care on the basis
+          of four sub-questions:
+          i)
+                decision of a public body?
+          ii)
+                law?
+          iii) Is the defendant exempted from liability by a ‘good
+               faith’ clause in a statute?
+          iv) Is the relationship between the parties so distant and
+              tenuous, or is the plaintiff unknown to the defendant,
+              so that it can be said that to impose liability would
+              be unjust?
+     10
+              The trial judge found that, in order to answer the
+          first three sub-questions, an appreciation of the “full
+          factual matrix” would be required. Therefore, a
+          trial was needed. The fourth sub-question raised the
+          potential problem of indeterminate liability. The
+          trial judge stated that the prospect of indeterminate
+          liability should negative the prima facie duty of care
+
+
+
+
+test november 1 2002.indd 544-545
+545
+            [2001] 3 R.C.S.
+
+
+            unless it is determined that one of the purposes of
+            the Legislature in enacting the Act was to protect a
+            class of persons, of which the plaintiff is a member.
+            He concluded that it was not plain and obvious
+            that the Legislature did not intend to create a private
+             law duty of care owed by the Registrar in
+            favour of investors dealing with mortgage brokers.
+            In reaching this conclusion, the trial judge referred
+            to various powers and duties of the Registrar which
+            suggested that the Act was intended to protect investors
+            .
+11
+                The trial judge concluded that the pleadings disclosed
+             a cause of action. On June 10, 1999, he certified
+             the action as a class proceeding and stayed the
+            third party proceedings until the conclusion of the
+            trial on the common issues.
+            B. British Columbia Court of Appeal (2000), 75
+               B.C.L.R. (3d) 54, 2000 BCCA 151
+12
+               The Court of Appeal reversed the trial judge’s
+            decision, holding that the pleadings did not disclose
+            a cause of action against the Registrar.
+                (1) Newbury J.A. (Southin J.A. concurring)
+13
+                Newbury J.A. for the majority considered the
+            Anns test as it was applied by the Supreme Court of
+            Canada in Kamloops (City of) v. Nielsen, [1984] 2
+            S.C.R. 2. First, “is there a ‘sufficient relationship of
+            proximity or neighbourhood’ such that, in the reasonable
+             contemplation of the Registrar, carelessness
+            on his part might be likely to cause damage to the
+            latter; and if so, are there considerations that ought
+            to negative, reduce or limit the scope of the duty or
+            the class of persons to whom it is owed or the damages
+             to which it may give rise?” (para. 32)
+
+
+
+
+test november 1 2002.indd 544-545
+          546
+
+
+     14
+             Under the first branch of the Anns/Kamloops test,
+          Newbury J.A. was not satisfied that the test for a
+          prima facie duty of care was met. Even though
+          the Registrar might reasonably have foreseen that
+          losses to investors would result if he was careless
+          in carrying out his duties under the Act, it cannot
+          be said that there was a sufficiently close relationship
+           between the parties. In fact, according to Newbury
+           J.A., there was “no ‘relationship’” between the
+          plaintiff Cooper and the Registrar as the plaintiff
+          was not even aware of the Registrar’s existence.
+     15
+             Newbury J.A. turned to the second branch of the
+          Anns/Kamloops test in the event that she erred on
+          the first branch of the test. She concluded that there
+          are substantial factors that militate against finding
+          a duty of care in this case. Specifically, the statutory
+           scheme was not intended to create a private law
+          duty of care owed by the Registrar to investors. If
+          it were otherwise, the potential liability would be
+          virtually indeterminate given that the Act imposed
+          no limit on, and the Registrar had no means of controlling
+          , the number of persons who could invest or
+          lend money via a mortgage broker or the amount of
+          money that could be advanced.
+                (2) Huddart J.A.
+     16
+             While Huddart J.A. agreed with the result reached
+          by Newbury J.A., she approached the conclusion
+          from a slightly different perspective. The starting
+          point for her analysis was the nature of the Registrar
+          ’s office, an office created and defined by statute
+          .
+     17
+              The Registrar’s responsibilities under the Act
+          require him to make difficult discretionary decisions
+          in the public interest. The public interest is not syn-
+          onymous with the interest of investors. The Registrar
+          ’s decisions must be “multi-factorial”, taking
+          into account various interests.
+
+
+
+
+test november 1 2002.indd 546-547
+547
+            [2001] 3 R.C.S.
+
+
+18
+               The question to be answered was whether the
+            Act itself indicates that the taxpayers through their
+            elected representatives agreed to be responsible for
+            private loss to persons in the situation of the investors
+            . Huddart J.A. could not find that intention in
+            the Act, particularly in the face of s. 20 which pre-
+            cludes an action against the Registrar for the performance
+             of duties under the Act or Regulations
+            “unless it was done in bad faith” (para. 82).
+19
+               Huddart J.A. concluded that the only duty that
+            the Registrar owed to the plaintiff Cooper was the
+            duty to exercise due care in ascertaining the scope
+            of his authority (from Comeau’s Sea Foods Ltd. v.
+            Canada (Minister of Fisheries and Oceans), [1997]
+            1 S.C.R. 12, at paras. 52-54). He interpreted his
+            statutory authority correctly.
+            III. Issue
+20
+               Does a statutory regulator owe a private law
+            duty of care to members of the investing public for
+            (alleged) negligence in failing to properly oversee
+            the conduct of an investment company licensed by
+            the regulator?
+            IV. Analysis
+21
+               Canadian courts have not thus far recognized the
+            duty of care that the appellants allege in this case.
+            The question is therefore whether the law of negligence
+             should be extended to reach this situation.
+            While the particular extension sought is novel, the
+            more general issue of how far the principles of liability
+             for negligence should be extended is a famil-
+            iar one, and one with which this Court and others
+            have repeatedly grappled since Lord Atkin enunci-
+            ated the negligence principle in Donoghue v. Stevenson
+            , [1932] A.C. 562 (H.L.), almost 70 years ago.
+            That case introduced the principle that a person
+            could be held liable only for reasonably foreseeable
+            harm. But it also anticipated that not all reasonably
+            foreseeable harm might be caught. This posed the
+            issue with which courts still struggle today: to what
+
+
+
+
+test november 1 2002.indd 546-547
+          548
+
+
+          situations does the law of negligence extend? This
+          case, like so many of its predecessors, may thus be
+          seen as but a gloss on the case of Donoghue v. Stevenson
+          .
+     22
+             In Donoghue v. Stevenson the House of Lords
+          revolutionized the common law by replacing the
+          old categories of tort recovery with a single com-
+          prehensive principle — the negligence principle.
+          Henceforward, liability would lie for negligence
+          in circumstances where a reasonable person would
+          have viewed the harm as foreseeable. However,
+          foreseeability alone was not enough; there must also
+          be a close and direct relationship of proximity or
+          neighbourhood.
+     23
+          yers apply the law of negligence on the basis of
+          categories as to which proximity has been recognized
+           in the past. However, as Lord Atkin declared
+          in Donoghue v. Stevenson, the categories of negligence
+           are not closed. Where new cases arise, we
+          must search elsewhere for assistance in determining
+          whether, in addition to disclosing foreseeability, the
+          circumstances disclose sufficient proximity to justify
+           the imposition of liability for negligence.
+     24
+             In Anns, supra, at pp. 751-52, the House of
+          Lords, per Lord Wilberforce, said that a duty of care
+          required a finding of proximity sufficient to create a
+          prima facie duty of care, followed by consideration
+          of whether there were any factors negativing that
+          duty of care. This Court has repeatedly affirmed
+          that approach as appropriate in the Canadian context
+          .
+     25
+          that policy considerations play an important role
+          in determining proximity in new situations. Long
+
+
+
+
+test november 1 2002.indd 548-549
+549
+            [2001] 3 R.C.S.
+
+
+            before Anns, courts in Canada and elsewhere had
+            recognized that the decision of how far to extend
+            liability for negligence involved policy considerations
+            . As H. Street put it in The Law of Torts (6th ed.
+            1976), at p. 108, citing a Canadian case, Nova Mink
+            Ltd. v. Trans-Canada Airlines, [1951] 2 D.L.R. 241
+            (N.S.C.A.), at pp. 254-55:
+            . . . it cannot be too strongly stressed that the use of [the]
+            test of foreseeability in order to determine whether there
+            is a duty-relationship between the parties conceals the
+            true judicial process — that test is in fact a conclusion
+            embracing within it, and yet concealing the identity of,
+            the several considerations of policy, and the balancing of
+            interests which have led the court to decide that a duty is
+            owed.
+26
+                The House of Lords in Anns for the first time
+            expressly recognized the policy component in determining
+             the extension of the negligence principle.
+            However, it left doubt on the precise content of
+            the first and second branches of the new formula-
+            tion of the negligence principle. This gave rise to
+            debate — debate which the submissions in this case
+            revive. Was the first branch concerned with foreseeability
+             only or foreseeability and proximity? If the
+            latter, was there duplication between policy considerations
+             relevant to proximity at the first stage and
+            the second stage of the test?
+27
+               To some extent, these concerns are academic.
+            Provided the proper balancing of the factors relevant
+             to a duty of care are considered, it may not
+            matter, so far as a particular case is concerned, at
+            which “stage” it occurs. The underlying question
+            is whether a duty of care should be imposed, taking
+            into account all relevant factors disclosed by the circumstances
+            . Anns did not purport to depart from
+            the negligence test of Donoghue v. Stevenson but
+            merely sought to elucidate it by explicitly recognizing
+             its policy component.
+
+
+
+
+test november 1 2002.indd 548-549
+          550
+
+
+     28
+             We continue in the view, repeatedly expressed
+          by this Court, that the Anns two-stage test, properly
+          understood, does not involve duplication because
+          different types of policy considerations are involved
+          at the two stages. In our view, Anns continues to
+          provide a useful framework in which to approach
+          the question of whether a duty of care should be
+          imposed in a new situation.
+     29
+              Nevertheless, it is important from the point of
+          view of methodology and clarity in the law to be
+          clear on what falls to be considered at each stage
+          of the Anns test. In this connection, it is useful to
+          consider the leading English case on that question.
+          The Judicial Committee of the Privy Council held
+          in Yuen Kun Yeu v. Attorney-General of Hong Kong,
+          [1988] 1 A.C. 175, that to find a prima facie duty of
+          care at the first stage of the test there must be reasonable
+           foreseeability of the harm plus something
+          more. As will be seen, we agree with this conclusion
+          . The Privy Council went on to opine that
+          Anns’ second branch, negation for policy reasons,
+          would seldom come into play. If this is read as
+          a suggestion that policy is not important in determining
+           whether the negligence principle should be
+          extended to new situations, we would respectfully
+          differ. As Street points out, the Donoghue v. Stevenson
+           foreseeability-negligence test, no matter how it
+          is phrased, conceals a balancing of interests. The
+          quest for the right balance is in reality a quest for
+          prudent policy. The difference in the two positions,
+          if there is one, may turn on how one defines policy;
+          the Privy Council in Yuen Kun Yeu appears to regard
+          policy as confined to practical considerations dic-
+          tating immunity despite a close relationship and
+          foreseeability.
+     30
+             In brief compass, we suggest that at this stage in
+          the evolution of the law, both in Canada and abroad,
+          the Anns analysis is best understood as follows. At
+
+
+
+
+test november 1 2002.indd 550-551
+551
+            [2001] 3 R.C.S.
+
+
+            the first stage of the Anns test, two questions arise:
+            (1) was the harm that occurred the reasonably foreseeable
+             consequence of the defendant’s act? and
+            (2) are there reasons, notwithstanding the proximity
+             between the parties established in the first part
+            of this test, that tort liability should not be recognized
+             here? The proximity analysis involved at
+            the first stage of the Anns test focuses on factors
+            arising from the relationship between the plaintiff
+            and the defendant. These factors include questions
+            of policy, in the broad sense of that word. If foreseeability
+             and proximity are established at the first
+            stage, a prima facie duty of care arises. At the
+            second stage of the Anns test, the question still
+            remains whether there are residual policy considerations
+             outside the relationship of the parties that
+            may negative the imposition of a duty of care. It
+            may be, as the Privy Council suggests in Yuen Kun
+            Yeu, that such considerations will not often prevail.
+            However, we think it useful expressly to ask, before
+            imposing a new duty of care, whether despite foreseeability
+             and proximity of relationship, there are
+            other policy reasons why the duty should not be
+            imposed.
+31
+               On the first branch of the Anns test, reasonable
+            foreseeability of the harm must be supplemented by
+            proximity. The question is what is meant by proximity
+            . Two things may be said. The first is that
+            “proximity” is generally used in the authorities to
+            characterize the type of relationship in which a duty
+            of care may arise. The second is that sufficiently
+            proximate relationships are identified through the
+            use of categories. The categories are not closed and
+            new categories of negligence may be introduced.
+            But generally, proximity is established by reference
+            to these categories. This provides certainty to the
+            law of negligence, while still permitting it to evolve
+            to meet the needs of new circumstances.
+
+
+
+
+test november 1 2002.indd 550-551
+          552
+
+
+     32
+             On the first point, it seems clear that the word
+          “proximity” in connection with negligence has from
+          the outset and throughout its history been used to
+          describe the type of relationship in which a duty of
+          care to guard against foreseeable negligence may be
+          imposed. “Proximity” is the term used to describe
+          the “close and direct” relationship that Lord Atkin
+          described as necessary to grounding a duty of care
+          in Donoghue v. Stevenson, supra, at pp. 580-81:
+          Who then, in law is my neighbour? The answer seems to
+          be — persons who are so closely and directly affected by
+          my act that I ought reasonably to have them in contemplation
+           as being so affected when I am directing my mind
+          to the acts or omissions which are called in question.
+
+                                    .
+
+          I think that this sufficiently states the truth if proximity
+          be not confined to mere physical proximity, but be used,
+          as I think it was intended, to extend to such close and
+          direct relations that the act complained of directly affects
+          a person whom the person alleged to be bound to take
+          care would know would be directly affected by his careless
+           act. [Emphasis added.]
+     33
+             As this Court stated in Hercules Managements
+          Ltd. v. Ernst & Young, [1997] 2 S.C.R. 165, at para.
+          24, per La Forest J.:
+          The label “proximity”, as it was used by Lord Wilberforce
+          in Anns, supra, was clearly intended to connote that
+          the circumstances of the relationship inhering between
+          the plaintiff and the defendant are of such a nature that
+          the defendant may be said to be under an obligation to be
+          mindful of the plaintiff’s legitimate interests in conducting
+           his or her affairs. [Emphasis added.]
+     34
+             Defining the relationship may involve looking
+          at expectations, representations, reliance, and the
+          property or other interests involved. Essentially,
+          these are factors that allow us to evaluate the close-
+          ness of the relationship between the plaintiff and the
+          defendant and to determine whether it is just and
+          fair having regard to that relationship to impose a
+          duty of care in law upon the defendant.
+     35
+            The factors which may satisfy the requirement
+          of proximity are diverse and depend on the
+
+
+
+
+test november 1 2002.indd 552-553
+553
+            [2001] 3 R.C.S.
+
+
+            circumstances of the case. One searches in vain
+            for a single unifying characteristic. As stated
+            by McLachlin J. (as she then was) in Canadian
+            National Railway Co. v. Norsk Pacific Steamship
+            Co., [1992] 1 S.C.R. 1021, at p. 1151: “[p]roximity
+            may be usefully viewed, not so much as a test
+            in itself, but as a broad concept which is capable
+            of subsuming different categories of cases involv-
+            ing different factors” (cited with approval in Hercules
+             Managements, supra, at para. 23). Lord Goff
+            made the same point in Davis v. Radcliffe, [1990] 2
+            All E.R. 536 (P.C.), at p. 540:
+            . . . it is not desirable, at least in the present stage of
+            development of the law, to attempt to state in broad general
+             propositions the circumstances in which such proximity
+             may or may not be held to exist. On the contrary,
+            following the expression of opinion by Brennan J in Suth-
+            erland Shire Council v Heyman (1985) 60 ALR 1 at
+            43-44, it is considered preferable that ‘the law should
+            develop categories of negligence incrementally and by
+            analogy with established categories’.
+36
+                 What then are the categories in which proximity
+             has been recognized? First, of course, is the situation
+             where the defendant’s act foreseeably causes
+            physical harm to the plaintiff or the plaintiff’s property
+            . This has been extended to nervous shock (see,
+            for example, Alcock v. Chief Constable of the South
+            Yorkshire Police, [1991] 4 All E.R. 907 (H.L.)). Yet
+            other categories are liability for negligent misstate-
+            ment: Hedley Byrne & Co. v. Heller & Partners
+            Ltd., [1963] 2 All E.R. 575 (H.L.), and misfeasance
+            in public office. A duty to warn of the risk of danger
+            has been recognized: Rivtow Marine Ltd. v. Washington
+             Iron Works, [1974] S.C.R. 1189. Again, a
+            municipality has been held to owe a duty to pro-
+            spective purchasers of real estate to inspect hous-
+            ing developments without negligence: Anns, supra;
+            Kamloops, supra. Similarly, governmental authorities
+             who have undertaken a policy of road maintenance
+             have been held to owe a duty of care to
+            execute the maintenance in a non-negligent manner:
+            Just v. British Columbia, [1989] 2 S.C.R. 1228,
+            Swinamer v. Nova Scotia (Attorney General), [1994]
+            1 S.C.R. 445, etc. Relational economic loss (related
+            to a contract’s performance) may give rise to a
+            tort duty of care in certain situations, as where the
+
+
+
+
+test november 1 2002.indd 552-553
+          554
+
+
+          claimant has a possessory or proprietary interest
+          in the property, the general average cases, and
+          cases where the relationship between the claimant
+          and the property owner constitutes a joint venture:
+          Norsk, supra; Bow Valley Husky (Bermuda) Ltd. v.
+          Saint John Shipbuilding Ltd., [1997] 3 S.C.R. 1210.
+          When a case falls within one of these situations or
+          an analogous one and reasonable foreseeability is
+          established, a prima facie duty of care may be posited
+          .
+     37
+             This brings us to the second stage of the Anns
+          test. As the majority of this Court held in Norsk,
+          at p. 1155, residual policy considerations fall to be
+          considered here. These are not concerned with the
+          relationship between the parties, but with the effect
+          of recognizing a duty of care on other legal obligations
+          , the legal system and society more generally.
+          Does the law already provide a remedy? Would
+          recognition of the duty of care create the spectre of
+          unlimited liability to an unlimited class? Are there
+          other reasons of broad policy that suggest that the
+          duty of care should not be recognized? Following
+          this approach, this Court declined to find liability
+          in Hercules Managements, supra, on the ground
+          that to recognize a duty of care would raise the
+          spectre of liability to an indeterminate class of
+          people.
+     38
+             It is at this second stage of the analysis that the
+          distinction between government policy and execution
+           of policy falls to be considered. It is established
+          that government actors are not liable in negligence
+          for policy decisions, but only operational decisions.
+          The basis of this immunity is that policy is the
+          prerogative of the elected Legislature. It is inappropriate
+           for courts to impose liability for the con-
+          sequences of a particular policy decision. On the
+          other hand, a government actor may be liable in
+          negligence for the manner in which it executes or
+
+
+
+
+test november 1 2002.indd 554-555
+555
+            [2001] 3 R.C.S.
+
+
+            carries out the policy. In our view, the exclusion
+            of liability for policy decisions is properly regarded
+            as an application of the second stage of the Anns
+            test. The exclusion does not relate to the relationship
+             between the parties. Apart from the legal char-
+            acterization of the government duty as a matter of
+            policy, plaintiffs can and do recover. The exclusion
+            of liability is better viewed as an immunity imposed
+            because of considerations outside the relationship
+            for policy reasons — more precisely, because it
+            is inappropriate for courts to second-guess elected
+            legislators on policy matters. Similar considerations
+             may arise where the decision in question is
+            quasi-judicial (see Edwards v. Law Society of Upper
+            Canada, [2001] 3 S.C.R. 562, 2001 SCC 80).
+39
+                The second step of Anns generally arises only in
+            cases where the duty of care asserted does not fall
+            within a recognized category of recovery. Where
+            it does, we may be satisfied that there are no overriding
+             policy considerations that would negative the
+            duty of care. In this sense, we agree with the Privy
+            Council in Yuen Kun Yeu that the second stage of
+            Anns will seldom arise and that questions of liability
+             will be determined primarily by reference to
+            established and analogous categories of recovery.
+            However, where a duty of care in a novel situation is
+            alleged, as here, we believe it necessary to consider
+            both steps of the Anns test as discussed above. This
+            ensures that before a duty of care is imposed in a
+            new situation, not only are foreseeability and relational
+             proximity present, but there are no broader
+            considerations that would make imposition of a duty
+            of care unwise.
+
+
+
+
+test november 1 2002.indd 554-555
+          556
+
+
+          V. Application of the Test
+     40
+             The appellants submit that the Registrar of Mortgage
+           Brokers owed them, as investors with a firm
+          falling under the Registrar’s administrative man-
+          date, a duty of care giving rise to liability for negligence
+           and damages for losses that they sustained.
+          The investors allege that the Registrar should have
+          acted earlier to suspend Eron or warn them of Eron’s
+          breaches of the Act’s requirements, and that their
+          losses are traceable to the Registrar’s failure to act
+          more promptly.
+     41
+             The first question is whether the circumstances
+          disclose reasonably foreseeable harm and proximity
+           sufficient to establish a prima facie duty of care.
+          The first inquiry at this stage is whether the case
+          falls within or is analogous to a category of cases
+          in which a duty of care has previously been recognized
+          . The answer to this question is no.
+     42
+             The next question is whether this is a situation
+          in which a new duty of care should be recognized.
+          It may be that the investors can show that it was
+          reasonably foreseeable that the alleged negligence
+          in failing to suspend Eron or issue warnings might
+          result in financial loss to the plaintiffs. However,
+          as discussed, mere foreseeability is not enough to
+          establish a prima facie duty of care. The plaintiffs
+          must also show proximity — that the Registrar was
+          in a close and direct relationship to them making it
+          just to impose a duty of care upon him toward the
+          plaintiffs. In addition to showing foreseeability, the
+          plaintiffs must point to factors arising from the circumstances
+           of the relationship that impose a duty.
+     43
+              In this case, the factors giving rise to proximity,
+          if they exist, must arise from the statute under which
+          the Registrar is appointed. That statute is the only
+          source of his duties, private or public. Apart from
+
+
+
+
+test november 1 2002.indd 556-557
+557
+            [2001] 3 R.C.S.
+
+
+            that statute, he is in no different position than the
+            ordinary man or woman on the street. If a duty to
+            investors with regulated mortgage brokers is to be
+            found, it must be in the statute.
+44
+                In this case, the statute does not impose a duty
+            of care on the Registrar to investors with mortgage
+            brokers regulated by the Act. The Registrar’s duty
+            is rather to the public as a whole. Indeed, a duty to
+            individual investors would potentially conflict with
+            the Registrar’s overarching duty to the public.
+45
+               A brief review of the relevant powers and duties
+            of the Registrar under the Act confirms this conclusion
+            . Part 1 sets out the Registrar’s regulatory
+            powers with respect to the operation of mortgage
+            brokers and submortgage brokers in British Columbia
+            . Specifically, s. 4 provides that the Registrar
+            must grant registration or renewal of registration to
+            an applicant if, in his opinion, the applicant is “suitable
+            ” for registration and the proposed registration
+            is “not objectionable”. He may also attach such
+            conditions and restrictions to the registration as he
+            considers necessary. Once registered, a mortgage
+            broker must comply with s. 6 of the Regulations
+            which mandates that registrants maintain proper
+            books and records and file annual financial statements
+             with the Registrar.
+46
+               Sections 5 and 6 of the Act cover the investiga-
+            tory powers of the Registrar. Pursuant to s. 5, the
+            Registrar may, and on receipt of a sworn complaint
+            must, investigate any matter arising out of the Act or
+            Regulations. In pursuit of this purpose, the Registrar
+             may examine any records and documents of the
+            person being investigated. He may summon wit-
+            nesses and compel them to give evidence on oath or
+            otherwise and to produce records, property, assets
+            or things in the same manner as the court does for
+
+
+
+
+test november 1 2002.indd 556-557
+          558
+
+
+          the trial of civil actions. Section 7 allows the Registrar
+           to “freeze” funds or securities where he has
+          made or is about to make a direction, decision, order
+          or ruling suspending or cancelling the registration
+          of a person under the Act. He may also apply to
+          the court for an appointment of a receiver, or a
+          receiver and manager, or trustee of the property of
+          the person.
+     47
+             Under s. 8, the Registrar may, after giving a
+          person registered under the Act an opportunity to
+          be heard, suspend or cancel any registration if, in
+          his opinion, any of the following or other conditions
+          apply: the person would be disentitled to registration
+           if the person were an applicant under s. 4; the
+          person is in breach of a condition of registration; the
+          person is a party to a mortgage transaction which is
+          harsh and unconscionable or otherwise inequitable;
+          or the person has conducted or is conducting business
+           in a manner that is otherwise prejudicial to
+          the public interest. Section 14 prohibits a broker
+          from making any false, misleading or deceptive
+          statements in any advertisement, circular or similar
+          material. Part 2 of the Act is directed towards the
+          protection of borrowers, investors and lenders, man-
+          dating in part specific disclosure requirements by
+          mortgage lenders and their agents. Section 8 of the
+          Regulations provides that every direction, decision,
+          order or ruling of the Registrar refusing registration,
+          refusing to renew registration, suspending registration
+           or cancelling registration shall be made in writ-
+          ing and shall be open to public inspection.
+     48
+              Finally, s. 20 exempts the Registrar or any person
+          acting under his authority from any action brought
+          for anything done in the performance of duties
+          under the Act or Regulations, or in pursuance or
+          intended or supposed pursuance of the Act or Regulations
+          , unless it was done in bad faith.
+     49
+             The regulatory scheme governing mortgage brokers
+           provides a general framework to ensure the
+          efficient operation of the mortgage marketplace.
+          The Registrar must balance a myriad of competing
+
+
+
+
+test november 1 2002.indd 558-559
+559
+            [2001] 3 R.C.S.
+
+
+            interests, ensuring that the public has access to capi-
+            tal through mortgage financing while at the same
+            time instilling public confidence in the system by
+            determining who is “suitable” and whose proposed
+            registration as a broker is “not objectionable”. All
+            of the powers or tools conferred by the Act on the
+            Registrar are necessary to undertake this delicate
+            balancing. Even though to some degree the provisions
+             of the Act serve to protect the interests of
+            investors, the overall scheme of the Act mandates
+            that the Registrar’s duty of care is not owed to investors
+             exclusively but to the public as a whole.
+50
+               Accordingly, we agree with the Court of Appeal
+            per Newbury J.A.: even though the Registrar might
+            reasonably have foreseen that losses to investors in
+            Eron would result if he was careless in carrying
+            out his duties under the Act, there was insufficient
+            proximity between the Registrar and the investors
+            to ground a prima facie duty of care. The statute
+            cannot be construed to impose a duty of care on
+            the Registrar specific to investments with mortgage
+            brokers. Such a duty would no doubt come at the
+            expense of other important interests, of efficiency
+            and finally at the expense of public confidence in
+            the system as a whole.
+51
+               Having found no proximity sufficient to found
+            a duty of care owed by the Registrar to the investors
+            , we need not proceed to the second branch of
+            the Anns test and the question of whether there exist
+            policy considerations apart from those considered
+            in determining a relationship of proximity, which
+            would negative a prima facie duty of care, had one
+            been found. However, the matter having been fully
+            argued, it may be useful to comment on those submissions
+            .
+
+
+
+
+test november 1 2002.indd 558-559
+          560
+
+
+     52
+             In our view, even if a prima facie duty of care
+          had been established under the first branch of the
+          Anns test, it would have been negated at the second
+          stage for overriding policy reasons. The decision
+          of whether to suspend a broker involves both policy
+          and quasi-judicial elements. The decision requires
+          the Registrar to balance the public and private interests
+          . The Registrar is not simply carrying out a
+          pre-determined government policy, but deciding, as
+          an agent of the executive branch of government,
+          what that policy should be. Moreover, the decision
+          is quasi-judicial. The Registrar must act fairly or
+          judicially in removing a broker’s licence. These
+          requirements are inconsistent with a duty of care to
+          investors. Such a duty would undermine these obligations
+          , imposed by the Legislature on the Registrar
+          . Thus even if a prima facie duty of care could
+          be posited, it would be negated by other overriding
+          policy considerations.
+     53
+              The prima facie duty of care is also negated
+          on the basis of the distinction between government
+          policy and the execution of policy. As stated, the
+          Registrar must make difficult discretionary decisions
+           in the area of public policy, decisions which
+          command deference. As Huddart J.A. (concurring
+          in the result) found, the decisions made by the Registrar
+           were made within the limits of the powers
+          conferred upon him in the public interest.
+     54
+          would loom large if a duty of care was recognized
+          as between the Registrar and investors in this case.
+          The Act itself imposes no limit and the Registrar has
+          no means of controlling the number of investors or
+          the amount of money invested in the mortgage bro-
+          kerage system.
+     55
+             Finally, we must consider the impact of a duty
+          of care on the taxpayers, who did not agree to
+
+
+
+
+test november 1 2002.indd 560-561
+561
+            [2001] 3 R.C.S.
+
+
+            assume the risk of private loss to persons in the situation
+             of the investors. To impose a duty of care in
+            these circumstances would be to effectively create
+            an insurance scheme for investors at great cost to
+            the taxpaying public. There is no indication that the
+            Legislature intended that result.
+56
+               In the result the judgment of the British Columbia
+             Court of Appeal is affirmed and the appeal is
+            dismissed with costs.
+               Appeal dismissed with costs.
+              Solicitors for the appellant: Church & Company
+            , Vancouver.
+               Solicitor for the respondents: The Ministry of
+            the Attorney General, Vancouver.
+               Solicitor for the intervener the Attorney General
+            of Canada: The Deputy Attorney General of
+            Canada, Ottawa.
+               Solicitor for the intervener the Attorney General
+            for Ontario: The Ministry of the Attorney General,
+            Toronto.
+               Solicitor for the intervener the Attorney General
+            for New Brunswick: The Attorney General for New
+            Brunswick, Fredericton.
+               Solicitor for the interveners Her Majesty the
+            Queen in Right of Alberta and the Minister of Justice
+             and Attorney General for Alberta: The Minister
+             of Justice and Attorney General for Alberta,
+            Edmonton.
+                Solicitor for the intervener the British Columbia
+            Securities Commission: The British Columbia Securities
+             Commission, Vancouver.
+                Solicitors for the interveners the Ontario Securities
+             Commission and the Alberta Securities Commission
+            : Blake, Cassels & Graydon, Toronto.
+
+
+
+
+test november 1 2002.indd 560-561

@@ -1,0 +1,1775 @@
+201
+[1999] 1 R.C.S.
+
+
+Murray Ryan Appellant
+
+v.
+
+The Corporation of the City of Victoria,
+The Esquimalt and Nanaimo Railway
+Company and Canadian Pacific
+Limited/Canadien Pacifique
+Limitée Respondents
+
+INDEXED AS: RYAN v. VICTORIA (CITY)
+
+File No.: 25704.
+
+1998: June 17; 1999: January 28.
+
+Present: Gonthier, Cory, McLachlin, Iacobucci, Major,
+Bastarache and Binnie JJ.
+
+ON APPEAL FROM THE COURT OF APPEAL FOR
+BRITISH COLUMBIA
+
+  Torts — Negligence — Nuisance — Railways —
+Defence of statutory authority — Railway built embedded
+ in and running down an urban street and all applicable
+ statutes and regulations complied with — Motorcyclist
+ thrown and injured when front tire lodged in gap
+beside rail — Whether Railways liable in negligence —
+Whether railways liable in public nuisance.
+   Courts — Appeal — Trial judge finding no contributory
+ negligence — No palpable and over-riding error —
+Whether the Court of Appeal erred by reversing trial
+judge’s findings.
+   The appellant was injured when he was thrown from
+his motorcycle while attempting to cross railway tracks
+running down the centre of a street in downtown Victoria
+. The front tire of his motorcycle became trapped in a
+“flangeway” gap running alongside the inner edge of the
+street-grade tracks. The motorcyclist sued the City and
+the railway companies which owned and operated the
+tracks. The Railways denied liability on the ground that
+the tracks were authorized by, and complied with, all
+applicable statutes, regulations and administrative
+orders.
+202
+
+
+   The trial judge held the Railways and the City jointly
+and severally liable in negligence, the former for maintaining
+ dangerously wide flangeways and the latter for
+failing to warn of the hazard. In addition, he held the
+Railways liable in nuisance. The British Columbia
+Court of Appeal set aside the nuisance finding and held
+all of the respondents liable only for failure to warn. The
+Court of Appeal also found the appellant to be contributorily
+ negligent and liable for 50% of his damages.
+
+   At issue here was, first, whether the Railways were
+liable in negligence. Under a long-standing common
+law rule, the standard of care owed by railways to the
+public was normally limited to the discharge of statutory
+obligations. The question is whether that rule should
+now be discarded, and if so, how statutory compliance
+should affect the assessment of liability under ordinary
+negligence principles. The second issue was whether the
+Railways were liable in public nuisance. Again, the
+Railways disclaim liability on the ground that the tracks
+involved were authorized by statute and regulations.
+The question arose as to whether that defence was
+unavailable because the hazard posed by the tracks was
+not an “inevitable consequence” of exercising statutory
+authority. The final issue was whether the Court of
+Appeal erred by reversing the findings of the trial judge
+with respect to contributory negligence. The finding of
+liability for failing to warn the appellant of the hazard
+created by the flangeways was not challenged.
+
+  Held: The appeal should be allowed.
+
+  A duty of care existed here. Duty of care is determined
+ under the two-step Anns/Kamloops test (Anns v.
+Merton London Borough Council, adopted in Kamloops
+(City of) v. Nielsen). Under the first step, the establishment
+ of a prima facie duty of care, a relationship of
+“proximity” must be shown to have existed between the
+parties such that it was reasonably foreseeable that a
+careless act by the Railways could result in injury to the
+appellant. The threshold is a relatively low threshold.
+203
+[1999] 1 R.C.S.
+
+
+Liability does not necessarily follow the establishment
+of proximity.
+
+   Under the second step, it must be determined whether
+any factors exist which should eliminate or limit the
+duty found under the first branch of the test. Policy considerations
+ may serve to negate a duty of care entirely or
+to “limit” the “scope” of an existing duty but they do not
+give rise to “greater” or “lesser” duties in different
+cases. A duty of care either exists or it does not. The
+“scope” of a duty of care can be “limited” under the
+Anns/Kamloops test only in the sense that the duty will
+arise in certain situations and not in others. The Anns/
+Kamloops test is not concerned with legislative or judicial
+ policies which, as in this case, define the conduct
+required to meet an existing duty. Such policies relate to
+the standard of care.
+
+   Conduct is negligent if it creates an objectively unreasonable
+ risk of harm. To avoid liability, a person must
+exercise the standard of care that would be expected of
+an ordinary, reasonable and prudent person in the same
+circumstances. Legislative standards are relevant to the
+common law standard of care, but the two are not necessarily
+ co-extensive. The fact that a statute prescribes or
+prohibits certain activities may constitute evidence of
+reasonable conduct in a given situation, but it does not
+extinguish the underlying obligation of reasonableness.
+By the same token, mere compliance with a statute does
+not, in and of itself, preclude a finding of civil liability.
+Statutory standards can, however, be highly relevant to
+the assessment of reasonable conduct in a particular
+case, and in fact may render reasonable an act or omission
+ which would otherwise appear to be negligent.
+
+   The “special rule” which existed at common law with
+respect to railways can no longer be justified in principle
+ and should be set aside. Under this rule, a railway, as
+long as it complied with the requirements imposed upon
+it by applicable statutes, regulations and administrative
+orders, was under no further obligation — absent
+extraordinary circumstances — to act in an objectively
+204
+
+
+reasonable manner. Its effect was to excuse railway
+companies in most cases from the ordinary obligation of
+prudence. The courts in applying this rule implicitly rec-
+ognized that statutory compliance cannot replace the
+common law standard of care, and can be accepted as a
+substitute for that standard only in certain circumstances
+.
+   With the abolishment of the special rule, the correct
+principles can be stated more clearly. Compliance with a
+statutory standard of care does not abrogate or supersede
+ the obligation to comply with the common law
+standard of care. The requirements are concurrent, and
+each carries its own penalty for breach. However, in
+appropriate circumstances, compliance with statutory
+standards may entirely satisfy the common law standard
+of care and thus absolve a defendant of liability in negligence
+.
+   The weight to be accorded to statutory compliance in
+the overall assessment of reasonableness depends on the
+nature of the statute and the circumstances of the case. It
+should be determined whether the legislative standards
+are necessarily applicable to the facts of the case. Statutory
+ compliance will have more relevance in “ordinary”
+cases — cases clearly within the intended scope of the
+statute — than in cases involving special or unusual circumstances
+. It should also be determined whether the
+legislative standards are specific or general, and whether
+they allow for discretion in the manner of performance.
+A party acting under statutory authority must still take
+such precautions as are reasonable within the range of
+that authority to minimize the risks which may result
+from its actions.
+   Where a statute authorizes certain activities and
+strictly defines the manner of performance and the precautions
+ to be taken, it is more likely to be found that
+compliance with the statute constitutes reasonable care
+and that no additional measures are required. By contrast
+, where a statute is general or permits discretion as
+to the manner of performance, or where unusual circumstances
+ exist which are not clearly within the scope of
+the statute, mere compliance is unlikely to exhaust the
+standard of care. This approach strikes an appropriate
+205
+[1999] 1 R.C.S.
+
+
+balance among several important policies, including
+deference to legislative determinations on matters of
+railway safety, security for railways which comply with
+prescribed standards, and protection for those who may
+be injured as a result of unreasonable choices made by
+railways in the exercise of official authority.
+   The Railways’ compliance with the statutory and regulatory
+ authorities did not exhaust the requisite standard
+of care in this case, for two reasons. First, those authorities
+ were not directly applicable to the circumstances,
+and second, they allowed for significant discretion in
+the manner of performance.
+   The common law standard of care is presumed to
+apply. A regulatory standard, if shown to be clearly
+applicable, may be accepted as a reasonable substitute.
+Here, the railways relied on authorities which applied to
+“highway crossings”. The branch line, however, was not
+a crossing in the ordinary sense of the railway and highway
+ intersecting at one point but rather it ran down the
+centre of the street. Important differences exist between
+the two situations. In particular, the danger posed to
+two-wheeled traffic is much greater in the second. A
+regulatory standard applying to a railway crossing cut-
+ting across traffic at a right angle may be wholly inappropriate
+ to a railway branch running down the street.
+The regulatory standards were accordingly not definitive
+ of the standard of care.
+   Even if highway crossing regulatory standards were
+applicable, the Railways’ compliance with those standards
+ did not necessarily constitute reasonable conduct in
+the circumstances. The regulations allowed a significant
+range as to flangeway width and the railways exercised
+their discretion as to the flangeway width within that
+range. In exercising that discretion, they were bound by
+the common law and were required to take all reasonable
+ steps to minimize foreseeable harm. The entire
+range could not be presumed to be reasonably safe in all
+conditions. The decision to use a wider flangeway width
+within the limits allowed by regulation raised an issue of
+reasonableness, not of regulatory compliance. The trial
+judge’s conclusion was consistent with the correct prin-
+206
+
+
+ciples of law, and it should not have been disturbed by
+the Court of Appeal.
+
+   A public nuisance has been defined as any activity
+which unreasonably interferes with the public’s interest
+in questions of health, safety, morality, comfort or convenience
+. Whether a particular activity constitutes a
+public nuisance is a question of fact. Many factors may
+be considered, including the inconvenience caused by
+the activity, the difficulty involved in lessening or
+avoiding the risk, the utility of the activity, the general
+practice of others, and the character of the
+neighbourhood. Statutory authority provides, at best, a
+narrow defence to nuisance. The traditional rule is that
+liability will not be imposed if an activity is authorized
+by statute and the defendant proves that the nuisance is
+the “inevitable result or consequence” of exercising that
+authority. Here, the Railways’ decisions, (i) to exceed
+the minimum flangeway width and (ii) not to install
+flange fillers, were a matter of discretion and not the
+“inevitable result” or “inseparable consequence” of
+complying with the regulations.
+
+   While findings of fact with regard to the allocation of
+fault are not immutable, they should not be reversed by
+an appellate court unless it can be established that the
+trial judge made some palpable and overriding error
+which affected his or her assessment of those findings.
+No such errors were made by the trial judge, and the
+Court of Appeal ought not to have interfered with his
+findings on the issue of contributory negligence.
+
+Cases Cited
+
+  Applied: Anns v. Merton London Borough Council,
+[1978] A.C. 728; Kamloops (City of) v. Nielsen, [1984]
+2 S.C.R. 2; considered: Paskivski v. Canadian Pacific
+Ltd., [1976] 1 S.C.R. 687; Tock v. St. John’s Metropolitan
+ Area Board, [1989] 2 S.C.R. 1181; Grand Trunk
+Railway Co. v. McKay (1903), 34 S.C.R. 81; Lake Erie
+207
+[1999] 1 R.C.S.
+
+
+& Detroit River Railway Co. v. Barclay (1900), 30
+S.C.R. 360; Canadian National Railway Co. v. Vincent,
+[1979] 1 S.C.R. 364; referred to: Nova Mink Ltd. v.
+Trans-Canada Airlines, [1951] 2 D.L.R. 241; Just v.
+British Columbia, [1989] 2 S.C.R. 1228; Hercules Managements
+ Ltd. v. Ernst & Young, [1997] 2 S.C.R. 165;
+Wade v. C.N.R., [1978] 1 S.C.R. 1064; Canadian
+National Railway Co. v. Norsk Pacific Steamship Co.,
+[1992] 1 S.C.R. 1021; R. in right of Canada v. Saskatchewan
+ Wheat Pool, [1983] 1 S.C.R. 205; Stewart v. Pettie
+, [1995] 1 S.C.R. 131; Harris v. Canadian Pacific
+Ltd. (1989), 59 D.L.R. (4th) 151; Anderson v. Canadian
+National Railway Co., [1944] O.R. 169; Richardson v.
+Surrey (Dist.) (1990), 43 B.C.L.R. (2d) 210; Bux v.
+Slough Metals Ltd., [1974] 1 All E.R. 262; Geddis v.
+Proprietors of the Bann Reservoir (1878), 3 App.
+Cas. 430; Chessie v. J. D. Irving Ltd. (1982), 22
+C.C.L.T. 89; Lord Mayor, Aldermen and Citizens of the
+City of Manchester v. Farnworth, [1930] A.C. 171; City
+of Portage La Prairie v. B.C. Pea Growers Ltd., [1966]
+S.C.R. 150; Schenck v. Ontario (Minister of Transportation
+ and Communications), [1987] 2 S.C.R. 289; Stein v.
+“Kathy K” (The Ship), [1976] 2 S.C.R. 802.
+
+Statutes and Regulations Cited
+Railway Act, R.S.C. 1906, c. 37, ss. 222, 223, 235.
+Railway Act, R.S.C. 1970, c. R-2, s. 196(1).
+Railway Act, R.S.C., 1985, c. R-3, s. 367(4) [rep. & sub.
+  R.S.C., 1985, c. 32 (4th Supp.), s. 110] (formerly
+  R.S.C. 1970, c. R-2, s. 342(4)).
+Railway-Highway Crossing at Grade Regulations,
+  SOR/80-748, ss. 2 “crossing”, 7.
+Standard Regulations Respecting the Construction of
+  Crossings at Grade, 55 B.T.C. III, (Feb. 1, 1965)
+  (later C.R.C., 1184), ss. 1(3) “crossing”, 6.
+
+Authors Cited
+Fridman, Gerald Henry Louis. The Law of Torts in
+  Canada, vol. I. Toronto: Carswell, 1989.
+Klar, Lewis N. Tort Law, 2nd ed. Scarborough, Ont.:
+  Carswell, 1996.
+Linden, Allen M. Canadian Tort Law, 6th ed. Toronto:
+  Butterworths, 1997.
+    208
+
+
+       APPEAL from a judgment of the British Columbia
+     Court of Appeal (1996), 82 B.C.A.C. 40, 133
+    W.A.C. 40, 36 M.P.L.R. (2d) 35, 22 M.V.R. (3d)
+    1, [1996] B.C.J. No. 2083 (QL), allowing an
+    appeal in part from a judgment of Owen-Flood J.
+    (1994), 21 M.P.L.R. (2d) 148, 4 M.V.R. (3d) 59,
+    [1994] B.C.J. No. 1202 (QL). Appeal allowed.
+
+       Joseph J. Arvay, Q.C., and Aaron A. G. Gordon,
+    for the appellant.
+
+       Richard R. Sugden, Q.C., and Craig P. Dennis,
+    for the respondent The Corporation of the City of
+    Victoria.
+
+      William M. Everett, Q.C., and W. S. MacFar-
+    lane, for the respondents The Esquimalt and
+    Nanaimo Railway Company and Canadian Pacific
+    Limited/Canadien Pacifique Limitée.
+
+      The judgment of the Court was delivered by
+1
+    statutory authority on the civil liability of railways.
+    A motorcyclist was injured while attempting to
+    cross railway tracks located on an urban street in
+    Victoria, British Columbia. The motorcyclist sued
+    the City of Victoria (“the City”) and the railway
+    companies which owned and operated the tracks
+    (“the Railways”). The Railways denied liability on
+    the ground that the tracks were authorized by, and
+    complied with, all applicable statutes, regulations
+    and administrative orders.
+2
+    in negligence. Under a long-standing common law
+    rule, the standard of care owed by railways to the
+    public was normally limited to the discharge of
+    statutory obligations. The question is whether that
+    rule should now be discarded, and if so, how statutory
+     compliance should affect the assessment of
+    liability under ordinary negligence principles.
+209
+[1999] 1 R.C.S.
+
+
+
+3
+   The second issue is whether the Railways are
+liable in public nuisance. Again, the Railways disclaim
+ liability on the ground that the tracks
+involved were authorized by statute and regulations
+. The appellant submits that such a defence is
+unavailable because the hazard posed by the tracks
+was not an “inevitable consequence” of exercising
+statutory authority. The final issue is whether the
+Court of Appeal erred by reversing the findings of
+the trial judge with respect to contributory negligence
+.
+I. Facts
+4
+   On May 4, 1987, the appellant, Murray Ryan,
+was thrown from his motorcycle while attempting
+to cross railway tracks running down the centre of
+Store Street, in downtown Victoria. The tracks
+were owned by the respondent Esquimalt &
+Nanaimo Railway Company (“E&N”), and were
+leased and operated by the respondent Canadian
+Pacific Limited (“CP”). The accident occurred
+when the front tire of the appellant’s motorcycle
+became trapped in a “flangeway” gap running
+alongside the inner edge of the tracks. At the time
+of the accident, the flangeways on Store Street
+were approximately one-quarter of an inch wider
+than the front tire of the appellant’s motorcycle.
+A. History and Location of the Store Street Tracks
+
+5
+   In 1907, E&N applied to the Board of Railway
+Commissioners of Canada (the “Board”) for per-
+mission to construct a branch line along a portion
+of Store Street. E&N submitted a “plan, profile
+and book of reference” to the Board, setting forth
+the specifications of the proposed tracks, pursuant
+to s. 222 of the Railway Act, R.S.C. 1906, c. 37
+(“1906 Railway Act”). In addition, E&N entered
+into an agreement with the City regarding the
+    210
+
+
+    maintenance and operation of the line; the terms of
+    that agreement were subsequently passed into
+    municipal law. On March 6, 1908, in accordance
+    with s. 223 of the 1906 Railway Act, the Board
+    issued Order No. 4421 authorizing the construction
+    of the tracks.
+6
+    of 1912. By 1926 it came to CP’s attention that a
+    discrepancy existed between the terms of the 1908
+    Order and the actual location of the Store Street
+    tracks. In particular, the original plans did not
+    specify that the tracks would cross through traffic
+    on Chatham Street, a side road which intersects
+    Store Street near one end of the tracks. CP applied
+    to the Board for a revised authorization of the
+    tracks as constructed. On January 18, 1927, the
+    Board issued Order No. 38682, endorsing the
+    existing location of the tracks with specific reference
+     to the Chatham Street crossing. That order
+    provided:
+       THE BOARD ORDERS that the Applicant Company
+    be, and it is hereby, authorized to revise the location of
+    its branch line of railway from a point on its right of
+    way at the easterly limit of Johnson Street Bridge,
+    thence north-easterly and northerly along Store Street,
+    across Chatham Street, to and into Block D, in the City
+    of Victoria and Province of British Columbia, as shown
+    on the said plan and profile on file with the Board under
+    case No. 2717; the crossing of Chatham Street to be
+    constructed in accordance with “The Standard Regulations
+     of the Board Affecting Highway Crossings, as
+    amended May 4th, 1910.”
+
+    Track reconstructions were undertaken in 1944 and
+    1982, but as those projects did not significantly
+    alter the location of the tracks, no further orders
+    were obtained from the Board. Rail traffic on the
+    Store Street tracks declined steadily over the years
+    and the tracks were removed in 1993.
+
+    B. Dimensions of the Flangeways on Store Street
+211
+[1999] 1 R.C.S.
+
+
+7
+   When railway tracks run across a street or highway
+ at grade, the rails are normally embedded in
+the pavement so as not to impede traffic. A groove
+called a “flangeway” is installed alongside the
+tracks in order to prevent derailments while permitting
+ the running rails to remain flush with the
+road surface. The most durable and inexpensive
+way to construct flangeways is to lay scrap rail, or
+“flangerail”, on its side next to the running rail to
+create a gap between the track and the surrounding
+pavement or planking. This process was approved
+by the Board in Order No. 9729 (February 29,
+1910) as the standard design for CP highway
+crossings, and it has remained the accepted method
+of constructing flangeways in Canada for many
+years.
+
+
+8
+   Regulations issued by the Canadian Transport
+Commission in 1965 and 1980 provide that
+flangeways at “crossings” may be anywhere from
+2.5 to 4.75 inches wide. The same dimensions are
+adopted in CP’s own Standard Practice Circular
+29. It is common ground that the flangeways on
+Store Street have always remained within that prescribed
+ range. From 1944 to 1982, the flangeways
+were between 2.75 and 3.25 inches wide. During
+the 1982 reconstruction, the existing flangerail was
+torn out and replaced with heavier-gauge flangerail
+on its side; as a result, the flangeways were
+enlarged to a width of between 3.75 and 3.94
+inches.
+
+
+9
+   Despite arguments to the contrary by the
+respondents, the trial judge found that at the time
+of the appellant’s accident, methods and technolo-
+gies were available which, if employed, could have
+eliminated the flangeway gaps on Store Street
+entirely, or reduced them to the minimum width —
+2.5 inches — required under the “crossings” regulations
+. Those methods included the use of rubber-
+type “flange-fillers”, which are inserted into a
+flangeway to create an even surface for road traffic
+while compressing under the weight of train
+wheels. In particular, the trial judge found that the
+flange filler “Epflex” was available in 1982 and
+     212
+
+
+     was in use in Waterloo, Ontario on tracks which,
+     as here, ran down the centre of an urban street.
+     C. The Accident
+10
+     Victoria Harbour. It is a two-way street with one
+     lane of traffic running in each direction. The railway
+      tracks ran down the middle of the street for
+     approximately four blocks, meandering slowly
+     from one traffic lane to the other in a lazy S-shape.
+     Posted signs warned of a hazard to bicyclists but
+     not to motorcyclists.
+11
+     cycle from a side road. Cars were parked on the
+     opposite side of the street, approximately six feet
+     from the tracks. The appellant did not cross the
+     tracks immediately but instead travelled down the
+     centre of Store Street for about two blocks, keep-
+     ing the tracks on his right. When the meandering
+     of the tracks edged him to his left and into the path
+     of oncoming traffic, he attempted to cross the
+     tracks to the other side of the street. He was mov-
+     ing at about 20-25 kilometres per hour and encoun-
+     tered the tracks at a shallow angle. As he crossed,
+     the front tire of his motorcycle, which was three
+     and one-half inches wide at its perimeter, fell into
+     the flangeway and became wedged there. The
+     motorcycle rotated over the top of the trapped tire,
+     and the appellant was thrown forward and injured.
+     The record confirms that six prior accidents
+     involving the flangeways on Store Street — five of
+     which also involved motorcycles — were reported
+     to the Railways or the City of Victoria between
+     1982 and 1986.
+12
+     Supreme Court held the Railways and the City
+     jointly and severally liable in negligence, the former
+      for maintaining dangerously wide flangeways
+     and the latter for failing to warn of the hazard. In
+     addition, the trial judge held the Railways liable in
+     nuisance. The British Columbia Court of Appeal
+213
+[1999] 1 R.C.S.
+
+
+set aside the nuisance finding and held all of the
+respondents liable only for failure to warn. The
+Court of Appeal also found the appellant to be
+contributorily negligent and liable for 50% of his
+damages.
+II. Relevant Statutory and Regulatory Provisions
+13
+    One issue is whether the Store Street tracks
+constitute a “highway crossing” within the mean-
+ing of the Railway Act and applicable regulations;
+this is relevant as there are specific and different
+regulations for crossings as opposed to a rail line.
+Section 235 of the 1906 Railway Act provides:
+                  Highway Crossings
+  235. The railway may be carried upon, along or
+across an existing highway. . . .
+That language is adopted in all subsequent ver-
+sions of the Act, including s. 196(1) of the Railway
+Act, R.S.C. 1970, c. R-2. A “crossing” is also
+defined in s. 2 of the Railway-Highway Crossing
+at Grade Regulations, SOR/80-748 (“CTC 1980-8
+Rail”), and in s. 1(3) of General Order No. E-4:
+Standard Regulations Respecting the Construction
+of Crossings at Grade, 55 B.T.C. III, (Feb. 1,
+1965) (“General Order No. E-4”), as follows:
+“Crossing” means any railway crossing of a highway at
+  grade or any highway crossing of a railway at grade.
+The minimum and maximum dimensions permit-
+ted for flangeways at a “crossing” are in s. 6 of
+General Order No. E-4:
+     214
+
+
+     6. A space not more than three inches deep and not less
+     than two and one-half inches wide nor more than four
+     and three-quarters inches wide shall be provided
+     between the gauge side of the running rail and the
+     planking and/or other road surface, as the case may be.
+
+     A similar requirement appears in metric form in
+     s. 7 of CTC 1980-8 Rail, which replaced General
+     Order No. E-4 and was in force when the Store
+     Street tracks were reconstructed in 1982. That section
+      provides:
+
+       7. A flangeway with a width of between 65 mm and
+     120 mm to a depth of between 50 mm and 75 mm shall
+     be provided between the gauge side of the running rail
+     and the highway surface.
+
+14
+     and civil or criminal liability is addressed generally
+      in s. 367(4) of the Railway Act, R.S.C., 1985,
+     c. R-3, as am. R.S.C., 1985, c. 32 (4th Supp.),
+     s. 110 (formerly R.S.C. 1970, c. R-2, s. 342(4)):
+
+       367. . . .
+
+        (4) No inspection under or by the authority of this Act
+     or the Railway Safety Act, and nothing in this Act or the
+     Railway Safety Act and nothing done, ordered, directed,
+     required or provided for, or omitted to be done, ordered,
+     directed, required or provided for, under or by virtue of
+     this Act or the Railway Safety Act, shall, except in so far
+     as a compliance with the Act in question or with the
+     order, direction, requirement or provision, constitutes a
+     justification for what would otherwise be wrongful,
+     relieve, or be construed to relieve, any company of or
+     from, or in any way diminish or affect, any liability or
+     responsibility resting on it by law, either toward Her
+     Majesty or toward any person, or the wife, husband,
+     parent, child, executor, administrator, tutor, curator, heir
+     or personal representative, of any person, for anything
+     done or omitted to be done by that company, or for any
+     wrongful act, negligence, default, misfeasance, malfeasance
+      or nonfeasance of that company.
+
+     III. Judicial History
+215
+[1999] 1 R.C.S.
+
+
+A. British Columbia Supreme Court (1994), 21
+   M.P.L.R. (2d) 148 (Owen-Flood J.)
+
+15
+   The trial judge relied on Paskivski v. Canadian
+Pacific Ltd., [1976] 1 S.C.R. 687, for the principle
+that absent “special or exceptional circumstances”,
+railway companies cannot be found negligent as
+long as they comply with the Railway Act and with
+orders or regulations issued under that Act. However
+, he held that the crucial issue in this case —
+the width of the flangeways on store street — was
+not governed by any relevant statute or regulation,
+and in particular was not covered by the regulatory
+standards which apply to “highway crossings”. In
+the alternative, he found that “special or exceptional
+ circumstances” existed which required the
+Railways to exceed the precautions mandated in
+those regulations. He concluded that the Railways
+were negligent in failing to build the flangeways at
+the minimum allowable width or with some form
+of flange filler.
+
+16
+   The trial judge also held that the Railways were
+liable in public nuisance. Relying on Tock v. St.
+John’s Metropolitan Area Board, [1989] 2 S.C.R.
+1181, he rejected the Railways’ defence of “statutory
+ authority” since, in his view, the hazard created
+ was not an inevitable consequence of discharging
+ any statutory duty. The trial judge also
+held that the City of Victoria was liable for its failure
+ to provide adequate warnings to the public of
+the danger on Store Street. He dismissed a nuisance
+ claim against the City on the basis that the
+City had no property interest in the tracks. Finally,
+he held that the appellant was not contributorily
+negligent, since his decision to cross the tracks
+when and where he did was dictated by circumstances
+ beyond his control and was made in “the
+agony of the moment”. Because the trial judge
+could not ascribe degrees of fault to the various
+respondents, he apportioned liability equally
+among them.
+     216
+
+
+     B. British Columbia Court of Appeal (1996),
+        82 B.C.A.C. 40 (Goldie J.A., Rowles and
+        Finch JJ.A. concurring)
+17
+     ways had complied with all applicable regulations,
+     they could not be found negligent with regard to
+     the configuration of the Store Street tracks: see
+     Paskivski, supra. It noted that the method used to
+     build the flangeways on Store Street was standard
+     for highway crossings in Canada. The Court of
+     Appeal also emphasized that the width of the
+     flangeways was within the allowable range defined
+     in the “highway crossing” regulations, which he
+     held to be applicable to the Store Street line. It
+     rejected the trial judge’s view that the location of
+     the tracks on a city street was an “exceptional circumstance
+     ” which required the Railways to take
+     steps beyond the standards required in those regulations
+     . The trial judge’s finding of negligence was
+     set aside.
+18
+     judge’s holding with respect to nuisance, on the
+     basis that the Railways were protected by the
+     defence of statutory authority. In the Court of
+     Appeal’s view, the danger posed by the
+     flangeways was an “inseparable consequence” of
+     the Board orders which required the tracks to be
+     laid at street grade with pavement between the
+     rails. However, the Court of Appeal did find that
+     both the Railways and the City were at fault for
+     failing to warn the public of the hazard created by
+     the flangeways. Finally, the Court of Appeal
+     reversed the trial judge’s conclusion that there was
+     no contributory negligence. It found that the appellant
+      had chosen to remain on the more dangerous
+     of several possible courses and therefore could not
+217
+[1999] 1 R.C.S.
+
+
+claim to have acted in the “agony of the moment”
+when he crossed the tracks. The Court of Appeal
+concluded that the appellant was liable for 50% of
+his damages.
+IV. Issues
+19
+   The respondents have not challenged the finding
+that they were liable for failing to warn the appellant
+ of the hazard created by the flangeways on
+Store Street. That conclusion is not at issue in this
+appeal. The three issues are:
+        1. Did the Court of Appeal err in finding
+           that the Railways were not negligent
+           with regard to the width of the
+           flangeways on Store Street?
+        2. Did the Court of Appeal err in finding
+           that the flangeways on Store Street did
+           not give rise to liability for public nuisance
+           ?
+        3. Did the Court of Appeal err in reversing
+           the trial judge’s findings with respect to
+           contributory negligence?
+V. Analysis
+20
+   This appeal focuses on the relationship between
+statutory authority and civil liability. The appellant
+submits that the Railways are liable under theories
+of negligence and nuisance for installing dangerous
+ flangeways on Store Street. The Railways
+deny liability on the basis that the Store Street line
+is a “highway crossing” and its flangeways comply
+in all respects with the safety regulations governing
+ such crossings. The questions are: (1)
+whether the regulations relied upon by the Railways
+ are in fact applicable to the Store Street line,
+and (2) if so, whether the Railways are neverthe-
+less liable for failing to exercise their discretion
+under those regulations so as to minimize the hazard
+ created by the flangeways.
+     218
+
+
+
+     A. Were the Railways Negligent with Regard to
+        the Width of the Flangeways on Store Street?
+21
+     determine whether the Railways owed a duty of
+     care to the appellant with regard to the configuration
+      of the Store Street tracks. If such a duty is
+     found to exist, it must then be determined whether
+     the Railways exercised the standard of care necessary
+      to avoid breaching that duty. The relationship
+     between the duty and the standard of care was
+     explained by MacDonald J.A. of the Nova Scotia
+     Court of Appeal in Nova Mink Ltd. v. Trans-
+     Canada Airlines, [1951] 2 D.L.R. 241, at p. 254:
+     It is the function of the Judge to determine whether
+     there is any duty of care imposed by the law upon the
+     defendant and if so, to define the measure of its proper
+     performance; it is for the [trier of fact] to determine, by
+     reference to the criterion so declared, whether the
+     defendant has failed in his legal duty.
+                              .
+
+        The common law yields the conclusion that there is
+     such a duty only where the circumstances of time, place,
+     and person would create in the mind of a reasonable
+     man in those circumstances such a probability of harm
+     resulting to other persons as to require him to take care
+     to avert that probable result. This element of reasonable
+     prevision of expectable harm soon came to be associated
+     with a fictional Reasonable Man whose apprehensions
+     of harm became the touchstone of the existence of duty,
+     in the same way as his conduct in the face of such
+     apprehended harm became the standard of conformity to
+     that duty. . . .
+
+     Thus, a discussion of duty centres around its existence
+     , while the standard of care clarifies what the
+219
+[1999] 1 R.C.S.
+
+
+content of the duty is. Where there is no duty there
+is no negligence.
+  1. Duty of Care
+22
+   The duty of care owed by a railway with respect
+to public crossings is determined, as it is for other
+private and public actors, under the two-step test in
+Anns v. Merton London Borough Council, [1978]
+A.C. 728 (H.L.), at pp. 751-52, which was adopted
+by this Court in Kamloops (City of) v. Nielsen,
+[1984] 2 S.C.R. 2, and numerous subsequent decisions
+. See, e.g., Just v. British Columbia, [1989] 2
+S.C.R. 1228; Hercules Managements Ltd. v. Ernst
+& Young, [1997] 2 S.C.R. 165. The two stages of
+the test were restated by Wilson J. as follows in
+Kamloops, at pp. 10-11:
+(1) is there a sufficiently close relationship between the
+    parties (the [defendant] and the person who has suf-
+    fered the damage) so that, in the reasonable contem-
+    plation of the [defendant], carelessness on its part
+    might cause damage to that person? If so,
+(2) are there any considerations which ought to negative
+     or limit (a) the scope of the duty and (b) the
+    class of persons to whom it is owed or (c) the damages
+     to which a breach of it may give rise?
+23
+   The first step of the Anns/Kamloops test
+presents a relatively low threshold. In order to
+establish a prima facie duty of care, it must be
+shown that a relationship of “proximity” existed
+between the parties such that it was reasonably
+foreseeable that a careless act by the Railways
+could result in injury to the appellant.
+
+24
+   The second step of the Anns/Kamloops test
+requires that it be determined whether any factors
+exist which should eliminate or limit the duty
+found under the first branch of the test. This
+approach recognizes that while the test of “proximity
+” may be met, liability does not necessarily follow
+. The existence of a duty of care must be considered
+ in light of all relevant circumstances,
+     220
+
+
+     including any applicable statutes or regulations.
+     Thus, a legislative exemption from liability can
+     negate a duty of care in circumstances where that
+     duty would otherwise arise. The same holds true
+     for immunities created by the courts. A policy
+     decision is made in such cases to prevent the law
+     of negligence from regulating certain relationships
+     or relieving certain injuries, notwithstanding a
+     finding of proximity between the parties. This may
+     reflect the need to shield specific activities from
+     judicial control, or the wish to prevent the “flood-
+     gates of litigation” from opening into areas of
+     potentially unlimited liability. See, e.g., Allen
+     M. Linden, Canadian Tort Law (6th ed. 1997), at
+     p. 275.
+
+25
+        In addition to negating a duty of care entirely,
+     policy considerations may also serve to “limit” the
+     “scope” of an existing duty under the second step
+     of the Anns/Kamloops test. It is necessary to be
+     clear about what this means. The purpose of the
+     Anns/Kamloops test is to establish the existence of
+     a legal duty, not to determine the standard of care
+     required to establish liability. Policy considerations
+     do not give rise to “greater” or “lesser” duties in
+     different cases. A duty of care either exists or it
+     does not. As discussed below, when the language
+     of “duty” is framed in terms of its degree or content
+     , what is really at issue is not the duty but the
+     applicable standard of care. While the distinction is
+     obvious, courts from time to time seem to lose
+     sight of that principle. See, e.g., Wade v. C.N.R.,
+     [1978] 1 S.C.R. 1064, at p. 1083.
+
+26
+     under the Anns/Kamloops test only in the sense
+     that the duty will arise in certain situations and not
+221
+[1999] 1 R.C.S.
+
+
+in others. Such limitations may be based on broad
+policy considerations such as efficiency and economic
+ fairness (see Canadian National Railway
+Co. v. Norsk Pacific Steamship Co., [1992] 1
+S.C.R. 1021, at pp. 1155-60) or on specific principles
+ of law which operate in particular cases. See,
+e.g., Hercules, supra, at paras. 31-41, and Just,
+supra, at pp. 1235-36. The ultimate determination
+of whether a duty of care arises or not is an issue
+properly framed within the second step of the
+Anns/Kamloops test and its answer depends on the
+factual and legal context of each case. In that
+sense, the test is highly flexible.
+
+27
+   However, the Anns/Kamloops test is not concerned
+ with legislative or judicial policies which,
+as in this case, define the conduct required to meet
+an existing duty. Such policies relate to the standard
+ of care. As a practical matter, the distinction
+between limiting the “scope” of a legal duty under
+the Anns/Kamloops test or limiting the requisite
+standard of care to discharge that duty is an elusive
+one. Both formulations go to reducing a defendant
+’s exposure to liability, and in most cases the
+outcome will be the same under either approach.
+As a matter of analytical coherence, however, the
+distinction is important. See Lewis N. Klar, Tort
+Law (2nd ed. 1996), at p. 247, and Just, supra, at
+pp. 1243-44. Without it, the entire analysis of duty
+and standard would be collapsed together into the
+Anns/Kamloops framework, a purpose for which
+that test was not designed.
+  2. Standard of Care
+28
+  Conduct is negligent if it creates an objectively
+unreasonable risk of harm. To avoid liability, a
+person must exercise the standard of care that
+would be expected of an ordinary, reasonable and
+prudent person in the same circumstances. The
+     222
+
+
+     measure of what is reasonable depends on the facts
+     of each case, including the likelihood of a known
+     or foreseeable harm, the gravity of that harm, and
+     the burden or cost which would be incurred to prevent
+      the injury. In addition, one may look to exter-
+     nal indicators of reasonable conduct, such as cus-
+     tom, industry practice, and statutory or regulatory
+     standards.
+
+29
+        Legislative standards are relevant to the common
+      law standard of care, but the two are not necessarily
+      co-extensive. The fact that a statute
+     prescribes or prohibits certain activities may constitute
+      evidence of reasonable conduct in a given
+     situation, but it does not extinguish the underlying
+     obligation of reasonableness. See R. in right of
+     Canada v. Saskatchewan Wheat Pool, [1983] 1
+     S.C.R. 205. Thus, a statutory breach does not auto-
+     matically give rise to civil liability; it is merely
+     some evidence of negligence. See, e.g., Stewart v.
+     Pettie, [1995] 1 S.C.R. 131, at para. 36, and Saskatchewan
+      Wheat Pool, at p. 225. By the same
+     token, mere compliance with a statute does not, in
+     and of itself, preclude a finding of civil liability.
+     See Linden, supra, at p. 219. Statutory standards
+     can, however, be highly relevant to the assessment
+     of reasonable conduct in a particular case, and in
+     fact may render reasonable an act or omission
+     which would otherwise appear to be negligent.
+     This allows courts to consider the legislative
+     framework in which people and companies must
+     operate, while at the same time recognizing that
+     one cannot avoid the underlying obligation of reasonable
+      care simply by discharging statutory
+     duties.
+
+30
+     has long been resisted in railway cases. For more
+     than 90 years, railway companies have benefited
+     from a “special rule” at common law which placed
+     them in a privileged position within the law of
+     negligence. As long as a railway complied with the
+223
+[1999] 1 R.C.S.
+
+
+requirements imposed upon it by applicable statutes
+, regulations and administrative orders, it was
+under no further obligation — absent extraordinary
+circumstances — to act in an objectively reasonable
+ manner. This rule has usually been framed in
+terms of limiting the “duty of care” owed by railways
+ to the public. It is more easily understood as
+limiting the standard of care which railways must
+meet under an existing legal duty. Either way, the
+effect of the rule was the same: it excused railway
+companies in most cases from the ordinary obligation
+ of prudence which governs other members of
+society.
+
+31
+   The roots of the special rule reach back to the
+turn of the century, when railways occupied a position
+ of unparalleled economic and social impor-
+tance in the development of Canada. In Grand
+Trunk Railway Co. v. McKay (1903), 34 S.C.R. 81,
+this Court held that the safety measures prescribed
+by the Railway Act and the Board of Railway
+Commissioners were exhaustive, and railways
+could not be held liable for failing to take precautions
+ beyond those requirements. The harshness of
+that doctrine was tempered somewhat by a separate
+ line of cases, beginning with Lake Erie &
+Detroit River Railway Co. v. Barclay (1900), 30
+S.C.R. 360, which held that in the event of exceptional
+ danger or extraordinary conditions, a railway
+ would be required to take greater safety measures
+ than those officially prescribed. The McKay
+and Barclay doctrines have been combined in subsequent
+ judgments to yield the current rule, which
+was restated by Dickson J. (as he then was) in
+Paskivski, supra, at pp. 698-99:
+  A long line of cases . . . establishes that a railway
+company’s duty of care to users of public crossings is
+     224
+
+
+     limited to discharge of statutory obligations under the
+     Railway Act . . . and compliance with orders of the
+     Canadian Transport Commission — unless there are
+     special or exceptional circumstances, in which event a
+     common law duty of care will require additional precautions
+      or safeguards.
+32
+     but it did so with reluctance. Dickson J. questioned
+     the ongoing relevance of the rule at p. 708:
+     The past seventy years have wrought many changes
+     within Canada and today one might perhaps be inclined
+     to question the relevance and validity of a rule of law
+     which limits the common law duty of care of a railway
+     to the special case or the exceptional case, particularly if
+     those words are to receive a strict or narrow construction
+     . It may well be that the interests of a young and
+     undeveloped nation are best served by a minimum of
+     impediment to industrial growth and economic expan-
+     sion but in a more developed and populous nation this
+     attitude of laissez faire may have to yield to accommo-
+     date the legitimate concern of society for other vital
+     interests such as the safety and welfare of children.
+     Laskin C.J., concurring in the result reached by
+     Dickson J., was even more pointed in his criticism
+     of the rule, at pp. 689-90:
+     . . . I am unable to appreciate why railway companies, in
+     the conduct of their transportation operations, are today
+     entitled to the benefit of a special rule, more favourable
+     to them, by which their common law liability is to be
+     gauged. When all allowances are made for the force and
+     legal effect of the rules and regulations of the regulatory
+     agency, the Canadian Transport Commission, to which
+     railway companies are subject, and when the question of
+     their liability turns on the common law of negligence, as
+     is the case here, they cannot claim to be judged by any
+     different standards than those that apply to other persons
+     or entities charged with liability for negligence.
+33
+     Paskivski are more compelling today. The special
+     status enjoyed by railway companies under the law
+225
+[1999] 1 R.C.S.
+
+
+of negligence can no longer be justified in principle
+ and the time has come for that rule to be set
+aside. Although a doctrine of such long standing
+should not lightly be discarded, there is little to be
+gained from maintaining for its own sake a line of
+jurisprudence which has lost its relevance.
+
+34
+   The Railways contend that the McKay/Barclay
+rule should be preserved in deference to the exper-
+tise of the Board (now the Canadian Transportation
+Agency) on matters of railway safety. That argument
+ is unpersuasive. The orders of an administrative
+ board may be relevant to the determination of
+reasonable behaviour in specific circumstances.
+However, as noted, such orders do not oust the
+underlying standard of reasonableness imposed by
+common law. A railway, like any other company
+or individual, is subject to generally applicable
+principles of negligence, and should not enjoy special
+ protection when its actions or omissions cause
+harm to other members of society. See Harris v.
+Canadian Pacific Ltd. (1989), 59 D.L.R. (4th) 151
+(B.C.C.A.), at pp. 154-55.
+
+
+35
+   It is useful to note that even when applying the
+McKay/Barclay rule, courts have implicitly recog-
+nized that statutory compliance cannot replace the
+common law standard of care, and can be accepted
+as a substitute for that standard only in certain
+circumstances. Thus, in “ordinary” cases, compliance
+ with the statute has been held to exhaust
+the requirement of reasonable conduct; in
+“exceptional” cases, however, the statutory standard
+ has been deemed “insufficient” and the common
+ law has been retrieved to fill the gap. As
+Robertson C.J. stated for the Ontario Court of
+Appeal in Anderson v. Canadian National Railway
+Co., [1944] O.R. 169, at p. 177:
+     226
+
+
+     . . . under ordinary circumstances, the railway is permit-
+     ted to carry on its usual operations in the normal way, at
+     a highway level crossing, without other precautions and
+     warnings than are prescribed by the Railway Act or by
+     the Board, but if the operations are carried on in such a
+     way, or are of such a character, that the public using the
+     crossing is exposed to exceptional danger . . . or if there
+     are exceptional circumstances . . . that render ineffective
+     or insufficient the precautions and warnings generally
+     prescribed, then, in such cases, it may be left to a jury to
+     say whether or not the railway has been negligent in
+     failing to adopt other measures for the protection of
+     those who may use the crossing.
+36
+     that instead of focusing the analysis on whether
+     statutory compliance by the railway was reasonable
+      in the circumstances, it assumed that step as a
+     matter of law and forced the plaintiff to rebut the
+     presumption. See, e.g., Richardson v. Surrey
+     (Dist.) (1990), 43 B.C.L.R. (2d) 210 (B.C.C.A.), at
+     p. 214. With the abolishment of the special rule,
+     the correct principles can now be stated more
+     clearly. Compliance with a statutory standard of
+     care does not abrogate or supersede the obligation
+     to comply with the common law standard of care.
+     The requirements are concurrent, and each carries
+     its own penalty for breach. However, in appropriate
+      circumstances, compliance with statutory
+     standards may entirely satisfy the common law
+     standard of care and thus absolve a defendant of
+     liability in negligence. See Bux v. Slough Metals
+     Ltd., [1974] 1 All E.R. 262 (C.A.).
+37
+     Canadian National Railway Co. v. Vincent, [1979]
+     1 S.C.R. 364. Although Vincent arose in the context
+      of Quebec civil law, the reasoning of Pratte J.
+     in that case is instructive, particularly since the
+     common law standard of care is analogous to the
+     requirement of reasonable prudence under the Civil
+     Code. The facts in Vincent were straightforward. A
+     child was struck by a train while riding her bicycle
+227
+[1999] 1 R.C.S.
+
+
+on a railway crossing in a densely populated area.
+It was undisputed that the railway had complied
+with all relevant safety measures prescribed by
+statute and regulations. The issue was whether the
+railways should have taken additional precautions
+in the circumstances of the case. Pratte J. stated at
+pp. 372-73:
+   It must be said at the outset that, under the verdict,
+appellant is not held liable by reason of any breach of
+the Railway Act . . . or of the regulations of the Canadian
+ Transport Commission. The issue is rather whether
+appellant can be found guilty of negligence
+under . . . [the Civil Code], although it complied with all
+the special statutory and regulatory provisions to which
+it is subject. The special provisions governing appellant
+certainly do not have the effect of exempting it from the
+ordinary law of civil liability. Savatier in Traité de la
+responsabilité civile en droit français, Vol. 1, No. 181, at
+p. 225, said the following on this point:
+  [TRANSLATION] 181. Fault despite compliance with
+  regulations.
+     When the regulatory authority intervenes to pre-
+  scribe certain safeguards, it does so in the interest of
+  third parties, not to their detriment. Except where otherwise
+   provided, the precautions it is prescribing must
+  therefore be viewed as being in no way exhaustive,
+  and as not preventing those subject to the regulation
+  from being also bound, apart from it, by any other
+  obligations to exercise prudence.
+38
+   Additional support for this view can be found in
+s. 367(4) of the Railway Act which provides:
+   367. . . .
+   (4) No inspection under or by the authority of this
+Act . . . and nothing in this Act . . . and nothing done,
+ordered, directed, required or provided for, or omitted to
+be done . . . under or by virtue of this Act . . . shall,
+except in so far as a compliance with the Act in question
+or with the order, direction, requirement or provision,
+constitutes a justification for what would otherwise be
+wrongful, relieve . . . any company of or from, or in any
+way diminish or affect, any liability or responsibility
+resting on it by law . . . for anything done or omitted to
+     228
+
+
+     be done by that company, or for any wrongful act, negligence
+     , default, misfeasance, malfeasance or nonfeasance
+     of that company.
+
+     Section 367(4) confirms that compliance with statutory
+      standards does not normally exhaust a railway
+     ’s obligations under principles of negligence.
+     See Vincent, supra, at p. 373. A railway is presumptively
+      bound by the common law, subject
+     only to those situations where compliance with the
+     statute or regulations provides “a justification for
+     what would otherwise be wrongful”. Like any
+     exculpatory provision limiting common law rights,
+     that passage should be narrowly construed. In the
+     absence of a clear indication to the contrary, compliance
+      with statutory standards should not be
+     viewed as excusing a railway’s obligation to take
+     whatever precautions are reasonably required in
+     the circumstances.
+
+39
+     ance in the overall assessment of reasonableness
+     depends on the nature of the statute and the circumstances
+      of the case. It should be determined
+     whether the legislative standards are necessarily
+     applicable to the facts of the case. Statutory compliance
+      will have more relevance in “ordinary”
+     cases — i.e., cases clearly within the intended
+     scope of the statute — than in cases involving special
+      or unusual circumstances. See Paskivski,
+     supra, and Anderson, supra. It should also be
+     determined whether the legislative standards are
+     specific or general, and whether they allow for discretion
+      in the manner of performance. It is a well-
+     established principle that an action will lie against
+     any party, public or private, “for doing that which
+     the legislature has authorized, if it be done negli-
+     gently”. See Geddis v. Proprietors of the Bann
+     Reservoir (1878), 3 App. Cas. 430 (H.L.), at
+     pp. 455-56; see also Kamloops, supra, at p. 11, and
+     Just, supra, at p. 1245. It follows that a party acting
+      under statutory authority must still take such
+     precautions as are reasonable within the range of
+     that authority to minimize the risks which may
+229
+[1999] 1 R.C.S.
+
+
+result from its actions. See Tock, supra (applying
+similar principles in the nuisance context).
+
+40
+   Where a statute authorizes certain activities and
+strictly defines the manner of performance and the
+precautions to be taken, it is more likely to be
+found that compliance with the statute constitutes
+reasonable care and that no additional measures
+are required. By contrast, where a statute is general
+or permits discretion as to the manner of performance
+, or where unusual circumstances exist which
+are not clearly within the scope of the statute, mere
+compliance is unlikely to exhaust the standard of
+care. This approach strikes an appropriate balance
+among several important policies, including deference
+ to legislative determinations on matters of
+railway safety, security for railways which comply
+with prescribed standards, and protection for those
+who may be injured as a result of unreasonable
+choices made by railways in the exercise of official
+authority.
+  3. Application to the Case at Bar
+41
+   The first question is whether the Railways owed
+the appellant a duty of care. The Store Street tracks
+ran down the centre of an urban street, in direct
+proximity to the public. It was plainly foreseeable
+that carelessness by the Railways with respect to
+those tracks could cause injury to users of the
+street. Accordingly, a prima facie duty of care
+arose under the first step of the Anns/Kamloops
+test. See Harris, supra, at p. 155. Turning to the
+second step of the test, the Railways have not iden-
+tified any legislative or judicial policies which
+would negate that duty or limit it. As noted, the
+authorities relied upon by the Railways concern
+the manner of carrying out a specific activity, and
+do not purport to limit civil liability. Those regulations
+ do not affect the existence of a duty of care.
+     230
+
+
+
+42
+        The standard of care required of the Railways
+     was that of a prudent and reasonable person in the
+     circumstances, having regard to all relevant factors
+     including applicable statutes and regulations. It is
+     undisputed that the Railways complied with certain
+     safety standards prescribed in regulations and
+     Board orders. The question is whether such compliance
+      satisfied the requirement of objective reasonableness
+      in this case and absolved the Railways
+     of liability for the appellant’s injury.
+
+43
+     of the Store Street tracks does not, by itself, give
+     rise to liability. The construction of a branch line
+     on an urban street inevitably creates a risk to the
+     public. When a party is specifically authorized to
+     create that risk, compliance with such authority
+     cannot be negligent. There is negligence only if, in
+     the performance of the authorized activity, the
+     party creates a risk that is objectively unreasonable
+     in the circumstances. The construction of the Store
+     Street tracks was authorized by the Board in 1908
+     on the basis of a detailed plan and profile, and the
+     location of the tracks was reapproved in 1927. Pursuant
+      to s. 223 of the 1906 Railway Act, those
+     orders could not have issued unless the Board was
+     “satisfied that the branch line [was] necessary in
+     the public interest or for the purpose of giving
+     increased facilities to business”. It cannot be said
+     that it was unreasonable for the Railways to
+     comply with those orders by constructing the
+     tracks in the manner authorized.
+231
+[1999] 1 R.C.S.
+
+
+44
+   The real issue is whether the Railways were
+negligent with respect to the dimensions of the
+flangeways on Store Street. In particular, it must
+be determined whether the Railways acted unreasonably
+ by enlarging the flangeways to a width of
+nearly four inches in 1982, and by failing to install
+flange fillers at any time prior to the appellant’s
+accident. This issue has to do with the minimiza-
+tion of risk, and is separate from the Railways’
+undisputed duty to warn the public of the inevitable
+ hazard created by the tracks.
+
+45
+   The Railways have cited two sets of authorities
+in support of their contention that they acted reasonably
+ with respect to the flangeways. First, they
+submit that the method which they used to construct
+ the flangeways in 1982 — flangerail on its
+side — is the standard design for flangeways at
+“highway crossings”, as confirmed by Board Order
+No. 9729 dated February 29, 1910. Accordingly,
+they contend that they were under no obligation to
+employ a different method or to use different construction
+ materials, such as flange fillers. Second,
+they submit that the width of the flangeways on
+Store Street was within the allowable range for a
+“railway-highway crossing at grade” as defined in
+s. 6 of General Order No. E-4. That provision
+states:
+
+6. A space not more than three inches deep and not less
+than two and one-half inches wide nor more than four
+and three-quarters inches wide shall be provided
+between the gauge side of the running rail and the
+planking and/or other road surface, as the case may be.
+
+A similar requirement appears in metric form in
+s. 7 of CTC 1980-8 Rail:
+  7. A flangeway with a width of between 65 mm and
+120 mm to a depth of between 50 mm and 75 mm shall
+be provided between the gauge side of the running rail
+and the highway surface.
+     232
+
+
+     In the submission of the Railways, the foregoing
+     authorities were applicable to the entire Store
+     Street track, and defined the standard of care
+     which was required. Because they complied with
+     that standard, the Railways contend that their conduct
+      was reasonable. The Court of Appeal agreed
+     and reversed the trial judge’s finding of negligence
+     with respect to the flangeways.
+46
+     cited authorities did not exhaust the requisite
+     standard of care in this case, for two reasons. First,
+     those authorities were not directly applicable to the
+     circumstances, and second, they allowed for significant
+      discretion in the manner of performance.
+     These points will be addressed in turn.
+       (i) Relevance to the Circumstances of this Case
+47
+     apply to “highway crossings”. A typical crossing
+     involves the intersection of a railway and a highway
+      at a single point, usually at a right angle. It
+     does not follow that the standards prescribed for
+     such crossings are also applicable to situations
+     where, as here, a length of railway track is carried
+     along an urban street for several blocks. The evidence
+      in the record is inconclusive on the defini-
+     tion of a “crossing”. The Railway Act provides,
+     under the title “Highway Crossings, etc.”, that a
+     railway “may . . . be carried upon, along or across
+     an existing highway. . .”. See, e.g., Railway Act,
+     R.S.C. 1970, c. R-2, s. 196(1). On the other hand,
+     Board Order No. 38682 (January 18, 1927) stated
+     that only the “crossing of Chatham Street” should
+     comply with regulations governing “highway
+     crossings”, suggesting that the remainder of the
+     Store Street line was not a crossing and was not
+     subject to such regulations. General Order No. E-4
+     and CTC 1980-8 Rail provide that a “crossing” is
+     “any railway crossing of a highway at grade or any
+     highway crossing of a railway at grade”. The dia-
+     grams accompanying those regulations show an
+     ordinary crossing at a perpendicular angle.
+233
+[1999] 1 R.C.S.
+
+
+
+48
+   The Railways submitted that because the cited
+regulations are not expressly limited to “typical”
+crossings, they should presumptively apply to all
+situations in which a railway runs across or along a
+street at grade. That argument misses the point. It
+is the common law standard of care which is presumed
+ to apply. If a regulatory standard is shown
+to govern a particular situation, it may be accepted
+as a reasonable substitute for the common law in
+that case. However, the regulation must be clearly
+applicable to a particular circumstance. To borrow
+the language of the “special rule” cases, the situation
+ must be “ordinary” rather than “special or
+exceptional”. See Anderson, supra, and Paskivski,
+supra.
+
+49
+  Regardless of whether the Store Street line can
+be construed as a “crossing”, it is obviously not a
+crossing in any ordinary or typical sense. The Railways
+’ witness, Mr. Palasz, conceded during cross-
+examination that the Store Street tracks are unlike
+other highway crossings and are not specifically
+provided for under existing regulatory standards:
+Q. What standards are applied to tracks that run down
+   urban streets as in Store Street?
+A. I think Store Street is unique. It is the only track that
+   I know that does run down an urban street. I know
+   there are some others but it’s the only one that I’ve
+   been involved with.
+Q. So does CP Rail have any standards that are applicable
+    to tracks that run parallel and down urban
+   streets?
+     234
+
+
+     A. None that I’m aware of.
+                              .
+
+     Q. So, the best you can do, as I understand it then, is to
+        try and adapt the standard practice circular that
+        relates to crossings to the situation on Store Street?
+        Is that my understanding of what you were trying to
+        do?
+     A. We didn’t really have any other specifications to
+        adhere to, so we did take it as a crossing.
+     Q. So you tried to adapt the crossing standards to the
+        situation on Store Street; do I understand you correctly
+        ?
+     A. Yes, we used it as a crossing at grade standard, yes.
+     As the trial judge noted, there are important practical
+      differences between a railway line which cuts
+     across traffic at a right angle and one which runs
+     down the centre of a street. In particular, the danger
+      posed by flangeways to riders of motorcycles
+     and bicycles is far greater when those riders must
+     travel alongside the gap for four blocks than when
+     they cross over it once at a steep angle. A regulatory
+      standard which is reasonable in the second situation
+      may be wholly inappropriate in the first.
+     Accordingly, the standards for flangeway widths
+     defined in General Order No. E-4 and CTC 1980-8
+     Rail are not definitive of the standard of care in
+     this case.
+       (ii) Discretion Under the Regulations
+50
+     crossing” regulations do apply to the Store Street
+     tracks, the Railways’ compliance with those standards
+      did not necessarily constitute reasonable conduct
+      in the circumstances. General Order No. E-4
+     and CTC 1980-8 Rail provide that a flangeway
+     may be as narrow as 2.5 inches (65 millimetres) or
+     as wide as 4.75 inches (126 millimetres). The decision
+      to construct a flangeway at a particular width
+     within that range was a matter left to the discretion
+235
+[1999] 1 R.C.S.
+
+
+of the Railways. In exercising that discretion, they
+were bound by the common law and were required
+to take all reasonable steps to minimize foreseeable
+ harm. It cannot be presumed that the entire
+range would be reasonably safe in all conditions.
+Indeed, the existence of a range instead of a uni-
+form standard suggests that the appropriate width
+for a flangeway depends in part on the particular
+facts. The flangeways installed by the Railways in
+1982 were between 3.75 and 3.94 inches wide.
+Had they been narrower by half an inch, the accident
+ at issue in this case would not have occurred.
+The Railways’ decision with respect to that half-
+inch raises an issue of reasonableness, not of regulatory
+ compliance.
+
+  (iii) Application of the Common Law Standard
+        of Care
+
+51
+   The trial judge correctly held that the Railways
+were subject to the common law standard of care.
+In applying that standard, he noted that the Railways
+ have been aware of the risks associated with
+the flangeways on Store Street for some time. In
+particular, he found that the Railways knew or
+should have known of at least three other accidents
+between 1982 and 1986 which involved the
+flangeways and two-wheeled vehicles. On the
+basis of all the evidence adduced, he concluded as
+follows (at pp. 197-98):
+   In the case at bar, the defendant Railways ought to
+have built the flangeways either at the minimum allowable
+ width or with some form of flange filler. It was not
+enough to proceed on the basis that so long as their
+flangeways were durable and did not exceed the maximum
+ regulatory standards . . . their neighbours must
+endure the consequent injuries arising from their “pre-
+ferred” construction choice.
+     236
+
+
+                             .
+
+        Because of the hazard created and the remedial measures
+      available to the defendant Railways, I find the
+     defendant Railways were obliged to take precautions
+     over and above those mandated by statute and regulation
+     . This they failed to do.
+       In the result, I find that the defendant Railways were
+     negligent.
+     The trial judge’s conclusion is consistent with the
+     principles stated above. It was a proper exercise of
+     his role as the finder of fact, and it should not have
+     been disturbed by the Court of Appeal. Accordingly
+     , the appeal is allowed with respect to the
+     claim of negligence against the Railways.
+     B. Did the Flangeways on Store Street Give Rise
+        to Liability for Public Nuisance?
+52
+     poorly understood area of the law. “A public nuisance
+      has been defined as any activity which
+     unreasonably interferes with the public’s interest
+     in questions of health, safety, morality, comfort or
+     convenience”: see Klar, supra, at p. 525. Essen-
+     tially, “[t]he conduct complained of must amount
+     to . . . an attack upon the rights of the public generally
+      to live their lives unaffected by inconvenience,
+     discomfort or other forms of interference”: See
+     G. H. L. Fridman, The Law of Torts in Canada,
+     vol. I (1989), at p. 168. An individual may bring a
+     private action in public nuisance by pleading and
+     proving special damage. See, e.g., Chessie v. J. D.
+     Irving Ltd. (1982), 22 C.C.L.T. 89 (N.B.C.A.).
+     Such actions commonly involve allegations of
+     unreasonable interference with a public right of
+     way, such as a street or highway. See ibid., at
+     p. 94.
+53
+     public nuisance is a question of fact. Many factors
+     may be considered, including the inconvenience
+237
+[1999] 1 R.C.S.
+
+
+caused by the activity, the difficulty involved in
+lessening or avoiding the risk, the utility of the
+activity, the general practice of others, and the
+character of the neighbourhood. See Chessie,
+supra, at p. 94. The trial judge found, at p. 206,
+that “the configuration and design of the railway
+tracks on Store Street constituted an unreasonable
+interference to the public of its right of access”. He
+noted that Store Street was a mixed retail, industrial
+, and commercial area, and that the Railways
+should have foreseen the hazard posed by the
+flangeways to riders of two-wheeled vehicles. He
+found, at p. 207, that the cost of that hazard should
+be borne by the Railways as a matter of policy:
+   In this case, the defendant Railways clearly installed
+that particular flange-rail system without regard to
+vehicular traffic. It was chosen because it cost less, and
+it was longer lasting and better suited to the needs of the
+rail traffic. However, the result of this choice of flangerail
+, which created an almost 4-inch gap, was to effec-
+tively increase the risks to vehicle traffic. The cost of
+that increased risk to others must fall on the defendant
+Railways. It is a “cost of running the system.”
+
+The Court of Appeal did not dispute the trial
+judge’s finding that there was an unreasonable
+interference, but held that the Railways had a
+defence of statutory authority because “the
+flangeways were an inseparable consequence of
+requiring the tracks to be laid at street grade flush
+with street level and the roadway paved between
+the rails” (p. 68). The issue is whether the Court of
+Appeal erred in that conclusion.
+
+54
+   Statutory authority provides, at best, a narrow
+defence to nuisance. The traditional rule is that liability
+ will not be imposed if an activity is authorized
+ by statute and the defendant proves that the
+nuisance is the “inevitable result” or consequence
+of exercising that authority. See Lord Mayor,
+Aldermen and Citizens of the City of Manchester v.
+     238
+
+
+     Farnworth, [1930] A.C. 171 (H.L.), at p. 183; City
+     of Portage La Prairie v. B.C. Pea Growers Ltd.,
+     [1966] S.C.R. 150; Schenck v. Ontario (Minister of
+     Transportation and Communications), [1987] 2
+     S.C.R. 289. An unsuccessful attempt was made in
+     Tock, supra, to depart from the traditional rule.
+     Wilson J. writing for herself and two others,
+     sought to limit the defence to cases involving
+     either mandatory duties or statutes which specify
+     the precise manner of performance. La Forest J.
+     (Dickson C.J. concurring) took the more extreme
+     view that the defence should be abolished entirely
+     unless there is an express statutory exemption from
+     liability. Neither of those positions carried a major-
+     ity.
+55
+     priate to restate the traditional view, which remains
+     the most predictable approach to the issue and the
+     simplest to apply. That approach was expressed by
+     Sopinka J. in Tock, at p. 1226:
+     The defendant must negative that there are alternate
+     methods of carrying out the work. The mere fact that
+     one is considerably less expensive will not avail. If only
+     one method is practically feasible, it must be established
+     that it was practically impossible to avoid the nuisance.
+     It is insufficient for the defendant to negative negligence
+     . The standard is a higher one. While the defence
+     gives rise to some factual difficulties, in view of the
+     allocation of the burden of proof they will be resolved
+     against the defendant.
+56
+     raised by the traditional test is whether the hazard
+     created on Store Street was an “inevitable result”
+     of exercising statutory authority; that is, whether it
+     was “practically impossible” for the Railways to
+     avoid the nuisance which arose from the
+     flangeways. As noted previously in the context of
+     negligence, the regulations relied upon by the Railways
+      prescribed a minimum width of 2.5 inches
+     for flangeways. The Railways’ decision to exceed
+     that minimum by more than one inch was a matter
+239
+[1999] 1 R.C.S.
+
+
+of discretion and was not an “inevitable result” or
+“inseparable consequence” of complying with the
+regulations. The same may be said of the Railways
+’ decision not to install flange fillers when
+such products became available after 1982. The
+flangeways created a considerably greater risk than
+was absolutely necessary. Accordingly, the Court
+of Appeal erred in permitting the Railways to
+assert the defence of statutory authority against the
+claim for nuisance.
+
+
+C. Did the Court of Appeal Err in Reversing the
+   Trial Judge’s Findings with Respect to Contributory
+    Negligence?
+
+57
+   In Stein v. “Kathy K” (The Ship), [1976] 2
+S.C.R. 802, at p. 808, it was held that while findings
+ of fact with regard to the allocation of fault
+are not immutable, they should not be reversed by
+an appellate court “unless it can be established that
+the learned trial judge made some palpable and
+overriding error which affected his assessment of
+the facts”. The record reveals no such errors by the
+trial judge, and the Court of Appeal ought not to
+have interfered with his findings on the issue of
+contributory negligence. Accordingly, the assessment
+ of liability against the appellant for 50% of
+his damages is set aside.
+VI. Conclusions and Disposition
+58
+  The Railways were negligent with respect to the
+width of the flangeways on Store Street. The
+McKay/Barclay “special rule” is abolished, and the
+Railways are therefore subject to ordinary principles
+ of negligence. They owed a duty of care to the
+appellant with respect to the flangeways on Store
+     240
+
+
+     Street, and that duty required them to exercise reasonable
+      care in the circumstances. Their compliance
+      with regulatory standards did not replace or
+     exhaust that obligation. Because the Store Street
+     tracks are not a typical “highway crossing”, the
+     Railways were required to take precautions beyond
+     mere compliance with the safety standards which
+     govern such crossings. In particular, they should
+     have taken steps to minimize the risk to two-
+     wheeled vehicles by building the flangeways at the
+     minimum allowable width or by installing flange
+     fillers. The trial judge’s finding of negligence was
+     a proper exercise of his discretion as the finder of
+     fact and should not have been reversed by the
+     Court of Appeal.
+
+59
+        The Store Street tracks created an unreasonable
+     interference with the public’s use and enjoyment
+     of Store Street and therefore constituted a public
+     nuisance. The Court of Appeal erred in finding
+     that the Railways were entitled to the defence of
+     statutory authority. The appropriate test is the
+     traditional rule restated by Sopinka J. in Tock,
+     supra. It was not “practically impossible” for the
+     Railways to avoid the nuisance which arose from
+     the flangeways on Store Street. Because the Railways
+      had discretion with regard to the width of the
+     flangeways, their failure to minimize the hazard
+     was not an “inevitable consequence” of exercising
+     regulatory authority.
+
+60
+     ings of the trial judge with regard to contributory
+     negligence. Those findings were not shown to constitute
+      palpable and overriding error.
+241
+[1999] 1 R.C.S.
+
+
+61
+   Accordingly, the appeal is allowed with costs
+throughout.
+
+  Appeal allowed with costs.
+
+  Solicitors for the appellant: Gordon & Velletta,
+Victoria.
+
+  Solicitors for the respondent The Corporation of
+the City of Victoria: Sugden, McFee & Roos,
+Vancouver.
+
+  Solicitors for the respondents The Esquimalt and
+Nanaimo Railway Company and Canadian Pacific
+Limited/Canadien Pacifique Limitée: Lawson,
+Lundell, Lawson & McIntosh, Vancouver.

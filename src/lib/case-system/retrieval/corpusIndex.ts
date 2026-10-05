@@ -24,15 +24,33 @@ import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 
 import { chunkHash, chunkSource, type ChunkSource, type CorpusChunk } from "./corpusChunker";
+import { chunkDecision } from "./decisionChunker";
 
 export type IndexedSource = ChunkSource & {
   /** The page a person opens (readableUrl). */
   readableUrl: string;
-  /** "legislation" or "practical" (scripts/rules/corpusSources.ts). */
-  tier: "legislation" | "practical";
+  /**
+   * "legislation" or "practical" (scripts/rules/corpusSources.ts), or
+   * "case-law" for a court decision (scripts/retrieval/decisionSources.ts).
+   */
+  tier: "legislation" | "practical" | "case-law";
   /** The vendored file name in docs/sources/corpus/. */
   file: string;
+  /** For a decision: its text file, relative to docs/sources/. */
+  path?: string;
+  /** For a decision: the neutral or S.C.R. citation and the year. */
+  year?: number;
 };
+
+/** Cuts any indexed source: a decision by its reasons, everything else by its structure. */
+export function chunkIndexedSource(source: IndexedSource, text: string): CorpusChunk[] {
+  return source.tier === "case-law" ? chunkDecision(source, text) : chunkSource(source, text);
+}
+
+/** Where an indexed source's text is, under the repository root. */
+export function sourceTextPath(root: string, source: IndexedSource): string {
+  return source.path ? path.join(root, "docs", "sources", source.path) : path.join(root, ...CORPUS_DIR, source.file);
+}
 
 export type CorpusIndexMeta = {
   generatedAt: string;
@@ -206,9 +224,9 @@ export function readPassage(index: LoadedIndex, id: string, score: number): Pass
   if (!source) return null;
   let chunks = sourceChunks.get(sourceId);
   if (!chunks) {
-    const file = path.join(index.root, ...CORPUS_DIR, source.file);
+    const file = sourceTextPath(index.root, source);
     if (!existsSync(file)) return null;
-    chunks = new Map(chunkSource(source, readFileSync(file, "utf8")).map((chunk) => [chunk.id, chunk]));
+    chunks = new Map(chunkIndexedSource(source, readFileSync(file, "utf8")).map((chunk) => [chunk.id, chunk]));
     sourceChunks.set(sourceId, chunks);
   }
   const chunk = chunks.get(id);

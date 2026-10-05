@@ -53,6 +53,8 @@ export type SourceItem = {
   sourceUrl: string;
   /** e.g. "O. Reg. 258/98, r. 9.01" when the item is a rule. */
   citation?: string;
+  /** For a retrieved passage: what kind of source it is (shown with it). */
+  kind?: "legislation" | "guidance" | "decision";
 };
 
 export type SourcePack = {
@@ -343,7 +345,7 @@ export function sourcePackForPrompt(pack: SourcePack): string {
   }
   const lines = pack.items.map((item) => `[${item.id}] ${item.label}\n    ${item.text}`);
   const retrieved = pack.items.some(isRetrievedItem)
-    ? "\n\nSources whose id starts with \"corpus:\" were found by searching Ontario law and official guidance for this person's situation. A search can return a passage that is near the situation but does not govern it: rely on one only where its own words cover these facts, and never stretch it beyond what it says. A provision that sets a condition, exception or time limit must be stated with it."
+    ? "\n\nSources whose id starts with \"corpus:\" were found by searching Ontario law and official guidance for this person's situation. A search can return a passage that is near the situation but does not govern it: rely on one only where its own words cover these facts, and never stretch it beyond what it says. A provision that sets a condition, exception or time limit must be stated with it. Sources labelled \"Court decision\" are a court's reasons in an earlier case: say what that court said, name the case, and never present it as legislation or as certain to decide these facts."
     : "";
   return `VERIFIED SOURCES for this case. These are the ONLY legal authority you may rely on.${retrieved}\n\n${lines.join("\n")}`;
 }

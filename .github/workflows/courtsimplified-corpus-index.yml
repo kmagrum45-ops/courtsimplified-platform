@@ -24,6 +24,8 @@ on:
     paths:
       - "docs/sources/corpus/**"
       - "src/lib/case-system/retrieval/corpusChunker.ts"
+      - "src/lib/case-system/retrieval/decisionChunker.ts"
+      - "docs/sources/decisions/**"
       - "src/lib/case-system/retrieval/corpusIndex.ts"
       - "scripts/retrieval/**"
 

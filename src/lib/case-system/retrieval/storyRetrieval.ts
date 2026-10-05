@@ -83,6 +83,19 @@ export function excludedForCourt(court: RetrievalCourt, sourceId: string): boole
 export function passageItem(passage: Passage): SourceItem {
   const { source } = passage;
   const where = passage.pinpoint || passage.heading;
+  if (source.tier === "case-law") {
+    // A court's reasons in an earlier case: named by the case, its citation
+    // and the paragraph, and told apart from legislation everywhere it shows.
+    const citation = `${source.title}, ${source.citation}${passage.pinpoint ? `, ${passage.pinpoint}` : ""}`;
+    return {
+      id: passage.id,
+      label: `Court decision: ${citation}`,
+      text: passage.text,
+      sourceUrl: source.readableUrl,
+      citation,
+      kind: "decision",
+    };
+  }
   const citation = passage.pinpoint
     ? `${source.title}${source.citation ? `, ${source.citation}` : ""}, ${passage.pinpoint}`
     : undefined;
@@ -93,6 +106,7 @@ export function passageItem(passage: Passage): SourceItem {
     text: passage.text,
     sourceUrl: source.readableUrl || readableUrl(source),
     ...(citation ? { citation } : {}),
+    kind: source.tier === "practical" ? "guidance" : "legislation",
   };
 }
 

@@ -30,6 +30,12 @@ export default function AppliedLawPanel({ items }: { items: readonly AppliedLawI
           return (
             <li key={item.id} className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
               <p className="text-sm font-semibold text-[#16302b]">{item.citation || item.label}</p>
+              {item.kind === "decision" ? (
+                <p className="mt-1 text-xs text-[#4d675f]">
+                  A court decision: what the judges said in an earlier case. It has not been checked for later decisions
+                  that may have changed it.
+                </p>
+              ) : null}
               {item.text.length > 320 ? (
                 <details className="mt-1 text-sm text-[#24463d]">
                   <summary className="cursor-pointer">
@@ -42,7 +48,7 @@ export default function AppliedLawPanel({ items }: { items: readonly AppliedLawI
               )}
               {link ? (
                 <a href={link} target="_blank" rel="noreferrer" className="mt-2 inline-block text-xs font-semibold text-[#2f7d67] underline">
-                  Official text
+                  {item.kind === "decision" ? "Read the decision" : "Official text"}
                 </a>
               ) : null}
             </li>

@@ -34,6 +34,42 @@ replacement for these):
 
 ## Techniques that work
 
+### Cutting judgments into citable passages: what is the Court's and what is not (2026-10-05)
+
+`src/lib/case-system/retrieval/decisionChunker.ts` makes the saved judgments
+searchable. A judgment is mostly not quotable as law, and each of these was
+found by looking at the output:
+
+- **S.C.R. PDFs number paragraphs three ways**: "[28]" (from about 2005),
+  a bare number on its own line at the inner margin, and -- on left-hand
+  pages -- a bare number in the OUTER margin, past the French column, either
+  alone or at the end of a text line. Keeping only the English column drops
+  the outer-margin numbers, and one lost number folded the rest of Garland
+  into one paragraph. `deriveDecisionText.ts` moves them into the English
+  column; the chunker also accepts a small forward jump in the sequence.
+- **Soft hyphens (U+00AD)** are embedded in some judgments (Sattva, and the
+  SCC's HTML pages). Invisible, and they stop a quote matching.
+- **Only the majority's reasons.** Split at each "The judgment of ... was
+  delivered by" / "The reasons of ... were delivered by" / "The following are
+  the reasons delivered by"; keep the set signed by the most judges. The
+  majority's own heading can sit in the French column and be lost (Southcott):
+  then the reasons from [1] are the majority's. A block whose first paragraph
+  names its author "(dissenting)" is a dissent whatever its heading says
+  (Honda [81], Pecore [77], Southcott [64]).
+- **Not the courts below.** Inside the majority, sections headed Facts,
+  Background, Judgments / Decisions Below, Judicial History, The Trial
+  Decision are dropped. Machtinger's "II. Judgments Below" reports the Court
+  of Appeal holding employees "limited to the benefits conferred by the Act"
+  -- the holding the Supreme Court reversed.
+- **Court of Appeal decisions** have no "delivered by" heading: reasons run
+  from [1], headings are capitals at the margin (BACKGROUND, THE TRIAL
+  DECISION), and a dissent starts at a line naming its author "(dissenting)".
+- **Concurrences are left out** (Machtinger, McLachlin J.): a separate
+  judge's reasoning is not the Court's. Queen v. Cognos is the hard case --
+  La Forest J.'s three-judge block agrees with Iacobucci J., so the
+  most-judges rule keeps La Forest J.'s short reasons and loses Iacobucci
+  J.'s. Recorded rather than special-cased.
+
 ### Cutting e-Laws text into citable passages: what the structure really is (2026-10-05)
 
 `src/lib/case-system/retrieval/corpusChunker.ts` cuts the corpus into
