@@ -176,6 +176,10 @@ async function main(): Promise<void> {
 }
 
 main().catch((error) => {
-  console.error(error instanceof Error ? error.message : String(error));
+  const message = error instanceof Error ? error.message : String(error);
+  console.error(message);
+  // Job logs are not readable from the agent workspace; an annotation is.
+  // Error text only -- never page text or anything a persona typed.
+  if (process.env.GITHUB_ACTIONS) console.log(`::error title=Critic::${message.replace(/\r?\n/g, " ").slice(0, 300)}`);
   process.exit(1);
 });
