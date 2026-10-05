@@ -187,3 +187,17 @@ export function allPathwayUnavailableMessages(): string[] {
     pathwayUnavailableMessage,
   );
 }
+
+/**
+ * "Explain in plain words" on each provision under "The law behind this":
+ * model wording about the law, shown only after an independent second model
+ * call and code have checked it against the provision
+ * (retrieval/explainProvision.ts). Its own switch, per CLAUDE.md section 2,
+ * so it can be turned off for real users until the A2I approval covers it:
+ * PLAIN_EXPLANATIONS=off. It also honours aiAnalysisTextToUsers.
+ */
+export function plainExplanationsEnabled(
+  env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+): boolean {
+  return env.PLAIN_EXPLANATIONS !== "off" && aiAnalysisTextToUsers(env);
+}

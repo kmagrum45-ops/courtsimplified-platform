@@ -1770,3 +1770,51 @@ it was worded, against 47-49 for the original prompt. The time is the query
 step: median about 5.5 s to write the queries, 0.2 s to embed, under 6 s in
 all, run alongside intake normalization.
 
+
+## Plain-language explanations, checked by a second model (2026-10-05)
+
+"The law behind this" shows each provision verbatim, which is exact but often
+hard to read. "Explain in plain words" on each item asks
+`/api/law/explain` for an explanation, built in
+`src/lib/case-system/retrieval/explainProvision.ts`:
+
+1. **Only the official text is explained.** The route takes a passage id
+   (`corpus:<source>:<n>`), never text. The passage is re-read from the
+   vendored file and its hash checked against the index (`readPassage`), the
+   same as retrieval.
+2. **One call writes it** (standard tier, JSON): 2 to 5 sentences, every
+   condition, exception, time limit and number kept, numbers written as the
+   provision writes them, nothing added, nothing about anyone's case.
+3. **Code checks it**: every number must appear in the provision or its
+   citation; the case-strength deny-list; no "you should", "your case",
+   "chances"; a length band.
+4. **A second, separate call checks it** (standard tier, medium effort by
+   default, `AI_EFFORT_EXPLAIN_CHECK`). It sees only the provision and the
+   explanation -- not the writer's prompt -- and lists what the explanation
+   says that the provision does not, and what it leaves out. Both lists must
+   be empty. A malformed answer is a failure.
+5. **One retry** with the findings given back, checked from scratch. If that
+   fails too, nothing is shown and the panel says to read the provision.
+
+Successful and checked-but-failed results are cached in memory by passage
+hash; a model error is not cached. Behind `PLAIN_EXPLANATIONS=off` and
+`AI_ANALYSIS_TEXT_TO_USERS=off`; the analysis marks items `explainable` only
+when the switch is on, so the button does not appear when it is off.
+
+**Why a second call rather than a better prompt.** The failure that matters is
+a quiet one -- a dropped "unless", "may" turned into "must" -- which code
+cannot see and which the writing call, checking its own words, shares a blind
+spot for. The checker is asked a narrower question with no stake in the
+answer.
+
+**Measured by** `npm run eval:explain` (Retrieval Eval workflow,
+`explain-probe.md` on the `retrieval-eval-reports` branch): the provisions
+labelled in the recall set, each explanation shown or withheld with the
+checker's findings on every attempt. Read the findings to judge whether the
+checker is too lenient or too strict. Asserted by
+`npm run test:plain-explanations`.
+
+Audited under the existing `small-claims-analysis` call type (as retrieval
+is), told apart by prompt version, so no migration was needed. If it should
+have its own call type, that is a migration adding it to
+`ai_call_log_call_type_check`.

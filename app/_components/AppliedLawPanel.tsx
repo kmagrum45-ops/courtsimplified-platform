@@ -1,6 +1,8 @@
 import type { AppliedLawItem } from "@/src/lib/case-system/intelligence/intelligenceTypes";
 import { publicSourceUrl } from "@/src/lib/content-library/publicSourceUrl";
 
+import ExplainProvision from "./ExplainProvision";
+
 /**
  * "The law behind this": the provisions a person's analysis rests on.
  *
@@ -12,7 +14,9 @@ import { publicSourceUrl } from "@/src/lib/content-library/publicSourceUrl";
  * law to the person's situation is what CLAUDE.md section 2 asks for; saying
  * how the case will go is not, and nothing here does. Behind its own switch
  * (phaseScope.appliedLawEnabled): when off, the analysis carries no items and
- * this renders nothing.
+ * this renders nothing. A checked plain-language explanation can be asked for
+ * per item (ExplainProvision, behind phaseScope.plainExplanationsEnabled); it
+ * sits beside the provision's words, never in place of them.
  */
 export default function AppliedLawPanel({ items }: { items: readonly AppliedLawItem[] }) {
   if (!items.length) return null;
@@ -46,6 +50,7 @@ export default function AppliedLawPanel({ items }: { items: readonly AppliedLawI
               ) : (
                 <p className="mt-1 text-sm text-[#24463d]">{item.text}</p>
               )}
+              {item.explainable ? <ExplainProvision id={item.id} /> : null}
               {link ? (
                 <a href={link} target="_blank" rel="noreferrer" className="mt-2 inline-block text-xs font-semibold text-[#2f7d67] underline">
                   {item.kind === "decision" ? "Read the decision" : "Official text"}

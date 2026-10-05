@@ -139,6 +139,9 @@ jobs:
       - name: Retrieval cuts the law where the law is cut, and cites only through the gate
         run: npm run test:corpus-retrieval
 
+      - name: A plain explanation is shown only after an independent check
+        run: npm run test:plain-explanations
+
       - name: Switch-off path shows no model-written text
         run: npm run test:no-model-text-to-users
 

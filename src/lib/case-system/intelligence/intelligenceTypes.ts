@@ -769,6 +769,11 @@ export type AppliedLawItem = {
   sourceUrl: string;
   /** "decision" for a court's reasons, which are shown with their own caution. */
   kind?: "legislation" | "guidance" | "decision";
+  /**
+   * True when a checked plain-language explanation may be asked for
+   * (phaseScope.plainExplanationsEnabled; retrieval/explainProvision.ts).
+   */
+  explainable?: boolean;
 };
 
 export type LegalIntelligenceResult = {
