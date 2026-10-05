@@ -244,5 +244,8 @@ jobs:
       - name: Production build
         run: npm run build
 
+      - name: The deployed analysis routes ship the retrieval index and corpus
+        run: npm run test:retrieval-bundled
+
       - name: AI Case Partner context verification
         run: npm run test:assistant-context
