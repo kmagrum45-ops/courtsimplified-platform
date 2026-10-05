@@ -2663,6 +2663,18 @@
       "characters": 43762,
       "lines": 853,
       "file": "compulsory-automobile-insurance-act.txt"
+    },
+    {
+      "id": "canadian-charter-of-rights-and-freedoms",
+      "title": "Canadian Charter of Rights and Freedoms",
+      "citation": "Constitution Act, 1982, Part I",
+      "url": "https://laws-lois.justice.gc.ca/eng/Const/FullText.html",
+      "retrievedAt": "2026-10-05T22:34:52.507Z",
+      "sha256": "bb307301eead96f23d93ef0fa2c1a5fbcf55b86eb2d2f936bbf02ca1452acf00",
+      "consolidation": "(none stated)",
+      "characters": 206700,
+      "lines": 2119,
+      "file": "canadian-charter-of-rights-and-freedoms.txt"
     }
   ],
   "failures": []
