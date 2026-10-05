@@ -128,7 +128,7 @@ async function familyOrCivil(page: Page, persona: Persona, steps: Step[]) {
   await runSpellingCheck(page, persona, steps);
   await capture(page, persona, steps, "intake-filled");
 
-  await page.getByRole("button", { name: /Continue to Unified Analysis/ }).click();
+  await page.getByRole("button", { name: /Continue to your next steps/ }).click();
   await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 180_000 });
   await page.waitForTimeout(4_000);
   await capture(page, persona, steps, "after-analysis");
@@ -198,7 +198,8 @@ test.describe("page walkthrough", () => {
       const steps: Step[] = [];
       let failure: string | null = null;
       try {
-        await authenticateRealTestUser(page);
+        // Real case rows (staging only, see the guard) so the case page can open.
+        await authenticateRealTestUser(page, { realCases: true });
         await passGate(page, persona, steps);
         if (persona.path === "small-claims") await smallClaims(page, persona, steps);
         else await familyOrCivil(page, persona, steps);

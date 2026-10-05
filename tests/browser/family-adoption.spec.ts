@@ -15,7 +15,7 @@ test("FAM-ADOPTION-ADULT-001 shows a safe adult step-parent adoption overview", 
   await page.getByRole("button", { name: "Continue to Family intake" }).click();
   await page.getByRole("button", { name: "Adoption — step-parent, relative, or adult adoption" }).click();
   await page.getByLabel("Adoption details").fill("The person to be adopted is 20, wants adoption, is an Ontario resident, and the applicant is a step-parent. The biological father cannot currently be located; reasonable efforts to contact him are recorded.");
-  await page.getByRole("button", { name: "Continue to Unified Analysis" }).click();
+  await page.getByRole("button", { name: "Continue to your next steps" }).click();
 
   const overview = page.getByTestId("completed-case-overview");
   await expect(overview).toBeVisible({ timeout: 20_000 });

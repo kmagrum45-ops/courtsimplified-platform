@@ -1153,7 +1153,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           disabled={isAnalyzing}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isAnalyzing ? "Analyzing Civil intake..." : "Continue to Unified Analysis"}
+          {isAnalyzing ? "Reading what you told us..." : "Continue to your next steps"}
         </button>
       </div>
     </section>
