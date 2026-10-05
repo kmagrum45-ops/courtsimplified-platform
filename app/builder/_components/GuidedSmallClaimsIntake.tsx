@@ -476,6 +476,12 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
   const [proposalMode, setProposalMode] = useState<"intake" | "depth">("intake");
   // One extra read of the story after the first confirmations, never more.
   const [reproposed, setReproposed] = useState(false);
+  // 2026-10-05. Everything the person has answered, and every proposal they
+  // unticked, sent with each answer so the next questions are checked against
+  // the whole conversation, not only the opening story. Live run: the date
+  // given to "when did it happen?" was asked for again as the injury date.
+  const [earlierAnswers, setEarlierAnswers] = useState<ConfirmedStoryAnswer[]>([]);
+  const [declinedIds, setDeclinedIds] = useState<string[]>([]);
 
   async function sendTurn(
     newStoryText: string | undefined,
@@ -484,6 +490,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
     answeredQuestionId?: string,
     confirmedAnswers?: ConfirmedStoryAnswer[],
     repropose?: { story: string; alreadyOffered: string[] },
+    earlier?: { story: string; answers: ConfirmedStoryAnswer[]; declined: string[] },
   ) {
     setLoading(true);
     setError("");
@@ -506,6 +513,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
           answeredQuestionId,
           confirmedAnswers,
           repropose,
+          earlier,
         }),
       });
 
@@ -572,7 +580,10 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
           ...current,
           {
             from: "assistant",
-            text: confirmedAnswers
+            text: answeredQuestionId
+              ? "You've already told me some of what I was going to ask next. Check these the same " +
+                "way: fix anything that's off, and untick anything that's wrong."
+              : confirmedAnswers
               ? "Your answers opened a few more questions that your story already answers. Check " +
                 "these the same way."
               : "Here's what I understood from what you wrote. Check each one: fix anything that's " +
@@ -719,7 +730,14 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
     }
     const nextAnsweredIds = [...answeredIds, currentQuestion.id];
     setInputText("");
-    void sendTurn(answerText || undefined, nextAnsweredIds, facts, currentQuestion.id);
+    const openingStory = messages.find((message) => message.from === "user")?.text || "";
+    const earlier = answerText
+      ? { story: openingStory.slice(0, 8000), answers: earlierAnswers.slice(-45), declined: declinedIds.slice(-45) }
+      : undefined;
+    if (answerText) {
+      setEarlierAnswers((current) => [...current, { questionId: currentQuestion.id, answerText: answerText.slice(0, 1000) }]);
+    }
+    void sendTurn(answerText || undefined, nextAnsweredIds, facts, currentQuestion.id, undefined, undefined, earlier);
   }
 
   /**
@@ -943,6 +961,9 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
     const confirmed: ConfirmedStoryAnswer[] = proposalDrafts
       .filter((draft) => draft.keep && draft.answer.trim())
       .map((draft) => ({ questionId: draft.questionId, answerText: draft.answer.trim() }));
+    const unticked = proposalDrafts.filter((draft) => !draft.keep).map((draft) => draft.questionId);
+    if (unticked.length) setDeclinedIds((current) => [...current, ...unticked]);
+    if (confirmed.length) setEarlierAnswers((current) => [...current, ...confirmed]);
     setProposalDrafts(null);
     setProposalMode("intake");
     setMessages((current) => [
@@ -951,7 +972,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
         from: "user",
         text:
           confirmed.length > 0
-            ? `Confirmed ${confirmed.length} answer${confirmed.length === 1 ? "" : "s"} from my story.`
+            ? `Confirmed ${confirmed.length} answer${confirmed.length === 1 ? "" : "s"} from what I've told you.`
             : "None of those were right.",
       },
     ]);

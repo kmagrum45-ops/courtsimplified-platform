@@ -14,7 +14,13 @@
  *   - the safety question is ever proposed or accepted as confirmed;
  *   - a proposal marks a question answered or sets a fact before the user
  *     confirms it;
- *   - the proposer runs on an answer turn, not only the opening story;
+ *   - the proposer runs on an answer turn the client sent no conversation
+ *     for (it must only read what it was given);
+ *   - (2026-10-05) a question is asked although an EARLIER ANSWER already
+ *     gave it: the live bus-injury run asked for the injury date four
+ *     questions after "this happened on sept 17 2026 at 1 pm";
+ *   - a proposal quoting our own question text instead of the person's words;
+ *   - a question the person unticked being offered again;
  *   - a proposer failure blocks the intake;
  *   - a confirmed answer is not captured verbatim, or its question is asked
  *     again.
@@ -159,7 +165,156 @@ async function main(): Promise<void> {
     composeVoice: STUB_VOICE,
     proposeAnswers: proposer,
   });
-  check("the proposer never runs on an answer turn", calls.length === before);
+  check("without the conversation, the proposer does not run on an answer turn", calls.length === before);
+
+  // ---- 2026-10-05: the conversation so far is read before the next question ----
+  // The live run, replayed: an injury story with no date; the date arrived as
+  // the answer to "Roughly when did it happen?", and the injury-date question
+  // came up later and was asked anyway.
+  const busStory =
+    "i was hit by an OC transpo bus when i was waiting to cross at a cross walk. i dislocated my shoulder. i want to sue";
+  const busFacts = { role: "plaintiff", disputeCategory: "personal-injury" } as const;
+  const busAnswered = ["sc-orient-role", "sc-orient-dispute-category", "sc-orient-when-happened", "sc-amount-claimed", "sc-claim-filed"];
+  const busEarlier = {
+    story: busStory,
+    answers: [
+      { questionId: "sc-orient-when-happened", answerText: "this happened on sept 17 2026 at 1 pm" },
+      { questionId: "sc-amount-claimed", answerText: "im not sure what i should claim" },
+    ],
+    declined: [] as string[],
+  };
+  const conversationsRead: { story: string; ids: string[]; quoteFrom?: string }[] = [];
+  const busProposer = async (
+    story: string,
+    questions: readonly { id: string }[],
+    _key: string,
+    options: { quoteFrom?: string } = {},
+  ): Promise<StoryAnswerProposal[]> => {
+    conversationsRead.push({ story, ids: questions.map((question) => question.id), quoteFrom: options.quoteFrom });
+    const raw = {
+      proposals: [
+        { questionId: "sc-date-injury", answer: "September 17, 2026", storyQuote: "sept 17 2026 at 1 pm" },
+        // Quotes OUR question, not the person: must be dropped.
+        { questionId: "sc-remedy-sought", answer: "Money", storyQuote: "Roughly when did the situation" },
+      ],
+    };
+    return validateStoryProposals(raw, story, questions as never, options.quoteFrom ?? story);
+  };
+  const busTurn = await orchestrateIntakeTurn(
+    { ...busFacts },
+    [...busAnswered, "sc-remedy-sought"],
+    "money",
+    "stub-key",
+    QUESTION_BANK,
+    CLAIM_TYPES,
+    "small-claims",
+    "sc-remedy-sought",
+    {
+      runSafety: STUB_SAFETY,
+      extractFacts: async () => ({ facts: {}, directFields: [] }),
+      classifyClaimType: STUB_CLASSIFY,
+      composeVoice: STUB_VOICE,
+      proposeAnswers: busProposer,
+    },
+    busEarlier,
+  );
+  const read = conversationsRead[0];
+  check("with the conversation, the questions about to be asked are checked against it", Boolean(read), JSON.stringify(conversationsRead));
+  check(
+    "the injury date is offered from the earlier answer instead of being asked again",
+    busTurn.storyProposals.some((proposal) => proposal.questionId === "sc-date-injury" && proposal.storyQuote === "sept 17 2026 at 1 pm"),
+    JSON.stringify(busTurn.storyProposals),
+  );
+  check(
+    "the model reads each earlier answer under the reviewed question it answered",
+    Boolean(read?.story.includes("Q: Roughly when did the situation that led to this claim happen?\nA: this happened on sept 17 2026 at 1 pm")),
+  );
+  check("this turn's own answer is part of what is read", Boolean(read?.story.includes("A: money")));
+  const remedyQuestion = QUESTION_BANK.find((question) => question.id === "sc-remedy-sought")!;
+  const transcriptOnly = "Q: What outcome are you asking the court to order?\nA: i want to sue";
+  check(
+    "a quote of our own question text is refused (quotes come from the person's words only)",
+    validateStoryProposals(
+      { proposals: [{ questionId: "sc-remedy-sought", answer: "Payment of money", storyQuote: "What outcome are you asking" }] },
+      transcriptOnly,
+      [remedyQuestion],
+      "i want to sue",
+    ).length === 0,
+  );
+  check(
+    "the same proposal quoting the person's words is kept",
+    validateStoryProposals(
+      { proposals: [{ questionId: "sc-remedy-sought", answer: "Payment of money", storyQuote: "i want to sue" }] },
+      transcriptOnly,
+      [remedyQuestion],
+      "i want to sue",
+    ).length === 1,
+  );
+  check("the safety question is never sent to be checked", !(read?.ids ?? []).includes("sc-safety-check"));
+  check("nothing is applied before the person confirms", !busTurn.answeredIds.includes("sc-date-injury"));
+
+  conversationsRead.length = 0;
+  await orchestrateIntakeTurn(
+    { ...busFacts },
+    [...busAnswered, "sc-remedy-sought"],
+    "money",
+    "stub-key",
+    QUESTION_BANK,
+    CLAIM_TYPES,
+    "small-claims",
+    "sc-remedy-sought",
+    {
+      runSafety: STUB_SAFETY,
+      extractFacts: async () => ({ facts: {}, directFields: [] }),
+      classifyClaimType: STUB_CLASSIFY,
+      composeVoice: STUB_VOICE,
+      proposeAnswers: busProposer,
+    },
+    { ...busEarlier, declined: ["sc-date-injury"] },
+  );
+  check("a question the person unticked is never offered again", !(conversationsRead[0]?.ids ?? []).includes("sc-date-injury"));
+
+  const failingEarlier = await orchestrateIntakeTurn(
+    { ...busFacts },
+    [...busAnswered, "sc-remedy-sought"],
+    "money",
+    "stub-key",
+    QUESTION_BANK,
+    CLAIM_TYPES,
+    "small-claims",
+    "sc-remedy-sought",
+    {
+      runSafety: STUB_SAFETY,
+      extractFacts: async () => ({ facts: {}, directFields: [] }),
+      classifyClaimType: STUB_CLASSIFY,
+      composeVoice: STUB_VOICE,
+      proposeAnswers: async () => {
+        throw new Error("model down");
+      },
+    },
+    busEarlier,
+  );
+  check("a failed check never blocks the intake: the question is simply asked", Boolean(failingEarlier.nextQuestion) && failingEarlier.storyProposals.length === 0);
+
+  const halted = await orchestrateIntakeTurn(
+    { ...busFacts },
+    [...busAnswered, "sc-remedy-sought"],
+    "money",
+    "stub-key",
+    QUESTION_BANK,
+    CLAIM_TYPES,
+    "small-claims",
+    "sc-remedy-sought",
+    {
+      runSafety: async () => ({ classification: "immediate-danger" as const, reason: "stub", userMessage: "Call 911." }),
+      extractFacts: async () => ({ facts: {}, directFields: [] }),
+      classifyClaimType: STUB_CLASSIFY,
+      composeVoice: STUB_VOICE,
+      proposeAnswers: busProposer,
+    },
+    busEarlier,
+  );
+  check("a safety halt shows nothing but the safety message", halted.halted && halted.storyProposals.length === 0);
 
   // 2026-09-28: the flag the safety pass sets must reach the screen.
   const asking = await orchestrateIntakeTurn({}, [], STORY + " Do I have a case?", "stub-key", QUESTION_BANK, CLAIM_TYPES, "small-claims", undefined, {

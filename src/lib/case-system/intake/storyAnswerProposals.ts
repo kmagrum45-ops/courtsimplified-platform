@@ -98,13 +98,19 @@ export function validateStoryProposals(
   raw: unknown,
   story: string,
   offered: readonly IntakeQuestion[],
+  /**
+   * 2026-10-05. Where the quote must come from, when that is narrower than
+   * what the model read: a conversation is read as question-and-answer pairs,
+   * but a quote must be the PERSON's words, never our question's.
+   */
+  quoteFrom: string = story,
 ): StoryAnswerProposal[] {
   if (!raw || typeof raw !== "object") return [];
   const list = (raw as { proposals?: unknown }).proposals;
   if (!Array.isArray(list)) return [];
 
   const byId = new Map(offered.map((question) => [question.id, question]));
-  const normalizedStory = normalize(story);
+  const normalizedStory = normalize(quoteFrom);
   const seen = new Set<string>();
   const kept: StoryAnswerProposal[] = [];
 
@@ -158,6 +164,7 @@ Rules:
 - Which side the person is on is stated by what they want: someone who says they want their money or property back from another person, or want to take them to court, and says nothing about being sued, is bringing the claim. Someone who says they have been sued or served with a claim is responding to it.
 - When the account says something happened ONLY one way ("the only evidence is texts to my brother", "I only told my neighbour"), you may answer "No" to a question about another way (a newspaper, a broadcast, other people), quoting the words that say "only". Without words like that, leave the question out.
 - "storyQuote" must be words copied exactly, character for character, from the account, that show where the answer comes from. Copy a short phrase, not a whole paragraph.
+- The account may include the person's answers to earlier questions, shown as "Q:" (our question) and "A:" (their answer). Read each answer with its question: "this happened on sept 17 2026" answering "when did the situation happen" is the date of the event the story describes. Quote only the person's words (the story or an "A:" line), never a "Q:" line.
 
 Return a JSON object: {"proposals": [{"questionId": "...", "answer": "...", "storyQuote": "..."}]}. Return {"proposals": []} if nothing is answered.`;
 
@@ -177,11 +184,12 @@ export async function proposeAnswersFromStory(
   story: string,
   questions: readonly IntakeQuestion[],
   apiKey: string,
+  options: { quoteFrom?: string } = {},
 ): Promise<StoryAnswerProposal[]> {
   const offered = proposableQuestions(questions);
   if (!story.trim() || offered.length === 0) return [];
   return withAiCallContext({ callType: "propose-story-answers" }, () =>
-    proposeAnswersFromStoryInner(story, offered, apiKey),
+    proposeAnswersFromStoryInner(story, offered, apiKey, options.quoteFrom ?? story),
   );
 }
 
@@ -189,6 +197,7 @@ async function proposeAnswersFromStoryInner(
   story: string,
   offered: readonly IntakeQuestion[],
   apiKey: string,
+  quoteFrom: string,
 ): Promise<StoryAnswerProposal[]> {
   const client = createOpenAIClient(apiKey);
   const response = await client.chat.completions.create({
@@ -209,7 +218,50 @@ async function proposeAnswersFromStoryInner(
   } catch {
     parsed = {};
   }
-  return validateStoryProposals(parsed, story, offered);
+  return validateStoryProposals(parsed, story, offered, quoteFrom);
+}
+
+/**
+ * 2026-10-05. What the person has told us so far, for the check that runs
+ * before every question. Live run (site owner): the story described a bus
+ * hitting them; "Roughly when did it happen?" got "this happened on sept 17
+ * 2026 at 1 pm"; four questions later "If this involves an injury, what date
+ * did it happen?" was asked anyway. Only the opening story was ever read for
+ * answers, and a typed answer was filed against the one question it answered
+ * and nothing else.
+ *
+ * `transcript` is what the model reads: the story, then each earlier answer
+ * under the reviewed question it answered (question text from the bank, by
+ * id -- never from the client). `userWords` is what a quote must come from:
+ * the story and the answers only.
+ */
+export type EarlierConversation = {
+  story: string;
+  answers: readonly ConfirmedStoryAnswer[];
+  /** Questions the person already unticked in a proposal card: never offered again. */
+  declined: readonly string[];
+};
+
+export function conversationForProposals(
+  earlier: EarlierConversation,
+  questions: readonly IntakeQuestion[],
+): { transcript: string; userWords: string } {
+  const pairs = earlier.answers
+    .map((item) => {
+      const question = questions.find((candidate) => candidate.id === item.questionId);
+      const answer = item.answerText.trim();
+      return question && answer ? { question: question.text, answer } : null;
+    })
+    .filter((pair): pair is { question: string; answer: string } => Boolean(pair));
+  const story = earlier.story.trim();
+  const transcript = [
+    story ? `The person's story:\n${story}` : "",
+    ...pairs.map((pair) => `Q: ${pair.question}\nA: ${pair.answer}`),
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+  const userWords = [story, ...pairs.map((pair) => pair.answer)].filter(Boolean).join("\n");
+  return { transcript, userWords };
 }
 
 /**

@@ -5,7 +5,7 @@ import {
   orchestrateIntakeTurn,
   type OrchestrateIntakeTurnResult,
 } from "@/src/lib/case-system/intake/orchestrateIntakeTurn";
-import type { ConfirmedStoryAnswer } from "@/src/lib/case-system/intake/storyAnswerProposals";
+import type { ConfirmedStoryAnswer, EarlierConversation } from "@/src/lib/case-system/intake/storyAnswerProposals";
 import { KNOWN_FACT_FIELDS, QUESTION_BANK, type IntakeQuestion } from "@/src/lib/case-system/intake/questionBank";
 import { CLAIM_TYPES, type ClaimType } from "@/src/lib/case-system/intake/claimTypes";
 import type { IntakeFacts } from "@/src/lib/case-system/intake/selectQuestions";
@@ -47,7 +47,9 @@ import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/server
 
 export const runtime = "nodejs";
 
-const MAX_REQUEST_BYTES = 50_000;
+// 2026-10-05: raised from 50,000 for `earlier` (the story and every earlier
+// answer, each capped below), sent with each answer turn.
+const MAX_REQUEST_BYTES = 120_000;
 const MAX_STORY_TEXT_LENGTH = 8_000;
 // Session 30: raised from 200. orchestrateIntakeTurn.ts now stores verbatim
 // free-text answers (up to its own MAX_CAPTURED_ANSWER_LENGTH of 1,000)
@@ -126,7 +128,43 @@ type GuidedTurnRequestBody = {
    * applicable can be offered once. See applyConfirmedStoryAnswers.
    */
   repropose?: { story: string; alreadyOffered: string[] };
+  /**
+   * 2026-10-05. Only with answeredQuestionId: the opening story, every
+   * earlier answer by question id, and the ids the person unticked in a
+   * proposal card. The questions about to be asked are checked against all of
+   * it, so nobody is asked for something they already said. See
+   * orchestrateIntakeTurn's `earlier`.
+   */
+  earlier?: EarlierConversation;
 };
+
+function isIdList(value: unknown): value is string[] {
+  return (
+    Array.isArray(value) &&
+    value.length <= MAX_ANSWERED_IDS &&
+    value.every((id) => typeof id === "string" && id.length <= MAX_ANSWERED_ID_LENGTH)
+  );
+}
+
+function isEarlierConversation(value: unknown): value is EarlierConversation {
+  if (!isRecord(value)) return false;
+  if (Object.keys(value).some((key) => key !== "story" && key !== "answers" && key !== "declined")) return false;
+  if (typeof value.story !== "string" || value.story.length > MAX_STORY_TEXT_LENGTH) return false;
+  if (!isIdList(value.declined)) return false;
+  return (
+    Array.isArray(value.answers) &&
+    value.answers.length <= MAX_ANSWERED_IDS &&
+    value.answers.every(
+      (item) =>
+        isRecord(item) &&
+        Object.keys(item).every((key) => key === "questionId" || key === "answerText") &&
+        typeof item.questionId === "string" &&
+        item.questionId.length <= MAX_ANSWERED_ID_LENGTH &&
+        typeof item.answerText === "string" &&
+        item.answerText.length <= MAX_CONFIRMED_ANSWER_LENGTH,
+    )
+  );
+}
 
 function isConfirmedAnswers(value: unknown): value is ConfirmedStoryAnswer[] {
   return (
@@ -154,6 +192,7 @@ function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody
     "answeredQuestionId",
     "confirmedAnswers",
     "repropose",
+    "earlier",
   ]);
   if (Object.keys(value).some((key) => !allowedKeys.has(key))) return false;
 
@@ -187,6 +226,10 @@ function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody
     ) {
       return false;
     }
+  }
+
+  if (value.earlier !== undefined) {
+    if (value.answeredQuestionId === undefined || !isEarlierConversation(value.earlier)) return false;
   }
 
   if (value.confirmedAnswers !== undefined) {
@@ -275,6 +318,8 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
         claimTypes,
         courtArea,
         body.answeredQuestionId,
+        {},
+        body.earlier,
       );
 
       return NextResponse.json({ ok: true, result, authenticated });
