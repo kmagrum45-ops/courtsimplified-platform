@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
-import type { DateQuestion, SuggestedDate } from "@/src/lib/case-system/casePosition";
+import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-system/casePosition";
 
 /**
  * "Where exactly is your case?" — the reviewed answer for the position the
@@ -187,6 +187,7 @@ export default function StageAnswerPanel({
   initialStepId = null,
   initialDateAnswers = {},
   suggestedDates = {},
+  storyHints = {},
 }: {
   courtPath: StagePathway;
   confirmedStage?: string | null;
@@ -202,6 +203,8 @@ export default function StageAnswerPanel({
   initialDateAnswers?: Record<string, string>;
   /** Exact dates the user recorded elsewhere, offered — never applied — as answers. */
   suggestedDates?: Record<string, SuggestedDate>;
+  /** Sentences from the user's story about each moment, quoted beside its question. */
+  storyHints?: Record<string, StoryHint>;
 }) {
   const suggested = suggestedStageFor(courtPath, confirmedStage, responding);
   const options = stagesForPathway(courtPath).map((stage) => ({
@@ -310,7 +313,10 @@ export default function StageAnswerPanel({
           </p>
           <div className="mt-3 space-y-4">
             {result.dateQuestions!.map((question) => {
-              const suggestion = suggestedDates[question.id];
+              const hint = storyHints[question.id];
+              const suggestion =
+                suggestedDates[question.id] ??
+                (hint?.value ? { value: hint.value, basis: `from your story: “${hint.quote}”` } : undefined);
               const value = dateDraft[question.id] ?? "";
               return (
                 <div key={question.id}>
@@ -325,6 +331,11 @@ export default function StageAnswerPanel({
                       className="mt-2 rounded-xl border border-[#d8e6df] bg-white px-3 py-2"
                     />
                   </label>
+                  {hint && !hint.value && !suggestion && !value ? (
+                    <p className="mt-2 text-sm text-[#4d675f]" data-testid={`stage-answer-story-hint-${question.id}`}>
+                      You wrote: &ldquo;{hint.quote}&rdquo; Pick that date above, with its year.
+                    </p>
+                  ) : null}
                   {suggestion && !value ? (
                     <button
                       type="button"

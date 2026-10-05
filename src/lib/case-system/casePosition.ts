@@ -238,3 +238,50 @@ export function suggestedDatesFromEvents(
 export function courtPathAsPathway(courtPath: string | null | undefined): StagePathway | null {
   return courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? courtPath : null;
 }
+
+/**
+ * Where the user's own story mentions the moment a date question asks about,
+ * quoted back beside that question so they do not have to remember what they
+ * wrote ("read what they told us, fill in what it answers" — site owner,
+ * 2026-10-04).
+ *
+ * A date is offered only when the sentence gives a complete one, year
+ * included. "The papers came on September 25" is quoted as a reminder and
+ * nothing is filled in: choosing the year would be the site guessing a fact
+ * that a deadline is then counted from, the very conversion the events route
+ * refuses to make (app/api/cases/events). Either way the user confirms.
+ */
+const STORY_CUES: Record<string, RegExp> = {
+  "sc-date-claim-served": /\b(served|papers (?:came|arrived)|got the (?:papers|claim)|received the (?:papers|claim)|handed (?:me )?the (?:papers|claim))\b/i,
+  "sc-date-claim-issued": /\b(issued|filed (?:my|the|a) (?:claim|plaintiff'?s claim))\b/i,
+  "sc-date-defence-filed": /\bfiled (?:my|a|the|our) defen[cs]e\b/i,
+  "sc-date-settlement-conference": /\bsettlement conference\b/i,
+};
+
+const MONTH = "(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)";
+const FULL_DATE = new RegExp(
+  `\\b(\\d{4}-\\d{1,2}-\\d{1,2}|\\d{1,2}(?:st|nd|rd|th)? ${MONTH},? \\d{4}|${MONTH} \\d{1,2}(?:st|nd|rd|th)?,? \\d{4})\\b`,
+  "i",
+);
+
+const MENTIONS_DATE = new RegExp(`\\b${MONTH}\\b|\\b\\d{1,2}[/-]\\d{1,2}\\b|\\b\\d{4}-\\d{1,2}-\\d{1,2}\\b`, "i");
+
+export type StoryHint = { quote: string; value: string | null };
+
+export function storyHintsForDates(story: string | null | undefined): Record<string, StoryHint> {
+  const hints: Record<string, StoryHint> = {};
+  if (!story) return hints;
+  const sentences = story.split(/(?<=[.!?])\s+|\n+/).map((sentence) => sentence.trim()).filter(Boolean);
+  for (const [questionId, cue] of Object.entries(STORY_CUES)) {
+    // Of the sentences about that moment, the one that names a date is the
+    // useful reminder ("The papers came on September 25." over "I was served a
+    // claim saying ...").
+    const about = sentences.filter((candidate) => cue.test(candidate));
+    const sentence = about.find((candidate) => MENTIONS_DATE.test(candidate)) ?? about[0];
+    if (!sentence) continue;
+    const match = FULL_DATE.exec(sentence);
+    const value = match ? parseUserDate(match[1].replace(/,/g, "")) : null;
+    hints[questionId] = { quote: sentence.length > 240 ? `${sentence.slice(0, 237)}…` : sentence, value };
+  }
+  return hints;
+}

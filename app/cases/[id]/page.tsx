@@ -25,6 +25,7 @@ import type { AnalysisResult, StoredCaseData, UniversalStage } from "../../build
 import { getStageLabel } from "../../builder/_components/builderTypes";
 import {
   CONFIRMABLE_STAGES,
+  storyHintsForDates,
   suggestedDatesFromEvents,
   type SuggestedDate,
 } from "@/src/lib/case-system/casePosition";
@@ -184,10 +185,11 @@ export default function CaseOverviewPage() {
         {confirmed && position.confirmedStageAt ? (
           <p className="text-xs text-[#4f685f]">You confirmed this on {formatDate(position.confirmedStageAt)}.</p>
         ) : null}
-        {events?.stage.basis.length ? (
+        {/* Only when the records actually point somewhere; "not enough recorded" is noise here. */}
+        {events?.stage.basis.length && events.stage.stage !== "unknown" ? (
           <details className="rounded-2xl border border-[#e3efe9] bg-[#f8fcfa] p-4 text-sm text-[#4f685f]">
             <summary className="cursor-pointer font-semibold text-[#24463d]">
-              What your records say ({getStageLabel(events.stage.stage as UniversalStage) || "not enough recorded"})
+              What your records say: {getStageLabel(events.stage.stage as UniversalStage)}
             </summary>
             <ul className="mt-2 space-y-1">
               {events.stage.basis.map((line) => (
@@ -212,6 +214,7 @@ export default function CaseOverviewPage() {
               initialStepId={position.stepId}
               initialDateAnswers={position.dateAnswers}
               suggestedDates={suggestedDates}
+              storyHints={storyHintsForDates(intake?.facts)}
             />
           ) : (
             <NextStepsCard pathway={courtPath} stage={confirmed} />
