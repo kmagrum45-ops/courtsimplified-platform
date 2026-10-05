@@ -138,3 +138,20 @@ export function extract(
   }
   return format === "elaws-doc" ? extractDoc(buffer) : extractHtml(buffer);
 }
+
+/**
+ * The lines from the first containing `from` up to (not including) the first
+ * later one containing `to`, or null if either is missing. Whitespace
+ * collapsed and case ignored when matching. Pure; exported for the suite.
+ */
+export function keepSection(text: string, section: { from: string; to: string }): string | null {
+  const squash = (value: string) => value.replace(/\s+/g, " ").trim().toLowerCase();
+  const lines = text.split("\n");
+  const from = squash(section.from);
+  const to = squash(section.to);
+  const start = lines.findIndex((line) => squash(line).includes(from));
+  if (start < 0) return null;
+  const end = lines.findIndex((line, index) => index > start && squash(line).includes(to));
+  if (end < 0) return null;
+  return lines.slice(start, end).join("\n");
+}
