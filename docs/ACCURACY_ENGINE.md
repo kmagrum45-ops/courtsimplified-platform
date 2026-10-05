@@ -1870,3 +1870,40 @@ earlier review rounds had passed it:
 `renderDeadlineSection` changed, so all 21 affected blocks were re-rendered and
 re-promoted together (the gate requires the deadline section byte-identical to
 the renderer).
+
+## The research step: the analysis researches before it writes (2026-10-05)
+
+`retrieval/researchStory.ts` replaces single-pass retrieval in the brain
+(`researchStepEnabled`, `RESEARCH_STEP=off` to return to it; plain retrieval
+also runs if research produces nothing). Site owner, on why a bus-injury story
+got generic steps: "I thought the ai can think like you do".
+
+1. One call reads the story and lists 3-6 questions a lawyer would research
+   (who is sued, notices, limitation, forum, governing statute, what must be
+   shown and claimed, next step), each with search phrases, plus one neutral
+   situation line with no personal details.
+2. Each question is searched by meaning; hits re-read and hash-checked;
+   cross-references followed.
+3. One reading call PER QUESTION, in parallel (one call over all questions
+   timed out 9 times in 10 at 45 s), sees the question, the situation line and
+   the passages -- never the story -- and returns answered (passage + exact
+   quote), search-again (new phrases), or not-in-library (the law's name).
+   Code accepts an answer only if the quote is in a passage offered for that
+   question.
+4. One more round for search-again.
+
+The answering passages go first into the source pack; "What we looked into"
+(ResearchPanel) shows each question with the provisions' own words and the
+verified quote, or the gap. Measured (`npm run eval:research`, 10 stories):
+52 of 56 questions answered, median 28 s. The applicability rule in the
+reading prompt ("a notice rule for a road in disrepair does not apply to an
+injury caused by a vehicle being driven") took the bus story from citing the
+Municipal Act and City of Toronto Act 10-day notices to citing only Insurance
+Act s. 258.3.
+
+Gaps it named in its first runs: the Statutory Accident Benefits Schedule
+(O. Reg. 34/10), the Highway Traffic Act (now vendored and indexed: 919
+passages, including s. 193, the onus of proof on a vehicle's owner or driver),
+and the Criminal Code (ss. 264, 810) for family safety stories. Gaps are
+logged by name only; the automated request-to-vendor pipeline is the next
+piece.

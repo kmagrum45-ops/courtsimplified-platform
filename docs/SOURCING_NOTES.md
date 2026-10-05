@@ -1479,3 +1479,12 @@ Not in the corpus yet: the **Highway Traffic Act** (no source id) and
 Insurance Act **s. 33** (service of the notice -- the block only points to it).
 The deadline engine counts the 120 days under the Legislation Act; the
 published block is `answer:before-filing:notice-vehicle-injury` (run-15).
+
+### Highway Traffic Act vendored (2026-10-05)
+
+`highway-traffic-act` (R.S.O. 1990, c. H.8, e-Laws `90h08`), declared in
+`scripts/rules/claimTypeSources.ts`, fetched first time by Vendor Sources run
+37362135117 from the research-step branch (dispatching on a branch works), and
+indexed by Corpus Index run 37362973715 (919 passages). Consolidation period
+from July 1, 2026. s. 193 (onus of proof in a motor-vehicle loss) and ss. 140,
+144 (7) (yielding to pedestrians) are cut as their own passages.
