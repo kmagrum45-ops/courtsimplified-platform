@@ -285,6 +285,11 @@ function judgeCandidate(
   federal: boolean,
   own: RegExp | null,
 ): { ok: boolean; confirmed: boolean; paragraphShaped?: boolean } {
+  // A wrapped history reference: "... in accordance with rule\n8.09.1.  O. Reg.
+  // 521/22, s. 4." is the end of r. 8.09, not the start of r. 8.09.1.
+  if (/^\s*[\d.]+\.?\s+(O\. Reg\.|R\.S\.O\.|R\.R\.O\.|S\.O\.|R\.S\.,|SOR\/|\d{4}, c\.)/.test(lines[start])) {
+    return { ok: false, confirmed: false };
+  }
   if (federal) return { ok: true, confirmed: false }; // Justice Laws numbers paragraphs "(a)", never "2."
   const paragraphShaped = /^\s*\d+(?:\.\d+)*\.\s{3,}/.test(lines[start]);
   for (let index = start; index < Math.min(lines.length, start + 400); index += 1) {

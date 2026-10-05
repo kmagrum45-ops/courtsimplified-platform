@@ -106,6 +106,13 @@ async function main() {
   }
   check("each provision's first passage starts with its own number", misnumbered.length === 0, misnumbered.slice(0, 5).join(" | "));
 
+  // ...and starts on the provision, not on the wrapped end of the one before
+  // ("8.09.1.  O. Reg. 521/22, s. 4." closes r. 8.09).
+  const startsOnReference = passages.filter((chunk) =>
+    /^[\d.]+\.?\s+(O\. Reg\.|R\.S\.O\.|R\.R\.O\.|S\.O\.|R\.S\.,|SOR\/|\d{4}, c\.)/.test(chunk.text),
+  );
+  check("no passage starts on a wrapped history reference", startsOnReference.length === 0, startsOnReference.slice(0, 3).map((chunk) => chunk.id).join(", "));
+
   // A passage carrying another provision's amendment history ("..., c. N.1,
   // s. 4") has swallowed that provision. A few cross-references read the same
   // way, so the bound is a tripwire, not zero: it was 1318 passages before the
