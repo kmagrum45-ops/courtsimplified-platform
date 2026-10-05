@@ -306,7 +306,7 @@ async function main(): Promise<void> {
     "small-claims",
     "sc-remedy-sought",
     {
-      runSafety: async () => ({ classification: "immediate-danger" as const, reason: "stub", userMessage: "Call 911." }),
+      runSafety: async () => ({ classification: "immediate-danger" as const, reason: "stub", userMessage: "Call 911.", requestsLegalAdvice: false }),
       extractFacts: async () => ({ facts: {}, directFields: [] }),
       classifyClaimType: STUB_CLASSIFY,
       composeVoice: STUB_VOICE,
