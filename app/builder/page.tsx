@@ -46,6 +46,7 @@ import StageConfirmation from "./_components/StageConfirmation";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import NextStepsCard from "./_components/NextStepsCard";
 import { userIsResponding } from "./_components/respondingSide";
+import { readCasePosition } from "../../src/lib/case-system/casePosition";
 import AiUseNotice from "../_components/AiUseNotice";
 import PathwayUnavailable from "../_components/PathwayUnavailable";
 import { FORM_COMPLETION_PAUSED, isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
@@ -512,7 +513,7 @@ function BuilderPageContent() {
   const activeCaseId = masterCaseId || queryCaseId || null;
 
   const workspaceHref = activeCaseId
-    ? `/dashboard/cases/${activeCaseId}`
+    ? `/cases/${activeCaseId}`
     : "/dashboard";
 
   const evidenceHref = buildWorkflowHref(
@@ -880,6 +881,20 @@ function BuilderPageContent() {
           ...(draftIntakeFacts || {}),
         };
 
+        /*
+         * KEEP WHAT THE USER CONFIRMED. master_result is rebuilt whole here, and
+         * `position` (the stage they confirmed, the step they picked, the dates
+         * they gave) is written separately by /api/cases/position, possibly
+         * after this page loaded. Read it now, not from the copy loaded at
+         * mount, or a re-save would quietly erase a choice made since.
+         */
+        const { data: positionRow } = await supabase
+          .from("cases")
+          .select("master_result")
+          .eq("id", activeId)
+          .maybeSingle();
+        const savedPosition = asRecord(asRecord(positionRow?.master_result).position);
+
         const { error } = await supabase
           .from("cases")
           .update({
@@ -887,7 +902,13 @@ function BuilderPageContent() {
             court_path: courtPath,
             status: "active",
             current_stage: stage,
-            master_result: { ...masterPayload, derivedFrom, intakeFacts, familyStatus: triageState },
+            master_result: {
+              ...masterPayload,
+              derivedFrom,
+              intakeFacts,
+              familyStatus: triageState,
+              ...(Object.keys(savedPosition).length > 0 ? { position: savedPosition } : {}),
+            },
             updated_at: now,
           })
           .eq("id", activeId);
@@ -1016,6 +1037,24 @@ function BuilderPageContent() {
     return masterCaseId || queryCaseId || null;
   }
 
+  const savedPosition = readCasePosition(existingMasterResult, courtPath);
+
+  async function saveConfirmedStage(caseId: string, stage: UniversalStage) {
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session?.access_token) return;
+      await fetch("/api/cases/position", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
+        body: JSON.stringify({ caseId, confirmedStage: stage }),
+      });
+    } catch {
+      // The stage still applies on this page; the case page will ask again.
+    }
+  }
+
   function pushWorkflow(route: string) {
     if (!caseData) {
       return;
@@ -1106,7 +1145,13 @@ function BuilderPageContent() {
       return;
     }
 
-    router.push(`/dashboard/cases/${targetCaseId}`);
+    router.push(`/cases/${encodeURIComponent(targetCaseId)}`);
+  }
+
+  function goToCaseSection(section: "documents" | "forms" | "timeline") {
+    const targetCaseId = getActiveCaseId();
+    if (!targetCaseId) return;
+    router.push(`/cases/${encodeURIComponent(targetCaseId)}/${section}`);
   }
 
   function goToSettlementConference() {
@@ -1695,7 +1740,12 @@ function BuilderPageContent() {
               suggestedStage={detectedStage}
               pathway={courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims"}
               confirmedStage={confirmedStage}
-              onConfirm={setConfirmedStage}
+              onConfirm={(stage) => {
+                setConfirmedStage(stage);
+                // Recorded on the case so the case page shows the same stage.
+                const id = getActiveCaseId();
+                if (id) void saveConfirmedStage(id, stage);
+              }}
             />
 
             {/* Civil and family join once their reviewed answers are published. */}
@@ -1704,6 +1754,9 @@ function BuilderPageContent() {
                 courtPath={courtPath}
                 confirmedStage={confirmedStage}
                 responding={respondingSide}
+                caseId={getActiveCaseId()}
+                initialStepId={savedPosition.stepId}
+                initialDateAnswers={savedPosition.dateAnswers}
               />
             ) : null}
             {confirmedStage && (courtPath === "family" || courtPath === "civil") ? (
@@ -1777,9 +1830,15 @@ function BuilderPageContent() {
                     Create Family Application draft (Form 8)
                   </button>
                 ) : null}
-                <button type="button" onClick={() => pushWorkflow("/evidence")} className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white">Organize evidence</button>
-                <button type="button" onClick={goToDashboardCase} disabled={savingMaster || !getActiveCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Review intake details</button>
-                <button type="button" onClick={() => pushWorkflow("/forms")} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67]">Check official forms and procedure</button>
+                {/*
+                  The case page is where the case lives after intake: its stage
+                  and next step, timeline, documents, forms, drafts and export
+                  (2026-10-04). "Organize evidence" went to /evidence, which
+                  read browser storage nothing writes and was always empty.
+                */}
+                <button type="button" data-testid="open-case-home" onClick={goToDashboardCase} disabled={savingMaster || !getActiveCaseId()} className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">Open your case page</button>
+                <button type="button" onClick={() => goToCaseSection("documents")} disabled={savingMaster || !getActiveCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Add documents and evidence</button>
+                <button type="button" onClick={() => goToCaseSection("forms")} disabled={savingMaster || !getActiveCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Check official forms</button>
               </div>
             </section>
             {analysisAvailable && !showFollowUp && <button type="button" onClick={() => setShowFollowUp(true)} className="text-sm font-semibold text-[#2f7d67]">Ask follow-up questions</button>}

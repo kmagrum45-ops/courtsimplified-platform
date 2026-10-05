@@ -12,15 +12,23 @@
  * Added 2026-10-01: the 35 stage answers were published, and no page called
  * either route, so no user could see them.
  *
- * In:  { stageId, courtPath, confirmedFacts? }
- * Out: { outcome: "rendered", answer } | { outcome: "needs-a-fact", question,
- *        answer (the general block, or null) } | { outcome: "unavailable", message }
+ * In:  { stageId, courtPath, confirmedFacts?, dateAnswers? }
+ * Out: { outcome: "rendered", answer, dateQuestions } | { outcome: "needs-a-fact",
+ *        question, answer (the general block, or null) } | { outcome: "unavailable", message }
+ *
+ * DATES (2026-10-04). `dateAnswers` are the user's own dates, keyed by date
+ * question id. They turn a period into a date with its working shown, through
+ * the deadline engine the render door already calls. `dateQuestions` tells the
+ * page which dates set a deadline at this step, so it asks only those. A date
+ * that cannot be read is dropped and the period is shown, as before.
  */
 
 import { NextResponse } from "next/server";
 
 import { renderStageAnswerOrRefuse } from "../../../../src/lib/content-library/stageAnswerView";
 import { findStage, isSpecialStage } from "../../../../src/lib/case-system/stage-map/stageMap";
+import { caseDatesFrom } from "../../../../src/lib/case-system/deadlines/deadlineEvents";
+import { dateQuestionsForStep, isDateQuestionId } from "../../../../src/lib/case-system/casePosition";
 import {
   STAGE_ANSWER_UNAVAILABLE_MESSAGE,
   STAGE_SCOPE_UNCONFIRMED_MESSAGE,
@@ -30,6 +38,7 @@ type Body = {
   stageId?: unknown;
   courtPath?: unknown;
   confirmedFacts?: unknown;
+  dateAnswers?: unknown;
 };
 
 export async function POST(request: Request) {
@@ -65,15 +74,27 @@ export async function POST(request: Request) {
     }
   }
 
-  const outcome = renderStageAnswerOrRefuse(stageId, facts, {}, scope);
+  const answers: Record<string, string> = {};
+  if (body.dateAnswers && typeof body.dateAnswers === "object") {
+    for (const [key, value] of Object.entries(body.dateAnswers as Record<string, unknown>)) {
+      if (isDateQuestionId(key) && typeof value === "string" && value.length <= 32) answers[key] = value;
+    }
+  }
+  const dates = caseDatesFrom(answers);
+
+  const outcome = renderStageAnswerOrRefuse(stageId, facts, dates, scope);
 
   if (outcome.kind === "rendered") {
-    return NextResponse.json({ outcome: "rendered", answer: outcome.answer });
+    return NextResponse.json({
+      outcome: "rendered",
+      answer: outcome.answer,
+      dateQuestions: dateQuestionsForStep(stageId),
+    });
   }
 
   if (outcome.refusal.reason === "fact-not-confirmed") {
     const alternative = outcome.refusal.generalAlternative;
-    const general = alternative ? renderStageAnswerOrRefuse(alternative, facts, {}, scope) : null;
+    const general = alternative ? renderStageAnswerOrRefuse(alternative, facts, dates, scope) : null;
     return NextResponse.json({
       outcome: "needs-a-fact",
       question: outcome.refusal.question,

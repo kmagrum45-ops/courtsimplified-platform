@@ -34,6 +34,17 @@ function signUpErrorMessage(error: AuthError): string {
   }
 }
 
+/**
+ * Where to go after signing in: the page that sent the user here (?next=), or
+ * the dashboard. Only a path on this site is accepted — "//elsewhere.com" or a
+ * full URL would make this an open redirect.
+ */
+function afterSignIn(): string {
+  if (typeof window === "undefined") return "/dashboard";
+  const next = new URLSearchParams(window.location.search).get("next") || "";
+  return /^\/(?![\/\\])[^\s]*$/.test(next) ? next : "/dashboard";
+}
+
 export default function LoginPage() {
   const router = useRouter();
 
@@ -81,7 +92,7 @@ export default function LoginPage() {
         // user the truth for that configuration instead.
         if (data.session) {
           resetIntakeInBrowser(); // a new account starts with nothing from this browser
-          router.push("/dashboard");
+          router.push(afterSignIn());
           return;
         }
 
@@ -108,7 +119,7 @@ export default function LoginPage() {
        * story pre-filled in the Small Claims intake.)
        */
       resetIntakeInBrowser();
-      router.push("/dashboard");
+      router.push(afterSignIn());
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {

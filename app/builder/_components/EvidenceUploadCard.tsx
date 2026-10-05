@@ -89,7 +89,17 @@ async function uploadOne(caseId: string, file: File): Promise<void> {
   }
 }
 
-export default function EvidenceUploadCard({ caseId }: { caseId: string | null }) {
+export default function EvidenceUploadCard({
+  caseId,
+  onUploaded,
+  showDocumentsLink = true,
+}: {
+  caseId: string | null;
+  /** Called after a batch finishes, so a document list beside the card can refresh. */
+  onUploaded?: () => void;
+  /** Off on the case page's Documents section, where the list is right below. */
+  showDocumentsLink?: boolean;
+}) {
   const input = useRef<HTMLInputElement>(null);
   const [rows, setRows] = useState<UploadRow[]>([]);
   const [busy, setBusy] = useState(false);
@@ -112,6 +122,7 @@ export default function EvidenceUploadCard({ caseId }: { caseId: string | null }
     }
     setBusy(false);
     if (input.current) input.current.value = "";
+    onUploaded?.();
   }
 
   return (
@@ -120,8 +131,10 @@ export default function EvidenceUploadCard({ caseId }: { caseId: string | null }
       <p className="mt-2 text-sm text-[#4d675f]">
         Receipts, photos, messages, invoices, contracts: anything that shows what happened. You can add
         PDFs, pictures and Word files, up to 25 MB each. Files you add here are uploaded and stored
-        privately with your case, and only you can see them. (The document list in the intake did not
-        upload anything; this is where files are actually saved.)
+        privately with your case, and only you can see them.
+        {showDocumentsLink
+          ? " (The document list in the intake did not upload anything; this is where files are actually saved.)"
+          : ""}
       </p>
 
       {!caseId ? (
@@ -156,12 +169,14 @@ export default function EvidenceUploadCard({ caseId }: { caseId: string | null }
               ))}
             </ul>
           ) : null}
-          <a
-            href={`/case-workspace/${caseId}`}
-            className="mt-4 inline-block text-sm font-semibold text-[#2f7d67] underline"
-          >
-            See and organize all your documents
-          </a>
+          {showDocumentsLink ? (
+            <a
+              href={`/cases/${encodeURIComponent(caseId)}/documents`}
+              className="mt-4 inline-block text-sm font-semibold text-[#2f7d67] underline"
+            >
+              See and organize all your documents
+            </a>
+          ) : null}
         </>
       )}
     </section>

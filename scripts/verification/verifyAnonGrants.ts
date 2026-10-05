@@ -56,11 +56,11 @@ const CASE_TABLES = [
 const LEGITIMATE_ANON_READS: { table: string; reader: string }[] = [
   {
     table: "court_form_library",
-    reader: "app/forms/page.tsx — bare anon client, no session",
+    reader: "app/forms/FormsWorkspace.tsx — bare anon client, no session",
   },
   {
     table: "pdf_overlay_fields",
-    reader: "app/forms/page.tsx — bare anon client, no session",
+    reader: "app/forms/FormsWorkspace.tsx — bare anon client, no session",
   },
   {
     table: "court_forms",

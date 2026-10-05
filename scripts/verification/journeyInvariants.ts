@@ -190,7 +190,9 @@ function checkI1Runtime(run: PipelineRun): Violation[] {
  */
 const STATIC_SCAN_FILES = [
   "app/dashboard/page.tsx",
-  "app/dashboard/cases/[id]/page.tsx",
+  // The case page replaced app/dashboard/cases/[id] on 2026-10-04.
+  "app/cases/[id]/page.tsx",
+  "app/cases/[id]/layout.tsx",
   "src/lib/case-system/dashboardEngine.ts",
   "src/lib/case-system/dashboard/dashboardAdapter.ts",
   "src/lib/case-system/intelligence/courtSimplifiedBrain.ts",

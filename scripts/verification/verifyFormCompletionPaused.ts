@@ -52,8 +52,10 @@ if (!FORM_COMPLETION_PAUSED) {
   check("route: refusal is a 503 carrying the paused message", /FORM_COMPLETION_PAUSED_MESSAGE[^;]*status:\s*503/.test(post.slice(0, 400)));
 
   // 2. The page: the default export returns the notice first.
-  const page = read("app/forms/page.tsx");
-  const exp = page.slice(page.indexOf("export default function FormsPage()"));
+  // The tool moved to FormsWorkspace.tsx on 2026-10-04 so the case page can
+  // render it too; /forms and the case page both render its default export.
+  const page = read("app/forms/FormsWorkspace.tsx");
+  const exp = page.slice(page.indexOf("export default function FormsWorkspace("));
   check(
     "page: /forms renders the paused notice while paused",
     /^[^]*?\{\s*(\/\/[^\n]*\n\s*)*if \(FORM_COMPLETION_PAUSED\) return <FormsPausedNotice \/>/.test(exp.slice(0, 300)),

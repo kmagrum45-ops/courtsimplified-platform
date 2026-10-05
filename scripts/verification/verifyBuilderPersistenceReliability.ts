@@ -61,7 +61,8 @@ const builderSource = readFileSync("app/builder/page.tsx", "utf8");
 assert.match(
   builderSource,
   // Property, not spelling: the payload is now `{ ...masterPayload, ... }` (2026-09-28).
-  /\.update\(\{[\s\S]*master_result:[^\n]*masterPayload[\s\S]*\}\)\s*\.eq\("id", activeId\)/,
+  // and may span lines (2026-10-04: it gained a preserved `position`).
+  /\.update\(\{[\s\S]*master_result:\s*\{?\s*\.\.\.masterPayload[\s\S]*\}\)\s*\.eq\("id", activeId\)/,
   "An authorized selected case must retain the canonical Supabase master_result update",
 );
 assert.match(

@@ -407,7 +407,7 @@ function EvidencePageContent() {
   }
 
   const workspaceHref = caseIdFromUrl
-    ? `/dashboard/cases/${caseIdFromUrl}`
+    ? `/cases/${caseIdFromUrl}`
     : "/dashboard";
 
   const builderHref = buildWorkflowHref("/builder", caseIdFromUrl, casePath);

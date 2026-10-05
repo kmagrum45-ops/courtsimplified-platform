@@ -472,7 +472,7 @@ function DocumentWorkspacePageContent() {
     return getSystemWarnings(workspaceDocument, context);
   }, [workspaceDocument, context]);
 
-  const workspaceHref = caseId ? `/dashboard/cases/${caseId}` : "/dashboard";
+  const workspaceHref = caseId ? `/cases/${caseId}` : "/dashboard";
   const builderHref = buildWorkflowHref("/builder", caseId, path);
   const evidenceHref = buildWorkflowHref("/evidence", caseId, path);
   const formsHref = buildWorkflowHref("/forms", caseId, path);

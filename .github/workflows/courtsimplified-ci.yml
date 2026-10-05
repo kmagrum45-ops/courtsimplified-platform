@@ -233,6 +233,9 @@ jobs:
       - name: Case file summary sentence is well formed and carries no verdict
         run: npm run test:case-file-summary
 
+      - name: Case position stores only what the user confirmed, and reaches the deadlines
+        run: npm run test:case-position
+
       - name: Production build
         run: npm run build
 

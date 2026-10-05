@@ -98,7 +98,7 @@ function LegalPrinciplesPageContent() {
     }, {});
   }, []);
 
-  const workspaceHref = caseId ? `/dashboard/cases/${caseId}` : "/dashboard";
+  const workspaceHref = caseId ? `/cases/${caseId}` : "/dashboard";
   const evidenceHref = buildWorkflowHref("/evidence", caseId, path);
   const formsHref = buildWorkflowHref("/forms", caseId, path);
   const strategyHref = buildWorkflowHref("/litigation-strategy", caseId, path);

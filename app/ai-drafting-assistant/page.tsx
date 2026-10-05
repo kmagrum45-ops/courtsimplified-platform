@@ -202,7 +202,7 @@ function AiDraftingAssistantPageContent() {
     return getWorkspaceHealth(workspaceDocument);
   }, [workspaceDocument]);
 
-  const workspaceHref = caseId ? `/dashboard/cases/${caseId}` : "/dashboard";
+  const workspaceHref = caseId ? `/cases/${caseId}` : "/dashboard";
   const documentWorkspaceHref = buildWorkflowHref(
     "/document-workspace",
     caseId,
