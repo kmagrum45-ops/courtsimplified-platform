@@ -34,6 +34,45 @@ replacement for these):
 
 ## Techniques that work
 
+### Cutting e-Laws text into citable passages: what the structure really is (2026-10-05)
+
+`src/lib/case-system/retrieval/corpusChunker.ts` cuts the corpus into
+passages for meaning-based retrieval, each labelled with its provision. What
+it took to make the label true, measured on all 206 vendored files:
+
+- **Three section styles, one of them ambiguous.** "46 (1)  On application"
+  (statutes), "1.03  (1)  The" (rules), and the older "3.  In any action"
+  (Negligence Act, most regulations) -- which looks exactly like a numbered
+  paragraph ("2.    The date a divorce is granted"). They differ by
+  layout: a paragraph's text is aligned to a fixed column, so its number is
+  followed by 3+ spaces; a section's by 2.
+- **The first amendment-history citation after a section names it** when the
+  section is unamended ("R.S.O. 1990, c. N.1, s. 3"). An amended section's
+  history names the AMENDING act ("2009, c. 11, s. 35" after FLA s. 46 (1)),
+  so history can confirm a section but not deny one -- unless it is a
+  citation of the instrument's own chapter naming a different number, which
+  means the candidate is a wrapped cross-reference ("20.10 (7).  O. Reg.
+  258/98, r. 20.03." is the END of r. 20.03).
+- **"Next number must be greater" fails greedily.** One stray accepted number
+  blocked Insurance Act ss. 100-109 (sections 67-99 are repealed, so the gap
+  is real) and Small Claims rr. 20.04-20.09. Use the heaviest increasing run
+  of candidates instead, weighting history-confirmed ones.
+- **Rule numbers sort by the two-digit subrule**: "24.1.01" is rule 24.1,
+  subrule 1, and comes after "24.05"; "1.03.1" is rule 1, subrule 3.1.
+- **A partly revoked section still starts on its revoked line**: civil
+  "20.04  (1)  Revoked: ..." is followed by (2), the summary judgment test.
+  Drop only lines where the WHOLE provision is gone.
+- **Not-in-force replacements have no end marker.** After "Note: On a day to
+  be named ... the following substituted: (See: 2025, c. 6, Sched. 6,
+  s. 1 (1))" the replacement runs until the amending act's own citation
+  reappears -- for a substituted subsection. A substituted PARAGRAPH carries
+  no citation; it ends where the next paragraph starts. The "(See: ...)"
+  reference itself can wrap onto the next line.
+- Justice Laws (federal) text has no numbered-paragraph ambiguity
+  (paragraphs are "(a)") and its history cites amending acts only.
+
+The `test:corpus-retrieval` suite keeps each of these as a reference case.
+
 ### Courthouse addresses: the Superior Court's own location pages (2026-09-30)
 
 `https://www.ontariocourts.ca/scj/court-locations/all-court-locations/` links

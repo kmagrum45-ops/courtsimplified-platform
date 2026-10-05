@@ -5,7 +5,8 @@
       "ai-diag-*": false,
       "ai-model-diagnostics*": false,
       "*-reports": false,
-      "sources-vendor-*": false
+      "sources-vendor-*": false,
+      "corpus-index-*": false
     }
   }
 }

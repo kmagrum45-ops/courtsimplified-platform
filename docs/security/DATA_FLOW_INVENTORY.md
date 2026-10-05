@@ -328,6 +328,7 @@ rather than a migration replay.
 | `intake/claimTypeAiClassifier.ts` | The user's story text |
 | `intake/explainQuestion.ts` | Question context |
 | `intelligence/courtPathClassifier.ts` | The user's story text |
+| `retrieval/storyRetrieval.ts` (added 2026-10-05) | The story text, to write legal search phrases (told to leave out names and personal details); then those phrases, never the story, to the embeddings endpoint |
 
 **The brain payload is the significant one.** `buildCognitionPrompt`
 (`courtSimplifiedBrain.ts:1816`) interpolates

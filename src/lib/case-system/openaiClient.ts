@@ -149,6 +149,20 @@ export function forceNoStore<T>(client: T): T {
       )) as never;
   }
 
+  /*
+   * `embeddings.create` -- added 2026-10-05 for meaning-based retrieval over
+   * the corpus (retrieval/storyRetrieval.ts). Embeddings have no `store`
+   * parameter and are not retained as completions are, so nothing is forced
+   * here; it is wrapped so the call is in the audit log like every other.
+   * What it is sent is the AI-written legal search phrases, not the story.
+   */
+  const embeddings = (client as unknown as { embeddings?: { create?: unknown } }).embeddings;
+  if (embeddings && typeof embeddings.create === "function") {
+    const embeddingsCreate = (embeddings.create as (...args: unknown[]) => unknown).bind(embeddings);
+    embeddings.create = ((body: Record<string, unknown>, options?: unknown) =>
+      observeAiCall(body, async () => embeddingsCreate(body, options))) as never;
+  }
+
   return client;
 }
 
