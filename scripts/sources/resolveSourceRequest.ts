@@ -36,12 +36,12 @@ export type Proposal = {
   jurisdiction: "ontario" | "canada";
   /** e-Laws document code: "90h08" for R.S.O. 1990, c. H.8; "100034" for O. Reg. 34/10. */
   elawsCode?: string;
-  /** Justice Laws path: "acts/C-46" or "regulations/SOR-97-175". */
+  /** Justice Laws path: "acts/C-46", "regulations/SOR-97-175", or "Const" (the Constitution Acts, which hold the Charter). */
   justiceLawsPath?: string;
 };
 
 const SYSTEM = `You map the name of a Canadian or Ontario law to its official online text. Return JSON only:
-{"title": "<the law's exact short title as printed at the top of the official text>", "citation": "<e.g. R.S.O. 1990, c. H.8 or O. Reg. 34/10 or R.S.C. 1985, c. C-46>", "jurisdiction": "ontario" | "canada", "elawsCode": "<for Ontario: the e-Laws document code, e.g. 90h08 for R.S.O. 1990, c. H.8, 02l24 for S.O. 2002, c. 24, Sched. B, 100034 for O. Reg. 34/10>", "justiceLawsPath": "<for federal: acts/C-46 or regulations/SOR-97-175>"}
+{"title": "<the law's exact short title as printed at the top of the official text>", "citation": "<e.g. R.S.O. 1990, c. H.8 or O. Reg. 34/10 or R.S.C. 1985, c. C-46>", "jurisdiction": "ontario" | "canada", "elawsCode": "<for Ontario: the e-Laws document code, e.g. 90h08 for R.S.O. 1990, c. H.8, 02l24 for S.O. 2002, c. 24, Sched. B, 100034 for O. Reg. 34/10>", "justiceLawsPath": "<for federal: acts/C-46 or regulations/SOR-97-175; for the Constitution Acts, including the Canadian Charter of Rights and Freedoms, exactly Const>"}
 If you do not know the code or path with confidence, omit it.`;
 
 /** Kebab-case id from a title. Pure; exported for the suite. */
@@ -77,7 +77,7 @@ export function declarationFor(proposal: Proposal, requestedAs: string): CorpusS
       why: `Named as missing by the research step ("${requestedAs.slice(0, 160)}").`,
     };
   }
-  if (proposal.jurisdiction === "canada" && proposal.justiceLawsPath && /^(acts\/[A-Z0-9.-]+|regulations\/[A-Z0-9.-]+)$/.test(proposal.justiceLawsPath)) {
+  if (proposal.jurisdiction === "canada" && proposal.justiceLawsPath && /^(acts\/[A-Z0-9.-]+|regulations\/[A-Z0-9.-]+|Const)$/.test(proposal.justiceLawsPath)) {
     return {
       id,
       title,
