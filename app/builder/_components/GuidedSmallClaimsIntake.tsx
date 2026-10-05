@@ -9,7 +9,7 @@
  * feed into the builder's case-save/analysis pipeline the form path uses.
  */
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type {
   ConfirmedStoryAnswer,
   StoryAnswerProposal,
@@ -18,6 +18,7 @@ import type {
 import { supabase } from "../../../src/lib/supabase/client";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
+import { SourcedQuestionsCard, sourcedAnswersText, useSourcedQuestions } from "./SourcedQuestions";
 
 type IntakeFacts = Record<string, string | number | boolean>;
 
@@ -186,6 +187,18 @@ export type GuidedIntakeCompletionResult = {
    * skipped, which is a legitimate state, not a failure.
    */
   elementStateMap?: Record<string, unknown>;
+  /**
+   * The story as the person actually sent it in the chat. The page used to
+   * map its own copy (the home-page story the box was prefilled with), so an
+   * edited or newly typed story never reached the analysis.
+   */
+  storyText?: string;
+  /**
+   * Answers to the questions written from the law that applies
+   * (SourcedQuestions.tsx), as text to add to the story; absent when none
+   * were answered.
+   */
+  followUpText?: string;
 };
 
 /**
@@ -468,6 +481,9 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
   // Retained so onComplete fires with the same facts/answeredIds the
   // completing turn produced, rather than whatever state has become since.
   const [completionPayload, setCompletionPayload] = useState<GuidedIntakeCompletionResult | null>(null);
+  const sourced = useSourcedQuestions("small-claims");
+  const [heldPayload, setHeldPayload] = useState<GuidedIntakeCompletionResult | null>(null);
+  const storyRef = useRef("");
   // 2026-09-28. "Here's what I understood" -- answers the opening story
   // already gives, awaiting the user's confirmation. Null when none pending.
   const [proposalDrafts, setProposalDrafts] = useState<ProposalDraft[] | null>(null);
@@ -604,6 +620,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
           facts: result.facts,
           answeredIds: result.answeredIds,
           matchedClaimType: matchedClaimTypeThisTurn,
+          ...(storyRef.current ? { storyText: storyRef.current } : {}),
         };
 
         // Depth phase runs only on a CONFIRMED claim type. Without one there
@@ -619,7 +636,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
           void startDepthPhase(matchedClaimTypeThisTurn.claimTypeId, result.facts, payload);
         } else {
           setMessages((current) => [...current, { from: "assistant", text: INTAKE_CLOSING_LINE }]);
-          onComplete?.(payload);
+          completeWithSourced(payload);
         }
         return;
       }
@@ -718,7 +735,11 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
     setStarted(true);
     setMessages((current) => [...current, { from: "user", text: inputText }]);
     const story = inputText;
+    storyRef.current = story;
     setInputText("");
+    // The law that applies is researched while the guided questions run, so
+    // its questions are ready when they end.
+    void sourced.start(story);
     void sendTurn(story, answeredIds, facts);
   }
 
@@ -877,6 +898,32 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
       setLoading(false);
     }
   }
+
+  // No hand-written questions for this kind of claim: before the analysis,
+  // ask the ones written from the law that applies, if research found any.
+  // Held while they load; released at once when there are none. A claim
+  // type with its own reviewed questions (the depth phase) uses those.
+  function completeWithSourced(payload: GuidedIntakeCompletionResult) {
+    if (sourced.state === "loading" || (sourced.state === "ready" && sourced.questions.length > 0)) {
+      setHeldPayload(payload);
+      return;
+    }
+    onComplete?.(payload);
+  }
+
+  function releaseHeld() {
+    if (!heldPayload) return;
+    const followUpText = sourcedAnswersText(sourced.questions, sourced.answers);
+    setHeldPayload(null);
+    onComplete?.({ ...heldPayload, ...(followUpText ? { followUpText } : {}) });
+  }
+
+  useEffect(() => {
+    if (heldPayload && (sourced.state === "none" || sourced.state === "idle")) {
+      setHeldPayload(null);
+      onComplete?.(heldPayload);
+    }
+  }, [heldPayload, sourced.state, onComplete]);
 
   function finishDepthPhase(
     stateMap: Record<string, unknown> | null,
@@ -1262,6 +1309,24 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
             Question {depthIndex + 1} of {depthQuestions.length}. Answering is optional — if you
             don&apos;t know, say so and we&apos;ll record that.
           </span>
+        </div>
+      ) : null}
+
+      {!halted && heldPayload ? (
+        <div className="mt-4">
+          <SourcedQuestionsCard
+            state={sourced.state}
+            questions={sourced.questions}
+            answers={sourced.answers}
+            setAnswer={sourced.setAnswer}
+          />
+          <button
+            type="button"
+            onClick={releaseHeld}
+            className="mt-3 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
+          >
+            {sourced.state === "loading" ? "Skip and continue" : "Continue to your next steps"}
+          </button>
         </div>
       ) : null}
 

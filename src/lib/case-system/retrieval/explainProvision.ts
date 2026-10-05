@@ -118,6 +118,31 @@ Return JSON: {"unsupported": ["..."], "missing": ["..."]}, with empty lists if t
 
 const numbers = (text: string) => (text.match(/\d+(?:[.,]\d+)*/g) ?? []).map((n) => n.replace(/,/g, ""));
 
+/** The first number in `text` that `source` does not contain, or null. Pure; shared with sourcedQuestions.ts. */
+export function numberNotInSource(text: string, source: string): string | null {
+  const allowed = new Set(numbers(source));
+  for (const n of numbers(text)) if (!allowed.has(n)) return n;
+  return null;
+}
+
+/**
+ * The first outcome or merits term (caseStrengthLanguageValidator) in `text`
+ * that the provision itself does not use, or null. Pure; shared with
+ * sourcedQuestions.ts.
+ */
+export function outcomeTermNotInProvision(text: string, provisionText: string): string | null {
+  const provisionLower = provisionText.toLowerCase();
+  let rest = text.toLowerCase();
+  for (let guard = 0; guard < 20; guard += 1) {
+    const strength = validateCaseStrengthLanguage(rest);
+    if (strength.valid) return null;
+    const term = strength.matchedTerm ?? "";
+    if (!term || !provisionLower.includes(term)) return term || "outcome wording";
+    rest = rest.split(term).join(" ");
+  }
+  return null;
+}
+
 const ADVICE = [/\byou should\b/i, /\byour (?:case|claim|chances?)\b/i, /\bchances?\b/i, /\blikely to (?:win|succeed|lose)\b/i];
 
 /** Why an explanation must not be shown, or null when code finds nothing wrong. Pure; exported for the suite. */
@@ -125,23 +150,16 @@ export function explanationRejection(provision: ProvisionForExplaining, explanat
   const text = explanation.trim();
   if (text.length < 40) return "too short";
   if (text.length > MAX_EXPLANATION_LENGTH) return "too long";
-  const allowed = new Set(numbers(`${provision.citation}\n${provision.text}`));
-  for (const n of numbers(text)) if (!allowed.has(n)) return `number "${n}" is not in the provision`;
+  const stray = numberNotInSource(text, `${provision.citation}\n${provision.text}`);
+  if (stray) return `number "${stray}" is not in the provision`;
   // The deny-list is written for wording about a person's case. A provision
   // can use one of its terms as plain law -- CRA s. 12 says a consumer "may
   // dispute" an entry, ESA s. 1 that a provision "prevails" -- and repeating
   // the law's own word is not grading anyone's case. Measured 2026-10-05: two
   // of nine withheld explanations were refused only for that. A term counts
   // only when the provision does not use it.
-  const provisionLower = provision.text.toLowerCase();
-  let rest = text.toLowerCase();
-  for (let guard = 0; guard < 20; guard += 1) {
-    const strength = validateCaseStrengthLanguage(rest);
-    if (strength.valid) break;
-    const term = strength.matchedTerm ?? "";
-    if (!term || !provisionLower.includes(term)) return `outcome wording "${term}"`;
-    rest = rest.split(term).join(" ");
-  }
+  const term = outcomeTermNotInProvision(text, provision.text);
+  if (term) return `outcome wording "${term}"`;
   for (const pattern of ADVICE) if (pattern.test(text)) return "advice addressed to the reader";
   return null;
 }

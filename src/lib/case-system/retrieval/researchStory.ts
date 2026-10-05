@@ -102,6 +102,8 @@ export type ResearchDeps = {
     passagesByIssue: ReadonlyMap<string, readonly Passage[]>,
   ) => Promise<unknown>;
   embed?: (texts: string[], model: string, dimensions: number) => Promise<number[][]>;
+  /** Overrides the 45 s budget, for a caller with work of its own to fit in. */
+  timeoutMs?: number;
 };
 
 // ------------------------------------------------------------ prompts
@@ -367,7 +369,7 @@ export async function researchStory(input: RetrievalInput, deps: ResearchDeps = 
   try {
     let timer: ReturnType<typeof setTimeout> | undefined;
     const timeout = new Promise<ResearchResult>((resolve) => {
-      timer = setTimeout(() => resolve(empty("timeout")), RESEARCH_TIMEOUT_MS);
+      timer = setTimeout(() => resolve(empty("timeout")), deps.timeoutMs ?? RESEARCH_TIMEOUT_MS);
     });
     const result = await Promise.race([work(), timeout]);
     if (timer) clearTimeout(timer);
