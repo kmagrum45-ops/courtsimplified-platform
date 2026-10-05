@@ -47,6 +47,37 @@ const VECTORS = path.join(OUT, "corpus-vectors.bin");
 const MODEL = process.env.AI_EMBEDDING_MODEL || "text-embedding-3-large";
 const DIMENSIONS = Number(process.env.AI_EMBEDDING_DIMENSIONS || 256);
 const BATCH = 200;
+const TOKENS_PER_MINUTE = Number(process.env.AI_EMBEDDING_TPM || 700_000);
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+type EmbeddingsClient = {
+  embeddings: {
+    create: (body: { model: string; input: string[]; dimensions: number }) => Promise<{ data: { index: number; embedding: number[] }[] }>;
+  };
+};
+
+/**
+ * A rate-limit rejection here is a per-minute limit that clears in seconds
+ * (the API says how many), unlike the daily cap that made the app's client
+ * never retry (openaiClient.ts). So this build script waits and retries; the
+ * app's own calls still never do.
+ */
+async function embedWithRetry(client: EmbeddingsClient, input: string[]) {
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      return await client.embeddings.create({ model: MODEL, input, dimensions: DIMENSIONS });
+    } catch (error) {
+      const status = (error as { status?: number })?.status;
+      if (status !== 429 || attempt >= 6) throw error;
+      const message = error instanceof Error ? error.message : "";
+      const hint = /try again in ([\d.]+)(ms|s)/i.exec(message);
+      const wait = hint ? Number(hint[1]) * (hint[2] === "ms" ? 1 : 1000) : 10_000;
+      console.log(`  rate limited; waiting ${Math.ceil(wait / 1000) + 2}s (attempt ${attempt})`);
+      await sleep(wait + 2_000);
+    }
+  }
+}
 
 type ManifestEntry = { id: string; title: string; citation?: string; url: string; file: string };
 
@@ -93,10 +124,23 @@ async function main() {
   if (todo.length > 0) {
     if (!process.env.OPENAI_API_KEY) throw new Error("OPENAI_API_KEY is not set; nothing embedded.");
     const { createOpenAIClient } = await import("../../src/lib/case-system/openaiClient");
-    const client = createOpenAIClient();
+    const client = createOpenAIClient() as unknown as EmbeddingsClient;
+    const window: { at: number; tokens: number }[] = [];
     for (let start = 0; start < todo.length; start += BATCH) {
       const batch = todo.slice(start, start + BATCH);
-      const response = await client.embeddings.create({ model: MODEL, input: batch.map((row) => row.input), dimensions: DIMENSIONS });
+      // Stay under the organisation's tokens-per-minute limit (1,000,000 for
+      // this model, measured 2026-10-05: the first full build hit it at 5,000
+      // of 10,758 passages). About four characters a token, with headroom.
+      const tokens = Math.ceil(batch.reduce((sum, row) => sum + row.input.length, 0) / 3.5);
+      for (;;) {
+        const now = Date.now();
+        while (window.length && now - window[0].at > 60_000) window.shift();
+        const used = window.reduce((sum, entry) => sum + entry.tokens, 0);
+        if (used + tokens <= TOKENS_PER_MINUTE) break;
+        await sleep(60_000 - (now - window[0].at) + 250);
+      }
+      window.push({ at: Date.now(), tokens });
+      const response = await embedWithRetry(client, batch.map((row) => row.input));
       const ordered = response.data.sort((a, b) => a.index - b.index);
       if (ordered.length !== batch.length) throw new Error(`Batch at ${start}: asked for ${batch.length} vectors, got ${ordered.length}.`);
       ordered.forEach((row, offset) => reuse.set(batch[offset].hash, quantize(row.embedding as number[])));
