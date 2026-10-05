@@ -20,9 +20,12 @@ import FormsNamedHere from "../../_components/FormsNamedHere";
 export default function NextStepsCard({
   pathway,
   stage,
+  userWords = "",
 }: {
   pathway: "family" | "civil";
   stage: string;
+  /** The user's own story and answers; see FormsNamedHere. */
+  userWords?: string;
 }) {
   const block = nextStepBlockFor(pathway, stage);
   if (!block || isPlaceholder(block)) return null;
@@ -36,7 +39,7 @@ export default function NextStepsCard({
       <h3 className="text-lg font-bold text-[#10231f]">{block.title}</h3>
       <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{block.text}</p>
       <div className="mt-3">
-        <FormsNamedHere texts={[block.text]} court={pathway} />
+        <FormsNamedHere texts={[block.text]} court={pathway} userWords={userWords} />
       </div>
       {source && (
         <p className="mt-3 text-sm text-[#2b4640]">

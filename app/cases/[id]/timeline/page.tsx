@@ -18,13 +18,17 @@ import { builderHref, useCaseHome } from "../../_components/CaseHomeContext";
  * (page walkthrough). Each is recorded only when the user confirms it.
  */
 export default function CaseTimelineSection() {
-  const { caseRecord } = useCaseHome();
+  const { caseRecord, courtPath } = useCaseHome();
+  // Steps can be recorded only for Small Claims (see CaseTimeline's canRecord).
+  const canRecord = courtPath === "small-claims";
   const [refresh, setRefresh] = useState(0);
   return (
     <div className="space-y-8">
-      <EventCandidateSurface caseId={caseRecord.id} onRecorded={() => setRefresh((value) => value + 1)} />
+      {canRecord ? (
+        <EventCandidateSurface caseId={caseRecord.id} onRecorded={() => setRefresh((value) => value + 1)} />
+      ) : null}
       <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
-        <CaseTimeline key={refresh} caseId={caseRecord.id} updateHref={builderHref(caseRecord)} />
+        <CaseTimeline key={refresh} caseId={caseRecord.id} updateHref={builderHref(caseRecord)} canRecord={canRecord} />
       </section>
       <section aria-labelledby="chronology-heading">
         <h2 id="chronology-heading" className="mb-3 text-xl font-bold text-[#10231f]">

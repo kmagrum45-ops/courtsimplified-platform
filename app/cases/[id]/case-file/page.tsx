@@ -121,7 +121,11 @@ export default function CaseFileSection() {
               ))}
             </ul>
           ) : (
-            <p>None yet. Give the dates on the Overview tab and the deadlines for your step are worked out for you.</p>
+            <p>
+              {caseRecord.court_path === "small-claims"
+                ? "None yet. Give the dates asked for under \u201cYour next step\u201d on the Overview tab, and the deadlines for your step are worked out for you."
+                : "For this court, deadlines are shown as time periods, each with its rule, in your next step on the Overview tab."}
+            </p>
           )}
         </FileSection>
 

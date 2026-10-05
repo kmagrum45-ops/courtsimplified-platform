@@ -502,6 +502,38 @@ that check exists to force.
 
 ---
 
+## Decision 5, finished: the dates now reach a reader (2026-10-04)
+
+Decision 5 wired the engine to `resolve-stage`, and the 2026-10-01 entry above
+records that `resolve-stage` had **no caller**: the panel that replaced it,
+`StageAnswerPanel` → `POST /api/case/stage-answer`, passed `{}` as the dates. So
+until 2026-10-04 no user ever saw a computed date. Three separate things were
+missing, and each one alone kept the dates dark:
+
+| Missing | Fixed by |
+|---|---|
+| No page asked the date questions | `StageAnswerPanel` asks the date questions that set a deadline at the chosen step (`dateQuestionsForStep`) and shows the computed date with its working |
+| `stage-answer` ignored dates | It now takes `dateAnswers` (keyed by question id), runs `caseDatesFrom`, and returns `dateQuestions` |
+| Nothing kept the answers | `master_result.position` (`src/lib/case-system/casePosition.ts`, written by `POST /api/cases/position`) holds the confirmed stage, the chosen step and the dates. The builder's re-save preserves it, re-reading it just before writing |
+
+**A bug this exposed in the workspace.** `GET /api/workspace/organisation?view=timeline`
+looked the stage up with `CASE_STAGES.find(candidate => candidate.id === court_path)`
+— a stage id against a court path, which never matches — and read
+`master_result.dateAnswers`, which nothing wrote. Its Deadlines view had therefore
+been empty since it was built, and every rule link pointed at O. Reg. 258/98
+whatever the deadline's source. It now reads `position.stepId` and
+`position.dateAnswers`, and links each rule through `officialUrl(rule)`.
+**Lesson: a view that has only ever shown its empty state is not proven to work.**
+
+**Suggestions, never answers.** Two sources pre-fill the date questions, both
+shown beside the field and applied only when the user accepts:
+exact, calendar-picked dates already on the timeline (`suggestedDatesFromEvents`;
+claim served, defence filed), and the user's own story (`storyHintsForDates`). A
+story date is offered only with its year; "The papers came on September 25" is
+quoted back and nothing is filled in, because choosing the year would be the site
+guessing the date a deadline runs from — the conversion `POST /api/cases/events`
+refuses to make. `test:case-position` holds all of this.
+
 ## The three pre-suit notice stages, and the four gates it took
 
 All three are published. `before-filing:notice-municipality`,

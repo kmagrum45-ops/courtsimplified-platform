@@ -26,7 +26,12 @@
 
 import { existsSync, readFileSync } from "node:fs";
 
-import { formNumbersNamedIn, officialFormsNamedIn } from "../../src/lib/content-library/forms/formsInText";
+import {
+  formNumbersNamedIn,
+  officialFormsNamedIn,
+  relevantToFamilyCase,
+  userWordsOf,
+} from "../../src/lib/content-library/forms/formsInText";
 import path from "node:path";
 
 import { parseFormsPage } from "../forms/fetchOfficialFormLinks";
@@ -111,6 +116,16 @@ if (!existsSync(linksFile)) {
   const panel = readFileSync(path.join(process.cwd(), "app/builder/_components/StageAnswerPanel.tsx"), "utf8");
   const card = readFileSync(path.join(process.cwd(), "app/builder/_components/NextStepsCard.tsx"), "utf8");
   check("every next-step answer links the forms it names", /<FormsNamedHere/.test(panel) && /<FormsNamedHere/.test(card));
+  const protection = officialFormsNamedIn(["serve an answer (Form 10, 33B.1)"], "family");
+  check(
+    "a family case lists a child-protection form only when the user's own words mention it",
+    protection.filter((form) => relevantToFamilyCase(form, "We separated and he stopped paying support.")).map((form) => form.number).join(",") === "10" &&
+      protection.filter((form) => relevantToFamilyCase(form, "The Children's Aid Society is involved.")).length === 2,
+  );
+  check(
+    "the family filter reads the user's fields, not the stored analysis",
+    !/divorce/i.test(userWordsOf({ facts: "We were never married.", analysis: { summary: "Divorce application" } })),
+  );
 }
 
 if (failures > 0) {

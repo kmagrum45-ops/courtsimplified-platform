@@ -48,6 +48,7 @@ import NextStepsCard from "./_components/NextStepsCard";
 import { originatingDocumentRecorded, userIsResponding } from "./_components/respondingSide";
 import { readCasePosition, storyHintsForDates } from "../../src/lib/case-system/casePosition";
 import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
+import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
 import { type CaseDraft } from "../../src/lib/case-system/drafts/caseDrafts";
 import { startingDocumentDraft } from "../../src/lib/case-system/drafts/startingDocumentDraft";
 import AiUseNotice from "../_components/AiUseNotice";
@@ -1496,7 +1497,8 @@ function BuilderPageContent() {
           overview panel and the draft, and inherited a condition that had
           nothing to do with it.
         */}
-        {savedCaseId() && !loadingExistingCase && !caseLoadError ? (
+        {/* Small Claims only: the event vocabulary and table are Small Claims (see CaseTimeline canRecord). */}
+        {savedCaseId() && courtPath === "small-claims" && !loadingExistingCase && !caseLoadError ? (
           <div className="mt-8">
             <EventCandidateSurface caseId={savedCaseId() as string} />
           </div>
@@ -1536,7 +1538,7 @@ function BuilderPageContent() {
               />
             ) : null}
             {confirmedStage && (courtPath === "family" || courtPath === "civil") ? (
-              <NextStepsCard pathway={courtPath} stage={confirmedStage} />
+              <NextStepsCard pathway={courtPath} stage={confirmedStage} userWords={userWordsOf(caseData)} />
             ) : null}
             {confirmedStage && (
               <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />

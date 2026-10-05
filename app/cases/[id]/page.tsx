@@ -30,6 +30,7 @@ import {
   type SuggestedDate,
 } from "@/src/lib/case-system/casePosition";
 import { readCaseDrafts } from "@/src/lib/case-system/drafts/caseDrafts";
+import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { authHeaders, builderHref, formatDate, useCaseHome } from "../_components/CaseHomeContext";
 
 type EventsResponse = {
@@ -217,7 +218,7 @@ export default function CaseOverviewPage() {
               storyHints={storyHintsForDates(intake?.facts)}
             />
           ) : (
-            <NextStepsCard pathway={courtPath} stage={confirmed} />
+            <NextStepsCard pathway={courtPath} stage={confirmed} userWords={userWordsOf(master.intakeData)} />
           )}
         </section>
       ) : null}
