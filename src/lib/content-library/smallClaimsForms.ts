@@ -18,8 +18,8 @@
  *
  * It does not say what a form is FOR. That is legal content, it belongs in a
  * reviewed block with a citation, and the table does not carry it — the
- * "Form Title" column is a name, not a purpose. `formKnowledgeBase.ts` holds
- * purposes, and those are in the review packet.
+ * "Form Title" column is a name, not a purpose. What a form is for lives in
+ * forms/formGuide.ts.
  */
 
 import { readFileSync } from "node:fs";

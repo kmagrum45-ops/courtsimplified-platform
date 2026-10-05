@@ -22,9 +22,10 @@
  * regulation and name its form, every live form must have a summary, and a
  * summary may not use a number its sources do not contain or read as advice.
  *
- * THIS IS THE ONE PLACE A FORM IS EXPLAINED. formKnowledgeBase.ts (12 forms,
- * unsourced) and the database's purpose column are not shown to users as
- * explanations; anything that needs to describe a form reads it from here.
+ * THIS IS THE ONE PLACE A FORM IS EXPLAINED. The database's purpose column is
+ * not shown to users as an explanation; anything that needs to describe a form
+ * reads it from here. (formKnowledgeBase.ts, an older unsourced 12-form copy,
+ * was deleted on 2026-10-04.)
  */
 
 import index from "./formRuleIndex.json";
