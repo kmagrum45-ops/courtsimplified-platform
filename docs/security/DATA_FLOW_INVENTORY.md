@@ -331,6 +331,7 @@ rather than a migration replay.
 | `retrieval/storyRetrieval.ts` (added 2026-10-05) | The story text, to write legal search phrases (told to leave out names and personal details); then those phrases, never the story, to the embeddings endpoint |
 | `retrieval/explainProvision.ts` (added 2026-10-05) | One provision's public text and its citation, to write a plain-language explanation; then the provision and that explanation to a second call that checks it. Nothing about the user or their case is sent |
 | `retrieval/researchStory.ts` (added 2026-10-05) | The story, once, to choose legal questions and write search phrases and a one-line neutral situation (told to leave out names, places, dates and amounts); then per question only that question, the situation line and library passages to a reading call -- never the story; the search phrases, never the story, to the embeddings endpoint |
+| `retrieval/sourceRequests.ts` (added 2026-10-05) | To GitHub (an issue on this repository), only with GITHUB_SOURCE_REQUEST_TOKEN set: the NAME of a law the research step said the library lacks and the court path. Never the story or anything about the person |
 
 **The brain payload is the significant one.** `buildCognitionPrompt`
 (`courtSimplifiedBrain.ts:1816`) interpolates

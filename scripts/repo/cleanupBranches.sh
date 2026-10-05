@@ -11,7 +11,7 @@
 # A branch is deleted when ANY of these holds:
 #   1. it has no commit that main lacks (compare ahead_by == 0);
 #   2. its tip is the head of a merged pull request (squash-merged work);
-#   3. it is a temporary automated run (sources-vendor-*, corpus-index-*, ai-diag-*) older
+#   3. it is a temporary automated run (sources-vendor-*, corpus-index-*, source-request-*, ai-diag-*) older
 #      than 7 days — its useful content reached main through a PR;
 #   4. it is named in EXTRA (workflow input), a deliberate decision.
 # Never deleted: main, case-workspace, the four report branches the workflows
@@ -44,7 +44,7 @@ for branch in $(gh api "repos/$REPO/branches?per_page=100" --paginate --jq '.[].
   reason="" archive=0
   if [ "$ahead" = "0" ]; then reason="all of it is in main"
   elif grep -qxF "$sha" <<<"$merged_shas"; then reason="merged by pull request"
-  elif [[ "$branch" =~ ^(sources-vendor-|corpus-index-|ai-diag-) ]] && [ "$age_days" -ge 7 ]; then reason="temporary run, $age_days days old"; archive=1
+  elif [[ "$branch" =~ ^(sources-vendor-|corpus-index-|source-request-|ai-diag-) ]] && [ "$age_days" -ge 7 ]; then reason="temporary run, $age_days days old"; archive=1
   elif tr ' ' '\n' <<<"$EXTRA" | grep -qxF -- "$branch"; then reason="named for removal"; archive=1
   fi
 

@@ -128,6 +128,7 @@ export type CorpusSource = {
   minCharacters?: number;
 };
 
+import { REQUESTED_SOURCES } from "./requestedSources";
 import { PRACTICAL_SOURCES } from "./practicalSources";
 import { NOTICE_SOURCES } from "./noticeSources";
 import { HOLIDAY_SOURCES } from "./holidaySources";
@@ -274,6 +275,8 @@ export const CORPUS_SOURCES: CorpusSource[] = [
   ...FORUM_CHECK_SOURCES,
   ...CIVIL_PROCEDURE_SOURCES,
   ...FAMILY_LAW_SOURCES,
+  // Added by the source-request workflow (requestedSources.ts).
+  ...REQUESTED_SOURCES,
 ];
 
 export function sourceTier(source: CorpusSource): CorpusTier {
