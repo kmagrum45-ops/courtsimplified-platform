@@ -61,7 +61,18 @@ const MAX_ITEMS = 24;
 const PASSAGE_CHARS_FOR_READING = 1200;
 const RESEARCH_TIMEOUT_MS = 45_000;
 
-export type ResearchIssue = { id: string; question: string; queries: string[] };
+export type ResearchIssue = {
+  id: string;
+  question: string;
+  queries: string[];
+  /**
+   * The situation in one neutral line, with no personal details, so the
+   * reading call -- which never sees the story -- can tell a provision for
+   * this situation from one for a neighbouring one (a road out of repair is
+   * not a bus being driven). Same on every issue of a run.
+   */
+  situation?: string;
+};
 
 export type VerifiedQuote = { passageId: string; quote: string };
 
@@ -110,8 +121,9 @@ Rules:
 - Ask questions only; never answer them and never say how the case will turn out.
 - Leave out every name, address, date, amount and personal detail.
 - For each question give 2 or 3 search phrases written the way Ontario legislation, court rules or an official guide would phrase it.
+- Also describe the situation in one neutral line (who did what to whom, in general terms, and what the person wants), with no names, places, dates or amounts.
 
-Return JSON: {"issues": [{"question": "...", "queries": ["...", "..."]}]} with 3 to 6 issues, most important first.`;
+Return JSON: {"situation": "...", "issues": [{"question": "...", "queries": ["...", "..."]}]} with 3 to 6 issues, most important first.`;
 
 export const READ_SYSTEM_PROMPT = `You are checking legal research. For each research question you are given passages found in a library of Ontario and Canadian law. Decide, for each question, from the passages only:
 
@@ -119,7 +131,9 @@ export const READ_SYSTEM_PROMPT = `You are checking legal research. For each res
 - "search-again": the passages miss, but the answer is probably a provision you can describe. Give 1 or 2 new search phrases.
 - "not-in-library": the answer needs a specific law that is clearly not among the passages. Name it as precisely as you can (Act or regulation, and section if you know it).
 
-Never answer from your own knowledge. A passage that is about a different situation does not answer the question. Do not judge how the person's case will turn out.
+Never answer from your own knowledge. Only list a passage if it applies to THIS situation. A passage written for a different situation does not answer the question even if it is on the same topic (for example, a notice rule for a road or sidewalk in disrepair does not apply to an injury caused by a vehicle being driven; a rule for one city does not apply in another). Do not judge how the person's case will turn out.
+
+For "not-in-library", give only the name of the law and the section if known, for example "Statutory Accident Benefits Schedule, O. Reg. 34/10" -- no explanation.
 
 Return JSON: {"results": [{"issueId": "...", "status": "answered" | "search-again" | "not-in-library", "answers": [{"passageId": "...", "quote": "..."}], "queries": ["..."], "missingLaw": "..."}]}`;
 
@@ -140,6 +154,7 @@ export function parseIssues(content: unknown): ResearchIssue[] {
   }
   const raw = (parsed as { issues?: unknown })?.issues;
   if (!Array.isArray(raw)) return [];
+  const situation = clean((parsed as { situation?: unknown })?.situation, 300);
   const out: ResearchIssue[] = [];
   for (const entry of raw) {
     if (!entry || typeof entry !== "object") continue;
@@ -151,7 +166,7 @@ export function parseIssues(content: unknown): ResearchIssue[] {
         )
       : [];
     if (question.length < 10 || queries.length === 0) continue;
-    out.push({ id: `issue-${out.length + 1}`, question, queries });
+    out.push({ id: `issue-${out.length + 1}`, question, queries, ...(situation ? { situation } : {}) });
     if (out.length >= MAX_ISSUES) break;
   }
   return out;
@@ -217,7 +232,9 @@ export function parseReadResults(
     let status: ReadResult["status"] =
       said === "answered" || said === "not-in-library" || said === "search-again" ? said : "search-again";
     if (status === "answered" && answers.length === 0) status = "search-again";
-    const missingLaw = clean(e.missingLaw, 200);
+    // A name, not an essay: the first clause, at most 120 characters.
+    // (Not split on ". ": "R.S.O. 1990" has one.)
+    const missingLaw = clean(e.missingLaw, 400).split(/[:;]| -- | — /)[0].slice(0, 120).trim();
     out.push({ issueId, status, answers, queries, ...(status === "not-in-library" && missingLaw ? { missingLaw } : {}) });
   }
   return out;
@@ -402,7 +419,8 @@ export function readingPrompt(
           return `  [${passage.id}] ${where}\n  ${passage.text.slice(0, PASSAGE_CHARS_FOR_READING)}`;
         })
         .join("\n\n");
-      return `QUESTION ${issue.id}: ${issue.question}\nPASSAGES:\n${passages || "  (none found)"}`;
+      const situation = issue.situation ? `SITUATION: ${issue.situation}\n` : "";
+      return `${situation}QUESTION ${issue.id}: ${issue.question}\nPASSAGES:\n${passages || "  (none found)"}`;
     })
     .join("\n\n---\n\n");
 }
