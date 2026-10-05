@@ -2,6 +2,7 @@
 
 import { isPlaceholder, nextStepBlockFor } from "@/src/lib/content-library/nextSteps";
 import { publicSourceUrl } from "@/src/lib/content-library/publicSourceUrl";
+import FormsNamedHere from "../../_components/FormsNamedHere";
 
 /**
  * The reviewed next steps for a confirmed stage, for civil and family cases.
@@ -34,6 +35,9 @@ export default function NextStepsCard({
     >
       <h3 className="text-lg font-bold text-[#10231f]">{block.title}</h3>
       <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{block.text}</p>
+      <div className="mt-3">
+        <FormsNamedHere texts={[block.text]} court={pathway} />
+      </div>
       {source && (
         <p className="mt-3 text-sm text-[#2b4640]">
           Source:{" "}

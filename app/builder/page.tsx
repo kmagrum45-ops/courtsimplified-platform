@@ -45,10 +45,11 @@ import {
 import StageConfirmation from "./_components/StageConfirmation";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import NextStepsCard from "./_components/NextStepsCard";
-import { userIsResponding } from "./_components/respondingSide";
+import { originatingDocumentRecorded, userIsResponding } from "./_components/respondingSide";
 import { readCasePosition, storyHintsForDates } from "../../src/lib/case-system/casePosition";
 import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
-import { newId, type CaseDraft } from "../../src/lib/case-system/drafts/caseDrafts";
+import { type CaseDraft } from "../../src/lib/case-system/drafts/caseDrafts";
+import { startingDocumentDraft } from "../../src/lib/case-system/drafts/startingDocumentDraft";
 import AiUseNotice from "../_components/AiUseNotice";
 import PathwayUnavailable from "../_components/PathwayUnavailable";
 import { FORM_COMPLETION_PAUSED, isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
@@ -60,7 +61,6 @@ import { buildMasterCaseFromIntake } from "../../src/lib/case-system/masterCaseO
 import { buildCaseContextStoragePayload } from "../../src/lib/case-system/caseContextEngine";
 import { consumeGuestIntakeSession } from "../../src/lib/case-system/builderDraftStorage";
 import { COURT_PATH_FINDER_KEY, SHARED_STORAGE_KEYS } from "../../src/lib/case-system/storage/intakeStorageKeys";
-import { draftSmallClaimsPlaintiffClaim } from "../../src/lib/case-system/claimDraftEngine";
 
 /** The UniversalStage codes, for validating a resolved stage before use. */
 const STAGE_CODES = [
@@ -114,47 +114,6 @@ function getStageForPersistence(
   );
 }
 
-/**
- * Whether the originating document is ALREADY RECORDED as filed.
- *
- * The "What CourtSimplified can help with next" buttons were gated on
- * `courtPath` and `getActiveCaseId()` and nothing else. A user whose case
- * recorded the claim filed, served, and a default judgment obtained was still
- * offered "Create Plaintiff's Claim draft (Form 7A)" — the document that
- * starts the case, offered to someone past default.
- *
- * Two independent signals, either of which is enough, because they are
- * populated on different paths and a case can have one without the other:
- *
- *   - `extra.filedDocuments` / `extra.documents`, the list the overview panel
- *     already renders under "Documents already recorded".
- *   - `IntakeFacts.claimFiled`, the guided-intake answer that
- *     deriveCaseStageWithEvents reads.
- *
- * Only TRUE is meaningful. Absence means not recorded, never "did not
- * happen" — the same rule the intakeFacts writer follows.
- */
-function originatingDocumentRecorded(args: {
-  courtPath: CourtPath;
-  caseData: StoredCaseData | null;
-  intakeFacts: Record<string, unknown> | null;
-}): boolean {
-  if (args.intakeFacts?.claimFiled === true) return true;
-
-  const extra = args.caseData?.extra as Record<string, unknown> | undefined;
-  const raw = extra?.filedDocuments ?? extra?.documents;
-  const filed = Array.isArray(raw)
-    ? raw.filter((item): item is string => typeof item === "string")
-    : [];
-
-  const originating: Partial<Record<CourtPath, string[]>> = {
-    "small-claims": ["plaintiffs-claim"],
-    civil: ["statement-of-claim"],
-    family: ["application"],
-  };
-
-  return (originating[args.courtPath] || []).some((id) => filed.includes(id));
-}
 
 function createChatSessionId(path: CourtPath): string {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
@@ -1030,61 +989,19 @@ function BuilderPageContent() {
       return;
     }
 
-    const claim = draftSmallClaimsPlaintiffClaim(caseData);
-    const part = (heading: string, lines: string[]) => ({
-      id: newId("part"),
-      heading,
-      text: lines.join("\n\n"),
-      reviewed: false,
-    });
-    const stamp = new Date().toISOString();
-    void saveDraftAndOpen(caseId, {
-      id: newId("draft"),
-      title: "Draft Plaintiff’s Claim (Form 7A)",
-      kind: "starting-document",
-      createdAt: stamp,
-      updatedAt: stamp,
-      sections: [
-        part("Parties", claim.partySection),
-        part("What you are asking for", claim.claimOverview),
-        part("Facts", claim.numberedClaimFacts),
-        part("Amount claimed", claim.damagesSection),
-        part("Evidence to review", claim.evidenceSection),
-      ],
-    });
+    const draft = startingDocumentDraft("small-claims", caseData, new Date());
+    if (draft) void saveDraftAndOpen(caseId, draft);
   }
 
-  function createCourtAreaWorkingDraft(title: string, factsHeading: string) {
+  function createCourtAreaWorkingDraft(court: "civil" | "family") {
     if (FORM_COMPLETION_PAUSED) return; // paused: see phaseScope.ts
     const caseId = savedCaseId();
     if (!caseData || !caseId) {
       setSaveError("Save the selected case before creating a working draft.");
       return;
     }
-
-    const extra = asRecord(caseData.extra);
-    const amount = String(extra.amountClaimed || extra.damagesBreakdown || "").trim();
-    const part = (heading: string, lines: string[]) => ({
-      id: newId("part"),
-      heading,
-      text: lines.join("\n\n"),
-      reviewed: false,
-    });
-    const stamp = new Date().toISOString();
-    void saveDraftAndOpen(caseId, {
-      id: newId("draft"),
-      title,
-      kind: "starting-document",
-      createdAt: stamp,
-      updatedAt: stamp,
-      sections: [
-        part("Parties", [`Applicant/Plaintiff: ${caseData.yourName || "Not entered"}`, `Other party: ${caseData.otherParty || "Not entered"}`]),
-        part(factsHeading, [caseData.facts || "No facts entered yet."]),
-        part("Requested outcome", [caseData.goal || "No requested outcome entered yet."]),
-        part("Amount and timeline", [amount ? `Amount entered: ${amount}` : "No amount entered.", caseData.timeline || "No timeline entered yet."]),
-        part("Evidence to review", [caseData.evidence || "No evidence description entered yet."]),
-      ],
-    });
+    const draft = startingDocumentDraft(court, caseData, new Date());
+    if (draft) void saveDraftAndOpen(caseId, draft);
   }
 
   /** Saves a working draft to the case and opens it on the case page's Drafts tab. */
@@ -1680,12 +1597,12 @@ function BuilderPageContent() {
                   </button>
                 ) : null}
                 {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "civil" && savedCaseId() && offerOriginatingDraft ? (
-                  <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Statement of Claim (Form 14A)", "Material facts")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
+                  <button type="button" onClick={() => createCourtAreaWorkingDraft("civil")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Statement of Claim draft (Form 14A)
                   </button>
                 ) : null}
                 {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "family" && savedCaseId() && offerOriginatingDraft ? (
-                  <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Family Application (Form 8)", "Facts for review")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
+                  <button type="button" onClick={() => createCourtAreaWorkingDraft("family")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Family Application draft (Form 8)
                   </button>
                 ) : null}

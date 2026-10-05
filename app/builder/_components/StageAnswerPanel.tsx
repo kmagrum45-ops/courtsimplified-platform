@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
 import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-system/casePosition";
+import FormsNamedHere from "../../_components/FormsNamedHere";
 
 /**
  * "Where exactly is your case?" — the reviewed answer for the position the
@@ -113,7 +114,7 @@ export function orderGroupsForReader<T extends { side: string; label: string }>(
   ];
 }
 
-function AnswerView({ answer }: { answer: RenderedAnswer }) {
+function AnswerView({ answer, court }: { answer: RenderedAnswer; court: string }) {
   return (
     <div className="mt-4 space-y-4" data-testid="stage-answer">
       <h4 className="text-base font-bold text-[#10231f]">{answer.question}</h4>
@@ -123,6 +124,7 @@ function AnswerView({ answer }: { answer: RenderedAnswer }) {
           <p className="mt-1 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{section.text}</p>
         </div>
       ))}
+      <FormsNamedHere texts={answer.sections.map((section) => section.text)} court={court} />
       {answer.sources.length > 0 && (
         <div>
           <p className="text-sm font-semibold text-[#16302b]">Sources</p>
@@ -302,7 +304,7 @@ export default function StageAnswerPanel({
         </p>
       )}
 
-      {result?.outcome === "rendered" && <AnswerView answer={result.answer} />}
+      {result?.outcome === "rendered" && <AnswerView answer={result.answer} court={courtPath} />}
 
       {result?.outcome === "rendered" && (result.dateQuestions?.length ?? 0) > 0 && (
         <div data-testid="stage-answer-dates" className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
@@ -400,7 +402,7 @@ export default function StageAnswerPanel({
           >
             Show the steps for that place
           </button>
-          {result.answer && <AnswerView answer={result.answer} />}
+          {result.answer && <AnswerView answer={result.answer} court={courtPath} />}
         </div>
       )}
 
