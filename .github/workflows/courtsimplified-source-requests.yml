@@ -9,10 +9,18 @@ name: CourtSimplified Source Requests
 # for a person, labelled needs-human; nothing unverified is ever vendored.
 #
 # Can also be run by hand with a law's name.
+#
+# NEEDS the repository setting Settings > Actions > General > "Allow GitHub
+# Actions to create and approve pull requests" (on since 2026-10-05). Without
+# it everything up to the merge works and the PR step is refused (403).
 
 on:
+  # Only "labeled": an issue created with the label fires both "opened" and
+  # "labeled", and the second run found the law just added and flagged the
+  # request for a person (first live request, #130, 2026-10-05). Adding the
+  # label to an existing issue by hand still fires this.
   issues:
-    types: [opened, labeled]
+    types: [labeled]
   workflow_dispatch:
     inputs:
       request:
@@ -30,7 +38,7 @@ concurrency:
 
 jobs:
   resolve:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.issue.labels.*.name, 'source-request')
+    if: github.event_name == 'workflow_dispatch' || (github.event.label.name == 'source-request' && github.event.issue.state == 'open')
     runs-on: ubuntu-latest
     timeout-minutes: 40
     env:
