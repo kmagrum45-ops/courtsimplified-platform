@@ -7,10 +7,12 @@
 
 import { CLAIM_BARRING_PROFILES } from "./claimBarringProfiles";
 import { DECLARED_PROFILES } from "./declaredProfiles";
+import { NOTICE_PROFILES } from "./noticeProfiles";
 import type { ClaimFamily, ClaimTypeProfile } from "./claimTypeProfile";
 
 export const CLAIM_TYPE_PROFILES: readonly ClaimTypeProfile[] = [
   ...CLAIM_BARRING_PROFILES,
+  ...NOTICE_PROFILES,
   ...DECLARED_PROFILES,
 ];
 

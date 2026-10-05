@@ -519,6 +519,92 @@ const BEFORE_FILING: CaseStage[] = [
     ],
   },
   {
+    /*
+     * 2026-10-05. Live run: "i was hit by an OC transpo bus when i was waiting
+     * to cross ... i dislocated my shoulder ... i want to sue" was shown only
+     * the general two-year limitation. Insurance Act s. 258.3 applies to any
+     * bodily injury "arising directly or indirectly from the use or operation
+     * of an automobile": accident benefits applied for, and notice of the
+     * intention to sue served within 120 days. It is NOT a bar (s. 258.3 (9));
+     * missing it goes to costs and stops prejudgment interest running before
+     * the notice (s. 258.3 (8)). It sits beside the three bars because a
+     * reader confuses it with them, and the difference matters both ways.
+     */
+    id: "before-filing:notice-vehicle-injury",
+    side: "plaintiff",
+    wentWrong: false,
+    userQuestion:
+      "I was hurt by a car, truck or bus — is there something I have to do before I sue?",
+    title: "Notice before suing over an injury from a vehicle",
+    description:
+      "The injury came from the use or operation of a vehicle, and no notice of the intention to sue has been served yet.",
+    cues: [
+      "hit by a car",
+      "hit by a bus",
+      "a car hit me while I was crossing",
+      "knocked off my bike by a car",
+      "hurt in a car accident",
+      "the driver ran into me",
+    ],
+    distinguishedFrom: [
+      {
+        stage: "before-filing:notice-municipality",
+        by: "whether the injury came from a vehicle being driven or from a road or sidewalk out of repair",
+      },
+      {
+        stage: "before-filing:limitation-period-may-have-passed",
+        by: "which clock it is — the 120-day notice of the intention to sue or the two-year limitation period",
+      },
+    ],
+    rules: [
+      C.S_INSURANCE_258_3_1_NOTICE,
+      C.S_INSURANCE_258_3_1_ON_REQUEST,
+      C.S_INSURANCE_258_3_2_COPY_TO_INSURER,
+      C.S_INSURANCE_258_3_4_CONTENTS,
+      C.S_INSURANCE_258_3_5_LIMITS,
+      C.S_INSURANCE_258_3_6_QUESTIONS,
+      C.S_INSURANCE_258_3_7_REPORT,
+      C.S_INSURANCE_258_3_10_SERVICE,
+      C.S_INSURANCE_258_3_9_COSTS,
+      C.S_INSURANCE_258_3_8_INTEREST,
+      C.S_LIMITATIONS_4_BASIC,
+      C.S_LIMITATIONS_5_DISCOVERY,
+      C.S_LIMITATIONS_16_NONE,
+      C.S_LEGISLATION_88_HOLIDAYS,
+      C.S_LEGISLATION_89_1_HOLIDAY,
+    ],
+    deadlines: [
+      {
+        id: "deadline:vehicle-injury-notice-120-days",
+        what: "Serve written notice of your intention to sue on the person you will sue",
+        countFrom: "the incident",
+        countFromEvent: "injury-occurred",
+        length: { unit: "days", count: 120 },
+        regime: "legislation-act",
+        rule: C.S_INSURANCE_258_3_1_NOTICE,
+        computation: C.S_LEGISLATION_89_3_BETWEEN,
+        consequence: "changes-what-happens-next",
+        qualifier:
+          "The court where the lawsuit could be started may allow a longer time, on a motion made before or after the 120 days run out.",
+        exceptions: [C.S_INSURANCE_258_3_9_COSTS],
+      },
+      {
+        id: "deadline:basic-limitation",
+        what: "The general deadline to start a court case",
+        qualifier:
+          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.",
+        countFrom: "the day the claim was discovered",
+        countFromEvent: "claim-discovered",
+        length: { unit: "years", count: 2 },
+        regime: "legislation-act",
+        rule: C.S_LIMITATIONS_4_BASIC,
+        computation: C.S_LEGISLATION_89_6_MONTHS,
+        consequence: "bars-the-claim",
+        exceptions: [C.S_LIMITATIONS_5_DISCOVERY, C.S_LIMITATIONS_16_NONE],
+      },
+    ],
+  },
+  {
     id: "before-filing:notice-deadline-missed",
     side: "plaintiff",
     wentWrong: true,

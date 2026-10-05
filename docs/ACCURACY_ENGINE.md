@@ -1836,3 +1836,37 @@ provision's own words ("may dispute", "prevails"), so a deny-listed term now
 counts only when the provision does not use it. The shown explanations
 spot-checked against their passages (FLR r. 14, CLRA s. 22, FCSG s. 3,
 ESA s. 54) were accurate.
+
+## A vehicle-injury notice stage, and the deadline wording fixed everywhere (run-15, 2026-10-05)
+
+`before-filing:notice-vehicle-injury` (Insurance Act s. 258.3) is published,
+with the claim-type profile `sc-claim-motor-vehicle-injury` in
+`claim-types/noticeProfiles.ts` -- the first authored profile whose notice is
+`claimBarring: false`. Reviewed by fresh independent agents until
+a round found nothing (errors per round: 6, 3, 7, 3, 2, 2, 1, 0, 1,
+1, 1, 5, 4, then the whole changed set: 4, 8, 1, 0).
+
+The review of the new block reached the shared, code-rendered deadline text and
+found real errors in what was already published -- worth knowing, because six
+earlier review rounds had passed it:
+- **"You have 10 days, counted from the injury"** did not say whether the
+  injury day counts, and read like Legislation Act s. 89 (4) (a period
+  "beginning ... on" a day includes it). Deadlines now read "You have N days
+  after X", the rules' own word, which s. 89 (5) and r. 3.01 key on.
+- **"The day the time is counted from is not itself counted"** sat beside a
+  two-year limit, which ends on the second ANNIVERSARY (s. 4) -- read together
+  they put the last day one day late. Year periods now say "The last day is the
+  anniversary of that day" with s. 89 (7)'s February 29 rule.
+- **s. 89 (2)** had been rendered "only if it is closed"; s. 89 (2) has no
+  "only if", and s. 89 (1) moves a holiday deadline regardless.
+- **Limitations Act s. 5** had been paraphrased in several blocks as "a court
+  case is a fitting way to fix it" (s. 5 (1) (a) (iv): "to seek to remedy it",
+  "having regard to the nature of the injury, loss or damage"), "caused it"
+  (s. 5 (1) (a) (ii): "or contributed to"), "a reasonable person in your place"
+  (s. 5 (1) (b): "with the abilities and in the circumstances", and "first"),
+  and five notice blocks stated the two-year limit from "discovered" with no
+  definition or presumption at all.
+
+`renderDeadlineSection` changed, so all 21 affected blocks were re-rendered and
+re-promoted together (the gate requires the deadline section byte-identical to
+the renderer).
