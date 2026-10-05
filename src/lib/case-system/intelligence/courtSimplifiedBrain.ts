@@ -52,9 +52,11 @@ import {
   buildSourcePack,
   sourcePackForPrompt,
   verifyGroundedCognition,
+  withRetrievedItems,
   type GroundingReport,
   type SourcePack,
 } from "./groundedCognition";
+import { retrieveForStory } from "../retrieval/storyRetrieval";
 import { buildBrainMigrationLayer } from "../orchestration/brainMigrationLayer";
 import { buildEvidenceIntelligenceAnalysis } from "../evidence/evidenceIntelligenceEngine";
 
@@ -2523,6 +2525,25 @@ export async function runCourtSimplifiedBrain(
   const overLimitClaimAmount = detectOverLimitClaimAmount(input.rawUserText);
   const claimedVersusRequested = detectClaimedVersusRequestedMismatch(input.rawUserText);
 
+  // Meaning-based retrieval over the corpus (retrieval/storyRetrieval.ts),
+  // started first so it runs alongside intake normalization. It decides only
+  // what the analysis may cite; the gate below still checks every quote.
+  // Resolves to nothing on any failure, and is skipped when the analysis
+  // will not call the model at all.
+  const retrievalCourt = input.courtPath === "civil" || input.courtPath === "family" ? input.courtPath : "small-claims";
+  const retrieval =
+    input.allowExternalCognition === false
+      ? Promise.resolve(null)
+      : retrieveForStory({
+          story: input.rawUserText,
+          courtPath: retrievalCourt,
+          stage: input.stage,
+          side:
+            input.stage === "responding" || /user role:\s*(defendant|responding)/i.test(input.rawUserText)
+              ? "defendant"
+              : "plaintiff",
+        }).catch(() => null);
+
   const normalizedIntake = await normalizeIntake(input);
 
   const factPatternAnalysis = buildFactPatternAnalysis(normalizedIntake);
@@ -2538,13 +2559,17 @@ export async function runCourtSimplifiedBrain(
     packStage === "responding" || /user role:\s*(defendant|responding)/i.test(input.rawUserText)
       ? "defendant"
       : "plaintiff";
-  const sourcePack = buildSourcePack({
-    stage: packStage,
-    side: packSide,
-    claimTypeId: input.catalogueClaim?.claimTypeId,
-    courtPath: input.courtPath === "civil" || input.courtPath === "family" ? input.courtPath : "small-claims",
-    extraClaimTypeIds: input.libraryMatterIds,
-  });
+  const retrieved = await retrieval;
+  const sourcePack = withRetrievedItems(
+    buildSourcePack({
+      stage: packStage,
+      side: packSide,
+      claimTypeId: input.catalogueClaim?.claimTypeId,
+      courtPath: input.courtPath === "civil" || input.courtPath === "family" ? input.courtPath : "small-claims",
+      extraClaimTypeIds: input.libraryMatterIds,
+    }),
+    retrieved?.items ?? [],
+  );
 
   const structuredCognition = await runStructuredGptCognition(
     input,
@@ -2824,6 +2849,11 @@ export async function runCourtSimplifiedBrain(
     // the user's browser and into the saved case, so the removed text -- which
     // is by definition an unverified legal statement -- must not ride along in
     // it, displayed or not.
+    // Which corpus passages the analysis was allowed to cite: ids and scores
+    // only, so a reviewer can see what retrieval found for this story.
+    ...(retrieved && retrieved.passages.length
+      ? { retrievedSources: retrieved.passages.map((passage) => ({ id: passage.id, score: Math.round(passage.score * 1000) / 1000 })) }
+      : {}),
     ...(groundingReport
       ? {
           groundingReport: {

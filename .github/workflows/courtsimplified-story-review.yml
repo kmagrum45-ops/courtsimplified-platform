@@ -23,6 +23,8 @@ on:
       - src/lib/case-system/intelligence/**
       - src/lib/content-library/phaseScope.ts
       - src/lib/case-system/stage-map/**
+      - src/lib/case-system/retrieval/**
+      - docs/sources/retrieval/**
       - scripts/eval/**
       - .github/workflows/courtsimplified-story-review.yml
 

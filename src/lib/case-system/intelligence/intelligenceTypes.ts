@@ -646,7 +646,8 @@ export type LegalKnowledgePacket = {
 };
 
 
-/**
+
+/**
  * Session 48 — FIX 3. Was:
  *   "proven" | "partly-proven" | "missing-proof" | "contradicted" | "not-applicable"
  *
@@ -798,6 +799,8 @@ export type LegalIntelligenceResult = {
   confidence: IntelligenceConfidence;
   /** Next actions with their verified source link, when grounded. */
   nextBestActionSources?: { text: string; sourceUrl?: string }[];
+  /** Corpus passages retrieval found for this story (retrieval/storyRetrieval.ts). */
+  retrievedSources?: { id: string; score: number }[];
   /** Statements the grounding gate removed, and why (groundedCognition.ts). */
   groundingReport?: {
     kept: number;

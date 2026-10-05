@@ -290,12 +290,37 @@ export function buildSourcePack(args: {
   };
 }
 
+/**
+ * Adds passages found by meaning-based retrieval (retrieval/storyRetrieval.ts)
+ * to the pack. They become citable exactly like catalogue items -- the gate
+ * checks a quote against their verbatim text the same way -- and an id
+ * already in the pack is never replaced.
+ */
+export function withRetrievedItems(pack: SourcePack, retrieved: readonly SourceItem[]): SourcePack {
+  const byId = new Map(pack.byId);
+  const items = [...pack.items];
+  for (const item of retrieved) {
+    if (byId.has(item.id)) continue;
+    byId.set(item.id, item);
+    items.push(item);
+  }
+  return { items, byId, elementIds: pack.elementIds };
+}
+
+/** True for a passage retrieval found in the corpus. */
+export function isRetrievedItem(item: SourceItem): boolean {
+  return item.id.startsWith("corpus:");
+}
+
 export function sourcePackForPrompt(pack: SourcePack): string {
   if (pack.items.length === 0) {
     return "VERIFIED SOURCES: none apply to this case yet. You therefore may not state ANY law, rule, deadline, form, or legal requirement. Organize the user's facts and ask for what is missing.";
   }
   const lines = pack.items.map((item) => `[${item.id}] ${item.label}\n    ${item.text}`);
-  return `VERIFIED SOURCES for this case. These are the ONLY legal authority you may rely on.\n\n${lines.join("\n")}`;
+  const retrieved = pack.items.some(isRetrievedItem)
+    ? "\n\nSources whose id starts with \"corpus:\" were found by searching Ontario law and official guidance for this person's situation. A search can return a passage that is near the situation but does not govern it: rely on one only where its own words cover these facts, and never stretch it beyond what it says. A provision that sets a condition, exception or time limit must be stated with it."
+    : "";
+  return `VERIFIED SOURCES for this case. These are the ONLY legal authority you may rely on.${retrieved}\n\n${lines.join("\n")}`;
 }
 
 // ---------------------------------------------------------------- the gate

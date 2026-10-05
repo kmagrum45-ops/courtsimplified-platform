@@ -11,7 +11,21 @@ function caseSection(source: string, section: string) {
   ];
 }
 
+/**
+ * Meaning-based retrieval (src/lib/case-system/retrieval/) reads its index and
+ * the vendored corpus from disk at request time, by file names held in the
+ * index, which the bundler cannot trace. The three analysis routes are the
+ * ones that run it; without these files there they find no index and the
+ * analysis runs without retrieval.
+ */
+const RETRIEVAL_FILES = ["./docs/sources/retrieval/**", "./docs/sources/corpus/*.txt"];
+
 const nextConfig: NextConfig = {
+  outputFileTracingIncludes: {
+    "/api/small-claims/analyze": RETRIEVAL_FILES,
+    "/api/civil/analyze": RETRIEVAL_FILES,
+    "/api/family/analyze": RETRIEVAL_FILES,
+  },
   // Pages removed or folded into the case page in the 2026-10-04 clean-up,
   // sent to what replaced them so an old link or bookmark still lands
   // somewhere useful. A URL that named a case goes to that case's section; one

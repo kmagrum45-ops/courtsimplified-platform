@@ -337,6 +337,8 @@ function flattenRequestInput(body: Record<string, unknown>): string {
   // before anyone uses it, not after.
   const input = body.input;
   if (typeof input === "string") return input;
+  // Embeddings take a list of strings.
+  if (Array.isArray(input) && input.every((part) => typeof part === "string")) return input.join("\n");
 
   return "";
 }
@@ -407,6 +409,9 @@ const PROSE_FIELDS = new Set([
   "summary",
   "explanation",
   "notes",
+  // 2026-10-05: the legal search phrases written from the user's story
+  // (retrieval/storyRetrieval.ts). Derived from the narrative, so not stored.
+  "queries",
 ]);
 
 /**

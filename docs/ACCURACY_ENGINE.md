@@ -1696,3 +1696,38 @@ computed dates. Every qualifier must be supported by `rule` or `exceptions`.
   Small Claims case, after the coarse stage is confirmed, the user picks their
   exact position (each stage's own question) and `/api/case/stage-answer` (no
   model) renders the published block through the same gates.
+
+## Meaning-based retrieval over the corpus (2026-10-05)
+
+**What it is.** Before the analysis call, the model reads the story and writes
+the legal questions it raises in the words legislation uses; those are
+embedded and the corpus is searched by meaning; the nearest passages join the
+source pack the analysis may cite. Word search was considered and rejected by
+the site owner ("too many variables"): the person's words and the statute's
+rarely match.
+
+**The pieces.** `src/lib/case-system/retrieval/`:
+`corpusChunker.ts` (passages on the law's own boundaries, not-in-force text
+removed -- see SOURCING_NOTES.md, "Cutting e-Laws text"), `corpusIndex.ts`
+(int8 vectors, ids and hashes; no text), `storyRetrieval.ts` (the query step,
+the search, the court scope). The index is built by the Corpus Index workflow
+(`npm run retrieval:index`), because the workspace cannot reach the
+embeddings API, and lands in `docs/sources/retrieval/` through a PR.
+
+**Decisions already settled.**
+- Retrieval chooses what MAY be cited; the grounding gate is unchanged and
+  still checks every quote against the cited passage's verbatim text.
+- A hit is re-cut from the vendored file and used only if its hash matches
+  the index, so a re-vendored source is never served under an old vector.
+- Another court's rule book, guides and fees are excluded by court; statutes
+  of substantive law never are.
+- Any failure returns nothing and the analysis runs as before. The calls are
+  audited under the analysis's call type; the queries are redacted from the
+  log; the embeddings call is sent the queries, never the story.
+- Passages from practical-tier sources (guides, Steps to Justice) are
+  labelled as guidance, not legislation.
+
+**Not done yet.** The chat (`chat/libraryChat.ts`) still selects published
+blocks only; retrieval feeds the analysis. Accuracy of the search itself is
+measured by the story review once the index is in.
+

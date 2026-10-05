@@ -1,0 +1,78 @@
+name: CourtSimplified Corpus Index
+
+# Builds the meaning index over the vendored corpus
+# (scripts/retrieval/buildCorpusIndex.ts) and publishes it to a
+# `corpus-index-<run>` branch for a session to bring into main through a PR.
+#
+# WHY THIS EXISTS: the index needs the embeddings API, which the cloud
+# workspaces cannot reach; GitHub's runners can, with the OPENAI_API_KEY
+# secret. The build is incremental -- only passages whose text changed are
+# re-embedded -- so a run after one re-vendored source costs that source.
+#
+# Runs on demand, and on a push to main that changes the corpus or the
+# chunker (a changed passage has a stale vector until the index is rebuilt;
+# corpusIndex.ts skips stale passages, so nothing wrong is served meanwhile).
+#
+# The branch is not the site, so Vercel must not build it (CLAUDE.md 5a): the
+# root vercel.json disables "corpus-index-*". Bring in only
+# docs/sources/retrieval/ from it.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "docs/sources/corpus/**"
+      - "src/lib/case-system/retrieval/corpusChunker.ts"
+      - "src/lib/case-system/retrieval/corpusIndex.ts"
+      - "scripts/retrieval/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: corpus-index
+  cancel-in-progress: true
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build the index
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          set -o pipefail
+          npm run retrieval:index 2>&1 | tee index-run.log
+
+      - name: Check the built index
+        run: npm run test:corpus-retrieval
+
+      - name: Publish to a corpus-index branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- docs/sources/retrieval && [ -z "$(git ls-files --others --exclude-standard docs/sources/retrieval)" ]; then
+            echo "The index is already current; nothing to publish." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          branch="corpus-index-${GITHUB_RUN_ID}"
+          git config user.name "corpus-index-bot"
+          git config user.email "corpus-index-bot@users.noreply.github.com"
+          git checkout -q -b "$branch"
+          git add docs/sources/retrieval
+          git commit -q -m "Corpus index (run ${GITHUB_RUN_ID})"
+          git push -q "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/$branch"
+          echo "Published to $branch. Bring docs/sources/retrieval/ into main through a PR." >> "$GITHUB_STEP_SUMMARY"
+          tail -5 index-run.log >> "$GITHUB_STEP_SUMMARY"

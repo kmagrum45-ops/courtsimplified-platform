@@ -192,6 +192,10 @@ function main(): void {
     // Added 2026-10-04: spelling suggestions for the user's own words. JSON
     // output, validated field by field in code before anything is shown.
     "src/lib/case-system/intake/tidyWording.ts",
+    // Added 2026-10-05: writes legal search phrases from the story for
+    // meaning-based retrieval. JSON output; nothing it writes is shown, it
+    // only chooses which verified passages the analysis may cite.
+    "src/lib/case-system/retrieval/storyRetrieval.ts",
   ];
 
   for (const file of callSites) {
