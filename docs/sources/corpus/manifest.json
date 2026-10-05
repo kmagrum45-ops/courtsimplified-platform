@@ -2651,6 +2651,18 @@
       "characters": 219035,
       "lines": 3520,
       "file": "statutory-accident-benefits-schedule.txt"
+    },
+    {
+      "id": "compulsory-automobile-insurance-act",
+      "title": "Compulsory Automobile Insurance Act",
+      "citation": "R.S.O. 1990, c. C.25",
+      "url": "https://www.ontario.ca/laws/docs/90c25_e.doc",
+      "retrievedAt": "2026-10-05T21:56:35.208Z",
+      "sha256": "8bc50230cec4801ea14ac625e4232bd6d06aa0e00317fb464ca0151155e4ad73",
+      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 8, 2020 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 43762,
+      "lines": 853,
+      "file": "compulsory-automobile-insurance-act.txt"
     }
   ],
   "failures": []

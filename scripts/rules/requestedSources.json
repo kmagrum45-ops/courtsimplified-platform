@@ -10,5 +10,17 @@
       "CONSOLIDATION PERIOD"
     ],
     "why": "Named as missing by the research step (\"Statutory Accident Benefits Schedule - Effective September 1, 2010, O. Reg. 34/10\")."
+  },
+  {
+    "id": "compulsory-automobile-insurance-act",
+    "title": "Compulsory Automobile Insurance Act",
+    "citation": "R.S.O. 1990, c. C.25",
+    "url": "https://www.ontario.ca/laws/docs/90c25_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "COMPULSORY AUTOMOBILE INSURANCE ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Compulsory Automobile Insurance Act, R.S.O. 1990, c. C.25\")."
   }
 ]
