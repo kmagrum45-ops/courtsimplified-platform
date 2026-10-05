@@ -98,6 +98,11 @@ async function main() {
   const workflow = read(".github/workflows/courtsimplified-source-requests.yml");
   check("it merges only after the fetch verified", /Index and check[\s\S]*if: steps\.fetch\.outputs\.verified == 'yes'/.test(workflow));
   check("it merges only after the corpus suites pass", /test:rules-corpus[\s\S]*test:corpus-retrieval[\s\S]*Merge[\s\S]*if: steps\.index\.outcome == 'success'/.test(workflow));
+  // An issue created with the label fires "opened" and "labeled"; listening
+  // to both ran every request twice, and the second run flagged a law the
+  // first had just added.
+  const issueTypes = /issues:\s*\n(?:\s*#.*\n)*\s*types:\s*\[([^\]]*)\]/.exec(workflow)?.[1] ?? "";
+  check("one request runs the workflow once", !/opened/.test(issueTypes) && /labeled/.test(issueTypes) && workflow.includes("github.event.label.name == 'source-request'"));
   check("Vercel never builds a request branch", read("vercel.json").includes('"source-request-*": false'));
   check("the analysis files the gaps", read("src/lib/case-system/intelligence/courtSimplifiedBrain.ts").includes("fileSourceRequests("));
   check("requested sources join the corpus", read("scripts/rules/corpusSources.ts").includes("...REQUESTED_SOURCES"));
