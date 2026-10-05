@@ -29,11 +29,20 @@ import type { SelectedScenario } from "./scenarioSelection";
  * mints a real session for a dedicated harness test user instead, so the
  * token the server validates is one Supabase itself issued.
  *
- * Case persistence (the cases table) is still faked: the harness runs
- * repeatedly, including in CI, and should not write rows into the real
+ * Case persistence (the cases table) is still faked by default: the harness
+ * runs repeatedly, including in CI, and should not write rows into the real
  * project on every run.
+ *
+ * `realCases: true` lets the case be saved for real, which the page
+ * walkthrough needs to follow the user onto the case page (/cases/[id]): a
+ * faked row cannot be opened. Only the walkthrough passes it, and the
+ * walkthrough refuses to run against production (scripts/walkthrough/guard.ts),
+ * so the rows land in staging, which holds no user data.
  */
-export async function authenticateRealTestUser(page: Page): Promise<void> {
+export async function authenticateRealTestUser(
+  page: Page,
+  { realCases = false }: { realCases?: boolean } = {},
+): Promise<void> {
   await grantSiteAccess(page);
 
   const { session, supabaseUrl } = await mintRealTestSession();
@@ -45,6 +54,8 @@ export async function authenticateRealTestUser(page: Page): Promise<void> {
     },
     { key: storageKey, value: JSON.stringify(session) },
   );
+
+  if (realCases) return;
 
   await page.route("**/rest/v1/cases**", (route) => {
     const method = route.request().method();
@@ -83,8 +94,8 @@ export type CapturedOverview = {
 
 const SUBMIT_LABEL: Record<string, RegExp> = {
   "small-claims": /^Generate Summary$/,
-  family: /Continue to Unified Analysis/,
-  civil: /Continue to Unified Analysis/,
+  family: /Continue to your next steps/,
+  civil: /Continue to your next steps/,
 };
 
 /** Registry role wording mapped to the option values each intake offers. */

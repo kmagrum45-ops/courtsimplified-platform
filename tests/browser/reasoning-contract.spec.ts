@@ -22,7 +22,7 @@ for (const journey of journeys) {
     await page.getByRole("button", { name: `Continue to ${journey.label} intake` }).click();
     if (journey.path === "civil") await page.getByLabel("Your role").selectOption("plaintiff");
     await page.getByRole("button", { name: journey.issue }).click();
-    await page.getByRole("button", { name: /Continue to Unified Analysis/ }).click();
+    await page.getByRole("button", { name: /Continue to your next steps/ }).click();
     const overview = page.getByTestId("case-overview");
     await expect(overview).toBeVisible({ timeout: 20_000 });
     await expect(overview.getByText("Issues to review", { exact: true })).toBeVisible();

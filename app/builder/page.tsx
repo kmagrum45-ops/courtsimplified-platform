@@ -989,6 +989,19 @@ function BuilderPageContent() {
     return masterCaseId || queryCaseId || null;
   }
 
+  /**
+   * The case id only when it is a case saved to the user's account (a UUID
+   * from the cases table). A visitor who is not signed in gets a local id
+   * ("case_…") that no server route or case page can open, so every control
+   * that leads into the saved case reads this rather than getActiveCaseId()
+   * (page walkthrough, 2026-10-04: "Open your case page" led to "This case
+   * could not be opened").
+   */
+  function savedCaseId(): string | null {
+    const id = getActiveCaseId();
+    return id && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id) ? id : null;
+  }
+
   const savedPosition = readCasePosition(existingMasterResult, courtPath);
 
   async function saveConfirmedStage(caseId: string, stage: UniversalStage) {
@@ -1009,7 +1022,7 @@ function BuilderPageContent() {
 
   function createSmallClaimsClaimDraft() {
     if (FORM_COMPLETION_PAUSED) return; // paused: see phaseScope.ts
-    const caseId = getActiveCaseId();
+    const caseId = savedCaseId();
     if (!caseData || !caseId || courtPath !== "small-claims") {
       setSaveError("Save the selected Small Claims case before creating a working claim draft.");
       return;
@@ -1041,7 +1054,7 @@ function BuilderPageContent() {
 
   function createCourtAreaWorkingDraft(title: string, factsHeading: string) {
     if (FORM_COMPLETION_PAUSED) return; // paused: see phaseScope.ts
-    const caseId = getActiveCaseId();
+    const caseId = savedCaseId();
     if (!caseData || !caseId) {
       setSaveError("Save the selected case before creating a working draft.");
       return;
@@ -1098,7 +1111,7 @@ function BuilderPageContent() {
   }
 
   function goToDashboardCase() {
-    const targetCaseId = getActiveCaseId();
+    const targetCaseId = savedCaseId();
 
     if (!targetCaseId) {
       return;
@@ -1108,7 +1121,7 @@ function BuilderPageContent() {
   }
 
   function goToCaseSection(section: "documents" | "forms" | "timeline") {
-    const targetCaseId = getActiveCaseId();
+    const targetCaseId = savedCaseId();
     if (!targetCaseId) return;
     router.push(`/cases/${encodeURIComponent(targetCaseId)}/${section}`);
   }
@@ -1564,9 +1577,9 @@ function BuilderPageContent() {
           overview panel and the draft, and inherited a condition that had
           nothing to do with it.
         */}
-        {getActiveCaseId() && !loadingExistingCase && !caseLoadError ? (
+        {savedCaseId() && !loadingExistingCase && !caseLoadError ? (
           <div className="mt-8">
-            <EventCandidateSurface caseId={getActiveCaseId() as string} />
+            <EventCandidateSurface caseId={savedCaseId() as string} />
           </div>
         ) : null}
 
@@ -1586,7 +1599,7 @@ function BuilderPageContent() {
               onConfirm={(stage) => {
                 setConfirmedStage(stage);
                 // Recorded on the case so the case page shows the same stage.
-                const id = getActiveCaseId();
+                const id = savedCaseId();
                 if (id) void saveConfirmedStage(id, stage);
               }}
             />
@@ -1597,7 +1610,7 @@ function BuilderPageContent() {
                 courtPath={courtPath}
                 confirmedStage={confirmedStage}
                 responding={respondingSide}
-                caseId={getActiveCaseId()}
+                caseId={savedCaseId()}
                 initialStepId={savedPosition.stepId}
                 initialDateAnswers={savedPosition.dateAnswers}
               />
@@ -1608,8 +1621,8 @@ function BuilderPageContent() {
             {confirmedStage && (
               <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
             )}
-            {confirmedStage ? <EvidenceUploadCard caseId={getActiveCaseId() || null} /> : null}
-            {confirmedStage ? <CaseReviewPanel caseId={getActiveCaseId() || null} /> : null}
+            {confirmedStage ? <EvidenceUploadCard caseId={savedCaseId()} /> : null}
+            {confirmedStage ? <CaseReviewPanel caseId={savedCaseId()} /> : null}
             {/*
               The Statement of Claim stays gated, and not by oversight — see
               the note in the spec. It needs `draftInput`, a
@@ -1658,17 +1671,17 @@ function BuilderPageContent() {
                 </div>
               ) : null}
               <div className="mt-4 flex flex-wrap gap-3">
-                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "small-claims" && getActiveCaseId() && offerOriginatingDraft ? (
+                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "small-claims" && savedCaseId() && offerOriginatingDraft ? (
                   <button type="button" onClick={createSmallClaimsClaimDraft} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Plaintiff&apos;s Claim draft (Form 7A)
                   </button>
                 ) : null}
-                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "civil" && getActiveCaseId() && offerOriginatingDraft ? (
+                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "civil" && savedCaseId() && offerOriginatingDraft ? (
                   <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Statement of Claim (Form 14A)", "Material facts")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Statement of Claim draft (Form 14A)
                   </button>
                 ) : null}
-                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "family" && getActiveCaseId() && offerOriginatingDraft ? (
+                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "family" && savedCaseId() && offerOriginatingDraft ? (
                   <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Family Application (Form 8)", "Facts for review")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Family Application draft (Form 8)
                   </button>
@@ -1679,10 +1692,20 @@ function BuilderPageContent() {
                   (2026-10-04). "Organize evidence" went to /evidence, which
                   read browser storage nothing writes and was always empty.
                 */}
-                <button type="button" data-testid="open-case-home" onClick={goToDashboardCase} disabled={savingMaster || !getActiveCaseId()} className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">Open your case page</button>
-                <button type="button" onClick={() => goToCaseSection("documents")} disabled={savingMaster || !getActiveCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Add documents and evidence</button>
-                <button type="button" onClick={() => goToCaseSection("forms")} disabled={savingMaster || !getActiveCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Check official forms</button>
+                <button type="button" data-testid="open-case-home" onClick={goToDashboardCase} disabled={savingMaster || !savedCaseId()} className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">Open your case page</button>
+                <button type="button" onClick={() => goToCaseSection("documents")} disabled={savingMaster || !savedCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Add documents and evidence</button>
+                <button type="button" onClick={() => goToCaseSection("forms")} disabled={savingMaster || !savedCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Check official forms</button>
               </div>
+              {!savingMaster && !savedCaseId() ? (
+                <p className="mt-3 text-sm leading-6 text-[#4d675f]" data-testid="case-not-saved">
+                  This case is not saved to an account, so it has no case page yet and will not be here
+                  when you come back.{" "}
+                  <Link href="/login" className="font-semibold text-[#2f7d67] underline">
+                    Sign in or create an account
+                  </Link>{" "}
+                  before you start, and your case, its next steps, documents and drafts are kept for you.
+                </p>
+              ) : null}
             </section>
             {analysisAvailable && !showFollowUp && <button type="button" onClick={() => setShowFollowUp(true)} className="text-sm font-semibold text-[#2f7d67]">Ask follow-up questions</button>}
             {analysisAvailable && showFollowUp && <CourtAssistantChat
