@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-110 documented, 28 without a header.
+111 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -90,6 +90,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:reference-not-shipped` | **Nothing under `app/` or `src/` reads the non-shipping reference folders, and no**<br>commercial publication is a corpus source. |
 | `npm run test:reset-intake` | **resetIntake clears everything an intake left behind, and nothing it should**<br>not. |
 | `npm run test:responding-side` | **The document that STARTS a case is never offered to the side responding to it.**<br>COSTS NOTHING. A pure function plus a source scan of the builder page. |
+| `npm run test:retrieval-bundled` | **The deployed analysis routes carry the retrieval index and the corpus.**<br>WHAT IT CATCHES. Retrieval reads its index and the vendored corpus from disk by file names the bundler cannot see, so next.config.ts lists them in outputFileTracingIncludes. If that stops working -- a renamed route, a changed config key, a Next.js upgrade that |
 | `npm run test:rls-matrix` | **Every RLS scenario, attacked for real: two litigants, an anonymous visitor and the**<br>service role against a database built from supabase/migrations/, on every table. |
 | `npm run test:rls-matrix-catches` | **The RLS suite fails on every kind of hole it exists to find. Proved by planting each**<br>one and watching it go red. |
 | `npm run test:rules-corpus` | **The vendored corpus is complete, current, and actually on disk.**<br>COSTS NOTHING. Reads the vendored files. No network — `rules:check` is the one that goes out, and it is a monthly job rather than a test. |
