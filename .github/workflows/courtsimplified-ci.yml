@@ -145,6 +145,9 @@ jobs:
       - name: Research step counts only answers code can find in the passage
         run: npm run test:research-step
 
+      - name: A missing law becomes a verified source, or nothing
+        run: npm run test:source-requests
+
       - name: Switch-off path shows no model-written text
         run: npm run test:no-model-text-to-users
 

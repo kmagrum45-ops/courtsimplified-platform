@@ -126,6 +126,7 @@
     "test:corpus-retrieval": "node --import tsx scripts/verification/verifyCorpusRetrieval.ts",
     "test:plain-explanations": "node --import tsx scripts/verification/verifyPlainExplanations.ts",
     "test:research-step": "node --import tsx scripts/verification/verifyResearchStep.ts",
+    "test:source-requests": "node --import tsx scripts/verification/verifySourceRequests.ts",
     "test:retrieval-bundled": "node --import tsx scripts/verification/verifyRetrievalBundled.ts",
     "test:catalogue-verified": "node --import tsx scripts/verification/verifyCatalogueVerification.ts",
     "test:no-model-text-to-users": "node --import tsx scripts/verification/verifyNoModelTextToUsers.ts",

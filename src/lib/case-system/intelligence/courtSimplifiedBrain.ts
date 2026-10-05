@@ -60,6 +60,7 @@ import {
 } from "./groundedCognition";
 import { passageItem, retrieveForStory, type RetrievalInput, type RetrievalResult } from "../retrieval/storyRetrieval";
 import { researchStory, type ResearchResult } from "../retrieval/researchStory";
+import { fileSourceRequests } from "../retrieval/sourceRequests";
 import { buildBrainMigrationLayer } from "../orchestration/brainMigrationLayer";
 import { buildEvidenceIntelligenceAnalysis } from "../evidence/evidenceIntelligenceEngine";
 
@@ -2629,10 +2630,12 @@ export async function runCourtSimplifiedBrain(
           })),
         }
       : undefined;
-  if (research?.sourceRequests.length) {
-    // Names only (laws, never the story), so the gaps are visible in the logs
-    // until the source-request queue exists.
-    console.info(`[researchStory] library gaps: ${research.sourceRequests.join(" | ")}`);
+  if (retrieved?.sourceRequests?.length) {
+    // Names only (laws, never the story). Filed as source-request issues for
+    // the Source Requests workflow when its token is configured; bounded to a
+    // few seconds and never fails the analysis.
+    console.info(`[researchStory] library gaps: ${retrieved.sourceRequests.join(" | ")}`);
+    await fileSourceRequests(retrieved.sourceRequests, { courtPath: retrievalCourt });
   }
   const appliedLaw = appliedLawEnabled()
     ? sourcePack.items

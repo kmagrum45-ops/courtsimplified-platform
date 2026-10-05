@@ -1907,3 +1907,23 @@ passages, including s. 193, the onus of proof on a vehicle's owner or driver),
 and the Criminal Code (ss. 264, 810) for family safety stories. Gaps are
 logged by name only; the automated request-to-vendor pipeline is the next
 piece.
+
+### Missing laws are requested and added automatically (2026-10-05)
+
+When the research step names a law the library lacks, the analysis files it
+(`retrieval/sourceRequests.ts`) as a `source-request` issue -- the law's name
+and court path only -- if `GITHUB_SOURCE_REQUEST_TOKEN` is set in Vercel.
+`.github/workflows/courtsimplified-source-requests.yml` then:
+
+1. resolves the name to an official URL (`scripts/sources/resolveSourceRequest.ts`:
+   a model proposes the e-Laws code or Justice Laws path; code accepts only
+   those two hosts and well-formed codes);
+2. fetches it with `fetchCorpus --only`, which keeps it only if the text
+   contains its own title and, for e-Laws, "CONSOLIDATION PERIOD" -- a wrong
+   guess fails here and nothing is vendored;
+3. indexes it, runs `test:rules-corpus` and `test:corpus-retrieval`;
+4. merges a PR, comments and closes the issue -- or labels it `needs-human`.
+
+Declarations it adds live in `scripts/rules/requestedSources.json`. It can be
+run by hand from the Actions tab with a law's name. Asserted by
+`npm run test:source-requests`.
