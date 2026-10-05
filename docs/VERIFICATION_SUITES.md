@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-114 documented, 28 without a header.
+115 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -102,6 +102,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:snapshot-provenance` | **Every human-supplied snapshot has provenance, is second-tier, and exists.**<br>WHAT THIS CATCHES: a snapshot used as though it were a fetched source. The snapshot type exists because ten pages cannot be fetched, and it is the only source type whose content nothing can re-verify against the live web. That makes it the one type where an un |
 | `npm run test:source-links` | **Every "Source" link a reader can click opens a public page.**<br>COSTS NOTHING. Pure functions over the content modules; no network. |
 | `npm run test:source-requests` | **Source requests: a law the research step says the library lacks becomes an**<br>issue, and the workflow turns the issue into a verified, indexed source. |
+| `npm run test:sourced-questions` | **Follow-up questions written from the law the research read**<br>(src/lib/case-system/retrieval/sourcedQuestions.ts), shown in all three intakes before the analysis. |
 | `npm run test:stage-answers` | **Can the pipeline's output be trusted?**<br>The run log says every sentence was verified and every quote was found. This suite does not take its word for it. It re-reads each quote out of the vendored corpus, now, on this machine — because the run log is a record of what happened on one afternoon agains |
 | `npm run test:stage-map` | **Does the stage map hold up?**<br>A stage map is a list of assertions about Ontario procedure, written by someone who could be wrong or could be working from memory. Three failures matter, and each has its own check group: |
 | `npm run test:stage-resolution` | **The runtime says "we don't know" when it doesn't, and shows only published text.**<br>Part 0 traced ten realistic stories through the old runtime. Eight got the same answer. The proximate cause was `text.includes("defendant")`; the more dangerous half was `\|\| "starting-case"` — a default, which is a confident answer given without evidence, an |

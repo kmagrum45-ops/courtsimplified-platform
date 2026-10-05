@@ -1927,3 +1927,40 @@ and court path only -- if `GITHUB_SOURCE_REQUEST_TOKEN` is set in Vercel.
 Declarations it adds live in `scripts/rules/requestedSources.json`. It can be
 run by hand from the Actions tab with a law's name. Asserted by
 `npm run test:source-requests`.
+
+Live since 2026-10-05: the token is in Vercel (Production), the repository
+allows Actions to open pull requests, and the first requests (SABS, the
+Compulsory Automobile Insurance Act, the Charter) went from issue to merged
+index unattended in about seven minutes each. The workflow listens to
+`labeled` only: an issue created with the label also fires `opened`, and the
+second run flagged the law the first had just added.
+
+### Questions from the law, for any kind of case (2026-10-05)
+
+`retrieval/sourcedQuestions.ts`. The owner's direction: the intake should be
+ready for every type of case, not only the 27 Small Claims and 7 civil claim
+types with hand-written questions. Once the story is told, all three intakes
+call `/api/intake/sourced-questions` in the background:
+
+1. **Research** (first request): `researchStory`, returning the ids of the
+   passages that answered a research question and the neutral situation line.
+2. **Write and check** (second request, ids only -- each passage is re-read
+   from the index, hash-checked): a model writes up to five questions about
+   what those passages say matters that the story does not answer; code checks
+   quote, numbers, outcome and advice wording; an independent check, which
+   never sees the story, passes each as faithful, applicable and neutral.
+
+Shown with "Why we ask" and the provision's link; answers are added to the
+story under a labelled heading. Small Claims shows them only when no claim
+type with reviewed depth questions was confirmed. Switch: `SOURCED_QUESTIONS`.
+
+Measured (`npm run eval:sourced-questions`, Retrieval Eval with
+`sourced_only`): 46 questions across 12 stories in all three courts, every
+story with some; 12 drafts refused by the check, 2 by code; median 50 s for
+both requests together. As one request, 9 of 12 ran out of time when the
+model was slow -- hence two.
+
+What it cannot do yet: elements that come from decisions rather than
+statutes. A Charter search story gets limitation and procedure questions, not
+what must be shown for Charter damages, because that test is in case law the
+library does not hold (CanLII cannot be fetched automatically).

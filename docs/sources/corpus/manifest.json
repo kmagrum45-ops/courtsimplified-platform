@@ -2669,11 +2669,11 @@
       "title": "Canadian Charter of Rights and Freedoms",
       "citation": "Constitution Act, 1982, Part I",
       "url": "https://laws-lois.justice.gc.ca/eng/Const/FullText.html",
-      "retrievedAt": "2026-10-05T22:34:52.507Z",
-      "sha256": "bb307301eead96f23d93ef0fa2c1a5fbcf55b86eb2d2f936bbf02ca1452acf00",
+      "retrievedAt": "2026-10-05T23:22:04.173Z",
+      "sha256": "ee4538f19c80dc15e410d617c00cc9b738a51cb14808c5157902dd6844c3bdff",
       "consolidation": "(none stated)",
-      "characters": 206700,
-      "lines": 2119,
+      "characters": 17100,
+      "lines": 214,
       "file": "canadian-charter-of-rights-and-freedoms.txt"
     }
   ],

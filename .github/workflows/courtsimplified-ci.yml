@@ -148,6 +148,9 @@ jobs:
       - name: A missing law becomes a verified source, or nothing
         run: npm run test:source-requests
 
+      - name: Questions from the law are quoted, checked and neutral, or not asked
+        run: npm run test:sourced-questions
+
       - name: Switch-off path shows no model-written text
         run: npm run test:no-model-text-to-users
 

@@ -193,7 +193,9 @@ export function mapGuidedIntakeToSmallClaimsInput(
     damagesBreakdown: "", // not collected
     serviceDetails: textField(result.facts.serviceDetailsText), // real -- verbatim answer to sc-defendant-served
     deadlineDetails: "", // not collected
-    facts: initialStory, // real -- the opening story, unchanged from what the user typed
+    // real -- the story as sent in the chat (the page's copy is only the
+    // prefill), plus any answers to the questions from the law that applies.
+    facts: [result.storyText?.trim() || initialStory, result.followUpText?.trim()].filter(Boolean).join("\n\n"),
     timeline: textField(result.facts.timelineText), // real -- verbatim answer to sc-orient-when-happened
     // real -- verbatim answer to sc-evidence-available (plaintiff) or
     // sc-defendant-response-evidence (defendant). The defendant branch was

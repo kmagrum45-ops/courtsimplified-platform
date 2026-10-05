@@ -203,6 +203,11 @@ function main(): void {
     // Added 2026-10-05: the research step -- chooses questions, reads passages.
     // JSON output; only code-verified quotes from the provisions are shown.
     "src/lib/case-system/retrieval/researchStory.ts",
+    // Added 2026-10-05: follow-up questions written from the passages the
+    // research found, and an independent check of them. JSON output; a
+    // question is shown only when code and the check both pass it
+    // (verifySourcedQuestions).
+    "src/lib/case-system/retrieval/sourcedQuestions.ts",
   ];
 
   for (const file of callSites) {

@@ -32,6 +32,10 @@
     "mustContain": [
       "Canadian Charter of Rights and Freedoms"
     ],
-    "why": "Named as missing by the research step (\"Canadian Charter of Rights and Freedoms, Part I of the Constitution Act, 1982\")."
+    "why": "Named as missing by the research step (\"Canadian Charter of Rights and Freedoms, Part I of the Constitution Act, 1982\").",
+    "section": {
+      "from": "PART I Canadian Charter of Rights and Freedoms",
+      "to": "PART II Rights of the Aboriginal Peoples"
+    }
   }
 ]

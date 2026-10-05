@@ -27,6 +27,7 @@ import {
 } from "../../../src/lib/case-system/evidence/evidenceReference";
 import EvidenceFileNotice from "../../_components/EvidenceFileNotice";
 import TidyWordingReview from "./TidyWordingReview";
+import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswers } from "./SourcedQuestions";
 import {
   consumeNarrativePrefill,
   directPrefillValues,
@@ -505,6 +506,16 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
   }
 
 
+  // Questions from the law that applies to the story, asked for as soon as
+  // there is a story and again when it is edited. Never blocks the analysis.
+  const sourced = useSourcedQuestions("family");
+  const startSourced = sourced.start;
+  React.useEffect(() => {
+    void startSourced(facts, yourRole !== "not-sure" ? yourRole : undefined);
+    // Once, for the story the page opened with; edits ask again on blur.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   async function handleAnalyze() {
     if (submissionInFlight.current) return;
     if (!facts.trim()) {
@@ -564,7 +575,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
         childrenInfo,
         currentLivingSituation,
         pastLivingHistory,
-        facts,
+        facts: withSourcedAnswers(facts, sourced.questions, sourced.answers),
         timeline,
         evidence,
         missingEvidence,
@@ -893,7 +904,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
           </label>
         ))}
 
-        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={facts} onChange={(event) => setFacts(event.target.value)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
+        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={facts} onChange={(event) => setFacts(event.target.value)} onBlur={() => void sourced.start(facts, yourRole !== "not-sure" ? yourRole : undefined)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">
@@ -1081,6 +1092,13 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
             placeholder="Example: Case conference on June 15, 2026"
           />
         </label>
+
+        <SourcedQuestionsCard
+          state={sourced.state}
+          questions={sourced.questions}
+          answers={sourced.answers}
+          setAnswer={sourced.setAnswer}
+        />
 
         <TidyWordingReview
           fields={[

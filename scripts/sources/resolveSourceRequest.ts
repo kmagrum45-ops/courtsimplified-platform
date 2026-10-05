@@ -85,6 +85,12 @@ export function declarationFor(proposal: Proposal, requestedAs: string): CorpusS
       url: `https://laws-lois.justice.gc.ca/eng/${proposal.justiceLawsPath}/FullText.html`,
       format: "html",
       mustContain: [title],
+      // The Constitution Acts page prints the 1867 and 1982 Acts together;
+      // the Charter is Part I of the 1982 Act. Kept alone so its sections are
+      // numbered as its own (see CorpusSource.section).
+      ...(proposal.justiceLawsPath === "Const" && /charter/i.test(title)
+        ? { section: { from: "PART I Canadian Charter of Rights and Freedoms", to: "PART II Rights of the Aboriginal Peoples" } }
+        : {}),
       why: `Named as missing by the research step ("${requestedAs.slice(0, 160)}").`,
     };
   }

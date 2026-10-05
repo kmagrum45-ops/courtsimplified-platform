@@ -1,8 +1,9 @@
 "use client";
 
 import TidyWordingReview from "./TidyWordingReview";
+import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswers } from "./SourcedQuestions";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AnalysisResult,
   StoredCaseData,
@@ -655,6 +656,17 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
     }));
   }
 
+  // Questions from the law that applies to the story, asked for as soon as
+  // there is a story (it usually arrives from the home page) and again when
+  // it is edited. Never blocks the analysis.
+  const sourced = useSourcedQuestions("civil");
+  const startSourced = sourced.start;
+  useEffect(() => {
+    void startSourced(input.facts, input.yourRole || undefined);
+    // Once, for the story the page opened with; edits ask again on blur.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   async function handleAnalyze() {
     if (submissionInFlight.current) return;
     if (!input.facts.trim()) {
@@ -714,7 +726,13 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             ? { Authorization: `Bearer ${session.access_token}` }
             : {}),
         },
-        body: JSON.stringify({ input: { ...civilAnalysisInput, caseId: caseId || undefined } }),
+        body: JSON.stringify({
+          input: {
+            ...civilAnalysisInput,
+            facts: withSourcedAnswers(civilAnalysisInput.facts, sourced.questions, sourced.answers),
+            caseId: caseId || undefined,
+          },
+        }),
       });
       const body = (await response.json()) as {
         ok?: boolean;
@@ -983,7 +1001,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           </label>
         ))}
 
-        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
+        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} onBlur={() => void sourced.start(input.facts, input.yourRole || undefined)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">
@@ -1136,6 +1154,13 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             </div>
           )}
         </div>
+
+        <SourcedQuestionsCard
+          state={sourced.state}
+          questions={sourced.questions}
+          answers={sourced.answers}
+          setAnswer={sourced.setAnswer}
+        />
 
         <TidyWordingReview
           fields={[

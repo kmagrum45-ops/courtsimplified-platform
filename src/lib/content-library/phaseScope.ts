@@ -215,3 +215,17 @@ export function researchStepEnabled(
 ): boolean {
   return env.RESEARCH_STEP !== "off";
 }
+
+/**
+ * Follow-up questions written from the law the research step read
+ * (retrieval/sourcedQuestions.ts), for any kind of case, each tied to a
+ * quoted provision and checked by code and a second model call. Chosen by
+ * the site owner 2026-10-05. Its own switch, per CLAUDE.md section 2:
+ * SOURCED_QUESTIONS=off. Model-written text to users, so it also follows
+ * AI_ANALYSIS_TEXT_TO_USERS, and it needs the research step.
+ */
+export function sourcedQuestionsEnabled(
+  env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+): boolean {
+  return env.SOURCED_QUESTIONS !== "off" && aiAnalysisTextToUsers(env) && researchStepEnabled(env);
+}

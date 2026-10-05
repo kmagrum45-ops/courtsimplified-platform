@@ -25,6 +25,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { declarationFor, idFromTitle } from "../sources/resolveSourceRequest";
+import { keepSection } from "../rules/extractText";
 import { fileSourceRequests, requestTitle } from "../../src/lib/case-system/retrieval/sourceRequests";
 import { REQUESTED_SOURCES } from "../rules/requestedSources";
 
@@ -59,6 +60,15 @@ async function main() {
   // Constitution Act, 1982, published under eng/Const (2026-10-05).
   const charter = declarationFor({ title: "Canadian Charter of Rights and Freedoms", citation: "Part I of the Constitution Act, 1982", jurisdiction: "canada", justiceLawsPath: "Const" }, "Charter s. 24");
   check("the Charter resolves to the Constitution Acts on Justice Laws", "url" in charter && charter.url === "https://laws-lois.justice.gc.ca/eng/Const/FullText.html" && charter.mustContain?.includes("Canadian Charter of Rights and Freedoms"));
+  // The Constitution Acts page holds the 1867 and 1982 Acts; kept whole, the
+  // chunker filed Charter s. 8 as "s. 147" (2026-10-05).
+  check("the Charter is kept apart from the 1867 Act", "section" in charter && charter.section?.from === "PART I Canadian Charter of Rights and Freedoms");
+  const page = "CONSTITUTION ACT, 1867\n 8  The Queen\nPART I  Canadian Charter of Rights and Freedoms\n 8  Everyone has the right\nPART II Rights of the Aboriginal Peoples\n 35  The existing";
+  const kept = keepSection(page, { from: "PART I Canadian Charter of Rights and Freedoms", to: "PART II Rights of the Aboriginal Peoples" });
+  check("a section is kept from its start marker to its end marker", kept === "PART I  Canadian Charter of Rights and Freedoms\n 8  Everyone has the right");
+  check("a missing marker fails the fetch, not keeps the whole page", keepSection(page, { from: "PART IX", to: "PART II" }) === null && keepSection(page, { from: "PART I Canadian", to: "PART XI" }) === null);
+  const charterEntry = REQUESTED_SOURCES.find((source) => source.id === "canadian-charter-of-rights-and-freedoms");
+  check("the vendored Charter declaration keeps only the Charter", Boolean(charterEntry?.section));
   check("a malformed code is refused", "unresolved" in declarationFor({ title: "Highway Traffic Act", citation: "", jurisdiction: "ontario", elawsCode: "../../evil" }, "x"));
   check("a path off Justice Laws is refused", "unresolved" in declarationFor({ title: "Criminal Code", citation: "", jurisdiction: "canada", justiceLawsPath: "https://example.com/x" }, "x"));
   check("no code, no declaration", "unresolved" in declarationFor({ title: "Some Act", citation: "", jurisdiction: "ontario" }, "x"));

@@ -126,6 +126,16 @@ export type CorpusSource = {
    * 200-with-an-error-body, so it is per-source where the default is wrong.
    */
   minCharacters?: number;
+  /**
+   * Keep only part of the published document: from the first line containing
+   * `from` up to (not including) the first later line containing `to`
+   * (whitespace collapsed, case ignored). Both must be found, or the fetch
+   * fails. For a page that publishes several instruments together: Justice
+   * Laws prints the Charter on one page with the Constitution Act, 1867, and
+   * the chunker, reading one run of section numbers, filed Charter s. 8 as
+   * "s. 147" (2026-10-05).
+   */
+  section?: { from: string; to: string };
 };
 
 import { REQUESTED_SOURCES } from "./requestedSources";

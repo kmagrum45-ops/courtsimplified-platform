@@ -31,7 +31,7 @@ import { writeFileSync, mkdirSync, existsSync, readFileSync, unlinkSync } from "
 import { createHash } from "node:crypto";
 import path from "node:path";
 
-import { extract } from "./extractText";
+import { extract, keepSection } from "./extractText";
 
 import { CORPUS_SOURCES, type CorpusSource } from "./corpusSources";
 
@@ -170,6 +170,16 @@ async function fetchOne(
         reason: `extraction failed: ${error instanceof Error ? error.message.slice(0, 120) : "unknown"}`,
       },
     };
+  }
+
+  if (source.section) {
+    const kept = keepSection(text, source.section);
+    if (kept === null) {
+      return {
+        failure: { id: source.id, url: source.url, reason: `section markers not found: "${source.section.from}" .. "${source.section.to}"` },
+      };
+    }
+    text = kept;
   }
 
   const minimum = source.minCharacters ?? DEFAULT_MIN_CHARACTERS;

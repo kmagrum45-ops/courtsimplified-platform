@@ -1488,3 +1488,23 @@ published block is `answer:before-filing:notice-vehicle-injury` (run-15).
 indexed by Corpus Index run 37362973715 (919 passages). Consolidation period
 from July 1, 2026. s. 193 (onus of proof in a motor-vehicle loss) and ss. 140,
 144 (7) (yielding to pedestrians) are cut as their own passages.
+
+### The Charter: Justice Laws prints it on one page with the Constitution Act, 1867 (2026-10-05)
+
+`https://laws-lois.justice.gc.ca/eng/Const/FullText.html` is the official text
+of the Charter, but it is the **Constitution Acts, 1867 to 1982** on a single
+page: the 1867 Act (ss. 1-147), then the Constitution Act, 1982, whose Part I
+is the Charter (ss. 1-34). The chunker reads legislation as one increasing run
+of section numbers, so it kept the 1867 numbering and filed Charter s. 8
+(search or seizure) inside "s. 147". Research then reported the Charter as
+missing from the library although it had just been vendored.
+
+Fix: `CorpusSource.section` keeps the part of a fetched page between two
+markers, and the fetch fails if either is missing. The Charter is declared
+with `PART I Canadian Charter of Rights and Freedoms` .. `PART II Rights of
+the Aboriginal Peoples` (17,100 characters, ss. 1-34, each its own passage).
+The resolver sets this for any Charter request (`Const` path). The Charter is
+not under Justice Laws `acts/` or `regulations/`; `Const` is the path.
+
+Any other page that prints several instruments together needs the same
+treatment. The sign is a pinpoint far past the instrument's last section.
