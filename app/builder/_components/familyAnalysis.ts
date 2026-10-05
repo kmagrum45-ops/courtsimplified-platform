@@ -79,5 +79,6 @@ export function buildFamilyAnalysis(
     intelligenceWarnings: result.brain.intelligence.systemWarnings,
     nextBestActions: generatedQuestions,
     intelligenceNextActions: result.brain.intelligence.nextBestActions,
+    ...(result.brain.intelligence.appliedLaw?.length ? { appliedLaw: result.brain.intelligence.appliedLaw } : {}),
   };
 }

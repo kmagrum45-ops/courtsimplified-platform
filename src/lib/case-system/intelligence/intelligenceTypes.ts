@@ -758,6 +758,17 @@ export type ElementProofEngineResult = {
   summary: string;
 };
 
+export type AppliedLawItem = {
+  id: string;
+  /** "Legislation: Residential Tenancies Act, 2006 -- s. 106 (1)-(3)" */
+  label: string;
+  /** "Residential Tenancies Act, 2006, S.O. 2006, c. 17, s. 106 (1)-(3)" */
+  citation?: string;
+  /** The provision's own words. */
+  text: string;
+  sourceUrl: string;
+};
+
 export type LegalIntelligenceResult = {
   id: string;
   /**
@@ -801,6 +812,12 @@ export type LegalIntelligenceResult = {
   nextBestActionSources?: { text: string; sourceUrl?: string }[];
   /** Corpus passages retrieval found for this story (retrieval/storyRetrieval.ts). */
   retrievedSources?: { id: string; score: number }[];
+  /**
+   * The law this analysis rests on: retrieved passages the model cited with a
+   * quote the gate verified. Verbatim source text, never model wording, so it
+   * can be shown whatever aiAnalysisTextToUsers says.
+   */
+  appliedLaw?: AppliedLawItem[];
   /** Statements the grounding gate removed, and why (groundedCognition.ts). */
   groundingReport?: {
     kept: number;
