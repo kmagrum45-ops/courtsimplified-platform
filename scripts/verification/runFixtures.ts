@@ -106,6 +106,9 @@ function renderActualMarkdown(fixture: Fixture, run: PipelineRun): string {
     push(`nextBestActions: ${JSON.stringify(a.nextBestActions)}`);
     push(`intelligenceSummary: ${JSON.stringify(a.intelligenceSummary)}`);
     push(`structuredIntelligenceSummary: ${JSON.stringify(a.structuredIntelligenceSummary)}`);
+    // 2026-10-05: the provisions retrieval found for this story that the
+    // analysis cited with a verified quote ("The law behind this").
+    push(`appliedLaw: ${JSON.stringify((a.appliedLaw ?? []).map((item) => item.citation || item.label))}`);
   } else {
     push("");
     push(`## Final AnalysisResult`);
