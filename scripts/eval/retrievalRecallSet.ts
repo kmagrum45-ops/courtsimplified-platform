@@ -392,7 +392,10 @@ export const RECALL_SET: RecallStory[] = [
     court: "civil",
     stage: "already-started",
     story: "The other side's defence is obviously nonsense. Is there a way to get judgment without going through a whole trial?",
-    expect: [{ source: "rules-of-civil-procedure", section: "20.04", phrase: "genuine issue requiring a trial" }],
+    expect: [
+      { source: "rules-of-civil-procedure", section: "20.04", phrase: "genuine issue requiring a trial" },
+      { source: "rules-of-civil-procedure", section: "20.01", phrase: "summary judgment" },
+    ],
   },
   {
     id: "contractor-holdback",

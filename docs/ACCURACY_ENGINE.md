@@ -1761,7 +1761,12 @@ before the labels were widened to every provision whose own text answers
 the story; 48-49 of 50 and 58-60 of 70 after. Run to run the same code moves
 by about two provisions. **Tried and removed:** lifting passages of a law the
 model's query names (+0.06). A/B on the same labels: 60 and 58 with it, 58
-without -- inside the noise, so not worth the code. The time is the query
+without -- inside the noise, so not worth the code. **Also tried and
+reverted:** telling the query step not to name the court in substantive
+questions (the report showed "in the Ontario Small Claims Court" in almost
+every query, pulling toward procedure). It found Garland for the mistaken
+payment but lost procedural stories (r. 9.01, r. 8.01): 46 of 50 both ways
+it was worded, against 47-49 for the original prompt. The time is the query
 step: median about 5.5 s to write the queries, 0.2 s to embed, under 6 s in
 all, run alongside intake normalization.
 
