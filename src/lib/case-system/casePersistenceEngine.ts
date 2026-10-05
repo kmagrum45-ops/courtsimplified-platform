@@ -6,7 +6,13 @@ import {
 } from "./caseContextEngine";
 
 import type { StoredEvidencePackage } from "./evidenceStorage";
-import type { WorkspaceDocument } from "./documentWorkspaceEngine";
+/**
+ * A document from the old browser-only drafting page, carried as it was found.
+ * Its engine (documentWorkspaceEngine and the generator behind it) was removed
+ * on 2026-10-04; drafts now live on the case (drafts/caseDrafts.ts), and this
+ * record only passes older entries through untouched.
+ */
+export type LegacyWorkspaceDocument = Record<string, unknown>;
 import { EVIDENCE_PACKAGE_LEGACY_KEY, WORKSPACE_DOCUMENT_KEY } from "./storage/intakeStorageKeys";
 
 export type CasePersistenceStatus =
@@ -59,7 +65,7 @@ export type PersistedCaseRecord = {
   status: CasePersistenceStatus;
   caseContext?: CaseContext;
   evidencePackages: StoredEvidencePackage[];
-  workspaceDocuments: WorkspaceDocument[];
+  workspaceDocuments: LegacyWorkspaceDocument[];
   syncNotes: string[];
   diagnostics?: CasePersistenceDiagnostic[];
   metadata?: {
@@ -78,7 +84,7 @@ export type SaveCaseRecordInput = {
   title?: string;
   caseContext?: CaseContext;
   evidencePackages?: StoredEvidencePackage[];
-  workspaceDocuments?: WorkspaceDocument[];
+  workspaceDocuments?: LegacyWorkspaceDocument[];
   status?: CasePersistenceStatus;
   syncNotes?: string[];
   saveReason?: string;
@@ -219,9 +225,9 @@ function normalizeEvidencePackages(raw: unknown): StoredEvidencePackage[] {
   return raw.filter(Boolean) as StoredEvidencePackage[];
 }
 
-function normalizeWorkspaceDocuments(raw: unknown): WorkspaceDocument[] {
+function normalizeWorkspaceDocuments(raw: unknown): LegacyWorkspaceDocument[] {
   if (!Array.isArray(raw)) return [];
-  return raw.filter(Boolean) as WorkspaceDocument[];
+  return raw.filter(Boolean) as LegacyWorkspaceDocument[];
 }
 
 function normalizePersistedRecord(raw: unknown): PersistedCaseRecord | null {
@@ -782,8 +788,8 @@ export function collectCurrentLocalCaseRecord(): PersistedCaseRecord | null {
       ? [rawEvidencePackage as StoredEvidencePackage]
       : [];
 
-    const workspaceDocuments: WorkspaceDocument[] = rawWorkspace
-      ? [rawWorkspace as WorkspaceDocument]
+    const workspaceDocuments: LegacyWorkspaceDocument[] = rawWorkspace
+      ? [rawWorkspace as LegacyWorkspaceDocument]
       : [];
 
     if (

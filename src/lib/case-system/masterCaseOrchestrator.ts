@@ -13,7 +13,7 @@ import type { EvidenceItem } from "./evidenceEngine";
 
 import type { StoredEvidencePackage } from "./evidenceStorage";
 
-import type { WorkspaceDocument } from "./documentWorkspaceEngine";
+import type { LegacyWorkspaceDocument } from "./casePersistenceEngine";
 
 import {
   buildCaseRecordLocal,
@@ -68,7 +68,7 @@ type AttachEvidenceInput = OrchestratorUpdateBase & {
 };
 
 type AttachWorkspaceInput = OrchestratorUpdateBase & {
-  workspaceDocuments: WorkspaceDocument[];
+  workspaceDocuments: LegacyWorkspaceDocument[];
 };
 
 type AttachFormsInput = OrchestratorUpdateBase & {
@@ -242,7 +242,7 @@ function saveUpdatedRecord(
   updates: {
     caseContext?: CaseContext;
     evidencePackages?: StoredEvidencePackage[];
-    workspaceDocuments?: WorkspaceDocument[];
+    workspaceDocuments?: LegacyWorkspaceDocument[];
     title?: string;
     status?: CasePersistenceStatus;
     syncNotes?: string[];

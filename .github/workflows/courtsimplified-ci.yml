@@ -235,6 +235,9 @@ jobs:
       - name: Drafts are saved on the user's own case and hold only their record
         run: npm run test:case-drafts
 
+      - name: Every page that renders library text guards it, and every guard is declared
+        run: npm run test:guard-coverage
+
       - name: Production build
         run: npm run build
 

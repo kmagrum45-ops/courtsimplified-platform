@@ -108,6 +108,17 @@ const GUARDED: GuardedPath[] = [
     what: "the pathway description, and the out-of-scope forum redirect message",
     atLeast: 2,
   },
+  // The seven pages below already called the guard and were never declared, so
+  // this suite failed on them (found 2026-10-04 while moving the forms tool to
+  // FormsWorkspace.tsx). Declaring them is what makes their guard a checked
+  // property: removing a call now fails here.
+  { file: "app/claims/[id]/page.tsx", what: "every sentence of a claim-type page, through one helper", atLeast: 1 },
+  { file: "app/claims/page.tsx", what: "who brings each kind of claim, on the claims index", atLeast: 1 },
+  { file: "app/forms/FormsWorkspace.tsx", what: "each form's one-sentence explanation in the forms tool", atLeast: 1 },
+  { file: "app/forms/guide/page.tsx", what: "each form's explanation in the forms guide", atLeast: 1 },
+  { file: "app/glossary/page.tsx", what: "every glossary explanation", atLeast: 1 },
+  { file: "app/guides/[id]/page.tsx", what: "every paragraph of an in-depth guide, through one helper", atLeast: 1 },
+  { file: "app/guides/page.tsx", what: "each guide's title and introduction on the guides index", atLeast: 2 },
 ];
 
 {
@@ -189,15 +200,25 @@ const UNGUARDED: UnguardedPath[] = [
       "REQUIRE_APPROVED_CONTENT would not gate them. Same gap as the catalogue " +
       "renders.",
   },
+  // documentGenerationEngine.ts was listed here until 2026-10-04, when it was
+  // removed with the browser-only drafting page. What replaced it:
   {
-    file: "src/lib/case-system/documentGenerationEngine.ts",
-    what: "the generated document body",
+    file: "app/cases/[id]/drafts/page.tsx",
+    what: "the user's working drafts",
     reason:
-      "Assembles the user's own recorded facts plus catalogue next steps. Model " +
-      "prose was removed from its inputs at the engine assembly point on " +
-      "2026-09-23 rather than by guarding the render, because a document also " +
-      "legitimately contains the user's own words — which the guard would refuse, " +
-      "since they are not library items. See verifyNoModelProseInDocuments.ts.",
+      "Shows only what the user wrote or chose to start from: their own story, " +
+      "timeline and intake answers. A guard that admits only library items would " +
+      "refuse the user's own words. That no stored model analysis or strength " +
+      "assessment reaches it is asserted in verifyNoModelProseInDocuments.ts.",
+  },
+  {
+    file: "app/cases/[id]/case-file/page.tsx",
+    what: "the printable case file",
+    reason:
+      "The user's own record on one page: their story, confirmed stage, recorded " +
+      "steps, documents and the deadline engine's computed dates (whose prose is " +
+      "already checked where it is built). Same reason as the drafts, and the " +
+      "same check in verifyNoModelProseInDocuments.ts.",
   },
 ];
 
