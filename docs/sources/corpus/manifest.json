@@ -2639,6 +2639,18 @@
       "characters": 1133999,
       "lines": 21281,
       "file": "highway-traffic-act.txt"
+    },
+    {
+      "id": "statutory-accident-benefits-schedule",
+      "title": "Statutory Accident Benefits Schedule",
+      "citation": "O. Reg. 34/10",
+      "url": "https://www.ontario.ca/laws/docs/100034_e.doc",
+      "retrievedAt": "2026-10-05T21:34:46.576Z",
+      "sha256": "19799ee4d958d99ecc3ca3b6baab01f633175b228e7d9ba2babeb16c21d9e216",
+      "consolidation": "CONSOLIDATION PERIOD: FROM JULY 1, 2026 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 219035,
+      "lines": 3520,
+      "file": "statutory-accident-benefits-schedule.txt"
     }
   ],
   "failures": []

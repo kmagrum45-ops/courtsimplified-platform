@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": "statutory-accident-benefits-schedule",
+    "title": "Statutory Accident Benefits Schedule",
+    "citation": "O. Reg. 34/10",
+    "url": "https://www.ontario.ca/laws/docs/100034_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "STATUTORY ACCIDENT BENEFITS SCHEDULE",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Statutory Accident Benefits Schedule - Effective September 1, 2010, O. Reg. 34/10\")."
+  }
+]
