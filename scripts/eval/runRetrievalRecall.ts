@@ -47,6 +47,8 @@ async function main() {
     embedMs: number;
     totalMs: number;
     skipped?: string;
+    queries: string[];
+    retrieved: string[];
   }[] = [];
 
   for (const story of RECALL_SET) {
@@ -92,6 +94,8 @@ async function main() {
       embedMs,
       totalMs,
       ...(result.skipped ? { skipped: result.skipped } : {}),
+      queries: result.queries,
+      retrieved: result.passages.map((passage) => `${passage.sourceId} ${passage.pinpoint || passage.heading.slice(0, 30)}${passage.referredBy ? " (ref)" : ""} [${passage.score.toFixed(2)}]`),
     });
     console.log(`${found.length ? "hit " : "MISS"} ${story.id} (${totalMs} ms)`);
   }
@@ -131,6 +135,11 @@ async function main() {
         `| ${row.id} | ${row.court} | ${row.hit ? "hit" : "**miss**"}${row.skipped ? ` (${row.skipped})` : ""} | ${row.found.map((item) => (row.viaReference.includes(item) ? `${item} (ref)` : item)).join(", ")} | ${row.missed.join(", ")} | ${row.totalMs} |`,
     ),
     "",
+    "## Misses: what came back instead",
+    "",
+    ...rows
+      .filter((row) => row.missed.length)
+      .flatMap((row) => [`### ${row.id}`, "", `Missed: ${row.missed.join(", ")}`, "", "Queries:", ...row.queries.map((query) => `- ${query}`), "", "Retrieved:", ...row.retrieved.map((item) => `- ${item}`), ""]),
   ];
   writeFileSync(path.join(process.cwd(), "retrieval-recall.md"), lines.join("\n"));
   writeFileSync(path.join(process.cwd(), "retrieval-recall.json"), JSON.stringify({ summary, rows }, null, 2) + "\n");
