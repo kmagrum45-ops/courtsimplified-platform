@@ -49,9 +49,13 @@ import { passageItem, type RetrievalInput } from "./storyRetrieval";
 export const MAX_SOURCED_QUESTIONS = 5;
 const MAX_PASSAGES_OFFERED = 10;
 const PASSAGE_CHARS = 1500;
-/** Research gets most of a 60 s request; writing and checking the rest. */
-export const RESEARCH_BUDGET_MS = 36_000;
-const QUESTION_BUDGET_MS = 20_000;
+/**
+ * Research gets most of a 60 s request; writing and checking the rest, with
+ * room left for the route. Measured 2026-10-05 over 12 stories: median 43 s,
+ * slowest 50 s.
+ */
+export const RESEARCH_BUDGET_MS = 34_000;
+const QUESTION_BUDGET_MS = 18_000;
 
 export type SourcedQuestion = {
   id: string;
@@ -99,7 +103,7 @@ Rules you must never break:
 - Do not ask what their account already answers.
 - Do not ask for names, addresses, phone numbers, or general questions any intake asks (what happened, how much, what proof they have). Ask only about points a passage raises.
 - Plain, everyday words. One question each, under 200 characters.
-- For each, "why" is one plain sentence saying what the passage provides on that point (not what it means for this person), under 250 characters. Write any number exactly as the passage does.
+- For each, "why" is one plain sentence saying what the law provides on that point (not what it means for this person), under 250 characters. Name the law it comes from ("The Insurance Act says ...", "The Small Claims Court rules require ..."); never write "the passage". Write any number exactly as the passage does.
 - For each, give the passage id and a short quote copied EXACTLY, character for character, from that passage, showing the point.
 
 At most 5 questions, the most important first. If no passage raises a point the account leaves open, return an empty list.
