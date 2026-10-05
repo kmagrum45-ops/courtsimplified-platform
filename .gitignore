@@ -205,3 +205,5 @@ scripts/verification/storyReview/REPORT*.md
 scripts/verification/storyReview/results*.json
 /rules-diff.md
 /forms-check-report.md
+/forms-probe.json
+/forms-probe-report.md
