@@ -2627,6 +2627,18 @@
       "characters": 3939,
       "lines": 56,
       "file": "ontario-report-child-abuse-and-neglect.txt"
+    },
+    {
+      "id": "highway-traffic-act",
+      "title": "Highway Traffic Act",
+      "citation": "R.S.O. 1990, c. H.8",
+      "url": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+      "retrievedAt": "2026-10-05T19:16:55.322Z",
+      "sha256": "1f2c2cbdcef75ff94e37a98926821d5f501aa56c9c3e80b7bf719143164484c8",
+      "consolidation": "CONSOLIDATION PERIOD: FROM JULY 1, 2026 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 1133999,
+      "lines": 21281,
+      "file": "highway-traffic-act.txt"
     }
   ],
   "failures": []
