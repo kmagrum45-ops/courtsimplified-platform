@@ -55,6 +55,10 @@ async function main() {
   );
   const cc = declarationFor({ title: "Criminal Code", citation: "R.S.C. 1985, c. C-46", jurisdiction: "canada", justiceLawsPath: "acts/C-46" }, "Criminal Code s. 810");
   check("a federal Act resolves to Justice Laws", "url" in cc && cc.url === "https://laws-lois.justice.gc.ca/eng/acts/C-46/FullText.html" && cc.mustContain.includes("Criminal Code"));
+  // The Charter is not under acts/ or regulations/: it is Part I of the
+  // Constitution Act, 1982, published under eng/Const (2026-10-05).
+  const charter = declarationFor({ title: "Canadian Charter of Rights and Freedoms", citation: "Part I of the Constitution Act, 1982", jurisdiction: "canada", justiceLawsPath: "Const" }, "Charter s. 24");
+  check("the Charter resolves to the Constitution Acts on Justice Laws", "url" in charter && charter.url === "https://laws-lois.justice.gc.ca/eng/Const/FullText.html" && charter.mustContain?.includes("Canadian Charter of Rights and Freedoms"));
   check("a malformed code is refused", "unresolved" in declarationFor({ title: "Highway Traffic Act", citation: "", jurisdiction: "ontario", elawsCode: "../../evil" }, "x"));
   check("a path off Justice Laws is refused", "unresolved" in declarationFor({ title: "Criminal Code", citation: "", jurisdiction: "canada", justiceLawsPath: "https://example.com/x" }, "x"));
   check("no code, no declaration", "unresolved" in declarationFor({ title: "Some Act", citation: "", jurisdiction: "ontario" }, "x"));
