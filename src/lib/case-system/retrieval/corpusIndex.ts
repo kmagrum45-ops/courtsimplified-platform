@@ -160,7 +160,7 @@ export type SearchOptions = {
  * Act the query named. Scores between relevant passages differ by a few
  * hundredths, so a small lift settles ties without overriding meaning.
  */
-export const NAMED_SOURCE_BOOST = 0.06;
+export const NAMED_SOURCE_BOOST = 0;
 
 function titleKey(text: string): string {
   return text
