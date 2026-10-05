@@ -1,0 +1,47 @@
+name: CourtSimplified Branch Cleanup
+
+# Deletes leftover branches whose work is already in main (merged pull
+# requests, branches main already contains, old temporary vendoring and
+# diagnostics runs). Keeps main, case-workspace, the *-reports branches and
+# anything with an open pull request; anything with work not in main is saved
+# as an archive/<name> tag before it goes. See scripts/repo/cleanupBranches.sh.
+# Weekly, and on demand (with optional extra branch names to remove).
+
+on:
+  schedule:
+    - cron: "41 9 * * 1"
+  workflow_dispatch:
+    inputs:
+      extra:
+        description: "Other branches to remove (space-separated); they are archived as tags first"
+        required: false
+        default: ""
+      dry_run:
+        description: "1 = only list what would happen"
+        required: false
+        default: "0"
+
+permissions:
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: branch-cleanup
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Delete finished branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXTRA: ${{ github.event.inputs.extra }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || '0' }}
+        run: bash scripts/repo/cleanupBranches.sh | tee cleanup.log
+      - name: Summary
+        if: always()
+        run: |
+          { echo '```'; cat cleanup.log 2>/dev/null; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
