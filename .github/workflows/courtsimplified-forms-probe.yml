@@ -27,6 +27,16 @@ jobs:
       - run: npm ci
       - name: Probe every official form
         run: node --import tsx scripts/forms/probeOfficialForms.ts
+      - name: Keep a few blank forms as test samples
+        run: |
+          mkdir -p samples
+          node -e '
+            const links = require("./src/lib/content-library/forms/officialFormLinks.json").forms;
+            const want = [["small-claims","7A"],["small-claims","9A"],["small-claims","8A"],["family","8"],["family","10"],["family","35.1"],["civil","18B"],["civil","14A"]];
+            for (const [c,n] of want) { const f = links.find(x => x.court===c && x.number===n); if (f && f.docx) console.log(c+"_"+n+".docx "+f.docx); if (f && f.pdf) console.log(c+"_"+n+".pdf "+f.pdf); }
+          ' | while read name url; do curl -sSL -A "CourtSimplified form probe" -o "samples/$name" "$url" || true; done
+          ls -la samples
+
       - name: Publish
         if: always()
         env:
@@ -35,6 +45,7 @@ jobs:
           set -euo pipefail
           out="$(mktemp -d)"
           cp forms-probe-report.md forms-probe.json "$out/" || true
+          cp -r samples "$out/" || true
           printf '{\n  "git": { "deploymentEnabled": false }\n}\n' > "$out/vercel.json"
           cd "$out"
           git init -q
