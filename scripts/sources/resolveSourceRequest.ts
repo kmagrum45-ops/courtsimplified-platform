@@ -59,7 +59,11 @@ export function idFromTitle(title: string): string {
  * hosts, only well-formed codes. Pure; exported for the suite.
  */
 export function declarationFor(proposal: Proposal, requestedAs: string): CorpusSource | { unresolved: string } {
-  const title = (proposal.title || "").replace(/\s+/g, " ").trim();
+  // The short title only: "Statutory Accident Benefits Schedule - Effective
+  // September 1, 2010" is printed with an en dash in e-Laws and a hyphen in a
+  // model's answer, and the marker check is exact (first run, 2026-10-05:
+  // resolved to the right document, failed on the dash).
+  const title = (proposal.title || "").replace(/\s+/g, " ").trim().split(/\s[-–—]\s|,|\(/)[0].trim();
   if (title.length < 4) return { unresolved: "no title" };
   const id = idFromTitle(title);
   if (proposal.jurisdiction === "ontario" && proposal.elawsCode && /^[0-9]{2}[a-z][0-9]{2}$|^[0-9]{6}$/.test(proposal.elawsCode)) {

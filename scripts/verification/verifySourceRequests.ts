@@ -43,6 +43,8 @@ function check(name: string, ok: boolean, detail?: string) {
 async function main() {
   console.log("\n1. Resolving a name to an official source");
   check("ids are kebab case", idFromTitle("Statutory Accident Benefits Schedule — Effective September 1, 2010") === "statutory-accident-benefits-schedule-effective-september-1-2");
+  const sabs = declarationFor({ title: "Statutory Accident Benefits Schedule - Effective September 1, 2010", citation: "O. Reg. 34/10", jurisdiction: "ontario", elawsCode: "100034" }, "SABS");
+  check("the marker is the short title, so a dash printed differently cannot fail a right document", "mustContain" in sabs && sabs.mustContain[0] === "STATUTORY ACCIDENT BENEFITS SCHEDULE" && sabs.id === "statutory-accident-benefits-schedule");
   check("an id never ends on a hyphen", !idFromTitle("A".repeat(59) + " B").endsWith("-"));
   const hta = declarationFor({ title: "Highway Traffic Act", citation: "R.S.O. 1990, c. H.8", jurisdiction: "ontario", elawsCode: "90h08" }, "Highway Traffic Act, s. 193");
   check("an Ontario statute resolves to its e-Laws .doc", "url" in hta && hta.url === "https://www.ontario.ca/laws/docs/90h08_e.doc");
