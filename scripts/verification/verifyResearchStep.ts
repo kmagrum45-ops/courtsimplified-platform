@@ -68,7 +68,7 @@ async function main() {
   );
   check("a question needs words and at least one usable search phrase", !issues.some((issue) => issue.question === "short" || issue.queries.length === 0));
   check("duplicate and too-short phrases are dropped", issues[0]?.queries.length === 1);
-  check("at most eight questions", issues.length === 8);
+  check("at most six questions", issues.length === 6);
   check("prose is not a list of questions", parseIssues("I think the issues are...").length === 0);
 
   const index = loadCorpusIndex(ROOT);
@@ -151,22 +151,25 @@ async function main() {
       spotIssues: async () => twoIssues,
       embed,
       readPassages: async (_input, asked, byIssue) => {
+        // Each question is read in its own call.
         readCalls.push({ issues: asked.map((issue) => issue.id), prompt: readingPrompt(asked, byIssue) });
-        if (readCalls.length === 1) {
-          // Round 1: issue-1 needs another search; issue-2 is not in the library.
-          return { results: [
-            { issueId: "issue-1", status: "search-again", queries: ["notice of intention to commence the action within 120 days"] },
-            { issueId: "issue-2", status: "not-in-library", missingLaw: "Highway Traffic Act, R.S.O. 1990, c. H.8, s. 193" },
-          ] };
+        const issue = asked[0];
+        const round = readCalls.filter((call) => call.issues[0] === issue.id).length;
+        if (issue.id === "issue-2") {
+          return { results: [{ issueId: "issue-2", status: "not-in-library", missingLaw: "Highway Traffic Act, R.S.O. 1990, c. H.8, s. 193" }] };
         }
-        // Round 2: answer issue-1 from any passage it was offered, quoting it.
+        if (round === 1) {
+          return { results: [{ issueId: "issue-1", status: "search-again", queries: ["notice of intention to commence the action within 120 days"] }] };
+        }
+        // Round 2: answer issue-1 from a passage it was offered, quoting it.
         const passage = byIssue.get("issue-1")?.[0];
         return { results: [{ issueId: "issue-1", status: "answered", answers: passage ? [{ passageId: passage.id, quote: passage.text.slice(0, 60) }] : [] }] };
       },
     },
   );
   check("two rounds ran", result.rounds === 2, String(result.rounds));
-  check("the second round reads only the questions that asked for more", readCalls[1]?.issues.join() === "issue-1");
+  check("each question is read in its own call", readCalls.every((call) => call.issues.length === 1));
+  check("the second round reads only the questions that asked for more", readCalls.slice(2).map((call) => call.issues.join()).join() === "issue-1");
   check("the second search used the reader's new phrases", embedded[1]?.[0] === "notice of intention to commence the action within 120 days");
   check("a question answered in round 2 is answered", result.findings.find((f) => f.issueId === "issue-1")?.status === "answered");
   check("a library gap becomes a source request", result.sourceRequests.join() === "Highway Traffic Act, R.S.O. 1990, c. H.8, s. 193");

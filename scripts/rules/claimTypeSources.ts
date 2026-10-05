@@ -317,6 +317,21 @@ export const CLAIM_TYPE_SOURCES: CorpusSource[] = [
       "check rather than one rule out of context.",
   },
   {
+    // 2026-10-05: named as missing by the research step's first real case (a
+    // pedestrian hit by a city bus). Vehicle-injury claims turn on its rules
+    // of the road and the onus provisions; the library had none of it.
+    id: "highway-traffic-act",
+    title: "Highway Traffic Act",
+    citation: "R.S.O. 1990, c. H.8",
+    url: ELAWS("90h08"),
+    format: "elaws-doc",
+    mustContain: ["HIGHWAY TRAFFIC ACT", "CONSOLIDATION PERIOD"],
+    why:
+      "Injury and damage claims from vehicles: the duties of drivers toward " +
+      "pedestrians and cyclists, and the onus provisions a court applies. " +
+      "Named as a gap by the research step on a bus-injury story.",
+  },
+  {
     id: "trustee-act",
     title: "Trustee Act",
     citation: "R.S.O. 1990, c. T.23",
