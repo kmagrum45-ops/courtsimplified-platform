@@ -1733,12 +1733,19 @@ majority reasons only, not the courts below, labelled "Court decision" with
 case, citation and paragraph, and shown with the caution that none has been
 noted up. See SOURCING_NOTES.md, "Cutting judgments into citable passages".
 
+**Cross-references (2026-10-05).** A found provision brings, one hop and
+at most six in all, the provisions of the same law it names ("an order made
+under section 9 or 10", "subrule 8.01 (4)", a bare "subsection (6)" of its
+own section) -- labelled "referred to in ...". "s. 35" is never followed
+(it is amendment history), nor a reference into another law
+(`crossReferences.ts`).
+
 **Shown to the person** as "The law behind this" (`AppliedLawPanel`): only
 passages the analysis cited with a verified quote, verbatim, behind
 `APPLIED_LAW=off`.
 
 **Not done yet.** The chat (`chat/libraryChat.ts`) still selects published
-blocks only. Cross-references inside a provision are not followed. The probe
+blocks only. The probe
 (`npm run eval:retrieval`) is twelve stories, a smoke test; a labelled set
 measuring recall is the next measurement.
 

@@ -132,10 +132,10 @@ async function main() {
     lines.push(`## ${probe.id} (${probe.court}) -- ${hit ? "expected source found" : "EXPECTED SOURCE MISSING"}`, "");
     lines.push(`Expected one of: ${probe.expect.join(", ")}${result.skipped ? ` -- skipped: ${result.skipped}` : ""}`, "");
     lines.push("Queries:", ...result.queries.map((query) => `- ${query}`), "");
-    lines.push("| score | passage | pinpoint | starts |", "|---|---|---|---|");
+    lines.push("| score | passage | pinpoint | referred to in | starts |", "|---|---|---|---|---|");
     for (const passage of result.passages) {
       lines.push(
-        `| ${passage.score.toFixed(3)} | ${passage.id} | ${passage.pinpoint || passage.heading.slice(0, 40)} | ${passage.text.slice(0, 90).replace(/\|/g, "/")} |`,
+        `| ${passage.score.toFixed(3)} | ${passage.id} | ${passage.pinpoint || passage.heading.slice(0, 40)} | ${passage.referredBy ?? ""} | ${passage.text.slice(0, 90).replace(/\|/g, "/")} |`,
       );
     }
     lines.push("");

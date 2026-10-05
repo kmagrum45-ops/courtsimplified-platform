@@ -36,7 +36,8 @@
  */
 
 import type { SourceItem } from "../intelligence/groundedCognition";
-import { loadCorpusIndex, readPassage, searchIndex, type LoadedIndex, type Passage } from "./corpusIndex";
+import { loadCorpusIndex, readPassage, searchIndex, sourcePassages, type LoadedIndex, type Passage } from "./corpusIndex";
+import { findProvision, parsePinpoint, referencedProvisions } from "./crossReferences";
 import { readableUrl } from "./corpusChunker";
 
 export type RetrievalCourt = "small-claims" | "civil" | "family";
@@ -100,14 +101,56 @@ export function passageItem(passage: Passage): SourceItem {
     ? `${source.title}${source.citation ? `, ${source.citation}` : ""}, ${passage.pinpoint}`
     : undefined;
   const kind = source.tier === "practical" ? "Official or public-legal-education guidance" : "Legislation";
+  const referred = passage.referredBy ? ` (referred to in ${passage.referredBy})` : "";
   return {
     id: passage.id,
-    label: `${kind}: ${source.title}${where ? ` -- ${where}` : ""}`,
+    label: `${kind}: ${source.title}${where ? ` -- ${where}` : ""}${referred}`,
     text: passage.text,
     sourceUrl: source.readableUrl || readableUrl(source),
     ...(citation ? { citation } : {}),
     kind: source.tier === "practical" ? "guidance" : "legislation",
   };
+}
+
+// ------------------------------------------------------------ cross-references
+
+/** At most this many provisions are added by following references. */
+const MAX_FOLLOWED = 6;
+const MAX_PER_PASSAGE = 2;
+
+/**
+ * The provisions the found passages point to in the same law (one hop), as
+ * passages of their own: "an order made under section 9 or 10" brings in
+ * sections 9 and 10. Each is re-read and hash-checked like any hit, carries
+ * the score of the passage that referred to it, and names it in `referredBy`.
+ * Legislation only; see crossReferences.ts for what counts as a reference.
+ */
+export function followCrossReferences(index: LoadedIndex, found: readonly Passage[]): Passage[] {
+  const have = new Set(found.map((passage) => passage.id));
+  const added: Passage[] = [];
+  for (const passage of found) {
+    if (added.length >= MAX_FOLLOWED) break;
+    if (passage.source.tier === "case-law" || !passage.pinpoint) continue;
+    const own = parsePinpoint(passage.pinpoint);
+    const chunks = sourcePassages(index, passage.sourceId);
+    let fromThis = 0;
+    for (const reference of referencedProvisions(passage.text, own?.number)) {
+      if (fromThis >= MAX_PER_PASSAGE || added.length >= MAX_FOLLOWED) break;
+      if (reference.number === own?.number) {
+        // Its own section: only a subsection outside this passage's range.
+        const sub = reference.sub === undefined ? NaN : Number(reference.sub);
+        if (Number.isNaN(sub) || own.from === undefined || (sub >= own.from && sub <= (own.to ?? own.from))) continue;
+      }
+      const target = findProvision(chunks, reference);
+      if (!target || have.has(target.id)) continue;
+      const read = readPassage(index, target.id, passage.score);
+      if (!read) continue;
+      have.add(read.id);
+      added.push({ ...read, referredBy: passage.pinpoint });
+      fromThis += 1;
+    }
+  }
+  return added;
 }
 
 // ------------------------------------------------------------ the model step
@@ -190,9 +233,10 @@ export async function retrieveForStory(
     const hits = searchIndex(index, vectors, {
       excludeSource: (sourceId) => excludedForCourt(input.courtPath, sourceId),
     });
-    const passages = hits
+    const found = hits
       .map((hit) => readPassage(index, hit.id, hit.score))
       .filter((passage): passage is Passage => Boolean(passage));
+    const passages = [...found, ...followCrossReferences(index, found)];
     return { queries, passages, items: passages.map(passageItem) };
   };
 
