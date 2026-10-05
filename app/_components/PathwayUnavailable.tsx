@@ -59,7 +59,7 @@ export default function PathwayUnavailable({ pathway }: { pathway: KnownPathway 
 
       <p className="mt-4 text-sm leading-6 text-[#4d675f]">
         If your matter is an Ontario Small Claims Court case, you can{" "}
-        <a href="/ontario-smallclaims" className="font-semibold text-[#2f7d67] underline">
+        <a href="/small-claims" className="font-semibold text-[#2f7d67] underline">
           start there instead
         </a>
         .
