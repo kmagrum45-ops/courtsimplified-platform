@@ -51,7 +51,9 @@ import { QUESTION_BANK, type CourtArea, type IntakeQuestion, type KnownFactField
 import { composeVoiceTurn, type VoiceTurn } from "./voiceLayer";
 import {
   confirmedAnswersAsText,
+  conversationForProposals,
   proposableQuestions,
+  type EarlierConversation,
   proposeAnswersFromStory,
   type ConfirmedStoryAnswer,
   type StoryAnswerProposal,
@@ -128,8 +130,9 @@ export type OrchestrateIntakeTurnResult = {
    */
   possibleCorrections: PossibleCorrection[];
   /**
-   * 2026-09-28. Opening story only. Answers the story already gives to the
-   * questions that would otherwise be asked, each tied to a verified quote
+   * 2026-09-28. Opening story, and (2026-10-05) every answer turn that sends
+   * `earlier`: answers the conversation already gives to the questions that
+   * would otherwise be asked, each tied to a verified quote
    * from the story. NOT applied: no question is marked answered and no fact
    * is set by these. The caller shows them to the user, who confirms, edits
    * or removes each, and sends the confirmed ones back through
@@ -281,6 +284,13 @@ export async function orchestrateIntakeTurn(
   courtArea: CourtArea = "small-claims",
   answeredQuestionId?: string,
   overrides: OrchestrateIntakeTurnOverrides = {},
+  /**
+   * 2026-10-05. On an answer turn: the opening story and every earlier
+   * answer, so the questions about to be asked are checked against all of it
+   * (see EarlierConversation). Without it, an answer turn proposes nothing,
+   * exactly as before.
+   */
+  earlier?: EarlierConversation,
 ): Promise<OrchestrateIntakeTurnResult> {
   const runSafety = overrides.runSafety || runSafetyPass;
   const extractFacts = overrides.extractFacts || extractIntakeFactsWithConfidence;
@@ -307,6 +317,26 @@ export async function orchestrateIntakeTurn(
    * classifier. A claim type is settled by the story, never by an answer.
    */
   const isOpeningStory = !answeredQuestionId || overrides.resolveClaimTypeEveryTurn === true;
+
+  // 2026-10-05. Before the next question is asked, read everything the person
+  // has said so far for its answer. Started now, beside the safety pass and
+  // the extraction, so it adds no wait; which questions it checks is worked
+  // out from the facts as they stand plus this answer, and anything that is
+  // no longer due once the turn is merged is dropped below.
+  const earlierCheck =
+    answeredQuestionId && earlier && newStoryText?.trim()
+      ? checkEarlierAnswers({
+          facts: currentFacts,
+          answeredIds,
+          answeredQuestionId,
+          answerText: newStoryText,
+          earlier,
+          questionBank,
+          courtArea,
+          apiKey,
+          proposeAnswers: overrides.proposeAnswers || proposeAnswersFromStory,
+        })
+      : null;
 
   if (newStoryText) {
     const safety = await runSafety(newStoryText, apiKey);
@@ -412,6 +442,10 @@ export async function orchestrateIntakeTurn(
   // storyProposals' doc comment. A failure is swallowed: proposing is a
   // convenience, and the intake must continue exactly as before without it.
   let storyProposals: StoryAnswerProposal[] = [];
+  if (earlierCheck) {
+    const due = new Set(selectQuestions(facts, answeredIds, questionBank, courtArea));
+    storyProposals = (await earlierCheck).filter((proposal) => due.has(proposal.questionId));
+  }
   if (newStoryText && !answeredQuestionId) {
     const upcoming = selectQuestions(facts, answeredIds, questionBank, courtArea)
       .map((id) => questionBank.find((question) => question.id === id))
@@ -445,6 +479,55 @@ export async function orchestrateIntakeTurn(
       requestsLegalAdvice,
     },
   });
+}
+
+/** How many of the questions about to be asked are checked against the conversation each turn. */
+export const EARLIER_CHECK_LOOKAHEAD = 3;
+
+/**
+ * Proposals, from the whole conversation, for the next few questions. Never
+ * throws: a failure means the question is simply asked.
+ */
+async function checkEarlierAnswers(args: {
+  facts: IntakeFacts;
+  answeredIds: string[];
+  answeredQuestionId: string;
+  answerText: string;
+  earlier: EarlierConversation;
+  questionBank: readonly IntakeQuestion[];
+  courtArea: CourtArea;
+  apiKey: string;
+  proposeAnswers: typeof proposeAnswersFromStory;
+}): Promise<StoryAnswerProposal[]> {
+  try {
+    const answered = args.questionBank.find((question) => question.id === args.answeredQuestionId);
+    const facts: IntakeFacts = { ...args.facts };
+    if (answered?.capturesField && !facts[answered.capturesField]) {
+      facts[answered.capturesField] = args.answerText.trim().slice(0, MAX_CAPTURED_ANSWER_LENGTH);
+    }
+    const declined = new Set(args.earlier.declined);
+    const upcoming = selectQuestions(facts, args.answeredIds, args.questionBank, args.courtArea)
+      .filter((id) => !declined.has(id))
+      .map((id) => args.questionBank.find((question) => question.id === id))
+      .filter((question): question is IntakeQuestion => Boolean(question));
+    const offered = proposableQuestions(upcoming).slice(0, EARLIER_CHECK_LOOKAHEAD);
+    if (offered.length === 0) return [];
+    const conversation = conversationForProposals(
+      {
+        ...args.earlier,
+        answers: [
+          ...args.earlier.answers.filter((item) => item.questionId !== args.answeredQuestionId),
+          { questionId: args.answeredQuestionId, answerText: args.answerText },
+        ],
+      },
+      args.questionBank,
+    );
+    return await args.proposeAnswers(conversation.transcript, offered, args.apiKey, {
+      quoteFrom: conversation.userWords,
+    });
+  } catch {
+    return [];
+  }
 }
 
 type FinishTurnArgs = {
