@@ -1445,3 +1445,37 @@ notices (CAT platform outage, HRTO new forms). Findings worth keeping:
 - Hashing: the suite hashes the file as read, **with CRLF intact**. Python's
   default newline translation produced wrong hashes for three CRLF files
   (divorce-act, federal guidelines, SCJ steps); use `newline=''`.
+
+### An injury from a vehicle: the notice is Insurance Act s. 258.3, not Municipal Act s. 44 (10) (2026-10-05)
+
+Found from a live run (a pedestrian hit by a city bus). The obvious guess is
+the municipal 10-day notice, and it is wrong for this: Municipal Act
+s. 44 (10) applies to "damages under subsection (2)", which is a municipality
+failing to keep a highway or bridge in repair. A bus being driven into someone
+is not that claim.
+
+What does apply, already in the vendored corpus (`insurance-act`):
+- **s. 258.3 (1):** an action "for loss or damage from bodily injury or death
+  arising directly or indirectly from the use or operation of an automobile"
+  is not to be commenced unless the plaintiff has applied for statutory
+  accident benefits, served written notice of the intention to sue on the
+  defendant **within 120 days after the incident** (a court may extend it), and
+  done (c)-(f) (prescribed information; examinations, statutory declaration and
+  identity only if the defendant asks).
+- **s. 258.3 (9):** it is NOT a bar. The action may be started anyway; the
+  court considers the non-compliance in costs. **s. 258.3 (8):** no
+  prejudgment interest under CJA s. 128 for the time before the notice.
+- **s. 224 (1):** "public transit" is fare service by automobiles operated by
+  or on behalf of a municipality; "automobile" includes a motor vehicle
+  required to be insured.
+- **s. 267.5:** limits what may be recovered from an automobile's owner,
+  occupants and anyone present (income loss, health care, non-pecuniary
+  threshold and deduction). **s. 267.5 (6.1)** removes that protection for the
+  owner or driver of a public transit vehicle "if it did not collide with
+  another automobile or any other object". Whether a pedestrian is an "object"
+  is not answered by the text -- do not state an answer.
+
+Not in the corpus yet: the **Highway Traffic Act** (no source id) and
+Insurance Act **s. 33** (service of the notice -- the block only points to it).
+The deadline engine counts the 120 days under the Legislation Act; the
+published block is `answer:before-filing:notice-vehicle-injury` (run-15).

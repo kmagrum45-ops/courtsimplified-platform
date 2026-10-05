@@ -201,16 +201,21 @@ export type StageAnswer = {
  * time") left out Legislation Act s. 89 (2), which extends a time limit that
  * expires on a day the place for doing it is closed. Saturday is still not a
  * holiday under s. 88; it is the closed-office rule that can move the date.
+ *
+ * 2026-10-05 review: the s. 89 (2) sentence said a deadline moves "only if" the
+ * place is closed. s. 89 (2) has no "only if", and s. 89 (1) moves a deadline
+ * that falls on a holiday whether or not the office is open. Restated as an
+ * additional rule ("Also, ..."), in the section's own words.
  */
 const STATUTORY_WEEKEND_WARNING =
-  "This deadline is set by a statute, not by the court's rules, so the days are " +
-  "counted under the Legislation Act, 2006. The day the time is counted from is " +
-  "not itself counted (s. 89 (5)). If the last day is a Sunday or a " +
-  "holiday, the deadline moves to the next day that is not a holiday (s. 89 (1)). " +
-  "Saturday is not a holiday under that Act, so a Saturday does not by itself move " +
-  "the deadline. A time limit for doing something at a place, such as filing at an " +
-  "office, moves to the next day that place is open only if it is closed that day " +
-  "during its regular hours (s. 89 (2)).";
+  "A deadline in an Ontario statute is counted under the Legislation Act, 2006, unless " +
+  "the statute shows otherwise. When a period is described " +
+  "as starting after a day, that day is not counted (s. 89 (5)). If the last day is a " +
+  "Sunday or a holiday, the deadline moves to the next day that is not a holiday " +
+  "(s. 89 (1)). Saturday is not a holiday under that Act, so a Saturday does not by " +
+  "itself move the deadline. Some deadlines are for doing something at a place, such as " +
+  "filing at an office. If that place is not open during its regular hours on the last " +
+  "day, the deadline moves to the next day it is open during its regular hours (s. 89 (2)).";
 
 export function renderDeadlineSection(
   deadlines: Array<{
@@ -260,10 +265,25 @@ export function renderDeadlineSection(
         return `${deadline.what} within ${period} after ${deadline.countFrom}. This is the court's timetable, not a step you take.${qualifier}`;
       }
       if (deadline.actor === "other-party") {
-        return `${deadline.what}. They have ${period}, counted from ${deadline.countFrom}.${qualifier}`;
+        return `${deadline.what}. They have ${period} after ${deadline.countFrom}.${qualifier}`;
       }
 
-      return `${deadline.what}. You have ${period}, counted from ${deadline.countFrom}.${qualifier}`;
+      // 2026-10-05 review: "You have 2 years, counted from the day the claim was
+      // discovered" next to "the day the time is counted from is not itself
+      // counted" read as "start the day after, then count two years" -- one day
+      // late. A period in years ends on the anniversary (Limitations Act s. 4:
+      // "after the second anniversary of the day"), which deadlineEngine's
+      // addYears already computes; the sentence now says so.
+      const anniversary =
+        deadline.length.unit === "years"
+          ? ` The last day is the anniversary of that day, ${period} later. If that day was February 29, the anniversary is February 28, except in a leap year.`
+          : "";
+      // 2026-10-05 review: "counted from the incident" did not say whether the
+      // incident day counts, and read like Legislation Act s. 89 (4) (a period
+      // "beginning ... on" a day includes it). The rules say "within N days
+      // after"; so does the sentence now, which is what s. 89 (5) and the
+      // small-claims counting rule both key on.
+      return `${deadline.what}. You have ${period} after ${deadline.countFrom}.${anniversary}${qualifier}`;
     })
     .join("\n\n")
     .concat(weekendWarningFor(fixed));

@@ -176,7 +176,7 @@ export const DECLARED_PROFILES: ClaimTypeProfile[] = [
   d("injury", "sc-claim-injury-at-school-or-daycare", "An injury at school or daycare"),
   d("injury", "sc-claim-injury-on-public-transit", "An injury on public transit"),
   d("injury", "sc-claim-escooter-bicycle-or-pedestrian-collision", "An e-scooter, bicycle or pedestrian collision"),
-  d("injury", "sc-claim-motor-vehicle-injury", "An injury in a motor vehicle collision"),
+  // sc-claim-motor-vehicle-injury: authored 2026-10-05, see noticeProfiles.ts.
   sensitive("injury", "sc-claim-minor-assault-or-battery", "Being hit or attacked by someone"),
   d("injury", "sc-claim-injury-from-a-cosmetic-procedure", "An injury from a salon, spa or cosmetic procedure"),
   d("injury", "sc-claim-professional-negligence-medical-or-dental", "Harm from medical, dental or other professional care"),

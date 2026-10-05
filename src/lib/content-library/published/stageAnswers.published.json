@@ -1,20 +1,20 @@
 {
   "release": {
-    "runId": "run-14",
-    "model": "claude-opus-5-5 (authored from the saved sources; six rounds of independent review)",
-    "promotedAt": "2026-10-02T03:39:32.708Z",
+    "runId": "run-15",
+    "model": "claude-opus-5-5 (authored from the saved sources; independent review rounds to zero errors)",
+    "promotedAt": "2026-10-05T18:42:18.296Z",
     "corpusGeneratedAt": "2026-09-27T00:45:24.224Z",
-    "blockCount": 35,
-    "contentHash": "2d4d9f26"
+    "blockCount": 36,
+    "contentHash": "61827e5f"
   },
   "blocks": [
     {
       "id": "answer:before-filing:deciding-whether-to-sue",
       "stageId": "before-filing:deciding-whether-to-sue",
       "userQuestion": "Can I sue over this, and is Small Claims the right court?",
-      "whatsHappening": "Small Claims Court can hear a claim for money or personal property of up to $50,000, not counting interest and costs. The two-year time limit counts from the day the claim was discovered, which is the earlier of two days. One is the day you first knew that the loss happened, that something done or not done caused it, who did it, and that suing is a fitting way to fix it. The other is the day a reasonable person in your place first ought to have known them. Even within the two years, most claims can't be started more than 15 years after the act or omission.",
+      "whatsHappening": "Small Claims Court can hear a claim for money or personal property of up to $50,000, not counting interest and costs. The two-year time limit counts from the day the claim was discovered, which is the earlier of two days. One is the day you first knew four things. First, that the loss happened. Second, that something done or not done caused it or helped cause it. Third, who did it. Fourth, that suing is a fitting way to try to remedy it, given the kind of loss. The other is the first day a reasonable person with your abilities and in your circumstances ought to have known them. Even within the two years, most claims can't be started more than 15 years after the act or omission.",
       "whatToDoNext": "You can sue for money owed under an agreement, like an unpaid loan, or goods or services that were not paid for. You can also sue for harm done, like damage to property, an injury or a broken contract. Only the Landlord and Tenant Board can decide applications under the Residential Tenancies Act, 2006. For more than $50,000, you can go to the Superior Court of Justice, or waive the amount over $50,000 and file in Small Claims Court. A claim within that limit needs the Superior Court's leave to be started there.",
-      "yourDeadline": "The general deadline to start a court case. You have 2 years, counted from the day the claim was discovered. This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.\n\nThis deadline is set by a statute, not by the court's rules, so the days are counted under the Legislation Act, 2006. The day the time is counted from is not itself counted (s. 89 (5)). If the last day is a Sunday or a holiday, the deadline moves to the next day that is not a holiday (s. 89 (1)). Saturday is not a holiday under that Act, so a Saturday does not by itself move the deadline. A time limit for doing something at a place, such as filing at an office, moves to the next day that place is open only if it is closed that day during its regular hours (s. 89 (2)).",
+      "yourDeadline": "The general deadline to start a court case. You have 2 years after the day the claim was discovered. The last day is the anniversary of that day, 2 years later. If that day was February 29, the anniversary is February 28, except in a leap year. This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.\n\nA deadline in an Ontario statute is counted under the Legislation Act, 2006, unless the statute shows otherwise. When a period is described as starting after a day, that day is not counted (s. 89 (5)). If the last day is a Sunday or a holiday, the deadline moves to the next day that is not a holiday (s. 89 (1)). Saturday is not a holiday under that Act, so a Saturday does not by itself move the deadline. Some deadlines are for doing something at a place, such as filing at an office. If that place is not open during its regular hours on the last day, the deadline moves to the next day it is open during its regular hours (s. 89 (2)).",
       "whatHappensAfter": "Some injury claims need written notice much sooner: 60 days for snow or ice, to an occupier or its snow contractor. If a municipality did not keep a highway in repair, notice must go to its clerk within 10 days of the injury. A judge can still let that case go ahead if there is a reasonable excuse and the municipality is not prejudiced. Missing notice also does not stop the case if the injured person died as a result of the injury. The snow or ice notice has the same two exceptions.",
       "slots": [],
       "citations": [
@@ -63,14 +63,42 @@
             "quoteFound": true
           },
           {
-            "sentence": "One is the day you first knew that the loss happened, that something done or not done caused it, who did it, and that suing is a fitting way to fix it.",
+            "sentence": "One is the day you first knew four things.",
             "supported": true,
             "quote": "(a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it",
             "sourceId": "limitations-act-2002",
             "quoteFound": true
           },
           {
-            "sentence": "The other is the day a reasonable person in your place first ought to have known them.",
+            "sentence": "First, that the loss happened.",
+            "supported": true,
+            "quote": "(a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Second, that something done or not done caused it or helped cause it.",
+            "supported": true,
+            "quote": "(a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Third, who did it.",
+            "supported": true,
+            "quote": "(a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Fourth, that suing is a fitting way to try to remedy it, given the kind of loss.",
+            "supported": true,
+            "quote": "(a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "The other is the first day a reasonable person with your abilities and in your circumstances ought to have known them.",
             "supported": true,
             "quote": "(b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a).",
             "sourceId": "limitations-act-2002",
@@ -162,8 +190,8 @@
       "userQuestion": "I was hurt because a road or sidewalk was in bad repair — do I have to tell the city first?",
       "whatsHappening": "A municipality must keep its highways and bridges in repair. The repair must be reasonable in the circumstances. You can't sue for damages from that failure unless written notice is given first. But a municipality is not liable for an injury from snow or ice on a sidewalk, except for gross negligence.",
       "whatToDoNext": "Before you can sue, the notice must be served on the municipal clerk or sent to the clerk by registered mail. It must describe the claim and the injury. It must give the date, time and place of the injury. If the claim is against two or more municipalities jointly responsible for the repair, it goes to the clerk of each.",
-      "yourDeadline": "Give written notice of the claim to the clerk of the municipality. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute, not by the court's rules, so the days are counted under the Legislation Act, 2006. The day the time is counted from is not itself counted (s. 89 (5)). If the last day is a Sunday or a holiday, the deadline moves to the next day that is not a holiday (s. 89 (1)). Saturday is not a holiday under that Act, so a Saturday does not by itself move the deadline. A time limit for doing something at a place, such as filing at an office, moves to the next day that place is open only if it is closed that day during its regular hours (s. 89 (2)).",
-      "whatHappensAfter": "Missing or incomplete notice does not stop the case if a judge finds a reasonable excuse for it. The judge must also find that this did not harm the municipality's defence. Missing notice also does not stop the case if the injured person died as a result of the injury. Unless the Limitations Act, 2002 says otherwise, the claim itself can't be started more than two years after it was discovered.",
+      "yourDeadline": "Give written notice of the claim to the clerk of the municipality. You have 10 days after the occurrence of the injury.\n\nA deadline in an Ontario statute is counted under the Legislation Act, 2006, unless the statute shows otherwise. When a period is described as starting after a day, that day is not counted (s. 89 (5)). If the last day is a Sunday or a holiday, the deadline moves to the next day that is not a holiday (s. 89 (1)). Saturday is not a holiday under that Act, so a Saturday does not by itself move the deadline. Some deadlines are for doing something at a place, such as filing at an office. If that place is not open during its regular hours on the last day, the deadline moves to the next day it is open during its regular hours (s. 89 (2)).",
+      "whatHappensAfter": "Missing or incomplete notice does not stop the case if a judge finds a reasonable excuse for it. The judge must also find that this did not harm the municipality's defence. Missing notice also does not stop the case if the injured person died as a result of the injury. Unless the Limitations Act, 2002 says otherwise, the claim itself can't be started more than two years after it was discovered. The Limitations Act, 2002 sets which day that is. It is the earlier of two days. One is the day you first knew certain facts. The other is the first day a reasonable person with your abilities and in your circumstances ought to have known them. You are presumed to have known them on the day of the act or omission, unless it is proved otherwise.",
       "slots": [],
       "citations": [
         {
@@ -289,6 +317,41 @@
             "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered.",
             "sourceId": "limitations-act-2002",
             "quoteFound": true
+          },
+          {
+            "sentence": "The Limitations Act, 2002 sets which day that is.",
+            "supported": true,
+            "quote": "A claim is discovered on the earlier of",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "It is the earlier of two days.",
+            "supported": true,
+            "quote": "A claim is discovered on the earlier of",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "One is the day you first knew certain facts.",
+            "supported": true,
+            "quote": "the day on which the person with the claim first knew,",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "The other is the first day a reasonable person with your abilities and in your circumstances ought to have known them.",
+            "supported": true,
+            "quote": "the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You are presumed to have known them on the day of the act or omission, unless it is proved otherwise.",
+            "supported": true,
+            "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved.",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
           }
         ]
       }
@@ -299,8 +362,8 @@
       "userQuestion": "I was hurt on a Toronto street or sidewalk — do I have to tell the City first?",
       "whatsHappening": "For a claim against the City of Toronto, these rules are in the City of Toronto Act, 2006. The City must keep its highways and bridges in a reasonable state of repair. A claim for damages from that failure can't be brought unless written notice is given first. But the City is not liable for an injury from snow or ice on a sidewalk, except for gross negligence.",
       "whatToDoNext": "Before you can sue, the notice must be served on, or sent by registered mail to, the city clerk. It must describe the claim and the injury. It must give the date, time and place of the injury. If the claim is against the City and other municipalities jointly responsible for the repair, it also goes to each of their clerks.",
-      "yourDeadline": "Give written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute, not by the court's rules, so the days are counted under the Legislation Act, 2006. The day the time is counted from is not itself counted (s. 89 (5)). If the last day is a Sunday or a holiday, the deadline moves to the next day that is not a holiday (s. 89 (1)). Saturday is not a holiday under that Act, so a Saturday does not by itself move the deadline. A time limit for doing something at a place, such as filing at an office, moves to the next day that place is open only if it is closed that day during its regular hours (s. 89 (2)).",
-      "whatHappensAfter": "Missing or incomplete notice does not stop the case if a judge finds a reasonable excuse for it. The judge must also find that this did not harm the City's defence. Missing notice also does not stop the case if the injured person died as a result of the injury. Unless the Limitations Act, 2002 says otherwise, the claim itself can't be started more than two years after it was discovered.",
+      "yourDeadline": "Give written notice of the claim to the city clerk. You have 10 days after the occurrence of the injury.\n\nA deadline in an Ontario statute is counted under the Legislation Act, 2006, unless the statute shows otherwise. When a period is described as starting after a day, that day is not counted (s. 89 (5)). If the last day is a Sunday or a holiday, the deadline moves to the next day that is not a holiday (s. 89 (1)). Saturday is not a holiday under that Act, so a Saturday does not by itself move the deadline. Some deadlines are for doing something at a place, such as filing at an office. If that place is not open during its regular hours on the last day, the deadline moves to the next day it is open during its regular hours (s. 89 (2)).",
+      "whatHappensAfter": "Missing or incomplete notice does not stop the case if a judge finds a reasonable excuse for it. The judge must also find that this did not harm the City's defence. Missing notice also does not stop the case if the injured person died as a result of the injury. Unless the Limitations Act, 2002 says otherwise, the claim itself can't be started more than two years after it was discovered. The Limitations Act, 2002 sets which day that is. It is the earlier of two days. One is the day you first knew certain facts. The other is the first day a reasonable person with your abilities and in your circumstances ought to have known them. You are presumed to have known them on the day of the act or omission, unless it is proved otherwise.",
       "slots": [],
       "citations": [
         {
@@ -426,6 +489,41 @@
             "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered.",
             "sourceId": "limitations-act-2002",
             "quoteFound": true
+          },
+          {
+            "sentence": "The Limitations Act, 2002 sets which day that is.",
+            "supported": true,
+            "quote": "A claim is discovered on the earlier of",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "It is the earlier of two days.",
+            "supported": true,
+            "quote": "A claim is discovered on the earlier of",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "One is the day you first knew certain facts.",
+            "supported": true,
+            "quote": "the day on which the person with the claim first knew,",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "The other is the first day a reasonable person with your abilities and in your circumstances ought to have known them.",
+            "supported": true,
+            "quote": "the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You are presumed to have known them on the day of the act or omission, unless it is proved otherwise.",
+            "supported": true,
+            "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved.",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
           }
         ]
       }
@@ -435,8 +533,8 @@
       "stageId": "before-filing:notice-snow-ice-private",
       "userQuestion": "I slipped on ice outside a shop or building — is there something I have to send before I sue?",
       "whatsHappening": "The Occupiers' Liability Act has a notice rule for injuries caused by snow or ice. It covers a claim against an occupier, or a contractor it hired to clear snow or ice there at the time. A municipality is not liable for an injury from snow or ice on a sidewalk, except for gross negligence. Claims that a municipality did not keep a highway in repair have a shorter notice time. Notice must go to its clerk within 10 days, with exceptions like those below.",
-      "whatToDoNext": "Before you can sue an occupier or its contractor, written notice of the claim must be served on or sent to at least one of them. It must be served personally or sent by registered mail. It must give the date, time and place of the injury. Notice to one of them counts even if the case is later brought against someone who did not get it. Unless the Limitations Act, 2002 says otherwise, the claim itself can't be started more than two years after it was discovered.",
-      "yourDeadline": "Give written notice of the claim to an occupier or to the snow-removal contractor. The notice must say the date, time and place of the injury. You have 60 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute, not by the court's rules, so the days are counted under the Legislation Act, 2006. The day the time is counted from is not itself counted (s. 89 (5)). If the last day is a Sunday or a holiday, the deadline moves to the next day that is not a holiday (s. 89 (1)). Saturday is not a holiday under that Act, so a Saturday does not by itself move the deadline. A time limit for doing something at a place, such as filing at an office, moves to the next day that place is open only if it is closed that day during its regular hours (s. 89 (2)).",
+      "whatToDoNext": "Before you can sue an occupier or its contractor, written notice of the claim must be served on or sent to at least one of them. It must be served personally or sent by registered mail. It must give the date, time and place of the injury. Notice to one of them counts even if the case is later brought against someone who did not get it. Unless the Limitations Act, 2002 says otherwise, the claim itself can't be started more than two years after it was discovered. The Limitations Act, 2002 sets which day that is. It is the earlier of two days. One is the day you first knew certain facts. The other is the first day a reasonable person with your abilities and in your circumstances ought to have known them. You are presumed to have known them on the day of the act or omission, unless it is proved otherwise.",
+      "yourDeadline": "Give written notice of the claim to an occupier or to the snow-removal contractor. The notice must say the date, time and place of the injury. You have 60 days after the occurrence of the injury.\n\nA deadline in an Ontario statute is counted under the Legislation Act, 2006, unless the statute shows otherwise. When a period is described as starting after a day, that day is not counted (s. 89 (5)). If the last day is a Sunday or a holiday, the deadline moves to the next day that is not a holiday (s. 89 (1)). Saturday is not a holiday under that Act, so a Saturday does not by itself move the deadline. Some deadlines are for doing something at a place, such as filing at an office. If that place is not open during its regular hours on the last day, the deadline moves to the next day it is open during its regular hours (s. 89 (2)).",
       "whatHappensAfter": "An occupier who gets the notice must serve a copy on, or send it by registered mail to, other occupiers and its snow contractor. A contractor who gets the notice must do the same for the occupier that hired it. Missing or incomplete notice does not stop the case if a judge finds a reasonable excuse. The judge must also find that this did not harm the defence. Missing notice also does not stop the case if the injured person died as a result of the injury.",
       "slots": [],
       "citations": [
@@ -585,6 +683,41 @@
             "quote": "Failure to give notice in accordance with subsection (1) is not a bar to the action in the case of the death of the injured person as a result of the injury.",
             "sourceId": "occupiers-liability-act",
             "quoteFound": true
+          },
+          {
+            "sentence": "The Limitations Act, 2002 sets which day that is.",
+            "supported": true,
+            "quote": "A claim is discovered on the earlier of",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "It is the earlier of two days.",
+            "supported": true,
+            "quote": "A claim is discovered on the earlier of",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "One is the day you first knew certain facts.",
+            "supported": true,
+            "quote": "the day on which the person with the claim first knew,",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "The other is the first day a reasonable person with your abilities and in your circumstances ought to have known them.",
+            "supported": true,
+            "quote": "the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You are presumed to have known them on the day of the act or omission, unless it is proved otherwise.",
+            "supported": true,
+            "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved.",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
           }
         ]
       }
@@ -594,7 +727,7 @@
       "stageId": "before-filing:notice-deadline-missed",
       "userQuestion": "Nobody told me I had to send a notice and the time has passed — is it over?",
       "whatsHappening": "Missing or incomplete notice does not stop a case under the Municipal Act, 2001 if a judge finds a reasonable excuse. The judge must also find that this did not harm the municipality's defence. The City of Toronto Act, 2006 has the same rule for claims against the City of Toronto. The Occupiers' Liability Act has the same rule for injuries caused by snow or ice.",
-      "whatToDoNext": "You can start a claim by filing a Plaintiff's Claim (Form 7A) with the court clerk, with a copy for each defendant. The fee is $108, or $228 if you already filed 10 or more claims at that office this calendar year. If you cannot afford the fees, you can ask the court to waive them, and it decides if you qualify. You cannot get a fee waiver if you are acting for a business or organization. Unless the Limitations Act, 2002 says otherwise, a claim can't be started more than two years after it was discovered.",
+      "whatToDoNext": "You can start a claim by filing a Plaintiff's Claim (Form 7A) with the court clerk, with a copy for each defendant. The fee is $108, or $228 if you already filed 10 or more claims at that office this calendar year. If you cannot afford the fees, you can ask the court to waive them, and it decides if you qualify. You cannot get a fee waiver if you are acting for a business or organization. Unless the Limitations Act, 2002 says otherwise, a claim can't be started more than two years after it was discovered. The Limitations Act, 2002 sets which day that is. It is the earlier of two days. One is the day you first knew certain facts. The other is the first day a reasonable person with your abilities and in your circumstances ought to have known them. You are presumed to have known them on the day of the act or omission, unless it is proved otherwise.",
       "yourDeadline": null,
       "whatHappensAfter": "Missing notice also does not stop a case under the Municipal Act, 2001 if the injured person died from the injury. The City of Toronto Act, 2006 says the same. So does the Occupiers' Liability Act. When a claim is filed, the clerk dates, signs and seals it and gives it a court file number.",
       "slots": [],
@@ -729,6 +862,41 @@
             "quote": "On receiving a plaintiff's claim, the clerk shall immediately issue it by dating, signing and sealing it and assigning it a court file number.",
             "sourceId": "oreg-258-98-small-claims-rules",
             "quoteFound": true
+          },
+          {
+            "sentence": "The Limitations Act, 2002 sets which day that is.",
+            "supported": true,
+            "quote": "A claim is discovered on the earlier of",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "It is the earlier of two days.",
+            "supported": true,
+            "quote": "A claim is discovered on the earlier of",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "One is the day you first knew certain facts.",
+            "supported": true,
+            "quote": "the day on which the person with the claim first knew,",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "The other is the first day a reasonable person with your abilities and in your circumstances ought to have known them.",
+            "supported": true,
+            "quote": "the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You are presumed to have known them on the day of the act or omission, unless it is proved otherwise.",
+            "supported": true,
+            "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved.",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
           }
         ]
       }
@@ -737,7 +905,7 @@
       "id": "answer:before-filing:limitation-period-may-have-passed",
       "stageId": "before-filing:limitation-period-may-have-passed",
       "userQuestion": "This happened a long time ago — am I out of time?",
-      "whatsHappening": "Unless the Limitations Act, 2002 says otherwise, you have two years from when a claim was discovered to start it. A claim is discovered on the earlier of two days. One is the day you first knew four things. They are: the loss happened, something done or not done caused or added to it, who did it, and that suing is a fitting way to fix it. The other is the day a reasonable person as able as you, in your place, first ought to have known them.",
+      "whatsHappening": "Unless the Limitations Act, 2002 says otherwise, you have two years from when a claim was discovered to start it. A claim is discovered on the earlier of two days. One is the day you first knew four things. First, that the loss happened. Second, that something done or not done caused it or helped cause it. Third, who did it. Fourth, that suing is a fitting way to try to remedy it, given the kind of loss. The other is the day a reasonable person as able as you, in your place, first ought to have known them.",
       "whatToDoNext": "The law presumes you knew them on the day of the act or omission, unless proved otherwise. For a demand obligation made since 2004, the loss happens the first day it is not met after a demand. For a fixed sum owed, the act or omission is treated as taking place on the day of a signed written admission or part payment. It must happen before time runs out, and an admission must go to you, your agent or a bankruptcy trustee. You and the other side can agree to have a neutral third party help settle the claim, and the time stops while you try.",
       "yourDeadline": null,
       "whatHappensAfter": "Most claims also can't be started more than 15 years after the act or omission, but some, like sexual assault claims, have no time limit. The two years stop while you have no litigation guardian and are a minor, or can't sue due to a physical, mental or psychological condition. But the law presumes you could start a case at all times, unless proved otherwise. If less than six months is left when a pause for such a condition ends, the time runs until six months after it ends. The 15 years also stop in some cases, like while the other side wilfully hides the loss, but you must prove that.",
@@ -784,7 +952,28 @@
             "quoteFound": true
           },
           {
-            "sentence": "They are: the loss happened, something done or not done caused or added to it, who did it, and that suing is a fitting way to fix it.",
+            "sentence": "First, that the loss happened.",
+            "supported": true,
+            "quote": "(i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Second, that something done or not done caused it or helped cause it.",
+            "supported": true,
+            "quote": "(i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Third, who did it.",
+            "supported": true,
+            "quote": "(i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Fourth, that suing is a fitting way to try to remedy it, given the kind of loss.",
             "supported": true,
             "quote": "(i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it",
             "sourceId": "limitations-act-2002",
@@ -877,7 +1066,7 @@
       "whatsHappening": "The most Small Claims Court can hear is a claim for $50,000. That limit does not count interest and costs such as court fees. For goods, their total value counts, no matter how many people are sued.",
       "whatToDoNext": "You can start the case in the Superior Court of Justice. Or you can file in Small Claims Court if you are willing to waive, or give up, the amount over $50,000. A claim cannot be split into two or more cases to bring it under the limit. You can consult a lawyer or paralegal for help with the process.",
       "yourDeadline": null,
-      "whatHappensAfter": "In the Superior Court of Justice, the Rules of Civil Procedure generally apply. In either court, unless the Limitations Act, 2002 says otherwise, a claim can't be started more than two years after it was discovered.",
+      "whatHappensAfter": "In the Superior Court of Justice, the Rules of Civil Procedure generally apply. In either court, unless the Limitations Act, 2002 says otherwise, a claim can't be started more than two years after it was discovered. The Limitations Act, 2002 sets which day that is. It is the earlier of two days. One is the day you first knew certain facts. The other is the first day a reasonable person with your abilities and in your circumstances ought to have known them. You are presumed to have known them on the day of the act or omission, unless it is proved otherwise.",
       "slots": [],
       "citations": [
         {
@@ -966,6 +1155,41 @@
             "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered.",
             "sourceId": "limitations-act-2002",
             "quoteFound": true
+          },
+          {
+            "sentence": "The Limitations Act, 2002 sets which day that is.",
+            "supported": true,
+            "quote": "A claim is discovered on the earlier of",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "It is the earlier of two days.",
+            "supported": true,
+            "quote": "A claim is discovered on the earlier of",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "One is the day you first knew certain facts.",
+            "supported": true,
+            "quote": "the day on which the person with the claim first knew,",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "The other is the first day a reasonable person with your abilities and in your circumstances ought to have known them.",
+            "supported": true,
+            "quote": "the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You are presumed to have known them on the day of the act or omission, unless it is proved otherwise.",
+            "supported": true,
+            "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved.",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
           }
         ]
       }
@@ -974,9 +1198,9 @@
       "id": "answer:plaintiff:claim-drafted-not-filed",
       "stageId": "plaintiff:claim-drafted-not-filed",
       "userQuestion": "How do I actually file my claim, and what does it cost?",
-      "whatsHappening": "You can file in the territorial division where the problem happened or a defendant lives or does business, or where the court sits nearest to where a defendant lives or does business. Under the Limitations Act, 2002, a claim is discovered on the earlier of two days. One is the day you first knew certain facts; the other is the day a reasonable person in your place ought to have known them. The facts are that the loss happened, that an act or omission caused it, whose act it was, and that a court case is a fitting way to fix it. You are presumed to have known them on the day of the act or omission, unless shown otherwise.",
+      "whatsHappening": "You can file in the territorial division where the problem happened or a defendant lives or does business, or where the court sits nearest to where a defendant lives or does business. Under the Limitations Act, 2002, a claim is discovered on the earlier of two days. One is the day you first knew certain facts; the other is the first day a reasonable person with your abilities and in your circumstances ought to have known them. There are four facts. First, that the loss happened. Second, that an act or omission caused it or helped cause it. Third, whose act it was. Fourth, that a court case is a fitting way to try to remedy it, given the kind of loss. You are presumed to have known them on the day of the act or omission, unless shown otherwise.",
       "whatToDoNext": "If your claim is based on a document, attach a copy to each copy of the claim; if it is unavailable, the claim must say why. On paper, you file your Plaintiff's Claim (Form 7A) in person or by mail at the court office, with copies for you and each defendant. Online, you do not need extra copies; Toronto uses the Ontario Courts Public Portal, and other regions use the Small Claims Court Submissions Online portal. The fee is $108, or $228 if you filed 10 or more claims at that office this calendar year. If you cannot afford the fees, you may ask for a fee waiver; online, you say so when you submit.",
-      "yourDeadline": "The general deadline to start a court case. You have 2 years, counted from the day the claim was discovered. This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.\n\nThis deadline is set by a statute, not by the court's rules, so the days are counted under the Legislation Act, 2006. The day the time is counted from is not itself counted (s. 89 (5)). If the last day is a Sunday or a holiday, the deadline moves to the next day that is not a holiday (s. 89 (1)). Saturday is not a holiday under that Act, so a Saturday does not by itself move the deadline. A time limit for doing something at a place, such as filing at an office, moves to the next day that place is open only if it is closed that day during its regular hours (s. 89 (2)).",
+      "yourDeadline": "The general deadline to start a court case. You have 2 years after the day the claim was discovered. The last day is the anniversary of that day, 2 years later. If that day was February 29, the anniversary is February 28, except in a leap year. This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.\n\nA deadline in an Ontario statute is counted under the Legislation Act, 2006, unless the statute shows otherwise. When a period is described as starting after a day, that day is not counted (s. 89 (5)). If the last day is a Sunday or a holiday, the deadline moves to the next day that is not a holiday (s. 89 (1)). Saturday is not a holiday under that Act, so a Saturday does not by itself move the deadline. Some deadlines are for doing something at a place, such as filing at an office. If that place is not open during its regular hours on the last day, the deadline moves to the next day it is open during its regular hours (s. 89 (2)).",
       "whatHappensAfter": "Court staff review online filings within 3 business days. You cannot file online to meet a deadline that is 3 business days away or less. The clerk then issues the claim and gives it a court file number. Online, you get an email once the claim is issued. On paper, the clerk returns stamped copies for you to serve on each defendant.",
       "slots": [],
       "citations": [
@@ -1028,14 +1252,42 @@
             "quoteFound": true
           },
           {
-            "sentence": "One is the day you first knew certain facts; the other is the day a reasonable person in your place ought to have known them.",
+            "sentence": "One is the day you first knew certain facts; the other is the first day a reasonable person with your abilities and in your circumstances ought to have known them.",
             "supported": true,
             "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, | (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a).",
             "sourceId": "limitations-act-2002",
             "quoteFound": true
           },
           {
-            "sentence": "The facts are that the loss happened, that an act or omission caused it, whose act it was, and that a court case is a fitting way to fix it.",
+            "sentence": "There are four facts.",
+            "supported": true,
+            "quote": "(i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it;",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "First, that the loss happened.",
+            "supported": true,
+            "quote": "(i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it;",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Second, that an act or omission caused it or helped cause it.",
+            "supported": true,
+            "quote": "(i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it;",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Third, whose act it was.",
+            "supported": true,
+            "quote": "(i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it;",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Fourth, that a court case is a fitting way to try to remedy it, given the kind of loss.",
             "supported": true,
             "quote": "(i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it;",
             "sourceId": "limitations-act-2002",
@@ -1169,7 +1421,7 @@
       "userQuestion": "The court gave me back my claim — how do I get it to the defendant?",
       "whatsHappening": "Once the claim is issued, a stamped copy is served on each defendant. The rules allow personal service or other set methods. If there is more than one defendant, all of them must be served within six months after the claim is issued. You can serve it yourself, or have a friend or a process server do it. To serve a person who is not under a disability, you leave a copy with them.",
       "whatToDoNext": "To serve a company, you leave a copy with an officer, a director or someone allowed to act for it. You can also leave it with a person who seems to manage one of its places of business. If you cannot serve a person at home, you can leave a copy with an adult who lives there, in a sealed envelope addressed to them. You then mail or courier another copy there that day or the next. You can also send it by registered mail or courier to their home, if they or a member of their household signs for it.",
-      "yourDeadline": "Serve the claim on the defendant. You have 6 months, counted from the date the claim was issued. The court may extend the time for service, before or after the six months has passed.\n\nAsk for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default. You have 2 years, counted from the commencement of the action. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+      "yourDeadline": "Serve the claim on the defendant. You have 6 months after the date the claim was issued. The court may extend the time for service, before or after the six months has passed.\n\nAsk for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default. You have 2 years after the commencement of the action. The last day is the anniversary of that day, 2 years later. If that day was February 29, the anniversary is February 28, except in a leap year. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
       "whatHappensAfter": "Service by registered mail or courier takes effect on the date of the signature shown on the delivery confirmation. The envelope method takes effect on the fifth day after the second copy is mailed, or after the courier verifies delivery. The person who served it fills out one Affidavit of Service (Form 8A) for each person served, saying who was served, and when and how. You usually file it at your next step, or when a judge orders it. A defendant who wants to dispute the claim then has 20 days after being served to serve and file a defence.",
       "slots": [],
       "citations": [
@@ -1315,7 +1567,7 @@
       "userQuestion": "I cannot find them or they will not take the papers — now what?",
       "whatsHappening": "If the person will not take the papers, the server can drop them at their feet and note it in the affidavit of service. If quick service in the usual ways is not practical, the court may allow substituted service. Before asking, you are expected to try several times. You also explain what happened and why the new way will work. You ask for it with a Notice of Motion and Supporting Affidavit (Form 15A); the fee is $127.",
       "whatToDoNext": "If you cannot serve them at home, you can leave a copy with an adult who lives there, in a sealed envelope addressed to them. You must then mail or courier another copy to them there that day or the next. Registered mail or courier to their home also works, if they or someone in their household signs for it. If a company is not at the last address it has on record with the Ontario government, you can mail or courier a copy there. You also mail or courier a copy to each director at their address on record.",
-      "yourDeadline": "Serve the claim on the defendant. You have 6 months, counted from the date the claim was issued. The court may extend the time for service, before or after the six months has passed.\n\nAsk for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default. You have 2 years, counted from the commencement of the action. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+      "yourDeadline": "Serve the claim on the defendant. You have 6 months after the date the claim was issued. The court may extend the time for service, before or after the six months has passed.\n\nAsk for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default. You have 2 years after the commencement of the action. The last day is the anniversary of that day, 2 years later. If that day was February 29, the anniversary is February 28, except in a leap year. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
       "whatHappensAfter": "Home and company service takes effect on the fifth day after mailing, or after the courier verifies delivery. This motion may be made without notice, but the judge usually first decides if that is allowed. If notice is needed, you get a hearing date, serve the papers at least seven days before it, and file them with proof of service at least three days before it. A judge decides what kind of substituted service to allow, and you then serve the order, the motion papers and the claim. If the order was made without notice, you have five days after it is signed to serve it and the motion papers.",
       "slots": [],
       "citations": [
@@ -1493,7 +1745,7 @@
       "userQuestion": "It has been more than six months and I never served them — is my case dead?",
       "whatsHappening": "A claim must be served within six months after it is issued. If there is more than one defendant, all of them must be served within that time. But the court may extend the time for service, before or after the six months has passed. If you ask the court for more time, you explain in an affidavit why you could not serve the claim within the six months. The time to serve can also be lengthened by filing the parties' consent.",
       "whatToDoNext": "You can make a motion for more time with a Notice of Motion and Supporting Affidavit (Form 15A); the fee is $127. You can ask to make it without notice if notice is not needed or not reasonably possible; the judge usually decides that first. Otherwise, you get a hearing date from the clerk before you serve the motion. You serve it at least seven days before that date on every party who filed a claim and every defendant not noted in default. You file it, with proof of service, at least three days before the hearing.",
-      "yourDeadline": "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default. You have 2 years, counted from the commencement of the action. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+      "yourDeadline": "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default. You have 2 years after the commencement of the action. The last day is the anniversary of that day, 2 years later. If that day was February 29, the anniversary is February 28, except in a leap year. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
       "whatHappensAfter": "A judge then decides whether to extend the time, on terms that are just. If it is shown that prompt service is impractical, the court may also allow substituted service. Once the claim is served, a defendant who wants to dispute it has 20 days to serve and file a defence.",
       "slots": [],
       "citations": [
@@ -1655,7 +1907,7 @@
       "userQuestion": "They have been served — how long do I have to wait to hear back?",
       "whatsHappening": "To dispute the claim, a defendant has 20 days after service to serve a defence (Form 9A) and file it. To count the days, leave out the first day and count the last day. If the last day is a holiday, the time ends on the next day that is not a holiday. Every Saturday and Sunday counts as a holiday.",
       "whatToDoNext": "You need one Affidavit of Service (Form 8A) for each person served. You usually file it at your next step. If no defence is filed in time, you can ask the clerk to note the defendant in default with a Request to Clerk (Form 9B). Until the defendant is noted in default, a late defence can still be filed.",
-      "yourDeadline": "The defendant's time to serve and file a defence. They have 20 days, counted from the day the defendant was served with the claim. If the claim was left at the defendant's home with an adult and a copy mailed or couriered, service takes effect on the fifth day after the mailing or the courier's confirmed delivery. The same is true when a company cannot be found at its last address on record and is served by mail or courier to that address and to its directors. If the claim was sent by registered mail or courier and signed for, service takes effect on the date of the signature. The parties can lengthen the time by filing their consent, and the court can lengthen it.\n\nAsk for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default. You have 2 years, counted from the commencement of the action. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+      "yourDeadline": "The defendant's time to serve and file a defence. They have 20 days after the day the defendant was served with the claim. If the claim was left at the defendant's home with an adult and a copy mailed or couriered, service takes effect on the fifth day after the mailing or the courier's confirmed delivery. The same is true when a company cannot be found at its last address on record and is served by mail or courier to that address and to its directors. If the claim was sent by registered mail or courier and signed for, service takes effect on the date of the signature. The parties can lengthen the time by filing their consent, and the court can lengthen it.\n\nAsk for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default. You have 2 years after the commencement of the action. The last day is the anniversary of that day, 2 years later. If that day was February 29, the anniversary is February 28, except in a leap year. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
       "whatHappensAfter": "If a defence is filed, the court sends everyone a Notice of Settlement Conference, unless it offers terms to pay the full claim. If a defence admits some or all of the claim and proposes terms of payment, you have 20 days after it is served to dispute them. To do so, you file a Request to Clerk (Form 9B) for a terms of payment hearing and serve it on the defendant. If you do not, the defendant must pay as proposed, as if it were a court order.",
       "slots": [],
       "citations": [
@@ -1772,7 +2024,7 @@
       "userQuestion": "The 20 days are up and they never responded — what can I do?",
       "whatsHappening": "The 20 days for a defence have passed. No defence has been filed. A late defence can still be filed until the defendant is noted in default. If the defendant is a minor or other person under a disability, you need the court's leave to have them noted in default.",
       "whatToDoNext": "You can file a Request to Clerk (Form 9B) asking the clerk to note the defendant in default. With it, you file an Affidavit of Service (Form 8A) for each defendant. If all defendants were served outside the court's area, the clerk first needs proof that the case belongs there. You can prove this with an Affidavit for Jurisdiction (Form 11A), or by evidence before a judge.",
-      "yourDeadline": "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default. You have 2 years, counted from the commencement of the action. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+      "yourDeadline": "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default. You have 2 years after the commencement of the action. The last day is the anniversary of that day, 2 years later. If that day was February 29, the anniversary is February 28, except in a leap year. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
       "whatHappensAfter": "Once the defendant is noted in default, for a debt or set amount you can file a Default Judgment (Form 11B), which the clerk may sign; there is a fee. For other claims, once all defendants are in default, you can ask a judge to assess damages. You do this by a motion in writing (Form 15A) or a request for a hearing (Form 9B). If another defendant filed a defence, the case goes to a settlement conference instead, then a trial if needed.",
       "slots": [],
       "citations": [
@@ -1913,7 +2165,7 @@
       "userQuestion": "They have been noted in default — how do I get my judgment?",
       "whatsHappening": "The defendant now needs the court's leave or your consent to file a defence or take any step. But they can ask the court to set aside the noting in default. You and they can also agree to a clerk's order setting it aside. If the claim is not for a set amount, you can ask a judge to assess the damages once all defendants are noted in default. If another defendant filed a defence, the case goes to a settlement conference instead, then a trial if needed.",
       "whatToDoNext": "For a debt or set amount, you can file a Default Judgment (Form 11B); the fee is $94, or $128 for a frequent claimant. This does not stop you from going ahead on the rest of the claim, or against another defendant. For other claims, you can file a Notice of Motion and Supporting Affidavit (Form 15A) for a motion in writing; it costs $127. Your affidavit gives your reasons for the motion, with any relevant documents attached. Or you can ask for a hearing with a Request to Clerk (Form 9B); setting the date costs $308, or $403 for a frequent claimant.",
-      "yourDeadline": "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default. You have 2 years, counted from the commencement of the action. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+      "yourDeadline": "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default. You have 2 years after the commencement of the action. The last day is the anniversary of that day, 2 years later. If that day was February 29, the anniversary is February 28, except in a leap year. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
       "whatHappensAfter": "If satisfied, the clerk signs the default judgment and serves it on all parties. If you choose the motion, the judge may give judgment, ask for another affidavit, or order a hearing. The clerk sends you the order by mail or email; for mail, include a stamped, self-addressed envelope with the motion. For a hearing, the clerk sets a date and sends you a notice, and the hearing runs like a trial. You only have to prove the amount of the claim, not that the defendant is liable.",
       "slots": [],
       "citations": [
@@ -2089,7 +2341,7 @@
       "userQuestion": "The clerk says my claim is not for a fixed amount — how do I prove what I am owed?",
       "whatsHappening": "If all defendants are noted in default, you can ask a judge to assess the damages. If one or more defendants filed a defence, you go to a settlement conference and, if needed, a trial instead. The clerk can sign a default judgment only for a \"liquidated\" claim, which is a claim for a set amount owing. You do not have to prove liability against a defendant noted in default, but you must prove the amount of the claim. You can also ask for pre-judgment interest up to the judgment date, in your motion papers or at the hearing.",
       "whatToDoNext": "One way is a motion in writing, by filing a Notice of Motion and Supporting Affidavit (Form 15A), for a fee. Fill out Part B of the form, set out your reasons in the affidavit, and attach the documents it refers to. Swear or affirm the affidavit before a commissioner for taking affidavits. The other way is to file a Request to Clerk (Form 9B) for an assessment hearing. The fee to set a date for an assessment hearing is $308, or $403 for a frequent claimant.",
-      "yourDeadline": "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. You have 2 years, counted from the commencement of the action. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, or if you are under disability. The court may order otherwise.",
+      "yourDeadline": "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. You have 2 years after the commencement of the action. The last day is the anniversary of that day, 2 years later. If that day was February 29, the anniversary is February 28, except in a leap year. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, or if you are under disability. The court may order otherwise.",
       "whatHappensAfter": "On a motion in writing, the judge may grant judgment, ask for another affidavit, or order an assessment hearing. The clerk serves the order on you by mail or email, and for mail you must include a stamped, self-addressed envelope with your motion. If you ask for a hearing, the clerk fixes a date and sends you a notice. If the judge orders a hearing, contact the court office to schedule it. The hearing proceeds as a trial.",
       "slots": [],
       "citations": [
@@ -2382,7 +2634,7 @@
       "userQuestion": "They filed a defence — what happens next?",
       "whatsHappening": "A defence has been filed, so a conference must be held to try to settle the case. This does not apply if the defence admits all of your claim and proposes terms of payment. The conference aims to settle or narrow the issues and to share the facts and evidence.",
       "whatToDoNext": "If the defence admits all or part of your claim and proposes terms of payment, you can dispute the terms. Within 20 days after the defence was served, you file a Request to Clerk (Form 9B) for a terms of payment hearing, and serve it on the defendant. At least 14 days before the conference, serve each other party with any document you will rely on at trial, such as an expert report, if not attached to your claim. File them in court. By the same date, serve and file a List of Proposed Witnesses (Form 13A), which also names others who know about the matters in dispute.",
-      "yourDeadline": "The court holds the settlement conference within 90 days after the day the first defence was filed. This is the court's timetable, not a step you take. The clerk fixes the time, date and place and serves a notice of settlement conference on the parties. No conference is held if the defence admits all of the claim and proposes terms of payment.\n\nRequest a trial date, or the clerk will dismiss the action for delay. You have 2 years, counted from the commencement of the action. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+      "yourDeadline": "The court holds the settlement conference within 90 days after the day the first defence was filed. This is the court's timetable, not a step you take. The clerk fixes the time, date and place and serves a notice of settlement conference on the parties. No conference is held if the defence admits all of the claim and proposes terms of payment.\n\nRequest a trial date, or the clerk will dismiss the action for delay. You have 2 years after the commencement of the action. The last day is the anniversary of that day, 2 years later. If that day was February 29, the anniversary is February 28, except in a leap year. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
       "whatHappensAfter": "If you do not dispute a payment proposal in time, the defendant must pay as proposed, as if it were a court order. If the defendant then does not pay as proposed, you can serve a Notice of Default of Payment (Form 20L). Once 15 days have passed since you served it, you can file an Affidavit of Default of Payment (Form 20M), and the clerk signs judgment for the unpaid balance of the undisputed amount. If you do dispute the terms, the clerk fixes a time for a hearing and serves a notice of hearing on the parties. A party who got notice of the conference and does not attend may face costs or other sanctions, and another conference.",
       "slots": [],
       "citations": [
@@ -2510,7 +2762,7 @@
       "userQuestion": "They are suing me back — do I have to respond to that too?",
       "whatsHappening": "A defendant may make a claim against you, as the plaintiff, called a Defendant's Claim (Form 10A). With needed changes, the rules apply to it as if it were a plaintiff's claim. It is tried at the trial of the main action, unless the court orders otherwise.",
       "whatToDoNext": "To dispute it, or to admit some or all of it and propose terms of payment, you can use a Defence (Form 9A). The fee for filing a defence is $77.",
-      "yourDeadline": "If you want to dispute the defendant's claim, serve a defence (Form 9A) on every other party and file it, with proof of service, with the clerk. You have 20 days, counted from the day the defendant's claim was served.",
+      "yourDeadline": "If you want to dispute the defendant's claim, serve a defence (Form 9A) on every other party and file it, with proof of service, with the clerk. You have 20 days after the day the defendant's claim was served.",
       "whatHappensAfter": "After the 20 days, the court office will still accept a defence if there has been no noting in default. A party noted in default cannot file a defence or take other steps without the court's leave or the other party's consent. The one exception is a motion to set aside the noting. If you are noted in default on it, judgment can be obtained against you only at trial or on motion. If the defendant's claim may unduly complicate or delay the trial, or cause undue prejudice, the court may order separate trials or a separate action.",
       "slots": [],
       "citations": [
@@ -2614,7 +2866,7 @@
       "userQuestion": "I have a settlement conference date — what do I have to send in, and when?",
       "whatsHappening": "The clerk has set a time, date and place for the settlement conference. It aims to settle or narrow the issues, help you prepare for trial and share the facts and evidence. The judge at this conference will not be the trial judge. You must take part, unless the court orders otherwise.",
       "whatToDoNext": "If you need someone's okay to settle, you must be able to reach them by phone during the conference. If you cannot attend on that date, you can ask the court to put it off to another date, and the court office can help. If it is not put off before that date, you or someone for you must still attend to ask, and the judge may fix costs against you. To ask to attend another way, serve on every other party and file a Request to Change Attendance Method (Form 1B), with your reasons and proof of service, at least 30 days before the conference. Other parties may object within seven days. The court may grant or reject the request, or choose another allowed method.",
-      "yourDeadline": "Serve on every other party, and file with the court, your trial documents and a witness list (Form 13A). Do this at least 14 days before the date of the settlement conference. The documents are any you will rely on at the trial that are not attached to your claim or defence, including an expert report. The list names your proposed witnesses and other people who know about the matters in dispute.\n\nRequest a trial date, or the clerk will dismiss the action for delay. You have 2 years, counted from the commencement of the action. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+      "yourDeadline": "Serve on every other party, and file with the court, your trial documents and a witness list (Form 13A). Do this at least 14 days before the date of the settlement conference. The documents are any you will rely on at the trial that are not attached to your claim or defence, including an expert report. The list names your proposed witnesses and other people who know about the matters in dispute.\n\nRequest a trial date, or the clerk will dismiss the action for delay. You have 2 years after the commencement of the action. The last day is the anniversary of that day, 2 years later. If that day was February 29, the anniversary is February 28, except in a leap year. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
       "whatHappensAfter": "If a party who got the notice does not come, the court may order costs or other sanctions. It may also order another conference if needed. It may also order costs against a person who comes but did not file the required papers. It can do the same if a person is so poorly prepared that the conference cannot do its job. At the end, the court writes down the issues still in dispute and the matters agreed on.",
       "slots": [],
       "citations": [
@@ -2752,7 +3004,7 @@
       "userQuestion": "The settlement conference did not settle it — how do I get a trial date?",
       "whatsHappening": "At or after the settlement conference, the clerk gives the parties a notice. It says one of the parties must request a trial date and pay the fee if the action is not disposed of within 30 days. The judge who held the settlement conference will not preside at the trial.",
       "whatToDoNext": "To get a trial date, you can file a Request to Clerk (Form 9B) asking the clerk to fix a date for trial. The fee to fix a date for trial is $308, or $403 for a frequent claimant. If the parties agree to settle, you can sign Terms of Settlement (Form 14D). File them, signed by all parties, to tell the court the action has settled.",
-      "yourDeadline": "Request a trial date, or the clerk will dismiss the action for delay. You have 2 years, counted from the commencement of the action. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+      "yourDeadline": "Request a trial date, or the clerk will dismiss the action for delay. You have 2 years after the commencement of the action. The last day is the anniversary of that day, 2 years later. If that day was February 29, the anniversary is February 28, except in a leap year. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
       "whatHappensAfter": "Once the request is filed and the fee paid, the clerk fixes a date for trial. The clerk serves a notice of trial by mail or email on each party who has filed a claim or defence. After the request, the court may, on its own, direct a trial management conference before a judge.",
       "slots": [],
       "citations": [
@@ -3248,7 +3500,7 @@
       "userQuestion": "I have been sued — what do I have to do, and by when?",
       "whatsHappening": "You have been served with a claim, and the 20 days to deliver a defence have not run out. A defence is your answer to the claim. If it relies on a document, a copy goes with each copy of the defence, or the defence says why it is not attached. The first day is not counted, and if the last day is a holiday, the time ends on the next day that is not one. If you ignore a claim, the plaintiff can get judgment with no further notice, as if there had been a trial.",
       "whatToDoNext": "To dispute the claim, you can serve a Defence [Form 9A] on every other party. You then file it, with an affidavit of service for each party served, at the court office named on the claim. The fee to file a defence is $77. If you agree you owe all or part of the claim, you can admit it in the defence and propose terms of payment. You can also file a Defendant's Claim [Form 10A] against the plaintiff, or against someone else about the same events or related to the claim.",
-      "yourDeadline": "Serve a defence on every other party and file it with the clerk, with proof of service. You have 20 days, counted from the day of being served with the claim. If the claim was left at your home with an adult and a copy mailed or couriered, service takes effect on the fifth day after the mailing or the courier's confirmed delivery. The same is true when a company cannot be found at its last address on record and is served by mail or courier to that address and to its directors. If the claim was sent by registered mail or courier and signed for, service takes effect on the date of the signature. The parties can lengthen the time by filing their consent, and the court can lengthen it.",
+      "yourDeadline": "Serve a defence on every other party and file it with the clerk, with proof of service. You have 20 days after the day of being served with the claim. If the claim was left at your home with an adult and a copy mailed or couriered, service takes effect on the fifth day after the mailing or the courier's confirmed delivery. The same is true when a company cannot be found at its last address on record and is served by mail or courier to that address and to its directors. If the claim was sent by registered mail or courier and signed for, service takes effect on the date of the signature. The parties can lengthen the time by filing their consent, and the court can lengthen it.",
       "whatHappensAfter": "If you dispute all or part of the claim, you attend a settlement conference. The plaintiff has 20 days after your defence is served to dispute a payment proposal by asking for a hearing. If you admit the whole claim and the plaintiff does not dispute your payment plan, no more steps are needed while you pay on time. If no defence is filed in time, the clerk may note you in default when the plaintiff files a request. A defendant's claim is due within 20 days after your defence is filed, or later with leave, before trial or default judgment.",
       "slots": [],
       "citations": [
@@ -3778,7 +4030,7 @@
       "userQuestion": "I filed my defence — what happens next?",
       "whatsHappening": "A defence was filed, so a conference is held unless the defence admits the whole claim and proposes payment terms. It aims to narrow the issues, encourage settlement and help both sides get ready for trial. If you need someone's approval to settle, you must arrange phone access to them for the whole conference.",
       "whatToDoNext": "At least 14 days before the conference, you serve each other party and file any document for trial not attached to your defence. By then, you also serve and file a List of Proposed Witnesses [Form 13A], naming others who know about the dispute. The court may award costs against a person who attends without having filed this material. If you cannot attend on the date set, you can ask the court to adjourn it, and the court office can help. If it is not adjourned in time, you or someone for you must attend to ask, and the judge may consider costs against you.",
-      "yourDeadline": "If you want to make a defendant's claim (Form 10A), it can be issued without the court's leave. You have 20 days, counted from the day the defence is filed. After that, it may be issued only with leave of the court, and only before trial or default judgment.\n\nThe court holds the settlement conference within 90 days after the day the first defence was filed. This is the court's timetable, not a step you take. The clerk fixes the time, date and place and serves a notice of settlement conference on the parties. No conference is held if the defence admits all of the claim and proposes terms of payment.",
+      "yourDeadline": "If you want to make a defendant's claim (Form 10A), it can be issued without the court's leave. You have 20 days after the day the defence is filed. After that, it may be issued only with leave of the court, and only before trial or default judgment.\n\nThe court holds the settlement conference within 90 days after the day the first defence was filed. This is the court's timetable, not a step you take. The clerk fixes the time, date and place and serves a notice of settlement conference on the parties. No conference is held if the defence admits all of the claim and proposes terms of payment.",
       "whatHappensAfter": "Each party takes part in the conference, unless the court orders otherwise. A party with notice who does not come may face costs or other penalties, and the court may order another conference. If you miss the first conference and a second one you had notice of, the court may strike out your defence or make another just order. At the end, the court writes a memo of the issues left and matters agreed for the trial judge, who will be a different judge. The clerk's notice says a party must ask for a trial date and pay the fee if the case is not resolved within 30 days after the conference.",
       "slots": [],
       "citations": [
@@ -3912,7 +4164,7 @@
       "userQuestion": "They owe me money too — can I sue them back in the same case?",
       "whatsHappening": "You may make a claim against the plaintiff, called a defendant's claim, or against someone else if it arises from the same events or relates to the plaintiff's claim. A defendant's claim is tried at the same trial as the main case, unless the court orders otherwise. The court may order a separate trial or a separate action if your claim may unduly complicate or delay the trial, or cause undue prejudice to a party. If the case is about a debt, a defendant may also claim in the defence to set off a debt the plaintiff owes them. To dispute the plaintiff's claim, you must still serve and file a Defence (Form 9A) within 20 days of being served with it.",
       "whatToDoNext": "You can make your claim on a Defendant's Claim (Form 10A) and give a copy to the court. Among other things, it must give the parties' full names, the nature and amount of the claim, and the court file number of the plaintiff's claim. It must also give the address where you believe each person you claim against may be served. If it is based on a document, a copy must be attached, or the claim must say why it is not. The fee for filing a defendant's claim is $108.",
-      "yourDeadline": "A defendant's claim (Form 10A) can be issued without the court's leave. You have 20 days, counted from the day the defence is filed. After that, it may be issued only with leave of the court, and only before trial or default judgment.",
+      "yourDeadline": "A defendant's claim (Form 10A) can be issued without the court's leave. You have 20 days after the day the defence is filed. After that, it may be issued only with leave of the court, and only before trial or default judgment.",
       "whatHappensAfter": "The clerk issues the defendant's claim and gives it the same court file number as the plaintiff's claim. You must serve it on each person you claim against, personally or by another way the rules allow, within six months after it is issued. The court may extend that time, even after the six months end. To dispute it, a person has 20 days after service to serve a Defence (Form 9A) on every other party and file it with the clerk, with proof of service.",
       "slots": [],
       "citations": [
@@ -4296,7 +4548,7 @@
       "userQuestion": "I lost — what happens now, and what if I cannot pay?",
       "whatsHappening": "If you must pay money, you are the debtor, and the creditor can enforce right away. This can be by garnishment, or a writ of seizure and sale of your goods or land. Serving and filing a notice of appeal puts the money parts on hold until the appeal ends, unless an appeal judge lifts it. If you do not pay, the creditor can have a Notice of Examination (Form 20H) issued to you. If you are served and do not go, the court may order you to a contempt hearing.",
       "whatToDoNext": "If you cannot pay in full, you can contact the creditor to set up payments. On a motion (Form 15A), the court may pause enforcement on just terms, or change when and how much you pay if things change. With more than one such judgment, you can ask the court where you live for a consolidation order. When it is all paid, you can both sign and file a Request for Clerk's Order on Consent (Form 11.2A). If the creditor will not sign, you can bring a motion.",
-      "yourDeadline": "If you want to ask for a new trial, bring a motion for a new trial. You have 30 days, counted from the day the final order was made. The court can grant one only for a purely arithmetical error in the amount of damages, or for relevant evidence that was not available at the trial and could not reasonably have been expected to be.\n\nIf you want to appeal to the Divisional Court, serve a notice of appeal (Form 61A.3) with a certificate respecting evidence (Form 61C). You have 30 days, counted from the day the order was made. File the notice, with proof of service, within 10 days after serving it, and file the certificate with it. An appeal lies only from an order for the payment of more than $5,000, not counting costs, or for the recovery of personal property worth more than $5,000.",
+      "yourDeadline": "If you want to ask for a new trial, bring a motion for a new trial. You have 30 days after the day the final order was made. The court can grant one only for a purely arithmetical error in the amount of damages, or for relevant evidence that was not available at the trial and could not reasonably have been expected to be.\n\nIf you want to appeal to the Divisional Court, serve a notice of appeal (Form 61A.3) with a certificate respecting evidence (Form 61C). You have 30 days after the day the order was made. File the notice, with proof of service, within 10 days after serving it, and file the certificate with it. An appeal lies only from an order for the payment of more than $5,000, not counting costs, or for the recovery of personal property worth more than $5,000.",
       "whatHappensAfter": "A new trial motion also needs proof, served and filed, that you asked for a transcript of the reasons and key parts. An individual served with Form 20H must serve a Financial Information Form (Form 20I) on the creditor. Do not file it, but give the judge a copy, bring papers to back it up, and be ready to answer questions. After the examination, or if you file your consent, the court may order how you pay. While that order stands, creditors named in it can only use a writ of seizure and sale of land.",
       "slots": [],
       "citations": [
@@ -4577,7 +4829,7 @@
       "userQuestion": "I missed my trial date — is my case over?",
       "whatsHappening": "If all the parties are absent, the trial judge may strike the action off the trial list. If one party is absent, the judge may go ahead without them, or make another order that is just. The judge may strike out an absent defendant's defence and any claim of theirs, and must rule on any place of trial issue it raises. The judge may dismiss an absent plaintiff's action and let the defendant prove any claim of their own. In those two cases, the party with the claim must prove its amount, but not that the absent party is liable.",
       "whatToDoNext": "A party who missed the trial can ask the court, by motion, to set aside or change a judgment made against them. The motion uses a Notice of Motion and Supporting Affidavit (Form 15A), and the clerk gives a hearing date. It must be served on all parties at least seven days before the hearing, and filed, with proof of service, at least three days before. The fee to file a notice of motion served on another party is $127.",
-      "yourDeadline": "Ask the court, by making a motion, to set aside or change a judgment made when you did not attend. You have 30 days, counted from the day you became aware of the judgment. A party may instead make a motion to extend the 30 days, and the court may extend them if satisfied that special circumstances justify it.",
+      "yourDeadline": "Ask the court, by making a motion, to set aside or change a judgment made when you did not attend. You have 30 days after the day you became aware of the judgment. A party may instead make a motion to extend the 30 days, and the court may extend them if satisfied that special circumstances justify it.",
       "whatHappensAfter": "Another party can reply with an Affidavit (Form 15B), served on each party who filed a claim or defence. It must be filed, with an affidavit of service for each party served, at least 2 days before the hearing. At the hearing, the court may set aside or vary the judgment, on terms that are just.",
       "slots": [],
       "citations": [
@@ -4838,6 +5090,342 @@
             "supported": true,
             "quote": "Where a proceeding or a step in a proceeding is brought or taken before the wrong court, judge or officer, it may be transferred or adjourned to the proper court, judge or officer. | A proceeding that is transferred to another court under subsection (1) shall be titled in the court to which it is transferred and shall be continued as if it had been commenced in that court.",
             "sourceId": "cja-courts-of-justice-act",
+            "quoteFound": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "answer:before-filing:notice-vehicle-injury",
+      "stageId": "before-filing:notice-vehicle-injury",
+      "userQuestion": "I was hurt by a car, truck or bus — is there something I have to do before I sue?",
+      "whatsHappening": "This is about an injury or a death that came, directly or indirectly, from the use or operation of an automobile. The law lists six things to be done before this kind of lawsuit is started. You must always do three of them. You only have to do the other three if the person you plan to sue asks. The first two are to apply for statutory accident benefits and to serve a written notice that you plan to sue. The others are below. If you do not do one or more of these six things, you can still sue. But the court must take that into account when it decides costs.",
+      "whatToDoNext": "Apply for statutory accident benefits. Also serve a written notice on the person you plan to sue, saying that you plan to sue them. You must serve this notice within 120 days after the incident. The court where the lawsuit could be started can allow more time. You ask by motion, before or after the 120 days run out. There are rules for how the notice must be served, in section 33 of the Insurance Act. The notice must tell that person that, if they are insured, they must give their insurer a copy within seven days of getting it. You must also give the person you plan to sue the information the regulations require, by the deadline the regulations set. If the person you plan to sue asks within 90 days after getting your notice, you must go to examinations. That person picks the examiners, who are regulated health professionals, and pays for the examinations. You must answer the examiner's questions that relate to the examination. An examination can't be repeated without need, and it can't use a procedure that is unreasonable or dangerous. If the examiner gives a report to the person you plan to sue, that person must make sure you get a copy within 60 days after they get the report. If the person you plan to sue asks, you must give them a statutory declaration that describes what happened and your claim. If that person asks, you must also give them proof of who you are.",
+      "yourDeadline": "Serve written notice of your intention to sue on the person you will sue. You have 120 days after the incident. The court where the lawsuit could be started may allow a longer time, on a motion made before or after the 120 days run out.\n\nThe general deadline to start a court case. You have 2 years after the day the claim was discovered. The last day is the anniversary of that day, 2 years later. If that day was February 29, the anniversary is February 28, except in a leap year. This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.\n\nA deadline in an Ontario statute is counted under the Legislation Act, 2006, unless the statute shows otherwise. When a period is described as starting after a day, that day is not counted (s. 89 (5)). If the last day is a Sunday or a holiday, the deadline moves to the next day that is not a holiday (s. 89 (1)). Saturday is not a holiday under that Act, so a Saturday does not by itself move the deadline. Some deadlines are for doing something at a place, such as filing at an office. If that place is not open during its regular hours on the last day, the deadline moves to the next day it is open during its regular hours (s. 89 (2)).",
+      "whatHappensAfter": "You can still start the lawsuit without doing these steps. But the court must take that into account when it decides costs. In every lawsuit like this, no prejudgment interest under section 128 of the Courts of Justice Act is awarded for the time before you served your notice. Unless the Limitations Act, 2002 says otherwise, you can't start a lawsuit about the claim more than two years after the day it was discovered. A claim is discovered on the earlier of two days. One is the day you first knew four things. First, that the injury, loss or damage happened. Second, that something someone did, or failed to do, caused it or helped cause it. Third, that it was the act or omission of the person you are suing. Fourth, that a court case is a fitting way to try to remedy it, given the kind of injury, loss or damage. The other is the first day a reasonable person with your abilities and in your circumstances ought to have known those things. You are presumed to have known them on the day of the act or omission, unless it is proved otherwise.",
+      "slots": [],
+      "citations": [
+        {
+          "sourceId": "insurance-act",
+          "pinpoint": "s. 258.3 (1)",
+          "quote": "An action for loss or damage from bodily injury or death arising directly or indirectly from the use or operation of an automobile shall not be commenced unless, (a) the plaintiff has applied for statutory accident benefits; (b) the plaintiff served written notice of the intention to commence the action on the defendant within 120 days after the incident or within such longer period as a court in which the action may be commenced may authorize, on motion made before or after the expiry of the 120-day period;"
+        },
+        {
+          "sourceId": "insurance-act",
+          "pinpoint": "s. 258.3 (1) (c)-(f)",
+          "quote": "(c) the plaintiff provided the defendant with the information prescribed by the regulations within the time period prescribed by the regulations; (d) the plaintiff has, at the defendant's expense, undergone examinations by one or more persons selected by the defendant who are members of Colleges as defined in the Regulated Health Professions Act, 1991, if the defendant requests the examinations within 90 days after receiving the notice under clause (b); (e) the plaintiff has provided the defendant with a statutory declaration describing the circumstances surrounding the incident and the nature of the claim being made, if the statutory declaration is requested by the defendant; and (f) the plaintiff has provided the defendant with evidence of the plaintiff's identity, if evidence of the plaintiff's identity is requested by the defendant."
+        },
+        {
+          "sourceId": "insurance-act",
+          "pinpoint": "s. 258.3 (2)",
+          "quote": "An insured who receives a notice under clause (1) (b) shall give a copy of the notice to the insurer within seven days of receiving the notice."
+        },
+        {
+          "sourceId": "insurance-act",
+          "pinpoint": "s. 258.3 (4)",
+          "quote": "The notice under clause (1) (b) shall inform the person to whom it is given of the obligation under subsection (2)."
+        },
+        {
+          "sourceId": "insurance-act",
+          "pinpoint": "s. 258.3 (5)",
+          "quote": "An examination under clause (1) (d) shall not be unnecessarily repetitious and shall not involve a procedure that is unreasonable or dangerous."
+        },
+        {
+          "sourceId": "insurance-act",
+          "pinpoint": "s. 258.3 (6)",
+          "quote": "A person examined under clause (1) (d) shall answer the questions of the examiner relevant to the examination."
+        },
+        {
+          "sourceId": "insurance-act",
+          "pinpoint": "s. 258.3 (7)",
+          "quote": "If a person who performs an examination under clause (1) (d) gives a report on the examination to the defendant, the defendant shall ensure that the plaintiff receives a copy of the report within 60 days after the defendant receives the report."
+        },
+        {
+          "sourceId": "insurance-act",
+          "pinpoint": "s. 258.3 (10)",
+          "quote": "Section 33 applies, with necessary modifications, to the service of a notice under clause (1) (b)."
+        },
+        {
+          "sourceId": "insurance-act",
+          "pinpoint": "s. 258.3 (9)",
+          "quote": "Despite subsection (1), a person may commence an action without complying with subsection (1), but the court shall consider the non- compliance in awarding costs."
+        },
+        {
+          "sourceId": "insurance-act",
+          "pinpoint": "s. 258.3 (8)",
+          "quote": "In an action for loss or damage from bodily injury or death arising directly or indirectly from the use or operation of an automobile, no prejudgment interest shall be awarded under section 128 of the Courts of Justice Act for any period of time before the plaintiff served the notice under clause (1) (b)."
+        },
+        {
+          "sourceId": "limitations-act-2002",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceId": "limitations-act-2002",
+          "pinpoint": "s. 5 (1)",
+          "quote": "A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceId": "limitations-act-2002",
+          "pinpoint": "s. 16 (1) (h)",
+          "quote": "There is no limitation period in respect of, ... (h) a proceeding based on a sexual assault;"
+        },
+        {
+          "sourceId": "legislation-act-2006",
+          "pinpoint": "s. 88 (2)",
+          "quote": "The following days are holidays: 1. Sunday. 2. New Year's Day. 2.1 Family Day. 3. Good Friday. 4. Easter Monday. 5. Victoria Day. 6. Canada Day. 7. Labour Day. 8. Thanksgiving Day. 9. Remembrance Day. 10. Christmas Day. 11. Boxing Day."
+        },
+        {
+          "sourceId": "legislation-act-2006",
+          "pinpoint": "s. 89 (1)",
+          "quote": "Time limits that would otherwise expire on a holiday are extended to include the next day that is not a holiday."
+        }
+      ],
+      "sourceIds": [
+        "insurance-act",
+        "limitations-act-2002"
+      ],
+      "verification": {
+        "status": "verified-draft",
+        "verifiedAt": "2026-10-05T19:00:00.000Z",
+        "attempts": 1,
+        "verdicts": [
+          {
+            "sentence": "This is about an injury or a death that came, directly or indirectly, from the use or operation of an automobile.",
+            "supported": true,
+            "quote": "An action for loss or damage from bodily injury or death arising directly or indirectly from the use or operation of an automobile",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "The law lists six things to be done before this kind of lawsuit is started.",
+            "supported": true,
+            "quote": "shall not be commenced unless, (a)",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You must always do three of them.",
+            "supported": true,
+            "quote": "(c) the plaintiff provided the defendant with the information prescribed by the regulations",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You only have to do the other three if the person you plan to sue asks.",
+            "supported": true,
+            "quote": "if the statutory declaration is requested by the defendant;",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "The first two are to apply for statutory accident benefits and to serve a written notice that you plan to sue.",
+            "supported": true,
+            "quote": "(b) the plaintiff served written notice of the intention to commence the action on the defendant",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "The others are below.",
+            "supported": true,
+            "quote": "(c) the plaintiff provided the defendant with the information prescribed by the regulations",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "If you do not do one or more of these six things, you can still sue.",
+            "supported": true,
+            "quote": "Despite subsection (1), a person may commence an action without complying with subsection (1),",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "But the court must take that into account when it decides costs.",
+            "supported": true,
+            "quote": "but the court shall consider the non- compliance in awarding costs.",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Apply for statutory accident benefits.",
+            "supported": true,
+            "quote": "(a) the plaintiff has applied for statutory accident benefits;",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Also serve a written notice on the person you plan to sue, saying that you plan to sue them.",
+            "supported": true,
+            "quote": "the plaintiff served written notice of the intention to commence the action on the defendant",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You must serve this notice within 120 days after the incident.",
+            "supported": true,
+            "quote": "within 120 days after the incident",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "The court where the lawsuit could be started can allow more time. You ask by motion, before or after the 120 days run out.",
+            "supported": true,
+            "quote": "or within such longer period as a court in which the action may be commenced may authorize, on motion made before or after the expiry of the 120-day period;",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "There are rules for how the notice must be served, in section 33 of the Insurance Act.",
+            "supported": true,
+            "quote": "Section 33 applies, with necessary modifications, to the service of a notice under clause (1) (b).",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "The notice must tell that person that, if they are insured, they must give their insurer a copy within seven days of getting it.",
+            "supported": true,
+            "quote": "The notice under clause (1) (b) shall inform the person to whom it is given of the obligation under subsection (2).",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You must also give the person you plan to sue the information the regulations require, by the deadline the regulations set.",
+            "supported": true,
+            "quote": "(c) the plaintiff provided the defendant with the information prescribed by the regulations within the time period prescribed by the regulations;",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "If the person you plan to sue asks within 90 days after getting your notice, you must go to examinations.",
+            "supported": true,
+            "quote": "if the defendant requests the examinations within 90 days after receiving the notice under clause (b);",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "That person picks the examiners, who are regulated health professionals, and pays for the examinations.",
+            "supported": true,
+            "quote": "at the defendant's expense, undergone examinations by one or more persons selected by the defendant who are members of Colleges as defined in the Regulated Health Professions Act, 1991",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You must answer the examiner's questions that relate to the examination.",
+            "supported": true,
+            "quote": "A person examined under clause (1) (d) shall answer the questions of the examiner relevant to the examination.",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "An examination can't be repeated without need, and it can't use a procedure that is unreasonable or dangerous.",
+            "supported": true,
+            "quote": "An examination under clause (1) (d) shall not be unnecessarily repetitious and shall not involve a procedure that is unreasonable or dangerous.",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "If the examiner gives a report to the person you plan to sue, that person must make sure you get a copy within 60 days after they get the report.",
+            "supported": true,
+            "quote": "the defendant shall ensure that the plaintiff receives a copy of the report within 60 days after the defendant receives the report.",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "If the person you plan to sue asks, you must give them a statutory declaration that describes what happened and your claim.",
+            "supported": true,
+            "quote": "(e) the plaintiff has provided the defendant with a statutory declaration describing the circumstances surrounding the incident and the nature of the claim being made, if the statutory declaration is requested by the defendant;",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "If that person asks, you must also give them proof of who you are.",
+            "supported": true,
+            "quote": "(f) the plaintiff has provided the defendant with evidence of the plaintiff's identity, if evidence of the plaintiff's identity is requested by the defendant.",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You can still start the lawsuit without doing these steps.",
+            "supported": true,
+            "quote": "Despite subsection (1), a person may commence an action without complying with subsection (1),",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "But the court must take that into account when it decides costs.",
+            "supported": true,
+            "quote": "but the court shall consider the non- compliance in awarding costs.",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "In every lawsuit like this, no prejudgment interest under section 128 of the Courts of Justice Act is awarded for the time before you served your notice.",
+            "supported": true,
+            "quote": "no prejudgment interest shall be awarded under section 128 of the Courts of Justice Act for any period of time before the plaintiff served the notice under clause (1) (b).",
+            "sourceId": "insurance-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Unless the Limitations Act, 2002 says otherwise, you can't start a lawsuit about the claim more than two years after the day it was discovered.",
+            "supported": true,
+            "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered.",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "A claim is discovered on the earlier of two days.",
+            "supported": true,
+            "quote": "A claim is discovered on the earlier of",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "One is the day you first knew four things.",
+            "supported": true,
+            "quote": "the day on which the person with the claim first knew,",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "First, that the injury, loss or damage happened.",
+            "supported": true,
+            "quote": "(i) that the injury, loss or damage had occurred,",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Second, that something someone did, or failed to do, caused it or helped cause it.",
+            "supported": true,
+            "quote": "(ii) that the injury, loss or damage was caused by or contributed to by an act or omission,",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Third, that it was the act or omission of the person you are suing.",
+            "supported": true,
+            "quote": "(iii) that the act or omission was that of the person against whom the claim is made,",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Fourth, that a court case is a fitting way to try to remedy it, given the kind of injury, loss or damage.",
+            "supported": true,
+            "quote": "(iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it;",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "The other is the first day a reasonable person with your abilities and in your circumstances ought to have known those things.",
+            "supported": true,
+            "quote": "the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known",
+            "sourceId": "limitations-act-2002",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You are presumed to have known them on the day of the act or omission, unless it is proved otherwise.",
+            "supported": true,
+            "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved.",
+            "sourceId": "limitations-act-2002",
             "quoteFound": true
           }
         ]

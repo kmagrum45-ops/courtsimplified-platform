@@ -51,7 +51,10 @@ export type CorpusSourceId =
   | "childrens-law-reform-act"
   | "divorce-act"
   | "family-responsibility-support-arrears-enforcement-act"
-  | "evidence-act";
+  | "evidence-act"
+  // 2026-10-05: the notice before suing over an injury from a vehicle
+  // (s. 258.3), which the stage map had no stage for.
+  | "insurance-act";
 
 /** The page a person opens to read the law for themselves. */
 export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
@@ -75,6 +78,7 @@ export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
   "divorce-act": "https://laws-lois.justice.gc.ca/eng/acts/D-3.4/",
   "family-responsibility-support-arrears-enforcement-act": "https://www.ontario.ca/laws/statute/96f31",
   "evidence-act": "https://www.ontario.ca/laws/statute/90e23",
+  "insurance-act": "https://www.ontario.ca/laws/statute/90i08",
 };
 
 /** How each source is named to a user. Shown beside the quote. */
@@ -101,6 +105,7 @@ export const SOURCE_NAMES: Record<CorpusSourceId, string> = {
   "family-responsibility-support-arrears-enforcement-act":
     "Family Responsibility and Support Arrears Enforcement Act, 1996, S.O. 1996, c. 31",
   "evidence-act": "Evidence Act, R.S.O. 1990, c. E.23",
+  "insurance-act": "Insurance Act, R.S.O. 1990, c. I.8",
 };
 
 export type RuleCitation = {
@@ -655,6 +660,83 @@ export const S_TORONTO_42_8_EXCUSE: RuleCitation = {
   pinpoint: "s. 42 (8)",
   quote:
     "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+};
+
+/*
+ * 2026-10-05. An injury from a vehicle. Found from a live run: a person hit by
+ * a city bus was shown only the general two-year limitation. The notice that
+ * applies is not the Municipal Act's ten days (s. 44 (10) is for damages under
+ * s. 44 (2), a highway or bridge out of repair) but this one: notice of the
+ * intention to sue, within 120 days, and an application for accident
+ * benefits. Unlike the three notices above it does not bar the action --
+ * s. 258.3 (9) -- so the deadline is "changes-what-happens-next".
+ */
+export const S_INSURANCE_258_3_1_NOTICE: RuleCitation = {
+  sourceId: "insurance-act",
+  pinpoint: "s. 258.3 (1)",
+  quote:
+    "An action for loss or damage from bodily injury or death arising directly or indirectly from the use or operation of an automobile shall not be commenced unless, (a) the plaintiff has applied for statutory accident benefits; (b) the plaintiff served written notice of the intention to commence the action on the defendant within 120 days after the incident or within such longer period as a court in which the action may be commenced may authorize, on motion made before or after the expiry of the 120-day period;",
+};
+
+export const S_INSURANCE_258_3_1_ON_REQUEST: RuleCitation = {
+  sourceId: "insurance-act",
+  pinpoint: "s. 258.3 (1) (c)-(f)",
+  quote:
+    "(c) the plaintiff provided the defendant with the information prescribed by the regulations within the time period prescribed by the regulations; (d) the plaintiff has, at the defendant's expense, undergone examinations by one or more persons selected by the defendant who are members of Colleges as defined in the Regulated Health Professions Act, 1991, if the defendant requests the examinations within 90 days after receiving the notice under clause (b); (e) the plaintiff has provided the defendant with a statutory declaration describing the circumstances surrounding the incident and the nature of the claim being made, if the statutory declaration is requested by the defendant; and (f) the plaintiff has provided the defendant with evidence of the plaintiff's identity, if evidence of the plaintiff's identity is requested by the defendant.",
+};
+
+export const S_INSURANCE_258_3_2_COPY_TO_INSURER: RuleCitation = {
+  sourceId: "insurance-act",
+  pinpoint: "s. 258.3 (2)",
+  quote:
+    "An insured who receives a notice under clause (1) (b) shall give a copy of the notice to the insurer within seven days of receiving the notice.",
+};
+
+export const S_INSURANCE_258_3_4_CONTENTS: RuleCitation = {
+  sourceId: "insurance-act",
+  pinpoint: "s. 258.3 (4)",
+  quote: "The notice under clause (1) (b) shall inform the person to whom it is given of the obligation under subsection (2).",
+};
+
+export const S_INSURANCE_258_3_5_LIMITS: RuleCitation = {
+  sourceId: "insurance-act",
+  pinpoint: "s. 258.3 (5)",
+  quote:
+    "An examination under clause (1) (d) shall not be unnecessarily repetitious and shall not involve a procedure that is unreasonable or dangerous.",
+};
+
+export const S_INSURANCE_258_3_6_QUESTIONS: RuleCitation = {
+  sourceId: "insurance-act",
+  pinpoint: "s. 258.3 (6)",
+  quote: "A person examined under clause (1) (d) shall answer the questions of the examiner relevant to the examination.",
+};
+
+export const S_INSURANCE_258_3_7_REPORT: RuleCitation = {
+  sourceId: "insurance-act",
+  pinpoint: "s. 258.3 (7)",
+  quote:
+    "If a person who performs an examination under clause (1) (d) gives a report on the examination to the defendant, the defendant shall ensure that the plaintiff receives a copy of the report within 60 days after the defendant receives the report.",
+};
+
+export const S_INSURANCE_258_3_10_SERVICE: RuleCitation = {
+  sourceId: "insurance-act",
+  pinpoint: "s. 258.3 (10)",
+  quote: "Section 33 applies, with necessary modifications, to the service of a notice under clause (1) (b).",
+};
+
+export const S_INSURANCE_258_3_8_INTEREST: RuleCitation = {
+  sourceId: "insurance-act",
+  pinpoint: "s. 258.3 (8)",
+  quote:
+    "In an action for loss or damage from bodily injury or death arising directly or indirectly from the use or operation of an automobile, no prejudgment interest shall be awarded under section 128 of the Courts of Justice Act for any period of time before the plaintiff served the notice under clause (1) (b).",
+};
+
+export const S_INSURANCE_258_3_9_COSTS: RuleCitation = {
+  sourceId: "insurance-act",
+  pinpoint: "s. 258.3 (9)",
+  // "non- compliance" is the vendored text's own hyphenation, kept verbatim.
+  quote:
+    "Despite subsection (1), a person may commence an action without complying with subsection (1), but the court shall consider the non- compliance in awarding costs.",
 };
 
 export const S_OLA_6_1_NOTICE: RuleCitation = {
