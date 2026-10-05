@@ -53,7 +53,13 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           set -o pipefail
-          npm run retrieval:index 2>&1 | tee index-run.log
+          # Job logs are served from a host the cloud workspaces cannot reach;
+          # annotations are not. So a failure's last lines become annotations.
+          if ! npm run retrieval:index 2>&1 | tee index-run.log; then
+            tail -8 index-run.log | sed 's/^/::error title=Corpus index::/'
+            exit 1
+          fi
+          tail -3 index-run.log | sed 's/^/::notice title=Corpus index::/'
 
       - name: Check the built index
         run: npm run test:corpus-retrieval

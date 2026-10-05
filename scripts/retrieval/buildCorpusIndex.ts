@@ -120,6 +120,9 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error(error instanceof Error ? error.message : error);
+  // The API's status and message say what went wrong (a model the project
+  // cannot use, a rate limit); neither carries the key.
+  const status = (error as { status?: number })?.status;
+  console.error(`${status ? `HTTP ${status}: ` : ""}${error instanceof Error ? error.message : String(error)}`);
   process.exitCode = 1;
 });
