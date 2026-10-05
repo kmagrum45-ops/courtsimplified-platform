@@ -59,6 +59,7 @@ check("a decimal form number survives", parsed[1]?.number === "1A.1" && parsed[1
   const refetched = "9.01 A defendant who wishes to dispute a claim shall, within 20 days - after being served, file a defence. Défense";
   check("rules:check ignores spacing, dashes and accents", normalizeForCompare(vendored) === normalizeForCompare(refetched));
   check("rules:check still sees a changed word", normalizeForCompare(vendored) !== normalizeForCompare(refetched.replace("20 days", "30 days")));
+  check("rules:check treats a narrow no-break space as a space", normalizeForCompare("2 The owner") === normalizeForCompare("2\u202FThe owner"));
   check(
     "rules:check matches a damaged accent with the real letter",
     normalizeForCompare("Fran\uFFFDais (\"cr\uFFFDancier\")") === normalizeForCompare("Français (\"créancier\")"),

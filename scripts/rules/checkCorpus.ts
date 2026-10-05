@@ -71,7 +71,9 @@ export function normalizeForCompare(text: string): string {
     .replace(/[‘’‚‛′]/g, "'")
     .replace(/[“”„‟″]/g, '"')
     .replace(/[‐‑‒–—―]/g, "-")
-    .replace(/\u00a0/g, " ")
+    // Every kind of space is a space (third run, 2026-10-04: e-Laws now puts a
+    // narrow no-break space after section numbers, "2\u202FThe owner").
+    .replace(/[\u00a0\u1680\u2000-\u200b\u202f\u205f\u3000\ufeff]/g, " ")
     // The vendored copies have U+FFFD where e-Laws had an accented letter
     // ("Fran\uFFFDais"); a fresh extraction has the letter itself. Second
     // scheduled run (2026-10-04) flagged 140 provisions, every one of them
