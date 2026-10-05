@@ -46,7 +46,8 @@ import StageConfirmation from "./_components/StageConfirmation";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import NextStepsCard from "./_components/NextStepsCard";
 import { userIsResponding } from "./_components/respondingSide";
-import { readCasePosition } from "../../src/lib/case-system/casePosition";
+import { readCasePosition, storyHintsForDates } from "../../src/lib/case-system/casePosition";
+import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
 import { newId, type CaseDraft } from "../../src/lib/case-system/drafts/caseDrafts";
 import AiUseNotice from "../_components/AiUseNotice";
 import PathwayUnavailable from "../_components/PathwayUnavailable";
@@ -850,7 +851,8 @@ function BuilderPageContent() {
         const { error } = await supabase
           .from("cases")
           .update({
-            title: record.title,
+            // Named for who the case is with, not the engine's summary.
+            title: isGeneratedTitle(record.title) ? caseTitleFromIntake(caseData.otherParty, courtPath) : record.title,
             court_path: courtPath,
             status: "active",
             current_stage: stage,
@@ -1613,6 +1615,7 @@ function BuilderPageContent() {
                 caseId={savedCaseId()}
                 initialStepId={savedPosition.stepId}
                 initialDateAnswers={savedPosition.dateAnswers}
+                storyHints={storyHintsForDates(caseData?.facts)}
               />
             ) : null}
             {confirmedStage && (courtPath === "family" || courtPath === "civil") ? (

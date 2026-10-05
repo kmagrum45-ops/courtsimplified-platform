@@ -33,8 +33,10 @@ import {
   applyPositionPatch,
   dateQuestionsForStep,
   readCasePosition,
+  storyHintsForDates,
   suggestedDatesFromEvents,
 } from "../../src/lib/case-system/casePosition";
+import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
 import { ALL_STAGES, stagesForPathway } from "../../src/lib/case-system/stage-map/stageMap";
 
 let failures = 0;
@@ -153,6 +155,29 @@ const familyStep = stagesForPathway("family")[0]?.id ?? "";
   );
   check("an approximate date is never offered", !("sc-date-defence-filed" in suggestions));
   check("an event with no matching question offers nothing", Object.keys(suggestions).length === 1);
+}
+
+{
+  const noYear = storyHintsForDates("I was served a claim about the car. The papers came on September 25.");
+  check(
+    "a story date with no year is quoted back, never filled in",
+    noYear["sc-date-claim-served"]?.quote === "The papers came on September 25." && noYear["sc-date-claim-served"].value === null,
+    JSON.stringify(noYear),
+  );
+  const full = storyHintsForDates("I was served on September 20, 2026 at my house.");
+  check("a complete story date is offered for the matching question", full["sc-date-claim-served"]?.value === "2026-09-20");
+  check("a story with no such moment gives no hint", Object.keys(storyHintsForDates("He owes me money for a painting job.")).length === 0);
+}
+
+{
+  check(
+    "an engine summary is not kept as a case title",
+    isGeneratedTitle("Current case status: Responding to a case. Case story I was served a plaintiff") && !isGeneratedTitle("Smith v. Jones"),
+  );
+  check(
+    "a case is named for the other party the user typed",
+    caseTitleFromIntake("  Rapid   Tow ", "small-claims") === "Your case with Rapid Tow" && caseTitleFromIntake("", "family") === "Family case",
+  );
 }
 
 // ---- 3. The wiring ----

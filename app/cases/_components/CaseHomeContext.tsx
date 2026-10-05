@@ -3,6 +3,7 @@
 import { createContext, useContext } from "react";
 
 import type { CasePosition } from "@/src/lib/case-system/casePosition";
+import { caseTitleFromIntake, isGeneratedTitle } from "@/src/lib/case-system/caseTitle";
 
 /** The case row the case page loads once and every section reads. */
 export type CaseRecord = {
@@ -52,10 +53,9 @@ export const COURT_LABELS: Record<string, string> = {
 
 export function caseTitle(record: CaseRecord): string {
   const title = (record.title || "").trim();
-  if (!title || /^(new courtsimplified case|untitled courtsimplified case)$/i.test(title)) {
-    return "Your case";
-  }
-  return title;
+  if (!isGeneratedTitle(title)) return title;
+  const intake = (record.master_result?.intakeData ?? {}) as { otherParty?: unknown };
+  return caseTitleFromIntake(intake.otherParty, record.court_path);
 }
 
 export function builderHref(record: CaseRecord): string {

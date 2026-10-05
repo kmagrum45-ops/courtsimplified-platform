@@ -969,20 +969,16 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                   );
                 })}
               </div>
-            ) : mappingStage === "starting-case" || mappingStage === "responding" ? <p className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">Review required — a verified form recommendation is unavailable until every applicable fact is explicitly confirmed and matches the selected case.</p> : <p className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">Review required — this verified mapping bundle applies only to selected starting or responding stages.</p>}
+            ) : mappingStage === "starting-case" || mappingStage === "responding" ? <p className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">Review required — a verified form recommendation is unavailable until every applicable fact is explicitly confirmed and matches the selected case.</p> : <p className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">Review required — we can confirm which forms apply only when you are starting a case or responding to one. For any other step, every official form is listed below.</p>}
           </section>
         ) : null}
 
-        {unifiedSignals.architectureWarnings.length ? (
-          <section className="mt-6 rounded-3xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-900">
-            <h2 className="text-xl font-bold">Architecture warnings</h2>
-            <ul className="mt-3 list-disc space-y-2 pl-5">
-              {unifiedSignals.architectureWarnings.slice(0, 6).map((warning) => (
-                <li key={warning}>{warning}</li>
-              ))}
-            </ul>
-          </section>
-        ) : null}
+        {/*
+          "Architecture warnings" were listed here: internal engine notes
+          ("authenticity", "missing-context", "Event is not linked to
+          evidence") shown to users as a warning box (page walkthrough,
+          2026-10-04). They describe the engine, not the user's forms.
+        */}
 
         <section className="mt-8 grid gap-5 lg:grid-cols-3">
           <div className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
@@ -990,7 +986,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
               Required next forms
             </h2>
             <p className="mt-2 text-sm leading-6 text-[#4f685f]">
-              Rendered from unified brain / assembly output.
+              Forms your case record points to.
             </p>
 
             <div className="mt-4 space-y-2 text-sm">
