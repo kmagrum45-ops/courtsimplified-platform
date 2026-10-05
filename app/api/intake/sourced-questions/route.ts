@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { sourcedQuestions } from "@/src/lib/case-system/retrieval/sourcedQuestions";
+import { loadCorpusIndex } from "@/src/lib/case-system/retrieval/corpusIndex";
+import {
+  passagesById,
+  questionsFromPassages,
+  researchForQuestions,
+} from "@/src/lib/case-system/retrieval/sourcedQuestions";
 import { fileSourceRequests } from "@/src/lib/case-system/retrieval/sourceRequests";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
 import { sourcedQuestionsEnabled } from "@/src/lib/content-library/phaseScope";
@@ -12,6 +17,13 @@ import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
  * (retrieval/sourcedQuestions.ts). Called by all three intakes in the
  * background once the story is told; the questions are shown before the
  * analysis, and answering is optional.
+ *
+ * TWO CALLS, each with a whole request's time (one request ran out of time
+ * on 9 of 12 stories when the model was slow, 2026-10-05):
+ *   1. { story, courtPath, side? } -> research -> { passageIds, situation }
+ *   2. the same plus { passageIds, situation } -> { questions }
+ * Phase 2 takes passage IDS and re-reads each from the index, hash-checked,
+ * so the text the questions are written from is always the official text.
  *
  * Signed-in only, like every route that sends a story to a model
  * (guided-turn, the analyze routes). A person who is not signed in gets no
@@ -32,13 +44,28 @@ const SIDES: Record<string, "plaintiff" | "defendant"> = {
   "responding-party": "defendant",
 };
 
-type Body = { story: string; courtPath: "small-claims" | "civil" | "family"; side?: string };
+type Body = {
+  story: string;
+  courtPath: "small-claims" | "civil" | "family";
+  side?: string;
+  passageIds?: string[];
+  situation?: string;
+};
+
+const PASSAGE_ID = /^corpus:[A-Za-z0-9._-]{1,120}:\d{1,6}$/;
 
 function isSourcedQuestionsBody(value: unknown): value is Body {
   if (!value || typeof value !== "object") return false;
   const body = value as Record<string, unknown>;
   const keys = Object.keys(body);
-  if (keys.some((key) => !["story", "courtPath", "side"].includes(key))) return false;
+  if (keys.some((key) => !["story", "courtPath", "side", "passageIds", "situation"].includes(key))) return false;
+  if (
+    body.passageIds !== undefined &&
+    !(Array.isArray(body.passageIds) && body.passageIds.length <= 10 && body.passageIds.every((id) => typeof id === "string" && PASSAGE_ID.test(id)))
+  ) {
+    return false;
+  }
+  if (body.situation !== undefined && !(typeof body.situation === "string" && body.situation.length <= 300)) return false;
   return (
     typeof body.story === "string" &&
     body.story.trim().length >= 20 &&
@@ -51,7 +78,9 @@ function isSourcedQuestionsBody(value: unknown): value is Body {
 
 type Dependencies = {
   authenticate: typeof getAuthenticatedUser;
-  questions: typeof sourcedQuestions;
+  research: typeof researchForQuestions;
+  questions: typeof questionsFromPassages;
+  index: typeof loadCorpusIndex;
   fileRequests: typeof fileSourceRequests;
   enabled: () => boolean;
   hasAi: () => boolean;
@@ -60,7 +89,9 @@ type Dependencies = {
 export function createSourcedQuestionsPost(overrides: Partial<Dependencies> = {}) {
   const deps: Dependencies = {
     authenticate: getAuthenticatedUser,
-    questions: sourcedQuestions,
+    research: researchForQuestions,
+    questions: questionsFromPassages,
+    index: loadCorpusIndex,
     fileRequests: fileSourceRequests,
     enabled: () => sourcedQuestionsEnabled(),
     hasAi: hasConfiguredServerAi,
@@ -79,14 +110,28 @@ export function createSourcedQuestionsPost(overrides: Partial<Dependencies> = {}
     if (!deps.enabled() || !deps.hasAi()) return NextResponse.json({ ok: true, questions: [], skipped: "off" });
     if (!(await deps.authenticate(request))) return NextResponse.json({ ok: true, questions: [], skipped: "sign-in" });
 
-    const result = await deps.questions({
+    const input = {
       story: body.story,
       courtPath: body.courtPath,
       ...(body.side && SIDES[body.side] ? { side: SIDES[body.side] } : {}),
-    });
-    if (result.sourceRequests.length > 0) {
-      await deps.fileRequests(result.sourceRequests, { courtPath: body.courtPath });
+    };
+
+    if (!body.passageIds) {
+      const found = await deps.research(input);
+      if (found.sourceRequests.length > 0) {
+        await deps.fileRequests(found.sourceRequests, { courtPath: body.courtPath });
+      }
+      return NextResponse.json({
+        ok: true,
+        passageIds: found.passageIds,
+        situation: found.situation,
+        ...(found.skipped ? { skipped: found.skipped } : {}),
+      });
     }
+
+    const index = deps.index();
+    const passages = index ? passagesById(index, body.passageIds) : [];
+    const result = await deps.questions(input, passages, body.situation ?? "");
     return NextResponse.json({
       ok: true,
       questions: result.questions,

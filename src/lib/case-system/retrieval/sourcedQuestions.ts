@@ -41,7 +41,7 @@
  * Asserted by `npm run test:sourced-questions`.
  */
 
-import type { Passage } from "./corpusIndex";
+import { loadCorpusIndex, readPassage, type LoadedIndex, type Passage } from "./corpusIndex";
 import { numberNotInSource, outcomeTermNotInProvision, provisionOf } from "./explainProvision";
 import { researchStory, type ResearchDeps, type ResearchResult } from "./researchStory";
 import { passageItem, type RetrievalInput } from "./storyRetrieval";
@@ -50,12 +50,12 @@ export const MAX_SOURCED_QUESTIONS = 5;
 const MAX_PASSAGES_OFFERED = 10;
 const PASSAGE_CHARS = 1500;
 /**
- * Research gets most of a 60 s request; writing and checking the rest, with
- * room left for the route. Measured 2026-10-05 over 12 stories: median 43 s,
- * slowest 50 s.
+ * Writing and checking, in their own request (phase 2). Research has its own
+ * request and its own 45 s budget (researchStory). Measured 2026-10-05: the
+ * two together took a median 43 s, and one request ran out of time on 9 of
+ * 12 stories when the model was slow.
  */
-export const RESEARCH_BUDGET_MS = 34_000;
-const QUESTION_BUDGET_MS = 18_000;
+const QUESTION_BUDGET_MS = 40_000;
 
 export type SourcedQuestion = {
   id: string;
@@ -217,68 +217,98 @@ const empty = (skipped: string, sourceRequests: string[] = []): SourcedQuestions
   sourceRequests,
 });
 
-/** Research the story, then write and check questions. Always resolves; never throws. */
-export async function sourcedQuestions(input: RetrievalInput, deps: SourcedQuestionDeps = {}): Promise<SourcedQuestionsResult> {
+export type ResearchForQuestions = {
+  /** Ids of the passages the research found to answer a question, in its order. */
+  passageIds: string[];
+  /** The research's neutral one-line situation, for the independent check. */
+  situation: string;
+  sourceRequests: string[];
+  skipped?: string;
+};
+
+/**
+ * Phase 1: research the story. Returns passage IDS, not text: phase 2
+ * re-reads each from the index (hash-verified), so what the writer is shown
+ * is always the official text whoever carries the ids between the phases.
+ * Always resolves; never throws.
+ */
+export async function researchForQuestions(input: RetrievalInput, deps: SourcedQuestionDeps = {}): Promise<ResearchForQuestions> {
   try {
-    const research = deps.research
-      ? await deps.research(input)
-      : await researchStory(input, { timeoutMs: RESEARCH_BUDGET_MS, ...deps.researchDeps });
+    const research = deps.research ? await deps.research(input) : await researchStory(input, deps.researchDeps ?? {});
     const passages = answeringPassages(research);
-    if (passages.length === 0) return empty(research.skipped ?? "nothing answered", research.sourceRequests);
-    const situation = research.issues[0]?.situation ?? "";
-
-    const work = async (): Promise<SourcedQuestionsResult> => {
-      const drafts = parseDrafts(await (deps.write ?? writeWithModel)(input, passages));
-      const offered = new Map(passages.map((passage) => [passage.id, passage]));
-      const counts = { written: drafts.length, refusedByCode: 0, refusedByChecker: 0 };
-      const seen = new Set<string>();
-      const passed: (Draft & { id: string; passage: Passage })[] = [];
-      for (const draft of drafts) {
-        const passage = offered.get(draft.passageId);
-        if (questionRejection(draft, passage) || seen.has(norm(draft.question))) {
-          counts.refusedByCode += 1;
-          continue;
-        }
-        seen.add(norm(draft.question));
-        passed.push({ ...draft, id: `q${passed.length + 1}`, passage: passage! });
-        if (passed.length >= MAX_SOURCED_QUESTIONS) break;
-      }
-      if (passed.length === 0) return { questions: [], skipped: "none passed code checks", counts, sourceRequests: research.sourceRequests };
-
-      const verdicts = parseVerdicts(
-        await (deps.check ?? checkWithModel)(
-          situation,
-          passed.map(({ id, question, why, passage }) => ({ id, question, why, passage })),
-        ),
-      );
-      const questions: SourcedQuestion[] = [];
-      for (const item of passed) {
-        if (!verdicts.find((verdict) => verdict.id === item.id)?.ok) {
-          counts.refusedByChecker += 1;
-          continue;
-        }
-        const source = passageItem(item.passage);
-        questions.push({
-          id: `sq-${questions.length + 1}`,
-          question: item.question.trim(),
-          why: item.why.trim(),
-          passageId: item.passageId,
-          quote: item.quote,
-          citation: provisionOf(item.passage).citation,
-          ...(source.sourceUrl ? { sourceUrl: source.sourceUrl } : {}),
-        });
-      }
-      return {
-        questions,
-        ...(questions.length === 0 ? { skipped: "none passed the check" } : {}),
-        counts,
-        sourceRequests: research.sourceRequests,
-      };
+    return {
+      passageIds: passages.map((passage) => passage.id),
+      situation: (research.issues[0]?.situation ?? "").slice(0, 300),
+      sourceRequests: research.sourceRequests,
+      ...(passages.length === 0 ? { skipped: research.skipped ?? "nothing answered" } : {}),
     };
+  } catch (error) {
+    console.error("[sourcedQuestions] research failed; the intake continues without questions.", {
+      errorName: error instanceof Error ? error.name : "UnknownError",
+    });
+    return { passageIds: [], situation: "", sourceRequests: [], skipped: "error" };
+  }
+}
 
+/**
+ * Phase 2: write and check questions from the passages phase 1 found.
+ * Always resolves; never throws.
+ */
+export async function questionsFromPassages(
+  input: RetrievalInput,
+  passages: readonly Passage[],
+  situation: string,
+  deps: SourcedQuestionDeps = {},
+): Promise<SourcedQuestionsResult> {
+  if (passages.length === 0) return empty("nothing answered");
+  const work = async (): Promise<SourcedQuestionsResult> => {
+    const drafts = parseDrafts(await (deps.write ?? writeWithModel)(input, passages));
+    const offered = new Map(passages.map((passage) => [passage.id, passage]));
+    const counts = { written: drafts.length, refusedByCode: 0, refusedByChecker: 0 };
+    const seen = new Set<string>();
+    const passed: (Draft & { id: string; passage: Passage })[] = [];
+    for (const draft of drafts) {
+      const passage = offered.get(draft.passageId);
+      if (questionRejection(draft, passage) || seen.has(norm(draft.question))) {
+        counts.refusedByCode += 1;
+        continue;
+      }
+      seen.add(norm(draft.question));
+      passed.push({ ...draft, id: `q${passed.length + 1}`, passage: passage! });
+      if (passed.length >= MAX_SOURCED_QUESTIONS) break;
+    }
+    if (passed.length === 0) return { questions: [], skipped: "none passed code checks", counts, sourceRequests: [] };
+
+    const verdicts = parseVerdicts(
+      await (deps.check ?? checkWithModel)(
+        situation,
+        passed.map(({ id, question, why, passage }) => ({ id, question, why, passage })),
+      ),
+    );
+    const questions: SourcedQuestion[] = [];
+    for (const item of passed) {
+      if (!verdicts.find((verdict) => verdict.id === item.id)?.ok) {
+        counts.refusedByChecker += 1;
+        continue;
+      }
+      const source = passageItem(item.passage);
+      questions.push({
+        id: `sq-${questions.length + 1}`,
+        question: item.question.trim(),
+        why: item.why.trim(),
+        passageId: item.passageId,
+        quote: item.quote,
+        citation: provisionOf(item.passage).citation,
+        ...(source.sourceUrl ? { sourceUrl: source.sourceUrl } : {}),
+      });
+    }
+    return { questions, ...(questions.length === 0 ? { skipped: "none passed the check" } : {}), counts, sourceRequests: [] };
+  };
+
+  try {
     let timer: ReturnType<typeof setTimeout> | undefined;
     const timeout = new Promise<SourcedQuestionsResult>((resolve) => {
-      timer = setTimeout(() => resolve(empty("timeout", research.sourceRequests)), QUESTION_BUDGET_MS);
+      timer = setTimeout(() => resolve(empty("timeout")), QUESTION_BUDGET_MS);
     });
     const result = await Promise.race([work(), timeout]);
     if (timer) clearTimeout(timer);
@@ -289,6 +319,42 @@ export async function sourcedQuestions(input: RetrievalInput, deps: SourcedQuest
     });
     return empty("error");
   }
+}
+
+/**
+ * Both phases in one call, for the probe and the suite. The route runs them
+ * as two requests so each has a whole request's time (one request ran out of
+ * time on 9 of 12 stories when the model was slow, 2026-10-05).
+ */
+export async function sourcedQuestions(input: RetrievalInput, deps: SourcedQuestionDeps = {}): Promise<SourcedQuestionsResult> {
+  const index = deps.research ? null : (deps.researchDeps?.index ?? loadCorpusIndex());
+  let passages: Passage[] = [];
+  let found: ResearchForQuestions;
+  if (deps.research) {
+    // A stubbed research hands over its passages directly.
+    const research = await deps.research(input).catch(() => null);
+    if (!research) return empty("error");
+    passages = answeringPassages(research);
+    found = {
+      passageIds: passages.map((passage) => passage.id),
+      situation: research.issues[0]?.situation ?? "",
+      sourceRequests: research.sourceRequests,
+    };
+  } else {
+    found = await researchForQuestions(input, deps);
+    passages = index ? passagesById(index, found.passageIds) : [];
+  }
+  if (passages.length === 0) return { ...empty(found.skipped ?? "nothing answered"), sourceRequests: found.sourceRequests };
+  const result = await questionsFromPassages(input, passages, found.situation, deps);
+  return { ...result, sourceRequests: found.sourceRequests };
+}
+
+/** Passages re-read from the index by id (hash-verified); unknown ids are dropped. */
+export function passagesById(index: LoadedIndex, ids: readonly string[]): Passage[] {
+  return ids
+    .slice(0, MAX_PASSAGES_OFFERED)
+    .map((id) => readPassage(index, id, 1))
+    .filter((passage): passage is Passage => Boolean(passage));
 }
 
 // ------------------------------------------------------------ model calls

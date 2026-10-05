@@ -29,12 +29,18 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
+import { NextRequest } from "next/server";
+
+import { createSourcedQuestionsPost } from "../../app/api/intake/sourced-questions/route";
 import { loadCorpusIndex, readPassage, type Passage } from "../../src/lib/case-system/retrieval/corpusIndex";
 import type { ResearchResult } from "../../src/lib/case-system/retrieval/researchStory";
 import {
   answeringPassages,
   checkingPrompt,
+  passagesById,
   questionRejection,
+  questionsFromPassages,
+  researchForQuestions,
   sourcedQuestions,
   writingPrompt,
 } from "../../src/lib/case-system/retrieval/sourcedQuestions";
@@ -173,11 +179,54 @@ async function main() {
   );
   check("no answered research, no questions", nothing.questions.length === 0);
 
+  console.log("\n4. Two requests, and the second takes ids, not text");
+  const found = await researchForQuestions({ story: STORY, courtPath: "small-claims" }, { research: async () => research });
+  check("phase 1 returns passage ids and the situation", found.passageIds.join() === notice.id && found.situation.length > 0);
+  check("phase 2 re-reads passages from the index; an unknown id is dropped", passagesById(index, [notice.id, "corpus:nope:1"]).map((p) => p.id).join() === notice.id);
+  const fromIds = await questionsFromPassages({ story: STORY, courtPath: "small-claims" }, passagesById(index, found.passageIds), found.situation, {
+    write: async () => ({ questions: [good] }),
+    check: async (_s, items) => ({ results: items.map((item) => ({ id: item.id, ok: true })) }),
+  });
+  check("phase 2 writes from the re-read passages", fromIds.questions.length === 1);
+
+  const calls: string[] = [];
+  const filed: string[][] = [];
+  const route = (signedIn: boolean) =>
+    createSourcedQuestionsPost({
+      authenticate: (async () => (signedIn ? { id: "u" } : null)) as never,
+      enabled: () => true,
+      hasAi: () => true,
+      index: () => index,
+      research: async () => {
+        calls.push("research");
+        return { passageIds: [notice.id], situation: "A pedestrian was hit by a bus.", sourceRequests: ["Some Missing Act"] };
+      },
+      questions: async (_input, passages) => {
+        calls.push(`questions:${passages.map((p) => p.id).join()}`);
+        return { questions: [], counts: { written: 0, refusedByCode: 0, refusedByChecker: 0 }, sourceRequests: [] };
+      },
+      fileRequests: (async (names: string[]) => {
+        filed.push(names);
+        return { filed: names, skipped: [] };
+      }) as never,
+    });
+  const post = (body: unknown, signedIn = true) =>
+    route(signedIn)(new NextRequest("http://localhost/api/intake/sourced-questions", { method: "POST", body: JSON.stringify(body) }));
+  const one = await (await post({ story: STORY, courtPath: "small-claims" })).json();
+  check("the first call researches and returns ids", one.passageIds?.join() === notice.id && calls.join() === "research");
+  check("the first call files the laws the research found missing", filed.flat().join() === "Some Missing Act");
+  await post({ story: STORY, courtPath: "small-claims", passageIds: [notice.id, "corpus:nope:1"], situation: "x" });
+  check("the second call writes from the ids, re-read, without researching again", calls.slice(1).join() === `questions:${notice.id}`);
+  const text = await post({ story: STORY, courtPath: "small-claims", passageIds: ["Any text a caller likes"] });
+  check("passage text in place of an id is refused", text.status === 400);
+  const anonymous = await (await post({ story: STORY, courtPath: "civil" }, false)).json();
+  check("someone not signed in gets nothing, and no model is called", (anonymous.questions ?? []).length === 0 && !anonymous.passageIds && calls.length === 2);
+
   wiring();
 }
 
 function wiring() {
-  console.log("\n4. Switches and wiring");
+  console.log("\n5. Switches and wiring");
   check("on by default", sourcedQuestionsEnabled({}));
   check("SOURCED_QUESTIONS=off turns it off", !sourcedQuestionsEnabled({ SOURCED_QUESTIONS: "off" }));
   check("off when model text to users is off", !sourcedQuestionsEnabled({ AI_ANALYSIS_TEXT_TO_USERS: "off" }));
@@ -186,9 +235,8 @@ function wiring() {
   check("every model call declares structured output", (module.match(/chat\.completions\.create\(/g) ?? []).length === 1 && module.includes('response_format: { type: "json_object" }'));
   check("model calls are audited", module.includes("withAiCallContext("));
   check("declared as a model call site", read("scripts/verification/verifyOutputGuard.ts").includes('"src/lib/case-system/retrieval/sourcedQuestions.ts"'));
-  const route = read("app/api/intake/sourced-questions/route.ts");
-  check("the route answers only someone signed in", /authenticate\(request\)\)\)\s*return[^\n]*questions: \[\]/.test(route));
-  check("the route obeys the switch", route.includes("sourcedQuestionsEnabled()"));
+  const routeSource = read("app/api/intake/sourced-questions/route.ts");
+  check("the route obeys the switch", routeSource.includes("sourcedQuestionsEnabled()"));
   for (const [court, file] of [
     ["Small Claims", "app/builder/_components/GuidedSmallClaimsIntake.tsx"],
     ["Civil", "app/builder/_components/CivilIntake.tsx"],

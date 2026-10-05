@@ -64,13 +64,26 @@ export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "famil
         const {
           data: { session },
         } = await supabase.auth.getSession();
+        const headers = {
+          "Content-Type": "application/json",
+          ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+        };
+        const base = { story: text, courtPath, ...(side ? { side } : {}) };
+        // Two calls, each with a whole request's time: research, then the
+        // questions from the passages it found (route.ts explains why).
+        const first = (await (
+          await fetch("/api/intake/sourced-questions", { method: "POST", headers, body: JSON.stringify(base) })
+        ).json()) as { passageIds?: string[]; situation?: string };
+        if (askedFor.current !== text) return;
+        const passageIds = Array.isArray(first.passageIds) ? first.passageIds : [];
+        if (passageIds.length === 0) {
+          setState("none");
+          return;
+        }
         const response = await fetch("/api/intake/sourced-questions", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
-          },
-          body: JSON.stringify({ story: text, courtPath, ...(side ? { side } : {}) }),
+          headers,
+          body: JSON.stringify({ ...base, passageIds, situation: first.situation ?? "" }),
         });
         const data = (await response.json()) as { ok?: boolean; questions?: ClientSourcedQuestion[] };
         if (askedFor.current !== text) return;
