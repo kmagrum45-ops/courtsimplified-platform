@@ -45,9 +45,29 @@ import { validateCaseStrengthLanguage } from "../intelligence/caseStrengthLangua
 import type { AiEffort } from "../aiModels";
 import { loadCorpusIndex, passageHash, readPassage, type LoadedIndex, type Passage } from "./corpusIndex";
 
-export const MAX_EXPLANATION_LENGTH = 900;
+/**
+ * The ceiling code enforces. The prompt asks for 700; the gap is so a good
+ * explanation that runs slightly long is not thrown away. Measured
+ * 2026-10-05 (explain-probe.md): with a 900 ceiling and no target in the
+ * prompt, all six of the 30 withheld were refused by code for length -- the
+ * model restated long provisions (a 20-item list in CPA s. 14) clause by
+ * clause instead of explaining them.
+ */
+export const MAX_EXPLANATION_LENGTH = 1_000;
 
-export type Verdict = { unsupported: string[]; missing: string[] };
+export type Verdict = {
+  unsupported: string[];
+  missing: string[];
+  /** Set when code, not the checker, refused the attempt. */
+  problem?: string;
+};
+
+const CODE_FEEDBACK = (reason: string) =>
+  reason === "too long"
+    ? `it was too long; stay under 700 characters`
+    : reason === "too short"
+      ? "it was too short"
+      : `${reason}; write numbers exactly as the passage does and say nothing about anyone's case`;
 
 export type ExplainResult =
   | { ok: true; id: string; explanation: string; citation: string }
@@ -70,13 +90,15 @@ export type ProvisionForExplaining = {
 
 export const EXPLAIN_SYSTEM_PROMPT = `You explain one passage of Ontario or Canadian law in plain words, for a person with no legal training.
 
-Write 2 to 5 short sentences, in everyday words, that say what the passage provides.
+Write 2 to 5 short sentences, in everyday words, that say what the passage provides. Stay under 700 characters. Explain; do not restate the passage clause by clause.
 
 Rules you must never break:
 - Keep every condition, exception, time limit, amount and number the passage contains. If the passage says "unless", "except", "only if", "subject to" or "may", the explanation must keep that.
 - Write every number exactly as the passage writes it (if it says "six months", write "six months").
 - Never add anything the passage does not say: no examples, no other rules, no practice tips, no consequences it does not state.
 - If the passage refers to another section or rule, say it refers to that section; do not explain what the other section says.
+- If the passage is a long list, say what kinds of things the list covers and that the full list is in the passage; do not repeat every item.
+- Leave out amendment history ("O. Reg. 56/08, s. 2"), notes that a part was revoked, and web-page details such as an "updated" date.
 - Explain it for anyone. Never write "you should", never mention anyone's case, never say who is likely to win or how a court will decide.
 - For a paragraph of a court decision, say what the court said ("The court said that ..."), not what the law always is.
 
@@ -88,7 +110,7 @@ List:
 - "unsupported": every statement in the explanation that the passage does not say, or says differently (a changed number, "may" turned into "must", a wider or narrower rule, an added example or consequence, a statement about what another section says).
 - "missing": every condition, exception, time limit, amount or party in the passage that the explanation leaves out and without which a reader would misunderstand what the passage provides.
 
-Simpler words for the same meaning are fine. Leaving out a cross-reference's number is fine. Do not list style or tone.
+Simpler words for the same meaning are fine. Leaving out a cross-reference's number, amendment history or a note that a part was revoked is fine. A long list described by what it covers is fine if the explanation says the full list is in the passage. Do not list style or tone.
 
 Return JSON: {"unsupported": ["..."], "missing": ["..."]}, with empty lists if there is nothing.`;
 
@@ -163,7 +185,7 @@ export async function explainChecked(
       if (!explanation) return { failed: "error" };
       const rejection = explanationRejection(provision, explanation);
       if (rejection) {
-        feedback = { unsupported: [rejection], missing: [] };
+        feedback = { unsupported: [], missing: [], problem: CODE_FEEDBACK(rejection) };
         continue;
       }
       const verdict = await deps.verify(provision, explanation);
@@ -241,6 +263,7 @@ export async function generateWithModel(provision: ProvisionForExplaining, feedb
     ? `\n\nA checker found these problems with an earlier explanation. Write a new one that fixes them:\n${[
         ...feedback.unsupported.map((item) => `- not in the passage: ${item}`),
         ...feedback.missing.map((item) => `- left out: ${item}`),
+        ...(feedback.problem ? [`- ${feedback.problem}`] : []),
       ].join("\n")}`
     : "";
   const raw = await chatJson(EXPLAIN_SYSTEM_PROMPT, provisionPrompt(provision) + retry, process.env.AI_EFFORT_EXPLAIN || "low");

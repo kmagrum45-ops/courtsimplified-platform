@@ -130,6 +130,13 @@ async function main() {
   });
   check("code refuses a changed number even when the check passes it", "failed" in out);
 
+  feedbackSeen.length = 0;
+  out = await explainChecked(PROVISION, {
+    generate: stubGenerate([`${GOOD} `.repeat(10), GOOD]),
+    verify: stubVerify([CLEAN]),
+  });
+  check("a code refusal is explained to the second attempt, which can then pass", "explanation" in out && Boolean(feedbackSeen[1]?.problem));
+
   out = await explainChecked(PROVISION, {
     generate: async () => {
       throw new Error("network");
