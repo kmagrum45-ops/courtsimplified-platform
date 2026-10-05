@@ -50,6 +50,7 @@ import {
 import { chunkDecision } from "../../src/lib/case-system/retrieval/decisionChunker";
 import { findProvision, referencedProvisions } from "../../src/lib/case-system/retrieval/crossReferences";
 import { DECISION_SOURCES } from "../retrieval/decisionSources";
+import { RECALL_SET } from "../eval/retrievalRecallSet";
 import {
   excludedForCourt,
   followCrossReferences,
@@ -298,6 +299,31 @@ async function main() {
   }
   check("decision passages are verbatim runs of the judgment's text", decisionNotVerbatim.length === 0, decisionNotVerbatim.slice(0, 3).join(" | "));
   check("no soft hyphens left in a decision's text", !everyDecisionChunk.some((chunk) => chunk.text.includes("\u00AD")));
+
+  // ---------------------------------------------------------------- 1c. the labelled set
+  console.log("\n1c. Every label in the recall set points at a provision that says what the label claims");
+  const badLabels: string[] = [];
+  for (const story of RECALL_SET) {
+    for (const label of story.expect) {
+      const chunks = label.source.startsWith("decision-")
+        ? decisionChunks(label.source)
+        : manifest.entries.some((item) => item.id === label.source)
+          ? chunksOf(label.source)
+          : [];
+      const provision = label.section
+        ? chunks.filter((chunk) => chunk.pinpoint.split(" ")[1] === label.section)
+        : chunks;
+      if (!provision.some((chunk) => chunk.text.toLowerCase().includes(label.phrase.toLowerCase()))) {
+        badLabels.push(`${story.id}: ${label.source} ${label.section ?? ""} "${label.phrase}"`);
+      }
+    }
+  }
+  check(
+    `all ${RECALL_SET.reduce((sum, story) => sum + story.expect.length, 0)} labels in ${RECALL_SET.length} stories are confirmed by the provision's own text`,
+    badLabels.length === 0,
+    badLabels.join(" | "),
+  );
+  check("story ids are unique", new Set(RECALL_SET.map((story) => story.id)).size === RECALL_SET.length);
 
   // ---------------------------------------------------------------- 2. links
   console.log("\n2. Each passage links to the page a person can read");

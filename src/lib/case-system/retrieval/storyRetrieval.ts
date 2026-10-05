@@ -256,7 +256,7 @@ export async function retrieveForStory(
   }
 }
 
-async function writeQueriesWithModel(input: RetrievalInput): Promise<string[]> {
+export async function writeQueriesWithModel(input: RetrievalInput): Promise<string[]> {
   const { withAiCallContext } = await import("../../audit/aiCallLog");
   const { createOpenAIClient } = await import("../openaiClient");
   const { modelParams } = await import("../aiModels");
@@ -276,7 +276,7 @@ async function writeQueriesWithModel(input: RetrievalInput): Promise<string[]> {
   });
 }
 
-async function embedWithModel(texts: string[], model: string, dimensions: number): Promise<number[][]> {
+export async function embedWithModel(texts: string[], model: string, dimensions: number): Promise<number[][]> {
   const { withAiCallContext } = await import("../../audit/aiCallLog");
   const { createOpenAIClient } = await import("../openaiClient");
   return withAiCallContext({ callType: "small-claims-analysis" }, async () => {

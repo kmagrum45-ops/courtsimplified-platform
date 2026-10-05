@@ -1,0 +1,78 @@
+name: CourtSimplified Retrieval Eval
+
+# Measures meaning-based retrieval on its own, in minutes rather than the
+# Story Review's hour: the labelled recall set (scripts/eval/
+# retrievalRecallSet.ts) and the probe. Publishes the reports to the
+# `retrieval-eval-reports` branch (not the site: "*-reports" is excluded from
+# Vercel builds in vercel.json).
+#
+# Runs on demand -- on any branch, so a retrieval change can be measured
+# before it is merged -- and on a push to main that changes retrieval.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "src/lib/case-system/retrieval/**"
+      - "docs/sources/retrieval/**"
+      - "scripts/eval/retrievalRecallSet.ts"
+      - "scripts/eval/runRetrievalRecall.ts"
+      - "scripts/eval/retrievalProbe.ts"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: retrieval-eval
+  cancel-in-progress: false
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      AI_CALL_LOG: file
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Retrieval recall
+        id: recall
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm run eval:retrieval-recall 2>&1 | tee retrieval-recall.log
+          tail -1 retrieval-recall.log | sed 's/^/::notice title=Recall::/'
+
+      - name: Retrieval probe
+        id: probe
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm run eval:retrieval 2>&1 | tee retrieval-probe.log
+
+      - name: Publish to retrieval-eval-reports
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          out="$(mktemp -d)"
+          cp retrieval-recall.md retrieval-recall.json retrieval-recall.log retrieval-probe.md retrieval-probe.log "$out/" 2>/dev/null || true
+          printf 'branch: %s\ncommit: %s\nrecall: %s\nprobe: %s\n' "${GITHUB_REF_NAME}" "${GITHUB_SHA}" "${{ steps.recall.outcome }}" "${{ steps.probe.outcome }}" > "$out/OUTCOME.txt"
+          printf '{\n  "git": { "deploymentEnabled": false }\n}\n' > "$out/vercel.json"
+          cd "$out"
+          git init -q
+          git config user.name "retrieval-eval-bot"
+          git config user.email "retrieval-eval-bot@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Retrieval eval for ${GITHUB_SHA::7} on ${GITHUB_REF_NAME} (run ${GITHUB_RUN_ID})"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/retrieval-eval-reports
+          head -8 retrieval-recall.md >> "$GITHUB_STEP_SUMMARY" || true
