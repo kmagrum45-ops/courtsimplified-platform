@@ -61,7 +61,12 @@ export type CorpusIndexMeta = {
   chunks: [string, string][];
 };
 
-export type Passage = CorpusChunk & { source: IndexedSource; score: number };
+export type Passage = CorpusChunk & {
+  source: IndexedSource;
+  score: number;
+  /** Set when this passage was added because another one refers to it. */
+  referredBy?: string;
+};
 
 export const INDEX_DIR = ["docs", "sources", "retrieval"] as const;
 export const CORPUS_DIR = ["docs", "sources", "corpus"] as const;
@@ -218,18 +223,26 @@ const sourceChunks = new Map<string, Map<string, CorpusChunk>>();
  * gone or the passage's hash no longer matches the index (the source changed
  * after the index was built): a stale vector must not carry new words.
  */
+/** Every passage of an indexed source, cut fresh from its file (cached). */
+export function sourcePassages(index: LoadedIndex, sourceId: string): CorpusChunk[] {
+  const source = index.meta.sources[sourceId];
+  if (!source) return [];
+  let chunks = sourceChunks.get(sourceId);
+  if (!chunks) {
+    const file = sourceTextPath(index.root, source);
+    if (!existsSync(file)) return [];
+    chunks = new Map(chunkIndexedSource(source, readFileSync(file, "utf8")).map((chunk) => [chunk.id, chunk]));
+    sourceChunks.set(sourceId, chunks);
+  }
+  return [...chunks.values()];
+}
+
 export function readPassage(index: LoadedIndex, id: string, score: number): Passage | null {
   const sourceId = id.split(":")[1];
   const source = index.meta.sources[sourceId];
   if (!source) return null;
-  let chunks = sourceChunks.get(sourceId);
-  if (!chunks) {
-    const file = sourceTextPath(index.root, source);
-    if (!existsSync(file)) return null;
-    chunks = new Map(chunkIndexedSource(source, readFileSync(file, "utf8")).map((chunk) => [chunk.id, chunk]));
-    sourceChunks.set(sourceId, chunks);
-  }
-  const chunk = chunks.get(id);
+  sourcePassages(index, sourceId);
+  const chunk = sourceChunks.get(sourceId)?.get(id);
   if (!chunk) return null;
   const row = index.meta.chunks.find(([chunkId]) => chunkId === id);
   if (!row || row[1] !== passageHash(chunk, source)) return null;

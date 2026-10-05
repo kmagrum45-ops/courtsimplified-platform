@@ -48,9 +48,11 @@ import {
   type LoadedIndex,
 } from "../../src/lib/case-system/retrieval/corpusIndex";
 import { chunkDecision } from "../../src/lib/case-system/retrieval/decisionChunker";
+import { findProvision, referencedProvisions } from "../../src/lib/case-system/retrieval/crossReferences";
 import { DECISION_SOURCES } from "../retrieval/decisionSources";
 import {
   excludedForCourt,
+  followCrossReferences,
   parseQueries,
   passageItem,
   QUERY_SYSTEM_PROMPT,
@@ -440,6 +442,59 @@ async function main() {
   check("a failure resolves to nothing instead of throwing", failing.items.length === 0 && failing.skipped === "error");
   const noIndex = await retrieveForStory({ story, courtPath: "civil" }, { index: null });
   check("with no index built, retrieval adds nothing", noIndex.items.length === 0 && noIndex.skipped === "no index");
+
+  // ---------------------------------------------------------------- 5b. cross-references
+  console.log("\n5b. A found provision brings the provisions it points to, in the same law only");
+  const refs = (text: string, own?: string) => JSON.stringify(referencedProvisions(text, own));
+  check(
+    "\"an order made under section 9 or 10\" points to ss. 9 and 10, and amendment history (\"2009, c. 11, s. 26\") points nowhere",
+    refs("(3) An order made under section 9 or 10 may provide for a transfer. 2009, c. 11, s. 26.") === JSON.stringify([{ number: "9" }, { number: "10" }]),
+  );
+  check(
+    "a reference into another law is not followed (\"section 67.2 or ... section 67.7 of that Act\")",
+    refs("determined in accordance with section 67.2 or, in the case of a variable benefit account, section 67.7 of that Act.") === "[]" &&
+      refs("sections 19 and 20 of the Pooled Registered Pension Plans Act, 2015 apply") === "[]",
+  );
+  check("\"of this Act\" is the same law", refs("Despite section 4 of this Act, the court may") === JSON.stringify([{ number: "4" }]));
+  check("a subrule reference keeps its subrule", refs("in accordance with subrule 8.01 (4).") === JSON.stringify([{ number: "8.01", sub: "4" }]));
+  check("a range yields its two ends", refs("rules 24.02 to 24.05 apply") === JSON.stringify([{ number: "24.02" }, { number: "24.05" }]));
+  check(
+    "\"subsection (6)\" with no number is the passage's own section",
+    refs("the payment required by subsection (6)", "106") === JSON.stringify([{ number: "106", sub: "6" }]) && refs("the payment required by subsection (6)") === "[]",
+  );
+  const scChunks = chunksOf("oreg-258-98-small-claims-rules");
+  check("a subrule resolves to the passage holding it", findProvision(scChunks, { number: "8.01", sub: "4" })?.pinpoint.startsWith("r. 8.01 (1)") === true);
+  check("a provision the law does not have resolves to nothing", findProvision(scChunks, { number: "99.99" }) === null);
+
+  // Followed against a synthetic index holding the whole Family Law Act, so
+  // the passages read back are the real ones.
+  const flaSource: IndexedSource = { ...entry("family-law-act"), readableUrl: readableUrl(entry("family-law-act")), tier: "legislation" };
+  const flaChunks = chunksOf("family-law-act");
+  const flaIndex: LoadedIndex = {
+    meta: { generatedAt: "test", model: "test", dimensions: 1, sources: { "family-law-act": flaSource }, chunks: flaChunks.map((chunk) => [chunk.id, passageHash(chunk, flaSource)]) },
+    vectors: new Int8Array(flaChunks.length),
+    root: ROOT,
+  };
+  const s101 = flaChunks.find((chunk) => chunk.pinpoint.startsWith("s. 10.1 (3)"))!;
+  const followed = followCrossReferences(flaIndex, [{ ...s101, source: flaSource, score: 0.8 }]);
+  check(
+    "FLA s. 10.1 (3) brings ss. 9 and 10, marked as referred to, at the referring passage's score",
+    followed.length === 2 && followed.every((passage) => passage.referredBy === s101.pinpoint && passage.score === 0.8) &&
+      followed.some((passage) => passage.pinpoint.startsWith("s. 9 ")) && followed.some((passage) => passage.pinpoint.startsWith("s. 10 ")),
+    followed.map((passage) => passage.pinpoint).join(", "),
+  );
+  check("a followed passage says which provision referred to it", passageItem(followed[0]).label.includes(`(referred to in ${s101.pinpoint})`));
+  const input = [{ ...s101, source: flaSource, score: 0.8 }, ...followed];
+  check(
+    "a passage already found is not added again",
+    followCrossReferences(flaIndex, input).every((passage) => !input.some((existing) => existing.id === passage.id)),
+  );
+  const many = flaChunks.slice(0, 40).map((chunk) => ({ ...chunk, source: flaSource, score: 0.5 }));
+  check("following is capped (six in all)", followCrossReferences(flaIndex, many).length <= 6);
+  check(
+    "a decision's references are not followed",
+    followCrossReferences(flaIndex, [{ ...s101, source: { ...flaSource, tier: "case-law" }, score: 0.8 }]).length === 0,
+  );
 
   // ---------------------------------------------------------------- 6. the gate
   console.log("\n6. A retrieved passage is citable only through the quote check");
