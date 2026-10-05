@@ -25,6 +25,8 @@
  */
 
 import { existsSync, readFileSync } from "node:fs";
+
+import { formNumbersNamedIn, officialFormsNamedIn } from "../../src/lib/content-library/forms/formsInText";
 import path from "node:path";
 
 import { parseFormsPage } from "../forms/fetchOfficialFormLinks";
@@ -90,6 +92,25 @@ if (!existsSync(linksFile)) {
     .flatMap(([court, list]) => list.filter((f) => !f.revoked).map((f) => `${court}:${f.number}`))
     .filter((key) => !official.has(key) && !(key in KNOWN_SITE_GAPS));
   check("every live form in the regulations has an official link", missing.length === 0, missing.join(", "));
+}
+
+// ---- Forms named in guidance (2026-10-04) ----
+// A step's guidance names the forms it relies on; formsInText reads those names
+// and links each to its official entry, so the form is one click from the step.
+{
+  check(
+    "a list of forms in guidance is read as separate forms",
+    formNumbersNamedIn("serve an answer (Form 10, 33B, 33B.1 or 33D.3) and an affidavit in Form 35.1A.").join(",") ===
+      "10,33B,33B.1,33D.3,35.1A",
+  );
+  check(
+    "only forms that exist in that court's official list are linked",
+    officialFormsNamedIn(["serve a Defence [Form 9A]"], "small-claims").map((form) => form.number).join(",") === "9A" &&
+      officialFormsNamedIn(["serve a Defence [Form 9A]"], "family").length === 0,
+  );
+  const panel = readFileSync(path.join(process.cwd(), "app/builder/_components/StageAnswerPanel.tsx"), "utf8");
+  const card = readFileSync(path.join(process.cwd(), "app/builder/_components/NextStepsCard.tsx"), "utf8");
+  check("every next-step answer links the forms it names", /<FormsNamedHere/.test(panel) && /<FormsNamedHere/.test(card));
 }
 
 if (failures > 0) {

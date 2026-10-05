@@ -1105,6 +1105,13 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
             </div>
           </div>
 
+          <p className="mt-3 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm leading-6 text-[#4f685f]">
+            These are the official Ontario court forms. A form marked verified has been checked against your
+            case&apos;s answers; the rest are listed so you can find them. CourtSimplified has not assessed
+            deadlines, service, evidence, eligibility, filing readiness, or whether filing is appropriate, and
+            does not complete court forms for you. Download the form, fill it in yourself, and review every field
+            carefully before filing.
+          </p>
           <p className="mt-4 text-sm text-[#4f685f]">
             Showing {filteredForms.length} of {forms.length} forms.
           </p>
@@ -1222,20 +1229,23 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                    </div>
 
                    <div className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm text-[#4f685f]">
+                     {/*
+                       The two caveats that sat here on every card (catalogue
+                       status, "has not assessed deadlines...") are said once,
+                       above the list (page walkthrough, 2026-10-04: repeated on
+                       every card, they buried what told the forms apart).
+                     */}
                      {recommendation?.verifiedUseDescription ? (
                        <p className="font-semibold text-[#24463d]">{recommendation.verifiedUseDescription}</p>
-                     ) : (
-                       <p>This official form is listed in the catalogue. Its use has not yet been verified for your case.</p>
-                     )}
-                     <p className="mt-2">CourtSimplified has not assessed deadlines, service, evidence, eligibility, filing readiness, or whether filing is appropriate.</p>
+                     ) : null}
                      {form.official_source_url ? <a className="mt-2 inline-block font-semibold underline" href={form.official_source_url} target="_blank" rel="noreferrer">Official catalogue source</a> : null}
                      {form.form_revision_or_effective_at ? <p className="mt-2">{form.form_revision_or_effective_at}</p> : null}
                    </div>
 
                    <div className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm text-[#4f685f]">
                     {hasPdf
-                      ? "Download the official PDF and fill it in yourself. CourtSimplified does not complete court forms for you — review every field carefully before filing."
-                      : "No official PDF is connected in the library. Use the Word version if available, or continue through the document workspace."}
+                      ? "Download the official form and fill it in yourself."
+                      : "No official PDF is connected in the library. Use the Word version if available."}
                     {hasPdf && overlayReady ? (
                       <span className="mt-2 block font-semibold text-[#0f766e]">
                         An experimental auto-filled version is also available

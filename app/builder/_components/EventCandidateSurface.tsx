@@ -72,7 +72,14 @@ async function authHeaders(): Promise<Record<string, string> | null> {
     : null;
 }
 
-export default function EventCandidateSurface({ caseId }: { caseId: string }) {
+export default function EventCandidateSurface({
+  caseId,
+  onRecorded,
+}: {
+  caseId: string;
+  /** Called after the user confirms an event, so a timeline beside this can refresh. */
+  onRecorded?: () => void;
+}) {
   const [candidates, setCandidates] = useState<ResolvedCandidate[]>([]);
   const [loading, setLoading] = useState(true);
   const [drafts, setDrafts] = useState<Record<string, Draft>>({});
@@ -195,6 +202,7 @@ export default function EventCandidateSurface({ caseId }: { caseId: string }) {
       }
 
       await load();
+      onRecorded?.();
     } catch {
       setError("That event could not be recorded.");
     } finally {

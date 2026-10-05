@@ -18,6 +18,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import TidyWordingReview from "../../../builder/_components/TidyWordingReview";
+import ScopePreviewNotice from "../../../builder/_components/ScopePreviewNotice";
 import {
   DRAFT_KIND_LABELS,
   affidavitOutlineDraft,
@@ -33,6 +34,11 @@ import {
   type IntakeStory,
   type TimelineEntry,
 } from "@/src/lib/case-system/drafts/caseDrafts";
+import { startingDocumentDraft, startingDocumentTitle, type StartingDocumentIntake } from "@/src/lib/case-system/drafts/startingDocumentDraft";
+import { COURT_DOCUMENT_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
+import { FORM_COMPLETION_PAUSED } from "@/src/lib/content-library/phaseScope";
+import { originatingDocumentRecorded } from "../../../builder/_components/respondingSide";
+import type { StoredCaseData } from "../../../builder/_components/builderTypes";
 import { authHeaders, formatDate, useCaseHome } from "../../_components/CaseHomeContext";
 
 type SaveState = "idle" | "saving" | "saved" | "failed";
@@ -53,7 +59,7 @@ function download(filename: string, content: string, type: string) {
 const fileName = (title: string) => (title.trim() || "draft").replace(/[^\w\- ]+/g, "").replace(/\s+/g, "-").slice(0, 80) || "draft";
 
 export default function CaseDraftsSection() {
-  const { caseRecord, reload } = useCaseHome();
+  const { caseRecord, reload, responding, courtPath } = useCaseHome();
   const caseId = caseRecord.id;
   const master = (caseRecord.master_result ?? {}) as Record<string, unknown>;
 
@@ -185,6 +191,21 @@ export default function CaseDraftsSection() {
 
   const intake = (master.intakeData ?? {}) as IntakeStory;
 
+  // The document that starts a case, offered only where the builder offers it:
+  // drafting in scope, not paused, not already filed, and not to the side
+  // responding to a case someone else started.
+  const startingTitle = startingDocumentTitle(courtPath);
+  const offerStartingDocument =
+    COURT_DOCUMENT_DRAFTING_ENABLED &&
+    !FORM_COMPLETION_PAUSED &&
+    Boolean(startingTitle) &&
+    !responding &&
+    !originatingDocumentRecorded({
+      courtPath: courtPath ?? "",
+      caseData: (master.intakeData as StoredCaseData | undefined) ?? null,
+      intakeFacts: (master.intakeFacts as Record<string, unknown> | undefined) ?? null,
+    });
+
   if (open) {
     return (
       <DraftEditor
@@ -245,6 +266,11 @@ export default function CaseDraftsSection() {
           Each one starts from what you have already told us, laid out under plain headings for you to edit. It is saved to
           your case, and you can download it for Word.
         </p>
+        {offerStartingDocument ? (
+          <div className="mt-3">
+            <ScopePreviewNotice scope="formCompletion" />
+          </div>
+        ) : null}
         <div className="mt-4 grid gap-3 md:grid-cols-2">
           <StartOption
             title="Chronology"
@@ -267,6 +293,16 @@ export default function CaseDraftsSection() {
             onClick={() => void create(affidavitOutlineDraft(timeline ?? [], now()))}
             disabled={timeline === null}
           />
+          {offerStartingDocument && startingTitle ? (
+            <StartOption
+              title={startingTitle.replace(/^Draft /, "")}
+              description="The document that starts your case, laid out from your answers, to compare with the official form."
+              onClick={() => {
+                const draft = startingDocumentDraft(courtPath, master.intakeData as StartingDocumentIntake, now());
+                if (draft) void create(draft);
+              }}
+            />
+          ) : null}
           <StartOption title="Blank draft" description="Start from an empty page." onClick={() => void create(blankDraft(now()))} />
         </div>
       </section>
