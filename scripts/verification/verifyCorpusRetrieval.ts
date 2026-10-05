@@ -40,6 +40,7 @@ import {
 import {
   passageHash,
   quantize,
+  sourceTextPath,
   readPassage,
   searchIndex,
   type CorpusIndexMeta,
@@ -545,9 +546,9 @@ async function main() {
     const built = JSON.parse(readFileSync(metaPath, "utf8")) as CorpusIndexMeta;
     const bytes = existsSync(binPath) ? readFileSync(binPath).byteLength : -1;
     check("the vectors file matches the index (rows x dimensions)", bytes === built.chunks.length * built.dimensions, `${bytes} bytes for ${built.chunks.length} x ${built.dimensions}`);
-    check("every indexed source has its vendored file", Object.values(built.sources).every((source) => existsSync(path.join(CORPUS, source.file))));
+    check("every indexed source has its text file", Object.values(built.sources).every((source) => existsSync(sourceTextPath(ROOT, source))));
     check("index ids are unique", new Set(built.chunks.map(([id]) => id)).size === built.chunks.length);
-    const current = new Map(passages.map((chunk) => [chunk.id, chunk]));
+    const current = new Map([...passages, ...everyDecisionChunk].map((chunk) => [chunk.id, chunk]));
     let fresh = 0;
     for (const [id, hash] of built.chunks) {
       const chunk = current.get(id);
@@ -557,7 +558,7 @@ async function main() {
     // Reported, not failed: a re-vendored source makes some vectors stale,
     // readPassage skips those, and the workflow rebuilds them. Failing here
     // would punish vendoring a source.
-    console.log(`  info  ${fresh} of ${built.chunks.length} indexed passages match the corpus as it is now; ${passages.length - fresh} passages are not yet indexed`);
+    console.log(`  info  ${fresh} of ${built.chunks.length} indexed passages match the corpus as it is now; ${current.size - fresh} passages are not yet indexed`);
   }
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);

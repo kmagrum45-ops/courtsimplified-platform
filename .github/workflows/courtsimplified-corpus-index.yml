@@ -64,7 +64,12 @@ jobs:
           tail -3 index-run.log | sed 's/^/::notice title=Corpus index::/'
 
       - name: Check the built index
-        run: npm run test:corpus-retrieval
+        run: |
+          set -o pipefail
+          if ! npm run test:corpus-retrieval 2>&1 | tee check-run.log; then
+            grep -A2 "FAIL" check-run.log | head -20 | sed 's/^/::error title=Index check::/'
+            exit 1
+          fi
 
       - name: Publish to a corpus-index branch
         env:
