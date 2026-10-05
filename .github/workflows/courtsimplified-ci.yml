@@ -142,6 +142,9 @@ jobs:
       - name: A plain explanation is shown only after an independent check
         run: npm run test:plain-explanations
 
+      - name: Research step counts only answers code can find in the passage
+        run: npm run test:research-step
+
       - name: Switch-off path shows no model-written text
         run: npm run test:no-model-text-to-users
 

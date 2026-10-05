@@ -200,6 +200,9 @@ function main(): void {
     // independent check of it. JSON output; shown only when the check and
     // code both pass it (verifyPlainExplanations).
     "src/lib/case-system/retrieval/explainProvision.ts",
+    // Added 2026-10-05: the research step -- chooses questions, reads passages.
+    // JSON output; only code-verified quotes from the provisions are shown.
+    "src/lib/case-system/retrieval/researchStory.ts",
   ];
 
   for (const file of callSites) {

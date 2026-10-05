@@ -80,5 +80,6 @@ export function buildFamilyAnalysis(
     nextBestActions: generatedQuestions,
     intelligenceNextActions: result.brain.intelligence.nextBestActions,
     ...(result.brain.intelligence.appliedLaw?.length ? { appliedLaw: result.brain.intelligence.appliedLaw } : {}),
+    ...(result.brain.intelligence.research ? { research: result.brain.intelligence.research } : {}),
   };
 }

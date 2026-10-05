@@ -11,6 +11,11 @@ name: CourtSimplified Retrieval Eval
 
 on:
   workflow_dispatch:
+    inputs:
+      research_only:
+        description: "Run only the research-step probe (minutes, for iterating on it)"
+        type: boolean
+        default: false
   push:
     branches: [main]
     paths:
@@ -20,6 +25,7 @@ on:
       - "scripts/eval/runRetrievalRecall.ts"
       - "scripts/eval/retrievalProbe.ts"
       - "scripts/eval/explainProbe.ts"
+      - "scripts/eval/researchProbe.ts"
 
 permissions:
   contents: write
@@ -46,6 +52,7 @@ jobs:
       - run: npm ci
 
       - name: Retrieval recall
+        if: ${{ !inputs.research_only }}
         id: recall
         continue-on-error: true
         run: |
@@ -54,6 +61,7 @@ jobs:
           tail -1 retrieval-recall.log | sed 's/^/::notice title=Recall::/'
 
       - name: Retrieval probe
+        if: ${{ !inputs.research_only }}
         id: probe
         continue-on-error: true
         run: |
@@ -61,6 +69,7 @@ jobs:
           npm run eval:retrieval 2>&1 | tee retrieval-probe.log
 
       - name: Plain explanations
+        if: ${{ !inputs.research_only }}
         id: explain
         continue-on-error: true
         run: |
@@ -68,13 +77,21 @@ jobs:
           npm run eval:explain 2>&1 | tee explain-probe.log
           tail -1 explain-probe.log | sed 's/^/::notice title=Explanations::/'
 
+      - name: Research step
+        id: research
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm run eval:research 2>&1 | tee research-probe.log
+          tail -1 research-probe.log | sed 's/^/::notice title=Research::/'
+
       - name: Publish to retrieval-eval-reports
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           out="$(mktemp -d)"
-          cp retrieval-recall.md retrieval-recall.json retrieval-recall.log retrieval-probe.md retrieval-probe.log explain-probe.md explain-probe.log "$out/" 2>/dev/null || true
+          cp retrieval-recall.md retrieval-recall.json retrieval-recall.log retrieval-probe.md retrieval-probe.log explain-probe.md explain-probe.log research-probe.md research-probe.log "$out/" 2>/dev/null || true
           printf 'branch: %s\ncommit: %s\nrecall: %s\nprobe: %s\nexplain: %s\n' "${GITHUB_REF_NAME}" "${GITHUB_SHA}" "${{ steps.recall.outcome }}" "${{ steps.probe.outcome }}" "${{ steps.explain.outcome }}" > "$out/OUTCOME.txt"
           printf '{\n  "git": { "deploymentEnabled": false }\n}\n' > "$out/vercel.json"
           cd "$out"

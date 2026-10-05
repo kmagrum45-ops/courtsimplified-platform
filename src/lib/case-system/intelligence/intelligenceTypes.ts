@@ -758,6 +758,18 @@ export type ElementProofEngineResult = {
   summary: string;
 };
 
+/**
+ * One question the research step looked into (retrieval/researchStory.ts),
+ * with the provisions that answer it -- each the provision's own words and a
+ * quote code found in it -- or the law the library does not have yet.
+ */
+export type ResearchFindingView = {
+  question: string;
+  status: "answered" | "not-in-library" | "not-found";
+  provisions: (AppliedLawItem & { quote: string })[];
+  missingSource?: string;
+};
+
 export type AppliedLawItem = {
   id: string;
   /** "Legislation: Residential Tenancies Act, 2006 -- s. 106 (1)-(3)" */
@@ -825,6 +837,8 @@ export type LegalIntelligenceResult = {
    * can be shown whatever aiAnalysisTextToUsers says.
    */
   appliedLaw?: AppliedLawItem[];
+  /** The research step's questions and what the library had for each. */
+  research?: { findings: ResearchFindingView[]; sourceRequests: string[]; rounds: number };
   /** Statements the grounding gate removed, and why (groundedCognition.ts). */
   groundingReport?: {
     kept: number;

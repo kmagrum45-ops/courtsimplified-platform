@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-112 documented, 28 without a header.
+113 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -89,6 +89,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:reasoning-text-gate` | **The unsourced reasoning prose does not leave the coordinator on any user-facing**<br>path, and the profiles it comes from are still unsourced. |
 | `npm run test:recorded-amount` | **A recorded amount is formatted when it is a plain number, and returned**<br>untouched when it is not. |
 | `npm run test:reference-not-shipped` | **Nothing under `app/` or `src/` reads the non-shipping reference folders, and no**<br>commercial publication is a corpus source. |
+| `npm run test:research-step` | **The research step (src/lib/case-system/retrieval/researchStory.ts): the**<br>model chooses the questions and reads the passages, and code decides what counts as an answer. |
 | `npm run test:reset-intake` | **resetIntake clears everything an intake left behind, and nothing it should**<br>not. |
 | `npm run test:responding-side` | **The document that STARTS a case is never offered to the side responding to it.**<br>COSTS NOTHING. A pure function plus a source scan of the builder page. |
 | `npm run test:retrieval-bundled` | **The deployed analysis routes carry the retrieval index and the corpus.**<br>WHAT IT CATCHES. Retrieval reads its index and the vendored corpus from disk by file names the bundler cannot see, so next.config.ts lists them in outputFileTracingIncludes. If that stops working -- a renamed route, a changed config key, a Next.js upgrade that |

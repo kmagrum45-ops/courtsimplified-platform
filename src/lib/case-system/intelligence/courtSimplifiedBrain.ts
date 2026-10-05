@@ -47,7 +47,7 @@ import { buildElementProofAnalysis } from "./elementProofEngine";
 import { CLAIM_TYPES } from "../intake/claimTypes";
 import { isNoQuestionNeeded, questionsForElement } from "../intake/depth/elementQuestionRegistry";
 import { fillSlots } from "../intake/depth/slots";
-import { aiAnalysisTextToUsers, appliedLawEnabled, plainExplanationsEnabled } from "../../content-library/phaseScope";
+import { aiAnalysisTextToUsers, appliedLawEnabled, plainExplanationsEnabled, researchStepEnabled } from "../../content-library/phaseScope";
 import {
   buildSourcePack,
   sourcePackForPrompt,
@@ -58,7 +58,8 @@ import {
   type GroundingReport,
   type SourcePack,
 } from "./groundedCognition";
-import { retrieveForStory } from "../retrieval/storyRetrieval";
+import { passageItem, retrieveForStory, type RetrievalInput, type RetrievalResult } from "../retrieval/storyRetrieval";
+import { researchStory, type ResearchResult } from "../retrieval/researchStory";
 import { buildBrainMigrationLayer } from "../orchestration/brainMigrationLayer";
 import { buildEvidenceIntelligenceAnalysis } from "../evidence/evidenceIntelligenceEngine";
 
@@ -2533,18 +2534,28 @@ export async function runCourtSimplifiedBrain(
   // Resolves to nothing on any failure, and is skipped when the analysis
   // will not call the model at all.
   const retrievalCourt = input.courtPath === "civil" || input.courtPath === "family" ? input.courtPath : "small-claims";
-  const retrieval =
+  const retrievalInput: RetrievalInput = {
+    story: input.rawUserText,
+    courtPath: retrievalCourt,
+    stage: input.stage,
+    side:
+      input.stage === "responding" || /user role:\s*(defendant|responding)/i.test(input.rawUserText)
+        ? "defendant"
+        : "plaintiff",
+  };
+  // 2026-10-05: the research step (retrieval/researchStory.ts) -- questions
+  // a lawyer would research, looked up and read, gaps named -- in place of
+  // single-pass retrieval. If it produces nothing (failure, timeout), plain
+  // retrieval runs instead, so the analysis never loses its sources.
+  const retrieval: Promise<(RetrievalResult & Partial<ResearchResult>) | null> =
     input.allowExternalCognition === false
       ? Promise.resolve(null)
-      : retrieveForStory({
-          story: input.rawUserText,
-          courtPath: retrievalCourt,
-          stage: input.stage,
-          side:
-            input.stage === "responding" || /user role:\s*(defendant|responding)/i.test(input.rawUserText)
-              ? "defendant"
-              : "plaintiff",
-        }).catch(() => null);
+      : (researchStepEnabled()
+          ? researchStory(retrievalInput).then((research) =>
+              research.items.length > 0 ? research : retrieveForStory(retrievalInput),
+            )
+          : retrieveForStory(retrievalInput)
+        ).catch(() => null);
 
   const normalizedIntake = await normalizeIntake(input);
 
@@ -2589,6 +2600,40 @@ export async function runCourtSimplifiedBrain(
   const groundingReport: GroundingReport | undefined = grounded?.report;
   const citedIds = structuredCognition ? verifiedSourceIds(structuredCognition, sourcePack) : new Set<string>();
   const explainable = plainExplanationsEnabled();
+  const research =
+    appliedLawEnabled() && retrieved?.findings && retrieved.findings.length > 0
+      ? {
+          rounds: retrieved.rounds ?? 1,
+          sourceRequests: retrieved.sourceRequests ?? [],
+          findings: retrieved.findings.map((finding) => ({
+            question: finding.question,
+            status: finding.status,
+            ...(finding.missingSource ? { missingSource: finding.missingSource } : {}),
+            provisions: finding.answeredBy
+              .map((answer) => {
+                const passage = retrieved.passages.find((candidate) => candidate.id === answer.passageId);
+                if (!passage) return null;
+                const { id, label, citation, text, sourceUrl, kind } = passageItem(passage);
+                return {
+                  id,
+                  label,
+                  text,
+                  sourceUrl,
+                  quote: answer.quote,
+                  ...(citation ? { citation } : {}),
+                  ...(kind ? { kind } : {}),
+                  ...(explainable ? { explainable } : {}),
+                };
+              })
+              .filter((item): item is NonNullable<typeof item> => item !== null),
+          })),
+        }
+      : undefined;
+  if (research?.sourceRequests.length) {
+    // Names only (laws, never the story), so the gaps are visible in the logs
+    // until the source-request queue exists.
+    console.info(`[researchStory] library gaps: ${research.sourceRequests.join(" | ")}`);
+  }
   const appliedLaw = appliedLawEnabled()
     ? sourcePack.items
         .filter((item) => isRetrievedItem(item) && citedIds.has(item.id))
@@ -2867,6 +2912,9 @@ export async function runCourtSimplifiedBrain(
     // from the model's citations whether or not its own wording is shown:
     // what is shown here is the source's text, not the model's.
     ...(appliedLaw.length ? { appliedLaw } : {}),
+    // The research step's questions, each with the provisions that answer it
+    // (their own words, a code-checked quote) or the law the library lacks.
+    ...(research ? { research } : {}),
     ...(groundingReport
       ? {
           groundingReport: {
