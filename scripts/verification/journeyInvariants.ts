@@ -205,7 +205,7 @@ const STATIC_SCAN_FILES = [
   // renders `{exportResult.readinessScore}%` and was invisible to the arm
   // because the list was built from the dashboard surfaces only.
   "app/document-export/page.tsx",
-  "src/lib/case-system/documentExportEngine.ts",
+  // documentExportEngine.ts was here; deleted 2026-10-04 (unreachable duplicate).
 ];
 
 // 1e: ordinal string-literal unions -- what "Document readiness impact" was.

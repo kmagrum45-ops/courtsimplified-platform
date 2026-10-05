@@ -33,7 +33,7 @@
  * Run: node --import tsx scripts/verification/verifyReachability.ts
  */
 
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -69,93 +69,16 @@ const DELIBERATELY_DORMANT: DormantEntry[] = [
       "wiring it into a page would be the mistake.",
   },
 
-  // ---- Unreachable and NOT deliberate. Seeded so the baseline is explicit. ----
+  // ---- The 13 "unreachable and NOT deliberate" modules were DELETED 2026-10-04 ----
   //
-  // Everything below is a real finding recorded in OUTSTANDING_ISSUES, listed
-  // here so the check passes today and fails the moment a NEW module joins the
-  // set. Each reason states what it would take to resolve it. They are not
-  // endorsements.
-  {
-    file: "src/lib/case-system/aiIntakeNormalizer.ts",
-    reason: "Dead pair with smallClaimsEngine — its only importer is that module, which is itself unreachable.",
-  },
-  {
-    file: "src/lib/case-system/smallClaimsEngine.ts",
-    reason:
-      "Other half of the aiIntakeNormalizer dead pair. The live Small Claims path is " +
-      "smallClaimsIntelligenceEngine via /api/small-claims/analyze; this is a separate, older " +
-      "engine that nothing routes to. Deleting one of the pair without the other leaves the " +
-      "same problem with fewer lines, so they go together or not at all.",
-  },
-  // formKnowledgeBase.ts left this list on 2026-09-22: contentInventory.ts now
-  // imports FORM_KNOWLEDGE_BASE to put every form entry in the licensee review
-  // packet, so it is reachable from live code. formTriggerEngine stays dormant --
-  // the pair is broken, not revived.
-  { file: "src/lib/case-system/formTriggerEngine.ts", reason: "Dead pair with formKnowledgeBase; no external importer." },
-  { file: "src/lib/case-system/evidence-packaging/evidencePackagingEngine.ts", reason: "Dead pair with evidencePackagingArchitecture." },
-  {
-    file: "src/lib/case-system/evidence-packaging/evidencePackagingArchitecture.ts",
-    reason:
-      "Types and shapes for evidencePackagingEngine, which is itself unreachable — a dead pair " +
-      "where neither half has an external importer. The live evidence path is evidenceEngine plus " +
-      "the /evidence page, which do not use either of them.",
-  },
-  {
-    file: "src/lib/case-system/documentExportEngine.ts",
-    reason:
-      "769 lines including its own calculateReadinessScore (content*55 + locked*35). The live " +
-      "export is app/api/document-export/route.ts, which has its own section builder and does " +
-      "not import this. A second export implementation carrying a score the other one had " +
-      "removed.",
-  },
-  {
-    file: "src/lib/case-system/documentsStatusEngine.ts",
-    reason:
-      "Derives a DocumentStatus from form labels. Nothing imports it; the live forms surface " +
-      "reads courtSimplifiedArchitecture and masterCase instead. Either a replaced engine or one " +
-      "built ahead of a screen that never landed — the history does not say which.",
-  },
-  {
-    file: "src/lib/case-system/facts/factPatternAnaysisEngine.ts",
-    reason:
-      "Fact-pattern analysis, unreachable. The brain builds its own buildFactPatternAnalysis " +
-      "instead, so this is a duplicate implementation rather than a missing wire. The filename " +
-      "is misspelled (Anaysis), which usually means nothing ever imported it by name.",
-  },
-  {
-    file: "src/lib/case-system/scenarioEngine.ts",
-    reason:
-      "Classifies a story into a scenario and grades evidenceReadiness strong/partial/weak. " +
-      "Unreachable, and the grading would need removing under section 3 before it could be " +
-      "wired — so wiring it is not a one-line change even if someone wants it back.",
-  },
-  {
-    file: "src/lib/case-system/scenarioConfidenceEngine.ts",
-    reason:
-      "Dead pair with scenarioEngine — it imports ScenarioResult from it and nothing imports " +
-      "either. Same section 3 caveat: it exists to score a scenario, so it cannot be revived " +
-      "as-is.",
-  },
-  {
-    file: "src/lib/case-system/proceduralRules.ts",
-    reason:
-      "Form-validation rules per court path, unreachable. The live procedural authority comes " +
-      "from the database-backed legal_form_mapping_rules and the ProcedureAuthorityDisplay " +
-      "path, which this predates and does not feed.",
-  },
-  {
-    file: "src/lib/case-system/registry.ts",
-    reason:
-      "Dead pair with defaults.ts — it is the only importer of createDefaultCase, and nothing " +
-      "imports it. Also references ./types/family-case.ts with an explicit .ts extension, which " +
-      "suggests it was never compiled as part of a working path.",
-  },
-  {
-    file: "src/lib/case-system/defaults.ts",
-    reason:
-      "Other half of the registry.ts dead pair. Builds an empty Ontario family case bundle that " +
-      "no live family path uses — FamilyIntake posts to /api/family/analyze instead.",
-  },
+  // aiIntakeNormalizer + smallClaimsEngine, formTriggerEngine, both
+  // evidence-packaging files, documentExportEngine, documentsStatusEngine,
+  // factPatternAnaysisEngine, scenarioEngine + scenarioConfidenceEngine,
+  // proceduralRules, registry + defaults. Each was a superseded duplicate or a
+  // dead pair (reasons in git history of this file); site owner, 2026-10-04:
+  // "its only files we are useing or will use eventually". A file deleted
+  // without its entry would still pass the stale check below, so a separate
+  // check now fails on an entry whose file no longer exists.
   /*
    * The deadline engine and its holiday calendars WERE here, with a reason that
    * twice said the next part would wire them up. Decision 5 did: the engine is
@@ -250,6 +173,13 @@ function main(): void {
     return false;
   });
   check("no duplicate dormant entries", duplicates.length === 0, duplicates.map((d) => d.file).join(", "));
+
+  const missing = DELIBERATELY_DORMANT.filter((e) => !existsSync(e.file));
+  check(
+    "every dormant entry names a file that exists",
+    missing.length === 0,
+    missing.length ? `deleted, remove the entry:\n      ${missing.map((m) => m.file).join("\n      ")}` : undefined,
+  );
 
   const { srcFiles, reachable } = buildGraph();
 
