@@ -196,6 +196,10 @@ function main(): void {
     // meaning-based retrieval. JSON output; nothing it writes is shown, it
     // only chooses which verified passages the analysis may cite.
     "src/lib/case-system/retrieval/storyRetrieval.ts",
+    // Added 2026-10-05: plain-language explanation of one provision, and the
+    // independent check of it. JSON output; shown only when the check and
+    // code both pass it (verifyPlainExplanations).
+    "src/lib/case-system/retrieval/explainProvision.ts",
   ];
 
   for (const file of callSites) {

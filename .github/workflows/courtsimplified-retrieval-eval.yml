@@ -19,6 +19,7 @@ on:
       - "scripts/eval/retrievalRecallSet.ts"
       - "scripts/eval/runRetrievalRecall.ts"
       - "scripts/eval/retrievalProbe.ts"
+      - "scripts/eval/explainProbe.ts"
 
 permissions:
   contents: write
@@ -59,14 +60,22 @@ jobs:
           set -o pipefail
           npm run eval:retrieval 2>&1 | tee retrieval-probe.log
 
+      - name: Plain explanations
+        id: explain
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm run eval:explain 2>&1 | tee explain-probe.log
+          tail -1 explain-probe.log | sed 's/^/::notice title=Explanations::/'
+
       - name: Publish to retrieval-eval-reports
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           out="$(mktemp -d)"
-          cp retrieval-recall.md retrieval-recall.json retrieval-recall.log retrieval-probe.md retrieval-probe.log "$out/" 2>/dev/null || true
-          printf 'branch: %s\ncommit: %s\nrecall: %s\nprobe: %s\n' "${GITHUB_REF_NAME}" "${GITHUB_SHA}" "${{ steps.recall.outcome }}" "${{ steps.probe.outcome }}" > "$out/OUTCOME.txt"
+          cp retrieval-recall.md retrieval-recall.json retrieval-recall.log retrieval-probe.md retrieval-probe.log explain-probe.md explain-probe.log "$out/" 2>/dev/null || true
+          printf 'branch: %s\ncommit: %s\nrecall: %s\nprobe: %s\nexplain: %s\n' "${GITHUB_REF_NAME}" "${GITHUB_SHA}" "${{ steps.recall.outcome }}" "${{ steps.probe.outcome }}" "${{ steps.explain.outcome }}" > "$out/OUTCOME.txt"
           printf '{\n  "git": { "deploymentEnabled": false }\n}\n' > "$out/vercel.json"
           cd "$out"
           git init -q

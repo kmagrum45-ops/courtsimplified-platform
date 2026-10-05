@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-111 documented, 28 without a header.
+112 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -79,6 +79,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:overview-labels` | **Guards the two leaks the browser scenario harness found on 2026-08-22, across**<br>16 and 8 scenarios respectively: |
 | `npm run test:overview-relevance` | **The overview shows what fits the claim the user confirmed, and nothing is**<br>silently dropped or reworded. |
 | `npm run test:phase-scope` | **No user reaches an empty screen: a pathway is open only when it has real**<br>content, and a closed one says so at every door. |
+| `npm run test:plain-explanations` | **Plain-language explanations of provisions are shown only when an**<br>independent second model call and code have both found nothing wrong with them (src/lib/case-system/retrieval/explainProvision.ts). |
 | `npm run test:presentation-help` | **Presentation help stays at Level 1: organise, never rewrite, never advise.**<br>COSTS NOTHING. No model call. Reads the vendored corpus off disk and calls pure functions. |
 | `npm run test:public-data` | **Public reference data must not be read through a session-carrying client.**<br>The forms page went blank with "Could not load forms — JWT issued in the future". The court form catalogue is public: a read with the anon key alone returns rows from every one of those tables, and nothing about them depends on who is asking. |
 | `npm run test:published-library` | **The published set is what it says it is, and nothing else is servable.**<br>1. IMMUTABLE. The release carries a hash over its own blocks. Editing a published block by hand — fixing a typo, softening a sentence — changes the content without it having passed a single gate, and nothing downstream would know. Recomputing the hash makes th |

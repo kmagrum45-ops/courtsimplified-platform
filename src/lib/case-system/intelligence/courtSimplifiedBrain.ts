@@ -47,7 +47,7 @@ import { buildElementProofAnalysis } from "./elementProofEngine";
 import { CLAIM_TYPES } from "../intake/claimTypes";
 import { isNoQuestionNeeded, questionsForElement } from "../intake/depth/elementQuestionRegistry";
 import { fillSlots } from "../intake/depth/slots";
-import { aiAnalysisTextToUsers, appliedLawEnabled } from "../../content-library/phaseScope";
+import { aiAnalysisTextToUsers, appliedLawEnabled, plainExplanationsEnabled } from "../../content-library/phaseScope";
 import {
   buildSourcePack,
   sourcePackForPrompt,
@@ -2588,10 +2588,11 @@ export async function runCourtSimplifiedBrain(
       : null;
   const groundingReport: GroundingReport | undefined = grounded?.report;
   const citedIds = structuredCognition ? verifiedSourceIds(structuredCognition, sourcePack) : new Set<string>();
+  const explainable = plainExplanationsEnabled();
   const appliedLaw = appliedLawEnabled()
     ? sourcePack.items
         .filter((item) => isRetrievedItem(item) && citedIds.has(item.id))
-        .map(({ id, label, citation, text, sourceUrl, kind }) => ({ id, label, text, sourceUrl, ...(citation ? { citation } : {}), ...(kind ? { kind } : {}) }))
+        .map(({ id, label, citation, text, sourceUrl, kind }) => ({ id, label, text, sourceUrl, ...(citation ? { citation } : {}), ...(kind ? { kind } : {}), ...(explainable ? { explainable } : {}) }))
     : [];
   if (groundingReport && groundingReport.dropped.length) {
     // Counts and reasons only: the dropped text is about the user's case and
