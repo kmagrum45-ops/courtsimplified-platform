@@ -219,3 +219,18 @@ question-selection or stage decision this file asserts.
 - **`possibleCorrections` now lists `contract-dispute` twice** instead of
   `other` once and `contract-dispute` once — both are suggestions shown for the
   user to confirm, never applied.
+
+## appliedLaw (added 2026-10-05)
+
+The fixture report now prints `appliedLaw`: the provisions meaning-based
+retrieval found for this story that the analysis cited with a quote the gate
+verified, shown to the user as "The law behind this" (AppliedLawPanel).
+
+**Expected:** every entry, if any, is a corpus provision about the kind of
+claim this story is (debt, contract, the Small Claims procedure for starting
+one). No other court's rules (Family Law Rules, Rules of Civil Procedure)
+may appear -- retrieval excludes them for a Small Claims case. Which
+provisions come back is not pinned: retrieval is by meaning and the model's
+search phrases vary run to run, so an exact list would fail on the work we
+want done. An empty list is acceptable; it means the analysis relied only on
+the catalogue.
