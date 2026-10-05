@@ -1,0 +1,504 @@
+114
+
+
+Waddah Mustapha (a.k.a. Martin
+Mustapha) Appellant/Respondent on cross-
+appeal
+
+v.
+
+Culligan of Canada Ltd. Respondent/
+
+
+
+
+Appellant on cross-appeal
+
+Indexed as: Mustapha v. Culligan of Canada
+Ltd.
+Neutral citation: 2008 SCC 27.
+File No.: 31902.
+2008: March 18; 2008: May 22.
+Present: McLachlin C.J. and Bastarache, Binnie, LeBel,
+Deschamps, Fish, Abella, Charron and Rothstein JJ.
+
+on appeal from the court of appeal for
+ontario
+   Torts — Negligence — Duty of care — Foreseeability
+ — Personal injury — Mental injury — Customer
+suing his bottled water supplier in negligence after
+finding remains of flies in unopened bottle — Customer
+claiming mental injury — Whether damage too remote
+to allow recovery.
+    In the course of replacing an empty bottle of drinking
+ water with a full one, M saw a dead fly and part
+of another dead fly in the unopened replacement bottle.
+Obsessed with the event and its “revolting implications”
+for the health of his family, he developed a major depressive
+ disorder, phobia and anxiety. He sued C, the supplier
+ of the bottle of water, for psychiatric injury. The
+trial judge awarded him general and special damages,
+as well as damages for loss of business, but the Court
+of Appeal overturned the judgment on the basis that the
+injury was not reasonably foreseeable and hence did not
+give rise to a cause of action.
+   Held: The appeal and the cross-appeal should be
+dismissed.
+115
+[2008] 2 R.C.S.
+
+
+    M’s damage is too remote to allow recovery. As the
+manufacturer of a consumable good, C owed M, the
+ultimate consumer of that good, a duty of care in supplying
+ bottled water to him, and it breached the standard
+ of care by providing M with contaminated water.
+The requirement of personal injury, which includes
+serious and prolonged psychological injury, is also met:
+M suffered a debilitating psychological injury which
+
+
+
+
+had a significant impact on his life. C’s breach caused
+that injury in fact, but not in law: M failed to show that
+it was foreseeable that a person of ordinary fortitude
+would suffer serious injury from seeing the flies in
+the bottle of water he was about to install. Unusual or
+extreme reactions to events caused by negligence are
+imaginable but not reasonably foreseeable. In this case,
+the trial judge erred in applying a subjective standard.
+[3] [6-11] [15] [18]
+    The claim for damages for breach of contract also
+fails. M’s damage could not be reasonably supposed to
+have been within the contemplation of the parties when
+they entered into their agreement. [19]
+Cases Cited
+   Referred to: Donoghue v. Stevenson, [1932] A.C.
+562; Anns v. Merton London Borough Council, [1978]
+A.C. 728; Cooper v. Hobart, [2001] 3 S.C.R. 537, 2001
+SCC 79; Page v. Smith, [1996] 1 A.C. 155; Hinz v. Berry,
+[1970] 2 Q.B. 40; Vanek v. Great Atlantic & Pacific
+Co. of Canada (1999), 48 O.R. (3d) 228; Overseas
+Tankship (U.K.) Ltd. v. Morts Dock & Engineering
+Co., [1961] A.C. 388; Overseas Tankship (U.K.) Ltd.
+v. Miller Steamship Co. Pty., [1967] A.C. 617; White
+v. Chief Constable of South Yorkshire Police, [1998] 3
+W.L.R. 1509; Devji v. Burnaby (District) (1999), 180
+D.L.R. (4th) 205, 1999 BCCA 599; Tame v. New South
+Wales (2002), 211 C.L.R. 317, [2002] HCA 35; Hadley
+v. Baxendale (1854), 9 Ex. 341, 156 E.R. 145; Fidler v.
+Sun Life Assurance Co. of Canada, [2006] 2 S.C.R. 3,
+2006 SCC 30.
+Authors Cited
+Linden, Allen M., and Bruce Feldthusen. Canadian
+   Tort Law, 8th ed. Markham, Ont.: LexisNexis But-
+   terworths, 2006.
+   APPEAL and CROSS-APPEAL from a judgment
+ of the Ontario Court of Appeal (Cronk and
+Blair JJ.A. and Then J. (ad hoc)) (2006), 84 O.R.
+(3d) 457, 275 D.L.R. (4th) 473, 218 O.A.C. 271,
+116
+
+
+43 C.C.L.T. (3d) 27, [2006] O.J. No. 4964 (QL),
+2006 CarswellOnt 7937, setting aside a judgment
+of Brockenshire J. (2005), 32 C.C.L.T. (3d) 123,
+[2005] O.J. No. 1469 (QL), 2005 CarswellOnt 1456,
+allowing an action in negligence. Appeal and cross-
+appeal dismissed.
+
+
+
+
+   Paul J. Pape, Susan M. Chapman and John
+J. Adair, for the appellant/respondent on cross-
+appeal.
+   Hillel David and Lisa La Horey, for the respondent
+/appellant on cross-appeal.
+   The judgment of the Court was delivered by
+[1] The Chief Justice — The plaintiff, Mr.
+Mustapha, sues for psychiatric injury sustained as
+a result of seeing the dead flies in a bottle of water
+supplied by the defendant, Culligan. In the course
+of replacing an empty bottle of drinking water with
+a full one, Mr. Mustapha saw a dead fly and part
+of another dead fly in the unopened replacement
+bottle. He became obsessed with the event and
+its “revolting implications” for the health of his
+family, which had been consuming water supplied
+by Culligan for the previous 15 years. The plaintiff
+developed a major depressive disorder with associated
+ phobia and anxiety. He sued Culligan for damages
+.
+[2] The trial judge found that seeing the flies
+in the water resulted in psychiatric injuries to
+Mr. Mustapha, and awarded him $80,000 in general
+ damages, $24,174.58 in special damages, and
+$237,600 in damages for loss of business ((2005),
+32 C.C.L.T. (3d) 123). The Ontario Court of Appeal
+overturned the judgment on the basis that the injury
+was not reasonably foreseeable and hence did not
+give rise to a cause of action ((2006), 84 O.R. (3d)
+457). The issue before this Court is whether the
+cause of action has been established. For different
+reasons than the Court of Appeal, I conclude that
+it has not.
+117
+[2008] 2 R.C.S.
+
+
+[3] A successful action in negligence requires
+that the plaintiff demonstrate (1) that the defendant
+ owed him a duty of care; (2) that the defendant
+’s behaviour breached the standard of care; (3)
+that the plaintiff sustained damage; and (4) that
+the damage was caused, in fact and in law, by the
+defendant’s breach. I shall examine each of these
+
+
+
+
+elements of negligence in turn. As I will explain,
+Mr. Mustapha’s claim fails because he has failed to
+establish that his damage was caused in law by the
+defendant’s negligence. In other words, his damage
+is too remote to allow recovery.
+
+1.
+     Care?
+
+[4] The first question to consider in an action
+for negligence is whether the defendant owed the
+plaintiff a duty of care. The question focuses on the
+relationship between the parties. It asks whether
+this relationship is so close that the one may reasonably
+ be said to owe the other a duty to take care
+not to injure the other: Donoghue v. Stevenson,
+[1932] A.C. 562 (H.L.). Whether such a relationship
+ exists depends on foreseeability, moderated by
+policy concerns: Anns v. Merton London Borough
+Council, [1978] A.C. 728 (H.L.).
+
+[5] In many cases, the relationship between the
+plaintiff and the defendant is of a type which has
+already been judicially recognized as giving rise to
+a duty of care. In such cases, precedent determines
+the question of duty of care and it is unnecessary
+to undertake a full-fledged duty of care analysis.
+As stated by A. M. Linden and B. Feldthusen, categories
+ of relationships that have been recognized
+and relationships analogous to such pre-established
+categories need not be tested by the Anns for-
+mula: Canadian Tort Law (8th ed. 2006), at p. 302;
+118
+
+
+Cooper v. Hobart, [2001] 3 S.C.R. 537, 2001 SCC
+79, at paras. 35-36.
+[6] The relationship between the parties in this
+case does not belong to a novel category. It has long
+been established that the manufacturer of a consumable
+
+
+
+
+ good owes a duty of care to the ultimate
+consumer of that good: Donoghue v. Stevenson. It
+follows that Culligan owed Mr. Mustapha a duty of
+care in the supplying of bottled water to him.
+2. Did the Defendant’s Behaviour Breach the
+   Standard of Care?
+[7] The second question in a negligence action
+is whether the defendant’s behaviour breached the
+standard of care. A defendant’s conduct is negligent
+if it creates an unreasonable risk of harm (Linden
+and Feldthusen, at p. 130). The trial judge found
+that the defendant Culligan breached the standard
+of care by providing the plaintiff with contaminated
+ water, and the parties did not appeal that
+finding before this Court. This is hardly surprising;
+it is clear that a supplier of bottled water intended
+for personal consumption is under a duty to take
+reasonable care to ensure that the water is not contaminated
+ by foreign elements. The second element
+of liability in tort for negligence is therefore met.
+3. Did the Plaintiff Sustain Damage?
+[8] Generally, a plaintiff who suffers personal
+injury will be found to have suffered damage.
+Damage for purposes of this inquiry includes psychological
+ injury. The distinction between physical
+and mental injury is elusive and arguably artificial
+in the context of tort. As Lord Lloyd said in Page v.
+Smith, [1996] 1 A.C. 155 (H.L.), at p. 188:
+119
+[2008] 2 R.C.S.
+
+
+In an age when medical knowledge is expanding fast,
+and psychiatric knowledge with it, it would not be sensi-
+ble to commit the law to a distinction between physical
+and psychiatric injury, which may already seem some-
+what artificial, and may soon be altogether outmoded.
+Nothing will be gained by treating them as different
+“kinds” of personal injury, so as to require the application
+ of different tests in law. [Emphasis added.]
+
+
+
+
+
+[9] This said, psychological disturbance that
+rises to the level of personal injury must be distinguished
+ from psychological upset. Personal injury
+at law connotes serious trauma or illness: see Hinz
+v. Berry, [1970] 2 Q.B. 40 (C.A.), at p. 42; Page v.
+Smith, at p. 189; Linden and Feldthusen, at pp. 425-
+27. The law does not recognize upset, disgust, anxiety
+, agitation or other mental states that fall short of
+injury. I would not purport to define compensable
+injury exhaustively, except to say that it must be
+serious and prolonged and rise above the ordinary
+annoyances, anxieties and fears that people living in
+society routinely, if sometimes reluctantly, accept.
+The need to accept such upsets rather than seek
+redress in tort is what I take the Court of Appeal
+to be expressing in its quote from Vanek v. Great
+Atlantic & Pacific Co. of Canada (1999), 48 O.R.
+(3d) 228 (C.A.): “Life goes on” (para. 60). Quite
+simply, minor and transient upsets do not consti-
+tute personal injury, and hence do not amount to
+damage.
+
+[10] On the findings of the trial judge, supported
+by medical evidence, Mr. Mustapha developed a
+major depressive disorder with associated phobia
+and anxiety. This psychiatric illness was debilitating
+ and had a significant impact on his life; it
+qualifies as a personal injury at law. It follows that
+Mr. Mustapha has established that he sustained
+damage.
+120
+
+
+4. Was the Plaintiff’s Damage Caused by the
+   Defendant’s Breach?
+
+[11] The fourth and final question to address in a
+negligence claim is whether the defendant’s breach
+caused the plaintiff’s harm in fact and in law. The
+
+
+
+
+evidence before the trial judge establishes that the
+defendant’s breach of its duty of care in fact caused
+Mr. Mustapha’s psychiatric injury. We are not asked
+to revisit this conclusion. The remaining question
+is whether that breach also caused the plaintiff’s
+damage in law or whether it is too remote to war-
+rant recovery.
+
+[12] The remoteness inquiry asks whether “the
+harm [is] too unrelated to the wrongful conduct
+to hold the defendant fairly liable” (Linden and
+Feldthusen, at p. 360). Since The Wagon Mound
+(No. 1), the principle has been that “it is the foresight
+ of the reasonable man which alone can deter-
+mine responsibility” (Overseas Tankship (U.K.)
+Ltd. v. Morts Dock & Engineering Co., [1961] A.C.
+388 (P.C.), at p. 424).
+
+[13] Much has been written on how probable or
+likely a harm needs to be in order to be considered
+reasonably foreseeable. The parties raise the question
+ of whether a reasonably foreseeable harm is
+one whose occurrence is probable or merely possible
+. In my view, these terms are misleading. Any
+harm which has actually occurred is “possible”; it
+is therefore clear that possibility alone does not pro-
+vide a meaningful standard for the application of
+reasonable foreseeability. The degree of probability
+ that would satisfy the reasonable foreseeability
+requirement was described in The Wagon Mound
+(No. 2) as a “real risk”, i.e. “one which would occur
+to the mind of a reasonable man in the position of
+the defendan[t] . . . and which he would not brush
+aside as far-fetched” (Overseas Tankship (U.K.)
+121
+[2008] 2 R.C.S.
+
+
+Ltd. v. Miller Steamship Co. Pty., [1967] A.C. 617
+(P.C.), at p. 643).
+
+[14] The remoteness inquiry depends not only
+
+
+
+
+upon the degree of probability required to meet
+the reasonable foreseeability requirement, but also
+upon whether or not the plaintiff is considered
+objectively or subjectively. One of the questions that
+arose in this case was whether, in judging whether
+the personal injury was foreseeable, one looks at
+a person of “ordinary fortitude” or at a particular
+plaintiff with his or her particular vulnerabilities.
+This question may be acute in claims for mental
+injury, since there is a wide variation in how particular
+ people respond to particular stressors. The law
+has consistently held — albeit within the duty of
+care analysis — that the question is what a person
+of ordinary fortitude would suffer: see White v.
+Chief Constable of South Yorkshire Police, [1998]
+3 W.L.R. 1509 (H.L.); Devji v. Burnaby (District)
+(1999), 180 D.L.R. (4th) 205, 1999 BCCA 599;
+Vanek. As stated in White, at p. 1512: “The law
+expects reasonable fortitude and robustness of its
+citizens and will not impose liability for the excep-
+tional frailty of certain individuals.”
+
+[15] As the Court of Appeal found, at para. 49,
+the requirement that a mental injury would occur
+in a person of ordinary fortitude, set out in Vanek,
+at paras. 59-61, is inherent in the notion of foreseeability
+. This is true whether one considers foreseeability
+ at the remoteness or at the duty of care stage.
+As stated in Tame v. New South Wales (2002), 211
+C.L.R. 317, [2002] HCA 35, per Gleeson C.J., this
+“is a way of expressing the idea that there are some
+people with such a degree of susceptibility to psychiatric
+ injury that it is ordinarily unreasonable to
+require strangers to have in contemplation the possibility
+ of harm to them, or to expect strangers to
+122
+
+
+take care to avoid such harm” (para. 16). To put it
+another way, unusual or extreme reactions to events
+caused by negligence are imaginable but not reasonably
+ foreseeable.
+
+
+
+
+
+[16] To say this is not to marginalize or penal-
+ize those particularly vulnerable to mental injury.
+It is merely to confirm that the law of tort imposes
+an obligation to compensate for any harm done on
+the basis of reasonable foresight, not as insurance.
+The law of negligence seeks to impose a result that
+is fair to both plaintiffs and defendants, and that is
+socially useful. In this quest, it draws the line for
+compensability of damage, not at perfection, but
+at reasonable foreseeability. Once a plaintiff establishes
+ the foreseeability that a mental injury would
+occur in a person of ordinary fortitude, by contrast,
+the defendant must take the plaintiff as it finds him
+for purposes of damages. As stated in White, at
+p. 1512, focusing on the person of ordinary fortitude
+ for the purposes of determining foreseeability
+ “is not to be confused with the ‘eggshell skull’
+situation, where as a result of a breach of duty the
+damage inflicted proves to be more serious than
+expected”. Rather, it is a threshold test for estab-
+lishing compensability of damage at law.
+
+[17] I add this. In those cases where it is proved
+that the defendant had actual knowledge of the
+plaintiff’s particular sensibilities, the ordinary fortitude
+ requirement need not be applied strictly. If
+the evidence demonstrates that the defendant knew
+that the plaintiff was of less than ordinary fortitude
+, the plaintiff’s injury may have been reasonably
+ foreseeable to the defendant. In this case, how-
+ever, there was no evidence to support a finding
+123
+[2008] 2 R.C.S.
+
+
+that Culligan knew of Mr. Mustapha’s particular
+sensibilities.
+
+[18] It follows that in order to show that the
+damage suffered is not too remote to be viewed
+
+
+
+
+as legally caused by Culligan’s negligence, Mr.
+Mustapha must show that it was foreseeable that
+a person of ordinary fortitude would suffer serious
+injury from seeing the flies in the bottle of water
+he was about to install. This he failed to do. The
+only evidence was about his own reactions, which
+were described by the medical experts as “highly
+unusual” and “very individual” (C.A. judgment,
+at para. 52). There is no evidence that a person of
+ordinary fortitude would have suffered injury from
+seeing the flies in the bottle; indeed the expert wit-
+nesses were not asked this question. Instead of
+asking whether it was foreseeable that the defendant
+’s conduct would have injured a person of ordinary
+ fortitude, the trial judge applied a subjective
+ standard, taking into account Mr. Mustapha’s
+“previous history” and “particular circumstances”
+(para. 227), including a number of “cultural fac-
+tors” such as his unusual concern over cleanliness,
+and the health and well-being of his family. This
+was an error. Mr. Mustapha having failed to establish
+ that it was reasonably foreseeable that a person
+of ordinary fortitude would have suffered personal
+injury, it follows that his claim must fail.
+
+5. The Claim in Contract
+
+[19] The plaintiff also brought a claim for damages
+ arising out of breach of contract, although he
+appears not to have pursued it with vigour. This
+claim fails. With regards to Mr. Mustapha’s psychiatric
+ injury, there is no inconsistency in principle
+or in outcome between negligence law and contract
+law. Damages arising out of breach of contract are
+governed by the expectation of the parties at the
+time the contract was made (Hadley v. Baxendale
+(1854), 9 Ex. 341, 156 E.R. 145, at p. 151, applied
+124
+
+
+with respect to mental distress in Fidler v. Sun Life
+Assurance Co. of Canada, [2006] 2 S.C.R. 3, 2006
+SCC 30), as distinguished from the time of the tort,
+in the case of tort. I have concluded that personal
+injury to Mr. Mustapha was not reasonably foreseeable
+ by the defendant at the time of the alleged tort.
+The same evidence suggests that Mr. Mustapha’s
+
+
+
+
+damage could not be reasonably supposed to have
+been within the contemplation of the parties when
+they entered into their agreement.
+
+6. Conclusion
+
+[20] For the reasons discussed, I conclude that
+the loss suffered by the plaintiff, Mr. Mustapha,
+was too remote to be reasonably foreseen and that
+consequently, he cannot recover damages from the
+defendant. I would dismiss the appeal with costs. In
+light of these findings, I find it unnecessary to deal
+with the cross-appeal, and dismiss it without costs.
+
+  Appeal dismissed with costs. Cross-appeal dismissed
+.
+
+  Solicitors for the appellant/respondent on cross-
+appeal: Pape Barristers, Toronto.
+
+   Solicitors for the respondent/appellant on cross-
+appeal: McCague Peacock Borlack McInnis &
+Lloyd, Toronto.

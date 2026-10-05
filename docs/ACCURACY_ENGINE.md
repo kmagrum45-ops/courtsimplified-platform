@@ -1727,7 +1727,18 @@ embeddings API, and lands in `docs/sources/retrieval/` through a PR.
 - Passages from practical-tier sources (guides, Steps to Justice) are
   labelled as guidance, not legislation.
 
+**Case law (2026-10-05).** The 31 saved judgments with a public page are
+indexed too (`decisionChunker.ts`, registry `scripts/retrieval/decisionSources.ts`):
+majority reasons only, not the courts below, labelled "Court decision" with
+case, citation and paragraph, and shown with the caution that none has been
+noted up. See SOURCING_NOTES.md, "Cutting judgments into citable passages".
+
+**Shown to the person** as "The law behind this" (`AppliedLawPanel`): only
+passages the analysis cited with a verified quote, verbatim, behind
+`APPLIED_LAW=off`.
+
 **Not done yet.** The chat (`chat/libraryChat.ts`) still selects published
-blocks only; retrieval feeds the analysis. Accuracy of the search itself is
-measured by the story review once the index is in.
+blocks only. Cross-references inside a provision are not followed. The probe
+(`npm run eval:retrieval`) is twelve stories, a smoke test; a labelled set
+measuring recall is the next measurement.
 

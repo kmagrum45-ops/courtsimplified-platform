@@ -1,0 +1,2132 @@
+629
+[2004] 1 R.C.S.
+
+
+Gordon Garland Appellant
+
+v.
+
+Enbridge Gas Distribution Inc.,
+previously known as Consumers’ Gas
+Company Limited Respondent
+
+
+
+
+and
+
+Attorney General of Canada, Attorney
+General for Saskatchewan, Toronto
+Hydro-Electric System Limited, Law
+Foundation of Ontario and Union Gas
+Limited Interveners
+
+Indexed as: Garland v. Consumers’ Gas Co.
+Neutral citation: 2004 SCC 25.
+File No.: 29052.
+2003: October 9; 2004: April 22.
+Present: Iacobucci, Major, Bastarache, Binnie, LeBel,
+Deschamps and Fish JJ.
+
+ON APPEAL FROM THE COURT OF APPEAL FOR
+ONTARIO
+   Restitution — Unjust enrichment — Late payment
+penalty — Customers of regulated gas utility claiming
+restitution for unjust enrichment arising from late payment
+ penalties levied by utility in excess of interest limit
+prescribed by s. 347 of Criminal Code — Whether customers
+ have claim for unjust enrichment — Defences that
+can be mounted by utility to resist claim — Whether other
+ancillary orders necessary.
+    The respondent gas utility, whose rates and payment
+policies are governed by the Ontario Energy Board
+(“OEB”), bills its customers on a monthly basis, and
+each bill includes a due date for the payment of current
+charges. Customers who do not pay by the due date incur
+a late payment penalty (“LPP”) calculated at five percent
+of the unpaid charges for that month. The LPP is a one-
+time penalty, and does not compound or increase over
+time. The appellant and his wife paid approximately $75
+in LPP charges between 1983 and 1995. The appellant
+630
+
+
+commenced a class action seeking restitution for unjust
+enrichment of LPP charges received by the respondent in
+violation of s. 347 of the Criminal Code. He also sought
+a preservation order. In a previous appeal to this Court, it
+was held that charging the LPPs amounted to charging a
+criminal rate of interest under s. 347 and the matter was
+remitted back to the trial court for further consideration.
+As the case raised no factual dispute, the parties brought
+
+
+
+
+cross-motions for summary judgment. The motions
+judge granted the respondent’s motion for summary
+judgment, finding that the action was a collateral attack
+on the OEB’s orders. The Court of Appeal disagreed, but
+dismissed the appellant’s appeal on the grounds that his
+unjust enrichment claim could not be made out.
+    Held: The appeal should be allowed. The respondent
+is ordered to repay LPPs collected from the appellant in
+excess of the interest limit stipulated in s. 347 of the Code
+after the action was commenced in 1994 in an amount to
+be determined by the trial judge.
+   The test for unjust enrichment has three elements:
+(1) an enrichment of the defendant; (2) a corresponding
+deprivation of the plaintiff; and (3) an absence of juristic
+reason for the enrichment. The proper approach to the
+juristic reason analysis is in two parts. The plaintiff must
+show that no juristic reason from an established category
+exists to deny recovery. The established categories
+include a contract, a disposition of law, a donative intent,
+and other valid common law, equitable or statutory obligations
+. If there is no juristic reason from an established
+category, then the plaintiff has made out a prima facie
+case. The prima facie case is rebuttable, however, where
+the defendant can show that there is another reason to
+deny recovery. Courts should have regard at this point to
+two factors: the reasonable expectations of the parties and
+public policy considerations.
+    Here, the appellant has a claim for restitution. The
+respondent received the monies represented by the LPPs
+and had that money available for use in the carrying on
+of its business. The transfer of those funds constitutes a
+benefit to the respondent. The parties are agreed that the
+second prong of the test has been satisfied. With respect
+to the third prong, the only possible juristic reason from
+an established category that could justify the enrichment
+631
+[2004] 1 R.C.S.
+
+
+in this case is the existence of the OEB orders creating the
+LPPs under the “disposition of law” category. The OEB
+orders, however, do not constitute a juristic reason for
+the enrichment because they are inoperative to the extent
+of their conflict with s. 347 of the Criminal Code. The
+appellant has thus made out a prima facie case for unjust
+enrichment.
+
+
+
+
+    The respondent’s reliance on the orders is relevant
+when determining the reasonable expectations of the
+parties at the rebuttal stage of the juristic reason analysis
+even though it would not provide a defence if the respondent
+ was charged under s. 347 of the Code. However, the
+overriding public policy consideration in this case is the
+fact that the LPPs were collected in contravention of the
+Criminal Code. As a matter of public policy, criminals
+should not be permitted to keep the proceeds of their
+crime. In weighing these considerations, the respondent’s
+reliance on the inoperative OEB orders from 1981-1994,
+prior to the commencement of this action, provides a
+juristic reason for the enrichment. After the action was
+commenced and the respondent was put on notice that
+there was a serious possibility its LPPs violated the
+Criminal Code, it was no longer reasonable to rely on the
+OEB rate orders to authorize the LPPs. Given that conclusion
+, it is only necessary to consider the respondent’s
+defences for the period after 1994.
+
+   The respondent cannot avail itself of any defence. The
+change of position defence is not available to a defendant
+who is a wrongdoer. Since the respondent in this case was
+enriched by its own criminal misconduct, it should not be
+permitted to avail itself of the defence. Section 18 (now s.
+25) of the Ontario Energy Board Act should be read down
+so as to exclude protection from civil liability damage
+arising out of Criminal Code violations. As a result, the
+defence does not apply in this case and it is not necessary
+to consider the constitutionality of the section.
+
+    This action does not constitute an impermissible collateral
+ attack on the OEB’s orders. The OEB does not
+have exclusive jurisdiction over this dispute, which is a
+private law matter under the competence of civil courts,
+nor does it have jurisdiction to order the remedy sought
+by the appellant. Moreover, the specific object of the
+action is not to invalidate or render inoperative the OEB’s
+orders, but rather to recover money that was illegally
+632
+
+
+collected by the respondent as a result of OEB orders. In
+order for the regulated industries defence to be available
+to the respondent, Parliament needed to have indicated,
+either expressly or by necessary implication, that s. 347
+of the Code granted leeway to those acting pursuant to a
+valid provincial regulatory scheme. Section 347 does not
+contain any such indication.
+
+
+
+
+    The de facto doctrine does not apply in this case
+because it only attaches to government and its officials
+in order to protect and maintain the rule of law and the
+authority of government. An extension of the doctrine to
+a private corporation regulated by a government authority
+is not supported by the case law and does not further the
+doctrine’s underlying purpose.
+   A preservation order is not appropriate in this case.
+The respondent has ceased to collect the LPPs at a criminal
+ rate, so there would be no future LPPs to which a
+preservation order could attach. Even with respect to the
+LPPs paid between 1994 and the present, a preservation
+order should not be granted because it would serve no
+practical purpose, because the appellant has not satisfied
+the criteria in the Ontario Rules of Civil Procedure, and
+because Amax can be distinguished from this case. A declaration
+ that the LPPs need not be paid would similarly
+serve no practical purpose and should not be made.
+Cases Cited
+   Applied: Peter v. Beblow, [1993] 1 S.C.R. 980;
+explained: Pettkus v. Becker, [1980] 2 S.C.R. 834; Peel
+(Regional Municipality) v. Canada, [1992] 3 S.C.R. 762;
+referred to: Garland v. Consumers’ Gas Co., [1998] 3
+S.C.R. 112; Sprint Canada Inc. v. Bell Canada (1997),
+79 C.P.R. (3d) 31; Ontario Hydro v. Kelly (1998), 39
+O.R. (3d) 107; Mahar v. Rogers Cablesystems Ltd.
+(1995), 25 O.R. (3d) 690; Berardinelli v. Ontario
+Housing Corp., [1979] 1 S.C.R. 275; Sharwood & Co.
+v. Municipal Financial Corp. (2001), 53 O.R. (3d) 470;
+Rural Municipality of Storthoaks v. Mobil Oil Canada,
+Ltd., [1976] 2 S.C.R. 147; RBC Dominion Securities
+Inc. v. Dawson (1994), 111 D.L.R. (4th) 230; Rathwell
+v. Rathwell, [1978] 2 S.C.R. 436; Reference re Goods
+and Services Tax, [1992] 2 S.C.R. 445; Mack v. Canada
+(Attorney General) (2002), 60 O.R. (3d) 737; Multiple
+Access Ltd. v. McCutcheon, [1982] 2 S.C.R. 161; M & D
+Farm Ltd. v. Manitoba Agricultural Credit Corp., [1999]
+2 S.C.R. 961; Transport North American Express Inc.
+v. New Solutions Financial Corp., [2004] 1 S.C.R. 249,
+633
+[2004] 1 R.C.S.
+
+
+2004 SCC 7; Oldfield v. Transamerica Life Insurance
+Co. of Canada, [2002] 1 S.C.R. 742, 2002 SCC 22;
+Lipkin Gorman v. Karpnale Ltd., [1992] 4 All E.R. 512;
+Toronto (City) v. C.U.P.E., Local 79, [2003] 3 S.C.R. 77,
+2003 SCC 63; Wilson v. The Queen, [1983] 2 S.C.R. 594;
+R. v. Litchfield, [1993] 4 S.C.R. 333; Attorney General
+of Canada v. Law Society of British Columbia, [1982]
+2 S.C.R. 307; R. v. Jorgensen, [1995] 4 S.C.R. 55;
+
+
+
+
+Reference re Manitoba Language Rights, [1985] 1 S.C.R.
+721; Amax Potash Ltd. v. Government of Saskatchewan,
+[1977] 2 S.C.R. 576.
+Statutes and Regulations Cited
+Civil Code of Quebec, S.Q. 1991, c. 64, arts. 1493,
+   1494.
+Constitution Act, 1867, ss. 91(19), (27), 92(13).
+Criminal Code, R.S.C. 1985, c. C-46, ss. 15, 347.
+Municipal Franchises Act, R.S.O. 1990, c. M.55.
+Ontario Energy Board Act, R.S.O. 1990, c. O.13, s. 18.
+Ontario Energy Board Act, 1998, S.O. 1998, c. 15, Sch.
+   B, s. 25.
+Rules of Civil Procedure, R.R.O. 1990, Reg. 194, r.
+   45.02.
+Authors Cited
+Constantineau, Albert. A Treatise on the De Facto
+   Doctrine. Toronto: Canada Law Book, 1910.
+Fridman, Gerald Henry Louis. Restitution, 2nd ed.
+   Scarborough, Ont.: Carswell, 1992.
+Goff of Chieveley, Robert Goff, Baron, and Gareth
+   Jones. The Law of Restitution, 6th ed. London: Sweet
+   & Maxwell, 2002.
+Lange, Donald J. The Doctrine of Res Judicata in
+   Canada. Markham, Ont.: Butterworths, 2000.
+Maddaugh, Peter D., and John D. McCamus. The Law of
+   Restitution. Aurora, Ont.: Canada Law Book, 1990.
+McInnes, Mitchell. “Unjust Enrichment — Restitution
+   — Absence of Juristic Reason: Campbell v. Campbell”
+   (2000), 79 Can. Bar Rev. 459.
+Smith, Lionel. “The Mystery of ‘Juristic Reason’”
+   (2000), 12 S.C.L.R. (2d) 211.
+Ziegel, Jacob S. “Criminal Usury, Class Actions and
+   Unjust Enrichment in Canada” (2002), 18 J. Cont.
+   L. 121.
+   APPEAL from a judgment of the Ontario
+Court of Appeal (2001), 57 O.R. (3d) 127, 208
+D.L.R. (4th) 494, 152 O.A.C. 244, 19 B.L.R. (3d)
+10, [2001] O.J. No. 4651 (QL), affirming a decision
+ of the Superior Court of Justice (2000), 185
+    634
+
+
+    D.L.R. (4th) 536, [2000] O.J. No. 1354 (QL).
+    Appeal allowed.
+
+      Michael McGowan, Barbara L. Grossman,
+    Dorothy Fong and Christopher D. Woodbury, for the
+    appellant.
+
+      Fred D. Cass, John D. McCamus and John J.
+
+
+
+
+    Longo, for the respondent.
+
+       Christopher M. Rupar, for the intervener the
+    Attorney General of Canada.
+
+      Thomson Irvine, for the intervener the Attorney
+    General for Saskatchewan.
+
+       Alan H. Mark and Kelly L. Friedman, for the
+    intervener Toronto Hydro-Electric System Limited.
+
+      Mark M. Orkin, Q.C., for the intervener the Law
+    Foundation of Ontario.
+
+       Patricia D. S. Jackson and M. Paul Michell, for
+    the intervener Union Gas Limited.
+
+         The judgment of the Court was delivered by
+1
+       Iacobucci J. — At issue in this appeal is a
+    claim by customers of a regulated utility for restitution
+     for unjust enrichment arising from late payment
+     penalties levied by the utility in excess of the
+    interest limit prescribed by s. 347 of the Criminal
+    Code, R.S.C. 1985, c. C-46. More specifically, the
+    issues raised include the necessary ingredients to a
+    claim for unjust enrichment, the defences that can
+    be mounted to resist the claim, and whether other
+    ancillary orders are necessary.
+2
+      For the reasons that follow, I am of the view to
+    uphold the appellant’s claim for unjust enrichment
+    and therefore would allow the appeal.
+    I.
+3
+      The respondent Consumers’ Gas Company
+    Limited, now known as Enbridge Gas Distribution
+635
+[2004] 1 R.C.S.
+
+
+Inc., is a regulated utility which provides natural gas
+to commercial and residential customers throughout
+ Ontario. Its rates and payment policies are
+governed by the Ontario Energy Board (“OEB” or
+“Board”) pursuant to the Ontario Energy Board Act,
+R.S.O. 1990, c. O.13 (“OEBA”), and the Municipal
+Franchises Act, R.S.O. 1990, c. M.55. The respondent
+
+
+
+
+ cannot sell gas or charge for gas-related services
+except in accordance with rate orders issued by the
+Board.
+4
+   Consumers’ Gas bills its customers on a monthly
+basis, and each bill includes a due date for the payment
+ of current charges. Customers who do not pay
+by the due date incur a late payment penalty (“LPP”)
+calculated at five percent of the unpaid charges for
+that month. The LPP is a one-time penalty, and does
+not compound or increase over time.
+5
+   The LPP was implemented in 1975 following a
+series of rate hearings conducted by the OEB. In
+granting Consumers’ Gas’s application to impose
+the penalty, the Board noted that the primary purpose
+ of the LPP is to encourage customers to pay
+their bills promptly, thereby reducing the cost to
+Consumers’ Gas of carrying accounts receivable.
+The Board also held that such costs, along with
+any special collection costs arising from late payments
+, should be borne by the customers who
+cause them to be incurred, rather than by the customer
+ base as a whole. In approving a flat penalty
+of five percent, the OEB rejected the alternative
+course of imposing a daily interest charge on over-
+due accounts. The Board reasoned that an interest
+ charge would not provide sufficient incentive
+to pay by a named date, would give little weight
+to collection costs, and might seem overly compli-
+cated. The Board recognized that if a bill is paid
+very soon after the due date, the penalty would, if
+calculated as an interest charge, be a very high rate
+of interest. However, it noted that customers could
+avoid such a charge by paying their bills on time,
+and that, in any event, in the case of the average
+    636
+
+
+    bill the dollar amount of the penalty would not be
+    very large.
+6
+       The appellant Gordon Garland is a resident of
+
+
+
+
+    Ontario and has been a Consumers’ Gas customer
+    since 1983. He and his wife paid approximately $75
+    in LPP charges between 1983 and 1995. In a class
+    action on behalf of over 500,000 Consumers’ Gas
+    customers, Garland asserted that the LPPs violate s.
+    347 of the Criminal Code. That case also reached
+    the Supreme Court of Canada, which held that
+    charging the LPPs amounted to charging a criminal
+    rate of interest under s. 347 and remitted the matter
+    back to the trial court for further consideration
+    (Garland v. Consumers’ Gas Co., [1998] 3 S.C.R.
+    112 (“Garland No. 1”)). Both parties have now
+    brought cross-motions for summary judgment.
+7
+       The appellant now seeks restitution for unjust
+    enrichment of LPP charges received by the respondent
+     in violation of s. 347 of the Code. He also seeks
+    a preservation order requiring Consumers’ Gas to
+    hold LPPs paid during the pendency of the litigation
+    subject to possible repayment.
+8
+       The motions judge granted the respondent’s
+    motion for summary judgment, finding that the
+    action was a collateral attack on the OEB order. He
+    dismissed the application for a preservation order. A
+    majority of the Court of Appeal disagreed with the
+    motions judge’s reasons, but dismissed the appeal
+    on the grounds that the appellant’s unjust enrichment
+     claim could not be made out.
+
+    II. Relevant Statutory Provisions
+9
+       18. An order of the Board is a good and sufficient
+    defence to any proceeding brought or taken against any
+637
+[2004] 1 R.C.S.
+
+
+person in so far as the act or omission that is the subject
+of the proceeding is in accordance with the order.
+
+Ontario Energy Board Act, 1998, S.O. 1998, c. 15,
+Sch. B
+
+    25. An order of the Board is a good and sufficient
+defence to any proceeding brought or taken against any
+
+
+
+
+person in so far as the act or omission that is the subject
+of the proceeding is in accordance with the order.
+
+Criminal Code, R.S.C. 1985, c. C-46
+
+   15. No person shall be convicted of an offence in
+respect of an act or omission in obedience to the laws for
+the time being made and enforced by persons in de facto
+possession of the sovereign power in and over the place
+where the act or omission occurs.
+   347. (1) Notwithstanding any Act of Parliament, every
+one who
+   (a) enters into an agreement or arrangement to receive
+   interest at a criminal rate, or
+   (b) receives a payment or partial payment of interest
+   at a criminal rate,
+is guilty of
+   (c) an indictable offence and is liable to imprisonment
+    for a term not exceeding five years, or
+   (d) an offence punishable on summary conviction and
+   is liable to a fine not exceeding twenty-five thousand
+   dollars or to imprisonment for a term not exceeding
+   six months or to both.
+
+III. Judicial History
+
+A. Ontario Superior Court of Justice (2000), 185
+   D.L.R. (4th) 536
+
+10
+   As this case raised no factual disputes, all parties
+ agreed that summary judgment was the proper
+procedure on the motion. Winkler J. found that the
+appellant’s claim could not succeed in law and that
+there was no serious issue to be tried. In so finding
+, he held that the “regulated industries defence”
+was not a complete defence to the claim. On his
+reading of the relevant case law, the dominant
+consideration was whether the express statutory
+     638
+
+
+     language afforded a degree of flexibility to provincial
+     regulators. Section 347 affords no such flexibility,
+     so the defence is not available.
+11
+
+
+
+
+        Nor, in Winkler J.’s view, did s. 15 of the Criminal
+     Code act as a defence. Section 15 was a provision
+     of very limited application, originally enacted to
+     ensure that persons serving the Monarch de facto
+     could not be tried for treason for remaining faithful
+     to the unsuccessful claimant to the throne. While it
+     could have a more contemporary application, it was
+     limited on its face to actions or omissions occurring
+      pursuant to the authority of a sovereign power.
+     As the OEB was not a sovereign power, it did not
+     apply.
+12
+         Winkler J. found that the proposed action was a
+     collateral attack on the OEB’s orders. The OEBA
+     indicated repeatedly that the OEB has exclusive
+     control over matters within its jurisdiction. In addition
+     , interested parties were welcome to participate
+     in OEB hearings, and OEB orders were reviewable.
+     The appellant did not avail himself of any of these
+     opportunities, choosing instead to challenge the
+     validity of the OEB orders in the courts. Winkler
+     J. found that, unless attacked directly, OEB orders
+     are valid and binding upon the respondent and its
+     consumers. The OEB was not a party to the instant
+     proceeding and its orders were not before the court.
+     Winkler J. noted that the setting of rates is a bal-
+     ancing exercise, with LPPs being one factor under
+     consideration. Applying Sprint Canada Inc. v. Bell
+     Canada (1997), 79 C.P.R. (3d) 31 (Ont. Ct. (Gen.
+     Div.)), Ontario Hydro v. Kelly (1998), 39 O.R. (3d)
+     107 (Gen. Div.), and Mahar v. Rogers Cablesystems
+     Ltd. (1995), 25 O.R. (3d) 690 (Gen. Div.), Winkler
+     J. found that the instant action, although framed as
+     a private dispute between two contractual parties,
+     was in reality an impermissible collateral attack
+     on the validity of OEB orders. It would be inap-
+     propriate for the court to determine matters that fall
+     squarely within the OEB’s jurisdiction. Moreover,
+     this Court’s decision in Garland No. 1 with respect
+639
+[2004] 1 R.C.S.
+
+
+to s. 347 provided the OEB with ample legal guid-
+ance to deal with the matter.
+13
+
+
+
+
+    In case he was incorrect in that finding, Winkler
+J. went on to find that s. 18 of the OEBA provided
+a complete defence to the proposed action. He held
+that s. 18 was constitutionally valid because it did
+not interfere with Parliament’s jurisdiction over
+interest and the criminal law, or, to the extent that
+it did, the interference was incidental. Although the
+respondent did not strictly comply with the OEB
+order in that it waived LPPs for some customers,
+this did not preclude the respondent from relying on
+s. 18.
+14
+   In case that finding was also mistaken, Winkler
+J. went on to consider whether the appellant’s claim
+for restitution was valid. The parties had conceded
+that the appellant had suffered a deprivation, and
+Winkler J. was satisfied that the respondent had
+received a benefit. However, he found that the
+OEB’s rate order constituted a valid juristic reason
+for the respondent’s enrichment.
+15
+   Having reached those conclusions, Winkler J.
+declined to make a preservation order, as requested
+by the appellant, allowed the respondent’s motion
+for summary judgment and dismissed the appellant
+’s action. By endorsement, he ordered costs
+against the appellant.
+
+B. Ontario Court of Appeal (2001), 208 D.L.R.
+   (4th) 494
+16
+   McMurtry C.J.O., for the majority, found that
+Winkler J. was incorrect in finding that there had
+been an impermissible collateral attack on a decision
+ of the OEB because the appellant was not
+challenging the merits or legality of the OEB order
+or attempting to raise a matter already dealt with
+by the OEB. Rather, the proposed class action
+was based on the principles of unjust enrichment
+and raised issues over which the OEB had no
+     640
+
+
+     jurisdiction. As such, the courts had jurisdiction
+     over the proposed class action.
+17
+        McMurtry C.J.O. further found that s. 25 of the
+     1998 OEBA (the equivalent provision to s. 18 of the
+     1990 OEBA) did not provide grounds to dismiss the
+
+
+
+
+     appellant’s action. He did not agree that the respondent
+     ’s failure to comply strictly with the OEB orders
+     made s. 25 inapplicable. Instead, he found that while
+     s. 25 provides a defence to any proceedings in so
+     far as the act or omission at issue is in accordance
+     with the OEB order, legislative provisions restrict-
+     ing citizen’s rights of action attract strict construction
+      (Berardinelli v. Ontario Housing Corp., [1979]
+     1 S.C.R. 275). The legislature could not reasonably
+     be believed to have contemplated that an OEB order
+     could mandate criminal conduct, and even wording
+     as broad as that found in s. 25 could not provide a
+     defence to an action for restitution arising from an
+     OEB order authorizing criminal conduct. He noted
+     that this decision was based on the principles of statutory
+      interpretation, not on the federal paramountcy
+     doctrine.
+18
+        Section 15 of the Criminal Code did not provide
+     the respondent with a defence, either. It was of limited
+      application and is largely irrelevant in modern
+     times. As for the “regulated industries defence”, it
+     did not apply because the case law did not indicate
+     that a company operating in a regulatory industry
+     could act directly contrary to the Criminal Code.
+19
+        Nonetheless, McMurtry C.J.O. held that the
+     appellant’s unjust enrichment claim could not be
+     made out. It had been conceded that the appellant
+      suffered a deprivation, but McMurtry C.J.O.
+     held that the appellant failed to establish the other
+     two elements of the claim for unjust enrichment.
+     While payment of money will normally be a benefit,
+     McMurtry C.J.O. found that the payment of the late
+     penalties in this case did not confer a benefit on the
+641
+[2004] 1 R.C.S.
+
+
+respondent. Taking the “straightforward economic
+approach” to the first two elements of unjust enrichment
+, as recommended in Peter v. Beblow, [1993]
+1 S.C.R. 980, McMurtry C.J.O. noted that the OEB
+sets rates with a view to meeting the respondent’s
+overall revenue requirements. If the revenue available
+ from LPPs had been set lower, the other rates
+
+
+
+
+would have been set higher. Therefore, the receipt of
+the LPPs was not an enrichment capable of giving
+rise to a restitutionary claim.
+
+20
+   In case that conclusion was wrong, McMurtry
+C.J.O. went on to find that there was a juristic
+reason for any presumed enrichment. Under this
+aspect of the test, moral and policy questions were
+open for consideration, and it was necessary to
+consider what was fair to both the plaintiff and the
+defendant. It was therefore necessary to consider
+the statutory regime within which the respondent
+operated. McMurtry C.J.O. noted that the respondent
+ was required by statute to apply the LPPs; it had
+been ordered to collect them and they were taken
+into account when the OEB made its rate orders. He
+found that it would be contrary to the equities in this
+case to require the respondent to repay all the LPP
+charges collected since 1981. Such an order would
+affect all of the respondent’s customers, including
+the vast majority who consistently pay on time.
+21
+   The appellant argued that a preservation order
+was required even if his arguments on restitution
+were not successful because he could still be successful
+ in arguing that the respondent could not
+enforce payment of the late penalties. As he had
+found no basis for ordering restitution, McMurtry
+C.J.O. saw no reason to make a preservation order.
+Moreover, the order requested would serve no practical
+ purpose because it gave the respondent the
+right to spend the monies at stake. He dismissed the
+appeal and the appellant’s action. In so doing, he
+agreed with the motions judge that the appellant’s
+     642
+
+
+     claims for declaratory and injunctive relief should
+     not be granted.
+22
+        As to costs, McMurtry C.J.O. found that there
+     were several considerations that warranted over-
+
+
+
+
+     turning the order that the appellant pay the respondent
+     ’s costs. First, the order required him to pay the
+     costs of his successful appeal to the Supreme Court
+     of Canada. Second, even though the respondent
+     was ultimately successful, it failed on two of the
+     defences it raised at the motions stage and three of
+     the defences it raised at the Court of Appeal. Third,
+     the proceedings raised novel issues. McMurtry
+     C.J.O. found that each party should bear its own
+     costs.
+23
+        Borins J.A., writing in dissent, was of the opinion
+     that the appeal should be allowed. He agreed with
+     most of McMurtry C.J.O.’s reasons, but found that
+     the plaintiff class was entitled to restitution. In his
+     opinion, the motions judge’s finding that the LPPs
+     had enriched the respondent by causing it to have
+     more money than it had before was supported by the
+     evidence and the authorities. Absent material error,
+     he held, it was not properly reviewable.
+24
+        However, Borins J.A. found that the motions
+     judge had erred in law in finding that there was
+     a juristic reason for the enrichment. The motions
+     judge had failed to consider the effect of the
+     Supreme Court of Canada decision that the charges
+     amount to interests at a criminal rate and that s.
+     347 of the Criminal Code prohibits the receipt of
+     such interest. As a result of this decision, Borins
+     J.A. felt that the rate orders ceased to have any
+     legal effect and could not provide a juristic reason
+     for the enrichment. A finding that the rate orders
+     constituted a juristic reason for contravening s.
+     347 also allowed orders of a provincial regulatory
+      authority to override federal criminal law and
+     removed a substantial reason for compliance with
+     s. 347. Thus, he held that allowing the respondent
+643
+[2004] 1 R.C.S.
+
+
+to retain the LPPs was contrary to the federal paramountcy
+ doctrine.
+
+25
+   According to Borins J.A., finding the OEB
+orders to constitute a juristic reason would also be
+
+
+
+
+contrary to the authorities which have applied s.
+347 in the context of commercial obligations. This
+line of cases required consideration of when restitution
+ should have been ordered and for what portion
+ of the amount paid. Finally, it would allow the
+respondent to profit from its own wrongdoing.
+26
+    Borins J.A. was not sympathetic to the respondent
+’s claims that its change of position should allow
+it to keep the money it had collected in contravention
+ of s. 347, even if it could have recovered the
+same amount of money on an altered rate structure.
+He also noted that, in his opinion, the issue of recov-
+erability should have been considered in the context
+of the class action, not on the basis of the represent-
+ative plaintiff’s claim for $75. Borins J.A. would
+have allowed the appeal, set aside the judgment
+dismissing the appellant’s claim, granted partial
+summary judgment, and dismissed the respondent’s
+motion for summary judgment. The appellant would
+have been required to proceed to trial with respect
+to damages. He would also have declared that the
+charging and receipt of LPPs by the respondent vio-
+lates s. 347(1)(b) of the Criminal Code and that the
+LPPs need not be paid by the appellant, and would
+have ordered that the respondent repay the LPPs
+received from the appellant, as determined by the
+trial judge. He would also have ordered costs against
+the respondent.
+27
+  It should be noted that on January 9, 2003,
+McLachlin C.J. stated the following constitutional
+question:
+Are s. 18 of the Ontario Energy Board Act, R.S.O. 1990,
+c. O.13, and s. 25 of the Ontario Energy Board Act, 1998,
+S.O. 1998, c. 15, Sched. B, constitutionally inoperative
+     644
+
+
+     by reason of the paramountcy of s. 347 of the Criminal
+     Code, R.S.C. 1985, c. C-46?
+     As will be clear from the reasons below, I have
+     found it unnecessary to answer the constitutional
+     question.
+
+
+
+
+     IV. Issues
+28
+     1. Does the appellant have a claim for restitution?
+
+           (a) Was the respondent enriched?
+
+           (b) Is there a juristic reason for the enrichment
+           ?
+
+     2. Can the respondent avail itself of any defence?
+
+           (a) Does the change of position defence
+           apply?
+
+           (b) Does s. 18 (now s. 25) of the OEBA (“s.
+           18/25”) shield the respondent from liability?
+
+           (c) Is the appellant engaging in a collateral
+           attack on the orders of the Board?
+
+           (d) Does the “regulated industries” defence
+           exonerate the respondent?
+
+           (e) Does the de facto doctrine exonerate the
+           respondent?
+
+     3. Other orders sought by the appellant
+
+           (a) Should this Court make a preservation
+           order?
+
+           (b) Should this Court make a declaration that
+           the LPPs need not be paid?
+
+           (c) What order should this Court make as to
+           costs?
+645
+[2004] 1 R.C.S.
+
+
+V. Analysis
+29
+   My analysis will proceed as follows. First, I will
+assess the appellant’s claim in unjust enrichment.
+Second, I will determine whether the respondent can
+avail itself of any defences to the appellant’s claim.
+Finally, I will address the other orders sought by the
+
+
+
+
+appellant.
+
+A. Unjust Enrichment
+30
+   As a general matter, the test for unjust enrichment
+ is well established in Canada. The cause of
+action has three elements: (1) an enrichment of the
+defendant; (2) a corresponding deprivation of the
+plaintiff; and (3) an absence of juristic reason for the
+enrichment (Pettkus v. Becker, [1980] 2 S.C.R. 834,
+at p. 848; Peel (Regional Municipality) v. Canada,
+[1992] 3 S.C.R. 762, at p. 784). In this case, the parties
+ are agreed that the second prong of the test has
+been satisfied. I will thus address the first and third
+prongs of the test in turn.
+
+   (a) Enrichment of the Defendant
+31
+   In Peel, supra, at p. 790, McLachlin J. (as she
+then was) noted that the word “enrichment” con-
+notes a tangible benefit which has been conferred on
+the defendant. This benefit, she writes, can be either
+a positive benefit, such as the payment of money, or
+a negative benefit, for example, sparing the defendant
+ an expense which he or she would otherwise
+have incurred. In general, moral and policy arguments
+ have not been considered under this head
+of the test. Rather, as McLachlin J. wrote in Peter,
+supra, at p. 990, “[t]his Court has consistently taken
+a straightforward economic approach to the first two
+elements of the test for unjust enrichment”. Other
+considerations, she held, belong more appropriately
+ under the third element — absence of juristic
+reason.
+32
+   In this case, the transactions at issue are payments
+of money by late payers to the respondent. It seems
+to me that, as such, under the “straightforward
+     646
+
+
+     economic approach” to the benefit analysis, this element
+      is satisfied. Winkler J. followed this approach
+     and was satisfied that the respondent had received a
+     benefit. “Simply stated”, he wrote at para. 95, “as a
+     result of each LPP received by Consumers’ Gas, the
+     company has more money than it had previously and
+     accordingly is enriched.”
+
+
+
+
+33
+         The majority of the Court of Appeal for Ontario
+     disagreed. McMurtry C.J.O. found that while payment
+      of money would normally be a benefit, it
+     was not in this case. He claimed to be applying the
+     “straightforward economic approach” as recommended
+      in Peter, supra, but accepted the respondent
+     ’s argument that because of the rate structure
+     of the OEB, the respondent had not actually been
+     enriched. Because LPPs were part of a scheme
+     designed to recover the respondent’s overall revenue
+     , any increase in LPPs was off-set by a corresponding
+      decrease in regular rates. Thus McMurtry
+     C.J.O. concluded, “[t]he enrichment that follows
+      from the receipt of LPPs is passed on to all
+     [Consumers’ Gas] customers in the form of lower
+     gas delivery rates” (para. 65). As a result, the real
+     beneficiary of the scheme is not the respondent but
+     is rather all of the respondent’s customers.
+34
+         In his dissent, Borins J.A. disagreed with this
+     analysis. He would have held that where there is
+     payment of money, there is little controversy over
+     whether or not a benefit was received and since a
+     payment of money was received in this case, a benefit
+      was conferred on the respondent.
+35
+        The respondent submits that it is not enough that
+     the plaintiff has made a payment; rather, it must
+     also be shown that the defendant is “in possession
+     of a benefit”. It argues that McMurtry C.J.O. had
+     correctly held that the benefit had effectively been
+     passed on to the respondent’s customers, so the
+     respondent could not be said to have retained the
+     benefit. The appellant, on the other hand, maintains
+647
+[2004] 1 R.C.S.
+
+
+that the “straightforward economic approach” from
+Peter, supra, should be applied and any other moral
+or policy considerations should be considered at the
+juristic reason stage of the analysis.
+36
+   I agree with the analysis of Borins J.A. on this
+
+
+
+
+point. The law on this question is relatively clear.
+Where money is transferred from plaintiff to defendant
+, there is an enrichment. Transfer of money so
+clearly confers a benefit that it is the main example
+ used in the case law and by commentators of a
+transaction that meets the threshold for a benefit (see
+Peel, supra, at p. 790; Sharwood & Co. v. Municipal
+Financial Corp. (2001), 53 O.R. (3d) 470 (C.A.), at
+p. 478; P. D. Maddaugh and J. D. McCamus, The
+Law of Restitution (1990), at p. 38; Lord Goff and
+G. Jones, The Law of Restitution (6th ed. 2002), at
+p. 18). There simply is no doubt that Consumers’
+Gas received the monies represented by the LPPs
+and had that money available for use in the carrying
+on of its business. The availability of those funds
+constitutes a benefit to Consumers’ Gas. We are not,
+at this stage, concerned with what happened to this
+benefit in the ongoing operation of the regulatory
+scheme.
+37
+   While the respondent rightly points out that the
+language of “received and retained” has been used
+with respect to the benefit requirement (see, for
+example, Peel, supra, at p. 788), it does not make
+sense that it is a requirement that the benefit be
+retained permanently. The case law does, in fact,
+recognize that it might be unfair to award restitution
+ in cases where the benefit was not retained,
+but it does so after the three steps for a claim in
+unjust enrichment have been made out by recogniz-
+ing a “change of position” defence (see, for example
+, Rural Municipality of Storthoaks v. Mobil Oil
+Canada, Ltd., [1976] 2 S.C.R. 147; RBC Dominion
+Securities Inc. v. Dawson (1994), 111 D.L.R. (4th)
+230 (Nfld. C.A.)). Professor J. S. Ziegel, in his
+comment on the Ontario Court of Appeal decision
+in this case, “Criminal Usury, Class Actions and
+Unjust Enrichment in Canada” (2002), 18 J. Cont.
+L. 121, at p. 126, suggests that McMurtry C.J.O.’s
+reliance on the regulatory framework of the LPP
+     648
+
+
+     in finding that a benefit was not conferred “was
+     really a change of position defence”. I agree with
+     this assessment. Whether recovery should be barred
+     because the benefit was passed on to the respondent
+     ’s other customers ought to be considered under
+     the change of position defence.
+
+
+
+
+        (b) Absence of Juristic Reason
+        (i) General Principles
+38
+        In his original formulation of the test for unjust
+     enrichment in Rathwell v. Rathwell, [1978] 2 S.C.R.
+     436, at p. 455 (adopted in Pettkus, supra, at p. 844),
+     Dickson J. (as he then was) held in his minority reasons
+      that for an action in unjust enrichment to succeed
+     :
+     . . . the facts must display an enrichment, a corresponding
+     deprivation, and the absence of any juristic reason — such
+     as a contract or disposition of law — for the enrichment.
+39
+        Later formulations of the test by this Court have
+     broadened the types of factors that can be considered
+      in the context of the juristic reason analysis. In
+     Peter, supra, at p. 990, McLachlin J. held that:
+     It is at this stage that the court must consider whether the
+     enrichment and detriment, morally neutral in themselves,
+     are “unjust”.
+        . . . The test is flexible, and the factors to be considered
+      may vary with the situation before the court.
+40
+        The “juristic reason” aspect of the test for
+     unjust enrichment has been the subject of much
+     academic commentary and criticism. Much of the
+     discussion arises out of the difference between the
+     ways in which the cause of action of unjust enrichment
+      is conceptualized in Canada and in England.
+     While both Canadian and English causes of action
+     require an enrichment of the defendant and a
+649
+[2004] 1 R.C.S.
+
+
+corresponding deprivation of the plaintiff, the
+Canadian cause of action requires that there be
+“an absence of juristic reason for the enrichment”,
+while English courts require “that the enrichment
+ be unjust” (see discussion in L. Smith, “The
+Mystery of ‘Juristic Reason’” (2000), 12 S.C.L.R.
+(2d) 211, at pp. 212-13). It is not of great use to
+
+
+
+
+speculate on why Dickson J. in Rathwell, supra,
+expressed the third condition as absence of juristic
+ reason but I believe that he may have wanted
+to ensure that the test for unjust enrichment was
+not purely subjective in order to be responsive to
+Martland J.’s criticism in his reasons that application
+ of the doctrine of unjust enrichment contemplated
+ by Dickson J. would require “immeasur-
+able judicial discretion” (p. 473). The importance
+of avoiding a purely subjective standard was also
+stressed by McLachlin J. in her reasons in Peel,
+supra, at p. 802, in which she wrote that the application
+ of the test for unjust enrichment should not
+be “case by case ‘palm tree’ justice”.
+41
+   Perhaps as a result of these two formulations of
+this aspect of the test, Canadian courts and commentators
+ are divided in their approach to juristic
+ reason. As Borins J.A. notes in his dissent (at
+para. 105), while “some judges have taken the
+Pettkus formulation literally and have attempted
+to decide cases by finding a ‘juristic reason’ for a
+defendant’s enrichment, other judges have decided
+cases by asking whether the plaintiff has a positive
+reason for demanding restitution”. In his article,
+“The Mystery of ‘Juristic Reason’”, supra, which
+was cited at length by Borins J.A., Professor Smith
+suggests that it is not clear whether the requirement
+ of “absence of juristic reason” should be
+interpreted literally to require that plaintiffs show
+the absence of a reason for the defendant to keep
+the enrichment or, as in the English model, the
+plaintiff must show a reason for reversing the
+transfer of wealth. Other commentators have
+argued that in fact there is no difference beyond
+semantics between the Canadian and English
+tests (see, for example, M. McInnes, “Unjust
+     650
+
+
+     Enrichment — Restitution — Absence of Juristic
+     Reason: Campbell v. Campbell” (2000), 79 Can.
+     Bar Rev. 459).
+42
+
+
+
+
+        Professor Smith argues that, if there is in fact a
+     distinct Canadian approach to juristic reason, it is
+     problematic because it requires the plaintiff to prove
+     a negative, namely the absence of a juristic reason.
+     Because it is nearly impossible to do this, he suggests
+      that Canada would be better off adopting the
+     British model where the plaintiff must show a positive
+      reason that it would be unjust for the defendant
+     to retain the enrichment. In my view, however, there
+     is a distinctive Canadian approach to juristic reason
+     which should be retained but can be construed in a
+     manner that is responsive to Smith’s criticism.
+43
+     ment is relatively new to Canadian jurisprudence. It
+     requires flexibility for courts to expand the categories
+      of juristic reasons as circumstances require and
+     to deny recovery where to allow it would be inequitable
+     . As McLachlin J. wrote in Peel, supra, at
+     p. 788, the Court’s approach to unjust enrichment,
+     while informed by traditional categories of recovery,
+     “is capable, however, of going beyond them, allowing
+      the law to develop in a flexible way as required
+     to meet changing perceptions of justice”. But at the
+     same time there must also be guidelines that offer
+     trial judges and others some indication of what the
+     boundaries of the cause of action are. The goal is to
+     avoid guidelines that are so general and subjective
+     that uniformity becomes unattainable.
+44
+        The parties and commentators have pointed out
+     that there is no specific authority that settles this
+     question. But recalling that this is an equitable
+     remedy that will necessarily involve discretion and
+     questions of fairness, I believe that some redefini-
+     tion and reformulation is required. Consequently, in
+651
+[2004] 1 R.C.S.
+
+
+my view, the proper approach to the juristic reason
+analysis is in two parts. First, the plaintiff must show
+that no juristic reason from an established category
+exists to deny recovery. By closing the list of categories
+ that the plaintiff must canvass in order to show
+an absence of juristic reason, Smith’s objection to
+the Canadian formulation of the test that it required
+
+
+
+
+proof of a negative is answered. The established categories
+ that can constitute juristic reasons include
+a contract (Pettkus, supra), a disposition of law
+(Pettkus, supra), a donative intent (Peter, supra),
+and other valid common law, equitable or statutory
+ obligations (Peter, supra). If there is no juristic
+reason from an established category, then the plaintiff
+ has made out a prima facie case under the juristic
+ reason component of the analysis.
+45
+   The prima facie case is rebuttable, however,
+where the defendant can show that there is another
+reason to deny recovery. As a result, there is a de
+facto burden of proof placed on the defendant to
+show the reason why the enrichment should be
+retained. This stage of the analysis thus provides for
+a category of residual defence in which courts can
+look to all of the circumstances of the transaction in
+order to determine whether there is another reason
+to deny recovery.
+46
+   As part of the defendant’s attempt to rebut, courts
+should have regard to two factors: the reasonable
+expectations of the parties, and public policy considerations
+. It may be that when these factors are
+considered, the court will find that a new category
+of juristic reason is established. In other cases, a
+consideration of these factors will suggest that there
+was a juristic reason in the particular circumstances
+of a case which does not give rise to a new category
+of juristic reason that should be applied in other factual
+ circumstances. In a third group of cases, a consideration
+ of these factors will yield a determination
+that there was no juristic reason for the enrichment.
+In the latter cases, recovery should be allowed. The
+point here is that this area is an evolving one and
+     652
+
+
+     that further cases will add additional refinements
+     and developments.
+47
+        In my view, this approach to the juristic reason
+     analysis is consistent with the general approach to
+     unjust enrichment endorsed by McLachlin J. in Peel,
+     supra, where she stated that courts must effect a bal-
+
+
+
+
+     ance between the traditional “category” approach
+     according to which a claim for restitution will succeed
+      only if it falls within an established head of
+     recovery, and the modern “principled” approach
+     according to which relief is determined with reference
+      to broad principles. It is also, as discussed by
+     Professor Smith, supra, generally consistent with
+     the approach to unjust enrichment found in the civil
+     law of Quebec (see, for example, arts. 1493 and
+     1494 of the Civil Code of Quebec, S.Q. 1991, c.
+     64).
+        (ii) Application
+48
+        In this case, the only possible juristic reason from
+     an established category that could be used to justify
+     the enrichment is the existence of the OEB orders
+     creating the LPPs under the “disposition of law” category
+     . The OEB orders, however, do not constitute
+     a juristic reason for the enrichment because they are
+     rendered inoperative to the extent of their conflict
+     with s. 347 of the Criminal Code. The plaintiff has
+     thus made out a prima facie case for unjust enrichment
+     .
+49
+     egory of juristic reason. In Rathwell, supra, Dickson
+     J. gave as examples of juristic reasons “a contract
+      or disposition of law” (p. 455). In Reference
+     re Goods and Services Tax, [1992] 2 S.C.R. 445
+     (“GST Reference”), Lamer C.J. held that a valid
+     statute is a juristic reason barring recovery in unjust
+     enrichment. This was affirmed in Peter, supra, at
+     p. 1018. Most recently, in Mack v. Canada (Attorney
+     General) (2002), 60 O.R. (3d) 737, the Ontario
+     Court of Appeal held that the legislation which created
+      the Chinese head tax provided a juristic reason
+     which prevented recovery of the head tax in unjust
+653
+[2004] 1 R.C.S.
+
+
+enrichment. In the leading Canadian text, The Law
+of Restitution, supra, McCamus and Maddaugh discuss
+ the phrase “disposition of law” from Rathwell,
+supra, stating, at p. 46:
+
+
+
+
+. . . it is perhaps self-evident that an unjust enrichment
+will not be established in any case where enrichment of
+the defendant at the plaintiff’s expense is required by
+law.
+It seems clear, then, that valid legislation can provide
+ a juristic reason which bars recovery in restitution
+.
+50
+    Consumers’ Gas submits that the LPPs were
+authorized by the Board’s rate orders which qualify
+as a disposition of law. It seems to me that this sub-
+mission is predicated on the validity and operability
+of this scheme. The scheme has been challenged by
+the appellant on the basis that it conflicts with s. 347
+of the Criminal Code and, as a result of the doctrine
+of paramountcy, is consequently inoperative. In the
+GST Reference, supra, Lamer C.J. held that legislation
+ provides a juristic reason “unless the statute
+itself is ultra vires” (p. 477). Given that legislation
+that would have been ultra vires the province cannot
+provide a juristic reason, the same principle should
+apply if the provincial legislation is inoperative by
+virtue of the paramountcy doctrine. This position is
+contemplated by Borins J.A. in his dissent when he
+wrote, at para. 149:
+In my view, it would be wrong to say that the rate orders
+do not provide [Consumers’ Gas] with a defence under s.
+18 of the OEBA because they have been rendered inoperative
+ by the doctrine of federal paramountcy, and then
+to breathe life into them for the purpose of finding that
+they constitute a juristic reason for [Consumers’ Gas’s]
+enrichment.
+51
+   As a result, the question of whether the statutory
+framework can serve as a juristic reason depends on
+whether the provision is held to be inoperative. If the
+     654
+
+
+     OEB orders are constitutionally valid and operative,
+     they provide a juristic reason which bars recovery.
+     Conversely, if the scheme is inoperative by virtue of
+     a conflict with s. 347 of the Criminal Code, then a
+     juristic reason is not present. In my view, the OEB
+     rate orders are constitutionally inoperative to the
+     extent of their conflict with s. 347 of the Criminal
+
+
+
+
+     Code.
+52
+        The OEB rate orders require the receipt of LPPs
+     at what is often a criminal rate of interest. Such
+     receipt is prohibited by s. 347 of the Criminal Code.
+     Both the OEB rate orders and s. 347 of the Criminal
+     Code are intra vires the level of government that
+     enacted them. The rate orders are intra vires the
+     province by virtue of s. 92(13) (property and civil
+     rights) of the Constitution Act, 1867. Section 347 of
+     the Criminal Code is intra vires the federal government
+      by virtue of s. 91(19) (interest) and s. 91(27)
+     (criminal law power).
+53
+         It should be noted that the Board orders at issue
+     did not require Consumers’ Gas to collect the LPPs
+     within a period of 38 days. One could then make
+     the argument that this was not an express operational
+      conflict. But to my mind this is somewhat
+     artificial. I say this because at bottom it is a necessary
+      implication of the OEB orders to require payment
+      within this period. In that respect it should
+     be treated as an express order for purposes of the
+     paramountcy analysis. Consequently, there is an
+     express operational conflict between the rate orders
+     and s. 347 of the Criminal Code in that it is impossible
+      for Consumers’ Gas to comply with both
+     provisions. Where there is an actual operational
+     conflict, it is well settled that the provincial law is
+     inoperative to the extent of the conflict (Multiple
+     Access Ltd. v. McCutcheon, [1982] 2 S.C.R. 161, at
+     p. 191; M & D Farm Ltd. v. Manitoba Agricultural
+     Credit Corp., [1999] 2 S.C.R. 961). As a result,
+     the Board orders are constitutionally inoperative.
+     Because the Board orders are constitutionally
+     inoperative, they do not provide a juristic reason.
+     It therefore falls to Consumers’ Gas to show that
+     there was a juristic reason for the enrichment
+655
+[2004] 1 R.C.S.
+
+
+outside the established categories in order to rebut
+the prima facie case made out by the appellant.
+54
+   The second stage of juristic reason analysis
+requires a consideration of reasonable expectations
+of the parties and public policy considerations.
+
+
+
+
+55
+   When the reasonable expectations of the parties
+are considered, Consumers’ Gas’s submissions are
+at first blush compelling. Consumers’ Gas submits,
+on the one hand, that late payers cannot have reasonably
+ expected that there would be no penalty for
+failing to pay their bills on time and, on the other
+hand, that Consumers’ Gas could reasonably have
+expected that the OEB would not authorize an LPP
+scheme that violated the Criminal Code. Because
+Consumers’ Gas is operating in a regulated environment
+, its reliance on OEB orders should be given
+some weight. An inability to rely on such orders
+would make it very difficult, if not impossible, to
+operate in this environment. At this point, it should
+be pointed out that the reasonable expectation of
+the parties regarding LPPs is achieved by restrict-
+ing the LPPs to the limit prescribed by s. 347 of the
+Criminal Code and also would be consistent with
+this Court’s decision in Transport North American
+Express Inc. v. New Solutions Financial Corp.,
+[2004] 1 S.C.R. 249, 2004 SCC 7.
+56
+   Consumers’ Gas’s reliance on the orders would
+not provide a defence if it was charged under s. 347
+of the Criminal Code because the orders are inoperative
+ to the extent of their conflict with s. 347.
+However, its reliance on the orders is relevant in
+the context of determining the reasonable expectations
+ of the parties in this second stage of the juristic
+reason analysis.
+57
+   Finally, the overriding public policy consideration
+ in this case is the fact that the LPPs were collected
+ in contravention of the Criminal Code. As a
+matter of public policy, a criminal should not be permitted
+ to keep the proceeds of his crime (Oldfield
+v. Transamerica Life Insurance Co. of Canada,
+[2002] 1 S.C.R. 742, 2002 SCC 22, at para. 11;
+     656
+
+
+     New Solutions, supra). Borins J.A. focussed on this
+     public policy consideration in his dissent. He held
+     that, in light of this Court’s decision in Garland No.
+     1, allowing Consumers’ Gas to retain the LPPs collected
+      in violation of s. 347 would let Consumers’
+     Gas profit from a crime and benefit from its own
+     wrongdoing.
+
+
+
+
+58
+        In weighing these considerations, from 1981-
+     1994, Consumers’ Gas’s reliance on the inoperative
+     OEB orders provides a juristic reason for the enrichment
+     . As the parties have argued, there are three
+     possible dates from which to measure the unjust
+     enrichment: 1981, when s. 347 of the Criminal
+     Code was enacted, 1994, when this action was commenced
+     , and 1998, when this Court held in Garland
+     No. 1 that the LPPs were limited by s. 347 of the
+     Criminal Code. For the period between 1981 and
+     1994, when the current action was commenced,
+     there is no suggestion that Consumers’ Gas was
+     aware that the LPPs violated s. 347 of the Criminal
+     Code. This mitigates in favour of Consumers’ Gas
+     during this period. The reliance of Consumers’ Gas
+     on the OEB orders, in the absence of actual or con-
+     structive notice that the orders were inoperative, is
+     sufficient to provide a juristic reason for Consumers’
+     Gas’s enrichment during this first period.
+59
+        However, in 1994, when this action was commenced
+     , Consumers’ Gas was put on notice of
+     the serious possibility that it was violating the
+     Criminal Code in charging the LPPs. This possibility
+      became a reality when this Court held
+     that the LPPs were in excess of the s. 347 limit.
+     Consumers’ Gas could have requested that the
+     OEB alter its rate structure until the matter was
+     adjudicated in order to ensure that it was not in
+     violation of the Criminal Code or asked for contin-
+     gency arrangements to be made. Its decision not to
+     do this, as counsel for the appellant pointed out in
+     oral submissions, was a “gamble”. After the action
+     was commenced and Consumers’ Gas was put
+     on notice that there was a serious possibility the
+     LPPs violated the Criminal Code, it was no longer
+657
+[2004] 1 R.C.S.
+
+
+reasonable for Consumers’ Gas to rely on the OEB
+rate orders to authorize the LPPs.
+60
+   Moreover, once this Court held that LPPs were
+offside, for purposes of unjust enrichment, it is
+logical and fair to choose the date on which the
+action for redress commenced. Awarding restitution
+
+
+
+
+ from 1981 would be unfair to the respondent
+since it was entitled to reasonably rely on the OEB
+orders until the commencement of this action in
+1994. Awarding restitution from 1998 would be
+unfair to the appellant. This is because it would
+permit the respondent to retain LPPs collected
+in violation of s. 347 after 1994 when it was no
+longer reasonable for the respondent to have relied
+on the OEB orders and the respondent should be
+presumed to have known the LPPs violated the
+Criminal Code. Further, awarding restitution from
+1998 would deviate from the general rule that
+monetary remedies like damages and interest are
+awarded as of the date of occurrence of the breach
+or as of the date of action rather than the date of
+judgment.
+
+61
+   Awarding restitution from 1994 appropriately
+balances the respondent’s reliance on the OEB
+orders from 1981-1994 with the appellant’s expectation
+ of recovery of monies that were charged
+in violation of the Criminal Code once the serious
+ possibility that the OEB orders were inoperative
+ had been raised. As a result, as of the date
+this action was commenced in 1994, it was no
+longer reasonable for Consumers’ Gas to rely on
+the OEB orders to insulate them from liability in
+a civil action of this type for collecting LPPs in
+contravention of the Criminal Code. Thus, after
+the action was commenced in 1994, there was no
+longer a juristic reason for the enrichment of the
+respondent, so the appellant is entitled to restitution
+ of the portion of monies paid to satisfy LPPs
+that exceeded an interest rate of 60 percent, as
+defined in s. 347 of the Criminal Code.
+     658
+
+
+     B. Defences
+62
+         Having held that the appellant’s claim for unjust
+     enrichment is made out for LPPs paid after 1994,
+     it remains to be determined whether the respondent
+      can avail itself of any defences raised. It is only
+     necessary to consider the defences for the period
+     after 1994, when the elements of unjust enrichment
+
+
+
+
+     are made out, and thus I will not consider whether
+     the defences would have applied if there had been
+     unjust enrichment before 1994. I will address each
+     defence in turn.
+        (a) Change of Position Defence
+63
+     are made out, the remedy of restitution will be
+     denied where an innocent defendant demonstrates
+     that it has materially changed its position as a result
+     of an enrichment such that it would be inequitable
+     to require the benefit to be returned (Storthoaks,
+     supra). In this case, the respondent says that any
+     “benefit” it received from the unlawful charges was
+     passed on to other customers in the form of lower
+     gas delivery rates. Having “passed on” the benefit
+     , it says, it should not be required to disgorge
+     the amount of the benefit (a second time) to overcharged
+      customers such as the appellant. The issue
+     here, however, is not the ultimate destination within
+     the regulatory system of an amount of money equivalent
+      to the unlawful overcharges, nor is this case
+     concerned with the net impact of these overcharges
+     on the respondent’s financial position. The issue is
+     whether, as between the overcharging respondent
+     and the overcharged appellant, the passing of the
+     benefit on to other customers excuses the respondent
+      of having overcharged the appellant.
+64
+        The appellant submits that the defence of change
+     of position is not available to a defendant who is
+     a wrongdoer and that, since the respondent in this
+     case was enriched by its own criminal misconduct, it
+     should not be permitted to avail itself of the defence.
+     I agree. The rationale for the change of position
+659
+[2004] 1 R.C.S.
+
+
+defence appears to flow from considerations of
+equity. G. H. L. Fridman writes that “[o]ne situation
+ which would appear to render it inequitable
+for the defendant to be required to disgorge a benefit
+ received from the plaintiff in the absence of any
+wrongdoing on the part of the defendant would be if
+he has changed his position for the worse as a result
+
+
+
+
+of the receipt of the money in question” (Restitution
+(2nd ed. 1992), at p. 458). In the leading British case
+on the defence, Lipkin Gorman v. Karpnale Ltd.,
+[1992] 4 All E.R. 512 (H.L.), Lord Goff stated (at
+p. 533):
+[I]t is right that we should ask ourselves: why do we feel
+that it would be unjust to allow restitution in cases such
+as these [where the defendant has changed his or her
+position]? The answer must be that, where an innocent
+defendant’s position is so changed that he will suffer
+an injustice if called upon to repay or to repay in full,
+the injustice of requiring him so to repay outweighs the
+injustice of denying the plaintiff restitution.
+65
+   If the change of position defence is intended to
+prevent injustice from occurring, the whole of the
+plaintiff’s and defendant’s conduct during the course
+of the transaction should be open to scrutiny in order
+to determine which party has a better claim. Where
+a defendant has obtained the enrichment through
+some wrongdoing of his own, he cannot then assert
+that it would be unjust to return the enrichment to
+the plaintiff. In this case, the respondent cannot
+avail itself of this defence because the LPPs were
+obtained in contravention of the Criminal Code and,
+as a result, it cannot be unjust for the respondent to
+have to return them.
+66
+    Thus, the change of position defence does not
+help the respondent in this case. Even assuming that
+the respondent would have met the other requirements
+ set out in Storthoaks, supra, the respondent
+cannot avail itself of the defence because it is not
+an “innocent” defendant given that the benefit was
+received as a result of a Criminal Code violation.
+It is not necessary, as a result, to discuss change of
+position in a comprehensive manner and I leave a
+     660
+
+
+     fuller development of the other elements of this
+     defence to future cases.
+        (b) Section 18/25 of the Ontario Energy Board
+            Act
+
+
+
+
+67
+        The respondent raises a statutory defence found
+     formerly in s. 18 and presently in s. 25 of the 1998
+     OEBA. The former and the present sections are iden-
+     tical, and read:
+     An order of the Board is a good and sufficient defence
+     to any proceeding brought or taken against any person
+     in so far as the act or omission that is the subject of the
+     proceeding is in accordance with the order.
+     I agree with McMurtry C.J.O. that this defence
+     should be read down so as to exclude protection
+     from civil liability damage arising out of Criminal
+     Code violations. As a result, the defence does not
+     apply in this case and we do not have to consider the
+     constitutionality of the section.
+68
+     legislative provisions purporting to restrict a citizen
+     ’s rights of action should attract strict construction
+      (Berardinelli, supra). In this case, I again agree
+     with McMurtry C.J.O. that the legislature could not
+     reasonably be believed to have contemplated that an
+     OEB order could mandate criminal conduct, despite
+     the broad wording of the section. Section 18/25,
+     thus, cannot provide a defence to an action for
+     restitution arising from an OEB order authorizing
+     criminal conduct. As a consequence, like McMurtry
+     C.J.O., I find the argument on s. 18/25 to be unper-
+     suasive.
+69
+        Because I find that it could not have been the
+     intention of the legislature to bar civil claims stem-
+     ming from acts that offend the Criminal Code,
+     on a strict construction, s. 18/25 cannot protect
+     Consumers’ Gas from these types of claims. If the
+661
+[2004] 1 R.C.S.
+
+
+provincial legislature had wanted to eliminate the
+possibility of such actions, it should have done
+so explicitly in the provision. In the absence of
+such explicit provision, s. 18/25 must be read so
+as to exclude from its protection civil actions arising
+ from violations of the Criminal Code and thus
+does not provide a defence for the respondent in this
+
+
+
+
+case.
+   (c) Exclusive Jurisdiction and Collateral Attack
+70
+   McMurtry C.J.O. was also correct in his holding
+that the OEB does not have exclusive jurisdiction
+over this dispute. While the dispute does involve rate
+orders, at its heart it is a private law matter under
+the competence of civil courts and consequently the
+Board does not have jurisdiction to order the remedy
+sought by the appellant.
+71
+   In addition, McMurtry C.J.O. is correct in holding
+ that this action does not constitute an impermissible
+ collateral attack on the OEB’s order. The
+doctrine of collateral attack prevents a party from
+undermining previous orders issued by a court
+or administrative tribunal (see Toronto (City) v.
+C.U.P.E., Local 79, [2003] 3 S.C.R. 77, 2003 SCC
+63; D. J. Lange, The Doctrine of Res Judicata in
+Canada (2000), at pp. 369-70). Generally, it is
+invoked where the party is attempting to challenge
+ the validity of a binding order in the wrong
+forum, in the sense that the validity of the order
+comes into question in separate proceedings when
+that party has not used the direct attack procedures
+that were open to it (i.e., appeal or judicial review).
+In Wilson v. The Queen, [1983] 2 S.C.R. 594, at
+p. 599, this Court described the rule against collateral
+ attack as follows:
+
+It has long been a fundamental rule that a court order,
+made by a court having jurisdiction to make it, stands
+and is binding and conclusive unless it is set aside on
+appeal or lawfully quashed. It is also well settled in
+the authorities that such an order may not be attacked
+     662
+
+
+     collaterally — and a collateral attack may be described
+     as an attack made in proceedings other than those whose
+     specific object is the reversal, variation, or nullification of
+     the order or judgment.
+     Based on a plain reading of this rule, the doctrine of
+     collateral attack does not apply in this case because
+
+
+
+
+     here the specific object of the appellant’s action is
+     not to invalidate or render inoperative the Board’s
+     orders, but rather to recover money that was illegally
+     collected by the respondent as a result of Board
+     orders. Consequently, the collateral attack doctrine
+     does not apply.
+72
+        Moreover, the appellant’s case lacks other hall-
+     marks of collateral attack. As McMurtry C.J.O.
+     points out at para. 30 of his reasons, the collateral
+     attack cases all involve a party, bound by an order,
+     seeking to avoid the effect of that order by challenging
+      its validity in the wrong forum. In this case, the
+     appellant is not bound by the Board’s orders, therefore
+      the rationale behind the rule is not invoked.
+     The fundamental policy behind the rule against collateral
+      attack is to “maintain the rule of law and to
+     preserve the repute of the administration of justice”
+     (R. v. Litchfield, [1993] 4 S.C.R. 333, at p. 349). The
+     idea is that if a party could avoid the consequences
+     of an order issued against it by going to another
+     forum, this would undermine the integrity of the justice
+      system. Consequently, the doctrine is intended
+     to prevent a party from circumventing the effect of a
+     decision rendered against it.
+73
+        In this case, the appellant is not the object of the
+     orders and thus there can be no concern that he is
+     seeking to avoid the orders by bringing this action.
+     As a result, a threat to the integrity of the system
+     does not exist because the appellant is not legally
+     bound to follow the orders. Thus, this action does
+     not appear, in fact, to be a collateral attack on the
+     Board’s orders.
+663
+[2004] 1 R.C.S.
+
+
+   (d) The Regulated Industries Defence
+74
+   The respondent submits that it can avail itself of
+the “regulated industries defence” to bar recovery in
+restitution because an act authorized by a valid provincial
+ regulatory scheme cannot be contrary to the
+public interest or an offence against the state and, as
+
+
+
+
+a result, the collection of LPPs pursuant to orders
+issued by the OEB cannot be considered to be contrary
+ to the public interest and thus cannot be contrary
+ to s. 347 of the Criminal Code.
+75
+   Winkler J. held that the underlying purpose of
+the defence, regulation of monopolistic industries in
+order to ensure “just and reasonable” rates for consumers
+, would be served in the circumstances and as
+a result the defence would normally apply. However,
+because of the statutory language of s. 347, Winkler
+J. determined that the defence was not permitted in
+this case. He wrote, at para. 34, “[t]he defendant can
+point to no case which allows the defence unless the
+federal statute in question uses the word ‘unduly’ or
+the phrase ‘in the public interest’”. Absent such rec-
+ognition in the statute of “public interest”, he held,
+no leeway for provincial exceptions exist.
+76
+   I agree with the approach of Winkler J. The principle
+ underlying the application of the defence is
+delineated in Attorney General of Canada v. Law
+Society of British Columbia, [1982] 2 S.C.R. 307, at
+p. 356:
+When a federal statute can be properly interpreted so as
+not to interfere with a provincial statute, such an interpretation
+ is to be applied in preference to another applicable
+construction which would bring about a conflict between
+the two statutes.
+Estey J. reached this conclusion after canvassing
+the cases in which the regulated industries defence
+had been applied. Those cases all involved conflict
+between federal competition law and a provincial
+ regulatory scheme, but the application of the
+     664
+
+
+     defence in those cases had to do with the particular
+     wording of the statutes in question. While I cannot
+     see a principled reason why the defence should not
+     be broadened to apply to cases outside the area of
+     competition law, its application should flow from
+     the above enunciated principle.
+
+
+
+
+77
+        Winkler J. was correct in concluding that, in order
+     for the regulated industries defence to be available
+     to the respondent, Parliament needed to have indicated
+     , either expressly or by necessary implication,
+     that s. 347 of the Criminal Code granted leeway to
+     those acting pursuant to a valid provincial regulatory
+      scheme. If there were any such indication, I
+     would say that it should be interpreted, in keeping
+     with the above principle, not to interfere with the
+     provincial regulatory scheme. But s. 347 does not
+     contain the required indication for exempting a provincial
+      scheme.
+78
+         This view is further supported by this Court’s
+     decision in R. v. Jorgensen, [1995] 4 S.C.R. 55. In
+     that case, the accused was charged with “‘know-
+     ingly’ selling obscene material ‘without lawful justification
+      or excuse’” (para. 44). The accused argued
+     that the Ontario Film Review Board had approved
+     the videotapes, therefore it had a lawful justification
+     or excuse. This Court considered whether approval
+     by a provincial body could displace a criminal
+     charge. Sopinka J., for the majority, held that in
+     order to exempt acts taken pursuant to a provincial
+     regulatory body from the reach of the criminal law,
+     Parliament must unequivocally express this intention
+      in the legislative provision in issue (at para.
+     118):
+        While Parliament has the authority to introduce dis-
+     pensation or exemption from criminal law in determining
+      what is and what is not criminal, and may do so by
+     authorizing a provincial body or official acting under provincial
+      legislation to issue licences and the like, an intent
+     to do so must be made plain.
+665
+[2004] 1 R.C.S.
+
+
+79
+   The question of whether the regulated industries
+defence can apply to the respondent is actually a
+question of whether s. 347 of the Criminal Code can
+support the notion that a valid provincial regulatory
+scheme cannot be contrary to the public interest or
+an offence against the state. In the previous cases
+involving the regulated industries defence, the language
+
+
+
+
+ of “the public interest” and “unduly” limiting
+competition has always been present. The absence
+of such language from s. 347 of the Criminal Code
+precludes the application of this defence in this
+case.
+
+   (e) De Facto Doctrine
+80
+    Consumers’ Gas submits that because it was
+acting pursuant to a disposition of law that was valid
+at the time — the Board orders — they should be
+exempt from liability by virtue of the de facto doctrine
+. This argument cannot succeed. Consumers’
+Gas is not a government official acting under colour
+of authority. While the respondent points to the
+Board orders as justification for its actions, this does
+not bring the respondent into the purview of the de
+facto doctrine because the case law does not support
+ extending the doctrine’s application beyond
+the acts of government officials. The underlying
+purpose of the doctrine is to preserve law and order
+and the authority of the government. These interests
+are not at stake in the instant litigation. As a result,
+Consumers’ Gas cannot rely on the de facto doctrine
+to resist the plaintiff’s claim.
+
+81
+   Furthermore, the de facto doctrine attaches to
+government and its officials in order to protect and
+maintain the rule of law and the authority of government
+. An extension of the doctrine to a private
+corporation that is simply regulated by a government
+ authority is not supported by the case law and
+in my view does not further the underlying purpose
+of the doctrine. In Reference re Manitoba Language
+Rights, [1985] 1 S.C.R. 721, this Court held, at
+p. 756, that:
+     666
+
+
+        There is only one true condition precedent to the
+     application of the doctrine: the de facto officer must
+     occupy his or her office under colour of authority.
+
+     It cannot be said that Consumers’ Gas was a de
+     facto officer acting under colour of authority when
+     it charged LPPs to customers. Consumers’ Gas is a
+     private corporation acting in a regulatory context,
+
+
+
+
+     not an officer vested with some sort of authority.
+     When charging LPPs, Consumers’ Gas is engaging
+      in commerce, not issuing a permit or passing
+     a by-law.
+82
+         In rejecting the application of the de facto
+     doctrine here, I am cognizant of the passage in
+     Reference re Manitoba Language Rights, at p. 757,
+     cited by the intervener Toronto Hydro and which, at
+     first glance, appears to imply that the de facto doctrine
+      might apply to private corporations:
+
+     . . . the de facto doctrine will save those rights, obligations
+      and other effects which have arisen out of actions
+     performed pursuant to invalid Acts of the Manitoba
+     Legislature by public and private bodies corporate,
+     courts, judges, persons exercising statutory powers and
+     public officials. [Emphasis added.]
+83
+        While this passage appears to indicate that “private
+      bodies corporate” are protected by the doctrine,
+     it must be read in the context of the entire judgment.
+     Earlier, at p. 755, the Court referred to the writings
+     of Judge A. Constantineau in The De Facto Doctrine
+     (1910), at pp. 3-4. The following excerpt from that
+     passage is relevant:
+
+        The de facto doctrine is a rule or principle of law
+     which . . . recognizes the existence of, and protects from
+     collateral attack, public or private bodies corporate,
+     which, though irregularly or illegally organized, yet,
+     under color of law, openly exercise the powers and func-
+     tions of regularly created bodies . . . . [Emphasis added.]
+
+     In this passage, I think it is clear that the Court’s
+     reference to “private bodies corporate” is limited
+     to issues affecting the creation of the corporation,
+     for example where a corporation was incorporated
+     under an invalid statute. It does not suggest that the
+667
+[2004] 1 R.C.S.
+
+
+acts of the corporation are shielded from liability by
+virtue of the de facto doctrine.
+84
+  This view finds further support in the following
+passage from the judgment (at p. 755):
+That the foundation of the principle is the more fundamental
+
+
+
+
+ principle of the rule of law is clearly stated by
+Constantineau in the following passage (at pp. 5-6):
+   Again, the doctrine is necessary to maintain the
+   supremacy of the law and to preserve peace and order
+   in the community at large, since any other rule would
+   lead to such uncertainty and confusion, as to break up
+   the order and quiet of all civil administration. Indeed,
+   if any individual or body of individuals were permitted
+   , at his or their pleasure, to challenge the authority
+   of and refuse obedience to the government of the
+   state and the numerous functionaries through whom
+   it exercises its various powers, or refuse to recognize
+   municipal bodies and their officers, on the ground of
+   irregular existence or defective titles, insubordination
+   and disorder of the worst kind would be encouraged,
+   which might at any time culminate in anarchy.
+The underlying purpose of the doctrine is to preserve
+ law and order and the authority of the government
+. These interests are not at stake in the instant
+litigation. In sum, I find no merit in Consumers’
+Gas’s argument that the de facto doctrine shields it
+from liability and as a result this doctrine should not
+be a bar to the appellant’s recovery.
+
+C. Other Orders Requested
+   (a) Preservation Order
+85
+   The appellant, Garland, requests an “Amax-type”
+preservation order on the basis that the LPPs con-
+tinue to be collected at a criminal rate during the
+pendency of this action, and these payments would
+never have been made but for the delays inherent
+in litigation (Amax Potash Ltd. v. Government of
+Saskatchewan, [1977] 2 S.C.R. 576). In my view,
+however, a preservation order is not appropriate in
+this case. Consumers’ Gas has now ceased to collect
+the LPPs at a criminal rate. As a result, if a preservation
+ order were made, there would be no future
+     668
+
+
+     LPPs to which it could attach. Even with respect
+     to the LPPs paid between 1994 and the present, to
+     which such an order could attach, a preservation
+     order should not be granted for three further reasons
+     : (1) such an order would serve no practical purpose
+     , (2) the appellant has not satisfied the criteria in
+     the Ontario Rules of Civil Procedure, R.R.O. 1990,
+
+
+
+
+     Reg. 194, and (3) Amax can be distinguished from
+     this case.
+86
+        First, the appellant has not alleged that
+     Consumers’ Gas is an impecunious defendant or that
+     there is any other reason to believe that Consumers’
+     Gas would not satisfy a judgment against it. Even if
+     there were some reason to believe that Consumers’
+     Gas would not satisfy such a judgment, an Amax-
+     type order allows the defendant to spend the monies
+     being held in the ordinary course of business — no
+     actual fund would be created. So the only thing that
+     a preservation order would achieve would be to prevent
+      Consumers’ Gas from spending the money
+     earned from the LPPs in a non-ordinary manner (for
+     example, such as moving it off-shore) which the
+     appellant has not alleged is likely to occur absent
+     the order.
+87
+        Second, the respondent submits that by seeking
+      a preservation order the appellant is attempting
+     to avoid Rule 45.02 of the Ontario Rules of Civil
+     Procedure, the only source of jurisdiction in Ontario
+     to make a preservation order. The Rules of Civil
+     Procedure apply to class proceedings and do not
+     permit such an order in these circumstances. Rule
+     45.02 provides that, “[w]here the right of a party to
+     a specific fund is in question, the court may order
+     the fund to be paid into court or otherwise secured
+     on such terms as are just” (emphasis added). The
+     respondent submits that the appellant is not in fact
+     claiming a specific fund here. In the absence of submissions
+      by the appellant on this issue, I am of the
+     view that the appellant has not satisfied the criteria
+      set out in the Ontario Rules of Civil Procedure
+     and that this Court could refuse to grant the order
+     requested on this basis.
+669
+[2004] 1 R.C.S.
+
+
+88
+   Finally, the appellant’s use of Amax, supra, as
+authority for the type of order sought is without
+merit. The appellant has cited the judgment very
+selectively. The portion of the judgment the appellant
+ cites in his written submissions reads in full (at
+p. 598):
+Apart from the Rules this Court has the discretion to
+
+
+
+
+make an order as requested by appellants directing
+the Province of Saskatchewan to hold, as stakeholder,
+such sums as are paid by the appellants pursuant to the
+impugned legislation but with the right to use such sums
+in the interim for Provincial purposes, and with the obli-
+gation to repay them with interest in the event the legislation
+ is ultimately held to be ultra vires. Such an order,
+however, would be novel, in giving the stakeholder the
+right to spend the moneys at stake, and I cannot see that it
+would serve any practical purpose. [Emphasis added.]
+The Court in Amax went on to refuse to make the
+order. So while the appellant is right that the Court
+in Amax failed to reject the hypothetical possibility
+of making such an order in the future, it seems to me
+that in this case, as in Amax, such an order would
+serve no practical purpose. For these reasons, I find
+there is no basis for making a preservation order in
+this case.
+
+   (b) Declaration That the LPPs Need Not Be
+       Paid
+89
+   The appellant also seeks a declaration that the
+LPPs need not be paid. Given that the respondent
+asserts that the LPP is no longer charged at a criminal
+ rate, issuing such a declaration would serve no
+practical purpose and as a result such a declaration
+should not be made.
+
+   (c) Costs
+90
+   The appellant is entitled to his costs throughout.
+This should be understood to mean that, regardless
+of the outcome of any future litigation, the appellant
+is entitled to his costs in the proceedings leading up
+to and including Garland No. 1 and this appeal. In
+addition, in oral submissions counsel for the Law
+Foundation of Ontario made the point that in order
+to reduce costs in future class actions, “litigation by
+installments”, as occurred in this case, should be
+     670
+
+
+     avoided. I agree. On this issue, I endorse the com-
+     ments of McMurtry C.J.O., at para. 76 of his reasons
+     :
+     In this context, I note that the protracted history of these
+     proceedings cast some doubt on the wisdom of hearing a
+
+
+
+
+     case in instalments, as was done here. Before employing
+     an instalment approach, it should be considered whether
+     there is potential for such a procedure to result in multiple
+      rounds of proceedings through various levels of court.
+     Such an eventuality is to be avoided where possible, as it
+     does little service to the parties or to the efficient administration
+      of justice.
+     VI. Disposition
+91
+        For the foregoing reasons, I would allow the
+     appeal with costs throughout, set aside the judgment
+      of the Ontario Court of Appeal, and substitute
+     therefor an order that Consumers’ Gas repay LPPs
+     collected from the appellant in excess of the interest
+     limit stipulated in s. 347 after the action was commenced
+      in 1994 in an amount to be determined by
+     the trial judge.
+
+        Appeal allowed with costs.
+
+       Solicitors for the appellant: McGowan Elliott &
+     Kim, Toronto.
+
+        Solicitors for the respondent: Aird & Berlis,
+     Toronto.
+
+        Solicitor for the intervener the Attorney General
+     of Canada: Deputy Attorney General of Canada,
+     Ottawa.
+
+        Solicitor for the intervener the Attorney General
+     for Saskatchewan: Deputy Attorney General for
+     Saskatchewan, Regina.
+
+        Solicitors for the intervener Toronto Hydro-
+     Electric System Limited: Ogilvy Renault, Toronto.
+
+        Solicitor for the intervener the Law Foundation
+     of Ontario: Mark M. Orkin, Toronto.
+671
+[2004] 1 R.C.S.
+
+
+  Solicitors for the intervener Union Gas Limited:
+Torys, Toronto.
+
+
+
+

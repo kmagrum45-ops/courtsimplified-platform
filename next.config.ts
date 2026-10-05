@@ -18,7 +18,7 @@ function caseSection(source: string, section: string) {
  * ones that run it; without these files there they find no index and the
  * analysis runs without retrieval.
  */
-const RETRIEVAL_FILES = ["./docs/sources/retrieval/**", "./docs/sources/corpus/*.txt"];
+const RETRIEVAL_FILES = ["./docs/sources/retrieval/**", "./docs/sources/corpus/*.txt", "./docs/sources/decisions/*.txt"];
 
 const nextConfig: NextConfig = {
   outputFileTracingIncludes: {

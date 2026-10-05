@@ -1,0 +1,2762 @@
+362
+
+
+Honda Canada Inc., operating as Honda of
+Canada Mfg. Appellant/Respondent on
+cross-appeal
+
+v.
+
+Kevin Keays
+appeal
+
+and
+
+Canadian Human Rights Commission,
+Ontario Human Rights Commission,
+Manitoba Human Rights Commission,
+Alliance of Manufacturers & Exporters
+Canada, Human Resources Professionals
+Association of Ontario, National ME/FM
+Action Network, Council of Canadians with
+Disabilities, Women’s Legal Education and
+Action Fund and Ontario Network of Injured
+Workers’ Groups Interveners
+
+Indexed as: Honda Canada Inc. v. Keays
+Neutral citation: 2008 SCC 39.
+File No.: 31739.
+2008: February 20; 2008: June 27.
+Present: McLachlin C.J. and Bastarache, Binnie, LeBel,
+Deschamps, Fish, Abella, Charron and Rothstein JJ.
+
+on appeal from the court of appeal for
+ontario
+   Employment law — Wrongful dismissal — Notice
+period — Employee terminated after 14 years of employment
+ — Factors determining reasonable notice of termination
+ of employment — Whether employee’s position in
+company hierarchy relevant factor — Whether 15-month
+notice period reasonable.
+   Damages — Aggravated damages — Punitive damages
+ — Wrongful dismissal — Employee diagnosed with
+chronic fatigue syndrome — Employer concerned about
+363
+[2008] 2 R.C.S.
+
+
+employee’s numerous absences and about his doctor’s
+notes to cover absences, which provided only limited
+information — Employee dismissed after refusing to
+meet with employer’s doctor — Circumstances in which
+aggravated damages resulting from manner of dismissal
+should be awarded — Whether employee entitled to
+aggravated and punitive damages.
+   Civil procedure — Costs — Costs premium — Whether
+costs premium should be awarded — Whether costs
+should be awarded on substantial indemnity scale.
+   K had worked 11 years for the same employer, first
+on an assembly line and later in data entry, when, in
+1997, he was diagnosed with chronic fatigue syndrome.
+He ceased work and received disability benefits until
+1998, when his employer’s insurer discontinued his
+benefits. K returned to work and was placed in a disability
+ program that allows employees to take absences
+from work if they provide doctor’s notes confirming
+that their absences are related to their disability. K’s
+employer became concerned about the frequency of
+his absences. Moreover, the notes K offered to explain
+his absences changed in tone, leaving the employer to
+believe that the doctor did not independently evaluate
+whether he missed work due to disability. As such, the
+employer asked K to meet Dr. B, an occupational medical
+ specialist, in order to determine how K’s disability
+could be accommodated. On the advice of his counsel,
+K refused to meet B without explanation of the purpose
+, methodology and parameters of the consultation.
+On March 28, 2000, the employer gave K a letter stating
+ that it supported K’s full return to work but that K’s
+employment would be terminated if he refused to meet
+B. When K remained unwilling to meet B, the employer
+terminated K’s employment.
+    K sued for wrongful dismissal. The trial judge found
+that K was entitled to a notice period of 15 months.
+He held that the employer had committed acts of discrimination
+, harassment and misconduct against K. He
+increased the notice period to 24 months to award additional
+ damages dependent on the manner of dismissal.
+He also awarded punitive damages against the employer
+in the amount of $500,000, a costs premium, and costs
+on a substantial indemnity scale. The Court of Appeal
+reduced the costs premium and, in a majority decision,
+reduced the punitive damages award to $100,000. The
+Court of Appeal otherwise upheld the trial judge’s decision
+.
+364
+
+
+   Held (LeBel and Fish JJ. dissenting in part on the
+appeal): The appeal should be allowed in part and the
+cross-appeal should be dismissed. The award of aggravated
+ damages for manner of dismissal and the award of
+punitive damages should be set aside. The cost premium
+should be set aside and costs should be adjusted to reflect
+an award on the regular scale in the lower courts. Costs
+are awarded to the employer at the Supreme Court level.
+    Per McLachlin C.J. and Bastarache, Binnie,
+Deschamps, Abella, Charron and Rothstein JJ.: K
+was wrongfully dismissed and the award of damages
+reflecting the need for 15 months’ notice should be
+maintained. In determining what constitutes reasonable
+notice of termination, courts should consider the character
+ of the lost employment, the employee’s length of
+service, the age of the employee, and the availability
+of similar employment having regard to the experience,
+training and qualifications of the employee. These factors
+ can only be applied on a case-by-case basis and no
+one factor should be given disproportionate weight. No
+presumptions about the role that an employee’s managerial
+ level plays should be adopted in determining reasonable
+ notice. The trial judge erred in alluding to the
+employer’s flat management structure rather than examining
+ K’s actual functions; however, on the facts of this
+case there is no basis to interfere with the assessment of
+15 months’ notice. [2] [25] [28-30] [32]
+    An action for wrongful dismissal is based on an
+implied obligation in the employment contract to give
+reasonable notice of an intention to terminate the relationship
+ in the absence of just cause. Generally, damages
+ are not available for the actual loss of a job or for
+pain and distress suffered as a consequence of being
+terminated. However, in cases where parties have contemplated
+ at the time of the contract that a breach in
+certain circumstances would cause the plaintiff mental
+distress, the plaintiff is entitled to recover. This is consistent
+ with the view expressed in Fidler that all compensatory
+ damages for breach of contract are assessed
+under one rule, i.e., what was in the reasonable contemplation
+ of the parties (Hadley v. Baxendale). In the
+employment law context, damages resulting from the
+manner of dismissal will be available if they result from
+the circumstances described in Wallace, namely where
+the employer engages in conduct during the course of
+dismissal that is “unfair or is in bad faith by being, for
+example, untruthful, misleading or unduly insensitive”.
+These damages should be awarded through an award
+that reflects actual damages rather than by extending
+the notice period. [50] [55] [57] [59]
+365
+[2008] 2 R.C.S.
+
+
+    Aggravated damages should not have been awarded
+in this case. The employer’s conduct in dismissing K
+was in no way an egregious display of bad faith justifying
+ an award of damages for conduct in dismissal. On
+this issue, the trial judge made overriding and palpable
+ errors of fact. The employer’s March 28 letter to K
+did not misrepresent the positions of its doctors and it
+should not have been faulted for relying on the advice of
+its medical experts. There is no evidence that B took a
+“hardball” attitude towards workplace absences or that
+K was being set up when asked to meet B. The employer
+’s request for a meeting between K and B was normal
+in the circumstances. The employer’s decision to stop
+accepting doctor’s notes was not reprisal for K’s decision
+ to retain legal counsel. Rather, the employer was
+simply seeking to confirm K’s disability. Lastly, there is
+no evidence that K’s disability subsequent to termination
+ was caused by the manner of termination. [34-35]
+[38] [40] [43] [46-48]
+   Similarly, punitive damages should not have been
+awarded. Punitive damages are restricted to advertent
+wrongful acts that are so malicious and outrageous that
+they are deserving of punishment on their own. The
+facts of this case demonstrate no such conduct. Courts
+should only resort to punitive damages in exceptional
+cases and the employer’s conduct here was not sufficiently
+ egregious or outrageous to warrant such damages
+. Even if the facts had justified an award of punitive
+damages, both the trial judge and the Court of Appeal
+should have been alert to the fact that the compensatory
+damages already awarded carried, under the old test, an
+element of deterrence and they should have questioned
+whether punitive damages were necessary. This failure
+resulted in considerable and unnecessary duplication in
+the award of damages. [61-62] [68-70]
+   Both the trial judge and the Court of Appeal also
+erred in concluding that the employer’s “discriminatory
+conduct” amounted to an independent actionable wrong
+for the purposes of allocating punitive damages. The
+Ontario Human Rights Code provides a comprehensive
+scheme for the treatment of claims of discrimination.
+A breach of the Code cannot constitute an actionable
+wrong; therefore the legal requirement for the common
+law remedy of punitive damages is not met. Since there
+is no evidence of discrimination to support a claim of
+discrimination under the Code and no breach of human
+rights legislation serves as an actionable wrong, there
+366
+
+
+is no need to deal with K’s request for recognition of a
+distinct tort of discrimination. [62] [64] [67]
+    Per LeBel and Fish JJ. (dissenting in part on the
+appeal): The award of additional damages for the manner
+of the dismissal should stand. No overriding errors were
+committed by the trial judge in this respect and there
+is a sufficient foundation for findings of bad faith and
+discrimination. The punitive damages award, however,
+had no foundation and overlapped with the damages for
+manner of dismissal, and should be set aside. The costs
+premium also should be set aside. While a restatement
+of the law in respect of damages for wrongful dismissal
+is necessary, any reform must reflect that a contract of
+employment is a good faith contract informed by the
+values protected by the human rights codes and the
+Canadian Charter of Rights and Freedoms, particularly
+ in respect of discrimination. As such, it must be
+executed and terminated with good faith and fairness.
+[81-82] [114] [124]
+    The evidence supports the trial judge’s findings that
+the employer was unfairly skeptical and sought to justify
+K’s termination or to preclude him from being absent
+from work without discipline in reliance on his condition
+. It was fair to characterize the employer’s conduct
+as interference with K’s relationship with his treating
+physician. B was brought in to second-guess the opinion
+of K’s physician and to legitimize efforts to eliminate
+the need for accommodation. The employer did benefit
+ from K’s termination to the extent that he impeded
+efficiency goals and affected workplace morale. The
+employer’s letter of March 28 was misleading and did
+misrepresent the opinions of its doctors. B did practise
+a hardball approach in general toward absences and
+accommodating disabilities and it was not unreasonable
+ to conclude that K was being set-up for failure by
+the request that he meet with B. Nor was it a palpable
+and overriding error to conclude that the employer cancelled
+ K’s accommodation as reprisal for asserting his
+right to proper accommodation through legal counsel.
+[87-91] [94-95] [99] [112]
+367
+[2008] 2 R.C.S.
+
+
+    Additional or Wallace type damages should be
+available where the manner of dismissal causes mental
+distress that was in the contemplation of the parties.
+There is an obligation of good faith and fair dealing on
+the part of employers in dismissing employees. There
+is ample evidence here that the employer acted in bad
+faith and this is a case where the employer’s failure to
+properly discharge its obligation made it foreseeable
+that K’s dismissal would cause mental distress. Most
+notably, the letter of March 28 mischaracterized the
+opinions of the employer’s doctors by implying that
+they did not believe that K’s absences were medically
+necessary yet neither doctor recommended that K be
+removed from the disability program or claimed that
+any absences related to chronic fatigue syndrome are
+unjustified. A further concern is the employer’s lack of
+candour and its own uncertainty with respect to the purpose
+ of K’s meeting with B. Its refusal to provide written
+ clarification of the purpose is suspicious. Finally, it
+is reasonable to conclude that the employer’s conduct
+and not the mere fact of K’s termination alone, led to
+K’s worsened state after he was terminated. However,
+given the lack of evidence on the precise loss K suffered
+as a result of the employer’s misconduct, the compensation
+ the trial judge granted over and above the 15-month
+notice period appears reasonable and should be maintained
+. [114-117]
+    The development of tort law is informed by the
+prohibitions of human rights codes and the Charter.
+Discrimination was a troubling aspect of the decision
+to terminate K and this impacts on the good faith of the
+termination. While monitoring employee absences is a
+valid objective, there was no assessment in this case of
+whether the employer’s method of accommodation and
+of monitoring K’s absences addressed K’s particular
+disability. If variable, self-reporting conditions characterize
+ the very nature of K’s disability, then it is arguable
+ that the employer acted in a discriminatory manner
+in subjecting K to the kind of scrutiny that occurred,
+denying him accommodation for his disability. [119-
+123]
+Cases Cited
+By Bastarache J.
+   Considered: Wallace v. United Grain Growers Ltd.,
+[1997] 3 S.C.R. 701; explained: Bardal v. Globe &
+Mail Ltd. (1960), 24 D.L.R. (2d) 140; applied: Whiten
+v. Pilot Insurance Co., [2002] 1 S.C.R. 595, 2002 SCC
+18; Walker v. Ritchie, [2006] 2 S.C.R. 428, 2006 SCC
+368
+
+
+45; referred to: McKinley v. BC Tel, [2001] 2 S.C.R.
+161, 2001 SCC 38; Minott v. O’Shanter Development
+Co. (1999), 168 D.L.R. (4th) 270; Machtinger v. HOJ
+Industries Ltd., [1992] 1 S.C.R. 986; Bramble v. Medis
+Health and Pharmaceutical Services Inc. (1999),
+214 N.B.R. (2d) 111; Byers v. Prince George (City)
+Downtown Parking Commission (1998), 53 B.C.L.R.
+(3d) 345; Fidler v. Sun Life Assurance Co. of Canada,
+[2006] 2 S.C.R. 3, 2006 SCC 30; Addis v. Gramophone
+Co., [1909] A.C. 488; Peso Silver Mines Ltd. (N.P.L.) v.
+Cropper, [1966] S.C.R. 673; Vorvis v. Insurance Corp.
+of British Columbia, [1989] 1 S.C.R. 1085; Hadley v.
+Baxendale (1854), 9 Ex. 341, 156 E.R. 145; Seneca
+College of Applied Arts and Technology v. Bhadauria,
+[1981] 2 S.C.R. 181; McGill University Health Centre
+(Montreal General Hospital) v. Syndicat des employés
+de l’Hôpital général de Montréal, [2007] 1 S.C.R. 161,
+2007 SCC 4.
+By LeBel J. (dissenting in part on the appeal)
+   Wallace v. United Grain Growers Ltd., [1997]
+3 S.C.R. 701; Seneca College of Applied Arts and
+Technology v. Bhadauria, [1981] 2 S.C.R. 181; St-Jean
+v. Mercier, [2002] 1 S.C.R. 491, 2002 SCC 15.
+Statutes and Regulations Cited
+Canadian Charter of Rights and Freedoms.
+Human Rights Code, R.S.O. 1990, c. H.19, s. 5.
+
+   APPEAL and CROSS-APPEAL from a judgment
+ of the Ontario Court of Appeal (Rosenberg,
+Goudge and Feldman JJ.A.) (2006), 82 O.R. (3d)
+161, 274 D.L.R. (4th) 107, 216 O.A.C. 3, 52 C.C.E.L.
+(3d) 165, [2006] C.L.L.C. ¶230-030, [2006] O.J.
+No. 3891 (QL), 2006 CarswellOnt 5885, reversing
+in part a decision of McIsaac J. (2005), 40 C.C.E.L.
+(3d) 258, [2005] C.L.L.C. ¶230-013, [2005] O.J.
+No. 1145 (QL), 2005 CarswellOnt 1131. Appeal
+allowed in part, LeBel and Fish JJ. dissenting in
+part. Cross-appeal dismissed.
+
+   Earl A. Cherniak, Q.C., Jasmine T. Akbarali
+and Roslynn J. Kogan, for the appellant/respondent
+on cross-appeal.
+
+   Hugh R. Scher, for the respondent/appellant on
+cross-appeal.
+369
+[2008] 2 R.C.S.
+
+
+  Philippe Dufresne, for the intervener the
+Canadian Human Rights Commission.
+
+  Anthony D. Griffin, for the intervener the Ontario
+Human Rights Commission.
+
+  Sarah Lugtig, for the intervener the Manitoba
+Human Rights Commission.
+
+  George Avraam and Mark Mendl, for the intervener
+ the Alliance of Manufacturers & Exporters
+Canada.
+
+   Stuart E. Rudner and Stephen Rotstein, for the
+intervener the Human Resources Professionals
+Association of Ontario.
+
+   Chris G. Paliare and Andrew K. Lokan, for the
+intervener the National ME/FM Action Network.
+
+   Frances M. Kelly and Gwen Brodsky, for
+the intervener the Council of Canadians with
+Disabilities.
+
+  Susan Ursel and Kim Bernhardt, for the intervener
+ the Women’s Legal Education and Action
+Fund.
+
+   Debra M. McAllister and Ivana Petricone, for
+the intervener the Ontario Network of Injured
+Workers’ Groups.
+
+    The judgment of McLachlin C.J. and Bastarache,
+Binnie, Deschamps, Abella, Charron and Rothstein
+JJ. was delivered by
+
+     Bastarache J. —
+
+1.
+
+[1] On March 29, 2000, after 14 years of employment
+, the respondent, Kevin Keays, was terminated
+ from his employment at Honda Canada Inc.
+(“Honda”). Keays sued for wrongful dismissal. The
+trial judge found that Keays was entitled to a notice
+period of 15 months. He then considered additional
+damages dependent on the manner of dismissal
+(the so-called “Wallace damages”) and increased
+370
+
+
+the notice period to 24 months. In addition, the trial
+judge awarded punitive damages against Honda in
+the amount of $500,000, plus costs on a substantial
+ indemnity scale with a 25 percent premium.
+The Court of Appeal unanimously upheld the finding
+ of wrongful termination as well as the regular
+damages and the damages for manner of dismissal
+(Wallace damages). It also ordered that the costs
+premium be reduced. A majority (Goudge J.A. dissenting
+) ordered that the quantum of punitive damages
+ be reduced from $500,000 to $100,000.
+
+[2] I would allow the appeal in part. The regular
+damages award should be maintained. The Court
+of Appeal erred however in maintaining the damages
+ for manner of dismissal (Wallace damages)
+and simply reducing the quantum of punitive damages
+. These awards, as well as the costs premium,
+must thus be set aside. I would deny the cross-
+appeal dealing with the reduction of the award of
+punitive damages.
+
+[3] Keays started working for Honda in 1986,
+first on the assembly line and later in data entry.
+In 1997, his diagnosis of chronic fatigue syndrome
+(“CFS”) was confirmed by a doctor from the Sleep
+Disorder Clinic in Toronto, Dr. Moldofsky. He
+ceased work and received disability insurance benefits
+ through an independent insurance provider,
+London Life Insurance Co., until 1998 when his
+benefits were discontinued based on the insurer’s
+evaluation that Keays could return to work full-
+time. Keays’ appeal to the insurer on this evaluation
+ was denied. Honda had no part in the decision
+to terminate Keays’ benefits.
+
+[4] Although London Life’s decision was based
+on medical opinion that Keays could return to work
+without restrictions, Keays continued to absent
+himself. He was placed in the Honda Disability
+Program, which permits disabled employees to take
+absences without the invocation of Honda’s attendance
+ policy by confirming that the absence from
+work is related to the disability. However, Keays
+371
+[2008] 2 R.C.S.
+
+
+missed more work than his diagnosing physician,
+Dr. Morris, had predicted, and the notes he offered
+to explain his absences changed in tone leaving the
+employer to believe that the doctor did not independently
+ evaluate whether he missed work due to
+disability.
+
+[5] In late 1999, Honda’s administrative coordi-
+nator, Susan Selby arranged for Keays to see Dr.
+Lester Affoo, an independent physician hired by
+Honda, because of the increasing frequency of
+absences. In January and February 2000, Keays
+again experienced increased absences (14 days in
+total). This prompted Betty Magill, Keays’ man-
+ager, to raise the issue with Selby. They met on
+March 3 and decided to ask Keays to meet with
+Dr. Brennan, an occupational medicine specialist
+, in order to determine how his disability could
+be accommodated. After this meeting, but before
+Honda had a chance to meet with Keays, Keays
+decided to retain counsel to attempt to mediate his
+concern that he would ultimately be terminated.
+On March 17, Honda received a letter from Keays’
+counsel outlining his concerns and offering to work
+towards a resolution. Honda did not respond.
+
+[6] On March 21, Magill and Selby met with
+Keays to explain their concerns about the deficiencies
+ in the doctors’ notes, described as “cryptic”
+by Dr. Reinders, and asked him to meet with Dr.
+Brennan to determine what could be done to support
+him at his work. They also discussed the letter they
+had received from Keays’ lawyer a few days earlier
+and explained that they had not responded to the
+lawyer because they had a practice of dealing with
+associates directly, not with third party advocates.
+At this meeting, Keays agreed to meet with Dr.
+Brennan. However, the next day he told Honda that,
+on the advice of counsel, he would not meet with Dr.
+Brennan without explanation of the purpose, methodology
+ and parameters of the consultation. Keays
+did not come to work for a week following this incident
+. Upon his return to work, on March 28, 2000,
+Selby gave Keays a letter (“March 28 letter”) which
+I think it is useful to reproduce in its entirety:
+372
+
+
+    As you know, Betty Magill and I met with you on
+March 21, 2000, to discuss your current employment
+situation at Honda. After you left the meeting, you
+returned for some clarification and we had another
+detailed discussion.
+   The following is a summary of the matters we discussed
+:
+1.
+      absenteeism as well as the doctor’s notes that you
+      had been providing to cover those absences. We discussed
+       your situation with Dr. Affoo who is familiar
+       with your case. In addition, we had Dr. Brennan
+      (a new physician) review your complete medical
+      file. Both doctors advised us that they could find
+      no diagnosis indicating that you are disabled from
+      working.
+2.
+      cover your absences have provided limited information
+      . The notes were merely repeating what you
+      were telling the doctor. There was no independent
+      diagnosis or prognosis.
+3.
+      March break, to discuss our expectations. Before
+      we had a chance to do so, we received a letter from
+      your lawyer dated March 17, 2000. In that letter,
+      your lawyer was asking that you no longer be
+      required to bring notes to support your absences.
+4.
+      that we would no longer accept that you have a disability
+       requiring you to be absent. Dr. Brennan and
+      Dr. Affoo both believe that you should be attending
+       work on a regular basis. In order for Dr. Brennan
+       to get to know you and understand completely
+      your condition, we advised that we would arrange
+      for Dr. Brennan to meet with you. The plan was
+      that Dr. Brennan would then communicate directly
+      with your doctor to effectively manage your condition
+      .
+
+
+5.
+      meeting with Dr. Brennan and I was to proceed to
+      schedule the appointment.
+    The next day (March 22, 2000), you submitted a
+letter declining to meet with Dr. Brennan. You requested
+clarification on the “purpose, the methodology and the
+parameters of the assessment.” Since that date, you have
+called in sick with return to work date unknown. You
+returned to work today.
+373
+[2008] 2 R.C.S.
+
+
+   Our position remains as we explained it to you on
+March 21, 2000. Kevin, we do not accept the need for
+your recent absence nor do we intend to elaborate further
+ on the purpose of your meeting with Dr. Brennan.
+This was all explained to you carefully on March 21,
+2000. Our position remains the same. We expect you to
+meet with Dr. Brennan and, we expect you to come to
+work.
+   Kevin, we sincerely hope that you will co-operate
+with our efforts. As you have admitted, your condition
+ has not improved over the past three years and you
+would do anything to get better and come to work on a
+regular basis. We are committed to supporting you in a
+full return to work. We sincerely hope that you will co-
+operate with us.
+   Kevin, you must understand that the current situation
+ is unacceptable. If you do not agree to meet with
+Dr. Brennan, we will have no alternative but to terminate
+ your employment.
+
+[7] Later the same day, Selby telephoned Keays
+to urge him to reread the letter and re-consider.
+Keays remained unwilling to meet Dr. Brennan. In
+accordance with its warning, Honda terminated his
+employment.
+
+2. Decisions Below
+
+2.1 Ontario Superior Court of Justice (2005), 40
+    C.C.E.L. (3d) 258
+
+[8] McIsaac J. concluded that Honda bore the
+burden to show just cause for termination and that
+it had failed to carry that burden. McIsaac J. found
+that Honda’s direction to meet with Dr. Brennan
+was not reasonable under the circumstances, and
+that Keays had a reasonable excuse for resisting
+that direction. The termination was not propor-
+tional to his refusal. The trial judge then concluded
+that Keays was entitled to 15 months’ notice based
+on the principles of Bardal v. Globe & Mail Ltd.
+(1960), 24 D.L.R. (2d) 140 (Ont. H.C.J.). Moreover,
+McIsaac J. decided that, given the “egregious bad
+faith displayed by Honda in the manner of this termination
+ and the medical consequences flowing
+therefrom”, that notice period should be extended
+to 24 months (para. 48). Since he had increased
+the notice period, McIsaac J. did not consider it
+374
+
+
+appropriate to offer Keays an additional award on
+the basis of intentional infliction of nervous shock/
+emotional distress.
+
+[9] McIsaac J. determined that the court was
+without jurisdiction to consider a tort based on
+whether Honda breached his rights under the
+Ontario Human Rights Code, R.S.O. 1990, c. H.19.
+He accepted, however, that such complaints could
+constitute “independent actionable wrongs” such as
+to trigger an award of punitive damages, assuming
+they also merit punishment (para. 50).
+
+[10] McIsaac J. denied Keays’ claim for compensation
+ based on “lost” disability benefits that would
+have been available from the insurer based on his
+total disability caused by the wrongful termination
+. Such relief was unavailable, the trial judge
+explained, because Keays did not plead aggravated
+ damages. I take it that the trial judge meant
+by this that Keays had not argued that there was
+an independent cause of action to support his further
+ claim for true aggravated damages as defined
+in Wallace v. United Grain Growers Ltd., [1997] 3
+S.C.R. 701.
+
+[11] McIsaac J. noted that punitive damages are
+exceptional but he had “no difficulty in finding that
+the plaintiff has proved that Honda committed a
+litany of acts of discrimination and harassment in
+relation to his attempts to resolve his accommodation
+ difficulties” (para. 57). McIsaac J. attributed
+to Honda a “conspiracy to insinuate Dr. Brennan
+into the plaintiff’s long-established medical relationship
+ with his own doctors and, hopefully, to
+exclude them from any participation in advocating
+for his patient’s rights” (para. 60). In light of all the
+circumstances, the trial judge awarded $500,000 in
+punitive damages.
+
+[12] McIsaac J. awarded costs to Keays on a substantial
+ indemnity basis adding a 25 percent premium
+ which together totalled $610,000.
+375
+[2008] 2 R.C.S.
+
+
+2.2 Ontario Court of Appeal (Rosenberg and
+    Feldman JJ.A., and Goudge J.A. (dissenting
+    in part)) (2006), 82 O.R. (3d) 161
+
+[13] The Ontario Court of Appeal dismissed the
+appeal. Goudge J.A., writing for the court, except
+with respect to the quantum of punitive damages,
+noted that heavily fact-laden conclusions by the trial
+judge were entitled to substantial deference. In particular
+, Goudge J.A. perceived no reason to interfere
+ with the trial judge’s conclusions that the order
+to see Dr. Brennan was unreasonable, that Keays
+had a reasonable excuse for not complying with the
+order, and that the dismissal of Keays was a disproportionate
+ response to his alleged insubordination
+and therefore was done without just cause. Goudge
+J.A. also upheld the trial judge’s conclusions regarding
+ the appropriate notice period required.
+
+[14] Goudge J.A. wrote for the court regarding
+ the availability of punitive damages. He cited
+McKinley v. BC Tel, [2001] 2 S.C.R. 161, 2001 SCC
+38, for the proposition that acts of discrimination
+in breach of human rights legislation may serve as
+a separate actionable wrong so as to give rise to
+a punitive damages award in a wrongful dismissal
+case. Goudge J.A. rejected Honda’s argument that
+the Ontario Human Rights Code offers a complete
+remedial scheme that permits punitive damages
+only in the event of prosecution with the written
+consent of the Attorney General and only to a max-
+imum fine of $25,000. Goudge J.A. thus upheld the
+trial judge’s finding of an independent actionable
+wrong. Given Honda’s conduct, an award of punitive
+ damages was a rational response on the part of
+the trial judge.
+
+[15] With respect to the quantum of punitive damages
+, Goudge J.A. wrote for himself alone. He noted
+that an appellate court should review the quantum
+awarded by asking whether the amount was rationally
+ required in all the circumstances to punish the
+defendant’s misconduct. Goudge J.A. concluded
+that $500,000 in punitive damages did not exceed
+what was rationally required to punish Honda.
+376
+
+
+[16] Once again writing for the court, Goudge
+J.A. discussed Honda’s argument that the trial
+judge created a reasonable apprehension of bias,
+requiring a new trial. He acknowledged that the
+trial judge used “several colourful metaphors” but
+rejected allegations that this reflected a want of
+fairness or impartiality (para. 75).
+
+[17] With regard to costs, Goudge J.A. noted that
+he would reduce the premium to $77,500 from
+$155,000. He dismissed the cross-appeal.
+
+[18] Rosenberg J.A. wrote for the majority on
+the question of the quantum of punitive damages,
+which he reduced to $100,000. He did so because he
+believed that the trial judge had relied on findings of
+fact not supported by the evidence and because the
+award failed to accord with the fundamental principle
+ of proportionality. In particular, Rosenberg J.A.
+found no evidence of a protracted corporate conspiracy
+. The trial judge also referred to “five years”
+of outrageous conduct whereas the case involved a
+mere seven-month period. According to Rosenberg
+J.A., a punitive damage award on the scale imposed
+by the trial judge in this case could be justified only
+by extraordinary circumstances. He used Whiten
+v. Pilot Insurance Co., [2002] 1 S.C.R. 595, 2002
+SCC 18, as a comparison and noted (at para. 110)
+that a comment from that case regarding the fact
+that “it takes a large whack to wake up a wealthy
+and powerful defendant to its responsibilities”
+had been taken by the trial judge out of context.
+Bearing in mind the trial judge’s findings that were
+supported by the evidence, and especially evidence
+pointing to conduct by Honda suggesting planned
+and deliberate attempts to intimidate and then dismiss
+ a vulnerable employee, Rosenberg J.A. concluded
+ that an award in excess of those awarded
+in other wrongful dismissal cases was appropriate
+. He saw an award of no more than $100,000 as
+justified. He reduced the punitive damages award
+accordingly. In all other respects, Rosenberg J.A.
+concurred with Goudge J.A.
+377
+[2008] 2 R.C.S.
+
+
+3. Analysis
+
+[19] This appeal raises a number of important
+issues related to the proper allocation of damages
+in wrongful dismissal cases. Before assessing the
+validity of the separate heads of damages awarded
+by the trial judge and the Court of Appeal, it is
+essential to point out, as will be later demonstrated,
+that the trial judge made a number of palpable and
+overriding errors, some of which are mentioned
+by Rosenberg J.A. Two errors in particular have,
+in my view, coloured the trial judge’s judgment,
+making other findings and inferences suspect. The
+trial judge first found that Honda’s “misconduct”
+was “planned and deliberate and formed a protracted
+ corporate conspiracy” (para. 60). As concluded
+ by the Court of Appeal, and as will be further
+ discussed below, there is simply no evidence to
+support the trial judge’s allegation of a conspiracy.
+Secondly, the trial judge insisted that the “outrageous
+ conduct” had continued for five years when
+in fact the problem period was no more than seven
+months. He therefore was considering the wrong
+period when dealing with Honda’s conduct; this
+error was seemingly attributable to the fact that he
+considered the cancellation of Keays’ long-term
+benefits by London Life to be a relevant factor in
+assessing the conduct of Honda, while all evidence
+points to the fact that the decision was entirely
+independent of Honda.
+
+[20] The remaining analysis will reveal more palpable
+ and overriding errors of fact. However, the
+above examples alone would suffice to question
+carefully the factual basis for the trial judge’s conclusions
+. I am therefore compelled to review the
+record in some detail in my analysis.
+
+[21] Beyond creating the need to address the many
+overriding and palpable errors of the trial judge,
+this appeal presents the Court with the opportunity
+to clarify and redefine some aspects of the law of
+damages in the context of employment.
+378
+
+
+[22] First, I would like to clarify what factors
+should be considered when allocating compensatory
+ damages in lieu of notice for wrongful dismissal
+.
+
+[23] Second, a review of the basis for and calcu-
+lation of damages for conduct in dismissal must be
+undertaken.
+
+[24] Third, in considering the allocation of punitive
+ damages in this case, I conclude that it is
+not necessary to reconsider whether breaches of
+the Ontario Human Rights Code are independent
+ actionable wrongs for the purposes of punitive
+damages. I will however discuss the need to avoid
+overlap of damages for conduct in dismissal and
+punitive damage awards.
+
+3.1
+      Period
+
+[25] After finding that Keays had been wrongfully
+ dismissed, the trial judge determined that he
+was entitled to an award of damages reflecting the
+need for 15 months’ notice. In doing so, he followed
+Bardal and Minott v. O’Shanter Development Co.
+(1999), 168 D.L.R. (4th) 270 (Ont. C.A.), at p. 293,
+wherein it was held that an appropriate notice
+period is to be determined in consideration of factors
+ including, but not limited to, the character of
+the employment, length of service, the age of the
+employee and the availability of other employment.
+In arriving at 15 months, McIsaac J. pointed to:
+Honda’s “flat” (i.e., egalitarian) management structure
+ as limiting the effect of Keays’ lower position
+ in Honda’s hierarchy; the fact that Keays had
+specialized training to compensate for his lack of
+formal education; his long service; and the lack of
+comparable employment in Alliston. The Court of
+Appeal agreed with this assessment.
+
+[26] On appeal before this Court, Honda did
+not contest the finding of wrongful dismissal.
+However, Honda argued that the 15-month notice
+period allocated by the trial judge was excessive
+379
+[2008] 2 R.C.S.
+
+
+because he failed to conduct a proper analysis of
+Keays’ job functions. Specifically, Honda claimed
+that an analysis of Keays’ job functions shows
+that his responsibilities were minimal and that he
+spent a large percentage of his time on data entry.
+According to Honda, in view of Keays’ 14 years of
+service, his little formal education and the character
+ of his employment, 8 to 10 months would have
+been appropriate. The fact that Keays’ had no management
+ function was crucial.
+
+[27] It is true that Honda’s “flat management
+structure” did not truly illuminate the character of
+Keays’ employment and that this label should not
+matter: what matters is experience, qualifications
+and other factors mentioned in Bardal.
+
+[28] In determining what constitutes reasonable
+ notice of termination, the courts have generally
+ applied the principles articulated by McRuer
+C.J.H.C. in Bardal, at p. 145:
+
+   There can be no catalogue laid down as to what is
+reasonable notice in particular classes of cases. The
+reasonableness of the notice must be decided with reference
+ to each particular case, having regard to the character
+ of the employment, the length of service of the
+servant, the age of the servant and the availability of
+similar employment, having regard to the experience,
+training and qualifications of the servant.
+
+[29] These four factors were adopted by this
+Court in Machtinger v. HOJ Industries Ltd., [1992]
+1 S.C.R. 986. They can only be determined on a
+case-by-case basis.
+
+[30] It is true that there has been some suggestion
+ that a person’s position in the hierarchy should
+be irrelevant to assessing damages for wrongful
+ dismissal (see Bramble v. Medis Health and
+Pharmaceutical Services Inc. (1999), 214 N.B.R.
+(2d) 111 (C.A.), and Byers v. Prince George
+(City) Downtown Parking Commission (1998), 53
+B.C.L.R. (3d) 345 (C.A.). The traditional assump-
+tions about the relevance of a person’s position
+in the hierarchy was not directly challenged in
+this case. It will therefore suffice to say here that
+380
+
+
+Honda’s management structure has no part to play
+in determining reasonable notice in this case. The
+“flat management structure” said nothing of Keays’
+employment. It does not describe the responsibilities
+ and skills of that worker, nor the character of
+the lost employment. The particular circumstances
+of the individual should be the concern of the courts
+in determining the appropriate period of reasonable
+ notice. Traditional presumptions about the role
+that managerial level plays in reasonable notice can
+always be rebutted by evidence.
+
+[31] This position is consistent with the origi-
+nal formulation of the Bardal test where McRuer
+C.J.H.C. stated:
+   There can be no catalogue laid down as to what is reasonable
+ notice in particular classes of cases. [Emphasis
+added; p. 145.]
+
+[32] No one Bardal factor should be given disproportionate
+ weight. In the present case, the trial
+judge erred in applying one of the factors, alluding
+ to the flat management structure, rather than
+examining the actual functions of Keays. Despite
+this error, the 15-month notice period is entitled
+to deference since, on the entirety of the circumstances
+ here, there is no basis to interfere with the
+conclusions of the trial judge. Keays was one of the
+first employees hired at Honda’s plant. He spent
+his entire adult working life with Honda. He did
+not have any formal education and suffered from
+an illness which greatly incapacitated him. All
+these factors will substantially reduce his chances
+of re-employment and justify an assessment of 15
+months’ notice.
+
+3.2 Damages for Conduct in Dismissal
+
+[33] In applying Wallace, the trial judge concluded
+ that Honda’s manner of dismissing Keays
+was an egregious display of bad faith that warranted
+an extension of the notice period to 24 months. He
+made the following findings of fact in support of
+his award:
+381
+[2008] 2 R.C.S.
+
+
+•
+    ately misrepresented the views of its doctors.
+•
+    Dr. Brennan.
+•
+    he became depressed, developed an adjust-
+    ment disorder for 3-4 months, and has been
+    unable to work since then.
+•
+    tion” was a form of reprisal for Keays’ retain-
+    ing legal counsel.
+[34] The Court of Appeal concluded that given
+the factual nature of determining whether Honda
+acted in bad faith, Honda had to demonstrate that
+the trial judge committed a palpable and overriding
+ error. It concluded that Honda had failed to
+demonstrate this and that the trial judge’s decision
+was sufficiently supported in the evidence. I cannot
+agree with this conclusion. A proper reading of the
+record shows that Honda’s conduct in dismissing
+Keays was in no way an egregious display of bad
+faith justifying an award of damages for conduct
+in dismissal.
+[35] As earlier mentioned, it is my view that the
+trial judge made a number of significant overriding
+ and palpable factual errors that relate directly
+to the factual matrix that justified, according to
+him, an award of damages for manner of dismissal
+(Wallace damages). For that reason alone, the decision
+ cannot stand. I will elaborate on this. I note,
+however, that this case sheds light on the legal
+problems associated with the allocation of these
+damages. It is therefore appropriate for this Court
+to reconsider the Wallace approach and make some
+adjustments.
+3.2.1 The Factual Analysis
+[36] None of the four foundations accepted by the
+trial judge for his “Wallace award” of damages is
+valid. I will examine them individually.
+382
+
+
+3.2.1.1
+[37] In its submissions to this Court, Honda points
+out that the trial judge had no basis for concluding
+that the March 28 letter (set out in para. 6 above) was
+callous and insensitive. In reviewing the facts and
+reading the letter, it is clear that Honda was relying
+on expert advice and simply conveying the information
+ obtained from experts to Keays. The following
+two paragraphs were the most “contentious” of the
+letter:
+1.
+      absenteeism as well as the doctor’s notes that you
+      had been providing to cover those absences. We discussed
+       your situation with Dr. Affoo who is familiar
+      with your case. In addition, we had Dr. Brennan (a
+      new physician) review your complete medical file.
+      Both doctors advised us that they could find no diagnosis
+       indicating that you are disabled from working.
+
+                          . . .
+
+4.
+      that we would no longer accept that you have a disability
+       requiring you to be absent. Dr. Brennan and
+      Dr. Affoo both believe that you should be attending
+       work on a regular basis. In order for Dr. Brennan
+       to get to know you and understand completely
+      your condition, we advised that we would arrange
+      for Dr. Brennan to meet with you. The plan was that
+      Dr. Brennan would then communicate directly with
+      your doctor to effectively manage your condition.
+      [Emphasis added.]
+
+[38] The trial judge accepted Keays’ submission
+that Honda deliberately misrepresented the positions
+ of both physicians for the purpose of intimidation
+, excluding his own doctors, and forcing him
+to meet with Dr. Brennan. The evidence contradicts
+this finding.
+[39] First, Dr. Affoo concluded that Keays was
+able to work and should try to work as much as pos-
+sible. He communicated this information to Selby.
+Dr. Affoo’s testimony is clear on this point:
+  Q. . . . did you have any conversation with anyone at
+Honda about Mr. Keays?
+383
+[2008] 2 R.C.S.
+
+
+    A. Subsequently I reported back to Associate
+Services, Susan Selby, as to our meeting. I explained to
+her that Mr. Keays had been diagnosed with a diagnosis
+of chronic fatigue syndrome, as he assured me he had.
+We talked about him missing a lot of time off work, and
+I explained to her that from Mr. Keays’ point of view he
+didn’t feel that -- he felt that, that he was doing his best
+and that we could expect him to be off work as he has
+been in the past.
+   Q. Any other conversation that you recall?
+   A. Probably within those terms.
+    Q. Do you recall if you made any suggestion as to
+whether or not Mr. Keays’ condition, as you understood
+it, warranted absenteeism?
+   A. Well, I felt that he was coping quite well at
+Honda. You know, I discussed -- I told her the fact that,
+that he was at a desk and so on and so forth, and he
+seemed to be coping quite well at his work place. I felt
+that, that in my experience with chronic fatigue one,
+you know, one wants him to come to work, and, and we
+should try and get him to work as, as, as much as we
+can. And certainly, I didn’t think he needed to be off
+work the kind of pattern he had in the past. I felt that,
+you know, that he could be off -- I felt that he probably
+would be off work maybe three or four times a month,
+possibly, from his condition, but with a regimented life-
+style, and you know, with the things that he’s being, that
+he’s being treated with by his own physician, that he
+should be able to do well. [Emphasis added.]
+
+[40] Second, Dr. Brennan communicated to
+Honda that he was unable to diagnose Keays with
+CFS without meeting with him first. During his
+examination, Dr. Brennan stated the following:
+   I did not accept the diagnosis of chronic fatigue syndrome
+, largely because I didn’t feel that I had all the
+information. [Emphasis added.]
+
+There is nothing misleading or false with Honda’s
+assertion that both doctors advised that they could
+find no diagnosis that would bar Keays from working
+. Dr. Affoo clearly stated that he thought it would
+be good for Keays to work, and Dr. Brennan clearly
+could find no diagnosis of CFS without first meeting
+ Keays. Honda was simply relaying the information
+ it received from its experts to Keays. Given
+this evidence, I do not see how the trial judge could
+384
+
+
+have concluded that Honda was trying to intimidate
+Keays by twisting the positions of the physicians.
+The physicians’ positions were clear, and Honda
+had no reason not to accept the expert advice it was
+receiving. The trial judge made an overriding and
+palpable error in faulting Honda for relying on the
+advice of its medical experts.
+
+[41] The trial judge stated, at para. 43 of his decision
+:
+
+Although parts of the letter may have been accurate in
+isolation, when considered in its entirety, it presented a
+“twisted” view of his condition.
+
+[42] The trial judge gave no reason to explain
+why, in its “entirety”, the letter presents such a
+view. For a written document to have a certain flavour
+ or sense “in its entirety”, there must be indica-
+tors that create such a flavour within that document.
+In this case, the letter contains no such clues. “[I]n
+its entirety”, the March 28 letter simply conveyed
+to Keays that Honda wanted him to meet with Dr.
+Brennan because their experts had advised them
+that his condition did not preclude him from working
+. The whole context is one in which Honda recognizes
+ that Keays has a disability and that it has to
+be dealt with; this is an important consideration in
+determining good faith on the part of Honda.
+
+3.2.1.2
+
+[43] The trial judge concluded, at para. 45 of his
+judgment, that Keays was being “set up” for failure
+ because Dr. Brennan had already made up his
+mind that his condition was bogus. First, I think it
+is important to note that there is no evidence that
+Dr. Brennan took on a “hardball” attitude. A careful
+ analysis of the record reveals that Dr. Brennan
+simply could not, with the information that was
+provided to him, accept a diagnosis of CFS without
+first meeting Keays.
+
+[44] The trial judge stated, at para. 45, that a note
+written by Dr. Brennan to Honda on December 3,
+385
+[2008] 2 R.C.S.
+
+
+2000 reveals that Dr. Brennan “referenced the fact
+that the diagnosis of CFS carries ‘considerable con-
+troversy’ and that ‘many physicians’ do not believe
+it should be taken as a ‘stand alone’ diagnosis” and
+that “[h]e himself was of the view that it ‘may well
+be a bona fide medical condition’, but only in certain
+ ‘very limited circumstances’”. These asser-
+tions alone should not lead one to believe that
+Dr. Brennan was taking a “hardball” approach to
+workplace absences. But there is more that has to
+be taken into account here. After stating that he
+believed that chronic fatigue syndrome is a bona
+fide medical condition under very limited circumstances
+, he continued to say:
+Those circumstances are those as outlined by the Center
+for Disease Control (CDC) in Atlanta. The CDC has
+developed some strict diagnostic criteria for Chronic
+Fatigue Syndrome (CFS) to aid in its diagnosis and dif-
+ferentiation from depression, fatigue of chronic illness,
+malingering, multiple rheumatic diseases etc.
+
+[45] Dr. Brennan was thus simply espousing
+the prevalent approach adopted by the CDC. I do
+not see how this can be qualified as “hardball”,
+as he was reiterating the information at his dis-
+posal. However, even if one were to conclude that
+Dr. Brennan was taking a somewhat “hardball”
+approach to workplace absences, Honda cannot
+be faulted for accepting his expert advice unless
+a conspiracy exists. As concluded by the Court
+of Appeal, there simply was no conspiracy to terminate
+ Keays. Rosenberg J.A. correctly stated at
+paras. 91 and 93 of his reasons that:
+There is no evidence to support the finding of a protracted
+ corporate conspiracy. The appellant accommodated
+ the respondent’s increasingly more serious
+disability over several years. The fact that the company
+ran a lean operation in which it was difficult to accommodate
+ prolonged absences was not proof of a conspiracy
+.
+
+                          .
+
+    . . . there is no evidence to support this conspiracy to
+interfere with the respondent’s relationship with his own
+physician. In fact, the trial judge’s finding on this issue
+is inconsistent with his broad finding that the appellant
+intended to dismiss the respondent. There would be no
+386
+
+
+need to “insinuate” Dr. Brennan into the relationship
+if the company’s intent all along was to terminate the
+employment.
+
+[46] As such, it was not open to the Court of
+Appeal to accept the trial judge’s finding that
+Keays was being set up when asked to meet with
+Dr. Brennan. Honda was merely listening to expert
+advice that can hardly be qualified as “hardball”.
+There is no rational way to justify the conclusion
+that the request for a meeting between Keays and
+Dr. Brennan was not perfectly normal in the circumstances
+.
+
+3.2.1.3
+
+[47] The trial judge committed another overriding
+ and palpable error in concluding that Honda’s
+decision to cancel its accommodation was a form
+of reprisal for Keays’ decision to retain legal counsel
+. The decision to stop accepting doctors’ notes
+was not reprisal for Keays seeking legal counsel.
+Rather, as concluded by Rosenberg J.A. in Court of
+Appeal, at para. 98, Honda was simply seeking to
+confirm Keays’ disability. Here again, it is important
+ to note that Honda does not deny that there is a
+problem that has to be dealt with in a professional
+and fair way. As earlier mentioned, the notes had
+changed in character and were “cryptic” (para.
+6 above). Moreover, as stated in para. 5 above,
+Shelby and Magill met to address the deficiencies
+in Keays’ doctors notes and Keays’ absences well
+before Keays’ lawyer sent his letter.
+
+3.2.1.4
+
+[48] The trial judge committed an overriding
+and palpable error in considering Keays’ disability
+subsequent to termination; this was not compensable
+ under the Wallace umbrella because there was
+no evidence that the disability was caused by the
+manner of termination.
+387
+[2008] 2 R.C.S.
+
+
+3.2.2 The Legal Analysis
+
+[49] The trial judge’s decision in this case high-
+lights the problems we face in dealing with damages
+ for conduct in the context of termination of
+employment. In particular, it raises questions
+about the propriety of damages for manner of dismissal
+, whereby damages are awarded by extending
+ the notice period (Wallace damages). This re-
+evaluation is mandated particularly by this Court’s
+recent decision in Fidler v. Sun Life Assurance Co.
+of Canada, [2006] 2 S.C.R. 3, 2006 SCC 30.
+
+3.2.2.1
+
+[50] An action for wrongful dismissal is based on
+an implied obligation in the employment contract
+to give reasonable notice of an intention to terminate
+ the relationship in the absence of just cause.
+Thus, if an employer fails to provide reasonable
+notice of termination, the employee can bring an
+action for breach of the implied term (Wallace, at
+para. 115). The general rule, which stems from the
+British case of Addis v. Gramophone Co., [1909]
+A.C. 488 (H.L.), is that damages allocated in such
+actions are confined to the loss suffered as a result
+of the employer’s failure to give proper notice and
+that no damages are available to the employee for
+the actual loss of his or her job and/or pain and distress
+ that may have been suffered as a consequence
+of being terminated. This Court affirmed this rule
+in Peso Silver Mines Ltd. (N.P.L.) v. Cropper,
+[1966] S.C.R. 673, at p. 684:
+. . . the damages cannot be increased by reason of
+the circumstances of dismissal whether in respect of
+the [employee’s] wounded feelings or the prejudicial
+effect upon his reputation and chances of finding other
+employment.
+
+[51] Later in Vorvis v. Insurance Corp. of British
+Columbia, [1989] 1 S.C.R. 1085, McIntyre J. stated
+at p. 1103:
+. . . I would conclude that while aggravated damages
+may be awarded in actions for breach of contract in
+appropriate cases, this is not a case where they should
+be given. The rule long established in the Addis and
+388
+
+
+Peso Silver Mines cases has generally been applied to
+deny such damages, and the employer/employee relationship
+ (in the absence of collective agreements which
+involve consideration of the modern labour law régime)
+has always been one where either party could terminate
+the contract of employment by due notice, and therefore
+the only damage which could arise would result from a
+failure to give such notice.
+
+[52] The Court in Vorvis nevertheless left open
+the possibility of allocating aggravated damages
+in wrongful dismissal cases where the acts com-
+plained of were also independently actionable.
+McIntyre J. stated at p. 1103:
+
+   I would not wish to be taken as saying that aggravated
+ damages could never be awarded in a case of
+wrongful dismissal, particularly where the acts com-
+plained of were also independently actionable, a factor
+not present here. [Emphasis added.]
+
+[53] In Wallace, Iacobucci J. endorsed a strict
+interpretation of the Vorvis “independently actionable
+ wrong” approach, rejecting both an implied
+contractual duty of good faith and a tort of bad faith
+discharge. At para. 73, he said:
+
+    Relying upon the principles enunciated in Vorvis,
+supra, the Court of Appeal held that any award of damages
+ beyond compensation for breach of contract for
+failure to give reasonable notice of termination “must
+be founded on a separately actionable course of conduct
+” (p. 184). Although there has been criticism of
+Vorvis . . . this is an accurate statement of the law. . . .
+An employment contract is not one in which peace of
+mind is the very matter contracted for (see e.g. Jarvis
+v. Swans Tours Ltd., [1973] 1 Q.B. 233 (C.A.)) and so,
+absent an independently actionable wrong, the foreseeability
+ of mental distress or the fact that the parties
+contemplated its occurrence is of no consequence. . . .
+[Emphasis added.]
+
+[54] This brings us to Fidler, where the Court,
+per McLachlin C.J. and Abella J., concluded that it
+389
+[2008] 2 R.C.S.
+
+
+was no longer necessary that there be an independent
+ actionable wrong before damages for mental
+distress can be awarded for breach of contract,
+whether or not it is a “peace of mind” contract. It
+stated at para. 49:
+
+   We conclude that the “peace of mind” class of cases
+should not be viewed as an exception to the general rule
+of the non-availability of damages for mental distress
+in contract law, but rather as an application of the reasonable
+ contemplation or foreseeability principle that
+applies generally to determine the availability of damages
+ for breach of contract.
+
+This conclusion was based on the principle, articulated
+ in Hadley v. Baxendale (1854), 9 Ex. 341, 156
+E.R. 145, that damages are recoverable for a contractual
+ breach if the damages are “such as may
+fairly and reasonably be considered either arising
+naturally . . . from such breach of contract itself, or
+such as may reasonably be supposed to have been
+in the contemplation of both parties” (p. 151). The
+court in Hadley explained the principle of reasonable
+ expectation as follows:
+
+Now, if the special circumstances under which the contract
+ was actually made were communicated by the
+plaintiffs to the defendants, and thus known to both
+parties, the damages resulting from the breach of such
+a contract, which they would reasonably contemplate,
+would be the amount of injury which would ordinarily
+follow from a breach of contract under these special circumstances
+ so known and communicated. But, on the
+other hand, if these special circumstances were wholly
+unknown to the party breaking the contract, he, at the
+most, could only be supposed to have had in his contemplation
+ the amount of injury which would arise generally
+, and in the great multitude of cases not affected
+by any special circumstances, from such a breach of
+contract. [p. 151]
+
+[55] Thus, in cases where parties have contemplated
+ at the time of the contract that a breach in
+certain circumstances would cause the plaintiff
+mental distress, the plaintiff is entitled to recover
+(Fidler, at para. 42; Vorvis, at p. 1102). This principle
+ was reaffirmed in para. 54 of Fidler, where the
+Court recognized that the Hadley rule explains the
+extended notice period in Wallace:
+390
+
+
+   It follows that there is only one rule by which compensatory
+ damages for breach of contract should be
+assessed: the rule in Hadley v. Baxendale. The Hadley
+test unites all forms of contractual damages under
+a single principle. It explains why damages may be
+awarded where an object of the contract is to secure
+a psychological benefit, just as they may be awarded
+where an object of the contract is to secure a material
+one. It also explains why an extended period of notice
+may have been awarded upon wrongful dismissal in
+employment law: see Wallace v. United Grain Growers
+Ltd., [1997] 3 S.C.R. 701. In all cases, these results are
+based on what was in the reasonable contemplation of
+the parties at the time of contract formation. [Emphasis
+deleted.]
+[56] We must therefore begin by asking what was
+contemplated by the parties at the time of the formation
+ of the contract, or, as stated in para. 44 of
+Fidler: “[W]hat did the contract promise?” The
+contract of employment is, by its very terms, subject
+ to cancellation on notice or subject to payment
+of damages in lieu of notice without regard to the
+ordinary psychological impact of that decision.
+At the time the contract was formed, there would
+not ordinarily be contemplation of psychological
+damage resulting from the dismissal since the dismissal
+ is a clear legal possibility. The normal distress
+ and hurt feelings resulting from dismissal are
+not compensable.
+[57] Damages resulting from the manner of dismissal
+ must then be available only if they result
+from the circumstances described in Wallace,
+namely where the employer engages in conduct
+during the course of dismissal that is “unfair or is
+in bad faith by being, for example, untruthful, misleading
+ or unduly insensitive” (para. 98).
+[58] The application of Fidler makes it unnecessary
+ to pursue an extended analysis of the scope
+of any implied duty of good faith in an employment
+ contract. Fidler provides that “as long as the
+promise in relation to state of mind is a part of the
+bargain in the reasonable contemplation of the con-
+tracting parties, mental distress damages arising
+from its breach are recoverable” (para. 48). In
+Wallace, the Court held employers “to an obligation
+391
+[2008] 2 R.C.S.
+
+
+of good faith and fair dealing in the manner of
+dismissal” (para. 95) and created the expectation
+that, in the course of dismissal, employers would
+be “candid, reasonable, honest and forthright with
+their employees” (para. 98). At least since that
+time, then, there has been expectation by both parties
+ to the contract that employers will act in good
+faith in the manner of dismissal. Failure to do so
+can lead to foreseeable, compensable damages. As
+aforementioned, this Court recognized as much in
+Fidler itself, where we noted that the principle in
+Hadley “explains why an extended period of notice
+may have been awarded upon wrongful dismissal
+in employment law” (para. 54).
+[59] To be perfectly clear, I will conclude this
+analysis of our jurisprudence by saying that there
+is no reason to retain the distinction between “true
+aggravated damages” resulting from a separate
+cause of action and moral damages resulting from
+conduct in the manner of termination. Damages
+attributable to conduct in the manner of dismissal
+are always to be awarded under the Hadley principle
+. Moreover, in cases where damages are
+awarded, no extension of the notice period is to be
+used to determine the proper amount to be paid.
+The amount is to be fixed according to the same
+principles and in the same way as in all other cases
+dealing with moral damages. Thus, if the employee
+can prove that the manner of dismissal caused
+mental distress that was in the contemplation of
+the parties, those damages will be awarded not
+through an arbitrary extension of the notice period,
+but through an award that reflects the actual damages
+. Examples of conduct in dismissal resulting
+in compensable damages are attacking the employee
+’s reputation by declarations made at the time of
+dismissal, misrepresentation regarding the reason
+for the decision, or dismissal meant to deprive the
+employee of a pension benefit or other right, per-
+manent status for instance (see also the examples
+in Wallace, at paras. 99-100).
+392
+
+
+[60] In light of the above discussion, the confu-
+sion between damages for conduct in dismissal and
+punitive damages is unsurprising, given that both
+have to do with conduct at the time of dismissal. It
+is important to emphasize here that the fundamental
+nature of damages for conduct in dismissal must be
+retained. This means that the award of damages for
+psychological injury in this context is still intended
+to be compensatory. The Court must avoid the pit-
+fall of double-compensation or double-punishment
+that has been exemplified by this case.
+
+3.2.2.2
+          Case
+
+[61] I have reviewed the major overriding and
+palpable errors which undermine the trial judge’s
+finding that Honda acted in “bad faith” when terminating
+ Keays. There was, in my opinion, no such
+breach and no justification for an award of damages
+for conduct in dismissal.
+
+3.3 Punitive Damages
+
+[62] In Vorvis, McIntyre J., for the majority, held
+that punitive damages are recoverable provided the
+defendant’s conduct said to give rise to the claim
+is itself “an actionable wrong”. This position stood
+until 2002 when my colleague Binnie J., writing for
+the majority, dealt comprehensively with the issue
+of punitive damages in the context of the Whiten
+case. He specified that an “actionable wrong”
+within the Vorvis rule does not require an independent
+ tort and that a breach of the contractual
+duty of good faith can qualify as an independent
+wrong. Binnie J. concluded, at para. 82, that “[a]n
+independent actionable wrong is required, but it can
+be found in breach of a distinct and separate contractual
+ provision or other duty such as a fiduciary
+obligation.” In the case at hand, the trial judge and
+the Court of Appeal concluded that Honda’s “discriminatory
+ conduct” amounted to an independent
+ actionable wrong for the purposes of allocating
+ punitive damages. This being said, there is no
+need to discuss the concept of “actionable wrong”
+393
+[2008] 2 R.C.S.
+
+
+here; this was done in Whiten. What matters here
+is that there was no basis for the judge’s decision
+on the facts. I will therefore examine the facts and
+determine why punitive damages were not well justified
+ according to the criteria in Whiten. I will also
+discuss the need to avoid duplication in damage
+awards. Damages for conduct in the manner of dismissal
+ are compensatory; punitive damages are
+restricted to advertent wrongful acts that are so
+malicious and outrageous that they are deserving
+of punishment on their own. This distinction must
+guide judges in their analysis.
+
+[63] In this case, the trial judge awarded punitive
+ damages on the basis of discriminatory conduct
+ by Honda. Honda argues that discrimination is
+precluded as an independent cause of action under
+Seneca College of Applied Arts and Technology v.
+Bhadauria, [1981] 2 S.C.R. 181. In that case, this
+Court clearly articulated that a plaintiff is precluded
+ from pursuing a common law remedy when
+human rights legislation contains a comprehensive
+ enforcement scheme for violations of its substantive
+ terms. The reasoning behind this conclusion
+ is that the purpose of the Ontario Human
+Rights Code is to remedy the effects of discrimination
+; if breaches to the Code were actionable in
+common law courts, it would encourage litigants
+to use the Code for a purpose the legislature did
+not intend — namely, to punish employers who discriminate
+ against their employees. Thus, a person
+who alleges a breach of the provisions of the Code
+must seek a remedy within the statutory scheme set
+out in the Code itself. Moreover, the recent amend-
+ments to the Code (which would allow a plaintiff to
+advance a breach of the Code as a cause of action in
+connection with another wrong) restrict monetary
+compensation to loss arising out of the infringe-
+ment, including any injuries to dignity, feelings
+394
+
+
+and self-respect. In this respect, they confirm the
+Code’s remedial thrust.
+
+[64] The Court of Appeal, relying on McKinley,
+concluded that Bhadauria only precludes a civil
+action based directly on a breach of the Code — but
+does not preclude finding an independent actionable
+ wrong for the purpose of allocating punitive
+damages. It is my view that the Code provides a
+comprehensive scheme for the treatment of claims
+of discrimination and Bhadauria established that a
+breach of the Code cannot constitute an actionable
+wrong; the legal requirement is not met.
+
+[65] Keays argued in cross-appeal before this
+Court that the decision in Bhadauria should be
+set aside and that a separate tort of discrimination
+should be recognized. In Bhadauria, Laskin C.J.,
+writing for the Court, held that the plaintiff was
+precluded from pursuing a common law remedy
+because the applicable human rights legislation
+(the Code) contained a comprehensive enforcement
+scheme for violations of its substantive terms. The
+subtext of the Bhadauria decision is a concern that
+the broad, unfettered tort of discrimination created
+by the Court of Appeal would lead to indetermi-
+nate liability. Laskin C.J. wrote, at p. 189:
+It is one thing to apply a common law duty of care to
+standards of behaviour under a statute; that is simply
+to apply the law of negligence in the recognition of
+so-called statutory torts. It is quite a different thing to
+create by judicial fiat an obligation — one in no sense
+analogous to a duty of care in the law of negligence —
+to confer an economic benefit upon certain persons,
+with whom the alleged obligor has no connection . . . .
+
+The concern that a tort of discrimination does not
+contain an effective limiting device was raised by
+interveners in this appeal. Moreover, as noted by the
+intervener Manitoba Human Rights Commission,
+jurisdictions outside Ontario have human rights
+395
+[2008] 2 R.C.S.
+
+
+legislation that vests jurisdiction exclusively with
+the provincial/territorial human rights tribunal.
+Accordingly, the concern in Bhadauria that recognition
+ of a tort of discrimination would be inconsistent
+ with legislative intent is still real.
+
+[66] The Council of Canadians with Disabilities,
+another intervener, raised the concern that recognition
+ of a tort of discrimination may undermine
+the statutory regime which, for many victims of
+discrimination, is a more accessible and effective
+means by which to seek redress.
+
+[67] This said, there is no need to reconsider the
+position in Bhadauria in this case and deal with
+Keays’ request for recognition of a distinct tort of
+discrimination. There was no evidence of discrimination
+ to support a claim under s. 5 of the Ontario
+Human Rights Code, therefore no breach of human
+rights legislation serving as an actionable wrong,
+as required by Goudge J.A. Furthermore, there was
+no evidence of conduct meeting the strict requirements
+ in Whiten. The trial judge concluded that the
+accommodation provided by admission to the disability
+ program was itself discriminatory because
+Keays “had to ‘earn’ each dispensation from being
+‘coached’ for any absences by presenting a ‘note’
+from his doctor like some child who is suspected
+of ‘playing hooky’ from school” (para. 53). The
+trial judge then added that it made little sense to
+have a disability program and then deter its use by
+asking for doctors’ notes. The association of coaching
+ and the requirement of notes made by the trial
+judge here is puzzling. The requirement of notes
+was in effect part of the accommodation because
+it permitted absences without the possibility of the
+same leading to disciplinary action for failing to
+meet work requirements. There was no detriment
+in being part of the disability program and being
+treated differently from persons with “mainstream
+illnesses”. The differential treatment was meant to
+accommodate the particular circumstances of persons
+ with a particular type of disability and to provide
+ a benefit to them. It is indeed apparent from
+the record that the program was designed to establish
+ a continuous relation between management
+396
+
+
+and treating physicians and monitor absences in
+order to establish in particular an expected rate of
+absences which would not give rise to disciplinary
+action. The suggestion that the program itself was
+discriminatory is not supported by the facts.
+
+[68] Even if I were to give deference to the trial
+judge on this issue, this Court has stated that punitive
+ damages should “receive the most careful consideration
+ and the discretion to award them should
+be most cautiously exercised” (Vorvis, at pp. 1104-
+5). Courts should only resort to punitive damages
+in exceptional cases (Whiten, at para. 69). The independent
+ actionable wrong requirement is but one
+of many factors that merit careful consideration by
+the courts in allocating punitive damages. Another
+important thing to be considered is that conduct
+meriting punitive damages awards must be “harsh,
+vindictive, reprehensible and malicious”, as well as
+“extreme in its nature and such that by any reasonable
+ standard it is deserving of full condemnation
+and punishment” (Vorvis, at p. 1108). The facts of
+this case demonstrate no such conduct. Creating a
+disability program such as the one under review in
+this case cannot be equated with a malicious intent
+to discriminate against persons with a particular
+affliction.
+
+[69] The majority of the Court of Appeal upheld
+the award of punitive damages, but reduced the
+quantum to $100,000. The findings supporting
+this decision are demonstrably wrong and, in some
+cases, contradict the Court of Appeal’s own findings
+. Before delving into the factual analysis, however
+, it is worth mentioning that even if the facts
+had justified an award of punitive damages, the
+lower courts should have been alert to the fact that
+compensatory damages were already awarded, and
+that under the old test, they carried an element of
+deterrence. This stems from the important principle
+ that courts, when allocating punitive damages,
+must focus on the defendant’s misconduct, not on
+397
+[2008] 2 R.C.S.
+
+
+the plaintiff’s loss (Whiten, at para. 73). In this case,
+the same conduct underlays the awards of damages
+for conduct in dismissal and punitive damages. The
+lower courts erred by not questioning whether the
+allocation of punitive damages was necessary for
+the purposes of denunciation, deterrence and retri-
+bution, once the damages for conduct in dismissal
+were awarded. Be that as it may, we now have a
+clearer foundation to distinguish between damages
+for conduct in dismissal and punitive damages.
+
+[70] As earlier mentioned, there was considerable
+duplication in the award of damages for conduct in
+dismissal and punitive damages in this case. The
+discussion of punitive damages must nevertheless
+begin with a consideration of the conduct attributed
+to Honda that justified the award.
+
+[71] As earlier mentioned, the main allegation
+was that Honda discriminated by requiring Keays
+to bring in a doctor’s note to justify each absence
+when employees with “mainstream illnesses” did
+not have to do so. The trial judge also found that
+this requirement had the effect of lengthening
+absences, ignoring the evidence of Ms. Selby who
+testified that Honda did not require the employee to
+produce a doctor’s note as a precondition to returning
+ to work. As discussed earlier, employees outside
+ the disability program did not require notes
+for absences of less than five days but were subject
+ to discipline for excessive absences (A.R., at
+pp. 282-83), whereas employees in the program
+were allowed regular absences without discipline
+beyond the usual attendance requirement under a
+system of supervision based on regular contacts
+with doctors. The object of the disability program
+is to maintain regular contact with the family
+doctor in order to support treatment. It allows for
+disability-related absences, a form of accommodation
+ determined in consultation with doctors. The
+program requires that medical notes be provided
+to establish that absences are in fact related to the
+disability. There is no stereotyping or arbitrariness
+here (McGill University Health Centre (Montreal
+General Hospital) v. Syndicat des employés de
+398
+
+
+l’Hôpital général de Montréal, [2007] 1 S.C.R.
+161, 2007 SCC 4, at para. 49). In addition, I accept
+that the need to monitor the absences of employees
+ who are regularly absent from work is a bona
+fide work requirement in light of the very nature of
+the employment contract and responsibility of the
+employer for the management of its workforce.
+
+[72] The trial judge also found the refusal to
+remove the “coaching” record from Keays’ file to
+be discriminatory, even if there was no evidence
+of any adverse consequences to the existence of
+a coaching file. The evidence was that coaching
+is not a disciplinary procedure and would simply
+permit entry into the disability program allowing
+absences without disciplinary consequences (A.R.,
+at pp. 306-14).
+
+[73] The trial judge also based his decision on
+harassment; he seemed to relate this entirely to a
+suggestion made by Dr. Affoo that Keays consider
+taking a position with a light physical component
+(para. 55). It is certainly difficult to see a course of
+conduct in a single incident. Moreover, this was a
+single suggestion made by an independent expert,
+never acted upon. I have already dealt with this
+argument at para. 39 when discussing the damages
+for conduct in dismissal.
+
+[74] A final basis for the finding that punitive damages
+ were justified is that Honda had “retaliated”
+against Keays. I have dealt with this at para. 47.
+
+[75] The Court of Appeal pointed to the finding
+that Honda knew that Keays valued his employment
+and was dependent upon it for disability benefits. It
+is no doubt true that Keays valued his job and that
+he was dependent upon that employment for his disability
+ benefits. However, knowledge of this cannot
+justify an award of punitive damages. All employees
+399
+[2008] 2 R.C.S.
+
+
+value their jobs. What matters is Honda’s conduct
+with regards to Keays’ need for medical attention
+and special accommodation. In this respect, it was
+wrong to blame Honda for Keays’ loss of disability
+benefits. London Life’s decision to cut off Keays’
+long-term disability benefits had nothing to do with
+Honda. It was therefore erroneous to attribute the
+insurer’s decision to Honda and allow for punitive
+damages on such grounds.
+
+[76] The Court of Appeal found that Honda
+knew Keays was particularly vulnerable because
+of his medical condition. However, according to
+the Court of Appeal’s own findings, Honda did not
+know about the seriousness or true nature of Keays’
+medical condition because Keays would not facili-
+tate an exchange of information about it. Honda was
+sceptical about Keays’ disability and was taking
+steps to confirm it. His medical file did not disclose
+a definitive diagnosis of CFS and Keays refused to
+meet with Dr. Brennan despite repeated assurances
+that the meeting was only a “get to know you” ses-
+sion, to be followed by contacts with Keays’ per-
+sonal physician.
+
+[77] Finally, the Court of Appeal pointed to
+Honda’s refusal to deal with Keays’ counsel. There
+is no legal obligation on the part of any party to deal
+with an employee’s counsel while he or she con-
+tinues with his or her employer. Parties are always
+entitled to deal with each other directly. What was
+egregious was the fact that Honda told Keays that
+hiring outside counsel was a mistake and that it
+would make things worse. This was surely a way
+of undermining the advice of the lawyer. This conduct
+ was ill-advised and unnecessarily harsh, but it
+does not provide justification for an award of punitive
+ damages.
+
+[78] The evidence and the Court of Appeal’s own
+findings lead me to conclude that Honda’s conduct
+ was not sufficiently egregious or outrageous
+to warrant an award of punitive damages under the
+Whiten criteria. The Court of Appeal’s award must
+thus be overturned.
+400
+
+
+4. The Cost Premium
+
+[79] The final issue that must be addressed relates
+to the cost premium. In Walker v. Ritchie, [2006]
+2 S.C.R. 428, 2006 SCC 45, this Court found that
+the risk of non-payment of lawyer’s fees is not a
+relevant factor under the Ontario Rules of Civil
+Procedure (Rule 57.01). This decision, which was
+released after the cost premium was awarded in
+this case, and Honda’s success on this appeal are
+determinative. Thus, the cost premium should be
+set aside.
+5. Conclusion
+
+[80] The appeal is allowed in part and the cross-
+appeal is dismissed. The damages for conduct in
+dismissal and punitive damages awards are set
+aside. Costs on this appeal and cross-appeal are
+awarded to Honda. At other levels, costs should be
+at a partial indemnity scale and the cost premium
+set aside.
+     The reasons of LeBel and Fish JJ. were delivered
+by
+
+[81] LeBel J. (dissenting in part on the appeal) —
+I have read the reasons of my colleague Justice
+Bastarache. I agree with him that there was no basis
+for the claim for punitive damages and that it over-
+laps with the award of what were formerly known
+as “Wallace damages”. I also agree with him that
+there is a need to review the categories of damages
+for dismissal. But any revision must reflect the view
+accepted by this Court that the contract of employment
+ is a good faith contract that is informed by the
+values protected by and recognized in the human
+rights codes and the Canadian Charter of Rights
+and Freedoms, particularly in respect of discrimination
+. As the Court found in Wallace v. United
+Grain Growers Ltd., [1997] 3 S.C.R. 701, the contract
+ of employment often reflects substantial power
+imbalances. As a result, it must be performed and
+terminated in good faith, and fairly.
+401
+[2008] 2 R.C.S.
+
+
+[82] With respect, I believe that on the facts of
+this case, the award of additional damages for
+manner of dismissal (formerly “Wallace damages”)
+should stand. The trial judge committed no overriding
+ errors in this respect ((2005), 40 C.C.E.L.
+(3d) 258). Although his review of the facts may not
+have been flawless, there was a sufficient basis for
+the findings of bad faith and discrimination in the
+manner in which the employment of the respondent
+, Kevin Keays, was terminated by Honda.
+
+[83] After discussing this, I will add a few com-
+ments on this Court’s judgment in Seneca College
+of Applied Arts and Technology v. Bhadauria,
+[1981] 2 S.C.R. 181, and on its impact on the development
+ of the law of torts.
+
+I.
+     Faith
+
+[84] This Court’s jurisprudence has had a significant
+ impact on the review of facts by appellate
+courts. Indeed, the Court recognizes that it too is
+bound by the principle of deference to the findings
+ of a trier of fact (St-Jean v. Mercier, [2002]
+1 S.C.R. 491, 2002 SCC 15, at paras. 37 and 46,
+per Gonthier J.). The trial in the Superior Court of
+Justice lasted 30 days. The trial judge heard exten-
+sive, and often conflicting, evidence about which he
+made numerous findings of fact. Despite some flaws
+in his review of the facts, his findings of bad faith
+and discrimination had an adequate factual foundation
+. Given the way the issues were addressed in
+this Court, I will discuss the errors allegedly committed
+ by the trial judge in some detail in order to
+show that the factual foundation for those findings
+was adequate.
+
+[85] I have reviewed the errors identified by the
+majority of the Court of Appeal, as well as those
+402
+
+
+identified by Justice Bastarache to support his conclusion
+ that Wallace, or manner of dismissal, damages
+ were not warranted in this case. In my view,
+several of the findings the majority of the Court of
+Appeal identified as errors were in fact supported
+by the evidence. The findings my colleague identi-
+fies as errors are also, in my opinion, generally supported
+ by the evidence. I will review each alleged
+error in turn below.
+
+[86] I agree that the trial judge wrongly associated
+ the termination of Mr. Keays’ long-term disability
+ insurance with Honda. The majority of the
+Court of Appeal properly rejected this finding, as
+there was no evidence that Honda was involved in
+the cancellation or in Mr. Keays’ failed appeal. The
+majority of the Court of Appeal also identified the
+following findings as errors:
+
+1.
+      deliberate and formed a protracted corporate
+      conspiracy”. The majority found that this was
+      not supported by the evidence.
+
+2. The appellant conspired to interfere with the
+   respondent’s relationship with his own physician
+   . The majority found that this contradicted
+   the trial judge’s finding that the appellant
+   intended to dismiss the respondent. If it
+   intended to dismiss him, there was no need
+   to introduce Dr. Brennan into the relationship
+   between Mr. Keays and his own physician.
+
+3. The appellant benefited from its misconduct
+   because it rid itself of a “problem associate”.
+   The majority could find no evidence to support
+   this conclusion.
+
+4. The appellant’s in-house counsel breached
+   the Rules of Professional Conduct of the Law
+   Society of Upper Canada. The majority concluded
+    that at most the behaviour was technical
+403
+[2008] 2 R.C.S.
+
+
+    misconduct and that it provided no basis for
+    increasing the punitive damages.
+
+((2006), 82 O.R. (3d) 161, at paras. 91, 93, 98, 100
+and 101)
+
+[87] In the case of the first finding, it may be that
+the trial judge exaggerated the extent of Honda’s
+misconduct. However, the evidence supports the
+trial judge’s view that Honda was unfairly skeptical
+ of Mr. Keays’ condition and was seeking to justify
+ its skepticism. It should be kept in mind that
+Honda’s intention in seeking to justify its skepticism
+ was clearly: (1) to preclude Mr. Keays from
+using his condition to justify absences from work
+and thereby avoiding disciplinary action; and/or (2)
+to justify the termination of Mr. Keays for any continued
+ absences. In either case, Honda’s conduct
+was to Mr. Keays’ detriment.
+
+[88] The second finding, that of interference
+with the respondent’s relationship with his doctor,
+was also reasonable. As I will explain below with
+respect to Dr. Brennan’s “hardball” approach, the
+gist of this approach was that Dr. Brennan would
+be brought in to “second-guess” the opinion of an
+employee’s treating physician. Further, there was a
+clear conflict between Dr. Brennan’s objective — to
+maximize employee productivity — and the objective
+ of an employee’s treating physician — to maximize
+ the individual’s well-being. Such a conflict
+may not always play out. In this case, however, a
+high potential for conflict arose out of the contro-
+versial nature of chronic fatigue syndrome (“CFS”)
+and the difficulty of making a diagnosis.
+
+[89] In my view, it was fair for the trial judge to
+characterize Honda’s conduct as interference with
+Mr. Keays’ relationship with his treating physician.
+Honda did not accept the diagnosis and the assess-
+ments of Mr. Keays’ treating physician. Yet, it gave
+no basis for its skepticism. The characterization of
+the notes of Mr. Keays’ doctor as “cryptic” and as
+merely “parroting” his complaints is unfair because
+of the self-reporting nature of his condition. As the
+404
+
+
+trial judge pointed out, if Honda was skeptical, the
+first logical step “was to determine if there had
+been, at any time, any form of legitimate diagnosis
+for the claim of CFS” (para. 18).
+
+[90] Further, this finding does not contradict the
+trial judge’s conclusion that Honda had intended to
+terminate Mr. Keays. I do not read the trial judge’s
+reasons as suggesting that Honda intended to terminate
+ Mr. Keays from the outset. Rather, the trial
+judge refers to Honda’s intent to “deprive him of
+the accommodation he had already earned” (para.
+60). That was the primary objective. According to
+the trial judge, Honda went about this by means of
+a course of conduct whose purpose was to discour-
+age absences (through intimidation and through the
+requirement that he provide a doctor’s note before
+returning), and which ultimately resulted in termination
+ when Mr. Keays refused to go along. The
+implication of the facts as found by the trial judge
+is that Honda wanted to introduce Dr. Brennan into
+the process in order to legitimize its conduct. Either
+Mr. Keays would meet with Dr. Brennan, who
+would justify Honda’s skepticism and avert any further
+ absences, or he would be fired for insubordination
+ (or for continued illegitimate absences) and
+any need to accommodate him would disappear.
+
+[91] I will now turn to the third finding. If it is
+accepted that Honda intended to deprive Mr. Keays
+of any accommodation, then Honda clearly suc-
+ceeded in this objective by terminating him. It is
+logical to assume that if Honda intended to deprive
+him of accommodation, it would in some way benefit
+ from doing so. The facts include concerns about
+workplace morale and Mr. Keays’ ability to perform
+ the duties of his job in accordance with the
+requirements of Honda’s “lean” operation policy.
+To the extent that Mr. Keays impeded efficiency
+goals, Honda clearly benefited from his termination
+.
+
+[92] As regards the fourth finding, I agree after
+reviewing the record that the trial judge mischaracterized
+ the situation, at least according to the other
+405
+[2008] 2 R.C.S.
+
+
+two Honda employees who testified (Susan Selby
+and Betty Magill). They stated that they had met
+with Mr. Keays to discuss the proposed meeting
+with Dr. Brennan. After Mr. Keays left the room,
+Ms. Selby and Ms. Magill were paged by Honda’s
+in-house counsel, who wanted to meet with them
+about an unrelated matter. Counsel came to the
+room they were in, and Mr. Keays re-entered the
+room after counsel had arrived. Some discussion
+about Mr. Keays’ situation ensued, although it
+appears to have been minimal.
+
+[93] In summary, it is my view that the Court of
+Appeal correctly identified three errors made by
+the trial judge: (1) his association of Honda with
+the cancellation of Mr. Keays’ long-term disability
+insurance; (2) his conclusion, based on the date the
+insurance was terminated, that Honda’s course of
+conduct had lasted five years; and (3) his characterization
+ of the incident involving Honda’s in-house
+counsel as a breach of the Rules of Professional
+Conduct. However, I disagree with the majority’s
+conclusions in respect of the other alleged errors.
+These “errors” relate to some extent to the error
+identified by Justice Bastarache regarding the
+March 28 letter, which I will now discuss.
+
+A. The March 28 Letter
+
+[94] At paras. 37-42 of his reasons, Justice
+Bastarache explains his conclusion that the trial
+judge erred in finding that Honda had deliberately
+misrepresented the positions of Dr. Affoo and Dr.
+Brennan in its March 28 letter for the purpose of
+intimidation. He states, at para. 40, that there was
+“nothing misleading” about the letter. He concludes
+, at para. 42, that the “letter simply conveyed
+to Keays that Honda wanted him to meet with Dr.
+Brennan because their experts had advised them
+that his condition did not preclude him from working
+”.
+
+[95] However, there was evidence on which the
+trial judge could conclude that the letter was misleading
+. The letter contained the following statement
+: “Both doctors advised us that they could
+406
+
+
+find no diagnosis indicating that you are disabled
+from working.” The following comment was also
+made: “. . . we advised you that we would no longer
+accept that you have a disability requiring you to
+be absent”. Yet, as the trial judge pointed out, Dr.
+Brennan testified that he “never told Honda that
+Mr. Keays did not have a disability, only that he
+was unable to ‘verify’ one” (para. 43). The trial
+judge also mentioned the testimony of Dr. Affoo,
+who “agreed with the plaintiff’s suggestion that
+absences of four per month was in the ‘ball-park’
+for an individual who suffered [from] CFS” (para.
+43). Moreover, it should be noted that although Dr.
+Affoo testified, on the basis of his experience with
+other CFS patients, that four CFS-related absences
+a month would not be unreasonable, he also said
+that he could not recall precisely what he told Ms.
+Selby regarding the rate of absence that could
+be expected from Mr. Keays. Dr. Affoo merely
+recalled confirming that “he may be off due to his
+condition” (A.R., at p. 572).
+
+[96] The trial judge concluded that “the clear
+implication of this communication was that his
+condition was ‘bogus’ and that he was able to
+attend work without absences” (para. 43). While
+it is arguable whether the letter implied that Mr.
+Keays’ condition was bogus, it clearly did imply
+that his condition did not require him to miss work.
+I am unable to find any evidence that either doctor
+advised Honda that he believed Mr. Keays’ condition
+ was bogus or that Mr. Keays was able to attend
+work without any CFS-related absences. To the
+contrary, Dr. Affoo testified that he had informed
+Honda that some absences were to be expected. It
+was therefore open to the trial judge to conclude
+that the letter was a “misrepresentation of the medical
+ information available to Honda at the time”
+(para. 43).
+
+B. Allegations of a “Set-Up” and a “Hardball”
+   Approach
+
+[97] At paras. 43-46, Justice Bastarache rejects
+the trial judge’s finding that Mr. Keays was being
+“set up” by Honda when it insisted that he meet
+407
+[2008] 2 R.C.S.
+
+
+with Dr. Brennan, as well as his finding that Dr.
+Brennan took a “hardball” approach to workplace
+absences. My colleague’s bases for rejecting these
+findings are: (1) that Dr. Brennan was merely relying
+ on the criteria for diagnosing CFS developed by
+the Center for Disease Control (“CDC”); and (2)
+that Honda cannot be faulted for taking its expert’s
+advice unless a conspiracy existed (and none did).
+Justice Bastarache concludes that Honda’s request
+that Mr. Keays meet with Dr. Brennan was “perfectly
+ normal in the circumstances” (para. 46).
+After reviewing the record, in my opinion, the trial
+judge could reasonably conclude that Dr. Brennan
+took a “hardball” approach and that Mr. Keays was,
+at least to a certain extent, being “set up” for failure
+by Honda’s request that he meet with Dr. Brennan.
+
+[98] First, I must point out that Justice Bastarache
+erroneously associates the trial judge’s reference to
+Dr. Brennan’s “hardball” attitude with Dr. Brennan’s
+approach to CFS. In refuting the trial judge’s view
+that Dr. Brennan took a “hardball” approach, my
+colleague reviews Dr. Brennan’s opinion on CFS
+in order to demonstrate that Dr. Brennan was
+“simply espousing the prevalent approach adopted
+by the CDC” (para. 45). However, what the trial
+judge actually stated was that “the record estab-
+lishes beyond any debate that Dr. Brennan is of the
+‘hardball’ approach to workplace absences associated
+ with illnesses or injuries” (para. 45 (emphasis
+added)). Dr. Brennan’s opinion concerning CFS is a
+separate issue. Although Justice Bastarache makes
+reference to Dr. Brennan’s “‘hardball’ approach to
+workplace absences” (at paras. 44 and 45), his only
+discussion of that approach relates to Dr. Brennan’s
+views on CFS.
+
+[99] Several excerpts from Dr. Brennan’s testimony
+ are indicative of a “hardball” approach
+toward absences, and toward accommodating disabilities
+ generally. In describing his approach to
+accommodation, Dr. Brennan stated that “the gold
+standard for accommodating somebody, in fact, is
+to not to have to accommodate them, meaning that
+their impairment is not of a nature that would stop
+408
+
+
+them from doing their regular work” (A.R., at p.
+618 (emphasis added)). He then went on to describe
+a process whereby disabled workers are “matched”
+with duties they can perform despite their impair-
+ments. Later in his testimony, Dr. Brennan acknowledged
+ that some people have issues with an “accommodation
+” that involves being moved to another job
+they view as less “prestigious” (A.R., at p. 662). He
+added that this does not affect his recommenda-
+tion as to the appropriate “accommodation”, stating
+ that: “. . . my opinion is based on [a] medical
+approach or a functional approach. Prestige isn’t a
+medical issue.”
+
+[100] These excerpts are troubling. The implication
+ is that Dr. Brennan’s objective is to recommend
+the “accommodation” that is best for Honda, not the
+one that is best for the employee. Although he suggests
+ that he is only giving a “medical” opinion, his
+opinion is focussed on maximizing an employee’s
+productivity for Honda in light of the employee’s
+condition. His goal is clearly not to find ways for
+Honda to make it easier for the disabled employee
+to do his or her current job. Certainly, disabilities
+may make it impossible for individuals to continue
+in their current positions. But if accommodation
+is truly a cooperative and collaborative process, it
+requires give and take on both sides. Dr. Brennan’s
+approach suggests that rather than assisting disabled
+ employees to continue in their current roles,
+employers can simply place disabled employees in
+other roles that do not require any true accommodation
+ on the employers’ part. This approach makes
+the disability the employee’s problem, not a problem
+ shared with the employer. This is of concern
+from an equality perspective because it limits the
+employment options available to disabled persons.
+
+[101] Generally, Dr. Brennan appeared to be of
+the view that only he can truly ascertain whether an
+employee has an impairment. He showed skepticism
+toward the opinions of other doctors and indicated
+that he would insist on meeting with an employee
+no matter what was in the employee’s medical
+409
+[2008] 2 R.C.S.
+
+
+records, because he needed to assess the person
+himself in order to assess the employee’s “impairment
+” and determine the appropriate “accommodation
+”. As a doctor, he was able to give a “medical”
+opinion both about what an individual was capable
+of doing and about what would be “best” for the
+individual from a medical perspective. This could
+easily lead to a situation in which Dr. Brennan’s
+opinion conflicts with the opinion of the employee
+’s treating physician. His objective is not to provide
+ medical care for the individual employee but,
+as I mentioned above, to maximize productivity. In
+my view, the above passages provide ample support
+for the trial judge’s view that Dr. Brennan took a
+“hardball” approach to absences, and to accommodation
+ generally.
+
+[102] It was argued that regardless of Dr.
+Brennan’s approach, Honda cannot be faulted
+for taking its expert’s advice unless a conspiracy
+existed. The “advice” referred to is purportedly
+that Dr. Brennan needed to meet with Mr. Keays
+face to face in order to accept the diagnosis of CFS.
+However, the trial judge expressly rejected the
+argument that it was necessary for Dr. Brennan to
+meet with Mr. Keays. This was a critical finding in
+the trial judge’s analysis of the wrongful dismissal
+claim. The trial judge found that, given the numerous
+ references to CFS in Mr. Keays’ medical file as
+well as his lengthy period of CFS-related disability
+, there was no need for Mr. Keays to meet with
+Dr. Brennan “to resolve [his] attendance defaults”
+(para. 18).
+
+[103] Mr. Keays was concerned about meeting
+with Dr. Brennan because of his previous experience
+ with his insurer. The insurer had required
+him to meet with its doctor for an assessment, after
+which his long-term disability insurance was terminated
+ even though his own physician was still of
+the view that he was not able to return to work. Mr.
+Keays feared that a similar situation would occur in
+which Dr. Brennan would not accept that he had to
+miss work due to his CFS, and that this would have
+negative implications for his continued employment
+at Honda. It appears that the trial judge referred to
+Dr. Brennan’s “hardball” approach in order to vali-
+date Mr. Keays’ concern that Dr. Brennan would
+410
+
+
+not accept his need for CFS-related absences.
+There was some evidence that Honda knew (and
+approved) of Dr. Brennan’s approach. Ms. Selby
+testified that Dr. Brennan “had a very good reputation
+, from what I was told, in terms of dealing with
+workplace absences and a fresh approach, fresh
+start” (A.R., at p. 449).
+
+[104] The trial judge’s main point appears to be
+that Honda was relying on Dr. Brennan and his
+approach to “deal with” Mr. Keays and his absences.
+In other words, Honda was relying on Dr. Brennan
+to legitimize its view that the absences were not
+warranted. In light of the evidence, this conclusion
+was not unreasonable.
+
+[105] In regard to the issue of whether Mr. Keays
+was being “set up”, Dr. Brennan testified that he
+was asked by Susan Selby to review Mr. Keays’ file
+and “provide an opinion as to whether there was
+a proven impairment and whether he should be
+attending work” (A.R., at p. 624). This suggests that
+before involving Dr. Brennan in the case, Honda
+already harboured suspicions about the legitimacy
+of Mr. Keays’ condition. Further, Honda cancelled
+its accommodation of Mr. Keays’ condition at the
+same time as it urged Mr. Keays to meet with Dr.
+Brennan (the trial judge referred specifically to this
+fact at para. 29). It was therefore not unreasonable
+for the trial judge to conclude that the purpose of
+the meeting was to confirm Honda’s view that the
+absences were not justified. I will discuss this further
+ below with respect to reprisal.
+
+[106] Finally, although it was suggested that Dr.
+Brennan was consulted in order to confirm the
+diagnosis of Mr. Keays’ condition, the testimony of
+Ms. Magill and Ms. Selby is unclear in this regard.
+At several points, they suggested that Dr. Brennan
+was consulted in order to obtain his opinion on
+whether Mr. Keays was able to work on a more
+regular basis (i.e. without CFS-related absences),
+not on whether Mr. Keays had a bona fide medical
+411
+[2008] 2 R.C.S.
+
+
+condition. Ms. Magill testified that the purposes
+of having Mr. Keays meet with Dr. Brennan were
+threefold: first, simply to review Mr. Keays’ medical
+ file with him in person and to discuss his condition
+, his symptoms and their impact on his work;
+second, to develop a treatment plan that was to be
+coordinated with Mr. Keays’ own physician; and
+third, to review and assess any restrictions on Mr.
+Keays’ ability to work and to consider alternative
+roles for him at Honda (A.R., at pp. 402-3). Ms.
+Magill stated that Dr. Brennan had not reached a
+conclusion on Mr. Keays’ condition, but had simply
+reached one about his ability to work (A.R., at
+p. 406).
+
+[107] Ms. Selby denied that one of the purposes
+of the meeting was to develop a treatment plan for
+Mr. Keays that Dr. Brennan was to coordinate with
+Mr. Keays’ physician (A.R., at p. 506). However,
+she did testify that one of the purposes of the proposed
+ meeting, in addition to sharing information,
+was to see whether “there was something that Dr.
+Brennan could do to help support [Mr. Keays] in
+the future” (A.R., at p. 457). Ms. Selby also testified
+that Mr. Keays “didn’t have restrictions to assess”
+and therefore denied that one of the purposes of the
+meeting was to assess any restrictions in order to
+consider an alternative role for Mr. Keays at Honda
+(A.R., at p. 507).
+
+[108] Ms. Selby testified that she had originally
+spoken to Dr. Brennan regarding Mr. Keays in
+order to get his opinion on whether it was “fair to
+expect Kevin to provide regular attendance” (A.R.,
+at p. 449). However, Dr. Brennan testified that Ms.
+Selby had asked him to review Mr. Keays’ record
+in order to “provide an opinion as to whether there
+was a proven impairment and whether he should
+be attending work” (A.R., at p. 624). Dr. Brennan
+added that he had proposed to Ms. Selby that he
+meet with Mr. Keays in order to go over his medical
+ history (A.R., at pp. 667-68). Both Ms. Magill
+and Ms. Selby stated that Mr. Keays was told that
+the purpose of the meeting was to review his file
+and share information (A.R., at pp. 341 and 503).
+412
+
+
+[109] I raise the purpose of the meeting as a concern
+ in relation to the set-up issue, because the
+record shows an apparent lack of candour in what
+Mr. Keays was told about the purpose of the meeting
+. The testimony of Ms. Magill, Ms. Selby and
+Dr. Brennan is somewhat conflicting, so the precise
+ purpose of the meeting remains unclear. Dr.
+Brennan’s testimony suggests that the meeting was
+held in response to Ms. Selby’s request to verify
+whether there was a “proven impairment” and
+whether Mr. Keays’ absences were justified. Yet,
+this does not seem to be what Mr. Keays was told.
+Although Ms. Magill mentioned some other purposes
+, none of these were communicated to Mr.
+Keays either. If there was a lack of candour, this
+might support the trial judge’s view that Mr. Keays
+was being “set up.”
+
+C. Reprisal
+
+[110] At para. 47, Justice Bastarache rejects the
+trial judge’s finding that Honda had cancelled Mr.
+Keays’ accommodation as a reprisal for his having
+retained legal counsel. Justice Bastarache suggests
+that “Honda was simply seeking to confirm Keays’
+disability”. He also notes that Mr. Keays’ superiors
+had met to address the deficiencies in his doctors’
+notes “well before Keays’ lawyer sent his letter”.
+
+[111] In my view, the timing of the cancellation
+ and of the insistence that Mr. Keays meet
+with Dr. Brennan is suspect. The letter from Mr.
+Keays’ counsel was dated March 16. In it, counsel
+requested that Mr. Keays be exempted from providing
+ a doctor’s note for each absence before returning
+to work. This was a request for a more appropriate
+accommodation of Mr. Keays’ disability. Honda’s
+response to Mr. Keays’ request that he be exempted
+from providing doctors’ notes was to preclude him
+from claiming any disability-related absences. It
+was at a meeting on March 21 that Honda told Mr.
+Keays that it would no longer accept that he had a
+disability requiring him to be absent and that he
+413
+[2008] 2 R.C.S.
+
+
+would have to meet with Dr. Brennan in order to
+“manage” his condition.
+
+[112] I disagree that it was a palpable and overriding
+ error for the trial judge to conclude that the
+cancellation was, at least in part, a reprisal for Mr.
+Keays’ attempt to assert his right to proper accommodation
+ under the Ontario Human Rights Code,
+R.S.O. 1990, c. H.19. Instead of considering Mr.
+Keays’ position, Honda denied any need for his
+continued absences. I do not see how this could be
+seen as an attempt by Honda “to confirm Keays’
+disability”. Honda stated expressly in the March 28
+letter that it no longer accepted that he had a disability
+ requiring absences. Further, even if Honda
+was suspicious of Mr. Keays’ condition, the fact
+that such concerns had been raised prior to the
+March 21 meeting does not, in my view, explain
+or justify the unilateral cancellation, on such short
+notice, of the minimal accommodation that had
+been provided.
+
+D. Keays’ Worsened Condition
+
+[113] Justice Bastarache also rejects the trial
+judge’s consideration of Mr. Keays’ worsened condition
+ because he rejects the conclusion that Honda
+acted in bad faith. As I explained above, I question
+ the reasoning that leads him to reject the trial
+judge’s findings of fact. In my view, the impugned
+findings of fact were supported by the evidence.
+Given my view that Honda did act in bad faith, Mr.
+Keays’ worsened condition following his termination
+ is relevant to the assessment of Wallace damages
+.
+
+II. Reconsidering the Issue of Wallace Damages
+
+[114] In his reasons, Justice Bastarache clarifies
+the proper approach to assessing Wallace damages
+in a wrongful dismissal action. As I mentioned
+414
+
+
+above, his review is a necessary and welcome
+restatement of the law on damages for wrongful
+dismissal. Justice Bastarache explains that Wallace
+damages will be available where “the manner of dismissal
+ caused mental distress that was in the contemplation
+ of the parties” (para. 59). But because
+this Court held in Wallace that employers have an
+“obligation of good faith and fair dealing” when
+dismissing employees “and created the expectation
+that, in the course of dismissal, employers would
+be ‘candid, reasonable, honest and forthright with
+their employees’” (para. 58), an employer’s failure
+to properly discharge that obligation makes it foreseeable
+ that a dismissal might cause mental distress
+. A failure to show good faith may therefore
+justify an award of compensatory damages. The
+instant case is a case in point.
+
+[115] There is ample evidence to support the trial
+judge’s conclusion that Honda acted in bad faith.
+Several aspects of Honda’s conduct are particularly
+persuasive in this regard. Most notable is the misleading
+ nature of the March 28 letter, which indicated
+ that, according to Dr. Affoo and Dr. Brennan,
+Mr. Keays did not have a disability requiring him
+to be absent from work. The clear implication was
+that Mr. Keays’ recent absences were unrelated to
+his disability or, at the very least, that they were
+medically unnecessary. A further implication, one
+that was expressly spelled out later in the letter, was
+that any CFS-related absences from work by Mr.
+Keays in excess of the normal allowances would
+result in disciplinary action. In other words, he was
+no longer eligible to participate in the disability
+program. The justification given for this decision
+was the opinion of Honda’s medical experts, yet
+neither doctor had recommended that Mr. Keays
+be removed from the disability program, nor had
+they claimed that any CFS-related absences were
+unjustified.
+
+[116] A further concern is the apparent lack of
+candour on Honda’s part in regard to the purpose
+of the proposed meeting between Mr. Keays and
+Dr. Brennan. Neither Ms. Magill nor Ms. Selby
+415
+[2008] 2 R.C.S.
+
+
+provided any justification for their refusal to
+explain the purpose of the meeting to Mr. Keays
+other than to say that the purpose had already
+been explained to him in person. Yet, as I mentioned
+ above, there was conflicting testimony
+about the purpose of this meeting. Given the con-
+fusion among Honda’s own employees, it is under-
+standable that Mr. Keays was still unclear about
+the purpose and that he sought further clarification
+. In addition, the failure to provide clarification
+ in writing is somewhat suspicious. Further,
+given that Mr. Keays was willing to meet with
+Dr. Brennan if clarification was provided and that
+Mr. Keays’ refusal to meet with Dr. Brennan without
+ such clarification resulted in his dismissal, the
+refusal to provide it seems unduly harsh.
+
+[117] The nature of the events leading up to Mr.
+Keays’ termination makes it reasonable to conclude
+that the conduct of Honda surrounding his termination
+, and not the fact of termination alone, led to his
+worsened state. Accordingly, an award of damages
+can be justified in this case on the basis of Honda’s
+conduct and of the harm Mr. Keays suffered as a
+result. Although, as Justice Bastarache explains,
+Wallace damages are intended to be compensatory
+, given the lack of evidence on the precise loss
+Mr. Keays suffered as a result of Honda’s conduct
+, I would uphold the compensation the trial
+judge granted over and above the 15-month notice
+period. The quantum of the damages appears reasonable
+ and would give Mr. Keays adequate compensation
+.
+
+III. Bhadauria and Tort Law
+
+[118] I agree that it is not necessary to reconsider
+ Bhadauria in the present appeal. But in my
+opinion Laskin C.J. went further than was strictly
+necessary in Bhadauria. The main thrust of the
+decision was that Ms. Bhadauria did not have a
+legally protected interest at common law that had
+been harmed by the defendant’s allegedly discriminatory
+ conduct (pp. 191-92). However, rather
+than stop there, Laskin C.J. went on to hold that
+the Ontario Human Rights Code “foreclose[s] any
+416
+
+
+civil action based directly upon a breach thereof
+[and] also excludes any common law action based
+on an invocation of the public policy expressed in
+the Code” (p. 195). These conclusions imply (and
+have been interpreted to mean) that any allegations
+resembling the type of conduct that is prohibited by
+the Code cannot be litigated at common law. The
+Code covers a broad range of conduct in promot-
+ing the goal of equality. Yet the conduct at issue
+in Bhadauria was limited to the facts of that case.
+It would have been sufficient to simply conclude
+that the interest advanced by Ms. Bhadauria was
+not protected at common law. It was not necessary
+for this Court to preclude all common law actions
+based on all forms of discriminatory conduct.
+
+[119] The development of tort law ought not to be
+frozen forever on the basis of this obiter dictum.
+The legal landscape has changed. The strong prohibitions
+ of human rights codes and of the Charter
+have informed many aspects of the development of
+the common law.
+
+[120] On the facts of this appeal, discrimination
+was a troubling aspect of the decision to terminate
+ Mr. Keays. The presence of this discrimination
+ aspect taints the process and has an impact on
+the issue of whether the employment relationship
+was terminated in good faith. Justice Bastarache
+notes that Mr. Keays suffered no detriment in being
+treated differently from employees with “mainstream
+” illnesses, because the differential treatment
+was intended to accommodate him and he is thus
+implicitly compared with that category of employees
+ (para. 67). However, Justice Bastarache does
+not inquire into whether this method of accommodation
+ was appropriate and whether it addressed
+the difference of the employee, namely his particular
+ disability.
+
+[121] The National ME/FM Action Network, an
+intervener in this appeal, explained why the accommodation
+ provided by Honda was not appropriate:
+417
+[2008] 2 R.C.S.
+
+
+   ME/CFS is as yet poorly understood. Those who
+suffer from it may have highly variable symptoms.
+There is no laboratory test that can be used to confirm
+a diagnosis. In this context, attributing undue signifi-
+cance to matters such as doctors’ notes which are based
+upon the patient’s own reporting of symptoms, the treating
+ doctor’s lack of precision in forecasting absences,
+and the inability of doctors employed or retained by an
+employer to “verify” a diagnosis of CFS or to accept
+CFS as justifying absences, will likely be inimical to
+the accommodation required under human rights codes.
+[Factum, at para. 14]
+
+Although I agree with Justice Bastarache that
+employers are justified in monitoring the absences
+of employees, particularly those who are regularly
+absent from work (at para. 71), he did not consider
+whether Honda’s method of monitoring absences
+was appropriate (i.e. non-discriminatory). Honda’s
+assertion that its disability program and its treatment
+ of Mr. Keays under that program were non-
+discriminatory cannot simply be taken at face
+value.
+
+[122] Mr. Keays had requested to be exempted
+from the requirement to provide a doctor’s note
+for each CFS-related absence. Honda refused to
+consider this request, despite the assertion by Mr.
+Keays’ attorney that Mr. Keays was concerned that
+the note requirement created a barrier to his speedy
+return to work. Regardless of whether or not the
+notes created a barrier, it is clear that Honda was
+skeptical of Mr. Keays’ condition because of the
+“cryptic” nature of his doctors’ notes and because
+his absences had become more frequent than originally
+ predicted. Yet if variable self-reporting conditions
+ are characteristic of Mr. Keays’ disability,
+it is arguable that Honda acted in a discriminatory
+manner in subjecting him to the kind of scrutiny he
+underwent and, in fact, denying him accommodation
+ for his disability.
+
+[123] While monitoring employee absences certainly
+ remains a valid objective, this can be done
+in a variety of ways. Requiring a doctor’s note for
+each absence is only one alternative. Others include
+418
+
+
+seeking semi-regular updates from an employee’s
+physician regarding the nature of the condition
+and the course of treatment, checking in with the
+employee directly, or requiring doctors’ notes only
+when the number of absences exceeds the expected
+number within a given time frame. Not all monitoring
+ methods may be considered non-discriminatory
+in every context. As stated by the Ontario Network
+of Injured Workers’ Groups, another intervener in
+this appeal, “[i]ndividualized accommodation is at
+the heart of the duty to accommodate and is instru-
+mental in creating a discrimination free workplace”
+(Factum, at para. 17). In my view, the employer
+must, in monitoring absences, remain mindful of
+all the circumstances, which include the nature of
+the employee’s condition. It should not be assumed
+that all monitoring methods are acceptable and
+non-discriminatory.
+
+[124] For these reasons, I would allow the appeal
+in part by setting aside the award of punitive damages
+ and the costs premium. The cross-appeal
+should be dismissed. Given the outcome and the
+circumstances of the case, I would award costs to
+the respondent.
+
+   Appeal allowed in part, LeBel and Fish JJ. dissenting
+ in part. Cross-appeal dismissed.
+
+  Solicitors for the appellant/respondent on cross-
+appeal: Lerners, Toronto.
+
+  Solicitors for the respondent/appellant on cross-
+appeal: Scher & De Angelis, Toronto.
+
+   Solicitor for the intervener the Canadian Human
+Rights Commission: Canadian Human Rights
+Commission, Ottawa.
+
+   Solicitor for the intervener the Ontario Human
+Rights Commission: Ontario Human Rights
+Commission, Toronto.
+
+   Solicitor for the intervener the Manitoba Human
+Rights Commission: Manitoba Human Rights
+Commission, Winnipeg.
+419
+[2008] 2 R.C.S.
+
+
+  Solicitors for the intervener the Alliance of
+Manufacturers & Exporters Canada: Baker &
+McKenzie, Toronto.
+
+  Solicitors for the intervener the Human
+Resources Professionals Association of Ontario:
+Miller Thomson, Toronto.
+
+  Solicitors for the intervener the National ME/
+FM Action Network: Paliare, Roland, Rosenberg,
+Rothstein, Toronto.
+
+  Solicitor for the intervener the Council of
+Canadians with Disabilities: Community Legal
+Assistance Society, Vancouver.
+
+  Solicitor for the intervener the Women’s Legal
+Education and Action Fund: Women’s Legal
+Education and Action Fund, Toronto.
+
+   Solicitor for the intervener the Ontario Network
+of Injured Workers’ Groups: ARCH Disability Law
+Centre, Toronto.

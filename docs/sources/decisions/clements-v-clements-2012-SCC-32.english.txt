@@ -1,0 +1,1282 @@
+181
+[2012] 2 R.C.S.
+
+
+Joan Clements, by her litigation guardian,
+Donna Jardine Appellant
+
+v.
+
+Joseph Clements
+
+and
+
+Attorney General of British
+Columbia Intervener
+
+Indexed as: Clements v. Clements
+2012 SCC 32
+File No.: 34100.
+2012: February 17; 2012: June 29.
+Present: McLachlin C.J. and LeBel, Deschamps,
+Fish, Abella, Rothstein, Cromwell, Moldaver and
+Karakatsanis JJ.
+
+on appeal from the court of appeal for
+british columbia
+   Torts — Negligence — Causation — Motor vehicle
+accident — Motorcycle passenger injured in crash —
+Passenger alleging driver’s negligence in operation of
+motorcycle caused injury — Whether trial judge erred in
+insisting on scientific reconstruction evidence to prove
+causation, and in applying “material contribution” test
+rather than “but for” test to determine causation.
+   C was driving his motorcycle in wet weather, with
+his wife riding behind on the passenger seat. The bike
+was about 100 pounds overloaded. Unbeknownst to C, a
+nail had punctured the rear tire. Though in a 100 km/h
+zone, C accelerated to at least 120 km/h in order to pass
+a car; the nail fell out, the rear tire deflated, and the
+bike began to wobble. C was unable to bring the bike
+under control and it crashed; his wife suffered a severe
+traumatic brain injury. She then sued C, alleging that
+her injury was caused by his negligence in driving an
+overloaded bike too fast. The trial judge found that C’s
+negligence in fact contributed to the injury. However,
+he also found that C’s wife, through no fault of her
+own, was unable to prove “but for” causation, due to the
+182
+
+
+limitations of scientific reconstruction evidence. The
+trial judge applied a material contribution test instead
+and found C liable on this basis. The Court of Appeal
+set aside the judgment and dismissed the action, on the
+basis that “but for” causation had not been proved and
+the material contribution test did not apply.
+   Held (LeBel and Rothstein JJ. dissenting): The appeal
+ should be allowed, and a new trial ordered.
+    Per McLachlin C.J. and Deschamps, Fish, Abella,
+Cromwell, Moldaver and Karakatsanis JJ.: On its own,
+proof by an injured plaintiff that a defendant was negligent
+ does not make that defendant liable for the loss.
+As a general rule, a plaintiff cannot succeed unless she
+shows as a matter of fact that she would not have suffered
+ the loss “but for” the negligent act or acts of the
+defendant. Exceptionally, however, a plaintiff may be
+able to recover on the basis of material contribution to
+risk of injury, without showing factual “but for” causation
+. Elimination of proof of causation as an element
+of negligence is a radical step that goes against the
+fundamental principle that a defendant in an action in
+negligence is a wrongdoer only in respect of the damage
+ which he actually causes to the plaintiff. Therefore,
+recourse to a material contribution to risk approach is
+justified only where it is required by fairness and conforms
+ to the principles that ground recovery in tort. The
+cases that have dispensed with the usual requirement of
+“but for” causation in favour of a less onerous material
+contribution to risk approach are generally cases with
+a number of tortfeasors where, “but for” the negligent
+act of one or more of the defendants, the plaintiff would
+not have been injured. It is only when it is applied separately
+ to each defendant that the “but for” test breaks
+down because it cannot be shown which of several negligent
+ defendants actually launched the event that led to
+the injury. In these circumstances, permitting the plaintiff
+ to succeed on a material contribution to risk basis
+meets the underlying goals of the law of negligence.
+The plaintiff has shown that she is in a correlative relationship
+ of doer and sufferer of the same harm with the
+group of defendants as a whole, if not necessarily with
+each individual defendant.
+183
+[2012] 2 R.C.S.
+
+
+    In this case, the trial judge committed two errors.
+First, he insisted on scientific reconstruction evidence
+as a necessary condition of finding “but for” causation.
+Scientific precision is not necessary to a conclusion
+that “but for” causation is established on a balance of
+probabilities. Second, the trial judge erred in applying
+a material contribution to risk test. The special condi-
+tions that permit resort to a material contribution approach
+ were not present in this case. This is a simple
+single-defendant case: the only issue was whether “but
+for” the defendant’s negligent conduct, the injury would
+have been sustained. Although the trial judge used language
+ tantamount to finding actual “but for” causation,
+we cannot be certain what he would have concluded had
+he not made these two errors. The appropriate remedy
+in these circumstances is an order for a new trial.
+   Per LeBel and Rothstein JJ. (dissenting): There is
+no basis in fact and law for ordering a new trial. The
+key finding of fact made by the trial judge was that the
+plaintiff had not proven causation on the basis of the
+“but for” test. The trial judge’s finding that the material
+contribution test was satisfied cannot be reinterpreted
+as a finding that “but for” causation was established.
+    On policy grounds, this Court and courts of appeal
+should be mindful of the need for finality and efficiency
+ in the civil litigation process. In this appeal, there is
+no basis in the trial judge’s judgment for inferring that
+the overloading of the motorcycle and excessive speed
+could have been the “cause” of the accident as that term
+is understood in the context of the “but for” test. Nor is
+this a case in which it would be appropriate to send the
+matter back for a new trial.
+Cases Cited
+By McLachlin C.J.
+   Distinguished: Sienkiewicz v. Greif (UK) Ltd.,
+[2011] UKSC 10, [2011] 2 All E.R. 857; referred to:
+Wilsher v. Essex Area Health Authority, [1988] A.C.
+1074; Snell v. Farrell, [1990] 2 S.C.R. 311; Athey v.
+Leonati, [1996] 3 S.C.R. 458; Betts v. Whittingslowe
+(1945), 71 C.L.R. 637; Bennett v. Minister of Community
+184
+
+
+Welfare (1992), 176 C.L.R. 408; Flounders v. Millar,
+[2007] NSWCA 238, 49 M.V.R. 53; Roads and Traffic
+Authority v. Royal, [2008] HCA 19, 245 A.L.R. 653;
+MacDonald v. Goertz, 2009 BCCA 358, 275 B.C.A.C.
+68; Resurfice Corp. v. Hanke, 2007 SCC 7, [2007] 1
+S.C.R. 333; Mooney v. British Columbia (Attorney
+General), 2004 BCCA 402, 202 B.C.A.C. 74; Cook v.
+Lewis, [1951] S.C.R. 830; Walker Estate v. York Finch
+General Hospital, 2001 SCC 23, [2001] 1 S.C.R. 647;
+Fairchild v. Glenhaven Funeral Services Ltd., [2002]
+UKHL 22, [2002] 3 All E.R. 305; Barker v. Corus UK
+Ltd., [2006] UKHL 20, [2006] 2 A.C. 572.
+
+Authors Cited
+
+Weinrib, Ernest J. The Idea of Private Law. Cambridge,
+  Mass.: Harvard University Press, 1995.
+
+   APPEAL from a judgment of the British
+Columbia Court of Appeal (Frankel, Tysoe and
+Garson JJ.A.), 2010 BCCA 581, 12 B.C.L.R. (5th)
+310, 79 C.C.L.T. (3d) 6, 4 M.V.R. (6th) 1, 327 D.L.R.
+(4th) 1, 298 B.C.A.C. 56, 505 W.A.C. 56, [2010]
+B.C.J. No. 2532 (QL), 2010 CarswellBC 3477, reversing
+ a decision of Grauer J., 2009 BCSC 112,
+[2009] B.C.J. No. 166 (QL), 2009 CarswellBC 202.
+Appeal allowed, LeBel and Rothstein JJ. dissenting
+.
+
+     Dick Byl and Kimi Aimetz, for the appellant.
+
+  Robert A. Easton, Ryan W. Morasiewicz and
+Greg A. Cavouras, for the respondent.
+
+     Jonathan Eades, for the intervener.
+
+  The judgment of McLachlin C.J. and
+Deschamps, Fish, Abella, Cromwell, Moldaver and
+Karakatsanis JJ. was delivered by
+
+     The Chief Justice —
+
+I.
+
+[1] The parties to this appeal, Mr. and Mrs.
+Clements, were motorbike enthusiasts. August
+7th, 2004, found them en route from their home
+in Prince George, British Columbia, to visit their
+daughter in Kananaskis, Alberta. The weather
+185
+[2012] 2 R.C.S.
+
+
+was wet. Mr. Clements was driving the bike and
+Mrs. Clements was riding behind on the passenger
+seat. The bike was about 100 pounds overloaded.
+Unbeknownst to Mr. Clements, a nail had punctured
+ the bike’s rear tire. Though Mr. Clements was
+travelling in a 100 km/h zone, he accelerated to at
+least 120 km/h in order to pass a car. As he crossed
+the centre line to commence the passing manoeu-
+vre, the nail fell out, the rear tire deflated, and the
+bike began to wobble. Mr. Clements was unable to
+bring the bike under control and it crashed, throw-
+ing Mrs. Clements off. Mrs. Clements suffered a
+severe traumatic brain injury. She now sues Mr.
+Clements, claiming that her injury was caused by
+his negligence in the operation of the bike.
+
+[2] Mr. Clements’ negligence in driving an overloaded
+ bike too fast is not disputed. The only issue
+is whether his negligence caused Mrs. Clements’
+injury. Mr. Clements called an expert witness, Mr.
+MacInnis, who testified that the probable cause of
+the accident was the tire puncture and deflation,
+and that the accident would have happened even
+without the negligent acts of Mr. Clements.
+
+[3] The trial judge rejected this conclusion, and
+found that Mr. Clements’ negligence in fact contributed
+ to Mrs. Clements’ injury. However, he held
+that the plaintiff “through no fault of her own is unable
+ to prove that ‘but for’ the defendant’s breaches,
+she would not have been injured”, due to the limitations
+ of the scientific reconstruction evidence
+(2009 BCSC 112 (CanLII), at para. 66). The trial
+judge went on to hold that in view of this impossibility
+ of precise proof of the amount each factor
+contributed to the injury, “but for” causation should
+be dispensed with and a “material contribution”
+test applied. He found Mr. Clements liable on this
+basis.
+
+[4] The British Columbia Court of Appeal, per
+Frankel J.A., set aside the judgment against Mr.
+186
+
+
+Clements on the basis that “but for” causation had
+not been proved and the material contribution test
+did not apply (2010 BCCA 581, 12 B.C.L.R. (5th)
+310).
+
+[5] The legal issue is whether the usual “but for”
+test for causation in a negligence action applies, as
+the Court of Appeal held, or whether a material
+contribution approach suffices, as the trial judge
+held. For the reasons that follow, I conclude that a
+material contribution test was not applicable in this
+case. I would return the matter to the trial judge to
+be dealt with on the correct basis of “but for” causation
+.
+
+II. Outline
+
+A. Causation in the Law of Negligence: The Basic
+   Rule of “But For” Causation
+
+B. The Material Contribution to Risk Approach
+
+      1.
+
+      2. The United Kingdom Cases
+
+      3. When Is a Material Contribution to Risk
+         Approach Available?
+
+C. Summary
+
+D. Application
+
+III. Discussion
+
+A. Causation in the Law of Negligence: The Basic
+   Rule of “But For” Causation
+
+[6] On its own, proof by an injured plaintiff
+that a defendant was negligent does not make that
+187
+[2012] 2 R.C.S.
+
+
+defendant liable for the loss. The plaintiff must also
+establish that the defendant’s negligence (breach of
+the standard of care) caused the injury. That link is
+causation.
+
+[7] Recovery in negligence presupposes a relationship
+ between the plaintiff and defendant based
+on the existence of a duty of care — a defendant
+who is at fault and a plaintiff who has been injured
+by that fault. If the defendant breaches this duty
+and thereby causes injury to the plaintiff, the law
+“corrects” the deficiency in the relationship by requiring
+ the defendant to compensate the plaintiff
+for the injury suffered. This basis for recovery,
+sometimes referred to as “corrective justice”, as-
+signs liability when the plaintiff and defendant are
+linked in a correlative relationship of doer and sufferer
+ of the same harm: E. J. Weinrib, The Idea of
+Private Law (1995), at p. 156.
+
+[8] The test for showing causation is the “but for”
+test. The plaintiff must show on a balance of probabilities
+ that “but for” the defendant’s negligent act,
+the injury would not have occurred. Inherent in the
+phrase “but for” is the requirement that the defendant
+’s negligence was necessary to bring about the
+injury — in other words that the injury would not
+have occurred without the defendant’s negligence.
+This is a factual inquiry. If the plaintiff does not
+establish this on a balance of probabilities, having
+regard to all the evidence, her action against the
+defendant fails.
+
+[9] The “but for” causation test must be applied
+in a robust common sense fashion. There is no need
+for scientific evidence of the precise contribution
+the defendant’s negligence made to the injury. See
+Wilsher v. Essex Area Health Authority, [1988]
+A.C. 1074 (H.L.), at p. 1090, per Lord Bridge; Snell
+v. Farrell, [1990] 2 S.C.R. 311.
+188
+
+
+[10] A common sense inference of “but for” causation
+ from proof of negligence usually flows without
+ difficulty. Evidence connecting the breach of
+duty to the injury suffered may permit the judge,
+depending on the circumstances, to infer that the
+defendant’s negligence probably caused the loss.
+See Snell and Athey v. Leonati, [1996] 3 S.C.R.
+458. See also the discussion on this issue by the
+Australian courts: Betts v. Whittingslowe (1945), 71
+C.L.R. 637 (H.C.), at p. 649; Bennett v. Minister of
+Community Welfare (1992), 176 C.L.R. 408 (H.C.),
+at pp. 415-16; Flounders v. Millar, [2007] NSWCA
+238, 49 M.V.R. 53; Roads and Traffic Authority
+v. Royal, [2008] HCA 19, 245 A.L.R. 653, at paras
+. 137-44.
+
+[11] Where “but for” causation is established by
+inference only, it is open to the defendant to ar-
+gue or call evidence that the accident would have
+happened without the defendant’s negligence, i.e.
+that the negligence was not a necessary cause of
+the injury, which was, in any event, inevitable. As
+Sopinka J. put it in Snell, at p. 330:
+
+    The legal or ultimate burden remains with the plaintiff
+, but in the absence of evidence to the contrary adduced
+ by the defendant, an inference of causation may
+be drawn although positive or scientific proof of causation
+ has not been adduced. If some evidence to the
+contrary is adduced by the defendant, the trial judge
+is entitled to take account of Lord Mansfield’s famous
+precept [that “all evidence is to be weighed according
+to the proof which it was in the power of one side to
+have produced, and in the power of the other to have
+contradicted” (Blatch v. Archer (1774), 1 Cowp. 63,
+98 E.R. 969, at p. 970)]. This is, I believe, what Lord
+Bridge had in mind in Wilsher when he referred to a
+“robust and pragmatic approach to the . . . facts” (p.
+569). [Emphasis added.]
+
+[12] In some cases, an injury — the loss for which
+the plaintiff claims compensation — may flow
+from a number of different negligent acts committed
+ by different actors, each of which is a necessary
+ or “but for” cause of the injury. In such cases,
+189
+[2012] 2 R.C.S.
+
+
+the defendants are said to be jointly and severally
+liable. The judge or jury then apportions liability
+according to the degree of fault of each defendant
+pursuant to contributory negligence legislation.
+
+[13] To recap, the basic rule of recovery for negligence
+ is that the plaintiff must establish on a balance
+ of probabilities that the defendant caused the
+plaintiff’s injury on the “but for” test. This is a factual
+ determination. Exceptionally, however, courts
+have accepted that a plaintiff may be able to recover
+on the basis of “material contribution to risk of injury
+”, without showing factual “but for” causation.
+As will be discussed in more detail below, this can
+occur in cases where it is impossible to determine
+which of a number of negligent acts by multiple actors
+ in fact caused the injury, but it is established
+that one or more of them did in fact cause it. In
+these cases, the goals of tort law and the underlying
+theory of corrective justice require that the defendant
+ not be permitted to escape liability by pointing
+the finger at another wrongdoer. Courts have therefore
+ held the defendant liable on the basis that he
+materially contributed to the risk of the injury.
+
+[14] “But for” causation and liability on the basis
+ of material contribution to risk are two different
+beasts. “But for” causation is a factual inquiry into
+what likely happened. The material contribution to
+risk test removes the requirement of “but for” causation
+ and substitutes proof of material contribution
+ to risk. As set out by Smith J.A. in MacDonald
+v. Goertz, 2009 BCCA 358, 275 B.C.A.C. 68, at
+para. 17:
+190
+
+
+. . . “material contribution” does not signify a test of
+causation at all; rather it is a policy-driven rule of law
+designed to permit plaintiffs to recover in such cases
+despite their failure to prove causation. In such cases,
+plaintiffs are permitted to “jump the evidentiary gap”:
+see “Lords a’leaping evidentiary gaps” (2002), Torts
+Law Journal 276, and “Cause-in-Fact and the Scope
+of Liability for Consequences” (2003), 119 L.Q.R. 388,
+both by Professor Jane Stapleton. That is because to
+deny liability “would offend basic notions of fairness
+and justice”: Hanke v. Resurfice Corp., para. 25.
+
+[15] While the cases and scholars have sometimes
+ spoken of “material contribution to the injury
+” instead of “material contribution to risk”,
+the latter is the more accurate formulation. As
+will become clearer when we discuss the cases
+, “material contribution” as a substitute for the
+usual requirement of “but for” causation only applies
+ where it is impossible to say that a particular
+ defendant’s negligent act in fact caused the
+injury. It imposes liability not because the evidence
+ establishes that the defendant’s act caused
+the injury, but because the act contributed to the
+risk that injury would occur. Thus, this Court in
+Snell and Resurfice Corp. v. Hanke, 2007 SCC
+7, [2007] 1 S.C.R. 333, raised the possibility of
+a material contribution to risk approach. The
+English law takes the same approach, as discussed
+below.
+
+[16] Elimination of proof of causation as an element
+ of negligence is a “radical step that goes
+against the fundamental principle stated by
+Diplock, L.J., in Browning v. War Office, [1962] 3
+All E.R. 1089 (C.A.), at p. 1094-95: ‘. . . A defendant
+in an action in negligence is not a wrongdoer at
+large: he is a wrongdoer only in respect of the damage
+ which he actually causes to the plaintiff’”:
+Mooney v. British Columbia (Attorney General),
+2004 BCCA 402, 202 B.C.A.C. 74, at para. 157, per
+191
+[2012] 2 R.C.S.
+
+
+Smith J.A., concurring in the result. For that rea-
+son, recourse to a material contribution to risk approach
+ is necessarily rare, and justified only where
+it is required by fairness and conforms to the principles
+ that ground recovery in tort.
+
+B. The Material Contribution to Risk Approach
+
+    1.
+
+[17] The possibility of material contribution as an
+exceptional substitute for “but for” causation has
+arisen in a variety of contexts involving multiple
+tortfeasors.
+
+[18] One of the earliest cases on the issue is Cook
+v. Lewis, [1951] S.C.R. 830. Three men were out
+hunting. Two of them fired shots, virtually simul-
+taneously. One of the shots struck a fourth hunt-
+er, Mr. Lewis, who was injured and sued both defendants
+ in negligence. On the evidence, it could
+not be established which defendant’s gun had fired
+the shot that injured Mr. Lewis. Clearly, one of the
+men had caused Mr. Lewis’ injury, and one had not.
+But which one? The evidence shed no light on this.
+The defendants contended that the plaintiff’s action
+must be dismissed because he had not proved “but
+for” causation against either defendant, relying on
+the classic “point the finger at someone else” defence
+. Both defendants were found jointly and severally
+ liable. The majority reasons in this Court
+spoke of reversing the onus in these circumstances,
+rather than material contribution to risk.
+
+[19] The Court in Cook relaxed the usual “but for”
+test for causation on the basis that fairness required
+this. It was “impossible” for the plaintiff to prove
+on a balance of probabilities that either man had
+injured him on the “but for” test; both defendants
+192
+
+
+could say it was just as likely the other had caused
+Mr. Lewis’ injury, precluding the plaintiff from
+discharging his burden against either. Only one of
+the defendants had in fact injured the plaintiff. But
+both defendants had breached their duty of care to
+Mr. Lewis and subjected him to unreasonable risk
+of the injury that in fact materialized. The plaintiff
+was the victim of negligent conduct “but for” which
+he would not have been injured. To deny him recovery
+, while allowing the negligent defendants to
+escape liability by pointing the finger at each other,
+would not have met the goals of negligence law of
+compensation, fairness and deterrence, in a manner
+consistent with corrective justice.
+
+[20] Cook was considered in Snell. The plaintiff
+ in Snell had undergone surgery to remove a
+cataract. Bleeding occurred. When the bleeding
+cleared up nine months later, it was found that the
+plaintiff’s optic nerve had atrophied, causing loss
+of sight in her right eye. Neither of the expert wit-
+nesses was able to state what caused the atrophy
+or when it had occurred. The trial judge, upheld
+by the Court of Appeal, did not apply the usual
+ “but for” test, but applied a reverse onus test.
+This Court affirmed recovery, but on the basis
+of a robust and common sense application of the
+“but for” test. However, Sopinka J. suggested that
+had it been necessary and appropriate, a material
+ contribution to risk approach might have been
+applicable:
+
+I have examined the alternatives arising out of [McGhee
+v. National Coal Board, [1973] 1 W.L.R. 1 (H.L.)].
+They were that the plaintiff simply prove that the defendant
+ created a risk that the injury which occurred
+would occur. Or, what amounts to the same thing, that
+193
+[2012] 2 R.C.S.
+
+
+the defendant has the burden of disproving causation. If
+I were convinced that defendants who have a substantial
+ connection to the injury were escaping liability because
+ plaintiffs cannot prove causation under currently
+applied principles, I would not hesitate to adopt one of
+these alternatives. In my opinion, however, properly applied
+, the principles relating to causation are adequate
+to the task. [Emphasis added; pp. 326-27.]
+
+[21] Sopinka J. went on to underline the impor-
+tance of establishing a substantial connection between
+ the injury and the defendant’s negligence.
+The usual requirement of proof of “but for” causation
+ should not be relaxed where the result would
+be to permit plaintiffs to recover in the absence of
+evidence connecting the defendant’s fault to the
+plaintiff’s injury. Thus, Sopinka J. stated that if the
+injury likely was brought about by “neutral” factors
+, that is, it would have occurred absent any negligence
+, the plaintiff cannot succeed. To allow recovery
+ where the injury was the result of neutral
+factors would neither further the goals of compensation
+, fairness and deterrence, nor comport with
+the theory of corrective justice that underlies the
+law of negligence.
+
+[22] These ideas were again taken up in Athey.
+The plaintiff, who suffered from pre-existing back
+problems, suffered a herniated disc after two motor
+vehicle accidents. He sued the drivers of the motor
+vehicles in negligence for his injury. The trial judge
+held that although the accidents were “not the sole
+cause” of the disc herniation, they played “some
+causative role” (para. 8). She accordingly found the
+defendants liable for 25 percent of the plaintiff’s
+loss. In the Court of Appeal, the plaintiff sought to
+uphold the result on the basis of material contribution
+, but that court declined to consider the issue as
+it had not been raised at trial.
+194
+
+
+[23] This Court, per Major J., discussed the limitations
+ of the “but for” test and the propriety of
+exceptionally using a material contribution test.
+Major J. emphasized that a robust common sense
+approach to the “but for” test permits an inference
+of “but for” causation from evidence that the defendant
+’s conduct was a significant factor in the injury
+, and concluded that “[t]he plaintiff must prove
+causation by meeting the ‘but for’ or material contribution
+ test” (para. 41). Major J. concluded that
+the 25 percent contribution found by the trial judge
+was a “material contribution” sufficient to meet
+the “but for” test. The term “material contribution
+”, read in context, does not detract from the fact
+that the Court in the end applied a robust, common
+sense application of the “but for” test, in accord-
+ance with Snell.
+
+[24] The problem of proof of causation where
+there are two or more possible tortfeasors arose
+in a slightly different manner in Walker Estate
+v. York Finch General Hospital, 2001 SCC 23,
+[2001] 1 S.C.R. 647. Ms. Walker contracted HIV
+from tainted blood. Her estate sued the supplier
+of the blood for negligence in failing to screen out
+donors with a high risk of HIV by warning them
+not to give blood. In defence, the suppliers argued
+that “but for” causation was not established, because
+ even if they had taken the required steps to
+screen, persons with HIV who did not know of
+their condition or who did not wish to disclose it
+might have donated blood in any event. The Court
+rejected this defence and found the supplier liable.
+
+[25] In Walker Estate, as in Athey, Major J. once
+again alluded to the inadequacy of the “but for”
+195
+[2012] 2 R.C.S.
+
+
+test in some situations, in particular in cases where
+multiple independent causes may bring about a single
+ harm (para. 87). He found that causation in the
+usual sense could be established on the trial judge’s
+findings (paras. 89-98). In obiter, however, Major J.
+adopted the reasoning of Sopinka J. in Snell to the
+effect that, in an appropriate case, where the ordi-
+nary principles of causation are inadequate to the
+task and result in unfairness and inconsistency with
+the underlying principles of negligence, it might be
+possible to dispense with factual proof of “but for”
+causation and apply a less onerous “material contribution
+” test (para. 99).
+
+[26] This brings us to Resurfice. The plaintiff,
+whose job was to maintain ice surfaces, mistakenly
+poured water into the gas tank of the machine used
+for that purpose. Gasoline vapour was sparked,
+causing an explosion and fire, and the plaintiff was
+badly burned. He sued the manufacturer and dis-
+tributor of the machine, alleging negligence in not
+arranging or marking the machine in a way that
+would have avoided confusion between the water
+tank and the gas tank. The trial judge found that
+the plaintiff had not proved that the accident had
+been caused by the manufacturer or the distribu-
+tor and dismissed the action. The Court of Appeal
+ordered a new trial on the basis that the trial judge
+had erred in his treatment of foreseeability and
+causation.
+
+[27] This Court endorsed the trial judge’s conclusion
+ that the plaintiff had failed to establish causation
+ on the “but for” test, and held that a material
+ contribution approach was inapplicable. The
+decision affirmed that in “special circumstances”,
+the law has recognized that the “but for” test for
+causation should be replaced by a material contribution
+ approach (para. 24). This may occur where
+it is “impossible” for the plaintiff to prove causation
+ on the “but for” test, and where it is clear that
+196
+
+
+the defendant breached his duty of care in a way
+that exposed the plaintiff to an unreasonable risk
+of injury. The basis for the exception in these circumstances
+ is that requiring “but for” causation
+“would offend basic notions of fairness and justice”
+(para. 25).
+
+[28] To recap, the Canadian Supreme Court jurisprudence
+ on a material contribution approach
+to date may be summarized as follows. First,
+while accepting that it might be appropriate in
+“special circumstances”, the Court has never in
+fact applied a material contribution to risk test.
+Cook was analyzed on a reverse onus basis. Snell,
+Athey, Walker Estate and Resurfice were all re-
+solved on a robust and common sense application
+of the “but for” test of causation. Nevertheless,
+the Court has acknowledged the difficulties of
+proof that multi-tortfeasor cases may pose — difficulties
+ which in some cases may justify relax-
+ing the requirement of “but for” causation and
+finding liability on a material contribution to risk
+approach.
+
+      2. The United Kingdom Cases
+
+[29] The courts of the United Kingdom have
+adopted a material contribution to risk approach
+to the problem of toxic agent cases involving negligence
+ by more than one employer: Fairchild v.
+Glenhaven Funeral Services Ltd., [2002] UKHL
+22, [2002] 3 All E.R. 305; and Barker v. Corus
+UK Ltd., [2006] UKHL 20, [2006] 2 A.C. 572.
+Recently, the United Kingdom Supreme Court de-
+cided that a material contribution to risk approach
+can apply as well when a single negligent employer
+has exposed a plaintiff to asbestos: see Sienkiewicz
+v. Greif (UK) Ltd., [2011] UKSC 10, [2011] 2 All
+197
+[2012] 2 R.C.S.
+
+
+E.R. 857. I will return to this case later in these
+reasons.
+
+[30] The plaintiffs in Fairchild and Barker had
+developed diseases related to toxic workplace
+agents, but were unable to prove which of several
+ possible sources of the agents had caused their
+disease. In both cases, the plaintiffs had been exposed
+ to asbestos at different times when working
+for different employers. A single fibre of asbestos
+could have caused the disease. As all the employers
+ had exposed the employee to the same risk, it
+was impossible to say which employer’s negligence
+in fact led to the disease. In each case, the defendants
+ pointed the finger at the negligence of others.
+And in each case, the court rejected this defence
+and found liability on the basis of material contribution
+.
+
+[31] The U.K. toxic agent cases debated whether
+the defendants in these circumstances were held liable
+ because they materially contributed to the injury
+, or to the risk of the injury. Lord Hoffmann,
+in Barker, stated that the purpose of the Fairchild
+exception was “to provide a cause of action against
+a defendant who has materially increased the risk
+that the claimant will suffer damage and may
+have caused that damage, but cannot be proved to
+have done so because it is impossible to show, on
+a balance of probability, that some other exposure
+to the same risk may not have caused it instead”
+(para. 17).
+
+[32] Viewed generally, the toxic agent cases up
+to Sienkiewicz hold that resort may be had to the
+concept of material contribution to the risk of injury
+ where it is plain that any or all of a number of
+tortfeasors could have caused the plaintiff’s injury,
+but it is impossible to say that any particular one
+in fact did so. In this situation, fairness and policy
+198
+
+
+support relaxation of the “but for” test. In each
+case, the plaintiff would not have contracted the
+disease, “but for” the negligence of the defendants
+as a group. As I will discuss further below, to allow
+the defendants to each escape liability by pointing
+the finger at one another would have been at odds
+with the fairness, deterrence, and corrective justice
+objectives of the law of negligence.
+
+      3. When Is a Material Contribution to Risk
+         Approach Available?
+
+[33] We have seen that the jurisprudence establishes
+ that while tort liability must generally be
+founded on proof that “but for” the defendant’s
+negligence the injury would not have occurred, exceptionally
+ proof of factual causation can be replaced
+ by proof of a material contribution to the
+risk that gave rise to the injury.
+
+[34] In Resurfice, this Court summarized the
+cases as holding that a material contribution approach
+ may be appropriate where it is “impossible
+” for the plaintiff to prove causation on the “but
+for” test and where it is clear that the defendant
+breached its duty of care (acted negligently) in a
+way that exposed the plaintiff to an unreasonable
+risk of injury. As a summary of the jurisprudence,
+this is accurate. However, as a test it is incomplete.
+A clear picture of when “but for” causation can be
+replaced by material contribution to risk requires
+further exploration of what is meant by “impossible
+ to prove” (Resurfice, at para. 28) and what substratum
+ of negligence must be shown. I will discuss
+each of these related concepts in turn.
+199
+[2012] 2 R.C.S.
+
+
+    (a) “Impossibility”
+
+[35] The idea running through the jurisprudence
+that to apply the material contribution approach it
+must be “impossible” for the plaintiff to prove that
+the defendant’s negligence caused the plaintiff’s injury
+ using the “but for” test has produced uncertainty
+ in this case and elsewhere.
+
+[36] Some have suggested that “but for” proof
+must be logically or conceptually impossible before
+material contribution to risk is available, arguing
+that Cook and the toxic agent cases show impossibility
+ in this sense. But it is difficult to know what
+this means. As a matter of pure logic, it is conceivable
+ that ballistics tests could have revealed which
+shotgun fired the shot that injured Mr. Lewis. It is
+also conceivable that with further understanding,
+medical science may someday be able to say which
+employer supplied the particle of asbestos that
+caused the plaintiffs in Barker to develop mesothelioma
+. Clearly the impossibility in those examples
+was related to difficulties with factual proof, not
+to logical problems inherent in the peculiarities of
+the case.
+
+[37] However, the option of finding that a material
+ contribution to risk approach is available when-
+ever proof of “but for” causation cannot be made
+on the facts is equally problematic. First, how does
+one distinguish between a case of true impossibility
+ of factual proof and a situation where the plaintiff
+ simply fails to meet her burden of establishing
+ “but for” causation on the evidence? Unless one
+can make a clear distinction, one effectively under-
+mines the requirement that the plaintiff bears the
+burden of showing that, “but for” the defendant’s
+negligence, she would not have been injured. In any
+200
+
+
+difficult case, the plaintiff would be able to claim
+impossibility of proof of causation. Such a result
+would fundamentally change the law of negligence
+and sever it from its anchor in corrective justice
+that makes the defendant liable for the consequences
+, but only the consequences, of his negligent act.
+
+[38] “Scientific impossibility”, relied on by the
+trial judge in this case, is merely a variant of factual
+ impossibility and attracts the same objections. In
+many cases of causal uncertainty, it is conceivable
+that with better scientific evidence, causation could
+be clarified. Scientific uncertainty was referred to
+in Resurfice in the course of explaining the difficulties
+ that have arisen in the cases. However, this
+should not be read as ousting the “but for” test for
+causation in negligence actions. The law of negligence
+ has never required scientific proof of causation
+; to repeat yet again, common sense inferences
+from the facts may suffice. If scientific evidence of
+causation is not required, as Snell makes plain, it is
+difficult to see how its absence can be raised as a
+basis for ousting the usual “but for” test.
+
+[39] What then are the cases referring to when
+they say that it must be “impossible” to prove “but
+for” causation as a precondition to a material contribution
+ to risk approach? The answer emerges
+from the facts of the cases that have adopted such
+an approach. Typically, there are a number of tortfeasors
+. All are at fault, and one or more has in
+fact caused the plaintiff’s injury. The plaintiff
+would not have been injured “but for” their negligence
+, viewed globally. However, because each can
+point the finger at the other, it is impossible for the
+plaintiff to show on a balance of probabilities that
+201
+[2012] 2 R.C.S.
+
+
+any one of them in fact caused her injury. This is
+the impossibility of which Cook and the multiple-
+employer mesothelioma cases speak.
+
+    (b) Substratum of Negligence
+        Multiple Possible Tortfeasors
+
+[40] The cases that have dispensed with the usual
+requirement of “but for” causation in favour of a
+less onerous material contribution to risk approach
+are generally cases where, “but for” the negligent
+act of one or more of the defendants, the plaintiff
+would not have been injured. This excludes recovery
+ where the injury “may very well be due to factors
+ unconnected to the defendant and not the fault
+of anyone”: Snell, per Sopinka J., at p. 327. The
+plaintiff effectively has established that the “but
+for” test, viewed globally, has been met. It is only
+when it is applied separately to each defendant that
+the “but for” test breaks down because it cannot be
+shown which of several negligent defendants actually
+ launched the event that led to the injury. The
+plaintiff thus has shown negligence and a relationship
+ of duty owed by each defendant, but faces failure
+ on the “but for” test because it is “impossible”,
+in the sense just discussed, to show which act or
+acts were injurious. In such cases, each defendant
+who has contributed to the risk of the injury that
+occurred can be faulted.
+
+[41] In these circumstances, permitting the plaintiff
+ to succeed on a material contribution to risk
+basis meets the underlying goals of the law of
+negligence. Compensation for injury is achieved.
+Fairness is satisfied; the plaintiff has suffered
+a loss due to negligence, so it is fair that she
+turns to tort law for compensation. Further, each
+202
+
+
+defendant failed to act with the care necessary to
+avoid potentially causing the plaintiff’s loss, and
+each may well have in fact caused the plaintiff’s
+loss. Deterrence is also furthered; potential tortfeasors
+ will know that they cannot escape liability
+by pointing the finger at others. And these goals
+are furthered in a manner consistent with corrective
+ justice; the deficit in the relationship between
+the plaintiff and the defendants viewed as a group
+that would exist if the plaintiff were denied recovery
+ is corrected. The plaintiff has shown that she
+is in a correlative relationship of doer and sufferer
+ of the same harm with the group of defendants
+as a whole, if not necessarily with each individual
+defendant.
+
+[42] The only case to apply a material contribution
+ to risk approach to a single tortfeasor is
+Sienkiewicz. A plaintiff suffering from mesothelioma
+ had only been exposed to asbestos from a
+single negligent source and on the trial judge’s
+findings, “but for” causation could not be inferred.
+The United Kingdom Supreme Court took the view
+that it was bound by precedent to apply a material
+contribution to risk approach in all mesothelioma
+cases. Several members of the court in Sienkiewicz
+noted the difficulty with such a result. Lady Hale
+observed that she found it hard to believe that a defendant
+ “whose wrongful exposure might or might
+not have led to the disease would be liable in full
+for the consequences even if it was more likely than
+not that some other cause was to blame (let alone
+that it was not more likely than not that he was to
+blame)” (para. 167). In my view, nothing compels
+a similar result in Canada, and thus far, although
+Sopinka J.’s remarks in Snell (quoted above at para.
+20) do not preclude it, courts in Canada have not
+applied a material contribution to risk test in a case
+with a single tortfeasor.
+203
+[2012] 2 R.C.S.
+
+
+[43] It is important to reaffirm that in the usual
+ case of multiple agents or actors, the tradition-
+al “but for” test still applies. The question, as discussed
+ earlier, is whether the plaintiff has shown
+that the negligence of one or more of the defendants
+ was a necessary cause of the injury. Degrees
+of fault are reflected in calculations made under
+contributory negligence legislation. By contrast,
+the material contribution to risk approach applies
+where “but for” causation cannot be proven against
+any of multiple defendants, all negligent in a manner
+ that might have in fact caused the plaintiff’s
+injury, because each can use a “point the finger”
+strategy to preclude a finding of causation on a balance
+ of probabilities.
+
+[44] This is not to say that new situations will not
+raise new considerations. I leave for another day,
+for example, the scenario that might arise in mass
+toxic tort litigation with multiple plaintiffs, where it
+is established statistically that the defendant’s acts
+induced an injury on some members of the group,
+but it is impossible to know which ones.
+
+[45] The Court of Appeal reached a similar view
+of the law to that here proposed. It pointed out that
+the material contribution to risk exception to “but
+for” causation is not a test for proving factual causation
+, but a basis for finding “legal” causation
+where fairness and justice demand deviation from
+the “but for” test. It correctly identified the critical
+element for application of a material contribution to
+risk approach — the impossibility of proving which
+of two or more possible tortious causes is in fact
+the cause of the injury. And it correctly suggested
+that the approach could apply to situations where,
+204
+
+
+as in Walker Estate, a defendant attempts to defeat
+“but for” causation by pointing the finger at the hy-
+pothetical negligence of a third party that might
+have caused the loss in any event. It was unneces-
+sary, in my view, to hang the analysis on “circu-
+lar causation”, and “dependency causation”, which
+may complicate the matter rather than simplify it.
+However, in broad terms, the Court of Appeal correctly
+ identified the circumstances where a material
+ contribution to risk approach may exceptionally
+ be imposed.
+
+C. Summary
+
+[46] The foregoing discussion leads me to the following
+ conclusions as to the present state of the law
+in Canada:
+
+(1) As a general rule, a plaintiff cannot succeed
+    unless she shows as a matter of fact that she
+    would not have suffered the loss “but for” the
+    negligent act or acts of the defendant. A trial
+    judge is to take a robust and pragmatic approach
+     to determining if a plaintiff has established
+     that the defendant’s negligence caused
+    her loss. Scientific proof of causation is not
+    required.
+
+(2) Exceptionally, a plaintiff may succeed by
+    showing that the defendant’s conduct materially
+     contributed to risk of the plaintiff’s injury,
+    where (a) the plaintiff has established that her
+    loss would not have occurred “but for” the
+    negligence of two or more tortfeasors, each
+    possibly in fact responsible for the loss; and
+    (b) the plaintiff, through no fault of her own,
+    is unable to show that any one of the possible
+    tortfeasors in fact was the necessary or “but
+    for” cause of her injury, because each can point
+    to one another as the possible “but for” cause
+205
+[2012] 2 R.C.S.
+
+
+       of the injury, defeating a finding of causation
+       on a balance of probabilities against anyone.
+
+D. Application
+
+[47]
+
+[48] The first error was to insist on scientific reconstruction
+ evidence as a necessary condition of
+finding “but for” causation. The trial judge stated,
+at para. 66, that
+the plaintiff through no fault of her own is unable to
+prove that “but for” the defendant’s breaches, she would
+not have been injured. This is because after the fact, it is
+not possible through accident reconstruction modeling
+to determine at what combination of lower speed and
+lesser weight recovery from the weave instability would
+have been practicable.
+
+[49] As discussed above, the cases consistently
+hold that scientific precision is not necessary to a
+conclusion that “but for” causation is established
+on a balance of probabilities. It follows that the trial
+ judge erred in insisting on scientific precision
+in the evidence as a condition of finding “but for”
+causation.
+
+[50] The trial judge’s second error was to apply a
+material contribution to risk test. The special con-
+ditions that permit resort to a material contribution
+approach were not present in this case. This is not
+a case where we know that the loss would not have
+occurred “but for” the negligence of two or more
+possible tortfeasors, but the plaintiff cannot establish
+ on a balance of probabilities which negligent
+actor or actors caused the injury. This is a simple
+206
+
+
+single-defendant case: the only issue was whether
+“but for” the defendant’s negligent conduct, the injury
+ would have been sustained.
+
+[51] The judge accepted evidence to the effect that
+overloading would have increased instability in the
+event of a weave caused by tire deflation (para. 41).
+He also noted expert evidence to the effect that instability
+ due to tire deflation increases with speed
+and that it was impossible to predict without tests
+whether the capsize would have occurred at a lower
+speed (para. 42). However, the trial judge rejected
+the evidence of the expert witness, Mr. MacInnis,
+that the accident would have happened even if the
+defendant had not negligently overloaded his bike
+and driven too fast (para. 62). He gave a number
+of reasons for rejecting this evidence. The judge
+noted that his own findings of fact on the issues
+of speed and weight were markedly different than
+the facts assumed by the expert in formulating his
+opinion. The judge found as a fact that the motorcycle
+ was overloaded to the extent of more than 100
+pounds, in other words by a factor of nearly 10 percent
+, while the expert assumed considerably less
+overloading — no more than 5 percent. The judge
+found as a fact that the defendant had exceeded a
+proper speed by at least 30 km/h (based on a safe
+travelling speed of approximately 90 km/h in all
+of the circumstances, as found by the trial judge),
+whereas the expert assumed an excess speed of
+about 12.5 km/h (para. 60). The judge further
+noted that the expert had “readily conceded” that
+his opinion that the excess speed and weight were
+non-contributing factors was “largely conjectural”
+because it “could not be supported scientifically”
+(para. 60 (emphasis added)).
+
+[52] Having rejected the defendant’s expert evidence
+ that the accident would have happened re-
+gardless of the excess speed and excess weight, the
+judge was left with the fact that while there was no
+207
+[2012] 2 R.C.S.
+
+
+scientific proof one way or the other, “[o]rdinary
+common sense” supported the causal relationship
+between the injury and the excessive speed and
+weight (paras. 63-64). He noted, at para. 64, that
+the motorcycle’s manual itself stated that “[h]igh
+speed increases the influence of any other condition
+ affecting stability and possibility of loss of
+control”, and that the defendant agreed the speed
+at which he was travelling and the load he was car-
+rying were factors that contributed to the accident
+(para. 33). Finally, the trial judge used language
+tantamount to finding actual “but for” causation,
+stating (at para. 67):
+   I conclude on all of the evidence that the defendant’s
+breaches of duty materially contributed to the injuries
+suffered by the plaintiff as a result of the accident. In
+short, her injuries were the result of her husband driving
+ too fast with too heavy a load when his rear tire un-
+expectedly deflated. Causation is therefore established
+within the parameters discussed by the Supreme Court
+of Canada in Athey and Resurfice. [Emphasis added.]
+
+[53] We cannot be certain what the trial judge
+would have concluded had he not made the errors
+I earlier described. All that can be said is that the
+parties did not receive a trial based on correct legal
+principles. In my view, the appropriate remedy in
+these circumstances is an order for a new trial.
+
+[54] I would allow the appeal and order a new trial
+. The appellant will have her costs in this Court.
+The orders for costs below are set aside.
+
+   The reasons of LeBel and Rothstein JJ. were delivered
+ by
+
+[55] LeBel J. (dissenting) — I have read the Chief
+Justice’s reasons. I agree with the substance of her
+analysis of the law of causation and the nature of
+the “but for” test. But, in my respectful opinion,
+208
+
+
+there is no basis in fact and law for ordering a new
+trial. I would uphold the judgment of the Court of
+Appeal and dismiss the appeal.
+
+[56] The key finding of fact made by the trial
+judge was that the plaintiff had not proven causation
+ on the basis of the “but for” test. The trial judge
+specifically stated, at para. 66, that the plaintiff had
+been “unable to prove that ‘but for’ the defendant’s
+breaches, she would not have been injured” (2009
+BCSC 112 (CanLII)). Given this finding, it would
+be exceedingly difficult to draw a common sense
+inference that those breaches caused the accident.
+Such inferences cannot be pulled out of thin air at
+the whim of the trier of fact. They must have a reli-
+able factual foundation.
+
+[57] In this case, a factual foundation that would
+support an inference that the overloading of the motorcycle
+ and excessive speed caused the accident is
+quite simply lacking. The only evidence directly related
+ to the issue came from the respondent’s expert
+, Mr. MacInnis. According to his evidence, the
+accident would have happened even if the motorcycle
+ had been travelling at a lower, legal speed and
+without a pound of excess baggage. The trial judge
+evidently rejected this opinion. The fact remains,
+however, that no evidence was adduced regarding
+the exact (or even approximate) speed and weight
+at which the respondent would have been able to
+regain control of his motorcycle. The state of the
+evidence therefore leaves precious little room for
+speculating about robust common sense inferences
+as to the cause of the accident.
+
+[58] The Chief Justice takes a different view. She
+states, at para. 52, that the trial judge “used language
+ tantamount to finding actual ‘but for’ causation
+”. She quotes the following passage from para.
+67 of the trial judge’s reasons:
+209
+[2012] 2 R.C.S.
+
+
+   I conclude on all of the evidence that the defendant’s
+breaches of duty materially contributed to the injuries
+suffered by the plaintiff as a result of the accident. In
+short, her injuries were the result of her husband driving
+ too fast with too heavy a load when his rear tire un-
+expectedly deflated. Causation is therefore established
+within the parameters discussed by the Supreme Court
+of Canada in Athey [v. Leonati, [1996] 3 S.C.R. 458]
+and Resurfice [Corp. v. Hanke, 2007 SCC 7, [2007] 1
+S.C.R. 333].
+
+[59] The trial judge’s comments must be read in
+the context of his decision as a whole. He had deter-
+mined that, in view of the impossibility of proving
+how, or whether, each factor had contributed to the
+accident, “but for” causation should be dispensed
+with and a “material contribution” test applied. The
+quoted comments were made in the context of his
+application of the latter test. They constituted his
+conclusion that the material contribution test had
+been satisfied.
+
+[60] For the reasons given by the Chief Justice,
+the application of the material contribution test
+by the trial judge was inappropriate. Further, as
+the Chief Justice states, at para. 14, the “but for”
+and material contribution tests are “two different
+beasts”. The material contribution test does not require
+ a factual inquiry into what likely happened,
+but imposes liability as a matter of policy. The trial
+judge’s finding that the material contribution test
+was satisfied cannot be reinterpreted as a finding
+that “but for” causation was established without se-
+riously undermining the important distinction between
+ the two tests and the clarity of the analysis
+pertaining to causation.
+
+[61] Moreover, I wonder whether the order for a
+new trial itself represents sound judicial policy. I
+am not arguing that this Court lacks jurisdiction to
+issue this order and that the order is therefore ille-
+gal. But, on policy grounds related to the adminis-
+tration of justice and the conduct of civil appeals,
+210
+
+
+this Court and courts of appeal should be mindful
+of the need for finality and efficiency in the civil
+litigation process. Where it is appropriate to do so,
+an attempt should be made to resolve the issues and
+thereby avoid sending the matter back for a new
+trial, which might itself trigger a new round of appeals
+.
+
+[62] In this appeal, I am unable to find any basis
+in the trial judge’s judgment for inferring that the
+overloading of the motorcycle and excessive speed
+could have been the “cause” of the accident as that
+term is understood in the context of the “but for”
+test. Nor is this a case in which it would be appropriate
+ to send the matter back for a new trial.
+
+[63] For those reasons, I would dismiss the appeal
+ with costs.
+
+   Appeal allowed, LeBel and Rothstein JJ. dissenting
+.
+
+  Solicitors for the appellant: Dick Byl Law
+Corporation, Prince George.
+
+  Solicitors for the respondent: Miller Thomson,
+Vancouver.
+
+  Solicitor for the intervener: Attorney General of
+British Columbia, Vancouver.

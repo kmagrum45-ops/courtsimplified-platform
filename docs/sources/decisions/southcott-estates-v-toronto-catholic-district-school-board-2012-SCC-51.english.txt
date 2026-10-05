@@ -1,0 +1,1574 @@
+675
+[2012] 2 R.C.S.
+
+
+Southcott Estates Inc.
+on cross-appeal
+
+v.
+
+Toronto Catholic District School
+Board Respondent/Appellant on cross-appeal
+
+Indexed as: Southcott Estates Inc. v. Toronto
+Catholic District School Board
+2012 SCC 51
+File No.: 33778.
+2012: March 20; 2012: October 17.
+Present: McLachlin C.J. and LeBel, Deschamps,
+Abella, Rothstein, Cromwell and Karakatsanis JJ.
+
+on appeal from the court of appeal for
+ontario
+    Contracts — Commercial contracts — Remedies —
+Specific performance — Duty to mitigate — Single-
+purpose company entering into agreement for purchase
+of land — Vendor breaching contractual obligations —
+Company seeking specific performance — Whether
+single-purpose company must mitigate its losses —
+Whether plaintiff seeking specific performance has
+obligation to mitigate its losses — Whether trial judge
+erred in concluding there were no comparable properties
+ available for mitigation.
+   The appellant S is a single-purpose company incor-
+porated solely for the purpose of a specific land purchase
+, with no assets other than money advanced to it
+by its parent company for the deposit relating to such
+purchase. It entered into an agreement of purchase and
+sale for a specific property with the respondent. When
+the respondent failed to satisfy a condition and refused
+to extend the closing date, S sought specific performance
+ of the contract. It argued that it was not required
+to mitigate its losses. The trial judge refused to award
+specific performance but awarded damages to S in the
+amount of $1,935,500. The Court of Appeal concluded
+that the respondent had breached its contractual obligations
+ but that S had failed to take available steps to
+mitigate its losses. It reduced the damage award to a
+nominal sum.
+676
+
+
+   Held (McLachlin C.J. dissenting): The appeal and
+cross-appeal should be dismissed.
+    Per LeBel, Deschamps, Abella, Rothstein, Cromwell
+and Karakatsanis JJ.: Mitigation is a doctrine based on
+fairness and common sense, which seeks to do justice
+between the parties in the particular circumstances of
+the case. As a general rule, a plaintiff will not be able
+to recover those losses which he could have avoided by
+taking reasonable steps.
+    The main issue is whether S, a single-purpose corporation
+, was excused from mitigating its losses when
+the vendor breached the agreement of purchase and
+sale, and particularly when it had promptly brought an
+action for specific performance. As a separate legal entity
+, S was required to mitigate by making diligent efforts
+ to find a substitute property. Those who choose
+the benefits of incorporation must bear the corresponding
+ burdens. One such responsibility is to take steps to
+mitigate losses. A plaintiff cannot recover losses that
+could reasonably have been avoided. S sought specific
+performance and was therefore ready to complete the
+purchase. Its alternative claim for consequential damages
+ was predicated upon its access to capital to complete
+ the agreement of purchase and sale. As such, both
+claims were premised upon resources that were not tied
+up as a result of the breach alleged. S can hardly argue
+that the same money would not have been available for
+mitigation. In the absence of actual evidence of impecu-
+niosity, finding that losses cannot be reasonably avoided
+, simply because the corporation is a single-purpose
+corporation within a larger group of companies, would
+give these corporations an unfair advantage. If single-
+purpose corporations were not required to mitigate
+their losses, this could expose defendants contracting
+with such corporations to higher damage awards.
+    This Court has recognized that there may be situations
+ in which a plaintiff’s inaction is justifiable notwithstanding
+ its failure to obtain an order for specific
+performance. If the plaintiff has a “fair, real, and substantial
+ justification” or a “substantial and legitimate
+interest” in specific performance, its refusal to purchase
+ other property may be reasonable, depending
+upon the circumstances of the case. A plaintiff deprived
+of an investment property does not have a “fair, real,
+and substantial justification” or a “substantial and legitimate
+ interest” in specific performance unless he can
+show that money is not a complete remedy because the
+677
+[2012] 2 R.C.S.
+
+
+land has “a peculiar and special value” to him. S has not
+demonstrated such a claim and therefore cannot justify
+its inaction. S was engaged in a commercial transaction
+ for the purpose of making a profit. The property’s
+particular qualities were only of value due to their ability
+ to further profitability, for which damages were an
+adequate remedy.
+   Where it is alleged that the plaintiff has failed to
+mitigate, the defendant bears the burden of proving that
+the plaintiff has failed to make reasonable efforts to
+mitigate and that mitigation was possible. Whether or
+not there were comparable properties and whether they
+are profitable is a finding of fact. The trial judge made
+a palpable and overriding error in finding there were
+no comparable mitigation opportunities. He failed to
+consider the reasonable and available inferences arising
+from expert evidence regarding other land suitable for
+development sold in the area, the investment properties
+purchased by the parent company of S and the absence
+of evidence to the contrary. The respondent discharged
+the burden of showing that there were other comparable
+development properties available in the relevant time
+period to mitigate the losses.
+    Per McLachlin C.J. (dissenting): The Board, having
+breached the contract, bears the onus of proving that S
+unreasonably failed to mitigate its loss. This entails establishing
+, on a balance of probabilities: (1) that an opportunity
+ to mitigate the loss was available to S; and (2)
+that S unreasonably failed to pursue that opportunity.
+The trial judge’s finding that the Board failed to establish
+ that S had an opportunity to mitigate is sufficient to
+dispose of the appeal. This finding was grounded in the
+evidence and did not constitute palpable and overriding
+error. The Board failed to prove that another property
+comparable to the one that S sought to purchase was
+available. Neither the evidence of the Board’s expert
+witness nor that of purchases by other subsidiaries of
+S’s parent company established that a comparable property
+ was available for S.
+    Moreover, S could not be unreasonable in failing
+to mitigate its loss because it reasonably maintained
+its action for specific performance. The act of filing a
+claim for specific performance is inconsistent with the
+act of acquiring a substitute property. A plaintiff, acting
+ reasonably, cannot pursue specific performance and
+mitigate its potential loss of damages at the same time.
+678
+
+
+There is no basis on which to conclude that S acted
+unreasonably in maintaining its suit for specific performance
+ instead of mitigating its loss. S had a “fair,
+real, and substantial justification” for claiming specific
+performance. The property was uniquely suited to S’s
+needs for single-family residential development within
+the City of Toronto. The evidence supported the view
+that there were no comparable substitute properties.
+   Furthermore, it is difficult to conclude that S unreasonably
+ failed to mitigate given that S lacked the financial
+ capacity to go into the market and purchase a
+substitute property.
+Cases Cited
+By Karakatsanis J.
+   Referred to: Asamera Oil Corp. v. Seal Oil & General
+ Corp., [1979] 1 S.C.R. 633; British Westinghouse
+Electric and Manufacturing Co. v. Underground Electric
+Railways Company of London, Ltd., [1912] A.C. 673;
+British Columbia v. Canadian Forest Products Ltd.,
+2004 SCC 38, [2004] 2 S.C.R. 74; Red Deer College
+v. Michaels, [1976] 2 S.C.R. 324; Evans v. Teamsters
+Local Union No. 31, 2008 SCC 20, [2008] 1 S.C.R.
+661; Redpath Industries Ltd. v. Cisco (The), [1994] 2
+F.C. 279; Kosmopoulos v. Constitution Insurance Co.,
+[1987] 1 S.C.R. 2; Semelhago v. Paramadevan, [1996]
+2 S.C.R. 415; Adderley v. Dixon (1824), 1 Sim. & St.
+607, 57 E.R. 239; Housen v. Nikolaisen, 2002 SCC 33,
+[2002] 2 S.C.R. 235.
+By McLachlin C.J. (dissenting)
+    Asamera Oil Corp. v. Seal Oil & General Corp.,
+[1979] 1 S.C.R. 633; British Westinghouse Electric and
+Manufacturing Co. v. Underground Electric Railways
+Company of London, Ltd., [1912] A.C. 673; Dunkirk
+Colliery Co. v. Lever (1878), 9 Ch. D. 20; Janiak v.
+Ippolito, [1985] 1 S.C.R. 146; Darbishire v. Warran,
+[1963] 1 W.L.R. 1067; Red Deer College v. Michaels,
+[1976] 2 S.C.R. 324; Roper v. Johnson (1873), L.R.
+8 C.P. 167; Lagden v. O’Connor, [2003] UKHL 64,
+[2004] 1 All E.R. 277; General Securities Ltd. v.
+Don Ingram Ltd., [1940] S.C.R. 670; Andros Springs
+v. World Beauty, [1970] P. 144; Housen v. Nikolaisen,
+2002 SCC 33, [2002] 2 S.C.R. 235; Apeco of Canada,
+Ltd. v. Windmill Place, [1978] 2 S.C.R. 385; Semelhago
+v. Paramadevan, [1996] 2 S.C.R. 415.
+Statutes and Regulations Cited
+Education Act, R.S.O. 1990, c. E.2.
+679
+[2012] 2 R.C.S.
+
+
+Authors Cited
+Bates, Paul. “Mitigation of Damages: A Matter of Commercial
+    Common Sense” (1992), 13 Advocates’ Q.
+   273.
+McGregor, Harvey. McGregor on Damages, 18th ed.
+   London: Sweet & Maxwell/Thomson Reuters, 2009.
+Siebrasse, Norman. “Damages in Lieu of Specific Performance
+   : Semelhago v. Paramadevan” (1997), 76
+   Can. Bar Rev. 551.
+Yorio, Edward. “A Defense of Equitable Defenses”
+   (1990), 51 Ohio St. L.J. 1201.
+
+   APPEAL and CROSS-APPEAL from a judgment
+ of the Ontario Court of Appeal (Sharpe,
+Blair and MacFarland JJ.A.), 2010 ONCA 310, 104
+O.R. (3d) 784, 261 O.A.C. 108, 319 D.L.R. (4th)
+349, 93 R.P.R. (4th) 159, 71 B.L.R. (4th) 196, [2010]
+O.J. No. 1772 (QL), 2010 CarswellOnt 2602, setting
+aside a decision of Spiegel J. (2009), 78 R.P.R. (4th)
+285, [2009] O.J. No. 428 (QL), 2009 CanLII 3567,
+2009 CarswellOnt 494. Appeal and cross-appeal
+dismissed, McLachlin C.J. dissenting.
+
+  J. Thomas Curry, Milton A. Davis and Paul-
+Erik Veel, for the appellant/respondent on cross-
+appeal.
+
+   Andrew M. Robinson, Elizabeth K. Ackman and
+Andrea Farkouh, for the respondent/appellant on
+cross-appeal.
+
+   The judgment of LeBel, Deschamps, Abella,
+Rothstein, Cromwell and Karakatsanis JJ. was delivered
+ by
+
+     K arakatsanis J. —
+I.
+
+[1] Real estate developers frequently create single-
+purpose corporations for the sole purpose of purchasing
+ and developing properties for profit. The
+corporation has limited liability and no assets other
+ than those that arise from the particular real estate
+ investment. The issue raised in this appeal is
+whether such a single-purpose corporation is excused
+ from mitigating its losses when the vendor
+breaches the agreement of purchase and sale, and
+680
+
+
+particularly when it has promptly brought an action
+ for specific performance. The further issue
+is whether the trial judge erred in his finding that
+there were no other “comparable” properties available
+ to mitigate the loss.
+
+[2] The appellant, Southcott Estates Inc., was
+part of the Ballantry Group of associated companies
+ that acquired and developed land in the
+Greater Toronto Area (“GTA”). Southcott was a
+single-purpose corporation, without assets, created
+for the sole purpose of developing the property that
+is the subject of this action. When the vendor, the
+Toronto Catholic District School Board, failed to
+satisfy a condition and refused to extend the closing
+ date, Southcott sought specific performance of
+the contract. It argues that it was not required to
+mitigate its losses.
+
+[3] The trial judge ((2009), 78 R.P.R. (4th) 285)
+found that the Board had breached the agreement
+of purchase and sale and had failed to prove that
+Southcott could have mitigated its damages. He
+awarded damages for loss of chance of profit. He
+refused to order specific performance, finding that
+the property was not “unique” and damages were
+an adequate remedy.
+
+[4] The Ontario Court of Appeal (2010 ONCA
+310, 104 O.R. (3d) 784) concluded that while the
+trial judge correctly found that the Board had
+breached its contractual obligations, he had erred
+in his approach to mitigation. The court concluded
+ that Southcott had unreasonably failed to take
+available steps to mitigate its loss and reduced the
+damage award granted at trial to a nominal sum.
+
+[5] Southcott did not appeal the trial judge’s refusal
+ to award specific performance. However, it
+681
+[2012] 2 R.C.S.
+
+
+maintains its losses were not avoidable. The questions
+ raised in this appeal are:
+
+1.
+     losses?
+
+2. To what extent must a plaintiff mitigate where
+   the plaintiff has made a claim for specific performance
+   ?
+
+3. Did the trial judge err in concluding that there
+   was no evidence of comparable profitable
+   properties available for mitigation?
+
+[6] For the reasons that follow, I conclude that
+Southcott cannot recover losses that it could reasonably
+ have avoided. I agree with the Court of
+Appeal that the trial judge erred in concluding that
+there was no evidence of other development properties
+ that Southcott could have purchased in mitigation
+. I would dismiss the appeal.
+
+II. Facts
+
+[7] Southcott is a wholly owned subsidiary
+ of Ballantry Homes Inc. and part of a larger
+group of companies called Ballantry Group of
+Companies (“Ballantry” or “Ballantry Group”).
+The Board is a School Board created pursuant to the
+Education Act, R.S.O. 1990, c. E.2, whose affairs
+were run by a publicly elected Board of Trustees.
+
+[8] Having determined that certain land within a
+school property was surplus to its needs, the Board
+put it up for sale. Intending to use the land for residential
+ development, Southcott agreed to purchase
+the 4.78 acres of land for $3.44 million. It paid a
+10 percent deposit and the parties agreed to a closing
+ date of August 31, 2004. It was a condition of
+the agreement that the Board obtain a severance
+from the Committee of Adjustments on or before
+the closing date. On August 30, 2004, the parties
+682
+
+
+agreed to extend the closing date to January 31,
+2005.
+
+[9] The Board applied for a severance in
+November; it was advised that a development plan
+was necessary but chose to proceed without one.
+On December 16, 2004, at the municipality’s request
+, the Committee of Adjustments deferred the
+severance application hearing as premature because
+ it was not accompanied by a development
+plan. At that time, it became clear to Southcott and
+the Board that the transaction could not be completed
+ by the closing date of January 31, 2005. The
+Board refused Southcott’s request to extend the
+closing date, declared the transaction to be at an
+end, and returned Southcott’s deposit.
+
+[10] Southcott took the position that the Board
+had breached its obligation to use its best efforts
+to obtain the severance and commenced an action
+for specific performance or, in the alternative, for
+damages.
+
+[11] Southcott admitted that it never had any intention
+ to mitigate its loss and, indeed, never tried
+to mitigate (para. 137 of the trial judge’s decision).
+Southcott was a single-purpose company incorpo-
+rated solely for the purposes of this development
+project and had no assets other than the money
+advanced by Ballantry for the deposit. It never in-
+tended to purchase other land. In fact, Southcott’s
+principal testified at trial that there was no question
+ of it purchasing other land, given that it was
+involved in this litigation (para. 18 of the Court of
+Appeal’s decision).
+
+[12] The Board led expert evidence that 81 parcels
+ of vacant development land in the GTA were
+sold between the date of breach and the date of
+trial. The land was suitable for residential development
+ and within the parameters, of size and
+683
+[2012] 2 R.C.S.
+
+
+price, of other lands purchased by the Ballantry
+Group.
+
+[13] Corporations within the Ballantry Group
+purchased seven parcels of land for development
+purposes during this same period. The principal of
+Ballantry testified that it was always in the market
+for new land, had the financial means to make the
+purchases, and it would have made these purchases
+even if Southcott had completed the land purchase
+from the Board (para. 138 of the trial judge’s decision
+).
+
+III. Decisions Below
+
+[14] At trial, Spiegel J. concluded that the Board
+had failed to take all reasonable steps to fulfill the
+severance condition. It breached its best efforts
+obligation by failing to contact relevant city staff;
+delaying in processing the severance application;
+failing to include the proposed plan of use with
+the severance application; submitting an improper
+survey; failing to seek appropriate advice; ignoring
+the advice of the Committee of Adjustments; pro-
+ceeding with the application for severance even after
+ being advised that it was incomplete and failing
+to keep Southcott informed (paras. 71-87).
+[15] The trial judge found that had the Board used
+its best efforts, the severance would likely have
+been granted, and the transaction would have been
+completed by the closing date. The trial judge was
+satisfied that the Board’s breach caused Southcott’s
+loss (paras. 93-116).
+[16] Turning to remedy, Spiegel J. found that
+specific performance was not an appropriate remedy
+ as the land did not have the quality of uniqueness
+ (paras. 128-33).
+684
+
+
+[17] However, he concluded that Southcott was
+entitled to damages. He rejected the Board’s argument
+ that Southcott had in fact mitigated damages
+because the Ballantry Group made several purchases
+ subsequent to the breach of the agreement:
+
+I find that these subsequent purchases were collateral,
+independent transactions that did not arise out of the
+consequences of the breach. In all the circumstances
+, I do not consider these transactions as mitigatory.
+[para. 143]
+
+[18] The trial judge found that the Board had
+not discharged the onus of proving that Southcott
+failed to take advantage of a reasonable opportunity
+ to mitigate its loss. He held that there was
+no evidence that any of the available properties
+were actually offered for sale or could have been
+profitably developed and he was not satisfied that
+the properties were comparable (paras. 144-46).
+He therefore awarded Southcott damages in the
+amount of $1,935,500 which represented the loss of
+a 60 percent chance to make profits in the amount
+of $3,225,827.
+
+[19] On appeal, the Board did not dispute the
+findings that it had breached its obligation to use
+its best efforts to obtain the severance required to
+complete the sale. It challenged the findings of cau-
+sation and mitigation.
+
+[20] Sharpe J.A., writing for the Court of Appeal,
+rejected the first ground of the Board’s appeal, that
+the trial judge erred in finding that the Board’s
+breach was the cause of the failure to obtain the
+severance by the closing date (paras. 11-14).
+
+[21] Regarding the issue of whether the losses
+could have been avoided, however, the Court of
+Appeal concluded that the trial judge had erred in
+law in finding that the Board had not shown that
+685
+[2012] 2 R.C.S.
+
+
+Southcott could have mitigated its losses. First,
+Southcott’s admission that it had no intention of
+taking any steps to mitigate was sufficient to satisfy
+ the onus resting upon the Board and to shift
+the evidentiary onus to Southcott to demonstrate
+that, even if it had attempted to mitigate, it could
+not have done so. Second, the trial judge erred in
+dealing with the Board’s evidence regarding the
+land that was available: “By requiring the Board
+to prove . . . the profitability of individual parcels,
+the trial judge raised any bar the Board had to satisfy
+ to an unrealistic level” (para. 25). Finally, the
+trial judge failed to consider that Ballantry’s purchases
+ of other lands clearly demonstrated that the
+directing mind of Southcott knew that investment
+quality lands, suitable for profitable development,
+were available on the market. The Court of Appeal
+stated that Southcott was a distinct legal entity that
+could not avoid mitigating its loss by arguing that
+it was a part of Ballantry: the obligation to mitigate
+rested with Southcott (paras. 24-27).
+
+[22] The Court of Appeal concluded that while
+Southcott had made out its case for breach of contract
+, it failed to make out a case for either specific
+performance or damages. The appropriate award
+was for nominal damages in the amount of $1.
+
+IV. Mitigation — General Principles
+
+[23] This Court in Asamera Oil Corp. v. Seal
+Oil & General Corp., [1979] 1 S.C.R. 633, cited (at
+pp. 660-61) with approval the statement of Viscount
+Haldane L.C. in British Westinghouse Electric
+and Manufacturing Co. v. Underground Electric
+686
+
+
+Railways Company of London, Ltd., [1912] A.C.
+673, at p. 689:
+
+    The fundamental basis is thus compensation for pe-
+cuniary loss naturally flowing from the breach; but this
+first principle is qualified by a second, which imposes
+on a plaintiff the duty of taking all reasonable steps to
+mitigate the loss consequent on the breach, and debars
+him from claiming any part of the damage which is due
+to his neglect to take such steps.
+
+[24] In British Columbia v. Canadian Forest
+Products Ltd., 2004 SCC 38, [2004] 2 S.C.R.
+74, at para. 176, this Court explained that “[l]os-
+ses that could reasonably have been avoided are,
+in effect, caused by the plaintiff’s inaction, rather
+than the defendant’s wrong.” As a general rule, a
+plaintiff will not be able to recover for those losses
+ which he could have avoided by taking reasonable
+ steps. Where it is alleged that the plaintiff has
+failed to mitigate, the burden of proof is on the defendant
+, who needs to prove both that the plaintiff
+has failed to make reasonable efforts to mitigate
+and that mitigation was possible (Red Deer College
+v. Michaels, [1976] 2 S.C.R. 324; Asamera; Evans
+v. Teamsters Local Union No. 31, 2008 SCC 20,
+[2008] 1 S.C.R. 661, at para. 30).
+
+[25] On the other hand, a plaintiff who does take
+reasonable steps to mitigate loss may recover, as
+damages, the costs and expenses incurred in taking
+those reasonable steps, provided that the costs and
+expenses are reasonable and were truly incurred in
+mitigation of damages (see P. Bates, “Mitigation
+of Damages: A Matter of Commercial Common
+Sense” (1992), 13 Advocates’ Q. 273). The valua-
+tion of damages is therefore a balancing process:
+as the Federal Court of Appeal stated in Redpath
+Industries Ltd. v. Cisco (The), [1994] 2 F.C. 279, at
+p. 302: “The Court must make sure that the victim
+is compensated for his loss; but it must at the same
+time make sure that the wrongdoer is not abused.”
+Mitigation is a doctrine based on fairness and
+common sense, which seeks to do justice between
+687
+[2012] 2 R.C.S.
+
+
+the parties in the particular circumstances of the
+case.
+
+A. Should a Single-Purpose Company Mitigate
+   its Losses?
+
+[26] Southcott argues that the Court of Appeal
+failed to recognize the unique circumstance of a
+single-purpose corporation in mitigating contractual
+ loss; as a single-purpose company, it was impecunious
+ and unable to mitigate without signifi-
+cant capital investment of the parent company or
+without the corporate mandate to do so. Further,
+it submits that it would be reasonably foreseeable
+to those contracting with a single-purpose corporation
+ that such an entity would have finite resources
+and a confined corporate mandate. In this case,
+Southcott acted reasonably, within its ordinary
+course of business and promptly brought this law-
+suit.
+
+[27] Southcott sought specific performance and
+was therefore ready to complete the purchase. In
+any event, its alternative claim for consequential
+damages was predicated upon its access to capital
+to complete the agreement of purchase and sale. As
+such, both claims were premised upon resources,
+resources that were not tied up as a result of the
+breach alleged. Indeed, the alleged breach in this
+case did not affect Southcott’s ability to obtain capital
+. Southcott can hardly argue that the same money
+ would not have been available for mitigation.
+
+[28] Further, the question is factual and it was not
+suggested at trial that Southcott had no access to
+capital or that borrowing money would have been
+unreasonably risky or costly. Southcott did not argue
+ that it was impecunious at trial.
+
+[29] In the absence of actual evidence of impe-
+cuniosity, finding that losses cannot be reasonably
+688
+
+
+avoided, simply because it is a single-purpose corporation
+ within a larger group of companies, would
+give an unfair advantage to those conducting business
+ through single-purpose corporations. In addition
+, not requiring single-purpose corporations to
+mitigate would expose defendants contracting with
+such corporations to higher damage awards than
+those reasonably claimed by other plaintiffs, based
+solely upon their limited assets.
+
+[30] The trial judge found that the purchases of
+development land by other corporations within the
+Ballantry Group did not in fact mitigate Southcott’s
+loss; that finding is not challenged here. As noted
+ above, he found that the other properties purchased
+ by other members of the Ballantry group
+were “collateral” in the sense that the purchases
+would have occurred whether or not the defendant
+ had breached its contract with Southcott (para.
+143). However, because Southcott is a separate legal
+ entity, purchases by other Ballantry corporations
+ of other comparable property did not make
+those properties “unavailable” for mitigation. As
+a separate legal entity, Southcott was required to
+mitigate by making diligent efforts to find a substitute
+ property. Those who choose the benefits of incorporation
+ must bear the corresponding burdens:
+Kosmopoulos v. Constitution Insurance Co., [1987]
+1 S.C.R. 2, at pp. 10-12. Southcott is entitled to the
+benefits of limited liability, but it is also saddled
+with the responsibilities that all legal entities have.
+The requirement to take steps to mitigate losses is
+one such responsibility. A plaintiff cannot recover
+ losses that could reasonably have been avoided.
+The overriding issue here is whether Southcott’s inaction
+ was reasonable, and if not, whether it could
+have reasonably mitigated if it had tried to do so.
+689
+[2012] 2 R.C.S.
+
+
+B. Southcott Was Required to Mitigate Losses
+   Despite its Claim for Specific Performance
+
+[31] Specific performance is an equitable remedy
+that is difficult to reconcile with the principle of
+mitigation. Obviously, if Southcott had purchased a
+property in mitigation, it may not have been able to
+complete its agreement of purchase and sale of the
+Board’s surplus land if ultimately successful in its
+claim for specific performance. When can a plaintiff
+ seeking specific performance justify inaction
+and recover losses which may otherwise have been
+classified as avoidable?
+
+[32] The trial judge found that Southcott did not
+have a viable claim for specific performance. He
+found that while the business opportunity may
+have been unique, the property itself was not. The
+trial judge found that what was at issue here was a
+straightforward business plan, the failure of which
+could be measured in damages (para. 132). The
+Court of Appeal agreed. The trial judge’s decision
+not to order specific performance is not challenged
+in this appeal.
+
+[33] However, Southcott submits that even though
+it was unsuccessful in its claim for specific performance
+, it proceeded expeditiously and the claim
+had real substance because the property was a
+unique opportunity, given its location and the rarity
+of such properties in the GTA. As a result, it says
+that it was not reasonable to attempt to mitigate;
+the remedy of specific performance would become
+illusory.
+
+[34] Southcott suggests that there are two separate
+ questions that a court must ask in cases
+where a plaintiff seeks specific performance: (1)
+should specific performance be awarded? And if
+the answer is no, (2) is this plaintiff justified in
+its mitigatory inaction? Southcott says that the
+trial judge conflated these two questions and did
+690
+
+
+not consider whether it was justified in failing to
+mitigate.
+
+[35] This Court dealt with this issue in Asamera,
+at pp. 668-69:
+
+Before a plaintiff can rely on a claim to specific performance
+ so as to insulate himself from the consequences
+of failing to procure alternate property in mitigation of
+his losses, some fair, real, and substantial justification
+for his claim to performance must be found. . . .
+
+                         .
+
+   . . . Where . . . circumstances reveal a substantial
+and legitimate interest in seeking [specific] performance
+ as opposed to damages, then a plaintiff will be
+able to justify his inaction and on failing in his plea for
+specific performance might then [be able to] recover
+losses which in other circumstances might be classified
+as avoidable and thus unrecoverable . . . .
+
+[36] This Court thus recognized that there may
+be situations in which a plaintiff’s inaction is justifiable
+ notwithstanding its failure to obtain an order
+for specific performance where circumstances reveal
+ “some fair, real, and substantial justification”
+for his claim or “a substantial and legitimate interest
+” in seeking specific performance (Asamera,
+at pp. 668-69 (emphasis added)). This does not
+mean that a plaintiff with such a claim should not
+attempt to mitigate; rather it recognizes that such
+a claim for specific performance informs what is
+reasonable behaviour for the plaintiff in mitigation.
+See N. Siebrasse, “Damages in Lieu of Specific
+Performance: Semelhago v. Paramadevan” (1997),
+76 Can. Bar Rev. 551.
+
+[37] Asamera set out the general principles gov-
+erning mitigation: was the plaintiff’s inaction
+reasonable in the circumstances, and could the
+plaintiff have mitigated if it chose to do so. Those
+principles apply to a plaintiff seeking specific performance
+. If the plaintiff has a “substantial justification
+” or a “substantial and legitimate interest” in
+specific performance, its refusal to purchase other
+691
+[2012] 2 R.C.S.
+
+
+property may be reasonable, depending upon the
+circumstances of the case.
+
+[38] The statements in Asamera dealing with
+specific performance and the determination of
+what is reasonable conduct must be read in light of
+Semelhago v. Paramadevan, [1996] 2 S.C.R. 415.
+In that case, the Court acknowledged that “[w]hile
+at one time the common law regarded every piece
+of real estate to be unique, with the progress of
+modern real estate development this is no longer the
+case” (para. 20). The Court thus found that it “cannot
+ be assumed that damages for breach of contract
+for the purchase and sale of real estate will be an
+inadequate remedy in all cases” (para. 21). Specific
+performance will be available only where money
+cannot compensate fully for the loss, because of
+some “peculiar and special value” of the land to the
+plaintiff (para. 21, citing Adderley v. Dixon (1824),
+1 Sim. & St. 607, 57 E.R. 239, at p. 240).
+
+[39] The overriding issue is therefore whether
+Southcott’s inaction was reasonable. Southcott
+argued at trial that the fact that the property was
+uniquely well situated gives it the unique character
+required to constitute a fair justification for specific
+ performance (para. 119 of the trial judge’s decision
+).
+
+[40] I agree with the courts below that this is not
+a case where the plaintiff could reasonably refuse
+to mitigate. The trial judge made clear findings
+that the land was nothing more unique to Southcott
+than a singularly good investment and that this was
+not a case in which damages were too speculative
+ or uncertain to be a satisfactory remedy. The
+unique qualities related solely to the profitability of
+the development for which damages were an adequate
+ remedy (paras. 126 and 128). The calculation
+of profits was not conjectural or speculative as the
+proposed development was not complex, and the
+only disagreement between the parties regarding
+692
+
+
+the quantum of damages related to the timing
+and rate of sale of completed units (paras. 130 and
+132).
+
+[41] A plaintiff deprived of an investment property
+ does not have a “fair, real, and substantial justification
+” or a “substantial and legitimate” interest
+in specific performance (Asamera, at pp. 668-69)
+unless he can show that money is not a complete
+remedy because the land has “a peculiar and special
+ value” to him (Semelhago, at para. 21, citing
+Adderley, at p. 240). Southcott could not make such
+a claim. It was engaged in a commercial transaction
+ for the purpose of making a profit. The property
+’s particular qualities were only of value due to
+their ability to further profitability. Southcott cannot
+ therefore justify its inaction.
+
+C. The Trial Judge Erred in Finding no Evidence
+   of Comparable Profitable Properties Available
+    for Mitigation
+
+[42] In this case, Southcott admitted that it made
+no efforts to mitigate — on the basis that it was not
+obliged to do so. Southcott submits that the Court
+of Appeal erred in shifting the onus to the plaintiff
+ based on the admission by Southcott’s principal
+ that he had no intention to mitigate through
+Southcott. Southcott says that the Board did not
+provide the trial judge with evidence that there was
+a comparable profitable investment property available
+ for sale. The trial judge found that there were
+no comparable or profitable properties. Southcott
+submits that the Court of Appeal erred in disre-
+garding the trial judge’s finding of fact and in sub-
+stituting its own.
+
+[43] The entirety of the trial judge’s analysis on
+this issue was as follows:
+693
+[2012] 2 R.C.S.
+
+
+There was no evidence that the properties referred to
+[by the Board’s expert] were actually available to the
+public for sale but only that they had been sold. Also
+there was no evidence that had these properties been
+purchased that they could have been profitably developed
+. In any event, I am not satisfied that the evidence
+established that these were comparable properties or
+that had they been purchased, that the plaintiff’s loss
+would have been avoided or reduced. [para. 144]
+
+[44] Regarding the failure to mitigate, the Court
+of Appeal found that the trial judge had erred in
+law:
+    First, Southcott’s admission that it had no intention
+of taking any steps to mitigate its loss was sufficient
+to satisfy the onus resting upon the Board to prove
+failure to mitigate and to shift the evidentiary onus to
+Southcott of demonstrating that, even if it had attempted
+ to mitigate, it could not have done so. Southcott led
+no evidence to that effect. In my view, the trial judge
+erred by holding that the Board had failed to meet the
+onus imposed upon it to prove that Southcott had failed
+to mitigate its damages.
+    . . . By requiring the Board to prove the precise manner
+ in which 81 parcels of investment land had been sold
+or to prove the profitability of individual parcels, the
+trial judge raised any bar the Board had to satisfy to an
+unrealistic level, particularly in the face of Southcott’s
+admission that it had no intention to mitigate and of the
+evidence that Ballantry actually did find other suitable
+development properties to purchase.
+   Third, the trial judge erred in the manner in which he
+dealt with the evidence of purchases made by Ballantry.
+Those purchases clearly demonstrate that the directing
+mind of Southcott knew that investment-quality lands,
+suitable for profitable development, were available on
+the market. [paras. 24-26]
+
+[45] As noted above, where it is alleged that a
+plaintiff has failed to mitigate damages, the onus
+of proof on a balance of probabilities lies with the
+694
+
+
+defendant, who must establish not only that the
+plaintiff failed to take reasonable efforts to find a
+substitute, but also that a reasonable profitable substitute
+ could be found.
+
+[46] Thus, it would be an error to suggest that
+the defendant did not have the burden of showing
+ that mitigation was possible even where the
+plaintiff made no attempt to do so. Further, while I
+agree that the trial judge erred in dealing with the
+Board’s evidence regarding the availability of the
+81 properties, the error is best approached as an
+evidentiary issue rather than as one engaging the
+burden of proof.
+
+[47] The finding about whether Southcott could
+have mitigated involves applying a legal standard;
+it is a question of mixed fact and law. Whether or
+not there were comparable properties and whether
+they were profitable is a finding of fact. Implicit
+in the Court of Appeal’s decision is the conclusion
+that the trial judge’s findings of fact were unreasonable
+.
+
+[48] For the reasons that follow, I agree with the
+Court of Appeal that the trial judge erred in principle
+ by failing to consider relevant evidence. In
+particular, Ballantry’s subsequent purchases were
+evidence that other development properties were
+reasonably available. These errors skewed his factual
+ analysis on the issue of mitigation. I conclude
+that the trial judge made a palpable and overriding
+ error in finding that there were no comparable
+profitable mitigation opportunities: see Housen v.
+Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235, at
+para. 10.
+
+      (1) The Expert Evidence of Comparable
+          Properties
+
+[49] At trial, the Board presented evidence that 81
+parcels of raw land suitable for development and 49
+properties subdivided into lots suitable for building
+695
+[2012] 2 R.C.S.
+
+
+were available for sale in the GTA and were in fact
+sold in the period between January 31, 2005 and
+the time of trial (para. 136 of the trial judge’s decision
+). The parameters that the Board’s expert used
+in selecting alternative available parcels were sales
+of land between $1,000,000 and $27,000,000, that
+had an estimated time to develop of one year or
+less, and that could be developed for low to medi-
+um density residential. These parameters were cho-
+sen to match the parameters of the actual purchases
+made by the Ballantry Group.
+
+[50] Nevertheless, the trial judge concluded that
+the Board had not discharged the onus of proving
+that Southcott failed to take advantage of a reasonable
+ opportunity to mitigate. He found that: there
+was no evidence that the 81 properties were actually
+ available to the public for sale; there was no
+evidence that, had these properties been purchased,
+they could have been profitably developed, and the
+plaintiff’s loss could have been avoided or reduced;
+and in any event, these properties were not comparable
+ properties.
+
+[51] The trial judge failed to consider the available
+ and reasonable inferences of the Board’s evidence
+ that there were 81 parcels of raw land suitable
+ for development and 49 properties subdivided
+into lots suitable for building sold during the time
+period in issue here. In cross-examination, the
+Board’s expert witness admitted being unaware of
+the marketing strategies used to sell the 81 properties
+ sold during the period in which the Board
+suggested that Southcott could mitigate (A.R., at
+p. 232-33). However, notwithstanding that answer,
+it is an obvious inference that if 81 properties suitable
+ for development were offered for sale, and
+were in fact sold, then investment properties were
+available to developers for sale, particularly in the
+absence of evidence to the contrary.
+696
+
+
+[52] Further, the trial judge failed to consider
+whether the fact that all of the properties the Board’s
+expert testified to were capable of being brought to
+development in a year could support an inference
+that their development was profitable. Reasonable
+inferences of profitability could be drawn based
+upon the size and price of property or the fact that
+land was purchased for development purposes by
+experienced developers. The trial judge did not
+turn his mind to this evidence.
+
+[53] Finally, the trial judge also failed to consider
+that an adverse inference against Southcott could
+be drawn from the fact that it led no evidence about
+the profitability of the alternative development opportunities
+.
+
+      (2) The Purchases by Ballantry
+
+[54] I agree with the Court of Appeal that the
+trial judge also erred in failing to consider whether
+the purchases by the Ballantry corporations provided
+ evidence of other profitable properties available
+ in mitigation. As noted above, the trial judge
+found (at para. 143) that the other properties purchased
+ by other members of the Ballantry Group
+were “collateral” in the sense that the transactions
+would have occurred whether or not the defendant
+had breached its contract with Southcott and did
+not represent actual mitigation due to Southcott’s
+distinct legal personality. This is not challenged.
+
+[55] The trial judge did not go on to consider,
+however, whether these transactions established
+that those same properties were evidence of “available
+” comparable mitigation opportunities in the
+market. Because Southcott is a separate legal entity,
+purchases by other Ballantry corporations of other
+comparable property did not make those properties
+ “unavailable” for mitigation. In effect, the
+trial judge ignored the separate legal personalities
+697
+[2012] 2 R.C.S.
+
+
+of Southcott and the other corporations in the
+Ballantry Group by failing to consider those purchases
+ as evidence of the existence of mitigation
+opportunities.
+
+[56] The Ballantry Group companies purchased
+seven other development properties subsequent to
+the breach of the agreement, ranging in size from
+2.3 acres to 110.8 acres and in price from $3.3 million
+ to $27.1 million. In particular, two specific
+purchases were clearly comparable. Southcott had
+agreed to purchase 4.78 acres of land for $3.44 million
+ in August 2004. Ballantry corporations purchased
+ 2.7 acres for $3.3 million in August 2005
+and 2.3 acres for $6 million in December 2006.
+
+[57] The defence raised by Southcott, which
+was accepted by the trial judge, was that the purchases
+ by Ballantry Group of development lands in
+the GTA were purchases which would have been
+made in any event, regardless of whether Southcott
+purchased the Board’s property. However, it is no
+answer to say that other companies in the same corporate
+ group would have purchased the other available
+ lands in any event. It was clear from the testimony
+ of the president of Southcott and co-owner
+of Ballantry that the Ballantry Group was always
+purchasing promising development land and that
+the different companies were simply used as different
+ vehicles to invest.
+
+[58] It was a choice on the part of the princi-
+pals of the Ballantry Group as to which corporate
+entity would be used for each purchase and they
+elected not to use Southcott. In addition, the trial
+judge found that “[t]he plaintiff[’s] proposed development
+ here was not complex, but rather a rela-
+tively straightforward plan for the development of
+48 semi-detached residential units” (para. 132). In
+698
+
+
+these circumstances, a straightforward development
+ could have been carried out on a different
+property by Southcott, had it wanted to mitigate its
+loss. This corresponds to the modern reality recognized
+ in Semelhago that “[r]esidential, business
+and industrial properties are all mass produced
+much in the same way as other consumer products
+” (para. 20).
+
+[59] As the Court of Appeal concluded (at paras
+. 25-26), the Ballantry Group’s purchases of
+other properties was evidence that other suitable
+development lands were available and the decision
+not to purchase them in Southcott’s name was based
+on other considerations. I agree with the Court of
+Appeal that the trial judge erred in failing to consider
+ these purchases as evidence of other available
+and comparable development properties.
+
+V. Conclusion
+
+[60] In conclusion, the trial judge erred in failing
+ to consider relevant evidence and made a palpable
+ and overriding error of fact in concluding
+that Southcott could not have reasonably avoided
+its loss.
+
+[61] He failed to take into account in his analysis
+ of the mitigation issue that Southcott had simply
+ refused to take any mitigatory action. He failed
+to consider the evidence of Ballantry’s purchases
+as supporting the inference that alternative parcels
+ were available and that their development was
+sufficiently profitable to meet Ballantry’s requirements
+. He conflated a lack of evidence regarding
+the marketing of parcels with a lack of evidence
+that any of the parcels had been available for sale.
+He failed to consider whether the fact that all of
+the properties the Board’s expert testified were
+development properties capable of being brought
+to development in a year could support an inference
+ that their development was profitable.
+Finally, he failed to consider the fact that Southcott
+699
+[2012] 2 R.C.S.
+
+
+did not lead evidence to challenge the Board’s
+evidence regarding alternative development
+opportunities.
+
+[62] In these circumstances, the Court of Appeal
+was entitled to look at the record and conclude
+that the trial judge’s findings regarding mitigation
+were not available to him on the evidence. The evidence
+ of the Ballantry purchases, in the context
+of Southcott’s refusal to mitigate, established that
+there were opportunities to mitigate by purchasing
+ other development land in the GTA. Failure to
+mitigate reduces damages. The Court of Appeal
+concluded that, based upon the investment properties
+ purchased by Ballantry, and in the absence of
+evidence to the contrary, the Board discharged the
+burden of showing that other investment properties
+were available in the relevant time period to mitigate
+ the losses and that the trial judge’s finding that
+there were no comparable properties was not open
+to him on the evidence. I agree.
+
+[63] I would dismiss the appeal with costs. In
+light of the result on the main appeal, I need not
+consider the cross-appeal. The cross-appeal should
+be dismissed without costs.
+
+   The following are the reasons delivered by
+
+[64] The Chief Justice (dissenting) — Damages
+for breach of contract may be reduced if the plaintiff
+ unreasonably fails to mitigate its loss. To show
+that a plaintiff unreasonably failed to mitigate its
+loss, the defendant who is in breach of the contract
+must establish: (1) that an opportunity to mitigate
+the loss existed; and (2) that the plaintiff acted unreasonably
+ in failing to take that opportunity.
+700
+
+
+[65] The trial judge found as a fact that the defendant
+ had not proved that Southcott had an opportunity
+ to mitigate. This finding, in my view,
+was grounded in the evidence. This is sufficient to
+dispose of the appeal. However, if such opportunity
+ were found to exist, I see no basis on which
+to conclude that Southcott acted unreasonably in
+maintaining its suit for specific performance instead
+ of mitigating its loss. It follows, in my view,
+that the judgment of the Court of Appeal should be
+set aside, and the trial judge’s conclusion that the
+plaintiff established breach of contract and damages
+ should be restored.
+
+I.
+
+[66] The Toronto Catholic District School Board
+contracted with Southcott Estates Inc. for the sale
+of 4.78 acres of surplus land for $3.44 million. The
+closing date was August 31, 2004. Southcott was a
+wholly owned subsidiary of Ballantry Homes Inc.,
+which was in the business of buying property and
+developing it for residential purposes. Southcott
+was a single-purpose company created express-
+ly and only for the purpose of buying this parcel
+ of land and developing it with single-family
+homes. Southcott had no assets except for the deposit
+ it paid on the land.
+
+[67] The land was part of a larger parcel on which
+school buildings were located so the agreement
+was conditional upon the Board obtaining a severance
+ from the Committee of Adjustments on or
+before the closing date. The agreement was signed
+on June 14, 2004, but only became firm on August
+23, 2004. The Board, realizing it might not be
+able to get severance of the property by the closing
+ date of August 31, 2004, asked Southcott to
+extend the closing date to a fixed date after severance
+. Southcott was willing to extend the August
+31 closing date, but insisted on a firm final date of
+January 31, 2005.
+701
+[2012] 2 R.C.S.
+
+
+[68] The Board’s application for severance was
+heard on December 16, 2004. It was deferred because
+ the Board had failed to include a development
+ plan in its application. This made it impossible
+ for the Board to comply with the January 31,
+2005 closing date. Southcott requested the Board
+to extend the closing date. The Board refused this
+request, declared the transaction to be at an end,
+and returned Southcott’s deposit.
+
+[69] Southcott took the position that the Board
+had breached its obligation to use its best efforts to
+obtain the severance and brought an action for specific
+ performance or, in the alternative, damages.
+
+[70] The trial judge held that the plaintiff was not
+entitled to an order for specific performance because
+ the property was not sufficiently unique to
+satisfy the requirements of that remedy. However,
+he awarded damages in the amount of $1,935,500,
+representing the loss of a 60 percent chance to
+make profits in the amount of $3,225,827. He rejected
+ the Board’s argument that Southcott had
+failed to act reasonably to mitigate its loss, holding
+ that the Board had not established as a matter
+of fact that mitigation opportunities were available.
+
+[71] The Court of Appeal reversed the trial judge’s
+decision and set aside the award for damages, essen-
+tially holding that the evidence, properly viewed,
+established an unreasonable failure to mitigate.
+
+II. The Requirements of Mitigation
+
+[72] The doctrine of mitigation holds that a plaintiff
+ cannot recover damages for loss that could have
+been reasonably avoided: Asamera Oil Corp. v. Sea
+Oil & General Corp., [1979] 1 S.C.R. 633, at p. 660;
+British Westinghouse Electric and Manufacturing
+Co. v. Underground Electric Railways Company
+of London, Ltd., [1912] A.C. 673 (H.L.), at p. 689;
+702
+
+
+Dunkirk Colliery Co. v. Lever (1878), 9 Ch. D.
+20 (C.A.), at p. 25. A plaintiff is not contractual-
+ly obliged to mitigate, and in this sense the term
+“duty to mitigate” is misleading. However, if the
+plaintiff unreasonably fails to mitigate, its damages
+ for breach of contract may be reduced: Janiak
+v. Ippolito, [1985] 1 S.C.R. 146, at pp. 166-67;
+Darbishire v. Warran, [1963] 1 W.L.R. 1067 (C.A.),
+at p. 1075.
+
+[73] The defendant, having breached the contract,
+bears the onus of proving that the plaintiff unreasonably
+ failed to mitigate its loss: Red Deer College
+v. Michaels, [1976] 2 S.C.R. 324, at pp. 330-31;
+Roper v. Johnson (1873), L.R. 8 C.P. 167. This entails
+ establishing, on a balance of probabilities: (1)
+that opportunities to mitigate the loss were available
+ to the plaintiff; and (2) that the plaintiff unreasonably
+ failed to pursue these opportunities.
+
+[74] Failure to mitigate may not be unreasonable
+for a variety of reasons. One such reason may be a
+“fair, real, and substantial justification” for claiming
+ specific performance: Asamera, at pp. 667-
+68. Another may be lack of financial resources:
+McGregor on Damages (18th ed. 2009), at para.
+7-088. The rules for mitigation “do not require the
+injured party to do what he cannot afford to do
+when he is seeking to reduce the damages payable
+by the wrongdoer”: Lagden v. O’Connor, [2003]
+UKHL 64, [2004] 1 All E.R. 277, at para. 51 (per
+Lord Hope); see also General Securities Ltd. v.
+Don Ingram Ltd., [1940] S.C.R. 670.
+
+[75] Unreasonable failure to mitigate loss reduces
+ damages to the extent that mitigation would
+have avoided the loss: see Andros Springs v. World
+Beauty, [1970] P. 144 (C.A.), at p. 154 (per Lord
+Denning). If a mitigation opportunity would only
+partially avoid the plaintiff’s loss, then only a par-
+tial reduction in damages can be justified.
+703
+[2012] 2 R.C.S.
+
+
+III. Opportunity to Mitigate
+
+[76] The trial judge found that the Board had not
+discharged its onus of proving that Southcott unreasonably
+ failed to mitigate its loss because it did not
+establish that the opportunity to mitigate existed.
+This finding must stand unless it constitutes palpable
+ and overriding error: Housen v. Nikolaisen,
+2002 SCC 33, [2002] 2 S.C.R. 235, at para. 10.
+
+[77] The Board sought to prove that mitigation
+opportunities existed in two ways — through the
+testimony of an expert witness and with evidence
+of purchases made by other Ballantry companies.
+
+    A. The Evidence of the Expert Witness
+
+[78] The trial judge found that the Board’s expert
+witness’s evidence did not establish opportunity to
+mitigate the loss.
+
+[79] The Board’s expert presented evidence of
+81 parcels of raw land and 49 subdivided properties
+ that were purchased in the Greater Toronto
+Area (“GTA”) between January 31, 2005 and the
+time of trial. The trial judge found a number of
+shortcomings in this evidence.
+
+[80] First, there was no evidence that the alleged
+properties the expert referred to were actually
+available to Southcott; the Board’s expert witness
+admitted to being entirely unaware of whether substitute
+ property was available to the public for sale
+during the period in which the Board suggested
+that Southcott could mitigate (A.R., at p. 233).
+
+[81] Second, the evidence did not establish that
+these properties were comparable to Southcott’s
+target property ((2009), 78 R.P.R. (4th) 285, at para.
+144). Little was known about the properties identi-
+fied by the Board’s expert witness beyond their size,
+cost, and nearest major intersection. Most were
+outside the City of Toronto. The properties vary
+widely in both size and price, including parcels as
+704
+
+
+large as 123.988 acres, as small as 0.251 acres, and
+costing as much as $23.77 million. The trial judge
+concluded that the comparability of these properties
+ to Southcott’s 4.78 acre target property had not
+been established.
+
+[82] Third, the trial judge found that the evidence
+did not establish that alternate properties could
+have been profitably developed (para. 144). Only a
+profitable development would mitigate Southcott’s
+loss; an unprofitable one would aggravate it. A
+plaintiff is not required to take foolish steps that
+would not reduce its loss. The Board’s expert presented
+ no evidence on the potential profitability of
+the properties he referred to.
+
+[83] The Court of Appeal criticized the trial
+judge’s finding that the evidence did not establish
+ profitability, on the ground that he raised
+the burden of proof on the Board to an unrealistic
+ level (2010 ONCA 310, 104 O.R. (3d) 784, at
+para. 25). With respect, the burden was clear —
+the Board had to establish that alternate properties
+could have been profitably developed on a balance
+of probabilities. There is no indication that the trial
+judge failed to appreciate this basic principle. See
+World Beauty, at p. 154.
+
+[84] The trial judge found that the Board’s expert
+witness failed to establish that Southcott had opportunities
+ to mitigate its loss. This finding finds
+support in the evidence and is not vitiated by legal
+error. It follows that it cannot be set aside: Housen.
+
+      B. The Evidence of Purchases by Other
+         Ballantry Companies
+
+[85] The second way the Board sought to dis-
+charge its onus of showing opportunity to mitigate
+was by evidence that other Ballantry companies
+had made purchases of development land in the
+GTA at the relevant time. The Board argued that
+705
+[2012] 2 R.C.S.
+
+
+these other Ballantry purchases had in fact mitigated
+ the loss caused by the Board’s breach.
+
+[86] The trial judge accepted the Board’s in-
+vitation to consider the matter from the perspec-
+tive of the Ballantry Group as a whole, effectively
+ piercing the corporate veil. He concluded that
+Ballantry’s subsequent purchases were collateral
+, independent transactions that could not have
+avoided the loss arising from the Board’s breach
+of contract (para. 143): see Apeco of Canada, Ltd.
+v. Windmill Place, [1978] 2 S.C.R. 385, at p. 389.
+Leaving aside the question of whether piercing the
+corporate veil in these circumstances was appropriate
+, the trial judge’s analysis was not in error.
+The trial judge’s reasoning was that the Ballantry
+Group, with extensive access to credit, was limited
+only by the number of properties it could find. The
+more good properties it could find, the more money
+ it stood to make. In this sense, other purchases
+by the Ballantry Group were collateral rather than
+substitutions for the Board’s property.
+
+[87] The trial judge, having dealt with the purchases
+ of other Ballantry companies in this way,
+did not make a finding on whether these properties
+ offered mitigation opportunities for Southcott,
+as an independent legal entity. The evidence, however
+, does not support such a finding, in my view.
+First, there was no evidence that the properties purchased
+ by other Ballantry companies were available
+ to Southcott. At best, Southcott would have
+been competing with its sister companies for these
+properties. Whether it would have succeeded in
+acquiring a comparable property was a matter of
+speculation.
+
+[88] Second, the evidence did not establish that
+other Ballantry Group purchases were comparable
+to Southcott’s target property. Under its contract
+706
+
+
+with the Board, Southcott was purchasing a 4.78
+acre parcel located in a desirable residential neigh-
+bourhood of the City of Toronto suited to the development
+ of 48 semi-detached residential units (para.
+132). There was no evidence that any of the other
+Ballantry purchases were comparable. It is not
+enough to show that some development land may
+have been available to companies which may have
+had different development strategies. Ballantry
+had wide ranging interests in residential real estate
+development throughout the GTA. Southcott had a
+narrower, specific development objective. To show
+opportunity to mitigate, the Board had to prove that
+a property comparable to the one that Southcott
+sought to purchase was available.
+
+[89] I respectfully cannot agree that two of the subsequent
+ Ballantry purchases were clearly comparable
+ to Southcott’s target property (Karakatsanis J.,
+at para. 56). The first (a parcel of 2.7 acres for $3.3
+million) was 43 percent smaller than Southcott’s
+target property, cost 70 percent more per acre, and
+was purchased for the development of a retirement
+home. The second (a parcel of 2.3 acres for $6 million
+) was 51 percent smaller than Southcott’s target
+property, cost 260 percent more per acre, and was
+purchased for development of a high rise building.
+On the record, these properties were not comparable
+ to the property that Southcott sought to acquire
+: a 4.78 acre parcel suited to the development
+of 48 semi-detached residential units. The remain-
+ing Ballantry purchases were even less comparable
+to Southcott’s target property. The Board had the
+burden of establishing the comparability of these
+properties. It failed to do so.
+
+[90] I see no error in the trial judge’s conclusion
+that the evidence as to other Ballantry properties
+did not establish opportunities to mitigate the loss
+suffered as a result of the Board’s breach of contract
+.
+707
+[2012] 2 R.C.S.
+
+
+IV. Did Southcott Act Reasonably?
+
+[91] The trial judge’s finding that the Board
+failed to establish that Southcott had opportunities
+to mitigate its loss is sufficient to dispose of the
+appeal. However, I offer the following comments
+on whether the Board established, as it was also
+required to do, that failure to take advantage of any
+proven opportunities for mitigation was unreasonable
+.
+
+[92] In my view, it is difficult to conclude that
+Southcott acted unreasonably. The first reason is
+that it had a “fair, real, and substantial justification”
+for claiming specific performance of the contract:
+Asamera, at pp. 667-68. In such circumstances, a
+plaintiff is not required to mitigate. As explained in
+Asamera, this is simply an application of the rule of
+mitigation requiring the plaintiff to act reasonably
+in the circumstances:
+
+Where those circumstances reveal a substantial and legitimate
+ interest in seeking performance as opposed to
+damages, then a plaintiff will be able to justify his inaction
+ and on failing in his plea for specific performance
+might then recover losses which in other circumstances
+might be classified as avoidable and thus unrecoverable
+ . . . . [pp. 668-69]
+
+[93] The act of filing a claim for specific performance
+ is inconsistent with the act of acquiring
+a substitute property. A plaintiff, acting reasonably
+, cannot pursue specific performance and mitigate
+ its loss at the same time. It makes no sense
+for a reasonable plaintiff seeking specific performance
+ to effectively concede defeat and buy
+a substitute property. The plaintiff could end up
+with two properties — one it wanted and one it
+did not. Furthermore, an action for specific performance
+ is often motivated by the unavailabili-
+ty of substitutes in the marketplace. A plaintiff’s
+reasonable claim that substitutes are unavailable
+is inconsistent with the ability to acquire a substitute
+ in the marketplace (E. Yorio, “A Defense
+708
+
+
+of Equitable Defenses” (1990), 51 Ohio St. L.J.
+1201).
+
+[94] In the end, the trial judge dismissed the claim
+for specific performance. However, that does not
+mean that Southcott acted unreasonably in pursuing
+ the claim. Whether a plaintiff had a “fair, real,
+and substantial justification” for maintaining a specific
+ performance claim is a different question from
+whether specific performance should be granted at
+the conclusion of the trial when all the evidence is
+in and appraised by the trial judge. Plaintiffs can
+never be certain that an action for specific performance
+ will succeed, particularly as this is an equitable
+, discretionary remedy. Demanding that losses
+be mitigated unless success in obtaining specific
+performance is assured would deter valid claims
+for specific performance and hold plaintiffs to an
+impossible standard.
+
+[95] The trial judge, while ultimately reject-
+ing Southcott’s claim for specific performance,
+did not find that Southcott acted unreasonably in
+pursuing that remedy. Nor does there appear to be
+a basis for such a finding. It can be fairly argued
+that Southcott did not act unreasonably in pursuing
+specific performance of the contract. The property
+was uniquely suited to Southcott’s needs for single-
+family residential development within the City of
+Toronto. Though the common law presumption of
+the uniqueness of real property no longer holds, a
+claim for specific performance may still be reasonable
+ if a property has unique characteristics such
+that a substitute property is not readily available:
+Semelhago v. Paramadevan, [1996] 2 S.C.R. 415,
+at para. 22. Southcott’s contention that there was
+no comparable substitute property found support in
+the evidence.
+
+[96] Another reason for failing to acquire and
+develop a substitute property, assuming such a
+709
+[2012] 2 R.C.S.
+
+
+property had been available, is that Southcott lacked
+financial resources. Southcott did not have the financial
+ capacity to go into the market and purchase
+a substitute property. It was a single-purpose company
+ with no assets other than the $344,000 advanced
+ to it by Ballantry for the deposit on the target
+ property (trial judgment, at para. 137). Whether
+it could have obtained financing to buy a different
+property is at the very least speculative.
+
+[97] In summary, I see no basis for concluding
+that Southcott acted unreasonably in failing to mitigate
+ its loss, assuming that opportunities to do so
+were available.
+
+V. Conclusion
+
+[98] I see no basis upon which to set aside the
+trial judge’s conclusion that the defendant did not
+prove that the plaintiff unreasonably failed to mitigate
+ its loss. His conclusions find support in the
+evidence and the law.
+
+[99] I would allow the appeal and restore the
+judgment of the trial judge.
+
+  Appeal dismissed with costs. Cross-appeal dismissed
+ without costs, McLachlin C.J. dissenting.
+
+  Solicitors for the appellant/respondent on cross-
+appeal: Lenczner Slaght Royce Smith Griffin,
+Toronto; Davis Moldaver, Toronto.
+
+  Solicitors for the respondent/appellant on cross-
+appeal: Miller Thomson, Toronto.

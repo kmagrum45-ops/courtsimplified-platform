@@ -23,7 +23,10 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import path from "node:path";
 
 import { chunkSource, readableUrl } from "../../src/lib/case-system/retrieval/corpusChunker";
+import { DECISION_SOURCES } from "./decisionSources";
 import {
+  chunkIndexedSource,
+  sourceTextPath,
   embeddingInput,
   passageHash,
   quantize,
@@ -103,6 +106,27 @@ async function main() {
     const chunks = chunkSource(source, readFileSync(file, "utf8"));
     if (chunks.length === 0) continue;
     sources[entry.id] = source;
+    for (const chunk of chunks) rows.push({ id: chunk.id, hash: passageHash(chunk, source), input: embeddingInput(chunk, source) });
+  }
+
+  // Court decisions already retrieved and read (docs/sources/README.md).
+  for (const decision of DECISION_SOURCES) {
+    const source: IndexedSource = {
+      id: decision.id,
+      title: decision.title,
+      citation: decision.citation,
+      url: decision.url,
+      readableUrl: decision.readableUrl,
+      tier: "case-law",
+      file: path.basename(decision.path),
+      path: decision.path,
+      year: decision.year,
+    };
+    const file = sourceTextPath(ROOT, source);
+    if (!existsSync(file) || !source.readableUrl) continue;
+    const chunks = chunkIndexedSource(source, readFileSync(file, "utf8"));
+    if (chunks.length === 0) continue;
+    sources[source.id] = source;
     for (const chunk of chunks) rows.push({ id: chunk.id, hash: passageHash(chunk, source), input: embeddingInput(chunk, source) });
   }
 

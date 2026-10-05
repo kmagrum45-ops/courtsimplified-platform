@@ -1,0 +1,1322 @@
+[2006] 2 R.C.S.
+
+
+Sun Life Assurance Company of
+Canada Appellant
+
+v.
+
+Connie Fidler
+
+Indexed as: Fidler v. Sun Life Assurance Co.
+of Canada
+Neutral citation: 2006 SCC 30.
+File No.: 30464.
+2005: December 6; 2006: June 29.
+Present: McLachlin C.J. and Major,* Bastarache, Binnie,
+LeBel, Deschamps, Fish, Abella and Charron JJ.
+
+on appeal from the court of appeal for
+british columbia
+   Damages — Compensatory damages — Damages for
+mental distress — Breach of contract — Insurer wrongly
+terminating insured’s long-term disability benefits for
+more than five years — Whether insured entitled to damages
+ for mental distress.
+   Damages — Punitive damages — Breach of contract
+— Insurer wrongly terminating insured’s long-term
+disability benefits for more than five years — Whether
+insured entitled to punitive damages.
+    Insurance — Breach of contract — Damages —
+Insurer wrongly terminating insured’s long-term disability
+ benefits for more than five years — Whether insured
+entitled to damages for mental distress and punitive
+damages.
+   Contracts — Commercial contracts — Insurer in
+breach of disability insurance contract — Whether
+insured entitled to damages for mental distress.
+    F worked as a bank receptionist and was covered by
+a group policy that included long-term disability benefits
+. At the age of 36, she became ill, was eventually
+
+*
+
+
+
+diagnosed with chronic fatigue syndrome and fibromyalgia
+, and began receiving long-term disability benefits
+in January 1991. Under the terms of the policy, she was
+only entitled to continued benefits after two years if
+she was unable to do any job. In May 1997, the insurer
+informed F that her benefit payments would be terminated
+. According to the insurer, its video surveillance
+detailed activities inconsistent with F’s claim that she
+was incapable of performing light or sedentary work.
+The insurer’s denial of benefits was followed by almost
+two years of correspondence with F and medical professionals
+. Despite the medical evidence in its possession
+to the effect that F was not yet capable of doing any
+work, the insurer, relying on its own consultants and
+experts, confirmed its decision to terminate benefits in
+December 1998. F commenced an action and, in April
+2002, one week before the trial was scheduled to start,
+the insurer offered to reinstate her benefits and to pay
+all arrears with interest. As a result, the only issue at
+trial was F’s entitlement to damages. The trial judge
+awarded her $20,000 in aggravated damages for mental
+distress but, concluding that the insurer had not acted
+in bad faith, dismissed her claim for punitive damages.
+The Court of Appeal unanimously upheld the award for
+mental distress, and a majority of the court awarded F
+an additional $100,000 in punitive damages, finding
+palpable and overriding error on the question of bad
+faith.
+    Held: The appeal should be allowed in part.
+    Damages for mental distress for breach of contract
+may be recovered where they are established on the
+evidence and shown to have been within the reasonable
+contemplation of the parties at the time the contract
+was made. There is no requirement for an independent
+actionable wrong. In order to be successful, a plaintiff
+ must prove his or her loss and the court must be
+satisfied that the degree of mental suffering caused by
+the breach was of a degree sufficient to warrant compensation
+. These questions require sensitivity to the
+particular facts of each case. Here, given the nature
+of a disability insurance contract, it would have been
+within the reasonable contemplation of the parties at
+the time the contract was made that mental distress
+would likely flow from a failure to pay the required
+benefits. An unwarranted delay in receiving the bar-
+gained for protection can be extremely stressful. The
+[2006] 2 R.C.S.
+
+
+mental distress at issue here was of a degree sufficient
+to warrant compensation. The trial judge concluded,
+based on extensive medical evidence documenting
+the stress and anxiety that F experienced, that merely
+paying the arrears and interest did not compensate for
+the years that F was without her benefits. His award of
+$20,000 seeks to compensate her for the psychological
+consequences of the insurer’s breach. [44-45] [47] [56-
+59]
+    The Court of Appeal’s award of punitive damages
+must be set aside. Punitive damages are not compensatory
+. They are designed to address the purposes of
+retribution, deterrence and denunciation. However, an
+insurer will not necessarily be liable for such damages
+ by incorrectly denying a claim that is eventually
+conceded, or judicially determined, to be legitimate.
+The question in each case is whether the denial was
+the result of the overwhelmingly inadequate handling
+of the claim, or the introduction of improper considerations
+ into the claims process. Ultimately, each case
+revolves around its own facts. Here, after a thorough
+review of the relevant evidence, the trial judge found
+that the insurer had not acted in bad faith. He considered
+ every salient aspect of how the insurer handled the
+claim and concluded that its denial of benefits was the
+product of a real, albeit incorrect, doubt as to whether F
+was incapable of performing any work. The termination
+of benefits relating to an unobservable disability in the
+absence of any medical evidence indicating an ability
+to return to work represents conduct that is troubling,
+but not sufficiently so as to justify interfering with the
+trial judge’s conclusion that there was no bad faith. [61]
+[71-75]
+Cases Cited
+   Applied: Hadley v. Baxendale (1854), 9 Ex. 341, 156
+E.R. 145; approved: 702535 Ontario Inc. v. Lloyd’s
+London, Non-Marine Underwriters (2000), 184 D.L.R.
+(4th) 687; referred to: Warrington v. Great-West Life
+Assurance Co. (1996), 139 D.L.R. (4th) 18; Hobbs v.
+London and South Western Rail. Co. (1875), L.R. 10
+Q.B. 111; Hamlin v. Great Northern Railway Co. (1856),
+1 H. & N. 408, 156 E.R. 1261; Addis v. Gramophone
+Co., [1909] A.C. 488; Eastwood v. Magnox Electric plc,
+[2004] 3 All E.R. 991, [2004] UKHL 35; Malik v. Bank
+of Credit and Commerce International S.A., [1998]
+A.C. 20; Wallace v. United Grain Growers Ltd., [1995]
+
+
+
+9 W.W.R. 153, var’d [1997] 3 S.C.R. 701; Morberg v.
+Klassen (1991), 49 C.L.R. 124; Taylor v. Gill, [1991] 3
+W.W.R. 727; Watts v. Morrow, [1991] 1 W.L.R. 1421;
+Baltic Shipping Co. v. Dillon (1993), 176 C.L.R. 344;
+Johnson v. Gore Wood & Co., [2001] 2 W.L.R. 72; Peso
+Silver Mines Ltd. (N.P.L.) v. Cropper, [1966] S.C.R.
+673; Jarvis v. Swans Tours Ltd., [1973] 1 All E.R. 71;
+Farley v. Skinner, [2001] 4 All E.R. 801, [2001] UKHL
+49; Wilson v. Sooter Studios Ltd. (1988), 33 B.C.L.R.
+(2d) 241; Wharton v. Tom Harris Chevrolet Oldsmobile
+Cadillac Ltd. (2002), 97 B.C.L.R. (3d) 307, 2002 BCCA
+78; Thompson v. Zurich Insurance Co. (1984), 7 D.L.R.
+(4th) 664; Prinzo v. Baycrest Centre for Geriatric Care
+(2002), 60 O.R. (3d) 474; Vorvis v. Insurance Corp. of
+British Columbia, [1989] 1 S.C.R. 1085; Wertheim v.
+Chicoutimi Pulp Co., [1911] A.C. 301; Whiten v. Pilot
+Insurance Co., [2002] 1 S.C.R. 595, 2002 SCC 18; Hill
+v. Church of Scientology of Toronto, [1995] 2 S.C.R.
+1130.
+Authors Cited
+Chitty, Joseph Jr. Chitty on Contracts, vol. II, 29th ed.
+   London: Sweet & Maxwell, 2004.
+Cohen, Ronnie, and Shannon O’Byrne. “Cry Me a River:
+   Recovery of Mental Distress Damages in a Breach of
+   Contract Action — A North American Perspective”
+   (2005), 42 Am. Bus. L.J. 97.
+McCamus, John D. The Law of Contracts. Toronto: Irwin
+   Law, 2005.
+McGregor, Harvey. McGregor on Damages, 17th ed.
+   London: Sweet & Maxwell, 2003.
+O’Byrne, Shannon Kathleen. “Damages for Mental Distress
+    and Other Intangible Loss in a Breach of Contract
+    Action” (2005), 28 Dal. L.J. 311.
+Tartaglio, David. “The Expectation of Peace of Mind: A
+   Basis for Recovery of Damages for Mental Suffering
+   Resulting from the Breach of First Party Insurance
+   Contracts” (1983), 56 S. Cal. L. Rev. 1345.
+Waddams, S. M. The Law of Damages. Toronto: Canada
+   Law Book, 1983.
+Waddams, S. M. The Law of Damages, 4th ed. Toronto:
+   Canada Law Book, 2004.
+   APPEAL from a judgment of the British
+Columbia Court of Appeal (Finch C.J. and
+Prowse and Ryan JJ.A.) (2004), 239 D.L.R. (4th)
+547, [2004] 8 W.W.R. 193, 196 B.C.A.C. 130, 27
+B.C.L.R. (4th) 199, 13 C.C.L.I. (4th) 25, [2004]
+I.L.R. I-4299, [2004] B.C.J. No. 982 (QL), 2004
+BCCA 273, varying a decision of Ralph J., [2002]
+11 W.W.R. 352, 6 B.C.L.R. (4th) 390, 42 C.C.L.I.
+(3d) 272, [2003] I.L.R. I-4139, [2002] B.C.J. No.
+[2006] 2 R.C.S.
+
+
+2209 (QL), 2002 BCSC 1336. Appeal allowed in
+part.
+
+  Avon M. Mersey, William Westeringh and
+Michael Sobkin, for the appellant.
+
+   Joseph J. Arvay, Q.C., and Faith E. Hayman, for
+the respondent.
+
+  The judgment of the Court was delivered by
+1
+   The Chief Justice and Abella J. — For more
+than five years, Sun Life Assurance Company of
+Canada denied Connie Fidler the long-term disability
+ benefits to which she was entitled. The trial
+judge found that, while there was no bad faith on the
+part of the insurer justifying an award of punitive
+damages, the denial caused Ms. Fidler significant
+mental distress. Sun Life was found liable to pay
+Ms. Fidler $20,000 in damages for mental distress
+resulting from Sun Life’s breach of a group disability
+ insurance contract. In the Court of Appeal
+for British Columbia, that award was upheld. In
+addition, a majority of the Court of Appeal found
+that, in reaching the conclusion that there was no
+bad faith, the trial judge had made a palpable and
+overriding error and awarded $100,000 in punitive
+damages to Ms. Fidler.
+
+2
+   Since mental distress of the kind experienced by
+Ms. Fidler was reasonably within the contemplation
+ of the parties when they entered into the contract
+ of disability insurance, we see no reason to
+deny her compensation for the damages for mental
+distress directly flowing from the breach. However,
+the trial judge’s finding that Sun Life did not act
+in bad faith should not be interfered with and pre-
+cludes an award of punitive damages. Accordingly,
+we reverse the Court of Appeal’s order as to punitive
+ damages and restore the award made by the
+trial judge.
+    
+
+
+    I.
+3
+    branch of the Royal Bank of Canada in Burnaby,
+    British Columbia. Like other employees of the
+    bank, Ms. Fidler was covered by a group policy
+    which included long-term disability benefits. The
+    insurer was Sun Life Company of Canada.
+4
+    ill with pyelonephritis, an acute kidney infection,
+    resulting in her hospitalization for several days.
+    Even when the infection ended, however, Ms. Fidler
+    continued to suffer from fatigue. She was eventually
+     diagnosed with chronic fatigue syndrome and
+    fibromyalgia.
+5
+    Fidler was eligible to receive long-term disability
+    benefits six months after becoming totally disabled
+    . It was a precondition of entitlement to long-
+    term disability benefits that the insured fit within
+    the definition of “Totally Disabled”. The policy
+    defines “Totally Disabled” as follows:
+    An Employee is Totally Disabled if he is in a continu-
+    ous state of incapacity due to Illness which
+    1.
+         Period and during the following 24 months . . . of
+         incapacity prevents him from performing the essential
+          duties of his own job at the onset of disability,
+    2.
+         from engaging in any occupation for which he is
+         or may become reasonably qualified by education,
+         training or experience. [Emphasis added.]
+6
+    receive long-term disability benefits for two years,
+    if she was unable to do her own job; after two years,
+    according to the second clause, she was only entitled
+     to continued benefits if she was unable to do
+    any job.
+7
+    and Sun Life about whether she was in fact totally
+[2006] 2 R.C.S.
+
+
+disabled, Ms. Fidler eventually received long-term
+disability benefits starting January 4, 1991.
+
+8
+   Her benefits continued until, in a letter dated
+May 12, 1997, Sun Life informed Ms. Fidler that
+“as a result of a non medical investigation reveal-
+ing that your activities are incompatible with your
+alleged disability”, benefit payments would be
+terminated, effective April 30, 1997. At the time
+Sun Life terminated Ms. Fidler’s benefits, it had
+no medical evidence indicating that she was now
+capable of working.
+
+9
+   The “non medical investigation” consisted
+of video surveillance conducted in August and
+September 1996 by private investigators hired by
+Sun Life, along with a “Lifestyle Questionnaire”
+Ms. Fidler had completed at Sun Life’s request in
+January 1996. In her answers to the questionnaire,
+Ms. Fidler described her activities as “rarely go
+shopping . . . no hobbies . . . no entertaining . . .
+recreation limited to occasional camping”. She
+expressed a preference not to drive “because of
+fatigue and pain”. Her condition, she said, had “not
+much hope for change”.
+
+10
+   The surveillance video, which was the basis for
+Sun Life’s conclusion that Ms. Fidler was not entitled
+ to continued benefits, showed Ms. Fidler get-
+ting in and out of her vehicle, driving, shopping, and
+climbing into the rear of her vehicle, among other
+things. An internal Sun Life memorandum about
+the surveillance stated that Ms. Fidler was “active
+for 5 FULL DAYS!” The surveillance was in fact
+conducted for about five hours on each of three
+days, and for one hour on a fourth day. According
+to Sun Life, its surveillance impugned Ms. Fidler’s
+credibility, leading it to doubt her assertion that she
+was incapable of doing any work.
+     10
+
+
+11
+     video showed was consistent with the information
+     she supplied in a Supplementary Statement to Sun
+     Life on August 5, 1996, a month before the surveillance
+     , when she said: “I feel I am doing well to take
+     care of myself and my daily business — i.e. paying
+     bills, shopping, etc. and as this seems like a full
+     time effort for me I cannot imagine trying to hold a
+     job.”
+12
+     1997, was followed by almost two years of correspondence
+      with Ms. Fidler, involving medical
+     professionals, investigators, and claims examin-
+     ers. The correspondence began with a letter from
+     Ms. Fidler to Sun Life dated May 30, 1997, in
+     which Ms. Fidler requested a copy of the surveillance
+      video and any other evidence Sun Life had
+     used as the basis for its decision. On June 21, 1997,
+     Sun Life replied, through its claims administrator,
+     that it was not prepared to disclose its investiga-
+     tive report (including the video), and detailed the
+     activities it concluded were inconsistent with Ms.
+     Fidler’s claim that she was incapable of performing
+     light or sedentary work.
+13
+     doctor again confirmed the existence of Ms. Fidler’s
+     total disability and reiterated that she was not fit to
+     return to work. An independent medical examination
+      was recommended on March 5, 1998 by both
+     Sun Life’s claims administrator and Dr. Wilkinson.
+     Ms. Fidler agreed to the examination readily.
+14
+     Dr. John Wade on September 29, 1998. His conclusions
+      are relied on by both Sun Life and Ms.
+     Fidler:
+
+     It would be my opinion that Connie Fidler is increasingly
+      able to consider returning to work on a graduated
+     basis. Prior to this being successful, she should embark
+     upon a graduated training program to improve her level
+     of physical fitness.
+11
+[2006] 2 R.C.S.
+
+
+15
+   Sun Life took from this diagnosis that Ms.
+Fidler was “increasingly able to consider returning
+to work”; Ms. Fidler, for her part, emphasized the
+words “[p]rior to this being successful”, which she
+said indicated that a return to work was premature
+and conditional on a training program.
+
+16
+   Sun Life did not pursue Dr. Wade’s suggestion
+that Ms. Fidler “embark upon a graduated training
+program”. Sun Life’s internal medical consultant,
+who did not see or communicate with Ms. Fidler,
+did not share Dr. Wade’s hesitation. Based on a
+review of the video surveillance and Dr. Wade’s
+assessment, on November 13, 1998, the medical
+consultant reached a conclusion notwithstanding
+the opinions of both Dr. Wade and Dr. Wilkinson:
+
+All in all there is no medical and non-medical evidence
+to support that this lady cannot perform at a light physical
+, clerical or sedentary job on a regular basis since, at
+least, Sept. 96. [Emphasis added.]
+17
+   This contradicted the medical evidence Sun Life
+had in its possession to the effect that Ms. Fidler was
+not yet capable of doing any work. Nonetheless, in
+a letter dated December 14, 1998 to Ms. Fidler, Sun
+Life confirmed its decision to terminate benefits. A
+year and a half had elapsed since its initial decision
+to terminate them.
+18
+   On February 2, 1999, Ms. Fidler commenced
+this action.
+
+19
+   In April 2002, a week before the trial was scheduled
+ to start, Sun Life offered to reinstate Ms.
+Fidler’s benefits and to pay all outstanding amounts
+along with pre-judgment interest. The total, as of
+April 22, 2002, was $52,516.10. The trial, as a
+result, dealt only with Ms. Fidler’s entitlement to
+aggravated and punitive damages.
+20
+   The trial judge, Ralph J., awarded Ms. Fidler
+$20,000 in what he termed aggravated damages
+((2002), 6 B.C.L.R. (4th) 390, 2002 BCSC 1336).
+     12
+
+
+     He applied the B.C. Court of Appeal’s decision
+     in Warrington v. Great-West Life Assurance Co.
+     (1996), 139 D.L.R. (4th) 18, which held that aggravated
+      damages can be awarded without separately
+     actionable conduct if the contract is one for “peace
+     of mind”. In his view, a long-term disability insurance
+      contract is such a contract.
+21
+     Ms. Fidler as well as the corroborating evidence
+     of Dr. Wade, the trial judge was satisfied that Ms.
+     Fidler “genuinely suffered significant additional
+     distress and discomfort arising out of the loss of the
+     disability coverage” (para. 30). Given the five-year
+     duration of the cessation of payments, in his view
+     it was appropriate to award $20,000 in aggravated
+     damages in order to compensate Ms. Fidler for Sun
+     Life’s breach.
+22
+     that, while its conduct with respect to Ms. Fidler’s
+     claim was at times “rather zealous” (para. 38), Sun
+     Life had not acted in bad faith. As a result, he dismissed
+      Ms. Fidler’s claim for punitive damages.
+23
+     award and Ms. Fidler cross-appealed the denial of
+     punitive damages. The Court of Appeal noted the
+     “general principle” that damages for mental distress
+      resulting from a breach of contract are not
+     recoverable unless it is a peace of mind contract
+     ((2004), 27 B.C.L.R. (4th) 199, 2004 BCCA 273).
+     Concluding that the insurance contract in this case
+     is such a contract, the Court of Appeal, affirming
+     Warrington, held that “aggravated damages are
+     available as additional compensation if the insured
+     establishes that a breach of that [peace of mind]
+     contract caused her mental distress” (para. 39) and
+     unanimously declined to interfere with the trial
+     judge’s award of aggravated damages.
+13
+[2006] 2 R.C.S.
+
+
+24
+   The Court of Appeal divided, however, on
+whether Sun Life’s conduct in dealing with Ms.
+Fidler’s benefits rose to the level of bad faith. Writing
+for the majority, Finch C.J.B.C. concluded that Sun
+Life’s conduct fell short of the duty of utmost good
+faith “by a very wide margin” (para. 71). He held
+that Sun Life’s “arbitrary denial of long-term disability
+ benefits to a vulnerable insured for over five
+years” (para. 74) required denunciation and deterrence
+. Punitive damages in the amount of $100,000
+were, in his view, a rational and proportionate
+response to Sun Life’s conduct.
+
+25
+   Ryan J.A. dissented on the issue of punitive
+damages. She interpreted the trial judge’s reasons
+as “conclud[ing] that Sun Life had behaved badly,
+but not . . . maliciously” (para. 102), and that Sun
+Life’s conduct “did not reach the depths of bad faith
+required for an award of punitive damages” (para.
+101). In Ryan J.A.’s view, Ms. Fidler had not shown
+that these conclusions were palpably and overrid-
+ingly wrong.
+26
+  Sun Life’s appeal seeks to have the awards for
+both aggravated and punitive damages set aside.
+
+II. Analysis
+
+(a) Damages for Mental Distress for Breach of
+    Contract
+
+27
+   Damages for breach of contract should, as
+far as money can do it, place the plaintiff in the
+same position as if the contract had been performed
+. However, at least since the 1854 decision
+of the Court of Exchequer Chamber in Hadley v.
+Baxendale (1854), 9 Ex. 341, 156 E.R. 145, at p.
+151, it has been the law that these damages must
+be “such as may fairly and reasonably be considered
+ either arising naturally . . . from such breach
+     14
+
+
+     of contract itself, or such as may reasonably be
+     supposed to have been in the contemplation of both
+     parties”.
+28
+     been welcome in the family of remedies spawned
+     by this principle. The issue in this appeal is
+     whether that remedial ostracization continues to be
+     warranted.
+29
+        In Hadley v. Baxendale, the court explained the
+     principle of reasonable expectation as follows:
+     Where two parties have made a contract which one of
+     them has broken, the damages which the other party
+     ought to receive in respect of such breach of contract
+     should be such as may fairly and reasonably be considered
+      either arising naturally, i.e., according to the usual
+     course of things, from such breach of contract itself, or
+     such as may reasonably be supposed to have been in the
+     contemplation of both parties, at the time they made the
+     contract, as the probable result of the breach of it. Now,
+     if the special circumstances under which the contract
+     was actually made were communicated by the plaintiffs
+     to the defendants, and thus known to both parties, the
+     damages resulting from the breach of such a contract,
+     which they would reasonably contemplate, would be the
+     amount of injury which would ordinarily follow from a
+     breach of contract under these special circumstances so
+     known and communicated. But, on the other hand, if
+     these special circumstances were wholly unknown to
+     the party breaking the contract, he, at the most, could
+     only be supposed to have had in his contemplation the
+     amount of injury which would arise generally, and in
+     the great multitude of cases not affected by any special
+      circumstances, from such a breach of contract.
+     [Emphasis added; p. 151.]
+30
+     between the types of loss that are recoverable
+     for breach of contract. The principle of reasonable
+      expectation is stated as a general principle.
+     Nevertheless, subsequent cases purported to rule
+     out damages for mental distress for breach of contract
+      except in certain defined situations.
+31
+     non-pecuniary losses arising from breach of
+15
+[2006] 2 R.C.S.
+
+
+contract are compensable, including physical
+inconvenience and discomfort, they have tradi-
+tionally shied away from awarding damages for
+mental suffering caused by the contract breach.
+
+32
+   This tradition of refusing to award damages for
+mental distress was launched in Hobbs v. London
+and South Western Rail. Co. (1875), L.R. 10 Q.B.
+111, and Hamlin v. Great Northern Railway Co.
+(1856), 1 H. & N. 408, 156 E.R. 1261 (Ex.). In 1909,
+in the case of Addis v. Gramophone Co., [1909]
+A.C. 488, the House of Lords “cast a long shadow
+over the common law” when it rejected a claim
+for mental distress because the conduct said to
+cause the distress was not actionable: Eastwood v.
+Magnox Electric plc, [2004] 3 All E.R. 991, [2004]
+UKHL 35, at para. 1.
+
+33
+   To this day, Addis is cited for the proposition
+that mental distress damages are not generally
+recoverable for breach of contract: see Malik v.
+Bank of Credit and Commerce International S.A.,
+[1998] A.C. 20 (H.L.), per Lord Nicholls, at p. 38;
+Wallace v. United Grain Growers Ltd., [1995] 9
+W.W.R. 153 (Man. C.A.), at para. 81, var’d [1997]
+3 S.C.R. 701; Morberg v. Klassen (1991), 49 C.L.R.
+124 (B.C.S.C.); Taylor v. Gill, [1991] 3 W.W.R. 727
+(Alta. Q.B.); Chitty on Contracts (29th ed. 2004),
+vol. II, at p. 1468; and see S. M. Waddams, The
+Law of Damages (4th ed. 2004), at p. 222.
+
+34
+   In short, the foundational concepts of reasonable
+ expectations had a ceiling: mental distress.
+As Bingham L.J. said in Watts v. Morrow, [1991] 1
+W.L.R. 1421 (C.A.), at p. 1445:
+
+   A contract-breaker is not in general liable for any
+distress, frustration, anxiety, displeasure, vexation, ten-
+sion or aggravation which his breach of contract may
+cause to the innocent party. This rule is not, I think,
+founded on the assumption that such reactions are not
+foreseeable, which they surely are or may be, but on
+considerations of policy. [Emphasis added.]
+     16
+
+
+35
+     cited in support of this restriction. One is the per-
+     ceived minimal nature of mental suffering:
+
+     [A]s a matter of ordinary experience, it is evident that,
+     while the innocent party to a contract will generally be
+     disappointed if the defendant does not perform the contract
+     , the innocent party’s disappointment and distress
+     are seldom so significant as to attract an award of damages
+      on that score.
+
+     (Baltic Shipping Co. v. Dillon (1993), 176 C.L.R.
+     344 (Austl. H.C.), at p. 365, per Mason C.J.)
+36
+        Others have suggested that a “stiff upper lip”
+     expectation in commercial life is the source of the
+     prohibition. In McGregor on Damages (17th ed.
+     2003), the author explains:
+
+     The reason for the general rule is that contracts nor-
+     mally concern commercial matters and that mental
+     suffering on breach is not in the contemplation of the
+     parties as part of the business risk of the transaction.
+     [p. 63]
+
+     This resonated in Johnson v. Gore Wood & Co.,
+     [2001] 2 W.L.R. 72 (H.L.), at p. 108, where Lord
+     Cooke observed: “Contract-breaking is treated as
+     an incident of commercial life which players in the
+     game are expected to meet with mental fortitude.”
+37
+        This Court’s jurisprudence has followed the
+     restrictive interpretation of Addis, generally requiring
+      that a claim for compensation for mental distress
+      be grounded in independently actionable conduct
+     . The general rule that damages for mental
+     distress should not be awarded for breach of contract
+      was thus preserved: Peso Silver Mines Ltd.
+     (N.P.L.) v. Cropper, [1966] S.C.R. 673.
+38
+     ages for mental suffering could not be awarded at
+     contract, the courts in the 1970s acknowledged that
+     the reasons of principle and policy for the rule did
+     not always apply, and began to award such damages
+17
+[2006] 2 R.C.S.
+
+
+where the contract was one for pleasure, relaxation
+or peace of mind. The charge was led, as so many
+were, by Lord Denning. In Jarvis v. Swans Tours
+Ltd., [1973] 1 All E.R. 71 (C.A.), the plaintiff had
+contracted with the defendant to arrange a holiday.
+The defendant breached the contract by providing
+a terrible vacation. Acknowledging but declining
+to follow what he referred to as the “out of date”
+decisions in Hamlin and Hobbs, which had sired
+Addis, Lord Denning held that mental distress
+damages could be recovered for certain kinds of
+contracts:
+In a proper case damages for mental distress can be
+recovered in contract, just as damages for shock can be
+recovered in tort. One such case is a contract for a holiday
+, or any other contract to provide entertainment and
+enjoyment. If the contracting party breaks his contract,
+damages can be given for the disappointment, the distress
+, the upset and frustration caused by the breach.
+[p. 74]
+
+39
+   This holding in Jarvis emerged from the common
+law chrysalis as the “peace of mind exception” to
+the general rule against recovery for mental distress
+in contract breaches. This exception was confined
+to contracts which had as their object the peace of
+mind of a contracting party. Bingham L.J. in Watts
+v. Morrow stated: “Where the very object of [the]
+contract is to provide pleasure, relaxation, peace of
+mind or freedom from molestation, damages will
+be awarded” (p. 1445).
+40
+   More recently, the House of Lords in Farley
+v. Skinner, [2001] 4 All E.R. 801, [2001] UKHL
+49, loosened the peace of mind exception so as to
+permit recovery of mental distress not only when
+pleasure, relaxation, or peace of mind is the “very
+object of the contract”, but also when it is a “major
+or important object of the contract” (para. 24).
+     18
+
+
+41
+     tress for breach of contracts that promise pleasure
+     , relaxation or peace of mind has found wide
+     acceptance in Canada. Mental distress damages
+     have been awarded not only for breach of vacation
+      contracts, but also for breaches of contracts
+     for wedding services (Wilson v. Sooter Studios
+     Ltd. (1988), 33 B.C.L.R. (2d) 241 (C.A.)), and for
+     luxury chattels (Wharton v. Tom Harris Chevrolet
+     Oldsmobile Cadillac Ltd. (2002), 97 B.C.L.R. (3d)
+     307, 2002 BCCA 78). Some courts have included
+     disability insurance contracts: see Warrington
+     and Thompson v. Zurich Insurance Co. (1984), 7
+     D.L.R. (4th) 664 (Ont. H.C.J.). The Ontario Court
+     of Appeal has endorsed contractual damages for
+     mental distress where peace of mind is the “very
+     essence” of the promise: see Prinzo v. Baycrest
+     Centre for Geriatric Care (2002), 60 O.R. (3d) 474,
+     at para. 34.
+42
+        In Vorvis v. Insurance Corp. of British Columbia,
+     [1989] 1 S.C.R. 1085, this Court described the
+     line of cases awarding mental distress damages
+     as standing for the proposition that “in some contracts
+      the parties may well have contemplated at the
+     time of the contract that a breach in certain circumstances
+      would cause a plaintiff mental distress” (p.
+     1102). It is thus clear that an independent actionable
+     wrong has not always been required, contrary to
+     Sun Life’s arguments before us.
+43
+     ages for mental distress in “peace of mind” contracts
+      should be seen as an expression of the general
+      principle of compensatory damages of Hadley
+     v. Baxendale, rather than as an exception to that
+     principle, is shared by others. In Baltic Shipping,
+     Mason C.J. of the High Court of Australia ques-
+     tioned whether one should confine mental distress
+     claims for breach of contract to particular catego-
+     ries, noting:
+19
+[2006] 2 R.C.S.
+
+
+. . . the fundamental principle on which damages are
+awarded at common law is that the injured party is to be
+restored to the position (not merely the financial position
+) in which the party would have been had the actionable
+ wrong not taken place. Add to that the fact that
+anxiety and injured feelings are recognized as heads
+of compensable damage, at least outside the realm of
+the law of contract. Add as well the circumstance that
+the general rule has been undermined by the excep-
+tions which have been engrafted upon it. We are then
+left with a rule which rests on flimsy policy founda-
+tions and conceptually is at odds with the fundamental
+principle governing the recovery of damages, the more
+so now that the approaches in tort and contract are con-
+verging. [p. 362]
+
+Similarly, Professor J. D. McCamus argues, in The
+Law of Contracts (2005), at p. 877, that once peace
+of mind is understood as a reflection of, or “proxy”
+for the reasonable contemplation of the contracting
+ parties, “there is no compelling reason not to
+simply apply the foreseeability test itself”. At this
+point, the apparent inconsistency between the general
+ rule in Hadley v. Baxendale and the exception
+ vanishes. See also: S. K. O’Byrne, “Damages
+for Mental Distress and Other Intangible Loss in
+a Breach of Contract Action” (2005), 28 Dal. L.J.
+311, at pp. 346-47, and R. Cohen and S. O’Byrne,
+“Cry Me a River: Recovery of Mental Distress
+Damages in a Breach of Contract Action — A
+North American Perspective” (2005), 42 Am. Bus.
+L.J. 97.
+44
+   We conclude that damages for mental distress
+for breach of contract may, in appropriate cases,
+be awarded as an application of the principle in
+Hadley v. Baxendale: see Vorvis. The court should
+ask “what did the contract promise?” and provide
+ compensation for those promises. The aim of
+compensatory damages is to restore the wronged
+party to the position he or she would have been
+in had the contract not been broken. As the Privy
+Council stated in Wertheim v. Chicoutimi Pulp
+Co., [1911] A.C. 301, at p. 307: “the party com-
+plaining should, so far as it can be done by money,
+be placed in the same position as he would have
+been in if the contract had been performed”. The
+measure of these damages is, of course, subject to
+     20
+
+
+     remoteness principles. There is no reason why this
+     should not include damages for mental distress,
+     where such damages were in the reasonable contemplation
+      of the parties at the time the contract
+     was made. This conclusion follows from the basic
+     principle of compensatory contractual damages:
+     that the parties are to be restored to the position
+     they contracted for, whether tangible or intangible
+     . The law’s task is simply to provide the benefits
+     contracted for, whatever their nature, if they were
+     in the reasonable contemplation of the parties.
+45
+     tress associated with a breach of contract is compensable
+     . In normal commercial contracts, the
+     likelihood of a breach of contract causing mental
+     distress is not ordinarily within the reasonable contemplation
+      of the parties. It is not unusual that a
+     breach of contract will leave the wronged party
+     feeling frustrated or angry. The law does not award
+     damages for such incidental frustration. The matter
+     is otherwise, however, when the parties enter into a
+     contract, an object of which is to secure a particular
+     psychological benefit. In such a case, damages arising
+      from such mental distress should in principle
+     be recoverable where they are established on the
+     evidence and shown to have been within the reasonable
+      contemplation of the parties at the time the
+     contract was made. The basic principles of contract
+     damages do not cease to operate merely because
+     what is promised is an intangible, like mental
+     security.
+46
+     siderations that have led the law to eschew damages
+     for mental suffering in commercial contracts. As
+     discussed above, this reluctance rests on two policy
+     considerations — the minimal nature of the mental
+     suffering and the fact that in commercial matters,
+     mental suffering on breach is “not in the contemplation
+      of the parties as part of the business risk of
+     the transaction”: McGregor on Damages, at p. 63.
+21
+[2006] 2 R.C.S.
+
+
+Neither applies to contracts where promised mental
+security or satisfaction is part of the risk for which
+the parties contracted.
+47
+    This does not obviate the requirement that a
+plaintiff prove his or her loss. The court must be satisfied
+: (1) that an object of the contract was to secure
+a psychological benefit that brings mental distress
+upon breach within the reasonable contemplation of
+the parties; and (2) that the degree of mental suffering
+ caused by the breach was of a degree sufficient
+to warrant compensation. These questions require
+sensitivity to the particular facts of each case.
+48
+    While the mental distress as a consequence of
+breach must reasonably be contemplated by the parties
+ to attract damages, we see no basis for requiring
+it to be the dominant aspect or the “very essence” of
+the bargain. As the House of Lords noted in Farley,
+the law of contract protects all significant parts of
+the bargain, not merely those that are “dominant” or
+“essential”. Lord Steyn rejected this kind of distinc-
+tion as “a matter of form and not substance” (para.
+24). Lord Hutton added:
+I can see no reason in principle why, if a plaintiff who
+has suffered no financial loss can recover damages in
+some cases if there has been a breach of the principal
+obligation of the contract, he should be denied damages
+for breach of an obligation which, whilst not the principal
+ obligation of the contract, is nevertheless one which
+he has made clear to the other party is of importance to
+him. [para. 51]
+Principle suggests that as long as the promise in rela-
+tion to state of mind is a part of the bargain in the
+reasonable contemplation of the contracting parties,
+mental distress damages arising from its breach are
+recoverable. This is to state neither more nor less
+than the rule in Hadley v. Baxendale.
+
+49
+   We conclude that the “peace of mind” class of
+cases should not be viewed as an exception to the
+     22
+
+
+     general rule of the non-availability of damages
+     for mental distress in contract law, but rather as
+     an application of the reasonable contemplation or
+     foreseeability principle that applies generally to
+     determine the availability of damages for breach of
+     contract.
+50
+51
+        It may be useful to clarify the use of the term
+     “aggravated damages” in the context of damages
+     for mental distress arising from breach of contract.
+     “Aggravated damages”, as defined by Waddams
+     (The Law of Damages (1983), at pp. 562-63), and
+     adopted in Vorvis, at p. 1099,
+     describ[e] an award that aims at compensation, but
+     takes full account of the intangible injuries, such as distress
+      and humiliation, that may have been caused by the
+     defendant’s insulting behaviour.
+
+     As many writers have observed, the term is used
+     ambiguously. The cases speak of two different
+     types of “aggravated” damages.
+52
+     arise out of aggravating circumstances. They are
+     not awarded under the general principle of Hadley
+     v. Baxendale, but rest on a separate cause of action
+     — usually in tort — like defamation, oppression or
+     fraud. The idea that damages for mental distress for
+     breach of contract may be awarded where an object
+     of a contract was to secure a particular psychological
+      benefit has no effect on the availability of such
+     damages. If a plaintiff can establish mental distress
+     as a result of the breach of an independent cause
+     of action, then he or she may be able to recover
+     accordingly. The award of damages in such a case
+     arises from the separate cause of action. It does not
+     arise out of the contractual breach itself, and it has
+     nothing to do with contractual damages under the
+     rule in Hadley v. Baxendale.
+23
+[2006] 2 R.C.S.
+
+
+53
+   The second are mental distress damages which
+do arise out of the contractual breach itself. These
+are awarded under the principles of Hadley v.
+Baxendale, as discussed above. They exist independent
+ of any aggravating circumstances and are
+based completely on the parties’ expectations at the
+time of contract formation. With respect to this cat-
+egory of damages, the term “aggravated damages”
+becomes unnecessary and, indeed, a source of possible
+ confusion.
+54
+   It follows that there is only one rule by which
+compensatory damages for breach of contract
+ should be assessed: the rule in Hadley v.
+Baxendale. The Hadley test unites all forms of
+contractual damages under a single principle. It
+explains why damages may be awarded where an
+object of the contract is to secure a psychological
+ benefit, just as they may be awarded where an
+object of the contract is to secure a material one.
+It also explains why an extended period of notice
+may have been awarded upon wrongful dismissal
+in employment law: see Wallace v. United Grain
+Growers Ltd., [1997] 3 S.C.R. 701. In all cases,
+these results are based on what was in the reasonable
+ contemplation of the parties at the time of
+contract formation. They are not true aggravated
+damages awards.
+
+55
+   The recognition that Hadley v. Baxendale is
+the single and controlling test for compensatory
+damages in cases of breach of contract therefore
+refutes any argument that an “independent actionable
+ wrong” is a prerequisite for the recovery of
+mental distress damages. Where losses arise from
+the breach of contract itself, damages will be determined
+ according to what was in the reasonable
+contemplation of the parties at the time of contract
+formation. An independent cause of action will
+only need to be proved where damages are of a different
+ sort entirely: where they are being sought on
+the basis of aggravating circumstances that extend
+     24
+
+
+     beyond what the parties expected when they concluded
+      the contract.
+56
+     is whether an object of this disability insurance
+     contract was to secure a psychological benefit that
+     brought the prospect of mental distress upon breach
+     within the reasonable contemplation of the parties
+     at the time the contract was made? In our view it
+     was. The bargain was that in return for the payment
+      of premiums, the insurer would pay the plaintiff
+      benefits in the case of disability. This is not a
+     mere commercial contract. It is rather a contract for
+     benefits that are both tangible, such as payments,
+     and intangible, such as knowledge of income security
+      in the event of disability. If disability occurs
+     and the insurer does not pay when it ought to have
+     done so in accordance with the terms of the policy,
+     the insurer has breached this reasonable expectation
+      of security.
+57
+     disability insurance contract may reasonably contemplate
+      may flow from a failure to pay the required
+     benefits. The intangible benefit provided by such a
+     contract is the prospect of continued financial security
+      when a person’s disability makes working, and
+     therefore receiving an income, no longer possible.
+     If benefits are unfairly denied, it may not be possible
+      to meet ordinary living expenses. This financial
+     pressure, on top of the loss of work and the existence
+     of a disability, is likely to heighten an insured’s anxiety
+      and stress. Moreover, once disabled, an insured
+     faces the difficulty of finding an economic substi-
+     tute for the loss of income caused by the denial of
+     benefits. See D. Tartaglio, “The Expectation of
+     Peace of Mind: A Basis for Recovery of Damages
+     for Mental Suffering Resulting from the Breach of
+     First Party Insurance Contracts” (1983), 56 S. Cal.
+     L. Rev. 1345, at pp. 1365-66.
+58
+     to protect themselves from this very financial and
+     emotional stress and insecurity. An unwarranted
+     delay in receiving this protection can be extremely
+25
+[2006] 2 R.C.S.
+
+
+stressful. Ms. Fidler’s damages for mental distress
+ flowed from Sun Life’s breach of contract.
+To accept Sun Life’s argument that an independent
+ actionable wrong is a precondition would be
+to sanction the “conceptual incongruity of asking
+a plaintiff to show more than just that mental distress
+ damages were a reasonably foreseeable consequence
+ of breach” (O’Byrne, at p. 334 (emphasis
+in original)).
+59
+   The second question is whether the mental distress
+ here at issue was of a degree sufficient to warrant
+ compensation. Again, we conclude that the
+answer is yes. The trial judge found that Sun Life’s
+breach caused Ms. Fidler a substantial loss which
+she suffered over a five-year period. He found as
+a fact that Ms. Fidler “genuinely suffered significant
+ additional distress and discomfort arising out
+of the loss of the disability coverage” (para. 30
+(emphasis added)). This finding was amply supported
+ in the evidence, which included extensive
+medical evidence documenting the stress and anxiety
+ that Ms. Fidler experienced. He concluded that
+merely paying the arrears and interest did not compensate
+ for the years Ms. Fidler was without her
+benefits. His award of $20,000 seeks to compensate
+ her for the psychological consequences of Sun
+Life’s breach, consequences which are reasonably
+in the contemplation of parties to a contract for
+personal services and benefits such as this one. We
+agree with the Court of Appeal’s decision not to
+disturb it.
+
+(b) Punitive Damages
+
+60
+   Ms. Fidler also seeks punitive damages. The
+trial judge declined to award them, citing no bad
+faith, but the Court of Appeal reversed this aspect
+of his judgment and awarded Ms. Fidler an additional
+ $100,000 as punitive damages.
+     26
+
+
+61
+     marily for the purpose of compensating a plaintiff
+     for pecuniary and non-pecuniary losses suffered as
+     a result of a defendant’s conduct, punitive damages
+     are designed to address the purposes of retribution
+     , deterrence and denunciation: Whiten v. Pilot
+     Insurance Co., [2002] 1 S.C.R. 595, 2002 SCC 18,
+     at para. 43.
+62
+     times give rise to censure. But to attract punitive
+     damages, the impugned conduct must depart mark-
+     edly from ordinary standards of decency — the
+     exceptional case that can be described as mali-
+     cious, oppressive or high-handed and that offends
+     the court’s sense of decency: Hill v. Church of
+     Scientology of Toronto, [1995] 2 S.C.R. 1130, at
+     para. 196; Whiten, at para. 36. The misconduct
+     must be of a nature as to take it beyond the usual
+     opprobrium that surrounds breaking a contract. As
+     stated in Whiten, at para. 36, “punitive damages
+     straddle the frontier between civil law (compensation
+     ) and criminal law (punishment)”. Criminal
+     law and quasi-criminal regulatory schemes are recognized
+      as the primary vehicles for punishment. It
+     is important that punitive damages be resorted to
+     only in exceptional cases, and with restraint.
+63
+     govern the award of punitive damages and affirmed
+     that in breach of contract cases, in addition to the
+     requirement that the conduct constitute a marked
+     departure from ordinary standards of decency,
+     it must be independently actionable. Where the
+     breach in question is a denial of insurance benefits,
+     a breach by the insurer of the contractual duty to
+     act in good faith will meet this requirement. The
+     threshold issue that arises, therefore, is whether the
+     appellant breached not only its contractual obligation
+      to pay the long-term disability benefit, but also
+     the independent contractual obligation to deal with
+     the respondent’s claim in good faith. On this threshold
+      issue, the legal standard to which Sun Life and
+     other insurers are held is correctly described by
+     O’Connor J.A. in 702535 Ontario Inc. v. Lloyd’s
+27
+[2006] 2 R.C.S.
+
+
+London, Non-Marine Underwriters (2000), 184
+D.L.R. (4th) 687 (Ont. C.A.), at para. 29:
+   The duty of good faith also requires an insurer to
+deal with its insured’s claim fairly. The duty to act
+fairly applies both to the manner in which the insurer
+investigates and assesses the claim and to the decision
+whether or not to pay the claim. In making a decision
+whether to refuse payment of a claim from its insured,
+an insurer must assess the merits of the claim in a bal-
+anced and reasonable manner. It must not deny coverage
+ or delay payment in order to take advantage of the
+insured’s economic vulnerability or to gain bargaining
+leverage in negotiating a settlement. A decision by an
+insurer to refuse payment should be based on a reasonable
+ interpretation of its obligations under the policy.
+This duty of fairness, however, does not require that an
+insurer necessarily be correct in making a decision to
+dispute its obligation to pay a claim. Mere denial of a
+claim that ultimately succeeds is not, in itself, an act of
+bad faith.
+
+64
+   The proper characterization of Sun Life’s conduct
+on the “good faith” issue requires a careful consideration
+ of the evidence. The trial judge concluded
+that Sun Life did not act in bad faith. He heard the
+evidence over nine days. He had an opportunity to
+observe the witnesses, who included James Craig,
+a representative of Sun Life’s disability manage-
+ment unit, and Ms. Fidler herself. Bearing in mind
+the subjective element of the duty of good faith, the
+trial judge’s assessment of Mr. Craig’s credibility in
+particular takes on some significance in determining
+ whether Sun Life acted with an improper purpose
+ in denying Ms. Fidler’s claim.
+
+65
+   Having heard and considered the evidence, the
+trial judge rejected Ms. Fidler’s punitive damages
+claim. In his reasons, the trial judge noted the following
+ evidence: Sun Life’s surveillance recorded
+activities that were not inconsistent with Ms.
+Fidler’s self-reporting; an internal memorandum
+exaggerated the nature of Ms. Fidler’s activities; a
+claims administrator with Sun Life had written a
+     28
+
+
+     memorandum contemplating the successful denial
+     of Ms. Fidler’s claim in the event of litigation; and
+     Sun Life’s medical consultant was wrong in concluding
+      that there was no medical or non-medical
+     evidence that Ms. Fidler could not perform light
+     work.
+66
+     that the medical reports about Ms. Fidler’s condition
+      were inconclusive; that Sun Life acted in reliance
+      on its own consultants and experts; that Ms.
+     Fidler’s condition was contracted at a young age;
+     and that her previous experience was in sedentary
+     work. He summarized his considerations and conclusions
+      as follows:
+        I must recognize, however, that after two years of
+     benefits had been paid to Ms. Fidler, the test for continued
+      coverage was whether Ms. Fidler could perform
+     any work at all. Given the fact that the nature of Ms.
+     Fidler’s illness is of a type that is not demonstrated by
+     indicators such as an x-ray or MRI, I do not think that
+     Sun Life’s conduct should be characterized as an act
+     of bad faith. I say this even though Sun Life carried
+     out what would appear to be at times a rather zealous
+     approach to refuting Ms. Fidler’s entitlement to the long
+     term disability benefits despite strong medical evidence
+     that she continued to be disabled. [para. 38]
+67
+     C.J.B.C., found palpable and overriding error on
+     the question of bad faith. Finch C.J.B.C. relied in
+     particular on three aspects of the record: first, the
+     absence of medical evidence to justify a denial
+     of Ms. Fidler’s claim; second, Sun Life’s internal
+     memoranda exaggerating the surveillance results
+     and indicating an intention to avoid looking “bad”
+     in the event of litigation; and third, Sun Life’s failure
+      to disclose to Ms. Fidler the surveillance video
+     on which it relied in denying her claim.
+68
+        The surveillance team’s observations were,
+     arguably, consistent with the information provided
+      by Ms. Fidler in her supplementary answers
+     to the questionnaire. Moreover, Sun Life’s internal
+29
+[2006] 2 R.C.S.
+
+
+memoranda, such as the surveillance summary and
+the medical consultant’s report, reveal bald factual
+misstatements that weigh against a finding that Sun
+Life fairly and carefully considered the insured’s
+claim.
+
+69
+   On the other hand, the fact that Ms. Fidler’s
+behaviour in the course of the surveillance seemed
+to demonstrate an ability to engage in some activities
+, taken with the ambiguity of the IME assessment
+, helps reduce the force of a conclusion that
+Sun Life had an improper purpose in denying Ms.
+Fidler’s claim.
+
+70
+   Except for the matter of disclosure, this evidence
+was expressly considered by the trial judge. And
+the disclosure issue is significantly tempered by the
+fact that Sun Life set out in a letter to Ms. Fidler the
+specific activities observed in the surveillance and
+the conclusions Sun Life drew as a consequence.
+71
+   We share Finch C.J.B.C.’s concerns about Sun
+Life’s decision to terminate benefits relating to an
+unobservable disability in the absence of any medical
+ evidence indicating an ability to return to work.
+And we appreciate that the facts in this case rep-
+resent conduct that is extremely troubling — the
+five-year denial by Sun Life of disability benefits
+without medical support for the denial is, to say the
+least, inappropriate. But an insurer will not necessarily
+ be in breach of the duty of good faith by
+incorrectly denying a claim that is eventually conceded
+, or judicially determined, to be legitimate.
+In this respect, we respectfully part company with
+Finch C.J.B.C. who, in awarding punitive damages
+, characterized Sun Life’s concession that Ms.
+Fidler was entitled to benefits as “the civil equiv-
+alent of [a] ‘guilty plea’” (para. 78). The question
+instead is whether the denial was the result of the
+overwhelmingly inadequate handling of the claim,
+or the introduction of improper considerations into
+the claims process.
+     30
+
+
+72
+     facts. As O’Connor J.A. stated in 702535 Ontario:
+        What constitutes bad faith will depend on the circumstances
+      in each case. A court considering whether
+     the duty has been breached will look at the conduct
+     of the insurer throughout the claims process to determine
+      whether in light of the circumstances, as they
+     then existed, the insurer acted fairly and promptly in
+     responding to the claim. [para. 30]
+73
+     not act in bad faith was the product of a thorough
+     review of the relevant evidence, and depended
+     heavily on his appreciation of the basis on which
+     Sun Life denied Ms. Fidler’s claim. He considered
+     every salient aspect of how Sun Life handled Ms.
+     Fidler’s claim, including those features that might
+     be relied upon to suggest that Sun Life approached
+     the claim obstructively or dismissively, but made
+     no such finding.
+74
+        Nor did the trial judge find an improper purpose
+     on the part of Sun Life. The trial judge’s reliance, in
+     particular, on the difficulty Sun Life had in ascer-
+     taining whether Ms. Fidler was actually disabled
+     supported his conclusion that Sun Life did not act
+     in bad faith and that, instead, its denial of benefits
+     was the product of a real, albeit incorrect, doubt as
+     to whether Ms. Fidler was incapable of performing
+      any work, as required under the terms of the
+     policy.
+75
+     ficiently so as to justify interfering with the trial
+     judge’s conclusion that there was no bad faith. The
+     trial judge’s reasons disclose no error of law, and
+     his eventual conclusion that Sun Life did not act in
+     bad faith is inextricable from his findings of fact
+     and his consideration of the evidence. As Ryan J.A.
+     concluded in dissent:
+        The trial judge saw and heard the witnesses. He
+     examined the written material filed as exhibits. It was for
+     him to assess the evidence and to determine its weight
+31
+[2006] 2 R.C.S.
+
+
+and effect. In my view Ms. Fidler has not been able to
+demonstrate that the conclusions of the trial judge were
+unreasonable or palpably wrong. [para. 104]
+
+The award of punitive damages, of course, does not
+depend exclusively on the existence of an actionable
+wrong. In Whiten, the Court clearly established the
+relevant factors to consider in determining whether
+or not an award of punitive damages is warranted.
+Absent bad faith in this case, however, there is no
+need to go further.
+76
+   Ms. Fidler is entitled to $20,000 for mental distress
+, but her claim for punitive damages is dismissed
+. Accordingly, we would allow the appeal in
+part, set aside the Court of Appeal’s award of punitive
+ damages and restore the order of Ralph J., with
+costs to Ms. Fidler throughout.
+
+   Appeal allowed in part, with costs to the
+respondent.
+
+  Solicitors for the appellant: Fasken Martineau
+DuMoulin, Vancouver.
+
+  Solicitors for the respondent: Faith Hayman
+Law Corporation, Vancouver.

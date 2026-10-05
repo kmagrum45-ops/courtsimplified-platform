@@ -767,6 +767,8 @@ export type AppliedLawItem = {
   /** The provision's own words. */
   text: string;
   sourceUrl: string;
+  /** "decision" for a court's reasons, which are shown with their own caution. */
+  kind?: "legislation" | "guidance" | "decision";
 };
 
 export type LegalIntelligenceResult = {

@@ -1,0 +1,2052 @@
+795
+[2007] 1 R.C.S.
+
+
+Michael Pecore
+
+v.
+
+Paula Pecore and Shawn Pecore
+
+Indexed as: Pecore v. Pecore
+Neutral citation: 2007 SCC 17.
+File No.: 31202.
+2006: December 6; 2007: May 3.
+Present: McLachlin C.J. and Bastarache, Binnie, LeBel,
+Deschamps, Fish, Abella, Charron and Rothstein JJ.
+
+on appeal from the court of appeal for
+ontario
+   Wills and estates — Joint bank and investment
+accounts with right of survivorship — Presumptions
+of resulting trust and advancement — Father gratuitously
+ placing assets in joint accounts with daughter
+— Whether assets in joint accounts to be included in
+father’s estate upon his death — Whether presumption
+of resulting trust rebutted — Whether presumption of
+advancement applicable — Standard of proof applicable
+ to rebut presumptions.
+   Wills and estates — Joint bank and investment
+accounts with right of survivorship — Presumptions of
+resulting trust and advancement — Father gratuitously
+placing assets in joint accounts with daughter — Evidence
+ to be considered in ascertaining transferor’s
+intention — Whether evidence of intention that arises
+subsequent to transfer should be excluded.
+   Wills and estates — Joint bank and investment
+accounts with right of survivorship — Nature of survivorship
+ in context of joint accounts.
+   Gifts — Gratuitous transfer from parent to child —
+Presumption of advancement — Whether presumption
+applies between mother and child — Whether presumption
+ applies only to transfers made between parent and
+minor child.
+   An ageing father gratuitously placed the bulk of his
+assets in joint accounts with his daughter P, who was
+the closest to him of his three adult children. Unlike
+her siblings, who were financially secure, P worked at
+796
+
+
+various low-paying jobs and took care of her quadriplegic
+ husband, M. P’s father helped P and her family
+financially, including buying them a van, making
+improvements to their home, and assisting her son while
+he was attending university. P’s father alone deposited
+funds into the joint accounts. He continued to use and
+control the accounts, and declared and paid all the taxes
+on the income made from the assets in the accounts. In
+his will, P’s father left specific bequests to P, M and her
+children but did not mention the accounts. The residue
+of the estate was to be divided equally between P and
+M. Upon the father’s death, P redeemed the balance in
+the joint accounts on the basis of a right of survivorship.
+P and M later divorced, and a dispute over the accounts
+arose during their matrimonial property proceedings.
+M claimed that P held the balance in the accounts in
+trust for the benefit of her father’s estate and, conse-
+quently, the assets formed part of the residue and should
+be distributed according to the will. The trial judge held
+that P’s father intended to make a gift of the beneficial
+interest in the accounts upon his death to P alone, concluding
+ that the evidence failed to rebut the presumption
+ of advancement. The Court of Appeal dismissed
+M’s appeal, but found that it was not necessary to rely
+on the presumption of advancement because the presumption
+ is only relevant in the absence of evidence of
+actual intention or where the evidence is evenly bal-
+anced.
+   Held: The appeal should be dismissed.
+   Per McLachlin C.J. and Bastarache, Binnie, LeBel,
+Deschamps, Fish, Charron and Rothstein JJ.: The long-
+standing common law presumptions of advancement
+and resulting trust continue to play a role in disputes
+over gratuitous transfers. These presumptions provide
+a guide for courts where evidence as to the transferor’s
+intent in making the transfer is unavailable or unpersuasive
+. They also provide a measure of certainty and
+predictability for individuals who put property in joint
+accounts or make other gratuitous transfers. The presumption
+ of resulting trust is the general rule for gratuitous
+ transfers and the onus is placed on the transferee to
+demonstrate that a gift was intended. However, depending
+ on the nature of the relationship between the transferor
+ and transferee, the presumption of advancement
+may apply and it will fall on the party challenging the
+transfer to rebut the presumption of a gift. The civil
+standard of proof is applicable to rebut the presumptions
+. The applicable presumption will only determine
+the result where there is insufficient evidence to rebut it
+on a balance of probabilities. [23-24] [27] [43-44]
+797
+[2007] 1 R.C.S.
+
+
+   In the context of a transfer to a child, the presumption
+ of advancement, which applies equally to fathers
+and mothers, is limited in its application to gratuitous
+transfers made by parents to minor children. Given
+that a principal justification for the presumption of
+advancement is parental obligation to support dependent
+ children, the presumption does not apply in respect
+of independent adult children. Moreover, since it is
+common nowadays for ageing parents to transfer their
+assets into joint accounts with their adult children in
+order to have that child assist them in managing their
+financial affairs, there should be a rebuttable presumption
+ that the adult child is holding the property in trust
+for the ageing parent to facilitate the free and efficient
+management of that parent’s affairs. The presumption
+of advancement is also not applicable to dependent
+adult children because it would be impossible to list the
+wide variety of the circumstances that make someone
+“dependent” for the purpose of applying the presumption
+. Courts would have to determine on a case-by-case
+basis whether or not a particular individual is “dependent
+”, creating uncertainty and unpredictability in almost
+every instance. While dependency will not be a basis
+on which to apply the presumption, evidence as to the
+degree of dependency of an adult transferee child on the
+transferor parent may provide strong evidence to rebut
+the presumption of a resulting trust. [33] [36] [40-41]
+    With joint accounts, the rights of survivorship, both
+legal and equitable, vest when the account is opened.
+The gift of those rights is therefore inter vivos in nature.
+Since the nature of a joint account is that the balance
+will fluctuate over time, the gift in these circumstances
+is the transferee’s survivorship interest in the account
+balance at the time of the transferor’s death. The presumption
+ of a resulting trust means in that context that
+it will fall to the surviving joint account holder to prove
+that the transferor intended to gift the right of survivorship
+ to whatever assets are left in the account to the
+survivor. [48] [50] [53]
+   The types of evidence that should be considered in
+ascertaining a transferor’s intent will depend on the
+facts of each case. The evidence considered by a court
+may include the wording used in bank documents, the
+control and use of the funds in the account, the granting
+ of a power of attorney, the tax treatment of the joint
+account, and evidence subsequent to the transfer if such
+evidence is relevant to the transferor’s intention at the
+time of the transfer. The weight to be placed on a particular
+ piece of evidence in determining intent should
+798
+
+
+be left to the discretion of the trial judge. [55] [59-62]
+[69]
+    In this case, the trial judge erred in applying the
+presumption of advancement. P, although financially
+insecure, was not a minor child. The presumption of
+a resulting trust should therefore have been applied.
+Nonetheless, this error does not affect the disposition
+of the appeal because the trial judge found that the evidence
+ clearly demonstrated the intention on the part of
+the father that the balance left in the joint accounts was
+to go to P alone on his death through survivorship. This
+strong finding regarding the father’s actual intention
+shows that the trial judge’s conclusion would have been
+the same even if he had applied the presumption of a
+resulting trust. [75]
+    Per Abella J.: The trial judge properly applied the
+correct legal presumption to the facts of the case.
+Historically, the presumption of advancement has been
+applied to gratuitous transfers to children, regardless
+of the child’s age, and there is no reason now to limit
+its application to non-adult children. The argument
+that a principal justification for the presumption was
+the parental obligation to support dependent children
+unduly narrows and contradicts the historical rationale
+for the presumption. Parental affection, no less than
+parental obligation, has always grounded the presumption
+ of advancement. Furthermore, the intention to have
+an adult child manage a parent’s financial affairs during
+his or her lifetime is hardly inconsistent with the intention
+ to make a gift of money in a joint account to that
+child. Parents generally want to benefit their children
+out of love and affection. If children assist them with
+their affairs, this cannot logically be a reason for dis-
+placing the assumption that parents desire to benefit
+them. It is equally plausible that an elderly parent who
+gratuitously enters into a joint bank account with an
+adult child on whom he or she depends for assistance
+intends to make a gift in gratitude for this assistance.
+If the intention is merely to have assistance in financial
+ management, a power of attorney would suffice,
+as would a bank account without survivorship rights.
+Accordingly, since the presumption of advancement
+emerged no less from affection than from dependency,
+and since parental affection flows from the inherent
+nature of the relationship not of the dependency, the
+presumption of advancement should logically apply to
+all gratuitous transfers from parents to their children,
+regardless of the age or dependency of the child or the
+parent. The natural affection parents are presumed to
+have for their adult children when both were younger
+799
+[2007] 1 R.C.S.
+
+
+should not be deemed to atrophy with age. [79] [89]
+[100] [102] [107]
+   In any event, bank account documents which, as
+in this case, specifically confirm a survivorship interest
+ should be deemed to reflect an intention that what
+has been signed is sincerely meant. There is no justification
+ for ignoring the presumptive relevance of clear
+language in banking documents in determining the
+transferor’s intention. [104]
+Cases Cited
+By Rothstein J.
+   Referred to: Csak v. Aumon (1990), 69 D.L.R. (4th)
+567; Carter v. Carter (1969), 70 W.W.R. 237; Re Mailman
+Estate, [1941] S.C.R. 368; Niles v. Lake, [1947] S.C.R.
+291; Rathwell v. Rathwell, [1978] 2 S.C.R. 436; Saylor v.
+Madsen Estate (2005), 261 D.L.R. (4th) 597����������������
+                                              , aff’g (2004),
+13 E.T.R. (3d) 44��; Hyman v. Hyman, [1934] 4 D.L.R. 532;
+Grey (Lord) v. Grey (Lady) (1677), Rep. Temp. Finch 338,
+23 E.R. 185; Lattimer v. Lattimer (1978), 18 O.R. (2d)
+375; Edwards v. Bradley, [1957] S.C.R. 599, rev’g [1956]
+O.R. 225; Rupar v. Rupar (1964), 49 W.W.R. 226; Dagle
+v. Dagle Estate (1990), 38 E.T.R. 164; Re Wilson (1999),
+27 E.T.R. (2d) 97; McLear v. McLear Estate (2000), 33
+E.T.R. (2d) 272; Cooper v. Cooper Estate (1999), 27 E.T.R.
+(2d) 170; Christmas Estate v. Tuck (1995), 10 E.T.R. (2d)
+47; Cho Ki Yau Trust (Trustees of) v. Yau Estate (1999),
+29 E.T.R. (2d) 204; Bayley v. Trusts and Guarantee Co.,
+[1931] 1 D.L.R. 500; Johnstone v. Johnstone (1913), 12
+D.L.R. 537; Pettitt v. Pettitt, [1970] A.C. 777; McGrath v.
+Wallis, [1995] 2 F.L.R. 114; Dreger (Litigation Guardian
+of) v. Dreger (1994), 5 E.T.R. (2d) 250; Burns Estate
+v. Mellon (2000), 48 O.R. (3d) 641; Lohia v. Lohia,
+[2001] EWCA Civ 1691 (BAILII); Standing v. Bowring
+(1885), 31 Ch. D. 282; Hill v. Hill (1904), 8 O.L.R. 710;
+Larondeau v. Laurendeau, [1954] O.W.N. 722; Re Reid
+(1921), 64 D.L.R. 598; Mordo v. Nitting, [2006] B.C.J.
+No. 3081 (QL), 2006 BCSC 1761; Shaw v. MacKenzie
+Estate (1994), 4 E.T.R. (2d) 306; Reber v. Reber (1988),
+48 D.L.R. (4th) 376; Russell v. Scott (1936), 55 C.L.R.
+440; Young v. Sealey, [1949] 1 All E.R. 92; Aroso v.
+Coutts, [2002] 1 All E.R. (Comm) 241, [2001] EWHC
+Ch 443; Matter of Totten, 179 N.Y. 112 (1904); Matter
+of Berson, 566 N.Y.S.2d 74 (1991); Matter of Halpern,
+303 N.Y. 33 (1951); Clemens v. Clemens Estate, [1956]
+S.C.R. 286; Jeans v. Cooke (1857), 24 Beav. 513, 53 E.R.
+456; Shephard v. Cartwright, [1955] A.C. 431; Neazor
+v. Hoyle (1962), 32 D.L.R. (2d) 131; Lavelle v. Lavelle,
+800
+
+
+[2004] EWCA Civ 223 (BAILII); Taylor v. Wallbridge
+(1879), 2 S.C.R. 616.
+By Abella J.
+   Madsen Estate v. Saylor, [2007] 1 S.C.R. 838, 2007
+SCC 18, aff’g (2005), 261 D.L.R. (4th) 597����������������
+                                            , aff’g (2004),
+13 E.T.R. (3d) 44��; Nelson v. Nelson (1995), 184 C.L.R.
+538; Cho Ki Yau Trust (Trustees of) v. Yau Estate (1999),
+29 E.T.R. (2d) 204; Pettitt v. Pettitt, [1970] A.C. 777;
+Rathwell v. Rathwell, [1978] 2 S.C.R. 436; Grey (Lord)
+v. Grey (Lady) (1677), 2 Swans. 594, 36 E.R. 742;
+Sidmouth v. Sidmouth (1840), 2 Beav. 447, 48 E.R. 1254;
+Scawin v. Scawin (1841), 1 Y. & C.C.C. 65, 62 E.R. 792;
+Hepworth v. Hepworth (1870), L.R. 11 Eq. 10; Dreger
+(Litigation Guardian of) v. Dreger (1994), 5 E.T.R. (2d)
+250; Cooper v. Cooper Estate (1999), 27 E.T.R. (2d)
+170; McLear v. McLear Estate (2000), 33 E.T.R. (2d)
+272; Young v. Young (1958), 15 D.L.R. (2d) 138; Oliver
+Estate v. Walker, [1984] B.C.J. No. 460 (QL); Dagle v.
+Dagle Estate (1990), 38 E.T.R. 164; Christmas Estate v.
+Tuck (1995), 10 E.T.R. (2d) 47; Reain v. Reain (1995), 20
+R.F.L. (4th) 30; Sodhi v. Sodhi, [1998] 10 W.W.R. 673; Re
+Wilson (1999), 27 E.T.R. (2d) 97; Kappler v. Beaudoin,
+[2000] O.J. No. 3439 (QL); Clarke v. Hambly (2002), 46
+E.T.R. (2d) 166, 2002 BCSC 1074; Plamondon v. Czaban
+(2004), 8 E.T.R. (3d) 135, 2004 ABCA 161; Re Mailman
+Estate, [1941] S.C.R. 368; Niles v. Lake, [1947] S.C.R.
+291; Edwards v. Bradley, [1957] S.C.R. 599.
+Statutes and Regulations Cited
+Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.), s. 26.1(2).
+Family Law Act, R.S.N.L. 1990, c. F‑2, s. 31(1).
+Family Law Act, R.S.O. 1990, c. F.3, ss. 14, 31, 32.
+Family Law Act, R.S.P.E.I. 1988, c. F‑2.1, s. 14(1).
+Family Law Act, S.N.W.T. 1997, c. 18, s. 46(1).
+Family Property Act, S.S. 1997, c. F‑6.3, s. 50(1).
+Family Property and Support Act, R.S.Y. 2002, c. 83,
+   s. 7(2).
+Income Tax Act, R.S.C. 1985, c. 1 (5th Supp.), s. 73.
+Marital Property Act, S.N.B. 1980, c. M‑1.1, s. 15(1).
+Matrimonial Property Act, R.S.N.S. 1989, c. 275,
+   s. 21(1).
+Statute of Uses, 1535, 27 Hen. 8, c. 10.
+Authors Cited
+American Law Institute. Restatement (Third) of Trusts.
+  St. Paul, Minn.: The Institute, 2003.
+801
+[2007] 1 R.C.S.
+
+
+Chambers, Robert. “Resulting Trusts in Canada” (2000),
+   38 Alta. L. Rev. 378.
+Freedman, C. D. “Reassessing Gratuitous Transfers by
+   Parents to Adult Children” (2006), 25 E.T.P.J. 174.
+Gillese, Eileen E., and Martha Milczynski. The Law of
+   Trusts, 2nd ed. Toronto: Irwin Law, 2005.
+Oosterhoff on Trusts: Text, Commentary and Materials,
+   6th ed. by A. H. Oosterhoff et al. Toronto: Thomson,
+   2004.
+Sopinka, John, Sidney N. Lederman and Alan W. Bryant.
+   The Law of Evidence in Canada, 2nd ed. Toronto:
+   Butterworths, 1999.
+Waters’ Law of Trusts in Canada, 3rd ed. by Donovan
+   W. M. Waters, Mark R. Gillen and Lionel D. Smith,
+   eds. Toronto: Thomson, 2005.
+Ziff, Bruce. Principles of Property Law, 4th ed. Toronto:
+   Thomson, 2006.
+   APPEAL from a judgment of the Ontario Court
+of Appeal (Weiler, Rosenberg and Lang JJ.A.)
+(2005), 19 E.T.R. (3d) 162, 17 R.F.L. (6th) 261, 202
+O.A.C. 158, [2005] O.J. No. 3712 (QL), affirming a
+decision of Karam J. (2004), 7 E.T.R. (3d) 113, 48
+R.F.L. (5th) 89, [2004] O.J. No. 695 (QL). Appeal
+dismissed.
+
+   Andrew M. Robinson and Megan L. Mackey, for
+the appellant.
+
+   Bryan C. McPhadden and Fabrice Gouriou, for
+the respondents.
+
+  The judgment of McLachlin C.J. and Bastarache,
+Binnie, LeBel, Deschamps, Fish, Charron and
+Rothstein JJ. was delivered by
+
+     Rothstein J. —
+
+I.
+
+1
+   This appeal involves questions about joint bank
+and investment accounts where only one of the
+account holders deposits funds into the account.
+These types of joint accounts are used by many
+Canadians for a variety of purposes, including
+estate-planning and financial management. Given
+their widespread use, the law relating to how these
+accounts are to be treated by courts after the death
+of one of the account holders is a matter appropriate
+ for this Court to address.
+    802
+
+
+2
+       Depending on the terms of the agreement
+    between the bank and the two joint account holders
+    , each may have the legal right to withdraw any
+    or all funds from the accounts at any time and each
+    may have a right of survivorship. If only one of the
+    joint account holders is paying into the account
+    and he or she dies first, it raises questions about
+    whether he or she intended to have the funds in the
+    joint account go to the other joint account holder
+    alone or to have those funds distributed according
+    to his or her will. How to answer this question is
+    the subject of this appeal.
+3
+    placed his mutual funds, bank account and income
+    trusts in joint accounts with his daughter, who was
+    one of his adult children. The father alone deposited
+     funds into the accounts. Upon his death, a balance
+     remained in the accounts.
+4
+    ownership of the balance in the accounts through
+    the right of survivorship. Equity, however, recognizes
+     a distinction between legal and beneficial
+     ownership. The beneficial owner of property
+    has been described as “the real owner of property
+     even though it is in someone else’s name”:
+    Csak v. Aumon (1990), 69 D.L.R. (4th) 567 (Ont.
+    H.C.J.), at p. 570. The question is whether the father
+    intended to make a gift of the beneficial interest in
+    the accounts upon his death to his daughter alone
+    or whether he intended that his daughter hold the
+    assets in the accounts in trust for the benefit of his
+    estate to be distributed according to his will.
+5
+    tous transfer is the actual intention of the transferor
+    at the time of the transfer, intention is often difficult
+     to ascertain, especially where the transferor
+    is deceased. Common law rules have developed to
+    guide a court’s inquiry. This appeal raises the following
+     issues:
+
+    1.
+          advancement continue to apply in modern
+          times?
+803
+[2007] 1 R.C.S.
+
+
+2. If so, on what standard will the presumptions
+   be rebutted?
+
+3. How should courts treat survivorship in the
+   context of a joint account?
+
+4. What evidence may courts consider in determining
+    the intent of a transferor?
+
+6
+   In this case, the trial judge found that the father
+actually intended a gift and held that his daughter
+may retain the assets in the accounts. The Court of
+Appeal dismissed the appeal of the daughter’s ex-
+husband.
+
+7
+   I conclude that there is no basis to overturn this
+result. The appeal should be dismissed.
+
+II. Facts
+
+8
+   The dispute is between Paula Pecore and her
+ex-husband Michael Pecore regarding who is entitled
+ to the assets held in joint accounts between
+Paula and her father upon her father’s death. The
+assets in the joint accounts in dispute totalled
+almost $1,000,000 at the time Paula’s father died in
+1998.
+
+9
+   Paula has two siblings but of the three, she was
+the closest to their father. In fact, her father was
+estranged from one of her sisters until shortly
+before his death in 1998. Unlike her siblings who
+were financially secure, Paula worked at various
+low-paying jobs and took care of her quadriplegic
+husband Michael. Her father helped her and her
+family financially by, for example, buying them
+a van, making improvements to their home, and
+assisting her son while he was attending university
+.
+
+10
+   In 1993, Paula’s father was told by a financial
+advisor that by placing his assets in joint ownership
+, he could avoid “the payment of probate
+fees and taxes and generally make after-death
+     804
+
+
+     disposition less expensive and less cumbersome”
+     ((2004), 7 E.T.R. (3d) 113, at para. 7). In February
+     of 1994, he began transferring some of his assets
+     which were mainly either in bank accounts or in
+     mutual funds to himself and to Paula jointly, with
+     a right of survivorship (ibid., at para. 6). In 1996,
+     Paula’s father was advised by his accountant that
+     for tax purposes, transfers to his daughter (as
+     opposed to a spouse) could trigger a capital gain,
+     with the result that tax on the gain would be due as
+     of the year of disposition. As a result, Paula’s father
+     wrote letters to the financial institutions purporting
+     to deal with the tax implications. In these letters he
+     stated that he was “the 100% owner of the assets
+     and the funds are not being gifted to Paula” (ibid.,
+     at para. 10).
+11
+        Paula’s father continued to use and control the
+     accounts after they were transferred into joint
+     names. He declared and paid all the taxes on the
+     income made from the assets in the accounts. Paula
+     made some withdrawals but was required to notify
+     her father before doing so. According to her, this
+     was because her father wanted to ensure there were
+     sufficient funds available for her to withdraw.
+12
+        In early 1998, Paula’s father drafted what was
+     to be his last will. By this time, he had already
+     transferred the bulk of his assets into the joint
+     accounts with Paula. For the first time, he named
+     Michael in his will. The will left specific bequests
+     to Paula, Michael and her children (whom Michael
+     had adopted), but did not mention the accounts.
+     The residue of the estate was to be divided equally
+     between Paula and Michael.
+13
+         The lawyer who drafted the will testified that
+     he asked Paula’s father “about such things as registered
+      retirement savings plans, R.R.I.F.s, registered
+     pension plans, life insurance, and in each case sat-
+     isfied [him]self that they were not items which
+     would pass as the result of a will and so that they
+805
+[2007] 1 R.C.S.
+
+
+needn’t be included in the will” (ibid., at para. 37).
+There was no discussion about the joint investment
+and bank accounts.
+
+14
+   In 1998, Paula’s father moved into Paula and
+Michael’s house. In 1997 and 1998, the father had
+expressed to others, including one of Paula’s sisters
+, that he was going to take care of Paula after
+his death, but said the “system” would take care of
+Michael.
+
+15
+   Paula’s father died in December 1998. His estate
+paid tax on the basis of a deemed disposition of the
+accounts to Paula immediately before his death.
+
+16
+   Paula and Michael later divorced. The dispute
+over the accounts arose during their matrimonial
+property proceedings.
+
+III. Judicial History
+
+A. Ontario Superior Court of Justice (2004), 7
+   E.T.R. (3d) 113
+
+17
+   The trial judge looked at the operation of the presumption
+ of a resulting trust and the presumption
+of advancement and found that the latter applied
+given Paula’s relationship with her father. Karam J.
+concluded that the evidence failed to rebut the presumption
+ of advancement and held that the money
+in the joint accounts therefore belonged to Paula.
+He found that the evidence clearly indicated that
+Paula’s father intended to gift the beneficial ownership
+ of those assets held in joint ownership to her
+while he continued to manage and control them on
+a day-to-day basis before his death.
+
+B. Ontario Court of Appeal (2005), 19 E.T.R. (3d)
+   162
+
+18
+   The Court of Appeal agreed with the trial judge
+that there was ample evidence to show that Paula’s
+father intended to give Paula beneficial interest in
+     806
+
+
+     his investments when he placed them in joint ownership
+     . As a result, Lang J.A. found that it was not
+     necessary to rely on the presumption of advancement
+     , saying that a presumption is only relevant
+     when evidence of actual intention is evenly bal-
+     anced or when there is no evidence of actual intention
+     .
+
+     IV. Analysis
+
+     A. Do the Presumptions of Resulting Trust and
+        Advancement Continue to Apply in Modern
+        Times?
+19
+     after the death of the transferor must begin with
+     a consideration of the common law approach to
+     ascertaining the intent of the deceased person.
+20
+         A resulting trust arises when title to property is
+     in one party’s name, but that party, because he or
+     she is a fiduciary or gave no value for the property,
+     is under an obligation to return it to the original
+     title owner: see D. W. M. Waters, M. R. Gillen and
+     L. D. Smith, eds., Waters’ Law of Trusts in Canada
+     (3rd ed. 2005), at p. 362. While the trustee almost
+     always has the legal title, in exceptional circumstances
+      it is also possible that the trustee has equitable
+      title: see Waters’ Law of Trusts, at p. 365, noting
+     the case of Carter v. Carter (1969), 70 W.W.R. 237
+     (B.C.S.C.).
+21
+         Advancement is a gift during the transferor’s
+     lifetime to a transferee who, by marriage or parent-
+     child relationship, is financially dependent on the
+     transferor: see Waters’ Law of Trusts, at p. 378. In
+     the context of the parent-child relationship, the term
+     has also been used because “the father was under
+     a moral duty to advance his children in the world”:
+     A. H. Oosterhoff et al., Oosterhoff on Trusts: Text,
+     Commentary and Materials (6th ed. 2004), at p.
+     575 (emphasis added).
+22
+     below, there will be a presumption of resulting trust
+     or presumption of advancement. Each are rebuttable
+      presumptions of law: see e.g. Re Mailman
+     Estate, [1941] S.C.R. 368, at p. 374; Niles v. Lake,
+807
+[2007] 1 R.C.S.
+
+
+[1947] S.C.R. 291; Rathwell v. Rathwell, [1978] 2
+S.C.R. 436, at p. 451; J. Sopinka, S. N. Lederman
+and A. W. Bryant, The Law of Evidence in Canada
+(2nd ed. 1999), at p. 115. A rebuttable presumption
+of law is a legal assumption that a court will make
+if insufficient evidence is adduced to displace the
+presumption. The presumption shifts the burden of
+persuasion to the opposing party who must rebut
+the presumption: see Sopinka et al., at pp. 105-6.
+
+23
+   For the reasons discussed below, I think the
+long-standing common law presumptions continue
+to have a role to play in disputes over gratuitous
+transfers. The presumptions provide a guide for
+courts in resolving disputes over transfers where
+evidence as to the transferor’s intent in making the
+transfer is unavailable or unpersuasive. This may
+be especially true when the transferor is deceased
+and thus is unable to tell the court his or her intention
+ in effecting the transfer. In addition, as noted
+by Feldman J.A. in the Ontario Court of Appeal in
+Saylor v. Madsen Estate (2005), 261 D.L.R. (4th)
+597, the advantage of maintaining the presumption
+of advancement and the presumption of a resulting
+trust is that they provide a measure of certainty and
+predictability for individuals who put property in
+joint accounts or make other gratuitous transfers.
+
+  1.
+
+24
+   The presumption of resulting trust is a rebuttable
+presumption of law and general rule that applies to
+gratuitous transfers. When a transfer is challenged,
+the presumption allocates the legal burden of proof.
+Thus, where a transfer is made for no consideration,
+the onus is placed on the transferee to demonstrate
+that a gift was intended: see Waters’ Law of Trusts,
+at p. 375, and E. E. Gillese and M. Milczynski, The
+Law of Trusts (2nd ed. 2005), at p. 110. This is so
+because equity presumes bargains, not gifts.
+
+25
+   The presumption of resulting trust therefore
+alters the general practice that a plaintiff (who
+     808
+
+
+     would be the party challenging the transfer in these
+     cases) bears the legal burden in a civil case. Rather,
+     the onus is on the transferee to rebut the presumption
+      of a resulting trust.
+26
+     dispute is between the transferee and a third party,
+     the presumption of resulting trust has an additional
+     justification. In such cases, it is the transferee who
+     is better placed to bring evidence about the circumstances
+      of the transfer.
+
+        2. The Presumption of Advancement
+27
+        The presumption of resulting trust is the general
+     rule for gratuitous transfers. However, depending
+     on the nature of the relationship between the transferor
+      and transferee, the presumption of a resulting
+     trust will not arise and there will be a presumption
+      of advancement instead: see Waters’ Law of
+     Trusts, at p. 378. If the presumption of advancement
+      applies, it will fall on the party challenging
+     the transfer to rebut the presumption of a gift.
+28
+        Historically, the presumption of advancement
+     has been applied in two situations. The first is
+     where the transferor is a husband and the transferee
+     is his wife: Hyman v. Hyman, [1934] 4 D.L.R. 532
+     (S.C.C.), at p. 538. The second is where the transferor
+      is a father and the transferee is his child, which
+     is at issue in this appeal.
+29
+        One of the earliest documented cases where a
+     judge applied the presumption of advancement is
+     the 17th century decision in Grey (Lord) v. Grey
+     (Lady) (1677), Rep. Temp. Finch 338, 23 E.R. 185:
+
+     . . . the Law will never imply a Trust, because the natural
+      Consideration of Blood, and the Obligation which
+     lies on the Father in Conscience to provide for his Son,
+     are predominant, and must over-rule all manner of
+     Implications. [Underlining added; p. 187.]
+30
+        As stated in Grey, the traditional rationale
+     behind the presumption of advancement between
+     father and child is that a father has an obligation
+     to provide for his sons. See also Oosterhoff on
+     Trusts, at p. 575. The presumption also rests on
+809
+[2007] 1 R.C.S.
+
+
+the assumption that parents so commonly intend to
+make gifts to their children that the law should presume
+ as much: ibid., at pp. 581 and 598.
+
+31
+   While historically the relationship between
+father and child gave rise to the presumption of
+advancement, courts in Canada have been divided
+as to whether the relationship between mother and
+child does as well. Some have concluded that it
+does not: see e.g. Lattimer v. Lattimer (1978), 18
+O.R. (2d) 375 (H.C.J.), relying on Cartwright J.’s
+concurring judgment in Edwards v. Bradley, [1957]
+S.C.R. 599. Others have found that it does: see e.g.
+Rupar v. Rupar (1964), 49 W.W.R. 226 (B.C.S.C.);
+Dagle v. Dagle Estate (1990), 38 E.T.R. 164
+(P.E.I.S.C., App. Div.); Re Wilson (1999), 27 E.T.R.
+(2d) 97 (Ont. Ct. (Gen. Div.)). In concluding that
+the presumption applies to mothers and children
+in Re Wilson, Fedak J., at para. 50, took into consideration
+ “the natural affection between a mother
+and child, legislative changes requiring mothers
+to support their children, the economic independ-
+ence of women and the equality provisions of the
+Charter”.
+
+32
+    The question of whether the presumption
+applies between mother and child is not raised in
+these appeals, as the transfers in question occurred
+between a father and daughter, but I shall deal with
+it briefly. Unlike when the presumption of advancement
+ was first developed, women today have their
+own financial resources. They also have a statu-
+tory obligation to financially support their children
+in the same way that fathers do. Section 26.1(2) of
+the Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.), for
+instance, refers to the “principle” that spouses have
+a “joint financial obligation to maintain the children
+”, and s. 31(1) of the Family Law Act, R.S.O.
+1990, c. F.3, provides that “[e]very parent has an
+obligation to provide support for his or her unmar-
+ried child who is a minor or is enrolled in a full
+time program of education, to the extent that the
+parent is capable of doing so.” Oosterhoff et al.
+have also commented on this issue in Oosterhoff on
+Trusts, saying at p. 575, “Mothers and fathers are
+     810
+
+
+     now under equal duties to care for their children
+     and are equally likely to intend to make gifts to
+     them. . . . In Canada, it is now accepted that mothers
+      and fathers should be treated equally.”
+33
+     well as obligations to support their children, they
+     are no less likely to intend to make gifts to their
+     children than fathers. The presumption of advancement
+      should thus apply equally to fathers and mothers
+     .
+34
+     apply between parents and adult independent children
+     ? A number of courts have concluded that it
+     should not. In reaching that conclusion, Heeney J.
+     in McLear v. McLear Estate (2000), 33 E.T.R. (2d)
+     272 (Ont. S.C.J.), at paras. 40-41, focussed largely
+     on the modern practice of elderly parents adding
+     their adult children as joint account holders so that
+     the children can provide assistance with the management
+      of their parents’ financial affairs:
+
+        Just as Dickson J. considered “present social conditions
+     ” in concluding that the presumption of advancement
+      between husbands and wives had lost all relevance,
+     a consideration of the present social conditions of an
+     elderly parent presents an equally compelling case
+     for doing away with the presumption of advancement
+     between parent and adult child. We are living in an
+     increasingly complex world. People are living longer,
+     and it is commonplace that an ageing parent requires
+     assistance in managing his or her daily affairs. This is
+     particularly so given the complexities involved in managing
+      investments to provide retirement income, paying
+     income tax on those investments, and so on. Almost
+     invariably, the duty of assisting the ageing parent falls
+     to the child who is closest in geographic proximity. In
+     such cases, Powers of Attorney are routinely given.
+     Names are “put on” bank accounts and other assets,
+     so that the child can freely manage the assets of the
+     parent.
+811
+[2007] 1 R.C.S.
+
+
+   Given these social conditions, it seems to me that it is
+dangerous to presume that the elderly parent is making
+a gift each time he or she puts the name of the assisting
+child on an asset. The presumption that accords with
+this social reality is that the child is holding the property
+ in trust for the ageing parent, to facilitate the free
+and efficient management of that parent’s affairs. The
+presumption that accords with this social reality is, in
+other words, the presumption of resulting trust.
+
+35
+   Heeney J. also noted that the fact that the child
+was independent and living away from home fea-
+tured very strongly in Kerwin C.J.’s reasons for
+finding that no presumption of advancement arose
+in Edwards v. Bradley. A similar conclusion was
+reached by Klebuc J., as he was then, in Cooper
+v. Cooper Estate (1999), 27 E.T.R. (2d) 170 (Sask.
+Q.B.), at para. 19: “I have serious doubts as to
+whether presumption of advancement continues
+ to apply with any degree of persuasiveness in
+Saskatchewan in circumstances where an older
+parent has transferred property to an independent
+adult child who is married and lives apart from his
+parent.” Waters et al., too in Waters’ Law of Trusts,
+at p. 395, said: “It may well be that, reflecting the
+financial dependency that it probably does, con-
+temporary opinion would accord [the presumption
+of advancement] little weight as between a father
+and an independent, adult child.”
+
+36
+   I am inclined to agree. First, given that a principal
+ justification for the presumption of advancement
+ is parental obligation to support their dependent
+ children, it seems to me that the presumption
+should not apply in respect of independent adult
+children. As Heeney J. noted in McLear, at para.
+36, parental support obligations under provincial
+and federal statutes normally end when the child is
+no longer considered by law to be a minor: see e.g.
+Family Law Act, s. 31. Indeed, not only do child
+support obligations end when a child is no longer
+dependent, but often the reverse is true: an obligation
+ may be imposed on independent adult children
+to support their parents in accordance with need
+and ability to pay: see e.g. Family Law Act, s. 32.
+Second, I agree with Heeney J. that it is common
+nowadays for ageing parents to transfer their assets
+     812
+
+
+     into joint accounts with their adult children in
+     order to have that child assist them in managing
+     their financial affairs. There should therefore be a
+     rebuttable presumption that the adult child is holding
+      the property in trust for the ageing parent to
+     facilitate the free and efficient management of that
+     parent’s affairs.
+37
+     that while an adult, independent child is no longer
+     financially dependent, the presumption of advancement
+      should apply on the basis of parental affection
+      for their children: see e.g. Madsen Estate, at
+     para. 21; Dagle; Christmas Estate v. Tuck (1995),
+     10 E.T.R. (2d) 47 (Ont. Ct. (Gen. Div.)); and Cho
+     Ki Yau Trust (Trustees of) v. Yau Estate (1999), 29
+     E.T.R. (2d) 204 (Ont. S.C.J.). I do not agree that
+     affection is a basis upon which to apply the presumption
+      of advancement to the transfer. Indeed,
+     the factor of affection applies in other relationships
+     as well, such as between siblings, yet the presumption
+      of advancement would not apply in those circumstances
+     . However, I see no reason why courts
+     cannot consider evidence relating to the quality of
+     the relationship between the transferor and transferee
+      in order to determine whether the presumption
+      of a resulting trust has been rebutted.
+38
+        The remaining question is whether the presumption
+      of advancement should apply in the case
+     of adult dependent children. In the present case
+     the trial judge, at paras. 26-28, found that Paula,
+     despite being a married adult with her own family,
+     was nevertheless dependent on her father and justi-
+     fied applying the presumption of advancement on
+     that basis.
+39
+        The question of whether the presumption
+     applies to adult dependent children begs the question
+      of what constitutes dependency for the purpose
+      of applying the presumption. Dependency is
+813
+[2007] 1 R.C.S.
+
+
+a term susceptible to an enormous variety of circumstances
+. The extent or degree of dependency
+can be very wide ranging. While it may be rational
+to presume advancement as a result of dependency
+in some cases, in others it will not. For example, it
+is not difficult to accept that in some cases a parent
+would feel a moral, if not legal, obligation to provide
+ for the quality of life for an adult disabled
+child. This might especially be the case where the
+disabled adult child is under the charge and care of
+the parent.
+40
+   As compelling as some cases might be, I am
+reluctant to apply the presumption of advancement
+ to gratuitous transfers to “dependent” adult
+children because it would be impossible to list
+the wide variety of the circumstances that make
+someone “dependent” for the purpose of applying
+the presumption. Courts would have to determine
+on a case-by-case basis whether or not a particular
+ individual is “dependent”, creating uncertainty
+and unpredictability in almost every instance. I
+am therefore of the opinion that the rebuttable presumption
+ of advancement with regard to gratuitous
+transfers from parent to child should be preserved
+but be limited in application to transfers by mothers
+ and fathers to minor children.
+41
+   There will of course be situations where a transfer
+ between a parent and an adult child was intended
+to be a gift. It is open to the party claiming that the
+transfer is a gift to rebut the presumption of resulting
+ trust by bringing evidence to support his or
+her claim. In addition, while dependency will not
+be a basis on which to apply the presumption of
+advancement, evidence as to the degree of dependency
+ of an adult transferee child on the transferor
+parent may provide strong evidence to rebut the
+presumption of a resulting trust.
+B. On What Standard Will the Presumptions Be
+   Rebutted?
+42
+  There has been some debate amongst courts and
+commentators over what amount of evidence is
+     814
+
+
+     required to rebut a presumption. With regard to the
+     presumption of resulting trust, some cases appear
+     to suggest that the criminal standard, or at least a
+     standard higher than the civil standard, is applicable
+     : see e.g. Bayley v. Trusts and Guarantee Co.,
+     [1931] 1 D.L.R. 500 (Ont. S.C., App. Div.), at p. 505;
+     Johnstone v. Johnstone (1913), 12 D.L.R. 537 (Ont.
+     S.C., App. Div.), at p. 539. As for the presumption
+     of advancement, some cases seem to suggest that
+     only slight evidence will be required to rebut the
+     presumptions: see e.g. Pettitt v. Pettitt, [1970] A.C.
+     777 (H.L.), at p. 814; McGrath v. Wallis, [1995] 2
+     F.L.R. 114 (Eng. C.A.), at pp. 115 and 122; Dreger
+     (Litigation Guardian of) v. Dreger (1994), 5 E.T.R.
+     (2d) 250 (Man. C.A.), at para. 31.
+43
+     that the civil standard, the balance of probabilities
+     , is applicable to rebut the presumptions: Burns
+     Estate v. Mellon (2000), 48 O.R. (3d) 641 (C.A.),
+     at paras. 5-21; Lohia v. Lohia, [2001] EWCA Civ
+     1691 (BAILII), at paras. 19-21; Dagle, at p. 210; Re
+     Wilson, at para. 52. See also Sopinka et al., at p.
+     116. This is also my view. I see no reason to depart
+     from the normal civil standard of proof. The evidence
+      required to rebut both presumptions, therefore
+     , is evidence of the transferor’s contrary intention
+      on the balance of probabilities.
+44
+         As in other civil cases, regardless of the legal
+     burden, both sides to the dispute will normally
+     bring evidence to support their position. The trial
+     judge will commence his or her inquiry with the
+     applicable presumption and will weigh all of the
+     evidence in an attempt to ascertain, on a balance
+     of probabilities, the transferor’s actual intention.
+     Thus, as discussed by Sopinka et al. in The Law
+     of Evidence in Canada, at p. 116, the presumption
+     will only determine the result where there is insufficient
+      evidence to rebut it on a balance of probabilities
+     .
+815
+[2007] 1 R.C.S.
+
+
+C. How Should Courts Treat Survivorship in the
+   Context of a Joint Account?
+45
+   In cases where the transferor’s proven intention
+in opening the joint account was to gift withdrawal
+rights to the transferee during his or her lifetime
+(regardless of whether or not the transferee chose
+to exercise that right) and also to gift the balance
+of the account to the transferee alone on his or her
+death through survivorship, courts have had no difficulty
+ finding that the presumption of a resulting
+trust has been rebutted and the transferee alone is
+entitled to the balance of the account on the transferor
+’s death.
+46
+   In certain cases, however, courts have found
+that the transferor gratuitously placed his or her
+assets into a joint account with the transferee with
+the intention of retaining exclusive control of the
+account until his or her death, at which time the
+transferee alone would take the balance through
+survivorship: see e.g. Standing v. Bowring (1885),
+31 Ch. D. 282, at p. 287; Edwards v. Bradley, [1956]
+O.R. 225 (C.A.), at p. 234; Yau Estate, at para. 25.
+47
+   There may be a number of reasons why an individual
+ would gratuitously transfer assets into a joint
+account having this intention. A typical reason is
+that the transferor wishes to have the assistance of
+the transferee with the management of his or her
+financial affairs, often because the transferor is
+ageing or disabled. At the same time, the transferor
+may wish to avoid probate fees and/or make after-
+death disposition to the transferee less cumbersome
+and time consuming.
+48
+   Courts have understandably struggled with
+whether they are permitted to give effect to the
+transferor’s intention in this situation. One of the
+difficulties in these circumstances is that the beneficial
+ interest of the transferee appears to arise
+only on the death of the transferor. This has led
+some judges to conclude that the gift of survivorship
+ is testamentary in nature and must fail as a
+result of not being in proper testamentary form:
+see e.g. Hill v. Hill (1904), 8 O.L.R. 710 (H.C.), at
+     816
+
+
+     p. 711; Larondeau v. Laurendeau, [1954] O.W.N.
+     722 (H.C.); Hodgins J.A.’s dissent in Re Reid (1921),
+     64 D.L.R. 598 (Ont. S.C., App. Div.). For the reasons
+     that follow, however, I am of the view that the rights
+     of survivorship, both legal and equitable, vest when
+     the joint account is opened and the gift of those
+     rights is therefore inter vivos in nature. This has
+     also been the conclusion of the weight of judicial
+     opinion in recent times: see e.g. Mordo v. Nitting,
+     [2006] B.C.J. No. 3081 (QL), 2006 BCSC 1761, at
+     paras. 233-38; Shaw v. MacKenzie Estate (1994), 4
+     E.T.R. (2d) 306 (N.S.S.C.), at para. 49; and Reber
+     v. Reber (1988), 48 D.L.R. (4th) 376 (B.C.S.C.); see
+     also Waters’ Law of Trusts, at p. 406.
+49
+        An early case that addressed the issue of the
+     nature of survivorship is Re Reid in which Ferguson
+     J.A. of the Ontario Court of Appeal found that the
+     gift of a joint interest was a “complete and perfect
+     gift inter vivos” (p. 608) from the moment that the
+     joint account was opened even though the transferor
+      in that case retained exclusive control over
+     the account during his lifetime. I agree with this
+     interpretation. I also find MacKay J.A.’s reasons in
+     Edwards v. Bradley (C.A.), at p. 234, to be persua-
+     sive:
+
+     The legal right to take the balance in the account if
+     A predeceases him being vested in B on the opening
+     of the account, it cannot be the subject of a testamentary
+      disposition. If A’s intention was that B should also
+     have the beneficial interest, B already has the legal title
+     and there is nothing further to be done to complete the
+     gift of the beneficial interest. If A’s intention was that
+     B should not take the beneficial interest, it belongs to
+     A or his estate and he is not attempting to dispose of
+     it by means of the joint account. In either event B has
+     the legal title and the only question that can arise on
+     A’s death is whether B is entitled to keep any money
+     that may be in the account on A’s death or whether he
+     holds it as a trustee under a resulting trust for A’s estate.
+     [Emphasis added.]
+
+     Edwards v. Bradley was appealed to the Supreme
+     Court of Canada but the issue of survivorship was
+     not addressed.
+817
+[2007] 1 R.C.S.
+
+
+50
+   Some judges have found that a gift of survivorship
+ cannot be a complete and perfect inter vivos
+gift because of the ability of the transferor to drain
+a joint account prior to his or her death: see e.g.
+Hodgins J.A.’s dissent in Re Reid. Like the Ontario
+Court of Appeal in Re Reid, at p. 608, and Edwards
+v. Bradley, at p. 234, I would reject this view. The
+nature of a joint account is that the balance will fluctuate
+ over time. The gift in these circumstances is
+the transferee’s survivorship interest in the account
+balance — whatever it may be — at the time of the
+transferor’s death, not to any particular amount.
+51
+   Treating survivorship in these circumstances as
+an inter vivos gift of a joint interest has found favour
+in other jurisdictions, including Australia and the
+United Kingdom: see Russell v. Scott (1936), 55
+C.L.R. 440, at p. 455; Young v. Sealey, [1949] 1 All
+E.R. 92 (Ch. Div.), at pp. 107-8; (in obiter) Aroso
+v. Coutts, [2002] 1 All E.R. (Comm) 241, [2001]
+EWHC Ch 443, at paras. 29 and 36.
+52
+   While not entirely analogous, the American
+notion of the “Totten trust” (sometimes referred to
+as the “Bank account trust”) is now recognized as
+valid in most states in the United States; an individual
+ places money in a bank account with the
+instruction that upon his or her death, whatever is
+in that bank account will pass to a named beneficiary
+: see Restatement (Third) of Trusts (2003), at
+para. 26 of Part 2, Chapter 5. The Totten trust is so
+named for the leading case establishing its validity:
+see Matter of Totten, 179 N.Y. 112 (1904). While
+a Totten trust does not deal with joint accounts as
+such, it recognizes the practicality of the depositor
+having control of an account during his or her lifetime
+ but allowing the depositor’s named beneficiary
+ of that account to claim the funds remaining in
+the account upon the death of the depositor without
+the disposition being treated as testamentary: see
+e.g. Matter of Berson, 566 N.Y.S.2d 74 (App. Div.
+1991); Matter of Halpern, 303 N.Y. 33 (1951).
+     818
+
+
+53
+        Of course, the presumption of a resulting trust
+     means that it will fall to the surviving joint account
+     holder to prove that the transferor intended to gift
+     the right of survivorship to whatever assets are left
+     in the account to the survivor. Otherwise, the assets
+     will be treated as part of the transferor’s estate to
+     be distributed according to the transferor’s will.
+54
+     cern to the legislature, it is open to it to enact legis-
+     lation to deal with the matter.
+     D. What Evidence May a Court Consider in
+        Determining Intent of the Transferor?
+55
+     the trial judge must begin his or her inquiry by
+     determining the proper presumption to apply and
+     then weigh all the evidence relating to the actual
+     intention of the transferor to determine whether
+     the presumption has been rebutted. It is not my
+     intention to list all of the types of evidence that a
+     trial judge can or should consider in ascertaining
+     intent. This will depend on the facts of each case.
+     However, I will discuss particular types of evidence
+     at issue in this appeal and its companion case that
+     have been the subject of divergent approaches by
+     courts.
+        1.
+56
+     to show the intention of the transferor at the time
+     of the transfer “ought to be contemporaneous,
+     or nearly so”, to the transaction: see Clemens v.
+     Clemens Estate, [1956] S.C.R. 286, at p. 294, citing
+     Jeans v. Cooke (1857), 24 Beav. 513, 53 E.R. 456.
+     Whether evidence subsequent to a transfer is admissible
+      has often been a question of whether it com-
+     plies with the Viscount Simonds’ rule in Shephard
+     v. Cartwright, [1955] A.C. 431 (H.L.), at p. 445,
+     citing Snell’s Principles of Equity (24th ed. 1954),
+     at p. 153:
+        The acts and declarations of the parties before or
+     at the time of the purchase, [or of the transfer] or so
+819
+[2007] 1 R.C.S.
+
+
+immediately after it as to constitute a part of the transaction
+, are admissible in evidence either for or against
+the party who did the act or made the declaration . . . .
+But subsequent declarations are admissible as evidence
+only against the party who made them . . . .
+
+The reason that subsequent acts and declarations
+ have been viewed with mistrust by courts is
+because a transferor could have changed his or her
+mind subsequent to the transfer and because donors
+are not allowed to retract gifts. As noted by Huband
+J.A. in Dreger, at para. 33: “Self-serving statements
+after the event are too easily fabricated in order to
+bring about a desired result.”
+
+57
+   Some courts, however, have departed from
+the restrictive — and somewhat abstruse — rule
+in Shephard v. Cartwright. In Neazor v. Hoyle
+(1962), 32 D.L.R. (2d) 131 (Alta. S.C., App. Div.),
+for example, a brother transferred land to his sister
+eight years before he died and the trial judge considered
+ the conduct of the parties during the years
+after the transfer to see whether they treated the
+land as belonging beneficially to the brother or the
+sister.
+
+58
+   The rule has also lost much of its force in
+England. In Lavelle v. Lavelle, [2004] EWCA Civ
+223 (BAILII), at para. 19, Lord Phillips, M.R., had
+this to say about Shephard v. Cartwright and certain
+ other authorities relied on by the appellant in
+that case:
+
+It seems to me that it is not satisfactory to apply rigid
+rules of law to the evidence that is admissible to rebut
+the presumption of advancement. Plainly, self-serving
+statements or conduct of a transferor, who may long
+after the transaction be regretting earlier generosity,
+carry little or no weight. [Emphasis added.]
+59
+   Similarly, I am of the view that the evidence of
+intention that arises subsequent to a transfer should
+not automatically be excluded if it does not comply
+with the Shephard v. Cartright rule. Such evidence
+, however, must be relevant to the intention
+of the transferor at the time of the transfer: Taylor
+v. Wallbridge (1879), 2 S.C.R. 616. The trial judge
+     820
+
+
+     must assess the reliability of this evidence and
+     determine what weight it should be given, guarding
+     against evidence that is self-serving or that tends to
+     reflect a change in intention.
+
+        2. Bank Documents
+60
+     ments that set up a joint account are an agreement
+     between the account holders and the bank about
+     legal title; they are not evidence of an agreement
+     between the account holders as to beneficial title:
+     see Niles and Re Mailman.
+61
+        While I agree that bank documents do not necessarily
+      set out equitable interests in joint accounts,
+     banking documents in modern times may be
+     detailed enough that they provide strong evidence
+     of the intentions of the transferor regarding how the
+     balance in the account should be treated on his or
+     her death: see B. Ziff, Principles of Property Law
+     (4th ed. 2006), at p. 332. Therefore, if there is anything
+      in the bank documents that specifically suggests
+      the transferor’s intent regarding the beneficial
+     interest in the account, I do not think that courts
+     should be barred from considering it. Indeed, the
+     clearer the evidence in the bank documents in question
+     , the more weight that evidence should carry.
+
+        3. Control and Use of the Funds in the
+           Account
+62
+        There is some inconsistency in the caselaw as
+     to whether a court should consider evidence as to
+     the control of joint accounts following the transfer
+      in ascertaining the intent of the transferor with
+     respect to the beneficial interest in the joint account.
+     In the present case, for example, Paula’s father continued
+      to manage the investments and to pay the
+     taxes after establishing the joint accounts. The
+     Court of Appeal, at para. 40, held that this factor
+     was not determinative of Paula’s father’s intentions:
+     “[w]hile control can be consistent with an intention
+     to retain ownership, it is also not inconsistent in
+     this case with an intention to gift the assets.” In
+821
+[2007] 1 R.C.S.
+
+
+contrast, in Madsen Estate, at para. 34, one of the
+main factors the Court of Appeal relied on to show
+that the father did not intend to create a beneficial
+joint tenancy was that he remained in control of the
+accounts, and that he paid the taxes on the interest
+earned on the funds in the accounts.
+63
+   I am of the view that control and use of the
+funds, like the wording of the bank documents,
+should not be ruled out in the ascertainment of the
+transferor’s intention. For example, the transferor’s
+retention of his or her exclusive beneficial interest
+in the account in his or her lifetime may support the
+finding of a resulting trust, unless other evidence
+proves that he or she intended to gift the right of
+survivorship to the transferee. However, evidence
+of use and control may be of marginal assistance
+only and, without more, will not be determinative
+for three reasons.
+64
+   First, it may be that the dynamics of the relationship
+ are such that the transferor makes the management
+ decisions. He or she may be more expe-
+rienced with the accounts. This does not negate
+the beneficial interest of the other account holder.
+Conversely, evidence that a transferee controlled
+the funds does not necessarily mean that the transferee
+ took a beneficial interest. Ageing parents may
+set up accounts for the sole purpose of having their
+adult child manage their funds for their benefit.
+65
+    Second, in cases involving an ageing parent
+and an adult child, it may be that the transferee,
+although entitled both legally and beneficially to
+withdraw funds, will refrain from accessing them
+in order to ensure there are sufficient funds to care
+for the parent for the remainder of the parent’s
+life.
+     822
+
+
+66
+        Finally, as previously discussed, the fact that a
+     transferor controlled and used the funds during his
+     or her life is not necessarily inconsistent with an
+     intention at the time of the transfer that the transferee
+      would acquire the balance of the account on
+     the transferor’s death through the gift of the right of
+     survivorship.
+
+        4. Granting of Power of Attorney
+67
+     the transferor’s granting of a power of attorney to
+     the transferee in determining intent. The Court of
+     Appeal in Madsen Estate, at para. 72, noted that
+     the transferor had granted the transferee power of
+     attorney but did not view it “as a factor that sug-
+     gested that the joint account was not set up merely
+     as a tool of convenience for mutual access to
+     funds”. The Court of Appeal in the present case, on
+     the other hand, placed substantial weight on Paula’s
+     father having given her both joint ownership of the
+     accounts and power of attorney in finding that he
+     intended to gift the assets to her. Lang J.A. rea-
+     soned, at para. 34, that had Paula’s father intended
+     only for Paula to assist in the managing of the
+     accounts, this could have been accomplished solely
+     by giving her power of attorney: “With that power
+     of attorney, joint ownership of the investments was
+     unnecessary unless [Paula’s father] intended something
+      more: to ensure the investments were given to
+     Paula and to avoid probate fees, both entirely legiti-
+     mate purposes.” Lang J.A. also found, at para. 35,
+     that the weight to be afforded a particular piece of
+     evidence is a matter within a trial judge’s discretion
+     .
+68
+     the discretion to consider the granting of power of
+     attorney when deciding the transferor’s intention.
+     This will be especially true when other evidence
+     suggests that the transferor appreciated the distinction
+      between granting that power and gifting
+     the right of survivorship. Again however, this evidence
+      will not be determinative and courts should
+     use caution in relying upon it, because it is entirely
+823
+[2007] 1 R.C.S.
+
+
+plausible that the transferor granted power of attorney
+ and placed his or her assets in a joint account
+but nevertheless intended that the balance of the
+account be distributed according to his or her will.
+For example, the transferor may have granted power
+of attorney in order to have assistance with other
+affairs beyond the account and may have made the
+transferee a joint account holder solely for added
+convenience.
+
+   5. Tax Treatment of Joint Accounts
+69
+    Courts have relied to varying degrees on the
+transferor’s tax treatment of the account in determining
+ intent. In Madsen Estate, the trial judge
+relied in part on the fact that the transferor was the
+one who declared and paid income tax on the money
+in the joint accounts in finding that the transferor
+intended a resulting trust ((2004), 13 E.T.R. (3d) 44,
+at para. 29). In the present case, at para. 44, the trial
+judge noted that Paula’s father continued to pay
+taxes on the income in joint accounts but nevertheless
+ found that he intended to gift the joint accounts
+to her. I do not find either of these approaches inap-
+propriate. The weight to be placed on tax-related
+evidence in determining a transferor’s intent should
+be left to the discretion of the trial judge. However,
+whether or not a transferor continues to pay taxes
+on the income earned in the joint accounts during
+his or her lifetime should not be determinative of
+his or her intention in the absence of other evidence
+. For example, it may be that the transferor
+made the transfer for the sole purpose of obtain-
+ing assistance in the management of his or her
+finances and wished to have the assets form a part
+of his or her estate upon his or her death. Or, as
+discussed above, it is open to a transferor to gift
+the right of survivorship to the transferee when the
+joint accounts are opened, but to retain control over
+the use of the funds in the accounts (and therefore
+to continue to pay taxes on them) during his or her
+lifetime.
+     824
+
+
+70
+         As for the matter of taxes on capital gains, it was
+     submitted to this Court that for public policy reasons
+     , transferors should not be permitted to transfer
+      beneficial title while asserting to the tax authorities
+      that such title has not been passed in order to
+     defer or avoid the payment of taxes: appellant’s
+     factum, at p. 24. In principle, I agree. Where, in
+     setting up a joint account, the transferor intends to
+     transfer full legal and equitable title to the assets in
+     the account immediately and the value of the assets
+     reflects a capital gain, taxes on capital gains may
+     become payable in the year the joint account is set
+     up. However, where the transferor’s intention is to
+     gift the right of survivorship to the transferee but
+     retain beneficial ownership of the assets during his
+     or her lifetime, there would appear to be no disposition
+      at the moment of the setting up of the joint
+     account: see s. 73 of the Income Tax Act, R.S.C.
+     1985, c. 1 (5th Supp.). That said, the issue of the
+     proper treatment of capital gains in the setting up
+     of joint accounts was not argued in this appeal. I
+     can say no more than these are matters for determi-
+     nation between the Canada Revenue Agency and
+     taxpayers in specific cases.
+
+     E. Should the Decision of the Trial Judge Be
+        Overturned?
+71
+        The trial judge in the present case found that, at
+     the time of the transfers, Paula and her father had a
+     very close relationship and that Paula “clearly was
+     the person, other than his wife, that he was closest
+      to and most concerned about” (para. 32). Given
+     this relationship and her financial hardships, her
+     father preferred her over her siblings. Indeed, he
+     was estranged from one of his daughters at the time
+     the accounts were set up (para. 25). While he may
+     have grown close to his son-in-law, the trial judge
+     concluded they were simply “good friends” (para.
+     38). Moreover, his wife was seriously ill and not
+     expected to outlive him.
+825
+[2007] 1 R.C.S.
+
+
+72
+   Paula and her family relied on her father for
+financial assistance. While he maintained control
+of the accounts and used the funds for his benefit
+during his life, the trial judge found his concern
+lay with providing for Paula after his death. This is
+consistent with an intention to gift a right of survivorship
+ when the accounts were set up.
+73
+    The statements of Paula’s father while draft-
+ing his last will are also an important indicator of
+intention. Although the statements were made in
+years subsequent to the transfer, the trial judge considered
+ the lawyer’s testimony about them reliable.
+The lawyer had nothing to gain from his testimony.
+This evidence indicates that Paula’s father was of
+the view that the accounts had already been dealt
+with and understood these assets would not form
+part of the estate. I agree with the trial judge that “if
+[the father’s] intention was to have his jointly held
+assets devolve through the estate, they were of such
+magnitude that he would have at least discussed
+that matter with his solicitor, since they constituted
+a substantial proportion of what he owned” (para.
+43), particularly after the lawyer asked him about
+life insurance policies, RRIFs and other assets. All
+of this evidence is consistent with Paula’s father
+having gifted away the right of survivorship when
+the joint accounts were opened, and thus is relevant
+to his intention at the time of the transfer.
+74
+   There is of course the issue of Paula’s father writ-
+ing to financial institutions saying that the transfers
+were not gifts to Paula. Consistent with these letters
+, Paula’s father continued to control the funds
+in the accounts and paid income tax on the earn-
+ings of the investments before his death. The trial
+judge found that Paula’s father’s intention when he
+wrote the letters was “simply to avoid triggering
+an immediate deemed disposition of the assets in
+question, and therefore avoid capital gains taxes”
+(para. 39). I agree with the trial judge that this is
+not inconsistent with an intention that the balance
+     826
+
+
+     remaining in the accounts would belong to Paula
+     on his death.
+75
+     tion of advancement. Paula, although financially
+     insecure, was not a minor child. Karam J. should
+     therefore have applied the presumption of a resulting
+      trust. Nonetheless, this error does not affect
+     the ultimate disposition of the appeal because
+     the trial judge found that the evidence “clearly
+     demonstrate[d] the intention” on the part of the
+     father that the balance left in the joint accounts he
+     had with Paula were to go to Paula alone on his
+     death through survivorship (para. 44). I am satis-
+     fied that this strong finding regarding the father’s
+     actual intention shows that the trial judge’s conclusion
+      would have been the same even if he had
+     applied the presumption of a resulting trust.
+
+     V. Disposition
+76
+        For the reasons above, I would dismiss this
+     appeal, with costs. Michael Pecore asked this
+     Court for costs throughout from Paula or the estate.
+     As noted in the judgment of the Ontario Court of
+     Appeal, at para. 48, the trial judge denied Michael
+     costs out of the estate or from Paula. He did so
+     because he found that on the issues raised in the
+     divorce proceeding, success was divided, Paula
+     made an offer to settle that exceeded the result,
+     and Michael’s conduct was “less than candid”. I see
+     no reason to interfere with that disposition, or that
+     costs should not follow the event in this Court.
+
+       The following are the reasons delivered by
+77
+        Abella J. — Tolstoy wrote at the beginning
+     of Anna Karenina: “Happy families are all alike,
+     every unhappy family is unhappy in its own way.”
+     That unhappiness often finds its painful way into a
+     courtroom.
+827
+[2007] 1 R.C.S.
+
+
+78
+   This appeal involves a father who opened joint
+bank accounts with his daughter, signing documents
+ that specifically confirmed that the daughter
+ was to have a survivorship interest. The daughter
+’s entitlement to the remaining funds in the
+accounts was challenged by her ex-husband. The
+trial judge, who was upheld in the Court of Appeal
+((2005), 19 E.T.R. (3d) 162), applied the presumption
+ of advancement and concluded that the father’s
+intention was to make a gift of the money to his
+daughter ((2004), 7 E.T.R. (3d) 113). In the companion
+ appeal, Madsen Estate v. Saylor, [2007] 1
+S.C.R. 838, 2007 SCC 18, the daughter’s entitlement
+ to the funds was challenged by her siblings.
+The trial judge applied the presumption of resulting
+trust rather than the presumption of advancement,
+and concluded that the father had not intended to
+make a gift to his daughter ((2004), 13 E.T.R. (3d)
+44). The issue in both appeals is which presumption
+ applies and what the consequences of its application
+ are.
+
+Analysis
+79
+    Historically, the presumption of advancement
+has been applied to gratuitous transfers to children,
+regardless of the child’s age. If we are to continue to
+retain the presumption of advancement for parent-
+child transfers, I see no reason, unlike Rothstein
+J., to limit its application to non-adult children. I
+agree with him, however, that the scope of the presumption
+ should be expanded to include transfers
+from mothers as well as from fathers.
+80
+   The presumptions of advancement and resulting
+trust are legal tools which assist in determining the
+transferor’s intention at the time a gratuitous transfer
+ is made. The tools are of particular significance
+when the transferor has died.
+81
+   If the presumption of advancement applies, an
+individual who transfers property into another person
+’s name is presumed to have intended to make
+a gift to that person. The burden of proving that
+the transfer was not intended to be a gift, is on the
+     828
+
+
+     challenger to the transfer. If the presumption of
+     resulting trust applies, the transferor is presumed
+     to have intended to retain the beneficial ownership.
+     The burden of proving that a gift was intended, is
+     on the recipient of the transfer.
+82
+     debate about whether the presumptions, and particularly
+      the presumption of resulting trust, ought
+     to be removed entirely from the judicial tool box in
+     assessing intention. E. E. Gillese and M. Milczynski
+     offer the following criticism, echoed by others, in
+     The Law of Trusts (2nd ed. 2005):
+     . . . modern life has caused many to question the utility
+     of the presumptions. When I voluntarily transfer title to
+     property to another, is it more sensible to assume that
+     I have made a gift or that I transferred title under the
+     assumption that the transferee would hold title for me?
+     Surely, it is more likely that, had I intended to create a
+     trust, I would have taken steps to expressly create the
+     trust and document it. It is more plausible to presume
+     the opposite to that which equity presumed. If someone
+      today gives away property, it is at least as likely
+     that they intended a gift as that they intended to create
+     some type of trust. And, if they did intend to create a
+     trust, they should be held to the requirements that exist
+     for express trusts and not be favoured by the presumption
+      of a resulting trust. The fact that the presumption
+     is out of step with modern thought explains the courts’
+     new approach to such cases, which is to look at all the
+     evidence with an open mind and attempt to determine
+     intention on that basis. If that were the end of the matter,
+     we could say that the presumption of resulting trust had
+     been eradicated. Unfortunately, the courts have not
+     gone that far, and the presumption will operate where
+     the evidence is unclear. [pp. 109-10]
+83
+        Similarly, in Nelson v. Nelson (1995), 184 C.L.R.
+     538, the High Court of Australia dealt with a case
+     involving a mother’s purchase of a house which she
+     then transferred into the names of her children. In
+     his concurring reasons, McHugh J. made the following
+      comments about the presumption of resulting
+      trust:
+829
+[2007] 1 R.C.S.
+
+
+No doubt in earlier centuries, the practices and modes
+of thought of the property owning classes made it more
+probable than not that, when a person transferred property
+ in such circumstances, the transferor did not intend
+the transferee to have the beneficial as well as the legal
+interest in the property. But times change. To my mind
+— and, I think, to the minds of most people — it seems
+much more likely that, in the absence of an express declaration
+ or special circumstances, the transfer of property
+ without consideration was intended as a gift to the
+transferee. . . .
+   A presumption is a useful aid to decision making
+only when it accurately reflects the probability that a
+fact or state of affairs exists or has occurred. . . . If the
+presumptions do not reflect common experience today,
+they may defeat the expectations of those who are una-
+ware of them. [Emphasis added; p. 602.]
+
+84
+   McHugh J.’s allusion to “earlier centuries”
+reflects the origins of the presumption of resulting
+trust. In the 15th century, it was not uncommon for
+landowners in England to have title to their property
+ held by other individuals on the understand-
+ing that it was being held for the “use” of the land-
+owner and subject to his direction. This had the
+effect of separating legal and beneficial ownership.
+The purpose of the scheme was to avoid having to
+pay feudal taxes when land passed from a land-
+owner to his heir.
+
+85
+   It became so common for owners to transfer land
+to be held for their own use, that the courts began
+to presume that a transfer made without consideration
+, or gratuitously, was intended to be for the
+transferor’s own use, giving rise to the presumption
+of resulting use. Because these nominal transfers
+caused a significant loss of revenue to the Crown,
+the Statute of Uses, 1535 was enacted, which “executed
+ the use”, reuniting legal and equitable title (R.
+Chambers, “Resulting Trusts in Canada” (2000),
+38 Alta. L. Rev. 378; Cho Ki Yau Trust (Trustees
+of) v. Yau Estate (1999), 29 E.T.R. (2d) 204 (Ont.
+S.C.J.)).
+
+86
+   The presumption of resulting trust is the ves-
+tigial doctrine that emerged from the evolutionary
+     830
+
+
+     remains of the executed use. The presumption of
+     advancement, on the other hand, evolved as a limited
+      exception to the presumption of resulting trust,
+     generally arising in two situations: when a gratuitous
+      transfer was made by a father to his child; and
+     when a gratuitous transfer was made by a husband
+     to his wife.
+87
+     between husband and wife has been largely aban-
+     doned, both judicially (Pettitt v. Pettitt, [1970]
+     A.C. 777 (H.L.), and Rathwell v. Rathwell, [1978]
+     2 S.C.R. 436) and legislatively (New Brunswick,
+     Marital Property Act, S.N.B. 1980, c. M‑1.1, s.
+     15(1); Prince Edward Island, Family Law Act,
+     R.S.P.E.I. 1988, c. F‑2.1, s. 14(1); Nova Scotia,
+     Matrimonial Property Act, R.S.N.S. 1989, c. 275,
+     s. 21(1); Newfoundland and Labrador, Family Law
+     Act, R.S.N.L. 1990, c. F‑2, s. 31(1); Ontario, Family
+     Law Act, R.S.O. 1990, c. F.3, s. 14; Northwest
+     Territories and Nunavut, Family Law Act, S.N.W.T.
+     1997, c. 18, s. 46(1); Saskatchewan, The Family
+     Property Act, S.S. 1997, c. F‑6.3, s. 50(1); Yukon,
+     Family Property and Support Act, R.S.Y. 2002, c.
+     83, s. 7(2)).
+88
+         But in the case of gratuitous transfers to children
+     , the presumption “appears to retain much of
+     its original vigour” (D. W. M. Waters, M. R. Gillen
+     and L. D. Smith, eds., Waters’ Law of Trusts in
+     Canada (3rd ed. 2005), at p. 381). As noted by
+     Cullity J. in Yau Estate, at para. 35:
+
+     [I]t would be a mistake to extrapolate the treatment of
+     the equitable presumptions in Rathwell out of their matrimonial
+      property context to other situations including
+     those involving the acquisition, or transfer, of property
+     between strangers and between parents and their children
+     .
+89
+        Rothstein J. rejects parental affection as being a
+     basis for the presumption, stating that “a principal
+     justification for the presumption of advancement”
+     in the case of gratuitous transfers to children was
+     the “parental obligation to support their dependent
+831
+[2007] 1 R.C.S.
+
+
+children” (para. 36). With respect, this narrows and
+somewhat contradicts the historical rationale for
+the presumption. Parental affection, no less than
+parental obligation, has always grounded the presumption
+ of advancement.
+
+90
+   It is in fact the rationale of parental affection
+that was cited in Waters’ Law of Trusts in Canada
+as an explanation for the longevity of the presumption
+ of advancement in transfers to children:
+    The presumption of advancement between father
+and child has not been subjected to the same re-
+evaluation which in recent years has overtaken the presumption
+ between husband and wife. . . . The factor of
+affection continues to exist, something which cannot
+be presumed in the relationship between strangers, and
+possibly for this reason the courts have seen no reason
+to challenge its modern significance. [Emphasis added;
+p. 395.]
+91
+   In his article, “Reassessing Gratuitous Transfers
+by Parents to Adult Children” (2006), 25 E.T.P.J.
+174, Professor Freedman acknowledges that while
+the “original rationale of the advancement rule is
+somewhat difficult to pin down” (p. 190), it did not
+arise only from the parental obligation to provide
+support for dependent children:
+Would that satisfaction of legal obligations was the
+explicit rationale of the presumption of advancement
+in the older cases; unfortunately, the authorities are
+inconsistent in approach and lead to little certainty
+in justifying doctrine. Indeed, this was decidedly an
+inquiry into gifting, not compelling support payments,
+and gratuitous transfers were recognised as advance-
+ments in a number of situations that are problematic for
+this elegant explanation of the equitable doctrine — for
+example, where the donee was of legal age and even
+independent of his father, or was already provided for,
+or was illegitimate, or where the loco parentis principle
+ was liberally applied to a wider class of people that
+would not be the object of any enforceable legal obligation
+. While later cases have gone on to demonstrate
+the highly refined skills of both counsel and judges in
+distinguishing one case from another based on factual
+considerations in determining whether the presumption
+ ought to apply in any given circumstance, I would
+     832
+
+
+     suggest that no uniform principle can be found in the
+     cases. The simple fact is that the extent of the obligation
+      between the transferor and transferee was never
+     the focus of the inquiry, only the probable intent of the
+     transferor in seeking to retain the beneficial interest for
+     himself in the context of a given relationship that on its
+     face gave rise to reasonable expectations that such gifts
+     might be forthcoming. [Emphasis added; pp. 190-91.]
+92
+        Even at the elemental stage in the development
+     of the doctrine, the court in Grey (Lord) v. Grey
+     (Lady) (1677), 2 Swans. 594, 36 E.R. 742, identified
+     natural affection as a rationale for the application
+     of the presumption of advancement:
+        For the natural consideration of blood and affection
+     is so apparently predominant, that those acts which
+     would imply a trust in a stranger, will not do so in a
+     son; and, ergo, the father who would check and control
+     the appearance of nature, ought to provide for himself
+     by some instrument, or some clear proof of a declaration
+      of trust, and not depend upon any implication of
+     law . . . . [Emphasis added; p. 743.]
+93
+        In Yau Estate, Cullity J. also observed that
+     parental affection is a rationale for the presumption
+     , leading Professor Freedman in his article to
+     conclude:
+     In other words, parental affection grounds the presumption
+      and is the greatest indicator of the probable intent
+     of the transferor. This is an attractive argument which I
+     suggest most would agree accords with common experience
+     . [p. 196]
+94
+         Because parental affection has historically been
+     seen as a basis for the presumption of advancement,
+     it was routinely applied to adult as well as to minor
+     children. In Sidmouth v. Sidmouth (1840), 2 Beav.
+     447, 48 E.R. 1254, for example, the court applied it
+     in the case of a gratuitous transfer to an adult son,
+     explaining:
+833
+[2007] 1 R.C.S.
+
+
+    As far as acts strictly contemporaneous appear, there
+does not appear to be anything to manifest an intention
+to make the son a trustee for the father. The circumstance
+ that the son was adult does not appear to me to be
+material. It is said that no establishment was in contem-
+plation, and that no necessity or occasion for advancing
+the son had occurred, but in the relation between parent
+and child, it does not appear to me that an observation
+of this kind can have any weight. The parent may judge
+for himself when it suits his own convenience, or when
+it will be best for his son, to secure him any benefit
+which he voluntarily thinks fit to bestow upon him, and
+it does not follow that because the reason for doing it
+is not known, there was no intention to advance at all.
+[Emphasis added; p. 1258.]
+
+(See also Scawin v. Scawin (1841), 1 Y. & C.C.C.
+65, 62 E.R. 792, and Hepworth v. Hepworth (1870),
+L.R. 11 Eq. 10.)
+
+95
+   It is true, as was noted in Oosterhoff on Trusts:
+Text, Commentary and Materials (6th ed. 2004), at
+pp. 581-86, that some courts in the mid-90s began
+questioning whether the presumption of advancement
+ should apply to transfers between parents
+and their adult children (see Dreger (Litigation
+Guardian of) v. Dreger (1994), 5 E.T.R. (2d) 250
+(Man. C.A.); Cooper v. Cooper Estate (1999), 27
+E.T.R. (2d) 170 (Sask. Q.B.), and McLear v. McLear
+Estate (2000), 33 E.T.R. (2d) 272 (Ont. S.C.J.)).
+
+96
+   But in most cases, the presumption of advancement
+ continues to be applied to gratuitous transfers
+from parents to their children, regardless of age. In
+Madsen Estate v. Saylor, for example, the companion
+ appeal, the Ontario Court of Appeal found that
+the trial judge erred in applying the presumption
+of resulting trust, concluding that “the presumption
+ of advancement can still apply to transfers of
+property from a father to a child, including an independent
+ adult child” ((2005), 261 D.L.R. (4th) 597,
+at para. 21).
+
+97
+   And in this appeal, the Ontario Court of Appeal
+took no issue with the trial judge’s application of
+the presumption of advancement to the transfer by
+the father, notwithstanding that the beneficiary of
+the transfer, his daughter, was an adult at the time.
+      834
+
+
+      (See also Young v. Young (1958), 15 D.L.R. (2d) 138
+      (B.C.C.A.); Oliver Estate v. Walker, [1984] B.C.J.
+      No. 460 (QL) (S.C.); Dagle v. Dagle Estate (1990),
+      38 E.T.R. 164 (P.E.I.S.C., App. Div.); Christmas
+      Estate v. Tuck (1995), 10 E.T.R. (2d) 47 (Ont. Ct.
+      (Gen. Div.)); Reain v. Reain (1995), 20 R.F.L. (4th)
+      30 (Ont. Ct. (Gen. Div.)); Sodhi v. Sodhi, [1998] 10
+      W.W.R. 673 (B.C.S.C.); Re Wilson (1999), 27 E.T.R.
+      (2d) 97 (Ont. Ct. (Gen. Div.)); Yau Estate; Kappler
+      v. Beaudoin, [2000] O.J. No. 3439 (QL) (S.C.J.);
+      Clarke v. Hambly (2002), 46 E.T.R. (2d) 166, 2002
+      BCSC 1074; and Plamondon v. Czaban (2004), 8
+      E.T.R. (3d) 135, 2004 ABCA 161.)
+98
+      of advancement in gratuitous transfers to children
+      cannot, therefore, be attributed only to the financial
+      dependency of children on their father or on the
+      father’s obligation to support his children. Natural
+      affection also underlay the presumption that a
+      parent who made a gratuitous transfer to a child of
+      any age, intended to make a gift.
+99
+         Rothstein J. relied too on the argument made in
+      McLear, at paras. 40-41, against applying the presumption
+       of advancement to adult children, namely,
+      that since people are “living longer” and there are
+      more aging parents who will require assistance in
+      the managing of their daily financial affairs, it is
+      “dangerous to presume that the elderly parent is
+      making a gift each time he or she puts the name of
+      the assisting child on an asset”.
+100
+          This, with respect, seems to me to be a flawed
+      syllogism. The intention to have an adult child
+      manage a parent’s financial affairs during one’s
+      lifetime is hardly inconsistent with the intention
+      to make a gift of money in a joint account to that
+      child. Parents generally want to benefit their children
+       out of love and affection. If children assist
+      them with their affairs, this cannot logically be a
+      reason for assuming that the desire to benefit them
+      has been displaced. It is equally plausible that an
+      elderly parent who gratuitously enters into a joint
+835
+[2007] 1 R.C.S.
+
+
+bank account with an adult child on whom he or
+she depends for assistance, intends to make a gift
+in gratitude for this assistance. In any event, if the
+intention is merely to have assistance in financial
+management, a power of attorney would suffice, as
+would a bank account without survivorship rights.
+
+   The fact that some parents may enter into joint
+bank accounts because of the undue influence of an
+adult child, is no reason to attribute the same impro-
+priety to the majority of parent-child transfers. The
+operative paradigm should be based on the norm
+of mutual affection, rather than on the exceptional
+exploitation of that affection by an adult child.
+
+   I see no reason to claw back the common law
+in a way that disregards the lifetime tenacity of
+parental affection by now introducing a limitation
+on the presumption of advancement by restricting
+its application to minor children. Since the presumption
+ of advancement emerged no less from
+affection than from dependency, and since parental
+affection flows from the inherent nature of the relationship
+, not of the dependency, the presumption
+of advancement should logically apply to all gratuitous
+ transfers from parents to any of their children
+, regardless of the age or dependency of the
+child or the parent. The natural affection parents
+are presumed to have for their adult children when
+both were younger, should not be deemed to atrophy
+ with age.
+
+   While, as Rothstein J. observes, affection arises
+in many relationships, familial or otherwise, it is
+not affection alone that had earned the presumption
+ of advancement for transfers between father
+and child. It was the uniqueness of the parental
+ relationship, not only in the legal obligations
+involved, but, more significantly, in the protective
+emotional ties flowing from the relationship. These
+ties are not attached only to the financial depend-
+ence of the child. Affection between siblings, other
+relatives, or even friends, can undoubtedly be used
+as an evidentiary basis for assessing a transferor’s
+      836
+
+
+      intentions, but the reason none of these other relationships
+       has ever inspired a legal presumption is
+      because, as a matter of common sense, none is as
+      predictable of intention.
+104
+         It seems to me that bank account documents
+      which specifically confirm a survivorship interest
+      , should be deemed to reflect an intention that
+      what has been signed, is sincerely meant. I appreci-
+      ate that in Re Mailman Estate, [1941] S.C.R. 368,
+      Niles v. Lake, [1947] S.C.R. 291, and Edwards v.
+      Bradley, [1957] S.C.R. 599, this Court said that
+      the wording of bank documents was irrelevant
+      in determining the intention behind joint bank
+      accounts with respect to beneficial title. Fifty years
+      later, however, I have difficulty seeing any continu-
+      ing justification for ignoring the presumptive, albeit
+      rebuttable, relevance of unambiguous language in
+      banking documents in determining intention. I
+      think it would come as a surprise to most Canadian
+      parents to learn that in the creation of joint bank
+      accounts with rights of survivorship, there is little
+      evidentiary value in the clear language of what they
+      have voluntarily signed.
+105
+         It is significant to me that even though the presumption
+       of advancement has generally been
+      replaced in the spousal context by the presumption
+       of resulting trust, it has nonetheless been con-
+      ceptually retained in the case of spousal property
+       which is jointly owned, such as joint bank
+      accounts. Section 14(a) of the Ontario Family Law
+      Act, for example, provides that “the fact that property
+       is held in the name of spouses as joint tenants
+      is proof, in the absence of evidence to the contrary,
+      that the spouses are intended to own the property
+      as joint tenants”. Section 14(b) further specifies
+      that “money on deposit in the name of both spouses
+      shall be deemed to be in the name of the spouses as
+      joint tenants for the purposes of clause (a)”.
+837
+[2007] 1 R.C.S.
+
+
+   Equally, a presumed intention of joint ownership
+in the case of jointly held property should apply
+to parent-child relationships, and the appropriate
+mechanism for achieving this objective, absent legislative
+ intervention, is the application of the presumption
+ of advancement.
+
+   The trial judge, whose conclusion was upheld
+by the Court of Appeal, properly applied the correct
+ legal presumption to the facts of the case. Like
+Rothstein J., therefore, I would dismiss the appeal.
+
+  Appeal dismissed with costs.
+
+  Solicitors for the appellant: Miller Thomson,
+Toronto.
+
+  Solicitors for the respondents: McPhadden,
+Samac, Merner, Barry, Toronto.

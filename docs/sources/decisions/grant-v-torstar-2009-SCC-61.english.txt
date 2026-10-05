@@ -1,0 +1,3223 @@
+640
+
+
+Peter Grant and Grant Forest Products
+Inc. Appellants/Respondents on cross-appeal
+
+v.
+
+Torstar Corporation, Toronto Star
+Newspapers Limited, Bill Schiller,
+John Honderich and Mary Deanne
+Shears Respondents/Appellants on cross-
+appeal
+
+and
+
+Ottawa Citizen, Canadian Newspaper
+Association, Ad IDEM/Canadian Media
+Lawyers Association, RTNDA Canada/
+Association of Electronic Journalists,
+Magazines Canada, Canadian Association
+of Journalists, Canadian Journalists for
+Free Expression, Writers’ Union of Canada,
+Professional Writers Association of Canada,
+Book and Periodical Council, PEN Canada,
+Canadian Broadcasting Corporation,
+Canadian Civil Liberties Association and
+Danno Cusson Interveners
+
+Indexed as: Grant v. Torstar Corp.
+Neutral citation: 2009 SCC 61.
+File No.: 32932.
+2009: April 23; 2009: December 22.
+Present: McLachlin C.J. and Binnie, LeBel, Deschamps,
+Fish, Abella, Charron, Rothstein and Cromwell JJ.
+
+ON APPEAL FROM THE COURT OF APPEAL FOR
+ONTARIO
+
+    Torts — Defamation — Defences — Responsible communication
+ on matters of public interest — Newspaper
+and reporter being sued for libel after article was published
+ concerning proposed private golf course development
+ — Whether traditional defences for defamatory
+statements of fact are inconsistent with values underlying
+ freedom of expression — Whether law of defamation
+641
+[2009] 3 R.C.S.
+
+
+should be modified to recognize defence of responsible
+communication on matters of public interest.
+   Torts — Defamation — Defences — Responsible communication
+ on matters of public interest — Elements of
+defence — Respective roles of judge and jury.
+    Torts — Defamation — Defences — Fair comment —
+Newspaper and reporter being sued for libel after article
+was published concerning proposed private golf course
+development — Whether trial judge erred in his charge
+to jury on fair comment.
+    G and his company brought a libel action against a
+newspaper and reporter after an article was published
+concerning a proposed private golf course development
+on G’s lakefront estate. The story aired the views of
+local residents who were critical of the development’s
+environmental impact and suspicious that G was exer-
+cising political influence behind the scenes to secure
+government approval for the new golf course. The article
+ quoted a neighbour who said that “[e]veryone thinks
+it’s a done deal” because of G’s influence. The reporter,
+an experienced journalist, attempted to verify the allegations
+ in the article, including asking G for comment,
+which G chose not to provide. At trial, without rejecting
+ the possibility of an expanded qualified privilege
+defence based on a concept of public interest responsible
+ journalism, the trial judge ruled that the defence
+would not apply in these circumstances and the case
+went to the jury essentially on the defences of truth and
+fair comment. The jury rejected these defences and
+awarded the plaintiffs general, aggravated and punitive
+damages. The Court of Appeal concluded that the trial
+judge had erred in failing to leave the new responsible
+ journalism defence with the jury. It also concluded
+that the jury instructions were flawed, and ordered a
+new trial. G and his company appealed to reinstate the
+jury verdict. The newspaper defendants cross-appealed,
+asking the Court to apply the new defence in this case,
+and dismiss the action. In the alternative, they asked
+the Court to dismiss the action on the basis of fair comment
+.
+  Held: The appeal and the cross-appeal should be dismissed
+.
+642
+
+
+    Per McLachlin C.J. and Binnie, LeBel, Deschamps,
+Fish, Charron, Rothstein and Cromwell JJ.: The law of
+defamation should be modified to provide greater protection
+ for communications on matters of public interest
+. The current law with respect to statements that are
+reliable and important to public debate does not give
+adequate weight to the constitutional value of free
+expression. The first two rationales for the freedom of
+expression guarantee in s. 2(b) of the Canadian Charter
+of Rights and Freedoms — the proper functioning of
+democratic governance and getting at the truth —
+squarely apply to communications on matters of public
+interest, even those which contain false imputations.
+Freewheeling debate on matters of public interest is to
+be encouraged and the vital role of the communications
+media in providing a vehicle for such debate is explicitly
+ recognized in the text of s. 2(b) itself. While the
+law must protect reputation, the current level of protection
+ — in effect a regime of strict liability — is not
+justifiable. The law of defamation accords no protection
+for statements on matters of public interest published to
+the world at large if they cannot be proven to be true.
+To insist on court-established certainty in reporting on
+matters of public interest may have the effect not only of
+preventing communication of facts which a reasonable
+person would accept as reliable and which are relevant
+and important to public debate, but also of inhibiting
+political discourse and debate on matters of public
+importance, and impeding the cut and thrust of discussion
+ necessary to discovery of the truth. Although the
+right to free expression does not confer a licence to ruin
+reputation, when proper weight is given to the constitutional
+ value of free expression on matters of public
+interest, the balance tips in favour of broadening the
+defences available to those who communicate facts it is
+in the public’s interest to know. A consideration of the
+jurisprudence of other common law democracies also
+favours replacing the current Canadian law with a rule
+that gives greater scope to freedom of expression while
+offering adequate protection of reputation. A defence
+that would allow publishers to escape liability if they
+can establish that they acted responsibly in attempting
+to verify the information on a matter of public interest
+ represents a reasonable and proportionate response
+to the need to protect reputation while sustaining the
+public exchange of information that is vital to modern
+Canadian society. The law of defamation should therefore
+ be modified to recognize a defence of responsible
+communication on matters of public interest. [7] [52-
+54] [57-58] [65-66] [85-86]
+643
+[2009] 3 R.C.S.
+
+
+   The proposed change to the law should be viewed as
+a new defence, leaving the traditional defence of qualified
+ privilege intact. To be protected by the defence of
+responsible communication, first, the publication must
+be on a matter of public interest. Second, the defendant
+must show that publication was responsible, in that he
+or she was diligent in trying to verify the allegation(s),
+having regard to all the relevant circumstances. [95]
+[98-99]
+   In determining whether a publication is on a matter
+of public interest, the judge must consider the subject
+matter of the publication as a whole. The defamatory
+statement should not be scrutinized in isolation. To be
+of public interest, the subject matter must be shown
+to be one inviting public attention, or about which the
+public, or a segment of the public, has some substantial
+concern because it affects the welfare of citizens, or one
+to which considerable public notoriety or controversy
+has attached. Public interest is not confined to publications
+ on government and political matters, nor is it
+necessary that the plaintiff be a “public figure”. [101]
+[105-106]
+    The judge determines whether the impugned statement
+ relates to a matter of public interest. If public
+interest is shown, the jury decides whether on the evidence
+ the defence of responsible communication is
+established. The following factors may aid in determining
+ whether a defamatory communication on a matter
+of public interest was responsibly made: (a) the seriousness
+ of the allegation; (b) the public importance of
+the matter; (c) the urgency of the matter; (d) the status
+and reliability of the source; (e) whether the plaintiff’s
+side of the story was sought and accurately reported;
+(f) whether the inclusion of the defamatory statement
+was justifiable; (g) whether the defamatory statement’s
+public interest lay in the fact that it was made rather
+than its truth (“reportage”); and (h) any other relevant
+circumstances. [110] [126] [128]
+    While the “repetition rule” holds that repeating a
+libel has the same legal consequences as originating it,
+under the reportage exception, the repetition rule does
+not apply to fairly reported statements whose public
+interest lies in the fact that they were made rather than
+in their truth or falsity. If a dispute is itself a matter of
+public interest and the allegations are fairly reported,
+the report will be found to be responsible even if some
+of the statements made may be defamatory and untrue,
+provided: (1) the report attributes the statement to a
+person, preferably identified, thereby avoiding total
+644
+
+
+unaccountability; (2) the report indicates, expressly or
+implicitly, that its truth has not been verified; (3) the
+report sets out both sides of the dispute fairly; and (4)
+the report provides the context in which the statements
+were made. [119-120]
+    The evidence in this case revealed a basis for three
+defences: justification, fair comment, and responsible
+ communication on a matter of public interest. All
+three defences should have been left to the jury. It was
+open to the jury to consider the statement attributed to
+a neighbour that “[e]veryone thinks it’s a done deal” as
+a comment, or statement of opinion. This would raise
+the defence of fair comment. While the defence was left
+to the jurors, the trial judge failed to instruct them that
+since the reporter was the conduit for the comment and
+not its maker, the fact that he did not honestly believe
+it could not be used as a foundation for finding malice
+unless in the context of the article, he had adopted the
+comment as his own. Additionally, the “fair-minded”
+component of the traditional test should not form part
+of a charge on fair comment. These problems in the trial
+judge’s charge could have led the jury to wrongly conclude
+ that the fair comment defence had been defeated
+by malice. It was also open to the jury to consider the
+critical “done deal” remark as a statement of fact. Read
+literally, this statement can be taken as an assertion that
+government approval for the development was actually
+already sealed, either formally behind closed doors
+or by tacit understanding. This raises the defence of
+responsible communication on a matter of public interest
+. The trial judge did not leave this defence or any
+similar defence to the jury. Taken together, the errors
+set out amount to a substantial wrong or miscarriage of
+justice and require a new trial pursuant to s. 134(6) of
+the Ontario Courts of Justice Act. [136-140]
+   Per Abella J.: The majority’s reasons for adding the
+“responsible communication” defence to Canadian defamation
+ law were agreed with, as was their view that
+determining the availability of this defence entails a
+two-step analysis. However, the jury should not decide
+the second step. Deciding whether the applicable standard
+ of responsibility has been met in a given case is, like
+the public interest analysis in the first step, a matter for
+the judge to determine. The responsible communication
+645
+[2009] 3 R.C.S.
+
+
+analysis requires that the defendant’s interest in freely
+disseminating information and the public’s interest in
+the free flow of information be weighed against the
+plaintiff’s interest in protecting his or her reputation.
+This exercise involves balancing freedom of expression
+, freedom of the press, the protection of reputation,
+privacy concerns, and the public interest. Weighing
+these often competing interests is a legal determination,
+thereby taking the defence beyond the jury’s jurisdiction
+ except for disputed facts, and squarely into judicial
+territory. [142-143] [145]
+Cases Cited
+By McLachlin C.J.
+    Referred to: Cusson v. Quan, 2007 ONCA 771, 231
+O.A.C. 277, rev’d 2009 SCC 62, [2009] 3 S.C.R. 712;
+WIC Radio Ltd. v. Simpson, 2008 SCC 40, [2008] 2
+S.C.R. 420; Horrocks v. Lowe, [1975] A.C. 135; Toogood
+v. Spyring (1834), 1 C.M. & R. 181, 149 E.R. 1044; Ross
+v. New Brunswick Teachers’ Assn., 2001 NBCA 62,
+201 D.L.R. (4th) 75; Douglas v. Tucker, [1952] 1 S.C.R.
+275; Globe and Mail Ltd. v. Boland, [1960] S.C.R. 203;
+Banks v. Globe and Mail Ltd., [1961] S.C.R. 474; Jones
+v. Bennett, [1969] S.C.R. 277; Parlett v. Robinson (1986),
+5 B.C.L.R. (2d) 26; Grenier v. Southam Inc., [1997] O.J.
+No. 2193 (QL); Leenen v. Canadian Broadcasting Corp.
+(2000), 48 O.R. (3d) 656, aff’d (2001), 54 O.R. (3d) 612;
+Young v. Toronto Star Newspapers Ltd. (2003), 66 O.R.
+(3d) 170, aff’d (2005), 77 O.R. (3d) 680; Reference re
+Alberta Statutes, [1938] S.C.R. 100; Saumur v. City of
+Quebec, [1953] 2 S.C.R. 299; Switzman v. Elbling, [1957]
+S.C.R. 285; Hill v. Church of Scientology of Toronto,
+[1995] 2 S.C.R. 1130; New York Times Co. v. Sullivan,
+376 U.S. 254 (1964); R. v. Salituro, [1991] 3 S.C.R. 654;
+Irwin Toy Ltd. v. Quebec (Attorney General), [1989] 1
+S.C.R. 927; R. v. Keegstra, [1990] 3 S.C.R. 697; R. v.
+Zundel, [1992] 2 S.C.R. 731; R. v. Lucas, [1998] 1 S.C.R.
+439; R. v. Dyment, [1988] 2 S.C.R. 417; R. v. O’Connor,
+[1995] 4 S.C.R. 411; Ballina Shire Council v. Ringland
+(1994), 33 N.S.W.L.R. 680; Curtis Publishing Co. v. Butts,
+388 U.S. 130 (1967); Lange v. Australian Broadcasting
+Corp. (1997), 145 A.L.R. 96; Lange v. Atkinson, [1998]
+3 N.Z.L.R. 424; Lange v. Atkinson, [2000] 1 N.Z.L.R.
+257; Lange v. Atkinson, [2000] 3 N.Z.L.R. 385;
+Du Plessis v. De Klerk, 1996 (3) SA 850; National Media
+Ltd. v. Bogoshi, 1998 (4) SA 1196; Reynolds v. Times
+Newspapers Ltd., [1999] 4 All E.R. 609; Jameel v. Wall
+Street Journal Europe SPRL, [2006] UKHL 44, [2007] 1
+646
+
+
+A.C. 359, rev’g [2005] EWCA Civ 74, [2005] 4 All E.R.
+356; Seaga v. Harper, [2008] UKPC 9, [2008] 1 All E.R.
+965; Charman v. Orion Publishing Group Ltd., [2007]
+EWCA Civ 972, [2008] 1 All E.R. 750; Theophanous v.
+Herald & Weekly Times Ltd. (1994), 124 A.L.R. 1; N.M.
+v. Smith, [2007] ZACC 6, 2007 (5) SA 250; Khumalo v.
+Holomisa, [2002] ZACC 12, 2002 (5) SA 401; Mthembi-
+Mahanyele v. Mail & Guardian Ltd., [2004] ZASCA
+67, 2004 (6) SA 329; Loutchansky v. Times Newspapers
+Ltd., [2001] EWCA Civ 1805, [2002] 1 All E.R. 652;
+London Artists, Ltd. v. Littler, [1969] 2 All E.R. 193;
+Simpson v. Mair, 2004 BCSC 754, 31 B.C.L.R. (4th) 285;
+Miller v. Associated Newspapers Ltd., [2005] EWHC
+557 (QB) (BAILII); Galloway v. Telegraph Group Ltd.,
+[2004] EWHC 2786 (QB) (BAILII); “Truth” (N.Z.) Ltd.
+v. Holloway, [1960] 1 W.L.R. 997; Al-Fagih v. H.H.
+Saudi Research & Marketing (U.K.) Ltd., [2001] EWCA
+Civ 1634 (BAILII); Prince Radu of Hohenzollern v.
+Houston, [2007] EWHC 2735 (QB) (BAILII); Roberts
+v. Gable, [2007] EWCA Civ 721, [2008] 2 W.L.R. 129;
+Bonnick v. Morris, [2002] UKPC 31, [2003] 1 A.C. 300;
+Pizza Pizza Ltd. v. Toronto Star Newspapers Ltd. (1998),
+42 O.R. (3d) 36; Scott v. Fulton, 2000 BCCA 124, 73
+B.C.L.R. (3d) 392.
+By Abella J.
+   Referred to: Edmonton Journal v. Alberta (Attorney
+General), [1989] 2 S.C.R. 1326; Canadian Broadcasting
+Corporation v. New Brunswick (Attorney General),
+[1991] 3 S.C.R. 459; Hill v. Church of Scientology
+of Toronto, [1995] 2 S.C.R. 1130; WIC Radio Ltd. v.
+Simpson, 2008 SCC 40, [2008] 2 S.C.R. 420; Australian
+Broadcasting Corp. v. Reading, [2004] NSWCA 411
+(AustLII); Jameel v. Wall Street Journal Europe SPRL,
+[2005] EWCA Civ 74, [2005] 4 All E.R. 356.
+Statutes and Regulations Cited
+Canadian Charter of Rights and Freedoms, ss. 1, 2(b).
+Courts of Justice Act, R.S.O. 1990, c. C.43, ss. 108,
+   134(6).
+Jury Act, R.S.A. 2000, c. J-3, s. 17(1).
+Libel Act, 1792 (U.K.), 32 Geo. 3, c. 60.
+Libel and Slander Act, R.S.O. 1990, c. L.12, s. 14.
+Privacy Act, R.S.B.C. 1996, c. 373, s. 1(1).
+Privacy Act, R.S.M. 1987, c. P125, s. 2(1).
+Privacy Act, R.S.N.L. 1990, c. P-22, s. 3.
+Privacy Act, R.S.S. 1978, c. P-24, s. 2.
+Supreme Court Rules, B.C. Reg. 221/90, r. 39(27).
+Authors Cited
+Anderson, David A. “Is Libel Law Worth Reforming?”
+  (1991-1992), 140 U. Pa. L. Rev. 487.
+647
+[2009] 3 R.C.S.
+
+
+Beattie, Kate. “New Life for the Reynolds ‘Public Interest
+    Defence’? Jameel v Wall Street Journal Europe”,
+   [2007] E.H.R.L.R. 81.
+Boivin, Denis W. “Accommodating Freedom of Expression
+    and Reputation in the Common Law of Defamation
+   ” (1997), 22 Queen’s L.J. 229.
+Bonnington, Alistair J. “Reynolds Rides Again” (2006),
+   11 Comms. L. 147.
+Brown, Raymond E. The Law of Defamation in Canada,
+   vols. 2-4, 2nd ed. Scarborough, Ont.: Carswell, 1999
+   (loose-leaf updated 2008, release 3).
+Gatley on Libel and Slander, 11th ed. by Patrick Milmo
+   and W. V. H. Rogers. London: Sweet & Maxwell,
+   2008.
+Hooper, David. “The Importance of the Jameel Case”,
+   [2007] Ent. L.R. 62.
+Kenyon, Andrew T. “Lange and Reynolds Qualified
+   Privilege: Australian and English Defamation Law
+   and Practice” (2004), 28 Melb. U.L. Rev. 406.
+New South Wales. Law Reform Commission. Report 75.
+   Defamation, September 1995 (online: http://www.
+   lawlink.nsw.gov.au/lrc.nsf/pages/R75CHP3).
+Smolla, Rodney A. “Balancing Freedom of Expression
+   and Protection of Reputation Under Canada’s Charter
+    of Rights and Freedoms”, in David Schneiderman
+   , ed., Freedom of Expression and the Charter.
+   Scarborough, Ont.: Thomson Professional Publishing
+   Canada, 1991, 272.
+Weaver, Russell L., et al. “Defamation Law and Free
+   Speech: Reynolds v. Times Newspapers and the
+   English Media” (2004), 37 Vand. J. Transnat’l L.
+   1255.
+
+   APPEAL and CROSS-APPEAL from a judgment
+ of the Ontario Court of Appeal (Rosenberg,
+Feldman and Simmons JJ.A.), 2008 ONCA 796, 92
+O.R. (3d) 561, 301 D.L.R. (4th) 129, 243 O.A.C. 120,
+61 C.C.L.T. (3d) 195, 71 C.P.R. (4th) 352, [2008]
+O.J. No. 4783 (QL), 2008 CarswellOnt 7155, set-
+ting aside a decision of Rivard J. and a jury award
+and ordering a new trial. Appeal and cross-appeal
+dismissed.
+   Peter A. Downard, Catherine M. Wiley and
+Dawn K. Robertson, for the appellants/respondents
+on cross-appeal.
+   Paul B. Schabas, Erin Hoult and Iris Fischer,
+for the respondents/appellants on cross-appeal.
+   Richard G. Dearden and Wendy J. Wagner, for
+the intervener the Ottawa Citizen.
+648
+
+
+   Brian MacLeod Rogers and Blair Mackenzie,
+for the interveners the Canadian Newspaper
+Association, Ad IDEM/Canadian Media Lawyers
+Association, RTNDA Canada/Association of
+Electronic Journalists, Magazines Canada, the
+Canadian Association of Journalists, the Canadian
+Journalists for Free Expression, the Writers’ Union
+of Canada, the Professional Writers Association
+of Canada, the Book and Periodical Council, and
+PEN Canada.
+  Daniel J. Henry, for the intervener the Canadian
+Broadcasting Corporation.
+
+   Patricia D. S. Jackson, Andrew E. Bernstein and
+Jennifer A. Conroy, for the intervener the Canadian
+Civil Liberties Association.
+
+   Ronald F. Caza and Jeff G. Saikaley, for the
+intervener Danno Cusson.
+
+  The judgment of McLachlin C.J. and Binnie,
+LeBel, Deschamps, Fish, Charron, Rothstein and
+Cromwell JJ. was delivered by
+
+     the chieF justice —
+I.
+
+[1] Freedom of expression is guaranteed by s. 2(b)
+of the Canadian Charter of Rights and Freedoms.
+It is essential to the functioning of our democracy,
+to seeking the truth in diverse fields of inquiry, and
+to our capacity for self-expression and individual
+realization.
+[2] But freedom of expression is not absolute.
+One limitation on free expression is the law of defamation
+, which protects a person’s reputation from
+unjustified assault. The law of defamation does
+not forbid people from expressing themselves. It
+merely provides that if a person defames another,
+that person may be required to pay damages to the
+other for the harm caused to the other’s reputation.
+However, if the defences available to a publisher
+are too narrowly defined, the result may be “libel
+chill”, undermining freedom of expression and of
+the press.
+649
+[2009] 3 R.C.S.
+
+
+[3] Two conflicting values are at stake — on the
+one hand freedom of expression and on the other
+the protection of reputation. While freedom of
+expression is a fundamental freedom protected
+by s. 2(b) of the Charter, courts have long recognized
+ that protection of reputation is also worthy of
+legal recognition. The challenge of courts has been
+to strike an appropriate balance between them in
+articulating the common law of defamation. In this
+case, we are asked to consider, once again, whether
+this balance requires further adjustment.
+
+[4] Peter Grant and his company Grant Forest
+Products Inc. (“GFP”) sued the Toronto Star in defamation
+ for an article the newspaper published on
+June 23, 2001, concerning a proposed private golf
+course development on Grant’s lakefront estate.
+The story aired the views of local residents who
+were critical of the development’s environmental
+ impact and suspicious that Grant was exercis-
+ing political influence behind the scenes to secure
+government approval for the new golf course. The
+reporter, an experienced journalist named Bill
+Schiller, attempted to verify the allegations in the
+article, including asking Grant for comment, which
+Grant chose not to provide. The article was published
+, and Grant brought this libel action.
+
+[5] The trial proceeded with judge and jury. The
+jury found the respondents (the “Star defendants”)
+liable and awarded general, aggravated and punitive
+ damages totalling $1.475 million.
+
+[6] The Star defendants argue that what hap-
+pened in this trial shows that something is wrong
+with the traditional law of libel: a journalist or
+publisher who diligently tries to verify a story on
+a matter of public interest before publishing it can
+still be held liable in defamation for massive damages
+, simply because the journalist cannot prove to
+the court that all of the story was true or bring it
+within one of the “privileged” categories exempted
+from the need to prove truth. This state of the law,
+650
+
+
+they argue, unduly curbs free expression and chills
+reporting on matters of public interest, depriving
+the public of information it should have. The Star
+defendants ask this Court to revise the defences
+available to journalists to address these criticisms,
+following the lead of courts in the United States
+and England. Mr. Grant and his corporation, for
+their part, argue that the common law now strikes
+the proper balance and should not be changed.
+
+[7] For the reasons that follow, I conclude that
+the common law should be modified to recognize
+a defence of responsible communication on matters
+of public interest. In view of this new defence, as
+well as errors in the jury instruction on fair comment
+, a new trial should be ordered.
+
+II. Facts
+
+[8] Peter Grant owns and operates a successful
+forestry business, GFP, in northern Ontario. GFP’s
+executive offices and Grant’s home are located
+on a lakefront estate on the Twin Lakes near New
+Liskeard, Ontario. In the mid-1990s, Grant decided
+to build a private three-hole golf course on the property
+, which he named Frog’s Breath. In 1998, he
+began to host an annual charitable golf tournament
+and decided to expand the course to nine holes. For
+this he needed to purchase some adjacent Crown
+land and secure various government approvals.
+
+[9] Neighbouring cottagers and local residents
+opposed the development, citing environmental
+impact on the lake and quality-of-life concerns.
+They sent letters of objection to the Ontario Ministry
+of Natural Resources (“MNR”), which had the ultimate
+ say on approving Grant’s plan, and retained
+an environmental consultant who evaluated the
+651
+[2009] 3 R.C.S.
+
+
+plan. The consultant substantiated their fears of a
+detrimental impact on the lake and its surround-
+ings, disputing the positive claims made by Grant’s
+own experts.
+
+[10] On January 13, 2001, the Hudson Lakes
+Association (“HLA”) held a public meeting at which
+Grant’s representatives explained the proposal and
+tried to assuage local concerns. Suspicion about the
+integrity of the approval process was already wide-
+spread, however. Grant was a long-time supporter
+of the Ontario Progressive Conservative Party, and
+a personal friend of Mike Harris, who was then the
+premier of the province. While he endeavoured to
+maintain a low public profile, his wealth and close
+ties to the government attracted the notice of watch-
+ers of the Ontario business and political scene.
+
+[11] Coincidentally, on the same day as the HLA’s
+public meeting on the Grant development, the
+Toronto Star had published an article by veteran
+reporter Bill Schiller headlined “Slicing through
+the rules: Genesis of a land deal — How Harris
+friends overcame fish habitat controls to build their
+dream”. The article told of how another of Harris’s
+friends, Peter Minogue, had withstood MNR
+objections and secured approval for a golf course
+and resort development called Osprey Links after
+complaining at “political levels” about the delay.
+Though Peter Grant had nothing to do with the
+Osprey Links development, the reports of political
+interference in the approval of a comparable development
+ also involving a Harris friend heightened
+local concerns and was the subject of much discussion
+ at the HLA public meeting.
+
+[12] A representative of the MNR was on hand at
+the meeting to assure the residents that the approval
+would go through normal bureaucratic channels
+652
+
+
+and that no final decision had yet been made. But
+given the appearance of the Osprey Links article
+that very day, this assurance was not well received
+by the assembled group. One resident, holding up
+the newspaper, demanded to know “whether, given
+today’s article in the Toronto Star, the final answer
+will come from North Bay or Queen’s Park”. In
+other words, whether the decision would be made
+by Ministry bureaucrats themselves or by their
+political masters in Toronto. Another resident
+expressed the concern that approval might already
+be a “done deal”.
+
+[13] Dr. Lorrie Clark, a professor of English at
+Trent University in Peterborough who has a cottage
+on the Twin Lakes, attended the meeting. Following
+the meeting, Clark sent Bill Schiller an e-mail
+advising him that the Osprey Links story had “hit
+New Liskeard like a bombshell” and that the simi-
+larities between Osprey Links and the events sur-
+rounding Grant’s golf course development were
+“extraordinary”. She explained the situation giving
+rise to the public meeting and described the senti-
+ments of local cottagers in the following manner:
+Basically, the situation is this: Peter Grant, multimil-
+lionaire owner of Grant Forest Products in Englehart
+and Mike Harris supporter and crony, is trying to buy
+40 acres of Crown Land behind his “cottage” on Twin
+Lakes, just west of New Liskeard, for a private golf
+course. . . . Everyone thinks it’s a done deal, because
+of Grant’s influence (he employs 10,000 people in
+Northern Ontario) but most of all his Mike Harris
+ties. . . .
+There has been a constant sense from the beginning
+that this is, as one cottager put it last night, “a done
+deal,” and that nothing we can do to stop a development
+ that is NOT in the public interest — but obviously
+only a very private one — will make any difference.
+Everyone suspects — although I do grant that this is
+perhaps all unfounded — that there may be political
+pressure on the MNR people to give Mr. Grant what he
+wants. [A.R., vol. X, at p. 78]
+653
+[2009] 3 R.C.S.
+
+
+Schiller received other communications from cottagers
+ critical of Grant’s proposal and suspicious of
+his influence. The story captured his attention — in
+his words, it was a “classic public interest story” —
+and he decided to investigate.
+
+[14] Schiller began by examining records from
+Elections Ontario, which confirmed a history of
+large political contributions by Grant and GFP to
+the provincial PC Party and Mike Harris. He then
+went to New Liskeard and met with several local
+residents. He received information about the proposed
+ development, listened to the residents’ concerns
+, and learned more about Peter Grant and
+his prominence in the community. He spoke with
+MNR representatives and collected an array of
+documents dealing with the project. Schiller also
+attempted on several occasions to interview Grant
+in order to “get both sides” of the story, but was
+repeatedly rebuffed. When, in June, Schiller again
+wrote to Grant, putting to him some of the cottagers
+’ objections and asking for a response, Grant’s
+lawyer responded by threatening a libel suit.
+
+[15] In early June, the Star sent a photographer
+named Mike Slaughter to take photos of Grant’s
+property for the newspaper article. Slaughter pho-
+tographed Grant’s property from a canoe in the
+lake. He also took photos of the golf course, park-
+ing by the side of a public road and walking a few
+steps on to the course in the process. Noticing the
+photographer and suspecting that he was from the
+Star, Grant instructed an employee, Ted Webster, to
+go and find out who the photographer was and try
+to detain him. Apparently, Grant wanted Webster
+to keep Slaughter there until the police responded
+to his trespass complaint. In any event, Webster
+parked his truck on the road in front of Slaughter’s
+car in an attempt to block him in. Slaughter nonetheless
+ drove around him, narrowly missing driv-
+ing into a ditch. Webster followed him in his truck,
+with another Grant employee joining in the chase,
+654
+
+
+but Slaughter escaped. Accounts of this event vary
+widely between the parties and became a significant
+issue at trial. According to Grant, the event consti-
+tuted an egregious trespass by the Star; according
+to the Star, it demonstrated Grant’s ruthless desire
+to suppress all scrutiny, and his aggressive posture
+toward the press.
+
+[16] The article, headlined “Cottagers teed off
+over golf course — Long-time Harris backer awaits
+Tory nod on plan”, was finally published on June
+23, 2001. Its full text is reproduced in full in the
+Appendix to these reasons. (Two follow-up articles
+were also published, but they are not the subject
+of this action.) The June 23 article detailed Grant’s
+ties to Harris and the PC Party, explained the background
+ to the controversy and gave voice to the
+cottagers’ concerns over the development itself and
+the possibility of political interference. It noted
+that Grant had refused to comment and mentioned
+that one of Grant’s employees had “tried to drive
+the photographer’s vehicle off a public road”. The
+article included the following paragraph, which
+became the centerpiece of this litigation:
+
+“Everyone thinks it’s a done deal because of Grant’s
+influence — but most of all his Mike Harris ties,” says
+Lorrie Clark, who owns a cottage on Twin Lakes.
+
+All in all, the article gave greater credence and
+prominence to the cottagers’ side of the story than
+to Grant’s. It did not paint Grant in a flattering light.
+However, its constituent facts were largely true,
+depending on whether the quote from Dr. Clark
+that “[e]veryone thinks it’s a done deal” is seen as
+a statement of fact or opinion — a matter to which
+I will return.
+655
+[2009] 3 R.C.S.
+
+
+[17] As promised, Grant and GFP sued Schiller,
+the Star and affiliates of the paper, and Lorrie
+Clark. Dr. Clark settled before trial.
+
+III. Judicial History
+
+A. Ontario Superior Court of Justice (Rivard J.
+   sitting with a jury)
+
+[18] At trial, the principal focus was on the “done
+deal” statement attributed to Dr. Clark, which the
+plaintiffs said contained the core of the article’s
+defamatory import. The plaintiffs contended that
+the article effectively accused Grant of improperly
+using his influence to obtain government favours.
+The defendants countered that the article simply
+aired the real and legitimate concerns of local residents
+ without actually levelling any allegation of
+impropriety against Grant.
+
+[19] In the alternative, the defendants, relying
+on recent English jurisprudence, argued that an
+expanded qualified privilege defence based on
+a concept of public interest responsible journalism
+ should apply. Without rejecting the possibility
+ of such expansion, the trial judge ruled that the
+defence would not apply in these circumstances
+because the story was primarily one of local import
+and had a “very negative tone”.
+
+[20] Accordingly, the case went to the jury essentially
+ on the defences of truth and fair comment.
+The jury rejected these defences and awarded the
+plaintiffs general, aggravated and punitive damages
+ totalling $1.475 million. Punitive damages
+alone were assessed at $1 million.
+
+B. Ontario Court of Appeal (Rosenberg, Feldman
+   and Simmons JJ.A.) (2008 ONCA 796, 92 O.R.
+   (3d) 561)
+
+[21] Fortified by the intervening decision of the
+Ontario Court of Appeal in Cusson v. Quan, 2007
+ONCA 771, 231 O.A.C. 277 (reasons on appeal in
+656
+
+
+this Court released concurrently: Quan v. Cusson,
+2009 SCC 62, [2009] 3 S.C.R. 712), which recognized
+ a new defence of responsible journalism, the
+Star defendants appealed the jury verdict on both
+liability and quantum of damages.
+
+[22] Writing for the Court of Appeal, Feldman
+J.A. affirmed the new responsible journalism
+defence elaborated in Quan, and concluded that the
+trial judge had erred in failing to leave this defence
+with the jury. Feldman J.A. held that the trial judge
+had applied an inappropriately narrow conception
+of the public interest: he should have found as a
+matter of law that the subject of the article was in
+the public interest and gone on to assess responsibility
+ on that basis. On the issue of responsibility
+, Feldman J.A. took the view that the trial judge
+had inaccurately downplayed the extent to which
+Schiller actually attempted to verify the allegations
+. She also held that the jury should have been
+required to answer a preliminary question as to the
+meaning of the statement, since it could be interpreted
+ in different ways.
+
+[23] On the defence of fair comment, Feldman
+J.A. identified additional problems with the trial
+judge’s charge to the jury. Because the trial took
+place prior to this Court’s decision in WIC Radio
+Ltd. v. Simpson, 2008 SCC 40, [2008] 2 S.C.R.
+420, the trial judge understandably instructed
+the jury that a fair comment must be one that a
+“fair-minded” person could hold — a proviso that
+was rejected in WIC Radio. Further, on the issue
+of malice which defeats fair comment, the trial
+judge instructed the jury that the key question was
+Schiller’s honest belief in the defamatory statements
+, the “done deal” remark chief among them.
+But, as Feldman J.A. noted, this comment was
+attributed to Dr. Clark. Schiller’s honest belief in
+it could only be relevant if he had adopted it as his
+own. This confusion meant that the jury may have
+found malice on improper grounds.
+657
+[2009] 3 R.C.S.
+
+
+[24] Concluding that the jury instructions were
+flawed, the Court of Appeal ordered a new trial.
+
+[25] Mr. Grant and his corporation appeal to this
+Court to reinstate the jury verdict. The Star defendants
+ cross-appeal, asking the Court to apply the
+new defence in this case and dismiss the action. In
+the alternative, they ask the Court to dismiss the
+action on the basis of fair comment.
+
+IV. Issues
+
+[26] While both fair comment and public interest
+ responsible communication remain live issues
+on appeal, the principal legal question before us is
+whether the protection accorded to factual statements
+ published in the public interest should be
+strengthened and, if so, how. This suggests the following
+ analytical framework:
+
+1.
+     based on responsible communication in the
+     public interest?
+
+2. If so, what are the elements of the new
+   defence?
+
+3. If so, what procedures should apply? In particular
+   , what are the respective roles of the
+   judge and jury?
+
+4. Application to the case at bar
+
+     (a) Fair comment
+
+     (b) Responsible communication
+
+V. Analysis
+
+A. Should the Common Law Provide a Defence
+   Based on Responsible Communication in the
+   Public Interest?
+
+[27] I will first examine the current law, and then
+consider the arguments for and against change.
+658
+
+
+      (1) The Current Law
+
+[28] A plaintiff in a defamation action is required
+to prove three things to obtain judgment and an
+award of damages: (1) that the impugned words
+were defamatory, in the sense that they would
+tend to lower the plaintiff’s reputation in the eyes
+of a reasonable person; (2) that the words in fact
+referred to the plaintiff; and (3) that the words
+were published, meaning that they were commu-
+nicated to at least one person other than the plaintiff
+. If these elements are established on a balance
+of probabilities, falsity and damage are presumed,
+though this rule has been subject to strong criticism
+: see, e.g., R. A. Smolla, “Balancing Freedom
+of Expression and Protection of Reputation Under
+Canada’s Charter of Rights and Freedoms”, in D.
+Schneiderman, ed., Freedom of Expression and the
+Charter (1991), 272, at p. 282. (The only exception
+ is that slander requires proof of special damages
+, unless the impugned words were slanderous
+per se: R. E. Brown, The Law of Defamation in
+Canada (2nd ed. (loose-leaf)), vol. 3, at pp. 25-2
+and 25-3.) The plaintiff is not required to show that
+the defendant intended to do harm, or even that the
+defendant was careless. The tort is thus one of strict
+liability.
+
+[29] If the plaintiff proves the required elements,
+the onus then shifts to the defendant to advance a
+defence in order to escape liability.
+
+[30] Both statements of opinion and statements of
+fact may attract the defence of privilege, depending
+on the occasion on which they were made. Some
+“occasions”, like Parliamentary and legal proceedings
+, are absolutely privileged. Others, like reference
+ letters or credit reports, enjoy “qualified” privilege
+, meaning that the privilege can be defeated
+by proof that the defendant acted with malice: see
+Horrocks v. Lowe, [1975] A.C. 135 (H.L.). The
+defences of absolute and qualified privilege reflect
+the fact that “common convenience and welfare of
+society” sometimes requires untrammelled communications
+: Toogood v. Spyring (1834), 1 C.M.
+& R. 181, 149 E.R. 1044, at p. 1050, per Parke B.
+659
+[2009] 3 R.C.S.
+
+
+The law acknowledges through recognition of privileged
+ occasions that false and defamatory expression
+ may sometimes contribute to desirable social
+ends.
+
+[31] In addition to privilege, statements of opinion
+, a category which includes any “deduction,
+inference, conclusion, criticism, judgment, remark
+or observation which is generally incapable of
+proof” (Ross v. New Brunswick Teachers’ Assn.,
+2001 NBCA 62, 201 D.L.R. (4th) 75, at para. 56,
+cited in WIC Radio, at para. 26), may attract the
+defence of fair comment. As reformulated in WIC
+Radio, at para. 28, a defendant claiming fair comment
+ must satisfy the following test: (a) the comment
+ must be on a matter of public interest; (b) the
+comment must be based on fact; (c) the comment,
+though it can include inferences of fact, must be
+recognisable as comment; (d) the comment must
+satisfy the following objective test: could any
+person honestly express that opinion on the proved
+facts?; and (e) even though the comment satisfies
+the objective test the defence can be defeated if the
+plaintiff proves that the defendant was actuated by
+express malice. WIC Radio expanded the fair comment
+ defence by changing the traditional requirement
+ that the opinion be one that a “fair-minded”
+person could honestly hold, to a requirement that it
+be one that “anyone could honestly have expressed”
+(paras. 49-51), which allows for robust debate. As
+Binnie J. put it, “[w]e live in a free country where
+people have as much right to express outrageous and
+ridiculous opinions as moderate ones” (para. 4).
+
+[32] Where statements of fact are at issue, usually
+only two defences are available: the defence that
+the statement was substantially true (justification);
+and the defence that the statement was made in a
+protected context (privilege). The issue in this case
+is whether the defences to actions for defamatory
+660
+
+
+statements of fact should be expanded, as has been
+done for statements of opinion, in recognition of
+the importance of freedom of expression in a free
+society.
+
+[33] To succeed on the defence of justification, a
+defendant must adduce evidence showing that the
+statement was substantially true. This may be difficult
+ to do. A journalist who has checked sources
+and is satisfied that a statement is substantially true
+may nevertheless have difficulty proving this in
+court, perhaps years after the event. The practical
+result of the gap between responsible verification
+and the ability to prove truth in a court of law on
+some date far in the future, is that the defence of
+justification is often of little utility to journalists
+and those who publish their stories.
+
+[34] If the defence of justification fails, generally
+the only way a publisher can escape liability for an
+untrue defamatory statement of fact is by establish-
+ing that the statement was made on a privileged
+occasion. However, the defence of qualified privilege
+ has seldom assisted media organizations. One
+reason is that qualified privilege has traditionally
+been grounded in special relationships character-
+ized by a “duty” to communicate the information
+and a reciprocal “interest” in receiving it. The press
+communicates information not to identified individuals
+ with whom it has a personal relationship,
+but to the public at large. Another reason is the conservative
+ stance of early decisions, which struck a
+balance that preferred reputation over freedom of
+expression. In a series of judgments written by
+Cartwright J. (as he then was), this Court refused to
+grant the communications media any special status
+that might have afforded them greater access to the
+privilege: Douglas v. Tucker, [1952] 1 S.C.R. 275;
+Globe and Mail Ltd. v. Boland, [1960] S.C.R. 203;
+Banks v. Globe and Mail Ltd., [1961] S.C.R. 474;
+Jones v. Bennett, [1969] S.C.R. 277.
+661
+[2009] 3 R.C.S.
+
+
+[35] In recent decades, courts have begun to
+moderate the strictures of qualified privilege, albeit
+in an ad hoc and incremental way. When a strong
+duty and interest seemed to warrant it, they have on
+occasion applied the privilege to publications to the
+world at large. For example, in suits against politicians
+ expressing concerns to the electorate about
+the conduct of other public figures, courts have
+sometimes recognized that a politician’s “duty to
+ventilate” matters of concern to the public could
+give rise to qualified privilege: Parlett v. Robinson
+(1986), 5 B.C.L.R. (2d) 26 (C.A.), at p. 39.
+
+[36] In the last decade, this recognition has
+sometimes been extended to media defendants. For
+example, in Grenier v. Southam Inc., [1997] O.J.
+No. 2193 (QL), the Ontario Court of Appeal (in a
+brief endorsement) upheld a trial judge’s finding
+that the defendant media corporation had a “social
+and moral duty” to publish the article in question.
+Other cases have adopted the view that qualified
+privilege is available to media defendants, provided
+that they can show a social or moral duty to publish
+the information and a corresponding public interest
+in receiving it: Leenen v. Canadian Broadcasting
+Corp. (2000), 48 O.R. (3d) 656 (S.C.J.), at p. 695,
+aff’d (2001), 54 O.R. (3d) 612 (C.A.), and Young
+v. Toronto Star Newspapers Ltd. (2003), 66 O.R.
+(3d) 170 (S.C.J.), aff’d (2005), 77 O.R. (3d) 680
+(C.A.).
+
+[37] Despite these tentative forays, the thresh-
+old for privilege remains high and the criteria for
+reciprocal duty and interest required to establish it
+unclear. It remains uncertain when, if ever, a media
+outlet can avail itself of the defence of qualified
+privilege.
+662
+
+
+      (2) The Case for Changing the Law
+
+[38] Two related arguments are presented in support
+ of broadening the defences available to public
+communicators, such as the press, in reporting
+matters of fact.
+
+[39] The first argument is grounded in principle.
+It asserts that the existing law is inconsistent with
+the principle of freedom of expression as guaranteed
+ by s. 2(b) of the Charter. In the modern context
+, it is argued, the traditional rule has a chilling
+effect that unjustifiably limits reporting facts, and
+strikes a balance too heavily weighted in favour
+of protection of reputation. While the law should
+provide redress for baseless attacks on reputation,
+defamation lawsuits, real or threatened, should not
+be a weapon by which the wealthy and privileged
+stifle the information and debate essential to a free
+society.
+
+[40] The second argument is grounded in jurisprudence
+. This argument points out that many for-
+eign common law jurisdictions have modified the
+law of defamation to give more protection to the
+press, in recognition of the fact that the traditional
+rules inappropriately chill free speech. While different
+ countries have taken different approaches,
+the trend is clear. Recent Canadian cases, most
+notably the decision of the Ontario Court of Appeal
+in Quan, have affirmed this trend. The time has
+arrived, it is argued, for this Court to follow suit.
+
+      (a) The Argument From Principle
+
+[41] The fundamental question of principle is
+whether the traditional defences for defamatory
+statements of fact curtail freedom of expression in
+a way that is inconsistent with Canadian constitutional
+ values. Does the existing law strike an appropriate
+ balance between two values vital to Canadian
+society — freedom of expression on the one hand,
+and the protection of individuals’ reputations on
+663
+[2009] 3 R.C.S.
+
+
+the other? As Binnie J. stated in WIC Radio, “[a]n
+individual’s reputation is not to be treated as regret-
+table but unavoidable road kill on the highway of
+public controversy, but nor should an overly solicitous
+ regard for personal reputation be permitted
+to ‘chill’ freewheeling debate on matters of public
+interest” (para. 2).
+
+[42] Freedom of expression and respect for vigor-
+ous debate on matters of public interest have long
+been seen as fundamental to Canadian democracy.
+Many years before the Charter this Court, in the
+Reference re Alberta Statutes, [1938] S.C.R. 100, per
+Duff C.J., suggested that the Canadian Constitution
+contained an implied right of free expression on
+political matters. That principle, affirmed in cases
+like Saumur v. City of Quebec, [1953] 2 S.C.R. 299,
+and Switzman v. Elbling, [1957] S.C.R. 285, has
+stood the test of time.
+
+[43] In 1982, the Charter, through s. 2(b), confirmed
+ and expanded constitutional protection
+for free expression, specifically extending it to
+the press: “Everyone has . . . freedom of thought,
+belief, opinion and expression, including freedom
+of the press and other media of communication”.
+
+[44] The constitutional status of freedom of
+expression under the Charter means that all
+Canadian laws must conform to it. The common
+law, though not directly subject to Charter scrutiny
+where disputes between private parties are concerned
+, may be modified to bring it into harmony
+with the Charter. As Cory J. put it in Hill v. Church
+of Scientology of Toronto, [1995] 2 S.C.R. 1130, at
+para. 97, “Charter values, framed in general terms,
+should be weighed against the principles which
+underlie the common law. The Charter values will
+then provide the guidelines for any modification
+to the common law which the court feels is necessary
+.”
+664
+
+
+[45] The argument that the Charter requires
+modification of Canadian defamation law was considered
+ in Hill. Writing for a unanimous Court on
+this point, Cory J. declined to adopt the American
+“actual malice” rule from New York Times Co.
+v. Sullivan, 376 U.S. 254 (1964), which provides
+immunity for defamation of public officials except
+where malice is shown. Cory J. did, however, undertake
+ a modest expansion of the recognized qualified
+ privilege for reports on judicial proceedings.
+
+[46] While Hill stands for a rejection of the Sullivan
+approach and an affirmation of the common law of
+defamation’s general conformity with the Charter,
+it does not close the door to further changes in specific
+ rules and doctrines. As Iacobucci J. observed
+in R. v. Salituro, [1991] 3 S.C.R. 654, at p. 670,
+“[j]udges can and should adapt the common law
+to reflect the changing social, moral and economic
+fabric of the country.” It is implicit in this duty that
+the courts will, from time to time, take a fresh look
+at the common law and re-evaluate its consistency
+with evolving societal expectations through the
+lens of Charter values.
+
+[47] The guarantee of free expression in s. 2(b)
+of the Charter has three core rationales, or purposes
+: (1) democratic discourse; (2) truth-finding;
+and (3) self-fulfillment: Irwin Toy Ltd. v. Quebec
+(Attorney General), [1989] 1 S.C.R. 927, at p. 976.
+These purposes inform the content of s. 2(b) and
+assist in determining what limits on free expression
+can be justified under s. 1.
+
+[48] First and foremost, free expression is essential
+ to the proper functioning of democratic governance
+. As Rand J. put it, “government by the free
+public opinion of an open society . . . demands the
+665
+[2009] 3 R.C.S.
+
+
+condition of a virtually unobstructed access to and
+diffusion of ideas”: Switzman, at p. 306.
+[49] Second, the free exchange of ideas is an
+“essential precondition of the search for truth”:
+R. v. Keegstra, [1990] 3 S.C.R. 697, at p. 803, per
+McLachlin J. This rationale, sometimes known
+as the “marketplace of ideas”, extends beyond the
+political domain to any area of debate where truth
+is sought through the exchange of information and
+ideas. Information is disseminated and proposi-
+tions debated. In the course of debate, misconcep-
+tions and errors are exposed. What withstands test-
+ing emerges as truth.
+[50] Third, free expression has intrinsic value as
+an aspect of self-realization for both speakers and
+listeners. As the majority observed in Irwin Toy, at
+p. 976, “the diversity in forms of individual self-
+fulfillment and human flourishing ought to be cul-
+tivated in an essentially tolerant, indeed welcom-
+ing, environment not only for the sake of those who
+convey a meaning, but also for the sake of those to
+whom it is conveyed”.
+[51] Of the three rationales for the constitutional
+protection of free expression, only the third, self-
+fulfillment, is of dubious relevance to defamatory
+ communications on matters of public interest.
+This is because the plaintiff’s interest in reputation
+may be just as worthy of protection as the defendant
+’s interest in self-realization through unfettered
+expression. We are not talking here about a direct
+prohibition of expression by the state, in which the
+self-fulfillment potential of even malicious and
+deceptive expression can be relevant (R. v. Zundel,
+[1992] 2 S.C.R. 731), but rather a means by which
+individuals can hold one another civilly accountable
+ for what they say. Charter principles do not
+provide a licence to damage another person’s reputation
+ simply to fulfill one’s atavistic desire to
+express oneself.
+666
+
+
+[52] By contrast, the first two rationales for free
+expression squarely apply to communications on
+matters of public interest, even those which contain
+ false imputations. The first rationale, the
+proper functioning of democratic governance,
+has profound resonance in this context. As held
+in WIC Radio, freewheeling debate on matters of
+public interest is to be encouraged, and must not be
+thwarted by “overly solicitous regard for personal
+reputation” (para. 2). Productive debate is depend-
+ent on the free flow of information. The vital role
+of the communications media in providing a vehicle
+ for such debate is explicitly recognized in the
+text of s. 2(b) itself: “freedom of thought, belief,
+opinion and expression, including freedom of the
+press and other media of communication”.
+
+[53] Freedom does not negate responsibility. It
+is vital that the media act responsibly in reporting
+facts on matters of public concern, holding themselves
+ to the highest journalistic standards. But to
+insist on court-established certainty in reporting
+on matters of public interest may have the effect of
+preventing communication of facts which a reasonable
+ person would accept as reliable and which are
+relevant and important to public debate. The existing
+ common law rules mean, in effect, that the publisher
+ must be certain before publication that it can
+prove the statement to be true in a court of law,
+should a suit be filed. Verification of the facts and
+reliability of the sources may lead a publisher to a
+reasonable certainty of their truth, but that is different
+ from knowing that one will be able to prove
+their truth in a court of law, perhaps years later.
+This, in turn, may have a chilling effect on what
+is published. Information that is reliable and in the
+public’s interest to know may never see the light
+of day.
+
+[54] The second rationale — getting at the
+truth — is also engaged by the debate before us.
+Fear of being sued for libel may prevent the publication
+ of information about matters of public
+667
+[2009] 3 R.C.S.
+
+
+interest. The public may never learn the full truth
+on the matter at hand.
+
+[55] Against this, it is argued that false statements
+ cannot advance the purposes of s. 2(b). This
+contention, however, is belied by the fact the existing
+ defence of privilege concedes: sometimes the
+public interest requires that untrue statements
+should be granted immunity, because of the importance
+ of robust debate on matters of public interest
+(e.g. Parliamentary privilege), or the importance of
+discussion and disclosure as a means of getting at
+the truth (e.g. police reports, employment recom-
+mendations).
+
+[56] The argument also overlooks the fact that
+the Charter’s s. 2(b) protection is not confined to
+statements that a person can ultimately prove are
+true. As Professor Boivin puts it:
+
+Those who argue that false and defamatory publications
+have a weak claim to Charter protection omit to men-
+tion that it is only at trial, usually several years after
+publication, that a trier of fact determines whether a
+defence of justification is well founded. Moreover, it is
+only then that the defamatory nature of the publication
+is assessed. Surely freedom of expression encompasses
+more than statements which, after the fact, are either
+proven factually accurate or do not injure someone’s
+reputation. [Emphasis added.]
+
+(D. W. Boivin, “Accommodating Freedom of
+Expression and Reputation in the Common Law
+of Defamation” (1997), 22 Queen’s L.J. 229, at
+p. 270)
+
+[57] I conclude that media reporting on matters of
+public interest engages the first and second rationales
+ of the freedom of expression guarantee in the
+Charter. The statement in Hill (at para. 106) that
+“defamatory statements are very tenuously related
+to the core values which underlie s. 2(b)” must be
+read in the context of that case. It is simply beyond
+debate that the limited defences available to press-
+related defendants may have the effect of inhibiting
+political discourse and debate on matters of public
+668
+
+
+importance, and impeding the cut and thrust of discussion
+ necessary to discovery of the truth.
+
+[58] This brings me to the competing value: protection
+ of reputation. Canadian law recognizes
+that the right to free expression does not confer a
+licence to ruin reputations. In assessing the consti-
+tutionality of the Criminal Code’s defamatory libel
+provisions, for example, the Court has affirmed
+that “[t]he protection of an individual’s reputation
+from wilful and false attack recognizes both the
+innate dignity of the individual and the integral
+link between reputation and the fruitful participation
+ of an individual in Canadian society”: R. v.
+Lucas, [1998] 1 S.C.R. 439, at para. 48, per Cory J.
+This applies both to private citizens and to people
+in public life. People who enter public life cannot
+reasonably expect to be immune from criticism,
+some of it harsh and undeserved. But nor does participation
+ in public life amount to open season on
+reputation.
+
+[59] Related to the protection of reputation is a
+concern for personal privacy. This Court has recognized
+ that protection of personal privacy is “intimately
+ related” to the protection of reputation: Hill,
+at para. 121. While in other contexts privacy protection
+ has been recognized as “essential for the
+well-being of the individual” (R. v. Dyment, [1988]
+2 S.C.R. 417, at p. 427, per La Forest J.) and “an
+essential component of what it means to be ‘free’”
+(R. v. O’Connor, [1995] 4 S.C.R. 411, at para. 113,
+per L’Heureux-Dubé J.), it does not figure prominently
+ in defamation jurisprudence. One reason for
+this is that defamation law is concerned with providing
+ recourse against false injurious statements,
+while the protection of privacy typically focusses
+on keeping true information from the public gaze.
+Legislation in several provinces provides a separate
+ cause of action for the violation of privacy:
+see Privacy Act, R.S.B.C. 1996, c. 373, s. 1(1); The
+Privacy Act, R.S.S. 1978, c. P-24, s. 2; The Privacy
+Act, R.S.M. 1987, c. P125, s. 2(1); Privacy Act,
+R.S.N.L. 1990, c. P-22, s. 3. This said, protection
+669
+[2009] 3 R.C.S.
+
+
+of privacy may be a factor complementing the protection
+ of reputation in the development of defamation
+ law (see paras. 102 and 111 below).
+
+[60] The Grant appellants argue that a defence
+based on the conduct of the defendant devalues the
+plaintiff’s ability to vindicate reputation. A plaintiff
+’s concern, it is said, is with the falsity of the
+libel, not the responsibility of the journalistic practices
+ that led to its publication. To the extent that
+a revised defence shifts the focus of the litigation
+from the truth or falsity of the defamatory statements
+ to the diligence of the defendant in verifying
+them, the plaintiff’s very reason for bringing the
+suit is obscured.
+
+[61] The answer to this argument lies in the fact
+that a balanced approach to libel law properly
+reflects both the interests of the plaintiff and the
+defendant. The law must take due account of the
+damage to the plaintiff’s reputation. But this does
+not preclude consideration of whether the defendant
+ acted responsibly, nor of the social value to a
+free society of debate on matters of public interest
+. I agree with Sharpe J.A. that the partial shift
+of focus involved in considering the responsibility
+of the publisher’s conduct is an “acceptable price
+to pay for free and open discussion” (Quan, at
+para. 142).
+
+[62] The protection offered by a new defence
+based on conduct is meaningful for both the publisher
+ and those whose reputations are at stake. If
+the publisher fails to take appropriate steps having
+regard to all the circumstances, it will be liable. The
+press and others engaged in public communication
+on matters of public interest, like bloggers, must act
+carefully, having regard to the injury to reputation
+that a false statement can cause. A defence based
+on responsible conduct reflects the social concern
+that the media should be held accountable through
+the law of defamation. As Kirby P. stated in Ballina
+670
+
+
+Shire Council v. Ringland (1994), 33 N.S.W.L.R.
+680 (C.A.), at p. 700: “The law of defamation is
+one of the comparatively few checks upon [the
+media’s] great power.” The requirement that the
+publisher of defamatory material act responsibly
+provides accountability and comports with the reasonable
+ expectations of those whose conduct brings
+them within the sphere of public interest. People in
+public life are entitled to expect that the media and
+other reporters will act responsibly in protecting
+them from false accusations and innuendo. They
+are not, however, entitled to demand perfection and
+the inevitable silencing of critical comment that a
+standard of perfection would impose.
+
+[63] It is also argued that a defence based on
+the conduct of the defendant may lead to costly
+and lengthy litigation over questions of journalistic
+ practice about which claimants can have no
+advance knowledge: see A. T. Kenyon, “Lange
+and Reynolds Qualified Privilege: Australian and
+English Defamation Law and Practice” (2004), 28
+Melb. U.L. Rev. 406, at p. 425. Of the relevant factors
+ (see discussion of Reynolds below, at paras.
+69-71) only the opportunity to respond to the allegation
+ prior to publication is likely to lie within the
+plaintiff’s knowledge, making it hard for a potential
+ plaintiff to judge the strength of her case, it is
+said.
+
+[64] Again, the objection goes not so much to
+principle as to the particular test and procedures
+adopted. Whatever defence is accepted, it must be
+workable and fair to both plaintiff and defendant,
+as discussed in greater detail below. Procedural
+objections, however, do not negate the conclusion
+ that the traditional test fails to protect reliable
+ statements that are connected to the democratic
+discourse and truth-finding rationales for freedom
+of expression.
+671
+[2009] 3 R.C.S.
+
+
+[65] Having considered the arguments on both
+sides of the debate from the perspective of principle
+, I conclude that the current law with respect to
+statements that are reliable and important to public
+debate does not give adequate weight to the constitutional
+ value of free expression. While the law
+must protect reputation, the level of protection currently
+ accorded by the law — in effect a regime
+of strict liability — is not justifiable. The law of
+defamation currently accords no protection for
+statements on matters of public interest published
+to the world at large if they cannot, for whatever
+reason, be proven to be true. But such communications
+ advance both free expression rationales mentioned
+ above — democratic discourse and truth-
+finding — and therefore require some protection
+within the law of defamation. When proper weight
+is given to the constitutional value of free expression
+ on matters of public interest, the balance tips
+in favour of broadening the defences available to
+those who communicate facts it is in the public’s
+interest to know.
+
+    (b) The Argument on the Jurisprudence
+
+[66] A consideration of the jurisprudence of other
+common law democracies favours replacing the
+current Canadian law governing redress for defamatory
+ statements of fact on matters of public interest
+, with a rule that gives greater scope to freedom
+of expression while offering adequate protection
+of reputation. Different countries canvassed have
+taken different approaches. Most, however, give
+more weight to the value of freedom of expression
+and robust public debate than does the traditional
+Canadian approach.
+
+[67] In Sullivan, the United States Supreme Court
+applied the First Amendment’s free speech guarantee
+ to hold that a “public official” cannot recover
+in defamation absent proof that the defendant was
+motivated by “actual malice”, meaning knowledge
+672
+
+
+of falsity or reckless indifference to truth. In subse-
+quent cases, the “actual malice” rule was extended
+to apply to all “public figures”, not only people formally
+ involved in government or politics: Curtis
+Publishing Co. v. Butts, 388 U.S. 130 (1967).
+Sullivan and its progeny have made it extremely
+difficult for anyone in the public eye to sue success-
+fully for defamation. In the contest between free
+expression and reputation protection, free expression
+ decisively won the day.
+
+[68] Commonwealth courts have rejected the pre-
+cise balance struck in Sullivan between free expression
+ and protection of reputation. However, the law
+has begun to shift in favour of broader defences for
+press defendants, most prominently in England, but
+also in Australia (Lange v. Australian Broadcasting
+Corp. (1997), 145 A.L.R. 96 (H.C.)), New Zealand
+(Lange v. Atkinson, [1998] 3 N.Z.L.R. 424 (C.A.)
+(“Lange v. Atkinson No. 1”); Lange v. Atkinson,
+[2000] 1 N.Z.L.R. 257 (P.C.) (“Lange v. Atkinson
+No. 2”); Lange v. Atkinson, [2000] 3 N.Z.L.R. 385
+(C.A.) (“Lange v. Atkinson No. 3”)), and South
+Africa (Du Plessis v. De Klerk, 1996 (3) SA 850
+(CC); National Media Ltd. v. Bogoshi, 1998 (4) SA
+1196 (SCA)).
+
+      (i) United Kingdom
+
+[69] Reynolds v. Times Newspapers Ltd., [1999] 4
+All E.R. 609, marked a decisive departure from the
+traditional pro-reputation orientation of defamation
+ law in England. The case involved allegations
+of improper dealing by an Irish politician. The
+House of Lords, for the first time, recognized that
+“freedom to disseminate and receive information
+on political matters is essential to the proper functioning
+ of the system of parliamentary democracy”,
+(p. 621) and that the news media plays a vital role
+in furthering that interest. It followed that the law
+of defamation should provide greater protection to
+673
+[2009] 3 R.C.S.
+
+
+publications made on matters of public interest. A
+new standard was pronounced — responsible journalism
+. Effectively, the House of Lords recognized
+a compelling duty on the press to publish such
+reports and a corresponding interest on the part of
+the public in receiving them.
+
+[70] In order to determine whether a publication
+should be covered by responsible journalism, Lord
+Nicholls provided a list of considerations which
+have come to be known as the “Reynolds factors”
+(at p. 626):
+
+(1) The seriousness of the allegation. The more serious
+the charge, the more the public is misinformed and the
+individual harmed, if the allegation is not true. (2) The
+nature of the information, and the extent to which the
+subject matter is a matter of public concern. (3) The
+source of the information. Some informants have no
+direct knowledge of the events. Some have their own
+axes to grind, or are being paid for their stories. (4) The
+steps taken to verify the information. (5) The status of
+the information. The allegation may have already been
+the subject of an investigation which commands respect.
+(6) The urgency of the matter. News is often a perishable
+ commodity. (7) Whether comment was sought from
+the plaintiff. He may have information others do not
+possess or have not disclosed. An approach to the plaintiff
+ will not always be necessary. (8) Whether the article
+contained the gist of the plaintiff’s side of the story. (9)
+The tone of the article. A newspaper can raise queries
+or call for an investigation. It need not adopt allegations
+ as statements of fact. (10) The circumstances of
+the publication, including the timing.
+
+Lord Nicholls made clear that the ultimate determination
+ of responsibility would be a legal question
+ for the judge, though he allowed that any dispute
+ of “primary fact” would be decided by the
+jury (p. 626).
+
+[71] Reynolds was quickly recognized as a
+“media-friendly” development. In practical terms,
+however, Reynolds only partially succeeded in
+changing the landscape. The ten Reynolds factors
+674
+
+
+proved difficult to apply. Some courts saw them
+as merely an illustrative list of possible considerations
+, while others viewed them as a complete
+code for what constitutes responsible journalism.
+Journalists and publishers, for their part, found it
+difficult to anticipate what kind of conduct would
+satisfy the Reynolds criteria, applied with the ben-
+efit of judicial hindsight. (See, e.g., R. L. Weaver et
+al., “Defamation Law and Free Speech: Reynolds v.
+Times Newspapers and the English Media” (2004),
+37 Vand. J. Transnat’l L. 1255, at pp. 1303-7.) As
+one commentator has observed:
+
+. . . the Reynolds defence virtually never succeeded
+because the 10 pointers of responsible journalism were
+treated by the judges as hurdles to be surmounted. The
+judges applied a dollop of hindsight, finding something
+which they, as a responsible editor or journalist, would
+have done differently. The Reynolds defence spawned
+satellite litigation where, often for understandable reasons
+, the underlying facts could not be proved and much
+time and money had to be spent on analysing how the
+story was constructed. Anonymous sources tended to
+be viewed with suspicion and juries were given a complex
+ list of factual issues to decide, sometimes with
+confusing directions as to the presumption of falsity
+which served to push them in the direction of disbeliev-
+ing what the journalists said. [Emphasis in original.]
+
+(D. Hooper, “The Importance of the Jameel
+Case”, [2007] Ent. L.R. 62, at p. 62. See also A. J.
+Bonnington, “Reynolds Rides Again” (2006), 11
+Comms. L. 147.)
+
+[72] The House of Lords addressed this uncertainty
+ in Jameel v. Wall Street Journal Europe
+SPRL, [2006] UKHL 44, [2007] 1 A.C. 359. The
+defendant Wall Street Journal Europe had published
+ an article, shortly after September 11, 2001,
+revealing that the bank accounts of certain prom-
+inent Saudi Arabian businessmen, including the
+plaintiff, were being monitored for possible terror-
+ist connections by Saudi authorities at the behest
+of the U.S. government, citing anonymous sources.
+The tone of the article was neutral and unsensa-
+tional, and the article bore the indicia of responsible
+ journalism. Nonetheless, the trial judge denied
+675
+[2009] 3 R.C.S.
+
+
+the defendants access to the Reynolds privilege, and
+the Court of Appeal upheld that denial on the sole
+ground that the paper had not waited long enough
+to hear back from the plaintiff before running the
+story.
+
+[73] The House of Lords reversed the judgment
+of the Court of Appeal and held that the responsible
+journalism defence applied. It criticized the lower
+courts for applying the Reynolds factors restric-
+tively as “a series of hurdles to be negotiated by
+a publisher” (para. 33, per Lord Bingham), rather
+than as an illustrative guide to what might constitute
+ responsible journalism on the facts of a given
+case. Given that the defence was meant to foster free
+expression and a free press, its requirements should
+not be pitched so high as to make its availability
+all but illusory. The House of Lords also empha-
+sized that the assessment of responsible journalism
+is not an invitation for courts to micro-manage the
+editorial practices of media organizations. Rather,
+a degree of deference should be shown to the editorial
+ judgment of the players, particularly professional
+ editors and journalists. For instance, a court
+should be slow to conclude that the inclusion of a
+particular defamatory statement was “unnecessary”
+and therefore outside the scope of the defence. As
+Lord Hoffmann put it:
+
+The fact that the judge, with the advantage of leisure
+and hindsight, might have made a different editorial
+decision should not destroy the defence. That would
+make the publication of articles which are, ex hypoth-
+esi, in the public interest, too risky and would discour-
+age investigative reporting. [para. 51]
+The House of Lords also made clear that the defence
+is available to “anyone who publishes material of
+public interest in any medium”, not just journalists
+ or media companies: Jameel, at para. 54, per
+Lord Hoffmann; Seaga v. Harper, [2008] UKPC 9,
+[2008] 1 All E.R. 965.
+676
+
+
+[74] Jameel has been welcomed as re-affirm-
+ing the liberalizing tone of Reynolds and providing
+ much-needed guidance for its application: see,
+e.g., K. Beattie, “New Life for the Reynolds ‘Public
+Interest Defence’? Jameel v Wall Street Journal
+Europe”, [2007] E.H.R.L.R. 81. But questions
+remain.
+
+[75] One unresolved issue is whether the new
+defence is a species of privilege or a distinct defence.
+If the former, a further issue arises of whether it
+could be defeated by malice. The judges in Jameel
+discussed these issues but reached no consensus.
+
+[76] Another unresolved issue is the status of so-
+called “reportage”. “Reportage” refers to defamatory
+ statements clearly attributed to someone other
+than, and not adopted by, the defendant. On one
+view, reportage is simply the accurate reporting of
+facts — the fact of what someone said. Such reportage
+ is essential, the media argue, to comprehensive
+coverage of public debate. Charges flung back and
+forth between contending factions in a dispute are
+themselves, it is argued, an essential part of the
+story, and will be understood by the public as such.
+However, the reporting of defamatory statements is
+barred by the “repetition rule” of defamation law,
+which holds that someone who repeats a defamatory
+ statement is no less liable than the person who
+originated it. Recent cases suggest that this rule has
+been attenuated in the context of actions brought
+against media outlets, although whether as a distinct
+ defence or as one of the factors to consider
+in applying the responsible journalism standard
+remains unclear: Charman v. Orion Publishing
+Group Ltd., [2007] EWCA Civ 972, [2008] 1 All
+E.R. 750. I will return to this question below.
+
+      (ii) Australia
+
+[77] Despite the absence of a constitutional bill
+of rights guaranteeing freedom of expression, the
+677
+[2009] 3 R.C.S.
+
+
+High Court of Australia has increased the protection
+afforded to the media on factual reports. In Lange
+v. Australian Broadcasting Corp., a case involving
+a former prime minister of New Zealand, the High
+Court confirmed the existence of a qualified privilege
+ for publications on “government and political
+ matters”, established earlier in Theophanous
+v. Herald & Weekly Times Ltd. (1994), 124 A.L.R.
+1. The High Court held that “each member of the
+Australian community has an interest in disseminating
+ and receiving information, opinions and arguments
+ concerning government and political matters
+that affect the people of Australia [a category that,
+while broad, does not extend to all matters of public
+interest]. The duty to disseminate such information
+is simply the correlative of the interest in receiving
+it” (p. 115). Lange defined “government and political
+ matters” relatively narrowly to cover matters
+within the sphere of electoral politics, whether at
+a local, state, or federal level, adding that “discussion
+ of matters concerning the United Nations or
+other countries may be protected by the extended
+defence of qualified privilege” (p. 115).
+
+[78] The burden rests on the defendant to show
+that publishing the information was reasonable in
+the circumstances. The defendant’s conduct “will
+not be reasonable unless the defendant had reasonable
+ grounds for believing that the imputation was
+true, took proper steps, so far as they were reasonably
+ open, to verify the accuracy of the material and
+did not believe the imputation to be untrue” (Lange,
+at p. 118). “Reasonableness” may also require the
+publisher to seek a response from the person being
+defamed.
+
+[79] In its focus on reasonableness, Lange resem-
+bles Reynolds and Jameel. There are indications,
+however, that Lange’s reasonableness requirement
+ has been applied more stringently than the
+678
+
+
+responsibility test under its English counterparts:
+see Kenyon, at p. 432.
+
+      (iii) New Zealand
+
+[80] New Zealand’s courts have modified the
+common law defence of qualified privilege in a
+manner broadly similar to the Australian approach.
+Coincidentally, the leading New Zealand cases
+also involved former prime minister David Lange
+as plaintiff: see Lange v. Atkinson Nos. 1, 2 and 3.
+In Lange v. Atkinson No. 1, the Court of Appeal
+announced a qualified privilege for “generally-
+published statements which directly concern the
+functioning of representative and responsible government
+, including statements about the performance
+ or possible future performance of specific
+individuals in elected public office” (p. 468), basing
+their decision largely on New Zealand’s democratic
+traditions and the specific dictates of the Bill of
+Rights Act 1990. Contrary to the Australian position
+, however, the court imposed no reasonableness
+requirement on the prima facie availability of the
+defence. Rather, evidence of irresponsibility can be
+adduced by the plaintiff to show that the privilege
+has been misused.
+
+[81] In Lange v. Atkinson No. 3, on remand from
+the Privy Council, the Court of Appeal re-affirmed
+its earlier decision, rejecting Reynolds as ill-suited
+to New Zealand’s needs and realities. Among the
+court’s criticisms of Reynolds was the view that it
+devalued the traditionally central role of the jury in
+libel trials by placing the key determination in the
+hands of the judge, a concern that also arises in the
+case at bar. More fundamentally, the court opined
+that “the Reynolds decision appears to alter the
+structure of the law of qualified privilege in a way
+which adds to the uncertainty and chilling effect
+almost inevitably present in this area of law” (para.
+38). The Court of Appeal’s solution was to reject
+679
+[2009] 3 R.C.S.
+
+
+any requirement of reasonableness or diligence in
+determining the scope of the privilege itself. In the
+result, the scope of privileged subject matter in New
+Zealand is narrower than in the United Kingdom,
+but within that domain New Zealand law may offer
+stronger protection.
+
+    (iv) South Africa
+
+[82] Developments in South Africa have generally
+ parallelled those in the other jurisdictions just
+discussed, the U.K. most particularly. In Du Plessis,
+the Constitutional Court of South Africa considered
+and rejected an argument that the common law of
+defamation should be liberalized and constitution-
+alized along the lines of Sullivan. The court held
+that s. 15 of the Constitution — the free expression
+guarantee — did “not mandate any particular rule
+of common law” (p. 885) because the guarantee
+does not apply directly to disputes between private
+litigants. However, echoing the Canadian “Charter
+values” approach, it held that the common law
+ought to be developed by courts in a manner consistent
+ with constitutional values.
+
+[83] The Supreme Court of Appeal subsequently
+adopted a responsible journalism defence in
+Bogoshi. Writing for the court, Hefer J.A. held that
+“the publication in the press of false defamatory
+allegations of fact will not be regarded as unlaw-
+ful if, upon a consideration of all the circumstances
+of the case, it is found to have been reasonable to
+publish the particular facts in the particular way
+and at the particular time” (p. 1212). Approving of
+this approach in the Constitutional Court, Sachs J.
+recently commented that “[i]n Bogoshi the SCA
+developed in a way that was sensitive to contem-
+porary concerns and realities, a well-weighted
+680
+
+
+means of balancing respect for individual person-
+ality rights with concern for freedom of the press”:
+N.M. v. Smith, [2007] ZACC 6, 2007 (5) SA 250, at
+para. 203. See also Khumalo v. Holomisa, [2002]
+ZACC 12, 2002 (5) SA 401; Mthembi-Mahanyele
+v. Mail & Guardian Ltd., [2004] ZASCA 67, 2004
+(6) SA 329.
+[84] The effect of Bogoshi has been to establish in
+South African law a reasonableness defence resem-
+bling Reynolds in most respects, but naturally with
+its own distinctive features elaborated in the jurisprudence
+.
+      (c) Conclusion
+[85] A number of countries with common law traditions
+ comparable to those of Canada have moved
+in recent years to modify the law of defamation to
+provide greater protection for communications on
+matters of public interest. These developments con-
+front us with a range of possibilities. The traditional
+common law defence of qualified privilege, which
+offered no protection in respect of publications to
+the world at large, situates itself at one end of the
+spectrum of possible alternatives. At the other end
+is the American approach of protecting all statements
+ about public figures, unless the plaintiff
+can show malice. Between these two extremes lies
+the option of a defence that would allow publishers
+ to escape liability if they can establish that they
+acted responsibly in attempting to verify the information
+ on a matter of public interest. This middle
+road is the path chosen by courts in Australia, New
+Zealand, South Africa and the United Kingdom.
+[86] In my view, the third option, buttressed by
+the argument from Charter principles advanced
+earlier, represents a reasonable and proportionate
+response to the need to protect reputation while
+sustaining the public exchange of information that
+is vital to modern Canadian society.
+681
+[2009] 3 R.C.S.
+
+
+[87] What remains to be decided is how, consistent
+ with Charter values, the new defence should be
+formulated.
+
+B. The Elements of the Defence of Responsible
+   Communication
+
+    (1) Preliminary Issues
+
+[88] The first preliminary issue is whether the
+defence should be considered a new defence or an
+extension of the traditional defence of qualified
+privilege.
+
+[89] In Reynolds, the House of Lords saw itself
+as extending the traditional law of qualified privilege
+ in a manner appropriate to the realities of con-
+temporary media and the imperative of free expression
+. Effectively, the Law Lords decided that the
+media has a “duty” to report on a matter of public
+interest and the public has a corresponding “interest
+” in receiving such a report. Whether the duty
+and interest had crystallized into a privilege in the
+particular case depended on whether the defendant
+ had acted responsibly, having regard to Lord
+Nicholls’ non-exhaustive list of factors.
+
+[90] The introduction of the Reynolds factors
+into the analysis, amounting in effect to a due diligence
+ test, produced an uneasy fit with the traditional
+ model of qualified privilege, which looked
+only to the occasion on which the communication
+ was made. The conduct of the defendant was
+only relevant after the privilege had already been
+established, to show whether it was defeated by
+malice. By contrast, under Reynolds, the defendant
+’s conduct became the dominant focus of the
+inquiry.
+
+[91] This led some courts and commentators
+to argue that Reynolds had introduced a substantially
+ new defence into the law of defamation. For
+instance, in Loutchansky v. Times Newspapers
+Ltd., [2001] EWCA Civ 1805, [2002] 1 All E.R.
+652, at para. 35, Lord Phillips, M.R. (as he then
+682
+
+
+was), opined that the Reynolds privilege is “a different
+ jurisprudential creature from the traditional
+form of privilege from which it sprang”.
+
+[92] The majority of the Law Lords in Jameel
+maintained the view that “Reynolds privilege” or
+“responsible journalism” rests at least notionally
+on the duty/interest analysis associated with qualified
+ privilege. However, Lord Hoffmann, with the
+concurrence of Baroness Hale, insisted that responsible
+ journalism could not be assimilated to traditional
+ qualified privilege, adopting Lord Phillips’
+view that it is “a different jurisprudential creature”.
+It is not the occasion which is protected by the new
+defence, but the published material itself. (See also
+Brown, vol. 4, at pp. 27-45 and 27-46, fn. 116.)
+Furthermore, it makes little sense to speak of an
+assertion of responsible journalism being defeated
+by proof of malice, because the absence of malice
+is effectively built into the definition of responsible
+journalism itself.
+
+[93] Characterizing the change to the law as
+introducing a new defence is also supported by the
+fact that many forms of qualified privilege would
+not be well served by opening up the privilege to
+media publications. The duties and interests of
+people communicating and receiving job references
+or police reports are definable with some precision
+and involve a genuine reciprocity. The reciprocal
+duty and interest involved in a journalistic publication
+ to the world at large, by contrast, is largely
+notional.
+
+[94] The traditional duty/interest framework
+works well in its established settings of qualified
+ privilege. These familiar categories should
+not be compromised or obscured by the addition
+of a broad new privilege based on public interest.
+683
+[2009] 3 R.C.S.
+
+
+Further, qualified privilege as developed in the
+cases is grounded not in free expression values but
+in the social utility of protecting particular com-
+municative occasions from civil liability.
+
+[95] I therefore conclude that the proposed change
+to the law should be viewed as a new defence, leaving
+ the traditional defence of qualified privilege
+intact.
+
+[96] A second preliminary question is what the
+new defence should be called. In arguments before
+us, the defence was referred to as the responsible
+journalism test. This has the value of capturing the
+essence of the defence in succinct style. However,
+the traditional media are rapidly being comple-
+mented by new ways of communicating on matters
+ of public interest, many of them online, which
+do not involve journalists. These new dissemina-
+tors of news and information should, absent good
+reasons for exclusion, be subject to the same laws
+as established media outlets. I agree with Lord
+Hoffmann that the new defence is “available to
+anyone who publishes material of public interest in
+any medium”: Jameel, at para. 54.
+
+[97] A review of recent defamation case law suggests
+ that many actions now concern blog postings
+and other online media which are potentially both
+more ephemeral and more ubiquitous than traditional
+ print media. While established journalistic
+standards provide a useful guide by which to evaluate
+ the conduct of journalists and non-journalists
+alike, the applicable standards will necessarily
+evolve to keep pace with the norms of new communications
+ media. For this reason, it is more accurate
+to refer to the new defence as responsible communication
+ on matters of public interest.
+684
+
+
+      (2) Formulating the Defence of Responsible
+          Communication on Matters of Public
+          Interest
+[98] This brings us to the substance of the test
+for responsible communication. In Quan, Sharpe
+J.A. held that the defence has two essential elements
+: public interest and responsibility. I agree,
+and would formulate the test as follows. First, the
+publication must be on a matter of public interest.
+Second, the defendant must show that publication
+was responsible, in that he or she was diligent in
+trying to verify the allegation(s), having regard to
+all the relevant circumstances.
+      (a) Was the Publication on a Matter of Public
+          Interest?
+[99] To be protected by the defence of responsible
+ communication, the publication must be on a
+matter of public interest.
+[100] This is a matter for the judge to decide.
+To be sure, whether a statement’s publication is in
+the public interest involves factual issues. But it is
+primarily a question of law; the judge is asked to
+determine whether the nature of the statement is
+such that protection may be warranted in the public
+interest. The judge acts as a gatekeeper analogous
+to the traditional function of the judge in determining
+ whether an “occasion” is subject to privilege.
+Unlike privilege, however, the determination of
+whether a statement relates to a matter of public
+interest focusses on the substance of the publication
+ itself and not the “occasion”. Where the question
+ is whether a particular communication fits
+within a recognized subject matter of public interest
+, it is a mixed question of fact and law, and will
+therefore attract more deference on appeal than
+will a pure determination of public interest. But it
+properly remains a question for the trial judge as
+opposed to the jury.
+685
+[2009] 3 R.C.S.
+
+
+[101] In determining whether a publication is on
+a matter of public interest, the judge must consider
+the subject matter of the publication as a whole. The
+defamatory statement should not be scrutinized in
+isolation. The judge’s role at this point is to determine
+ whether the subject matter of the communication
+ as a whole is one of public interest. If it is, and
+if the evidence is legally capable of supporting the
+defence, as I will explain below, the judge should
+put the case to the jury for the ultimate determination
+ of responsibility.
+
+[102] How is “public interest” in the subject
+matter established? First, and most fundamentally,
+the public interest is not synonymous with what
+interests the public. The public’s appetite for information
+ on a given subject — say, the private lives
+of well-known people — is not on its own sufficient
+to render an essentially private matter public for the
+purposes of defamation law. An individual’s reasonable
+ expectation of privacy must be respected in
+this determination. Conversely, the fact that much
+of the public would be less than riveted by a given
+subject matter does not remove the subject from
+the public interest. It is enough that some segment
+of the community would have a genuine interest in
+receiving information on the subject.
+
+[103] The authorities offer no single “test” for
+public interest, nor a static list of topics falling
+within the public interest (see, e.g., Gatley on Libel
+and Slander (11th ed. 2008), at p. 530). Guidance,
+however, may be found in the cases on fair comment
+ and s. 2(b) of the Charter.
+
+[104] In London Artists, Ltd. v. Littler, [1969] 2
+All E.R. 193 (C.A.), speaking of the defence of fair
+comment, Lord Denning, M.R., described public
+interest broadly in terms of matters that may legitimately
+ concern or interest people:
+There is no definition in the books as to what is a matter
+of public interest. All we are given is a list of examples,
+coupled with the statement that it is for the judge and
+not for the jury. I would not myself confine it within
+narrow limits. Whenever a matter is such as to affect
+686
+
+
+people at large, so that they may be legitimately inter-
+ested in, or concerned at, what is going on; or what may
+happen to them or to others; then it is a matter of public
+interest on which everyone is entitled to make fair comment
+. [p. 198]
+
+[105] To be of public interest, the subject matter
+“must be shown to be one inviting public attention
+, or about which the public has some substantial
+ concern because it affects the welfare of citizens
+, or one to which considerable public notoriety
+or controversy has attached”: Brown, vol. 2, at pp.
+15-137 and 15-138. The case law on fair comment
+“is replete with successful fair comment defences
+on matters ranging from politics to restaurant and
+book reviews”: Simpson v. Mair, 2004 BCSC 754,
+31 B.C.L.R. (4th) 285, at para. 63, per Koenigsberg
+J. Public interest may be a function of the prominence
+ of the person referred to in the communication
+, but mere curiosity or prurient interest is not
+enough. Some segment of the public must have a
+genuine stake in knowing about the matter published
+.
+
+[106] Public interest is not confined to publications
+ on government and political matters, as it
+is in Australia and New Zealand. Nor is it necessary
+ that the plaintiff be a “public figure”, as in
+the American jurisprudence since Sullivan. Both
+qualifications cast the public interest too narrowly.
+The public has a genuine stake in knowing about
+many matters, ranging from science and the arts to
+the environment, religion and morality. The democratic
+ interest in such wide-ranging public debate
+must be reflected in the jurisprudence.
+
+[107] Care must be taken by the judge making this
+determination to characterize the subject matter
+accurately. Overly narrow characterization may
+inappropriately defeat the defence at the outset.
+For example, characterizing the subject matter in
+687
+[2009] 3 R.C.S.
+
+
+this case simply as “Peter Grant’s business deal-
+ings” would obscure the significant public interest
+engaged by the article and thus restrict the legitimate
+ scope of public interest. Similarly, characterizing
+ the subject matter too broadly as “Ontario
+politics” might render the test a mere rubber stamp
+and bring unworthy material within the protection
+of the defence.
+
+[108] The question then arises whether the judge
+or the jury should decide whether the inclusion of
+a particular defamatory statement in a publication
+was necessary to communicating on the matter of
+public interest. Is this question merely a subset of
+determining generally whether the publication is in
+the public interest? Or is it better treated as a factor
+in the jury’s assessment of responsibility? Lord
+Hoffmann in Jameel took the view that determining
+ whether a defamatory statement was necessary
+to communicating on a matter of public interest is a
+question of law for the judge, conceding, however,
+that this may require the judge to second-guess editorial
+ judgment, and must be approached in a defer-
+ential way (para. 51).
+
+
+[109] In my view, if the publication, read broadly
+and as a whole, relates to a matter of public interest
+, the judge should leave the defence to the jury
+on the publication as a whole, and not editorially
+excise particular statements from the defence on
+the ground that they were not necessary to communicating
+ on the matter of public interest. Deciding
+whether the inclusion of the impugned statement
+was justifiable involves a highly fact-based assessment
+ of the context and details of the publication
+itself. Whereas a given subject matter either is or is
+not in law a matter of public interest, the justifiabil-
+ity of including a defamatory statement may admit
+of many shades of gray. It is intimately bound up
+in the overall determination of responsibility and
+should be left to the jury. It is for the jury to consider
+ the need to include particular defamatory
+statements in determining whether the defendant
+acted responsibly in publishing what it did.
+688
+
+
+      (b) Was Publication of the Defamatory
+          Communication Responsible?
+
+[110] Against this background, I turn to some relevant
+ factors that may aid in determining whether
+a defamatory communication on a matter of public
+interest was responsibly made.
+
+      (i) The Seriousness of the Allegation
+
+[111] The logic of proportionality dictates that
+the degree of diligence required in verifying the
+allegation should increase in proportion to the
+seriousness of its potential effects on the person
+defamed. This factor recognizes that not all defamatory
+ imputations carry equal weight. The defamatory
+ “sting” of a statement can range from a pass-
+ing irritant to a blow that devastates the target’s
+reputation and career. The apprehended harm to
+the plaintiff’s dignity and reputation increases in
+relation to the seriousness of the defamatory sting.
+The degree to which the defamatory communication
+ intrudes upon the plaintiff’s privacy is one way
+in which the seriousness of the sting may be meas-
+ured. Publication of the kinds of allegations traditionally
+ considered the most serious — for example
+, corruption or other criminality on the part of
+a public official — demand more thorough efforts
+at verification than will suggestions of lesser mis-
+chief. So too will those which impinge substantially
+ on the plaintiff’s reasonable expectation of
+privacy.
+
+      (ii) The Public Importance of the Matter
+
+[112] Inherent in the logic of proportionality is the
+degree of the public importance of the communication
+’s subject matter. The subject matter will, however
+, already have been deemed by the trial judge
+to be a matter of public interest. However, not all
+matters of public interest are of equal importance.
+Communications on grave matters of national secu-
+rity, for example, invoke different concerns from
+those on the prosaic business of everyday politics.
+689
+[2009] 3 R.C.S.
+
+
+What constitutes reasonable diligence with respect
+to one may fall short with respect to the other.
+Where the public importance in a subject matter
+is especially high, the jury may conclude that this
+factor tends to show that publication was responsible
+ in the circumstances. In many cases, the public
+importance of the matter may be inseparable from
+its urgency.
+
+    (iii) The Urgency of the Matter
+
+[113] As Lord Nicholls observed in Reynolds,
+news is often a perishable commodity. The legal
+requirement to verify accuracy should not unduly
+hamstring the timely reporting of important news.
+But nor should a journalist’s (or blogger’s) desire
+to get a “scoop” provide an excuse for irresponsible
+ reporting of defamatory allegations. The question
+ is whether the public’s need to know required
+the defendant to publish when it did. As with the
+other factors, this is considered in light of what the
+defendant knew or ought to have known at the time
+of publication. If a reasonable delay could have
+assisted the defendant in finding out the truth and
+correcting any defamatory falsity without compro-
+mising the story’s timeliness, this factor will weigh
+in the plaintiff’s favour.
+
+    (iv) The Status and Reliability of the Source
+
+[114] Some sources of information are more
+worthy of belief than others. The less trustwor-
+thy the source, the greater the need to use other
+sources to verify the allegations. This applies as
+much to documentary sources as to people; for
+example, an “interim progress report” of an inter-
+nal inquiry has been found to be an insufficiently
+authoritative source in the circumstances: Miller v.
+Associated Newspapers Ltd., [2005] EWHC 557
+(QB) (BAILII). Consistent with the logic of the repetition
+ rule, the fact that someone has already published
+ a defamatory statement does not give another
+person licence to repeat it. As already explained,
+this principle is especially vital when defamatory
+690
+
+
+statements can be reproduced electronically with
+the speed of a few keystrokes. At the same time,
+the fact that the defendant’s source had an axe to
+grind does not necessarily deprive the defendant
+of protection, provided other reasonable steps were
+taken.
+
+[115] It may be responsible to rely on confidential
+sources, depending on the circumstances; a defendant
+ may properly be unwilling or unable to reveal
+a source in order to advance the defence. On the
+other hand, it is not difficult to see how publishing
+slurs from unidentified “sources” could, depending
+on the circumstances, be irresponsible.
+
+      (v) Whether the Plaintiff’s Side of the Story
+          Was Sought and Accurately Reported
+
+[116] It has been said that this is “perhaps the
+core Reynolds factor” (Gatley, at p. 535) because it
+speaks to the essential sense of fairness the defence
+is intended to promote, as well as thoroughness. In
+most cases, it is inherently unfair to publish defamatory
+ allegations of fact without giving the target
+an opportunity to respond: see, e.g., Galloway v.
+Telegraph Group Ltd., [2004] EWHC 2786 (QB)
+(BAILII), at paras. 166-67, per Eady J. Failure to
+do so also heightens the risk of inaccuracy, since
+the target of the allegations may well be able to
+offer relevant information beyond a bare denial.
+
+[117] The importance of this factor varies with
+the degree to which fulfilling its dictates would
+actually have bolstered the fairness and accuracy
+of the report. For example, if the target of the allegations
+ could have no special knowledge of them,
+this factor will be of little importance: see Jameel,
+at paras. 35, and 83-85, where the House of Lords
+held that the plaintiff (whose group of companies
+had been put on a terrorism monitoring list) could
+not realistically have added anything material to
+691
+[2009] 3 R.C.S.
+
+
+the story because the relevant actions of the Saudi
+and U.S. governments were secret and entirely
+beyond his control.
+
+    (vi) Whether Inclusion of the Defamatory
+         Statement Was Justifiable
+
+[118] As discussed earlier (paras. 108-9), it is for
+the jury to determine whether inclusion of a defamatory
+ statement was necessary to communicating
+ on a matter of public interest. Its view of the
+need to include a particular statement may be taken
+into account in deciding whether the communica-
+tor acted responsibly. In applying this factor, the
+jury should take into account that the decision to
+include a particular statement may involve a vari-
+ety of considerations and engage editorial choice,
+which should be granted generous scope.
+
+    (vii) Whether the Defamatory Statement’s
+          Public Interest Lay in the Fact That
+          It Was Made Rather Than Its Truth
+          (“Reportage”)
+
+[119] The “repetition rule” holds that repeating
+a libel has the same legal consequences as originating
+ it. This rule reflects the law’s concern that
+one should not be able to freely publish a scurrilous
+libel simply by purporting to attribute the allegation
+ to someone else. The law will not protect a
+defendant who is “willing to wound, and yet afraid
+to strike”: “Truth” (N.Z.) Ltd. v. Holloway, [1960]
+1 W.L.R. 997 (P.C.), at p. 1001, per Lord Denning.
+In sum, the repetition rule preserves the accountability
+ of media and other reporting on matters of
+public interest. The “bald retailing of libels” is not
+in the public interest: Charman, at para. 91, per
+Sedley L.J. Maintaining the repetition rule is particularly
+ important in the age of the Internet, when
+defamatory material can spread from one website
+to another at great speed.
+
+[120] However, the repetition rule does not apply
+to fairly reported statements whose public interest
+692
+
+
+lies in the fact that they were made rather than in
+their truth or falsity. This exception to the repetition
+ rule is known as reportage. If a dispute is itself
+a matter of public interest and the allegations are
+fairly reported, the publisher should incur no liability
+ even if some of the statements made may be
+defamatory and untrue, provided: (1) the report
+attributes the statement to a person, preferably
+identified, thereby avoiding total unaccountability
+; (2) the report indicates, expressly or implicitly,
+that its truth has not been verified; (3) the report
+sets out both sides of the dispute fairly; and (4) the
+report provides the context in which the statements
+were made. See Al-Fagih v. H.H. Saudi Research
+& Marketing (U.K.) Ltd., [2001] EWCA Civ 1634
+(BAILII), at para. 52; Charman; Prince Radu of
+Hohenzollern v. Houston, [2007] EWHC 2735
+(QB) (BAILII); Roberts v. Gable, [2007] EWCA
+Civ 721, [2008] 2 W.L.R. 129.
+
+[121] Where the defendant claims that the
+impugned publication (in whole or in part) constitutes
+ reportage, i.e. that the dominant public interest
+ lies in reporting what was said in the context of
+a dispute, the judge should instruct the jury on the
+repetition rule and the reportage exception to the
+rule. If the jury is satisfied that the statements in
+question are reportage, it may conclude that publication
+ was responsible, having regard to the four
+criteria set out above. As always, the ultimate question
+ is whether publication was responsible in the
+circumstances.
+
+      (viii)
+
+[122] As noted, the factors serve as non-
+exhaustive but illustrative guides. Ultimately, all
+matters relevant to whether the defendant commu-
+nicated responsibly can be considered.
+693
+[2009] 3 R.C.S.
+
+
+[123] Not all factors are of equal value in assessing
+ responsibility in a given case. For example, the
+“tone” of the article (mentioned in Reynolds) may
+not always be relevant to responsibility. While dis-
+tortion or sensationalism in the manner of presen-
+tation will undercut the extent to which a defendant
+can plausibly claim to have been communicating
+responsibly in the public interest, the defence of
+responsible communication ought not to hold writers
+ to a standard of stylistic blandness: see Roberts,
+at para. 74, per Sedley L.J. Neither should the law
+encourage the fiction that fairness and responsibility
+ lie in disavowing or concealing one’s point of
+view. The best investigative reporting often takes a
+trenchant or adversarial position on pressing issues
+of the day. An otherwise responsible article should
+not be denied the protection of the defence simply
+because of its critical tone.
+
+[124] If the defamatory statement is capable of
+conveying more than one meaning, the jury should
+take into account the defendant’s intended meaning,
+if reasonable, in determining whether the defence
+of responsible communication has been established.
+This follows from the focus of the inquiry on the
+conduct of the defendant. The weight to be placed
+on the defendant’s intended meaning is a matter of
+degree: “The more obvious the defamatory meaning
+, and the more serious the defamation, the less
+weight will a court attach to other possible meanings
+ when considering the conduct to be expected
+of a responsible journalist in the circumstances”
+(Bonnick v. Morris, [2002] UKPC 31, [2003] 1
+A.C. 300 (P.C.), at para. 25, per Lord Nicholls).
+Under the defence of responsible communication,
+it is no longer necessary that the jury settle on a
+single meaning as a preliminary matter. Rather, it
+assesses the responsibility of the communication
+with a view to the range of meanings the words are
+reasonably capable of bearing.
+
+[125] Similarly, the defence of responsible communication
+ obviates the need for a separate inquiry
+into malice. (Malice may still be relevant where
+other defences are raised.) A defendant who has
+694
+
+
+acted with malice in publishing defamatory allegations
+ has by definition not acted responsibly.
+
+      (3) Summary of the Required Elements
+
+[126] The defence of public interest responsible
+communication is assessed with reference to the
+broad thrust of the publication in question. It will
+apply where:
+
+A. The publication is on a matter of public interest
+   , and
+
+B. The publisher was diligent in trying to verify
+   the allegation, having regard to:
+
+      (a) the seriousness of the allegation;
+
+      (b) the public importance of the matter;
+
+      (c) the urgency of the matter;
+
+      (d) the status and reliability of the source;
+
+      (e) whether the plaintiff’s side of the story
+          was sought and accurately reported;
+
+      (f) whether the inclusion of the defamatory
+          statement was justifiable;
+
+      (g) whether the defamatory statement’s public
+          interest lay in the fact that it was made
+          rather than its truth (“reportage”); and
+
+      (h) any other relevant circumstances.
+
+C. Procedural Issues: Judge and Jury
+
+[127] As a general rule, the judge decides questions
+ of law, while the jury decides questions of
+fact and applies the law to the facts. As is the case
+in other actions, for example negligence trials,
+issues of fact and law cannot be entirely disentan-
+gled. Nevertheless, it is possible to arrive at the following
+ allocation of responsibility on the defence
+of responsible communication, having regard to
+695
+[2009] 3 R.C.S.
+
+
+whether the issue is predominantly legal or factual,
+to the traditional allocations of responsibility in
+defamation trials, and to relevant legislation.
+
+[128] The judge decides whether the statement
+relates to a matter of public interest. If public interest
+ is shown, the jury decides whether on the evidence
+ the defence is established, having regard to
+all the relevant factors, including the justification
+for including defamatory statements in the article.
+
+[129] As in any trial by judge and jury, the judge
+may, upon motion, rule out the defence on the basis
+that the facts as proved are incapable of supporting
+the inference of responsible communication. This
+is consistent with the power of the judge in existing
+jurisprudence to withdraw the issue of malice from
+the jury where there is no basis for an inference of
+malice on the evidence.
+
+[130] The defence of responsible communication
+ does not require preliminary rulings from the
+jury on primary meaning, since it does not depend
+on the supposition of a single meaning. The jury
+should be instructed to assess the responsibility of
+the communication in light of the range of meanings
+ the words are reasonably capable of bearing,
+including evidence as to the defendant’s intended
+meaning.
+
+[131] The division of responsibility proposed
+here accords with the general rule that matters of
+law are for the judge, and matters of fact are for
+the jury. In preserving a central role for the jury,
+it is consistent with Canadian tradition and statutory
+ enactments. Traditionally, defamation actions
+have usually been tried by judge and jury, and
+many Canadian jurisdictions continue to have special
+ rules for jury trials in defamation cases even
+as juries in most other kinds of civil actions have
+become less common: see, e.g., British Columbia
+Supreme Court Rules, B.C. Reg. 221/90, r. 39(27);
+696
+
+
+Alberta Jury Act, R.S.A. 2000, c. J-3, s. 17(1). In
+Ontario, where the case at bar arose, there is no
+longer any special right to a jury trial in defamation
+ cases. However, s. 14 of the Ontario Libel
+and Slander Act, R.S.O. 1990, c. L.12, guaran-
+tees the right of a jury in a defamation action to
+render a general verdict (see also Courts of Justice
+Act, R.S.O. 1990, c. C.43, s. 108(5)). Courts have
+interpreted s. 14 to mean that the jury cannot be
+required to answer specific questions, and if they
+are asked to do so they must also be informed of
+their right to render a general verdict: Pizza Pizza
+Ltd. v. Toronto Star Newspapers Ltd. (1998), 42
+O.R. (3d) 36 (Div. Ct.), at pp. 43-44, per Sharpe J.
+Finally, s. 108 of the Ontario Courts of Justice Act
+provides that in a defamation action tried by judge
+and jury, it is for the jury to decide questions of fact
+and to assess the quantum of damages.
+
+[132] The plaintiffs argue against a central role
+for the jury. In their view, if a conduct-based
+defence is recognized, it should be for the judge
+alone to determine whether it lies and whether it is
+established on the facts. This, they contend, is the
+only way to safeguard the nuanced constitutional
+balance between free expression and the protection
+of reputation.
+
+[133] This argument cannot be sustained. First,
+restricting the role of the jury in this manner may
+run afoul of the statutory rights accorded by s. 108
+of the Ontario Courts of Justice Act (it is for the
+jury to decide questions of fact), and most certainly
+would violate s. 14 of the Ontario Libel and Slander
+Act (the jury cannot be required to decide preliminary
+ questions, and must be permitted to render a
+general verdict). The argument is essentially a plea
+to the Court to amend the provisions of these Acts.
+This the Court cannot do.
+697
+[2009] 3 R.C.S.
+
+
+[134] Second, permitting the jury to have the ultimate
+ say on whether or not the new defence applies,
+is consistent with the jury’s role with respect to the
+defence of fair comment. The Reynolds model,
+where “primary facts” are determined by the jury
+but the decision on responsible journalism is made
+by the judge, entails a complex back and forth
+between judge and jury and may lead to interlocutory
+ rulings, and in due course appeals from those
+interlocutory decisions. Moreover, confining the
+jury’s role to preliminary fact-finding would entail
+seeking jury responses to numerous detailed questions
+, which may in turn “thwart many of the bene-
+fits sought through the doctrinal changes”: Kenyon,
+at p. 433; see also Lord Phillips, M.R., in Jameel v.
+Wall Street Journal Europe SPRL, [2005] EWCA
+Civ 74, [2005] 4 All E.R. 356, at para. 70, lament-
+ing the division of roles that has taken shape in
+English courts under Reynolds.
+
+[135] Third, it is not unusual for juries to render
+verdicts where constitutionally protected interests
+are at stake. They do so every day in criminal trials
+across the country. Sufficient safeguards exist in
+the proposed division of responsibility to ensure the
+appropriate constitutional balance is struck. The
+judge exercises a gatekeeper function in determining
+ the legal issues and evidentiary sufficiency, and
+instructs the jury on all relevant factors, including
+the nature and importance of the Charter values of
+free expression and protection of reputation. The
+judge’s decisions can be appealed for legal error.
+
+VI. Application to the Facts of This Case
+
+[136] The evidence revealed a basis for three
+defences: (1) justification; (2) fair comment; and (3)
+responsible communication on a matter of public
+interest. All three defences should have been left to
+the jury. It is unnecessary to deal further with the
+698
+
+
+defence of justification; no error is alleged in the
+trial judge’s directions on this defence.
+
+[137] Where the judge retains genuine doubt as
+to whether a given statement should be character-
+ized as fact or opinion, the question should be left
+to the jury to decide: Scott v. Fulton, 2000 BCCA
+124, 73 B.C.L.R. (3d) 392. In this case, it was open
+to the jury to consider the statement attributed to
+Dr. Clark that “[e]veryone thinks it’s a done deal”
+as a comment, or statement of opinion. The statement
+ could be read as an idiomatic expression of an
+opinion about the likelihood of something, namely
+government approval, that had not yet come to pass.
+This would raise the defence of fair comment.
+
+[138] The defence of fair comment was left to
+the jury at trial. However, I agree with the Court of
+Appeal, per Feldman J.A., that the trial judge erred
+in his charge to the jury on fair comment. He failed
+to instruct the jury that “since Mr. Schiller was the
+conduit for the comment and not its maker, the fact
+that he did not honestly believe it could not be used
+as a foundation for finding malice unless in the
+context of the article, he had adopted the comment
+as his own” (Feldman J.A., at para. 93). This recalls
+Binnie J.’s observation in WIC Radio that “defamation
+ proceedings will have reached a troubling
+level of technicality if the protection afforded by
+the defence of fair comment to freedom of expression
+ (‘the very lifeblood of our freedom’) is made
+to depend on whether or not the speaker is prepared
+to swear to an honest belief in something he does
+not believe he ever said” (para. 35). Additionally, as
+also held in WIC Radio, the “fair-minded” component
+ of the traditional test should not form part of
+a charge on fair comment. For the reasons given by
+Feldman J.A., at paras. 83-94 of her reasons, these
+problems in the trial judge’s charge could have led
+the jury to wrongly conclude that the fair comment
+defence had been defeated by malice.
+699
+[2009] 3 R.C.S.
+
+
+[139] It was also open to the jury to consider the
+critical “done deal” remark as a statement of fact.
+Read literally, it can be taken as an assertion that
+government approval for the development was actually
+ already sealed, either formally behind closed
+doors or by tacit understanding. This raises the
+defence of responsible communication on a matter
+of public interest. The trial judge did not leave this
+or any similar defence to the jury.
+
+[140] In Ontario, an appellate court cannot order
+a new trial in a civil matter “unless some substantial
+ wrong or miscarriage of justice has occurred”:
+Courts of Justice Act, s. 134(6). Taken together, in
+my view, the errors I have described rise to this level
+and require a new trial. Since the facts and submis-
+sions on the new trial may differ from those on the
+first trial, detailed discussion of how the new trial
+should proceed would be inappropriate. However,
+on the assumption the evidence will mirror the evidence
+ on the first trial, the following observations
+may be helpful.
+
+1.
+     arise on the facts: (1) justification (truth); (2)
+     fair comment, with respect to any statements
+     of opinion; and (3) responsible communication
+     on a matter of public interest, with respect to
+     any statements of fact.
+
+2. Since the statement most at issue (the “done
+   deal” remark) can be viewed as opinion, the
+   trial judge should instruct the jury on the
+   defence of fair comment in accordance with
+   this Court’s decision in WIC Radio.
+
+3. Since the statement can also be viewed as
+   a statement of fact, raising the defence of
+700
+
+
+      responsible communication on a matter of
+      public interest, the trial judge should rule on
+      whether communication of the statement was
+      in the public interest. On the evidence in the
+      first trial, the answer to this question is affirm-
+      ative. The communication related to issues of
+      government conduct is clearly in the public
+      interest.
+
+4. The jury should be instructed to determine
+   whether publication of the defamatory material
+   was responsible, having regard to the factors
+   enumerated above.
+
+VII. Conclusion
+
+[141] I would dismiss the appeal and the cross-
+appeal, and affirm the order for a new trial. The
+respondents should have their costs of the main
+appeal in this Court.
+
+  The following are the reasons delivered by
+
+[142] a Bella j. — I am in complete agreement
+with the Chief Justice’s reasons for adding the
+“responsible communication” defence to Canadian
+defamation law. I also share her view that determining
+ the availability of this defence entails a
+two-step analysis: the first to determine whether
+a publication is on a matter of public interest;
+and the second to determine whether the standard
+ of responsibility is met. Yet while I agree that
+the first question is a matter of law for the judge
+to decide, I do not, with great respect, share her
+view that the jury should decide the second step.
+I see very little conceptual difference between
+deciding whether a communication is in the
+public interest and whether it is responsibly made.
+While both inquiries engage questions of fact and
+law, both are nonetheless predominantly legal
+issues. As a result, in my view the legal character
+ of deciding whether the applicable standard
+of responsibility has been met in a given case is,
+701
+[2009] 3 R.C.S.
+
+
+like the public interest analysis, a matter for the
+judge.
+
+[143] The responsible communication analysis
+requires that the defendant’s interest in freely disseminating
+ information and the public’s interest in
+the free flow of information be weighed against the
+plaintiff’s interest in protecting his or her reputation
+. This is true no less of the second and determinative
+ step as of the first. The exercise as a
+whole involves balancing freedom of expression,
+freedom of the press, the protection of reputation,
+privacy concerns, and the public interest. Each of
+these is a complex value protected either directly
+or indirectly by the Canadian Charter of Rights
+and Freedoms (Edmonton Journal v. Alberta
+(Attorney General), [1989] 2 S.C.R. 1326, at p.
+1336; Canadian Broadcasting Corporation v. New
+Brunswick (Attorney General), [1991] 3 S.C.R. 459,
+at p. 475; Hill v. Church of Scientology of Toronto,
+[1995] 2 S.C.R. 1130, at para. 107; and WIC Radio
+Ltd. v. Simpson, 2008 SCC 40, [2008] 2 S.C.R.
+420, at para. 2). Weighing these often competing
+constitutional interests is a legal determination. It
+is, therefore, a determination that the judge should
+undertake.
+
+[144] I accept that the jury’s participation in defamation
+ cases is firmly entrenched in the psyche
+of defamation law and that authorizing judges to
+decide both steps of the responsible communication
+ analysis leaves juries with a limited role. But
+I am unpersuaded that it is inconsistent with the
+statutory scheme to leave the legal issues at stake
+here with the judge and any disputed facts with the
+jury. It is worth remembering that such a potentially
+ determinative role for the judge already
+exists when the defence of absolute or qualified
+privilege is engaged (Raymond E. Brown, The
+Law of Defamation in Canada (2nd ed. (loose-
+leaf)), vol. 2, at pp. 12-289, 13-405 and 16-136). It
+is also useful to bear in mind the historical basis
+702
+
+
+for the jury’s preeminent role in defamation cases.
+It was an outgrowth of Britain’s Libel Act of 1792
+when juries were seen to be necessary as “watch-
+dogs of democratic rights against unrepresenta-
+tive governments” (New South Wales Law Reform
+Commission, Report 75, Defamation (1995), at
+para. 3.2, cited in Australian Broadcasting Corp.
+v. Reading, [2004] NSWCA 411 (AustLII), at para.
+143). More than two centuries later, this rationale
+ is difficult to sustain, as is the primacy of the
+jury’s role (Brown, vol. 3, at p. 17-115; Jameel v.
+Wall Street Journal Europe SPRL, [2005] EWCA
+Civ 74, [2005] 4 All E.R. 356, at para. 70, per Lord
+Phillips, M.R.; Gatley on Libel and Slander (11th
+ed. 2008), at p. 1241; and David A. Anderson, “Is
+Libel Law Worth Reforming?” (1991-1992), 140 U.
+Pa. L. Rev. 487, at p. 540).
+
+[145] By adopting the responsible communication
+ defence, we are recognizing the sophistication
+and constitutional complexity of defamation cases
+involving communications on matters of public
+interest. What is most important is protecting the
+integrity of the interests and values at stake in
+such cases. This defence is a highly complex legal
+determination with constitutional dimensions. That
+takes it beyond the jury’s jurisdiction and squarely
+into judicial territory.
+
+[146] Other than this concern over the proper
+division of labour between judge and jury, I agree
+with the Chief Justice’s reasons and with her decision
+ to order a new trial.
+
+                    APPENDIX
+
+Cottagers teed off over golf course
+
+Long-time Harris backer awaits Tory nod on plan
+703
+[2009] 3 R.C.S.
+
+
+Bill Schiller
+FEATURE WRITER
+
+Saturday Special
+NEW LISKEARD — During the past decade, millionaire
+lumber magnate Peter Grant — one of the most powerful
+ business people in northern Ontario — has been
+generous with Mike Harris and the Conservatives.
+In 1990, Grant, through his companies, gave Harris
+more than $14,000 to help him win the Conservative
+leadership.
+In 1999, Grant poured $45,000 into Conservative pock-
+ets to speed their re-election, — followed by another
+$21,000 last year.
+Of this $80,000, at least $5,000 went to Natural
+Resources Minister John Snobelen and his Mississauga
+riding association.
+But Peter Grant also wants something from the government
+.
+Here, on a tiny peninsula on a cottage-speckled lake,
+where families have come for generations, Grant wants
+to take three small golf holes on his property and expand
+them into a 3,290-yard, nine-hole course.
+To do so, he needs the Harris government — with the
+support of Snobelen’s ministry — to sell him 10.5 hectares
+ of crown land and approve the project.
+The planned course will be private, so private in fact, it
+will be for Grant’s own “personal use and enjoyment.”
+But in the minds of many who own cottages here on
+Twin Lakes, about 500 kilometres north of Toronto,
+Grant’s dream of carving a course out of the northern
+wilderness for his own pleasure, is a nightmare.
+“Herbicides, pesticides, fertilizers, will all wash into
+our lake,” insists Bonnie Taylor, who might be forgiven
+for sounding a little proprietary. Her pioneering family
+first built on this spring-fed lake nearly 60 years ago.
+Last winter, she wrote the province to say she’s worried
+ about the impact the course could have on lake and
+704
+
+
+well water — especially, she said, “with Walkerton still
+fresh on everyone’s mind.”
+For his part, Grant refuses to be interviewed.
+“Our client . . . does not intend to discuss his personal
+affairs with you,” his lawyers informed The Star by
+letter.
+When a Star photographer went to take pictures at
+the site this month, men the OPP believe were Grant
+employees, accused the photographer of trespassing.
+They then tried to drive the photographer’s vehicle off a
+public road, and finally followed the photographer out
+of town for almost 20 kilometres.
+But for concerned cottagers back at lakeside — the
+issue is water.
+Grant already has provincial permission to draw as
+much as 300,000 litres per day from the lake to water
+his three golf holes.
+According to environment ministry guidelines, the
+same amount of treated water could support a community
+ of 750 to 1,500 people.
+And ratepayers worry that if Grant’s plan goes ahead,
+his need for water will grow.
+It’s a worry not without foundation: some 18-hole golf
+courses in the north have provincial permits to take as
+much as 2.2 million litres of water per day.
+Grant’s expanded course would also clear trees from
+almost 23.5 hectares in total: 10.5 hectares of crown
+land, and another 13 hectares of privately held land he
+also intends to buy for the project.
+Perhaps most worrisome from the cottagers’ perspective
+, planning documents show the course will use
+$20,000 worth of pesticides annually, including small
+amounts of Daconil, a highly effective pesticide that is
+also highly toxic to fish and invertebrates.
+But locals aren’t the only ones concerned about Grant’s
+plans. Officials from the Ministry of Natural Resources
+are too. Currently conducting a limited environmental
+assessment, they’ve informed Grant of at least a dozen
+705
+[2009] 3 R.C.S.
+
+
+concerns they have about the project, from potential
+effects on water quality, to the impact on lake levels.
+Grant’s consultants are preparing a response.
+But the ministry’s concerns are small comfort to cottagers
+.
+They know the expressed concerns of government officials
+ don’t always mean much when it comes to development
+ projects led by supporters of the Premier.
+“Everyone thinks it’s a done deal because of Grant’s
+influence — but most of all his Mike Harris ties,” says
+Lorrie Clark, who owns a cottage on Twin Lakes.
+Earlier this year, the local cottagers’ association invited
+Grant’s consultants, as well as ministry officials to a
+meeting to discuss Grant’s proposal. A number of cottagers
+ brought copies of a Toronto Star article detailing
+how the Premier’s best friend Peter Minogue com-
+plained “at political levels” to try to get his North Bay
+golf course and subdivision approved in the face of
+opposition from the Ministry of Natural Resources.
+Minogue’s partners in that venture, known as Osprey
+Links, included the president of Harris’ riding association
+ and a veritable Who’s Who of Harris’ North Bay
+friends. Ministry objections were overruled just 12 days
+after a senior bureaucrat warned by memo that Minogue
+had begun complaining.
+With that experience in mind, lawyer Peter Ramsay, a
+ratepayer and cottager rose at the public meeting here
+and put his concerns bluntly.
+“Is this (Grant) project going to be decided by the
+Ministry of Natural Resources?” he asked officials
+present. “Or is it going to be decided by Queen’s
+Park?”
+A ministry official at the meeting, Greg Gillespie, said
+he couldn’t speak for what happens at Queen’s Park.
+706
+
+
+“But we did our job,” he said of the Osprey experience.
+Such suspicions and anxiety over the approval process
+have set the stage for a classic confrontation, which —
+in the cottagers’ view — pits the public good of ordinary
+Ontarians, many of whom are senior citizens, against a
+single, powerful, private interest: Peter Grant.
+“This is a development that is not in the public interest
+,” cottage owner Clark emphasizes, “but only a very
+private one.”
+For an outsider, however, looking at the history of the
+lake, one might think Grant is fighting an uphill battle.
+After all, in 1985 the Ontario Municipal Board shut
+down a proposal to build a small subdivision on Twin
+Lakes out of concerns about potential environmental
+damage.
+The board — a kind of court of appeal for developers
+and citizens who disagree on a development — sided
+with a consultant who argued that the lake was too sensitive
+, teetering on overdevelopment with 200 cottages,
+and any additional building might constitute an environmental
+ hazard.
+Those arguments won the day.
+But Grant is undaunted.
+Today, the same consultant who convinced the board
+to block that development more than 15 years ago, now
+consults for Grant.
+Michael Michalski argues that Grant’s development
+can be built with minimum impact and that “everything
+feasible” will be done to keep contaminants on site.
+Not to be outdone, local citizens have hired their own
+consultants, Gartner Lee. They say neither Michalski
+nor anyone else can guarantee the lake’s safety.
+And so the scientific lines have been drawn in the
+sand.
+But if politics and power were to have any bearing on the
+matter, some feel Grant would have the upper hand.
+707
+[2009] 3 R.C.S.
+
+
+In this rough and rugged stretch of northern Ontario,
+where local economies depend largely on timber and
+tourism, Grant is a powerful presence.
+His company, Grant Forest Products, is an important
+local employer. The company’s radio ads, which con-
+tinually remind locals that Grant is “using our forests
+wisely,” are part of public consciousness. And every
+autumn, a charity golf tournament Grant holds using
+two public courses — the tournament culminates at
+his mini-course — heralds the high point of this area’s
+social season. It always makes front-page news.
+So did the Premier’s visit here last fall, when he
+attended a post-tournament reception for more than 600
+at Grant’s palatial home.
+Grant, who has been running the event since 1998,
+proudly presented a cheque that day for $300,000 to
+help build a local senior’s home.
+Press accounts note that he’s raised about $1 million
+for local causes, including area golf courses, over three
+years.
+Up north, the charity event has distinguished him.
+So has his selection of lobbyists down south at Queen’s
+Park.
+When it comes to looking after business interests
+there, Grant depends on North Bay lobbyist Peter
+Birnie. Records at Elections Ontario show Birnie is
+vice-president of Harris’ riding association.
+Meanwhile, on the personal front, Grant maintains a
+reputation for living large.
+His home and corporate compound in the bush dwarfs
+the dozens of cottages that surround it.
+His 14,500 square-foot house on 4.5 hectares of lav-
+ishly landscaped property, was once appraised at $1.9
+million. Neighbours note the occasional helicopter
+coming and going through the bush.
+The seven-bedroom main house has an indoor squash
+court with viewing gallery, a fully equipped gymna-
+sium, and a Jacuzzi that can accommodate 15 people.
+708
+
+
+Outside, tennis courts are equipped with banks of lights
+that illuminate the night sky. And down on the water,
+there’s a 1,500-square-foot boat house.
+There is also his three-hole mini-course — that Grant
+calls Frog’s Breath — which can be configured to play
+as a tiny five.
+Records show these holes were built on almost three
+hectares of crown land, which the province sold to
+Grant in April, 1998 for $20,000.
+But records also show that two months earlier, in
+February, 1998, Grant had also applied to buy the 10.5
+hectares he’s still pursuing today.
+These developments have residents up in arms.
+“It’s difficult living here and watching all this go on,”
+says Nancy Kramp, a mother of four who, like Grant,
+lives permanently on Twin Lakes.
+“It used to be dead silence out here. There was nothing
+but the sounds of wildlife. Now, there are always (golf
+course) machines running.”
+Kramp can’t comprehend how the provincial government
+ can think of selling 10.5 hectares of land so that
+one man may build a golf course for his own enjoyment
+.
+She remembers a run-in she had with the Ministry of
+Natural Resources not so long ago over a sandbox.
+“Around 1994, the ministry told us to move a sandbox
+we’d erected for our son,” Kramp recalls, “four planks
+with sand in the middle, because it was on crown land.
+This sandbox seemed to be interfering with the natural
+habitat of the area. And now a nine-hole golf course is
+okay?”
+It’s not okay yet.
+The Harris government has not sold the property to
+him.
+Still, local politicians are preparing the way.
+Today, five politicians who represent the people of
+Hudson Township here (population: 501), are sched-
+uled to meet to discuss a motion to amend local zoning
+709
+[2009] 3 R.C.S.
+
+
+bylaws and, according to a published notice, “permit
+the construction of a personal golf course — for the
+personal use of the property owner.”
+Local councillor Clinton Edwards says he doesn’t really
+want to say whether he’ll support it.
+“I’m in a bit of a bind here,” he says, somewhat halt-
+ingly. “My wife works for him (Grant). Employment is
+very hard to get up here,” he adds.
+News of impending zoning changes even before the
+government has sold Grant the land makes some cottagers
+ distrustful about what might happen next.
+“The people on this lake aren’t mega-millionaires,” says
+Alexandra Skindra, mother, grandmother and property
+owner.
+“They’re just regular people. Hard-working people.
+This shouldn’t be happening.”
+Skindra and her husband Arkadis, 68, a retired nuclear
+plant designer, were planning on spending their retire-
+ment on the lake.
+“I grew up here,” explains Alexandra. “My kids grew
+up here. And I was hoping our five grandchildren could
+come here every summer.”
+“We don’t have anything against Peter,” Arkadis offers,
+hammer in hand as he renovates the front room of their
+cottage overlooking the water.
+“But I can’t see how this can go ahead and not damage
+the lake and the environment.”
+Down the way, Ira and Marion Murphy have spent 56
+years on a tiny stretch of land that joins Twin Lakes
+with neighbouring Frere Lake.
+Looking trim at 75, Ira, a retired Hydro supervisor, can
+point to the shore where he built a two-storey tree house
+for his granddaughters 18 summers ago.
+For him, lake life is a precious thing, something inter-
+woven with family.
+“You know, we’ve known Peter since he was 3 years
+old,” says Murphy, a handsome, gray-haired man with a
+taste for the outdoors.
+710
+
+
+“We’ve got nothing against him. We’re just concerned
+about the lake, that’s all.”
+Rudi Ptok, 71, says he’s worried about run-off, and
+not just with pesticides, he says, but with the 400 kilo-
+grams of fertilizers per year that will be needed to keep
+Grant’s course green too.
+“They’re probably going to have to blast out rock to
+build too,” he says.
+Ptok says Grant’s consultants have confirmed they may
+well have to dynamite.
+Looking worriedly out at the lake, Ptok says, “I don’t
+even want to think about it.”
+
+(A.R., vol. XI, at pp. 4-12)
+
+   Appeal and cross-appeal dismissed, with costs
+of the appeal in this Court to the respondents.
+
+   Solicitors for the appellants/respondents on
+cross-appeal: Fasken Martineau DuMoulin,
+Toronto.
+
+  Solicitors for the respondents/appellants
+on cross-appeal: Blake, Cassels & Graydon,
+Toronto.
+
+  Solicitors for the intervener the Ottawa Citizen:
+Gowling Lafleur Henderson, Ottawa.
+
+   Solicitors for the interveners the Canadian
+Newspaper Association, Ad IDEM/Canadian
+Media Lawyers Association, RTNDA Canada/
+Association of Electronic Journalists, Magazines
+Canada, the Canadian Association of Journalists,
+the Canadian Journalists for Free Expression, the
+Writers’ Union of Canada, the Professional Writers
+Association of Canada, the Book and Periodical
+Council, and PEN Canada: Brian MacLeod
+Rogers, Toronto.
+
+  Solicitor for the intervener the Canadian
+Broadcasting Corporation: Canadian Broadcasting
+Corporation, Toronto.
+
+   Solicitors for the intervener the Canadian Civil
+Liberties Association: Torys, Toronto.
+711
+[2009] 3 R.C.S.
+
+
+  Solicitors for the intervener Danno Cusson:
+Heenan Blaikie, Ottawa.

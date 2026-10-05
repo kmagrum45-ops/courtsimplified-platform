@@ -82,6 +82,22 @@ const STORIES: ProbeStory[] = [
     expect: ["esa-2000-ontario"],
   },
   {
+    // The common-law entitlement a lawyer leads with, which comes from the
+    // courts, not the statute (added with case law, 2026-10-05).
+    id: "fired-reasonable-notice",
+    court: "small-claims",
+    story:
+      "I was a store manager for 14 years. They let me go last month, said it was restructuring, and paid me the eight weeks the government says they have to. Everyone tells me I should get more than that. I'm 58 and can't find anything similar.",
+    expect: ["decision-honda", "decision-machtinger", "decision-brake"],
+  },
+  {
+    id: "fall-at-friends-cottage",
+    court: "small-claims",
+    story:
+      "I slipped on the icy driveway at my friend's cottage when I went up for the weekend in February. They never salted or sanded it. I tore ligaments in my knee. Their insurance says I should have been more careful because everyone knows it's icy up there.",
+    expect: ["occupiers-liability-act", "decision-waldick"],
+  },
+  {
     id: "move-with-child",
     court: "family",
     story:

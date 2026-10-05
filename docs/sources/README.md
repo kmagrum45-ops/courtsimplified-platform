@@ -613,6 +613,34 @@ Downloaded 2026-09-30. Cited in `src/lib/content-library/crossForumNotes.ts`;
 The case page cited to users is `.../en/item/{id}/index.do` with the same id.
 None of these has been noted up (see "Noting up" in docs/SOURCING_NOTES.md).
 
+## Derived text of the saved judgments, for retrieval (2026-10-05)
+
+Text files derived from the judgments above, so retrieval
+(`src/lib/case-system/retrieval/decisionChunker.ts`) can search and quote
+them. Nothing new was retrieved for these except where stated; each is the
+same judgment as the file it is derived from, and the registry that names
+them is `scripts/retrieval/decisionSources.ts`.
+
+- `decisions/<name>.english.txt` for each S.C.R. PDF above that has a text
+  layer (19 files): the English column of `pdftotext -layout`, by
+  `npm run sources:decisions-text` (`scripts/sources/deriveDecisionText.ts`).
+  Paragraph numbers printed in the outer margin are kept; soft hyphens
+  removed; a word broken across lines joined only when the joined word
+  appears elsewhere in the same judgment. The two `.english.txt` files that
+  already existed (Kerr, Danyluk) were left as they were.
+- `decisions/<name>.html.txt` for the six scanned PDFs with no text layer
+  (Hill, Machtinger, Myers, Queen v. Cognos, Red Deer College, Waldick):
+  the judgment's HTML page on `decisions.scc-csc.ca`
+  (`.../en/item/{id}/index.do?iframe=true`, the ids in
+  `src/lib/content-library/publicSourceUrl.ts`), fetched by the Fetch
+  Decisions workflow, run 37304655081, on 2026-10-05, and cleaned by
+  `scripts/sources/deriveDecisionText.ts --html` (page CSS and scripts
+  removed, tag remnants stripped). These judgments have no paragraph
+  numbers, so passages from them carry the case citation without a pinpoint.
+
+None of these has been noted up (see "Noting up" in docs/SOURCING_NOTES.md),
+and every passage shown to a user from one says so.
+
 ## Courthouse location pages (2026-09-30)
 
 `docs/sources/court-locations/<slug>.txt`: the text of each of the 65

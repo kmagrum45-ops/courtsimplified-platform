@@ -1,0 +1,3602 @@
+[2018] 3 R.C.S.
+
+
+
+Michelle Constance Moore Appellant
+
+v.
+
+Risa Lorraine Sweet Respondent
+
+Indexed as: Moore v. Sweet
+
+
+
+
+2018 SCC 52
+File No.: 37546.
+2018: February 8; 2018: November 23.
+Present: Wagner C.J. and Abella, Moldaver,
+Karakatsanis, Gascon, Côté, Brown, Rowe and
+Martin JJ.
+
+ON APPEAL FROM THE COURT OF APPEAL FOR
+ONTARIO
+    Equity — Restitution — Unjust enrichment — Remedy
+— Constructive trust — Husband and wife separating and
+entering into contractual agreement pursuant to which
+wife will pay husband’s life insurance policy premiums
+in order to remain named sole beneficiary of policy —
+Husband subsequently naming new common law spouse
+as beneficiary without wife’s knowledge — Insurance pro‑
+ceeds payable to common law spouse on husband’s death
+despite wife having continued to pay premiums — Whether
+common law spouse unjustly enriched at wife’s expense —
+If so, whether constructive trust is appropriate remedy.
+    Insurance — Life insurance — Beneficiary designation
+— Wife designated as revocable beneficiary of husband’s
+life insurance policy — After separation, wife agreeing to
+continue to pay policy premiums to maintain beneficiary
+designation — Husband subsequently designating new
+common law spouse as irrevocable beneficiary without
+wife’s knowledge — Insurance proceeds payable to com‑
+mon law spouse on husband’s death — Whether desig‑
+nation of common law spouse as irrevocable beneficiary
+in accordance with statute precludes recovery for wife
+with prior claim to benefit of policy — Insurance Act,
+R.S.O. 1990, c. I.8, ss. 190, 191.
+   During L and M’s marriage, L purchased a term life insurance
+ policy and designated M as revocable beneficiary.
+They later separated, and entered into an oral agreement
+whereby M would pay all of the policy premiums and, in
+304
+
+
+exchange, L would maintain M’s beneficiary designation.
+Unbeknownst to M, L subsequently designated his new
+common law spouse, R, as the irrevocable beneficiary of
+the policy. When L passed away, the proceeds were therefore
+ payable to R and not to M. At the time of L’s death,
+his estate had no significant assets. M, who had paid about
+$7,000 in policy premiums since separation, commenced
+an application regarding her entitlement to the $250,000
+
+
+
+
+policy proceeds. The application judge held that R had
+been unjustly enriched at M’s expense and impressed the
+proceeds with a constructive trust in M’s favour. The Court
+of Appeal allowed R’s appeal and set aside the judgment
+of the application judge.
+   Held (Gascon and Rowe JJ. dissenting): The appeal
+should be allowed.
+   Per Wagner C.J. and Abella, Moldaver, Karakatsanis,
+Côté, Brown and Martin JJ.: R was enriched, M was correspondingly
+ deprived, and both the enrichment and deprivation
+ occurred in the absence of a juristic reason. Therefore,
+a remedial constructive trust should be imposed for M’s
+benefit.
+    A constructive trust is understood primarily as an equitable
+ remedy that may be imposed at a court’s discretion. A
+proper equitable basis, such as a successful claim in unjust
+enrichment, must first be found to exist. A plaintiff will
+succeed on the cause of action in unjust enrichment if he
+or she can show three elements: (1) that the defendant was
+enriched; (2) that the plaintiff suffered a corresponding
+deprivation; and (3) that the defendant’s enrichment and
+the plaintiff’s corresponding deprivation occurred in the
+absence of a juristic reason.
+   Regarding the first element, the parties do not dispute
+the fact that R was enriched to the full extent of the insurance
+ proceeds in the amount of $250,000, by virtue
+of her right to receive them as the designated irrevocable
+beneficiary of L’s policy.
+    The second element focuses on what the plaintiff actually
+ lost and on whether that loss corresponds to the
+defendant’s enrichment, such that the latter was enriched
+at the expense of the former. The measure of deprivation
+is not limited to the plaintiff’s out‑of-pocket expenditures
+or to the benefit taken directly from him or her. Rather, the
+concept of loss also captures a benefit that was never in the
+plaintiff’s possession but that the court finds would have
+[2018] 3 R.C.S.
+
+
+
+accrued for his or her benefit had it not been received by
+the defendant instead. This element does not require that
+the disputed benefit be conferred directly by the plaintiff
+on the defendant. In this case, the extent of M’s deprivation
+ is not limited to the $7,000 she paid in premiums.
+She stands deprived of the right to receive the entirety
+of the insurance proceeds, a value of $250,000. It is also
+clear that R’s enrichment came at M’s expense. Not only
+
+
+
+
+did M’s payment of the premiums make R’s enrichment
+possible, but R’s designation gave her the statutory right
+to receive the insurance proceeds. Because R received
+the benefit that otherwise would have accrued to M, the
+requisite correspondence exists: the former was enriched
+at the expense of the latter.
+    To establish the third element, it must be demonstrated
+that both the enrichment and corresponding deprivation
+occurred without a juristic reason. The juristic reason
+analysis proceeds in two stages. The first stage requires
+the plaintiff to demonstrate that the defendant’s retention
+of the benefit at the plaintiff’s expense cannot be justified
+on the basis of any of the established categories of juristic
+reasons, such as disposition of law or statutory obligations.
+A plaintiff’s claim will necessarily fail if a legislative
+enactment justifies the enrichment and corresponding
+deprivation. In this case, a beneficiary designation made
+pursuant to ss. 190(1) and 191(1) of the Insurance Act
+does not provide a juristic reason for R’s enrichment at
+M’s expense. Nothing in the Insurance Act can be read as
+ousting the common law or equitable rights that persons
+other than the designated beneficiary may have in policy
+ proceeds. The legislature is presumed not to depart
+from prevailing law without expressing its intention to
+do so with irresistible clearness. While the Insurance Act
+provides the mechanism by which beneficiaries become
+statutorily entitled to receive policy proceeds, no part of
+the Act operates with the necessary irresistible clearness
+to preclude the existence of contractual or equitable rights
+in those proceeds once they have been paid to the named
+beneficiary. Furthermore, the Insurance Act provisions
+applicable to irrevocable beneficiary designations do not
+require, either expressly or implicitly, that a beneficiary
+keep the proceeds as against a plaintiff in an unjust enrichment
+ claim, who stands deprived of his or her prior
+contractual entitlement to claim such proceeds upon the
+insured’s death. Accordingly, an irrevocable designation
+under the Act cannot constitute a juristic reason for R’s
+enrichment and M’s deprivation. Neither by direct reference
+ nor by necessary implication does the Insurance
+Act either foreclose a third party who stands deprived
+of his or her contractual entitlement to claim insurance
+proceeds by successfully asserting an unjust enrichment
+306
+
+
+claim against the designated beneficiary — revocable or
+irrevocable — or preclude the imposition of a constructive
+trust in circumstances such as these. Therefore, no established
+ category of juristic reason applies.
+
+
+
+
+   Once the plaintiff has successfully demonstrated that
+no category of juristic reason applies, a prima facie case
+is established and the analysis proceeds to the second
+stage. At this stage, the defendant must establish some
+residual reason why the enrichment should be retained.
+Considerations such as the parties’ reasonable expectations
+ and moral and policy-based arguments come into
+play. In the present case, it is clear that both parties expected
+ to receive the proceeds of the life insurance policy.
+However, the residual considerations favour M, given that
+her contribution towards the payment of the premiums
+actually kept the policy alive and made R’s entitlement to
+receive the proceeds upon L’s death possible.
+   Once each of the three elements of the cause of action
+in unjust enrichment is made out, the remedy is restitutionary
+ in nature and can take one of two forms: personal
+or proprietary. A personal remedy is essentially a debt or
+a monetary obligation and can be viewed as the default
+remedy for unjust enrichment. In certain cases, however, a
+plaintiff may be awarded a remedy of a proprietary nature.
+The most pervasive and important proprietary remedy for
+unjust enrichment is the constructive trust. Courts will
+impress the disputed property with a constructive trust
+only if the plaintiff can establish that a personal remedy
+would be inadequate; and that there is a link between his
+or her contributions and the disputed property. Ordinarily,
+a personal award would be adequate in cases such as this
+one where the property at stake is money. In the present
+case, however, the disputed insurance money has been
+paid into court and is readily available to be impressed
+with a constructive trust. Moreover, M’s payment of the
+premiums was causally connected to the maintenance of
+the policy under which R was enriched. A constructive
+trust to the full extent of the proceeds should therefore be
+imposed in M’s favour.
+   Per Gascon and Rowe JJ. (dissenting): There is disa-
+greement with the majority that M has established a claim
+[2018] 3 R.C.S.
+
+
+
+in unjust enrichment on these facts and therefore, that a
+constructive trust should be imposed.
+   M had a contract with L to be maintained the named
+beneficiary of his life insurance policy while she paid
+the premiums. However, this contract does not create a
+proprietary or equitable interest in the policy’s proceeds
+
+
+
+
+and simply being named as a beneficiary does not give
+one a right in the proceeds before the death of the insured.
+The right to claim the proceeds only crystalizes upon the
+insured’s death. Further, as a revocable beneficiary, M had
+no right to contest L’s redesignation of R as an irrevocable
+ beneficiary outside of a claim against L for breach of
+contract. Thus, at the time of L’s death, the only rights that
+M possessed in relation to the life insurance contract were
+her contractual rights.
+   While M would have a claim against L’s estate for
+breach of contract, the estate’s lack of assets has rendered
+any such recourse fruitless. Instead, M’s claim is to reverse
+ the purported unjust enrichment of R. In an action
+for unjust enrichment, a plaintiff must show that their
+deprivation corresponds to the defendant’s enrichment.
+The correspondence between the deprivation and the enrichment
+, while seemingly formalistic, is fundamental.
+Correspondence is the connection between the parties — a
+plus and a minus as obverse manifestations of the same
+event — that uniquely identifies the plaintiff as the proper
+person to seek restitution against a particular defendant.
+   In this case, it is clear that but for M’s payments, the
+policy would have lapsed, and but for L’s breach of contract
+, M would have been the beneficiary at the time of
+his death. But these facts are not enough to establish that
+the deprivation and the enrichment are corresponding.
+R’s enrichment was not at the expense of M because R’s
+enrichment is not dependent on M’s deprivation. What R
+received (a statutory entitlement to proceeds) is different
+from M’s deprivation (the inability to enforce her contractual
+ rights) — they are not two sides of the same coin.
+    Even if a corresponding deprivation could be established
+, M’s claim in unjust enrichment would fail at the
+first stage of the juristic reason analysis, because the Insurance Act establishes a juristic reason for R’s enrichment
+. Section 191(1) of the Insurance Act provides that
+an insured may designate an irrevocable beneficiary under
+ a life insurance policy, and thereby provide special
+308
+
+
+protections to that beneficiary. From the moment an irrevocable
+ beneficiary is designated, they have a right in
+the policy itself: the insurance money is not subject to the
+control of the insured or to the claims of his or her creditors
+, and the beneficiary must consent to any subsequent
+changes to beneficiary designation. As it is undisputed
+that R was the validly designated irrevocable beneficiary
+of the policy, she is entitled to the proceeds free of the
+
+
+
+
+claims of L’s creditors.
+    The fact that M had an agreement with L for the proceeds
+ of the policy pursuant to which she paid its premiums
+ does not undermine the presence of this juristic
+reason. As M’s rights are contractual in nature, she is a
+creditor of L’s estate and thus, by the provisions of the
+Insurance Act, has no claim to the proceeds. The Insurance
+Act explicitly protects irrevocable beneficiaries from the
+claims of the deceased’s creditors and provides that the
+insurance proceeds do not form part of the insured’s estate
+. Thus, the Insurance Act precludes the existence of
+contractual rights in those insurance proceeds.
+    The Insurance Act’s legislative history further supports
+R’s retention of the insurance proceeds notwithstanding
+M’s claim. The provisions of the Insurance Act were designed
+ to protect the interests of beneficiaries in retaining
+the proceeds and provide no basis whatsoever for a person
+paying the premiums to assume she would have any claim
+to the eventual proceeds. The Insurance Act is deliberately
+indifferent to the source of the premium payments and
+renders the actions of the payers irrelevant as far as the
+beneficiaries are concerned.
+    In immunizing beneficiaries from the claims of the
+insured’s creditors, the Insurance Act does not distinguish
+between types of creditors. Creditors of the insured’s estate
+ simply do not have a claim to the insurance proceeds.
+There is no basis to carve out a special class of creditor
+ who would be exempt from the clear wording of the
+Insurance Act. Neither M’s contributions to the policy,
+nor her contract with L are sufficient to take her outside
+the comprehensive scheme and grant her special and preferred
+ status.
+    Even if the Insurance Act did not establish a juristic
+reason for R’s enrichment, the policy considerations at the
+second stage of the juristic reason analysis weigh against
+allowing M’s claim of unjust enrichment. It is an unfortunate
+ reality that a person’s death is sometimes accompanied
+ by litigation that can tie up funds that the deceased
+[2018] 3 R.C.S.
+
+
+
+intended to support loved ones for a significant period of
+time, adding financial hardship to personal tragedy. In an
+attempt to ensure that life insurance proceeds could be free
+from such strife, the Ontario legislator empowered policy
+ holders to designate an irrevocable beneficiary under
+s. 191(1) of the Insurance Act. Such a designation ensures
+that the proceeds can be disbursed free from claims against
+the estate, giving certainty to insured, insurer and beneficiary
+
+
+
+
+ alike. This provision should be given full effect.
+
+Cases Cited
+By Côté J.
+    Applied: Garland v. Consumers’ Gas Co., 2004 SCC
+25, [2004] 1 S.C.R. 629; Kerr v. Baranow, 2011 SCC
+10, [2011] 1 S.C.R. 269; Shannon v. Shannon (1985),
+50 O.R. (2d) 456; distinguished: Reference re Goods and
+Services Tax, [1992] 2 S.C.R. 445; Gladstone v. Canada
+(Attorney General), 2005 SCC 21, [2005] 1 S.C.R. 325;
+referred to: Soulos v. Korkontzilas, [1997] 2 S.C.R. 217;
+Peter v. Beblow, [1993] 1 S.C.R. 980; Peel (Regional
+Municipality) v. Canada, [1992] 3 S.C.R. 762; Rathwell
+v. Rathwell, [1978] 2 S.C.R. 436; Murdoch v. Murdoch,
+[1975] 1 S.C.R. 423; Pettkus v. Becker, [1980] 2 S.C.R. 834;
+Pacific National Investments Ltd. v. Victoria (City), 2004
+SCC 75, [2004] 3 S.C.R. 575; Professional Institute of the
+Public Service of Canada v. Canada (Attorney General),
+2012 SCC 71, [2012] 3 S.C.R. 660; Kleinwort Benson Ltd.
+v. Birmingham City Council, [1997] Q.B. 380; Citadel
+General Assurance Co. v. Lloyds Bank Canada, [1997]
+3 S.C.R. 805; Lac Minerals Ltd. v. International Corona
+Resources Ltd., [1989] 2 S.C.R. 574; Cie Immobilière
+Viger Ltée v. Lauréat Giguère Inc., [1977] 2 S.C.R. 67;
+Lacroix v. Valois, [1990] 2 S.C.R. 1259; Love v. Love,
+2013 SKCA 31, 359 D.L.R. (4th) 504; Central Trust Co.
+v. Rafuse, [1986] 2 S.C.R. 147; Garland v. Consumers’
+Gas Co. (2001), 57 O.R. (3d) 127; Saskatchewan Crop
+Insurance Corp. v. Deck, 2008 SKCA 21, 307 Sask. R.
+206; Richardson (Estate Trustee of) v. Mew, 2009 ONCA
+403, 96 O.R. (3d) 65; Rawluk v. Rawluk, [1990] 1 S.C.R.
+70; Gendron v. Supply and Services Union of the Public
+Service Alliance of Canada, Local 50057, [1990] 1
+S.C.R. 1298; KBA Canada Inc. v. 3S Printers Inc., 2014
+BCCA 117, 59 B.C.L.R. (5th) 273; Bank of Montreal v.
+Innovation Credit Union, 2010 SCC 47, [2010] 3 S.C.R.
+3; Chanowski v. Bauer, 2010 MBCA 96, 258 Man. R. (2d)
+244; Central Guaranty Trust Co. v. Dixdale Mortgage
+Investment Corp. (1994), 24 O.R. (3d) 506; Zaidan Group
+310
+
+
+Ltd. v. London (City) (1990), 71 O.R. (2d) 65, aff’d [1991]
+3 S.C.R. 593; Sorochan v. Sorochan, [1986] 2 S.C.R. 38.
+By Gascon and Rowe JJ. (dissenting)
+     Air Canada v. British Columbia, [1989] 1 S.C.R. 1161;
+
+
+
+
+Lac Minerals Ltd. v. International Corona Resources Ltd.,
+[1989] 2 S.C.R. 574; Love v. Love, 2013 SKCA 31, 359
+D.L.R. (4th) 504; Holowa Estate v. Stell-Holowa, 2011
+ABQB 23, 330 D.L.R. (4th) 693; Richardson (Estate
+Trustee of) v. Mew, 2009 ONCA 403, 96 O.R. (3d) 65;
+Roberts v. Martindale (1998), 55 B.C.L.R. (3d) 63; Milne
+Estate v. Milne, 2014 BCSC 2112, 54 R.F.L. (7th) 328;
+Ladner v. Wolfson, 2011 BCCA 370, 24 B.C.L.R. (5th)
+43; Schorlemer Estate v. Schorlemer (2006), 29 E.T.R.
+(3d) 181; Steeves v. Steeves (1995), 168 N.B.R. (2d) 226;
+Gregory v. Gregory (1994), 92 B.C.L.R. (2d) 133; Shannon v. Shannon (1985), 50 O.R. (2d) 456; Garland v.
+Consumers’ Gas Co., 2004 SCC 25, [2004] 1 S.C.R. 629;
+Peter v. Beblow, [1993] 1 S.C.R. 980; Professional Institute of the Public Service of Canada v. Canada (Attorney
+General), 2012 SCC 71, [2012] 3 S.C.R. 660; Cie Immobilière Viger Ltée v. Lauréat Giguère Inc., [1977] 2 S.C.R.
+67; Pacific National Investments Ltd. v. Victoria (City),
+2004 SCC 75, [2004] 3 S.C.R. 575; Rathwell v. Rathwell,
+[1978] 2 S.C.R. 436; Peel (Regional Municipality) v. Canada, [1992] 3 S.C.R. 762; Kerr v. Baranow, 2011 SCC
+10, [2011] 1 S.C.R. 269; Soulos v. Korkontzilas, [1997]
+2 S.C.R. 217; Pettkus v. Becker, [1980] 2 S.C.R. 834;
+Chanowski v. Bauer, 2010 MBCA 96, 258 Man. R. (2d)
+244; Fraser v. Fraser (1995), 9 E.T.R. (2d) 136; Ontario
+Teachers’ Pension Plan Board v. Ontario (Superintendent
+of Financial Services) (2004), 70 O.R. (3d) 61; Snider v.
+Mallon, 2011 ONSC 4522, 3 R.F.L. (7th) 228; Bielny v.
+Dzwiekowski, [2002] I.L.R. ¶I‑4018, aff’d [2002] O.J.
+No. 508 (QL); Kang v. Kang Estate, 2002 BCCA 696,
+44 C.C.L.I. (3d) 52; Ladner Estate, Re, 2004 BCCA 366,
+40 B.C.L.R. (4th) 298.
+
+Statutes and Regulations Cited
+Act to secure to Wives and Children the benefit of Assurances on the lives of their Husbands and Parents, S.
+   Prov. C. 1865, 29 Vict., c. 17, ss. 3, 5.
+Act to Secure to Wives and Children the Benefit of Life
+   Insurance, S.O. 1884, c. 20, s. 5.
+Insurance Act, R.S.O. 1960, c. 190, ss. 164(1), 165.
+Insurance Act, R.S.O. 1990, c. I.8, Part V, ss. 171(1) “beneficiary
+   ”, 172(1), 190, 191, 195, 196(1), 200.
+[2018] 3 R.C.S.
+
+
+
+Succession Law Reform Act, R.S.O. 1990, c. S.26, ss. 58,
+   72(1)(f).
+
+Authors Cited
+Birks, Peter. Unjust Enrichment, 2nd ed. Oxford: Oxford
+   University Press, 2005.
+
+
+
+
+Burrows, Andrew. The Law of Restitution, 3rd ed. Oxford:
+   Oxford University Press, 2011.
+Goff & Jones: The Law of Unjust Enrichment, 9th ed. by
+   Charles Mitchell, Paul Mitchell and Stephen Watterson.
+   London: Thomson Reuters, 2016.
+Maddaugh, Peter D., and John D. McCamus. The Law of
+   Restitution, loose-leaf ed. Aurora, Ont.: Canada Law
+   Book, 2004 (updated December 2017, release 20).
+McInnes, Mitchell. The Canadian Law of Unjust Enrichment and Restitution. Markham, Ont.: LexisNexis
+   Canada, 2014.
+McVitty, Edmund Hugh. A Commentary on the Life Insurance Laws of Canada. Toronto: Institute of Chartered
+   Life Underwriters of Canada, 1962 (loose-leaf).
+Norwood on Life Insurance Law in Canada, 3rd ed. by
+   David Norwood and John P. Weir. Toronto: Carswell,
+   2002.
+Smith, Lionel. “Demystifying Juristic Reasons” (2007),
+   45 Can. Bus. L.J. 281.
+Smith, Lionel. “Restitution: The Heart of Corrective Justice” (2001), 79 Tex. L. Rev. 2115.
+Smith, Lionel D. “Three-Party Restitution: A Critique of
+   Birks’s Theory of Interceptive Subtraction” (1991), 11
+   Oxford J. Leg. Stud. 481.
+Virgo, Graham. The Principles of the Law of Restitution,
+   3rd ed. Oxford: Oxford University Press, 2015.
+Waters’ Law of Trusts in Canada, 4th ed. by Donovan
+   W. M. Waters, Mark R. Gillen and Lionel D. Smith.
+   Toronto: Carswell, 2012.
+
+   APPEAL from a judgment of the Ontario Court of
+Appeal (Strathy C.J. and Blair and Lauwers JJ.A.),
+2017 ONCA 182, 134 O.R. (3d) 721, 409 D.L.R.
+(4th) 312, 65 C.C.L.I. (5th) 175, 32 C.C.P.B. (2nd)
+254, [2017] O.J. No. 1129 (QL), 2017 C arswellOnt
+2958 (WL Can.), setting aside a decision of Wilton-Siegel J., 2015 ONSC 3914, [2015] O.J. No. 7761
+(QL), 2015 CarswellOnt 20995 (WL Can.). Appeal
+allowed, Gascon and Rowe JJ. dissenting.
+
+  Ian M. Hull, Suzana Popovic-Montag and David M.
+Smith, for the appellant.
+312
+
+
+   Jeremy Opolsky and Jonathan Silver, for the respondent
+.
+
+  The judgment of Wagner C.J. and Abella,
+Moldaver, Karakatsanis, Côté, Brown and Martin JJ.
+was delivered by
+
+
+
+
+     Côté J. —
+
+I.
+
+[1] This appeal involves a contest between two
+innocent parties, both of whom claim an entitlement
+to the proceeds of a life insurance policy.
+
+[2] The appellant, Michelle Constance Moore
+(“Michelle”), and the owner of the policy, Lawrence
+Anthony Moore (“Lawrence”), were former spouses.
+They entered into a contractual agreement pursuant
+to which Michelle would pay all of the policy’s premiums
+ and, in exchange, Lawrence would maintain
+Michelle as the sole beneficiary thereunder — and
+she would therefore be entitled to receive the proceeds
+ of the policy upon Lawrence’s death. While
+Michelle held up her end of the bargain, Lawrence
+did not. Shortly after assuming his contractual obligation
+, and unbeknownst to Michelle, Lawrence
+designated his new common law spouse — the respondent
+, Risa Lorraine Sweet (“Risa”) — as the ir‑
+revocable beneficiary of the policy. When Lawrence
+passed away several years later, the proceeds were
+payable to Risa and not to Michelle.
+
+[3] Should these proceeds be impressed with a constructive
+ trust in Michelle’s favour? A majority of the
+Ontario Court of Appeal found that they should not.
+I disagree; in my view, Risa was enriched, Michelle
+was correspondingly deprived, and both the enrichment
+ and the deprivation occurred in the absence of
+a juristic reason. In these circumstances, a remedial
+constructive trust should be imposed for Michelle’s
+benefit. I would therefore allow the appeal.
+[2018] 3 R.C.S.
+
+
+II. Context
+
+[4] Michelle and Lawrence were married in 1979.
+Together, they had three children. In October 1985,
+Lawrence purchased a term life insurance policy
+from Canadian General Life Insurance Company,
+the predecessor of RBC Life Insurance Company
+
+
+
+
+(“Insurance Company”). He purchased this policy,
+with a coverage amount of $250,000, and initially
+designated Michelle as the beneficiary — but not
+as an irrevocable beneficiary. The annual premium
+of $507.50 was paid out of the couple’s joint bank
+account until 2000.
+
+[5] In December 1999, Michelle and Lawrence
+separated. Shortly thereafter, they entered into
+an oral agreement (“Oral Agreement”) whereby
+Michelle “would pay the premiums and be entitled
+ to the proceeds of the Policy on [Lawrence’s]
+death” (Superior Court decision, 2015 ONSC 3914,
+at para. 13 (CanLII)). The effect of this agreement
+was therefore to require that Michelle remain designated
+ as the sole beneficiary of Lawrence’s life
+insurance policy.
+
+[6] In the summer of 2000, Lawrence began cohab-
+iting with Risa. They remained common law spouses
+and lived in Risa’s apartment until Lawrence’s death
+13 years later.
+
+[7] On September 21, 2000, Lawrence executed a
+change of beneficiary form designating Risa as the
+irrevocable beneficiary of the policy. Risa testified
+that Lawrence did so because he did not want her
+to worry about how she would pay the rent or buy
+medication, and wanted to make sure that she would
+be able to continue living in the building where she
+had resided for the preceding 40 years.
+
+[8] The change in beneficiary designation was made
+through, and after consultation with, Lawrence’s insurance
+ broker, who also happened to be Michelle’s
+brother‑in-law. The new designation was recorded
+by the Insurance Company on September 25, 2000.
+Although Lawrence did not change the beneficiary
+ designation surreptitiously, he did not advise
+314
+
+
+Michelle that she was no longer named as beneficiary
+.1
+
+[9] Michelle and Lawrence entered into a formal
+separation agreement in May 2002. This agreement
+dealt with a number of issues as between them, but
+was silent as to the policy and anything related to
+
+
+
+
+it. They finalized their divorce on October 3, 2003.
+
+[10] Pursuant to her obligation under the Oral
+Agreement, and without knowing that Lawrence had
+named Risa as the irrevocable beneficiary, Michelle
+continued to pay all of the premiums on the policy until
+Lawrence’s death. By then, a total of $30,535.64 had
+been paid on account of premiums; about $7,000 had
+been paid since 2000.
+
+[11] Lawrence died on June 20, 2013. His estate
+had no significant assets.
+
+[12] Michelle was advised by the Insurance Company that she was not the designated beneficiary of
+the policy on July 5, 2013, around two weeks after
+Lawrence’s death. On February 12, 2014, Michelle
+commenced an application seeking the opinion, ad-
+vice and direction of the Ontario Superior Court
+of Justice as to her entitlement to the proceeds of
+the policy. Pursuant to a court order dated December 19, 2013, the Insurance Company paid the proceeds
+ of the policy into court pending the resolution
+of the dispute.
+
+[13] Part V of the Insurance Act, R.S.O. 1990,
+c. I.8, sets out a comprehensive scheme that governs
+the rights and obligations of parties to a life insurance
+ policy. It applies to all life insurance contracts
+“[d]espite any agreement, condition or stipulation
+to the contrary” (s. 172(1)), which means that the
+parties cannot contract out of its provisions.
+
+[14] Of particular relevance for the purposes of
+this appeal are the provisions of the Insurance Act
+1
+    There is no dispute between the parties that the Oral Agreement
+    was entered into sometime prior to the date on which Lawrence
+    designated Risa as irrevocable beneficiary (transcript, at pp. 6‑7).
+[2018] 3 R.C.S.
+
+
+that deal with the designation of beneficiaries. A
+“beneficiary” of a life insurance policy is defined as
+“a person, other than the insured or the insured’s personal
+ representative, to whom or for whose benefit
+insurance money is made payable in a contract or by
+a declaration” (s. 171(1)). A beneficiary designation
+therefore identifies the intended recipient of the proceeds
+
+
+
+
+ under the life insurance policy upon the death
+of the insured person, in accordance with the terms
+of the policy.
+
+[15] Part V of the Insurance Act recognizes two
+types of beneficiary designations: those that are rev‑
+ocable and those that are irrevocable. A revocable
+beneficiary designation is one that can be altered
+or revoked by the insured without the beneficiary’s
+knowledge or consent (s. 190(1) and (2)). An irrevocable
+ beneficiary designation, by contrast, can be
+altered or revoked only if the designated beneficiary
+consents (s. 191(1)). When a valid irrevocable beneficiary
+ designation is made, s. 191 of the Insurance
+Act makes clear that the insurance money ceases to
+be subject to the control of the insured, is not subject
+to the claims of the insured’s creditors and does not
+form part of the insured’s estate.
+
+[16] It is clear that the interest of an irrevocable
+beneficiary is afforded much more protection than
+that of a revocable beneficiary; the former has a
+“statutory right to remain as the named beneficiary
+entitled to receive the insurance moneys unless he
+or she consents to being removed” (Court of Appeal
+decision, 2017 ONCA 182, 134 O.R. (3d) 721, at
+para. 82). The legislation contemplates only one
+situation where insurance money can be clawed back
+from a beneficiary, regardless of whether his or her
+designation is irrevocable: to satisfy a support claim
+brought by a dependant against the estate of the now-deceased insured person (Succession Law Reform
+Act, R.S.O. 1990, c. S.26, ss. 58 and 72(1)(f)). No
+such claim has been brought in this case.
+
+[17] Part V of the Insurance Act also deals with the
+assignment of a life insurance policy. A life insurance
+316
+
+
+contract entails a promise by the insurer “to pay the
+contractual benefit when the insured event occurs”
+(Norwood on Life Insurance Law in Canada (3rd
+ed. 2002), by D. Norwood and J. P. Weir, at p. 359).
+It can therefore be understood as creating a chose
+in action against the insurer, which is transferrable
+from one person to another through the mechanism
+
+
+
+
+of an assignment. The statute provides that where the
+assignee gives written notice of the assignment to the
+insurer, he or she assumes all of the assignor’s rights
+and interests in the policy. Pursuant to s. 200(1)(b) of
+the Insurance Act, however, an assignee’s interest in
+the policy will not have priority over that of an irrevocable
+ beneficiary who was designated prior to the
+time the assignee gave notice to the insurer — unless
+the irrevocable beneficiary consents to the assignment
+ and surrenders his or her interest in the policy.
+
+[18] The relevant provisions of the Insurance Act
+read as follows:
+
+190 (1) Subject to subsection (4),2 an insured may in a
+contract or by a declaration designate the insured, the
+insured’s personal representative or a beneficiary as one
+to whom or for whose benefit insurance money is to be
+payable.
+
+(2) Subject to section 191, the insured may from time to
+time alter or revoke the designation by a declaration.
+
+                                ...
+
+191 (1) An insured may in a contract, or by a declaration
+other than a declaration that is part of a will, filed with
+the insurer at its head or principal office in Canada during
+the lifetime of the person whose life is insured, designate
+a beneficiary irrevocably, and in that event the insured,
+while the beneficiary is living, may not alter or revoke the
+designation without the consent of the beneficiary and the
+insurance money is not subject to the control of the insured
+, is not subject to the claims of the insured’s creditor
+and does not form part of the insured’s estate.
+
+(2) Where the insured purports to designate a beneficiary
+irrevocably in a will or in a declaration that is not filed
+
+2
+    The exception in subs. (4) does not apply in the circumstances of
+    this case.
+[2018] 3 R.C.S.
+
+
+as provided in subsection (1), the designation has the
+same effect as if the insured had not purported to make
+it irrevocable.
+
+200 (1) Where an assignee of a contract gives notice in
+writing of the assignment to the insurer at its head or
+principal office in Canada, the assignee has priority of
+interest as against,
+
+
+
+
+   (a)
+         lier in like manner; and
+
+   (b)
+         ocably as provided in section 191 prior to the
+         time the assignee gave notice to the insurer of
+         the assignment in the manner prescribed in this
+         subsection.
+
+(2) Where a contract is assigned as security, the rights of
+a beneficiary under the contract are affected only to the
+extent necessary to give effect to the rights and interests
+of the assignee.
+
+(3) Where a contract is assigned unconditionally and
+otherwise than as security, the assignee has all the rights
+and interests given to the insured by the contract and by
+this Part and shall be deemed to be the insured.
+
+                           ...
+
+III. Decisions Below
+
+A. Ontario Superior Court of Justice (Wilton-Siegel J.)
+   — 2015 ONSC 3914
+
+[19] The application judge, Wilton-Siegel J., held
+that Risa had been unjustly enriched at Michelle’s
+expense, and therefore impressed the proceeds of
+the policy with a constructive trust in Michelle’s
+favour. He began his reasons by addressing a prelim-
+inary matter: the Oral Agreement that Lawrence and
+Michelle had entered into during their separation.
+He held that Michelle and Lawrence “each had an
+equitable interest in the proceeds of the Policy from
+the time that it was taken out” and that the Oral
+Agreement had effectively resulted in the “equitable
+assignment to [Michelle] of [Lawrence’s] equitable
+interest in the proceeds in return for [Michelle’s]
+agreement to pay the premiums on the Policy”
+(para. 17) (CanLII). According to the application
+318
+
+
+judge, this equitable interest “took the form of a right
+to determine the beneficiary of the Policy” (para. 18).
+
+[20] The application judge then turned to Michelle’s
+unjust enrichment claim. He found that the first
+two elements of the cause of action in unjust enrichment
+
+
+
+
+ — an enrichment of the defendant and a
+corresponding deprivation suffered by the plaintiff
+ — were easily met in this case: Risa had been
+enriched by virtue of her valid designation as irrevocable
+ beneficiary, and Michelle had suffered
+a corresponding deprivation to the extent that she
+paid the premiums and to the extent that the proceeds
+ had been payable to Risa “notwithstanding
+the prior equitable assignment of such proceeds to
+her” (para. 27). With respect to the third and final
+element — the absence of a juristic reason for the
+enrichment — the application judge held that Risa’s
+designation as beneficiary under the policy did not
+constitute a juristic reason that entitled her to retain
+the proceeds in the particular circumstances of this
+case (para. 46). This was because Risa’s entitlement
+ to the proceeds would not have been possible
+if Michelle had not performed her obligations under
+the Oral Agreement, and because the Oral Agreement
+itself amounted to an equitable assignment of the
+proceeds to Michelle (para. 48).
+
+B. Ontario Court of Appeal (Strathy C.J.O. and
+   Blair J.A., Lauwers J.A. dissenting) — 2017
+   ONCA 182, 134 O.R. (3d) 721
+
+[21] The Ontario Court of Appeal allowed Risa’s
+appeal and set aside the judgment of the application
+judge. It ordered that the $7,000 Michelle had paid
+in premiums between 2000 and 2013 be paid out of
+court to her and that the balance of the insurance
+proceeds be paid to Risa.
+
+  (1) Majority Reasons
+
+[22] Writing for himself and for Strathy C.J.O.,
+Blair J.A. held that it was not open to the application
+judge to find that the Oral Agreement amounted to an
+equitable assignment, since the doctrine of equitable
+[2018] 3 R.C.S.
+
+
+assignment had not been placed in issue by the parties
+ before him.
+
+[23] Turning to Michelle’s unjust enrichment
+claim, Blair J.A. accepted the application judge’s
+finding that Risa was enriched. He found it unnec-
+essary to resolve the issue of whether the corresponding
+
+
+
+
+ deprivation element had been made out
+as he found there was a juristic reason justifying
+the receipt by Risa of the proceeds. Specifically,
+Blair J.A. held that the application judge had erred
+in his approach to the juristic reason element of the
+unjust enrichment framework — first, by failing to
+recognize the significance of Risa’s designation as
+an irrevocable beneficiary, and second, by failing to
+apply the two-stage analysis mandated by this Court
+in Garland v. Consumers’ Gas Co., 2004 SCC 25,
+[2004] 1 S.C.R. 629. In Blair J.A.’s view, “the existence
+ of the statutory regime relating to revocable
+and irrevocable beneficiaries . . . falls into an existing
+recognized category of juristic reason”, constituting
+“both a disposition of law and a statutory obligation”
+(para. 99).
+
+[24] Blair J.A. declined to decide whether a constructive
+ trust can be imposed only to remedy unjust
+enrichment and wrongful acts or can also be based
+on the more elastic concept of “good conscience”.
+He took the position that there was nothing in the
+circumstances of this case that put it in some “good
+conscience” category beyond what was captured by
+unjust enrichment and wrongful act.
+
+  (2) Dissenting Reasons
+
+[25] In dissent, Lauwers J.A. agreed with the majority
+ that the application judge had erred in relying
+on the equitable assignment doctrine. However, he
+disagreed with the majority as to the disposition of
+Michelle’s unjust enrichment claim and the propriety
+of imposing a constructive trust over the proceeds
+in these circumstances. He would therefore have
+dismissed the appeal.
+320
+
+
+[26] Lauwers J.A. began by considering this Court’s
+decision in Soulos v. Korkontzilas, [1997] 2 S.C.R.
+217, and held that it leaves open four routes by which
+a constructive trust may be imposed: (1) as a remedy
+for unjust enrichment; (2) for wrongful acts; (3) in
+circumstances where its availability has long been
+recognized; and (4) otherwise where good conscience
+
+
+
+
+requires it. According to Lauwers J.A., in relation to
+the fourth route, the Soulos court anticipated that the
+law of remedial trusts would continue to develop in
+a way that accommodates the changing needs and
+mores of society.
+
+[27] On the issue of unjust enrichment, Lauwers J.A.
+concluded that Michelle had made out each of the
+requisite elements and that a constructive trust ought
+therefore to be imposed over the proceeds in her favour
+. With respect to the corresponding deprivation
+element, he rejected the submission that Michelle’s
+financial contribution was the correct measure of her
+deprivation, and instead found that the asset for which
+she had paid and of which she stood deprived was the
+full payout of the life insurance proceeds — not just
+the amount she had paid in premiums.
+
+[28] Lauwers J.A. also rejected the proposition that
+the applicable Insurance Act provisions provided a
+juristic reason for Risa’s retention of the proceeds.
+In his view, Michelle’s entitlement to the insurance
+proceeds as against Risa was neither precluded nor
+affected by the operation of the Insurance Act. He
+also held that a juristic reason could not be found
+based on the parties’ reasonable expectations or public
+ policy considerations.
+
+[29] Finally, regarding to the imposition of a constructive
+ trust, Lauwers J.A. considered a number of
+other cases that involved disappointed beneficiaries.
+Noting that these cases fit awkwardly under the unjust
+ enrichment rubric, he observed that:
+
+    . . . the disappointed beneficiary cases are perhaps better
+ understood as a genus of cases in which a constructive
+[2018] 3 R.C.S.
+
+
+trust can be imposed via the third route in Soulos — circumstances
+ where the availability of a trust has previously
+been recognized — and the fourth route — where good
+conscience otherwise demands it, quite independent of
+unjust enrichment. [para. 276]
+
+IV. Issues
+
+
+
+
+[30] The issues in this case are as follows:
+
+A. Has Michelle made out a claim in unjust enrichment
+    by establishing:
+(1) Risa’s enrichment and her own corresponding
+    deprivation; and
+(2) the absence of any juristic reason for Risa’s enrichment
+     at her expense?
+
+B. If so, is a constructive trust the appropriate remedy
+   ?
+
+V. Analysis
+
+[31] In the present case, Michelle requests that the
+insurance proceeds be impressed with a constructive
+trust in her favour. The primary basis on which she
+seeks this remedy is unjust enrichment. In the alter-
+native, she submits that the circumstances of her case
+provide a separate good conscience basis upon which
+a court may impose a constructive trust.
+
+[32] A constructive trust is a vehicle of equity
+through which one person is required by operation of
+law — regardless of any intention — to hold certain
+property for the benefit of another (Waters’ Law of
+Trusts in Canada (4th ed. 2012), by D. W. M. Waters,
+M. R. Gillen and L. D. Smith, at p. 478). In Canada,
+it is understood primarily as a remedy, which may
+be imposed at a court’s discretion where good
+conscience so requires. As McLachlin J. (as she then
+was) noted in Soulos:
+
+   . . . under the broad umbrella of good conscience,
+constructive trusts are recognized both for wrongful acts
+322
+
+
+like fraud and breach of duty of loyalty, as well as to
+remedy unjust enrichment and corresponding deprivation
+. . . . Within these two broad categories, there is room
+for the law of constructive trust to develop and for greater
+precision to be attained, as time and experience may dic-
+tate. [Emphasis added; para. 43.]
+
+
+
+
+[33] What is therefore crucial to recognize is that
+a proper equitable basis must exist before the courts
+will impress certain property with a remedial constructive
+ trust. The cause of action in unjust enrichment
+ may provide one such basis, so long as the
+plaintiff can also establish that a monetary award is
+insufficient and that there is a link between his or
+her contributions and the disputed property (Peter
+v. Beblow, [1993] 1 S.C.R. 980, at p. 997; Kerr v.
+Baranow, 2011 SCC 10, [2011] 1 S.C.R. 269, at
+paras. 50‑51). Absent this, a plaintiff seeking the imposition
+ of a remedial constructive trust must point
+to some other basis on which this remedy can be
+imposed, like breach of fiduciary duty.3
+
+[34] I now turn to consider Michelle’s claim in
+unjust enrichment.
+
+A. Unjust Enrichment
+
+[35] Broadly speaking, the doctrine of unjust enrichment
+ applies when a defendant receives a benefit
+from a plaintiff in circumstances where it would
+be “against all conscience” for him or her to retain
+ that benefit. Where this is found to be the case,
+the defendant will be obliged to restore that benefit
+ to the plaintiff. As recognized by McLachlin J.
+in Peel (Regional Municipality) v. Canada, [1992]
+3 S.C.R. 762, at p. 788, “At the heart of the doctrine
+of unjust enrichment . . . lies the notion of restora-
+tion of a benefit which justice does not permit one
+to retain.”
+
+3
+    Whether the availability of a remedial constructive trust is limited
+    to cases involving unjust enrichment or wrongful acts need not
+    be decided in the present case (see para. 95).
+[2018] 3 R.C.S.
+
+
+[36] Historically, restitution was available to plaintiffs
+ whose cases fit into certain recognized “categories
+ of recovery” — including where a plaintiff
+conferred a benefit on a defendant by mistake, under
+compulsion, out of necessity, as a result of a failed
+or ineffective transaction, or at the defendant’s re-
+quest (Peel, at p. 789; Kerr, at para. 31). Although
+
+
+
+
+these discrete categories exist independently of one
+another, they are each premised on the existence of
+some injustice in permitting the defendant to retain
+the benefit that he or she received at the plaintiff’s
+expense.
+
+[37] In the latter half of the 20th century, courts began
+ to recognize the common principles underlying
+these discrete categories and, on this basis, developed
+“a framework that can explain all obligations arising
+from unjust enrichment” (L. Smith, “Demystifying
+Juristic Reasons” (2007), 45 Can. Bus. L.J. 281, at
+p. 281; see also Rathwell v. Rathwell, [1978] 2 S.C.R.
+436, and Murdoch v. Murdoch, [1975] 1 S.C.R. 423,
+per Laskin J., dissenting). Under this principled
+framework, a plaintiff will succeed on the cause of
+action in unjust enrichment if he or she can show:
+(a) that the defendant was enriched; (b) that the plaintiff
+ suffered a corresponding deprivation; and (c) that
+the defendant’s enrichment and the plaintiff’s corresponding
+ deprivation occurred in the absence of a juristic
+ reason (Pettkus v. Becker, [1980] 2 S.C.R. 834,
+at p. 848; Garland, at para. 30; Kerr, at paras. 30‑45).
+While the principled unjust enrichment framework
+and the categories coexist (Kerr, at paras. 31‑32),
+the parties in this case made submissions only under
+the principled unjust enrichment framework. These
+reasons proceed on this basis.
+
+[38] This principled approach to unjust enrichment
+ is a flexible one that allows courts to identify
+circumstances where justice and fairness require
+one party to restore a benefit to another. Recovery
+is therefore not restricted to cases that fit within the
+categories under which the retention of a conferred
+benefit was traditionally considered unjust (Kerr,
+324
+
+
+at para. 32). As observed by McLachlin J. in Peel
+(at p. 788):
+
+    The tri-partite principle of general application which
+this Court has recognized as the basis of the cause of action
+for unjust enrichment is thus seen to have grown out of the
+traditional categories of recovery. It is informed by them.
+
+
+
+
+It is capable, however, of going beyond them, allowing
+the law to develop in a flexible way as required to meet
+changing perceptions of justice.
+
+[39] Justice and fairness are at the core of the dispute
+ between Michelle and Risa, both of whom are
+innocent parties. Moreover, and to complicate matters
+, resolution of this dispute requires this Court
+to consider the elements of an unjust enrichment
+claim as they apply in a context that involves several
+ parties. Pursuant to her Oral Agreement with
+Lawrence, Michelle paid around $7,000 in premiums
+to the Insurance Company between 2000 and 2013
+in exchange for the right to remain named as beneficiary
+ of the policy. When Lawrence passed away,
+however, the insurance proceeds (which totalled
+$250,000) were payable by the Insurance Company
+not to Michelle, but to Risa — the person whom
+Lawrence had subsequently named the irrevocable
+beneficiary, contrary to the contractual obligation he
+owed to Michelle. The result of this arrangement was
+that Risa’s enrichment was significantly greater than
+Michelle’s out‑of-pocket loss. Moreover, Risa was
+entitled to receive the proceeds from the Insurance
+Company by virtue of her designation as irrevocable
+ beneficiary, pursuant to ss. 190 and 191 of the
+Insurance Act.
+
+[40] These unusual circumstances raise two distinct
+ questions respecting the law of unjust enrichment
+. First, what is the proper measure of Michelle’s
+deprivation, and in what sense does it “correspond”
+to Risa’s gain? Second, does the legislative framework
+ at issue provide a juristic reason for Risa’s
+enrichment and Michelle’s corresponding deprivation
+ — and if not, can such a juristic reason be found
+on some other basis? I will deal with each of these
+questions in turn.
+[2018] 3 R.C.S.
+
+
+  (1) Risa’s Enrichment and Michelle’s Corresponding Deprivation
+
+[41] The first two elements of the cause of action
+in unjust enrichment require an enrichment of the
+defendant and a corresponding deprivation of the
+plaintiff. These two elements are closely related; a
+
+
+
+
+straightforward economic approach is taken to both
+of them, with moral and policy considerations instead
+ coming into play at the juristic reason stage of
+the analysis (Kerr, at para. 37; Garland, at para. 31).
+To establish that the defendant was enriched and
+the plaintiff correspondingly deprived, it must be
+shown that something of value — a “tangible benefit
+” — passed from the latter to the former (Kerr,
+at para. 38; Garland, at para. 31; Peel, at p. 790;
+Pacific National Investments Ltd. v. Victoria (City),
+2004 SCC 75, [2004] 3 S.C.R. 575, at para. 15). This
+Court has described the enrichment and detriment
+elements as being “the same thing from different
+perspectives” (Professional Institute of the Public
+Service of Canada v. Canada (Attorney General),
+2012 SCC 71, [2012] 3 S.C.R. 660 (“PIPSC”), at
+para. 151) and thus as being “essentially two sides
+of the same coin” (Peter, at p. 1012).
+
+[42] The parties in the present case do not dispute
+the fact that Risa was enriched to the full extent of
+the $250,000 by virtue of her right to receive the
+insurance proceeds as the designated irrevocable
+beneficiary. The application judge found as much (at
+para. 27), and this finding is not contested on appeal.
+
+[43] In addition to an enrichment of the defendant,
+a plaintiff asserting an unjust enrichment claim must
+also establish that he or she suffered a corresponding
+deprivation. According to Professor McInnes, this element
+ serves the purpose of identifying the plaintiff
+as the person with standing to seek restitution against
+an unjustly enriched defendant (M. McInnes, The
+Canadian Law of Unjust Enrichment and Restitution
+(2014), at p. 149; see also Peel, at pp. 789‑90, and
+Kleinwort Benson Ltd. v. Birmingham City Council,
+[1997] Q.B. 380 (C.A.), at pp. 393 and 400). Even
+if a defendant’s retention of a benefit can be said to
+be unjust, a plaintiff has no right to recover against
+that defendant if he or she suffered no loss at all, or
+326
+
+
+suffered a loss wholly unrelated to the defendant’s
+gain. Instead, the plaintiff must demonstrate that the
+loss he or she incurred corresponds to the defendant’s
+gain, in the sense that there is some causal connection
+ between the two (Pettkus, at p. 852). Put simply,
+the transaction that enriched the defendant must also
+have caused the plaintiff’s impoverishment, such
+
+
+
+
+that the defendant can be said to have been enriched
+at the plaintiff’s expense (P. D. Maddaugh and J. D.
+McCamus, The Law of Restitution (loose-leaf ed.),
+at p. 3‑24). While the nature of the correspondence
+between such gain and loss may vary from case to
+case, this correspondence is what grounds the plaintiff
+’s entitlement to restitution as against an unjustly
+enriched defendant. Professor McInnes explains that
+“the Canadian conception of a ‘corresponding deprivation
+’ rightly emphasizes the crucial connection
+between the defendant’s gain and the plaintiff’s loss”
+(The Canadian Law of Unjust Enrichment and Restitution, at p. 149).
+
+[44] The authorities on this point make clear that
+the measure of the plaintiff’s deprivation is not limited
+ to the plaintiff’s out‑of-pocket expenditures or
+to the benefit taken directly from him or her. Rather,
+the concept of “loss” also captures a benefit that was
+never in the plaintiff’s possession but that the court
+finds would have accrued for his or her benefit had
+it not been received by the defendant instead (Citadel General Assurance Co. v. Lloyds Bank Canada,
+[1997] 3 S.C.R. 805, at para. 30). This makes sense
+because in either case, the result is the same: the defendant
+ becomes richer in circumstances where the
+plaintiff becomes poorer. As was succinctly articu-
+lated by La Forest J. in Lac Minerals Ltd. v. International Corona Resources Ltd., [1989] 2 S.C.R. 574,
+at pp. 669‑70:
+
+When one talks of restitution, one normally talks of giving
+back to someone something that has been taken from them
+(a restitutionary proprietary award), or its equivalent value
+(a personal restitutionary award). As the Court of Appeal
+noted in this case, [the respondent] never in fact owned
+the [disputed] property, and so it cannot be “given back”
+to them. However, there are concurrent findings below that
+but for its interception by [the appellant], [the respondent]
+would have acquired the property. In Air Canada . . . , at
+[2018] 3 R.C.S.
+
+
+pp. 1202‑03, I said that the function of the law of restitution
+ “is to ensure that where a plaintiff has been deprived
+of wealth that is either in his possession or would have
+accrued for his benefit, it is restored to him. The measure
+ of restitutionary recovery is the gain the [defendant]
+made at the [plaintiff’s] expense.” (Emphasis added.) In
+my view the fact that [the respondent in this case] never
+owned the property should not preclude it from the pur-
+
+
+
+
+suing a restitutionary claim: see Birks, An Introduction to
+the Law of Restitution, at pp. 133‑39. [The appellant] has
+therefore been enriched at the expense of [the respondent].
+[Emphasis in original.]
+
+While Lac Minerals turned largely on the defendant
+’s breach of confidence and breach of fiduciary
+duty, the above comments were made in the context
+of La Forest J.’s analysis of the tripartite unjust enrichment
+ framework as it was applied in that case.
+My view is thus that these comments are applicable
+to the analysis in the present case.
+
+[45] The foregoing also indicates that the corresponding
+ deprivation element does not require
+that the disputed benefit be conferred directly by
+the plaintiff on the defendant (see McInnes, The
+Canadian Law of Unjust Enrichment and Restitution,
+at p. 155, but also see pp. 156‑83; Maddaugh and
+McCamus, The Law of Restitution, at p. 35‑1). This
+understanding of the correspondence between loss
+and gain has also been accepted under Quebec’s
+civilian approach to the law of unjust enrichment:
+
+The theory of unjustified enrichment does not require
+that the enrichment pass directly from the property of
+the impoverished to that of the enriched party . . . . The
+impoverished party looks to the one who profited from its
+impoverishment. It is then for the enriched party to find a
+legal justification for its enrichment.
+
+(Cie Immobilière Viger Ltée v. Lauréat Giguère Inc.,
+[1977] 2 S.C.R. 67, at p. 79; see also Lacroix v.
+Valois, [1990] 2 S.C.R. 1259, at pp. 1278‑79.)
+
+[46] Taking a straightforward economic approach
+to the enrichment and corresponding deprivation
+elements of the unjust enrichment framework, I am
+of the view that Michelle stands deprived of the right
+to receive the entirety of the policy proceeds (for a
+328
+
+
+value of $250,000) and that the necessary correspondence
+ exists between this deprivation and Risa’s
+gain. With respect to the extent of Michelle’s deprivation
+, my view is that the quantification of her loss
+should not be limited to her out‑of-pocket expenditures
+ — that is, the $7,000 she paid in premiums
+between 2000 and 2013. Pursuant to her contractual
+
+
+
+
+obligation, she made those payments over the course
+of 13 years in exchange for the right to receive the
+policy proceeds from the Insurance Company upon
+Lawrence’s death. In breach of his contractual obligation
+, however, Lawrence instead transferred that
+right to Risa. Had Lawrence held up his end of the
+bargain with Michelle, rather than designating Risa
+irrevocably, the right to payment of the policy proceeds
+ would have accrued to Michelle. At the end of
+the day, therefore, what Michelle lost is not only the
+amount she paid in premiums. She stands deprived
+of the very thing for which she paid — that is, the
+right to claim the $250,000 in proceeds.
+
+[47] To be clear, therefore, Michelle’s entitlement
+under the Oral Agreement is what makes it such that
+she was deprived of the full value of the insurance
+payout. In other cases where the plaintiff has some
+general belief that the insured ought to have named
+him or her as the designated beneficiary, but otherwise
+ has no legal or equitable right to be treated as
+the proper recipient of the insurance money, it will
+likely be impossible to find either that the right to
+receive that insurance money was ever held by the
+plaintiff or that it would have accrued to him or her.
+In such cases, the properly designated beneficiary is
+not enriched at the expense of a plaintiff who had no
+claim to the insurance money in the first place — the
+result being that the plaintiff will not have suffered
+a corresponding deprivation to the full extent of the
+insurance proceeds (Love v. Love, 2013 SKCA 31,
+359 D.L.R. (4th) 504, at para. 42).
+
+[48] My colleagues, Gascon and Rowe JJ., approach
+ Michelle’s loss differently. They take the
+position that unjust enrichment cannot be invoked
+by a claimant to protect his or her “contractual expectations
+ against innocent third parties” (para. 104).
+While they agree that the Canadian principle against
+unjust enrichment operates where a plaintiff has lost
+[2018] 3 R.C.S.
+
+
+wealth that was either in his or her possession or that
+would have accrued for his or her benefit, they take
+the position that “awards for expected property have
+generally been where there was a breach of an equitable
+ duty”, and they distinguish that situation from
+cases where the plaintiff held “a valid contractual expectation
+” of receiving certain property (para. 104).
+
+
+
+
+[49] My view is that it is not useful, in the context
+ of unjust enrichment, to distinguish between
+expectations based on a contractual obligation and
+expectations where there was a breach of an equitable
+ duty (see my colleagues’ reasons, at para. 104).
+Rather, a robust approach to the corresponding deprivation
+ element focuses simply on what the plaintiff
+actually lost — that is, property that was in his or
+her possession or that would have accrued for his or
+her benefit — and on whether that loss corresponds
+to the defendant’s enrichment, such that we can say
+that the latter was enriched at the expense of the former
+. As was observed by Professors Maddaugh and
+McCamus in The Law of Restitution, one source of
+difficulty in these kinds of disappointed beneficiary
+cases is
+
+a rigid application of the “corresponding deprivation”
+or “expense” element as if it requires that the benefit in
+the defendant’s hands must have been transferred from,
+or constitute an out‑of-pocket expense of, the plaintiff
+. . . . [R]estitution of benefits received from third parties
+may well provide a basis for recovery. In this particular
+context, the benefit received can, in any event, normally be
+described as having been received at the plaintiff’s expense
+in the sense that, but for the mistaken failure to implement
+the arrangements in question, the benefit would have been
+received by the plaintiff. [Emphasis added; p. 35‑21.]
+
+I agree. In this case, given the fact that Michelle held
+up her end of the bargain, kept the policy alive by
+paying the premiums, did not predecease Lawrence,
+and still did not get what she actually contracted
+for, it seems artificial to suggest that her loss was
+anything less than the right to receive the entirety of
+the insurance proceeds.
+330
+
+
+[50] From this perspective, it is equally clear that
+Risa’s enrichment came at Michelle’s expense. It
+is not only that Michelle’s payment of the premiums
+ made Risa’s enrichment possible — something
+which the application judge found to be the case:
+“The change of designation, and [Risa’s] later receipt
+of the proceeds of the Policy, would not have been
+
+
+
+
+possible but for [Michelle’s] performance of her
+obligations under the agreement” (para. 48). What is
+more significant is that Risa’s designation gave her
+the statutory right to receive the insurance proceeds,
+the necessary implication being that Michelle would
+have no such right despite the fact that she had a contractual
+ entitlement, by virtue of the agreement with
+Lawrence, to remain named as beneficiary. Because
+Risa received the benefit that otherwise would have
+accrued to Michelle, the requisite correspondence
+exists: the former was enriched at the expense of
+the latter.
+
+[51] My colleagues also dispute this proposition.
+They say that any deprivation suffered by Michelle
+is attributable to the fact that she lacks the practical
+ability to recover anything against Lawrence’s insolvent
+ estate. The result, in their view, is that what
+Risa received — a statutory entitlement to the proceeds
+ — is different than what Michelle lost — which
+they characterize as the ability to enforce her contractual
+ rights against Lawrence’s estate (para. 111).
+Again, I disagree; since Risa was given the very thing
+that Michelle had contracted to receive and was oth‑
+erwise entitled to receive (given that she held up her
+end of the bargain), it seems evident to me that Risa
+was enriched at Michelle’s expense. To be clear, it
+is not simply that Risa gained a benefit with a value
+equal to the amount of Michelle’s deprivation. Rather,
+what Risa gained is the precise benefit that Michelle
+lost: the right to receive the proceeds of Lawrence’s
+life insurance policy. I would also add that the insolvency
+ of Lawrence’s estate simply means that
+Michelle would be unable to recover the value of her
+loss by bringing an action against Lawrence’s estate
+in breach of contract; it does not affect her ability to
+bring an unjust enrichment claim against Risa. The
+fact that a plaintiff has a contractual claim against one
+defendant does not preclude the plaintiff from ad-
+vancing his or her case by asserting a separate cause
+[2018] 3 R.C.S.
+
+
+of action against another defendant if it appears most
+advantageous (Central Trust Co. v. Rafuse, [1986]
+2 S.C.R. 147, at p. 206).
+
+
+
+
+[52] I would therefore conclude that the requisite
+enrichment and corresponding deprivation are both
+present in this case. The payability of the insurance
+proceeds by the Insurance Company for Risa’s benefit
+ did in fact impoverish Michelle “to the full extent
+of the insurance payout in [Risa’s] favour” (Court
+of Appeal decision, at para. 208 (Lauwers J.A., dissenting
+)).
+
+[53] In light of this, the Court of Appeal’s order —
+which was made on the consent of the parties, and
+which requires that $7,000 of the proceeds be paid to
+Michelle and that the balance be paid to Risa — cannot
+ be upheld on a principled basis. If there is a
+juristic reason for Risa’s retention of the insurance
+money, then Michelle’s claim will necessarily fail
+and Risa will be entitled to the full $250,000. If there
+is no such juristic reason, however, then Michelle’s
+unjust enrichment claim will succeed and she will
+be entitled to a restitutionary remedy totalling that
+amount.
+
+  (2) Absence of Any Juristic Reason
+
+[54] Having established an enrichment and a corresponding
+ deprivation, Michelle must still show
+that there is no justification in law or equity for the
+fact that Risa was enriched at her expense in order
+to succeed in her claim. As observed by Cromwell J.
+in Kerr (at para. 40):
+
+   The third element of an unjust enrichment claim is
+that the benefit and corresponding detriment must have
+occurred without a juristic reason. To put it simply, this
+means that there is no reason in law or justice for the defendant
+’s retention of the benefit conferred by the plaintiff,
+making its retention “unjust” in the circumstances of the
+case . . . . [Emphasis added.]
+332
+
+
+[55] This understanding of juristic reason is crucial
+ for the purposes of the present appeal. The third
+element of the cause of action in unjust enrichment
+is essentially concerned with the justification for
+the defendant’s retention of the benefit conferred
+on him or her at the plaintiff’s expense — or, to put
+it differently, with whether there is a juristic reason
+
+
+
+
+for the transaction that resulted in both the defendant
+’s enrichment and the plaintiff’s corresponding
+deprivation. If there is, then the defendant will be
+justified in keeping or retaining the benefit received
+at the plaintiff’s expense, and the plaintiff’s claim
+will fail accordingly. At its core, the doctrine of unjust
+ enrichment is fundamentally concerned with
+reversing transfers of benefits that occur without
+any legal or equitable basis. As McLachlin J. stated
+in Peter (at p. 990), “It is at this stage that the court
+must consider whether the enrichment and detriment,
+morally neutral in themselves, are ‘unjust’.”
+
+[56] In Garland, this Court shed light on exactly
+what must be shown under the juristic reason element
+of the unjust enrichment analysis — and in particular
+, on whether this third element requires that cases
+be decided by “finding a ‘juristic reason’ for a defendant
+’s enrichment” or instead by “asking whether
+the plaintiff has a positive reason for demanding restitution
+” (para. 41, citing Garland v. Consumers’ Gas
+Co. (2001), 57 O.R. (3d) 127 (C.A.), at para. 105). In
+an effort to eliminate the uncertainty between these
+competing approaches, Iacobucci J. formulated a
+juristic reason analysis that proceeds in two stages.
+
+[57] The first stage requires the plaintiff to demonstrate
+ that the defendant’s retention of the benefit
+at the plaintiff’s expense cannot be justified on the
+basis of any of the “established” categories of juristic
+reasons: a contract, a disposition of law, a donative
+intent, and other valid common law, equitable or
+statutory obligations (Garland, at para. 44; Kerr,
+at para. 41). If any of these categories applies, the
+analysis ends; the plaintiff’s claim must fail because
+the defendant will be justified in retaining the disputed
+ benefit. For example, a plaintiff will be denied
+[2018] 3 R.C.S.
+
+
+recovery in circumstances where he or she conferred
+a benefit on a defendant by way of gift, since there
+is nothing unjust about a defendant retaining a gift
+of money that was made to him or her by (and that
+resulted in the corresponding deprivation of) the
+plaintiff. In this way, these established categories
+limit the subjectivity and discretion inherent in the
+
+
+
+
+unjust enrichment analysis and help to delineate
+the boundaries of this cause of action (Garland, at
+para. 43).
+
+[58] If the plaintiff successfully demonstrates that
+none of the established categories of juristic reasons
+applies, then he or she has established a prima facie
+case and the analysis proceeds to the second stage. At
+this stage, the defendant has an opportunity to rebut
+the plaintiff’s prima facie case by showing that there
+is some residual reason to deny recovery (Garland,
+at para. 45). The de facto burden of proof falls on
+the defendant to show why the enrichment should
+be retained. In determining whether this may be the
+case, the court should have regard to two considerations
+: the parties’ reasonable expectations and public
+policy (Garland, at para. 46; Kerr, at para. 43).
+
+[59] This two-stage approach to juristic reason
+was designed to strike a balance between the need
+for predictability and stability on the one hand, and
+the importance of applying the doctrine of unjust
+enrichment flexibly, and in a manner that reflects our
+evolving perception of justice, on the other.
+
+  (a) First Stage — None of the Established Categories Applies in These Circumstances
+
+[60] The first stage of the Garland framework asks
+whether a juristic reason from an established category
+ operates to deny recovery. Michelle submits
+that none of these categories applies in the circumstances
+ of this case. Risa takes the position that the
+Insurance Act required the proceeds of the policy to
+be paid exclusively to her as the validly designated
+beneficiary, such that the applicable legislation constitutes
+ a juristic reason to deny the recovery sought
+by Michelle.
+334
+
+
+[61] The main issue at this stage of the analysis is
+therefore whether a beneficiary designation made
+pursuant to ss. 190(1) and 191(1) of the Insurance
+Act — which, when coupled with Lawrence’s insurance
+ policy, makes it clear that Risa is the one to
+whom the insurance proceeds are payable — provides
+ a juristic reason for Risa to retain those proceeds
+
+
+
+
+ in light of Michelle’s claim to the money. Put
+differently, the question can be framed as follows:
+is there any aspect of this statutory framework that
+justifies the fact that Risa was enriched at Michelle’s
+expense? If so, Michelle’s claim will necessarily fail.
+
+[62] My colleagues dispute this proposition. In
+their view, it is sufficient to show that there is some
+juristic reason for the fact that the defendant was
+enriched, and there is thus no need to demonstrate
+that the enrichment and the corresponding depriva‑
+tion occurred without a juristic reason. With respect,
+this proposition is at odds with the clear guidance
+provided by this Court in Kerr (para. 40, reproduced
+at para. 54 of these reasons) and disregards the work
+already done by the recognized categories of juristic
+reasons identified in Garland. Each of these categories
+ points to a relationship between the plaintiff
+and the defendant that justifies the fact that a benefit
+ passed from the former to the latter. To focus
+exclusively on the reason why the defendant was
+enriched is to ignore this key aspect of the law of
+unjust enrichment.
+
+[63] Two categories of juristic reasons might be
+said to apply in the circumstances of this case: disposition
+ of law and statutory obligations. Disposition
+of law is a broad category that applies in various
+circumstances, including “where the enrichment of
+the defendant at the plaintiff’s expense is required by
+law, such as where a valid statute denies recovery”
+(Kerr, at para. 41 (emphasis added)). The statutory
+obligations category operates in a substantially similar
+ manner, precluding recovery where a legislative
+enactment expressly or implicitly mandates a transfer
+ of wealth from the plaintiff to the defendant.
+Although there is undoubtedly a degree of overlap
+between these two distinct categories, what matters
+for the purposes of this appeal is that a plaintiff’s
+[2018] 3 R.C.S.
+
+
+claim will necessarily fail if a legislative enactment
+provides a reason for the enrichment and corresponding
+ deprivation, so as to preclude recovery in unjust
+enrichment. As Professors Maddaugh and McCamus
+note in The Law of Restitution:
+
+
+
+
+
+. . . it is perhaps self-evident that an unjust enrichment
+will not be established in any case where enrichment of
+the defendant at the plaintiff’s expense is required by law.
+The payment of validly imposed taxes may be considered
+unjust by some but their payment gives rise to no restitutionary
+ right of recovery. [Emphasis added; footnotes
+omitted; p. 3‑28.]
+
+[64] The jurisprudence provides ample support
+for this proposition. Among the issues in Reference
+re Goods and Services Tax, [1992] 2 S.C.R. 445
+(“GST Reference”), was whether suppliers registered
+under the Excise Tax Act, R.S.C. 1985, c. E‑15, that
+incurred costs in collecting the Goods and Services
+Tax on behalf of the federal government could recover
+ those costs from the government on the basis of
+restitution. For a majority of this Court, Lamer C.J.
+answered this question in the negative:
+
+Under the GST Act the expenses involved in collecting
+and remitting the GST are borne by registered suppliers
+. This certainly constitutes a burden to these suppliers
+and a benefit to the federal government. However, this
+is precisely the burden contemplated by statute. Hence,
+a juridical reason for the retention of the benefit by the
+federal government exists unless the statute itself is ultra
+vires. [Emphasis added; p. 477.]
+
+[65] A similar issue arose in Gladstone v. Canada
+(Attorney General), 2005 SCC 21, [2005] 1 S.C.R.
+325. In that case, the respondents were charged under
+the Fisheries Act, R.S.C. 1970, c. F‑14, for harvest-
+ing and attempting to sell large quantities of herring
+spawn. The Department of Fisheries and Oceans
+seized and sold the herring spawn, and the appellant
+Crown in Right of Canada held the proceeds pending
+336
+
+
+the outcome of the proceedings. The proceedings
+were eventually stayed and the net proceeds paid to
+the respondents. Because the Crown refused to pay
+interest or any other additional amount, however,
+the respondents sought restitution in the amount of
+$132,000, on the ground that the Crown had been unjustly
+ enriched by its retention of the proceeds during
+
+
+
+
+the time of seizure. Writing for a unanimous Court,
+Major J. denied that claim on the following basis:
+
+    Here, Parliament has enacted a statutory regime to reg-
+ulate the commercial fishery. It has provided an extensive
+framework dealing with the seizure and return of things
+seized. This regime specifically provides for the return of
+any fish, thing, or proceeds realized. This was followed.
+Interest or some other additional amount might have been
+gratuitously included, but it was not. The validity of the
+Fisheries Act was not, nor could have been, successfully
+challenged. Therefore, the Act provides a juristic reason
+for any incidental enrichment which may have occurred
+in its operation. As a result, the unjust enrichment claim
+fails. [para. 22]
+
+In short, it was Major J.’s position that the statutory
+regime, by specifying what had to be returned, made
+it clear that anything falling outside of the specified
+categories was to be retained by the Crown. In other
+words, the Fisheries Act stipulated that, in certain
+circumstances, a benefit would be retained by the
+Crown.
+
+[66] These cases are examples of situations where
+a statute precluded recovery on the basis of unjust
+enrichment. It is to be noted that in each case, recovery
+ was denied because the legislation in question
+ expressly or implicitly required the transfer of
+wealth between the plaintiff and the defendant and
+therefore justified the defendant’s retention of the
+benefit received at the plaintiff’s expense. It is in this
+way that the applicable legislation can be understood
+as “denying” or “barring” recovery in restitution
+and therefore as supplying a juristic reason for the
+defendant’s retention of the benefit.
+
+[67] What, then, should we make of ss. 190(1) and
+191(1) of the Insurance Act? The former permits the
+[2018] 3 R.C.S.
+
+
+insured to identify the person to whom or for whose
+benefit the insurance money is payable when the
+insured passes away. Coupled with the insurance
+contract, it directs the insurer to pay the proceeds
+to the person so designated. The latter provides that
+such a designation may be made irrevocably.
+
+
+
+
+[68] Given the fact that a statute will preclude recovery
+ for unjust enrichment where it requires (either
+explicitly or by necessary implication) that the defendant
+ be enriched to the detriment of the plaintiff,
+the provisions of the Insurance Act may therefore
+provide a juristic reason for the beneficiary’s enrichment
+ vis‑à‑vis any corresponding deprivation
+that may have been suffered by the insurer at the
+time the insurance money is eventually paid out.
+For this reason, an unjust enrichment claim brought
+by the insurer against the designated beneficiary
+(revocable or irrevocable) would necessarily fail at
+this stage; the rights and obligations that exist in that
+context — both statutory and contractual — justify
+the beneficiary’s enrichment at the insurer’s expense
+(Saskatchewan Crop Insurance Corp. v. Deck, 2008
+SKCA 21, 307 Sask. R. 206, at paras. 47‑54).
+
+[69] A valid beneficiary designation under the Insurance Act has also been found to constitute a juristic
+ reason that defeats a third party’s claim for the
+entirety of the death benefit in circumstances where
+that party paid some of the premiums under the erroneous
+ belief that he or she was the named beneficiary
+. In Richardson (Estate Trustee of) v. Mew,
+2009 ONCA 403, 96 O.R. (3d) 65, the deceased had
+maintained his first wife as the designated beneficiary
+ under a life insurance policy. His second wife,
+who did not have a contractual right to be named as
+beneficiary, wrongly believed that he had executed a
+change of beneficiary designation in her favour, and
+paid some of the policy premiums — initially from
+a joint bank account she shared with the deceased
+and later from her own bank account. She sought the
+imposition of a constructive trust in her favour over
+the policy proceeds, arguing that there was no juristic
+reason for the first wife’s enrichment. Even accepting
+that the second wife could be said to have suffered
+a corresponding deprivation, the Ontario Court of
+338
+
+
+Appeal upheld the motion judge’s finding that a
+valid beneficiary designation under the Insurance
+Act amounted to a juristic reason that defeated the
+second wife’s claim for the insurance money that
+was payable to the first wife. I would observe that the
+claimant in that case sought a constructive trust over
+the entire death benefit, and not merely the return of
+
+
+
+
+any payments made on the basis of her erroneous
+belief; the Court of Appeal did not decide whether
+she would be entitled to the return of those payments,
+and that question is not before us today.
+
+[70] At issue in this case, however, is whether a
+designation made pursuant to ss. 190(1) and 191(1)
+of the Insurance Act provides any reason in law or
+justice for Risa to retain the disputed benefit notwithstanding
+ Michelle’s prior contractual right to
+remain named as beneficiary and therefore to receive
+the policy proceeds. In other words, does the statute
+preclude recovery for a plaintiff, like Michelle, who
+stands deprived of the benefit of the insurance policy
+ in circumstances such as these? In my view, it
+does not. Nothing in the Insurance Act can be read
+as ousting the common law or equitable rights that
+persons other than the designated beneficiary may
+have in policy proceeds. As this Court explained in
+Rawluk v. Rawluk, [1990] 1 S.C.R. 70, at p. 90, the
+“legislature is presumed not to depart from prevailing
+law ‘without expressing its intentions to do so with
+irresistible clearness’” (see also Gendron v. Supply
+and Services Union of the Public Service Alliance
+of Canada, Local 50057, [1990] 1 S.C.R. 1298). In
+KBA Canada Inc. v. 3S Printers Inc., 2014 BCCA
+117, 59 B.C.L.R. (5th) 273, for example, the British
+Columbia Court of Appeal found that the Personal
+Property Security Act, R.S.B.C. 1996, c. 359, provided
+ a “complete set of priority rules” that was “designed
+ to replace convoluted common law, equitable
+and statutory rules that beset personal property security
+ law with complexity and uncertainty” (paras. 27
+and 21, citing Bank of Montreal v. Innovation Credit
+Union, 2010 SCC 47, [2010] 3 S.C.R. 3). In those
+circumstances, there was no “room for priorities
+to be determined on the basis of common law or
+[2018] 3 R.C.S.
+
+
+equitable principles” (para. 22). By contrast, while
+the Insurance Act provides the mechanism by which
+beneficiaries can be designated and therefore become
+statutorily entitled to receive policy proceeds, no
+part of the Insurance Act operates with the necessary
+“irresistible clearness” to preclude the existence of
+contractual or equitable rights in those insurance
+
+
+
+
+proceeds once they have been paid to the named
+beneficiary.
+
+[71] The reasoning put forward by McKinlay J. (as
+she then was) of the Ontario High Court of Justice
+in Shannon v. Shannon (1985), 50 O.R. (2d) 456, is
+particularly instructive in this regard. Like Michelle,
+the plaintiff in Shannon was the former spouse of
+an insured person who had contractually agreed to
+maintain the plaintiff as the sole beneficiary of the
+life insurance policy in his name and “not to revoke
+such beneficiary designation at any time in the fu-
+ture” (p. 458). Shortly thereafter, and in breach of his
+contractual obligation, the insured person surreptitiously
+ changed the beneficiary designation in favour
+of his niece and nephew. He passed away several
+years later, and when the plaintiff discovered the
+change in beneficiary designation, she commenced
+an action asserting her entitlement to the proceeds
+of her former spouse’s insurance policy. McKinlay J.
+found in her favour and made the following obser-
+vations (at p. 461):
+
+    It would appear from s. 167(2) [i.e. the predecessor of
+s. 190(2) of the Insurance Act] that the insured may at any
+time before the filing of an irrevocable declaration alter
+or revoke an existing designation by way of a declaration.
+
+   The position of the defendant is that this is precisely
+what the insured did, and that any finding of the court of a
+trust in favour of the plaintiff would have the effect of the
+court’s attempting to overrule a clear statutory provision.
+
+   But the Insurance Act provides a statutory framework for
+the protection of the insured, the insurer and beneficiaries;
+340
+
+
+equity imposes duties of conscience on parties based on
+their relationship and dealings one with another outside the
+purview of the statute. When he concluded the separation
+agreement with his wife, the deceased bound himself to
+maintain the policy in good standing, which he did; he also
+bound himself to maintain it for the benefit of his wife,
+which he did not. [Emphasis added.]
+
+
+
+
+[72] Shannon therefore supports the proposition
+that while the Insurance Act may provide for the
+beneficiary’s entitlement to payment of the proceeds,
+it “does not specifically preclude the existence of
+rights outside its provisions” (p. 461). Similarly,
+in Chanowski v. Bauer, 2010 MCBA 96, 258 Man.
+R. (2d) 244, the Manitoba Court of Appeal recognized
+ that courts have readily accepted that contractual
+ rights to policy proceeds may operate to the
+detriment of named beneficiaries:
+
+    Generally, the courts have imposed remedial constructive
+ trusts in factual circumstances where the deceased has
+breached an agreement regarding life insurance benefits.
+These have arisen most commonly in cases where the
+husband executed a separation agreement promising to
+retain his former wife as the beneficiary of his life insurance
+ policy and, in contravention of that promise, before
+his death, the deceased changed the designation of his
+beneficiary to that of his present wife or another family
+member. [para. 39]
+
+[73] Accepting that contractual rights to claim policy
+ proceeds can exist outside of the Insurance Act,
+can an irrevocable designation under the Insurance
+Act nonetheless constitute a juristic reason for
+Michelle’s deprivation? In my view, it cannot. This
+is because the applicable statutory provisions do not
+require, either expressly or implicitly, that a beneficiary
+ keep the proceeds as against a plaintiff, in an
+unjust enrichment claim, who stands deprived of his
+or her prior contractual entitlement to claim such
+proceeds upon the insured’s death. By not ousting
+prior contractual or equitable rights that third parties
+may have in such proceeds, the Insurance Act allows
+an irrevocable beneficiary to take insurance money
+that may be subject to prior rights and therefore does
+not give such a beneficiary any absolute entitlement
+[2018] 3 R.C.S.
+
+
+to that money (Shannon, at p. 461). Put simply, the
+statute required that the Insurance Company pay
+Risa, but it did not give Risa a right to keep the
+proceeds as against Michelle, whose contract with
+Lawrence specifically provided that she would pay
+all of the premiums exclusively for her own benefit.
+Neither by direct reference nor by necessary implication
+
+
+
+
+ does the statute either (a) foreclose a third
+party who stands deprived of his or her contractual
+entitlement to claim insurance proceeds by successfully
+ asserting an unjust enrichment claim against
+the designated beneficiary — whether revocable or
+irrevocable — or (b) preclude the imposition of a
+constructive trust in circumstances such as these (see
+Central Guaranty Trust Co. v. Dixdale Mortgage
+Investment Corp. (1994), 24 O.R. (3d) 506 (C.A.);
+see also KBA Canada).
+
+[74] On this basis, the applicable Insurance Act
+provisions are distinguishable from other legislative
+ enactments that have been found to preclude
+recovery, such as valid statutory provisions requiring
+ the payment of taxes to the government (see
+GST Reference, at pp. 476‑77; Zaidan Group Ltd.
+v. London (City) (1990), 71 O.R. (2d) 65 (C.A.), at
+p. 69, aff’d [1991] 3 S.C.R. 593). In that context, the
+plaintiff’s unjust enrichment claim must fail because
+the legislation permits the defendant to be enriched
+even when the plaintiff suffers a corresponding deprivation
+. The same cannot be said about the statutory
+framework at issue in this case, however; there is
+nothing in the Insurance Act that justifies the fact
+that Michelle, who is contractually entitled to claim
+the policy proceeds, is nevertheless deprived of this
+entitlement for Risa’s benefit.
+
+[75] Moreover, in my view, the fact that Shannon
+was decided prior to Soulos and Garland is of no
+moment (Court of Appeal decision, at paras. 84 and
+89). While those cases add to our understanding of
+the law on constructive trusts and unjust enrichment,
+they do not in any way undermine the holding in
+Shannon with respect to the effect of the Insurance
+Act in circumstances such as these.
+342
+
+
+[76] The majority below came to the opposite conclusion
+ on this issue. Having considered the legislative
+ regime governing beneficiary designations
+in Ontario, Blair J.A. held that the Insurance Act
+framework “lean[s] heavily in favour of payment of
+the proceeds of life insurance policies to those named
+as irrevocable beneficiaries, whereas it continues to
+
+
+
+
+recognize the right of an insured, at any time prior
+to such a designation, to alter or revoke a beneficiary
+who does not fall into that category” (para. 83). On
+this basis, he concluded that the legislative regime
+under which Risa had been designated as the irrevocable
+ beneficiary of Lawrence’s life insurance
+policy supplied a juristic reason for her receipt of
+the proceeds, since it constituted both a disposition
+of law and a statutory obligation (para. 99).
+
+[77] With respect, I disagree with two aspects of
+Blair J.A.’s reasons. First, he framed the issue as
+being whether the applicable Insurance Act provisions
+, pursuant to which Risa had been designated as
+irrevocable beneficiary, provided a juristic reason for
+her receipt of the insurance proceeds (paras. 26(iii)
+and 83). This, in my view, is the wrong perspective
+from which to approach this third stage of the unjust
+enrichment analysis. As stated above, the authorities
+indicate that the court’s inquiry should focus not only
+on why the defendant received the benefit, but also
+on whether the statute gives the defendant the right to
+retain the benefit against a correspondingly deprived
+plaintiff — in this case, whether the Insurance Act
+extinguishes an unjust enrichment claim brought by
+a plaintiff at whose expense the named beneficiary
+was enriched (GST Reference, at p. 477; Kerr, at
+para. 31). And given the view expressed earlier in
+these reasons, it seems to me that the Insurance Act
+does not.
+
+[78] Second, Blair J.A. placed a significant degree
+of emphasis on the distinction between revocable and
+irrevocable beneficiaries, and on the certainty and
+predictability associated with the statutory regime
+[2018] 3 R.C.S.
+
+
+governing irrevocable designations. While it is clear
+that an irrevocably designated beneficiary has a “statutory
+ right to remain as the named beneficiary” and
+is therefore “entitled to receive the insurance moneys
+ unless he or she consents to being removed”
+(para. 82), I am still not persuaded that s. 191 of the
+Insurance Act can be interpreted as barring the pos-
+
+
+
+
+sibility of restitution to a third party who establishes
+that this irrevocable beneficiary cannot, in good conscience
+, retain those monies in the face of that third
+party’s unjust enrichment claim. To borrow the words
+of Professors Maddaugh and McCamus, “the fact
+that the insurer is directed by statute, implicitly if
+not directly, to pay the insurance monies to the irrevocable
+ beneficiary, does not preclude recovery by
+the other intended beneficiary where retention of the
+monies by the irrevocable beneficiary would constitute
+ an unjust enrichment” (The Law of Restitution,
+at p. 35‑16). Therefore, the fact that Risa was designated
+ pursuant to s. 191(1) of the Insurance Act,
+as opposed to s. 190(1), does not assist her against
+Michelle in the circumstances of this case.
+
+[79] I would also observe that the majority below
+declined to “go so far as to say that the designation
+ of a beneficiary as an irrevocable beneficiary
+under the Insurance Act invariably trumps a prior
+claimant” (para. 91), but nevertheless found that it
+did in this case. It is with this latter statement that I
+would disagree; as outlined above, my view is that
+the statutory scheme does not prevent a claimant with
+a prior contractual entitlement from succeeding in
+unjust enrichment against the designated beneficiary.
+
+[80] My colleagues take the position that the
+Insurance Act provides a juristic reason for Risa’s
+enrichment because it specifically provides that the
+proceeds, once paid to the irrevocable beneficiary,
+are immune from attack by the insured’s creditors
+. They say that because “Michelle’s rights are
+344
+
+
+contractual in nature, she is a creditor of Lawrence’s
+estate and thus, by the provisions of the Insurance
+Act, has no claim to the proceeds” (para. 122). While
+there is no dispute that Michelle may have a claim
+against Lawrence’s estate, my view is that she is
+also a person at whose expense Risa has been enriched
+ — and therefore a plaintiff with standing to
+
+
+
+
+claim against Risa in unjust enrichment. And while
+the Insurance Act specifically precludes claims
+by creditors suing on the basis of some obligation
+owed by the insured’s estate, it does not state “with
+irresistible clearness” that a claim in unjust en‑
+richment — i.e. a claim based on a different cause
+of action — brought by a plaintiff who also has
+a contractual entitlement to claim the insurance
+proceeds must necessarily fail as against the named
+beneficiary.
+
+[81] For all of the foregoing reasons, I would echo
+the conclusion arrived at by Lauwers J.A., dissenting
+in the court below, that “[Michelle’s] entitlement
+to the insurance proceeds as against [Risa] is neither
+ precluded nor affected by the operation of the
+Insurance Act”, with the result that this case “falls
+outside the category of disposition of law as a juristic
+reason to permit [Risa] to retain the life insurance
+proceeds” (para. 229).
+
+[82] Since there is no suggestion that any other
+established category of juristic reason would apply in
+these circumstances, my conclusion at this first stage
+is that Michelle has made out a prima facie case.
+
+  (b) Second Stage — Policy Reasons Militate in
+      Favour of Michelle
+
+[83] The second stage of the juristic reason analysis
+ affords the defendant an opportunity to rebut the
+plaintiff’s prima facie case by establishing that there
+is some residual reason to deny recovery. At this stage,
+various other considerations come into play, like the
+parties’ reasonable expectations and moral and policy-based arguments — including considerations relating
+to the way in which the parties organized their relationship
+ (Garland, at paras. 45‑46; Pacific National
+Investments, at para. 25; Kerr, at paras. 44‑45).
+[2018] 3 R.C.S.
+
+
+[84] It is clear that both parties expected to receive
+the proceeds of the life insurance policy. Pursuant to
+the Oral Agreement, Michelle had a contractual right
+to remain designated as beneficiary so long as she
+continued to pay the premiums and kept the policy
+alive for the duration of Lawrence’s life. Although
+she could have better safeguarded her interests
+
+
+
+
+by requiring Lawrence to designate her irrevocably
+, her expectation with respect to the insurance
+money — rooted in the Oral Agreement — is clearly
+reasonable and legitimate.
+
+[85] Risa, by contrast, expected to receive the insurance
+ money upon Lawrence’s death by virtue
+of the fact that she had been validly designated as
+irrevocable beneficiary. Because Risa was designated
+ after Lawrence and Michelle entered into the
+Oral Agreement, however, I am of the view that her
+expectation cannot take precedence over Michelle’s
+prior contractual right to remain named as beneficiary
+, regardless of whether Risa knew that this
+was actually the case. To echo the findings of the
+application judge:
+
+While there is no evidence that [Risa] knew that [Michelle]
+was paying the premiums on the Policy, she was aware
+that [Lawrence] was not in a position to do so. She says
+that she believed that [Lawrence’s] brother was paying the
+premiums, but there is nothing in the record regarding the
+brother’s motivation or intentions that would make [Risa’s]
+belief in such action reasonable. [para. 49]
+
+[86] Moreover, I am not persuaded that the oral nature
+ of the agreement between Michelle and Lawrence
+undermines Michelle’s expectation or serves as a
+public policy reason that favours Risa’s retention of
+the proceeds. The legal force of unwritten agreements
+has long been recognized by common law courts. And
+while “kitchen table agreements” may in some cases
+result in situations where parties neither understand
+nor intend the legal significance of their agreement,
+this is not such a case; the parties do not dispute the
+finding that Michelle and Lawrence did in fact have
+an Oral Agreement that the former would pay the
+premiums on the policy and, in exchange, would be
+entitled to the proceeds of the policy upon the latter’s
+death (Superior Court decision, at para. 17; Court of
+Appeal decision, at para. 22). Indeed, the existence of
+346
+
+
+the Oral Agreement is quite clearly corroborated by
+Michelle’s payment of the premiums following her
+separation from Lawrence.
+
+[87] As a final point, it appears to me that the residual
+
+
+
+
+ considerations that arise at this stage of the
+Garland analysis favour Michelle, given that her
+contribution towards the payment of the premiums
+actually kept the insurance policy alive and made
+Risa’s entitlement to receive the proceeds upon
+Lawrence’s death possible. Furthermore, it would be
+bad policy to ignore the fact that Michelle was effectively
+ tricked by Lawrence into paying the premiums
+of a policy for the benefit of some other person of
+his choosing.
+
+[88] For the foregoing reasons, I would conclude that
+Risa has not met the burden of rebutting Michelle’s
+prima facie case. It follows, therefore, that Michelle
+has made out each of the requisite elements of the
+cause of action in unjust enrichment.
+
+B. Appropriate Remedy: Imposition of a Constructive Trust
+
+[89] The remedy for unjust enrichment is restitutionary
+ in nature and can take one of two forms: personal
+ or proprietary. A personal remedy is essentially
+a debt or a monetary obligation — i.e. an order to
+pay damages — that may be enforced by the plaintiff
+ against the defendant (Sorochan v. Sorochan,
+[1986] 2 S.C.R. 38, at p. 47). In most cases, this
+remedy will be sufficient to achieve restitution, and
+it can therefore be viewed as the “default” remedy
+for unjust enrichment (Lac Minerals, at p. 678; Kerr,
+at para. 46).
+
+[90] In certain cases, however, a plaintiff may be
+awarded a remedy of a proprietary nature — that is,
+an entitlement “to enforce rights against a particular
+piece of property” (McInnes, The Canadian Law of
+Unjust Enrichment and Restitution, at p. 1295). The
+most pervasive and important proprietary remedy
+for unjust enrichment is the constructive trust — a
+[2018] 3 R.C.S.
+
+
+remedy which, according to Dickson J. (as he then
+was),
+
+is imposed without reference to intention to create a trust,
+and its purpose is to remedy a result otherwise unjust. It
+
+
+
+
+is a broad and flexible equitable tool which permits courts
+to gauge all the circumstances of the case, including the
+respective contributions of the parties, and to determine
+beneficial entitlement.
+
+(Pettkus, at pp. 843‑44)
+
+[91] While the constructive trust is a powerful remedial
+ tool, it is not available in all circumstances
+where a plaintiff establishes his or her claim in unjust
+enrichment. Rather, courts will impress the disputed
+property with a constructive trust only if the plaintiff
+can establish two things: first, that a personal remedy
+would be inadequate; and second, that the plaintiff’s
+contribution that founds the action is linked or causally
+ connected to the property over which a constructive
+ trust is claimed (PIPSC, at para. 149; Kerr,
+at paras. 50‑51; Peter, at p. 988). And even where
+the court finds that a constructive trust would be an
+appropriate remedy, it will be imposed only to the
+extent of the plaintiff’s proportionate contribution
+(direct or indirect) to the acquisition, preservation,
+maintenance or improvement of the property (Kerr,
+at para. 51; Peter, at pp. 997‑98).
+
+[92] The application judge concluded that Michelle
+had established an entitlement to the entirety of the
+proceeds of the life insurance policy on the basis
+of unjust enrichment, and he accordingly ordered
+that Risa held those proceeds on constructive trust
+for Michelle (para. 52). He specifically found that
+Michelle had demonstrated a “clear ‘link or causal
+connection’ between her contributions and the proceeds
+ of the Policy that continued for the entire duration
+ of the Policy” (para. 50).
+
+[93] While my analysis of Michelle’s right to
+recover for unjust enrichment differs from that of
+348
+
+
+the application judge, I see no reason to disturb his
+conclusion regarding the propriety of a remedial
+constructive trust in these circumstances. Ordinarily,
+a monetary award would be adequate in cases where
+the property at stake is money. In the present case,
+however, the disputed insurance money has been paid
+into court and is readily available to be impressed
+
+
+
+
+with a constructive trust. Furthermore, ordering that
+the money be paid out of court to Risa, and then
+requiring Michelle to enforce the judgment against
+Risa personally, would unnecessarily complicate the
+process through which Michelle can obtain the relief
+to which she is entitled. It would also create a risk
+that the money might be spent or accessed by other
+creditors in the interim.
+
+[94] Moreover, the application judge found that
+Michelle’s payment of the premiums was causally
+connected to the maintenance of the policy under
+which Risa was enriched. Because each of Michelle’s
+payments kept the policy alive, and given that Risa’s
+right as designated beneficiary necessarily deprived
+Michelle of her contractual entitlement to receive the
+entirety of the insurance proceeds, I would impose a
+constructive trust to the full extent of those proceeds
+in Michelle’s favour.
+
+[95] This disposition of the appeal renders it un-
+necessary to determine whether this Court’s decision
+in Soulos should be interpreted as precluding the
+availability of a remedial constructive trust beyond
+cases involving unjust enrichment or wrongful acts
+like breach of fiduciary duty. Similarly, the extent
+to which this Court’s decision in Soulos may have
+incorporated the “traditional English institutional
+trusts” into the remedial constructive trust framework
+is beyond the scope of this appeal. While recognizing
+that these remain open questions, I am of the view
+that they are best left for another day.
+
+VI. Conclusion
+
+[96] I would therefore allow the appeal without
+costs and order that the proceeds of the policy, with
+accrued interest, be impressed with a constructive
+[2018] 3 R.C.S.
+
+
+trust in favour of Michelle and accordingly be paid
+out of court for her benefit.
+
+     The following are the reasons delivered by
+
+
+
+
+     Gascon and Rowe JJ. (dissenting) —
+
+I.
+
+[97] This appeal is, without question, a difficult
+one. Michelle and Risa are both innocent victims
+of Lawrence’s breach of contract and they equally
+invite substantial sympathy. Michelle paid approx-
+imately $7,000 to keep alive an insurance policy
+on the promise she would receive the proceeds if
+Lawrence died within its term. Risa cared for and
+supported Lawrence for 13 years and expected, as irrevocable
+ beneficiary, that she would receive support
+should he die. With Lawrence’s broken promise now
+discovered, Michelle claims a constructive trust over
+the proceeds on the basis of unjust enrichment or
+“good conscience”, while Risa insists her irrevocable
+beneficiary designation is unassailable.
+
+[98] It is an unfortunate reality that a person’s
+death is sometimes accompanied by uncertainty and
+conflict over the wealth that has been left behind. The
+resulting litigation can tie up funds that the deceased
+intended to support loved ones for a significant period
+ of time, adding financial hardship to personal
+tragedy. In an attempt to ensure that life insurance
+proceeds could be free from such strife, the Ontario
+legislator empowered life insurance policy holders
+to designate an “irrevocable beneficiary” (Insurance
+Act, R.S.O. 1990, c. I.8, s. 191(1)). Such a designation
+ ensures that the policy proceeds could be
+disbursed free from claims against the estate, giving
+certainty to insured, insurer, and beneficiary alike.
+This provision should be given full effect.
+350
+
+
+[99] There is no basis to impose a constructive
+trust in the circumstances of this case. We agree
+with Blair J.A. of the Ontario Court of Appeal that
+Michelle has not established that a “good conscience”
+constructive trust should be imposed (2017 ONCA
+182, 134 O.R. (3d) 721). We rely on his reasons to
+dispose of this ground of appeal. We also agree that
+
+
+
+
+Michelle has failed to establish a claim in unjust
+enrichment. On this issue, we respectfully part ways
+with the majority of this Court on whether unjust
+enrichment can be made out on these facts. Michelle
+has only asserted contractual rights to the proceeds
+and has not established a proprietary or equitable interest
+ in the proceeds themselves. In our view, there is
+no correlative deprivation between Michelle’s failed
+contractual expectations and Risa’s enrichment. In
+addition, the Insurance Act provides clear juristic
+reason for any enrichment Risa could have received
+through Michelle’s loss as a creditor of Lawrence’s
+insolvent estate. Opening up irrevocable beneficiary
+designations to challenges by an insured’s creditors
+risks a recipe for litigation — a situation the legislator
+clearly intended to avoid. As such, for the reasons that
+follow, we would dismiss the appeal.
+
+II. Analysis
+
+A. Characterizing Michelle’s Claim
+
+[100] The majority of the Ontario Court of Appeal
+was correct in characterizing Michelle’s claim as
+being that she had a contract with Lawrence for the
+policy proceeds and that she was using this contract
+to be entitled to restitution of the funds on the principle
+ of unjust enrichment. According to Michelle’s
+affidavit, the contract was to ensure that she would
+be “entitled to receive the Policy benefits” in exchange
+ for paying the premiums (A.R., at p. 138).
+However, it is difficult to see how the contract she
+has put into evidence creates a proprietary right in
+the proceeds. Simply being named as a beneficiary
+[2018] 3 R.C.S.
+
+
+does not give one a right in the proceeds before the
+death of the insured. The right to claim the proceeds
+only crystalizes upon the insured’s death. Further,
+as a revocable beneficiary, Michelle had no right to
+contest the redesignation outside of a claim against
+Lawrence for breach of contract. Thus, at the time
+of Lawrence’s death, the only rights that Michelle
+
+
+
+
+possessed in relation to the life insurance contract
+were her contractual rights.
+
+[101] On different pleadings and a more developed
+record, Michelle may have been able to establish
+that the contract gave her a proprietary interest in
+the proceeds through an equitable assignment of
+Lawrence’s chose in action. The Ontario Court of
+Appeal correctly found that this avenue was never
+properly put to the application judge, and Michelle
+has not otherwise pursued this line of argument. It
+follows that, with only contractual rights asserted,
+Michelle cannot be understood to have a proprietary
+right in the proceeds. Rather, her agreement with
+Lawrence must be understood as limited to a contractual
+ right to be maintained the named beneficiary of
+the policy while she paid the premiums. If Lawrence
+had died while she was designated as a beneficiary,
+Michelle would consequently receive the proceeds,
+but the contract itself cannot be seen to give Michelle
+a right in the proceeds themselves.
+
+[102] Of course, Lawrence breached his contractual
+ obligations by redesignating Risa as an irrevocable
+ beneficiary, entitling her to the policy proceeds
+on his death. While Michelle would have a claim
+against Lawrence’s estate for breach of contract, the
+estate’s lack of assets has rendered any such recourse
+fruitless. Instead, Michelle’s claim before this Court
+is to reverse the purported unjust enrichment of Risa,
+an innocent beneficiary of Lawrence’s breach of
+contract.
+
+[103] Risa has argued that unjust enrichment
+should not be a vehicle for protecting expectation
+interests in a valid contract. Indeed, the availability
+of unjust enrichment for indirect claims against the
+352
+
+
+innocent beneficiaries of a breach of contract is a
+matter of significant academic controversy. Professor
+Birks, while a general proponent of the availability
+of indirect claims, has posited that there is a general
+rule against “leap-frogging” out of an initially valid
+contract through unjust enrichment (P. Birks, Unjust
+Enrichment (2nd ed. 2005), at p. 90). One reason he
+
+
+
+
+suggests for this rule is that a contracting party “must
+not wriggle round the risk of insolvency” inherent in
+contractual relations (p. 90). Professor Burrows also
+recognizes such a rule, given the logical difficulty
+of establishing a causal link between the claimant’s
+deprivation and the defendant’s benefit (A. Burrows,
+The Law of Restitution (3rd ed. 2011), at pp. 70‑71).
+In a similar vein, Professor Virgo has identified a
+“privity principle” to unjust enrichment that means
+indirect recipients of a benefit will generally not
+be liable for restitution (G. Virgo, The Principles
+of the Law of Restitution (3rd ed. 2015), at p. 105).
+The leading text on restitution from Lord Goff and
+Professor Jones, by contrast, suggests that there is
+no such general prohibition and that causation can
+be made out on a simple “but for” causation analysis
+ (Goff & Jones: The Law of Unjust Enrichment
+(9th ed. 2016), by C. Mitchell, P. Mitchell and S.
+Watterson, at pp. 77 and 176). Yet, they also caution
+that courts should be hesitant to make such awards
+where they would have the effect of undermining an
+insolvency regime or avoid the contractual allocation
+of risk (p. 77).
+
+[104] There is sparse Canadian authority on this
+matter, and we see no support for the view that unjust
+ enrichment protects an individual’s contractual
+expectations against innocent third parties. Certainly,
+this Court has recognized that the law of restitution
+ensures that where a plaintiff has been deprived of
+wealth that is either in their possession or would have
+accrued for their benefit, it is restored to them (Air
+Canada v. British Columbia, [1989] 1 S.C.R. 1161,
+at pp. 1202‑3). However, restitution awards for expected
+ property have generally been where there was
+a breach of an equitable duty by a defendant (Lac
+Minerals Ltd. v. International Corona Resources Ltd.,
+[2018] 3 R.C.S.
+
+
+[1989] 2 S.C.R. 574, at pp. 668‑70). In these cases, a
+defendant, through some wrongdoing, intercepts the
+property otherwise destined for the plaintiff. In the
+words of Lac Minerals: “but for [the defendant’s]
+interception”, the plaintiff “would have acquired
+the property” (p. 669). Critically, the plaintiff has
+no recourse against the third party. Its only claim
+
+
+
+
+is to the very thing in the defendant’s hands. In our
+view, this is distinguishable from where the plaintiff
+holds a valid contractual expectation vis‑à‑vis the
+third party (here, Lawrence) that they would receive
+property, but that expectation was frustrated by an
+insolvency that prevents full compensation for a
+breach of contract. Our takeaway from Lac Minerals
+is encapsulated concisely by Professor McInnes’
+views on expected property awards:
+
+The plaintiff is entitled to demand receipt of a benefit
+which, as a matter of legal certainty, would have been
+obtained from a third party, but for the defendant’s inter-
+vention. The situation will be much different, however, if
+relief is available merely because the defendant realized a
+gain through the non-wrongful exploitation of an earning
+opportunity. [Emphasis added.]
+
+(M. McInnes, The Canadian Law of Unjust Enrichment and Restitution (2014), at p. 179)
+
+To allow plaintiffs to wield contractual expectations
+against innocent third parties risks “drift[ing] danger-
+ously away from reversing unjustified transfers and
+toward stripping non-wrongful profits” (McInnes,
+at p. 183).
+
+[105] Michelle has raised a number of so-called
+“disappointed beneficiary” cases in support of her
+claim. While many of these involved such indirect
+claims for unjust enrichment, none support using
+unjust enrichment to indirectly enforce a failed contractual
+ expectation to receive policy proceeds. In
+many of these cases, the insured was alleged to have
+intended to redesignate the beneficiary but failed to
+do so before they died (see, e.g., Love v. Love, 2013
+SKCA 31, 359 D.L.R. (4th) 504, at para. 10; Holowa
+354
+
+
+Estate v. Stell-Holowa, 2011 ABQB 23, 330 D.L.R.
+(4th) 693, at para. 14; Richardson (Estate Trustee
+of) v. Mew, 2009 ONCA 403, 96 O.R. (3d) 65, at
+para. 18; Roberts v. Martindale (1998), 55 B.C.L.R.
+(3d) 63 (C.A.), at para. 17). Where courts have made
+awards for unjust enrichment, it has been where
+the defendant renounced their right to any benefit
+
+
+
+
+(Holowa, at paras. 23 and 25; Roberts, at para. 26).
+In our view, the defendant’s renunciation of rights to
+the proceeds render these cases distinguishable and
+of little assistance.
+
+[106] More germane to this appeal are cases where
+the insured redesignated the beneficiary in breach
+of an equitable or legal obligation (see, e.g., Milne
+Estate v. Milne, 2014 BCSC 2112, 54 R.F.L. (7th)
+328, at para. 3; Ladner v. Wolfson, 2011 BCCA 370,
+24 B.C.L.R. (5th) 43, at para. 3; Schorlemer Estate v.
+Schorlemer (2006), 29 E.T.R. (3d) 181 (Ont. S.C.J.),
+at para. 5; Steeves v. Steeves (1995), 168 N.B.R. (2d)
+226 (Q.B.), at para. 29; Gregory v. Gregory (1994),
+92 B.C.L.R. (2d) 133 (C.A.); Shannon v. Shannon
+(1985), 50 O.R. (2d) 456 (H.C.)). In these cases,
+courts have generally awarded the proceeds where
+the insured was found to have been bound by an equitable
+ obligation or where the insured’s rights were
+otherwise held in trust for the plaintiff’s benefit. For
+instance, in Schorlemer the insured had designated
+the defendant as the beneficiary in breach of a written
+ separation agreement, and the Ontario Superior
+Court of Justice found that the insured’s rights were
+held in trust for the plaintiff. Similarly, in Gregory,
+Milne and Steeves, where the insured redesignated
+the beneficiary in breach of a court order, the court
+order was found to have imposed a trusteeship on the
+insured for the benefit of the plaintiff. Shannon did
+involve a broken contractual agreement; however,
+as we detail below, we understand McKinlay J.’s
+reasons as most consistent with having found that the
+written separation agreement itself created a trust.
+Regardless, the serious issues with enforcing contractual
+ rights through unjust enrichment were not
+given consideration in Shannon.
+[2018] 3 R.C.S.
+
+
+[107] As such, the present appeal presents this
+Court with difficult questions about both the nature
+of how a transfer of wealth is measured in unjust
+enrichment and how such claims should be treated
+in the juristic reason analysis. To be clear, we do
+not wish to make any general statements regarding
+so-called “leap-frogging” cases. But in applying the
+
+
+
+
+facts of this case, as pled and proven, to the current
+law of unjust enrichment, we remain unconvinced
+that Michelle is entitled to a constructive trust for
+the whole of the proceeds.
+
+B. Corresponding Deprivation
+
+[108] In an action for unjust enrichment, a plaintiff
+must show that they suffered a corresponding deprivation
+. To establish a corresponding deprivation,
+there must be a transfer of wealth on a straightforward
+ economic basis (Garland v. Consumers’ Gas
+Co., 2004 SCC 25, [2004] 1 S.C.R. 629, at para. 35;
+Peter v. Beblow, [1993] 1 S.C.R. 980, at p. 990).
+While the clearest examples of such transfers are
+where there is payment and receipt of money (e.g.
+Garland, Air Canada), it can also be made out to
+the extent of the plaintiff’s expenditure for the defendant
+’s benefit (e.g. Peter) or where the defendant
+has received property destined for the plaintiff but
+for their wrongdoing (e.g. Lac Minerals). In these
+types of cases, the issue of correspondence may
+pass without comment, but the importance of this
+structure must be kept firmly in mind when examin-
+ing other cases where the nexus between the plaintiff
+ and defendant is less obvious. Whatever factual
+matrix gives rise to an apparent transfer of wealth
+from the plaintiff to the defendant, it is crucial that
+a defendant’s enrichment in fact corresponds to the
+plaintiff’s deprivation. As explained by this Court
+in Professional Institute of the Public Service of
+Canada v. Canada (Attorney General), 2012 SCC
+71, [2012] 3 S.C.R. 660, “the enrichment and detriment
+ elements are the same thing from different perspectives
+” (para. 151). Enrichment and deprivation
+are “essentially two sides of the same coin” (Peter,
+at p. 1012).
+356
+
+
+[109] The importance of the bilateral nature of unjust
+ enrichment is highlighted by the fact that, unlike
+for many other causes of action, unjust enrichment
+will permit a plaintiff to recover from a defendant
+without any wrongdoing on the latter’s part. For
+example, a defendant will be liable to return to the
+plaintiff any payments made to them by mistake.
+
+
+
+
+Where liability attaches to the defendant without any
+wrongdoing, the normative basis for such liability is
+strictly limited. As Professor Smith explains:
+
+Strict liability in unjust enrichment depends on both a
+material gain to the defendant and a material loss to the
+plaintiff. Moreover, the loss and the gain must be two
+sides of the same coin; there must always be a transfer of
+wealth from plaintiff to defendant. Only in this way can
+we justify liability through a one-sided normative flaw
+in the transaction. . . . Mere causal connection between
+plaintiff and defendant is not enough — any more than
+it is in negligence — because it does not carry enough
+normative force.
+
+(“Restitution: The Heart of Corrective Justice”
+(2001), 79 Tex. L. Rev. 2115, at p. 2156)
+
+The correspondence between the deprivation and the
+enrichment, while seemingly formalistic, is fundamental
+. Proper correspondence, Professor McInnes
+notes, “is th[e] connection between the parties — a
+plus and a minus as obverse manifestations of the
+same event — that uniquely identifies the plaintiff
+as the proper person to seek restitution” (p. 149).
+
+[110] The logic that permits recovery in the circumstances
+ of unjust enrichment also conditions
+the measurement of any restitution. The defendant
+cannot be required to “return” to the plaintiff more
+than what they have received, even if the plaintiff
+suffered a loss greater than the defendant’s gain. As
+an innocent party, there is no basis to require the
+defendant to return anything more. Inversely, the
+plaintiff cannot collect more from the defendant than
+they have lost. It does not matter that the defendant
+benefited more than the plaintiff lost. The plaintiff
+ only has standing in respect of losses they have
+[2018] 3 R.C.S.
+
+
+suffered. Liability for unjust enrichment is limited
+to “the lesser of the two amounts, the enrichment or
+the impoverishment” (Cie Immobilière Viger Ltée v.
+Lauréat Giguère Inc., [1977] 2 S.C.R. 67, at p. 77,
+cited in McIness, at p. 183).
+
+[111] It is sufficiently clear that but for Michelle’s
+
+
+
+
+payments, the policy would have lapsed, and but for
+Lawrence’s breach of contract, she would have been
+the beneficiary at the time of his death. But, in our
+view, these facts are not enough to establish that the
+deprivation and the enrichment are corresponding.
+Risa’s enrichment was not at the expense of Michelle.
+This is best illustrated by a hypothetical: suppose that
+Lawrence’s estate was solvent. In that case, Risa
+would have retained her enrichment — the insurance
+proceeds — and Michelle would have suffered no
+deprivation, as she would hold a cause of action for
+breach of contract that is worth the equivalent of the
+proceeds. How can there then be correspondence if
+the enrichment and the deprivation could, in theory,
+co-exist? Risa’s enrichment is not at the expense of
+Michelle because Risa’s enrichment is not dependent
+on Michelle’s deprivation. What Risa received (a
+statutory entitlement to proceeds) is different from
+Michelle’s deprivation (the inability to enforce her
+contractual rights) — they are not “two sides of the
+same coin”. It is not enough for Michelle’s impoverishment
+ to be equal to Risa’s gain — they must be
+“necessarily equal” such that it is a “zero-sum game”
+(L. D. Smith, “Three-Party Restitution: A Critique of
+Birks’s Theory of Interceptive Subtraction” (1991),
+11 Oxford J. Leg. Stud. 481, at pp. 482‑83 (emphasis
+added)).
+
+[112] In this regard, we note that the majority seeks
+to establish a correspondence between Risa’s enrichment
+ and Michelle’s deprivation on the basis
+that Michelle’s contributions to the premium payments
+ kept the policy alive. But the fact that Michelle
+preserved the policy does not inform whether her
+deprivation corresponds to Risa’s enrichment. And
+even if Michelle’s premium payments could generate
+sufficient correspondence, Michelle’s deprivation
+should be limited to the extent of her contributions,
+not to her contractual expectations. Her deprivation
+358
+
+
+is not measured by the value of the agreement that
+motivated her to pay the premiums. This principle
+ is illustrated in this Court’s decision in Pacific
+National Investments Ltd. v. Victoria (City), 2004
+SCC 75, [2004] 3 S.C.R. 575. In that case, the appellant
+ sought to uphold an unjust enrichment claim
+against the City of Victoria for improvements it had
+
+
+
+
+made to public works pursuant to an agreement with
+the latter. The respondent city rezoned the appellant’s
+development mid-project, which, the appellant argued
+, undermined the reason for having made the
+improvements. The fact that the appellant performed
+the work as a result of an agreement did not change
+the measure of the appellant’s deprivation. The appellant
+’s measure of restitution was not its expected
+profits under the agreement but rather only the cost
+of performing the work, which was effectively given
+gratuitously to the respondent. As such, even on
+the majority’s understanding of correspondence,
+Michelle’s claim should be limited to the return of
+the premium payments.
+
+[113] On our view of the matter, Michelle has not
+established a corresponding deprivation between
+Risa’s entitlement to the policy proceeds and her
+failed contractual expectation to be named beneficiary
+. As Risa has admitted liability for the approxi-
+mately $7,000 in policy premiums, there is no need
+for us to consider whether Michelle would have been
+able to properly establish a corresponding deprivation
+ for that amount.
+
+C. Juristic Reason
+
+[114] Even if a corresponding deprivation is as-
+sumed, we do not come to the conclusion that Risa
+was unjustly enriched at Michelle’s expense. This is
+because there is a juristic reason for Risa’s enrichment
+: the provisions of the Insurance Act.
+
+[115] In Garland, this Court made a choice as to
+the threshold for when a transfer of wealth should
+be reversed. Prior to Garland, Canadian courts had
+either followed this Court’s direction in Rathwell v.
+[2018] 3 R.C.S.
+
+
+Rathwell, [1978] 2 S.C.R. 436, which prescribed a
+juristic reasons approach, or they applied the English
+approach, searching for an unjust factor to reverse
+an impugned transfer of wealth (Garland, at paras
+. 40‑41). Faced with this division, Iacobucci J.
+affirmed the “distinctive Canadian approach” to juristic
+ unjust enrichment (para. 42). Along with his
+
+
+
+
+clear preference for the juristic reason approach,
+Iacobucci J. was responsive to the criticisms of it.
+Recognizing the difficulty of proving a negative —
+the absence of any juristic reason for a defendant’s
+enrichment — Iacobucci J. formulated a two-stage
+approach to juristic reasons. At the first stage of
+the analysis, the plaintiff must show the absence
+of a juristic reason from a closed list of established
+categories. These include a disposition of law and a
+statutory obligation, among others. If the plaintiff
+establishes that there is no juristic reason from one
+of the established categories, there is a prima facie
+case for restitution. At the second stage of the analysis
+, the defendant may rebut the prima facie case
+by demonstrating that there is some other reason
+to deny recovery. While courts should look to “all
+of the circumstances of the transaction” in order to
+determine whether recovery should be denied, they
+are to have regard to two factors: “. . . the reasonable
+expectations of the parties and public policy considerations
+” (paras. 45‑46).
+
+[116] While the test is intended to be flexible and
+have the capacity to accommodate “changing perceptions
+ of justice” (Garland, at para. 43; Peel (Regional Municipality) v. Canada, [1992] 3 S.C.R. 762,
+at p. 788), it must be borne in mind that what prompted
+this articulation of the test was the need “to ensure
+that the juristic reason analysis was not ‘purely sub-
+jective’, thereby building into the unjust enrichment
+analysis an unacceptable ‘immeasureable judicial discretion
+’ that would permit ‘case by case “palm tree”
+justice’” (Kerr v. Baranow, 2011 SCC 10, [2011] 1
+S.C.R. 269, at para. 43, citing Garland, at para. 40).
+As such, the reasonable expectations of the parties and
+public policy considerations must only be taken into
+account at the second stage of the analysis, provided
+360
+
+
+that no established juristic reason is found (Kerr, at
+paras. 44‑45). Simply put, if an established category of
+juristic reason applies, the analysis ends and the claim
+for unjust enrichment fails. Reasonable expectations
+and public policy cannot oust an established category
+of juristic reason where it is found to apply.
+
+
+
+
+
+[117] The unique circumstances of Michelle’s restitutionary
+ claim — being an indirect claim involving
+third parties — demands a sharper examination of
+the object of the juristic reason. That is, a juristic reason
+ for what? The majority suggests at various points
+that a juristic reason must simultaneously provide a
+reason for the defendant’s enrichment, and a reason
+why that enrichment must occur at the expense of
+the plaintiff. It is this approach that appears to lead
+the majority to place great weight on the distinction
+between the receipt and retention of a benefit. We
+remain unconvinced this is a helpful tack to take.
+Rather, we would simply say that a juristic reason
+need only provide reason for the defendant’s enrichment
+, as has been consistently stated in past jurisprudence
+ (Kerr, at para. 32; Garland, at para. 30; Soulos
+v. Korkontzilas, [1997] 2 S.C.R. 217, at para. 66;
+Pettkus v. Becker, [1980] 2 S.C.R. 834, at p. 848).
+
+[118] One can readily see how this important aspect
+ of juristic reason can be easily overlooked and
+has been largely unaddressed. In the paradigmatic
+cases of unjust enrichment where only two parties
+are involved, and a transfer is made directly between
+them, the questions of enrichment and impoverishment
+ may be one and the same. For example, if a
+transfer occurs by way of a gift from the plaintiff to
+the defendant, the plaintiff’s donative intent is both
+a juristic reason for the defendant’s retention of the
+wealth, and a reason for the defendant’s enrichment
+at the expense of the plaintiff. After all, it was the
+plaintiff who intended the gift from their assets. In
+our view, the fact that in many cases the juristic reason
+ for the defendant’s enrichment simultaneously
+explains why that enrichment occurs at the expense
+of the plaintiff does not render this a requirement of
+the test for unjust enrichment.
+[2018] 3 R.C.S.
+
+
+[119] The situation is of course very different
+where multiple parties are involved and wealth is
+not transferred directly from one to another. In these
+cases, despite there being a reason that explains why
+each person is entitled to a particular thing and why
+another no longer is, it will be near impossible to
+find an explanation that can simultaneously capture
+
+
+
+
+both. The following example, while not a case of unjust
+ enrichment, is instructive. A person who is given
+a car could sell it to another, who bears no relation
+to the original donor. The donor and purchaser are
+in effect legal strangers. In these situations, demanding
+ a reason that simultaneously explains why the
+purchaser is entitled to the car and why the donor
+is no longer entitled to it imposes an impossible
+burden. Simply put, the reason the purchaser has
+the car is not the same reason the donor doesn’t. The
+legal relationships of these individuals are mediated
+through other legal frameworks and actors and are
+not amenable to a single explanation. If the unjust
+enrichment analysis requires that juristic reasons
+have this kind of explanatory power, plaintiffs will
+almost always be successful in proving their absence
+in cases involving multiple parties and indirect transfers
+ of wealth.
+
+  (1) The Insurance Act Establishes a Juristic Reason for Risa’s Enrichment
+
+[120] In this case, the issue at the first stage of the
+analysis is whether a beneficiary designation made
+pursuant to ss. 190(1) and 191(1) of the Insurance
+Act provides a juristic reason for Risa’s receipt and
+retention of the insurance proceeds. Arriving at an
+answer to this question requires an examination of
+the provisions of the Insurance Act and the legal relationships
+ surrounding the (alleged) transfer. In our
+view, not only does the Insurance Act — in conjunction
+ with the deceased’s policy — specifically direct
+the payment of the proceeds to Risa, but it expressly
+contemplates doing so even in light of the very kind
+of claim advanced by Michelle.
+362
+
+
+[121] Section 191(1) of the Insurance Act provides
+that an insured may designate an irrevocable beneficiary
+ under a life insurance policy, and thereby
+provide special protections to that beneficiary. From
+the moment an irrevocable beneficiary is designated,
+they have a right in the policy itself: the insurance
+money is not subject to the control of the insured
+
+
+
+
+or to the claims of his or her creditors and the beneficiary
+ must consent to any subsequent changes to
+beneficiary designation. As it is undisputed that Risa
+was the validly designated irrevocable beneficiary of
+the policy, Risa is entitled to the proceeds free of all
+of the claims of Lawrence’s creditors. Simply put,
+the direction of this comprehensive statutory scheme,
+in conjunction with the deceased’s policy, constitutes
+a juristic reason for Risa’s enrichment (Chanowski
+v. Bauer, 2010 MBCA 96, 258 Man. R. (2d) 244;
+Richardson; Love).
+
+[122] The fact that Michelle had an agreement
+with Lawrence for the proceeds of the policy does
+not undermine the presence of this juristic reason.
+As Michelle’s rights are contractual in nature, she
+is a creditor of Lawrence’s estate and thus, by the
+provisions of the Insurance Act, has no claim to
+the proceeds. Indeed, the Insurance Act explicitly
+protects irrevocable beneficiaries from the claims
+of the deceased’s creditors. Section 191(1) provides
+that where an insured designates an irrevocable beneficiary
+, the insurance money “is not subject to the
+control of the insured, is not subject to the claims of
+the insured’s creditor and does not form part of the
+insured’s estate”. Thus, contrary to the suggestion
+of the majority, the Insurance Act does, with irresistible
+ clarity, “preclude the existence of contractual
+ . . . rights in those insurance proceeds” (Majority
+Reasons, at para. 70 (emphasis added)). The French
+version of s. 191(1) of the Act is equally clear stating
+that the proceeds “ne peuvent être réclamées par les
+créanciers de l’assuré et ne font pas partie de sa
+succession”.
+
+[123] The Insurance Act’s legislative history further
+ supports Risa’s retention of the insurance proceeds
+ notwithstanding Michelle’s claim. This history
+[2018] 3 R.C.S.
+
+
+illustrates that the provisions of the Insurance Act
+were designed to protect the interests of beneficiaries
+in retaining the proceeds, and provide no basis whatsoever
+ for a person paying the premiums to assume
+she would have any claim to the eventual proceeds.
+From the earliest days, the purpose of insurance
+statutes was in large part to securely provide for an
+
+
+
+
+insured’s beneficiaries. In 1865, the then Province
+of Canada (which included what is now Ontario)
+passed legislation enabling any person to enter into
+a contract to insure his life for the benefit of his wife
+and children, with the proceeds free from the claims
+of any of their creditors (An Act to secure to Wives
+and Children the benefit of Assurances on the lives
+of their Husbands and Parents, S. Prov. C. 1865, 29
+Vict., c. 17, ss. 3 and 5). Subsequently in 1884, as
+outlined in Risa’s factum, “the legislation permitted
+a class of beneficiaries who were close family mem-
+bers of the insured (later known as ‘preferred beneficiaries
+’) to enforce the contract and to sue in their
+own right. This was effected by means of a statutory
+trust in favour of the preferred beneficiaries” (R.F.,
+at para. 73; see also An Act to Secure to Wives and
+Children the Benefit of Life Insurance, S.O. 1884,
+c. 20, s. 5; E. H. McVitty, A Commentary on the
+Life Insurance Laws of Canada (1962), at p. 36).
+Subsequent versions of the insurance statutes in the
+province also provided protection to “beneficiaries
+for value”, people who gave valuable consideration
+to the insured in exchange for designation as the
+beneficiary (The Insurance Act, R.S.O. 1960, c. 190).
+However, even under this regime, beneficiaries for
+value were only protected if a written description of
+the designation had been made (ss. 164(1) and 165).
+
+[124] In 1962, significant principled changes were
+made to the Insurance Act, including the abolition of
+statutory trusts and beneficiaries for value (McVitty,
+at pp. 36‑39 and 137‑38). Rather than protect beneficiaries
+’ interests by means of a statutory trust, the
+modern Insurance Act provided revocable beneficiaries
+ with a statutory cause of action to enforce
+insurance contracts for their own benefit against the
+insurer (Insurance Act, s. 195). The modern Insurance Act also “shifted the regime away from granting
+364
+
+
+beneficiaries any control or proprietary interests in
+the proceeds. The sole exceptions were those beneficiaries
+ validly designated by the insured as irrevocable
+ beneficiaries — a status newly introduced
+in 1962 — and valid assignees” (R.F., at para. 75).
+These changes to the insurance scheme in Ontario
+represent the legislature’s continued intention to protect
+
+
+
+
+ beneficiaries from the claims of the insured’s
+creditors, and to underline that a beneficiary’s entitlement
+ to the proceeds is not undermined by her status
+as a “mere volunteer”. A beneficiary is not more or
+less entitled on the basis of her contribution to the
+policy’s premiums. The Insurance Act is deliberately
+indifferent to the source of the premium payments,
+and renders the actions of the payers irrelevant as far
+as the beneficiaries are concerned.
+
+[125] Of course, beneficiaries who pay the premiums
+ are not left completely vulnerable by the Act.
+These beneficiaries — like any beneficiary — can
+secure their priority over the insurance proceeds by
+requesting either designation as the irrevocable beneficiary
+ of a policy, or requesting an assignment of the
+policy. This allows a promisee to protect themselves
+from the risk of contractual breach. Absent these
+steps, there are no guarantees for beneficiaries who
+pay premiums: the Insurance Act is explicitly and
+deliberately indifferent to the source of the premium
+payments.
+
+[126] Consistent with the scheme, courts have declined
+ to order restitution of insurance proceeds where
+plaintiffs pay the policy premiums under the mistaken
+ belief that they are the named beneficiary. In
+Richardson, a plaintiff disputed the payment of her
+husband’s insurance policy proceeds to his former
+wife, the defendant, who had remained the named
+beneficiary on the policy. The plaintiff argued that
+she had paid the premiums of the policy under the
+mistaken belief that she was in fact the named beneficiary
+, and therefore, that the defendant was unjustly
+enriched by the retention of the proceeds. The Ontario
+Court of Appeal upheld the motion judge’s decision
+denying the plaintiff’s claim in unjust enrichment. The
+plaintiff’s contribution to the premium payments did
+[2018] 3 R.C.S.
+
+
+not render the defendant’s enrichment unjust. There
+was a juristic reason for her enrichment: the designation
+ of the defendant as the beneficiary of the policy.
+
+[127] If we were to impose on juristic reasons
+
+
+
+
+a requirement that they explain simultaneously a
+defendant’s enrichment and a plaintiff’s loss, it is
+unclear to us how the Insurance Act could then ever
+constitute a juristic reason in a third-party dispute
+relating to insurance proceeds. If plaintiffs can establish
+ some correspondence in relation to a portion
+of the proceeds — e.g. through mistaken premium
+payments — the Insurance Act will likely never bar
+their claim to unjust enrichment. In our view, this is
+an especially troubling result in respect of the legislative
+ history of the Insurance Act; it would undermine
+a deliberate legislative choice to divorce entitlement
+to the proceeds from the payment of the premiums.
+
+[128] On the basis of this view of juristic reason,
+the majority disagrees that the Insurance Act constitutes
+ a juristic reason in this case. On their view,
+this is because the Insurance Act does not explicitly
+oust the prior contractual claims of third parties to
+the policy proceeds. They rely on the Ontario High
+Court of Justice’s decision in Shannon, finding that
+it supports the proposition “that while the Insurance
+Act may provide for the beneficiary’s entitlement to
+payment of the proceeds, it ‘does not specifically preclude
+ the existence of rights outside its provisions’”,
+including contractual entitlements such as Michelle’s
+(Majority Reasons, at para. 72).
+
+[129] We agree with Blair J.A., that it is unclear
+what proposition Shannon actually supports. In that
+case, the plaintiff argued that the provisions of the
+separation agreement became impressed with a trust,
+and that the designation of other beneficiaries in
+breach of that agreement constituted a disposition of
+trust property. We would note that the only way the
+designation of another beneficiary could constitute a
+366
+
+
+disposition of trust property is if the trust arose at the
+time the agreement was concluded. Justice McKinlay
+explained that it would be unjust for the “plaintiff’s
+clear rights under an agreement with her husband for
+good consideration [to] be taken away in favour of a
+niece and nephew who have given no consideration
+for those rights” (p. 461). She found that the proceeds
+
+
+
+
+ of the insurance policy were impressed with
+a trust in favour of the plaintiff. She did not specify
+whether the trust was intentional (constituted at the
+time of formation) or constructive (remedial). To the
+extent the reasons suggest that the designation of
+beneficiaries according to the Insurance Act does not
+constitute a juristic reason because the beneficiaries
+are mere volunteers, we reject this argument. The
+very purpose of the Insurance Act is to distribute
+the policy proceeds to beneficiaries because of their
+designation as such, irrespective of their contribution
+directly to premiums or to the insured.
+
+[130] Instead, Shannon and the jurisprudence that
+has followed can be understood to support the proposition
+ that on the facts of a given case a separation
+agreement can be found to create either a trust over,
+or an equitable obligation in, the insurance proceeds.
+Indeed, this is the proposition for which Shannon
+is consistently cited. In Fraser v. Fraser (1995),
+9 E.T.R. (2d) 136, the British Columbia Supreme
+Court, citing Shannon, found that “the covenant to
+maintain the beneficiary in the separation agreement
+is tantamount to an irrevocable designation of the
+beneficiary under the provisions of the Insurance
+Act” (para. 18). In Ontario Teachers’ Pension Plan
+Board v. Ontario (Superintendent of Financial Services) (2004), 70 O.R. (3d) 61, the Ontario Court of
+Appeal found that pre-retirement death benefits in a
+vested Ontario Teachers’ Pension Plan were validly
+assigned to a former spouse of the plan member
+under a separation agreement and that “a subsequent
+spouse who marries after a valid assignment of a pre-retirement death benefit to a former spouse should
+not reasonably expect to receive the already-assigned
+interest” (para. 62 (emphasis added)). In Snider v.
+Mallon, 2011 ONSC 4522, 3 R.F.L. (7th) 228, the
+Ontario Superior Court, citing Shannon, declared
+that “[i]t is therefore a well settled principle that
+[2018] 3 R.C.S.
+
+
+an undertaking in a separation agreement creates a
+trust interest which will operate to protect the beneficiary
+ should the undertaking party fail to honour
+his or her commitment” (para. 13). So too in Bielny
+v. Dzwiekowski, [2002] I.L.R. ¶I‑4018 (Ont. S.C.J.),
+where the court found that the “law relating to the irrevocable
+ designations of beneficiaries in separation
+
+
+
+
+agreements has been settled for some time” (para. 8),
+aff’d [2002] O.J. No. 508 (QL) (C.A.). Unlike these
+cases, Michelle’s interest in the policy does not arise
+from the contract itself, but from its breach.
+
+[131] Therefore, we do not take Shannon to be
+authority for the proposition that a prior agreement to
+be designated the beneficiary of an insurance policy,
+without more, is sufficient to undermine the operation
+ of an established juristic reason. A contractual
+entitlement is insufficient to create this kind of interest
+ in the policy or its proceeds. This principle is illustrated
+ in Milne: prior to passing away, a deceased,
+in breach of an order from a family law proceeding,
+changed the beneficiary designation from the plaintiff
+, his former spouse, to his current spouse. The
+former spouse argued that as a result of the breach
+of the order, which she likened to a contract in the
+family law context, she was entitled to the proceeds.
+The court found that while she was not entitled to
+the proceeds, she was entitled to damages for the
+contractual breach in the amount of the proceeds.
+While this case differs from the present appeal in that
+the estate’s solvency was not in issue, it is nonetheless
+ instructive. Similarly, in Kang v. Kang Estate,
+2002 BCCA 696, 44 C.C.L.I. (3d) 52, the appellant
+claimed that her husband promised to name her as the
+designated beneficiary on his life insurance policy if
+she came with him to Canada. She accompanied her
+husband to Canada, but he retained his sister as the
+designated beneficiary under his policy of life insurance
+. The Court of Appeal rejected the appellant’s
+claims, distinguishing the case from others in which
+“trial judges have imposed a constructive trust to
+remedy a husband’s breach of fiduciary duty owed to
+his wife after separation” flowing from the covenant
+368
+
+
+in a separation agreement (para. 9). On its own, the
+agreement was not sufficient to give the plaintiff any
+entitlement to the proceeds, and ground a claim in
+unjust enrichment.
+
+
+
+
+[132] The majority attaches significance to the fact
+that Michelle specifically contracted for the proceeds
+of the policy. She continued to pay the policy’s premiums
+ on this basis. Put another way, in the view of
+the majority, Michelle is not an ordinary creditor of
+Lawrence’s estate; rather, she is in a special position
+vis‑à‑vis the policy proceeds. Respectfully, we cannot
+ agree that this changes the nature of Michelle’s
+claim to the policy proceeds. In immunizing beneficiaries
+ from the claims of the insured’s creditors,
+the Insurance Act does not distinguish between types
+of creditors. Creditors of the insured’s estate simply
+do not have a claim to the insurance proceeds. There
+is no basis to carve out a special class of creditor
+who would be exempt from the clear wording of the
+Insurance Act. Bearing in mind the history of the
+relevant provisions of the Insurance Act and their
+clarity, neither Michelle’s contributions to the policy,
+nor her contract with Lawrence are sufficient to take
+her outside the comprehensive scheme and grant her
+special and preferred status.
+
+[133] That being said, we do not dispute Blair J.A.’s
+statement that the “designation of a beneficiary as an
+irrevocable beneficiary under the Insurance Act [does
+not] invariably trum[p] a prior claimant” (para. 91).
+Whether the Insurance Act fails to trump a prior
+claimant depends on the character of that prior claim.
+Where by some agreement, or otherwise, the insured
+has “placed the policy or its proceeds beyond his or
+her ability to deal with them, and, therefore, beyond
+his or her ability to make the purported irrevocable
+ designation”, the Insurance Act will not constitute
+ a juristic reason for a beneficiary’s enrichment
+(para. 91). For example, if a claimant successfully
+established the existence of a trust over the policy or
+its proceeds prior to the designation of an irrevocable
+beneficiary, her beneficial or proprietary interest in
+[2018] 3 R.C.S.
+
+
+the policy would have prevented the insured from
+designating an irrevocable beneficiary. Any such
+designation would be invalid. In those circumstances
+the Insurance Act could not constitute a juristic reason
+ for a defendant’s enrichment.
+
+
+
+
+
+[134] But in the normal course, a contract between
+two parties does not at the time of the contract formation
+, be it for legal or equitable reason, prevent a
+promisor from dealing with the property that is the
+subject matter of the contract. In Ladner Estate, Re,
+2004 BCCA 366, 40 B.C.L.R. (4th) 298, the British
+Columbia Court of Appeal considered the appropriate
+ remedy for the deceased’s breach of his covenants
+in a separation agreement to pay permanent spousal
+support to the appellant, and to maintain insurance to
+secure payment of that support. Instead of acting in
+accordance with the agreement, the deceased made
+the insurance proceeds of his policies payable to his
+estate, and thus available for estate administration
+costs, and vulnerable to the claims of unsecured creditors
+. The appellant argued that contract law does not
+permit a party (or their estate) to gain an advantage
+from wrongful conduct. The Court of Appeal was
+unpersuaded, finding that a promisor’s wrongdoing
+“does not confer a property right or priority on the
+other party to the contract” (para. 23).
+
+[135] This is indeed reflected in the reasons of
+the majority, which acknowledge that in the regular
+course, Michelle could pursue a remedy for breach of
+contract against Lawrence’s estate. It is only because
+Lawrence’s estate has no significant assets to satisfy
+an order for payment that any claim is being made to
+the insurance proceeds. As such, even on their view,
+Michelle’s interest specifically in the policy proceeds
+does not crystallize until Lawrence’s death, that is,
+long after Lawrence designated Risa as the irrevocable
+ beneficiary. Thus, contrary to Lauwers J.A.’s
+dissenting reasons at the court below, the agreement
+ did not place the policy or its proceeds beyond
+Lawrence’s ability to deal with them.
+370
+
+
+[136] We note that the thrust of the cases on which
+Michelle seeks to rely for her position recognize
+either explicitly or implicitly that unjust enrichment
+is available only where there is some proprietary or
+equitable entitlement to the insurance proceeds. In
+Steeves, the New Brunswick Queen’s Bench found
+that the insured “held the inchoate proceeds of the
+
+
+
+
+insurance policy in the event of his death in trust for
+the plaintiff” (para. 36). In Schorlemer, the Ontario
+Superior Court of Justice summarized the relevant
+legal principles as follows: “. . . where an insured is
+obligated under a separation agreement to designate
+the other party or their children as a beneficiary,
+that agreement will prevent the designation of another
+ person as beneficiary . . .” (para. 48). These
+cases confirm, in our view, that a claim in unjust
+enrichment for the proceeds of a life insurance policy
+cannot be rooted in a mere contractual entitlement.
+
+[137] Still, the majority does not accept that the
+Insurance Act’s clear bar of creditor claims against
+beneficiaries is sufficient to oust Michelle’s claim
+against Risa. While acknowledging that Michelle’s
+breach of contract claim renders her a creditor of
+Lawrence’s estate, they nonetheless insist that this
+has no bearing on a potential claim in unjust enrichment
+. Respectfully, we cannot agree. Framed in either
+ contract or unjust enrichment, Michelle has not
+shown a proprietary or equitable entitlement to the
+proceeds. Michelle relies on her rights as a contractual
+ creditor to anchor a claim in unjust enrichment.
+In our view, the Insurance Act explicitly ousts claims
+of this character.
+
+[138] In sum, we consider that the Insurance Act
+reflects a deliberate policy choice to channel the
+insurance proceeds directly to the designated beneficiary
+ free from any and all creditor claims. The Act is
+a juristic reason for the transfer to Risa. The relevant
+jurisprudence, including Shannon, does not dislodge
+or undercut the clear statutory language. Instead, the
+[2018] 3 R.C.S.
+
+
+cases confirm that, absent some proprietary or equitable
+ entitlement to the insurance proceeds, creditors
+cannot use unjust enrichment claims to undermine
+the Insurance Act and an insured’s valid designation.
+
+
+
+
+  (2) Policy Considerations Weigh Against Allowing Michelle’s Claim for Unjust Enrichment
+
+[139] Even if the Insurance Act, on its own, did not
+establish a juristic reason for Risa’s enrichment, we
+add that the policy considerations at the second stage
+of the juristic reason analysis would nevertheless
+favour the denial of restitution to Michelle.
+
+[140] The legislature’s choice for intended beneficiaries
+ to receive the proceeds is rooted in the sound
+policy considerations underpinning that choice. Estate distributions are subject to frequent disputes,
+leading to lengthy and expensive litigation. Tying up
+insurance proceeds in litigation can create immense
+hardship for beneficiaries, many of whom stare at
+financial instability without support from their now-deceased spouse. Where there is a significant delay
+between an insured’s death and the receipt of the
+insurance proceeds, designated beneficiaries may
+struggle to take care of household expenses or meet
+basic needs. Such is the case with Risa.
+
+[141] The Insurance Act is structured in large part
+to minimize these hardships. Irrevocable beneficiary
+designations are meant to provide the insured and
+beneficiary alike with the certainty that the insurance
+proceeds will be received in a timely manner free of
+creditor claims. As per s. 196(1) of the Insurance Act,
+“Where a beneficiary is designated, the insurance
+money, from the time of the happening of the event
+upon which the insurance money becomes payable,
+is not part of the estate of the insured and is not subject
+ to the claims of the creditors of the insured.” The
+Insurance Act provides even greater protection of the
+372
+
+
+policy and proceeds where an irrevocable beneficiary
+is designated. In that case, from the moment such
+a designation is made, the policy and its proceeds
+are not subject to the claims of any of the insured’s
+creditors and are immune from any attempted redes-
+ignations. The inability of creditors and the insured
+to access or control the policy proceeds provides
+
+
+
+
+certainty to the insured and beneficiary that the latter
+will be provided the support that they were intended
+to have.
+
+[142] At the expense of the above considerations,
+the majority seems to stress the Insurance Act’s interest
+ in certainty for insurers, but not the insured or
+their chosen beneficiaries. The Insurance Act pur-
+portedly outlines who should receive the proceeds,
+but not who should retain them. Michelle makes
+the same argument. While it is true that the insurance
+ scheme benefits when insurers can identify
+with certainty the person who is entitled to receive
+a policy’s proceeds, the provisions of the Insurance
+Act go beyond this. If the interests protected by the
+beneficiary provisions were principally those of the
+insurers, there would be no need for the proceeds
+to be free from creditor claims, or to bypass the insured
+’s estate. A statute could achieve certainty for
+the insurer by merely directing that the proceeds be
+paid to the insured’s estate, to be distributed according
+ to the insured’s testamentary dispositions. The
+function of these provisions is not merely to ensure
+that a beneficiary receive the proceeds, and they
+should not be treated as such.
+
+[143] In fact, if Risa only has a right to receive
+but not retain the proceeds, it would seem to follow
+that all insurance proceeds would be subject to the
+claims of creditors, contrary to the express wording
+of the provisions. As such, if one were to accept —
+which we do not — that there is a principled basis to
+distinguish between creditors like Michelle and other
+creditors of an insured’s estate, insurance proceeds
+would still end up being the subject of disputes and
+litigation. Various creditors would argue that they,
+too, have preferred status that should exempt them
+from the operation of the Insurance Act. Regardless
+[2018] 3 R.C.S.
+
+
+of whether these creditors would ultimately be successful
+ in their claims for unjust enrichment, the
+result reached by the majority invites them to nonetheless
+ attempt to collect on the insured’s policy
+proceeds and tie up the proceeds in potentially pro-
+tracted and expensive litigation, contrary to the intention
+ of the Insurance Act. Even worse, this could
+
+
+
+
+leave designated beneficiaries vulnerable not just to
+creditors, but also to those who have sustained the
+policy for any period. Beneficiaries and insureds will
+thus be denied the certainty that the Insurance Act
+would otherwise provide.
+
+III. Conclusion
+
+[144] Death is sometimes accompanied by much
+uncertainty and strife. To the extent that it is possible,
+the Insurance Act moderates such uncertainty by
+creating a comprehensive regime for all those involved
+ in a life insurance contract. Notwithstanding
+our view that there is no corresponding deprivation
+of Michelle, there is also a juristic reason for the
+transfer to Risa; we would not attenuate the sensible
+regime put forward by the legislature. As Michelle’s
+claim of unjust enrichment is not made out, we would
+dismiss the appeal.
+
+   Appeal allowed, Gascon and Rowe JJ. dissent‑
+ing.
+
+   Solicitors for the appellant: Hull & Hull, Toronto.
+
+   Solicitors for the respondent: Torys, Toronto.

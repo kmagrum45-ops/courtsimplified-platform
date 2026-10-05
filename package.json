@@ -133,6 +133,7 @@
     "test:assistant-blocks": "node --import tsx scripts/verification/verifyAssistantBlocks.ts",
     "rules:fetch": "node --import tsx scripts/rules/fetchCorpus.ts",
     "retrieval:index": "node --import tsx scripts/retrieval/buildCorpusIndex.ts",
+    "sources:decisions-text": "node --import tsx scripts/sources/deriveDecisionText.ts",
     "rules:check": "node --import tsx scripts/rules/checkCorpus.ts",
     "test:rules-corpus": "node --import tsx scripts/verification/verifyRulesCorpus.ts",
     "test:stage-map": "tsx scripts/verification/verifyStageMap.ts",
