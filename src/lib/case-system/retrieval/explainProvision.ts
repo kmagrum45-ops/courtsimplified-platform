@@ -127,8 +127,21 @@ export function explanationRejection(provision: ProvisionForExplaining, explanat
   if (text.length > MAX_EXPLANATION_LENGTH) return "too long";
   const allowed = new Set(numbers(`${provision.citation}\n${provision.text}`));
   for (const n of numbers(text)) if (!allowed.has(n)) return `number "${n}" is not in the provision`;
-  const strength = validateCaseStrengthLanguage(text);
-  if (!strength.valid) return `outcome wording "${strength.matchedTerm}"`;
+  // The deny-list is written for wording about a person's case. A provision
+  // can use one of its terms as plain law -- CRA s. 12 says a consumer "may
+  // dispute" an entry, ESA s. 1 that a provision "prevails" -- and repeating
+  // the law's own word is not grading anyone's case. Measured 2026-10-05: two
+  // of nine withheld explanations were refused only for that. A term counts
+  // only when the provision does not use it.
+  const provisionLower = provision.text.toLowerCase();
+  let rest = text.toLowerCase();
+  for (let guard = 0; guard < 20; guard += 1) {
+    const strength = validateCaseStrengthLanguage(rest);
+    if (strength.valid) break;
+    const term = strength.matchedTerm ?? "";
+    if (!term || !provisionLower.includes(term)) return `outcome wording "${term}"`;
+    rest = rest.split(term).join(" ");
+  }
   for (const pattern of ADVICE) if (pattern.test(text)) return "advice addressed to the reader";
   return null;
 }

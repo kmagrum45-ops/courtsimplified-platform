@@ -1818,3 +1818,21 @@ Audited under the existing `small-claims-analysis` call type (as retrieval
 is), told apart by prompt version, so no migration was needed. If it should
 have its own call type, that is a migration adding it to
 `ai_call_log_call_type_check`.
+
+**Measured 2026-10-05** (explain-probe.md, 40 provisions across Small Claims,
+civil, employment, family, tenancy and decisions): 31 of 40 shown after the
+length fix (#120); the first run was 24 of 30, every miss refused for length.
+Of the nine withheld, the checker was right on most of them, and some of its
+catches were real errors:
+- Trespass to Property Act s. 2: twice it caught "entering without permission is an
+  offence" without "where entry is prohibited under this Act".
+- RTA s. 27: it caught "only" turning a permission into an exclusive rule.
+- Municipal Act s. 44: it caught a dropped "from the occurrence of the injury".
+
+On decision paragraphs it is picky (Bhasin, Garland, Whiten). Withholding is
+the safe failure there, because the verbatim text is shown either way. Two of
+the nine were refused only because the case-strength deny-list matched the
+provision's own words ("may dispute", "prevails"), so a deny-listed term now
+counts only when the provision does not use it. The shown explanations
+spot-checked against their passages (FLR r. 14, CLRA s. 22, FCSG s. 3,
+ESA s. 54) were accurate.

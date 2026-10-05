@@ -81,6 +81,15 @@ async function main() {
   check("advice to the reader is refused", explanationRejection(PROVISION, `${GOOD} You should apply soon.`) !== null);
   check("talk of the reader's case is refused", explanationRejection(PROVISION, `${GOOD} This helps your case.`) !== null);
   check("talk of chances is refused", explanationRejection(PROVISION, `${GOOD} Your chances are good.`) !== null);
+  const disputeProvision = { ...PROVISION, text: `${PROVISION.text} A consumer may dispute the amount.` };
+  check(
+    "a deny-listed word the provision itself uses is allowed",
+    explanationRejection(disputeProvision, `${GOOD} A consumer may dispute the amount.`) === null,
+  );
+  check(
+    "the same word is refused when the provision does not use it",
+    explanationRejection(PROVISION, `${GOOD} A consumer may dispute the amount.`) !== null,
+  );
   check("an empty or too-short explanation is refused", explanationRejection(PROVISION, "It is a rule.") !== null);
   check("an overlong explanation is refused", explanationRejection(PROVISION, `${GOOD} `.repeat(10)) !== null);
 
