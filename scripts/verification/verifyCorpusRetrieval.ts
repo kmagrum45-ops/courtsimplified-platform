@@ -106,6 +106,13 @@ async function main() {
   }
   check("each provision's first passage starts with its own number", misnumbered.length === 0, misnumbered.slice(0, 5).join(" | "));
 
+  // ...and starts on the provision, not on the wrapped end of the one before
+  // ("8.09.1.  O. Reg. 521/22, s. 4." closes r. 8.09).
+  const startsOnReference = passages.filter((chunk) =>
+    /^[\d.]+\.?\s+(O\. Reg\.|R\.S\.O\.|R\.R\.O\.|S\.O\.|R\.S\.,|SOR\/|\d{4}, c\.)/.test(chunk.text),
+  );
+  check("no passage starts on a wrapped history reference", startsOnReference.length === 0, startsOnReference.slice(0, 3).map((chunk) => chunk.id).join(", "));
+
   // A passage carrying another provision's amendment history ("..., c. N.1,
   // s. 4") has swallowed that provision. A few cross-references read the same
   // way, so the bound is a tripwire, not zero: it was 1318 passages before the
@@ -163,6 +170,13 @@ async function main() {
   check("Family Law Rules cite by rule and subrule", flr24.length > 1, flr24.map((item) => item.pinpoint).join(", "));
   const divorce = chunksOf("divorce-act").find((item) => item.pinpoint.startsWith("s. 16.9 ("));
   check("Divorce Act s. 16.9 (relocation notice) is found", Boolean(divorce?.text.includes("relocation")));
+  const divorcePins = chunksOf("divorce-act").map((item) => item.pinpoint);
+  check(
+    "a statute's s. 16.91-16.96 follow s. 16.9 (only court rules sort by a two-digit subrule)",
+    ["s. 16.91", "s. 16.92", "s. 16.93", "s. 16.94"].every((pin) => divorcePins.some((candidate) => candidate === pin || candidate.startsWith(`${pin} (`))),
+    divorcePins.filter((pin) => pin.startsWith("s. 16.9")).join(", "),
+  );
+  check("CJA s. 21.10 is its own passage", chunksOf("cja-courts-of-justice-act").some((item) => item.pinpoint.startsWith("s. 21.10")));
   check(
     "a web page is cut into passages without a pinpoint",
     chunksOf("guide-making-a-claim").length > 2 && chunksOf("guide-making-a-claim").every((item) => item.pinpoint === ""),
@@ -239,11 +253,20 @@ async function main() {
   const nearest = searchIndex(index, [axis(7)], { perQuery: 1, minScore: 0 });
   check("the nearest passage to a query is returned first", nearest[0]?.id === picks[7].chunk.id, JSON.stringify(nearest[0]));
 
-  const crowd = searchIndex(index, picks.slice(0, 6).map((_, row) => axis(row)), { perQuery: 1, minScore: 0, total: 12 });
+  // Six queries that each point at a different Small Claims passage, plus
+  // weaker matches elsewhere: each query keeps its own best passage even past
+  // the per-source ceiling, which then applies to the rest.
+  const crowd = searchIndex(index, picks.slice(0, 6).map((_, row) => axis(row)), { perQuery: 2, minScore: 0, total: 12 });
   check(
-    "no more than four passages from one source",
-    crowd.filter((hit) => hit.sourceId === "oreg-258-98-small-claims-rules").length === 4,
+    "every query keeps its best passage",
+    picks.slice(0, 6).every(({ chunk }) => crowd.some((hit) => hit.id === chunk.id)),
     crowd.map((hit) => hit.id).join(", "),
+  );
+  const filler = searchIndex(index, [axis(0), axis(1)], { perQuery: 6, minScore: 0, total: 12 });
+  check(
+    "beyond each query's best, no more than four passages from one source",
+    filler.filter((hit) => hit.sourceId === "oreg-258-98-small-claims-rules").length <= 4,
+    filler.map((hit) => hit.id).join(", "),
   );
 
   const familyHits = searchIndex(index, picks.map((_, row) => axis(row)), {
