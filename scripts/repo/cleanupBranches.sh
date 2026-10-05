@@ -14,7 +14,8 @@
 #   3. it is a temporary automated run (sources-vendor-*, ai-diag-*) older
 #      than 7 days — its useful content reached main through a PR;
 #   4. it is named in EXTRA (workflow input), a deliberate decision.
-# Never deleted: main, case-workspace, *-reports, any branch with an open PR.
+# Never deleted: main, case-workspace, the four report branches the workflows
+# write to (named in the case below), any branch with an open PR.
 # A branch deleted under 3 or 4 that holds commits main lacks is first saved
 # as the tag archive/<name>, so nothing is lost.
 #
@@ -31,7 +32,7 @@ merged_shas=$(gh api "repos/$REPO/pulls?state=closed&per_page=100" --paginate --
 
 deleted=0 kept=0
 for branch in $(gh api "repos/$REPO/branches?per_page=100" --paginate --jq '.[].name'); do
-  case "$branch" in main|case-workspace|*-reports) continue ;; esac
+  case "$branch" in main|case-workspace|walkthrough-reports|change-watch-reports|forms-probe-reports|story-review-reports) continue ;; esac
   if grep -qxF "$branch" <<<"$open_heads"; then echo "keep  $branch (open pull request)"; kept=$((kept+1)); continue; fi
 
   sha=$(gh api "repos/$REPO/branches/$branch" --jq .commit.sha)
