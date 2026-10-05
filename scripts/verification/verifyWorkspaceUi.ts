@@ -42,7 +42,8 @@ import path from "node:path";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 
-const PAGE = path.join(ROOT, "app", "case-workspace", "[caseId]", "page.tsx");
+// Moved into the case page on 2026-10-04 (app/cases/[id]/documents and /timeline render it).
+const PAGE = path.join(ROOT, "app", "cases", "_components", "CaseWorkspace.tsx");
 const PANEL = path.join(ROOT, "src", "components", "case-workspace", "VerifiedServingPanel.tsx");
 
 let failures = 0;

@@ -120,7 +120,7 @@ assert.doesNotMatch(
   "The route must not echo an unverified client-supplied case ID",
 );
 
-const formsSource = readFileSync("app/forms/page.tsx", "utf8");
+const formsSource = readFileSync("app/forms/FormsWorkspace.tsx", "utf8");
 const generateRequestSource = formsSource.slice(
   formsSource.indexOf("async function generateFilledForm"),
   formsSource.indexOf("return ("),

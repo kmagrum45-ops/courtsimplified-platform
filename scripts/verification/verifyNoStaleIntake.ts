@@ -88,13 +88,15 @@ check(
 const login = strip(read("app/login/page.tsx"));
 const afterSignIn = login.slice(login.indexOf("signInWithPassword("));
 const resetAt = afterSignIn.indexOf("resetIntakeInBrowser()");
-const pushAt = afterSignIn.indexOf('router.push("/dashboard")');
+// Any navigation, not a pinned destination: sign-in now returns to the page
+// that sent the user (?next=), and the property is that clearing comes first.
+const pushAt = afterSignIn.indexOf("router.push(");
 check("sign-in clears the browser before opening the workspace", resetAt !== -1 && pushAt !== -1 && resetAt < pushAt);
 const afterSignUp = login.slice(login.indexOf("signUp("), login.indexOf("signInWithPassword("));
 check(
   "sign-up with an immediate session clears too",
   afterSignUp.indexOf("resetIntakeInBrowser()") !== -1 &&
-    afterSignUp.indexOf("resetIntakeInBrowser()") < afterSignUp.indexOf('router.push("/dashboard")'),
+    afterSignUp.indexOf("resetIntakeInBrowser()") < afterSignUp.indexOf("router.push("),
 );
 
 // 4. Signing out clears, however it happens.

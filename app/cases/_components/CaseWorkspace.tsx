@@ -4,6 +4,11 @@
  * The case workspace: where a litigant keeps their documents and turns them into
  * court-ready material.
  *
+ * Moved from app/case-workspace/[caseId]/page.tsx on 2026-10-04. It renders
+ * inside the case page now: the Documents section shows its documents,
+ * communication log and exhibit book, and the Timeline section its chronology
+ * and deadlines. Before the move only the builder's upload card linked here.
+ *
  * *** THE ONE SENTENCE THIS SCREEN EXISTS TO HONOUR ***
  *
  * "Suggestions describe what a document is. They never say whether it helps your case."
@@ -45,16 +50,17 @@ import { DOCUMENT_TYPES } from "../../../src/lib/case-workspace/documentTypes";
 // ---------------------------------------------------------------------------
 
 const SECTIONS = [
-  { id: "overview", label: "Case overview" },
   { id: "documents", label: "Documents & evidence" },
-  { id: "timeline", label: "Timeline" },
-  { id: "exhibit-book", label: "Exhibit book" },
   { id: "communications", label: "Communication log" },
+  { id: "exhibit-book", label: "Exhibit book" },
+  { id: "timeline", label: "From your documents" },
   { id: "deadlines", label: "Deadlines" },
-  { id: "stage-checklist", label: "Stage checklist" },
 ] as const;
 
-type SectionId = (typeof SECTIONS)[number]["id"];
+// "Case overview" (a duplicate of Documents) and "Stage checklist" (a
+// placeholder) were dropped when this moved into the case page, which has its
+// own overview with the stage and the next step.
+export type SectionId = (typeof SECTIONS)[number]["id"];
 
 type Ambiguity = { raw: string; dayFirst: string; monthFirst: string };
 
@@ -120,10 +126,19 @@ const typeLabel = (id: string | null): string | null =>
 
 // ---------------------------------------------------------------------------
 
-export default function CaseWorkspacePage({ params }: { params: { caseId: string } }) {
-  const caseId = params.caseId;
-
-  const [section, setSection] = useState<SectionId>("documents");
+export default function CaseWorkspace({
+  caseId,
+  sections,
+  refreshKey = 0,
+}: {
+  caseId: string;
+  /** Which parts to show, in order; the first opens first. */
+  sections: SectionId[];
+  /** Change it to reload, e.g. after an upload beside this list. */
+  refreshKey?: number;
+}) {
+  const shown = SECTIONS.filter((entry) => sections.includes(entry.id));
+  const [section, setSection] = useState<SectionId>(sections[0] ?? "documents");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -179,14 +194,9 @@ export default function CaseWorkspacePage({ params }: { params: { caseId: string
   );
 
   useEffect(() => {
-    const view =
-      section === "documents" || section === "overview"
-        ? "documents"
-        : section === "deadlines" || section === "stage-checklist"
-          ? "timeline"
-          : section;
+    const view = section === "deadlines" ? "timeline" : section;
     void load(view);
-  }, [section, load]);
+  }, [section, load, refreshKey]);
 
   const allDocuments = useMemo(() => [...dated, ...dateNeeded], [dated, dateNeeded]);
   const selected = useMemo(
@@ -210,24 +220,20 @@ export default function CaseWorkspacePage({ params }: { params: { caseId: string
   );
 
   return (
-    <div className="min-h-screen bg-[#f8faf8] text-[#16302b]">
-      <div className="mx-auto flex max-w-[1400px] gap-6 p-6">
-        {/* ---- left nav ---- */}
-        <nav aria-label="Case workspace sections" className="w-56 shrink-0">
-          <h1 className="px-3 text-sm font-semibold uppercase tracking-wide text-[#6b8078]">
-            Case workspace
-          </h1>
-          <ul className="mt-3 space-y-1">
-            {SECTIONS.map((entry) => (
+    <div className="text-[#16302b]">
+      {shown.length > 1 ? (
+        <nav aria-label="Parts of this section" className="mb-4">
+          <ul className="flex flex-wrap gap-2">
+            {shown.map((entry) => (
               <li key={entry.id}>
                 <button
                   type="button"
                   onClick={() => setSection(entry.id)}
                   aria-current={section === entry.id ? "page" : undefined}
-                  className={`w-full rounded-xl px-3 py-2 text-left text-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2FB8AC] ${
+                  className={`rounded-full px-4 py-2 text-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2FB8AC] ${
                     section === entry.id
-                      ? "bg-white font-semibold text-[#10231f] shadow-sm"
-                      : "text-[#24463d] hover:bg-white/70"
+                      ? "bg-[#16302b] font-semibold text-white"
+                      : "border border-[#d8e6df] bg-white text-[#24463d] hover:border-[#2f7d67]"
                   }`}
                 >
                   {entry.label}
@@ -236,22 +242,23 @@ export default function CaseWorkspacePage({ params }: { params: { caseId: string
             ))}
           </ul>
         </nav>
+      ) : null}
 
-        {/* ---- main ---- */}
-        <main className="min-w-0 flex-1">
+      <div className="flex flex-col gap-6 lg:flex-row">
+        <div className="min-w-0 flex-1">
           {error ? (
-            <p role="alert" className="rounded-2xl border border-[#e6c9c9] bg-white p-4 text-sm">
+            <p role="alert" className="mb-4 rounded-2xl border border-[#e6c9c9] bg-white p-4 text-sm">
               {error}
             </p>
           ) : null}
 
           {loading ? (
-            <p className="text-sm text-[#6b8078]" aria-live="polite">
+            <p className="mb-4 text-sm text-[#6b8078]" aria-live="polite">
               Loading…
             </p>
           ) : null}
 
-          {section === "documents" || section === "overview" ? (
+          {section === "documents" ? (
             <DocumentsTable
               dated={dated}
               dateNeeded={dateNeeded}
@@ -272,14 +279,10 @@ export default function CaseWorkspacePage({ params }: { params: { caseId: string
           {section === "deadlines" ? (
             <DeadlinesView items={timeline.filter((item) => item.source.kind === "computed")} />
           ) : null}
+        </div>
 
-          {section === "stage-checklist" ? <StageChecklistView /> : null}
-        </main>
-
-        {/* ---- right-hand detail panel ---- */}
-        {section === "documents" || section === "overview" ? (
-          <DetailPanel document={selected} onSave={save} />
-        ) : null}
+        {/* ---- detail panel ---- */}
+        {section === "documents" ? <DetailPanel document={selected} onSave={save} /> : null}
       </div>
     </div>
   );
@@ -542,7 +545,7 @@ function DetailPanel({
     return (
       <aside
         aria-label="Document details"
-        className="hidden w-80 shrink-0 rounded-3xl border border-[#d8e6df] bg-white p-5 shadow-sm lg:block"
+        className="hidden w-full shrink-0 rounded-3xl lg:w-80 border border-[#d8e6df] bg-white p-5 shadow-sm lg:block"
       >
         <p className="text-sm text-[#6b8078]">
           Choose a document to see what CourtSimplified read from it.
@@ -560,7 +563,7 @@ function DetailPanel({
   return (
     <aside
       aria-label={`Details for ${document.label?.trim() || document.originalName}`}
-      className="w-80 shrink-0 rounded-3xl border border-[#d8e6df] bg-white p-5 shadow-sm"
+      className="w-full shrink-0 rounded-3xl border border-[#d8e6df] bg-white p-5 shadow-sm lg:w-80"
     >
       <h2 className="font-semibold text-[#10231f]">
         {document.label?.trim() || document.originalName}
@@ -959,24 +962,5 @@ function ExhibitBookView({ caseId, index }: { caseId: string; index: ExhibitInde
       */}
       <VerifiedServingPanel className="rounded-3xl border border-[#d8e6df] bg-white p-5 shadow-sm" />
     </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-
-function StageChecklistView() {
-  return (
-    <section className="rounded-3xl border border-[#d8e6df] bg-white p-5 shadow-sm">
-      <h2 className="font-semibold text-[#10231f]">Stage checklist</h2>
-      {/*
-        Honest placeholder. The checklist is assembled from the stage map's authored steps
-        and belongs with the stage-resolution work; inventing a list of steps here would be
-        unsourced procedural content, which §2 forbids.
-      */}
-      <p className="mt-2 text-sm text-[#6b8078]">
-        This will list the steps recorded for the stage your case is at. It is built from
-        the court rules for that stage, so it appears once your stage is settled.
-      </p>
-    </section>
   );
 }

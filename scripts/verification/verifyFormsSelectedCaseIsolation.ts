@@ -268,7 +268,7 @@ assert.equal(
   "Draft-mode handling remains outside selected-case resolution",
 );
 
-const formsPageSource = readFileSync("app/forms/page.tsx", "utf8");
+const formsPageSource = readFileSync("app/forms/FormsWorkspace.tsx", "utf8");
 const caseLoaderSource = formsPageSource.slice(
   formsPageSource.indexOf("async function loadCaseContext()"),
   formsPageSource.indexOf("async function loadForms()"),

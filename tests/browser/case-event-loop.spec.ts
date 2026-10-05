@@ -191,7 +191,7 @@ test.describe("case event loop", () => {
 
     // ---- The stage moved, and moved BECAUSE of the event ----
 
-    await page.goto(`/case-timeline?caseId=${caseId}`);
+    await page.goto(`/cases/${caseId}/timeline`);
     await expect(page.getByTestId("case-timeline-heading")).toBeVisible({ timeout: 30_000 });
 
     const stage = page.getByTestId("case-stage");

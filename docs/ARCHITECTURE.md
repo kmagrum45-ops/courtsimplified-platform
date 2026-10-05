@@ -69,10 +69,9 @@ did nothing.
 | `/small-claims` | [`app/small-claims/page.tsx`](../app/small-claims/page.tsx) | Same pattern for small claims |
 | `/civil` | [`app/civil/page.tsx`](../app/civil/page.tsx) | Same pattern for civil. (`/ontario-civil` was deleted in Session 48, same reasons.) |
 | `/dashboard` | [`app/dashboard/page.tsx`](../app/dashboard/page.tsx) | List of the signed-in user's saved cases (via `dashboardEngine`) |
-| `/dashboard/cases/[id]` | [`app/dashboard/cases/[id]/page.tsx`](../app/dashboard/cases/%5Bid%5D/page.tsx) | Single-case workspace: loads the case row from Supabase, shows intake summary, readiness scoring, links into the workflow tools below |
-| `/case-dashboard` | [`app/case-dashboard/page.tsx`](../app/case-dashboard/page.tsx) | Older/local-storage-only case dashboard (`caseContextStorage`), separate from the Supabase-backed `/dashboard` |
+| `/cases/[id]` (+ `/timeline`, `/documents`, `/forms`) | [`app/cases/[id]/layout.tsx`](../app/cases/%5Bid%5D/layout.tsx) and its section pages | The case page (2026-10-04): one home per case. Overview (the stage the user confirmed, the next step with deadlines counted from their dates, what to sort out, what they told us), Timeline (`case_events` plus the document chronology and deadlines), Documents (upload, check, date, communication log, exhibit book), Forms. Replaced `/dashboard/cases/[id]`, `/case-dashboard`, `/case-timeline` and `/case-workspace/[caseId]`, which redirect here (`next.config.ts`) |
 | `/evidence` | [`app/evidence/page.tsx`](../app/evidence/page.tsx) | Evidence intake and organization (`evidenceEngine`) |
-| `/forms` | [`app/forms/page.tsx`](../app/forms/page.tsx) | Official form lookup and recommendations (`formsSelectedCase`) |
+| `/forms` | [`app/forms/page.tsx`](../app/forms/page.tsx) → [`FormsWorkspace`](../app/forms/FormsWorkspace.tsx) | Official form catalogue. With `?caseId=` it redirects to `/cases/[id]/forms`, which renders the same tool inside the case page |
 | `/document-workspace` | [`app/document-workspace/page.tsx`](../app/document-workspace/page.tsx) | Drafting workspace tied to the case |
 | `/court-package` | [`app/court-package/page.tsx`](../app/court-package/page.tsx) | Assembles a court-ready document package |
 | `/trial-package` | [`app/trial-package/page.tsx`](../app/trial-package/page.tsx) | Trial-preparation package |
@@ -197,12 +196,14 @@ does this by reading `SITE_ACCESS_PASSWORD` from the environment or
 6. **Completed case overview.** Once `canonicalIntakeSaved` is true, the
    `data-testid="completed-case-overview"` section renders
    (`app/builder/page.tsx:801`): `IntelligenceOverviewPanel`,
-   `ProcedureAuthorityDisplay`, a "what to do next" panel linking into the
-   workflow tools (`/evidence`, `/forms`, `/dashboard/cases/[id]`), and,
-   once analysis is available, `CourtAssistantChat` for follow-up questions.
-7. **Case workspace.** From there, `/dashboard/cases/[id]` is the durable
-   home for the case — it reloads the same Supabase row and lets the user
-   continue into evidence, forms, drafting, and export.
+   `ProcedureAuthorityDisplay`, a "what to do next" panel opening the case
+   page and its Documents and Forms sections, and, once analysis is
+   available, `CourtAssistantChat` for follow-up questions. Confirming the
+   stage, picking the exact step and giving dates are saved to the case
+   (`master_result.position`, via `/api/cases/position`).
+7. **Case page.** From there, `/cases/[id]` is the durable home for the
+   case: it reloads the same Supabase row and shows the confirmed stage, the
+   next step and its deadlines, the timeline, documents and forms.
 
 `masterCaseOrchestrator.ts` and `caseContextEngine.ts` are the shared
 case-file model underneath all of this — they normalize whatever the

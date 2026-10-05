@@ -20,18 +20,21 @@
  * The one exception is the stage LABEL, which is presentation. getStageLabel
  * covers the four real stages; "unknown" is handled explicitly rather than
  * rendered as an empty string.
+ *
+ * Moved from app/case-timeline/page.tsx into the case page's Timeline section
+ * on 2026-10-04; /case-timeline?caseId= redirects there. Before the move only
+ * the old case dashboard linked to it.
  */
 
 import Link from "next/link";
-import { Suspense, useCallback, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 
-import { supabase } from "../../src/lib/supabase/client";
-import { getStageLabel, type UniversalStage } from "../builder/_components/builderTypes";
+import { supabase } from "../../../src/lib/supabase/client";
+import { getStageLabel, type UniversalStage } from "../../builder/_components/builderTypes";
 import {
   CASE_EVENT_TYPES,
   type CaseEventType,
-} from "../../src/lib/case-system/events/caseEventTypes";
+} from "../../../src/lib/case-system/events/caseEventTypes";
 
 type EventRow = {
   id: string;
@@ -106,10 +109,14 @@ function whenText(event: EventRow): string {
   return "No date recorded";
 }
 
-function CaseTimelineContent() {
-  const searchParams = useSearchParams();
-  const caseId = searchParams.get("caseId") || "";
-
+export default function CaseTimeline({
+  caseId,
+  updateHref,
+}: {
+  caseId: string;
+  /** Where "Update the analysis" goes: the builder for this case and its court. */
+  updateHref: string;
+}) {
   const [data, setData] = useState<TimelineResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -221,20 +228,8 @@ function CaseTimelineContent() {
     }
   }
 
-  if (!caseId) {
-    return (
-      <main className="mx-auto max-w-3xl p-8">
-        <p className="text-sm text-[#4f685f]">Open this page from a case to see its timeline.</p>
-      </main>
-    );
-  }
-
   if (loading) {
-    return (
-      <main className="mx-auto max-w-3xl p-8">
-        <p className="text-sm text-[#4f685f]">Loading…</p>
-      </main>
-    );
+    return <p className="text-sm text-[#4f685f]">Loading…</p>;
   }
 
   const events = data?.events ?? [];
@@ -243,10 +238,10 @@ function CaseTimelineContent() {
   );
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-10">
-      <h1 data-testid="case-timeline-heading" className="text-2xl font-bold text-[#10231f]">
+    <div>
+      <h2 data-testid="case-timeline-heading" className="text-2xl font-bold text-[#10231f]">
         Your case timeline
-      </h1>
+      </h2>
       <p className="mt-2 text-sm text-[#4f685f]">
         What you have recorded about the steps in your case, and what that means for where things
         stand.
@@ -267,7 +262,7 @@ function CaseTimelineContent() {
         >
           <p className="text-sm text-amber-950">{data.freshnessMessage}</p>
           <Link
-            href={`/builder?caseId=${encodeURIComponent(caseId)}&path=small-claims`}
+            href={updateHref}
             className="mt-3 inline-block rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-bold text-white"
           >
             Update the analysis
@@ -278,7 +273,7 @@ function CaseTimelineContent() {
       {/* Stage, with the reason. Both from one response, so they agree. */}
       <section className="mt-6 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
         <p className="text-xs font-semibold uppercase tracking-wide text-[#4f685f]">
-          Where the case is
+          What your records show
         </p>
         <p className="mt-1 text-lg font-bold text-[#10231f]">
           <span data-testid="case-stage" data-stage={data?.stage.stage ?? "unknown"}>
@@ -325,7 +320,7 @@ function CaseTimelineContent() {
       {/* The events. */}
       <section className="mt-8">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="text-xl font-bold text-[#10231f]">What you have recorded</h2>
+          <h3 className="text-xl font-bold text-[#10231f]">What you have recorded</h3>
           {!adding ? (
             <button
               type="button"
@@ -525,22 +520,6 @@ function CaseTimelineContent() {
         </section>
       ) : null}
 
-      <div className="mt-10 flex flex-wrap gap-3">
-        <Link
-          href={`/dashboard/cases/${encodeURIComponent(caseId)}`}
-          className="rounded-full border border-[#2f7d67] bg-white px-5 py-2 text-sm font-semibold text-[#2f7d67]"
-        >
-          Back to case
-        </Link>
-      </div>
-    </main>
-  );
-}
-
-export default function CaseTimelinePage() {
-  return (
-    <Suspense fallback={null}>
-      <CaseTimelineContent />
-    </Suspense>
+    </div>
   );
 }

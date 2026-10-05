@@ -202,7 +202,7 @@ function DocumentExportPageContent() {
   }, [caseId]);
 
   const workflowRoutes = useMemo(() => ({
-    workspace: caseId ? `/dashboard/cases/${caseId}` : "/dashboard",
+    workspace: caseId ? `/cases/${caseId}` : "/dashboard",
     evidence: buildWorkflowHref("/evidence", caseId, path),
     forms: buildWorkflowHref("/forms", caseId, path),
     strategy: buildWorkflowHref("/litigation-strategy", caseId, path),

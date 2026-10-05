@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
+import type { DateQuestion, SuggestedDate } from "@/src/lib/case-system/casePosition";
 
 /**
  * "Where exactly is your case?" — the reviewed answer for the position the
@@ -30,7 +31,7 @@ type RenderedAnswer = {
 };
 
 type Response =
-  | { outcome: "rendered"; answer: RenderedAnswer }
+  | { outcome: "rendered"; answer: RenderedAnswer; dateQuestions?: DateQuestion[] }
   | { outcome: "needs-a-fact"; question: string; answer: RenderedAnswer | null }
   | { outcome: "unavailable"; message: string };
 
@@ -145,14 +146,62 @@ function AnswerView({ answer }: { answer: RenderedAnswer }) {
   );
 }
 
+/** Saves the user's own choice to the case. Never called for a suggestion they have not acted on. */
+async function savePosition(caseId: string, patch: Record<string, unknown>): Promise<boolean> {
+  try {
+    // Imported on use: verifyRespondingSide imports this module's pure helpers,
+    // and the Supabase client must not be constructed just to read them.
+    const { supabase } = await import("@/src/lib/supabase/client");
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    if (!session?.access_token) return false;
+    const response = await fetch("/api/cases/position", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
+      body: JSON.stringify({ caseId, ...patch }),
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
+function formatIso(iso: string): string {
+  const [year, month, day] = iso.split("-").map(Number);
+  if (!year || !month || !day) return iso;
+  return new Date(Date.UTC(year, month - 1, day)).toLocaleDateString("en-CA", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
+
 export default function StageAnswerPanel({
   courtPath,
   confirmedStage = null,
   responding = false,
+  caseId = null,
+  initialStepId = null,
+  initialDateAnswers = {},
+  suggestedDates = {},
 }: {
   courtPath: StagePathway;
   confirmedStage?: string | null;
   responding?: boolean;
+  /**
+   * With a case, the step the user picks and the dates they enter are saved
+   * to it (master_result.position), so the case page and a return visit show
+   * the same step. Without one, nothing is saved.
+   */
+  caseId?: string | null;
+  /** The step this user picked before, from the case. Wins over the suggestion. */
+  initialStepId?: string | null;
+  initialDateAnswers?: Record<string, string>;
+  /** Exact dates the user recorded elsewhere, offered — never applied — as answers. */
+  suggestedDates?: Record<string, SuggestedDate>;
 }) {
   const suggested = suggestedStageFor(courtPath, confirmedStage, responding);
   const options = stagesForPathway(courtPath).map((stage) => ({
@@ -160,27 +209,32 @@ export default function StageAnswerPanel({
     group: groupOf(stage),
     label: stage.userQuestion,
   }));
-  const [stageId, setStageId] = useState(suggested);
+  const savedStep = initialStepId && options.some((option) => option.id === initialStepId) ? initialStepId : "";
+  const startingStep = savedStep || suggested;
+  const [stageId, setStageId] = useState(startingStep);
   const [result, setResult] = useState<Response | null>(null);
   const [municipality, setMunicipality] = useState("");
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [dateAnswers, setDateAnswers] = useState<Record<string, string>>(initialDateAnswers);
+  const [dateDraft, setDateDraft] = useState<Record<string, string>>(initialDateAnswers);
+  const [dateStatus, setDateStatus] = useState<"" | "saving" | "saved" | "not-saved">("");
 
-  // Show the suggested step's answer straight away; the user can change it.
+  // Show the saved (or suggested) step's answer straight away; the user can change it.
   useEffect(() => {
-    setStageId(suggested);
-    if (suggested) void load(suggested);
+    setStageId(startingStep);
+    if (startingStep) void load(startingStep);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [suggested]);
+  }, [startingStep]);
 
-  async function load(id: string, facts: Record<string, string> = {}) {
+  async function load(id: string, facts: Record<string, string> = {}, answers: Record<string, string> = dateAnswers) {
     setLoading(true);
     setFailed(false);
     try {
       const response = await fetch("/api/case/stage-answer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ stageId: id, courtPath, confirmedFacts: facts }),
+        body: JSON.stringify({ stageId: id, courtPath, confirmedFacts: facts, dateAnswers: answers }),
       });
       if (!response.ok) throw new Error(String(response.status));
       setResult((await response.json()) as Response);
@@ -220,6 +274,8 @@ export default function StageAnswerPanel({
             // confirmed-fact rule requires. Every other municipality has its
             // own question.
             if (id) void load(id, id === "before-filing:notice-toronto" ? { municipality: "Toronto" } : {});
+            // The user picked this; record it on their case.
+            if (caseId) void savePosition(caseId, { stepId: id || null });
           }}
           className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
         >
@@ -244,6 +300,75 @@ export default function StageAnswerPanel({
       )}
 
       {result?.outcome === "rendered" && <AnswerView answer={result.answer} />}
+
+      {result?.outcome === "rendered" && (result.dateQuestions?.length ?? 0) > 0 && (
+        <div data-testid="stage-answer-dates" className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
+          <p className="text-sm font-semibold text-[#16302b]">Work out your dates</p>
+          <p className="mt-1 text-sm leading-6 text-[#4d675f]">
+            Give the date and we will count the deadline for you, with the working shown above.
+            Leave it empty if you do not know. You will still see the time period.
+          </p>
+          <div className="mt-3 space-y-4">
+            {result.dateQuestions!.map((question) => {
+              const suggestion = suggestedDates[question.id];
+              const value = dateDraft[question.id] ?? "";
+              return (
+                <div key={question.id}>
+                  <label className="block">
+                    <span className="text-sm font-semibold text-[#16302b]">{question.question}</span>
+                    <span className="block text-xs text-[#4d675f]">Used for: {question.sets.join("; ")}</span>
+                    <input
+                      type="date"
+                      data-testid={`stage-answer-date-${question.id}`}
+                      value={value}
+                      onChange={(event) => setDateDraft({ ...dateDraft, [question.id]: event.target.value })}
+                      className="mt-2 rounded-xl border border-[#d8e6df] bg-white px-3 py-2"
+                    />
+                  </label>
+                  {suggestion && !value ? (
+                    <button
+                      type="button"
+                      onClick={() => setDateDraft({ ...dateDraft, [question.id]: suggestion.value })}
+                      className="mt-2 block text-left text-sm font-semibold text-[#2f7d67] underline"
+                    >
+                      Use {formatIso(suggestion.value)} ({suggestion.basis})
+                    </button>
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              data-testid="stage-answer-dates-save"
+              disabled={dateStatus === "saving"}
+              onClick={async () => {
+                const asked = Object.fromEntries(
+                  result.dateQuestions!.map((question) => [question.id, dateDraft[question.id] ?? ""]),
+                );
+                const next = { ...dateAnswers };
+                for (const [key, value] of Object.entries(asked)) {
+                  if (value) next[key] = value;
+                  else delete next[key];
+                }
+                setDateAnswers(next);
+                void load(stageId, municipality ? { municipality } : {}, next);
+                if (!caseId) return;
+                setDateStatus("saving");
+                setDateStatus((await savePosition(caseId, { dateAnswers: asked })) ? "saved" : "not-saved");
+              }}
+              className="rounded-xl bg-[#2f7d67] px-5 py-2 text-sm font-semibold text-white disabled:opacity-60"
+            >
+              Count my deadline
+            </button>
+            {dateStatus === "saved" ? <span className="text-sm text-[#2f7d67]">Saved to your case.</span> : null}
+            {dateStatus === "not-saved" ? (
+              <span className="text-sm text-[#7a4b12]">Shown here, but it could not be saved to your case.</span>
+            ) : null}
+          </div>
+        </div>
+      )}
 
       {result?.outcome === "needs-a-fact" && (
         <div className="mt-4">

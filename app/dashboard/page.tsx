@@ -298,7 +298,7 @@ export default function DashboardPage() {
       return;
     }
 
-    router.push(`/dashboard/cases/${data.id}`);
+    router.push(`/cases/${data.id}`);
   }
 
   async function logout() {
@@ -474,7 +474,7 @@ export default function DashboardPage() {
                   type="button"
                   onClick={() =>
                     router.push(
-                      `/dashboard/cases/${mostRecentCase.caseFile.id}`,
+                      `/cases/${mostRecentCase.caseFile.id}`,
                     )
                   }
                   className="rounded-full border border-[#2f7d67] bg-white px-6 py-3 font-semibold text-[#2f7d67] transition hover:bg-[#eef8f5]"
@@ -646,7 +646,7 @@ export default function DashboardPage() {
                       <button
                         type="button"
                         onClick={() =>
-                          router.push(`/dashboard/cases/${caseFile.id}`)
+                          router.push(`/cases/${caseFile.id}`)
                         }
                         className="rounded-full border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] transition hover:bg-[#eef8f5]"
                       >

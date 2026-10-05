@@ -652,7 +652,7 @@ export function buildDashboardNextAction(
   return {
     title: "Review Command Center",
     text: "Continue reviewing blockers, warnings, strategy issues, and package readiness before export.",
-    href: `/dashboard/cases/${caseFile.id}`,
+    href: `/cases/${caseFile.id}`,
   };
 }
 

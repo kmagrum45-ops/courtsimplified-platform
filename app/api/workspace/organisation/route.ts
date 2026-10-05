@@ -51,7 +51,9 @@ import { findDates, formatForCourt, type DatePrecision } from "@/src/lib/case-wo
 import { DOCUMENT_TYPES } from "@/src/lib/case-workspace/documentTypes";
 import { computedDeadlinesFor } from "@/src/lib/content-library/computedDeadline";
 import { caseDatesFrom } from "@/src/lib/case-system/deadlines/deadlineEvents";
-import { CASE_STAGES } from "@/src/lib/case-system/stage-map/stageMap";
+import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
+import { officialUrl } from "@/src/lib/case-system/stage-map/citations";
+import { readCasePosition } from "@/src/lib/case-system/casePosition";
 
 export const runtime = "nodejs";
 
@@ -276,13 +278,20 @@ export async function GET(req: NextRequest) {
         .eq("case_id", caseId);
 
       /*
-       * Deadlines come from the engine, for the stage the case is at. A case with no
-       * resolved stage gets no computed deadlines — not a guess at which stage it might
-       * be in.
+       * Deadlines come from the engine, for the step the user chose and the
+       * dates they gave (master_result.position, written by /api/cases/position).
+       * A case with no chosen step gets no computed deadlines — not a guess at
+       * which step it might be at.
+       *
+       * Until 2026-10-04 this looked the stage up by the case's COURT PATH
+       * (`candidate.id === court_path`), which no stage id ever equals, and read
+       * `master.dateAnswers`, which nothing wrote. So the Deadlines view was
+       * always empty, and every rule link pointed at the Small Claims
+       * regulation whatever the deadline's source.
        */
-      const stage = CASE_STAGES.find((candidate) => candidate.id === ownedCase.court_path);
-      const master = (ownedCase.master_result ?? {}) as { dateAnswers?: Record<string, string> };
-      const dates = caseDatesFrom(master.dateAnswers ?? {});
+      const position = readCasePosition(ownedCase.master_result, ownedCase.court_path);
+      const stage = position.stepId ? findStage(position.stepId) : undefined;
+      const dates = caseDatesFrom(position.dateAnswers);
 
       const computed = stage ? computedDeadlinesFor(stage.deadlines, dates, "workspace") : [];
 
@@ -291,9 +300,7 @@ export async function GET(req: NextRequest) {
           deadline.id,
           {
             rule: deadline.rule?.pinpoint ?? null,
-            url: deadline.rule
-              ? `https://www.ontario.ca/laws/regulation/980258`
-              : null,
+            url: deadline.rule ? officialUrl(deadline.rule) : null,
             what: deadline.what,
           },
         ]),
