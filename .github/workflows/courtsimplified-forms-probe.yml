@@ -1,0 +1,46 @@
+name: CourtSimplified Forms Probe
+
+# Downloads every official court form (PDF and Word) listed in
+# src/lib/content-library/forms/officialFormLinks.json and records what each
+# offers an automatic filler: fillable PDF fields (and their descriptions),
+# XFA, Word content controls and form fields. See
+# scripts/forms/probeOfficialForms.ts. Publishes forms-probe-report.md and
+# forms-probe.json to the forms-probe-reports branch (never built by Vercel).
+# On demand only.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Probe every official form
+        run: node --import tsx scripts/forms/probeOfficialForms.ts
+      - name: Publish
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          out="$(mktemp -d)"
+          cp forms-probe-report.md forms-probe.json "$out/" || true
+          printf '{\n  "git": { "deploymentEnabled": false }\n}\n' > "$out/vercel.json"
+          cd "$out"
+          git init -q
+          git config user.name "forms-probe-bot"
+          git config user.email "forms-probe-bot@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Forms probe ${GITHUB_SHA::7} (run ${GITHUB_RUN_ID})"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/forms-probe-reports
+          head -30 forms-probe-report.md >> "$GITHUB_STEP_SUMMARY" || true
