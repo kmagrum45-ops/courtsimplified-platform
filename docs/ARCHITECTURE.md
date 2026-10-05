@@ -69,28 +69,20 @@ did nothing.
 | `/small-claims` | [`app/small-claims/page.tsx`](../app/small-claims/page.tsx) | Same pattern for small claims |
 | `/civil` | [`app/civil/page.tsx`](../app/civil/page.tsx) | Same pattern for civil. (`/ontario-civil` was deleted in Session 48, same reasons.) |
 | `/dashboard` | [`app/dashboard/page.tsx`](../app/dashboard/page.tsx) | List of the signed-in user's saved cases (via `dashboardEngine`) |
-| `/cases/[id]` (+ `/timeline`, `/documents`, `/forms`) | [`app/cases/[id]/layout.tsx`](../app/cases/%5Bid%5D/layout.tsx) and its section pages | The case page (2026-10-04): one home per case. Overview (the stage the user confirmed, the next step with deadlines counted from their dates, what to sort out, what they told us), Timeline (`case_events` plus the document chronology and deadlines), Documents (upload, check, date, communication log, exhibit book), Forms. Replaced `/dashboard/cases/[id]`, `/case-dashboard`, `/case-timeline` and `/case-workspace/[caseId]`, which redirect here (`next.config.ts`) |
-| `/evidence` | [`app/evidence/page.tsx`](../app/evidence/page.tsx) | Evidence intake and organization (`evidenceEngine`) |
+| `/cases/[id]` (+ `/timeline`, `/documents`, `/forms`, `/drafts`, `/case-file`) | [`app/cases/[id]/layout.tsx`](../app/cases/%5Bid%5D/layout.tsx) and its section pages | The case page (2026-10-04): one home per case. Overview (the stage the user confirmed, the next step with deadlines counted from their dates, what to sort out, what they told us), Timeline (`case_events` plus the document chronology and deadlines), Documents (upload, check, date, communication log, exhibit book), Forms, Drafts (the user's own working drafts, saved on the case in `master_result.drafts` via `/api/cases/drafts`), Case file (the whole case on one page to print or save as PDF). Replaced `/dashboard/cases/[id]`, `/case-dashboard`, `/case-timeline` and `/case-workspace/[caseId]`, and later `/evidence`, `/document-workspace`, `/ai-drafting-assistant`, `/document-export`, `/court-package`, `/trial-package`, `/settlement-conference` and `/litigation-strategy`, all of which redirect here (`next.config.ts`) |
 | `/forms` | [`app/forms/page.tsx`](../app/forms/page.tsx) → [`FormsWorkspace`](../app/forms/FormsWorkspace.tsx) | Official form catalogue. With `?caseId=` it redirects to `/cases/[id]/forms`, which renders the same tool inside the case page |
-| `/document-workspace` | [`app/document-workspace/page.tsx`](../app/document-workspace/page.tsx) | Drafting workspace tied to the case |
-| `/court-package` | [`app/court-package/page.tsx`](../app/court-package/page.tsx) | Assembles a court-ready document package |
-| `/trial-package` | [`app/trial-package/page.tsx`](../app/trial-package/page.tsx) | Trial-preparation package |
-| `/settlement-conference` | [`app/settlement-conference/page.tsx`](../app/settlement-conference/page.tsx) | Settlement-conference prep |
-| `/litigation-strategy` | [`app/litigation-strategy/page.tsx`](../app/litigation-strategy/page.tsx) | Strategy report (`litigationStrategyEngine`) |
-| `/ai-drafting-assistant` | [`app/ai-drafting-assistant/page.tsx`](../app/ai-drafting-assistant/page.tsx) | AI-assisted drafting actions |
-| `/document-export` | [`app/document-export/page.tsx`](../app/document-export/page.tsx) | Final export step |
 | `/case-law`, `/legal-principles` | [`app/case-law/page.tsx`](../app/case-law/page.tsx), [`app/legal-principles/page.tsx`](../app/legal-principles/page.tsx) | Static reference content |
 | `/login`, `/forgot-password`, `/reset-password` | [`app/login/page.tsx`](../app/login/page.tsx) etc. | Supabase Auth screens |
 | `/site-access` | [`app/site-access/page.tsx`](../app/site-access/page.tsx) | The password form for the site-wide gate (§4) |
 | `/admin/pdf-field-mapper` | [`app/admin/pdf-field-mapper/page.tsx`](../app/admin/pdf-field-mapper/page.tsx) | Internal tool for mapping PDF form fields |
 
-Most of the workflow pages (`evidence`, `forms`, `document-workspace`,
-`court-package`, `trial-package`, `settlement-conference`,
-`litigation-strategy`, `ai-drafting-assistant`, `document-export`) follow the
-same pattern: they read `caseId` and `path` from the query string
-(`buildWorkflowHref` in `builder/page.tsx`), load the case via
-`workflowCaseLoader` or `caseContextStorage`, and render a `Suspense`
-boundary because they all call `useSearchParams()`.
+The workflow pages that used to sit beside the builder (evidence, document
+workspace, drafting assistant, court package, trial package, settlement
+conference, litigation strategy, document export) were folded into the case
+page or removed on 2026-10-04. Several read browser storage that nothing fills
+any more, and the package and export pages sat behind a gate nothing could
+satisfy. Each section of the case page loads the case once through the layout
+(`app/cases/[id]/layout.tsx`, `useCaseHome()`).
 
 ## 3. Which API routes require authentication
 

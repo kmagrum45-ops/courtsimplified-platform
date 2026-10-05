@@ -216,15 +216,6 @@ function getPublicUrl(filePath: string) {
   return data.publicUrl;
 }
 
-function buildWorkflowHref(route: string, caseId: string, path: CourtPath) {
-  const params = new URLSearchParams();
-
-  if (caseId) params.set("caseId", caseId);
-  params.set("path", path);
-
-  return `${route}?${params.toString()}`;
-}
-
 function getSearchText(form: CleanFormItem) {
   return normalize(
     [
@@ -458,7 +449,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
     { supported: true } | { supported: false; reason: string; stage: string } | null
   >(null);
 
-  const documentWorkspaceHref = buildWorkflowHref("/document-workspace", caseId, path);
+  const draftsHref = caseId ? `/cases/${encodeURIComponent(caseId)}/drafts` : "";
 
   useEffect(() => {
     async function loadCaseContext() {
@@ -1327,12 +1318,14 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                       </button>
                     ) : null}
 
-                    <Link
-                      href={documentWorkspaceHref}
-                      className="rounded-full border border-[#d8e6df] bg-[#f8fcfa] px-5 py-3 text-sm font-bold text-[#24463d]"
-                    >
-                      Use in Document Workspace
-                    </Link>
+                    {draftsHref ? (
+                      <Link
+                        href={draftsHref}
+                        className="rounded-full border border-[#d8e6df] bg-[#f8fcfa] px-5 py-3 text-sm font-bold text-[#24463d]"
+                      >
+                        Write a draft for this case
+                      </Link>
+                    ) : null}
                   </div>
                 </article>
               );

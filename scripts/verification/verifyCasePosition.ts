@@ -181,8 +181,11 @@ const read = (file: string) => readFileSync(path.join(process.cwd(), file), "utf
   const saveAt = builder.indexOf("master_result: {\n              ...masterPayload");
   const readAt = builder.lastIndexOf('.select("master_result")', saveAt);
   check(
-    "a builder re-save keeps the position, read fresh just before writing",
-    saveAt !== -1 && readAt !== -1 && /position: savedPosition/.test(builder.slice(saveAt, saveAt + 400)),
+    "a builder re-save keeps the position and drafts, read fresh just before writing",
+    saveAt !== -1 &&
+      readAt !== -1 &&
+      /\.\.\.userOwned/.test(builder.slice(saveAt, saveAt + 400)) &&
+      /\["position", "drafts"\]/.test(builder.slice(readAt, saveAt)),
   );
 }
 

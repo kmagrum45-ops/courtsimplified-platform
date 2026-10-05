@@ -19,16 +19,6 @@ import {
 } from "../../src/lib/content-library/proceduralStages";
 
 
-function buildWorkflowHref(route: string, caseId?: string, path?: string) {
-  const params = new URLSearchParams();
-
-  if (caseId) params.set("caseId", caseId);
-  if (path && path !== "unknown") params.set("path", path);
-
-  const query = params.toString();
-  return query ? `${route}?${query}` : route;
-}
-
 function Section({
   title,
   description,
@@ -88,7 +78,6 @@ function LegalPrinciplesPageContent() {
   const searchParams = useSearchParams();
 
   const caseId = searchParams.get("caseId") || "";
-  const path = searchParams.get("path") || "unknown";
 
   const groupedPrinciples = useMemo(() => {
     return PRINCIPLES.reduce<Record<string, PrincipleCard[]>>((acc, item) => {
@@ -98,18 +87,7 @@ function LegalPrinciplesPageContent() {
     }, {});
   }, []);
 
-  const workspaceHref = caseId ? `/cases/${caseId}` : "/dashboard";
-  const evidenceHref = buildWorkflowHref("/evidence", caseId, path);
-  const formsHref = buildWorkflowHref("/forms", caseId, path);
-  const strategyHref = buildWorkflowHref("/litigation-strategy", caseId, path);
-  const documentWorkspaceHref = buildWorkflowHref(
-    "/document-workspace",
-    caseId,
-    path,
-  );
-  const courtPackageHref = buildWorkflowHref("/court-package", caseId, path);
-  const trialPackageHref = buildWorkflowHref("/trial-package", caseId, path);
-  const exportHref = buildWorkflowHref("/document-export", caseId, path);
+  const caseHref = caseId ? `/cases/${encodeURIComponent(caseId)}` : "";
 
   return (
     <main className="min-h-screen bg-[#f6faf8] px-6 py-12 text-[#16302b]">
@@ -142,35 +120,16 @@ function LegalPrinciplesPageContent() {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href={workspaceHref}
-              className="rounded-full border border-[#2f7d67] bg-white px-5 py-2 text-sm font-semibold text-[#2f7d67]"
-            >
-              Case Workspace
-            </Link>
-
-            <Link
-              href={strategyHref}
-              className="rounded-full border border-[#d8e6df] bg-white px-5 py-2 text-sm font-semibold text-[#24463d]"
-            >
-              Strategy
-            </Link>
-
-            <Link
-              href={evidenceHref}
-              className="rounded-full border border-[#d8e6df] bg-white px-5 py-2 text-sm font-semibold text-[#24463d]"
-            >
-              Evidence
-            </Link>
-
-            <Link
-              href={documentWorkspaceHref}
-              className="rounded-full bg-[#2f7d67] px-5 py-2 text-sm font-semibold text-white"
-            >
-              Apply to Drafting
-            </Link>
-          </div>
+          {caseHref ? (
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href={caseHref}
+                className="rounded-full border border-[#2f7d67] bg-white px-5 py-2 text-sm font-semibold text-[#2f7d67]"
+              >
+                Back to your case
+              </Link>
+            </div>
+          ) : null}
         </section>
 
         <Section
@@ -275,61 +234,6 @@ function LegalPrinciplesPageContent() {
           </Section>
         ))}
 
-        <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-[#16302b]">
-            Connected litigation workflow
-          </h2>
-
-          <p className="mt-4 max-w-3xl text-[#4d675f]">
-            Use this procedure reference alongside evidence organization,
-            strategy, drafting, form selection, trial preparation, and court
-            packages.
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href={formsHref}
-              className="rounded-full border border-[#d8e6df] bg-white px-5 py-2 text-sm font-semibold text-[#24463d]"
-            >
-              Forms
-            </Link>
-
-            <Link
-              href={evidenceHref}
-              className="rounded-full border border-[#d8e6df] bg-white px-5 py-2 text-sm font-semibold text-[#24463d]"
-            >
-              Evidence
-            </Link>
-
-            <Link
-              href={strategyHref}
-              className="rounded-full border border-[#d8e6df] bg-white px-5 py-2 text-sm font-semibold text-[#24463d]"
-            >
-              Strategy
-            </Link>
-
-            <Link
-              href={courtPackageHref}
-              className="rounded-full border border-[#d8e6df] bg-white px-5 py-2 text-sm font-semibold text-[#24463d]"
-            >
-              Court Package
-            </Link>
-
-            <Link
-              href={trialPackageHref}
-              className="rounded-full border border-[#d8e6df] bg-white px-5 py-2 text-sm font-semibold text-[#24463d]"
-            >
-              Trial Package
-            </Link>
-
-            <Link
-              href={exportHref}
-              className="rounded-full bg-[#2f7d67] px-5 py-2 text-sm font-semibold text-white"
-            >
-              Export
-            </Link>
-          </div>
-        </section>
       </div>
     </main>
   );

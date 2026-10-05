@@ -16,7 +16,7 @@
  */
 
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 
 import { recordedDocuments } from "../../src/lib/case-system/intelligence/answeredQuestions";
 import {
@@ -83,22 +83,26 @@ assert.doesNotMatch(
   "The case overview must not rebuild an unfiltered issue list.",
 );
 
-// Property, not spelling (fixed 2026-09-28, CI red on main): any workflow page
-// that renders the engine's detected issues must filter them through the shared
-// helper. The settlement-conference and trial-package pages were rewritten on
-// 2026-09-07 (de3cc27) into link hubs that no longer render an issues list at
-// all; the old check demanded the helper call regardless, and so failed on the
-// removal it should have welcomed.
-for (const [label, file] of [
-  ["settlement conference", "app/settlement-conference/page.tsx"],
-  ["trial package", "app/trial-package/page.tsx"],
-] as const) {
+// Property, not spelling: ANY page that renders the engine's detected issues
+// must filter them through the shared helper. This listed the settlement-
+// conference and trial-package pages until they were removed on 2026-10-04;
+// it now scans every page under app/, so a page added later is covered too.
+const pageFiles: string[] = [];
+const walkPages = (dir: string) => {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const full = `${dir}/${entry.name}`;
+    if (entry.isDirectory()) walkPages(full);
+    else if (entry.name === "page.tsx") pageFiles.push(full);
+  }
+};
+walkPages("app");
+for (const file of pageFiles) {
   const source = readFileSync(file, "utf8");
-  if (/detectedIssues/.test(source)) {
+  if (/detectedIssues/.test(source) && !/IntelligenceOverviewPanel\.tsx$/.test(file)) {
     assert.match(
       source,
       /meaningfulIssueSignals\(/,
-      `The ${label} issues list must filter through the shared helper.`,
+      `${file} renders detected issues and must filter them through the shared helper.`,
     );
   }
 }

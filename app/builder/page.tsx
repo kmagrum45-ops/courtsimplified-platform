@@ -47,6 +47,7 @@ import StageAnswerPanel from "./_components/StageAnswerPanel";
 import NextStepsCard from "./_components/NextStepsCard";
 import { userIsResponding } from "./_components/respondingSide";
 import { readCasePosition } from "../../src/lib/case-system/casePosition";
+import { newId, type CaseDraft } from "../../src/lib/case-system/drafts/caseDrafts";
 import AiUseNotice from "../_components/AiUseNotice";
 import PathwayUnavailable from "../_components/PathwayUnavailable";
 import { FORM_COMPLETION_PAUSED, isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
@@ -59,31 +60,6 @@ import { buildCaseContextStoragePayload } from "../../src/lib/case-system/caseCo
 import { consumeGuestIntakeSession } from "../../src/lib/case-system/builderDraftStorage";
 import { COURT_PATH_FINDER_KEY, SHARED_STORAGE_KEYS } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { draftSmallClaimsPlaintiffClaim } from "../../src/lib/case-system/claimDraftEngine";
-import { buildWorkspaceDocument } from "../../src/lib/case-system/documentWorkspaceEngine";
-import { writeWorkspaceDocument } from "../../src/lib/case-system/workflowCaseLoader";
-import type { GeneratedDocument } from "../../src/lib/case-system/documentGenerationEngine";
-
-// Pre-rewrite intelligence UI, parked rather than deleted. Declared as
-// boolean instead of the literal false: a literal makes TypeScript treat the
-// guarded blocks as unreachable and skip narrowing, so `analysis` reads as
-// possibly null inside them even though `analysis &&` already guards it.
-const SHOW_LEGACY_INTELLIGENCE_UI: boolean = false;
-
-function buildWorkflowHref(
-  route: string,
-  caseId: string | null,
-  path: CourtPath,
-) {
-  const params = new URLSearchParams();
-
-  if (caseId) {
-    params.set("caseId", caseId);
-  }
-
-  params.set("path", path);
-
-  return `${route}?${params.toString()}`;
-}
 
 /** The UniversalStage codes, for validating a resolved stage before use. */
 const STAGE_CODES = [
@@ -510,36 +486,6 @@ function BuilderPageContent() {
     !intakeCity.trim() ? "a city or municipality" : "",
   ].filter(Boolean);
 
-  const activeCaseId = masterCaseId || queryCaseId || null;
-
-  const workspaceHref = activeCaseId
-    ? `/cases/${activeCaseId}`
-    : "/dashboard";
-
-  const evidenceHref = buildWorkflowHref(
-    "/evidence",
-    activeCaseId,
-    courtPath,
-  );
-
-  const formsHref = buildWorkflowHref(
-    "/forms",
-    activeCaseId,
-    courtPath,
-  );
-
-  const documentWorkspaceHref = buildWorkflowHref(
-    "/document-workspace",
-    activeCaseId,
-    courtPath,
-  );
-
-  const courtPackageHref = buildWorkflowHref(
-    "/court-package",
-    activeCaseId,
-    courtPath,
-  );
-
   /*
    * Opening the builder without a caseId means the user intentionally started
    * a new matter. Remove only temporary shared context from the previous case.
@@ -882,18 +828,24 @@ function BuilderPageContent() {
         };
 
         /*
-         * KEEP WHAT THE USER CONFIRMED. master_result is rebuilt whole here, and
-         * `position` (the stage they confirmed, the step they picked, the dates
-         * they gave) is written separately by /api/cases/position, possibly
-         * after this page loaded. Read it now, not from the copy loaded at
-         * mount, or a re-save would quietly erase a choice made since.
+         * KEEP WHAT THE USER MADE ON THE CASE PAGE. master_result is rebuilt
+         * whole here, and two of its keys are written separately, possibly
+         * after this page loaded: `position` (the stage they confirmed, the step
+         * they picked, the dates they gave; /api/cases/position) and `drafts`
+         * (their working drafts; /api/cases/drafts). Read them now, not from the
+         * copy loaded at mount, or a re-save would quietly erase work done since.
          */
-        const { data: positionRow } = await supabase
+        const { data: userOwnedRow } = await supabase
           .from("cases")
           .select("master_result")
           .eq("id", activeId)
           .maybeSingle();
-        const savedPosition = asRecord(asRecord(positionRow?.master_result).position);
+        const storedMaster = asRecord(userOwnedRow?.master_result);
+        const userOwned = Object.fromEntries(
+          (["position", "drafts"] as const)
+            .filter((key) => storedMaster[key] !== undefined && storedMaster[key] !== null)
+            .map((key) => [key, storedMaster[key]]),
+        );
 
         const { error } = await supabase
           .from("cases")
@@ -907,7 +859,7 @@ function BuilderPageContent() {
               derivedFrom,
               intakeFacts,
               familyStatus: triageState,
-              ...(Object.keys(savedPosition).length > 0 ? { position: savedPosition } : {}),
+              ...userOwned,
             },
             updated_at: now,
           })
@@ -1055,20 +1007,6 @@ function BuilderPageContent() {
     }
   }
 
-  function pushWorkflow(route: string) {
-    if (!caseData) {
-      return;
-    }
-
-    router.push(
-      buildWorkflowHref(
-        route,
-        getActiveCaseId(),
-        courtPath,
-      ),
-    );
-  }
-
   function createSmallClaimsClaimDraft() {
     if (FORM_COMPLETION_PAUSED) return; // paused: see phaseScope.ts
     const caseId = getActiveCaseId();
@@ -1078,34 +1016,30 @@ function BuilderPageContent() {
     }
 
     const claim = draftSmallClaimsPlaintiffClaim(caseData);
-    const now = new Date().toISOString();
-    const generatedDocument: GeneratedDocument = {
-      id: `small-claims-form-7a-${Date.now()}`,
-      documentType: "general-litigation-package",
+    const part = (heading: string, lines: string[]) => ({
+      id: newId("part"),
+      heading,
+      text: lines.join("\n\n"),
+      reviewed: false,
+    });
+    const stamp = new Date().toISOString();
+    void saveDraftAndOpen(caseId, {
+      id: newId("draft"),
       title: "Draft Plaintiff’s Claim (Form 7A)",
-      subtitle: "Working draft created from your saved Small Claims intake — review and edit before use.",
-      generatedAt: now,
-      readiness: "needs-review",
+      kind: "starting-document",
+      createdAt: stamp,
+      updatedAt: stamp,
       sections: [
-        { id: "parties", heading: "Parties", purpose: "Record the party details entered during intake.", paragraphs: claim.partySection, bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
-        { id: "claim-overview", heading: "What you are asking for", purpose: "Record the outcome entered during intake.", paragraphs: claim.claimOverview, bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
-        { id: "facts", heading: "Facts", purpose: "Organize the facts entered during intake into numbered paragraphs for review.", paragraphs: claim.numberedClaimFacts, bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
-        { id: "amount-claimed", heading: "Amount claimed", purpose: "Review the amount and calculation entered during intake.", paragraphs: claim.damagesSection, bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
-        { id: "evidence", heading: "Evidence to review", purpose: "List the records identified during intake.", paragraphs: claim.evidenceSection, bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
+        part("Parties", claim.partySection),
+        part("What you are asking for", claim.claimOverview),
+        part("Facts", claim.numberedClaimFacts),
+        part("Amount claimed", claim.damagesSection),
+        part("Evidence to review", claim.evidenceSection),
       ],
-      warnings: claim.missingInformation,
-      nextSteps: ["Review every fact, amount, and party detail.", "Complete missing information before relying on this draft.", "Compare the draft with the official Form 7A before filing or serving."],
-    };
-
-    writeWorkspaceDocument(caseId, buildWorkspaceDocument({ generatedDocument }));
-    router.push(buildWorkflowHref("/document-workspace", caseId, courtPath));
+    });
   }
 
-  function createCourtAreaWorkingDraft(
-    title: string,
-    subtitle: string,
-    factsHeading: string,
-  ) {
+  function createCourtAreaWorkingDraft(title: string, factsHeading: string) {
     if (FORM_COMPLETION_PAUSED) return; // paused: see phaseScope.ts
     const caseId = getActiveCaseId();
     if (!caseData || !caseId) {
@@ -1115,27 +1049,52 @@ function BuilderPageContent() {
 
     const extra = asRecord(caseData.extra);
     const amount = String(extra.amountClaimed || extra.damagesBreakdown || "").trim();
-    const now = new Date().toISOString();
-    const generatedDocument: GeneratedDocument = {
-      id: `originating-draft-${Date.now()}`,
-      documentType: "general-litigation-package",
+    const part = (heading: string, lines: string[]) => ({
+      id: newId("part"),
+      heading,
+      text: lines.join("\n\n"),
+      reviewed: false,
+    });
+    const stamp = new Date().toISOString();
+    void saveDraftAndOpen(caseId, {
+      id: newId("draft"),
       title,
-      subtitle,
-      generatedAt: now,
-      readiness: "needs-review",
+      kind: "starting-document",
+      createdAt: stamp,
+      updatedAt: stamp,
       sections: [
-        { id: "parties", heading: "Parties", purpose: "Review the party details entered during intake.", paragraphs: [`Applicant/Plaintiff: ${caseData.yourName || "Not entered"}`, `Other party: ${caseData.otherParty || "Not entered"}`], bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
-        { id: "facts", heading: factsHeading, purpose: "Review and edit the facts entered during intake.", paragraphs: [caseData.facts || "No facts entered yet."], bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
-        { id: "outcome", heading: "Requested outcome", purpose: "Review the outcome entered during intake.", paragraphs: [caseData.goal || "No requested outcome entered yet."], bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
-        { id: "amount-and-timeline", heading: "Amount and timeline", purpose: "Review amounts and important dates entered during intake.", paragraphs: [amount ? `Amount entered: ${amount}` : "No amount entered.", caseData.timeline || "No timeline entered yet."], bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
-        { id: "evidence", heading: "Evidence to review", purpose: "Review the records identified during intake.", paragraphs: [caseData.evidence || "No evidence description entered yet."], bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
+        part("Parties", [`Applicant/Plaintiff: ${caseData.yourName || "Not entered"}`, `Other party: ${caseData.otherParty || "Not entered"}`]),
+        part(factsHeading, [caseData.facts || "No facts entered yet."]),
+        part("Requested outcome", [caseData.goal || "No requested outcome entered yet."]),
+        part("Amount and timeline", [amount ? `Amount entered: ${amount}` : "No amount entered.", caseData.timeline || "No timeline entered yet."]),
+        part("Evidence to review", [caseData.evidence || "No evidence description entered yet."]),
       ],
-      warnings: ["This is a working draft created from intake. Review every field and compare it with the official court form before use."],
-      nextSteps: ["Review and edit the draft.", "Complete any missing facts, dates, and party details.", "Compare the draft with the official court form before filing or serving."],
-    };
+    });
+  }
 
-    writeWorkspaceDocument(caseId, buildWorkspaceDocument({ generatedDocument }));
-    router.push(buildWorkflowHref("/document-workspace", caseId, courtPath));
+  /** Saves a working draft to the case and opens it on the case page's Drafts tab. */
+  async function saveDraftAndOpen(caseId: string, draft: CaseDraft) {
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        setSaveError("Sign in to save a draft to your case.");
+        return;
+      }
+      const response = await fetch("/api/cases/drafts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
+        body: JSON.stringify({ caseId, draft }),
+      });
+      if (!response.ok) {
+        setSaveError("The draft could not be saved to your case. Please try again.");
+        return;
+      }
+      router.push(`/cases/${encodeURIComponent(caseId)}/drafts?open=${encodeURIComponent(draft.id)}`);
+    } catch {
+      setSaveError("The draft could not be saved to your case. Please try again.");
+    }
   }
 
   function goToDashboardCase() {
@@ -1152,34 +1111,6 @@ function BuilderPageContent() {
     const targetCaseId = getActiveCaseId();
     if (!targetCaseId) return;
     router.push(`/cases/${encodeURIComponent(targetCaseId)}/${section}`);
-  }
-
-  function goToSettlementConference() {
-    if (!caseData) {
-      return;
-    }
-
-    router.push(
-      buildWorkflowHref(
-        "/settlement-conference",
-        getActiveCaseId(),
-        courtPath,
-      ),
-    );
-  }
-
-  function goToDraftingAssistant() {
-    if (!caseData) {
-      return;
-    }
-
-    router.push(
-      buildWorkflowHref(
-        "/ai-drafting-assistant",
-        getActiveCaseId(),
-        courtPath,
-      ),
-    );
   }
 
   function handleChatMasterResultUpdate(patch: any) {
@@ -1350,95 +1281,7 @@ function BuilderPageContent() {
           <AiUseNotice activity="read what you write, pull out dates and names, and suggest which court path and stage fit" />
         </div>
 
-        {!analysis && SHOW_LEGACY_INTELLIGENCE_UI && <section className="mb-8 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
-          <div className="flex flex-wrap items-start justify-between gap-5">
-            <div>
-              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-[#2f7d67]">
-                {pathLabel} Case Partner
-              </p>
-
-              <h1 className="text-4xl font-bold tracking-tight text-[#10231f]">
-                {pathLabel} structured intake
-              </h1>
-
-              <p className="mt-4 max-w-3xl text-lg leading-8 text-[#4d675f]">
-                Your case story and confirmed location are already attached.
-                Continue with the details needed for this court path.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm">
-              <p className="font-semibold text-[#10231f]">
-                Workflow status
-              </p>
-
-              <p className="mt-2 text-[#4d675f]">
-                Case ID: {activeCaseId || "not created yet"}
-              </p>
-
-              <p className="mt-1 text-[#4d675f]">
-                Path: {pathLabel}
-              </p>
-
-              <p className="mt-1 text-[#4d675f]">
-                Save:{" "}
-                {savingMaster
-                  ? "Saving..."
-                  : lastSavedAt
-                    ? "Saved"
-                    : "Waiting"}
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href={workspaceHref}
-              className="rounded-full border border-[#2f7d67] bg-white px-5 py-2 text-sm font-semibold text-[#2f7d67]"
-            >
-              Case Workspace
-            </Link>
-
-            <Link
-              href={evidenceHref}
-              className="rounded-full border border-[#d8e6df] bg-[#f8fcfa] px-5 py-2 text-sm font-semibold text-[#24463d]"
-            >
-              Evidence
-            </Link>
-
-            <Link
-              href={formsHref}
-              className="rounded-full border border-[#d8e6df] bg-[#f8fcfa] px-5 py-2 text-sm font-semibold text-[#24463d]"
-            >
-              Forms
-            </Link>
-
-            <Link
-              href={documentWorkspaceHref}
-              className="rounded-full border border-[#d8e6df] bg-[#f8fcfa] px-5 py-2 text-sm font-semibold text-[#24463d]"
-            >
-              Document Workspace
-            </Link>
-
-            <Link
-              href={courtPackageHref}
-              className="rounded-full border border-[#d8e6df] bg-[#f8fcfa] px-5 py-2 text-sm font-semibold text-[#24463d]"
-            >
-              Court Package
-            </Link>
-
-            {!queryCaseId && (
-              <button
-                type="button"
-                onClick={startNewCase}
-                disabled={savingMaster}
-                className="rounded-full border border-[#b8d8cc] bg-[#f4fbf8] px-5 py-2 text-sm font-semibold text-[#2f7d67] disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                Start Fresh Case
-              </button>
-            )}
-          </div>
-        </section>}
+        
 
         {loadingExistingCase ? (
           <div className="mb-8 rounded-2xl border border-[#d8e6df] bg-white p-4 text-sm text-[#4d675f]">
@@ -1821,12 +1664,12 @@ function BuilderPageContent() {
                   </button>
                 ) : null}
                 {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "civil" && getActiveCaseId() && offerOriginatingDraft ? (
-                  <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Statement of Claim (Form 14A)", "Working draft created from your saved Ontario Civil intake — review and edit before use.", "Material facts")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
+                  <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Statement of Claim (Form 14A)", "Material facts")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Statement of Claim draft (Form 14A)
                   </button>
                 ) : null}
                 {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "family" && getActiveCaseId() && offerOriginatingDraft ? (
-                  <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Family Application (Form 8)", "Working draft created from your saved Ontario Family intake — review and edit before use.", "Facts for review")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
+                  <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Family Application (Form 8)", "Facts for review")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Family Application draft (Form 8)
                   </button>
                 ) : null}
@@ -1878,248 +1721,9 @@ function BuilderPageContent() {
           </section>
         )}
 
-        {analysis && SHOW_LEGACY_INTELLIGENCE_UI && (
-          <div className="mt-8 space-y-6">
-            <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
-              <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">
-                    Intelligence Result
-                  </p>
+        
 
-                  <h2 className="mt-2 text-3xl font-bold text-[#10231f]">
-                    Your case information
-                  </h2>
-
-                  <p className="mt-3 max-w-3xl text-[#4d675f]">
-                    Review the information currently recorded for your case and
-                    the items that may need attention next.
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] px-5 py-4">
-                  <p className="text-sm font-semibold uppercase tracking-wide text-[#2f7d67]">
-                    Current stage
-                  </p>
-
-                  <p className="mt-1 text-lg font-bold capitalize text-[#10231f]">
-                    {analysis.intelligence?.proceduralPosture?.stage ||
-                      analysis.caseStage}
-                  </p>
-
-                </div>
-              </div>
-
-              {saveError ? (
-                <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-                  {saveError}
-                </div>
-              ) : null}
-
-              {/*
-                RENDERED AS OF 2026-09-14. setLocalDraftWarning was called in
-                two places and the value was read in none, so a user whose
-                browser cannot keep a local recovery draft — private window,
-                blocked storage, quota — was told nothing. eslint reported it
-                as an unused variable, which made a missing read look like dead
-                code; the message was always meant to be seen.
-
-                Amber rather than red: nothing has failed. The result is on the
-                page and saved to the account; only the local recovery copy is
-                unavailable.
-              */}
-              {localDraftWarning ? (
-                <div
-                  data-testid="local-draft-warning"
-                  className="mt-6 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950"
-                >
-                  {localDraftWarning}
-                </div>
-              ) : null}
-
-              {lastSavedAt ? (
-                <div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
-                  Your intake information has been saved.
-                </div>
-              ) : null}
-
-              <div className="mt-8">
-                <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
-              </div>
-
-              <div className="mt-8 space-y-8">
-                <EvidenceUploadCard caseId={getActiveCaseId() || null} />
-                <CaseReviewPanel caseId={getActiveCaseId() || null} />
-              </div>
-
-              <div className="mt-8 rounded-3xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
-                <h3 className="text-lg font-bold text-[#16302b]">
-                  Continue with your case
-                </h3>
-
-                <p className="mt-3 text-sm leading-6 text-[#4d675f]">
-                  Choose the area you want to work on next. Court requirements
-                  and any forms should be reviewed before you act.
-                </p>
-
-                <div className="mt-5 flex flex-wrap gap-3">
-                  <button
-                    type="button"
-                    onClick={goToDashboardCase}
-                    disabled={
-                      savingMaster || !getActiveCaseId()
-                    }
-                    className="rounded-2xl bg-[#16302b] px-6 py-3 font-semibold text-white disabled:opacity-50"
-                  >
-                    Review saved intake
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => pushWorkflow("/evidence")}
-                    className="rounded-2xl border border-[#2f7d67] bg-white px-6 py-3 font-semibold text-[#2f7d67]"
-                  >
-                    Organize evidence
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => pushWorkflow("/forms")}
-                    className="rounded-2xl border border-[#2f7d67] bg-white px-6 py-3 font-semibold text-[#2f7d67]"
-                  >
-                    Review Forms →
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      pushWorkflow("/document-workspace")
-                    }
-                    className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white"
-                  >
-                    Document Workspace →
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      pushWorkflow("/litigation-strategy")
-                    }
-                    className="rounded-2xl border border-[#2f7d67] bg-[#f8fcfa] px-6 py-3 font-semibold text-[#2f7d67]"
-                  >
-                    Strategy →
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      pushWorkflow("/court-package")
-                    }
-                    className="rounded-2xl border border-[#2f7d67] bg-[#f8fcfa] px-6 py-3 font-semibold text-[#2f7d67]"
-                  >
-                    Court Package →
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      pushWorkflow("/trial-package")
-                    }
-                    className="rounded-2xl border border-[#2f7d67] bg-[#f8fcfa] px-6 py-3 font-semibold text-[#2f7d67]"
-                  >
-                    Trial Preparation →
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      pushWorkflow("/document-export")
-                    }
-                    className="rounded-2xl border border-[#2f7d67] bg-[#f8fcfa] px-6 py-3 font-semibold text-[#2f7d67]"
-                  >
-                    Export →
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={goToDraftingAssistant}
-                    className="rounded-2xl border border-[#2f7d67] bg-[#e9f7f2] px-6 py-3 font-semibold text-[#16302b]"
-                  >
-                    AI Drafting Assistant →
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={goToSettlementConference}
-                    className="rounded-2xl border border-[#2f7d67] bg-[#f8fcfa] px-6 py-3 font-semibold text-[#2f7d67]"
-                  >
-                    Settlement Conference →
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={editCurrentIntake}
-                    className="rounded-2xl border border-[#2f7d67] bg-white px-6 py-3 font-semibold text-[#2f7d67]"
-                  >
-                    Edit Intake
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={startNewCase}
-                    disabled={savingMaster}
-                    className="rounded-2xl border border-[#9a4f13] bg-[#fff4e5] px-6 py-3 font-semibold text-[#9a4f13] disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    Start New Case
-                  </button>
-                </div>
-              </div>
-            </section>
-          </div>
-        )}
-
-        {analysis && SHOW_LEGACY_INTELLIGENCE_UI && !loadingExistingCase && !caseLoadError && canonicalIntakeSaved && (
-          <section className="mt-8">
-            {!analysisAvailable && (
-              <p className="mb-5 rounded-2xl border border-[#d8e6df] bg-white p-4 text-sm text-[#24463d]" data-testid="case-follow-up-unavailable-message">
-                Case follow-up is temporarily unavailable. Your saved summary and evidence workspace are still available.
-              </p>
-            )}
-            <CourtAssistantChat
-              caseId={queryCaseId || undefined}
-              chatSessionId={queryCaseId ? undefined : chatSessionId}
-              path={courtPath}
-              proceduralStage={analysis?.intelligence?.proceduralPosture?.stage || caseData?.caseStage || existingCaseStage}
-              caseData={{ courtPath, pathLabel, analysis, intake: caseData, createdMasterCaseId: masterCaseId }}
-              masterResult={caseData?.masterResultPatch || existingMasterResult}
-              evidenceData={analysis?.intelligenceEvidenceIssues}
-              strategyData={
-                /*
-                 * `risks: analysis.intelligence.litigationRisks` was here until
-                 * 2026-09-23. It is MODEL OUTPUT, and it was POSTed into the
-                 * assistant route inside caseMemory.
-                 *
-                 * Independent review traced it and found no path that renders
-                 * it: the orchestrator reads caseMemory only for courtArea. So
-                 * it was a latent risk, not a live leak -- and exactly one
-                 * getNestedValue(caseMemory, ["strategyData", "risks"]) away
-                 * from becoming one, in a file whose job is reading nested
-                 * values out of caseMemory.
-                 *
-                 * Removed rather than guarded. Data that is never sent cannot
-                 * leak, and nothing has to stay correct for that to hold.
-                 *
-                 * nextBestActions stays: catalogue text since Step 2, not model
-                 * output.
-                 */
-                { nextBestActions: analysis?.nextBestActions }
-              }
-              onMasterResultUpdate={handleChatMasterResultUpdate}
-              onDashboardUpdate={handleChatDashboardUpdate}
-              onRecommendedRoute={handleRecommendedRoute}
-            />
-          </section>
-        )}
+        
       </div>
     </main>
   );

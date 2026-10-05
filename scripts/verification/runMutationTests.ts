@@ -45,8 +45,6 @@ const REACH_SUITE = "scripts/verification/verifyReachability.ts";
 const VOICE_LAYER = "src/lib/case-system/intake/voiceLayer.ts";
 const GUARDS_SUITE = "scripts/verification/verifyFixtureHarnessGuards.ts";
 
-const EXPORT_ROUTE = "app/api/document-export/route.ts";
-const EXPORT_SUITE = "scripts/verification/verifyExportedDocument.ts";
 
 const FORMS_SUITE = "scripts/verification/verifyFamilyForms.ts";
 const SCORES_SUITE = "scripts/verification/verifyFamilyNoScores.ts";
@@ -515,10 +513,11 @@ const CASES: MutationCase[] = [
       },
     ],
   },
-  // The exported document is the one place a graded value leaves the building
-  // on paper. These reintroduce it three ways: printed in the header, printed
-  // through the next-action branch, and merely carried on the response object
-  // where the last one sat unprinted until somebody printed it again.
+  // Three mutations against app/api/document-export/route.ts were here. That
+  // route and its page were removed on 2026-10-04 (no user could reach them:
+  // the page sat behind a gate nothing satisfied), so there is nothing left
+  // for those mutations to break. The case file page that replaced them
+  // prints only the user's own record.
   // The reachability check is the only thing standing between this codebase
   // and another "built correctly, nobody can reach it". If it cannot fail,
   // nothing here is protected. This severs the import that made the family
@@ -558,44 +557,6 @@ const CASES: MutationCase[] = [
         file: VOICE_LAYER,
         find: "    questionText: question.text,",
         replace: "    questionText: String(question.text || \"\").trim(),",
-      },
-    ],
-  },
-  {
-    label: "a readiness percentage is printed back into the document header",
-    suite: EXPORT_SUITE,
-    mutations: [
-      {
-        file: EXPORT_ROUTE,
-        find:
-          "    `Sections with content: ${args.sectionSummary.withContent} of ${args.sectionSummary.total}`,",
-        replace:
-          "    `Readiness: ${Math.round((args.sectionSummary.withContent / args.sectionSummary.total) * 100)}%`,",
-      },
-    ],
-  },
-  {
-    label: "the next action goes back to a threshold branch",
-    suite: EXPORT_SUITE,
-    mutations: [
-      {
-        file: EXPORT_ROUTE,
-        find:
-          "        sectionSummary.emptyTitles.length > 0\n          ? `These sections have no content yet: ${sectionSummary.emptyTitles.join(\", \")}.`",
-        replace:
-          "        sectionSummary.withContent / sectionSummary.total < 0.8\n          ? `Readiness ${Math.round((sectionSummary.withContent / sectionSummary.total) * 100)}% — review missing sections.`",
-      },
-    ],
-  },
-  {
-    label: "a score field returns to the export package, unprinted",
-    suite: EXPORT_SUITE,
-    mutations: [
-      {
-        file: EXPORT_ROUTE,
-        find: "      sectionSummary,\n      sections,\n      plainText,",
-        replace:
-          "      sectionSummary,\n      readiness: { score: 33, status: \"needs-repair\" },\n      sections,\n      plainText,",
       },
     ],
   },
