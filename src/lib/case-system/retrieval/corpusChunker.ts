@@ -224,14 +224,17 @@ const HISTORY_CITE =
   /(?:\bc\.\s*[A-Z]?[-.\dA-Z]*\d[A-Z]?|\bSched\.\s*[A-Z0-9.]+|\bReg\.\s*\d+(?:\/\d+)?|SOR\/\d+-\d+),\s*([sr])\.\s*(\d+(?:\.\d+)*)/;
 
 /**
- * A provision number as something that sorts. Rule numbers need care: the
+ * A provision number as something that sorts. Court rule numbers need care: the
  * subrule is the two-digit part, so "24.1.01" (rule 24.1, subrule 1) comes
  * AFTER "24.05" (rule 24, subrule 5), while "1.03.1" (rule 1, subrule 3.1)
  * comes after "1.03". Plain section numbers ("16.91") sort part by part.
  */
-function numberParts(value: string): number[] {
+function numberParts(value: string, rules: boolean): number[] {
   const raw = value.split(".");
-  const subrule = raw.findIndex((part, index) => index > 0 && part.length === 2);
+  // Only court rules number this way. A statute's "16.91" is the section
+  // after "16.9" (Divorce Act relocation), not "subrule 91" -- reading it as
+  // one lost ss. 16.91-16.96 behind s. 16.9.
+  const subrule = rules ? raw.findIndex((part, index) => index > 0 && part.length === 2) : -1;
   if (subrule < 1) return raw.map(Number);
   const rule = raw.slice(0, subrule).map(Number);
   // Pad the rule to a fixed depth so the subrule always compares in the same slot.
@@ -314,7 +317,7 @@ function ownCitation(source: ChunkSource): RegExp | null {
   return new RegExp(`(^|[^\\w])${pattern},`);
 }
 
-function splitSections(lines: string[], federal: boolean, own: RegExp | null): Unit[] {
+function splitSections(lines: string[], federal: boolean, own: RegExp | null, rules: boolean): Unit[] {
   const familyRules = lines.some((line) => RULE_HEADING.test(line));
   const candidates: { index: number; number: string; parts: number[]; weight: number }[] = [];
   for (let index = 0; index < lines.length; index += 1) {
@@ -324,7 +327,7 @@ function splitSections(lines: string[], federal: boolean, own: RegExp | null): U
     if (!match) continue;
     const verdict = familyRules ? { ok: true, confirmed: true } : judgeCandidate(lines, index, match[1], federal, own);
     if (!verdict.ok) continue;
-    candidates.push({ index, number: match[1], parts: numberParts(match[1]), weight: verdict.confirmed ? (verdict.paragraphShaped ? 2 : 3) : 1 });
+    candidates.push({ index, number: match[1], parts: numberParts(match[1], rules), weight: verdict.confirmed ? (verdict.paragraphShaped ? 2 : 3) : 1 });
   }
 
   // Sections run in order. The starts are the heaviest increasing run of
@@ -384,7 +387,7 @@ function chunkLegislation(source: ChunkSource, text: string): Omit<CorpusChunk, 
   const lines = dropGone(dropNotInForce(text.split(/\r?\n/)).filter((line) => !HISTORY_LINE.test(line)));
   const out: Omit<CorpusChunk, "id">[] = [];
 
-  for (const unit of splitSections(lines, /laws-lois\.justice\.gc\.ca/.test(source.url), ownCitation(source))) {
+  for (const unit of splitSections(lines, /laws-lois\.justice\.gc\.ca/.test(source.url), ownCitation(source), prefix === "r.")) {
     const whole = collapse(unit.lines.join(" "));
     if (whole.length < MIN_CHARS) continue;
 

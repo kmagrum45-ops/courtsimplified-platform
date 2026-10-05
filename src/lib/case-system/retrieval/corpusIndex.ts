@@ -125,8 +125,9 @@ export type SearchOptions = {
 };
 
 /**
- * The passages nearest in meaning to any of the queries, best first, at most
- * a few per source so one long statute cannot crowd out everything else.
+ * The passages nearest in meaning to any of the queries, best first: each
+ * query's best passage, then the rest by score, at most four per source so
+ * one long statute cannot crowd out everything else.
  */
 export function searchIndex(
   index: LoadedIndex,
@@ -137,6 +138,7 @@ export function searchIndex(
   const dims = index.meta.dimensions;
   const rows = index.meta.chunks.length;
   const best = new Map<string, { id: string; sourceId: string; score: number }>();
+  const firstPerQuery: string[] = [];
 
   for (const raw of queryVectors) {
     if (raw.length !== dims) continue;
@@ -160,23 +162,33 @@ export function searchIndex(
       const id = index.meta.chunks[row][0];
       const sourceId = id.split(":")[1];
       if (excludeSource?.(sourceId)) continue;
+      if (kept === 0) firstPerQuery.push(id);
       kept += 1;
       const existing = best.get(id);
       if (!existing || existing.score < score) best.set(id, { id, sourceId, score });
     }
   }
 
-  const ranked = [...best.values()].sort((a, b) => b.score - a.score);
-  const perSource = new Map<string, number>();
+  // Every question the model asked keeps its best answer: a story with one
+  // statute-heavy issue must not crowd out the passage for another (the
+  // first probe lost RTA s. 106, the rent deposit rule itself, behind four
+  // other tenancy sections). Then the rest by score, at most four a source.
   const out: { id: string; sourceId: string; score: number }[] = [];
-  for (const hit of ranked) {
-    const count = perSource.get(hit.sourceId) ?? 0;
-    if (count >= 4) continue;
-    perSource.set(hit.sourceId, count + 1);
+  const perSource = new Map<string, number>();
+  const take = (hit: { id: string; sourceId: string; score: number }) => {
     out.push(hit);
-    if (out.length >= total) break;
+    perSource.set(hit.sourceId, (perSource.get(hit.sourceId) ?? 0) + 1);
+  };
+  for (const id of firstPerQuery) {
+    if (out.length < total && !out.some((hit) => hit.id === id)) take(best.get(id)!);
   }
-  return out;
+  for (const hit of [...best.values()].sort((a, b) => b.score - a.score)) {
+    if (out.length >= total) break;
+    if (out.some((existing) => existing.id === hit.id)) continue;
+    if ((perSource.get(hit.sourceId) ?? 0) >= 4) continue;
+    take(hit);
+  }
+  return out.sort((a, b) => b.score - a.score);
 }
 
 // ------------------------------------------------------------ re-reading hits
