@@ -22,5 +22,16 @@
       "CONSOLIDATION PERIOD"
     ],
     "why": "Named as missing by the research step (\"Compulsory Automobile Insurance Act, R.S.O. 1990, c. C.25\")."
+  },
+  {
+    "id": "canadian-charter-of-rights-and-freedoms",
+    "title": "Canadian Charter of Rights and Freedoms",
+    "citation": "Constitution Act, 1982, Part I",
+    "url": "https://laws-lois.justice.gc.ca/eng/Const/FullText.html",
+    "format": "html",
+    "mustContain": [
+      "Canadian Charter of Rights and Freedoms"
+    ],
+    "why": "Named as missing by the research step (\"Canadian Charter of Rights and Freedoms, Part I of the Constitution Act, 1982\")."
   }
 ]
