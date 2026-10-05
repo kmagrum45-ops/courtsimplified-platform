@@ -230,6 +230,9 @@ jobs:
       - name: Official forms watch parses and covers every form
         run: npm run test:official-forms
 
+      - name: Case file summary sentence is well formed and carries no verdict
+        run: npm run test:case-file-summary
+
       - name: Production build
         run: npm run build
 

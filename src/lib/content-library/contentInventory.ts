@@ -33,7 +33,6 @@ import { CLAIM_TYPES, DEFENCE_CONCEPTS } from "../case-system/intake/claimTypes"
 import { CIVIL_CLAIM_TYPES } from "../case-system/intake/civilClaimTypes";
 import { FAMILY_MATTER_TYPES } from "../case-system/intake/familyMatterTypes";
 import { DEPTH_QUESTIONS } from "../case-system/intake/depth/elementQuestionRegistry";
-import { FORM_KNOWLEDGE_BASE } from "../case-system/formKnowledgeBase";
 import { FAMILY_RESOURCE_TOPICS } from "../case-system/intake/familySafetyResources";
 import { REMEDY_TYPES } from "../case-system/intake/remedyTypes";
 import { OUT_OF_SCOPE_FORUMS } from "../case-system/intelligence/outOfScopeForums";
@@ -338,24 +337,10 @@ export function collectContentInventory(): ContentItem[] {
     );
   }
 
-  // ---- Form guidance ----
-  for (const form of FORM_KNOWLEDGE_BASE) {
-    items.push(
-      item({
-        // Court path is part of the id because a form NUMBER is not unique
-        // across courts: 14A is "Offer to Settle" in Small Claims and
-        // "Statement of Claim" in Civil. Keying on the number alone would have
-        // let one court's approval silently cover the other's form.
-        id: `form:${form.courtPath}:${form.formNumber}`,
-        type: "form-guidance",
-        pathway: form.courtPath,
-        stage: "forms",
-        text: `${form.title}\n\n${form.plainPurpose}`,
-        sourceUrl: "",
-        appearsIn: "Forms guidance",
-      }),
-    );
-  }
+  // formKnowledgeBase.ts (12 forms, unsourced) was listed here until
+  // 2026-10-04, labelled "Forms guidance", though no live page showed it. It
+  // was deleted as a second, conflicting explanation of forms; the form guide
+  // entries above (form-guide:*) are the ones the site shows.
 
   // ---- Family safety resources ----
   for (const topic of FAMILY_RESOURCE_TOPICS) {

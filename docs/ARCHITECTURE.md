@@ -84,7 +84,6 @@ did nothing.
 | `/login`, `/forgot-password`, `/reset-password` | [`app/login/page.tsx`](../app/login/page.tsx) etc. | Supabase Auth screens |
 | `/site-access` | [`app/site-access/page.tsx`](../app/site-access/page.tsx) | The password form for the site-wide gate (§4) |
 | `/admin/pdf-field-mapper` | [`app/admin/pdf-field-mapper/page.tsx`](../app/admin/pdf-field-mapper/page.tsx) | Internal tool for mapping PDF form fields |
-| `/ai-test` | [`app/ai-test/page.tsx`](../app/ai-test/page.tsx) | Internal AI scratch/test page |
 
 Most of the workflow pages (`evidence`, `forms`, `document-workspace`,
 `court-package`, `trial-package`, `settlement-conference`,
