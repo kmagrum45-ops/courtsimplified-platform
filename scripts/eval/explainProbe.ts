@@ -22,13 +22,14 @@ import path from "node:path";
 import { loadCorpusIndex, sourcePassages } from "../../src/lib/case-system/retrieval/corpusIndex";
 import {
   explainPassage,
+  explanationRejection,
   generateWithModel,
   verifyWithModel,
   type Verdict,
 } from "../../src/lib/case-system/retrieval/explainProvision";
 import { RECALL_SET } from "./retrievalRecallSet";
 
-const LIMIT = Number(process.env.EXPLAIN_PROBE_LIMIT || 30);
+const LIMIT = Number(process.env.EXPLAIN_PROBE_LIMIT || 40);
 
 async function main() {
   const index = loadCorpusIndex();
@@ -48,20 +49,25 @@ async function main() {
   let shown = 0;
   let total = 0;
   const started = Date.now();
-  for (const id of ids.slice(0, LIMIT)) {
-    const verdicts: Verdict[] = [];
-    const attempts: string[] = [];
+  // Spread across the whole set (Small Claims, civil, family, tenancy,
+  // decisions), not its first stories: the first run took the first 30 and
+  // saw no family provision at all.
+  const step = Math.max(1, ids.length / LIMIT);
+  const sample = Array.from({ length: Math.min(LIMIT, ids.length) }, (_, n) => ids[Math.floor(n * step)]);
+  for (const id of sample) {
+    const attempts: { text: string; refused: string | null; verdict?: Verdict | null }[] = [];
     const t0 = Date.now();
     const result = await explainPassage(id, {
       index,
       generate: async (provision, feedback) => {
         const text = await generateWithModel(provision, feedback);
-        if (text) attempts.push(text);
+        if (text) attempts.push({ text, refused: explanationRejection(provision, text) });
         return text;
       },
       verify: async (provision, explanation) => {
         const verdict = await verifyWithModel(provision, explanation);
-        if (verdict) verdicts.push(verdict);
+        const attempt = attempts[attempts.length - 1];
+        if (attempt) attempt.verdict = verdict;
         return verdict;
       },
     });
@@ -70,15 +76,14 @@ async function main() {
     if (result.ok) shown += 1;
     lines.push(`## ${result.ok ? "SHOWN" : `WITHHELD (${result.reason})`} -- ${id} (${seconds}s)`);
     if (result.ok) lines.push(`**${result.citation}**`, "", `> ${result.explanation}`);
-    attempts.forEach((text, n) => {
-      const verdict = verdicts[n];
-      lines.push("", `Attempt ${n + 1}: ${text}`);
-      if (verdict) {
-        for (const item of verdict.unsupported) lines.push(`- not in the provision: ${item}`);
-        for (const item of verdict.missing) lines.push(`- left out: ${item}`);
-        if (!verdict.unsupported.length && !verdict.missing.length) lines.push("- check: nothing found");
-      } else {
-        lines.push("- refused by code before the check, or the check failed");
+    attempts.forEach((attempt, n) => {
+      lines.push("", `Attempt ${n + 1} (${attempt.text.length} characters): ${attempt.text}`);
+      if (attempt.refused) lines.push(`- refused by code: ${attempt.refused}`);
+      else if (attempt.verdict === null) lines.push("- the check returned no usable answer");
+      else if (attempt.verdict) {
+        for (const item of attempt.verdict.unsupported) lines.push(`- not in the provision: ${item}`);
+        for (const item of attempt.verdict.missing) lines.push(`- left out: ${item}`);
+        if (!attempt.verdict.unsupported.length && !attempt.verdict.missing.length) lines.push("- check: nothing found");
       }
     });
     lines.push("");
