@@ -36,7 +36,7 @@
  */
 
 import type { SourceItem } from "../intelligence/groundedCognition";
-import { loadCorpusIndex, readPassage, searchIndex, sourcePassages, type LoadedIndex, type Passage } from "./corpusIndex";
+import { loadCorpusIndex, namedSources, readPassage, searchIndex, sourcePassages, type LoadedIndex, type Passage } from "./corpusIndex";
 import { findProvision, parsePinpoint, referencedProvisions } from "./crossReferences";
 import { readableUrl } from "./corpusChunker";
 
@@ -232,6 +232,7 @@ export async function retrieveForStory(
     const vectors = await (deps?.embed ?? embedWithModel)(queries, index.meta.model, index.meta.dimensions);
     const hits = searchIndex(index, vectors, {
       excludeSource: (sourceId) => excludedForCourt(input.courtPath, sourceId),
+      namedSources: queries.map((query) => namedSources(index, query)),
     });
     const found = hits
       .map((hit) => readPassage(index, hit.id, hit.score))

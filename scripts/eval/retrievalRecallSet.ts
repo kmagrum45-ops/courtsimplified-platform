@@ -10,7 +10,12 @@
  * turns the check red instead of silently corrupting the measurement.
  *
  * A story is a HIT when any one of its provisions is retrieved; provision
- * recall counts every labelled provision. Decisions are labelled by case
+ * recall counts every labelled provision. A story lists every provision a
+ * lawyer would accept as the first one to open -- widened on 2026-10-05 after
+ * the first runs showed misses that were the label's narrowness, not the
+ * search's (the vacation-pay story found ESA s. 11 (5) and s. 38, which
+ * govern pay when employment ends; the label had only ss. 35.2 and 36). A
+ * label is widened only to a provision whose own text answers the story. Decisions are labelled by case
  * (no section): any passage of the majority's reasons counts.
  *
  * Fabricated stories only. Measured by `npm run eval:retrieval-recall`.
@@ -83,7 +88,10 @@ export const RECALL_SET: RecallStory[] = [
     court: "small-claims",
     stage: "conference",
     story: "I got a notice for a settlement conference next month in my small claims case. What is that meeting and do I have to go?",
-    expect: [{ source: SC, section: "13.01", phrase: "settlement conference shall be held in every defended action" }],
+    expect: [
+      { source: SC, section: "13.01", phrase: "settlement conference shall be held in every defended action" },
+      { source: SC, section: "13.02", phrase: "shall participate in the settlement conference" },
+    ],
   },
   {
     id: "won-but-not-paid",
@@ -171,7 +179,10 @@ export const RECALL_SET: RecallStory[] = [
     court: "small-claims",
     side: "defendant",
     story: "A collection agency keeps calling me at work about a cell phone bill from years ago. Do I have to talk to them?",
-    expect: [{ source: "cleo-debt-and-consumer-rights-collection-agency-called-me-do-i-have-talk-them", phrase: "collection agency" }],
+    expect: [
+      { source: "cleo-debt-and-consumer-rights-collection-agency-called-me-do-i-have-talk-them", phrase: "collection agency" },
+      { source: "cpo-guide-collection-agencies", phrase: "contacting a debtor" },
+    ],
   },
   {
     id: "credit-report-wrong",
@@ -287,6 +298,8 @@ export const RECALL_SET: RecallStory[] = [
     court: "small-claims",
     story: "I quit my job in August and they never paid out my vacation pay. It's been two months.",
     expect: [
+      { source: "esa-2000-ontario", section: "38", phrase: "employment ends at a time when vacation pay has accrued" },
+      { source: "esa-2000-ontario", section: "11", phrase: "If an employee's employment ends" },
       { source: "esa-2000-ontario", section: "35.2", phrase: "vacation pay" },
       { source: "esa-2000-ontario", section: "36", phrase: "vacation pay" },
     ],
@@ -301,7 +314,10 @@ export const RECALL_SET: RecallStory[] = [
     id: "fired-pregnant",
     court: "civil",
     story: "Two weeks after I told my boss I was pregnant she said my position was being cut. Nobody else was let go.",
-    expect: [{ source: "human-rights-code", section: "5", phrase: "equal treatment with respect to employment" }],
+    expect: [
+      { source: "human-rights-code", section: "5", phrase: "equal treatment with respect to employment" },
+      { source: "human-rights-code", section: "10", phrase: "Pregnancy" },
+    ],
   },
 
   // ---------------------------------------------------------------- family
@@ -327,7 +343,10 @@ export const RECALL_SET: RecallStory[] = [
     id: "child-support-amount",
     court: "family",
     story: "We just separated. The kids live with me full-time. How much child support should their father pay? He makes about $70,000.",
-    expect: [{ source: "ontario-child-support-guidelines-full", section: "3", phrase: "amount set out in the applicable table" }],
+    expect: [
+      { source: "ontario-child-support-guidelines-full", section: "3", phrase: "amount set out in the applicable table" },
+      { source: "federal-child-support-guidelines-full", section: "3", phrase: "amount set out in the applicable table" },
+    ],
   },
   {
     id: "common-law-support",
@@ -361,7 +380,10 @@ export const RECALL_SET: RecallStory[] = [
     court: "family",
     stage: "urgent",
     story: "My ex is refusing to return our kids after his weekend and won't answer. I need the court to make him bring them back now.",
-    expect: [{ source: "family-law-rules", section: "14", phrase: "MOTIONS FOR TEMPORARY ORDERS" }],
+    expect: [
+      { source: "family-law-rules", section: "14", phrase: "MOTIONS FOR TEMPORARY ORDERS" },
+      { source: "childrens-law-reform-act", section: "36", phrase: "parenting order or contact order" },
+    ],
   },
 
   // ---------------------------------------------------------------- civil and commercial
