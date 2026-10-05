@@ -1,0 +1,355 @@
+ Machtinger v. HOJ Industries Ltd. - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Machtinger v. HOJ Industries Ltd.
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Machtinger v. HOJ Industries Ltd.
+ /scc-csc/scc-csc/fr/item/872/index.do?alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Supreme Court Judgments
+Decision Information
+ Machtinger v. HOJ Industries Ltd.
+ Collection
+ Supreme Court Judgments
+ Date
+ 1992-04-30
+ Report
+ [1992] 1 SCR 986
+ Case number
+ 21586
+ Judges
+ La Forest, Gérard V.; L'Heureux-Dubé, Claire; Sopinka, John; Gonthier, Charles Doherty; Cory, Peter deCarteret; McLachlin, Beverley; Iacobucci, Frank
+ On appeal from
+ Ontario
+ Subjects
+ Labour law
+ Notes
+ SCC Case Information: [LINK https://www.scc-csc.ca/cases-dossiers/search-recherche/21586/] 21586
+ [LINK /scc-csc/scc-csc/en/872/1/document.do] 
+Decision Content
+ Machtinger v. HOJ Industries Ltd., [1992] 1 S.C.R. 986 
+ Gilles Lefebvre Appellant 
+ v. 
+ HOJ Industries Ltd. Respondent 
+ and between 
+ Marek Machtinger Appellant 
+ v. 
+ HOJ Industries Ltd. Respondent 
+ Indexed as: Machtinger v. HOJ Industries Ltd. 
+ File No.: 21586. 
+ 1991: November 5. 
+ Rehearing: 1992: March 2; 1992: April 30. 
+ Present: La Forest, L'Heureux‑Dubé, Sopinka, Gonthier, Cory, McLachlin and Iacobucci JJ. 
+ on appeal from the court of appeal for ontario 
+ Employment law ‑‑ Dismissal without cause ‑‑ Notice ‑‑ Employment contracts providing for notice periods less than statutory minimum ‑‑ Contractual provisions null and void -- Whether employees entitled to reasonable notice or to statutory minimum ‑‑ Employment Standards Act, R.S.O. 1980, c. 137, ss. 3, 4, 6, 40(1)(c), (7)(a). 
+ Both appellants began working for the respondent, a car dealer, in 1978, and were discharged in 1985 without cause. At the time they were dismissed M was credit manager and rust‑proofing sales manager and L was sales manager. Each had entered into a contract for employment for an indefinite period which contained a clause allowing the respondent to terminate his employment without cause, in M's case without notice and in L's case on two weeks' notice. Under the provincial Employment Standards Act the appellants were entitled to a minimum notice period of four weeks. After they were dismissed, the respondent paid each of them the equivalent of four weeks' salary. The trial judge awarded the appellants damages for wrongful dismissal. He found that they were entitled to reasonable notice of termination, and that the period of reasonable notice for M was 7 months and for L, 7½ months. The Court of Appeal reversed the judgments. It found that the contractual notice provisions were null and void, but held that the provisions could nonetheless be used as evidence of the parties' intention. Since a term that the contracts could only be terminated on reasonable notice was contrary to the parties' expressed intention, the Court of Appeal found that the appellants were limited to the benefits conferred by the Act and that the respondent had complied with the Act by giving them four weeks' pay in lieu of notice. 
+ Held: The appeal should be allowed. 
+ Per La Forest, L'Heureux-Dubé, Sopinka, Gonthier, Cory and Iacobucci JJ.: Employment contracts for an indefinite period require the employer, absent express contractual language to the contrary, to give reasonable notice of an intention to terminate the contract if the dismissal is without cause. For purposes of this appeal, this common law principle of termination only on reasonable notice should be characterized as a presumption, rebuttable if the contract clearly specifies some other period of notice, whether expressly or impliedly. What constitutes reasonable notice will vary with the circumstances of each case and will depend on the character of the employment, the length of service, the employee's age and the availability of similar employment having regard to the employee's experience, training and qualifications. 
+ Neither the minimum notice periods set out in the Employment Standards Act nor the terms of the two employment contracts operate to displace the common law presumption of reasonable notice. Section 6 states that the Act does not affect the right of an employee to seek a civil remedy from his or her employer, and under s. 4(2) a "right, benefit, term or condition of employment under a contract" that provides a greater benefit to an employee prevails over the standards in the Act. The effect of ss. 3 and 4 of the Act is to make any attempt to contract out of the minimum employment standards of the Act by providing for lesser benefits "null and void". The two contracts at issue here specify notice periods shorter than the statutory minimum, and the termination clauses are thus null and void, and cannot be used as evidence of the parties' intention. 
+ Policy considerations support the conclusion that where an employment contract fails to comply with the minimum notice periods set out in the Act, the employee can only be dismissed without cause if he or she is given reasonable notice of termination. An interpretation of the Act which encourages employers to comply with its minimum requirements, and so extends the Act's protection to as many employees as possible, is to be favoured over one that does not. If the only sanction which employers potentially face for failure to respect the minimum notice periods is an order that they comply with the Act, they will have little incentive to make contracts with their employees that meet the statutory standards. Many individual employees are unaware of their legal rights, and employers can rely on the fact that they will not challenge contractual notice periods below the statutory minimum. It is more consistent with the objects of the Act to take the approach that, if an employment contract fails to comply with the minimum statutory notice provisions, then the presumption of reasonable notice will not have been rebutted. 
+ Per McLachlin J.: Iacobucci J.'s reasons were substantially agreed with, subject to the following comments. Resolution of this case necessarily involves an examination of the principles of law governing implied contractual terms and, in particular, the role to be assigned to the intention of the parties in determining the term to be implied. To succeed in an action for breach of a contract of employment, a plaintiff must establish the existence of a term of the contract entitling him to reasonable notice of termination, and that the term was breached by the employer. A presumption is simply an evidentiary technique and in this case must operate so as to presume the existence of a term of reasonable notice in the contract. The intention of the contracting parties is relevant to terms implied as a matter of fact, but not to those implied as a matter of law, and requirements for reasonable notice in employment contracts fall into the category of terms implied by law. The employer's legal obligation to give reasonable notice of termination can be displaced only by an express contrary agreement, and there is no contrary agreement here, the Act having rendered the notice provisions in the contracts null and void. 
+ Cases Cited 
+ By Iacobucci J. 
+ Referred to: Collins v. Kappele (1983), 3 C.C.E.L. 228; Pickup v. Litton Business Equipment Ltd. (1983), 3 C.C.E.L. 266; Bardal v. Globe & Mail Ltd. (1960), 24 D.L.R. (2d) 140; Carter v. Bell & Sons (Canada) Ltd., [1936] O.R. 290; Prozak v. Bell Telephone Co. of Canada (1984), 46 O.R. (2d) 385; Rover International Ltd. v. Cannon Film Sales Ltd., [1989] 1 W.L.R. 912; Erlund v. Quality Communication Products Ltd. (1972), 29 D.L.R. (3d) 476; James v. Thomas H. Kent & Co., [1950] 2 All E.R. 1099; Suleman v. British Columbia Research Council (1989), 38 B.C.L.R. (2d) 208; Reference Re Public Service Employee Relations Act (Alta.), [1987] 1 S.C.R. 313; Canadian Pacific Hotels Ltd. v. Bank of Montreal, [1987] 1 S.C.R. 711. 
+ By McLachlin J. 
+ Considered: Canadian Pacific Hotels Ltd. v. Bank of Montreal, [1987] 1 S.C.R. 711; Liverpool City Council v. Irwin, [1977] A.C. 239, varying [1976] 1 Q.B. 319; referred to: Allison v. Amoco Production Co., [1975] 5 W.W.R. 501; Bardal v. Globe & Mail Ltd. (1960), 24 D.L.R. (2d) 140; Tai Hing Cotton Mill Ltd. v. Liu Chong Hing Bank Ltd., [1986] A.C. 80, rev'g [1984] 1 Lloyd's Rep. 555; Lister v. Romford Ice and Cold Storage Co., [1957] A.C. 55; Sterling Engineering Co. v. Patchett, [1955] A.C. 534. 
+ Statutes and Regulations Cited 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-36.0pt;line-height:12.2pt">Employment Standards Act, R.S.O. 1980, c. 137, ss. 1, 2, 3, 4, 6, 40(1)(c), (7)(a) [rep. & sub. 1981, c. 22, s. 1(3)]. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-36.0pt;line-height:12.2pt">Interpretation Act, R.S.O. 1980, c. 219, s. 10. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-36.0pt;line-height:12.2pt">Statute of Artificers (U.K.), 5 Eliz. 1, c. 4. 
+ Authors Cited 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-36.0pt;line-height:12.2pt">Christie, Innis. Employment Law in Canada. Toronto: Butterworths, 1980. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-36.0pt;line-height:12.2pt">Etherington, Brian. "The Enforcement of Harsh Termination Provisions in Personal Employment Contracts: The Rebirth of Freedom of Contract in Ontario" (1990), 35 McGill L.J. 459. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-36.0pt;line-height:12.2pt">Freedland, M. R. The Contract of Employment. Oxford: Clarendon Press, 1976. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-36.0pt;line-height:12.2pt">Jacoby, Sanford M. "The Duration of Indefinite Employment Contracts in the United States and England: An Historical Analysis" (1982), 5 Comp. Lab. L.J. 85. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-36.0pt;line-height:12.2pt">Swinton, Katherine. "Contract Law and the Employment Relationship: The Proper Forum for Reform". In Barry J. Reiter and John Swan, eds., Studies in Contract Law. Toronto: Butterworths, 1980, 357. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-36.0pt;line-height:12.2pt">Treitel, G. H. The Law of Contract, 7th ed. London: Stevens: Sweet & Maxwell, 1987. 
+ APPEAL from a judgment of the Ontario Court of Appeal (1988), 66 O.R. (2d) 545, 55 D.L.R. (4th) 401, 31 O.A.C. 1, 23 C.C.E.L. 77, reversing judgments of Hollingworth J. awarding appellants damages for wrongful dismissal. Appeal allowed. 
+ Howard A. Levitt, Constance C. Olsheski and Stacey R. Ball, for the appellants. 
+ John R. Sproat, for the respondent. 
+ //Iacobucci J.// 
+ The judgment of La Forest, L'Heureux-Dubé, Sopinka, Gonthier, Cory and Iacobucci JJ. was delivered by 
+ Iacobucci J. -- This appeal concerns the contractual rights of employees who are dismissed without cause by their employers. Specifically, where a contract of employment provides for notice periods less than the minimum prescribed by the applicable employment standards legislation, which in this case is the Employment Standards Act, R.S.O. 1980, c. 137 (the "Act"), and absent any claims of unconscionability or oppression, is an employee entitled to reasonable notice of dismissal, or to the minimum statutory notice period? The answer to this question is of considerable importance to employees. 
+ Indeed, it has been pointed out that the law governing the termination of employment significantly affects the economic and psychological welfare of employees. See K. Swinton, "Contract Law and the Employment Relationship: The Proper Forum for Reform", in B. J. Reiter and J. Swan, eds., Studies in Contract Law (1980) 357, at pp. 360-61 (footnotes omitted): 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">The law governing termination of employment is obviously of significant importance to an individual worker, for the degree of job security which he is assured depends upon the ease with which the law allows his employer to terminate his employment. Discharge has serious financial ramifications for the individual in that it puts an end to remuneration, as well as to less quantifiable economic benefits such as accrued seniority. Discharge can have ongoing financial effects, as well, for the reason given for termination (if any) may affect accessibility to future jobs as well as entitlement to government benefits such as unemployment insurance. The psychological effects of discharge are also important, because of the disruption in the individual's life caused by seeking new employment and establishing himself in a new environment. 
+ 1. Facts 
+ The two appellants were employed by the respondent Hoj Industries Ltd., which was a new and used car dealer. The appellant Marek Machtinger ("Machtinger") began working as a car salesperson for the respondent in 1978. Machtinger was continuously employed by the respondent except for a three-month period in 1980. On June 24, 1985, Machtinger was dismissed by the respondent, which has not alleged that it had cause for dismissal. At the time Machtinger was dismissed, he was credit manager and rust-proofing sales manager for the respondent. His earnings in his last full year of employment were $85,342.36. The appellant Gilles Lefebvre ("Lefebvre") also began working for the respondent in 1978. He also was discharged on June 24, 1985, and again the respondent has not alleged that it had cause to dismiss him. Lefebvre was sales manager for the respondent at the time of his dismissal. In his last full year of employment his earnings were $74,220.79. 
+ At issue in this case are the contracts of employment entered into between the appellants and the respondent. Machtinger entered into two contracts with the respondent. The second contract, dated January 11, 1985, was for employment for an indefinite period. The relevant portion of the contract is the termination provision, which reads as follows: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">Termination -- Employer may terminate employment at any time without notice for cause. Otherwise, Employer may terminate employment on giving Employee 0 weeks notice or salary (which does not include bonus) in lieu of notice. Bonus, if any, will be calculated and payable only to the date of the giving of notice of termination. 
+ The contract is on a preprinted form, with a blank space left for the notice period. The digit zero has been handwritten in the blank space. 
+ The relevant contract between the respondent and Lefebvre was dated January 10, 1985, and was also for an indefinite period. The termination clause is in every respect identical to that in the document signed by Machtinger, except that the period of notice for termination without cause is two weeks, that is, the word "two" has been handwritten into the space left blank for the notice period. 
+ The appellants acknowledged at trial that, save for the effect of the provisions of the Act, the termination provisions were valid. The appellants make no allegations of unconscionability or oppressive acts on behalf of the respondent. After Lefebvre and Machtinger were dismissed, the respondent paid each of them the equivalent of four weeks' salary. 
+ II. Judgments Below 
+ A. Supreme Court of Ontario 
+ The two cases were tried before Hollingworth J. on April 9 and 10, 1987. On April 9, 1987 Hollingworth J. made a preliminary ruling on the standard for determining the appropriate notice period in each case. The issue was whether the payment of four weeks' salary in lieu of notice to Machtinger and Lefebvre was sufficient, or whether Machtinger and Lefebvre were entitled to what would be considered reasonable notice at common law. 
+ Hollingworth J. held that Lefebvre and Machtinger were entitled to reasonable notice of termination. Relying on two Ontario County Court decisions, Collins v. Kappele (1983), 3 C.C.E.L. 228 and Pickup v. Litton Business Equipment Ltd. (1983), 3 C.C.E.L. 266, the learned trial judge held that the termination clauses in the two contracts were invalid because they did not comply with the minimum notice period of four weeks required by the Act. In holding that the appellants were entitled to reasonable notice, Hollingworth J. also relied on s. 6 of the Act, which provides that the civil remedies of an employee are not affected by the Act. 
+ Hollingworth J. delivered his judgment orally on April 10, 1987. At the outset, he rejected the argument that the period of reasonable notice should be reduced because the present appellants had signed contracts in which they agreed to very short notice periods. The respondent had argued following Pickup, supra, that the period of notice should be reduced by 25 percent because Machtinger and Lefebvre had agreed to very short notice periods. Hollingworth J. found that this case could be distinguished from Pickup because the termination clauses in this case were "unconscionable". 
+ Following Bardal v. Globe & Mail Ltd. (1960), 24 D.L.R. (2d) 140 (Ont. H.C.), Hollingworth J. held that the period of reasonable notice for Machtinger was 7 months, and for Lefebvre, 7½ months. He left the quantum of damages to be agreed between the parties. 
+ B. Ontario Court of Appeal (1988), 66 O.R. (2d) 545 
+ The unanimous judgment of the Ontario Court of Appeal allowing the respondent's appeal was delivered by Howland C.J.O. (Goodman and Robins JJ.A. concurring). The Court of Appeal found that, although the attempt of the parties to contract for a period of notice less than the minimum required by the Act was necessarily null and void, the course of dealing between the parties and the terms of the contract provided evidence from which the intention of the parties could be inferred. Howland C.J.O. found that the parties had never intended that there should be a period of 7 or 7½ months' notice (at pp. 549-50): 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> In my opinion, a term should not be implied that a contract of employment could only be terminated on reasonable notice where the parties have by agreement over a period of time expressly provided for either no notice or for two weeks' notice. While the express termination provisions are null and void under the Employment Standards Act, there is evidence before the court as to the prior dealings between the parties and the existence of employment contracts whose terms represented the agreement of the parties. In those circumstances, a term requiring reasonable notice should not be implied. The parties never intended that there should have been a period of seven or seven and one-half months' notice. 
+ Howland C.J.O. held that Pickup, supra, was not good law, and distinguished Collins, supra, on the grounds that in that case the circumstances had so changed over the course of the plaintiff's employment that "the whole substratum of the contract disappeared" (at p. 551). 
+ In the absence of an implied term of reasonable notice in the two contracts, Howland C.J.O. held that Machtinger and Lefebvre were limited to the benefits conferred by the Act. The minimum period of notice being fixed at four weeks by s. 40(1)(c) of the Act, Howland C.J.O. held that the respondent had complied with the Act by paying Machtinger and Lefebvre four weeks' pay in lieu of notice. 
+ III. Statutory Provisions 
+ Employment Standards Act, R.S.O. 1980, c. 137 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> 1. In this Act, 
+ ... 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-78.45pt;line-height:12.2pt"> (e) "employment standard" means a requirement imposed upon an employer in favour of an employee by this Act or the regulations; 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> 2. ... 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> (2) This Act applies to every contract of employment, oral or written, express or implied, 
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-113.0pt;line-height:12.2pt"> (a)where the employment is for work or services to be performed in Ontario; or 
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-113.0pt;line-height:12.2pt"> (b)where the employment is for work or services to be performed both in and out of Ontario and the work or services out of Ontario are a continu­ation of the work or services in Ontario. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> 3. Subject to section 4, no employer, employee, employers' organization or em­ployees' organization shall contract out of or waive an employment standard, and any such contracting out or waiver is null and void. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> 4. (1) An employment standard shall be deemed a minimum requirement only. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> (2) A right, benefit, term or condition of employment under a contract, oral or written, express or implied, or under any other Act or any schedule, order or regula­tion made thereunder that provides in favour of an employee a higher remuneration in money, a greater right or benefit or lesser hours of work than the requirement imposed by an employment standard shall prevail over an employment standard. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> 6. No civil remedy of an employee against his employer is suspended or affected by this Act. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> 40. (1) No employer shall terminate the employment of an employee who has been employed for three months or more unless he gives, 
+ ... 
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-113.0pt;line-height:12.2pt"> (c)four weeks notice in writing to the employee if his period of employ­ment is five years or more but less than ten years 
+ . . . 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">and such notice has expired. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> (7) Where the employment of an employee is terminated contrary to this section, 
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-113.0pt;line-height:12.2pt">(a)the employer shall pay termination pay in an amount equal to the wages that the employee would have been entitled to receive at his regular rate for a regular non-overtime work week for the period of notice prescribed by subsection (1) . . . and any wages to which he is entitled; 
+ IV. Issue on Appeal 
+ This appeal raises one issue, namely: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:24.4pt">If an employment contract stipulates a period of notice less than that required by the Employment Standards Act, R.S.O. 1980, c. 137, is an employee who is dismissed without cause entitled to reasonable notice of termination, or to the minimum period of notice required by the Act? 
+ V. Analysis 
+ A. Introduction 
+ At least on their face, the two contracts at issue in this case represent attempts to contract out of the minimum notice periods required by the Act. Under these circumstances, the question posed by this appeal is deceptively simple: of what significance is an attempt to contract out of the minimum notice re­quirements of the Act? 
+ Howland C.J.O. held that, although the contractual terms were in breach of the Act, they were nonetheless relevant to determining the intention of the parties as to what the notice period should be. Specifically, Howland C.J.O. held that the terms of the contracts entered into by the parties were such as to make it unnecessary and improper for the court to imply a term of reasonable notice. Instead, Howland C.J.O. gave effect to the intention of the parties, as evidenced by the terms of the contracts they entered into, and held that the appellants were entitled only to the minimum notice period set out in the Act. 
+ With respect, I cannot agree with the reasoning of the Chief Justice of Ontario, and I have come to the conclusion that the appeal must be allowed. I divide my analysis into three parts. In the first part, I discuss the common law presumption that reasonable notice is required to terminate contracts of employment for an indefinite term. In the second part, I review the impact of the provisions of the Act on the two contracts at issue in this appeal. Finally, I turn to a consideration of the policy dimensions of the issue before us. 
+ B. Reasonable Notice at Common Law 
+ The history of the common law principle that a contract for employment for an indefinite period is terminable only if reasonable notice is given is a long and interesting one, going back at least to 1562 and the Statute of Artificers, 5 Eliz. 1, c. 4. The Statute of Artificers prohibited employers from dismissing their servants unless sufficient cause had been shown before two justices of the peace: see S. M. Jacoby, "The Duration of Indefinite Employment Contracts in the United States and England: An Historical Analysis" (1982), 5 Comp. Lab. L.J. 85, at p. 88. By the middle of the nineteenth century, however, English courts were beginning to imply a term into contracts of employment that the contract could be terminated without cause provided that reasonable notice was given. Although it was initially necessary to prove the incorporation of a custom of termination on reasonable notice into the contract in each particular case, the English courts gradually came to accept reasonable notice as a contractual term to be implied in the absence of evidence to the contrary: M. R. Freedland, The Contract of Employment (1976), at pp. 151-54. In Canada, it has been established since at least 1936 that employment contracts for an indefinite period require the employer, absent express contractual language to the contrary, to give reasonable notice of an intention to terminate the contract if the dismissal is without cause: Carter v. Bell & Sons (Canada) Ltd., [1936] O.R. 290 (C.A.). 
+ The parties devoted considerable attention in argument before us to the law governing the implication of contractual terms, and specifically to the relevance of the intention of the parties to the implication of a term of reasonable notice of termination in employment contracts. The relationship between intention and the implication of contractual terms is complex, and I am of the opinion that this appeal can and should be resolved on narrower grounds. For the purposes of this appeal, I would characterize the common law principle of termination only on reasonable notice as a presumption, rebuttable if the contract of employment clearly specifies some other period of notice, whether expressly or impliedly. 
+ This is the approach taken by Freedland, supra, who states that, "the pattern of contract now generally accepted and applied by the courts in the absence of evidence to the contrary is one of employment for an indefinite period terminable by either party upon reasonable notice, but only upon reasonable notice" (p. 153). The same approach was adopted by the Ontario Court of Appeal in Prozak v. Bell Telephone Co. of Canada (1984), 46 O.R. (2d) 385. Writing for the court, Goodman J.A. noted at p. 399 that, "if a contract of employment makes no express or specifically implied provision for its duration or termination, there is likely to be implied at common law a presumption that the contract is for an indefinite period and terminable by a reasonable notice given by either party. . .". Basically, this is also the approach taken by I. Christie, in Employment Law in Canada (1980), at p. 347. 
+ What constitutes reasonable notice will vary with the circumstances of any particular case. The most frequently cited enumeration of factors relevant to the assessment of reasonable notice is from the judgment of McRuer C.J.H.C. in Bardal, supra, at p. 145: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> There can be no catalogue laid down as to what is reasonable notice in particular classes of cases. The reasonableness of the notice must be decided with reference to each particular case, having regard to the character of the employment, the length of service of the servant, the age of the servant and the availability of similar employment, having regard to the experience, training and qualifications of the servant. 
+ Hollingworth J. referred to the factors set out in Bardal in determining what would constitute reasonable notice for the two appellants. His determination in this respect was not challenged in this appeal. 
+ C. The Employment Standards Act 
+ It was acknowledged by the appellants and the respondent that, but for the possible effects of the Act, no issue as to the validity of the employment contracts would have arisen. The presumption at common law that a contract of employment for an indefinite term is terminable only on reasonable notice would have been rebutted by the clear language of the contract specifying shorter notice periods. But what is the effect of the Act? 
+ The Act provides for mandatory minimum notice periods. The provision relevant to the appellants is set out in s. 40(1)(c) of the Act, which provides that an employer must give any employee who has been employed for five years or more but less than ten years four weeks' notice of termination. Section 40(7)(a) provides that, if the required notice is not given, the employer shall pay the employee an amount equivalent to his or her regular wages for the period of notice. 
+ It is also clear from ss. 4 and 6 of the Act that the minimum notice periods set out in the Act do not operate to displace the presumption at common law of reasonable notice. Section 6 of the Act states that the Act does not affect the right of an employee to seek a civil remedy from his or her employer. Section 4(2) states that a "right, benefit, term or condition of employment under a contract" that provides a greater benefit to an employee than the standards set out in the Act shall prevail over the standards in the Act. I have no difficulty in concluding that the common law presumption of reasonable notice is a "benefit", which, if the period of notice required by the common law is greater than that required by the Act, will, if otherwise applicable, prevail over the notice period set out in the Act. Any possible doubt on this question is dispelled by s. 4(1) of the Act, which expressly deems the employment standards set out in the Act to be minimum requirements only. 
+ What is at issue in this appeal is the effect, if any, to be given to a term of an employment contract which does not comply with the minimum notice requirements of the Act. Is such a term capable of displacing the common law presumption of reasonable notice? The effect of ss. 3 and 4 of the Act is to make any attempt to contract out of the minimum employment standards of the Act by providing for lesser benefits than those minimum employment standards, "null and void". The two contracts at issue on this appeal do attempt to contract out of the minimum notice period set out in s. 40(1)(c) of the Act by specifying notice periods shorter than the statutory minimum. Accordingly, the two contracts are not in compliance with the mandatory language of s. 3 of the Act, and those portions of the two contracts specifying the notice periods are "null and void". 
+ In argument, the respondent accepted that the attempt to contract out of the provisions of the Act was "null and void", but argued that the documents should be considered as evidence "that contracts were entered into which expressed clearly the intention of the parties with respect to notice of termination." I cannot accept this argument. In Rover International Ltd. v. Cannon Film Sales Ltd., [1989] 1 W.L.R. 912, the Court of Appeal was faced with a contract which was entirely void. Kerr L.J. refused to look to the terms of the contract to limit the recovery of the appellant in quantum meruit (p. 928): 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">. . . if the imposition of a "ceiling" in the present case were accepted, then the consequences would be far-reaching and undesirable in other situations which it would be impossible to distinguish in principle. It would then follow that an evaluation of the position of the parties to a void contract, or to one which becomes ineffective subsequently, could always be called for. We know that this is not the position in the case of frustrated contracts, which are governed by the Law Reform (Frustrated Contracts) Act 1943. It would cause many difficulties if the position were different in relation to contracts which are void ab initio. By analogy to [the respondent's] submission in the present case, in deciding on the equities of restitution the court could then always be called upon to analyse or attempt to forecast the relative position of the parties under a contract which is ex hypothesi non-existent. This is not an attractive proposition, and I can see no justification for it in principle or upon any authority. 
+ In this case we are not faced with an entirely void contract, but a contract of which one clause is null and void by operation of statute. I would nonetheless apply the reasoning of Kerr L.J.: if a term is null and void, then it is null and void for all purposes, and cannot be used as evidence of the parties' intention. If the intention of the parties is to make an unlawful contract, no lawful contractual term can be derived from their intention. In Erlund v. Quality Communication Products Ltd. (1972), 29 D.L.R. (3d) 476 (Man. Q.B.), Wilson J. was faced with a contract of employment which was void by reason of the Statute of Frauds. Relying on James v. Thomas H. Kent & Co., [1950] 2 All E.R. 1099 (C.A.), Wilson J. held that in the absence of a valid contract, he had no choice but to imply a term that the employee was entitled to reasonable notice. 
+ Moreover, because the Act declares the notice provisions of the contracts in dispute to be null and void, it seems to me that the proper question to ask in determining the parties' intention is: what did the parties intend should the notice provisions be found to be null and void? There is simply no evidence with which to answer this question. In Suleman v. British Columbia Research Council (1989), 38 B.C.L.R. (2d) 208, Lysyk J., on facts analogous to those in the case at bar, found that there was no evidence of the parties' intention in the face of minimum employment standards with which the employer was required to comply. Lysyk J. was considering the effect of s. 2(1) of the Employment Standards Act, S.B.C. 1980, c. 10, which is very similar in wording to s. 3 of the Act. Lysyk J. concluded as follows, at p. 214: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">I find nothing in the evidence in the present case to warrant the conclusion that the parties, had they turned their minds to the subject, would have agreed to substitute for the void contractual term the minimum period of notice required by statute instead of looking to the common law standard of reasonable notice. 
+ D. Policy Considerations 
+ I turn finally to the policy considerations which impact on the issue in this appeal. Although the issue may appear to be a narrow one, it is nonetheless important because employment is of central importance to our society. As Dickson C.J. noted in Reference Re Public Service Employee Relations Act (Alta.), [1987] 1 S.C.R. 313, at p. 368: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> Work is one of the most fundamental aspects in a person's life, providing the individual with a means of financial support and, as importantly, a contributory role in society. A person's employment is an essential component of his or her sense of identity, self-worth and emotional well-being. 
+ I would add that not only is work fundamental to an individual's identity, but also that the manner in which employment can be terminated is equally important. 
+ Section 10 of the Interpretation Act, R.S.O. 1980, c. 219, provides that every Act "shall be deemed to be remedial" and directs that every Act shall "receive such fair, large and liberal construction and interpretation as will best ensure the attainment of the object of the Act according to its true intent, meaning and spirit." The objective of the Act is to protect the interests of employees by requiring employers to comply with certain minimum standards, including minimum periods of notice of termination. To quote Conant Co. Ct. J. in Pickup, supra, at p. 274, "the general intention of this legislation [i.e. the Act] is the protection of employees, and to that end it institutes reasonable, fair and uniform minimum standards." The harm which the Act seeks to remedy is that individual employees, and in particular non-unionized employees, are often in an unequal bargaining position in relation to their employers. As stated by Swinton, supra, at p. 363: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">. . . the terms of the employment contract rarely result from an exercise of free bargaining power in the way that the paradigm commercial exchange between two traders does. Individual employees on the whole lack both the bargaining power and the information necessary to achieve more favourable contract provisions than those offered by the employer, particularly with regard to tenure. 
+ Accordingly, an interpretation of the Act which encourages employers to comply with the minimum requirements of the Act, and so extends its protections to as many employees as possible, is to be favoured over one that does not. In this regard, the fact that many individual employees may be unaware of their statutory and common law rights in the employment context is of fundamental importance. As B. Etherington suggests in "The Enforcement of Harsh Termination Provisions in Personal Employment Contracts: The Rebirth of Freedom of Contract in Ontario" (1990), 35 McGill L.J. 459, at p. 468, "the majority of unorganized employees would not even expect reasonable notice prior to dismissal and many would be surprised to learn they are not employed at the employer's discretion." 
+ If the only sanction which employers potentially face for failure to comply with the minimum notice periods prescribed by the Act is an order that they minimally comply with the Act, employers will have little incentive to make contracts with their employees that comply with the Act. As Swinton and Etherington suggest, most individual employees are unaware of their legal rights, or unwilling or unable to go to the trouble and expense of having them vindicated. Employers can rely on the fact that many employees will not challenge contractual notice provisions which are in fact contrary to employment standards legislation. Employers such as the present respondent can contract with their employees for notice periods below the statutory minimum, knowing that only those individual employees who take legal action after they are dismissed will in fact receive the protection of the minimum statutory notice provisions. 
+ In my view, an approach more consistent with the objects of the Act is that, if an employment contract fails to comply with the minimum statutory notice provisions of the Act, then the presumption of reasonable notice will not have been rebutted. Employers will have an incentive to comply with the Act to avoid the potentially longer notice periods required by the common law, and in consequence more employees are likely to receive the benefit of the minimum notice requirements. Such an approach is also more consistent with the legislative intention expressed by s. 6 of the Act, which expressly preserves the civil remedies otherwise available to an employee against his or her employer. 
+ Moreover, this approach provides protection for employees in a manner that does not disproportionately burden employers. Absent considerations of unconscionability, an employer can readily make contracts with his or her employees which referentially incorporate the minimum notice periods set out in the Act or otherwise take into account later changes to the Act or to the employees' notice entitlement under the Act. Such contractual notice provisions would be sufficient to displace the presumption that the contract is terminable without cause only on reasonable notice. This point was recognized by Lysyk J. in Suleman, supra, at p. 214: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> An employer who wishes to guard against being called upon to give any more notice or severance pay than legislation demands can readily draw a contractual clause which, in effect, converts the statutory floor into a ceiling. But here the employer has authored a contractual term which simply fails to comply with the law. In such circumstances, it is not evident why the employee should be placed in a worse position than if the contract had said nothing at all about notice of termination. 
+ Finally, I would note that the Act sets out what the provincial legislature deems to be fair minimum notice periods. One of the purposes of the Act is to ensure that employees who are discharged are discharged fairly. In the present case, the employer attempted to contract with its employees for notice periods which were less than what the legislature had deemed to be fair minimum notice periods. Given that the employer has attempted, whether deliberately or not, to frustrate the intention of the legislature, it would indeed be perverse to allow the employer to avail itself of legislative provisions intended to protect employees, so as to deny the employees their common law right to reasonable notice. 
+ VI. Conclusion and Disposition 
+ I would conclude that both the plain meaning of ss. 3, 4 and 6 and a consideration of the objects of the Act lead to the same result: where an employment contract fails to comply with the minimum notice periods set out in the Act, the employee can only be dismissed without cause if he or she is given reasonable notice of termination. 
+ Accordingly, the appeal should be allowed, the decision of the Ontario Court of Appeal set aside, and the judgment of Hollingworth J. restored. The appellants shall have their costs here and in the courts below. 
+ I have had the benefit of reading the reasons of my colleague, McLachlin J. I simply wish to add that, although I agree with her conclusion, I do not find it necessary or advisable to revisit Canadian Pacific Hotels Ltd. v. Bank of Montreal, [1987] 1 S.C.R. 711, to dispose of this appeal. 
+ //McLachlin J.// 
+ The following are the reasons delivered by 
+ McLachlin J. -- I agree with my colleague Justice Iacobucci that the judgment of the Court of Appeal must be set aside and that the plaintiffs are entitled to reasonable notice notwithstanding the contractual terms to the contrary. While I am in substantial agreement with my colleague, I find that I differ from him on one, to my mind, crucial point. In my view, resolution of this case necessarily involves an examination of the principles of law governing implied contractual terms, and in particular, the role to be assigned to the intention of the parties in determining the term to be implied in a case such as this. This, as I apprehend the arguments and the judgments below, is the heart of the debate before us. 
+ The cause of action on which the plaintiffs rely is breach of contract, to be more specific, breach of a contract of employment. To succeed each plaintiff must establish: (a) the existence of a term of the contract entitling him to reasonable notice of termination; and (b) that that term was breached by the employer. Iacobucci J. purports to circumvent this algorithm by stating that the case can be resolved on the narrower ground of a "presumption". But to assist the plaintiffs, that presumption must operate so as to presume the existence of a term of reasonable notice in the contract; otherwise the plaintiffs have no cause of action. To put it another way, a presumption is simply an evidentiary technique by which the elements of a cause of action may be established; it cannot itself stand as an element of a cause of action. So any attempt to avoid the question of implied terms is illusory, as I see the matter. 
+ The difficulty experienced by each plaintiff is that the contract between him and his employer contained an express term stipulating that the plaintiff was entitled, in the case of Machtinger, to no notice whatsoever, and in the case of Lefebvre, to only two weeks' notice. The first problem is to displace this term. That is done by the Employment Standards Act, R.S.O. 1980, c. 137, s. 40(1) of which stipulated a minimum period of notice in the circumstances of this case of four weeks. As explained by Iacobucci J., the effect of ss. 3 and 4 of the Act is to render the stipulation for lesser notice null and void. We arrive then at the situation where there is no term in the contract dealing with notice upon dismissal. 
+ The law says that where the contract is silent as to the term of notice upon dismissal, the court will imply a term of notice. But what term should be implied? Here the courts below divided. The trial judge says the term to be implied is one for "reasonable notice". He based his assessment of reasonable notice on what was generally fair in the circumstances, without reduction for the fact that the parties to the contract had expressed the intention in their contracts that the plaintiffs were to be entitled to no or only nominal notice. He found that period to be 7 months in the case of Machtinger, 7½ months in the case of Lefebvre. 
+ The Court of Appeal, on the other hand, felt that the term implied must reflect the intention of the parties. Since the parties never intended notice of 7 to 7½ months, the Court imposed the term which, within the limits of the Act, best reflected that intention, namely four weeks. 
+ So the real issue is this: in the absence in a contract of employment of a legally enforceable term providing for notice on termination, on what basis is a court to imply a notice period, and in particular, to what extent is intention to be taken into account in fixing an implied term of reasonable notice in an employment contract? 
+ This question cannot be answered without examining the legal principles governing the implication of terms. The intention of the contracting parties is relevant to the determination of some implied terms, but not all. Intention is relevant to terms implied as a matter of fact, where the question is what the parties would have stipulated had their attention been drawn at the time of contracting to the matter at issue. Intention is not, however, relevant to terms implied as a matter of law. As to the distinction between types of implied terms see Treitel, The Law of Contract (7th ed. 1987), at pp. 158-165 (dividing them into three groups: terms implied in fact; terms implied in law; and terms implied as a matter of custom or usage), and Canadian Pacific Hotels Ltd. v. Bank of Montreal, [1987] 1 S.C.R. 711. 
+ Requirements for reasonable notice in employment contracts fall into the category of terms implied by law: Allison v. Amoco Production Co., [1975] 5 W.W.R. 501 (Alta. S.C.), at pp. 508-9 per MacDonald J. They do not depend upon custom or usage, although custom and usage can be an element in determining the nature and scope of the legal duty imposed. Nor do they fall into the category of terms implied as a matter of fact, where the law supplies a term which the parties overlooked but obviously assumed. 
+ Terms implied in contracts of employment imposing reasonable notice requirements depend rather on a number of factors, which 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">. . . must be decided with reference to each particular case, having regard to the character of the employment, the length of service of the servant, the age of the servant and the availability of similar employment, having regard to the experience, training and qualifications of the servant. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:24.4pt">(Bardal v. Globe & Mail Ltd. (1960), 24 D.L.R. (2d) 140 (Ont. H.C.), at p. 145 per McRuer C.J.H.C.) 
+ These considerations determine the appropriate notice period on termination. They do not depend upon contractual intention. Indeed, some of them -- such as the length of service and prospects of employment -- are usually not known at the time the contract is made. Thus the term of notice fixed by the court is, to borrow the language of Treitel at p. 162, a "legal incident" of a particular kind of contractual relationship. 
+ In my opinion, this analysis is fully in accordance with the decision of this Court in CP Hotels, supra. In that case Le Dain J. analyzed the bases upon which a term may be implied in a contract. The first category includes terms implied as a matter of custom or usage. In order for a term to be implied on this basis there must be evidence to support an inference that the parties to the contract would have understood such a custom or usage to be applicable; terms are implied in this manner on the basis of a presumed intention. The second category encompasses terms implied as necessary to give business efficacy to a contract. These are terms which the parties to a given contract would obviously have assumed. They are thus also implied on the basis of presumed intention, and correspond to Treitel's category of terms implied in fact. 
+ The final category of implied terms considered in CP Hotels, supra, is the one applicable in the present case. These are terms implied not on the basis of presumed intention, but "as legal incidents of a particular class or kind of contract, the nature and content of which have to be largely determined by implication" (p. 776). These correspond to Treitel's category of terms implied in law. 
+ Relying on the decision of the House of Lords in Liverpool City Council v. Irwin, [1977] A.C. 239, Le Dain J. suggested that the test for implication of a term as a matter of law is necessity. An examination of that case reveals what is meant by "necessity" in this context. In that case the House of Lords was concerned to reject the test for implication of such terms proposed by Lord Denning M.R. in dissent in the Court of Appeal, under which a court could imply in law whatever term it thought "reasonable", including anticipating the recommendations for statutory reform of Law Reform Commissions.: Liverpool City Council v. Irwin, [1976] 1 Q.B. 319 (C.A.). This, the House of Lords thought, seemed "to extend a long, and undesirable, way beyond sound authority" (p. 254, per Lord Wilberforce). In its place Lord Wilberforce said that the applicable test was that "such obligation should be read into the contract as the nature of the contract implicitly requires, no more, no less: a test, in other words, of necessity" (p. 254). 
+ The test for "necessity" adopted by the House of Lords in Liverpool City Council is not whether the term is "necessary" for the very existence of the contract. All members of the House approved the implication of a term that a landlord in a tenancy agreement had an obligation to keep common parts of the building in repair. While the tenancy agreement could have continued without this term, it was necessary in a practical sense to the fair functioning of the agreement, given the relationship between the parties. As Cons J.A. described it in Tai Hing Cotton Mill Ltd. v. Liu Chong Hing Bank Ltd., [1984] 1 Lloyd's Rep. 555 (Hong Kong C.A.), the House of Lords took a "practical view of necessity" (p. 560). I note that although the Privy Council reversed Cons. J.A. in the result, it specifically approved as correct the analytical approach adopted by him: [1986] A.C. 80, at pp. 104-5. 
+ Lord Wilberforce relied on the earlier decision of the House in Lister v. Romford Ice and Cold Storage Co., [1957] A.C. 555, in stating that in determining what is necessary regard must be had to both "the inherent nature of a contract and of the relationship thereby established" (pp. 254-55). As Viscount Simonds said in that case, the question is whether the term sought to be implied is a "necessary condition" of the contractual relationship. Thus: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">. . . the real question becomes, not what terms can be implied in a contract between two individuals who are assumed to be making a bargain in regard to a particular transaction or course of business; we have to take a wider view, for we are concerned with a general question, which, if not correctly described as a question of status, yet can only be answered by considering the relation in which the drivers of motor-vehicles and their employers generally stand to each other. Just as the duty of care, rightly regarded as a contractual obligation, is imposed on the servant, or the duty not to disclose confidential information, or the duty not to betray secret processes, just as the duty is imposed on the master not to require his servant to do any illegal act, just so the question must be asked and answered whether in the world in which we live today it is a necessary condition of the relation of master and man that the master should, to use a broad colloquialism, look after the whole matter of insurance. [At p. 576, citations omitted.] 
+ In the same way, the question which courts have been asking themselves is whether in the world in which we live today it is a necessary condition of the relation (to use more modern language) of employer and employee that there should be a contractual duty imposed on the employer to provide the employee with reasonable notice of termination. The answer provided has been a resounding "yes". I agree with the following comment of Treitel on the Liverpool City Council necessity test: "it is, with respect, hard to see any difference between attaching a legal incident to a contract on the ground of necessity and imposing a duty" (p. 162). To my mind, where the law has for many years imposed a legal duty on contracting parties, as it has in implying the term that employers must give employees reasonable notice of termination, that duty has clearly been found to be "necessary" in the sense required by both the House of Lords in Liverpool City Council and this Court in CP Hotels. 
+ Viewed thus, the error of the Court of Appeal was to characterize a term properly implied in law as a term to be implied in fact. This led the court to look to the intention of the parties, as revealed in their course of dealing and the notice terms (now null and void) of their employment contracts, in determining what notice period ought to be implied. As the parties had contracted for less than reasonable notice of termination, the court held that it would be improper to imply a reasonable notice term into the contracts, and held the plaintiffs to be entitled only to the minimum notice periods required by the Act. 
+ But what is at issue is not the intention of the parties, but the legal obligation of the employer, implied in law as a necessary incident of this class of contract. That duty can be displaced only by an express contrary agreement: see Sterling Engineering Co. v. Patchett, [1955] A.C. 534 (H.L.), at pp. 543-44 per Viscount Simonds and at p. 547 per Lord Reid; Treitel, supra, at pp. 161-62. Since there is no contrary agreement here, the Act having rendered what contrary agreement there was null and void, the reasonable term of notice implied by the law is not displaced and will be imposed by the court. 
+ I would dispose of the appeal as proposed by Iacobucci J. 
+ Appeal allowed with costs. 
+ Solicitors for the appellants: Howard Levitt & Associates, Toronto. 
+ Solicitors for the respondent: Miller, Thomson, Toronto. 
+ You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.
+ Continue 
+ Do not display this message anymore
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.modalClose = "Close";

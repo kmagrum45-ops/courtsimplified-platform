@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/2693/index.do" />
+    <title>    Red Deer College v. Michaels - SCC Cases
+</title>
+    <link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/scc-csc/scc-csc/en/2693/1868579/res.do" />
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Red Deer College v. Michaels</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Red Deer College v. Michaels</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/scc-csc/fr/item/2693/index.do?alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content">
+<div id="decisia-document-header" class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisia-box">
+
+<h1>
+    <a id="decisia-decisions"></a>
+    Supreme Court Judgments
+</h1>
+
+<h2 class="accessibility-only">Decision Information</h2>
+<div class="metadata">
+
+    <h3 class="title">Red Deer College v. Michaels</h3>
+    <table>
+                    <tr>
+                        <td class="label">Collection</td>
+                        <td class="metadata">
+                                Supreme Court Judgments
+                    </tr>
+                    <tr>
+                        <td class="label">Date</td>
+                        <td class="metadata">
+                                1975-05-20
+                    </tr>
+                    <tr>
+                        <td class="label">Report</td>
+                        <td class="metadata">
+                                [1976] 2 SCR 324
+                    </tr>
+                    <tr>
+                        <td class="label">Judges</td>
+                        <td class="metadata">
+                                Laskin, Bora; Martland, Ronald; Spence, Wishart Flett; Beetz, Jean; de Grandpré, Louis-Philippe
+                    </tr>
+                    <tr>
+                        <td class="label">On appeal from</td>
+                        <td class="metadata">
+                                Alberta
+                    </tr>
+                    <tr>
+                        <td class="label">Subjects</td>
+                        <td class="metadata">
+                                Education law<br/>
+                                Labour law<br/>
+                    </tr>
+    </table>
+
+    <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2693/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+    </div>
+</div>
+
+
+
+</div>
+
+<div id="lexboxHook"></div>
+
+<h2 class="accessibility-only">Decision Content</h2>
+
+</div> 
+
+<div id="document-content">
+
+        
+<div class="documentcontent">
+  <div class="WordSection1">
+   <p class="Para" align="left" style="margin-top:0in;text-align:left"><b>SUPREME COURT OF CANADA</b></p>
+   <p class="Para" align="left" style="margin-top:0in;text-align:left"><b>Red Deer College v. Michaels, [1976] 2 S.C.R. 324</b></p>
+   <p class="Para" align="left" style="margin-top:0in;text-align:left"><b>Date:1975-05-20</b></p>
+   <p class="Metadata">Red Deer College (Defendant) Appellant;</p>
+   <p class="Metadata">and</p>
+   <p class="Metadata">Marion Rose Michaels and William Francis</p>
+   <p class="Metadata">Finn <i>(Plaintiffs) Respondents. </i></p>
+   <p class="Metadata">1974: December 4, 5, 6; 1975: May 20.</p>
+   <p class="Metadata">Present: Laskin C.J. and Martland, Spence, Beetz and de Grandpré JJ.</p>
+   <p class="Metadata">ON APPEAL FROM THE SUPREME COURT OF ALBERTA, APPELLATE DIVISION</p>
+   <p class="Keywords" style="text-indent:.25in">Master and servant — College instructors summarily dismissed without cause—Damages — Duty to mitigate — Onus of establishing whether or not reasonable efforts made by dismissed employees to obtain other employment.</p>
+   <p class="Keywords" style="text-indent:.25in">Colleges and universities — Dismissal of academic staff — Instructors with contract for following year dismissed without cause by college administrator—Proce­dures prescribed by collective agreement not followed — Claim of tenure—Whether employer could lawfully terminate the employment — Quantum of damages — The Colleges Act, R.S.A. 1970, c. 56, s. 47 — The Department of Advanced Education Act, 1972 (Alta.), c. 28, s. 7 — The Regulations Act, R.S.A. 1970, c. 318, s. 2(2) — Inapplicability of The Alberta Bill of Rights, 1972 (Alta.), c. 1.</p>
+   <p class="Summary">The Appellate Division of the Supreme Court of Alberta allowed an appeal by the respondents as to damages and awarded them sums representing 12 months' salary in place of the assessment of the trial judge which was for five months' salary, referable to what was considered to be a reasonable period of notice of termination of their employment as academic staff members of the appellant college. The college appealed the award of damages and sought the restoration of the judgment at trial on the ground that the Appellate Division erred in law on the question of mitigation, and especially in respect of the onus of proof which was alleged by the appellant to rest on the plaintiffs respondents. A cross-appeal by the plaintiffs was based on the following contentions: (1) The appointed administrator of the college, who discharged the plaintiffs was not properly appointed, having regard to <i>The Regulations Act, R.S.A. </i>1970, c. 318, and hence there never was a discharge of the plaintiffs. (2) Alternatively, the discharge was not effected under the required procedures spelled out in a collective agreement between the college and the faculty association, and on the authority of</p>
+   <p class="Page">[Page 325]</p>
+   <p class="SummaryCxSpFirst"><i>Ridge v. Baldwin, </i>[1964] <i>A.C. 40, </i>there never was any termination of their contractual rights, not even an illegal one. (3) In any event, this was a case where the wrongful dismissal should be remedied by an injunction to restrain the college from carrying it out. (4) The dismissal was in violation of <i>The Alberta Bill of Rights, </i>1972 (Alta.), c. 1. (5) Even on the basis that the only recourse was to damages they were inadequate, having regard to the fact that the hiring was for an indefinite term (by reason of the tenured position of the plaintiffs) and was not simply an indefinite hiring.</p>
+   <p class="SummaryCxSpLast" style="text-indent:0in">&nbsp;</p>
+   <p class="Keywords" style="text-indent:.25in">Held: Both the appeal and the cross-appeal should be dismissed.</p>
+   <p class="Keywords">&nbsp;</p>
+   <p class="SummaryCxSpFirst" style="text-indent:.25in"><i>Per</i> Laskin C.J. and Martland, Spence and Beetz JJ.: In an action for wrongful dismissal it is for the wronged plaintiff to prove his damages, and there is therefore a burden upon him to establish on a balance of probabilities what his loss is. The primary rule in breach of contract cases, that a wronged plaintiff is entitled to be put in as good a position as he would have been in if there had been proper performance by the defendant, is subject to the qualification that the defendant cannot be called upon to pay for avoidable losses which would result in an increase in the quantum of damages payable to the plaintiff. It is in this sense that the plaintiff has a "duty" to mitigate.</p>
+   <p class="SummaryCxSpMiddle" style="text-indent:0in">&nbsp;</p>
+   <p class="SummaryCxSpMiddle" style="text-indent:.25in">In the ordinary course of litigation respecting wrongful dismissal, a plaintiff, in offering proof of damages, would lead evidence respecting the loss he claims to have suffered by reason of the dismissal. He may have obtained other employment at a lesser or greater remuneration than before and this fact would have a bearing on his damages. He may not have obtained other employment, and the question whether he has stood idly or unreasonably by, or has tried without success to obtain other employment would be part of the case on damages. If it is the defendant's position that the plaintiff could reasonably have avoided some part of the loss claimed, it is for the defendant to carry the burden of that issue, subject to the defendant being content to allow the matter to be disposed of on the trial judge's assessment of the plaintiff's evidence on avoidable consequences.</p>
+   <p class="SummaryCxSpMiddle" style="text-indent:0in">&nbsp;</p>
+   <p class="SummaryCxSpLast" style="text-indent:.25in">The evidence given in the present case by the plaintiffs was sufficient to carry them to the award made by the Appellate Division, and there was nothing in the record to warrant any finding on the defendant's evidence to justify any diminution of the award.</p>
+   <p class="Page">[Page 326]</p>
+   <p class="SummaryCxSpFirst" style="text-indent:.25in">As to the cross-appeal, all the contentions upon which it was based were rejected.</p>
+   <p class="SummaryCxSpMiddle" style="text-indent:0in">&nbsp;</p>
+   <p class="SummaryCxSpMiddle" style="text-indent:.25in"><i>Per </i>de Grandpré J.: In a case of dismissal without cause where, as in this case, the period of notice was admittedly too short, the defaulting employer has the onus of establishing whether or not reasonable efforts have been made by the dismissed employee to obtain other employment. The finding by the Court below that the evidence did not establish that other employment opportunities were available, and of which the appellants ought reasonably to have taken advantage was correct. As to the award, there was no justification for the submission that the damages had been fixed at too high a figure.</p>
+   <p class="SummaryCxSpMiddle" style="text-indent:0in">&nbsp;</p>
+   <p class="SummaryCxSpMiddle" style="text-indent:.25in">There was no merit in the cross-appeal. The respondents did not enjoy tenure in the sense of permanency of employment as the contracts of employment between them and the appellant had to be renewed from time to time. Accordingly, the Court of Appeal was right in treating the issue as one of a reasonable period of notice and, on the facts of the case, it was not possible for respondents to pray for the specific performance of a service relationship.</p>
+   <p class="SummaryCxSpMiddle" style="text-indent:0in">&nbsp;</p>
+   <p class="SummaryCxSpMiddle" style="text-indent:.25in"><i>The Alberta Bill of Rights </i>did not have any application, the parties to the contracts of employment having had their day in Court with the full protection of the applicable rules.</p>
+   <p class="SummaryCxSpMiddle" style="text-indent:0in">&nbsp;</p>
+   <p class="SummaryCxSpLast" style="text-indent:.25in"><i>[Ridge y. Baldwin, </i>[1964] <i>A.C. 40; Placsko v. Board of Humboldt School Unit No. 47 of Saskatchewan </i>(1971), 18 D.L.R. (3d) 374; <i>Zeller's (Western) Ltd. v. Retail, Wholesale &amp; Department Store Union, Local </i><i>955 </i><i>et al., </i>[1975] 1 S.C.R. <i>376, </i>distinguished; <i>Cockburn </i><i>v. </i><i>Trusts and Guarantee Co. </i>(1917), <i>55 </i>S.C.R. <i>264; Cemco Electrical Manufacturing Co. Ltd. v. Van Snel­lenburg, </i>[1947] <i>S.C.R. </i>121; <i>Canadian Ice Machine Co. v. Sinclair, </i>[1955] S.C.R. <i>777; British Westinghouse Electric &amp; Manufacturing Co., Ltd. v. Underground Electric Railways Co. of London, Ltd., </i>[1912] A.C. <i>673; Dunkirk Colliery Co. v. Lever </i>(1878), <i>9 </i>Ch. D. 20; <i>Yetton v. Eastwoods Froy Ltd., </i>[1967] 1 W.L.R. 104, referred to.]</p>
+   <p class="History" style="text-indent:.25in">APPEAL and CROSS-APPEAL from a judgment of the Supreme Court of Alberta, Appellate Division<a href="#_ftn1" name="_ftnref1" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[1]</span></span></a>. Appeal and cross-appeal dismissed.</p>
+   <p class="History" style="text-indent:0in">&nbsp;</p>
+   <p class="Sollicitors" style="text-indent:.25in">J. W. Beames<span style="font-style:normal">,</span> Q.C.<span style="font-style:normal">,</span> and L. R. Lizee<span style="font-style:normal">,</span> for the defendant<span style="font-style:normal">,</span> appellant.</p>
+   <p class="Page">[Page 327]</p>
+   <p class="Sollicitors" style="text-indent:.25in">G. S. D. Wright and J. Robb, for the plaintiffs, respondents.</p>
+   <p class="Sollicitors">&nbsp;</p>
+   <p class="Para">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The judgment of Laskin C.J. and Martland, Spence and Beetz JJ. was delivered by</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in"><span style="font-variant:small-caps">The </span><span style="font-variant:small-caps">Chief Justice</span> — The judgment in appeal in this case is that of the Alberta Appellate Division, allowing the appeal of the plaintiffs as to damages and awarding them sums representing 12 months' salary in place of the assessment of the trial judge which was for five months' salary, referable to what was considered to be a reasonable period of notice of termination of their employment as academic staff members of the appellant Red Deer College. All other issues raised before the Alberta Appellate Division were resolved against the contentions of the plaintiffs.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">Red Deer College has appealed the award of damages and seeks the restoration of the judgment at trial on the ground that the Alberta Appellate Division erred in law on the question of mitigation, and especially in respect of the onus of proof which was alleged by the appellant herein to rest on the plaintiffs respondents. The appeal was brought <i>de piano, </i>but it was conceded in this Court that the differences between the awards on appeal and at trial did not amount to more than $10,000 in the case of each of the two plaintiffs. They, as respondents to this appeal, have cross-appealed on a number of issues decided adversely to them below, lodging their cross-appeal within the time limited by the Rules of this Court for so doing, but not within the time prescribed for an appeal proper. The appellant sought leave to appeal, and its application and the question of the consequent effect upon the cross-appeal were reserved by the Court which proceeded to hear the appeal and cross-appeal on the merits. We are of the opinion that leave should be granted <i>nunc pro tunc </i>and that the cross-appeal should, in consequence, likewise be disposed of on the merits.</p>
+   <p class="Page">[Page 328]</p>
+   <p class="Para" style="text-indent:.25in">I deal first with the appeal, which raised only the question whether the Alberta Appellate Division had properly taken into consideration the question of mitigation in the light of the onus alleged to rest upon the plaintiffs in that connection. Sinclair J.A., speaking for the Court, dealt with the question as follows:</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Citation1">As to the obligation of the appellants to mitigate damages, the evidence does not establish that other employment opportunities were available, and of which the appellants ought reasonably to have taken advantage.</p>
+   <p class="MsoNormal">&nbsp;</p>
+   <p class="Para">It was the appellant's contention that judgments of this Court have, if not expressly then by implica­tion, placed upon wronged plaintiffs the burden of showing that they acted reasonably to mitigate the damages arising from a defendant's wrongful breach of contract, in this case wrongful dismissal from employment. The submission was that this burden was not discharged and that consequently the award of damages by the Alberta Appellate Division could not stand. The cases in this Court relied upon by the appellant are <i>Cockburn v. Trusts and Guarantee Co.<a href="#_ftn2" name="_ftnref2" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[2]</span></b></span></a>; </i>Calico <i>Electrical Manufacturing Co. Ltd. v. Van Snellenberg<a href="#_ftn3" name="_ftnref3" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[3]</span></b></span></a>, </i>and <i>Canadian Ice Machine Co. Ltd. v. Sinclair<a href="#_ftn4" name="_ftnref4" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[4]</span></b></span></a>.</i></p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">Both Duff J. and Anglin J. in the <i>Cockburn </i>case quoted words spoken by James L.J. in <i>Dunkirk Colliery Co. v. Lever<a href="#_ftn5" name="_ftnref5" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[5]</span></b></span></a>, </i>at p. 25, and also quoted by Lord Haldane in <i>British Westinghouse Electric &amp; Manufacturing Co., Ltd. v. Underground Electric Railways Co. of London, Ltd.<a href="#_ftn6" name="_ftnref6" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[6]</span></b></span></a>, </i>at p. 689. These were both sale of goods cases, and in speaking of damages, Lord Haldane said this:</p>
+   <p class="Para" style="text-indent:.25in">&nbsp;</p>
+   <p class="Citation1">The fundamental basis is thus compensation for pecuniary loss naturally flowing from the breach; but this first principle is qualified by a second, which imposes on a plaintiff the duty of taking all reasonable steps to mitigate the loss consequent on the breach, and debars him from claiming any part of the damage which</p>
+   <p class="Page">[Page 329]</p>
+   <p class="Citation1">is due to his neglect to take such steps. In the words of James L.J. in <i>Dunkirk Colliery Co. v. Lever, </i>"The person who has broken the contract is not to be exposed to additional cost by reason of the plaintiffs not doing what they ought to have done as reasonable men, and the plaintiffs not being under any obligation to do anything otherwise that in the ordinary course of business."</p>
+   <p class="Citation1">As James L.J. indicates, this second principle does not impose on the plaintiff an obligation to take any step which a reasonable and prudent man would not ordinarily take in the course of his business. But when in the course of his business he has taken action arising out of the transaction, which action has diminished his loss, the effect in actual diminution of the loss he has suffered may be taken into account even though there was no duty on him to act.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">The <i>Cemco </i>case involved a dismissal from employment and there is a reference in it, in the majority judgment of Kerwin J., as he then was, to the <i>British Westinghouse Electric Co. </i>case as laying down the proposition that "the true test, however, is whether the plaintiff took all reasonable steps to mitigate the loss consequent on the breach", and Kerwin J. followed this with the sentence (at p. 127 of the S.C.R. report) that "The company having broken the contract, the plaintiff was not entitled to consider it as still subsisting." Rand J., who alone dissented, spoke on the issue of damages as follows (at p. 128):</p>
+   <p class="Citation1">The principle of mitigation is a necessary corollary of the basis of damages, namely, that they have arisen in a legal sense from a violation of a right. Underlying this is the assumption that a person must concern himself with his own interest if he would seek from the law the vindication of his civil engagements. In a contract of employment, the remuneration is either for work done or for the commitment to work. Upon a dismissal which is a repudiation of the obligation to accept the one or the other, as the remedy of specific performance is not available, the employee's capacity to work is now released to him to be used as he sees fit. He may decide to waste it or he may demand that the employer make good its full utility. In that event he must act reasonably in seeking to employ it as he would or might have had the particular engagement not been made. It is the loss of earnings resulting from a denial of a right to use or</p>
+   <p class="Page">[Page 330]</p>
+   <p class="Citation1">commit his working capacity profitably that is the substance of his claim, and as he must prove his damages, it must appear that they arose from the breach of contract.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">In the <i>Sinclair </i>case, also an employment service case, Kerwin C.J.C. concluded the following passage of his reasons with a reference to the <i>British Westinghouse Electric Co. </i>case and the <i>Cemco </i>case (at p. 778 of the S.C.R. report):</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Citation1">In my opinion the contract was one whereby the respondent was to furnish the described services when called upon so to do by the appellant. All the respondent was obliged to do was to keep himself in readiness to comply with those demands of the appellant "consistent with his enjoyment of a life of reasonable leisure and with his retirement from active business" and to accept such other engagements as might be offered to him. This he did and therefore complied with the rule that a person in that position must take all reasonable steps to mitigate his loss.</p>
+   <p class="MsoNormal">&nbsp;</p>
+   <p class="Para">Kellock J. in the <i>Sinclair </i>case also referred to the <i>Cemco </i>case, but drew on the reasons of Rand J. therein in the following sentence:</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Citation1">The only way, therefore, in which it was open to the respondent to mitigate the loss consequent upon the refusal of the appellant to continue to pay him, was to utilize the time made available to him by reason of the appellant's refusal to consult him further.</p>
+   <p class="MsoNormal">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">None of the three cases in this Court can be taken to settle the question of the burden of proof as it arises in a claim for damages for wrongful dismissal and as it relates to the question of miti­gation. It is, of course, for a wronged plaintiff to prove his damages, and there is therefore a burden upon him to establish on a balance of probabilities what his loss is. The parameters of loss are governed by legal principle. The primary rule in breach of contract cases, that a wronged plaintiff is entitled to be put in as good a position as he would have been in if there had been proper performance by the defendant, is subject to the qualification that the defendant cannot be called upon to pay for avoidable losses which would result in an increase in the quantum of damages payable to the plaintiff. The reference in the case law to a "duty" to mitigate should be understood in this sense.</p>
+   <p class="Page">[Page 331]</p>
+   <p class="Para" style="text-indent:.25in">In short, a wronged plaintiff is entitled to recover damages for the losses he has suffered but the extent of those losses may depend on whether he has taken reasonable steps to avoid their unreasonable accumulation. In <i>Payzu, Ltd. v. Saunders<a href="#_ftn7" name="_ftnref7" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[7]</span></b></span></a>, </i>at p. 589, Scrutton L.J. explained the matter in this way:</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Citation1">Whether it be more correct to say that a plaintiff must minimize his damages, or to say that he can recover no more than he would have suffered if he had acted reasonably, because any further damages do not reasonably follow from the defendant's breach, the result is the same.</p>
+   <p class="MsoNormal">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">In the ordinary course of litigation respecting wrongful dismissal, a plaintiff, in offering proof of damages, would lead evidence respecting the loss he claims to have suffered by reason of the dismissal. He may have obtained other employment at a lesser or greater remuneration than before and this fact would have a bearing on his damages. He may not have obtained other employment, and the question whether he has stood idly or unreasonably by, or has tried without success to obtain other employment would be part of the case on damages. If it is the defendant's position that the plaintiff could reasonably have avoided some part of the loss claimed, it is for the defendant to carry the burden of that issue, subject to the defendant being content to allow the matter to be disposed of on the trial judge's assessment of the plaintiff's evidence on avoidable consequences. This is the way I read what is said on the matter in such leading textbooks on the subject as Cheshire and Fifoot's, <i>Law of Contract, </i>8th ed. (1972), at p. 599, and Corbin, <i>Contracts, </i>vol. 5 (1964), at p. 248. The matter is put as follows in two passages from <i>Williston on Contracts, </i>vol. 11, 3rd ed. (1968), at pp. 302 and 312:</p>
+   <p class="Citation1" style="text-indent:16.65pt">The rule of avoidable consequences here finds frequent application. The consequence of this injury is the failure of the employee to receive the pay which he was promised but, on the other hand, his time is left at his own disposal. If the employee unavoidably remains idle, the loss of his pay is actually suffered without deduction. If, however, the employee can obtain other employment,</p>
+   <p class="Page">[Page 332]</p>
+   <p class="Citation1">he can avoid part at least of these damages. Therefore, in an action by the employee against the employer for a wrongful discharge, a deduction of the net amount of what the employee earned, or what he might reasonably have earned in other employment of like nature, from what he would have received had there been no breach, furnishes the ordinary measure of damages.</p>
+   <p class="Citation1">It seems to be the generally accepted rule that the burden of proof is upon the defendant to show that the plaintiff either found, or, by the exercise of proper industry in the search, could have procured other employment of an approximately similar kind reasonably adapted to his abilities, and that in absence of such proof the plaintiff is entitled to recover the salary fixed by the contract.</p>
+   <p class="MsoNormal">&nbsp;</p>
+   <p class="Para">Cheshire and Fifoot, <i>supra, </i>expressed the position more tersely as follows:</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Citation1">But the burden which lies on the defendant of proving that the plaintiff has failed in his duty of mitigation is by no means a light one, for this is a case where a party already in breach of contract demands positive action from one who is often innocent of blame.</p>
+   <p class="MsoNormal">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">In my opinion, the <i>obiter </i>statement of MacDonald J.A. in <i>John East Iron Works, Ltd. v. Labour Relations Board of Saskatchewan<a href="#_ftn8" name="_ftnref8" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[8]</span></b></span></a>, </i>at p. 57, that "the onus of proving that the employee took reasonable efforts to obtain other employment and failed to do so is upon the employee" does not state the law correctly. I contrast this observation with that in <i>Yetton v. Eastwoods Froy Ltd.<a href="#_ftn9" name="_ftnref9" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[9]</span></b></span></a>, </i>a wrongful dismissal case, where Blain J. said (at p. 115) "if he can minimise his loss by a reasonable course of conduct he should do so, though the onus is on the defaulting defendant to show that it could be or could have been done and is not being and has not been done".</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">The evidence given in the present case by the plaintiffs was, in my opinion, sufficient to carry them to the award made by the Alberta Appellate Division, and I find nothing in the record to warrant any finding on the defendant's evidence to</p>
+   <p class="Page">[Page 333]</p>
+   <p class="Para">justify any diminution of the award. Accordingly, I would dismiss the main appeal with costs.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">The cross-appeal of the respondent plaintiffs is based on a number of contentions which I summarize as follows:</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="margin-left:9.0pt;text-indent:-9.0pt"><a class="reflex-paragAnchor" name="par1">1</a>. Dr. Fast, the appointed administrator of Red Deer College, who discharged the plaintiffs was not properly appointed, having regard to <i>The Regulations Act, </i>R.S.A. 1970, c. 318, and hence there never was a discharge of the plaintiffs.</p>
+   <p class="Para" style="margin-left:9.0pt;text-indent:-9.0pt"><a class="reflex-paragAnchor" name="par2">2</a>. Alternatively, the discharge was not effected under the required procedures spelled out in a collective agreement between the College and the Faculty Association, and on the authority of <i>Ridge v. Baldwin<a href="#_ftn10" name="_ftnref10" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[10]</span></b></span></a>, </i>there never was any termination of their contractual rights, not even an illegal one.</p>
+   <p class="Para" style="margin-left:9.0pt;text-indent:-9.0pt"><a class="reflex-paragAnchor" name="par3">3</a>. In any event, this was a case where the wrongful dismissal should be remedied by an injunc­tion to restrain the College from carrying it out.</p>
+   <p class="Para" style="margin-left:9.0pt;text-indent:-9.0pt"><a class="reflex-paragAnchor" name="par4">4</a>. The dismissal was in violation of <i>The Alberta Bill of Rights, </i>1972 (Alta.), c. 1.</p>
+   <p class="Para" style="margin-left:9.0pt;text-indent:-9.0pt"><a class="reflex-paragAnchor" name="par5">5</a>. Beyond all the foregoing, even on the basis that the only recourse was to damages they were inadequate, having regard to the fact that the hiring was for an indefinite term (by reason of the tenured position of the plaintiffs) and was not simply an indefinite hiring.</p>
+   <p class="Para" style="margin-left:9.0pt;text-indent:-9.0pt">&nbsp;</p>
+   <p class="Para" style="text-indent:27.0pt">These contentions require a background of facts which may be briefly stated. The cross-respondent, Red Deer College, is an institution under <i>The Colleges Act, </i>now R.S.A. 1970, c. 56, and among its relevant provisions is s. 47 which reads as follows:</p>
+   <p class="Para" style="text-indent:27.0pt">&nbsp;</p>
+   <p class="Citation1">47. (1) A college board may employ such academic staff members as it considers necessary for the purposes of the college.</p>
+   <p class="Citation1">(2) A college board and the academic staff association of the college shall enter into negotiations for the purpose of concluding an agreement providing for at</p>
+   <p class="MsoNormal">&nbsp;</p>
+   <p class="Page">[Page 334]</p>
+   <p class="Citation1">least the following matters with respect to the academic staff members, namely,</p>
+   <p class="Citation1">(a) the terms and conditions of employment,</p>
+   <p class="Citation1">(b) teaching responsibilities,</p>
+   <p class="Citation1">(c) vacation leaves, leaves of absence and sick leaves to be allowed,</p>
+   <p class="Citation1">(d) salaries and remuneration to be paid and the establishment of salary and wage schedules for that purpose,</p>
+   <p class="Citation1">(e) grievance procedures, and</p>
+   <p class="Citation1">(f) the conditions and procedures governing reassignment, suspension or dismissal by the board.</p>
+   <p class="Citation1">(3) The college board and the academic staff association shall enter into negotiations for the purpose of concluding an agreement regarding the procedure for the negotiation or renegotiation of any agreement made or to be made under subsection (2).</p>
+   <p class="Citation1">(4) An agreement under subsection (2) is binding on the college board and on all of its academic staff members.</p>
+   <p class="MsoNormal">&nbsp;</p>
+   <p class="Para">Pursuant to this section a collective agreement was entered into between the College and the Faculty Association on December 20, 1971, with effect from September 1, 1970, by art. 1.2 of the collective agreement, it was to remain "in full force and effect until June 30, 1972, and so long thereafter and with such changes, modifications and amendments as the parties hereto may mutually agree upon". There was thus a definite terminal date for the collective agreement with no provision, either statutory or otherwise, to assure its continuation, in whole or in part, pending the conclusion of a new agreement, or some agreement to carry on with the expired one, either as it stood or with agreed modifications. Whatever effect <i>The Alberta Labour Act </i>would have had in this connection was excluded by s. 46 of <i>The Colleges Act, </i>which stipulated that academic staff members were not under that section which made <i>The Alberta Labour Act </i>applicable to officers and employees of a college other than academic staff.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">As a result of problems in Red Deer College, the nature of which is not before us, an administrator was appointed pursuant to s. 7 of <i>The Department of Advanced Education Act, </i>1972 (Alta), c. 28,</p>
+   <p class="Page">[Page 335]</p>
+   <p class="Para">the effect being to vest in him all the powers of the college board and to make him the sole member thereof during the period of the administratorship. Dr. Fast was so appointed by Order in Council of June 6, 1972, and it was contended that his appointment was a nullity because of the failure to file the Order in Council pursuant to <i>The Regulations Act, </i>the filing being a prerequisite to its effectiveness under s. 3 of that Act.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">In my opinion the contention fails. It is founded on the assertion that the appointment of Dr. Fast, although not a regulation as defined in s. 2(1)(f) of the Act, must be deemed to be a regulation as so defined by reason of falling within s. 2(2) which reads as follows:</p>
+   <p class="Para" style="text-indent:.25in">&nbsp;</p>
+   <p class="Citation1">2. (2) Where a regulation, rule, order, or by-law is made or approved, pursuant to an Act of the Legislature, by the Lieutenant Governor in Council, a member of the Executive Council, or any board, commission, association, or similar body, of the kind mentioned in subsection (1), clause (t), if it prescribes, fixes or designates,</p>
+   <p class="Citation1">(a) a district, area, person, animal or other thing, or</p>
+   <p class="Citation1">(b) a period of time,</p>
+   <p class="Citation1">within, to, during, or in respect of, which the Act or any provision thereof does or does not apply, in whole or in part, generally or in a restricted manner, or within, to, during, or in respect of, which the Act provides that a thing specified in the Act may or may not be done, or shall or shall not be done, the regulation, rule, order, or by-law, shall be deemed to be a regulation as defined in subsection (1), clause (f).</p>
+   <p class="MsoNormal">&nbsp;</p>
+   <p class="Para">I see nothing in this prescription which catches a mere appointment to an office pursuant to the authority of .a statute. Such an appointment is outside of the reference to orders prescribing, fixing or designating areas, persons or things or periods of time within, to or during which a statute or any of its provisions will or will not apply, or within, to or during which something specified in the statute will or will not be done. In short, what is covered in s. 2(2) is the enlargement or contraction of the scope or operation of a statute; it does</p>
+   <p class="Page">[Page 336]</p>
+   <p class="Para">not cover a simple appointment to a position, albeit the effect is to endow the appointee with certain powers pursuant to the authorizing statute.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">Dr. Fast discharged the two plaintiffs by letters dated July 31, 1972, the discharges to be effective the next day. There was then no collective agreement in existence. In his reasons the trial judge, Milvain C.J.T.D., noted that the Faculty Association notified the plaintiffs on or about November I, 1972, that they were no longer members. The record discloses that after the trial had taken place (it opened on January 29, 1973, it continued on January 30, and was adjourned to and concluded on February 2, 1973) a new collective agreement was executed between Red Deer College and the Faculty Association with new pay scales effective July 1, 1972. The document in the record which refers to this fact shows that counsel for the parties attended on the trial judge on May 23, 1973, to deal with a number of questions prior to entry of his judgment, which was delivered on April 25, 1973. The document, which was signed by counsel for the parties, contains the assertion that "counsel for the defendant disclosed to the Judge that the wording of the new agreement was to the effect that it applies only to those actually employed by the defendant at the date of the signing of the agreement". The new agreement was not before the Alberta Appellate Division and it was not before this Court, and I do not think, especially in the light of the cross-appellants' submissions, that it has any bearing on this appeal.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">The second and third submissions of the cross-appellants may conveniently be dealt with together. They raise the question of tenure as well as the question whether, if there was tenure, in the "permanent employment" sense contended for by counsel, the cross-respondent could lawfully terminate that employment, and especially when the procedures prescribed by the collective agreement were not followed.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">The collective agreement speaks of tenure but does not define it directly. It is alleged by counsel for the cross-appellants that tenure means security</p>
+   <p class="Page">[Page 337]</p>
+   <p class="Para">of employment until retirement age, subject of course to dismissal for proper cause and subject to termination of service for redundancy. Neither dismissal for cause nor redundancy was offered as a ground for the discharges in this case. Tenure was conferred upon the cross-appellant in this case under letters from the college board dated March 31, 1971. At that time the collective agreement had not been executed, but, as already noted, when executed on December 20, 1971, it took effect by its terms as from September 1, 1970.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">The provisions of the agreement bearing on tenure are arts. 6, 7 and 8. In effect, subject to the probationary period provisions of art. 3 (that period being September 1 of the first year of service to January 31 of the second year), a member of the academic staff obtains tenure upon being rehired for a third academic year unless he is expressly rehired on probation. This follows from art. 6.1 and 6.2 and art. 4.1 and 4.2, which read, respectively, as follows:</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Citation1">6.1 The effective date of tenure shall be February 1 of the year in which tenure is granted.</p>
+   <p class="Citation1">6.2 If a member is rehired for a third contract year, other than on probation, he is automatically tenured as of February 1 of the second contract year.</p>
+   <p class="Citation1">4.1 By February 1 of each year, a letter, from the President's office, will be sent to every member of the staff covered by this Agreement with respect to his re-appointment for the following contract year, including (where applicable) his academic rank, and his step within the rank or advising him that he will not be re-appointed for the following contract year, as the case may be.</p>
+   <p class="Citation1">4.2 Failure to notify by the due date, by implication, constitutes notice that the member will be rehired without loss of benefits or of advancement on the salary grid.</p>
+   <p class="MsoNormal">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">The collective agreement also deals with redundancy and with dismissal of tenured academic staff. Under art. 7, termination of service for redundancy is subject to a prior obligation to explore reassignment, and, if that is not possible,</p>
+   <p class="Page">[Page 338]</p>
+   <p class="Para">then the expendable member must be given a full year's notice in writing of the termination of his services. Article 8 deals with suspension and dismissal, and it is this article and the procedures thereunder that are invoked by the cross-appel­lants to support their contention that they never were properly dismissed. Article 8 reads as follows:</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Citation1">8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SUSPENSION AND DISMISSAL</p>
+   <p class="Citation1">8.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Suspension</i></p>
+   <p class="Citation1">8.1.1 No member shall be suspended unless by resolution of the Board and unless the Board, within 30 days of such suspension, will be considering and making a decision respecting the dismissals of such member. In the event that such member is not, within 30 days of such suspension, dismissed by the Board, such suspension shall then forthwith be deemed to be lifted and have no effect and such member shall be entitled to all regular salary and benefits accruing from the time of such suspension.</p>
+   <p class="Citation1">8.1.2 Upon suspending a member, the Board shall forthwith give notice there-of and the reasons therefor to such member and to the tenure committee.</p>
+   <p class="Citation1"><i>8.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dismissal</i></p>
+   <p class="Citation1">8.2.1 Within 15 days of the date of the suspension of a member, the tenure committee shall hold a hearing for the purpose of making a recommendation to the Board in respect of the suspension and dismissal of such member, and sections 6.4 and 6.5 shall apply.</p>
+   <p class="Citation1">8.2.2 Within 15 days of receipt by the Board of the recommendation of the tenure committee pursuant to section 8.2.1, and in any event within 30 days of the date of such suspension, the Board shall make a decision in respect of such suspension and dismissal, and sections 6.7 and 6.8 shall apply, and the Board shall follow the rules of natural justice.</p>
+   <p class="Citation1">8.2.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; No member shall be dismissed</p>
+   <p class="Page">[Page 339]</p>
+   <p class="Citation1">8.2.3.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; except for just and reasonable cause, or</p>
+   <p class="Citation1">except for conviction upon indictment of criminal offence,</p>
+   <p class="Citation1">and except as aforesaid, no member shall be dismissed for any act or omis­sion not relating to his employment.</p>
+   <p class="Citation1">8.2.4 In the event that the Board dismisses a member, such member may commence an action for wrongful dismissal in any court of competent jurisdiction, and in addition to the jurisdiction of the court to award damages, the court may order such member to be reinstated.</p>
+   <p class="Citation1">8.2.5 The grievance procedure hereinafter provided for shall not apply in case of dismissal as aforesaid.</p>
+   <p class="Citation1">8.2.6 In all proceedings under section 8.2, a member shall be entitled to be legally represented.</p>
+   <p class="MsoNormal">&nbsp;</p>
+   <p class="Para">Article 6.4 and art. 6.5, referred to in art. 8.2.1 are in the following terms:</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Citation1">6.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tenure Committee</p>
+   <p class="Citation1">6.4.1. For the purpose of considering the granting of tenure, and the re-assignment or dismissal of tenured members, there shall be constituted a committee to be known and herein referred to as "the tenure committee".</p>
+   <p class="Citation1">6.4.2 The tenure committee shall be com­posed of 2 members selected by the Board, 4 tenured members selected by the Association, and the President, or in his absence his designee, who shall be chairman of the committee. In the event that any member is unable to serve, the Board or the Association, as the case may be, shall select another member in accordance with the foregoing. The immediate superior of a member being considered by the tenure committee shall not serve thereon.</p>
+   <p class="Citation1">6.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Committee Procedure</p>
+   <p class="Page">[Page 340]</p>
+   <p class="Citation1">6.5.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The chairman of the tenure committee shall not be entitled to vote.</p>
+   <p class="Citation1">6.5.2 The tenure committee shall, before making a recommendation, hold a hearing, of which the member being considered shall be given not less than 2 days' prior notice in writing and at which such member shall be entitled to be present and be heard, and all witnesses shall be heard and all evidence shall be received.</p>
+   <p class="Citation1">6.5.3 A recommendation of the tenure committee shall be made by secret ballot and shall require a majority of the voting members.</p>
+   <p class="Citation1">6.5.4 The chairman shall communicate the recommendation of the tenure committee and the reasons therefor, or the fact that a recommendation could not be arrived at, to the Board and to the member the subject thereof.</p>
+   <p class="MsoNormal">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">From one point of view, the collective agreement gives tenured academic staff employment security much like that enjoyed by members of a trade union who, subject to probation and layoff provi­sions, are protected from discharge under a collective agreement unless for just or reasonable cause. But whereas in the typical labour-management collective agreement the question of proper cause for discharge is ultimately arbitrable under the grievance procedure, in the present case a tenure committee is substituted for the grievance machinery and it has only powers of recommendation. A question also arises whether art. 4.1, quoted above, which envisages an annual reappointment, can be squared with tenure as it is otherwise covered by the collective agreement. I am satisfied, however, to take this clause as referable to rank and salary matters, although it is difficult to reconcile this view with all the language of art. 4.1, especially that part of it which uses the words 'advising him that he will not be reappointed for the following contract year". This could have application to a redundancy situation. In any event, in accordance with art. 4.1, the plaintiffs were notified by letter of January 31, 1972, that they were rehired for the 1972-73 academic year.</p>
+   <p class="Page">[Page 341]</p>
+   <p class="Para">In view of this letter, sent out by proper authority at the time, their discharge was wrongful irrespective of their larger claim of tenure.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">When the cross-appellants were discharged at a time when no collective agreement was in exist­ence, they did not seek to invoke the provisions of art. 8 but instead instituted an action which, as originally framed, sought only an accounting for money owing, as if the plaintiffs were supplying services for which they were not paid or for which they were entitled to be paid by reason of willing­ness and readiness to perform but were wrongfully prevented from doing so. At the trial, counsel for the plaintiffs obtained an amendment of the statement of claim to seek in the alternative damages for wrongful dismissal, and it was on this alterna­tive claim that the Courts below acted. None the less, counsel for the cross-appellants contends here that because the prescribed procedures were not followed for suspension (which allegedly had to come first) and then dismissal, Red Deer College could not properly assert that the cross-appellants were no longer members of the academic staff.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">If the procedures were applicable and had been invoked, or legal steps taken to compel resort thereto, the issue of the plaintiffs' status would have arisen in a different frame than that in which it is presented here. The plaintiffs did not invoke those procedures which, as seen from art. 8, quoted above, would have involved the intercession of the tenure committee and a recommendation by that committee to the board which, under s. 6.7 and s. 6.8 of the collective agreement is obliged to hold a further hearing before making a decision. I quote art. 6.8 which reads:</p>
+   <p class="Para" style="text-indent:.25in">&nbsp;</p>
+   <p class="Citation1">6.8 The Board, after considering all evidence heard and received by it, and the recommendation of the tenure committee, if any, shall make a decision, which decision shall be final. The President shall communicate in writing such decision, and, at the request of the</p>
+   <p class="Page">[Page 342]</p>
+   <p class="Citation1">member, the reasons therefor, to the member concerned and to the tenure committee.</p>
+   <p class="MsoNormal">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">This Court was not told why the plaintiffs did not try to invoke the procedures under art. 8. The answer probably lies in the fact that the collective agreement under which they were provided had ceased to exist at the material time and they had lost or at least did not contest their loss of membership in the Faculty Association. Moreover, as pointed out by the Alberta Appellate Division, the procedures became unworkable upon the appointment of Dr. Fast as administrator. Apart from this, I am unable to appreciate the basis upon which the plaintiffs can complain of the non-recourse to the special dismissal procedures under art. 8 when they made no effort to have them applied. There is the additional feature of the collective agreement, bearing on the question of the regularity of the dismissal, that the board's decision to dismiss is said at one and the same time to be final and to be subject to an action for wrongful dismissal: art. 6.8 and 8.2.4.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">These last-mentioned provisions point up the anomaly of the college board's position. Although the employer, it is. required to give a hearing, to observe the principles of natural justice in considering a recommendation as to dismissal. Yet if it dismisses, the form of challenge prescribed by the collective agreement is not a review of the board's decision, as if it were an adjudicative tribunal, but by an action for wrongful dismissal. I cannot square this with a recognition of tenure in the sense contended for by the cross-appellants, unless it be that in the action the Court will have to consider whether there was just cause for depriving a tenured member of the academic staff of his "permanent" employment, with a view to the quantum of damages if it be found that the dismissal was wrongful. (I shall deal with this point later in these reasons.)</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">One thing is certain. The provision in the collec­tive agreement empowering the Court to reinstate a member who has been wrongly dismissed has no effect upon the Court's jurisdiction. If there is such jurisdiction, it exists without any assistance</p>
+   <p class="Page">[Page 343]</p>
+   <p class="Para">from a private agreement. Moreover there is no comfort to be drawn from <i>Ridge v. Baldwin<a href="#_ftn11" name="_ftnref11" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[11]</span></b></span></a>. </i>It was concerned with the exercise of statutory powers respecting a statutory office or a public office and not with contractual powers in respect of an office whose terms are prescribed by collective agreement: see Lord Reid, at pp. 65 and 66. To the extent to which questions of natural justice were canvassed there in other respects, I do not see how they can apply here in view of the fact that the plaintiffs not only did not invoke or claim the protection of the collective agreement procedures, but they were procedures which terminated in a unilateral board decision, albeit the board was enjoined to observe the rules of natural justice. (Although it is not necessary in this case to rule on whether all the considerations that apply to statutory schemes of employment also apply to consensual schemes, the distinction between such schemes was also noted in <i>Vine v. National Dock Labour Board<a href="#_ftn12" name="_ftnref12" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[12]</span></b></span></a>; </i>and see also <i>Sanders v. Ernest A. Neale Ltd.<a href="#_ftn13" name="_ftnref13" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[13]</span></b></span></a></i>)</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">Neither <i>Placsko v. Board of Humboldt School Unit No. 47 of Saskatchewan<a href="#_ftn14" name="_ftnref14" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[14]</span></b></span></a> </i>nor the judgment of this Court in <i>Zeller's (Western) Ltd. v. Retail, Wholesale &amp; Department Store Union Local 955 et al.<a href="#_ftn15" name="_ftnref15" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[15]</span></b></span></a> </i>are applicable here. In the <i>Placsko </i>case, MacPherson J. of the Saskatchewan Court of Queen's Bench was concerned with statutory tenure provisions and thus with an issue of public or administrative law such as that which arose in <i>Ridge v. Baldwin. </i>In the <i>Zeller </i>case, this Court was concerned with an award of a board of arbitration which had ordered reinstatement of discharged employee, and not with a mere contractual action for wrongful dismissal.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in"><i>Hill v. C.A. Parsons &amp; Co. Ltd.<a href="#_ftn16" name="_ftnref16" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[16]</span></b></span></a> </i>was urged upon this Court as justifying enforcement of a personal service contract by enjoining an employer</p>
+   <p class="Page">[Page 344]</p>
+   <p class="Para">from acting upon an invalid notice of termination. That was a case where an employer, pursuant to a closed shop agreement with a trade union, purported to terminate the plaintiff's employment at a time when he was two years away from retirement, his salary was about to be raised and his pension was calculable on his average salary for his last three years. The plaintiff had refused to join the union and had been given one month's notice of dismissal. In an action for an injunction and for damages, an interlocutory injunction was sought and refused at first instance but was granted on appeal by a majority of the English Court of Appeal. What was enjoined was the employer treating the month's notice as having determined the plaintiff's employment but, of course, leaving the employer free to terminate it on reasonable notice, which Lord Denning in this case said would be at least six months and perhaps twelve. Sachs L.J. was of opinion that the notice could not be less than six months in this case where the plaintiff had been an employee for 35 years.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">The emphasis of the majority was on the power of the Court in an exceptional case to direct what is in effect specific performance of a service relationship. They did emphasize that there was no rule of law to preclude such a decree and were concerned with the special circumstances in which it may be made. One of these, present in the <i>Hill and Parsons </i>case, was the subsisting personal confidence between the employer and employee. If the approach taken in that case be applied here, it is enough to distinguish it on the personal confidence point, and I find it unnecessary to pursue the question of reinstatement beyond this on the facts before this Court.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">What I have said to this point is also a sufficient answer to the contention of the cross-appellants under <i>The Alberta Bill of Rights, </i>1972 (Alta.), c. 1. I do not find my basis in this case for the application of <i>The Alberta Bill of Rights. </i>The United States cases cited by counsel for the cross-appellants are not of assistance. Among them was</p>
+   <p class="Page">[Page 345]</p>
+   <p class="Para"><i>Perry v. Sindermann<a href="#_ftn17" name="_ftnref17" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[17]</span></b></span></a>. </i>That case and the compan­ion case of <i>Board of Regents of State Colleges v. Roth<a href="#_ftn18" name="_ftnref18" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[18]</span></b></span></a> </i>dealt with constitutional questions of infringement of free speech and lack of procedural due process, issues which were raised directly by dismissed teachers in State college and university systems through federal court proceedings. The question of procedural regularity raised in the present case was not raised under a law of Alberta so as to engage <i>The Alberta Bill of Rights </i>but rather under a collective agreement. In so far as the contention under <i>The Alberta Bill of Rights is </i>that Dr. Fast deprived the cross-appellants of security of the person or enjoyment of property by the wrongful discharges, the point is without merit by the very fact of these proceedings which give the cross-appellants due process of law.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">This brings me to the final point of the cross-appeal, namely, the quantum of damages. I have no doubt that there may be, and have been, cases where damages are fixed on the basis of a wrongful termination of a permanent employment. Counsel for the cross-appellants cited <i>Cooke v. CKOY Ltd.<a href="#_ftn19" name="_ftnref19" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[19]</span></b></span></a>; Salt v. Power Plant Co. Ltd.<a href="#_ftn20" name="_ftnref20" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[20]</span></b></span></a>, </i>and <i>Lucy v. Commonwealth<a href="#_ftn21" name="_ftnref21" title=""><span class="MsoFootnoteReference"><b><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[21]</span></b></span></a> </i>as illustrative. The present case could come within this line of cases only if (as I indicated above) the collective agreement provisions applied so as to protect a tenured member of the academic staff against termination of employment save for just cause or for redundancy. Those provisions are not, however, available to the cross-appellants which did not even purport to rely on them. True, they made their submissions in this Court on the basis that the collective agreement provisions applied but they did not attempt</p>
+   <p class="Page">[Page 346]</p>
+   <p class="Para">to invoke them, and there was no claim that tenure, in the sense contended for, existed apart from the collective agreement.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">The only other point arising here is that based on Exhibits 4 and 10, which are letters to the cross-appellants, dated January 19, 1972, advising them, in accordance with the academic staff agreement and in compensation for the reduced contract year of 1971-72, of a two months' extension of their employment contract to August 31 of the year in which they terminate their service to Red Deer College. I would not vary the order of the Alberta Appellate Division by reason of these letters. That Court properly treated the issue before them as one of a reasonable period of notice. It ought not to be turned into one of a claim to compensation for work performed to June 30, 1973.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">I would, accordingly, dismiss the cross-appeal as well as the main appeal, with costs.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para"><span style="font-variant:small-caps">De Grandpré </span><span style="font-variant:small-caps">J</span>. — I have had the advantage of reading the reasons prepared for delivery by the Chief Justice and I agree with his conclusion.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">The main appeal raises two questions:</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para">(1) in a case of dismissal without cause where the period of notice was admittedly too short, who of the employer or of the employee has the onus of establishing whether or not reasonable efforts have been made by the dismissed employee to obtain other employment?</p>
+   <p class="Para">(2) in the circumstances of this case, is the award too generous?</p>
+   <p class="Para">Both questions may well be answered together. In my opinion, the onus mentioned above is on the defaulting employer. It is not clear from the reasons of Sinclair J.A., that such was the view of the Court of Appeal. But, of course, there was no real need for the Court to reach a conclusion on the point. Onus has no role to play when all the</p>
+   <p class="Page">[Page 347]</p>
+   <p class="Para">evidence is in the record. In the case at bar, that evidence was carefully weighed and it was certainly sufficient to support a finding that</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Citation1">... the evidence does not establish that other employment opportunities were available, and of which the appellants ought reasonably to have taken advantage. [1974] 2 W.W.R. 416, at p. 427.</p>
+   <p class="MsoNormal">&nbsp;</p>
+   <p class="Para">As to the award, I see no justification for the submission that the damages have been fixed at too high a figure.</p>
+   <p class="Para">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">Turning to the cross-appeal, my views being that there is no merit therein, it is sufficient for me to summarize my thoughts in the following paragraphs:</p>
+   <p class="Citation1">(a) the appointment of Dr. Fast as administrator of the appellant cannot be said to fall under <i>The Regulations Act, R.S.A. </i>1970, <i>c. </i>318, and the contention that his appointment was a nullity cannot be entertained;</p>
+   <p class="Citation1">(b) respondents did not enjoy tenure in the sense of permanency of employment as the contracts of employment between them and the appellant had to be renewed from time to time; it is sufficient to refer to s. 4.3 of the agreement between the College and the Faculty Association which stipulates that</p>
+   <p class="Citation1">... the effective date of termination of service under sections 5, 6 or 7 is August 31 of the 1970-71 contract year and June 30 of the 1971-72 contract year</p>
+   <p class="Para">and to underline that s. 6 thereof deals with tenure;</p>
+   <p class="Citation1">(c) accordingly the Court of Appeal was right in treating the issue as one of a reasonable period of notice and, on the facts of the case, it was not possible for respondents to pray for the specific performance of a service relationship;</p>
+   <p class="Citation1">(d) inasmuch as we are not dealing here with a wrongful termination of a permanent employment, the damages have been adequately assessed by the Court of Appeal and there is no error of law that could permit this Court to intervene;</p>
+   <p class="Page">[Page 348]</p>
+   <p class="Citation1">(e) this is clearly not an area where <i>The Alber­ta Bill of Rights, </i>1972 (Alta.) c. 1, has any application, the parties to the contracts of employment having had their day in Court with the full protection of the applicable rules.</p>
+   <p class="MsoNormal">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in">For these reasons, I would dismiss both the main appeal and the cross-appeal with costs.</p>
+   <p class="Para" style="text-indent:.25in">&nbsp;</p>
+   <p class="Para" style="text-indent:.25in"><i>Appeal and cross-appeal dismissed with costs.</i></p>
+   <p class="Para" style="text-indent:.25in">Solicitors for the defendant, appellant: Beames, Chapman, Red Deer.</p>
+   <p class="Para" style="text-indent:.25in">Solicitors for the plaintiffs, respondents: Wright, Chivers, Worton, Pollock &amp; McBean, Edmonton.</p>
+   <p class="MsoNormal"><i>&nbsp;</i></p>
+  </div>
+  <div>
+   <br clear="all"/>
+   <hr align="left" size="1" width="33%"/>
+   <div id="ftn1">
+    <p class="Para"><a href="#_ftnref1" name="_ftn1" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[1]</span></span></a> [1974] 2 W.W.R. 416, 44 D.L.R. (3d) 447.</p>
+   </div>
+   <div id="ftn2">
+    <p class="MsoFootnoteText"><a href="#_ftnref2" name="_ftn2" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[2]</span></span></a> (1917), 55 S.C.R. 264.</p>
+   </div>
+   <div id="ftn3">
+    <p class="MsoFootnoteText"><a href="#_ftnref3" name="_ftn3" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[3]</span></span></a> [1947] S.C.R. 121.</p>
+   </div>
+   <div id="ftn4">
+    <p class="MsoFootnoteText"><a href="#_ftnref4" name="_ftn4" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[4]</span></span></a> [1955] S.C.R. 777.</p>
+   </div>
+   <div id="ftn5">
+    <p class="MsoFootnoteText"><a href="#_ftnref5" name="_ftn5" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[5]</span></span></a> (1878), 9 Ch. D. 20.</p>
+   </div>
+   <div id="ftn6">
+    <p class="Para"><a href="#_ftnref6" name="_ftn6" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[6]</span></span></a> [1912] A.C. 673.</p>
+   </div>
+   <div id="ftn7">
+    <p class="Para"><a href="#_ftnref7" name="_ftn7" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[7]</span></span></a> [1919] 2 K.B. 581.</p>
+   </div>
+   <div id="ftn8">
+    <p class="Para"><a href="#_ftnref8" name="_ftn8" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[8]</span></span></a> [1949] 3 D.L.R. 51.</p>
+   </div>
+   <div id="ftn9">
+    <p class="Para"><a href="#_ftnref9" name="_ftn9" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[9]</span></span></a> [1967] 1 W.L.R. 104.</p>
+   </div>
+   <div id="ftn10">
+    <p class="Para"><a href="#_ftnref10" name="_ftn10" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[10]</span></span></a> [1964] A.C. 40.</p>
+   </div>
+   <div id="ftn11">
+    <p class="Para"><a href="#_ftnref11" name="_ftn11" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[11]</span></span></a> [1964] A.C. 40.</p>
+   </div>
+   <div id="ftn12">
+    <p class="Para"><a href="#_ftnref12" name="_ftn12" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[12]</span></span></a> [1957] A.C. 488.</p>
+   </div>
+   <div id="ftn13">
+    <p class="Para"><a href="#_ftnref13" name="_ftn13" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[13]</span></span></a> [1974] 3 All E.R. 327.</p>
+   </div>
+   <div id="ftn14">
+    <p class="Para"><a href="#_ftnref14" name="_ftn14" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[14]</span></span></a> (1971), 18 D.L.R. (3d) 374.</p>
+   </div>
+   <div id="ftn15">
+    <p class="Para"><a href="#_ftnref15" name="_ftn15" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[15]</span></span></a> [1975] 1 S.C.R. 376.</p>
+   </div>
+   <div id="ftn16">
+    <p class="Para"><a href="#_ftnref16" name="_ftn16" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[16]</span></span></a> [1972] Ch. 305.</p>
+   </div>
+   <div id="ftn17">
+    <p class="MsoFootnoteText"><a href="#_ftnref17" name="_ftn17" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[17]</span></span></a> (1972), 92 S. Ct. 2694.</p>
+   </div>
+   <div id="ftn18">
+    <p class="Para"><a href="#_ftnref18" name="_ftn18" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[18]</span></span></a> (1972), 92 S. Ct. 2701.</p>
+   </div>
+   <div id="ftn19">
+    <p class="Para"><a href="#_ftnref19" name="_ftn19" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[19]</span></span></a> [1963] 2 O.R. 257.</p>
+   </div>
+   <div id="ftn20">
+    <p class="Para"><a href="#_ftnref20" name="_ftn20" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[20]</span></span></a> [1936] 3 All E.R. 322.</p>
+   </div>
+   <div id="ftn21">
+    <p class="Para"><a href="#_ftnref21" name="_ftn21" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif">[21]</span></span></a> (1923), 33 C.L.R. 229.</p>
+   </div>
+  </div>
+ </div>
+</div>
+<div id="lexboxAnnotationHook"></div>
+<div id="decisia-reflex2-dialog" class="decisia-content" title="Citation automatically hyperlinked by Norma">
+    <div class="decisia-box">
+        <div style="margin-bottom:10px">
+            <div><span class="icon-warning-sign">&nbsp;</span>You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.</div>
+        </div>
+        <div style="float:right">
+            <button id="decisia-reflex2-continue-button" type="button">Continue&nbsp;<span class="icon-arrow-right"></span></button>
+        </div>
+        <div style="clear:both"></div>
+        <input id="decisia-reflex2-ignore-warning" type="checkbox"/>
+        <label for="decisia-reflex2-ignore-warning">Do not display this message anymore</label>
+    </div>
+</div></div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.modalClose = "Close";
+</script>
+</body>
+
+</html>

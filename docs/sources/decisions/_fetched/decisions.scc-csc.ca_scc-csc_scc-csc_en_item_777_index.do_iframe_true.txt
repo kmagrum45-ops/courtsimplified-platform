@@ -1,0 +1,434 @@
+ Waldick v. Malcolm - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Waldick v. Malcolm
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Waldick v. Malcolm
+ /scc-csc/scc-csc/fr/item/777/index.do?alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Supreme Court Judgments
+Decision Information
+ Waldick v. Malcolm
+ Collection
+ Supreme Court Judgments
+ Date
+ 1991-06-27
+ Report
+ [1991] 2 SCR 456
+ Case number
+ 21781
+ Judges
+ La Forest, Gérard V.; Sopinka, John; Gonthier, Charles Doherty; Cory, Peter deCarteret; McLachlin, Beverley; Stevenson, William; Iacobucci, Frank
+ On appeal from
+ Ontario
+ Subjects
+ Torts
+ Notes
+ SCC Case Information: [LINK https://www.scc-csc.ca/cases-dossiers/search-recherche/21781/] 21781
+ [LINK /scc-csc/scc-csc/en/777/1/document.do] 
+Decision Content
+ Waldick v. Malcolm, [1991] 2 S.C.R. 456 
+ Marvin Malcolm, Roberta Malcolm, Betty 
+ Stainback and Harry Hill Appellants 
+ v. 
+ Norman Edward Waldick and 
+ Janet Marie Waldick Respondents 
+ Indexed as: Waldick v. Malcolm 
+ File No.: 21781. 
+ 1991: February 26; 1991: June 27. 
+ Present: La Forest, Sopinka, Gonthier, Cory, McLachlin, Stevenson and Iacobucci JJ. 
+ on appeal from the court of appeal for ontario 
+ Torts ‑‑ Duty of care ‑‑ Occupiers' liability ‑‑ Rural residence ‑‑ Icy and snow covered walk, driveway and parking area not salted or sanded ‑‑ Condition known to visitor ‑‑ Visitor slipping and seriously injured ‑‑ Whether or not householders failed to fulfil statutory duty ‑‑ Whether visitor had willingly assumed risk and was contributorily negligent -- Occupiers' Liability Act, R.S.O. 1980, c. 322, ss. 2, 3, 4, 9. 
+ Waldick was seriously injured when he fell on the icy parking area of the Malcolm's rented farmhouse. The parking area and laneway had not been salted or sanded; apparently few people in that rural region did so. Waldick was aware that the laneway was slippery and acknowledged that its condition could be seen without difficulty. At issue here was whether or not the Malcolms failed to meet the statutory duty of care imposed by the<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Occupiers' Liability Act on occupiers of premises to persons coming onto those premises and whether Waldick had willingly assumed the risks of the injury. Also involved was the issue of whether Waldick had been contributorily negligent. 
+ The Malcolms were found liable for Waldick's personal injuries and the Court of Appeal dismissed the appeal from that judgment. The action and cross‑claim against the other appellants, Betty Stainback and Harry Hill, were dismissed because they had rented the property to the Malcolms and were not the occupiers of the farmhouse. 
+ Held: The appeal should be dismissed. 
+ The Malcolms, notwithstanding the alleged local custom, breached s. 3(1) of the Act. The existence of customary practices which are unreasonable in themselves, or which are not otherwise acceptable to the courts, does not oust the duty of care owed by occupiers under s. 3(1) of the Act. This statutory duty to take reasonable care in the circumstances to make the premises safe does not change but the factors which are relevant to an assessment of what constitutes reasonable care will necessarily be very specific to each fact situation. Local custom is one such circumstance. It can inform the court's assessment of what is reasonable in any given set of circumstances. Where an alleged custom is raised, however, the party who relies on his compliance with it or another person's departure from it must prove the custom is in effect. Only in the rarest and most patently obvious of cases will the courts take judicial notice of a custom. 
+ The alleged local custom of not salting or sanding parking areas and driveways was unproved; only Mrs. Malcolm's unsupported testimony would tend to prove it. Even if there had been adequate evidence in the record of such a local custom, that custom would not necessarily be decisive against a determination of negligence. No amount of general community compliance will render negligent conduct reasonable in all the circumstances. If it is unreasonable to do absolutely nothing to one's driveway in the face of clearly treacherous conditions, it matters little that one's neighbours also act unreasonably. The Act was meant to discourage this type of generalized negligence. It was far from self‑evident that the "practice" of not sanding or salting parking areas and driveways in the area should earn the acceptance of the courts. 
+ The Occupiers' Liability Act did not warrant a departure from the widely accepted volenti doctrine. The Act was to replace, refine and harmonize the common law duty of care owed by occupiers of premises to visitors on those premises. It was not intended to effect a wholesale displacement of the common law defences to liability. 
+ The Act promotes and requires, where circumstances warrant, positive action on the part of occupiers to make their premises reasonably safe. The occupier may, however, wish to put part of his or her property "off limits" rather than to make it safe, and that might be considered reasonable in certain circumstances. Where no such effort has been made, the exceptions to the statutory duty of care will be few and narrow. 
+ The legislature, in enacting s. 4(1), intended to carve out a very narrow exception to the class of visitors to whom the occupier's statutory duty of care is owed. This exception shares the same logical basis as the premise that underlies volenti: the plaintiff assumes the risk and absolves the defendant of all responsibility for it. This interpretation accords best with general principles of statutory interpretation, is more fully consonant with the legislative aims of the Act, and is consistent with tort theory generally. 
+ This Court was not presented with any new arguments on the issue of contributory negligence that could in any way lead to the conclusion that the trial judge made a "palpable and overriding" error in his appreciation of the evidence or in his finding on the contributory negligence issue. 
+ Cases Cited 
+ Considered: Dube v. Labar, [1986] 1 S.C.R. 649; Crocker v. Sundance Northwest Resorts Ltd., [1988] 1 S.C.R. 1186; disapproved: London Graving Dock Co. v. Horton<span lang="EN-GB" style="letter-spacing:
+-.15pt">, [1951] A.C. 737; referred to: Preston v. Canadian Legion, Kingsway Branch No. 175 (1981), 123 D.L.R. (3d) 645; Donoghue v. Stevenson, [1932] A.C. 562;<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Samis v. City of Vancouver, unreported, February 23, 1989, (B.C.C.A.); Roberge v. Bolduc, [1991] 1 S.C.R. 374;<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> James v. River East School Division No. 9 (1975), 64 D.L.R. (3d) 338; Drewry v. Towns (1951), 2 W.W.R. (N.S.) 217;<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Beatty v. Brad‑Lea Meadows Ltd. (1986), 39 A.C.W.S. (2d) 334; Bunker v. Charles Brand & Son, Ltd., [1969] 2 All E.R. 59; White v. Blackmore, [1972] 3 All E.R. 158;<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Mitchell v. Canadian National Railway Co., [1975] 1 S.C.R. 592. 
+ Statutes and Regulations Cited 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"><span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt">Negligence Act, R.S.O. 1980, c. 315. 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"><span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt">Occupiers' Liability Act, R.S.O. 1980, c. 322, ss. 2, 3, 4, 9. 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"><span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt">Occupiers' Liability Act, 1957, 1957 (U.K.), 5 & 6 Eliz. 2, c. 31, s. 2(5). 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"><span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt">Occupiers' Liability Act, 1984, 1984 (U.K.), c. 3, s. 1(6). 
+ Authors Cited 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">Di Castri, J. Victor.<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Occupiers' Liability. Vancouver: Burroughs and Co., 1980. 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">Fleming, John G.<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> The Law of Torts, 7th ed. Sydney: Law Book Co., 1987. 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">Linden, Allan M. "Custom In Negligence Law" (1968), 11 Can. Bar J. 151. 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">Ontario. Law Reform Commission.<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Report on Occupiers' Liability. Toronto: Department of Justice, 1972. 
+ APPEAL from a judgment of the Ontario Court of Appeal (1989), 70 O.R. (2d) 717, 63 D.L.R. (4th) 583, 35 O.A.C. 389, 2 C.C.L.T. (2d) 22, dismissing an appeal from a judgment of Austin J. (1987), 61 O.R. (2d) 624, 43 D.L.R. (4th) 693. Appeal dismissed. 
+ Earl A. Cherniak, Q.C., and<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Kirk F. Stevens , for the appellants. 
+ R. Keith Simpson and Robert S. Fuller, for the respondents. 
+ //Iacobucci J.// 
+ The judgment of the Court was delivered by 
+ Iacobucci J. -- The defendants, Marvin and Roberta Malcolm ("the Malcolms"), appeal from a judgment of the Ontario Court of Appeal dismissing their appeal from the judgment at trial finding the Malcolms liable for personal injuries suffered by the plaintiff, Norman Waldick ("Waldick"). 
+ The appeal involves the interpretation of the nature and extent of the duty of care under the Ontario Occupiers' Liability Act, R.S.O. 1980, c. 322 (the "Act"). In general terms, the Act sets out the duty of care owed by occupiers of premises to persons who come onto those premises and specifies certain exceptions to the prescribed duty of care. As this appeal is the first involving the Act to reach this Court and as several provinces have similar statutory regimes, it is important to clarify the scope of the duties owed by occupiers to their visitors. 
+ Briefly stated, Waldick was seriously injured in a fall on the premises occupied by the Malcolms. It was in this context that the questions arose as to whether the Malcolms had failed to fulfil their statutory duties under the Act, and whether Waldick had willingly assumed the risks of the injury. Also involved is an issue of contributory negligence of Waldick. But before going further, a further elaboration of the facts giving rise to this appeal is warranted. 
+ Facts 
+ On February 7, 1984, Waldick suffered a fractured skull when he fell on the icy parking area of the rural residential premises near Simcoe, Ontario which were occupied by the Malcolms. Waldick is Mrs. Malcolm's brother. Mrs. Malcolm worked as a hairdresser but she often cut hair at her home for friends and relatives without receiving any remuneration. The property, which consisted of a farmhouse and barn on approximately three acres of land, was owned by the other appellants, Betty Stainback and Harry Hill. The Malcolms rented the premises from them. Since they were not the occupiers of the farmhouse, the action and cross-claim against Stainback and Hill were dismissed on consent in June, 1986. 
+ On the premises was a gravel laneway that ran for about 200 to 300 feet from the road, past the house, and to the barn. Opposite the house, the laneway widened to form a parking area which could accommodate three or four vehicles at any one time. The house had a small wooden porch with two steps. Leading from the steps toward the laneway was a walk made of cement slabs which was about six feet long but which did not reach the laneway. The rest of the distance between the walk and the laneway was grass-covered. The trial judge noted that there was "a perceptible grade downwards from the house to the parking area." 
+ At the time of the injury, the porch and steps of the house had been shovelled and, while the walk and grassy area had also been shovelled, these were still snow-covered. The laneway had not been salted or sanded. The appellant, Roberta Malcolm, testified that she did not consider it necessary or reasonable to do so. She also testified that to her knowledge few of the residents in that rural region, including Waldick, salted or sanded their laneways in winter. Four days before the accident, the region had experienced an ice storm. Waldick was aware that the laneway was "slippery, very icy with a dusting of snow on it" and acknowledged that its condition could be seen without difficulty. Because of the ice, he took exceptional caution in driving up the laneway. He parked about 20 feet from where the gravel laneway met the grassy stretch, and entered the house, walking very carefully because of the ice. Some time later, he went out to his car to get a carton of U.S. cigarettes which he had purchased for his sister. He put on his winter boots, turned on the porch light, and got the cigarettes. As he was walking back to the house, he slipped on the ice, fell backwards in the parking area, and fractured his skull. 
+ Waldick commenced an action in the Supreme Court of Ontario under the Act, alleging negligence on the part of the Malcolms and the owners of the premises; as noted above, the action against the owners was dismissed on consent. The trial judge found the Malcolms liable for the injuries sustained by Waldick and by agreement of the parties deferred the determination of damages. 
+ Malcolms' appeal was dismissed by the Ontario Court of Appeal. 
+ Relevant Statutory Provisions 
+ Occupiers' Liability Act, R.S.O. 1980, c. 322 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"> 2. Subject to section 9, the provisions of this Act apply in place of the rules of the common law that determine the care that the occupier of premises at common law is required to show for the purpose of determining his liability in law in respect of dangers to persons entering on the premises or the property brought on the premises by those persons. 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"> 3. -- (1) An occupier of premises owes a duty to take such care as in all the circumstances of the case is reasonable to see that persons entering on the premises, and the property brought on the premises by those persons are reasonably safe while on the premises. 
+ ... 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"> 4. -- (1) The duty of care provided for in subsection 3 (1) does not apply in respect of risks willingly assumed by the person who enters on the premises, but in that case the occupier owes a duty to the person to not create a danger with the deliberate intent of doing harm or damage to the person or his property and to not act with reckless disregard of the presence of the person or his property. 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"> 9. ... 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"> (3) The provisions of the<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Negligence Act apply with respect to the causes of action to which this Act applies. 
+ Decisions Below 
+ Supreme Court of Ontario (Austin J.) 
+ (1987), 61 O.R. (2d) 624 
+ Austin J. began by considering the statutory standard of care owed by occupiers of premises under s. 3(1) of the Act. He quoted with approval at p. 628 from Preston v. Canadian Legion, Kingsway Branch No. 175 (1981), 123 D.L.R. (3d) 645 (Alta. C.A.), in which the plaintiff also slipped and fell on an icy lot and in which Moir J.A. (for the Court) in considering a similar provision in the analogous Alberta statute, said, at p. 648: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"> In my respectful opinion the effect of the Act is twofold. Firstly, it does away with the difference between invitees and licensees and puts both invitees and licensees into the common defined class of visitor.... Secondly, and more importantly, the statute now imposes an affirmative duty upon occupiers to take reasonable care for the safety of people who are permitted on the premises. This change is most marked because it does away with the old common law position that an occupier was only liable for unusual dangers of which he was aware or ought to have been aware. Under the old law the occupier could escape liability by giving notice. Now, the occupier has to make the premises reasonably safe. That does not absolve the visitor of his duty to take reasonable care but does place an affirmative duty on each and every occupier to make the premises reasonably safe. [Emphasis added.] 
+ Austin J. was of the view that, even though the provision of the Alberta Act is not identical to s. 3(1) of the Ontario Act, the standard of care formulated under the two provisions is sufficiently similar to make<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Preston<span lang="EN-GB" style="letter-spacing:
+-.15pt"> applicable. 
+ Austin J. also considered the 1972 Report on Occupiers' Liability<span lang="EN-GB" style="letter-spacing:
+-.15pt"> of the Ontario Law Reform Commission which led to the Act. That Report states, at pp. 14-15: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"> To persons formerly coming within the definition of invitees, licensees, and trespassers, the duty is to take "such care as in all the circumstances of the case is reasonable, to see that the person and his property will be reasonably safe ...". 
+ . . . 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">The expected judicial approach envisaged by the Commission would be the same approach that the courts have been using in matters of ordinary negligence. The test of foreseeability is still applicable. 
+ Applying the "reasonableness" standard, in light of all the facts before him, Austin J. said at p. 631: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"> In looking at all the circumstances in the present case, I consider first that weather conditions were ideal to produce very icy and slippery surfaces upon the [Malcolms'] gravel-surfaced parking area. The ice storm, not a common occurrence in this particular area, had occurred four days prior to the accident, followed by above and below freezing temperatures. In other words, the condition of the [Malcolms'] parking area on February 7th was not unexpected. The [Malcolms] did nothing to render their parking area less dangerous. The question is, by doing nothing under these conditions, do the [Malcolms] meet the standard of care required of them under the Act? In my opinion they do not. [Emphasis added.] 
+ In support of this conclusion, he quoted a further passage from<span lang="EN-GB" style="font-family:
+"TmsRmn 12pt Italic";letter-spacing:-.15pt"> Preston: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">Surely it is necessary for the occupier to inspect and to protect visitors if the conditions become dangerous by blocking access to dangerous areas in the lot, by sanding or salting (as was done on the sidewalk), or by any other reasonable and inexpensive means. To do nothing at all regardless of changing conditions is surely not reasonable care to see that visitors are reasonably safe. [Emphasis added.] 
+ Austin J. said that it would not have been necessary for the Malcolms to have cleared or sanded or salted the whole parking area, but "it would have been reasonable to set aside a portion of their lot next to the entrance for treatment." He noted that the premises in issue were rural, but said that s. 3(1) imposes a duty on every occupier. "Doing nothing at all under the circumstances was not reasonable care" in Austin J.'s view, and he accordingly found the Malcolms in breach of s. 3(1). 
+ Austin J. noted that the effect of s. 4(1) of the Act is to restrict the usual duty of care owed under s. 3(1). As to the application of s. 4(1) to the facts at bar, Austin J. said at p. 633: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"> The issue here then is what is meant by "risks willingly assumed"? Does it mean proceeding in the face of knowledge of the risks involved or is s. 4(1) intended to be a codification of the doctrine volenti non fit injuria? 
+ If the former, Austin J. was of the view that Waldick must fail, because the evidence showed that he was fully aware of the ice and the attendant risks of slipping. If the latter were the correct interpretation, then s. 4(1) would not bar the claim as there had been no agreement waiving legal rights. He noted that the volenti doctrine requires such an agreement: see<span lang="EN-GB" style="font-family:
+"TmsRmn 12pt Italic";letter-spacing:-.15pt"> Dube v. Labar, [1986] 1 S.C.R. 649. 
+ Austin J. first cited cases in which it was decided that s. 4(1) creates a new principle, on the basis of which simple knowledge of the risk bars recovery. On the other hand, he noted at p. 634 that in its 1972 Report, the Ontario Law Reform Commission had concluded that the corresponding provision in the draft statute 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">... attempts to preserve the rule of common law concerning the application of the legal maxim `<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt">volenti non fit injuria', even though its scope has been significantly narrowed by Canadian decisions. 
+ Austin J. then cited cases in which it was decided that s. 4(1) (or the analogous provisions in other jurisdictions) codifies<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> volenti<span lang="EN-GB" style="letter-spacing:
+-.15pt">. 
+ Austin J. also remarked that, whether the legislature had intended to codify volenti or rather to make knowledge of the risk sufficient, it could have used clearer language. He said at p. 636: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">As it is, the choice appears to be between imposing a very serious responsibility upon occupiers on the one hand, particularly rural, northern and residential occupiers, and on the other, giving s. 4(1) an interpretation which would render s. 3(1) largely ineffective. 
+ He decided on the first option, and accordingly concluded that Waldick's mere knowledge of the conditions he was facing did not constitute "risks willingly assumed" within the meaning of s. 4(1). 
+ As noted above, s. 9(3) of the Act provides that the<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Negligence Act, R.S.O. 1980, c. 315, applies to actions under the Act. This allows for apportionment of liability in cases of contributory negligence. After carefully reviewing the circumstances that led up to the accident, Austin J. found that Waldick had not been contributorily negligent. 
+ In the result, the Malcolms were found liable, but by consent damages were not assessed. 
+ Ontario Court of Appeal (Blair, Tarnopolsky and McKinlay JJ.A.) 
+ (1989) 70 O.R. (2d) 717 
+ In writing for the Court of Appeal, Blair J.A. noted that this was the first occasion that the Court had considered the Act and quoted extensively from the introduction to the 1972 Ontario Law Reform Commission Report<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt">, supra.<span lang="EN-GB" style="letter-spacing:
+-.15pt"> These extracts emphasize that one of the principal purposes of the legislation was to replace the somewhat obtuse common law of occupiers' liability by a generalized duty of care based on the "neighbour" principle set down in<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Donoghue v. Stevenson, [1932] A.C. 562. Blair J.A., at p. 722, also quoted Professor Fleming from<span lang="EN-GB" style="font-family:
+"TmsRmn 12pt Italic";letter-spacing:-.15pt"> The Law of Torts, (7th ed. 1987), at p. 450, as to the success of the reform brought to this area of the law by occupiers' liability legislation: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">Its central feature was to abandon the timorous distinction between categories of entrants and subsume the law of occupiers to the unifying principle of a "common duty of care". The dearth of reported decisions over 25 years of operation bespeaks success in at least one of its objectives. 
+ It was from this background of bearing in mind "the defects in the common law and the rationale for the Act" that Blair J.A. considered the application of the statutory provisions to the facts of the instant appeal. 
+ Blair J.A. also approved the passage (reproduced above) from the judgment of Moir J.A. in Preston relating to the twofold effect of the Act. In response to the contention by counsel for the Malcolms that the standard of care should be lower in light of the rural character of the Malcolm's premises, and specifically in light of the alleged local custom of not sanding or salting driveways, Blair J.A. replied at p. 724: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"> I cannot, with respect, agree. Section 3(1) of the Act requires a court to determine the scope of an occupier's duty "in all the circumstances of the case". It would be contrary to the scheme of the Act to fragment the duty of occupiers by the imposition of arbitrary judge-made rules applicable to different kinds of premises, such as those suggested by counsel for the appellants for residential or commercial premises located in rural or urban settings. To do so would be to regress to the categorization of occupiers' liability which characterized the common law. It would also defeat the statutory purpose of establishing a common duty of care. Austin J. properly rejected this attempted categorization in this case in the same way that the Alberta Court of Appeal in<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Preston, supra, rejected the argument that, because the defendant was a club, a lower standard of care than that applicable to commercial premises would apply. [Emphasis added.] 
+ Blair J.A. pointed out, at p. 724, that the "trial judge was properly concerned lest an unrealistically high duty might be cast upon rural and northern residents in this province, where snowfall generally is heavier, and usage lighter, than in urban areas". Blair J.A. agreed with the trial judge's holding that the duty was not to make the whole farmground safe or to salt all the parking area but that the duty was limited to salting or sanding that part of the parking area "next to the entrance." He found no fault with Austin J.'s assessment of what constituted "reasonable care" in the circumstances, and also agreed with the trial judge in his conclusion that, by doing nothing, the appellants breached the standard prescribed by s. 3(1). 
+ With respect to s. 4(1) of the Act, Blair J.A. noted the two conflicting trends in the case law concerning the proper interpretation of the words "risks willingly assumed". Since the time of trial, the Malcolms had found further support in a comment of Hutcheon J.A. in<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Samis v. City of Vancouver (British Columbia Court of Appeal, February 23, 1989, unreported). Counsel for the Malcolms urged the Court to consider an extract from that case to the effect that mere knowledge of the risk by the victim would be a bar to recovery. Blair J.A. replied that, on the facts of Samis, the statement was clearly<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> obiter<span lang="EN-GB" style="letter-spacing:
+-.15pt">. He quoted again, at p. 727, from Moir J.A. in Preston, supra, at p. 649: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">If the Act is interpreted to mean that any person coming on the premises and finding dangerous, icy conditions is deemed to accept the risk, the Act is effectively repealed. In my opinion, the duty to make the premises reasonably safe is placed upon the occupier. Merely because a visitor, upon arrival at the premises, sees that there is a risk in using the premises cannot in my opinion relieve the occupier of the duty placed upon him by the statute. 
+ Blair J.A. also observed that the corresponding section in the English Occupiers' Liability Act, 1957, 1957 (U.K.), 5 & 6 Eliz. 2, c. 31, has been interpreted as preserving the volenti doctrine. He clearly preferred the view that s. 4(1) codifies the doctrine, and provided two additional reasons. 
+ First, as a matter of statutory interpretation Blair J.A. stated that the Act must be read as a whole. Reading ss. 3(1) and 4(1) together, he said that if mere knowledge brings s. 4(1) into play, then "the broad principle of liability in s. 3(1) would be virtually nullified". Second, Blair J.A. noted that the law has evolved away from "all or nothing defences", as can be seen in the way that contributory negligence has been statutorily modified to allow for apportionment of liability. Similarly, volenti has been narrowed, as shown by the decisions in<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Dube v. Labar,<span lang="EN-GB" style="font-family:
+"TmsRmn 12pt Italic";letter-spacing:-.15pt"> supra, and<span lang="EN-GB" style="font-family:
+"TmsRmn 12pt Italic";letter-spacing:-.15pt"> Crocker v. Sundance Northwest Resorts Ltd., [1988] 1 S.C.R. 1186. In the latter case, Wilson J. said, at p. 1202, that the rule applies only when the plaintiff has assumed both the physical and the legal risks. Blair J.A. said that in the light of its reform-oriented goals, the Act must be taken to reflect current trends in the law of tort. As such, a narrow interpretation of the "all or nothing" defence provided by s. 4(1) would be appropriate. 
+ The Malcolms submitted that the evidence at trial showed that Waldick had been contributorily negligent. In particular, it was urged that the evidence showing that Waldick was not wearing a coat at the time of the accident proved that he was hurrying and being less than prudent. Blair J.A. reviewed the thorough comments of the trial judge on this point, and noted that a number of decisions of this Court establishes that, in the absence of palpable or overriding error, an appellate court should not interfere with a trial judge's finding of negligence. Blair J.A. was of the view that no such palpable or overriding error was present in this case. 
+ Consequently, the appeal was dismissed. 
+ Points in Issue 
+ <p class="MsoNormal" style="margin-left:233.95pt;text-align:justify;text-indent:
+-233.95pt;line-height:24.4pt">1.Whether the Court of Appeal of Ontario erred in holding that the Malcolms breached the duty of care imposed by s. 3(1) of the<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Occupiers' Liability Act; 
+ <p class="MsoNormal" style="margin-left:233.95pt;text-align:justify;text-indent:
+-233.95pt;line-height:24.4pt">2.Whether, in the event that the Court of Appeal of Ontario was correct that the Malcolms did not meet the duty of care, Waldick willingly assumed the risks of walking over the icy parking area, thus relieving them from liability, pursuant to s. 4(1) of the Act; 
+ <p class="MsoNormal" style="margin-left:233.95pt;text-align:justify;text-indent:
+-233.95pt;line-height:24.4pt">3.Whether the trial judge made a "palpable and overriding error" when he found that Waldick was not contributorily negligent. 
+ Analysis 
+ 1. Did the Court of Appeal of Ontario err in holding that the Malcolms breached the duty of care imposed by s. 3(1) of the Occupiers' Liability Act? 
+ The courts below concluded that, in light of all the circumstances, the Malcolms breached the duty of care owed under s. 3(1) of the Act by doing nothing to render the parking area entrance to their house less slippery. While the Act in no way obliged them to salt or sand "every square inch of their parking area", Austin J. was of the view that doing nothing fell short of the reasonable care requirement. Blair J.A. agreed, noting the duty was limited only to salting or sanding that part of the parking area next to the entrance and adding that it was undeniable that the Malcolms knew this part would be used by visitors like Waldick. 
+ Both Austin J. and Blair J.A. also stressed that sand and salt are not expensive and are readily available. 
+ Counsel for the Malcolms submitted that the lower courts had reduced the statutory words "in all the circumstances of the case" to a consideration of only two factors: foreseeability of an accident, and the costs of its avoidance. In counsel's view, this was an oversimplified "calculus of negligence" which constituted a reviewable error of law. More specifically, the Malcolms argued that the courts below should also have taken into account "the practices of persons in the same or similar situations as the person whose conduct is being judged", or in other words, local custom. This, it was argued, would inject an element of community standards into the negligence calculus, and would promote behaviour which better accords with the reasonable expectations of community members. 
+ Professor Linden's (as he then was) article, "Custom In Negligence Law" (1968), 11 Can. Bar J. 151, was cited in support of these propositions. At page 153, in the course of a discussion of the policy reasons for and against the relevance of custom Linden says that: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">... customary practices can provide a fairly precise standard of care to facilitate the courts' task of deciding what is reasonable in the circumstances. Like penal statutes, customs can crystallize the ordinarily vague standard of reasonable care. 
+ In the instant appeal, the relevant local custom which the courts below allegedly neglected to consider was "not sanding or salting driveways". 
+ I am unable to agree with the Malcolms' submissions for several reasons. First of all, I do not agree with the premise of their argument, viz., that the lower courts failed to consider local custom. In my view, both Austin J. and Blair J.A. gave ample consideration to all the factors which could enter into an assessment of what constitutes reasonable care, including the alleged custom in the rural community involved. A close reading of the judgments below reveals that the learned judges considered, among other things: the weather, the time of year, the size of the parking area, the cost of preventive measures, the quality of the footwear worn by Waldick, the length of the pathway, and the fact that these were rural and residential premises. 
+ The mere fact that the alleged custom was not decisive of the negligence issue does not in any way support the conclusion that it was not considered. After all, the statutory duty on occupiers is framed quite generally, as indeed it must be. That duty is to take reasonable care in the circumstances to make the premises safe. That duty does not change but the factors which are relevant to an assessment of what constitutes reasonable care will necessarily be very specific to each fact situation -- thus the proviso "such care as in all circumstances of the case is reasonable". One such circumstance is whether the nature of the premises is rural or urban. Another is local custom, which Blair J.A. explicitly mentions and I view his reasons as considering and rejecting the alleged custom. 
+ Secondly, there are proof problems that complicate the Malcolms' argument in this regard. Acknowledging that custom can inform the courts' assessment of what is reasonable in any given set of circumstances, it is nevertheless beyond dispute that, in any case where an alleged custom is raised, the "party who relies on either his own compliance with custom or the other person's departure from general practice bears the onus of proof that the custom is in effect." (Linden, supra, at p. 167). Only in the rarest and most patently obvious of cases will the courts take judicial notice of a custom, and even this, as Linden warns, is a "dangerous practice". 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">It would be preferable for courts to demand evidence of the general practice or not to rely on custom at all. Counsel who wish to rely on custom would be most unwise to attempt to do so without adducing expert evidence of general practice. [At p. 167.] 
+ In the case at bar, there is nothing apart from the completely unsupported testimony of the appellant Mrs. Malcolm that tends to prove something that could qualify as custom. She was asked: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">Q: To your knowledge ... do any of your neighbours in the immediate area salt their driveways? 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">A: No. 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">Q: Does your brother? 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">A: No. 
+ It was clearly open to the courts below to conclude that the evidence was, without more, insufficient to discharge the onus of proof that rests on the Malcolms. That is how I read the judgments below. 
+ Thirdly, even if there had been adequate evidence in the record of a general local custom of not salting or sanding driveways, I am not of the view that such a custom would necessarily be decisive against a determination of negligence in the case at bar. Shortly after the extract cited by the Malcolms, (supra, at p. 154), Linden also points out that: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">... tort courts have not abdicated their responsibility to evaluate customs, for negligent conduct cannot be countenanced, even when a large group is continually guilty of it. 
+ In short, no amount of general community compliance will render negligent conduct "reasonable ... in all the circumstances". (See in another context, the recent decision of this Court in<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Roberge v. Bolduc, [1991] 1 S.C.R. 374, in which L'Heureux-Dubé J., writing for the Court, held that professional practice, which is not shown to be demonstrably reasonable, could not be an answer to a claim of professional negligence. See also:<span lang="EN-GB" style="font-family:
+"TmsRmn 12pt Italic";letter-spacing:-.15pt"> James v. River East School Division No. 9 (1975), 64 D.L.R. (3d) 338 (Man. C.A.)). If, as the lower courts found, it is unreasonable to do absolutely nothing to one's driveway in the face of clearly treacherous conditions, it matters little that one's neighbours also act unreasonably. Presumably it is exactly this type of generalized negligence that the Act is meant to discourage. 
+ As Linden points out, certain types of community practices will not be given weight by the courts. Commenting on Drewry v. Towns (1951), 2 W.W.R. (N.S.) 217, where Kelly J. found the habit of farmers who left their trucks on the snowbound roadside unlighted and unattended to be negligent, Linden says at p. 162: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">...the so-called parking "practice" of the farmers in the area was not the type of general practice that earns the acceptance of the courts, that is, the customary way that a business or profession is conducted. Such a custom is worthy of judicial protection as long as it is not shown to be negligent, but a mere "habit" of a few farmers does not deserve similar treatment. [Emphasis added.] 
+ In my view, it is far from self-evident that the "practice" of not sanding or salting the driveways in the area should earn the acceptance of the courts. 
+ To conclude on this point, the existence of customary practices which are unreasonable in themselves, or which are not otherwise acceptable to courts, in no way ousts the duty of care owed by occupiers under s. 3(1) of the Act. That duty is to take such care as is reasonable in the circumstances, and in my view, both Austin J. and Blair J.A. correctly stated and applied the law in this regard. They both considered "all the circumstances of the case". I would accordingly agree that the Malcolms breached the statutory duty of care imposed by s. 3(1) of the Act. 
+ 2. In the event that the Court of Appeal of Ontario was correct that the Malcolms did not meet the duty of care, did Waldick willingly assume the risks of walking over the icy parking area, thus relieving them from liability, pursuant to s. 4(1) of the Act? 
+ At issue under this ground of appeal is the scope of the defence which s. 4(1) offers to occupiers. They will be absolved of liability in those cases where the losses suffered by visitors on their premises come as a result of "risks willingly assumed" by those visitors. As Austin J. and Blair J.A. noted, there are two quite distinct and conflicting trends in the jurisprudence as to the proper interpretation of this term. In essence, they reflect two standards of what assuming a risk means: the first involves merely knowing of the risk that one is running, whereas the second involves not only knowledge of the risk, but also a consent to the legal risk, or in other words, a waiver of legal rights that may arise from the harm or loss that is being risked. The latter standard is captured by the maxim volenti non fit injuria (the volenti doctrine) whereas the former is sometimes referred to as "<span lang="EN-GB" style="font-family:
+"TmsRmn 12pt Italic";letter-spacing:-.15pt">sciens", or in other words, mere "knowing" as opposed to actually "willing". 
+ Counsel for the Malcolms argued that s. 4(1) should be interpreted as meaning something between mere knowledge and the strict<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> volenti<span lang="EN-GB" style="letter-spacing:
+-.15pt"> approach. He suggested that s. 4(1) would be met where it could be shown that the visitor had a knowledge and appreciation of the danger on the premises. 
+ In my view, the reasons of Blair J.A. on this issue are also an admirably correct statement of the law. I have no doubt that s. 4(1) of the Act was intended to embody and preserve the volenti doctrine. This can be seen by looking at the statutory scheme that is imposed by the Act as a whole. It is clear the intention of the Act was to replace, refine and harmonize the common law duty of care owed by occupiers of premises to visitors on those premises. That much seems evident from the wording of s. 2 of the Act: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"> 2. Subject to section 9, the provisions of this Act apply in place of the rules of the common law that determine the care that the occupier of premises at common law is required to show for the purpose of determining his liability in law in respect of dangers to persons entering on the premises or the property brought on the premises by those persons. 
+ I am of the view that the Act was not intended to effect a wholesale displacement of the common law defences to liability, and it is significant that no mention is made of common law defences in s. 2. Reinforcement of this view is found when one asks why this area of law should entail a defence other than volenti which is applicable to negligence actions generally. There does not appear to be anything special about occupiers' liability that warrants a departure from the widely accepted volenti doctrine. 
+ Accordingly, I agree with Blair J.A. who found that the second branch of decided cases provides compelling grounds for viewing s. 4(1) as an embodiment of the volenti doctrine. Blair J.A., at p. 728, approved the words of DuPont J. in<span lang="EN-GB" style="font-family:
+"TmsRmn 12pt Italic";letter-spacing:-.15pt"> Beatty v. Brad-Lea Meadows Ltd. (1986), 39 A.C.W.S. (2d) 334 which, in my view, are particularly apposite to the case at bar. DuPont J. said, at p. 8, that if the courts interpret s. 4(1) as requiring only knowledge of the risk on the part of the victim: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">It would seem to follow that if such contention is correct, occupiers would always escape liability whenever a risk of any sort is apparent or known to an injured party, even where the occupier has failed to take any reasonable steps to render the property reasonably safe for use.... Such an interpretation would nullify much of the intent of s. 3(1) of the Act that specifically creates a duty of care upon the occupier to take reasonable steps to maintain the property in a reasonably safe condition. 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"> Usually more than mere knowledge of the risk is required to invoke s. 4(1) of the Act in the sense suggested. The risks willingly assumed must be known to the plaintiff and from the plaintiff's conduct and circumstances revealed, the plaintiff must have assumed it in the sense of being prepared to accept the entire risk of injury that may result without recourse to any contribution or liability from or of any other party. [Emphasis added.] 
+ The so-called intermediate position between<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> volenti<span lang="EN-GB" style="letter-spacing:
+-.15pt"> and mere knowledge advanced by the Malcolms herein points in the direction of reviving the somewhat draconian standards set down by the House of Lords in<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> London Graving Dock Co. v. Horton, [1951] A.C. 737, which was roundly criticized, and rightly so, in my view, for effectively eliminating any volitional element to the<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> volenti<span lang="EN-GB" style="letter-spacing:
+-.15pt"> defence. Following that decision, mere knowledge of the peril by the victim was a defence. As Professor Fleming notes in The Law of Torts, supra, at p. 431: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"><span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt">Horton's<span lang="EN-GB" style="letter-spacing:
+-.15pt"> case encountered such devastating professional disapproval that it was promptly abrogated in England by statute.... 
+ To my mind, it is significant that the English law to which Professor Fleming refers uses a similar phrase, namely, "risks willingly accepted" as s. 4(1) of the Act and adds parenthetically that the question whether a risk was so accepted is to be decided on the same principles as in other cases, in which one person owes a duty of care to another. The absence of the parenthetical explanation in s. 4(1) of the Act does not mean it should be interpreted differently: see Occupiers' Liability Act, 1957<span lang="EN-GB" style="letter-spacing:
+-.15pt">, 1957 (U.K.), 5 & 6 Eliz. 2, c. 31, s. 2(5); Occupiers' Liability Act, 1984, 1984 (U.K.), c. 3, s. 1(6). In that connection, the U.K. section has consistently been held to require more than a mere knowledge of the risk by the plaintiff: see, for example,<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Bunker v. Charles Brand & Son, Ltd., [1969] 2 All E.R. 59, at p. 65, per O'Connor J. and White v. Blackmore, [1972] 3 All E.R. 158, at p. 164,<span lang="EN-GB" style="font-family:
+"TmsRmn 12pt Italic";letter-spacing:-.15pt"> per Denning M.R. 
+ The goals of the Act are to promote, and indeed, require where circumstances warrant, positive action on the part of occupiers to make their premises reasonably safe. The occupier may, however, wish to put part of his property "off limits" rather than to make it safe, and in certain circumstances that might be considered reasonable. Where no such effort has been made, as in the case at bar, the exceptions to the statutory duty of care will be few and narrow. As Professor Di Castri states in his book<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Occupiers' Liability, supra, at p. 229: "It may be assumed the words "willingly accepted" will not be given a liberal interpretation. . . . It would seem that the defence will be difficult to sustain in view of the high standard of evidence [of voluntariness] required." In the course of these remarks, Professor Di Castri cites from the decision of Laskin J. (as he then was) in<span lang="EN-GB" style="font-family:
+"TmsRmn 12pt Italic";letter-spacing:-.15pt"> Mitchell v. Canadian National Railway Co., [1975] 1 S.C.R. 592, and includes an extract at p. 617 which, to my mind, is relevant to the question before us: 
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:23.0pt;margin-bottom:
+0cm;margin-left:23.0pt;margin-bottom:.0001pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"> I regard it as wrong in principle to dissolve a duty of care that arises on the facts of a case merely because the person to whom the duty is owed knows that he may be exposing himself to some danger, and especially so when there is applicable apportionment legislation. 
+ Of course, such apportionment legislation exists in Ontario, and, indeed, is at the core of the third ground of appeal in the instant case. 
+ As Blair J.A. noted, several recent decisions of this Court have clarified the volenti doctrine and its place in the current state of the law of torts. In<span lang="EN-GB" style="font-family:
+"TmsRmn 12pt Italic";letter-spacing:-.15pt"> Dube v. Labar, supra, at p. 658, Estey J. reduced the scope of the<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> volenti<span lang="EN-GB" style="letter-spacing:
+-.15pt"> defence, holding that it will only arise: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">. . . where the circumstances are such that it is clear that the plaintiff, knowing of the virtually certain risk of harm, in essence bargained away his right to sue for injuries incurred as a result of any negligence on the defendant's part. The acceptance of risk may be express or may arise by necessary implication from the conduct of the parties, but it will arise ... only where there can truly be said to be an understanding on the part of both parties that the defendant assumed no responsibility to take due care for the safety of the plaintiff, and that the plaintiff did not expect him to. 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt"> Common sense dictates that only rarely will a plaintiff genuinely consent to accept the risk of the defendant's negligence. 
+ Wilson J. further emphasized the exceptional and somewhat anachronistic nature of volenti in light of the current trends in the law of torts. She said at p. 1202 of Crocker v. Sundance Northwest Resorts Ltd.<span lang="EN-GB" style="letter-spacing:
+-.15pt">,<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> supra<span lang="EN-GB" style="letter-spacing:
+-.15pt">: 
+ <p class="MsoNormal" style="margin-left:23.0pt;text-align:justify;text-indent:
+-23.0pt;line-height:12.2pt">Since the<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> volenti<span lang="EN-GB" style="letter-spacing:
+-.15pt"> defence is a complete bar to recovery and therefore anomalous in an age of apportionment, the courts have tightly circumscribed its scope. It only applies in situations where the plaintiff has assumed both the physical and the legal risk involved in the activity.... 
+ In my view, the legislature's intention in enacting s. 4(1) of the Act was to carve out a very narrow exception to the class of visitors to whom the occupier's statutory duty of care is owed. This exception shares the same logical basis as the premise that underlies<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> volenti<span lang="EN-GB" style="letter-spacing:
+-.15pt">, i.e., "that no wrong is done to one who consents. By agreeing to assume the risk the plaintiff absolves the defendant of all responsibility for it":<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> per<span lang="EN-GB" style="letter-spacing:
+-.15pt"> Wilson J. in<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Crocker<span lang="EN-GB" style="letter-spacing:
+-.15pt">,<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> supra<span lang="EN-GB" style="letter-spacing:
+-.15pt"> at p. 1201. Rare may be the case where a visitor who enters on premises will fully know of and accept the risks resulting from the occupier's non-compliance with the statute. To my mind, such an interpretation of s. 4(1) accords best with general principles of statutory interpretation, is more fully consonant with the legislative aims of the Act, and is consistent with tort theory generally. 
+ Both Austin J. and Blair J.A. were of the view that Waldick did not consent to the legal risk or waive any legal rights that might arise from the negligence of the Malcolms. I agree with their disposition of this ground of appeal and conclude that Waldick is not barred from recovery by the operation of s. 4(1) of the Act. 
+ 3. Did the trial judge made a "palpable and overriding error" when he found that Waldick was not contributorily negligent? 
+ Blair J.A. refused, rightly in my view, to revisit the findings of Austin J. as to the issue of contributory negligence. The Malcolms before this Court simply reargued a point that was explicitly rejected by Blair J.A. They contest the failure of the trial judge to draw an inference of carelessness from the proof that Waldick was not wearing a winter coat. In my view, there have been no new arguments presented before this Court that could in any way lead to the conclusion that Austin J. made a "palpable and overriding" error in his appreciation of the evidence or in his finding on the contributory negligence issue. 
+ Conclusion 
+ For the foregoing reasons, I would dismiss the appeal with costs. 
+ Appeal dismissed with costs. 
+ Solicitors for the appellants: Lerner & Associates, Toronto. 
+ Solicitors for the respondents: Brimage, Tyrrell, Van Severen & Hemeniuk, Simcoe. 
+ You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.
+ Continue 
+ Do not display this message anymore
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.modalClose = "Close";

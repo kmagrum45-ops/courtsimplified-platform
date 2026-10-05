@@ -1,0 +1,263 @@
+ Myers v. Peel County Board of Education - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Myers v. Peel County Board of Education
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Myers v. Peel County Board of Education
+ /scc-csc/scc-csc/fr/item/2521/index.do?alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Supreme Court Judgments
+Decision Information
+ Myers v. Peel County Board of Education
+ Collection
+ Supreme Court Judgments
+ Date
+ 1981-06-22
+ Report
+ [1981] 2 SCR 21
+ Judges
+ Laskin, Bora; Dickson, Robert George Brian; Estey, Willard Zebedee; McIntyre, William Rogers; Lamer, Antonio
+ On appeal from
+ Ontario
+ Subjects
+ Torts
+ [LINK /scc-csc/scc-csc/en/2521/1/document.do] 
+Decision Content
+ Supreme Court of Canada 
+ Myers v. Peel County Board of Education, [1981] 2 S.C.R. 21 
+ Date: 1981-06-22 
+ Gregory Jan Myers, an infant by his next friend, Edward Percival Myers, and Edward Percival Myers, in his personal capacity (Plaintiffs) Appellants; 
+ and 
+ Peel County Board of Education and Walter Jowett (Defendants) Respondents. 
+ 1980: November 12; 1981: June 22. 
+ Present: Laskin C.J. and Dickson, Estey, Mclntyre and Lamer JJ. 
+ ON APPEAL FROM THE COURT OF APPEAL FOR ONTARIO. 
+ Torts—Negligence—Serious injury caused during school gymnastics class—Accident occurred in part of gymnasium separated from main activities and from supervision by floor level—Students instructed in safety precautions—Marking scheme encouraged achievement of more difficult, riskier exercises—Whether or not supervision adequate—Whether or not equipment (mats) adequate. 
+ This appeal concerned an accident suffered by a fifteen year old boy in attempting to dismount from the rings in a gymnastic class at high school. The accident occurred in an exercise room, an area opening on to the gymnasium but at a somewhat higher level, where supervision from the main floor was impossible. The teacher for the period was responsible for a combined class that day and had given appellant and a friend, among others, permission to practise their gymnastic manoeuvres in the exercise room. The friend acted as appellant’s spotter, a person positioned to catch a person or at least to break his fall in the event of an accident. When appellant dismounted, the spotter considered him finished working on the rings and turned to leave. Appellant, however, remounted, attempted a difficult manoeuvre for the first time, and fell breaking his neck; his claim that he told the spotter of his intention to do so was rejected by the trial judge. 
+ At trial, the manoeuvre was found to be suitable for a student of appellant’s age and condition if given suitable coaching and supervision. The supervision incumbent was found to be lacking and the mats in place under the 
+ [Page 22] 
+ rings at the time of the accident inadequate. Liability was apportioned, the defendant being eighty per cent liable, and the appellant twenty per cent liable. The Court of Appeal allowed an appeal finding that there was no evidence that other mats would have avoided the injury and that it could not be assumed that a teacher’s presence would have avoided the accident. 
+ Held: The appeal should be allowed. 
+ The trial judge’s finding of liability against respondent was supported on only two bases, the failure to provide adequate matting, and the failure to supervise. There was evidence of the former, that of an expert witness, upon which the trial judge could base his finding. As to the second, no supervision was provided as far as events leading up to the accident were concerned. An appellate court, because other evidence to the contrary existed, was not justified in relying on that evidence to reach a conclusion different from that of the trial judge in the absence of some error in principle. 
+ The standard of care to be exercised by school authorities in providing for the supervision and protection of students for whom they were responsible—that of a careful or prudent parent—was not met. A prudent parent would not be content to provide the protective matting used when other, more protective mats were available or to permit his son to leave the gymnasium to practise potentially dangerous manoeuvres in a room without adult supervision. 
+ Plaintiff showed that respondent’s failures caused or contributed to the accident which resulted in the injuries complained of. It was not necessary to prove positively that the presence of the crash mat would have prevented the injury but merely, on the balance of probabilities, that the failure of the school authorities to provide more adequate matting and insist on its use contributed to the accident. Further, it could not be said that the presence of a teacher among six to eight students in the exercise room would not have had a restraining effect on the students and so could have influenced the course of events and prevented the accident. 
+ Appellant was contributorily negligent as found by the trial judge. 
+ [Page 23] 
+ Thornton et al. v. Board of School Trustees of School District No. 57 (Prince George) et al., [1976] 5 W.W.R. 240 (B.C.C.A.); Williams v. Eady (1893), 10 T.L.R. 41; McKay et al. v. The Board of the Govan School Unit No. 29 of Saskatchewan et al., [1968] S.C.R. 589; Dziwenka et al. v. Her Majesty The Queen in right of Alberta et al., [1972] S.C.R., 419 referred to. 
+ APPEAL from a decision of the Court of Appeal for Ontario[LINK #_ftn1] [1], allowing an appeal from the judgment of O’Driscoll J. Appeal allowed. 
+ Timothy E.G. Fellowes, Q.C., and J. Freedlander, for the appellants. 
+ J.W. O’Brien, Q.C., and W.E. Pepall, for the respondents. 
+ The judgment of the Court was delivered by 
+ MCINTYRE J.—This appeal concerns an accident suffered by a fifteen year old boy in attempting a dismount from the rings in a gymnastic class at his high school. At trial the defendants (the school authorities) were found negligent, as was the plaintiff, the division of liability being eighty per cent to the defendants and twenty per cent to the plaintiff. Damages were awarded and after the allowance for the shared liability the plaintiff, who had attained majority by the time judgment was given, obtained judgment for $64,000 and one-half of his costs. His father, who had been the plaintiffs next friend at the commencement of the action, received judgment for $2,656.30. An appeal was taken to the Ontario Court of Appeal by the defendants. There was no cross-appeal. The Court of Appeal, by a majority, Arnup and Zuber JJ.A., allowed the appeal and dismissed the action. Blair J.A., dissenting, would have dismissed the appeal. The appellant appeals to this Court by leave and seeks the restoration of the trial judgment. No issue arises on the question of quantum of damages. 
+ [Page 24] 
+ The accident occurred on December 6, 1972. On that date the appellant was a member of the Grade XI physical education class for boys at the Erindale Secondary School which was under control of the Peel County Board of Education. The physical education course had commenced in the autumn with the commencement of the school year. It was divided into segments each of which dealt with a particular part of the whole course. The segment dealing with gymnastics had commenced on October 30 and was to continue until December 8. The accident occurred almost at the end of this part of the course. The gymnastic program, which consisted largely of work on various pieces of gymnastic equipment, was conducted generally in the school gymnasium. In addition to the gymnasium, there was ail exercise room which was on a level somewhat higher than the gymnasium but which opened on to it, which was used on occasion. While there was an unobstructed opening between the two rooms, the different levels of their floor surfaces made it impossible for a person in the gymnasium to see into the exercise room in order to observe the activities being carried on within. 
+ On the day of the accident there were from twenty-five to thirty students in the appellant’s class. On that day the Grade XII class was also in session using the gymnasium or part of it, and the presence of this class raised the number of participating students to about forty. The Grade XII teacher responsible for the Grade XII students was ill and not in the school. Supervision of both classes for this period, which commenced about 2:00 p.m. and was to last until shortly before 3:00 p.m., was left to the one Grade XI teacher, a Mr. W.W. Jowett. Shortly after the commencement of the class, the appellant and a friend and classmate, named Chilton, asked permission of Jowett to leave the gymnasium and go to the exercise room to practise their gymnastic manoeuvres. Permission was granted and they went to the exercise room. This was not an unusual occurrence and frequently such permission was given. On the date in question, fifteen boys according to the appellant, six to eight according to Jowett, were allowed to go to the exercise room. However many were there, it is clear that while they were there they were expected to practise their gymnastic manoeu- 
+ [Page 25] 
+ vres in preparation for testing, which would establish their marks. They were without any supervision from faculty members during the time they were in the exercise room and, as noted above, they were out of sight of the teacher who remained in the gymnasium. 
+ After entering the exercise room the appellant commenced the performance of some manoeuvres on the rings. This apparatus consists of two wooden rings suspended from the ceiling on parallel wires about eight feet from the floor and being about two feet apart. His classmate Chilton was standing by as a spotter whose function was to be present during the manoeuvre and to assist the person on the rings and, in the event of a fall, to catch the performer or at least to make contact with him and break the force of his fall. This function and the importance of spotters generally had been stressed by Jowett, and all witnesses called to give evidence on gymnastic matters agreed that spotters are essential to the safe conduct of these activities. There was evidence that the appellant’s class had been warned of the necessity of spotters and had received some instruction in their duties. They had also been told that a performer was to tell his spotter what he proposed to do from time to time, so that the spotter could position himself so as to be of service if required. The appellant finished his manoeuvre and dismounted from the rings. The spotter, who said that he considered the appellant was finished working on the rings, turned to leave and had moved away about fifteen feet when he saw “out of the corner of his eye” the appellant fall from the rings on his head. The appellant said that after finishing one manoeuvre and dismounting he had told the spotter that he intended to do a straddle dismount and, assuming that the spotter had heard and would be in a position to assist, he proceeded to do so. It should be noted that the trial judge rejected that aspect of the appellant’s evidence. He had never attempted such a dismount before—a manoeuvre that requires the performer, while swinging from the rings, to bring his legs up over his head and execute a backward somersault, releasing the rings at the appropriate moment, and to land on his feet on the mats below. He fell from the rings in the 
+ [Page 26] 
+ course of the manoeuvre and broke his neck, immediately becoming a quadraplegic. Fortunately, after some time in hospital, he made a very substantial recovery and was able to return to school, and is now gainfully employed but no doubt with substantial disabilities. 
+ At trial, the trial judge found that, although the manoeuvre described as a straddle dismount was suitable to the plaintiffs age and condition if he had received suitable coaching and instruction for such a manoeuvre, the defendants had not provided that degree of supervision which it was incumbent upon them to provide, and that there had been insufficient protective matting available and in place beneath the rings at the time of the accident. The defendants were therefore liable to the plaintiff. He rejected the evidence of volenti non fit injuria advanced by the defendants, and it was not pursued in this Court, and he concluded as well that the plaintiff was guilty of contributory negligence in attempting the straddle dismount without proper experience and precautions. He found the defendant eighty per cent liable and the plaintiff twenty per cent. In reaching this conclusion, he approved and applied the tests enumerated by Carrothers J.A. in Thornton et al. v. Board of School Trustees of School District No. 57 (Prince George) et al.[LINK #_ftn2] [2] He specifically referred to the following passage from that judgment, at pp. 265-66. 
+ Inherently and readily foreseeable there is an element of risk or danger in gymnastics, and in performing aerial front somersaults off a springboard in particular, of which risk or danger the evidence discloses both the school authorities and Thornton were aware. This was an exercise scheduled in the syllabus for Grade X boys and Thornton participated in the gymnastics group and in this particular exercise of his own free will. This is not to say that Thornton exclusively assumed the risk of the exercise to the absolution of the school authorities or 
+ [Page 27] 
+ that the school authorities were relieved of their common law duty to take care of this pupil during this activity in the manner of a reasonable and careful parent, taking into account the judicial modification of the reasonable-and-careful-parent test to allow for the larger-than-family size of the physical education class and the supraparental expertise commanded of a gymnastics instructor. Nor does it mean that the school authorities would be strictly or absolutely liable for any consequential injury however occurring to any pupil in respect of whom the school authorities had accepted the responsibility of care and control, and hence ought to have prohibited the performance of this exercise. In my view of the factually relevant cases, what it does mean is that it is not negligence or breach of the duty of care on the part of the school authorities to permit a pupil to undertake to perform an aerial front somersault off a springboard: (a) if it is suitable to his age and condition (mental and physical); (b) if he is progressively trained and coached to do it properly and avoid the danger; (c) if the equipment is adequate and suitably arranged; and (d) if the performance, having regard to its inherently dangerous nature, is properly supervised. These are the component criteria constituting the appropriate duty or standard of care which is saddled upon the school authorities in a case of this kind and upon which we are to judge whether there has been observance sufficient for the school authorities to avoid a finding of negligence and its consequential liability: Murray v. Belleview Bd. of Education, [1943] 1 D.L.R. 494 (Ont.); Gard v. Duncan School Trustees, [1946] 1 W.W.R. 305, 62 B.C.R. 323, [1946] 2 D.L.R. 441 (C.A.); and McKay v. Bd. of Govan School Unit No. 29, 64 W.W.R. 301, [1968] S.C.R. 589, 68 D.L.R. (2d) 519. 
+ He considered the question of suitability of the exercise to a young man of the plaintiff’s age and condition and concluded that the manoeuvre which led to the difficulty was suitable for the appellant in that he had been taught the dangers of the rings generally, and the straddle dismount in particular, and that he has been informed about spotters and their necessity. He considered, as well, the question of training and coaching in preparation for the manoeuvre and found upon the evidence that the 
+ [Page 28] 
+ appellant had been properly coached and instructed. He found, however, that the equipment provided by the respondent school board for use by the students was not adequate nor suitably arranged. He was of the opinion that the placing of two or three slab mats on a vinyl floor which covered a concrete floor, which was the arrangement in use at the time, did not meet the reasonable requirements of safety in the circumstances and, finally, he found that there was a total absence of supervision at the time of the accident. This last conclusion was inevitable because it was never suggested by the respondent that any supervising teacher was in the exercise room when the accident occurred. He concluded that failure to provide adequate matting and the failure to supervise the activities in the exercise room on the day in question contributed to the accident causing the injury suffered by the appellant. 
+ In the Court of Appeal Arnup J.A., for the majority, considered that there was no evidence that the injury suffered by the plaintiff could have been avoided if a different type of matting had been in use and he considered that it could not be assumed that the presence of a teacher in the exercise room at the vital time would have prevented the injury. He considered that the finding of improper supervision was not based on credible evidence, and he considered that a careful father would not have hesitated to let his son go to the exercise room in the circumstances which then existed without further supervision. Blair J.A., dissenting, supported the trial judge. He considered that the plaintiff was not obliged to prove that there would have been no injury if different mats had been in use. He was of the opinion that the risk of injury was foreseeable, that foreseeability was the test of liability and that the defendants had not exercised sufficient supervision and had thus contributed to the accident. He considered that the trial judge was justified in reaching the conclusions which he did. 
+ There was little argument before this Court or, it would appear, before the Court of Appeal on the 
+ [Page 29] 
+ law which is applicable here. It is sufficient to say, at this stage, that Arnup J.A. referred to the tests enumerated by Carrothers J.A. in Thornton and said: “I accept this statement as setting forth appropriate considerations in the case of gymnasium accidents. I do not regard it as a code.” In this I agree with Arnup J.A.’s comment. 
+ The trial judge limited the issues in this case to a very narrow compass. The whole finding of liability against the respondent is supported on only two bases, the failure to provide adequate matting, and the failure to supervise. The majority of the Court of Appeal saw the case in the same light. Arnup J.A., in the course of his judgment, said: 
+ Our task accordingly is narrowed to a consideration of whether there was evidence on which the trial Judge could reasonably find on a balance of probabilities that there had been inadequate matting beneath the rings at the time of the accident, and inadequate supervision of the exercise room where the accident took place. 
+ The attribution of liability to the respondent depends upon a finding of fact by the trial judge that the matting in use was inadequate, and a finding that the presence of a supervising teacher in the exercise room could, on a balance of probability, have prevented the accident. It will therefore be necessary to consider the record and see whether there was evidence before the trial judge on which the finding of the inadequacy of the mats could rest and whether the conclusion, that the absence of supervision at the time of the accident was a contributing factor to the damage suffered by the appellant, is sustainable. 
+ The evidence revealed references to three different kinds of protective mats. On this crucial point the evidence was not as complete and helpful as one would have expected in such a case. However, there were available for use in the school mats described as slab mats and mats described as wrestling mats. In referring to the mats in use at the time of the accident, and by the term ‘in use’ I mean the mats placed under the rings upon which anyone falling from them would fall; the trial 
+ [Page 30] 
+ judge said: “I hold that at the time of the accident there were either two or three mats stacked underneath the rings in question.” The finding seems to have been accepted by all parties and I would not disturb it. He went on to say: “The mats have been variously described as ‘slab mats’. I accept that the mats were not ‘wrestling mats’ but were slab mats about two to two and one-half inches thick, soft vinyl covered, and in the words of Mr. Cropper, [a teacher] Very compressed’.” There was another type of mat referred to in the evidence as a crash mat. According to the evidence, at least one of such crash mats was in the school and at least on some occasions it was available for use. One of the other students in the appellant’s class, a youth named Thomson, called by the defendants and presented as a better-than-average gymnast, said that he used it when he worked on the rings. He said he preferred the thicker crash mat under him and had fallen many times doing the straddle dismount. There is no evidence that he was ever injured. The crash mats were described as being six to seven inches thick and made of foam rubber. It was open to the trial judge to find that they were capable of affording, as the name implies, more protection than the slab mat in the case of an accidental fall from the rings. The instructors were aware of the existence of this type of mat and there was evidence that the school had one, used by the girls’ gymnastic team. The evidence of Jowett was that such mats were unnecessary and it was not general practice to use them under the rings. 
+ The evidence of Mr. Zivic, called for the appellant upon this point, adds force to the appellant’s argument. A passage is reproduced hereunder: 
+ Q. What type of mats do you use with the rings at York university? 
+ A. In particular, I use regular mats, either one or two, one and a half inch thick, plus top crash mats which are five or ten inches thick. 
+ [Page 31] 
+ Q. What are these one and a half inch mats, how would you describe them? 
+ A. There are various mats, depend on factory and manufacturer and so on. It is very hard to answer on that question. 
+ Q. Are you familiar with a wrestling type mat? 
+ A. Yes, I use the same mats as addition to the crash mat. 
+ Q. Would you ever use the crash—the one and a half inch mats alone without the crash mats? 
+ A. Not in the learning process. If my students achieve a high degree of safe performance, I mean consistency in performance, then, yes. 
+ I agree with Blair J.A. in the Court of Appeal that on the basis of this passage the trial judge could reasonably conclude that Mr. Zivic, an experienced and highly-qualified teacher of gymnastics, was of the view that the use of crash mats for inexperienced students, as the appellant was, was a necessary precaution. From the record it is clear then that there was evidence upon which the trial judge could base his finding of inadequacy in protective matting. The fact that there was evidence to the contrary will not justify an appellate court in relying on the other evidence in order to reach a different conclusion from that reached by the trial judge unless he has made some error in principle which has not been shown here. I would therefore not disturb the trial judge’s finding in this respect. 
+ As to the other finding of fault on the part of the respondent, i.e. the failure to supervise, I have no difficulty. As far as the events leading up to this accident are concerned, no supervision was provided. 
+ The standard of care to be exercised by school authorities in providing for the supervision and protection of students for whom they are responsible is that of the careful or prudent parent, described in Williams v. Eady[LINK #_ftn3] [3]. It has, no doubt, become somewhat qualified in modern times 
+ [Page 32] 
+ because of the greater variety of activities conducted in schools, with probably larger groups of students using more complicated and more dangerous equipment than formerly: see McKay et al. v. The Board of the Govan School Unit No. 29 of Saskatchewan et al.[LINK #_ftn4] [4], but with the qualification expressed in the McKay case and noted by Carrothers J.A. in Thornton, supra, it remains the appropriate standard for such cases. It is not, however, a standard which can be applied in the same manner and to the same extent in every case. Its application will vary from case to case and will depend upon the number of students being supervised at any given time, the nature of the exercise or activity in progress, the age and the degree of skill and training which the students may have received in connection with such activity, the nature and condition of the equipment in use at the time, the competency and capacity of the students involved, and a host of other matters which may be widely varied but which, in a given case, may affect the application of the prudent parent-standard to the conduct of the school authority in the circumstances. 
+ Was the standard of care so described met in the case at bar? I am of the opinion that it was not. It was common ground that training in gymnastics and, particularly, gymnastic exercises upon the rings carried with it a potential for danger. The danger, of course, as far as the rings are concerned, is that the student may fall to the floor and, because of the nature of the exercises he is performing and the position of his body during such performance, he is apt to fall in such manner that the possibility of serious injury will be increased, and that indeed occurred in the case at bar. There can be no doubt that injury was foreseeable and indeed it was foreseen. All the witnesses gave evidence of the necessity for steps and precautions to be taken to guard against injury and it was accepted that students would from time to time fall from the rings. Against this back- 
+ [Page 33] 
+ ground I am unable to conclude that a prudent parent would be content to provide as protective matting only the two and one-half inch compressed slab mats when other and more protective mats could be obtained. I am also unable to conclude that, considering the nature of the activity which was contemplated in the gymnastics course, a prudent parent would have been content to have his son permitted to depart from the gymnasium into a room where there would be no adult supervision to practise gymnastic manoeuvres on the rings which could involve the straddle dismount with its potential dangers. 
+ What was the situation in the case at bar with regard to general supervision, which is one of the aspects of the teaching and training process undertaken in the gymnastics course? At the outset it seems clear that the course in gymnastics involved work or training in the performance of certain exercises on the rings. This was not apparently obligatory because there were other pieces of apparatus which the students could elect to use, but the choice of the rings was open to them. The exercises which were contemplated on the rings, and upon which the students would be marked, were divided into two levels, Level 1 and Level 2. Level 1 consisted of simpler exercises, and Level 2 of more complicated and difficult manoeuvres, and of course the Level 2 exercises, being more difficult, were more dangerous than those in Level 1, requiring the exercise of more skill and experience in their successful completion. The evidence was that the students were allowed to choose the exercises they wished for examination purposes, and those found in the second level could earn higher marks than those in the first level. There was, therefore, an incentive to the students to advance to the second level and it does not appear from the evidence that students were required to reach an acceptable level of competence on Level 1 exercises before being permitted to progress to the more difficult and hence more dangerous Level 2 exercises. The students were told, however, that it would be better to do well on Level 1 exercises than to attempt and do poorly on Level 2. According to the evidence, the teacher in charge of the class introduced the class to each piece of equip- 
+ [Page 34] 
+ ment which could be used and explained the problems or dangers in its use at some time in the earlier stages of the gymnastics section of the course and a demonstration was given of each of the exercises in the two groups. The importance of spotters and the role they played was also explained, and thereafter the students were left to work on the various pieces of equipment to perfect their performance in preparation for marking which would take place near the end of the course. If they needed or wished assistance and advice, they were free to ask the teacher and doubtless it would have been provided. During the classes the teacher was normally present and would supervise, as far as possible, the activities in progress in the gymnasium and would endeavour to insist upon safe procedures, particularly with regard to the use of spotters considered by all the gymnastic specialists called to be an absolute necessity in gymnastic classes. It must be remembered, however, that in this case there was no supervision of the activities which led to the accident even though it was recognized by the teachers that students were from time to time prone to avoid the use of spotters, and that vigilance was always required to ensure their presence. 
+ It is clear, in my view, that the respondents, as found by the trial judge, failed to meet the required standard by failing to fulfil the requirement of supervision and in failing to provide and insist upon the use of adequate matting for the protection of students working on the rings. It remains to consider if the appellant has shown that these failures on the part of the respondent caused or contributed to the accident which resulted in the injuries complained of here. 
+ I am not prepared to say that the trial judge was wrong in finding that the absence of adequate mats contributed to the injury. The appellant fell with some force from a height in the neighbourhood of eight feet. All gymnastic experts called recognized that mats were a necessary protective feature. The evidence of Mr. Zivic was to the effect that when the danger of falling was greatest, i.e. in the early stages of training, he required the 
+ [Page 35] 
+ use of a crash mat. This would have at least doubled the protective material beneath the appellant and because of the nature of the crash mat, i.e. the material from which it was made, it could have lessened the effect of the fall and it was a reasonable inference to be drawn by the trial judge, from the evidence of Mr. Zivic, an acknowledged expert in his field, that Zivic was of the view that additional protection would be provided by the use of a crash mat. It is not, in my view, incumbent upon the plaintiff in a case such as this to prove positively that the presence of the crash mat would have prevented the injury. The plaintiff is bound to prove, according to a balance of probabilities, that the failure of the school authorities to provide more adequate matting and insist upon its use contributed to the accident. On all the evidence before him the trial judge reached the conclusions that such proof had been made and, in my opinion, he was justified in that finding. 
+ As to the absence of supervision, again I am not prepared to accept the proposition advanced by the respondent that the presence of a teacher supervising at the time of the accident would not have prevented the accident, nor that it is incumbent upon the appellant to prove that the presence of the teacher would have prevented the accident. On a balance of all the probabilities it was the opinion of the trial judge, which in my view of the evidence was justified, that the absence of supervision contributed to the cause of the accident. In my opinion, it cannot be said that the presence of a teacher among six to eight students in the exercise room would not have had a restraining effect upon the students which could have influenced the course of events and prevented the accident. The respondent should have anticipated reckless behaviour from at least some of the young boys sent off by themselves to work on gymnastic equipment. The evidence revealed that it was a recurring problem to keep students from attempting gymnastic exercises without spotters and the proclivity of young boys of high school age to act recklessly in disregard, if not in actual defiance, of authority is, as was pointed out by Blair J.A. in dissent in the Court of Appeal, well known. It cannot be an answer here 
+ [Page 36] 
+ for the school authorities to say as they did that even the presence of a supervising teacher would not have prevented the accident. The manoeuvre attempted by the appellant is admittedly one of some danger. He had not been told not to try it. In fact, he had been virtually invited to do so, since higher marks could be obtained by the performance of Level 2 exercises. He was permitted to go to the exercise room without any supervision and, as far as the evidence reveals, with no inquiry as to what was contemplated on his arrival there. What happened, as we know, was that he foolishly tried for the first time a dangerous manoeuvre and did himself serious injury. According to the evidence of Jowett, the teacher, there were about three or four couples in the exercise room. This evidence was accepted by the trial judge. In my opinion, it would be more than mere speculation to conclude, as did the trial judge, that the presence of a teacher in the exercise room could have influenced the situation. In my view, the words of Laskin J. (as he then was) in Dziwenka et al. v. Her Majesty The Queen in right of Alberta et al.[LINK #_ftn5] [5], at p. 433, are applicable here: 
+ The findings of the trial judge established that there was a high risk of injury, findings which are supportable when one considers that this was the plaintiffs first experience with a completely unguarded power-saw and his first experience in trimming chest drawers and working with a fellow student on that operation. Either one of two courses could reasonably and easily have been followed by the instructor. He could have had the drawers disassembled, in which case the error was correctable by using the power‑saw with the guard attached; or, he could have stayed with the plaintiff until the job was done with the unguarded saw. There were only twelve edges to trim and the other students were working with hand tools. I do not find it improbable that the accident would not have happened if the instructor had directly supervised the operations until they were finished. [Emphasis added] 
+ [Page 37] 
+ While I am of the view that negligence has been shown on the part of the respondent, I also accept the trial judge’s finding of contributory negligence on the part of the appellant. His finding is expressed in these words: 
+ I have already found as facts that Gregory Myers dismounted from the rings and then his spotter, Michael Chilton, moved away. I have found that a few seconds later, without the presence of Chilton as a spotter, Gregory Myers got back up onto the rings and, without announcing his move and without the presence of a spotter, for the first time in his life attempted the straddle dismount. I have found that he failed to complete it, and as we all know he fell onto the mats and broke his neck. 
+ I find that Gregory Myers knew that it was a difficult manoeuvre, fraught with some danger. He knew he was not to attempt anything on the rings without the presence of a spotter in position. 
+ I find that there was contributory negligence on the part of Gregory Jan Myers. 
+ Arnup J.A., for the majority of the Court of Appeal, was not required to deal with this point in view of his findings which exonerated the respondent, but he did comment adversely on the apportionment on his view of the evidence. He was of the opinion that the presence of a teacher in a supervisory role in the exercise room at the time of the accident would not have prevented the injury because it was caused by the failure of the appellant to make use of his spotter. This he considered was negligence on the appellant’s part and causative of the accident. Any apportionment, in his view, which would attribute more fault to the respondent than to the appellant, was erroneous. 
+ For the reasons which I have outlined above, I do not accept the view of the evidence expressed by Arnup J.A. and prefer that of the trial judge who heard the witnesses and whose evidence was also accepted by Blair J.A., in his dissent in the Court of Appeal, in these terms which I adopt: 
+ In my opinion, the learned trial judge correctly found that there was contributory negligence on the part of Greg Myers in performing a difficult manoeuvre, fraught with danger, without announcing his move and without the presence of a spotter in position to break his 
+ [Page 38] 
+ fall. I would not disturb the apportionment of fault for the reason given by Dickson, J. in Taylor v. Asody, (1975) 2 S.C.R. 414 at p. 423: 
+ “Apportionment of fault is primarily and properly a matter within the discretion of the trial Judge who has, as has so often been pointed out, the great advantage of seeing and hearing the witnesses, of observing demeanour, noting nuances of expression, detecting dissimulation. These are aids to judgment which cannot be reflected in the written record of a case and are, therefore, aids denied to an appellate court. We find, therefore, a consistent line of authority… that except in a strong and exceptional case, an appellate court will not feel free to substitute its apportionment of fault for that made by the trial judge unless there has been palpable and demonstrable error in appreciation of the legal principles to be applied or misapprehension of the facts by the trial judge.” 
+ I would accordingly allow the appeal with costs to the appellant in this Court and in the Court of Appeal, and restore the judgment at trial, leaving intact the finding of contributory negligence against the appellant, which is well supported in the evidence, the apportionment of damages, and the disposition of costs at trial. 
+ Appeal allowed with costs. 
+ Solicitor for the appellants: Timothy E.G. Fellowes, Toronto. 
+ Solicitors for the respondents: Cassels, Brock, Toronto. 
+ [LINK #_ftnref1] [1] (1978), 5 C.C.L.T. 271. 
+ [LINK #_ftnref2] [2] [1976] 5 W.W.R. 240 (B.C.C.A.). 
+ [LINK #_ftnref3] [3] (1893), 10 T.L.R. 41. 
+ [LINK #_ftnref4] [4] [1968] S.C.R. 589. 
+ [LINK #_ftnref5] [5] [1972] S.C.R. 419. 
+ You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.
+ Continue 
+ Do not display this message anymore
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.modalClose = "Close";
