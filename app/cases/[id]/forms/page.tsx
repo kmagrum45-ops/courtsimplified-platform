@@ -7,7 +7,7 @@ import FormsNamedHere from "../../../_components/FormsNamedHere";
 import FormsWorkspace from "../../../forms/FormsWorkspace";
 import { suggestedStageFor } from "../../../builder/_components/StageAnswerPanel";
 import { isPlaceholder, nextStepBlockFor } from "@/src/lib/content-library/nextSteps";
-import { officialFormsNamedIn } from "@/src/lib/content-library/forms/formsInText";
+import { officialFormsNamedIn, relevantToFamilyCase, userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { useCaseHome } from "../../_components/CaseHomeContext";
 
 /**
@@ -22,6 +22,7 @@ export default function CaseFormsSection() {
     position.stepId ||
     (courtPath && position.confirmedStage ? suggestedStageFor(courtPath, position.confirmedStage, responding) : "");
   const [stepTexts, setStepTexts] = useState<string[] | null>(null);
+  const userWords = userWordsOf((caseRecord.master_result ?? {}).intakeData);
 
   useEffect(() => {
     if (!courtPath || !position.confirmedStage) {
@@ -51,7 +52,9 @@ export default function CaseFormsSection() {
 
   return (
     <div className="space-y-6">
-      {stepTexts && courtPath && officialFormsNamedIn(stepTexts, courtPath).length > 0 ? (
+      {stepTexts &&
+      courtPath &&
+      officialFormsNamedIn(stepTexts, courtPath).some((form) => courtPath !== "family" || relevantToFamilyCase(form, userWords)) ? (
         <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
           <h2 className="text-xl font-bold text-[#10231f]">Forms for your next step</h2>
           <p className="mt-1 text-sm text-[#4f685f]">
@@ -61,7 +64,7 @@ export default function CaseFormsSection() {
             </Link>
           </p>
           <div className="mt-4">
-            <FormsNamedHere texts={stepTexts} court={courtPath} heading="Named in your next step" />
+            <FormsNamedHere texts={stepTexts} court={courtPath} heading="Named in your next step" userWords={userWords} />
           </div>
         </section>
       ) : null}

@@ -449,7 +449,6 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
     { supported: true } | { supported: false; reason: string; stage: string } | null
   >(null);
 
-  const draftsHref = caseId ? `/cases/${encodeURIComponent(caseId)}/drafts` : "";
 
   useEffect(() => {
     async function loadCaseContext() {
@@ -1324,14 +1323,8 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                       </button>
                     ) : null}
 
-                    {draftsHref ? (
-                      <Link
-                        href={draftsHref}
-                        className="rounded-full border border-[#d8e6df] bg-[#f8fcfa] px-5 py-3 text-sm font-bold text-[#24463d]"
-                      >
-                        Write a draft for this case
-                      </Link>
-                    ) : null}
+                    {/* No per-card "write a draft" link: it appeared on clerk-issued forms and on the
+                        other side's starting document (walkthrough, 2026-10-04). Drafts is a tab away. */}
                   </div>
                 </article>
               );

@@ -39,3 +39,45 @@ export function officialFormsNamedIn(texts: readonly string[], court: string): O
   }
   return found;
 }
+
+/**
+ * Family guidance often names, in one sentence, the forms for several kinds of
+ * case: "serve an answer (Form 10, 33B, 33B.1, 33B.2 or 33D.3)", where only
+ * Form 10 is the ordinary answer and the rest are child-protection forms. The
+ * guidance says which is which; a bare list of links does not (page
+ * walkthrough: adoption and child-protection forms listed as an unmarried
+ * mother's next step). So in a family case, a form for one of these special
+ * proceedings is listed only when the user's own words mention it.
+ */
+const SPECIAL_FAMILY_PROCEEDINGS: { form: RegExp; mentioned: RegExp }[] = [
+  {
+    form: /children[’']s aid|child protection|child, youth and family services|secure treatment|plan of care/i,
+    mentioned: /children[’']s aid|\bCAS\b|child protection|protection worker/i,
+  },
+  { form: /adopt/i, mentioned: /adopt/i },
+  { form: /divorce/i, mentioned: /divorce|married|marriage|husband|wife/i },
+];
+
+export function relevantToFamilyCase(entry: OfficialFormEntry, userWords: string): boolean {
+  return SPECIAL_FAMILY_PROCEEDINGS.every(
+    ({ form, mentioned }) => !form.test(entry.title) || mentioned.test(userWords),
+  );
+}
+
+/**
+ * The user's own words from their intake — never the stored analysis, which is
+ * model output — for relevantToFamilyCase to read.
+ */
+export function userWordsOf(intake: unknown): string {
+  const record = intake && typeof intake === "object" ? (intake as Record<string, unknown>) : {};
+  const fields = ["facts", "goal", "timeline", "evidence", "missingEvidence", "urgent", "otherParty"]
+    .map((key) => (typeof record[key] === "string" ? (record[key] as string) : ""))
+    .filter(Boolean);
+  let extra = "";
+  try {
+    extra = record.extra ? JSON.stringify(record.extra) : "";
+  } catch {
+    extra = "";
+  }
+  return [...fields, extra].join(" ");
+}

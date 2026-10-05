@@ -1,4 +1,4 @@
-import { officialFormsNamedIn } from "@/src/lib/content-library/forms/formsInText";
+import { officialFormsNamedIn, relevantToFamilyCase } from "@/src/lib/content-library/forms/formsInText";
 
 /**
  * "Forms named in this step": the official forms the guidance above names,
@@ -9,12 +9,17 @@ export default function FormsNamedHere({
   texts,
   court,
   heading = "Forms named in this step",
+  userWords = "",
 }: {
   texts: readonly string[];
   court: string;
   heading?: string;
+  /** The user's own story and answers, so a family case lists only the forms for its kind of case. */
+  userWords?: string;
 }) {
-  const forms = officialFormsNamedIn(texts, court);
+  const forms = officialFormsNamedIn(texts, court).filter(
+    (form) => court !== "family" || relevantToFamilyCase(form, userWords),
+  );
   if (forms.length === 0) return null;
   return (
     <div data-testid="forms-named-here" className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">

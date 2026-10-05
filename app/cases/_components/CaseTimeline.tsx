@@ -112,10 +112,17 @@ function whenText(event: EventRow): string {
 export default function CaseTimeline({
   caseId,
   updateHref,
+  canRecord = true,
 }: {
   caseId: string;
   /** Where "Update the analysis" goes: the builder for this case and its court. */
   updateHref: string;
+  /**
+   * Whether steps can be recorded. The event vocabulary is sourced from the
+   * Small Claims rules and case_events is constrained to Small Claims, so the
+   * route refuses other courts; offering the form there only produced an error.
+   */
+  canRecord?: boolean;
 }) {
   const [data, setData] = useState<TimelineResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -321,7 +328,7 @@ export default function CaseTimeline({
       <section className="mt-8">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h3 className="text-xl font-bold text-[#10231f]">What you have recorded</h3>
-          {!adding ? (
+          {!adding && canRecord ? (
             <button
               type="button"
               onClick={() => setAdding(true)}
@@ -332,7 +339,14 @@ export default function CaseTimeline({
           ) : null}
         </div>
 
-        {adding ? (
+        {!canRecord ? (
+          <p className="mt-3 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm text-[#4f685f]">
+            Recording steps here is available for Small Claims cases so far. For this court, your documents
+            and the dates you confirm on them build your timeline below.
+          </p>
+        ) : null}
+
+        {adding && canRecord ? (
           <div className="mt-4 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
             <p className="text-sm text-[#4f685f]">
               Record a step in your case. We do not decide what it was — you choose.
