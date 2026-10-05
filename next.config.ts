@@ -3,6 +3,14 @@ import type { NextConfig } from "next";
 /** `?caseId=<id>` captured as :caseId, for sending an old case URL to the case page. */
 const withCaseId = [{ type: "query" as const, key: "caseId", value: "(?<caseId>[0-9a-fA-F-]{36})" }];
 
+/** A removed page: with ?caseId= to that case's section, without it to the case list. */
+function caseSection(source: string, section: string) {
+  return [
+    { source, has: withCaseId, destination: `/cases/:caseId${section}`, permanent: true },
+    { source, destination: "/dashboard", permanent: true },
+  ];
+}
+
 const nextConfig: NextConfig = {
   // Pages removed or folded into the case page in the 2026-10-04 clean-up,
   // sent to what replaced them so an old link or bookmark still lands
@@ -21,6 +29,16 @@ const nextConfig: NextConfig = {
       { source: "/case-dashboard", destination: "/dashboard", permanent: true },
       // /forms stays as the public catalogue; with a case it opens inside it.
       { source: "/forms", has: withCaseId, destination: "/cases/:caseId/forms", permanent: false },
+
+      // Workflow pages folded into the case page or removed (second stage).
+      ...caseSection("/evidence", "/documents"),
+      ...caseSection("/document-workspace", "/drafts"),
+      ...caseSection("/ai-drafting-assistant", "/drafts"),
+      ...caseSection("/document-export", "/case-file"),
+      ...caseSection("/court-package", "/case-file"),
+      ...caseSection("/trial-package", ""),
+      ...caseSection("/settlement-conference", ""),
+      ...caseSection("/litigation-strategy", ""),
     ];
   },
 };

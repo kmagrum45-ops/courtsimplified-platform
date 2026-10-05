@@ -28,6 +28,7 @@ import {
   suggestedDatesFromEvents,
   type SuggestedDate,
 } from "@/src/lib/case-system/casePosition";
+import { readCaseDrafts } from "@/src/lib/case-system/drafts/caseDrafts";
 import { authHeaders, builderHref, formatDate, useCaseHome } from "../_components/CaseHomeContext";
 
 type EventsResponse = {
@@ -111,6 +112,7 @@ export default function CaseOverviewPage() {
     "not-sure";
 
   const confirmed = position.confirmedStage;
+  const draftCount = readCaseDrafts(master).length;
   const suggestedDates: Record<string, SuggestedDate> = events ? suggestedDatesFromEvents(events.events) : {};
   const analysis = asRecord(master.intakeAnalysis) as unknown as AnalysisResult;
   const intake = master.intakeData as StoredCaseData | undefined;
@@ -270,6 +272,16 @@ export default function CaseOverviewPage() {
           <Link href={`${base}/forms`} className="rounded-3xl border border-[#d8e6df] bg-white p-5 transition hover:border-[#2f7d67]">
             <p className="font-bold text-[#10231f]">Forms</p>
             <p className="mt-1 text-sm text-[#4f685f]">Which official forms apply to you</p>
+          </Link>
+          <Link href={`${base}/drafts`} className="rounded-3xl border border-[#d8e6df] bg-white p-5 transition hover:border-[#2f7d67]">
+            <p className="font-bold text-[#10231f]">Drafts</p>
+            <p className="mt-1 text-sm text-[#4f685f]">
+              {draftCount ? (draftCount === 1 ? "1 draft" : `${draftCount} drafts`) : "Chronology, your story, an affidavit outline"}
+            </p>
+          </Link>
+          <Link href={`${base}/case-file`} className="rounded-3xl border border-[#d8e6df] bg-white p-5 transition hover:border-[#2f7d67]">
+            <p className="font-bold text-[#10231f]">Case file</p>
+            <p className="mt-1 text-sm text-[#4f685f]">Your whole case on one page, to print or save as PDF</p>
           </Link>
         </div>
       </section>

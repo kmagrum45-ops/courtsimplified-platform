@@ -209,10 +209,10 @@ export default function CivilPage() {
             )}
 
             <Link
-              href="/document-workspace?path=civil"
+              href="/dashboard"
               className="inline-block rounded-full border border-[#bdd4ca] bg-white px-6 py-3 text-sm font-semibold text-[#1c473d] transition hover:border-[#2f7d67] hover:text-[#2f7d67]"
             >
-              Go to Civil Documents →
+              My cases →
             </Link>
           </div>
         </div>

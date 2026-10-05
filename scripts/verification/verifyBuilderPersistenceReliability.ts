@@ -75,10 +75,18 @@ assert.doesNotMatch(
   /setItem\(\s*"courtSimplifiedMaster(Result|Case)"/,
   "The builder must never write a full master result or master case to localStorage",
 );
+// Property: the case id comes from the saved case or the URL, never from
+// browser storage. (Pinned the unused `const activeCaseId = ...` line until it
+// was deleted on 2026-10-04; getActiveCaseId() is the resolver that remains.)
 assert.match(
   builderSource,
-  /const activeCaseId = masterCaseId \|\| queryCaseId \|\| null;/,
+  /(?:const activeCaseId =|return) masterCaseId \|\| queryCaseId \|\| null;/,
   "Selected case routing must not fall back to a local case",
+);
+assert.doesNotMatch(
+  builderSource,
+  /getItem\(\s*["']courtSimplifiedActiveCaseId["']/,
+  "Selected case routing must not read a case id from browser storage",
 );
 assert.match(
   builderSource,

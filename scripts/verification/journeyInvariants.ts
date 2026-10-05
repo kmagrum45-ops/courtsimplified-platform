@@ -193,8 +193,8 @@ const STATIC_SCAN_FILES = [
   // The case page replaced app/dashboard/cases/[id] on 2026-10-04.
   "app/cases/[id]/page.tsx",
   "app/cases/[id]/layout.tsx",
-  "src/lib/case-system/dashboardEngine.ts",
-  "src/lib/case-system/dashboard/dashboardAdapter.ts",
+  "app/cases/[id]/drafts/page.tsx",
+  "app/cases/[id]/case-file/page.tsx",
   "src/lib/case-system/intelligence/courtSimplifiedBrain.ts",
   "src/lib/case-system/intelligence/smallClaimsIntelligenceEngine.ts",
   "app/builder/_components/IntelligenceOverviewPanel.tsx",
@@ -206,8 +206,9 @@ const STATIC_SCAN_FILES = [
   // Added during tranche 1: blind spot 8 bit a second time. This page
   // renders `{exportResult.readinessScore}%` and was invisible to the arm
   // because the list was built from the dashboard surfaces only.
-  "app/document-export/page.tsx",
-  // documentExportEngine.ts was here; deleted 2026-10-04 (unreachable duplicate).
+  // documentExportEngine.ts, app/document-export/page.tsx, dashboardEngine.ts
+  // and dashboard/dashboardAdapter.ts were here; all deleted 2026-10-04 with the
+  // pages they served (the case page replaced them).
 ];
 
 // 1e: ordinal string-literal unions -- what "Document readiness impact" was.

@@ -442,6 +442,13 @@ function buildCourtPathGuidance(
   return null;
 }
 
+/**
+ * Which part of the case page the conversation points to. A section name, not
+ * a URL: it becomes a link only where there is a saved case to link into.
+ * Until 2026-10-04 this returned page paths ("/evidence", "/case-dashboard",
+ * "/litigation-strategy") that were printed as text, and all three pages have
+ * since been folded into the case page or removed.
+ */
 function buildRecommendedRoute(
   data: GuidedAssistantResponse,
 ): string | null {
@@ -452,22 +459,24 @@ function buildRecommendedRoute(
   }
 
   if (unknownArray(investigation.evidenceNeeded).length > 0) {
-    return "/evidence";
+    return "documents";
   }
 
   if (
     investigation.validation?.safeToUseForWorkflow ||
-    clean(investigation.proceduralStage) !== "unknown"
+    clean(investigation.proceduralStage) !== "unknown" ||
+    unknownArray(investigation.issues).length > 0
   ) {
-    return "/case-dashboard";
-  }
-
-  if (unknownArray(investigation.issues).length > 0) {
-    return "/litigation-strategy";
+    return "overview";
   }
 
   return null;
 }
+
+const RECOMMENDED_SECTION_LABELS: Record<string, string> = {
+  documents: "Add your documents and evidence",
+  overview: "See where your case is and your next step",
+};
 
 function buildStorageKey(args: {
   caseId?: string;
@@ -1118,16 +1127,18 @@ function CourtAssistantChatInner({
           <AiUseNotice activity="select from written guidance based on what you have already recorded — no AI model reads this conversation" />
         </div>
 
-        {recommendedRoute && (
+        {recommendedRoute && caseId && RECOMMENDED_SECTION_LABELS[recommendedRoute] && (
           <div className="mt-4 rounded-2xl border border-[#d5ebe2] bg-[#f4fbf8] px-4 py-3">
             <p className="text-xs font-semibold uppercase tracking-wide text-[#2f7d67]">
-              Suggested workflow step
+              Suggested next step
             </p>
 
-            <p className="mt-1 text-sm text-[#16302b]">
-              Recommended next page:
-              <span className="ml-2 font-semibold">{recommendedRoute}</span>
-            </p>
+            <a
+              href={`/cases/${encodeURIComponent(caseId)}${recommendedRoute === "documents" ? "/documents" : ""}`}
+              className="mt-1 inline-block text-sm font-semibold text-[#2f7d67] underline"
+            >
+              {RECOMMENDED_SECTION_LABELS[recommendedRoute]}
+            </a>
           </div>
         )}
 

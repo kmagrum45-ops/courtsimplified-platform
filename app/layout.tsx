@@ -64,7 +64,7 @@ export default function RootLayout({
           <ScrollToTopOnNavigation />
         </Suspense>
         <div className="flex min-h-screen flex-col">
-          <header className="sticky top-0 z-50 border-b border-[#D7E7E5] bg-white/95 backdrop-blur">
+          <header className="sticky top-0 z-50 border-b border-[#D7E7E5] bg-white/95 backdrop-blur print:hidden">
             <div className="relative mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-4 py-4 sm:px-6">
               <Link
                 href="/"
@@ -93,7 +93,7 @@ export default function RootLayout({
 
           <main className="flex-1">{children}</main>
 
-          <footer className="border-t border-[#D7E7E5] bg-white">
+          <footer className="border-t border-[#D7E7E5] bg-white print:hidden">
             <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-6 py-10 md:flex-row md:items-start md:justify-between">
               <div className="max-w-2xl">
                 <div className="text-lg font-semibold text-[#1F2937]">

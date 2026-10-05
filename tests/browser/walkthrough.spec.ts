@@ -168,6 +168,27 @@ async function confirmStage(page: Page, persona: Persona, steps: Step[]) {
   await capture(page, persona, steps, "stage-confirmed");
 }
 
+/**
+ * The case page, tab by tab (2026-10-04). After intake the user's case lives at
+ * /cases/[id]; the walkthrough follows them there so the critic reads what they
+ * actually work from, not only the builder.
+ */
+async function visitCaseHome(page: Page, persona: Persona, steps: Step[]) {
+  const open = page.getByTestId("open-case-home");
+  if ((await open.count()) === 0 || !(await open.isEnabled().catch(() => false))) return;
+  await open.click();
+  await expect(page.getByTestId("case-home-title")).toBeVisible({ timeout: 60_000 });
+  await page.waitForTimeout(3_000);
+  await capture(page, persona, steps, "case-overview");
+  for (const tab of ["timeline", "documents", "forms", "drafts", "case-file"]) {
+    const link = page.getByTestId(`case-tab-${tab}`);
+    if ((await link.count()) === 0) continue;
+    await link.click();
+    await page.waitForTimeout(3_000);
+    await capture(page, persona, steps, `case-${tab}`);
+  }
+}
+
 test.describe("page walkthrough", () => {
   test.use({ navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -182,6 +203,7 @@ test.describe("page walkthrough", () => {
         if (persona.path === "small-claims") await smallClaims(page, persona, steps);
         else await familyOrCivil(page, persona, steps);
         await confirmStage(page, persona, steps);
+        await visitCaseHome(page, persona, steps);
       } catch (error) {
         failure = error instanceof Error ? error.message.split("\n")[0].slice(0, 400) : String(error);
         await capture(page, persona, steps, "failed-here", failure).catch(() => undefined);

@@ -47,8 +47,6 @@ jobs:
       - name: Small Claims engine verification
         run: npm run test:small-claims
 
-      - name: Case isolation verification
-        run: npm run test:case-isolation
 
       - name: Court path classifier and scenario registry verification
         run: npm run test:scenario-registry
@@ -122,8 +120,6 @@ jobs:
       - name: Shared procedural-stage conflict verification
         run: npm run test:procedural-stage-conflict
 
-      - name: Workflow gating verification
-        run: npm run test:workflow-gating
 
       - name: Overview issue and document label verification
         run: npm run test:overview-labels
@@ -235,6 +231,9 @@ jobs:
 
       - name: Case position stores only what the user confirmed, and reaches the deadlines
         run: npm run test:case-position
+
+      - name: Drafts are saved on the user's own case and hold only their record
+        run: npm run test:case-drafts
 
       - name: Production build
         run: npm run build

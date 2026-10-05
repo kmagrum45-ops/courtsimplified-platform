@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-109 documented, 30 without a header.
+109 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -17,6 +17,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:amount-consistency` | **The amount claimed and the amount asked for must agree, or the user is told.**<br>Found 2026-09-27: a case-review story claimed $6,200 and asked the court to order $5,000, and the output never said so. amountConsistency.ts now warns. |
 | `npm run test:anon-grants` | **No migration grants anon write access, and no policy applies to PUBLIC.**<br>COSTS NOTHING. Reads supabase/migrations/*.sql off disk. No database connection, no network. |
 | `npm run test:assistant-blocks` | **The guided assistant can only say catalogued things.**<br>COSTS NOTHING. Reads source off disk and calls pure functions. |
+| `npm run test:case-drafts` | **Drafts are saved on the user's own case, hold only what the user gave us,**<br>and never cross from one case to another. |
 | `npm run test:case-events` | **The case-event vocabulary stays sourced, and the untyped option stays**<br>first-class. |
 | `npm run test:case-file-summary` | **Deterministic self-test for composeCaseFileSummary().**<br>WHY THIS EXISTS. Fix 1 and Fix 2 (Session 48) removed the free-text summary slot and replaced it with two model-supplied arrays assembled by composeCaseFileSummary(). The intended evidence for that change was a five-runs-either-side interception measurement, w |
 | `npm run test:case-load-restore` | **A loaded case restores what it recorded, and invents nothing when it did not.**<br>COSTS NOTHING. Reads `app/builder/page.tsx` and the engine that writes the keys it reads. No browser, no network, no database. |
@@ -42,7 +43,6 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:depth-questions` | **Verifies the intake depth layer, offline.**<br>COSTS NOTHING. Every decision the depth layer makes about WHICH questions are asked is pure, so all four load-bearing properties are checkable without a single API call. The only model involvement is the voice lead-in, which is exercised by the paraphrase harn |
 | `npm run test:described-evidence` | **"No evidence identified" must only be said when it is true.**<br>evidenceIntelligenceEngine raises a high-severity "No evidence identified" gap when the normalized intake holds no evidence items. The keyword extractor that fills that list knows seven categories, so a user who listed invoices, contracts, photos, a bill of sa |
 | `npm run test:evidence-guidance` | **Pins the removal of the false "already mentioned" claim.**<br>COSTS NOTHING. Pure functions and a source-order check. |
-| `npm run test:exported-document` | **The document a user carries out of the building asserts nothing about their**<br>case. |
 | `npm run test:family-forms` | **Every family form number shown to a user cites the rule requiring it.**<br>COSTS NOTHING. A source check plus pure-function calls. |
 | `npm run test:family-no-scores` | **The family engines grade nothing.**<br>COSTS NOTHING. A source scan plus one pure engine run. |
 | `npm run test:family-role` | **A family user's side comes from their own answer, never from stray keywords.**<br>COSTS NOTHING. Pure normalizer runs plus a source scan of the intake. |
@@ -131,7 +131,6 @@ purpose is undocumented is one nobody can safely change or delete.
 - `test:authority-bridge (scripts/verification/verifyAuthorityKnowledgeBridge.ts)`
 - `test:authority-seed-integrity (scripts/verification/verifyAuthoritySeedRegistryIntegrity.ts)`
 - `test:builder-persistence (scripts/verification/verifyBuilderPersistenceReliability.ts)`
-- `test:case-isolation (scripts/verification/verifyWorkflowIsolation.mjs)`
 - `test:case-outcomes (scripts/verification/verifyCaseOutcomeMatrix.ts)`
 - `test:case-rls-contract (scripts/verification/verifyCaseRlsPolicyContract.ts)`
 - `test:case-simulations (scripts/verification/runCaseSimulationFactory.ts)`
@@ -153,4 +152,3 @@ purpose is undocumented is one nobody can safely change or delete.
 - `test:small-claims (scripts/verification/verifySmallClaimsEngine.ts)`
 - `test:three-area (scripts/verification/verifyThreeAreaContract.ts)`
 - `test:user-facing-scenarios (scripts/verification/verifyUserFacingScenarioLibrary.ts)`
-- `test:workflow-gating (scripts/verification/verifyWorkflowGating.ts)`

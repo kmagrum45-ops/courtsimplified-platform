@@ -19,7 +19,9 @@
  *                       documentGenerationEngine.ts:105 -> the document body.
  *   missingInformation  -> documentGenerationEngine.ts:91, baseWarnings().
  *   risksAndGaps        -> app/api/document-export/route.ts:151, the "Risks
- *                       and gaps" section of a downloaded package.
+ *                       and gaps" section of a downloaded package (that route
+ *                       was removed on 2026-10-04; the forms tool still reads
+ *                       the field).
  *
  * Three render sites, one cause: the fields are assembled once and consumed
  * everywhere. So the fix is at the assembly point, and so is this check.
@@ -118,7 +120,7 @@ function fixture(): SmallClaimsIntelligenceInput {
 const STRIPPED_FIELDS = [
   { field: "missingInformation", reaches: "documentGenerationEngine.ts baseWarnings()" },
   { field: "missingEvidence", reaches: "buildSummary() -> CaseContext.summary -> the document body" },
-  { field: "risksAndGaps", reaches: "app/api/document-export/route.ts, the Risks and gaps section" },
+  { field: "risksAndGaps", reaches: "the forms tool's \"To check before filing\" list" },
 ];
 
 {
@@ -185,23 +187,34 @@ const STRIPPED_FIELDS = [
 }
 
 // ===========================================================================
-// 3. The export route and the form route
+// 3. What the user can print or download, and the form route
 // ===========================================================================
 
+// The export route (app/api/document-export) was removed on 2026-10-04 with
+// its page, which no user could reach. What replaced it — the case file and
+// the drafts on the case page — is checked instead: neither may read the
+// stored analysis or a strength assessment, only the user's own record.
 {
-  const exportRoute = withoutComments(read("app/api/document-export/route.ts"));
+  const sources = [
+    "app/cases/[id]/case-file/page.tsx",
+    "app/cases/[id]/drafts/page.tsx",
+    "src/lib/case-system/drafts/caseDrafts.ts",
+  ];
   const problems: string[] = [];
-
-  if (/analysis\?\.risksAndGaps/.test(exportRoute)) problems.push("reads analysis.risksAndGaps");
-  // Case-strength language is forbidden outright by CLAUDE.md section 3, not
-  // merely unreviewed.
-  if (/strategyData\?\.strengths/.test(exportRoute)) problems.push("falls back to strategyData.strengths");
-  if (/strategyData\?\.weaknesses/.test(exportRoute)) problems.push("falls back to strategyData.weaknesses");
-
+  for (const file of sources) {
+    const source = withoutComments(read(file));
+    for (const [pattern, what] of [
+      [/intakeAnalysis|courtSimplifiedIntelligence/, "reads the stored model analysis"],
+      [/risksAndGaps/, "reads risksAndGaps"],
+      [/\bstrengths\b|\bweaknesses\b/, "carries a strength assessment"],
+    ] as const) {
+      if (pattern.test(source)) problems.push(`${file} ${what}`);
+    }
+  }
   if (problems.length === 0) {
-    pass("the export route reads no model prose and no strength assessment");
+    pass("the case file and drafts read no model prose and no strength assessment");
   } else {
-    fail("the export package can carry model prose or a strength assessment", problems.join("\n"));
+    fail("a document the user can print or download can carry model prose or a strength assessment", problems.join("\n"));
   }
 }
 

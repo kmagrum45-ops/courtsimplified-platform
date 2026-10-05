@@ -17,6 +17,8 @@
  *   /cases/[id]/timeline   What happened, what the user recorded, deadlines
  *   /cases/[id]/documents  Upload, check and date documents; communications
  *   /cases/[id]/forms      Official forms, and which apply to this case
+ *   /cases/[id]/drafts     The user's own working drafts, saved on the case
+ *   /cases/[id]/case-file  The whole case on one page, to print or save as PDF
  *
  * Nothing on these pages grades the case (CLAUDE.md section 3), and every
  * stage or date shown is one the user confirmed (section 4).
@@ -45,6 +47,8 @@ const SECTIONS = [
   { href: "/timeline", label: "Timeline" },
   { href: "/documents", label: "Documents" },
   { href: "/forms", label: "Forms" },
+  { href: "/drafts", label: "Drafts" },
+  { href: "/case-file", label: "Case file" },
 ] as const;
 
 const asRecord = (value: unknown): Record<string, unknown> =>
@@ -138,7 +142,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
   return (
     <CaseHomeContext.Provider value={home}>
       <main className="mx-auto w-full max-w-6xl px-4 py-8 text-[#16302b] sm:px-6">
-        <header className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
+        <header className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm print:hidden">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="min-w-0">
               <p className="text-sm font-semibold uppercase tracking-wide text-[#2f7d67]">
@@ -178,7 +182,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
                     <Link
                       href={href}
                       aria-current={active ? "page" : undefined}
-                      data-testid={`case-tab-${section.label.toLowerCase()}`}
+                      data-testid={`case-tab-${section.href.replace("/", "") || "overview"}`}
                       className={`inline-block border-b-2 px-4 py-3 text-sm font-semibold transition ${
                         active
                           ? "border-[#2f7d67] text-[#10231f]"
@@ -196,7 +200,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
 
         <div className="mt-6">{children}</div>
 
-        <div className="mt-10">
+        <div className="mt-10 print:hidden">
           <LegalInformationNotice />
         </div>
       </main>
