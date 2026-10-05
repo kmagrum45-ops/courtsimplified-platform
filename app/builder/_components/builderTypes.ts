@@ -1,3 +1,4 @@
+import type { AppliedLawItem } from "@/src/lib/case-system/intelligence/intelligenceTypes";
 import { sanitizeSummaryText } from "@/src/lib/case-system/intelligence/caseStrengthLanguageValidator";
 
 export type CourtPath = "family" | "small-claims" | "civil";
@@ -185,6 +186,11 @@ export type AnalysisResult = {
   intelligenceNextActions?: string[];
   intelligenceEvidenceIssues?: BuilderEvidenceIssue[];
   intelligenceFormRecommendations?: BuilderFormRecommendation[];
+  /**
+   * The provisions the analysis rests on, verbatim, each cited by the analysis
+   * with a quote checked against the official text. See AppliedLawPanel.
+   */
+  appliedLaw?: AppliedLawItem[];
 };
 
 export type StoredCaseData = {

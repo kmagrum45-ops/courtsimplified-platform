@@ -89,6 +89,22 @@ export function aiAnalysisTextToUsers(
   return env.AI_ANALYSIS_TEXT_TO_USERS !== "off";
 }
 
+/**
+ * "The law behind this": the provisions the person's analysis rests on, found
+ * for their story by meaning-based retrieval and cited by the analysis with a
+ * quote checked against the official text (retrieval/storyRetrieval.ts,
+ * groundedCognition.verifiedSourceIds). Shown verbatim with the citation and
+ * the official link -- applying the law to the user's situation, which
+ * CLAUDE.md section 2 ("guide like a lawyer") allows, never a view on the
+ * outcome. Its own switch, per that section, so it can be turned off for real
+ * users until the A2I approval covers it: APPLIED_LAW=off.
+ */
+export function appliedLawEnabled(
+  env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+): boolean {
+  return env.APPLIED_LAW !== "off";
+}
+
 /** Pathways a user can actually complete today. */
 /*
  * All three since 2026-09-30 (site owner: "Put everything on live"), now that

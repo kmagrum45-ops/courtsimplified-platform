@@ -57,8 +57,10 @@ import {
   buildSourcePack,
   sourcePackForPrompt,
   verifyGroundedCognition,
+  verifiedSourceIds,
   withRetrievedItems,
 } from "../../src/lib/case-system/intelligence/groundedCognition";
+import { appliedLawEnabled } from "../../src/lib/content-library/phaseScope";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const CORPUS = path.join(ROOT, "docs", "sources", "corpus");
@@ -372,6 +374,21 @@ async function main() {
   check("the prompt warns that a search hit may not govern these facts", /found by searching/.test(prompt) && /condition, exception or time limit/.test(prompt));
   check("a pack with no retrieved items carries no such warning", !/found by searching/.test(sourcePackForPrompt(basePack)));
 
+  // ---------------------------------------------------------------- 6b. applied law
+  console.log("\n6b. The person sees the law their analysis rests on -- verified, verbatim, switchable");
+  const cited = verifiedSourceIds(
+    {
+      claimClassifications: [{ elements: [{ sourceIds: [passage.id], quote: goodQuote }] }],
+      litigationRisks: [{ sourceIds: [result.items[1].id], quote: "words that are not in the passage at all" }],
+      formRecommendations: [{ sourceIds: ["corpus:not-in-pack:1"], quote: goodQuote }],
+    },
+    pack,
+  );
+  check("a citation with a verified quote counts, wherever it sits in the response", cited.has(passage.id));
+  check("a citation whose quote fails does not", !cited.has(result.items[1].id));
+  check("an id outside the pack does not", !cited.has("corpus:not-in-pack:1"));
+  check("the applied-law switch is on unless APPLIED_LAW=off", appliedLawEnabled({}) && !appliedLawEnabled({ APPLIED_LAW: "off" }));
+
   // ---------------------------------------------------------------- 7. wiring
   console.log("\n7. Wiring");
   const brain = read("src/lib/case-system/intelligence/courtSimplifiedBrain.ts");
@@ -379,6 +396,28 @@ async function main() {
   check("retrieved items join the pack the analysis is given", /withRetrievedItems\(\s*buildSourcePack\(/.test(brain) && /runStructuredGptCognition\(\s*input,\s*normalizedIntake,\s*sourcePack/.test(brain));
   check("the gate checks against that same pack", /verifyGroundedCognition\(structuredCognition as unknown as Record<string, unknown>, sourcePack\)/.test(brain));
   check("retrieval is skipped when the analysis will not call the model", /allowExternalCognition === false\s*\?\s*Promise\.resolve\(null\)/.test(brain));
+  check(
+    "applied law is the retrieved passages the model cited with a verified quote, behind its switch",
+    /verifiedSourceIds\(structuredCognition, sourcePack\)/.test(brain) &&
+      /appliedLawEnabled\(\)\s*\?\s*sourcePack\.items\s*\.filter\(\(item\) => isRetrievedItem\(item\) && citedIds\.has\(item\.id\)\)/.test(brain),
+  );
+  check(
+    "applied law carries the source's words only (id, label, citation, text, link)",
+    /\.map\(\(\{ id, label, citation, text, sourceUrl \}\)/.test(brain),
+  );
+  for (const [court, file] of [
+    ["Small Claims", "src/lib/case-system/intelligence/smallClaimsIntelligenceEngine.ts"],
+    ["civil", "app/builder/_components/CivilIntake.tsx"],
+    ["family", "app/builder/_components/familyAnalysis.ts"],
+  ]) {
+    check(`the ${court} analysis carries applied law to the page`, /appliedLaw: (result\.brain\.)?intelligence\.appliedLaw/.test(read(file)));
+  }
+  const panel = read("app/_components/AppliedLawPanel.tsx");
+  check("the overview renders the panel", /<AppliedLawPanel items=\{analysis\.appliedLaw\}/.test(read("app/builder/_components/IntelligenceOverviewPanel.tsx")));
+  check(
+    "the panel shows the provision's text, citation and official link, and says it is not a view on the outcome",
+    panel.includes("{item.text}") && panel.includes("item.citation || item.label") && panel.includes("publicSourceUrl(item.sourceUrl)") && panel.includes("not how your case"),
+  );
 
   const retrieval = read("src/lib/case-system/retrieval/storyRetrieval.ts");
   check("the retrieval calls are in the audit log", (retrieval.match(/withAiCallContext\(/g) ?? []).length >= 2);

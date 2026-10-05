@@ -307,6 +307,31 @@ export function withRetrievedItems(pack: SourcePack, retrieved: readonly SourceI
   return { items, byId, elementIds: pack.elementIds };
 }
 
+/**
+ * Every source the model cited where the citation passes the gate's check:
+ * the id is in the pack AND the quote appears in that source's text. Walks
+ * the whole response, so it does not depend on which fields carry citations.
+ * Used to show the person the law their analysis actually rests on.
+ */
+export function verifiedSourceIds(model: unknown, pack: SourcePack): Set<string> {
+  const found = new Set<string>();
+  const walk = (value: unknown, depth: number) => {
+    if (depth > 8 || !value || typeof value !== "object") return;
+    if (Array.isArray(value)) {
+      for (const entry of value) walk(entry, depth + 1);
+      return;
+    }
+    const record = value as Record<string, unknown>;
+    if (Array.isArray(record.sourceIds)) {
+      const result = checkCitation(record as GroundedItem, pack);
+      if ("source" in result) found.add(result.source.id);
+    }
+    for (const entry of Object.values(record)) walk(entry, depth + 1);
+  };
+  walk(model, 0);
+  return found;
+}
+
 /** True for a passage retrieval found in the corpus. */
 export function isRetrievedItem(item: SourceItem): boolean {
   return item.id.startsWith("corpus:");

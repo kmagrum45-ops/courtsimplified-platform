@@ -47,11 +47,13 @@ import { buildElementProofAnalysis } from "./elementProofEngine";
 import { CLAIM_TYPES } from "../intake/claimTypes";
 import { isNoQuestionNeeded, questionsForElement } from "../intake/depth/elementQuestionRegistry";
 import { fillSlots } from "../intake/depth/slots";
-import { aiAnalysisTextToUsers } from "../../content-library/phaseScope";
+import { aiAnalysisTextToUsers, appliedLawEnabled } from "../../content-library/phaseScope";
 import {
   buildSourcePack,
   sourcePackForPrompt,
   verifyGroundedCognition,
+  verifiedSourceIds,
+  isRetrievedItem,
   withRetrievedItems,
   type GroundingReport,
   type SourcePack,
@@ -2585,6 +2587,12 @@ export async function runCourtSimplifiedBrain(
       ? verifyGroundedCognition(structuredCognition as unknown as Record<string, unknown>, sourcePack)
       : null;
   const groundingReport: GroundingReport | undefined = grounded?.report;
+  const citedIds = structuredCognition ? verifiedSourceIds(structuredCognition, sourcePack) : new Set<string>();
+  const appliedLaw = appliedLawEnabled()
+    ? sourcePack.items
+        .filter((item) => isRetrievedItem(item) && citedIds.has(item.id))
+        .map(({ id, label, citation, text, sourceUrl }) => ({ id, label, text, sourceUrl, ...(citation ? { citation } : {}) }))
+    : [];
   if (groundingReport && groundingReport.dropped.length) {
     // Counts and reasons only: the dropped text is about the user's case and
     // does not belong in hosting logs (it is kept on the analysis instead).
@@ -2854,6 +2862,10 @@ export async function runCourtSimplifiedBrain(
     ...(retrieved && retrieved.passages.length
       ? { retrievedSources: retrieved.passages.map((passage) => ({ id: passage.id, score: Math.round(passage.score * 1000) / 1000 })) }
       : {}),
+    // The passages the analysis relied on, checked word for word. Computed
+    // from the model's citations whether or not its own wording is shown:
+    // what is shown here is the source's text, not the model's.
+    ...(appliedLaw.length ? { appliedLaw } : {}),
     ...(groundingReport
       ? {
           groundingReport: {
