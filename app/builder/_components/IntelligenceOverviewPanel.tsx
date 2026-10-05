@@ -1,4 +1,5 @@
 import AppliedLawPanel from "../../_components/AppliedLawPanel";
+import ResearchPanel from "../../_components/ResearchPanel";
 import {
   filingFactsFromDocuments,
   isQuestionAlreadyAnswered,
@@ -359,6 +360,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
       {/* 2026-09-30: "Evidence you have recorded" repeated the user's own answer back to them. Their words stay in "What you told us"; the upload card below is where the evidence itself goes. */}
       {(recordedEvidence.length > 0 || evidenceToOrganize.length > 0) && <Card title="Evidence and proof to organize">{recordedEvidence.length > 0 && <><h3 className="font-semibold">Files you have added</h3><ul className="mt-2 list-disc space-y-1 pl-5">{recordedEvidence.map((item) => <li key={item}>{item}</li>)}</ul></>}{evidenceToOrganize.length > 0 && <><h3 className={recordedEvidence.length ? "mt-5 font-semibold" : "font-semibold"}>Evidence to organize or confirm</h3><ul className="mt-2 list-disc space-y-1 pl-5">{evidenceToOrganize.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={publicSourceUrl(item.sourceUrl)} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></>}</Card>}
       {/* 2026-10-05: the provisions the analysis rests on, found by meaning-based retrieval and quote-checked. Verbatim text only; see AppliedLawPanel. */}
+      {analysis.research && analysis.research.findings.length > 0 && <Card title="What we looked into"><ResearchPanel findings={analysis.research.findings} /></Card>}
       {analysis.appliedLaw && analysis.appliedLaw.length > 0 && <Card title="The law behind this"><AppliedLawPanel items={analysis.appliedLaw} /></Card>}
       {showStartingSteps && (
         <Card title="What the rules say about starting a Small Claims action">

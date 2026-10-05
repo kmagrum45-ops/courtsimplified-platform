@@ -1,0 +1,69 @@
+import type { ResearchFindingView } from "@/src/lib/case-system/intelligence/intelligenceTypes";
+import { publicSourceUrl } from "@/src/lib/content-library/publicSourceUrl";
+
+import ExplainProvision from "./ExplainProvision";
+
+/**
+ * "What we looked into": the questions the research step chose for this
+ * story (retrieval/researchStory.ts), and for each one the provisions that
+ * answer it -- the provision's own words, with the words that answer it shown
+ * first, checked by code to be in the provision -- or a plain statement that
+ * our library does not have it yet. No model wording about the law is shown
+ * here; the questions are questions. Behind phaseScope.researchStepEnabled.
+ */
+export default function ResearchPanel({ findings }: { findings: readonly ResearchFindingView[] }) {
+  if (!findings.length) return null;
+  return (
+    <div data-testid="research-findings">
+      <p className="mb-3 text-sm leading-6 text-[#4d675f]">
+        These are the questions a careful lawyer would look into for what you described, and what the law in our
+        checked library says about each. The quoted words are from the official text. They say what the law provides,
+        not how your case will turn out.
+      </p>
+      <ol className="space-y-4">
+        {findings.map((finding, index) => (
+          <li key={`${index}-${finding.question}`} className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
+            <p className="text-sm font-semibold text-[#16302b]">{finding.question}</p>
+            {finding.status === "answered" && finding.provisions.length > 0 ? (
+              <ul className="mt-2 space-y-3">
+                {finding.provisions.map((provision) => {
+                  const link = publicSourceUrl(provision.sourceUrl);
+                  return (
+                    <li key={provision.id} className="text-sm text-[#24463d]">
+                      <p className="text-xs font-semibold text-[#16302b]">{provision.citation || provision.label}</p>
+                      <blockquote className="mt-1 border-l-2 border-[#2f7d67] pl-3">“{provision.quote}”</blockquote>
+                      {provision.kind === "decision" ? (
+                        <p className="mt-1 text-xs text-[#4d675f]">
+                          A court decision: what the judges said in an earlier case. It has not been checked for later
+                          decisions that may have changed it.
+                        </p>
+                      ) : null}
+                      <details className="mt-1 text-xs">
+                        <summary className="cursor-pointer font-semibold text-[#2f7d67]">Read the whole provision</summary>
+                        <p className="mt-1 whitespace-pre-wrap text-sm">{provision.text}</p>
+                      </details>
+                      {provision.explainable ? <ExplainProvision id={provision.id} /> : null}
+                      {link ? (
+                        <a href={link} target="_blank" rel="noreferrer" className="mt-1 inline-block text-xs font-semibold text-[#2f7d67] underline">
+                          {provision.kind === "decision" ? "Read the decision" : "Official text"}
+                        </a>
+                      ) : null}
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : finding.status === "not-in-library" ? (
+              <p className="mt-2 text-sm text-[#4d675f]">
+                The law that answers this is not in our checked library yet
+                {finding.missingSource ? ` (it may be in ${finding.missingSource})` : ""}, so we are not quoting it. We are
+                adding missing laws from the official sources.
+              </p>
+            ) : (
+              <p className="mt-2 text-sm text-[#4d675f]">We could not find this in our checked library.</p>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}

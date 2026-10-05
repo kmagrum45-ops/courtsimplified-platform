@@ -1,4 +1,4 @@
-import type { AppliedLawItem } from "@/src/lib/case-system/intelligence/intelligenceTypes";
+import type { AppliedLawItem, ResearchFindingView } from "@/src/lib/case-system/intelligence/intelligenceTypes";
 import { sanitizeSummaryText } from "@/src/lib/case-system/intelligence/caseStrengthLanguageValidator";
 
 export type CourtPath = "family" | "small-claims" | "civil";
@@ -191,6 +191,7 @@ export type AnalysisResult = {
    * with a quote checked against the official text. See AppliedLawPanel.
    */
   appliedLaw?: AppliedLawItem[];
+  research?: { findings: ResearchFindingView[]; sourceRequests: string[]; rounds: number };
 };
 
 export type StoredCaseData = {

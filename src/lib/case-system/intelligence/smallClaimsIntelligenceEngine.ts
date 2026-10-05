@@ -784,6 +784,7 @@ export async function analyzeSmallClaimsWithBrain(
     intelligenceEvidenceIssues: intelligence.evidenceIssueLinks,
     intelligenceFormRecommendations: intelligence.formRecommendations,
     ...(intelligence.appliedLaw?.length ? { appliedLaw: intelligence.appliedLaw } : {}),
+    ...(intelligence.research ? { research: intelligence.research } : {}),
   };
 
   const finalAnalysis: AnalysisResult = {

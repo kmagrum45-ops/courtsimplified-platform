@@ -201,3 +201,17 @@ export function plainExplanationsEnabled(
 ): boolean {
   return env.PLAIN_EXPLANATIONS !== "off" && aiAnalysisTextToUsers(env);
 }
+
+/**
+ * The research step before the analysis (retrieval/researchStory.ts): the
+ * model chooses the legal questions for the story, reads what the library
+ * has for each, and names what it lacks; code checks every quote. What the
+ * person sees from it ("What we looked into") is the questions and the
+ * provisions' own words. Its own switch, per CLAUDE.md section 2:
+ * RESEARCH_STEP=off returns the analysis to single-pass retrieval.
+ */
+export function researchStepEnabled(
+  env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+): boolean {
+  return env.RESEARCH_STEP !== "off";
+}

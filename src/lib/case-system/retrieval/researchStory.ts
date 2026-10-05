@@ -20,7 +20,7 @@
  *   2. SEARCH. Each issue's phrases are embedded and the corpus searched by
  *      meaning (corpusIndex.ts); every hit is re-read from the vendored text
  *      and hash-checked; cross-references are followed one hop.
- *   3. READ. A second call reads each issue's passages and says, per issue,
+ *   3. READ. A second call per issue (all in parallel) reads its passages and says
  *      which passages answer it -- quoting them -- or that more searching is
  *      needed (new phrases), or that the library does not contain the law it
  *      needs (naming that law). CODE checks every quote is really in the
@@ -54,11 +54,11 @@ import {
   type RetrievalResult,
 } from "./storyRetrieval";
 
-export const MAX_ISSUES = 8;
+export const MAX_ISSUES = 6;
 const MAX_QUERIES_PER_ISSUE = 3;
 const PASSAGES_PER_ISSUE = 5;
 const MAX_ITEMS = 24;
-const PASSAGE_CHARS_FOR_READING = 1400;
+const PASSAGE_CHARS_FOR_READING = 1200;
 const RESEARCH_TIMEOUT_MS = 45_000;
 
 export type ResearchIssue = { id: string; question: string; queries: string[] };
@@ -111,7 +111,7 @@ Rules:
 - Leave out every name, address, date, amount and personal detail.
 - For each question give 2 or 3 search phrases written the way Ontario legislation, court rules or an official guide would phrase it.
 
-Return JSON: {"issues": [{"question": "...", "queries": ["...", "..."]}]} with 3 to 8 issues, most important first.`;
+Return JSON: {"issues": [{"question": "...", "queries": ["...", "..."]}]} with 3 to 6 issues, most important first.`;
 
 export const READ_SYSTEM_PROMPT = `You are checking legal research. For each research question you are given passages found in a library of Ontario and Canadian law. Decide, for each question, from the passages only:
 
@@ -278,7 +278,22 @@ export async function researchStory(input: RetrievalInput, deps: ResearchDeps = 
     if (issues.length === 0) return empty("no issues");
 
     const passagesByIssue = await searchIssues(index, input, issues, embed);
-    let results = parseReadResults(await read(input, issues, passagesByIssue), issues, passagesByIssue);
+    // Each question is read in its own call, all at once: one call over every
+    // question's passages took longer than the whole step may (first probe,
+    // 2026-10-05: 9 of 10 stories timed out at 45 s).
+    const readEach = async (asked: readonly ResearchIssue[]) =>
+      (
+        await Promise.all(
+          asked.map(async (issue) => {
+            try {
+              return parseReadResults(await read(input, [issue], passagesByIssue), [issue], passagesByIssue);
+            } catch {
+              return [];
+            }
+          }),
+        )
+      ).flat();
+    let results = await readEach(issues);
     let rounds = 1;
 
     // One more round for the questions the reader could not answer from what
@@ -293,7 +308,7 @@ export async function researchStory(input: RetrievalInput, deps: ResearchDeps = 
         const seen = new Set(had.map((passage) => passage.id));
         passagesByIssue.set(issue.id, [...had, ...(more.get(issue.id) ?? []).filter((passage) => !seen.has(passage.id))]);
       }
-      const second = parseReadResults(await read(input, retry, passagesByIssue), retry, passagesByIssue);
+      const second = await readEach(retry);
       results = results.map((result) => second.find((s) => s.issueId === result.issueId) ?? result);
       rounds = 2;
     }
@@ -397,5 +412,5 @@ export async function readPassagesWithModel(
   issues: readonly ResearchIssue[],
   passagesByIssue: ReadonlyMap<string, readonly Passage[]>,
 ): Promise<unknown> {
-  return chatJson(READ_SYSTEM_PROMPT, readingPrompt(issues, passagesByIssue), process.env.AI_EFFORT_RESEARCH_READ || "medium");
+  return chatJson(READ_SYSTEM_PROMPT, readingPrompt(issues, passagesByIssue), process.env.AI_EFFORT_RESEARCH_READ || "low");
 }

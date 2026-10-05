@@ -522,6 +522,7 @@ function buildCivilAnalysisFromMaster(
     documentUploadRequests,
     nextBestActions: generatedQuestions,
     ...(result.brain.intelligence.appliedLaw?.length ? { appliedLaw: result.brain.intelligence.appliedLaw } : {}),
+    ...(result.brain.intelligence.research ? { research: result.brain.intelligence.research } : {}),
   };
 }
 
