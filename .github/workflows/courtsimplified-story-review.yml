@@ -26,6 +26,8 @@ on:
       - src/lib/case-system/retrieval/**
       - docs/sources/retrieval/**
       - scripts/eval/retrievalProbe.ts
+      - scripts/eval/retrievalRecallSet.ts
+      - scripts/eval/runRetrievalRecall.ts
       - scripts/eval/**
       - .github/workflows/courtsimplified-story-review.yml
 
@@ -94,6 +96,15 @@ jobs:
           set -o pipefail
           npm run eval:retrieval 2>&1 | tee retrieval-probe.log
 
+      # Retrieval measured against the labelled set (scripts/eval/
+      # retrievalRecallSet.ts): story hit rate, provision recall and time.
+      - name: Retrieval recall
+        id: recall
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm run eval:retrieval-recall 2>&1 | tee retrieval-recall.log
+
       - name: Publish the report to the story-review-reports branch
         env:
           GH_TOKEN: ${{ github.token }}
@@ -107,11 +118,13 @@ jobs:
           echo "fixture harness outcome: ${{ steps.fixtures.outcome }}" > "$out/fixtures/OUTCOME.txt"
           cp accuracy-eval.log "$out/" || true
           cp retrieval-probe.md retrieval-probe.log "$out/" || true
+          cp retrieval-recall.md retrieval-recall.json retrieval-recall.log "$out/" || true
           # The model's recorded reasoning on the fabricated eval stories. No
           # user data: this job has no database credentials at all.
           cp .ai-call-log.jsonl "$out/" || true
           echo "accuracy eval outcome: ${{ steps.accuracy.outcome }}" >> "$out/fixtures/OUTCOME.txt"
           echo "retrieval probe outcome: ${{ steps.retrieval.outcome }}" >> "$out/fixtures/OUTCOME.txt"
+          echo "retrieval recall outcome: ${{ steps.recall.outcome }}" >> "$out/fixtures/OUTCOME.txt"
           # This branch holds a report, not the site. Without this Vercel tries
           # to build it as a preview, fails, and emails the site owner on every
           # run (2026-09-28). Vercel reads vercel.json from the commit it deploys.

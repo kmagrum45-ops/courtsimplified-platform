@@ -32,7 +32,7 @@ merged_shas=$(gh api "repos/$REPO/pulls?state=closed&per_page=100" --paginate --
 
 deleted=0 kept=0
 for branch in $(gh api "repos/$REPO/branches?per_page=100" --paginate --jq '.[].name'); do
-  case "$branch" in main|case-workspace|walkthrough-reports|change-watch-reports|forms-probe-reports|story-review-reports) continue ;; esac
+  case "$branch" in main|case-workspace|walkthrough-reports|change-watch-reports|forms-probe-reports|story-review-reports|retrieval-eval-reports) continue ;; esac
   if grep -qxF "$branch" <<<"$open_heads"; then echo "keep  $branch (open pull request)"; kept=$((kept+1)); continue; fi
 
   sha=$(gh api "repos/$REPO/branches/$branch" --jq .commit.sha)

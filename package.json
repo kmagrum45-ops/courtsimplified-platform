@@ -149,6 +149,7 @@
     "test:stage-resolution": "tsx scripts/verification/verifyStageResolution.ts",
     "eval:accuracy": "tsx scripts/eval/runAccuracyEval.ts",
     "eval:retrieval": "node --import tsx scripts/eval/retrievalProbe.ts",
+    "eval:retrieval-recall": "node --import tsx scripts/eval/runRetrievalRecall.ts",
     "test:ai-call-log-sink": "node --import tsx scripts/verification/verifyAiCallLogSink.ts",
     "test:library-chat": "node --import tsx scripts/verification/verifyLibraryChat.ts",
     "test:presentation-help": "node --import tsx scripts/verification/verifyPresentationHelp.ts",

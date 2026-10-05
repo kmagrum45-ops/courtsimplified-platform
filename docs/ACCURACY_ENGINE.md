@@ -1745,7 +1745,14 @@ passages the analysis cited with a verified quote, verbatim, behind
 `APPLIED_LAW=off`.
 
 **Not done yet.** The chat (`chat/libraryChat.ts`) still selects published
-blocks only. The probe
-(`npm run eval:retrieval`) is twelve stories, a smoke test; a labelled set
-measuring recall is the next measurement.
+blocks only.
+
+**How it is measured (2026-10-05).** `scripts/eval/retrievalRecallSet.ts`: 50
+stories in people's words, 63 labelled provisions, every label confirmed by
+the provision's own text (test:corpus-retrieval). `npm run
+eval:retrieval-recall` reports story hit rate, provision recall (and how much
+came only through cross-references) and the time retrieval adds. The
+Retrieval Eval workflow runs it with the probe in minutes, on any branch,
+and publishes to `retrieval-eval-reports`. Compare runs, not one number:
+the model's queries vary.
 
