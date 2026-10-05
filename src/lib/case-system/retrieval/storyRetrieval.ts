@@ -36,7 +36,7 @@
  */
 
 import type { SourceItem } from "../intelligence/groundedCognition";
-import { loadCorpusIndex, namedSources, readPassage, searchIndex, sourcePassages, type LoadedIndex, type Passage } from "./corpusIndex";
+import { loadCorpusIndex, readPassage, searchIndex, sourcePassages, type LoadedIndex, type Passage } from "./corpusIndex";
 import { findProvision, parsePinpoint, referencedProvisions } from "./crossReferences";
 import { readableUrl } from "./corpusChunker";
 
@@ -157,9 +157,12 @@ export function followCrossReferences(index: LoadedIndex, found: readonly Passag
 
 export const QUERY_SYSTEM_PROMPT =
   "You help a legal research tool find the Ontario law that applies to a person's situation. " +
-  "Read their account and list the distinct legal questions it raises, including where they are in the court process. " +
-  "Write each question the way Ontario legislation, court rules or an official government guide would phrase it, " +
-  "using legal terms rather than the person's own words. Do not answer the questions, do not judge the case, " +
+  "Read their account and list the distinct legal questions it raises about the substance of their problem -- " +
+  "the rights, duties, defences and time limits in play -- each written the way Ontario legislation, " +
+  "a court decision or an official government guide would put it, using legal terms rather than the person's own words. " +
+  "Do not name the court in these questions. " +
+  "Then add one question about the court process for where they are now, and name the court in that one only. " +
+  "Do not answer the questions, do not judge the case, " +
   "and leave out every name, address, date, amount and other personal detail. " +
   'Return JSON: {"queries": ["...", "..."]} with 3 to 6 queries.';
 
@@ -232,7 +235,6 @@ export async function retrieveForStory(
     const vectors = await (deps?.embed ?? embedWithModel)(queries, index.meta.model, index.meta.dimensions);
     const hits = searchIndex(index, vectors, {
       excludeSource: (sourceId) => excludedForCourt(input.courtPath, sourceId),
-      namedSources: queries.map((query) => namedSources(index, query)),
     });
     const found = hits
       .map((hit) => readPassage(index, hit.id, hit.score))

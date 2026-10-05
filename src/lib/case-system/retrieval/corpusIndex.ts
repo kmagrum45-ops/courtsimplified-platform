@@ -145,50 +145,7 @@ export type SearchOptions = {
   minScore?: number;
   /** Sources that cannot apply (another court's procedure). */
   excludeSource?: (sourceId: string) => boolean;
-  /**
-   * Per query (same order as the vectors): sources the query names. Their
-   * passages score NAMED_SOURCE_BOOST higher for that query. See namedSources.
-   */
-  namedSources?: readonly (ReadonlySet<string> | undefined)[];
 };
-
-/**
- * How much naming a law lifts its passages. Measured 2026-10-05 on the
- * recall set: "What duty of care does an occupier owe ... under the
- * Occupiers' Liability Act" ranked Insurance Act s. 267.x (motor-vehicle
- * injury thresholds) above OLA s. 3 on "personal injuries", and lost the
- * Act the query named. Scores between relevant passages differ by a few
- * hundredths, so a small lift settles ties without overriding meaning.
- */
-export const NAMED_SOURCE_BOOST = 0.06;
-
-function titleKey(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[’‘']/g, "")
-    .replace(/,?\s*\d{4}\b/g, "")
-    .replace(/[^a-z ]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-/**
- * The indexed laws a query names: "under the Occupiers' Liability Act" names
- * the Occupiers' Liability Act. The query is the model's legal restatement
- * of the story, so a name in it is the model's judgment about which law
- * governs, not a word the person happened to use. Legislation only; a
- * title must be at least two words to count ("Rules" alone is not a name).
- */
-export function namedSources(index: LoadedIndex, query: string): Set<string> {
-  const text = ` ${titleKey(query)} `;
-  const named = new Set<string>();
-  for (const [id, source] of Object.entries(index.meta.sources)) {
-    if (source.tier !== "legislation") continue;
-    const key = titleKey(source.title);
-    if (key.split(" ").length >= 2 && text.includes(` ${key} `)) named.add(id);
-  }
-  return named;
-}
 
 /**
  * The passages nearest in meaning to any of the queries, best first: each
@@ -206,17 +163,15 @@ export function searchIndex(
   const best = new Map<string, { id: string; sourceId: string; score: number }>();
   const firstPerQuery: string[] = [];
 
-  for (const [queryIndex, raw] of queryVectors.entries()) {
+  for (const raw of queryVectors) {
     if (raw.length !== dims) continue;
     const query = normalize(raw);
-    const named = options.namedSources?.[queryIndex];
-    const namedRows = named && named.size ? new Set(index.meta.chunks.flatMap(([id], row) => (named.has(id.split(":")[1]) ? [row] : []))) : null;
     const top: { row: number; score: number }[] = [];
     for (let row = 0; row < rows; row += 1) {
       let dot = 0;
       const offset = row * dims;
       for (let d = 0; d < dims; d += 1) dot += query[d] * index.vectors[offset + d];
-      const score = dot / 127 + (namedRows?.has(row) ? NAMED_SOURCE_BOOST : 0);
+      const score = dot / 127;
       if (score < minScore) continue;
       if (top.length < perQuery * 4 || score > top[top.length - 1].score) {
         top.push({ row, score });

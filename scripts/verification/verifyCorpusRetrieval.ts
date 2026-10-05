@@ -38,8 +38,6 @@ import {
   type CorpusChunk,
 } from "../../src/lib/case-system/retrieval/corpusChunker";
 import {
-  namedSources,
-  NAMED_SOURCE_BOOST,
   passageHash,
   quantize,
   sourceTextPath,
@@ -405,22 +403,6 @@ async function main() {
   check(
     "a civil case is never handed the Small Claims rules or guides",
     excludedForCourt("civil", "oreg-258-98-small-claims-rules") && excludedForCourt("civil", "guide-making-a-claim") && !excludedForCourt("civil", "rules-of-civil-procedure"),
-  );
-  check(
-    "a query naming a law names it (\"under the Residential Tenancies Act, 2006\")",
-    [...namedSources(index, "May a landlord keep a rent deposit under the Residential Tenancies Act, 2006?")].join() === "residential-tenancies-act-2006",
-  );
-  check("a law the query does not name is not named", namedSources(index, "What is a rent deposit?").size === 0);
-  // Two passages equally near the query; naming one's law puts it first.
-  const tie = picks.findIndex((pick) => pick.source.id === "residential-tenancies-act-2006");
-  const tieQuery = axis(tie).map((value, d) => (d === 0 ? 1 : value));
-  const plain = searchIndex(index, [tieQuery], { perQuery: 2, minScore: 0 });
-  const lifted = searchIndex(index, [tieQuery], { perQuery: 2, minScore: 0, namedSources: [new Set(["residential-tenancies-act-2006"])] });
-  check(
-    `naming a law lifts its passages by ${NAMED_SOURCE_BOOST}, no more`,
-    lifted[0]?.sourceId === "residential-tenancies-act-2006" &&
-      Math.abs((lifted.find((hit) => hit.id === picks[tie].chunk.id)?.score ?? 0) - (plain.find((hit) => hit.id === picks[tie].chunk.id)?.score ?? 0) - NAMED_SOURCE_BOOST) < 1e-9,
-    JSON.stringify({ plain, lifted }),
   );
   check("nothing scores below the floor", searchIndex(index, [axis(3).map((v) => -v)], { minScore: 0.2 }).length === 0);
 
