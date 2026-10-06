@@ -4,7 +4,10 @@ import {
   REFERRAL_RESOURCES,
   DEFLECTION_MESSAGE,
   OUT_OF_SCOPE_MESSAGE,
+  CASE_JUDGMENT_HEADING,
+  CASE_JUDGMENT_MESSAGE,
 } from "@/src/lib/content-library/referralResources";
+import { isInScope } from "@/src/lib/case-system/policy/a2iScope";
 
 /**
  * What a user sees when we cannot help them.
@@ -32,6 +35,18 @@ export default function LegalAdviceDeflection({
 }: {
   reason: "legal-advice" | "out-of-scope";
 }) {
+  // While answerLegalQuestions is on, the safety pass flags only a request
+  // to judge the case, so the words say that and point the user onward.
+  const judgingOnly = reason === "legal-advice" && isInScope("answerLegalQuestions");
+  const heading =
+    reason === "out-of-scope"
+      ? "This isn't something we cover"
+      : judgingOnly
+        ? CASE_JUDGMENT_HEADING
+        : "We can't answer that one";
+  const message =
+    reason === "out-of-scope" ? OUT_OF_SCOPE_MESSAGE : judgingOnly ? CASE_JUDGMENT_MESSAGE : DEFLECTION_MESSAGE;
+
   return (
     <section
       role="note"
@@ -40,11 +55,11 @@ export default function LegalAdviceDeflection({
       className="rounded-3xl border-2 border-[#2f7d67] bg-[#f8fcfa] p-5"
     >
       <h3 className="text-lg font-bold text-[#10231f]">
-        {reason === "legal-advice" ? "We can't answer that one" : "This isn't something we cover"}
+        {heading}
       </h3>
 
       <p className="mt-2 text-[15px] leading-7 text-[#24463d]">
-        {reason === "legal-advice" ? DEFLECTION_MESSAGE : OUT_OF_SCOPE_MESSAGE}
+        {message}
       </p>
 
       <ul className="mt-4 space-y-3">

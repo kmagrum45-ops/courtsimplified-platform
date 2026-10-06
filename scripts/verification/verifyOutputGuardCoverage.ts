@@ -178,7 +178,7 @@ const UNGUARDED: UnguardedPath[] = [
   },
   {
     file: "app/_components/LegalAdviceDeflection.tsx",
-    what: "DEFLECTION_MESSAGE, OUT_OF_SCOPE_MESSAGE and the four referrals",
+    what: "DEFLECTION_MESSAGE, CASE_JUDGMENT_MESSAGE, OUT_OF_SCOPE_MESSAGE and the four referrals",
     reason: "Same as PathwayUnavailable — fixed constants outside the library.",
   },
   {

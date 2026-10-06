@@ -111,6 +111,24 @@ export const A2I_SCOPE = {
       "Application step 5. Answers procedural questions about the user's own case, such as which " +
       "deadline applies at their stage, calculated from the rule and dates they confirm.",
   },
+  /**
+   * Answer legal questions about the user's own matter instead of deflecting
+   * them -- CLAUDE.md "Guide like a lawyer; never judge the case" (site owner,
+   * 2026-10-04). Off: any legal question gets the fixed deflection. On: only a
+   * request to JUDGE the case (do I have a case, will I win, how strong, should
+   * I settle) is turned aside; "what is the limitation period", "what do I
+   * have to prove", "help me word this" go on to the guidance.
+   */
+  answerLegalQuestions: {
+    id: "answer-legal-questions",
+    title: "Answering legal questions about the user's matter",
+    tier: "needs-a2i-approval",
+    enabled: false,
+    description:
+      "Lets the intake carry on with a question about what the law is or what applies to the user, " +
+      "instead of turning it aside as legal advice. A request to judge the case -- whether they have " +
+      "one, will win, or should settle -- is still turned aside, with any setting of this switch.",
+  },
 } as const satisfies Record<string, ScopeCapability>;
 
 export type ScopeKey = keyof typeof A2I_SCOPE;

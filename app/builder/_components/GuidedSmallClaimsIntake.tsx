@@ -592,7 +592,10 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
 
       // Same notice Civil, Family and the Small Claims form show: fixed words
       // and the reviewed referral list. It does not stop the intake.
-      if (result.requestsLegalAdvice) setAsksForAdvice(true);
+      // The notice belongs to the turn that raised it, so a later turn that
+      // asks nothing of the kind clears it (page walkthrough, 2026-10-06: it
+      // stayed up for the rest of the session and reappeared on Back).
+      setAsksForAdvice(result.requestsLegalAdvice === true);
 
       // Answers the story already gives are shown for confirmation BEFORE any
       // question is asked. Nothing is applied until the user confirms; what

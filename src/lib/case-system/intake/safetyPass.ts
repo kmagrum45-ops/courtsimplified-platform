@@ -50,6 +50,7 @@
 
 import { createOpenAIClient } from "../openaiClient";
 import { modelParams } from "../aiModels";
+import { isInScope } from "../policy/a2iScope";
 import {
   recordAiValidation,
   recordRequestsLegalAdvice,
@@ -108,7 +109,9 @@ import {
  * loan to a friend, a used car with an undisclosed accident, a false Facebook
  * post. All three are now must-be-clear cases in verifySafetyPassRegression.ts.
  */
-const SYSTEM_PROMPT = `You are a safety classifier for a legal self-help intake form. Read the free-text story and classify it into exactly one category. You do not give advice, you do not characterize the legal or factual situation, and you do not decide what happens next -- you only classify.
+function systemPrompt(): string {
+  const ADVICE_CRITERIA = isInScope("answerLegalQuestions") ? CASE_JUDGMENT_CRITERIA : LEGAL_ADVICE_CRITERIA;
+  return `You are a safety classifier for a legal self-help intake form. Read the free-text story and classify it into exactly one category. You do not give advice, you do not characterize the legal or factual situation, and you do not decide what happens next -- you only classify.
 
 Categories:
 
@@ -123,15 +126,38 @@ Categories:
 
 - "clear": an ordinary factual account, proceed normally. This includes anger or frustration on its own (without despair or hopelessness), and hyperbolic language the speaker themselves disclaims as not serious. A dispute about money, a purchase, a loan, a job left unfinished, or something said about the person is "clear" when told factually, even though the person has lost money, been lied to, been ignored, lost customers, or been treated unfairly -- being wronged is what every dispute is about, not a sign of distress. Only choose "distress" for such a story when the person's own words show despair, hopelessness or being overwhelmed, recount trauma, or describe their wider life falling apart as above.
 
-Separately, set "requestsLegalAdvice" to true when the person is asking us for a legal answer rather than describing what happened. Two kinds count, and both are true:
+${ADVICE_CRITERIA}
+
+Return a JSON object: {"classification": "immediate-danger" | "distress" | "clear", "reason": "<one short sentence for internal logging only, never shown to any user>", "requestsLegalAdvice": true | false}. Omit "reason" (empty string) when classification is "clear".`;
+}
+
+/*
+ * What sets `requestsLegalAdvice`. Two definitions, chosen by the
+ * answerLegalQuestions switch in a2iScope.ts (CLAUDE.md "Guide like a lawyer;
+ * never judge the case", 2026-10-04).
+ *
+ * OFF -- the original information-only test: any legal question is turned
+ * aside, whether it asks us to apply the law or only what the law is.
+ *
+ * ON -- only a request to JUDGE the case is turned aside. A question about
+ * which rule, deadline or form applies, what has to be shown, or how to word
+ * something is what the site now answers, so it must not be deflected.
+ * 2026-10-06: the page walkthrough's civil defendant ("how do I respond after
+ * being served?") was shown "We can't answer that one" under the old test.
+ */
+const LEGAL_ADVICE_CRITERIA = `Separately, set "requestsLegalAdvice" to true when the person is asking us for a legal answer rather than describing what happened. Two kinds count, and both are true:
 
   (a) Asking us to apply law to them or to do their thinking: "will I win", "do I have a case", "what should I argue", "which evidence is strongest", "what does the law say about my situation", "write my argument for me", "should I settle".
 
   (b) Asking a question about what the law IS, even with no facts of their own attached: "what is the limitation period for breach of contract", "does the discoverability rule apply", "what has to be proven for negligence", "how is support calculated". A question about legal doctrine is a legal question whether or not the person mentions their own case.
 
-Examples that are FALSE: describing events, naming amounts or dates, saying what they want to achieve, asking how to use this website, asking what a form is called or what it is for, asking where to file, asking what a court filing fee is, or asking about hours and locations. Those are questions about using a service, not about law. Describing a problem is not asking for advice. When unsure, set it to false.
+Examples that are FALSE: describing events, naming amounts or dates, saying what they want to achieve, asking how to use this website, asking what a form is called or what it is for, asking where to file, asking what a court filing fee is, or asking about hours and locations. Those are questions about using a service, not about law. Describing a problem is not asking for advice. When unsure, set it to false.`;
 
-Return a JSON object: {"classification": "immediate-danger" | "distress" | "clear", "reason": "<one short sentence for internal logging only, never shown to any user>", "requestsLegalAdvice": true | false}. Omit "reason" (empty string) when classification is "clear".`;
+const CASE_JUDGMENT_CRITERIA = `Separately, set "requestsLegalAdvice" to true ONLY when the person asks us to judge their case or predict how it will go: "do I have a case", "will I win", "will I lose", "is my case strong", "what are my chances", "which of my evidence is strongest", "should I settle", "should I accept their offer", "what will the judge decide".
+
+Examples that are FALSE: describing events, naming amounts or dates, saying what they want to achieve; asking what law, rule, deadline, court or form applies to them; asking what they have to prove or what the other side has to prove; asking how to respond, what to file, or what the next step is; asking for help wording a claim, defence or affidavit; asking what a legal term means; asking how to use this website. Those are things we help with. When unsure, set it to false.
+
+`;
 
 function isValidClassification(value: unknown): value is SafetyClassification {
   return value === "immediate-danger" || value === "distress" || value === "clear";
@@ -158,7 +184,7 @@ async function runSafetyPassInner(storyText: string, apiKey: string): Promise<Sa
     ...modelParams("standard", { temperature: 0 }),
     response_format: { type: "json_object" },
     messages: [
-      { role: "system", content: SYSTEM_PROMPT },
+      { role: "system", content: systemPrompt() },
       { role: "user", content: storyText },
     ],
   });

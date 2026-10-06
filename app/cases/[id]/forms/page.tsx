@@ -29,13 +29,16 @@ export default function CaseFormsSection() {
       setStepTexts([]);
       return;
     }
-    if (courtPath !== "small-claims") {
+    // Every civil and family step now has a written answer (run-19), so all
+    // three courts read the forms from the same answer the user was shown.
+    // The short next-step block stays as the fallback for a step without one.
+    const fallback = () => {
+      if (courtPath === "small-claims") return [];
       const block = nextStepBlockFor(courtPath, position.confirmedStage);
-      setStepTexts(block && !isPlaceholder(block) ? [block.text] : []);
-      return;
-    }
+      return block && !isPlaceholder(block) ? [block.text] : [];
+    };
     if (!stepId) {
-      setStepTexts([]);
+      setStepTexts(fallback());
       return;
     }
     void (async () => {
@@ -46,7 +49,7 @@ export default function CaseFormsSection() {
       }).catch(() => null);
       const body = response?.ok ? await response.json() : null;
       const sections = (body?.answer?.sections ?? []) as { text: string }[];
-      setStepTexts(sections.map((section) => section.text));
+      setStepTexts(sections.length ? sections.map((section) => section.text) : fallback());
     })();
   }, [courtPath, position.confirmedStage, stepId]);
 

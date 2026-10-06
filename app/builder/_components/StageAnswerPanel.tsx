@@ -368,7 +368,7 @@ export default function StageAnswerPanel({
       {result?.outcome === "rendered" && <AnswerView answer={result.answer} court={courtPath} />}
 
       {result?.outcome === "rendered" && (result.dateQuestions?.length ?? 0) > 0 && (
-        <div data-testid="stage-answer-dates" className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
+        <div id="work-out-your-dates" data-testid="stage-answer-dates" className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
           <p className="text-sm font-semibold text-[#16302b]">Work out your dates</p>
           <p className="mt-1 text-sm leading-6 text-[#4d675f]">
             Give the date and we will count the deadline for you, with the working shown above.
