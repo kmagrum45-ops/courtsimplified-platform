@@ -13,7 +13,18 @@ export type NarrativePrefill = {
   narrative: string;
   facts: NarrativePrefillFact[];
   questions: string[];
+  /** When it was stored (ms). An entry without one predates expiry and is dropped. */
+  savedAt?: number;
 };
+
+/**
+ * How long a chat's first message may wait to prefill the form. It is a
+ * hand-off from the chat to the form the person opens next, not storage:
+ * on 2026-10-06 the site owner pressed Back after a live test and a story
+ * typed into the chat in an EARLIER test, in the same tab, filled the form,
+ * because nothing ever expired it.
+ */
+export const PREFILL_MAX_AGE_MS = 15 * 60 * 1000;
 
 const STORAGE_PREFIX = "courtsimplified-ai-case-partner-chat:narrative-prefill";
 
@@ -172,26 +183,38 @@ export function extractNarrativePrefill(args: {
   return { courtPath: args.courtPath, caseId: args.caseId, narrative, facts, questions };
 }
 
-export function persistNarrativePrefill(prefill: NarrativePrefill) {
-  if (typeof window === "undefined" || !prefill.narrative) return;
-  sessionStorage.setItem(storageKey(prefill.courtPath), JSON.stringify(prefill));
+type PrefillStorage = Pick<Storage, "getItem" | "setItem" | "removeItem">;
+
+export function persistNarrativePrefill(prefill: NarrativePrefill, storage?: PrefillStorage, now: number = Date.now()) {
+  const store = storage ?? (typeof window === "undefined" ? null : sessionStorage);
+  if (!store || !prefill.narrative) return;
+  store.setItem(storageKey(prefill.courtPath), JSON.stringify({ ...prefill, savedAt: now }));
 }
 
-export function consumeNarrativePrefill(args: {
-  courtPath: NarrativePrefill["courtPath"];
-  caseId?: string | null;
-}): NarrativePrefill | null {
-  if (typeof window === "undefined") return null;
+/**
+ * Read once and always removed: a hand-off that is not used now is never
+ * used later (see PREFILL_MAX_AGE_MS). Returns it only when it is for this
+ * court, this case, and recent.
+ */
+export function consumeNarrativePrefill(
+  args: { courtPath: NarrativePrefill["courtPath"]; caseId?: string | null },
+  storage?: PrefillStorage,
+  now: number = Date.now(),
+): NarrativePrefill | null {
+  const store = storage ?? (typeof window === "undefined" ? null : sessionStorage);
+  if (!store) return null;
   const key = storageKey(args.courtPath);
   try {
-    const raw = sessionStorage.getItem(key);
+    const raw = store.getItem(key);
     if (!raw) return null;
+    store.removeItem(key);
     const value = JSON.parse(raw) as NarrativePrefill;
-    if (value.courtPath !== args.courtPath || (value.caseId && value.caseId !== args.caseId)) return null;
-    sessionStorage.removeItem(key);
+    if (value.courtPath !== args.courtPath) return null;
+    if (value.caseId && value.caseId !== args.caseId) return null;
+    if (typeof value.savedAt !== "number" || now - value.savedAt > PREFILL_MAX_AGE_MS || value.savedAt > now) return null;
     return value;
   } catch {
-    sessionStorage.removeItem(key);
+    store.removeItem(key);
     return null;
   }
 }
