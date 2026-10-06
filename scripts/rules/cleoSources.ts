@@ -45,7 +45,7 @@ import type { CorpusSource } from "./corpusSources";
 export const CLEO_SOURCES: CorpusSource[] = [
   {
     id: "cleo-debt-and-consumer-rights-are-there-options-other-bankruptcy-if-im-debt",
-    title: "Are there options other bankruptcy if im debt",
+    title: "Are there options other than bankruptcy if I'm in debt?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/are-there-options-other-bankruptcy-if-im-debt/",
     format: "html",
@@ -56,7 +56,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-can-consumer-proposal-help-me-get-out-debt",
-    title: "Can consumer proposal help me get out debt",
+    title: "Can a consumer proposal help me get out of debt?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/can-consumer-proposal-help-me-get-out-debt/",
     format: "html",
@@ -67,7 +67,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-can-i-cancel-my-energy-contract",
-    title: "Can i cancel my energy contract",
+    title: "Can I cancel my energy contract?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/can-i-cancel-my-energy-contract/",
     format: "html",
@@ -78,7 +78,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-can-i-cancel-payday-loan-agreement",
-    title: "Can i cancel payday loan agreement",
+    title: "Can I cancel a payday loan agreement?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/can-i-cancel-payday-loan-agreement/",
     format: "html",
@@ -89,7 +89,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-can-i-change-my-mind-about-buying-used-car",
-    title: "Can i change my mind about buying used car",
+    title: "Can I change my mind about buying a used car?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/can-i-change-my-mind-about-buying-used-car/",
     format: "html",
@@ -100,7 +100,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-can-i-get-out-debt-settlement-or-credit-counselling-agreement",
-    title: "Can i get out debt settlement or credit counselling agreement",
+    title: "Can I get out of a debt settlement or credit counselling agreement?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/can-i-get-out-debt-settlement-or-credit-counselling-agreement/",
     format: "html",
@@ -111,7 +111,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-can-i-still-owe-money-after-i-have-been-discharged-bankruptcy",
-    title: "Can i still owe money after i have been discharged bankruptcy",
+    title: "Can I still owe money after I have been discharged from bankruptcy?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/can-i-still-owe-money-after-i-have-been-discharged-bankruptcy/",
     format: "html",
@@ -122,7 +122,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-can-my-service-provider-cut-my-cellphone-service",
-    title: "Can my service provider cut my cellphone service",
+    title: "Can my service provider cut off my cellphone service?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/can-my-service-provider-cut-my-cellphone-service/",
     format: "html",
@@ -133,7 +133,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-can-repair-shop-charge-me-more-they-said-they-would",
-    title: "Can repair shop charge me more they said they would",
+    title: "Can the repair shop charge me more than they said they would?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/can-repair-shop-charge-me-more-they-said-they-would/",
     format: "html",
@@ -144,7 +144,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-collection-agency-called-about-debt-i-do-not-owe-what-can-i-do",
-    title: "Collection agency called about debt i do not owe what can i do",
+    title: "A collection agency called about a debt I do not owe. What can I do?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/collection-agency-called-about-debt-i-do-not-owe-what-can-i-do/",
     format: "html",
@@ -155,7 +155,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-collection-agency-called-me-do-i-have-talk-them",
-    title: "Collection agency called me do i have talk them",
+    title: "A collection agency called me. Do I have to talk to them?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/collection-agency-called-me-do-i-have-talk-them/",
     format: "html",
@@ -166,7 +166,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-does-door-door-salesperson-have-give-me-written-contract",
-    title: "Does door door salesperson have give me written contract",
+    title: "Does a door-to-door salesperson have to give me a written contract?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/does-door-door-salesperson-have-give-me-written-contract/",
     format: "html",
@@ -177,7 +177,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-how-can-i-extend-or-renew-my-energy-contract",
-    title: "How can i extend or renew my energy contract",
+    title: "How can I extend or renew my energy contract?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/how-can-i-extend-or-renew-my-energy-contract/",
     format: "html",
@@ -188,7 +188,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-how-do-i-complain-to-the-ministry-of-public-and-business-servi",
-    title: "How do i complain to the ministry of public and business service delivery",
+    title: "How do I complain to the Ministry of Public and Business Service Delivery?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/how-do-i-complain-to-the-ministry-of-public-and-business-service-delivery/",
     format: "html",
@@ -199,7 +199,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-how-do-i-file-bankruptcy",
-    title: "How do i file bankruptcy",
+    title: "How do I file for bankruptcy?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/how-do-i-file-bankruptcy/",
     format: "html",
@@ -210,7 +210,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-how-do-i-get-discharged-my-bankruptcy",
-    title: "How do i get discharged my bankruptcy",
+    title: "How do I get discharged from my bankruptcy?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/how-do-i-get-discharged-my-bankruptcy/",
     format: "html",
@@ -221,7 +221,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-how-do-i-protect-myself-identity-theft",
-    title: "How do i protect myself identity theft",
+    title: "How do I protect myself from identity theft?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/how-do-i-protect-myself-identity-theft/",
     format: "html",
@@ -232,7 +232,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-how-does-my-partners-bankruptcy-affect-me",
-    title: "How does my partners bankruptcy affect me",
+    title: "How does my partner's bankruptcy affect me?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/how-does-my-partners-bankruptcy-affect-me/",
     format: "html",
@@ -243,7 +243,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-am-having-money-problems-should-i-file-bankruptcy",
-    title: "I am having money problems should i file bankruptcy",
+    title: "I am having money problems. Should I file for bankruptcy?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-am-having-money-problems-should-i-file-bankruptcy/",
     format: "html",
@@ -254,7 +254,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-am-having-trouble-managing-my-debts-where-can-i-get-help",
-    title: "I am having trouble managing my debts where can i get help",
+    title: "I'm having trouble managing my debts. Where can I get help?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-am-having-trouble-managing-my-debts-where-can-i-get-help/",
     format: "html",
@@ -265,7 +265,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-bought-something-door-door-salesperson-can-i-get-out-contrac",
-    title: "I bought something door door salesperson can i get out contract",
+    title: "I bought something from a door-to-door salesperson. Can I get out of the contract?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-door-door-salesperson-can-i-get-out-contract/",
     format: "html",
@@ -276,7 +276,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-bought-something-door-door-salesperson-i-never-got-it-what-c",
-    title: "I bought something door door salesperson i never got it what can",
+    title: "I bought something from a door-to-door salesperson but I never got it. What can I do?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-door-door-salesperson-i-never-got-it-what-can/",
     format: "html",
@@ -287,7 +287,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-bought-something-mail-order-can-i-cancel-order-or-return-it",
-    title: "I bought something mail order can i cancel order or return it",
+    title: "I bought something by mail order. Can I cancel the order or return it?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-mail-order-can-i-cancel-order-or-return-it/",
     format: "html",
@@ -298,7 +298,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-bought-something-online-can-i-cancel-my-order-or-return-it",
-    title: "I bought something online can i cancel my order or return it",
+    title: "I bought something online. Can I cancel my order or return it?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-online-can-i-cancel-my-order-or-return-it/",
     format: "html",
@@ -309,7 +309,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-bought-something-telephone-can-i-cancel-order-or-return-it",
-    title: "I bought something telephone can i cancel order or return it",
+    title: "I bought something by telephone. Can I cancel the order or return it?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-telephone-can-i-cancel-order-or-return-it/",
     format: "html",
@@ -320,7 +320,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-cannot-repay-my-payday-loan-what-can-i-do",
-    title: "I cannot repay my payday loan what can i do",
+    title: "I cannot repay my payday loan. What can I do?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-cannot-repay-my-payday-loan-what-can-i-do/",
     format: "html",
@@ -331,7 +331,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-felt-pressured-door-door-salesperson-what-can-i-do",
-    title: "I felt pressured door door salesperson what can i do",
+    title: "I felt pressured by a door-to-door salesperson. What can I do?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-felt-pressured-door-door-salesperson-what-can-i-do/",
     format: "html",
@@ -342,7 +342,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-have-a-nosi-on-my-property-what-can-i-do",
-    title: "I have a nosi on my property what can i do",
+    title: "I have a NOSI on my property. What can I do?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-have-a-nosi-on-my-property-what-can-i-do/",
     format: "html",
@@ -353,7 +353,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-have-low-credit-score-how-can-i-improve-it",
-    title: "I have low credit score how can i improve it",
+    title: "I have a low credit score. How can I improve it?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-have-low-credit-score-how-can-i-improve-it/",
     format: "html",
@@ -364,7 +364,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-have-problems-used-car-registered-dealer-what-can-i-do",
-    title: "I have problems used car registered dealer what can i do",
+    title: "I have problems with a used car from a registered dealer. What can I do?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-have-problems-used-car-registered-dealer-what-can-i-do/",
     format: "html",
@@ -375,7 +375,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-hired-credit-repair-company-what-can-i-do-if-im-having-probl",
-    title: "I hired credit repair company what can i do if im having problems",
+    title: "I hired a credit repair company. What can I do if I'm having problems?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-hired-credit-repair-company-what-can-i-do-if-im-having-problems/",
     format: "html",
@@ -386,7 +386,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-want-buy-car-someone-what-should-i-think-about",
-    title: "I want buy car someone what should i think about",
+    title: "I want to buy a car from someone. What should I think about?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-want-buy-car-someone-what-should-i-think-about/",
     format: "html",
@@ -397,7 +397,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-want-buy-car-used-car-dealer-what-do-i-need-know",
-    title: "I want buy car used car dealer what do i need know",
+    title: "I want to buy a car from a used car dealer. What do I need to know?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-want-buy-car-used-car-dealer-what-do-i-need-know/",
     format: "html",
@@ -408,7 +408,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-i-want-cancel-my-cellphone-contract-what-should-i-know",
-    title: "I want cancel my cellphone contract what should i know",
+    title: "I want to cancel my cellphone contract. What should I know?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-want-cancel-my-cellphone-contract-what-should-i-know/",
     format: "html",
@@ -419,7 +419,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-im-going-get-cellphone-what-do-i-need-know",
-    title: "Im going get cellphone what do i need know",
+    title: "I'm going to get a cellphone. What do I need to know?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/im-going-get-cellphone-what-do-i-need-know/",
     format: "html",
@@ -430,7 +430,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-im-having-problems-my-service-provider-what-should-i-know",
-    title: "Im having problems my service provider what should i know",
+    title: "I'm having problems with my service provider. What should I know?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/im-having-problems-my-service-provider-what-should-i-know/",
     format: "html",
@@ -441,7 +441,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-my-car-needs-be-fixed-what-should-i-think-about",
-    title: "My car needs be fixed what should i think about",
+    title: "My car needs to be fixed. What should I think about?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/my-car-needs-be-fixed-what-should-i-think-about/",
     format: "html",
@@ -452,7 +452,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-my-car-was-repaired-still-isnt-working-what-does-my-warranty",
-    title: "My car was repaired still isnt working what does my warranty",
+    title: "My car was repaired, but still isn't working. What does my warranty cover?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/my-car-was-repaired-still-isnt-working-what-does-my-warranty/",
     format: "html",
@@ -463,7 +463,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-my-partners-credit-card-company-wants-me-pay-their-card-can-th",
-    title: "My partners credit card company wants me pay their card can they",
+    title: "My partner's credit card company wants me to pay off their card. Can they ask that?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/my-partners-credit-card-company-wants-me-pay-their-card-can-they/",
     format: "html",
@@ -474,7 +474,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-police-seized-car-i-bought-used-car-dealer-what-can-i-do",
-    title: "Police seized car i bought used car dealer what can i do",
+    title: "The police seized a car I bought from a used car dealer. What can I do?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/police-seized-car-i-bought-used-car-dealer-what-can-i-do/",
     format: "html",
@@ -485,7 +485,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-someone-asked-me-credit-check-what-does-mean",
-    title: "Someone asked me credit check what does mean",
+    title: "Someone asked me for a credit check. What does this mean?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/someone-asked-me-credit-check-what-does-mean/",
     format: "html",
@@ -496,7 +496,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-theres-mistake-my-credit-report-what-can-i-do",
-    title: "Theres mistake my credit report what can i do",
+    title: "There's a mistake in my credit report. What can I do?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/theres-mistake-my-credit-report-what-can-i-do/",
     format: "html",
@@ -507,7 +507,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-what-are-licensed-insolvency-trustees-credit-counsellors-and-d",
-    title: "What are licensed insolvency trustees credit counsellors and debt",
+    title: "What are Licensed Insolvency Trustees, credit counsellors, and debt settlement businesses?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/what-are-licensed-insolvency-trustees-credit-counsellors-and-debt/",
     format: "html",
@@ -518,7 +518,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-what-are-my-rights-when-i-sign-an-energy-contract",
-    title: "What are my rights when i sign an energy contract",
+    title: "What are my rights when I sign an energy contract?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/what-are-my-rights-when-i-sign-an-energy-contract/",
     format: "html",
@@ -529,7 +529,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-what-are-surplus-income-payments",
-    title: "What are surplus income payments",
+    title: "What are surplus income payments?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/what-are-surplus-income-payments/",
     format: "html",
@@ -540,7 +540,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-what-can-i-buy-door-door-salesperson",
-    title: "What can i buy door door salesperson",
+    title: "What can I buy from a door-to-door salesperson?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/what-can-i-buy-door-door-salesperson/",
     format: "html",
@@ -551,7 +551,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-what-can-i-do-if-i-have-a-problem-with-my-energy-retailer",
-    title: "What can i do if i have a problem with my energy retailer",
+    title: "What can I do if I have a problem with my energy retailer?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/what-can-i-do-if-i-have-a-problem-with-my-energy-retailer/",
     format: "html",
@@ -562,7 +562,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-what-can-i-do-if-identity-theft-happens-me",
-    title: "What can i do if identity theft happens me",
+    title: "What can I do if identity theft happens to me?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/what-can-i-do-if-identity-theft-happens-me/",
     format: "html",
@@ -573,7 +573,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-what-can-i-do-if-im-not-happy-my-car-repairs",
-    title: "What can i do if im not happy my car repairs",
+    title: "What can I do if I'm not happy with my car repairs?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/what-can-i-do-if-im-not-happy-my-car-repairs/",
     format: "html",
@@ -584,7 +584,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-what-identity-theft",
-    title: "What identity theft",
+    title: "What is identity theft?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/what-identity-theft/",
     format: "html",
@@ -595,7 +595,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-what-if-i-cant-find-or-afford-licensed-insolvency-trustee",
-    title: "What if i cant find or afford licensed insolvency trustee",
+    title: "What if I cannot find or afford a Licensed Insolvency Trustee?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/what-if-i-cant-find-or-afford-licensed-insolvency-trustee/",
     format: "html",
@@ -606,7 +606,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-what-payday-loan-do-i-have-other-options",
-    title: "What payday loan do i have other options",
+    title: "What is a payday loan? Do I have other options?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/what-payday-loan-do-i-have-other-options/",
     format: "html",
@@ -617,7 +617,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-what-rules-do-collection-agencies-have-follow-and-what-are-my",
-    title: "What rules do collection agencies have follow and what are my",
+    title: "What rules do collection agencies have to follow and what are my rights?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/what-rules-do-collection-agencies-have-follow-and-what-are-my/",
     format: "html",
@@ -628,7 +628,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-what-should-i-know-getting-payday-loan",
-    title: "What should i know getting payday loan",
+    title: "What should I know before getting a payday loan?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/what-should-i-know-getting-payday-loan/",
     format: "html",
@@ -639,7 +639,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-debt-and-consumer-rights-whats-process-file-bankruptcy-will-i-lose-my-house-or-car",
-    title: "Whats process file bankruptcy will i lose my house or car",
+    title: "What's the process to file for bankruptcy? Will I lose my house or car?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/debt-and-consumer-rights/whats-process-file-bankruptcy-will-i-lose-my-house-or-car/",
     format: "html",
@@ -650,7 +650,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-help-lawyers-and-paralegals-how-do-i-complain-about-my-lawyers-bill",
-    title: "How do i complain about my lawyers bill",
+    title: "How do I complain about my lawyer's bill?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/help-lawyers-and-paralegals/how-do-i-complain-about-my-lawyers-bill/",
     format: "html",
@@ -661,7 +661,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-help-lawyers-and-paralegals-how-do-i-complain-to-lso",
-    title: "How do i complain to lso",
+    title: "How do I complain to the Law Society of Ontario about a lawyer or paralegal?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/help-lawyers-and-paralegals/how-do-i-complain-to-lso/",
     format: "html",
@@ -672,7 +672,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-help-lawyers-and-paralegals-how-do-i-prepare-my-meeting-lawyer-or-paralegal",
-    title: "How do i prepare my meeting lawyer or paralegal",
+    title: "How do I prepare for my meeting with a lawyer or paralegal?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/help-lawyers-and-paralegals/how-do-i-prepare-my-meeting-lawyer-or-paralegal/",
     format: "html",
@@ -683,7 +683,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-human-rights-how-do-i-make-claim-human-rights-tribunal-ontario",
-    title: "How do i make claim human rights tribunal ontario",
+    title: "How do I make a claim to the Human Rights Tribunal of Ontario?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/human-rights/how-do-i-make-claim-human-rights-tribunal-ontario/",
     format: "html",
@@ -694,7 +694,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-human-rights-i-have-mobility-issues-does-my-landlord-have-make-adjustments-rental-unit-",
-    title: "I have mobility issues does my landlord have make adjustments rental unit me",
+    title: "I have mobility issues. Does my landlord have to make adjustments to the rental unit for me?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/human-rights/i-have-mobility-issues-does-my-landlord-have-make-adjustments-rental-unit-me/",
     format: "html",
@@ -705,7 +705,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-human-rights-i-want-to-make-changes-to-my-tribunal-hearing-what-can-i-do",
-    title: "I want to make changes to my tribunal hearing what can i do",
+    title: "I want to make changes to my tribunal hearing. What can I do?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/human-rights/i-want-to-make-changes-to-my-tribunal-hearing-what-can-i-do/",
     format: "html",
@@ -716,7 +716,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-human-rights-im-independent-contractor-disability-do-i-have-rights-work",
-    title: "Im independent contractor disability do i have rights work",
+    title: "I'm an independent contractor with a disability. Do I have rights at work?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/human-rights/im-independent-contractor-disability-do-i-have-rights-work/",
     format: "html",
@@ -727,7 +727,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-human-rights-im-transgender-or-non-binary-what-are-my-rights-work",
-    title: "Im transgender or non binary what are my rights work",
+    title: "How does the law protect trans and gender-diverse workers?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/human-rights/im-transgender-or-non-binary-what-are-my-rights-work/",
     format: "html",
@@ -738,7 +738,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-human-rights-my-case-going-hearing-hrto-how-do-i-prepare",
-    title: "My case going hearing hrto how do i prepare",
+    title: "My case is going to a hearing at the HRTO. How do I prepare?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/human-rights/my-case-going-hearing-hrto-how-do-i-prepare/",
     format: "html",
@@ -749,7 +749,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-human-rights-what-can-i-do-if-i-experience-discrimination",
-    title: "What can i do if i experience discrimination",
+    title: "What can I do if I experience discrimination?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/human-rights/what-can-i-do-if-i-experience-discrimination/",
     format: "html",
@@ -760,7 +760,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-human-rights-what-if-im-not-hired-because-employer-discriminates-against-me-1",
-    title: "What if im not hired because employer discriminates against me 1",
+    title: "What if I'm not hired because an employer discriminates against me?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/human-rights/what-if-im-not-hired-because-employer-discriminates-against-me-1/",
     format: "html",
@@ -771,7 +771,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-provincial-offences-how-does-a-speeding-ticket-affect-me",
-    title: "How does a speeding ticket affect me",
+    title: "How does a speeding ticket affect me?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/provincial-offences/how-does-a-speeding-ticket-affect-me/",
     format: "html",
@@ -782,7 +782,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-provincial-offences-i-dont-agree-with-my-provincial-offences-trial-can-i-appeal",
-    title: "I dont agree with my provincial offences trial can i appeal",
+    title: "I do not agree with my provincial offences trial. Can I appeal?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/provincial-offences/i-dont-agree-with-my-provincial-offences-trial-can-i-appeal/",
     format: "html",
@@ -793,7 +793,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-provincial-offences-i-got-a-parking-or-traffic-ticket-what-are-my-options",
-    title: "I got a parking or traffic ticket what are my options",
+    title: "I got a parking or traffic ticket. What are my options?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/provincial-offences/i-got-a-parking-or-traffic-ticket-what-are-my-options/",
     format: "html",
@@ -804,7 +804,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-provincial-offences-i-have-a-noise-complaint-what-can-i-do",
-    title: "I have a noise complaint what can i do",
+    title: "I have a noise complaint. What can I do?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/provincial-offences/i-have-a-noise-complaint-what-can-i-do/",
     format: "html",
@@ -815,7 +815,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-provincial-offences-i-have-been-charged-with-trespassing-what-do-i-need-to-know",
-    title: "I have been charged with trespassing what do i need to know",
+    title: "I've been charged with trespassing. What do I need to know?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/provincial-offences/i-have-been-charged-with-trespassing-what-do-i-need-to-know/",
     format: "html",
@@ -826,7 +826,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-provincial-offences-someone-is-trespassing-on-my-property-what-can-i-do",
-    title: "Someone is trespassing on my property what can i do",
+    title: "Someone is trespassing on my property. What can I do?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/provincial-offences/someone-is-trespassing-on-my-property-what-can-i-do/",
     format: "html",
@@ -837,7 +837,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-provincial-offences-what-happens-at-a-provincial-offences-trial-and-how-do-i-prepare",
-    title: "What happens at a provincial offences trial and how do i prepare",
+    title: "What happens at a provincial offences trial, and how do I prepare?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/provincial-offences/what-happens-at-a-provincial-offences-trial-and-how-do-i-prepare/",
     format: "html",
@@ -848,7 +848,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-can-court-make-someone-sell-property-pay-me-if-i-have-court-order",
-    title: "Can court make someone sell property pay me if i have court order",
+    title: "Can a court make someone sell property to pay me if I have a court order against them?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/can-court-make-someone-sell-property-pay-me-if-i-have-court-order/",
     format: "html",
@@ -859,7 +859,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-can-court-take-money-someones-bank-account-if-i-have-court-order",
-    title: "Can court take money someones bank account if i have court order",
+    title: "Can the court take money from someone's bank account if I have a court order against them?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/can-court-take-money-someones-bank-account-if-i-have-court-order/",
     format: "html",
@@ -870,7 +870,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-can-i-find-out-about-finances-someone-who-owes-me-money",
-    title: "Can i find out about finances someone who owes me money",
+    title: "Can I find out about the finances of someone who owes me money?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/can-i-find-out-about-finances-someone-who-owes-me-money/",
     format: "html",
@@ -881,7 +881,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-how-can-i-sue-in-small-claims-court",
-    title: "How can i sue in small claims court",
+    title: "How can I sue in Small Claims Court?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/how-can-i-sue-in-small-claims-court/",
     format: "html",
@@ -892,7 +892,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-how-do-i-change-claim-i-filed-small-claims-online-service",
-    title: "How do i change claim i filed small claims online service",
+    title: "How do I change a claim I filed with the Small Claims online service?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/how-do-i-change-claim-i-filed-small-claims-online-service/",
     format: "html",
@@ -903,7 +903,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-how-do-i-collect-money-i-am-owed",
-    title: "How do i collect money i am owed",
+    title: "How do I collect the money I'm owed?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/how-do-i-collect-money-i-am-owed/",
     format: "html",
@@ -914,7 +914,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-how-do-i-enforce-court-order-against-someone-give-back-my-property",
-    title: "How do i enforce court order against someone give back my property",
+    title: "How do I enforce a court order against someone to give back my property?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/how-do-i-enforce-court-order-against-someone-give-back-my-property/",
     format: "html",
@@ -925,7 +925,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-how-do-i-fill-out-plaintiffs-claim-using-online-service",
-    title: "How do i fill out plaintiffs claim using online service",
+    title: "How do I fill out a Plaintiff's Claim using the online service?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/how-do-i-fill-out-plaintiffs-claim-using-online-service/",
     format: "html",
@@ -936,7 +936,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-how-do-i-start-claim-small-claims-court-online-service",
-    title: "How do i start claim small claims court online service",
+    title: "How do I start a claim with the Small Claims Court online service?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/how-do-i-start-claim-small-claims-court-online-service/",
     format: "html",
@@ -947,7 +947,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-how-do-i-stop-claim-i-filed-using-small-claims-online-service",
-    title: "How do i stop claim i filed using small claims online service",
+    title: "How do I stop a claim I filed using the Small Claims online service?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/how-do-i-stop-claim-i-filed-using-small-claims-online-service/",
     format: "html",
@@ -958,7 +958,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-i-filed-claim-small-claims-online-service-what-happens-next",
-    title: "I filed claim small claims online service what happens next",
+    title: "I filed a claim with the Small Claims online service. What happens next?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/i-filed-claim-small-claims-online-service-what-happens-next/",
     format: "html",
@@ -969,7 +969,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-i-filed-online-liquidated-damages-can-i-get-default-judgment",
-    title: "I filed online liquidated damages can i get default judgment",
+    title: "I filed online for liquidated damages. Can I get a default judgment?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/i-filed-online-liquidated-damages-can-i-get-default-judgment/",
     format: "html",
@@ -980,7 +980,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-i-filed-online-non-liquidated-damages-can-i-get-default-judgment",
-    title: "I filed online non liquidated damages can i get default judgment",
+    title: "I filed online for non-liquidated damages. Can I get default judgment?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/i-filed-online-non-liquidated-damages-can-i-get-default-judgment/",
     format: "html",
@@ -991,7 +991,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-i-have-disability-what-are-my-rights-work",
-    title: "I have disability what are my rights work",
+    title: "I have a disability. What are my rights at work?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/i-have-disability-what-are-my-rights-work/",
     format: "html",
@@ -1002,7 +1002,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-i-lost-small-claims-court-cant-afford-pay-what-can-i-do",
-    title: "I lost small claims court cant afford pay what can i do",
+    title: "I lost in Small Claims Court, but cannot afford to pay. What can I do?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/i-lost-small-claims-court-cant-afford-pay-what-can-i-do/",
     format: "html",
@@ -1013,7 +1013,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-im-being-sued-someone-small-claims-court-what-should-i-do",
-    title: "Im being sued someone small claims court what should i do",
+    title: "I'm being sued by someone in Small Claims Court. What should I do?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/im-being-sued-someone-small-claims-court-what-should-i-do/",
     format: "html",
@@ -1024,7 +1024,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-ive-been-noted-default-small-claims-court-what-can-i-do",
-    title: "Ive been noted default small claims court what can i do",
+    title: "I've been noted in default at Small Claims Court. What can I do?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/ive-been-noted-default-small-claims-court-what-can-i-do/",
     format: "html",
@@ -1035,7 +1035,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-what-can-i-do-if-theres-default-judgment-against-me",
-    title: "What can i do if theres default judgment against me",
+    title: "What can I do if there's a default judgment against me?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/what-can-i-do-if-theres-default-judgment-against-me/",
     format: "html",
@@ -1046,7 +1046,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-what-happens-at-a-human-rights-tribunal-of-ontario-hearing",
-    title: "What happens at a human rights tribunal of ontario hearing",
+    title: "What happens at a Human Rights Tribunal of Ontario hearing?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/what-happens-at-a-human-rights-tribunal-of-ontario-hearing/",
     format: "html",
@@ -1057,7 +1057,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-what-happens-at-mediation-at-the-human-rights-tribunal-of-ontario",
-    title: "What happens at mediation at the human rights tribunal of ontario",
+    title: "What happens at mediation at the Human Rights Tribunal of Ontario?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/what-happens-at-mediation-at-the-human-rights-tribunal-of-ontario/",
     format: "html",
@@ -1068,7 +1068,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-what-happens-my-small-claims-court-trial",
-    title: "What happens my small claims court trial",
+    title: "What happens at my Small Claims Court trial?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/what-happens-my-small-claims-court-trial/",
     format: "html",
@@ -1079,7 +1079,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-what-if-i-dont-agree-defendants-terms-payment",
-    title: "What if i dont agree defendants terms payment",
+    title: "What if I do not agree with the defendant's terms of payment?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/what-if-i-dont-agree-defendants-terms-payment/",
     format: "html",
@@ -1090,7 +1090,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-tribunals-and-courts-where-can-i-get-legal-help-and-information-about-my-small",
-    title: "Where can i get legal help and information about my small",
+    title: "Where can I get legal help and information about my Small Claims issue?",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/questions/tribunals-and-courts/where-can-i-get-legal-help-and-information-about-my-small/",
     format: "html",
@@ -1101,7 +1101,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-topic-housing-law",
-    title: "Housing law",
+    title: "Housing Law",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/legal-topic/housing-law/",
     format: "html",
@@ -1112,7 +1112,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-topic-employment-and-work",
-    title: "Employment and work",
+    title: "Employment and Work",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/legal-topic/employment-and-work/",
     format: "html",
@@ -1123,7 +1123,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-topic-income-assistance",
-    title: "Income assistance",
+    title: "Income Assistance",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/legal-topic/income-assistance/",
     format: "html",
@@ -1145,7 +1145,7 @@ export const CLEO_SOURCES: CorpusSource[] = [
   },
   {
     id: "cleo-topic-human-rights-tribunal",
-    title: "Human Rights Tribunal of Ontario",
+    title: "Human Rights Tribunal",
     citation: "CLEO, Steps to Justice",
     url: "https://stepstojustice.ca/legal-topic/tribunals-and-courts/human-rights-tribunal/",
     format: "html",

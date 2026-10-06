@@ -4,6 +4,7 @@ import { loadEnvConfig } from "@next/env";
 import {
   classifyCourtPath,
   coerceModelPayload,
+  namesExistingSmallClaimsCase,
   statedDollarAmounts,
   type CourtPathClassification,
 } from "../../src/lib/case-system/intelligence/courtPathClassifier";
@@ -582,6 +583,19 @@ async function main() {
   assert.equal(current.confidence, 0.9, "a current tenancy LTB call must not be capped");
   checks += 2;
   console.log("   [ltb-ended-tenancy] model LTB call capped; current tenancy untouched");
+
+  // 2026-10-06: a case the person says is already in Small Claims is not sent
+  // to a tribunal, whatever the tenancy question; one that names no court is
+  // left to the boundary handling above.
+  const filed = coerceModelPayload(
+    ltbPayload,
+    "unknown",
+    "My former landlord sued me in Small Claims for $6,000 for damage after I moved out of my apartment.",
+  );
+  assert.equal(filed.primaryPath, "small-claims", "a case already in Small Claims stays there");
+  assert.ok(!namesExistingSmallClaimsCase("My landlord wants me out by the end of the month."), "no court named, no override");
+  checks += 2;
+  console.log("   [already-in-small-claims] stays in Small Claims");
 
   // And the end-to-end path stays in scope, offline, so the classifier as a
   // whole cannot regress even if the refusal moves.
