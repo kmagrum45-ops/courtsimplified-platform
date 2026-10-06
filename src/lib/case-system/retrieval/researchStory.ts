@@ -44,6 +44,7 @@
 
 import type { SourceItem } from "../intelligence/groundedCognition";
 import { loadCorpusIndex, readPassage, searchIndex, type LoadedIndex, type Passage } from "./corpusIndex";
+import { namedProvisions } from "./namedProvisions";
 import {
   embedWithModel,
   excludedForCourt,
@@ -380,14 +381,30 @@ export async function researchStory(input: RetrievalInput, deps: ResearchDeps = 
     // One more round for the questions the reader could not answer from what
     // was found, with the phrases it asked for. Their new passages are added
     // to what the issue already had, so an answer can come from either.
+    //
+    // And for a law the reader named as missing that the library DOES hold
+    // (namedProvisions.ts): the named section or rule is read directly and
+    // offered again, the way a lawyer turns to a rule they know the number of.
     const again = results.filter((result) => result.status === "search-again" && result.queries.length > 0);
-    if (again.length > 0) {
+    const named = new Map<string, Passage[]>();
+    for (const result of results) {
+      if (result.status !== "not-in-library" || !result.missingLaw) continue;
+      const passages = namedProvisions(index, result.missingLaw);
+      if (passages.length > 0) named.set(result.issueId, passages);
+    }
+    if (again.length > 0 || named.size > 0) {
       const retry = again.map((result) => ({ ...issues.find((issue) => issue.id === result.issueId)!, queries: result.queries }));
-      const more = await searchIssues(index, input, retry, embed);
+      const more = retry.length > 0 ? await searchIssues(index, input, retry, embed) : new Map<string, Passage[]>();
       for (const issue of retry) {
         const had = passagesByIssue.get(issue.id) ?? [];
         const seen = new Set(had.map((passage) => passage.id));
         passagesByIssue.set(issue.id, [...had, ...(more.get(issue.id) ?? []).filter((passage) => !seen.has(passage.id))]);
+      }
+      for (const [issueId, passages] of named) {
+        const had = passagesByIssue.get(issueId) ?? [];
+        const seen = new Set(had.map((passage) => passage.id));
+        passagesByIssue.set(issueId, [...passages.filter((passage) => !seen.has(passage.id)), ...had]);
+        if (!retry.some((issue) => issue.id === issueId)) retry.push(issues.find((issue) => issue.id === issueId)!);
       }
       roundsSoFar = 2;
       await readEach(retry);
