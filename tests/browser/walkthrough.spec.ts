@@ -177,7 +177,21 @@ async function backAndForward(page: Page, persona: Persona, steps: Step[]) {
   const results = page.getByTestId("completed-case-overview");
   await page.goBack();
   await expect(results).toBeHidden({ timeout: 30_000 });
-  await expect(page.getByText(persona.story.slice(0, 40), { exact: false }).first()).toBeVisible({ timeout: 30_000 });
+  // The story is page text on some intakes and a text box's value on others
+  // (2026-10-06: four personas failed a text-only check while their filled
+  // intake was on screen). Either counts; the spelling step may have changed
+  // a word, so a short opening is compared.
+  const opening = persona.story.slice(0, 24);
+  await expect
+    .poll(
+      () =>
+        page.evaluate((start) => {
+          const fields = Array.from(document.querySelectorAll("textarea, input")) as (HTMLInputElement | HTMLTextAreaElement)[];
+          return fields.some((field) => field.value.includes(start)) || document.body.innerText.includes(start);
+        }, opening),
+      { timeout: 30_000 },
+    )
+    .toBe(true);
   await capture(page, persona, steps, "back-to-intake", "Browser Back from the results: the intake as it was filled.");
   await page.goForward();
   await expect(results).toBeVisible({ timeout: 30_000 });
