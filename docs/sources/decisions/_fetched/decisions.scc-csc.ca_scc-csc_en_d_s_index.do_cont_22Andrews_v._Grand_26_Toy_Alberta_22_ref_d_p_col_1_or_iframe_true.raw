@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/en/d/s/index.do" />
+    <title>    Advanced Search - SCC Cases
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/fr/d/s/index.do?cont=%22Andrews+v.+Grand+%26+Toy+Alberta%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+<ul class="decisia-search-tabs decisia-tabs">
+            <li>
+            <a id="decisia-search-tabs-all-databases" target="_parent" href="/scc-csc/en/a/s/index.do?cont=%22Andrews+v.+Grand+%26+Toy+Alberta%22&amp;ref=&amp;p=&amp;col=1&amp;or=">All Databases (70)</a>
+        </li>
+
+        <li class="active">Decisions (33)</li>
+
+         <li>
+             <a id="decisia-search-tabs-news" target="_parent" href="/scc-csc/en/n/s/index.do?cont=%22Andrews+v.+Grand+%26+Toy+Alberta%22&amp;ref=&amp;p=&amp;col=1&amp;or=">Resources (37)</a>
+         </li>
+</ul>
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="&quot;Andrews v. Grand &amp; Toy Alberta&quot;" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Report, Case number</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-parties-row">
+        <div class="label">
+            <label for="decisia-parties">Parties</label>
+        </div>
+        <div class="input">
+<input id="decisia-parties" class="decisia-text" type="text" name="p" value="" />
+        </div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abbott, Douglas Charles"
+         >Abbott, Douglas Charles</option>
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Anglin, Francis Alexander"
+         >Anglin, Francis Alexander</option>
+        <option value="Arbour, Louise"
+         >Arbour, Louise</option>
+        <option value="Armour, John Douglas"
+         >Armour, John Douglas</option>
+        <option value="Barclay"
+         >Barclay</option>
+        <option value="Bastarache, Michel"
+         >Bastarache, Michel</option>
+        <option value="Beetz, Jean"
+         >Beetz, Jean</option>
+        <option value="Bernier"
+         >Bernier</option>
+        <option value="Binnie, William Ian Corneil"
+         >Binnie, William Ian Corneil</option>
+        <option value="Bond"
+         >Bond</option>
+        <option value="Brodeur, Louis-Philippe"
+         >Brodeur, Louis-Philippe</option>
+        <option value="Brown, Russell"
+         >Brown, Russell</option>
+        <option value="Cannon, Lawrence Arthur Dumoulin"
+         >Cannon, Lawrence Arthur Dumoulin</option>
+        <option value="Cartwright, John Robert"
+         >Cartwright, John Robert</option>
+        <option value="Cassels"
+         >Cassels</option>
+        <option value="Charron, Louise"
+         >Charron, Louise</option>
+        <option value="Chouinard, Julien"
+         >Chouinard, Julien</option>
+        <option value="Cory, Peter deCarteret"
+         >Cory, Peter deCarteret</option>
+        <option value="Crocket, Oswald Smith"
+         >Crocket, Oswald Smith</option>
+        <option value="Cromwell, Thomas Albert"
+         >Cromwell, Thomas Albert</option>
+        <option value="Côté, Suzanne"
+         >Côté, Suzanne</option>
+        <option value="Davies, Louis Henry"
+         >Davies, Louis Henry</option>
+        <option value="Davis, Henry Hague"
+         >Davis, Henry Hague</option>
+        <option value="Deschamps, Marie"
+         >Deschamps, Marie</option>
+        <option value="Dickson, Robert George Brian"
+         >Dickson, Robert George Brian</option>
+        <option value="Dorion"
+         >Dorion</option>
+        <option value="Duff, Lyman Poore"
+         >Duff, Lyman Poore</option>
+        <option value="Dysart"
+         >Dysart</option>
+        <option value="Estey, James Wilfred"
+         >Estey, James Wilfred</option>
+        <option value="Estey, Willard Zebedee"
+         >Estey, Willard Zebedee</option>
+        <option value="Fauteux, Joseph Honoré Gérald"
+         >Fauteux, Joseph Honoré Gérald</option>
+        <option value="Fish, Morris J."
+         >Fish, Morris J.</option>
+        <option value="Fitzpatrick, Charles"
+         >Fitzpatrick, Charles</option>
+        <option value="Fournier, Télesphore"
+         >Fournier, Télesphore</option>
+        <option value="Galipault"
+         >Galipault</option>
+        <option value="Gascon, Clément"
+         >Gascon, Clément</option>
+        <option value="Gillanders"
+         >Gillanders</option>
+        <option value="Girouard, Désiré"
+         >Girouard, Désiré</option>
+        <option value="Gonthier, Charles Doherty"
+         >Gonthier, Charles Doherty</option>
+        <option value="Gwynne, John Wellington"
+         >Gwynne, John Wellington</option>
+        <option value="Hall, Emmett Matthew"
+         >Hall, Emmett Matthew</option>
+        <option value="Henry, William Alexander"
+         >Henry, William Alexander</option>
+        <option value="Howard"
+         >Howard</option>
+        <option value="Hudson, Albert Blellock"
+         >Hudson, Albert Blellock</option>
+        <option value="Hughes, Frank Joseph"
+         >Hughes, Frank Joseph</option>
+        <option value="Iacobucci, Frank"
+         >Iacobucci, Frank</option>
+        <option value="Idington, John"
+         >Idington, John</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Joyal, Glenn"
+         >Joyal, Glenn</option>
+        <option value="Judson, Wilfred"
+         >Judson, Wilfred</option>
+        <option value="Karakatsanis, Andromache"
+         >Karakatsanis, Andromache</option>
+        <option value="Kasirer, Nicholas"
+         >Kasirer, Nicholas</option>
+        <option value="Kellock, Roy Lindsay"
+         >Kellock, Roy Lindsay</option>
+        <option value="Kerwin, Patrick"
+         >Kerwin, Patrick</option>
+        <option value="Killam, Albert Clements"
+         >Killam, Albert Clements</option>
+        <option value="King, George Edwin"
+         >King, George Edwin</option>
+        <option value="L&#39;Heureux-Dubé, Claire"
+         >L&#39;Heureux-Dubé, Claire</option>
+        <option value="La Forest, Gérard V."
+         >La Forest, Gérard V.</option>
+        <option value="Lamer, Antonio"
+         >Lamer, Antonio</option>
+        <option value="Lamont, John Henderson"
+         >Lamont, John Henderson</option>
+        <option value="Laskin, Bora"
+         >Laskin, Bora</option>
+        <option value="Latchford"
+         >Latchford</option>
+        <option value="Lavergne"
+         >Lavergne</option>
+        <option value="Le Dain, Gerald Eric"
+         >Le Dain, Gerald Eric</option>
+        <option value="LeBel, Louis"
+         >LeBel, Louis</option>
+        <option value="Lemieux"
+         >Lemieux</option>
+        <option value="Locke, Charles Holland"
+         >Locke, Charles Holland</option>
+        <option value="Maclean"
+         >Maclean</option>
+        <option value="Maclennan, James"
+         >Maclennan, James</option>
+        <option value="Magee"
+         >Magee</option>
+        <option value="Major, John C."
+         >Major, John C.</option>
+        <option value="Malouin, Arthur Cyrille Albert"
+         >Malouin, Arthur Cyrille Albert</option>
+        <option value="Martin, Sheilah"
+         >Martin, Sheilah</option>
+        <option value="Martin, Sheilah L."
+         >Martin, Sheilah L.</option>
+        <option value="Martland, Ronald"
+         >Martland, Ronald</option>
+        <option value="Masten"
+         >Masten</option>
+        <option value="McIntyre, William Rogers"
+         >McIntyre, William Rogers</option>
+        <option value="McLachlin, Beverley"
+         >McLachlin, Beverley</option>
+        <option value="Middleton"
+         >Middleton</option>
+        <option value="Mignault, Pierre-Basile"
+         >Mignault, Pierre-Basile</option>
+        <option value="Mills, Davis"
+         >Mills, Davis</option>
+        <option value="Moldaver, Michael J."
+         >Moldaver, Michael J.</option>
+        <option value="Moreau, Mary"
+         >Moreau, Mary</option>
+        <option value="Nesbitt, Wallace"
+         >Nesbitt, Wallace</option>
+        <option value="Newcombe, Edmund Leslie"
+         >Newcombe, Edmund Leslie</option>
+        <option value="Nolan, Henry Grattan"
+         >Nolan, Henry Grattan</option>
+        <option value="Orde"
+         >Orde</option>
+        <option value="O’Bonsawin, Michelle"
+         >O’Bonsawin, Michelle</option>
+        <option value="Patterson, Christopher Salmon"
+         >Patterson, Christopher Salmon</option>
+        <option value="Pigeon, Louis-Philippe"
+         >Pigeon, Louis-Philippe</option>
+        <option value="Pratte, Yves"
+         >Pratte, Yves</option>
+        <option value="Rand, Ivan Cleveland"
+         >Rand, Ivan Cleveland</option>
+        <option value="Richards, William Buell"
+         >Richards, William Buell</option>
+        <option value="Rinfret, Thibaudeau"
+         >Rinfret, Thibaudeau</option>
+        <option value="Ritchie, Roland Almon"
+         >Ritchie, Roland Almon</option>
+        <option value="Ritchie, William Johnstone"
+         >Ritchie, William Johnstone</option>
+        <option value="Rivard"
+         >Rivard</option>
+        <option value="Rothstein, Marshall"
+         >Rothstein, Marshall</option>
+        <option value="Rowe, Malcolm"
+         >Rowe, Malcolm</option>
+        <option value="Sedgewick, Robert"
+         >Sedgewick, Robert</option>
+        <option value="Smith, Robert"
+         >Smith, Robert</option>
+        <option value="Sopinka, John"
+         >Sopinka, John</option>
+        <option value="Spence, Wishart Flett"
+         >Spence, Wishart Flett</option>
+        <option value="St. Germain"
+         >St. Germain</option>
+        <option value="St. Jacques"
+         >St. Jacques</option>
+        <option value="Stevenson, William"
+         >Stevenson, William</option>
+        <option value="Strong, Samuel Henry"
+         >Strong, Samuel Henry</option>
+        <option value="Taschereau, Henri-Elzéar"
+         >Taschereau, Henri-Elzéar</option>
+        <option value="Taschereau, Jean-Thomas"
+         >Taschereau, Jean-Thomas</option>
+        <option value="Taschereau, Robert"
+         >Taschereau, Robert</option>
+        <option value="Tessier"
+         >Tessier</option>
+        <option value="Thorson"
+         >Thorson</option>
+        <option value="Wagner, Richard"
+         >Wagner, Richard</option>
+        <option value="Wilson, Bertha"
+         >Wilson, Bertha</option>
+        <option value="de Grandpré, Louis-Philippe"
+         >de Grandpré, Louis-Philippe</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Status</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Granted</option>
+                <option value="2"
+                >Dismissed</option>
+                <option value="3"
+                >Oral Hearing</option>
+                <option value="4"
+                >Remanded</option>
+                <option value="5"
+                >Quashed</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-district-row">
+        <div class="label select">
+            <label for="decisia-district">On appeal from</label>
+        </div>
+        <div class="input">
+        <select id="decisia-district" name="d"  data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                  <option value="1"
+                       >Canada</option>
+                  <option value="2"
+                       >Federal Court of Appeal</option>
+                  <option value="3"
+                       >British Columbia</option>
+                  <option value="4"
+                       >Alberta</option>
+                  <option value="5"
+                       >Saskatchewan</option>
+                  <option value="6"
+                       >Manitoba</option>
+                  <option value="7"
+                       >Ontario</option>
+                  <option value="8"
+                       >Quebec</option>
+                  <option value="9"
+                       >New Brunswick</option>
+                  <option value="10"
+                       >Nova Scotia</option>
+                  <option value="11"
+                       >Prince Edward Island</option>
+                  <option value="12"
+                       >Newfoundland and Labrador</option>
+                  <option value="13"
+                       >Yukon</option>
+                  <option value="14"
+                       >Northwest Territories</option>
+                  <option value="15"
+                       >Nunavut</option>
+                  <option value="16"
+                       >Court Martial Appeal Court of Canada</option>
+                  <option value="18"
+                       >Saskatchewan, Ontario, Alberta</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-collection-row">
+        <div class="label select">
+            <label for="decisia-collection">Collection</label>
+        </div>
+        <div class="input">
+<select id="decisia-collection" name="col" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+    <option value="1"
+        selected="selected"
+    >
+        Supreme Court Judgments</option>
+    <option value="2"
+    >
+        Applications for Leave</option>
+</select>
+<div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="advanced-field decisia-subjects-row">
+        <div class="label select">
+            <label for="decisia-subjects">Subjects</label>
+        </div>
+        <div class="input">
+    <select id="decisia-subjects" name="su" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+            <option value="34"
+            >Aboriginal law</option>
+            <option value="5"
+            >Access to information</option>
+            <option value="2"
+            >Action</option>
+            <option value="51"
+            >Administrative law</option>
+            <option value="13"
+            >Agency</option>
+            <option value="40"
+            >Air law</option>
+            <option value="9"
+            >Appeal</option>
+            <option value="52"
+            >Arbitration</option>
+            <option value="37"
+            >Armed Forces</option>
+            <option value="30"
+            >Bankruptcy and insolvency</option>
+            <option value="53"
+            >Bills of exchange</option>
+            <option value="44"
+            >Civil law</option>
+            <option value="20"
+            >Civil procedure</option>
+            <option value="41"
+            >Commercial law</option>
+            <option value="29"
+            >Communications law</option>
+            <option value="19"
+            >Competition law</option>
+            <option value="27"
+            >Constitutional law</option>
+            <option value="55"
+            >Contract</option>
+            <option value="61"
+            >Contracts</option>
+            <option value="6"
+            >Courts</option>
+            <option value="16"
+            >Criminal law</option>
+            <option value="14"
+            >Customs and excise</option>
+            <option value="4"
+            >Education law</option>
+            <option value="10"
+            >Elections</option>
+            <option value="17"
+            >Environmental law</option>
+            <option value="57"
+            >Estates</option>
+            <option value="18"
+            >Evidence</option>
+            <option value="48"
+            >Expropriation</option>
+            <option value="7"
+            >Family law</option>
+            <option value="11"
+            >Financial institutions</option>
+            <option value="15"
+            >Fishery</option>
+            <option value="42"
+            >Food and drugs</option>
+            <option value="23"
+            >Guarantee and suretyship</option>
+            <option value="26"
+            >Immigration</option>
+            <option value="28"
+            >Insurance</option>
+            <option value="8"
+            >Intellectual property</option>
+            <option value="31"
+            >International law</option>
+            <option value="45"
+            >Labour law</option>
+            <option value="22"
+            >Lease</option>
+            <option value="25"
+            >Maritime law</option>
+            <option value="43"
+            >Mines and minerals</option>
+            <option value="38"
+            >Motor vehicles</option>
+            <option value="56"
+            >Municipal law</option>
+            <option value="24"
+            >Pensions</option>
+            <option value="35"
+            >Prerogative writs</option>
+            <option value="59"
+            >Prescription</option>
+            <option value="46"
+            >Priorities and hypothecs</option>
+            <option value="58"
+            >Private international law</option>
+            <option value="32"
+            >Professional law</option>
+            <option value="63"
+            >Property</option>
+            <option value="49"
+            >Property law</option>
+            <option value="50"
+            >Public utilities</option>
+            <option value="47"
+            >Sale</option>
+            <option value="36"
+            >Securities</option>
+            <option value="39"
+            >State</option>
+            <option value="62"
+            >Status of persons</option>
+            <option value="3"
+            >Statutes</option>
+            <option value="33"
+            >Taxation</option>
+            <option value="21"
+            >Torts</option>
+            <option value="12"
+            >Transportation</option>
+            <option value="54"
+            >Trust</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+    <ul class="pager">
+                <li class="active current">1</li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%22Andrews+v.+Grand+%26+Toy+Alberta%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">2</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%22Andrews+v.+Grand+%26+Toy+Alberta%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">&gt;</a></li>
+    </ul>
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/scc-csc/en/d/s/index.do?cont=%22Andrews+v.+Grand+%26+Toy+Alberta%22&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>33 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2587/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Andrews v. Grand &amp; Toy Alberta Ltd.</a></span>
+                    - <span class="report-citation">[1978] 2 SCR 229</span>
+                - <span class="publicationDate">1978-01-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., Andrews c. Grand Toy Alberta Ltd., [1978] 2 SCR 229, [1978] 2 RCS 229 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229 Date: 1978-01-19 J. A. Andrews, Dorothy Andrews, Ivan Stefanyk (Plaintiffs) Appellants; 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2587/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/518/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Watkins v. Olafson</a></span>
+                    - <span class="report-citation">[1989] 2 SCR 750</span>
+                - <span class="publicationDate">1989-09-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    In <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229, Dickson J. (as he then was) speaking for the Court stated at p. 236, ". . . our law of damages knows nothing of periodic payment". &nbsp;&nbsp;[...]&nbsp;&nbsp;The lower courts have taken different views of what <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd. decided on the question of allowing for the impact of tax in calculating the cost of future care. &nbsp;&nbsp;[...]&nbsp;&nbsp;The conclusions of the trial judge are in accordance with the principles laid down by this Court in <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., supra, where the paramountcy of adequate care for those seriously injured through the fault of others was affirmed. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/518/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2607/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Thornton v. School Dist. No. 57 (Prince George) et al.</a></span>
+                    - <span class="report-citation">[1978] 2 SCR 267</span>
+                - <span class="publicationDate">1978-01-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    As in <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229, the award for non-pecuniary loss in this case should be reduced to $100,000. &nbsp;&nbsp;[...]&nbsp;&nbsp;DICKSON J.—The issues raised in this appeal are essentially those raised in <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd.[2] Reasons for judgment in Andrews are being delivered contemporaneously with those in the present appeal. &nbsp;&nbsp;[...]&nbsp;&nbsp;He quoted at length from the judgment of McGillivray C.J.A. in <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd.[6], and concluded that $1,500 would be “a generous and reasonable” figure. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2607/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1423/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Quebec (Public Curator) v.  Syndicat national des employés de l&#39;hôpital St-Ferdinand</a></span>
+                    - <span class="report-citation">[1996] 3 SCR 211</span>
+                - <span class="publicationDate">1996-10-03</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Evidence<br/>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    57. The head of compensation for moral prejudice and the method of calculating moral damages were considered by this Court in the trilogy <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229, Arnold v. Teno, [1978] 2 S.C.R. 287, and Thornton v. Board of School Trustees of School District No. 57 (Prince George), &nbsp;&nbsp;[...]&nbsp;&nbsp;77. Lastly, the third method of calculating moral damages, adopted as applicable in the factual circumstances of the trilogy <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., supra, Arnold v. Teno, supra, and Thornton v. Board of School Trustees of School District No. 57 (Prince George), supra, and in Lindal v. Lindal, supra, refers&nbsp;&nbsp;[...]&nbsp;&nbsp;84. The test for the intervention of an appellate court in this field is very strict and gives preference to the evaluation done by the trier of fact, as set out in <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., supra, at p. 235: Let me say in introduction what has been said many times before, that no appellate court is justified
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1423/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/309/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Snyder v. Montreal Gazette Ltd.</a></span>
+                    - <span class="report-citation">[1988] 1 SCR 494</span>
+                - <span class="publicationDate">1988-03-24</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; Thornton v. School District No. 57 (Prince George), [1978] 2 S.C.R. 267; Arnold v. Teno, [1978] 2 S.C.R. 287; Imprimerie Populaire Ltée v. Hon. L. A. Taschereau (1922), 34 K.B. 554; Langlois v. Drapeau, [1962] Q.B. 277; Flamand v. Bienvenue, [1971] R.P. 49; &nbsp;&nbsp;[...]&nbsp;&nbsp;In a judgment released contemporaneously (<b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229), the Supreme Court of Canada set the compensation for non‐pecuniary loss, awarded to a young man who became a quadriplegic as the result of an accident, at $100,000. &nbsp;&nbsp;[...]&nbsp;&nbsp;In support of his opinion that the verdict was unreasonable, Owen J.A. referred to the upper limit established by this Court in 1978 in the "trilogy": <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., supra; Thornton v. School District No. 57 (Prince George), [1978] 2 S.C.R. 267; Arnold v. Teno, [1978] 2 S.C.R. 287. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/309/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2559/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Lewis v. Todd and McClure</a></span>
+                    - <span class="report-citation">[1980] 2 SCR 694</span>
+                - <span class="publicationDate">1980-10-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Stein v. The Ship “Kathy K”, [1976] 2 S.C.R. 802; Keizer v. Hanna and Buch, [1978] 2 S.C.R. 342; Arnold v. Teno, [1978] 2 S.C.R. 287; <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; Mallett v. McMonagle, [1970] A.C. 166; Livingstone v. The Rawyards Coal Company (1880), 5 App. Cas. 25; Fenn v. City of &nbsp;&nbsp;[...]&nbsp;&nbsp;As the headnote to <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd.[5], states “The paramount issue to be decided was whether in a case of total or near-total disability the future care of the victim should be in an institutional or a home care environment”. &nbsp;&nbsp;[...]&nbsp;&nbsp;Others have given effect to the Court’s statement in <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., supra, that, “The result in future cases will depend upon the evidence adduced in those cases” (at p. 259) and have felt free to depart from the 7 per cent figure. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2559/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/956/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Engel v. Salyn</a></span>
+                    - <span class="report-citation">[1993] 1 SCR 306</span>
+                - <span class="publicationDate">1993-01-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Considered: Janiak v. Ippolito, [1985] 1 S.C.R. 146; referred to: <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; Arnold v. Teno, [1978] 2 S.C.R. 287; Thornton v. School District No. 57 (Prince George), [1978] 2 S.C.R. 267; E. (Mrs.) v. Eve, [1986] 2 S.C.R. 388. &nbsp;&nbsp;[...]&nbsp;&nbsp;Although it is virtually impossible to evaluate future losses with complete accuracy, the trial judge must attempt to put the injured party in the position that the party would have enjoyed if the accident had not occurred (see <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229, Arnold v. Teno, [1978] 2 S.C.R. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/956/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1300/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Ter Neuzen v. Korn</a></span>
+                    - <span class="report-citation">[1995] 3 SCR 674</span>
+                - <span class="publicationDate">1995-10-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Contract<br/>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    3 Finally, this appeal requires the Court to consider whether the rough upper limit for non-pecuniary damages, established by this Court in <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229, ought to have been applied by the jury in the present case. &nbsp;&nbsp;[...]&nbsp;&nbsp;104 In <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., supra, this Court established a rough upper limit for non-pecuniary damages of $100,000. &nbsp;&nbsp;[...]&nbsp;&nbsp;IV. These considerations have not been challenged by the Andrews trilogy (<b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229, Thornton v. Board of School Trustees of School District No. 57 (Prince George), [1978] 2 S.C.R. 267, and Arnold v. Teno, [1978] 2 S.C.R. 287). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1300/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2121/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Townsend v. Kroppmanns</a></span>
+                        - <span class="citation">2004 SCC 10</span>
+                    - <span class="report-citation">[2004] 1 SCR 315</span>
+                - <span class="publicationDate">2004-02-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Applied: <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; referred to: Mandzuk v. Insurance Corporation of British Columbia, [1988] 2 S.C.R. 650; Arnold v. Teno, [1978] 2 S.C.R. 287; Walker v. The King, [1939] S.C.R. 214. &nbsp;&nbsp;[...]&nbsp;&nbsp;Since it is impossible to calculate the exact amount of money that will be needed in the future, courts have to rely on actuarial evidence: <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229, at pp. 236‐37. Actuarial evidence is itself based on experience and not on individual circumstances. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2121/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1424/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Augustus v. Gosset</a></span>
+                    - <span class="report-citation">[1996] 3 SCR 268</span>
+                - <span class="publicationDate">1996-10-03</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    It was, therefore, right, according to the test for reviewing the assessment of the prejudice, to intervene to correct the trial judge’s judgment in this respect: <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229, at p. 235; Lapointe v. Hôpital Le Gardeur, [1992] 1 S.C.R. 351, at pp. 358‐61. &nbsp;&nbsp;[...]&nbsp;&nbsp;Moreover, the cap on awards of non‐pecuniary damages for bodily injury, which was originally set at $100,000 in 1978, is now approximately $243,000: <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., supra; Lindal v. Lindal, [1981] 2 S.C.R. 629, at pp. 640‐41. &nbsp;&nbsp;[...]&nbsp;&nbsp;While remaining sensitive to the particular circumstances of each case, such a process cannot ignore the limits of the principle of restitutio in integrum in this area in which moderation and predictability must always be fostered: <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., supra, at pp. 260‐62; Thornton v. Board of School 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1424/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2557/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Woelk v. Halvorson</a></span>
+                    - <span class="report-citation">[1980] 2 SCR 430</span>
+                - <span class="publicationDate">1980-10-07</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Courts<br/>
+                            Family law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Nance v. British Columbia Electric Railway Com­pany Ld., [1951] A.C. 601; <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; McCannell v. McLean, [1937] S.C.R. 341, applied; Widrig v. Strazer et al., [1964] S.C.R. 376; &nbsp;&nbsp;[...]&nbsp;&nbsp;The well-known passage from the judgment of Viscount Simon in Nance v. British Columbia Electric Railway Co. Ld.[2], at p. 613,—approved and applied in this Court in <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd.[3]—provides ample authority for this proposition. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2557/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">12.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/6110/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Conklin v. Smith et al.</a></span>
+                    - <span class="report-citation">[1978] 2 SCR 1107</span>
+                - <span class="publicationDate">1978-06-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Thornton v. Board of School Trustees of School District No. 57 (Prince George) et al., [1978] 2 S.C.R. 267; Arnold v. Teno et al., [1978] 2 S.C.R. 287; <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd. et al., [1978] 2 S.C.R. 229; Gorman v. Hertz Drive Yourself Stations of Ontario, [1966] S.C.R. 13, referred to. &nbsp;&nbsp;[...]&nbsp;&nbsp;I point out that in <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd.[4], a third judgment given by this Court on January 19, 1978, Dickson J., giving the unanimous judgment of the Court, said (at p. 254): 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/6110/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">13.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/5631/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Lindal v. Lindal</a></span>
+                    - <span class="report-citation">[1981] 2 SCR 629</span>
+                - <span class="publicationDate">1981-12-17</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; Arnold v. Teno, [1978] 2 S.C.R. 287; Thornton v. Board of School Trustees of School Dis- &nbsp;&nbsp;[...]&nbsp;&nbsp;The broad outline of these principles was sketched in three judgments delivered on January 19, 1978, sometimes referred to as the ‘trilogy’: <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd.[2]; Arnold v. Teno[3]; Thornton v. Board of School Trustees of School District No. 57 (Prince George)[4]. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/5631/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">14.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1114/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Cunningham v. Wheeler; Cooper v. Miller; Shanks v. McNee</a></span>
+                    - <span class="report-citation">[1994] 1 SCR 359</span>
+                - <span class="publicationDate">1994-03-17</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Insurance<br/>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     1 All E.R. 555; Ratych v. Bloomer, [1990] 1 S.C.R. 940; Hussain v. New Taplow Paper Mills Ltd., [1988] 1 All E.R. 541; Graham v. Baker (1961), 106 C.L.R. 340; The Propeller Monticello v. Mollison, 58 U.S. (17 How.) 152 (1854); <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229. Statutes and Regulations Cited &nbsp;&nbsp;[...]&nbsp;&nbsp;Rather, the law of damages for negligence insists that damages must be fair to both the plaintiff and the defendant: Livingstone v. Rawyards Coal Co., supra; <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229. 4.The Social Inequity Argument &nbsp;&nbsp;[...]&nbsp;&nbsp;In Canada, the cases have consistently held that damage awards should be calculated without taking into account taxes that would have been paid if the sum awarded had been received by the plaintiff in the form of income: The Queen v. Jennings, [1966] S.C.R. 532; <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1114/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">15.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1416/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">D&#39;Amato v. Badger</a></span>
+                    - <span class="report-citation">[1996] 2 SCR 1071</span>
+                - <span class="publicationDate">1996-08-22</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Pty. Ltd. v. The Dredge “Willemstad” (1976), 11 A.L.R. 227; Ross v. Caunters, [1979] 3 All E.R. 580; <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229. Authors Cited Feldthusen, Bruce. &nbsp;&nbsp;[...]&nbsp;&nbsp;See <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229. The calculation was based on the level of earning which the plaintiff would likely have achieved and the period that he would sustain it, subject to deductions made for contingencies of life. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1416/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">16.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2087/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">M.B. v. British Columbia</a></span>
+                        - <span class="citation">2003 SCC 53</span>
+                    - <span class="report-citation">[2003] 2 SCR 477</span>
+                - <span class="publicationDate">2003-10-02</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    (Guardian ad litem of) v. Brisco, [2002] 1 S.C.R. 205, 2002 SCC 9; Lincoln v. Hayman, [1982] 2 All E.R. 819; Hodgson v. Trapp, [1989] 1 A.C. 807; <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; The Queen v. Jennings, [1966] S.C.R. 532; Earnshaw v. Despins (1990), 45 B.C.L.R. (2d) 380; Palmer v. Goodall (1991),&nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229, at p. 251, Dickson J. (as he then was), following The Queen v. Jennings, [1966] S.C.R. 532, stated that: 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2087/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">17.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/820/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">R. v. Salituro</a></span>
+                    - <span class="report-citation">[1991] 3 SCR 654</span>
+                - <span class="publicationDate">1991-11-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     S.C.R. 608; R. v. Khan, [1990] 2 S.C.R. 531; R. v. Seaboyer, [1991] 2 S.C.R. 577; Myers v. Director of Public Prosecutions, [1965] A.C. 1001; <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; Lord Audley's Case (1631), Hutt. 115, 123 E.R. 1140; R. v. Big M Drug Mart Ltd., [1985] 1 S.C.R. 295; R. v. &nbsp;&nbsp;[...]&nbsp;&nbsp;She noted that the jurisprudence on the issue was recent and unsettled, in spite of an earlier Supreme Court decision in which this Court had declined to consider the impact of taxation on the award for future care, namely <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd, [1978] 2 S.C.R. 229. She also noted that there were strong 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/820/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">18.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21546/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Resler v. Anglin</a></span>
+                        - <span class="citation">2026 SCC 23</span>
+                - <span class="publicationDate">2026-06-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Civil procedure<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     [1985] 1 S.C.R. 441; Bost v. Illinois State Bd. of Elections, 607 U.S. 1 (2026); British Columbia v. Zastowny, 2008 SCC 4, [2008] 1 S.C.R. 27; <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; ter Neuzen v. Korn, [1995] 3 S.C.R. 674; British Columbia v. Canadian Forest Products Ltd., 2004 SCC 38, [2004] 2 &nbsp;&nbsp;[...]&nbsp;&nbsp;[135] Nor does <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229, support the ad hoc invocation of public policy. &nbsp;&nbsp;[...]&nbsp;&nbsp;And this Court prioritized “policy factors” of “assessability, uniformity and predictability” over the pursuit of complete compensation in setting a dollar cap on non-pecuniary damages (<b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229, at pp. 260-65; see also ter Neuzen v. Korn, [1995] 3 S.C.R. 674, at paras. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21546/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">19.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/7868/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Vancouver (City) v. Ward</a></span>
+                        - <span class="citation">2010 SCC 27</span>
+                    - <span class="report-citation">[2010] 2 SCR 28</span>
+                - <span class="publicationDate">2010-07-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; Dunlea v. Attorney‐General, [2000] NZCA 84, [2000] 3 N.Z.L.R. 136; <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; Anufrijeva v. Southwark London Borough Council, [2003] EWCA Civ 1406, [2004] Q.B. 1124; Bivens v. Six Unknown Named &nbsp;&nbsp;[...]&nbsp;&nbsp;This approach has been adopted in awarding non‐pecuniary damages in personal injury cases (<b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229), and, in my view, a similar approach is appropriate in determining when damages are “appropriate and just” under s. 24(1) of the Charter. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/7868/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">20.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Young v. Bella</a></span>
+                        - <span class="citation">2006 SCC 3</span>
+                    - <span class="report-citation">[2006] 1 SCR 108</span>
+                - <span class="publicationDate">2006-01-27</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Applied: Hill v. Church of Scientology of Toronto, [1995] 2 S.C.R. 1130; distinguished: <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; Thornton v. School District No. 57 (Prince George), [1978] 2 S.C.R. 267; Arnold v. Teno, [1978] 2 S.C.R. 287; referred to: Housen v. Nikolaisen, [2002] 2 S.C.R. 235, 2002 SCC &nbsp;&nbsp;[...]&nbsp;&nbsp;65 The respondents also argue that the cap on non-pecuniary damages imposed in catastrophic personal injury cases should be imposed in cases such as this: see <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229, at p. 265; Thornton v. School District No. 57 (Prince George), [1978] 2 S.C.R. 267; and Arnold v. Teno, 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">21.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/7892/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">de Montigny v. Brossard (Succession)</a></span>
+                        - <span class="citation">2010 SCC 51</span>
+                    - <span class="report-citation">[2010] 3 SCR 64</span>
+                - <span class="publicationDate">2010-11-10</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     (Attorney General), 2005 SCC 25, [2005] 1 S.C.R. 401; Driver v. Coca‐Cola Ltd., [1961] S.C.R. 201; Pantel v. Air Canada, [1975] 1 S.C.R. 472; <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; Hill v. Church of Scientology of Toronto, [1995] 2 S.C.R. 1130; Wilkes v. Wood (1763), Lofft. 1, 98 E.R. 489; Whiten &nbsp;&nbsp;[...]&nbsp;&nbsp;[31] While the Quebec courts have since used the sum of $25,000 awarded by L’Heureux‐Dubé J. as a reference point for determining the amount to be awarded as compensation for moral prejudice, it has never been considered a cap in the same way as the $100,000 awarded by Dickson J. in <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/7892/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">22.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1897/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Naylor Group Inc. v. Ellis-Don Construction Ltd.</a></span>
+                        - <span class="citation">2001 SCC 58</span>
+                    - <span class="report-citation">[2001] 2 SCR 943</span>
+                - <span class="publicationDate">2001-09-27</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Contract<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    L.R. (2d) 118; Victoria Wood Development Corp. v. Ondrey (1978), 92 D.L.R. (3d) 229; Marathon-Delco Inc., [2000] O.L.R.D. No. 542 (QL); Twin City Mechanical v. Bradsil (1967) Ltd. (1996), 31 C.L.R. (2d) 210; Lang v. Pollard, [1957] S.C.R. 858; Woelk v. Halvorson, [1980] 2 S.C.R. 430; <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd.,&nbsp;&nbsp;[...]&nbsp;&nbsp; or considered irrelevant factors, or otherwise, in the result, made “a palpably incorrect” or “wholly erroneous” assessment of the damages (<b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229, at p. 235; Laurentide Motels Ltd. v. Beauport (City), [1989] 1 S.C.R. 705, at p. 810; Widrig v. Strazer, [1964] 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1897/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">23.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/601/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Ratych v. Bloomer</a></span>
+                    - <span class="report-citation">[1990] 1 SCR 940</span>
+                - <span class="publicationDate">1990-05-03</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     (1961), 106 C.L.R. 340; <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; Thornton v. Prince George School Board, [1978] 2 S.C.R. 267; Arnold v. Teno, [1978] 2 S.C.R. 287; Phillips v. South Western Railway Co. (1879), 4 Q.B.D. 406; Browning v. War Office, [1962] 3 All E.R. 1089; Bradburn v. Great Western Rail. &nbsp;&nbsp;[...]&nbsp;&nbsp;This is implicit in the principles governing the recovery of damages for personal injury set forth by this Court in the trilogy of <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229, Thornton v. Prince George School Board, [1978] 2 S.C.R. 267, and Arnold v. Teno, [1978] 2 S.C.R. 287. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/601/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">24.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/13390/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Cinar Corporation v. Robinson</a></span>
+                        - <span class="citation">2013 SCC 73</span>
+                    - <span class="report-citation">[2013] 3 SCR 1168</span>
+                - <span class="publicationDate">2013-12-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Intellectual property<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Distinguished: <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; Thornton v. School District No. 57 (Prince George), [1978] 2 S.C.R. 267; Arnold v. Teno, [1978] 2 S.C.R. 287; referred to: Massie &amp; Renwick Ltd. v. Underwriters’ Survey Bureau Ltd., [1940] S.C.R. 218; Théberge v. Galerie d’Art du Petit &nbsp;&nbsp;[...]&nbsp;&nbsp;[15] The Court of Appeal held that the cap established in the Andrews trilogy (<b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229, Thornton v. School District No. 57 (Prince George), [1978] 2 S.C.R. 267, and Arnold v. Teno, [1978] 2 S.C.R. 287) was applicable to the award for psychological suffering and reduced 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/13390/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">25.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20113/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22">Ponce v. Société d’investissements Rhéaume ltée</a></span>
+                        - <span class="citation">2023 SCC 25</span>
+                - <span class="publicationDate">2023-10-27</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    3 S.C.R. 3; Lamb v. Kincaid (1907), 38 S.C.R. 516; National Bank of Canada v. Corbeil, [1991] 1 S.C.R. 117; Provincial Bank of Canada v. Gagnon, [1981] 2 S.C.R. 98; <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229; Grenier v. Grenier, 2011 QCCA 964; M.H. v. Axa Assurances inc., 2009 QCCA 2358, [2010] R.R.A. 15. &nbsp;&nbsp;[...]&nbsp;&nbsp;Provincial Bank of Canada v. Gagnon, [1981] 2 S.C.R. 98; see also Baxter, at p. 444, citing <b>Andrews v. Grand &amp; Toy Alberta</b> Ltd., [1978] 2 S.C.R. 229). [115] The presumption established in Baxter therefore serves as the basis for a method of calculating damages to compensate the aggrieved party for the injury sustained. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20113/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+            yearRangeString: "1877:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>

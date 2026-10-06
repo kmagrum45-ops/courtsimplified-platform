@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/en/d/s/index.do" />
+    <title>    Advanced Search - SCC Cases
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/fr/d/s/index.do?cont=%22Vancouver+%28City%29+v.+Ward%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+<ul class="decisia-search-tabs decisia-tabs">
+            <li>
+            <a id="decisia-search-tabs-all-databases" target="_parent" href="/scc-csc/en/a/s/index.do?cont=%22Vancouver+%28City%29+v.+Ward%22&amp;ref=&amp;p=&amp;col=1&amp;or=">All Databases (46)</a>
+        </li>
+
+        <li class="active">Decisions (20)</li>
+
+         <li>
+             <a id="decisia-search-tabs-news" target="_parent" href="/scc-csc/en/n/s/index.do?cont=%22Vancouver+%28City%29+v.+Ward%22&amp;ref=&amp;p=&amp;col=1&amp;or=">Resources (26)</a>
+         </li>
+</ul>
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="&quot;Vancouver (City) v. Ward&quot;" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Report, Case number</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-parties-row">
+        <div class="label">
+            <label for="decisia-parties">Parties</label>
+        </div>
+        <div class="input">
+<input id="decisia-parties" class="decisia-text" type="text" name="p" value="" />
+        </div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abbott, Douglas Charles"
+         >Abbott, Douglas Charles</option>
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Anglin, Francis Alexander"
+         >Anglin, Francis Alexander</option>
+        <option value="Arbour, Louise"
+         >Arbour, Louise</option>
+        <option value="Armour, John Douglas"
+         >Armour, John Douglas</option>
+        <option value="Barclay"
+         >Barclay</option>
+        <option value="Bastarache, Michel"
+         >Bastarache, Michel</option>
+        <option value="Beetz, Jean"
+         >Beetz, Jean</option>
+        <option value="Bernier"
+         >Bernier</option>
+        <option value="Binnie, William Ian Corneil"
+         >Binnie, William Ian Corneil</option>
+        <option value="Bond"
+         >Bond</option>
+        <option value="Brodeur, Louis-Philippe"
+         >Brodeur, Louis-Philippe</option>
+        <option value="Brown, Russell"
+         >Brown, Russell</option>
+        <option value="Cannon, Lawrence Arthur Dumoulin"
+         >Cannon, Lawrence Arthur Dumoulin</option>
+        <option value="Cartwright, John Robert"
+         >Cartwright, John Robert</option>
+        <option value="Cassels"
+         >Cassels</option>
+        <option value="Charron, Louise"
+         >Charron, Louise</option>
+        <option value="Chouinard, Julien"
+         >Chouinard, Julien</option>
+        <option value="Cory, Peter deCarteret"
+         >Cory, Peter deCarteret</option>
+        <option value="Crocket, Oswald Smith"
+         >Crocket, Oswald Smith</option>
+        <option value="Cromwell, Thomas Albert"
+         >Cromwell, Thomas Albert</option>
+        <option value="Côté, Suzanne"
+         >Côté, Suzanne</option>
+        <option value="Davies, Louis Henry"
+         >Davies, Louis Henry</option>
+        <option value="Davis, Henry Hague"
+         >Davis, Henry Hague</option>
+        <option value="Deschamps, Marie"
+         >Deschamps, Marie</option>
+        <option value="Dickson, Robert George Brian"
+         >Dickson, Robert George Brian</option>
+        <option value="Dorion"
+         >Dorion</option>
+        <option value="Duff, Lyman Poore"
+         >Duff, Lyman Poore</option>
+        <option value="Dysart"
+         >Dysart</option>
+        <option value="Estey, James Wilfred"
+         >Estey, James Wilfred</option>
+        <option value="Estey, Willard Zebedee"
+         >Estey, Willard Zebedee</option>
+        <option value="Fauteux, Joseph Honoré Gérald"
+         >Fauteux, Joseph Honoré Gérald</option>
+        <option value="Fish, Morris J."
+         >Fish, Morris J.</option>
+        <option value="Fitzpatrick, Charles"
+         >Fitzpatrick, Charles</option>
+        <option value="Fournier, Télesphore"
+         >Fournier, Télesphore</option>
+        <option value="Galipault"
+         >Galipault</option>
+        <option value="Gascon, Clément"
+         >Gascon, Clément</option>
+        <option value="Gillanders"
+         >Gillanders</option>
+        <option value="Girouard, Désiré"
+         >Girouard, Désiré</option>
+        <option value="Gonthier, Charles Doherty"
+         >Gonthier, Charles Doherty</option>
+        <option value="Gwynne, John Wellington"
+         >Gwynne, John Wellington</option>
+        <option value="Hall, Emmett Matthew"
+         >Hall, Emmett Matthew</option>
+        <option value="Henry, William Alexander"
+         >Henry, William Alexander</option>
+        <option value="Howard"
+         >Howard</option>
+        <option value="Hudson, Albert Blellock"
+         >Hudson, Albert Blellock</option>
+        <option value="Hughes, Frank Joseph"
+         >Hughes, Frank Joseph</option>
+        <option value="Iacobucci, Frank"
+         >Iacobucci, Frank</option>
+        <option value="Idington, John"
+         >Idington, John</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Joyal, Glenn"
+         >Joyal, Glenn</option>
+        <option value="Judson, Wilfred"
+         >Judson, Wilfred</option>
+        <option value="Karakatsanis, Andromache"
+         >Karakatsanis, Andromache</option>
+        <option value="Kasirer, Nicholas"
+         >Kasirer, Nicholas</option>
+        <option value="Kellock, Roy Lindsay"
+         >Kellock, Roy Lindsay</option>
+        <option value="Kerwin, Patrick"
+         >Kerwin, Patrick</option>
+        <option value="Killam, Albert Clements"
+         >Killam, Albert Clements</option>
+        <option value="King, George Edwin"
+         >King, George Edwin</option>
+        <option value="L&#39;Heureux-Dubé, Claire"
+         >L&#39;Heureux-Dubé, Claire</option>
+        <option value="La Forest, Gérard V."
+         >La Forest, Gérard V.</option>
+        <option value="Lamer, Antonio"
+         >Lamer, Antonio</option>
+        <option value="Lamont, John Henderson"
+         >Lamont, John Henderson</option>
+        <option value="Laskin, Bora"
+         >Laskin, Bora</option>
+        <option value="Latchford"
+         >Latchford</option>
+        <option value="Lavergne"
+         >Lavergne</option>
+        <option value="Le Dain, Gerald Eric"
+         >Le Dain, Gerald Eric</option>
+        <option value="LeBel, Louis"
+         >LeBel, Louis</option>
+        <option value="Lemieux"
+         >Lemieux</option>
+        <option value="Locke, Charles Holland"
+         >Locke, Charles Holland</option>
+        <option value="Maclean"
+         >Maclean</option>
+        <option value="Maclennan, James"
+         >Maclennan, James</option>
+        <option value="Magee"
+         >Magee</option>
+        <option value="Major, John C."
+         >Major, John C.</option>
+        <option value="Malouin, Arthur Cyrille Albert"
+         >Malouin, Arthur Cyrille Albert</option>
+        <option value="Martin, Sheilah"
+         >Martin, Sheilah</option>
+        <option value="Martin, Sheilah L."
+         >Martin, Sheilah L.</option>
+        <option value="Martland, Ronald"
+         >Martland, Ronald</option>
+        <option value="Masten"
+         >Masten</option>
+        <option value="McIntyre, William Rogers"
+         >McIntyre, William Rogers</option>
+        <option value="McLachlin, Beverley"
+         >McLachlin, Beverley</option>
+        <option value="Middleton"
+         >Middleton</option>
+        <option value="Mignault, Pierre-Basile"
+         >Mignault, Pierre-Basile</option>
+        <option value="Mills, Davis"
+         >Mills, Davis</option>
+        <option value="Moldaver, Michael J."
+         >Moldaver, Michael J.</option>
+        <option value="Moreau, Mary"
+         >Moreau, Mary</option>
+        <option value="Nesbitt, Wallace"
+         >Nesbitt, Wallace</option>
+        <option value="Newcombe, Edmund Leslie"
+         >Newcombe, Edmund Leslie</option>
+        <option value="Nolan, Henry Grattan"
+         >Nolan, Henry Grattan</option>
+        <option value="Orde"
+         >Orde</option>
+        <option value="O’Bonsawin, Michelle"
+         >O’Bonsawin, Michelle</option>
+        <option value="Patterson, Christopher Salmon"
+         >Patterson, Christopher Salmon</option>
+        <option value="Pigeon, Louis-Philippe"
+         >Pigeon, Louis-Philippe</option>
+        <option value="Pratte, Yves"
+         >Pratte, Yves</option>
+        <option value="Rand, Ivan Cleveland"
+         >Rand, Ivan Cleveland</option>
+        <option value="Richards, William Buell"
+         >Richards, William Buell</option>
+        <option value="Rinfret, Thibaudeau"
+         >Rinfret, Thibaudeau</option>
+        <option value="Ritchie, Roland Almon"
+         >Ritchie, Roland Almon</option>
+        <option value="Ritchie, William Johnstone"
+         >Ritchie, William Johnstone</option>
+        <option value="Rivard"
+         >Rivard</option>
+        <option value="Rothstein, Marshall"
+         >Rothstein, Marshall</option>
+        <option value="Rowe, Malcolm"
+         >Rowe, Malcolm</option>
+        <option value="Sedgewick, Robert"
+         >Sedgewick, Robert</option>
+        <option value="Smith, Robert"
+         >Smith, Robert</option>
+        <option value="Sopinka, John"
+         >Sopinka, John</option>
+        <option value="Spence, Wishart Flett"
+         >Spence, Wishart Flett</option>
+        <option value="St. Germain"
+         >St. Germain</option>
+        <option value="St. Jacques"
+         >St. Jacques</option>
+        <option value="Stevenson, William"
+         >Stevenson, William</option>
+        <option value="Strong, Samuel Henry"
+         >Strong, Samuel Henry</option>
+        <option value="Taschereau, Henri-Elzéar"
+         >Taschereau, Henri-Elzéar</option>
+        <option value="Taschereau, Jean-Thomas"
+         >Taschereau, Jean-Thomas</option>
+        <option value="Taschereau, Robert"
+         >Taschereau, Robert</option>
+        <option value="Tessier"
+         >Tessier</option>
+        <option value="Thorson"
+         >Thorson</option>
+        <option value="Wagner, Richard"
+         >Wagner, Richard</option>
+        <option value="Wilson, Bertha"
+         >Wilson, Bertha</option>
+        <option value="de Grandpré, Louis-Philippe"
+         >de Grandpré, Louis-Philippe</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Status</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Granted</option>
+                <option value="2"
+                >Dismissed</option>
+                <option value="3"
+                >Oral Hearing</option>
+                <option value="4"
+                >Remanded</option>
+                <option value="5"
+                >Quashed</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-district-row">
+        <div class="label select">
+            <label for="decisia-district">On appeal from</label>
+        </div>
+        <div class="input">
+        <select id="decisia-district" name="d"  data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                  <option value="1"
+                       >Canada</option>
+                  <option value="2"
+                       >Federal Court of Appeal</option>
+                  <option value="3"
+                       >British Columbia</option>
+                  <option value="4"
+                       >Alberta</option>
+                  <option value="5"
+                       >Saskatchewan</option>
+                  <option value="6"
+                       >Manitoba</option>
+                  <option value="7"
+                       >Ontario</option>
+                  <option value="8"
+                       >Quebec</option>
+                  <option value="9"
+                       >New Brunswick</option>
+                  <option value="10"
+                       >Nova Scotia</option>
+                  <option value="11"
+                       >Prince Edward Island</option>
+                  <option value="12"
+                       >Newfoundland and Labrador</option>
+                  <option value="13"
+                       >Yukon</option>
+                  <option value="14"
+                       >Northwest Territories</option>
+                  <option value="15"
+                       >Nunavut</option>
+                  <option value="16"
+                       >Court Martial Appeal Court of Canada</option>
+                  <option value="18"
+                       >Saskatchewan, Ontario, Alberta</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-collection-row">
+        <div class="label select">
+            <label for="decisia-collection">Collection</label>
+        </div>
+        <div class="input">
+<select id="decisia-collection" name="col" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+    <option value="1"
+        selected="selected"
+    >
+        Supreme Court Judgments</option>
+    <option value="2"
+    >
+        Applications for Leave</option>
+</select>
+<div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="advanced-field decisia-subjects-row">
+        <div class="label select">
+            <label for="decisia-subjects">Subjects</label>
+        </div>
+        <div class="input">
+    <select id="decisia-subjects" name="su" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+            <option value="34"
+            >Aboriginal law</option>
+            <option value="5"
+            >Access to information</option>
+            <option value="2"
+            >Action</option>
+            <option value="51"
+            >Administrative law</option>
+            <option value="13"
+            >Agency</option>
+            <option value="40"
+            >Air law</option>
+            <option value="9"
+            >Appeal</option>
+            <option value="52"
+            >Arbitration</option>
+            <option value="37"
+            >Armed Forces</option>
+            <option value="30"
+            >Bankruptcy and insolvency</option>
+            <option value="53"
+            >Bills of exchange</option>
+            <option value="44"
+            >Civil law</option>
+            <option value="20"
+            >Civil procedure</option>
+            <option value="41"
+            >Commercial law</option>
+            <option value="29"
+            >Communications law</option>
+            <option value="19"
+            >Competition law</option>
+            <option value="27"
+            >Constitutional law</option>
+            <option value="55"
+            >Contract</option>
+            <option value="61"
+            >Contracts</option>
+            <option value="6"
+            >Courts</option>
+            <option value="16"
+            >Criminal law</option>
+            <option value="14"
+            >Customs and excise</option>
+            <option value="4"
+            >Education law</option>
+            <option value="10"
+            >Elections</option>
+            <option value="17"
+            >Environmental law</option>
+            <option value="57"
+            >Estates</option>
+            <option value="18"
+            >Evidence</option>
+            <option value="48"
+            >Expropriation</option>
+            <option value="7"
+            >Family law</option>
+            <option value="11"
+            >Financial institutions</option>
+            <option value="15"
+            >Fishery</option>
+            <option value="42"
+            >Food and drugs</option>
+            <option value="23"
+            >Guarantee and suretyship</option>
+            <option value="26"
+            >Immigration</option>
+            <option value="28"
+            >Insurance</option>
+            <option value="8"
+            >Intellectual property</option>
+            <option value="31"
+            >International law</option>
+            <option value="45"
+            >Labour law</option>
+            <option value="22"
+            >Lease</option>
+            <option value="25"
+            >Maritime law</option>
+            <option value="43"
+            >Mines and minerals</option>
+            <option value="38"
+            >Motor vehicles</option>
+            <option value="56"
+            >Municipal law</option>
+            <option value="24"
+            >Pensions</option>
+            <option value="35"
+            >Prerogative writs</option>
+            <option value="59"
+            >Prescription</option>
+            <option value="46"
+            >Priorities and hypothecs</option>
+            <option value="58"
+            >Private international law</option>
+            <option value="32"
+            >Professional law</option>
+            <option value="63"
+            >Property</option>
+            <option value="49"
+            >Property law</option>
+            <option value="50"
+            >Public utilities</option>
+            <option value="47"
+            >Sale</option>
+            <option value="36"
+            >Securities</option>
+            <option value="39"
+            >State</option>
+            <option value="62"
+            >Status of persons</option>
+            <option value="3"
+            >Statutes</option>
+            <option value="33"
+            >Taxation</option>
+            <option value="21"
+            >Torts</option>
+            <option value="12"
+            >Transportation</option>
+            <option value="54"
+            >Trust</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/scc-csc/en/d/s/index.do?cont=%22Vancouver+%28City%29+v.+Ward%22&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>20 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/7868/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">Vancouver (City) v. Ward</a></span>
+                        - <span class="citation">2010 SCC 27</span>
+                    - <span class="report-citation">[2010] 2 SCR 28</span>
+                - <span class="publicationDate">2010-07-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>Vancouver (City) v. Ward</b>, Vancouver (Ville) c. Ward, 2010 SCC 27, 2010 CSC 27, 33089, [2010] 2 SCR 28, [2010] 2 RCS 28 &nbsp;&nbsp;[...]&nbsp;&nbsp;Citation: <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28 Date: 20100723 Docket: 33089 &nbsp;&nbsp;[...]&nbsp;&nbsp;Indexed as: <b>Vancouver (City) v. Ward</b> 2010 SCC 27 File No.: 33089. 2010: January 18; 2010: July 23. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/7868/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/16325/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">Ernst v. Alberta Energy Regulator</a></span>
+                        - <span class="citation">2017 SCC 1</span>
+                    - <span class="report-citation">[2017] 1 SCR 3</span>
+                - <span class="publicationDate">2017-01-13</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    The framework set out in <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, for assessing whether damages are an appropriate and just remedy in the circumstances can be applied at the application to strike stage. &nbsp;&nbsp;[...]&nbsp;&nbsp;[121] This Court said in <b>Vancouver (City) v. Ward</b>, [2010] 2 S.C.R. 28, that “granting damages under the Charter is a new endeavour, and an approach to when damages are appropriate and just should develop incrementally” (para. 21). &nbsp;&nbsp;[...]&nbsp;&nbsp;[153] In <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, this Court set out a framework for assessing whether damages are an appropriate and just remedy in the circumstances. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16325/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/15329/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">Henry v. British Columbia (Attorney General)</a></span>
+                        - <span class="citation">2015 SCC 24</span>
+                    - <span class="report-citation">[2015] 2 SCR 214</span>
+                - <span class="publicationDate">2015-05-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    In <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, this Court recognized that s. 24(1) of the Charter authorizes damage claims directed against the state for violations of the claimant’s constitutional rights. &nbsp;&nbsp;[...]&nbsp;&nbsp;Applying the principles from <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, to this case, H must plead facts that, if true, establish a breach of his Charter rights and that damages constitute an appropriate and just remedy to advance the purposes of compensation, vindication or deterrence. &nbsp;&nbsp;[...]&nbsp;&nbsp;Relying on this Court’s seminal decision on Charter damages in <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, he observed that s. 24(1) affords courts a broad discretion to craft appropriate remedies, and that this discretion should not be limited “by casting it in a strait-jacket of judicially prescribed 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/15329/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20546/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">Canada (Attorney General) v. Power</a></span>
+                        - <span class="citation">2024 SCC 26</span>
+                - <span class="publicationDate">2024-07-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    [34] A declaration of invalidity under s. 52(1) is the “first and most important remedy” when dealing with unconstitutional legislation (<b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, at para. 1). Section 52(1) establishes the supremacy of the Constitution and empowers courts to declare legislation “of no force &nbsp;&nbsp;[...]&nbsp;&nbsp;Therefore, even though this Court has said that s. 24(1) Charter remedies are awarded against “the state” rather than any particular branch of government (<b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, at para. 22), state liability involves the liability of the Crown in its executive capacity, not in its &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, Chief Justice McLachlin confirmed that Mackin applies to “state action under valid statutes subsequently declared invalid” (para. 43). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20546/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21654/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">R. v. R.B.-C.</a></span>
+                        - <span class="citation">2026 SCC 30</span>
+                - <span class="publicationDate">2026-09-11</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     [1990] 2 S.C.R. 1199; R. v. K.R.J., 2016 SCC 31, [2016] 1 S.C.R. 906; Mills v. The Queen, [1986] 1 S.C.R. 863; R. v. Gamble, [1988] 2 S.C.R. 595; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28; R. v. Nasogaluak, 2010 SCC 6, [2010] 1 S.C.R. 206; R. v. Bosley (1992), 18 C.R. (4th) 347; R. v. Leaver (1996), 3 &nbsp;&nbsp;[...]&nbsp;&nbsp;While that discretion is expansive, it is not unbounded: remedies must still be responsive to the nature of the breach and the interests affected (<b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, at para. 19). [75] Once guilt has been established, society’s interest in the prompt imposition of a fit sentence is 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21654/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/7892/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">de Montigny v. Brossard (Succession)</a></span>
+                        - <span class="citation">2010 SCC 51</span>
+                    - <span class="report-citation">[2010] 3 SCR 64</span>
+                - <span class="publicationDate">2010-11-10</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    2 S.C.R. 229; Hill v. Church of Scientology of Toronto, [1995] 2 S.C.R. 1130; Wilkes v. Wood (1763), Lofft. 1, 98 E.R. 489; Whiten v. Pilot Insurance Co., 2002 SCC 18, [2002] 1 S.C.R. 595; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28; Association des professeurs de Lignery v. Alvetta‐Comeau, [1990] R.J.Q. 130. &nbsp;&nbsp;[...]&nbsp;&nbsp;Exemplary damages were found to have the same function under s. 24(1) of the Canadian Charter of Rights and Freedoms in this Court’s recent decision in Ward (<b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28). [52] As we have seen, denunciation was described by Cory J. as “the means by which the jury or judge 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/7892/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/7962/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">R. v. Côté</a></span>
+                        - <span class="citation">2011 SCC 46</span>
+                    - <span class="report-citation">[2011] 3 SCR 215</span>
+                - <span class="publicationDate">2011-10-14</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    R. v. Grant, 2009 SCC 32, [2009] 2 S.C.R. 353; R. v. Collins, [1987] 1 S.C.R. 265; R. v. Stillman, [1997] 1 S.C.R. 607; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28; R. v. Harrison, 2009 SCC 34, [2009] 2 S.C.R. 494. &nbsp;&nbsp;[...]&nbsp;&nbsp;It is this role that must be borne in mind where a duly authorized search would have had the same practical consequences (see, in the analogous context of s. 24(1) of the Charter , <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28). In the instant case, the protected right is the legitimate expectation of any person
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/7962/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18390/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">Conseil scolaire francophone de la Colombie‑Britannique v. British Columbia</a></span>
+                        - <span class="citation">2020 SCC 13</span>
+                    - <span class="report-citation">[2020] 1 SCR 678</span>
+                - <span class="publicationDate">2020-06-12</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Under the framework set out in <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, the first step for assessing Charter damages is to show a Charter breach. &nbsp;&nbsp;[...]&nbsp;&nbsp;In her view, the principles from <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, and Mackin v. New Brunswick (Minister of Finance), 2002 SCC 13, [2002] 1 S.C.R. 405, barred an award of damages. &nbsp;&nbsp;[...]&nbsp;&nbsp;The rationale for requiring a heightened threshold of gravity in order to be entitled to damages is to not put a chill on good governance, which requires that “public officials carry out their duties under valid statutes without fear of liability in the event that the statute is later struck down”: <b>Vancouver (City) v. Ward</b>,
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18390/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/16023/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">R. v. Saeed</a></span>
+                        - <span class="citation">2016 SCC 24</span>
+                    - <span class="report-citation">[2016] 1 SCR 518</span>
+                - <span class="publicationDate">2016-06-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     2012 BCCA 254, 93 C.R. (6th) 260; R. v. Voong, 2013 BCCA 527, 347 B.C.A.C. 278; R. v. Golden, 2001 SCC 83, [2001] 3 S.C.R. 679; R. v. Kokesch, [1990] 3 S.C.R. 3; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28; R. v. Harrison, 2009 SCC 34, [2009] 2 S.C.R. 494; R. v. Côté, 2011 SCC 46, [2011] 3 S.C.R. 215. &nbsp;&nbsp;[...]&nbsp;&nbsp;[151] This Court concluded in <b>Vancouver (City) v. Ward</b>, [2010] 2 S.C.R. 28, that “[s]trip searches are inherently humiliating and degrading regardless of the manner in which they are carried out and thus constitute significant injury to an individual’s intangible interests”: para. 64 (emphasis added). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16023/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21126/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">R. v. Varennes</a></span>
+                        - <span class="citation">2025 SCC 22</span>
+                - <span class="publicationDate">2025-07-11</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; Ontario (Attorney General) v. G, 2020 SCC 38, [2020] 3 S.C.R. 629; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28; Fraser v. Public Service Staff Relations Board, [1985] 2 S.C.R. 455; British Columbia (Attorney General) v. &nbsp;&nbsp;[...]&nbsp;&nbsp;[76] An appropriate and just remedy will: (i) vindicate the claimant’s rights and freedoms; (ii) ensure future state compliance with the Charter; and (iii) compensate the claimant for the loss caused by any infringements (Doucet-Boudreau, at para. 55; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, at paras. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21126/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19439/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">Law Society of Saskatchewan v. Abrametz</a></span>
+                        - <span class="citation">2022 SCC 29</span>
+                    - <span class="report-citation">[2022] 2 SCR 220</span>
+                - <span class="publicationDate">2022-07-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     Arts de Montréal, 2004 SCC 2, [2004] 1 S.C.R. 43; R. v. Bjelland, 2009 SCC 38, [2009] 2 S.C.R. 651; R. v. Bellusci, 2012 SCC 44, [2012] 2 S.C.R. 509; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28; Mission Institution v. Khela, 2014 SCC 24, [2014] 1 S.C.R. 502; Canada (Citizenship and Immigration) v. Khosa, 2009&nbsp;&nbsp;[...]&nbsp;&nbsp;Although less drastic than other remedies, declaratory relief allows the judiciary to distance itself from abusive conduct and to deter administrative decision makers from ignoring delays in subsequent proceedings (<b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, at para. 37). [159] In the final analysis, this 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19439/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">12.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/16896/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">R. v. Marakah</a></span>
+                        - <span class="citation">2017 SCC 59</span>
+                    - <span class="report-citation">[2017] 2 SCR 608</span>
+                - <span class="publicationDate">2017-12-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                     2012 SCC 5, [2012] 1 S.C.R. 149; R. v. Hutchinson, 2014 SCC 19, [2014] 1 S.C.R. 346; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28; R. v. Bjelland, 2009 SCC 38, [2009] 2 S.C.R. 651; R. v. Babos, 2014 SCC 16, [2014] 1 S.C.R. 309; R. v. Hape, 2007 SCC 26, [2007] 2 S.C.R. 292; R. v. Harrer, [1995] 3 S.C.R. 562. &nbsp;&nbsp;[...]&nbsp;&nbsp;Another claimant may have standing to bring a s. 8 challenge against the search or seizure in his or her own criminal trial, or to bring a claim for Charter damages: see <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28. Moreover, as I will now explain, even where s. 8 standing is denied, ss. 7 and 11(d) of the 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16896/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">13.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/14418/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">Thibodeau v. Air Canada</a></span>
+                        - <span class="citation">2014 SCC 67</span>
+                    - <span class="report-citation">[2014] 3 SCR 340</span>
+                - <span class="publicationDate">2014-10-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Statutes<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    R. 1; King v. American Airlines, Inc., 284 F.3d 352 (2002); Gibbs v. American Airlines, Inc., 191 F.Supp.2d 144 (2002); Turturro v. Continental Airlines, 128 F.Supp.2d 170 (2001); Brandt v. American Airlines, 2000 WL 288393; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28; International Air Transport Association &nbsp;&nbsp;[...]&nbsp;&nbsp;In support of this argument, they rely heavily on the remarks of this Court in <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, where the Chief Justice differentiated actions for public law damages from actions for private law damages, emphasizing that they are distinct remedies: para. 22. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/14418/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">14.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20398/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">Société des casinos du Québec inc. v. Association des cadres de la Société des casinos du Québec</a></span>
+                        - <span class="citation">2024 SCC 13</span>
+                - <span class="publicationDate">2024-04-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     Training Center), 2015 SCC 39, [2015] 2 S.C.R. 789; Canada (Attorney General) v. PHS Community Services Society, 2011 SCC 44, [2011] 3 S.C.R. 134; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28; Hinse v. Canada (Attorney General), 2015 SCC 35, [2015] 2 S.C.R. 621; de Montigny v. Brossard (Succession), 2010 &nbsp;&nbsp;[...]&nbsp;&nbsp;For example, depending on the context and the right, such remedies may include an injunction (Doucet‐Boudreau, at paras. 70 and 73; Canada (Attorney General) v. PHS Community Services Society, 2011 SCC 44, [2011] 3 S.C.R. 134) or an award of damages (<b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, at paras. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20398/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">15.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/14384/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">Kazemi Estate v. Islamic Republic of Iran</a></span>
+                        - <span class="citation">2014 SCC 62</span>
+                    - <span class="report-citation">[2014] 3 SCR 176</span>
+                - <span class="publicationDate">2014-10-10</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     [1993] 3 S.C.R. 519; Fang v. Jiang, [2007] N.Z.A.R. 420; Breeden v. Black, 2012 SCC 19, [2012] 1 S.C.R. 666; Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28; Operation Dismantle Inc. v. The Queen, [1985] 1 S.C.R. 441. &nbsp;&nbsp;[...]&nbsp;&nbsp;The DAC and the IHRP rely on this Court’s decisions in Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, and <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, in attempting to define the term “remedy”, or more precisely “an appropriate and just remedy”. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/14384/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">16.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18510/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">Fraser v. Canada (Attorney General)</a></span>
+                        - <span class="citation">2020 SCC 28</span>
+                    - <span class="report-citation">[2020] 3 SCR 113</span>
+                - <span class="publicationDate">2020-10-16</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     1229, 39 C.C.E.L. (4th) 129; Thibaudeau v. Canada, [1995] 2 S.C.R. 627; Canada (Attorney General) v. Lesiuk, 2003 FCA 3, [2003] 2 F.C. 697; R. v. Oakes, [1986] 1 S.C.R. 103; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3. &nbsp;&nbsp;[...]&nbsp;&nbsp;They should also have retroactive effect in order to give the claimants in this case and others in their position a meaningful remedy (<b>Vancouver (City) v. Ward</b>, [2010] 2 S.C.R. 28, at para. 20; Doucet‐Boudreau v. Nova Scotia (Minister of Education), [2003] 3 S.C.R. 3, at paras. 55‐58). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18510/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">17.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20755/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">Quebec (Attorney General) v. Pekuakamiulnuatsh Takuhikan</a></span>
+                        - <span class="citation">2024 SCC 39</span>
+                - <span class="publicationDate">2024-11-27</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Aboriginal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    1 S.C.R. 1069; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28; Montréal (City) v. Octane Stratégie inc., 2019 SCC 57, [2019] 4 S.C.R. 138; Carter v. Canada (Attorney General), 2015 SCC 5, [2015] 1 S.C.R. 331; Anderson v. Alberta, 2022 SCC 6, [2022] 1 S.C.R. 29. &nbsp;&nbsp;[...]&nbsp;&nbsp;I would note, however, that the determination of the quantum of damages awarded for a breach of the obligations flowing from the honour of the Crown should take into account any remedies granted concurrently under private law, notably in order to avoid double compensation (see, by analogy, <b>Vancouver (City) v. Ward</b>, 2010 SCC
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20755/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">18.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18563/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">Ontario (Attorney General) v. G</a></span>
+                        - <span class="citation">2020 SCC 38</span>
+                    - <span class="report-citation">[2020] 3 SCR 629</span>
+                - <span class="publicationDate">2020-11-20</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     Thorson v. Attorney General of Canada, [1975] 1 S.C.R. 138; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28; Canadian Council of Churches v. Canada (Minister of Employment and Immigration), [1992] 1 S.C.R. 236; Guindon v. Canada, 2015 SCC 41, [2015] 3 S.C.R. 3; R. v. Debidin, 2008 ONCA 868, 94 O.R. (3d) 421. &nbsp;&nbsp;[...]&nbsp;&nbsp;As a result, courts should focus not only on the case or legislation before them, but also encourage Charter compliance in the long term through their s. 24(1) remedies (<b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, at paras. 29 and 38). [149] Like the decision of whether to suspend a declaration of invalidity 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18563/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">19.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18169/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">Nevsun Resources Ltd. v. Araya</a></span>
+                        - <span class="citation">2020 SCC 5</span>
+                    - <span class="report-citation">[2020] 1 SCR 166</span>
+                - <span class="publicationDate">2020-02-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                     2003 SCC 62, [2003] 3 S.C.R. 3; R. v. 974649 Ontario Inc., 2001 SCC 81, [2001] 3 S.C.R. 575; Great Western Railway v. Brown (1879), 3 S.C.R. 159; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28; Dunlea v. Attorney-General, [2000] NZCA 84, [2000] 3 N.Z.L.R. 136; Hunt v. Carey Canada Inc., [1990] 2 S.C.R. 959. &nbsp;&nbsp;[...]&nbsp;&nbsp;[129] Effectively and justly remedying breaches of customary international law may demand an approach of a different character than a typical “private law action in the nature of a tort claim” (<b>Vancouver (City) v. Ward</b>, [2010] 2 S.C.R. 28, at para. 22, citing Dunlea v. Attorney-General, [2000] NZCA 84, at para. 81). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18169/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">20.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21505/index.do?q=%22Vancouver+%28City%29+v.+Ward%22">Ahluwalia v. Ahluwalia</a></span>
+                        - <span class="citation">2026 SCC 16</span>
+                - <span class="publicationDate">2026-05-15</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     Pichie v. Pichie, 2024 ONSC 2868; Mikhail v. Mikhail, 2024 ONSC 4427; Hammond v. Holtz, 2024 BCSC 447; R. v. Mian, 2014 SCC 54, [2014] 2 S.C.R. 689; <b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28; Droit de la famille — 231579, 2023 QCCS 3557, aff’d 2023 QCCA 1547; F.S. v. M.B.T., 2023 ONCJ 102, 89 R.F.L. (8th) &nbsp;&nbsp;[...]&nbsp;&nbsp;The quantum of compensatory damages that may then be awarded “must represent a meaningful response to the seriousness of the breach” (<b>Vancouver (City) v. Ward</b>, 2010 SCC 27, [2010] 2 S.C.R. 28, at para. 54; see also Insurance Corporation of British Columbia, at paras. 40-49). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21505/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+            yearRangeString: "1877:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>

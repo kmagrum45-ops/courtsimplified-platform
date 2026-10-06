@@ -1,0 +1,620 @@
+ Advanced Search - Court of Appeal for Ontario
+.decisia-content {
+ font-family: Arial, sans-serif;
+ font-size: 1rem;
+}
+.decisia-content a {
+ color: #0645ad;
+ text-decoration: underline;
+}
+.decisia-content a:visited {
+ color: purple;
+}
+.decisia-content a:hover {
+ color: #222;
+ text-decoration: none;
+}
+#decisia-footer a.outlink:after {
+ content: normal;
+	margin: 0;
+}
+.breadcrumb-separator > span {
+ display: none;
+}
+.breadcrumb-separator:after {
+ content: " » ";
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+ color: #0645ad;
+	text-decoration: underline;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+ text-decoration: none;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+ outline: 1px dashed #666;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+ outline: 0;
+}
+#solrHiBar {
+ line-height: normal;
+}
+.lexumSolrArrow {
+ line-height: 20px;
+}
+.wpml-ls-item-legacy-list-horizontal > span {
+ padding-top: 5px;
+ padding-right: 10px;
+ padding-bottom: 5px;
+ padding-left: 10px;
+	line-height: 1;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+ padding-bottom: 0;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content > #decisia-login-header {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+ margin-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager {
+ margin-bottom: 1.2em;
+}
+#document-content {
+ border-bottom: 2px solid black;
+}
+#decisia-footer {
+ margin-top: 10px;
+ padding-top: 10px;
+}
+#decisia-footer .decisia-lexum a {
+ top: 10px;
+}
+#decisia-footer img.decisia_logo {
+ width: 120px;
+ height: 42px;
+}
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ /coa/fr/d/s/index.do?cont=%22Jones+v.+Tsige%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /coa/en/q.do] Help
+ Advanced Search
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Docket numbers
+ Date between
+ and
+ Judges
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Aitken, Catherine D."
+ >Aitken, Catherine D.
+ <option value="Armstrong, Robert Patrick"
+ >Armstrong, Robert Patrick
+ <option value="Austin, Allan McNiece"
+ >Austin, Allan McNiece
+ <option value="Baltman, Deena"
+ >Baltman, Deena
+ <option value="Benotto, Mary Lou"
+ >Benotto, Mary Lou
+ <option value="Blair, Robert Ashley"
+ >Blair, Robert Ashley
+ <option value="Borins, Stephen"
+ >Borins, Stephen
+ <option value="Brooke, John Watson"
+ >Brooke, John Watson
+ <option value="Brown, David M."
+ >Brown, David M.
+ <option value="Brown, Michael F."
+ >Brown, Michael F.
+ <option value="Brownstone, Lisa"
+ >Brownstone, Lisa
+ <option value="Carthy, James Joseph"
+ >Carthy, James Joseph
+ <option value="Catzman, Marvin Adrian"
+ >Catzman, Marvin Adrian
+ <option value="Cavarzan, John Joseph"
+ >Cavarzan, John Joseph
+ <option value="Chapnik, Sandra"
+ >Chapnik, Sandra
+ <option value="Charron, Louise Vivianne"
+ >Charron, Louise Vivianne
+ <option value="Code, Michael A."
+ >Code, Michael A.
+ <option value="Copeland, Jill M."
+ >Copeland, Jill M.
+ <option value="Coroza, Steve A."
+ >Coroza, Steve A.
+ <option value="Cronk, Eleanore Ann"
+ >Cronk, Eleanore Ann
+ <option value="Cumming, Peter Allan"
+ >Cumming, Peter Allan
+ <option value="Cunningham, John Douglas"
+ >Cunningham, John Douglas
+ <option value="Daley, Peter A."
+ >Daley, Peter A.
+ <option value="Dambrot, Michael R."
+ >Dambrot, Michael R.
+ <option value="Dawe, Jonathan"
+ >Dawe, Jonathan
+ <option value="Doherty, David H."
+ >Doherty, David H.
+ <option value="Ducharme, Edward W."
+ >Ducharme, Edward W.
+ <option value="Dunnet, Tamarin M."
+ >Dunnet, Tamarin M.
+ <option value="Durno, Bruce"
+ >Durno, Bruce
+ <option value="Epstein, Gloria Jean"
+ >Epstein, Gloria Jean
+ <option value="Fairburn, J. Michal"
+ >Fairburn, J. Michal
+ <option value="Farley, James Montague"
+ >Farley, James Montague
+ <option value="Favreau, Lise G."
+ >Favreau, Lise G.
+ <option value="Feldman, Kathryn N."
+ >Feldman, Kathryn N.
+ <option value="Ferrier, Lee Kenneth"
+ >Ferrier, Lee Kenneth
+ <option value="Finlayson, George Duncan"
+ >Finlayson, George Duncan
+ <option value="Fragomeni, Joseph M."
+ >Fragomeni, Joseph M.
+ <option value="Gans, Arthur M."
+ >Gans, Arthur M.
+ <option value="George, Jonathon C."
+ >George, Jonathon C.
+ <option value="Gillese, Eileen E."
+ >Gillese, Eileen E.
+ <option value="Glithero, C. Stephen"
+ >Glithero, C. Stephen
+ <option value="Gomery, Sally A."
+ >Gomery, Sally A.
+ <option value="Goudge, Stephen Thomas"
+ >Goudge, Stephen Thomas
+ <option value="Gray, Douglas K."
+ >Gray, Douglas K.
+ <option value="Hackland, Charles T."
+ >Hackland, Charles T.
+ <option value="Harvison Young, Alison"
+ >Harvison Young, Alison
+ <option value="Hennessy, Patricia C."
+ >Hennessy, Patricia C.
+ <option value="Himel, Susan G."
+ >Himel, Susan G.
+ <option value="Hourigan, C. William"
+ >Hourigan, C. William
+ <option value="Hoy, Alexandra"
+ >Hoy, Alexandra
+ <option value="Huscroft, Grant"
+ >Huscroft, Grant
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Juriansz, Russell G."
+ >Juriansz, Russell G.
+ <option value="Karakatsanis, Andromache Rhea"
+ >Karakatsanis, Andromache Rhea
+ <option value="Kent, James C."
+ >Kent, James C.
+ <option value="Killeen, Gordon Patrick"
+ >Killeen, Gordon Patrick
+ <option value="Kozak, Lawrence Cyril"
+ >Kozak, Lawrence Cyril
+ <option value="Krever, Horace"
+ >Krever, Horace
+ <option value="LaForme, Harry Smith"
+ >LaForme, Harry Smith
+ <option value="Labrosse, Jean-Marc"
+ >Labrosse, Jean-Marc
+ <option value="Lane, George Dennis"
+ >Lane, George Dennis
+ <option value="Lang, Susan Elizabeth"
+ >Lang, Susan Elizabeth
+ <option value="Langdon, Kenneth Aylsworth"
+ >Langdon, Kenneth Aylsworth
+ <option value="Laskin, John Ivan"
+ >Laskin, John Ivan
+ <option value="Lauwers, Peter D."
+ >Lauwers, Peter D.
+ <option value="Lax, Joan L."
+ >Lax, Joan L.
+ <option value="Lederman, Sidney N."
+ >Lederman, Sidney N.
+ <option value="MacDonald, Cindy A.M."
+ >MacDonald, Cindy A.M.
+ <option value="MacFarland, Jean Louise"
+ >MacFarland, Jean Louise
+ <option value="MacKinnon, Jennifer"
+ >MacKinnon, Jennifer
+ <option value="MacPherson, James C."
+ >MacPherson, James C.
+ <option value="Madsen, Lene"
+ >Madsen, Lene
+ <option value="Maranger, Robert L."
+ >Maranger, Robert L.
+ <option value="Marrocco, Frank N."
+ >Marrocco, Frank N.
+ <option value="McCombs, John David"
+ >McCombs, John David
+ <option value="McKinlay, Hilda Margaret"
+ >McKinlay, Hilda Margaret
+ <option value="McKinnon, Colin"
+ >McKinnon, Colin
+ <option value="McMurtry, Roy"
+ >McMurtry, Roy
+ <option value="Melle, Francine Van"
+ >Melle, Francine Van
+ <option value="Miller, Bradley"
+ >Miller, Bradley
+ <option value="Moldaver, Michael James"
+ >Moldaver, Michael James
+ <option value="Monahan, Patrick J."
+ >Monahan, Patrick J.
+ <option value="Morden, John Wilson"
+ >Morden, John Wilson
+ <option value="Métivier, Monique"
+ >Métivier, Monique
+ <option value="Newbould, Frank"
+ >Newbould, Frank
+ <option value="Nordheimer, Ian V.B."
+ >Nordheimer, Ian V.B.
+ <option value="O'Driscoll, John Gerald Joseph"
+ >O'Driscoll, John Gerald Joseph
+ <option value="O'Marra, Alfred J."
+ >O'Marra, Alfred J.
+ <option value="O'Marra, Brian"
+ >O'Marra, Brian
+ <option value="Osborne, Coulter Arthur Anthony"
+ >Osborne, Coulter Arthur Anthony
+ <option value="Osborne, Peter J."
+ >Osborne, Peter J.
+ <option value="O’Connor, Dennis"
+ >O’Connor, Dennis
+ <option value="Paciocco, David M."
+ >Paciocco, David M.
+ <option value="Pardu, Gladys I."
+ >Pardu, Gladys I.
+ <option value="Pattillo, Laurence A."
+ >Pattillo, Laurence A.
+ <option value="Pepall, Sarah E."
+ >Pepall, Sarah E.
+ <option value="Perell, Paul M."
+ >Perell, Paul M.
+ <option value="Pitt, Romain William Michael"
+ >Pitt, Romain William Michael
+ <option value="Pomerance, Renee M."
+ >Pomerance, Renee M.
+ <option value="Rahman, Moiz"
+ >Rahman, Moiz
+ <option value="Ray, Timothy D."
+ >Ray, Timothy D.
+ <option value="Rivard, Paul U."
+ >Rivard, Paul U.
+ <option value="Roberts, Lois B."
+ >Roberts, Lois B.
+ <option value="Robins, Sydney Lewis"
+ >Robins, Sydney Lewis
+ <option value="Rosenberg, Marc"
+ >Rosenberg, Marc
+ <option value="Rouleau, Paul S."
+ >Rouleau, Paul S.
+ <option value="Sachs, Harriet E."
+ >Sachs, Harriet E.
+ <option value="Sharpe, Robert J."
+ >Sharpe, Robert J.
+ <option value="Simmons, Janet M."
+ >Simmons, Janet M.
+ <option value="Smith, G. Patrick"
+ >Smith, G. Patrick
+ <option value="Sossin, Lorne"
+ >Sossin, Lorne
+ <option value="Southey, James Bonham Strange"
+ >Southey, James Bonham Strange
+ <option value="Spence, James M."
+ >Spence, James M.
+ <option value="Speyer, Christopher M."
+ >Speyer, Christopher M.
+ <option value="Steep, R. Paul"
+ >Steep, R. Paul
+ <option value="Strathy, George R."
+ >Strathy, George R.
+ <option value="Swinton, Katherine E."
+ >Swinton, Katherine E.
+ <option value="Then, Edward F."
+ >Then, Edward F.
+ <option value="Theroulde, Sandra"
+ >Theroulde, Sandra
+ <option value="Thorburn, Julie"
+ >Thorburn, Julie
+ <option value="Trotter, Gary T."
+ >Trotter, Gary T.
+ <option value="Tulloch, Michael H."
+ >Tulloch, Michael H.
+ <option value="Turnbull, James R.H."
+ >Turnbull, James R.H.
+ <option value="Tzimas, E. Ria"
+ >Tzimas, E. Ria
+ <option value="Watt, David"
+ >Watt, David
+ <option value="Weiler, Karen Merle Magnuson"
+ >Weiler, Karen Merle Magnuson
+ <option value="Whalen, Lawrence"
+ >Whalen, Lawrence
+ <option value="Wilson, Darla A."
+ >Wilson, Darla A.
+ <option value="Wilton-Siegel, Herman J."
+ >Wilton-Siegel, Herman J.
+ <option value="Winkler, Warren Keith"
+ >Winkler, Warren Keith
+ <option value="Zarnett, Benjamin"
+ >Zarnett, Benjamin
+ <option value="van Rensburg, Katherine"
+ >van Rensburg, Katherine
+ Subject
+ <option value="1"
+ >Civil
+ <option value="2"
+ >Criminal
+ <option value="3"
+ >Family
+ Search 
+ 1
+ [LINK /coa/en/d/s/index.do?cont=%22Jones+v.+Tsige%22&ref=&d=&p=&col=1&or=&page=2] 2
+ [LINK /coa/en/d/s/index.do?cont=%22Jones+v.+Tsige%22&ref=&d=&p=&col=1&or=&page=2] &gt;
+ Sort by:
+ Relevance
+ [LINK /coa/en/d/s/index.do?cont=%22Jones+v.+Tsige%22&ref=&p=&col=1&or=date] Date
+ 39 result(s)
+ 1.
+ [LINK /coa/coa/en/item/10962/index.do?q=%22Jones+v.+Tsige%22] Jones v. Tsige
+ - 2012 ONCA 32
+ - 2012-01-18
+ Decisions of the Court of Appeal
+ - Civil
+ Jones v. Tsige, 2012 ONCA 32, C53577 CITATION: Jones v. Tsige, 2012 ONCA 32 
+ [LINK /coa/coa/en/10962/1/document.do] 
+ 2.
+ [LINK /coa/coa/en/item/13637/index.do?q=%22Jones+v.+Tsige%22] Hopkins v. Kay
+ - 2015 ONCA 112
+ - 2015-02-18
+ Decisions of the Court of Appeal
+ - Civil
+ The statement of claim was subsequently amended to contain only the common law cause of action identified in Jones v. Tsige. (2) Decision of the motion judge [9] The motion judge held that it was not plain and obvious that the claim based on Jones v. Tsige could not succeed. [...] First, Jones v. Tsige holds that without proof of actual harm, damages for the common law tort are limited to a “modest conventional sum”: at para. 71. [...] [52] The above comparison leads me to conclude that allowing actions based on Jones v. Tsige to proceed in the courts would not undermine the PHIPA scheme. 
+ [LINK /coa/coa/en/13637/1/document.do] 
+ 3.
+ [LINK /coa/coa/en/item/19157/index.do?q=%22Jones+v.+Tsige%22] Visic v. Elia Associates Professional Corporation
+ - 2020 ONCA 690
+ - 2020-11-02
+ Decisions of the Court of Appeal
+ - Civil
+ [13] Third, the appellant asserts that her claim for invasion of privacy rests on a new tort that this court first recognized in Jones v. Tsige, 2012 ONCA 32, 108 O.R. (3d) 241, after the appellant’s previous proceedings were dismissed. [...] She noted that this court in Jones v. Tsige confirmed a cause of action that already existed at common law, and thus concluded that the appellant’s claim here was barred by the doctrine of cause of action estoppel: [...] Contrary to Ms. Visic’s submissions, the Court of Appeal did not recognize a new tort of invasion of privacy in Jones v. Tsige, 2012 ONCA 32, 108 O.R. (3d) 241 [Jones]. The Court of Appeal made clear that it was recognizing a cause of action that existed at common law: Jones, at para. 65. 
+ [LINK /coa/coa/en/19157/1/document.do] 
+ 4.
+ [LINK /coa/coa/en/item/21030/index.do?q=%22Jones+v.+Tsige%22] Winder v. Marriott International, Inc.
+ - 2022 ONCA 815
+ - 2022-11-25
+ Decisions of the Court of Appeal
+ - Civil
+ However, a reading of the Court of Appeal’s decision in Jones v. Tsige reveals that both the letter and spirit of the Court’s decision and the policy reasons behind it, prescribe a narrow – do not open the floodgates of liability – ambit for the tort of intrusion on seclusion. [...] As explained in Jones v. Tsige, 2012 ONCA 32, 108 O.R. (3d) 241, at paras. 39-41, informational privacy is concerned primarily with individual autonomy. 
+ [LINK /coa/coa/en/21030/1/document.do] 
+ 5.
+ [LINK /coa/coa/en/item/21173/index.do?q=%22Jones+v.+Tsige%22] Dorsey v. Canada (Attorney General)
+ - 2023 ONCA 64
+ - 2023-01-26
+ Decisions of the Court of Appeal
+ - Civil
+ As such, the more onerous standard for interventions in private disputes does not apply here: Foster v. West, 2021 ONCA 263, at para. 11; Jones v. Tsige (2011), 106 O.R. (3d) 721 (C.A.), at para. 23; and Huang v. Fraser Hillary’s Limited, 2018 ONCA 277, at para. 5. [...] [45] In Jones v. Tsige, at para. 28, this court recognized that while the court should be cautious of the “potential injustice to an original litigant by an accumulation of intervenors”, the court should also not “be quick to dispatch those with some value to add for this reason alone” as “[a]ssistance from intervenors can 
+ [LINK /coa/coa/en/21173/1/document.do] 
+ 6.
+ [LINK /coa/coa/en/item/24003/index.do?q=%22Jones+v.+Tsige%22] Caruso v. Law Society of Ontario
+ - 2026 ONCA 177
+ - 2026-03-09
+ Decisions of the Court of Appeal
+ - Civil
+ [9] “The likelihood of assistance is a function of many variables, including, but not only, the experience and expertise of the proposed intervener”: Jones v. Tsige (2011), 106 O.R. (3d) 721, at para. 25. In my view, Ms. Covenoho has not established that she will provide assistance beyond that which will be provided by the 
+ [LINK /coa/coa/en/24003/1/document.do] 
+ 7.
+ [LINK /coa/coa/en/item/17618/index.do?q=%22Jones+v.+Tsige%22] Cline v. Drummond
+ - 2019 ONCA 188
+ - 2019-03-07
+ Decisions of the Court of Appeal
+ - Civil
+ He applied the correct legal test for the tort of nuisance and addressed the substance of the correct legal test for the tort of invasion of privacy, also referred to as intrusion upon seclusion, from Jones v. Tsige, 2012 ONCA 32 and applied it to those facts. We would not interfere with his conclusion that nuisance and 
+ [LINK /coa/coa/en/17618/1/document.do] 
+ 8.
+ [LINK /coa/coa/en/item/19435/index.do?q=%22Jones+v.+Tsige%22] Baldwin v. Imperial Metals Corporation
+ - 2021 ONCA 114
+ - 2021-02-22
+ Decisions of the Court of Appeal
+ - Civil
+ No useful contribution can be offered by an intervenor who essentially repeats the position advanced by a party, even with a different emphasis: Jones v. Tsige, [2011] O.J. No. 4276 (C.A.), at para. 29; Stadium Corp. of Ontario Ltd. v. Toronto (City), [1992] O.J. No. 1574 (Div. Ct.), at para. 14, rev’d on other grounds, 12 
+ [LINK /coa/coa/en/19435/1/document.do] 
+ 9.
+ [LINK /coa/coa/en/item/16686/index.do?q=%22Jones+v.+Tsige%22] Huang v. Fraser Hillary's Limited
+ - 2018 ONCA 277
+ - 2018-03-20
+ Decisions of the Court of Appeal
+ - Civil
+ [5] The nature of the case is an important factor, as Watt J.A. noted in Jones v. Tsige (2011), 106 O.R. (3d) 721 (C.A., in Chambers), at para. 23. The standard to be met by the proposed intervener is more onerous where the litigation is a private dispute as opposed to a public prosecution. 
+ [LINK /coa/coa/en/16686/1/document.do] 
+ 10.
+ [LINK /coa/coa/en/item/13102/index.do?q=%22Jones+v.+Tsige%22] Hopkins v. Kay
+ - 2014 ONCA 514
+ - 2014-07-02
+ Decisions of the Court of Appeal
+ - Civil
+ The claim in tort is based on this court’s decision in Jones v. Tsige, 2012 ONCA 32. [3] The Hospital brought a motion under rule 21.01 for an order striking out the statement of claim and dismissing or staying the action against the Hospital as disclosing no reasonable cause of action (on the ground that the plaintiffs’ 
+ [LINK /coa/coa/en/13102/1/document.do] 
+ 11.
+ [LINK /coa/coa/en/item/23259/index.do?q=%22Jones+v.+Tsige%22] De Longte v. De Longte
+ - 2025 ONCA 338
+ - 2025-04-29
+ Decisions of the Court of Appeal
+ - Civil
+ Where the intervention is sought in a private dispute, “the standard to be met by the proposed intervener is more onerous or more stringently applied”: Jones v. Tsige (2011), 106 O.R. (3d) 721 (C.A.), at para. 23. [8] Further, the nature of the contribution to be made by the proposed intervener is another important 
+ [LINK /coa/coa/en/23259/1/document.do] 
+ 12.
+ [LINK /coa/coa/en/item/21514/index.do?q=%22Jones+v.+Tsige%22] Justice Centre for Constitutional Freedoms v. Costa
+ - 2023 ONCA 405
+ - 2023-06-06
+ Decisions of the Court of Appeal
+ - Civil
+ [9] In determining this motion, it is necessary to consider the nature of the case, the issues that arise in the case, and the contribution that the proposed joint interveners can make in resolving the issues before the court, without doing an injustice to the parties: Jones v. Tsige (2011), 106 O.R. (3d) 721 (C.A.), at 
+ [LINK /coa/coa/en/21514/1/document.do] 
+ 13.
+ [LINK /coa/coa/en/item/23503/index.do?q=%22Jones+v.+Tsige%22] Baker v. Van Dolder’s Home Team Inc.
+ - 2025 ONCA 578
+ - 2025-08-06
+ Decisions of the Court of Appeal
+ - Civil
+ [6] Where the litigation in which the intervention is sought is a private dispute, the standard to be met by the proposed intervener is normally more onerous: Jones v. Tsige (2011), 106 O.R. (3d) 721 (C.A.), at para. 23. That said, the issues that arise in private litigation sometimes have implications that transcend the 
+ [LINK /coa/coa/en/23503/1/document.do] 
+ 14.
+ [LINK /coa/coa/en/item/21235/index.do?q=%22Jones+v.+Tsige%22] Canada (Attorney General) v. M.C.
+ - 2023 ONCA 124
+ - 2023-02-23
+ Decisions of the Court of Appeal
+ - Civil
+ In Jones v. Tsige (2011), 106 O.R. (3d) 721 (C.A.), at para. 29, in considering applications to intervene under r. 13.02, Watt J.A. stated that, “In the end, a proposed intervenor must have more to offer than mere repetition of the position advanced by a party. 
+ [LINK /coa/coa/en/21235/1/document.do] 
+ 15.
+ [LINK /coa/coa/en/item/20598/index.do?q=%22Jones+v.+Tsige%22] Imperial Oil Limited v. Haseeb
+ - 2022 ONCA 392
+ - 2022-05-12
+ Decisions of the Court of Appeal
+ - Civil
+ resolution of the appeal without causing injustice to the immediate parties: Peel (Regional Municipality) v. Great Atlantic & Pacific Co. of Canada (1990), 74 O.R. (2d) 164 (C.A.), at p. 167 and Jones v. Tsige (2011), 106 O.R. (3d) 721 (C.A.), at para. 21. ANALYSIS (1) The Nature of the Case and Issues to be addressed 
+ [LINK /coa/coa/en/20598/1/document.do] 
+ 16.
+ [LINK /coa/coa/en/item/22458/index.do?q=%22Jones+v.+Tsige%22] Vento Motorcycles, Inc. v. United Mexican States
+ - 2024 ONCA 480
+ - 2024-06-14
+ Decisions of the Court of Appeal
+ - Civil
+ As such, the standard to be met by the proposed intervener is “more onerous or more stringently applied”: Jones v. Tsige, 106 O.R. (3d) 721 (C.A.), at para. 23. [14] CIPPIC submits that even though the Vento/Mexico trade dispute is private in nature, the procedural fairness issue on appeal transcends the interests of the 
+ [LINK /coa/coa/en/22458/1/document.do] 
+ 17.
+ [LINK /coa/coa/en/item/21870/index.do?q=%22Jones+v.+Tsige%22] Henry v. Zaitlen
+ - 2023 ONCA 740
+ - 2023-11-09
+ Decisions of the Court of Appeal
+ - Civil
+ [6] In order to determine whether OTLA should be granted intervention, I must consider the general nature of the case, the issues that arise in the case and the contribution that the intervener can make to those issues without doing injustice to the parties: Jones v. Tsige (2011), 106 O.R. (3d) 721 (C.A.), at para. 22; Peel
+ [LINK /coa/coa/en/21870/1/document.do] 
+ 18.
+ [LINK /coa/coa/en/item/21495/index.do?q=%22Jones+v.+Tsige%22] 40 Days for Life v. Dietrich
+ - 2023 ONCA 379
+ - 2023-05-24
+ Decisions of the Court of Appeal
+ - Civil
+ [8] In determining this motion, I must consider the nature of the case, the issues that arise in the case, and the contribution that the CCLA can make in resolving the issues before the court, without doing an injustice to the parties: Jones v. Tsige (2011), 106 O.R. (3d) 721 (C.A.), at para. 22; Peel (Regional 
+ [LINK /coa/coa/en/21495/1/document.do] 
+ 19.
+ [LINK /coa/coa/en/item/17479/index.do?q=%22Jones+v.+Tsige%22] Reference re Greenhouse Gas Pollution Pricing Act
+ - 2019 ONCA 29
+ - 2019-01-18
+ Decisions of the Court of Appeal
+ - Civil
+ I am cognizant of the court’s common practice to require interveners in an appeal to accept the existing record and not to seek to supplement it: see R. v. Kokopenace, 2011 ONCA 498 (in Chambers), at para. 4; Jones v. Tsige (2011), 106 O.R. (3d) 721 (C.A., in Chambers), at para. 26. In my view, however, the usual 
+ [LINK /coa/coa/en/17479/1/document.do] 
+ 20.
+ [LINK /coa/coa/en/item/19575/index.do?q=%22Jones+v.+Tsige%22] Foster v. West
+ - 2021 ONCA 263
+ - 2021-04-23
+ Decisions of the Court of Appeal
+ - Family
+ Where intervention is sought in a private dispute of this nature, as opposed to one involving the state, the standard to be met by the proposed intervener is “more onerous or more stringently applied”: Jones v. Tsige (2011), 106 O.R. (3d) 721 (C.A.), at para. 23. [12] Looking at the matter through that lens, I note the 
+ [LINK /coa/coa/en/19575/1/document.do] 
+ 21.
+ [LINK /coa/coa/en/item/19307/index.do?q=%22Jones+v.+Tsige%22] Canadian Federation of Students v. Ontario (Colleges and Universities)
+ - 2020 ONCA 842
+ - 2020-12-23
+ Decisions of the Court of Appeal
+ - Civil
+ These considerations include the general nature of the case, the issues that arise in the case, and the contribution that the intervener can make to those issues without doing an injustice to the parties: Jones v. Tsige (2011), 106 O.R. (3d) 721 (C.A.), at para. 22. As Dubin C.J.O. put it in Peel (Regional Municipality) v. 
+ [LINK /coa/coa/en/19307/1/document.do] 
+ 22.
+ [LINK /coa/coa/en/item/15743/index.do?q=%22Jones+v.+Tsige%22] Abernethy v. Ontario
+ - 2017 ONCA 340
+ - 2017-04-28
+ Decisions of the Court of Appeal
+ - Civil
+ Taking a generous view of the pleading, in favour of Ms. Abernethy, he concluded that there may be a basis for a claim based of the tort of breach of privacy: see Jones v. Tsige, 2012 ONCA 32, 108 O.R. (3d) 241. He therefore granted her leave to amend her pleading to allege that tort, specifically providing, however, that 
+ [LINK /coa/coa/en/15743/1/document.do] 
+ 23.
+ [LINK /coa/coa/en/item/20910/index.do?q=%22Jones+v.+Tsige%22] 2505243 Ontario Limited (ByPeterandPaul.com) v. Princes Gates Hotel Limited Partnership
+ - 2022 ONCA 700
+ - 2022-10-13
+ Decisions of the Court of Appeal
+ - Civil
+ In Jones v. Tsige (2011), 106 O.R. (3d) 721 (C.A.), Watt J.A. said, at para. 23: 
+ [LINK /coa/coa/en/20910/1/document.do] 
+ 24.
+ [LINK /coa/coa/en/item/20217/index.do?q=%22Jones+v.+Tsige%22] R. v. Doering
+ - 2021 ONCA 924
+ - 2021-12-22
+ Decisions of the Court of Appeal
+ - Criminal
+ As noted in Jones v. Tsige (2011), 106 O.R. (3d) 721 (C.A.), at para. 28: “It should scarcely surprise, indeed it would seem almost the very essence of intervention, that the position to be advanced by a proposed intervenor would tend to support that of one of the original litigants and oppose that of the other.” 
+ [LINK /coa/coa/en/20217/1/document.do] 
+ 25.
+ [LINK /coa/coa/en/item/21029/index.do?q=%22Jones+v.+Tsige%22] Obodo v. Trans Union of Canada, Inc.
+ - 2022 ONCA 814
+ - 2022-11-25
+ Decisions of the Court of Appeal
+ - Civil
+ All three appeals raise the applicability of the tort of intrusion upon seclusion, recognized in Jones v. Tsige, 2012 ONCA 32, 108 O.R. (3d) 241, to defendants who collected and stored the private information of others and whose failure to take adequate steps to secure that information allowed independent third-party 
+ [LINK /coa/coa/en/21029/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "coa",
+ yearRangeString: "1998:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

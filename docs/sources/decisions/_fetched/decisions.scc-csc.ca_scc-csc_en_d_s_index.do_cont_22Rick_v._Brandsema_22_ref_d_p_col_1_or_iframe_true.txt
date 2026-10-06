@@ -1,0 +1,621 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=%22Rick+v.+Brandsema%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=%22Rick+v.+Brandsema%22&ref=&p=&col=1&or=] All Databases (15)
+ Decisions (6)
+ [LINK /scc-csc/en/n/s/index.do?cont=%22Rick+v.+Brandsema%22&ref=&p=&col=1&or=] Resources (9)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Rick+v.+Brandsema%22&ref=&p=&col=1&or=date] Date
+ 6 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/6396/index.do?q=%22Rick+v.+Brandsema%22] Rick v. Brandsema
+ - 2009 SCC 10
+ - [2009] 1 SCR 295
+ - 2009-02-19
+ Supreme Court Judgments
+ Contract
+ Family law
+ Rick v. Brandsema, Rick c. Brandsema, 2009 SCC 10, 2009 CSC 10, 32098, [2009] 1 SCR 295, [2009] 1 RCS 295 [...] Citation: Rick v. Brandsema, 2009 SCC 10, [2009] 1 S.C.R. 295 Date: 20090219 Docket: 32098 [...] Indexed as: Rick v. Brandsema Neutral citation: 2009 SCC 10. File No.: 32098. 2008: October 14; 2009: February 19. 
+ [LINK /scc-csc/scc-csc/en/6396/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/19906/index.do?q=%22Rick+v.+Brandsema%22] Anderson v. Anderson
+ - 2023 SCC 13
+ - [2023] 1 SCR 473
+ - 2023-05-12
+ Supreme Court Judgments
+ Family law
+ Reflections on Rick v. Brandsema” (2009), 25 Can. J. Fam. L. 257. Leckey, Robert. “Contracting Claims and Family Law Feuds” (2007), 57 U.T.L.J. 1. [...] Reflections on Rick v. Brandsema” (2009), 25 Can. J. Fam. L. 257, at p. 280). The division of family property, by contrast, is a chiefly retrospective exercise: it takes stock of property brought into and acquired during the spousal relationship as past contributions giving rise to a property entitlement (Leckey (2009), at [...] This subject matter distinction has similarly been recognized by this Court (see Miglin, at para. 76), and partly explains why we have never fully extended the Miglin framework to the division of family property (see Rick v. Brandsema, 2009 SCC 10, [2009] 1 S.C.R. 295, at para. 39; Hartshorne, at para. 42). 
+ [LINK /scc-csc/scc-csc/en/19906/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/19119/index.do?q=%22Rick+v.+Brandsema%22] Association de médiation familiale du Québec v. Bouvier
+ - 2021 SCC 54
+ - [2021] 3 SCR 805
+ - 2021-12-17
+ Supreme Court Judgments
+ Family law
+ agreement “on the fault line of one of the most emotionally charged junctures of their relationship” (Rick v. Brandsema, 2009 SCC 10, [2009] 1 S.C.R. 295, at para. 40). [40] Second, family mediation is heavily influenced by contractual practice and the usages established in the field over the past 30 years or so in Quebec. [...] [145] The long arc of our family law jurisprudence reflects an evolving understanding of the distinct challenges relating to the settlement of disputes in the family law context: Rick v. Brandsema, 2009 SCC 10, [2009] 1 S.C.R. 295, at para. 1. Indeed, a family breakdown is no ordinary legal issue. [...] 1 S.C.R. 303, at paras. 74 and 82; Rick v. Brandsema, 2009 SCC 10, [2009] 1 S.C.R. 295, at paras. 1 and 43; L.M.P. v. L.S., 2011 SCC 64, [2011] 3 S.C.R. 775, at para. 15; Quebec (Attorney General) v. A, 2013 SCC 5, [2013] 1 S.C.R. 61, at paras. 114 and 254; Colucci v. Colucci, 2021 SCC 24, [2021] 2 S.C.R. 3, at para. 51. 
+ [LINK /scc-csc/scc-csc/en/19119/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/18460/index.do?q=%22Rick+v.+Brandsema%22] Michel v. Graydon
+ - 2020 SCC 24
+ - [2020] 2 SCR 763
+ - 2020-09-18
+ Supreme Court Judgments
+ Family law
+ L.R. (6th) 1; Moge v. Moge, [1992] 3 S.C.R. 813; Quinn v. Leathem, [1901] A.C. 495; Buckingham v. Buckingham, 2013 ABQB 155, 554 A.R. 256; de Rooy v. Bergstrom, 2010 BCCA 5, 4 B.C.L.R. (5th) 74; McDonald v. McDonald, 2008 BCSC 1203; Rick v. Brandsema, 2009 SCC 10, [2009] 1 S.C.R. 295; Hickey v. Hickey, [1999] 2 S.C.R. 518; [...] [30] Child support awards are highly discretionary, and the hearing judge’s findings and inferences of fact may not be disturbed absent an error on an extricable question of law, a palpable and overriding error, or a fundamental mischaracterization or misapprehension of the evidence (Rick v. Brandsema, 2009 SCC 10, [2009] 1 [...] 3 S.C.R. 813, at p. 853; Bracklow v. Bracklow, [1999] 1 S.C.R. 420, at paras. 15-23; Miglin v. Miglin, 2003 SCC 24, [2003] 1 S.C.R. 303, at para. 204; Rick v. Brandsema, 2009 SCC 10, [2009] 1 S.C.R. 295, at para. 41). [89] In 1994, this Court took judicial notice of “the significant level of poverty amongst children in 
+ [LINK /scc-csc/scc-csc/en/18460/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/18909/index.do?q=%22Rick+v.+Brandsema%22] Colucci v. Colucci
+ - 2021 SCC 24
+ - [2021] 2 SCR 3
+ - 2021-06-04
+ Supreme Court Judgments
+ Family law
+ L.R. (6th) 215; Cunningham v. Seveny, 2017 ABCA 4, 88 R.F.L. (7th) 1; Rick v. Brandsema, 2009 SCC 10, [2009] 1 S.C.R. 295; Sawatzky v. Sawatzky, 2018 MBCA 102, 428 D.L.R. (4th) 247; Willick v. Willick, [1994] 3 S.C.R. 670; Punzo v. Punzo, 2016 ONCA 957, 90 R.F.L. (7th) 304; Earle v. Earle, 1999 CanLII 6914; MacCarthy v. [...] As explained by Brown J., speaking for the full Court in Michel, payor parents “are subject to a duty of full and honest disclosure — a duty comparable to that arising in matrimonial negotiations” (para. 33, referencing Rick v. Brandsema, 2009 SCC 10, [2009] 1 S.C.R. 295, at paras. 47-49). Courts and legislatures have also 
+ [LINK /scc-csc/scc-csc/en/18909/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/18406/index.do?q=%22Rick+v.+Brandsema%22] Uber Technologies Inc. v. Heller
+ - 2020 SCC 16
+ - [2020] 2 SCR 118
+ - 2020-06-26
+ Supreme Court Judgments
+ 387; Downer v. Pitcher, 2017 NLCA 13, 409 D.L.R. (4th) 542; Hodgkinson v. Simms, [1994] 3 S.C.R. 377; Miglin v. Miglin, 2003 SCC 24, [2003] 1 S.C.R. 303; Rick v. Brandsema, 2009 SCC 10, [2009] 1 S.C.R. 295; Dyck v. Manitoba Snowmobile Association, [1985] 1 S.C.R. 589; Ayres v. Hazelgrove, Q.B. England, February 9, 1984; The [...] 412; Miglin v. Miglin, 2003 SCC 24, [2003] 1 S.C.R. 303, at paras. 82, 86 and 93, per Bastarache and Arbour JJ., and para. 208, per LeBel J., dissenting; Rick v. Brandsema, 2009 SCC 10, [2009] 1 S.C.R. 295, at paras. 6 and 58). In Dyck v. Manitoba Snowmobile Association, [1985] 1 S.C.R. 589, the Court remarked, at p. 593: 
+ [LINK /scc-csc/scc-csc/en/18406/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

@@ -1,0 +1,667 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=%22Saadati+v.+Moorhead%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=%22Saadati+v.+Moorhead%22&ref=&p=&col=1&or=] All Databases (28)
+ Decisions (12)
+ [LINK /scc-csc/en/n/s/index.do?cont=%22Saadati+v.+Moorhead%22&ref=&p=&col=1&or=] Resources (16)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Saadati+v.+Moorhead%22&ref=&p=&col=1&or=date] Date
+ 12 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/16664/index.do?q=%22Saadati+v.+Moorhead%22] Saadati v. Moorhead
+ - 2017 SCC 28
+ - [2017] 1 SCR 543
+ - 2017-06-02
+ Supreme Court Judgments
+ Saadati v. Moorhead, Saadati c. Moorhead, 2017 SCC 28, 2017 CSC 28, 36703, [2017] 1 SCR 543, [2017] 1 RCS 543 [...] Citation: Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543 Appeal Heard: January 16, 2017 [...] Indexed as: Saadati v. Moorhead 2017 SCC 28 File No.: 36703. 2017: January 16; 2017: June 2. 
+ [LINK /scc-csc/scc-csc/en/16664/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/18734/index.do?q=%22Saadati+v.+Moorhead%22] R. v. Esseghaier
+ - 2021 SCC 9
+ - [2021] 1 SCR 101
+ - 2021-03-05
+ Supreme Court Judgments
+ Criminal law
+ 52 Q.A.C. 53, rev’d [1992] 3 S.C.R. 471; Marche v. Halifax Insurance Co., 2005 SCC 6, [2005] 1 S.C.R. 47; R. v. Yumnu, 2012 SCC 73, [2012] 3 S.C.R. 777; R. v. Latimer, [1997] 1 S.C.R. 217; Wells v. Newfoundland, [1999] 3 S.C.R. 199; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543. Statutes and Regulations Cited [...] [63] The discretion in s. 46.1 is to be exercised “in the interests of justice” (Wells v. Newfoundland, [1999] 3 S.C.R. 199, at para. 68; see also Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543, at para. 45). [64] In our view, it is “in the interests of justice” to remand the outstanding grounds of appeal to the 
+ [LINK /scc-csc/scc-csc/en/18734/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/17085/index.do?q=%22Saadati+v.+Moorhead%22] Rankin (Rankin’s Garage & Sales) v. J.J.
+ - 2018 SCC 19
+ - [2018] 1 SCR 587
+ - 2018-05-11
+ Supreme Court Judgments
+ Anns v. Merton London Borough Council, [1978] A.C. 728; Cooper v. Hobart, 2001 SCC 79, [2001] 3 S.C.R. 537; Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, [2008] 2 S.C.R. 114; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543; Deloitte & Touche v. Livent Inc. (Receiver of), 2017 SCC 63, [2017] 2 S.C.R. 855; [...] [3] Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, [2008] 2 S.C.R. 114, at para. 3; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543, at para. 13; Deloitte & Touche v. Livent Inc. (Receiver of), 2017 SCC 63, [2017] 2 S.C.R. 855, at para. 77. 
+ [LINK /scc-csc/scc-csc/en/17085/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/19424/index.do?q=%22Saadati+v.+Moorhead%22] British Columbia (Attorney General) v. Council of Canadians with Disabilities
+ - 2022 SCC 27
+ - [2022] 1 SCR 794
+ - 2022-06-23
+ Supreme Court Judgments
+ Civil procedure
+ 110; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; R. v. Morgentaler, [1988] 1 S.C.R. 30; Morgentaler v. New Brunswick, 2009 NBCA 26, 344 N.B.R. (2d) 39; Strickland v. Canada (Attorney General), 2015 SCC 37, [2015] 2 S.C.R. 713; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543. Statutes and Regulations Cited [...] Mental disabilities are disabilities (Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543, at paras. 2 and 35). (iii) Errors With Respect to the Reasonable and Effective Means Factor 
+ [LINK /scc-csc/scc-csc/en/19424/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/19036/index.do?q=%22Saadati+v.+Moorhead%22] Nelson (City) v. Marchi
+ - 2021 SCC 41
+ - [2021] 3 SCR 55
+ - 2021-10-21
+ Supreme Court Judgments
+ 1 S.C.R. 201; Bolton v. Stone, [1951] A.C. 850; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543; Clements v. Clements, 2012 SCC 32, [2012] 2 S.C.R. 181; Resurfice Corp. v. Hanke, 2007 SCC 7, [2007] 1 S.C.R. 333; British Columbia Electric Railway Co. v. Dunphy, [1919] 59 S.C.R. 263; Dube v. Labar, [1986] 1 S.C.R. 649. [...] The causation analysis involves two distinct inquiries (Mustapha, at para. 11; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543, at para. 13; Livent, at para. 77; A.M. Linden et al., Canadian Tort Law (11th ed. 2018), at p. 309-10). 
+ [LINK /scc-csc/scc-csc/en/19036/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/18994/index.do?q=%22Saadati+v.+Moorhead%22] Canadian Broadcasting Corp. v. Manitoba
+ - 2021 SCC 33
+ - [2021] 2 SCR 785
+ - 2021-09-24
+ Supreme Court Judgments
+ Courts
+ L.R. (6th) 246; R. v. Regan, 2002 SCC 12, [2002] 1 S.C.R. 297; Galambos v. Perez, 2009 SCC 48, [2009] 3 S.C.R. 247; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543; Wells v. Newfoundland, [1999] 3 S.C.R. 199; Secure 2013 Group Inc. v. Tiger Calcium Services Inc., 2017 ABCA 316, 58 Alta. [...] [94] This is a completely different situation from cases such as Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543, and Wells v. Newfoundland, [1999] 3 S.C.R. 199, where it had been approximately a decade since the impugned conduct that was the subject of the litigation and this Court had the benefit of a reasonable 
+ [LINK /scc-csc/scc-csc/en/18994/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/16920/index.do?q=%22Saadati+v.+Moorhead%22] Deloitte & Touche v. Livent Inc. (Receiver of)
+ - 2017 SCC 63
+ - [2017] 2 SCR 855
+ - 2017-12-20
+ Supreme Court Judgments
+ Regional Police Services Board, 2007 SCC 41, [2007] 3 S.C.R. 129; Fullowka v. Pinkerton’s of Canada Ltd., 2010 SCC 5, [2010] 1 S.C.R. 132; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543; Donoghue v. Stevenson, [1932] A.C. 562; Caparo Industries plc. v. Dickman, [1990] 1 All E.R. 568; Glanzer v. Shepard, [...] To determine whether the “‘close and direct’ relationship which is the hallmark of the common law duty of care” exists (Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543, at para. 24, citing Cooper, at para. 32, and Donoghue v. Stevenson, [1932] A.C. 562 (H.L.), at pp. 580-81), courts must examine all relevant “factors 
+ [LINK /scc-csc/scc-csc/en/16920/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/18539/index.do?q=%22Saadati+v.+Moorhead%22] 1688782 Ontario Inc. v. Maple Leaf Foods Inc.
+ - 2020 SCC 35
+ - [2020] 3 SCR 504
+ - 2020-11-06
+ Supreme Court Judgments
+ v. Hobart, 2001 SCC 79, [2001] 3 S.C.R. 537; Martel Building Ltd. v. Canada, 2000 SCC 60, [2000] 2 S.C.R. 860; D’Amato v. Badger, [1996] 2 S.C.R. 1071; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543; Palsgraf v. Long Island Railroad Co., 162 N.E. 99 (1928); Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. [...] Pure economic loss is economic loss that is unconnected to a physical or mental injury to the plaintiff’s person, or to physical damage to property (Martel Building Ltd. v. Canada, 2000 SCC 60, [2000] 2 S.C.R. 860, at para. 34; D’Amato v. Badger, [1996] 2 S.C.R. 1071, at para. 13; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 
+ [LINK /scc-csc/scc-csc/en/18539/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/19957/index.do?q=%22Saadati+v.+Moorhead%22] Canadian Council for Refugees v. Canada (Citizenship and Immigration)
+ - 2023 SCC 17
+ - 2023-06-16
+ Supreme Court Judgments
+ Constitutional law
+ Immigration
+ [1999] 3 S.C.R. 199; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543; R. v. Esseghaier, 2021 SCC 9; Meyer v. General Exchange Insurance Corp., [1962] S.C.R. 193; Phillips v. Nova Scotia (Commission of Inquiry into the Westray Mine Tragedy), [1995] 2 S.C.R. 97; Anderson v. Bessemer City, 470 U.S. 564 (1985). [...] This discretion is to be exercised “in the interests of justice” (Wells v. Newfoundland, [1999] 3 S.C.R. 199, at para. 68; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543, at para. 45; R. v. Esseghaier, 2021 SCC 9, at para. 63). 
+ [LINK /scc-csc/scc-csc/en/19957/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/21505/index.do?q=%22Saadati+v.+Moorhead%22] Ahluwalia v. Ahluwalia
+ - 2026 SCC 16
+ - 2026-05-15
+ Supreme Court Judgments
+ Torts
+ Force (2005), 250 D.L.R. (4th) 287; Rodaro v. Royal Bank of Canada (2002), 59 O.R. (3d) 74; Wilson v. Alharayeri, 2017 SCC 39, [2017] 1 S.C.R. 1037; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543; A-C-H International Inc. v. Royal Bank of Canada (2005), 197 O.A.C. 227; Hayward v. Hayward, 2021 ONCA 175; TSP-INTL [...] ordinary annoyances, anxieties and fears that people living in society routinely, if sometimes reluctantly, accept” (Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, [2008] 2 S.C.R. 114, at para. 9; see also Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543, at para. 37; McLean v. McLean, 2019 SKCA 15, at para. 77). [...] It is not sufficient to be permitted to file further written submissions after the evidence is complete” (para. 61, citing Rodaro v. Royal Bank of Canada (2002), 59 O.R. (3d) 74 (C.A.), at paras. 60-63, cited in Wilson v. Alharayeri, 2017 SCC 39, [2017] 1 S.C.R. 1037, at paras. 71-72, and Saadati v. Moorhead, 2017 SCC 28, 
+ [LINK /scc-csc/scc-csc/en/21505/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/18613/index.do?q=%22Saadati+v.+Moorhead%22] C.M. Callow Inc. v. Zollinger
+ - 2020 SCC 45
+ - [2020] 3 SCR 908
+ - 2020-12-18
+ Supreme Court Judgments
+ National Railway Co. v. Norsk Pacific Steamship Co., [1992] 1 S.C.R. 1021; Bou Malhab v. Diffusion Métromédia CMR inc., 2011 SCC 9, [2011] 1 S.C.R. 214; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543; Deloitte & Touche v. Livent Inc. (Receiver of), 2017 SCC 63, [2017] 2 S.C.R. 855; Kingstreet Investments Ltd. v. [...] Indeed, that was the limited use this Court made of Quebec law (and, for that matter, U.S. law) in Bhasin, at paras. 83‐85, Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543, at para. 34, and Norsk, at pp. 1174-75 (per Stevenson J., concurring). 
+ [LINK /scc-csc/scc-csc/en/18613/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/20755/index.do?q=%22Saadati+v.+Moorhead%22] Quebec (Attorney General) v. Pekuakamiulnuatsh Takuhikan
+ - 2024 SCC 39
+ - 2024-11-27
+ Supreme Court Judgments
+ Aboriginal law
+ FC 218; Chemainus First Nation v. British Columbia Assets and Lands Corp., [1999] 3 C.N.L.R. 8; Gitanyow First Nation v. Canada, [1999] 3 C.N.L.R. 89; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543; Shot Both Sides v. Canada, 2024 SCC 12; Clyde River (Hamlet) v. Petroleum Geo‐Services Inc., 2017 SCC 40, [2017] 1 [...] If Pekuakamiulnuatsh Takuhikan’s action were based solely on a civil fault, I would therefore find that the case should be remanded to the Superior Court so that it can determine the quantum of damages (Supreme Court Act, s. 46.1; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543, at para. 45). [209] I turn now to the 
+ [LINK /scc-csc/scc-csc/en/20755/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

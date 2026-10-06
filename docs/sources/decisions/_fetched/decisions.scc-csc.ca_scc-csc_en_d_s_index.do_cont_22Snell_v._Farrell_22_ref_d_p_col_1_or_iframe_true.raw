@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/en/d/s/index.do" />
+    <title>    Advanced Search - SCC Cases
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/fr/d/s/index.do?cont=%22Snell+v.+Farrell%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+<ul class="decisia-search-tabs decisia-tabs">
+            <li>
+            <a id="decisia-search-tabs-all-databases" target="_parent" href="/scc-csc/en/a/s/index.do?cont=%22Snell+v.+Farrell%22&amp;ref=&amp;p=&amp;col=1&amp;or=">All Databases (83)</a>
+        </li>
+
+        <li class="active">Decisions (25)</li>
+
+         <li>
+             <a id="decisia-search-tabs-news" target="_parent" href="/scc-csc/en/n/s/index.do?cont=%22Snell+v.+Farrell%22&amp;ref=&amp;p=&amp;col=1&amp;or=">Resources (58)</a>
+         </li>
+</ul>
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="&quot;Snell v. Farrell&quot;" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Report, Case number</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-parties-row">
+        <div class="label">
+            <label for="decisia-parties">Parties</label>
+        </div>
+        <div class="input">
+<input id="decisia-parties" class="decisia-text" type="text" name="p" value="" />
+        </div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abbott, Douglas Charles"
+         >Abbott, Douglas Charles</option>
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Anglin, Francis Alexander"
+         >Anglin, Francis Alexander</option>
+        <option value="Arbour, Louise"
+         >Arbour, Louise</option>
+        <option value="Armour, John Douglas"
+         >Armour, John Douglas</option>
+        <option value="Barclay"
+         >Barclay</option>
+        <option value="Bastarache, Michel"
+         >Bastarache, Michel</option>
+        <option value="Beetz, Jean"
+         >Beetz, Jean</option>
+        <option value="Bernier"
+         >Bernier</option>
+        <option value="Binnie, William Ian Corneil"
+         >Binnie, William Ian Corneil</option>
+        <option value="Bond"
+         >Bond</option>
+        <option value="Brodeur, Louis-Philippe"
+         >Brodeur, Louis-Philippe</option>
+        <option value="Brown, Russell"
+         >Brown, Russell</option>
+        <option value="Cannon, Lawrence Arthur Dumoulin"
+         >Cannon, Lawrence Arthur Dumoulin</option>
+        <option value="Cartwright, John Robert"
+         >Cartwright, John Robert</option>
+        <option value="Cassels"
+         >Cassels</option>
+        <option value="Charron, Louise"
+         >Charron, Louise</option>
+        <option value="Chouinard, Julien"
+         >Chouinard, Julien</option>
+        <option value="Cory, Peter deCarteret"
+         >Cory, Peter deCarteret</option>
+        <option value="Crocket, Oswald Smith"
+         >Crocket, Oswald Smith</option>
+        <option value="Cromwell, Thomas Albert"
+         >Cromwell, Thomas Albert</option>
+        <option value="Côté, Suzanne"
+         >Côté, Suzanne</option>
+        <option value="Davies, Louis Henry"
+         >Davies, Louis Henry</option>
+        <option value="Davis, Henry Hague"
+         >Davis, Henry Hague</option>
+        <option value="Deschamps, Marie"
+         >Deschamps, Marie</option>
+        <option value="Dickson, Robert George Brian"
+         >Dickson, Robert George Brian</option>
+        <option value="Dorion"
+         >Dorion</option>
+        <option value="Duff, Lyman Poore"
+         >Duff, Lyman Poore</option>
+        <option value="Dysart"
+         >Dysart</option>
+        <option value="Estey, James Wilfred"
+         >Estey, James Wilfred</option>
+        <option value="Estey, Willard Zebedee"
+         >Estey, Willard Zebedee</option>
+        <option value="Fauteux, Joseph Honoré Gérald"
+         >Fauteux, Joseph Honoré Gérald</option>
+        <option value="Fish, Morris J."
+         >Fish, Morris J.</option>
+        <option value="Fitzpatrick, Charles"
+         >Fitzpatrick, Charles</option>
+        <option value="Fournier, Télesphore"
+         >Fournier, Télesphore</option>
+        <option value="Galipault"
+         >Galipault</option>
+        <option value="Gascon, Clément"
+         >Gascon, Clément</option>
+        <option value="Gillanders"
+         >Gillanders</option>
+        <option value="Girouard, Désiré"
+         >Girouard, Désiré</option>
+        <option value="Gonthier, Charles Doherty"
+         >Gonthier, Charles Doherty</option>
+        <option value="Gwynne, John Wellington"
+         >Gwynne, John Wellington</option>
+        <option value="Hall, Emmett Matthew"
+         >Hall, Emmett Matthew</option>
+        <option value="Henry, William Alexander"
+         >Henry, William Alexander</option>
+        <option value="Howard"
+         >Howard</option>
+        <option value="Hudson, Albert Blellock"
+         >Hudson, Albert Blellock</option>
+        <option value="Hughes, Frank Joseph"
+         >Hughes, Frank Joseph</option>
+        <option value="Iacobucci, Frank"
+         >Iacobucci, Frank</option>
+        <option value="Idington, John"
+         >Idington, John</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Joyal, Glenn"
+         >Joyal, Glenn</option>
+        <option value="Judson, Wilfred"
+         >Judson, Wilfred</option>
+        <option value="Karakatsanis, Andromache"
+         >Karakatsanis, Andromache</option>
+        <option value="Kasirer, Nicholas"
+         >Kasirer, Nicholas</option>
+        <option value="Kellock, Roy Lindsay"
+         >Kellock, Roy Lindsay</option>
+        <option value="Kerwin, Patrick"
+         >Kerwin, Patrick</option>
+        <option value="Killam, Albert Clements"
+         >Killam, Albert Clements</option>
+        <option value="King, George Edwin"
+         >King, George Edwin</option>
+        <option value="L&#39;Heureux-Dubé, Claire"
+         >L&#39;Heureux-Dubé, Claire</option>
+        <option value="La Forest, Gérard V."
+         >La Forest, Gérard V.</option>
+        <option value="Lamer, Antonio"
+         >Lamer, Antonio</option>
+        <option value="Lamont, John Henderson"
+         >Lamont, John Henderson</option>
+        <option value="Laskin, Bora"
+         >Laskin, Bora</option>
+        <option value="Latchford"
+         >Latchford</option>
+        <option value="Lavergne"
+         >Lavergne</option>
+        <option value="Le Dain, Gerald Eric"
+         >Le Dain, Gerald Eric</option>
+        <option value="LeBel, Louis"
+         >LeBel, Louis</option>
+        <option value="Lemieux"
+         >Lemieux</option>
+        <option value="Locke, Charles Holland"
+         >Locke, Charles Holland</option>
+        <option value="Maclean"
+         >Maclean</option>
+        <option value="Maclennan, James"
+         >Maclennan, James</option>
+        <option value="Magee"
+         >Magee</option>
+        <option value="Major, John C."
+         >Major, John C.</option>
+        <option value="Malouin, Arthur Cyrille Albert"
+         >Malouin, Arthur Cyrille Albert</option>
+        <option value="Martin, Sheilah"
+         >Martin, Sheilah</option>
+        <option value="Martin, Sheilah L."
+         >Martin, Sheilah L.</option>
+        <option value="Martland, Ronald"
+         >Martland, Ronald</option>
+        <option value="Masten"
+         >Masten</option>
+        <option value="McIntyre, William Rogers"
+         >McIntyre, William Rogers</option>
+        <option value="McLachlin, Beverley"
+         >McLachlin, Beverley</option>
+        <option value="Middleton"
+         >Middleton</option>
+        <option value="Mignault, Pierre-Basile"
+         >Mignault, Pierre-Basile</option>
+        <option value="Mills, Davis"
+         >Mills, Davis</option>
+        <option value="Moldaver, Michael J."
+         >Moldaver, Michael J.</option>
+        <option value="Moreau, Mary"
+         >Moreau, Mary</option>
+        <option value="Nesbitt, Wallace"
+         >Nesbitt, Wallace</option>
+        <option value="Newcombe, Edmund Leslie"
+         >Newcombe, Edmund Leslie</option>
+        <option value="Nolan, Henry Grattan"
+         >Nolan, Henry Grattan</option>
+        <option value="Orde"
+         >Orde</option>
+        <option value="O’Bonsawin, Michelle"
+         >O’Bonsawin, Michelle</option>
+        <option value="Patterson, Christopher Salmon"
+         >Patterson, Christopher Salmon</option>
+        <option value="Pigeon, Louis-Philippe"
+         >Pigeon, Louis-Philippe</option>
+        <option value="Pratte, Yves"
+         >Pratte, Yves</option>
+        <option value="Rand, Ivan Cleveland"
+         >Rand, Ivan Cleveland</option>
+        <option value="Richards, William Buell"
+         >Richards, William Buell</option>
+        <option value="Rinfret, Thibaudeau"
+         >Rinfret, Thibaudeau</option>
+        <option value="Ritchie, Roland Almon"
+         >Ritchie, Roland Almon</option>
+        <option value="Ritchie, William Johnstone"
+         >Ritchie, William Johnstone</option>
+        <option value="Rivard"
+         >Rivard</option>
+        <option value="Rothstein, Marshall"
+         >Rothstein, Marshall</option>
+        <option value="Rowe, Malcolm"
+         >Rowe, Malcolm</option>
+        <option value="Sedgewick, Robert"
+         >Sedgewick, Robert</option>
+        <option value="Smith, Robert"
+         >Smith, Robert</option>
+        <option value="Sopinka, John"
+         >Sopinka, John</option>
+        <option value="Spence, Wishart Flett"
+         >Spence, Wishart Flett</option>
+        <option value="St. Germain"
+         >St. Germain</option>
+        <option value="St. Jacques"
+         >St. Jacques</option>
+        <option value="Stevenson, William"
+         >Stevenson, William</option>
+        <option value="Strong, Samuel Henry"
+         >Strong, Samuel Henry</option>
+        <option value="Taschereau, Henri-Elzéar"
+         >Taschereau, Henri-Elzéar</option>
+        <option value="Taschereau, Jean-Thomas"
+         >Taschereau, Jean-Thomas</option>
+        <option value="Taschereau, Robert"
+         >Taschereau, Robert</option>
+        <option value="Tessier"
+         >Tessier</option>
+        <option value="Thorson"
+         >Thorson</option>
+        <option value="Wagner, Richard"
+         >Wagner, Richard</option>
+        <option value="Wilson, Bertha"
+         >Wilson, Bertha</option>
+        <option value="de Grandpré, Louis-Philippe"
+         >de Grandpré, Louis-Philippe</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Status</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Granted</option>
+                <option value="2"
+                >Dismissed</option>
+                <option value="3"
+                >Oral Hearing</option>
+                <option value="4"
+                >Remanded</option>
+                <option value="5"
+                >Quashed</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-district-row">
+        <div class="label select">
+            <label for="decisia-district">On appeal from</label>
+        </div>
+        <div class="input">
+        <select id="decisia-district" name="d"  data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                  <option value="1"
+                       >Canada</option>
+                  <option value="2"
+                       >Federal Court of Appeal</option>
+                  <option value="3"
+                       >British Columbia</option>
+                  <option value="4"
+                       >Alberta</option>
+                  <option value="5"
+                       >Saskatchewan</option>
+                  <option value="6"
+                       >Manitoba</option>
+                  <option value="7"
+                       >Ontario</option>
+                  <option value="8"
+                       >Quebec</option>
+                  <option value="9"
+                       >New Brunswick</option>
+                  <option value="10"
+                       >Nova Scotia</option>
+                  <option value="11"
+                       >Prince Edward Island</option>
+                  <option value="12"
+                       >Newfoundland and Labrador</option>
+                  <option value="13"
+                       >Yukon</option>
+                  <option value="14"
+                       >Northwest Territories</option>
+                  <option value="15"
+                       >Nunavut</option>
+                  <option value="16"
+                       >Court Martial Appeal Court of Canada</option>
+                  <option value="18"
+                       >Saskatchewan, Ontario, Alberta</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-collection-row">
+        <div class="label select">
+            <label for="decisia-collection">Collection</label>
+        </div>
+        <div class="input">
+<select id="decisia-collection" name="col" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+    <option value="1"
+        selected="selected"
+    >
+        Supreme Court Judgments</option>
+    <option value="2"
+    >
+        Applications for Leave</option>
+</select>
+<div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="advanced-field decisia-subjects-row">
+        <div class="label select">
+            <label for="decisia-subjects">Subjects</label>
+        </div>
+        <div class="input">
+    <select id="decisia-subjects" name="su" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+            <option value="34"
+            >Aboriginal law</option>
+            <option value="5"
+            >Access to information</option>
+            <option value="2"
+            >Action</option>
+            <option value="51"
+            >Administrative law</option>
+            <option value="13"
+            >Agency</option>
+            <option value="40"
+            >Air law</option>
+            <option value="9"
+            >Appeal</option>
+            <option value="52"
+            >Arbitration</option>
+            <option value="37"
+            >Armed Forces</option>
+            <option value="30"
+            >Bankruptcy and insolvency</option>
+            <option value="53"
+            >Bills of exchange</option>
+            <option value="44"
+            >Civil law</option>
+            <option value="20"
+            >Civil procedure</option>
+            <option value="41"
+            >Commercial law</option>
+            <option value="29"
+            >Communications law</option>
+            <option value="19"
+            >Competition law</option>
+            <option value="27"
+            >Constitutional law</option>
+            <option value="55"
+            >Contract</option>
+            <option value="61"
+            >Contracts</option>
+            <option value="6"
+            >Courts</option>
+            <option value="16"
+            >Criminal law</option>
+            <option value="14"
+            >Customs and excise</option>
+            <option value="4"
+            >Education law</option>
+            <option value="10"
+            >Elections</option>
+            <option value="17"
+            >Environmental law</option>
+            <option value="57"
+            >Estates</option>
+            <option value="18"
+            >Evidence</option>
+            <option value="48"
+            >Expropriation</option>
+            <option value="7"
+            >Family law</option>
+            <option value="11"
+            >Financial institutions</option>
+            <option value="15"
+            >Fishery</option>
+            <option value="42"
+            >Food and drugs</option>
+            <option value="23"
+            >Guarantee and suretyship</option>
+            <option value="26"
+            >Immigration</option>
+            <option value="28"
+            >Insurance</option>
+            <option value="8"
+            >Intellectual property</option>
+            <option value="31"
+            >International law</option>
+            <option value="45"
+            >Labour law</option>
+            <option value="22"
+            >Lease</option>
+            <option value="25"
+            >Maritime law</option>
+            <option value="43"
+            >Mines and minerals</option>
+            <option value="38"
+            >Motor vehicles</option>
+            <option value="56"
+            >Municipal law</option>
+            <option value="24"
+            >Pensions</option>
+            <option value="35"
+            >Prerogative writs</option>
+            <option value="59"
+            >Prescription</option>
+            <option value="46"
+            >Priorities and hypothecs</option>
+            <option value="58"
+            >Private international law</option>
+            <option value="32"
+            >Professional law</option>
+            <option value="63"
+            >Property</option>
+            <option value="49"
+            >Property law</option>
+            <option value="50"
+            >Public utilities</option>
+            <option value="47"
+            >Sale</option>
+            <option value="36"
+            >Securities</option>
+            <option value="39"
+            >State</option>
+            <option value="62"
+            >Status of persons</option>
+            <option value="3"
+            >Statutes</option>
+            <option value="33"
+            >Taxation</option>
+            <option value="21"
+            >Torts</option>
+            <option value="12"
+            >Transportation</option>
+            <option value="54"
+            >Trust</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/scc-csc/en/d/s/index.do?cont=%22Snell+v.+Farrell%22&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>25 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/634/index.do?q=%22Snell+v.+Farrell%22">Snell v. Farrell</a></span>
+                    - <span class="report-citation">[1990] 2 SCR 311</span>
+                - <span class="publicationDate">1990-08-16</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Professional law<br/>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>Snell v. Farrell</b>, Snell c. Farrell, 20873, [1990] 2 SCR 311, [1990] 2 RCS 311 <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311 &nbsp;&nbsp;[...]&nbsp;&nbsp;indexed as: <b>snell v. farrell</b> File No.: 20873. 1989: December 6; 1990: August 16. Present: Dickson C.J.* and Wilson, La Forest, L'Heureux‐Dubé, Sopinka, Cory and McLachlin JJ. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/634/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/16042/index.do?q=%22Snell+v.+Farrell%22">British Columbia (Workers’ Compensation Appeal Tribunal) v. Fraser Health Authority</a></span>
+                        - <span class="citation">2016 SCC 25</span>
+                    - <span class="report-citation">[2016] 1 SCR 587</span>
+                - <span class="publicationDate">2016-06-24</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    In doing so, the majority acknowledged the need for “positive evidence linking the disease to employment” (J.R., vol. 1, at p. 16) and cited the decision of this Court in <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, as authority for a fact-finder’s ability to draw a “common sense” inference of causation in the absence of &nbsp;&nbsp;[...]&nbsp;&nbsp; is affirmative medical evidence leading to a medical conclusion it is not open to the court to apply ‘the common sense reasoning urged in <b>Snell v. Farrell</b>’”. This precluded “the purported application of common sense on matters of causation where there is contrary expert opinion” (chambers judge’s reasons, at para. 40). &nbsp;&nbsp;[...]&nbsp;&nbsp;Indeed, the Tribunal’s analysis echoes the principle established in <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, to the effect that causation need not be determined by scientific precision. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16042/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2343/index.do?q=%22Snell+v.+Farrell%22">Resurfice Corp. v. Hanke</a></span>
+                        - <span class="citation">2007 SCC 7</span>
+                    - <span class="report-citation">[2007] 1 SCR 333</span>
+                - <span class="publicationDate">2007-02-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     v. British Columbia (Minister of Forests), [2004] 3 S.C.R. 511, 2004 SCC 73; Athey v. Leonati, [1996] 3 S.C.R. 458; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; Walker Estate v. York Finch General Hospital, [2001] 1 S.C.R. 647, 2001 SCC 23; Blackwater v. Plint, [2005] 3 S.C.R. 3, 2005 SCC 58; Cook v. Lewis, [1951] S.C.R. 830. &nbsp;&nbsp;[...]&nbsp;&nbsp;This is inconsistent with this Court’s judgments in <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; Athey v. Leonati, at para. 14; Walker Estate v. York Finch General Hospital, [2001] 1 S.C.R. 647, 2001 SCC 23, at paras. 87-88, and Blackwater v. Plint, [2005] 3 S.C.R. 3, 2005 SCC 58, at para. 78. &nbsp;&nbsp;[...]&nbsp;&nbsp;It ensures that a defendant will not be held liable for the plaintiff’s injuries where they “may very well be due to factors unconnected to the defendant and not the fault of anyone”: <b>Snell v. Farrell</b>, at p. 327, per Sopinka J. 24 However, in special circumstances, the law has recognized exceptions to the basic “but for” 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2343/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1435/index.do?q=%22Snell+v.+Farrell%22">Athey v. Leonati</a></span>
+                    - <span class="report-citation">[1996] 3 SCR 458</span>
+                - <span class="publicationDate">1996-10-31</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Considered: Jobling v. Associated Dairies Ltd., [1981] 2 All E.R. 752; Penner v. Mitchell (1978), 89 D.L.R. (3d) 343; referred to: <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; McGhee v. National Coal Board, [1972] 3 All E.R. 1008; Horsley v. MacLaren, [1972] S.C.R. 441; Myers v. Peel County Board of Education, [1981] 2 S.C.R. 21;&nbsp;&nbsp;[...]&nbsp;&nbsp;13 Causation is established where the plaintiff proves to the civil standard on a balance of probabilities that the defendant caused or contributed to the injury: <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; McGhee v. National Coal Board, [1972] 3 All E.R. 1008 (H.L.). &nbsp;&nbsp;[...]&nbsp;&nbsp;16 In <b>Snell v. Farrell</b>, supra, this Court recently confirmed that the plaintiff must prove that the defendant’s tortious conduct caused or contributed to the plaintiff’s injury. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1435/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/16224/index.do?q=%22Snell+v.+Farrell%22">Benhaim v. St‑Germain</a></span>
+                        - <span class="citation">2016 SCC 48</span>
+                    - <span class="report-citation">[2016] 2 SCR 352</span>
+                - <span class="publicationDate">2016-11-10</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    This Court’s decisions in <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, and St‐Jean v. Mercier, 2002 SCC 15, [2002] 1 S.C.R. 491, make it clear that in such circumstances, an adverse inference of causation is one that trial judges are permitted to draw. &nbsp;&nbsp;[...]&nbsp;&nbsp;St‐Jean v. Mercier, 2002 SCC 15, [2002] 1 S.C.R. 491; Housen v. Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235; H.L. v. Canada (Attorney General), 2005 SCC 25, [2005] 1 S.C.R. 401; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; Ediger v. Johnston, 2013 SCC 18, [2013] 2 S.C.R. 98; Martel v. Hôtel‐Dieu St‐Vallier, [1969] S.C.R. 745; &nbsp;&nbsp;[...]&nbsp;&nbsp;Her error of law was her failure to draw an unfavourable or adverse inference of causation that, according to Kasirer and Bélanger JJ.A., was required by this Court’s decisions in <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, and St-Jean v. Mercier, 2002 SCC 15, [2002] 1 S.C.R. 491. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16224/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/13428/index.do?q=%22Snell+v.+Farrell%22">Bruno Appliance and Furniture, Inc. v. Hryniak</a></span>
+                        - <span class="citation">2014 SCC 8</span>
+                    - <span class="report-citation">[2014] 1 SCR 126</span>
+                - <span class="publicationDate">2014-01-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Civil procedure<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Applied: Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; referred to: Derry v. Peek (1889), 14 App. Cas. 337; Parna v. G. &amp; S. Properties Ltd., [1971] S.C.R. 306; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; Angers v. Mutual Reserve Fund Life Assn. &nbsp;&nbsp;[...]&nbsp;&nbsp;Requiring the plaintiff to prove inducement is consistent with this Court’s later recognition in <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, at pp. 319-20, that tort law requires proof that “but for the tortious conduct of the defendant, the plaintiff would not have sustained the injury complained of”. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/13428/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/788/index.do?q=%22Snell+v.+Farrell%22">Rainbow Industrial Caterers Ltd. v. Canadian National Railway Co.</a></span>
+                    - <span class="report-citation">[1991] 3 SCR 3</span>
+                - <span class="publicationDate">1991-09-26</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    &amp; P.E.I.R. 234, 135 A.P.R. 234; H.B. Nickerson &amp; Sons Ltd. v. Wooldridge (1980), 40 N.S.R. (2d) 388, 73 A.P.R. 388; Steer v. Aerovox Inc. (1984), 65 N.S.R. (2d) 91, 147 A.P.R. 91; National Trust Co. v. Wong Aviation Ltd., [1969] S.C.R. 481; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; National Bank of Canada v. Corbeil, &nbsp;&nbsp;[...]&nbsp;&nbsp;See National Trust Co. v. Wong Aviation Ltd., [1969] S.C.R. 481, and <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311. Valid policy reasons will be sufficient to reverse the ordinary incidence of proof. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/788/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/12961/index.do?q=%22Snell+v.+Farrell%22">Ediger v. Johnston</a></span>
+                        - <span class="citation">2013 SCC 18</span>
+                    - <span class="report-citation">[2013] 2 SCR 98</span>
+                - <span class="publicationDate">2013-04-04</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Referred to: Hill v. Hamilton‐Wentworth Regional Police Services Board, 2007 SCC 41, [2007] 3 S.C.R. 129; Clements v. Clements, 2012 SCC 32, [2012] 2 S.C.R. 181; Resurfice Corp. v. Hanke, 2007 SCC 7, [2007] 1 S.C.R. 333; H.L. v. Canada (Attorney General), 2005 SCC 25, [2005] 1 S.C.R. 401; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. &nbsp;&nbsp;[...]&nbsp;&nbsp;[36] The Court of Appeal’s reasons also suggest that it understood the trial judge to have improperly relied on <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, in order to draw an “inference of causation” (paras. 83-85). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/12961/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/9992/index.do?q=%22Snell+v.+Farrell%22">Clements v. Clements</a></span>
+                        - <span class="citation">2012 SCC 32</span>
+                    - <span class="report-citation">[2012] 2 SCR 181</span>
+                - <span class="publicationDate">2012-06-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Distinguished: Sienkiewicz v. Greif (UK) Ltd., [2011] UKSC 10, [2011] 2 All E.R. 857; referred to: Wilsher v. Essex Area Health Authority, [1988] A.C. 1074; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; Athey v. Leonati, [1996] 3 S.C.R. 458; Betts v. Whittingslowe (1945), 71 C.L.R. 637; Bennett v. Minister of Community Welfare &nbsp;&nbsp;[...]&nbsp;&nbsp;See Wilsher v. Essex Area Health Authority, [1988] A.C. 1074 (H.L.), at p. 1090, per Lord Bridge; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311. [10] A common sense inference of “but for” causation from proof of negligence usually flows without difficulty. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/9992/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1216/index.do?q=%22Snell+v.+Farrell%22">Stewart v. Pettie</a></span>
+                    - <span class="report-citation">[1995] 1 SCR 131</span>
+                - <span class="publicationDate">1995-01-26</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     [1932] A.C. 562; The Queen in right of Canada v. Saskatchewan Wheat Pool, [1983] 1 S.C.R. 205; Arland v. Taylor, [1955] O.R. 131; Gouge v. Three Top Investment Holdings Inc., [1994] O.J. No. 751 (QL); <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311. Statutes and Regulations Cited Contributory Negligence Act, R.S.A. 1980, c. C‐23. &nbsp;&nbsp;[...]&nbsp;&nbsp;See <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311. This makes the plaintiff's task less onerous where there is some inherent difficulty in proving causation with scientific accuracy, or where the facts surrounding causation lie uniquely within the knowledge of the defendant. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1216/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1328/index.do?q=%22Snell+v.+Farrell%22">Hollis v. Dow Corning Corp.</a></span>
+                    - <span class="report-citation">[1995] 4 SCR 634</span>
+                - <span class="publicationDate">1995-12-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Action<br/>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    77 My colleague refers to a number of cases, such as Cook v. Lewis, [1951] S.C.R. 830, <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, and Buchan, supra, which either reversed or relaxed the ordinary burden which rests on the plaintiff to prove causation. &nbsp;&nbsp;[...]&nbsp;&nbsp;79 Similarly, this Court in <b>Snell v. Farrell</b>, supra, at p. 321, expressed the view that the burden on the plaintiff could be reversed where the subject matter of the alleged tortious conduct lies "particularly within the knowledge" of the defendant. &nbsp;&nbsp;[...]&nbsp;&nbsp;See <b>Snell v. Farrell</b>, supra; Davie Shipbuilding Ltd. v. The Queen, [1984] 1 F.C. 461 (C.A.); Jardine v. Northern Co-operative Timber and Mill Association, [1945] 1 W.W.R. 533 (B.C.C.A.); Nova, An Alberta Corporation v. Guelph Engineering Co. (1989), 70 Alta. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1328/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">12.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1404/index.do?q=%22Snell+v.+Farrell%22">R. v. Goldhart</a></span>
+                    - <span class="report-citation">[1996] 2 SCR 463</span>
+                - <span class="publicationDate">1996-07-04</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Considered: R. v. Strachan, [1988] 2 S.C.R. 980; R. v. Therens, [1985] 1 S.C.R. 613; not followed: R. v. Church of Scientology of Toronto (No. 2) (1992), 74 C.C.C. (3d) 341; referred to: R. v. Kokesch, [1990] 3 S.C.R. 3; R. v. Collins, [1987] 1 S.C.R. 265; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; R. v. S. (R.J.), [1995] 1 &nbsp;&nbsp;[...]&nbsp;&nbsp;See <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311. 37 Causation has also played an important role in other Charter jurisprudence. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1404/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">13.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1859/index.do?q=%22Snell+v.+Farrell%22">Walker Estate v. York Finch General Hospital</a></span>
+                        - <span class="citation">2001 SCC 23</span>
+                    - <span class="report-citation">[2001] 1 SCR 647</span>
+                - <span class="publicationDate">2001-04-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Distinguished: Hollis v. Dow Corning Corp., [1995] 4 S.C.R. 634; applied: <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; referred to: Ter Neuzen v. Korn, [1995] 3 S.C.R. 674; Athey v. Leonati, [1996] 3 S.C.R. 458. &nbsp;&nbsp;[...]&nbsp;&nbsp;99 I adopt the reasoning of Sopinka J. in <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, where he considered the causation requirement with respect to malpractice cases at pp. 326-27: 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1859/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">14.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/735/index.do?q=%22Snell+v.+Farrell%22">Laferrière v. Lawson</a></span>
+                    - <span class="report-citation">[1991] 1 SCR 541</span>
+                - <span class="publicationDate">1991-03-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Professional law<br/>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     (1983), [1990] R.R.A. 397; Zuk v. Mihaly, [1989] R.R.A. 737; Gburek v. Cohen, [1988] R.J.Q. 2424; Lapointe v. Hôpital Le Gardeur, [1989] R.J.Q. 2619; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; Shawinigan Engineering Company v. Naud, [1929] S.C.R. 341; Morin v. Blais, [1977] 1 S.C.R. 570; Laurentide Motels Ltd. v. Beauport &nbsp;&nbsp;[...]&nbsp;&nbsp;Recently, in <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, this Court made clear (at p. 328) that "[c]ausation need not be determined by scientific precision" and that "[i]t is not . . . essential that the medical experts provide a firm opinion supporting the plaintiff's theory of causation" (p. 330). &nbsp;&nbsp;[...]&nbsp;&nbsp;I have also made note of this Court's recent decision in <b>Snell v. Farrell</b>, supra, which I take to endorse traditional principles of causation, properly applied. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/735/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">15.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1953/index.do?q=%22Snell+v.+Farrell%22">St-Jean v. Mercier</a></span>
+                        - <span class="citation">2002 SCC 15</span>
+                    - <span class="report-citation">[2002] 1 SCR 491</span>
+                - <span class="publicationDate">2002-02-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Appeal<br/>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     (Attorney General) v. Bear Island Foundation, [1991] 2 S.C.R. 570; Hébert v. Lamothe, [1974] S.C.R. 1181; Bonenfant v. O.T.J. de la Rédemption, [1994] R.R.A. 225; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; Labelle v. Charette, [1960] Que Q.B. 770; Massignani v. Veilleux, [1987] R.R.A. 541; Cook v. Lewis, [1951] S.C.R. 830. &nbsp;&nbsp;[...]&nbsp;&nbsp;One of the cases cited is <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, at p. 330, which of course expresses greater comfort with use of the term “inference” rather than “reversal of burden”. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1953/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">16.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2085/index.do?q=%22Snell+v.+Farrell%22">K.L.B. v. British Columbia</a></span>
+                        - <span class="citation">2003 SCC 51</span>
+                    - <span class="report-citation">[2003] 2 SCR 403</span>
+                - <span class="publicationDate">2003-10-02</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Action<br/>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     [2003] 2 S.C.R. 477, 2003 SCC 53; E.D.G. v. Hammer, [2003] 2 S.C.R. 459, 2003 SCC 52; Wilsher v. Essex Area Health Authority, [1988] 2 W.L.R. 557; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; Challand v. Bell (1959), 18 D.L.R. (2d) 150; Ali v. Sydney Mitchell &amp; Co., [1980] A.C. 198; Durham v. Public School Board of &nbsp;&nbsp;[...]&nbsp;&nbsp;As in other areas of negligence law, judges should assess causation using what Sopinka J., citing Lord Bridge in Wilsher v. Essex Area Health Authority, [1988] 2 W.L.R. 557 (H.L.), at p. 569, referred to as a “robust and pragmatic approach” (<b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, at p. 330). As Sopinka J. emphasized, 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2085/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">17.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1574/index.do?q=%22Snell+v.+Farrell%22">Bow Valley Husky (Bermuda) Ltd. v. Saint John Shipbuilding Ltd.</a></span>
+                    - <span class="report-citation">[1997] 3 SCR 1210</span>
+                - <span class="publicationDate">1997-12-18</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     Construction Co., [1995] 1 S.C.R. 85; Nance v. British Columbia Electric Railway Co., [1951] A.C. 601; Jones v. Livox Quarries Ld., [1952] 2 Q.B. 608; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; Hughes v. Lord Advocate, [1963] A.C. 837; Overseas Tankship (U.K.) Ltd. v. Miller Steamship Co. Pty., [1967] 1 A.C. 617; Sparks v. &nbsp;&nbsp;[...]&nbsp;&nbsp;The fire would not have occurred “but for” the negligence of BVHB: <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311. The conduct of BVHB viewed independently was negligent. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1574/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">18.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/946/index.do?q=%22Snell+v.+Farrell%22">Moge v. Moge</a></span>
+                    - <span class="report-citation">[1992] 3 SCR 813</span>
+                - <span class="publicationDate">1992-12-17</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Courts<br/>
+                            Family law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Referred to: <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311. Statutes and Regulations Cited Divorce Act, R.S.C. 1970, c. D‐8, s. 17(2). &nbsp;&nbsp;[...]&nbsp;&nbsp;What is required under s. 17(7) of the Divorce Act is a common‐sense, non-technical view of causation, such as this Court proposed for personal injury cases in <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, per Sopinka J., at p. 330: The legal or ultimate burden remains with the plaintiff, but in the absence of evidence to the 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/946/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">19.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1380/index.do?q=%22Snell+v.+Farrell%22">Gordon v. Goertz</a></span>
+                    - <span class="report-citation">[1996] 2 SCR 27</span>
+                - <span class="publicationDate">1996-05-02</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Family law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     Stewart (1990), 30 R.F.L. (3d) 67; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; Docherty v. Beckett (1989), 21 R.F.L. (3d) 92, leave to appeal refused, [1990] 1 S.C.R. vii; Catholic Children's Aid Society of Metropolitan Toronto v. M. (C.), [1994] 2 S.C.R. 165; King v. Low, [1985] 1 S.C.R. 87; Grant v. Brotzel (1993), 115 Sask. &nbsp;&nbsp;[...]&nbsp;&nbsp;As Sopinka J. states in <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, at p. 321: In a civil case, the two broad principles are: 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1380/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">20.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19554/index.do?q=%22Snell+v.+Farrell%22">Nova Chemicals Corp. v. Dow Chemical Co.</a></span>
+                        - <span class="citation">2022 SCC 43</span>
+                    - <span class="report-citation">[2022] 3 SCR 352</span>
+                - <span class="publicationDate">2022-11-18</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Intellectual property<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    2013 FC 751, [2015] 1 F.C.R. 405; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; Apotex Inc. v. Sanofi‐Synthelabo Canada Inc., 2008 SCC 61, [2008] 3 S.C.R. 265; Teva Canada Ltd. v. Pfizer Canada Inc., 2012 SCC 60, [2012] 3 S.C.R. 625; Apotex Inc. v. Wellcome Foundation Ltd., 2002 SCC 77, [2002] 4 S.C.R. 153; Atlantic Lottery Corp. &nbsp;&nbsp;[...]&nbsp;&nbsp;Causation “need not be determined by scientific precision: it is ‘essentially a practical question of fact which can best be answered by ordinary common sense’” (Merck &amp; Co., Inc. v. Apotex Inc., 2015 FCA 171, [2016] 2 F.C.R. 202, at para. 44, quoting <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, at para. 328). Step 3: If 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19554/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">21.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1711/index.do?q=%22Snell+v.+Farrell%22">Winko v. British Columbia (Forensic Psychiatric Institute)</a></span>
+                    - <span class="report-citation">[1999] 2 SCR 625</span>
+                - <span class="publicationDate">1999-06-17</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     (3d) 154; Davidson v. British Columbia (Attorney-General) (1993), 87 C.C.C. (3d) 269; Slaight Communications Inc. v. Davidson, [1989] 1 S.C.R. 1038; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; R. v. Osolin, [1993] 4 S.C.R. 595; D.H. v. British Columbia (Attorney General), [1994] B.C.J. No. 2011 (QL); Chambers v. British &nbsp;&nbsp;[...]&nbsp;&nbsp;“It is not strictly accurate to speak of the burden shifting to the defendant when what is meant is that evidence adduced by the plaintiff may result in an inference being drawn adverse to the defendant”: <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, at pp. 329-30, per Sopinka J. See also J. Sopinka, S. N. Lederman and A. W. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1711/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">22.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18510/index.do?q=%22Snell+v.+Farrell%22">Fraser v. Canada (Attorney General)</a></span>
+                        - <span class="citation">2020 SCC 28</span>
+                    - <span class="report-citation">[2020] 3 SCR 113</span>
+                - <span class="publicationDate">2020-10-16</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     483; Winko v. British Columbia (Forensic Psychiatric Institute), [1999] 2 S.C.R. 625; Quebec (Attorney General) v. A, 2013 SCC 5, [2013] 1 S.C.R. 61; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; Blatch v. Archer (1774), 1 Cowp. 63, 98 E.R. 969; Auton (Guardian ad litem of) v. British Columbia (Attorney General), 2004 SCC 78,&nbsp;&nbsp;[...]&nbsp;&nbsp;While courts must evaluate evidence in light of “the proof which it was in the power of one side to have produced, and in the power of the other to have contradicted” (<b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311, at p. 328, quoting Blatch v. Archer (1774), 1 Cowp. 63, 98 E.R. 969, at p. 970), ultimately the onus is on the 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18510/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">23.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1290/index.do?q=%22Snell+v.+Farrell%22">RJR-MacDonald Inc. v. Canada (Attorney General)</a></span>
+                    - <span class="report-citation">[1995] 3 SCR 199</span>
+                - <span class="publicationDate">1995-09-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     v. Canada, [1991] 1 S.C.R. 139; <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; R. v. Keegstra, [1990] 3 S.C.R. 697; R. v. Butler, [1992] 1 S.C.R. 452; Reference re ss. 193 and 195.1(1)(c) of the Criminal Code (Man.), [1990] 1 S.C.R. 1123; R. v. Chaulk, [1990] 3 S.C.R. 1303; Ramsden v. Peterborough (City), [1993] 2 S.C.R. 1084. &nbsp;&nbsp;[...]&nbsp;&nbsp;Discharge of the civil standard does not require scientific demonstration; the balance of probabilities may be established by the application of common sense to what is known, even though what is known may be deficient from a scientific point of view: see <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311. 138 In summary, while I agree 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1290/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">24.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1621/index.do?q=%22Snell+v.+Farrell%22">Thomson Newspapers Co. v. Canada (Attorney General)</a></span>
+                    - <span class="report-citation">[1998] 1 SCR 877</span>
+                - <span class="publicationDate">1998-05-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Discharge of the civil standard does not require scientific demonstration; the balance of probabilities may be established by the application of common sense to what is known, even though what is known may be deficient from a scientific point of view: see <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311. [Emphasis added.] McLachlin J.
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1621/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">25.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2226/index.do?q=%22Snell+v.+Farrell%22">H.L. v. Canada (Attorney General)</a></span>
+                        - <span class="citation">2005 SCC 25</span>
+                    - <span class="report-citation">[2005] 1 SCR 401</span>
+                - <span class="publicationDate">2005-04-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Appeal<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Causation is established where the plaintiff proves to the civil standard on a balance of probabilities that the defendant caused or contributed to the injury: <b>Snell v. Farrell</b>, [1990] 2 S.C.R. 311; McGhee v. National Coal Board, [1972] 3 All E.R. 1008 (H.L.). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2226/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+            yearRangeString: "1877:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>

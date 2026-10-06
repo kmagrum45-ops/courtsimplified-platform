@@ -1,0 +1,784 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=%22Andrews+v.+Grand+%26+Toy+Alberta%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=%22Andrews+v.+Grand+%26+Toy+Alberta%22&ref=&p=&col=1&or=] All Databases (70)
+ Decisions (33)
+ [LINK /scc-csc/en/n/s/index.do?cont=%22Andrews+v.+Grand+%26+Toy+Alberta%22&ref=&p=&col=1&or=] Resources (37)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ 1
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Andrews+v.+Grand+%26+Toy+Alberta%22&ref=&d=&p=&col=1&or=&page=2] 2
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Andrews+v.+Grand+%26+Toy+Alberta%22&ref=&d=&p=&col=1&or=&page=2] &gt;
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Andrews+v.+Grand+%26+Toy+Alberta%22&ref=&p=&col=1&or=date] Date
+ 33 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/2587/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Andrews v. Grand & Toy Alberta Ltd.
+ - [1978] 2 SCR 229
+ - 1978-01-19
+ Supreme Court Judgments
+ Torts
+ Andrews v. Grand & Toy Alberta Ltd., Andrews c. Grand Toy Alberta Ltd., [1978] 2 SCR 229, [1978] 2 RCS 229 [...] Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229 Date: 1978-01-19 J. A. Andrews, Dorothy Andrews, Ivan Stefanyk (Plaintiffs) Appellants; 
+ [LINK /scc-csc/scc-csc/en/2587/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/518/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Watkins v. Olafson
+ - [1989] 2 SCR 750
+ - 1989-09-28
+ Supreme Court Judgments
+ Torts
+ In Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229, Dickson J. (as he then was) speaking for the Court stated at p. 236, ". . . our law of damages knows nothing of periodic payment". [...] The lower courts have taken different views of what Andrews v. Grand & Toy Alberta Ltd. decided on the question of allowing for the impact of tax in calculating the cost of future care. [...] The conclusions of the trial judge are in accordance with the principles laid down by this Court in Andrews v. Grand & Toy Alberta Ltd., supra, where the paramountcy of adequate care for those seriously injured through the fault of others was affirmed. 
+ [LINK /scc-csc/scc-csc/en/518/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/2607/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Thornton v. School Dist. No. 57 (Prince George) et al.
+ - [1978] 2 SCR 267
+ - 1978-01-19
+ Supreme Court Judgments
+ Torts
+ As in Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229, the award for non-pecuniary loss in this case should be reduced to $100,000. [...] DICKSON J.—The issues raised in this appeal are essentially those raised in Andrews v. Grand & Toy Alberta Ltd.[2] Reasons for judgment in Andrews are being delivered contemporaneously with those in the present appeal. [...] He quoted at length from the judgment of McGillivray C.J.A. in Andrews v. Grand & Toy Alberta Ltd.[6], and concluded that $1,500 would be “a generous and reasonable” figure. 
+ [LINK /scc-csc/scc-csc/en/2607/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/1423/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Quebec (Public Curator) v.  Syndicat national des employés de l'hôpital St-Ferdinand
+ - [1996] 3 SCR 211
+ - 1996-10-03
+ Supreme Court Judgments
+ Constitutional law
+ Evidence
+ Torts
+ 57. The head of compensation for moral prejudice and the method of calculating moral damages were considered by this Court in the trilogy Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229, Arnold v. Teno, [1978] 2 S.C.R. 287, and Thornton v. Board of School Trustees of School District No. 57 (Prince George), [...] 77. Lastly, the third method of calculating moral damages, adopted as applicable in the factual circumstances of the trilogy Andrews v. Grand & Toy Alberta Ltd., supra, Arnold v. Teno, supra, and Thornton v. Board of School Trustees of School District No. 57 (Prince George), supra, and in Lindal v. Lindal, supra, refers [...] 84. The test for the intervention of an appellate court in this field is very strict and gives preference to the evaluation done by the trier of fact, as set out in Andrews v. Grand & Toy Alberta Ltd., supra, at p. 235: Let me say in introduction what has been said many times before, that no appellate court is justified
+ [LINK /scc-csc/scc-csc/en/1423/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/309/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Snyder v. Montreal Gazette Ltd.
+ - [1988] 1 SCR 494
+ - 1988-03-24
+ Supreme Court Judgments
+ Torts
+ Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; Thornton v. School District No. 57 (Prince George), [1978] 2 S.C.R. 267; Arnold v. Teno, [1978] 2 S.C.R. 287; Imprimerie Populaire Ltée v. Hon. L. A. Taschereau (1922), 34 K.B. 554; Langlois v. Drapeau, [1962] Q.B. 277; Flamand v. Bienvenue, [1971] R.P. 49; [...] In a judgment released contemporaneously (Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229), the Supreme Court of Canada set the compensation for non‐pecuniary loss, awarded to a young man who became a quadriplegic as the result of an accident, at $100,000. [...] In support of his opinion that the verdict was unreasonable, Owen J.A. referred to the upper limit established by this Court in 1978 in the "trilogy": Andrews v. Grand & Toy Alberta Ltd., supra; Thornton v. School District No. 57 (Prince George), [1978] 2 S.C.R. 267; Arnold v. Teno, [1978] 2 S.C.R. 287. 
+ [LINK /scc-csc/scc-csc/en/309/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/2559/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Lewis v. Todd and McClure
+ - [1980] 2 SCR 694
+ - 1980-10-28
+ Supreme Court Judgments
+ Torts
+ Stein v. The Ship “Kathy K”, [1976] 2 S.C.R. 802; Keizer v. Hanna and Buch, [1978] 2 S.C.R. 342; Arnold v. Teno, [1978] 2 S.C.R. 287; Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; Mallett v. McMonagle, [1970] A.C. 166; Livingstone v. The Rawyards Coal Company (1880), 5 App. Cas. 25; Fenn v. City of [...] As the headnote to Andrews v. Grand & Toy Alberta Ltd.[5], states “The paramount issue to be decided was whether in a case of total or near-total disability the future care of the victim should be in an institutional or a home care environment”. [...] Others have given effect to the Court’s statement in Andrews v. Grand & Toy Alberta Ltd., supra, that, “The result in future cases will depend upon the evidence adduced in those cases” (at p. 259) and have felt free to depart from the 7 per cent figure. 
+ [LINK /scc-csc/scc-csc/en/2559/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/956/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Engel v. Salyn
+ - [1993] 1 SCR 306
+ - 1993-01-21
+ Supreme Court Judgments
+ Torts
+ Considered: Janiak v. Ippolito, [1985] 1 S.C.R. 146; referred to: Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; Arnold v. Teno, [1978] 2 S.C.R. 287; Thornton v. School District No. 57 (Prince George), [1978] 2 S.C.R. 267; E. (Mrs.) v. Eve, [1986] 2 S.C.R. 388. [...] Although it is virtually impossible to evaluate future losses with complete accuracy, the trial judge must attempt to put the injured party in the position that the party would have enjoyed if the accident had not occurred (see Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229, Arnold v. Teno, [1978] 2 S.C.R. 
+ [LINK /scc-csc/scc-csc/en/956/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/1300/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Ter Neuzen v. Korn
+ - [1995] 3 SCR 674
+ - 1995-10-19
+ Supreme Court Judgments
+ Contract
+ Torts
+ 3 Finally, this appeal requires the Court to consider whether the rough upper limit for non-pecuniary damages, established by this Court in Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229, ought to have been applied by the jury in the present case. [...] 104 In Andrews v. Grand & Toy Alberta Ltd., supra, this Court established a rough upper limit for non-pecuniary damages of $100,000. [...] IV. These considerations have not been challenged by the Andrews trilogy (Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229, Thornton v. Board of School Trustees of School District No. 57 (Prince George), [1978] 2 S.C.R. 267, and Arnold v. Teno, [1978] 2 S.C.R. 287). 
+ [LINK /scc-csc/scc-csc/en/1300/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/2121/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Townsend v. Kroppmanns
+ - 2004 SCC 10
+ - [2004] 1 SCR 315
+ - 2004-02-19
+ Supreme Court Judgments
+ Torts
+ Applied: Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; referred to: Mandzuk v. Insurance Corporation of British Columbia, [1988] 2 S.C.R. 650; Arnold v. Teno, [1978] 2 S.C.R. 287; Walker v. The King, [1939] S.C.R. 214. [...] Since it is impossible to calculate the exact amount of money that will be needed in the future, courts have to rely on actuarial evidence: Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229, at pp. 236‐37. Actuarial evidence is itself based on experience and not on individual circumstances. 
+ [LINK /scc-csc/scc-csc/en/2121/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/1424/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Augustus v. Gosset
+ - [1996] 3 SCR 268
+ - 1996-10-03
+ Supreme Court Judgments
+ Constitutional law
+ Torts
+ It was, therefore, right, according to the test for reviewing the assessment of the prejudice, to intervene to correct the trial judge’s judgment in this respect: Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229, at p. 235; Lapointe v. Hôpital Le Gardeur, [1992] 1 S.C.R. 351, at pp. 358‐61. [...] Moreover, the cap on awards of non‐pecuniary damages for bodily injury, which was originally set at $100,000 in 1978, is now approximately $243,000: Andrews v. Grand & Toy Alberta Ltd., supra; Lindal v. Lindal, [1981] 2 S.C.R. 629, at pp. 640‐41. [...] While remaining sensitive to the particular circumstances of each case, such a process cannot ignore the limits of the principle of restitutio in integrum in this area in which moderation and predictability must always be fostered: Andrews v. Grand & Toy Alberta Ltd., supra, at pp. 260‐62; Thornton v. Board of School 
+ [LINK /scc-csc/scc-csc/en/1424/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/2557/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Woelk v. Halvorson
+ - [1980] 2 SCR 430
+ - 1980-10-07
+ Supreme Court Judgments
+ Courts
+ Family law
+ Nance v. British Columbia Electric Railway Com­pany Ld., [1951] A.C. 601; Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; McCannell v. McLean, [1937] S.C.R. 341, applied; Widrig v. Strazer et al., [1964] S.C.R. 376; [...] The well-known passage from the judgment of Viscount Simon in Nance v. British Columbia Electric Railway Co. Ld.[2], at p. 613,—approved and applied in this Court in Andrews v. Grand & Toy Alberta Ltd.[3]—provides ample authority for this proposition. 
+ [LINK /scc-csc/scc-csc/en/2557/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/6110/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Conklin v. Smith et al.
+ - [1978] 2 SCR 1107
+ - 1978-06-29
+ Supreme Court Judgments
+ Torts
+ Thornton v. Board of School Trustees of School District No. 57 (Prince George) et al., [1978] 2 S.C.R. 267; Arnold v. Teno et al., [1978] 2 S.C.R. 287; Andrews v. Grand & Toy Alberta Ltd. et al., [1978] 2 S.C.R. 229; Gorman v. Hertz Drive Yourself Stations of Ontario, [1966] S.C.R. 13, referred to. [...] I point out that in Andrews v. Grand & Toy Alberta Ltd.[4], a third judgment given by this Court on January 19, 1978, Dickson J., giving the unanimous judgment of the Court, said (at p. 254): 
+ [LINK /scc-csc/scc-csc/en/6110/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/5631/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Lindal v. Lindal
+ - [1981] 2 SCR 629
+ - 1981-12-17
+ Supreme Court Judgments
+ Torts
+ Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; Arnold v. Teno, [1978] 2 S.C.R. 287; Thornton v. Board of School Trustees of School Dis- [...] The broad outline of these principles was sketched in three judgments delivered on January 19, 1978, sometimes referred to as the ‘trilogy’: Andrews v. Grand & Toy Alberta Ltd.[2]; Arnold v. Teno[3]; Thornton v. Board of School Trustees of School District No. 57 (Prince George)[4]. 
+ [LINK /scc-csc/scc-csc/en/5631/1/document.do] 
+ 14.
+ [LINK /scc-csc/scc-csc/en/item/1114/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Cunningham v. Wheeler; Cooper v. Miller; Shanks v. McNee
+ - [1994] 1 SCR 359
+ - 1994-03-17
+ Supreme Court Judgments
+ Insurance
+ Torts
+ 1 All E.R. 555; Ratych v. Bloomer, [1990] 1 S.C.R. 940; Hussain v. New Taplow Paper Mills Ltd., [1988] 1 All E.R. 541; Graham v. Baker (1961), 106 C.L.R. 340; The Propeller Monticello v. Mollison, 58 U.S. (17 How.) 152 (1854); Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229. Statutes and Regulations Cited [...] Rather, the law of damages for negligence insists that damages must be fair to both the plaintiff and the defendant: Livingstone v. Rawyards Coal Co., supra; Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229. 4.The Social Inequity Argument [...] In Canada, the cases have consistently held that damage awards should be calculated without taking into account taxes that would have been paid if the sum awarded had been received by the plaintiff in the form of income: The Queen v. Jennings, [1966] S.C.R. 532; Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; 
+ [LINK /scc-csc/scc-csc/en/1114/1/document.do] 
+ 15.
+ [LINK /scc-csc/scc-csc/en/item/1416/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] D'Amato v. Badger
+ - [1996] 2 SCR 1071
+ - 1996-08-22
+ Supreme Court Judgments
+ Torts
+ Pty. Ltd. v. The Dredge “Willemstad” (1976), 11 A.L.R. 227; Ross v. Caunters, [1979] 3 All E.R. 580; Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229. Authors Cited Feldthusen, Bruce. [...] See Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229. The calculation was based on the level of earning which the plaintiff would likely have achieved and the period that he would sustain it, subject to deductions made for contingencies of life. 
+ [LINK /scc-csc/scc-csc/en/1416/1/document.do] 
+ 16.
+ [LINK /scc-csc/scc-csc/en/item/2087/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] M.B. v. British Columbia
+ - 2003 SCC 53
+ - [2003] 2 SCR 477
+ - 2003-10-02
+ Supreme Court Judgments
+ Torts
+ (Guardian ad litem of) v. Brisco, [2002] 1 S.C.R. 205, 2002 SCC 9; Lincoln v. Hayman, [1982] 2 All E.R. 819; Hodgson v. Trapp, [1989] 1 A.C. 807; Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; The Queen v. Jennings, [1966] S.C.R. 532; Earnshaw v. Despins (1990), 45 B.C.L.R. (2d) 380; Palmer v. Goodall (1991), [...] In Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229, at p. 251, Dickson J. (as he then was), following The Queen v. Jennings, [1966] S.C.R. 532, stated that: 
+ [LINK /scc-csc/scc-csc/en/2087/1/document.do] 
+ 17.
+ [LINK /scc-csc/scc-csc/en/item/820/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] R. v. Salituro
+ - [1991] 3 SCR 654
+ - 1991-11-28
+ Supreme Court Judgments
+ Criminal law
+ S.C.R. 608; R. v. Khan, [1990] 2 S.C.R. 531; R. v. Seaboyer, [1991] 2 S.C.R. 577; Myers v. Director of Public Prosecutions, [1965] A.C. 1001; Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; Lord Audley's Case (1631), Hutt. 115, 123 E.R. 1140; R. v. Big M Drug Mart Ltd., [1985] 1 S.C.R. 295; R. v. [...] She noted that the jurisprudence on the issue was recent and unsettled, in spite of an earlier Supreme Court decision in which this Court had declined to consider the impact of taxation on the award for future care, namely Andrews v. Grand & Toy Alberta Ltd, [1978] 2 S.C.R. 229. She also noted that there were strong 
+ [LINK /scc-csc/scc-csc/en/820/1/document.do] 
+ 18.
+ [LINK /scc-csc/scc-csc/en/item/21546/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Resler v. Anglin
+ - 2026 SCC 23
+ - 2026-06-19
+ Supreme Court Judgments
+ Civil procedure
+ [1985] 1 S.C.R. 441; Bost v. Illinois State Bd. of Elections, 607 U.S. 1 (2026); British Columbia v. Zastowny, 2008 SCC 4, [2008] 1 S.C.R. 27; Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; ter Neuzen v. Korn, [1995] 3 S.C.R. 674; British Columbia v. Canadian Forest Products Ltd., 2004 SCC 38, [2004] 2 [...] [135] Nor does Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229, support the ad hoc invocation of public policy. [...] And this Court prioritized “policy factors” of “assessability, uniformity and predictability” over the pursuit of complete compensation in setting a dollar cap on non-pecuniary damages (Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229, at pp. 260-65; see also ter Neuzen v. Korn, [1995] 3 S.C.R. 674, at paras. 
+ [LINK /scc-csc/scc-csc/en/21546/1/document.do] 
+ 19.
+ [LINK /scc-csc/scc-csc/en/item/7868/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Vancouver (City) v. Ward
+ - 2010 SCC 27
+ - [2010] 2 SCR 28
+ - 2010-07-23
+ Supreme Court Judgments
+ Constitutional law
+ v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; Dunlea v. Attorney‐General, [2000] NZCA 84, [2000] 3 N.Z.L.R. 136; Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; Anufrijeva v. Southwark London Borough Council, [2003] EWCA Civ 1406, [2004] Q.B. 1124; Bivens v. Six Unknown Named [...] This approach has been adopted in awarding non‐pecuniary damages in personal injury cases (Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229), and, in my view, a similar approach is appropriate in determining when damages are “appropriate and just” under s. 24(1) of the Charter. 
+ [LINK /scc-csc/scc-csc/en/7868/1/document.do] 
+ 20.
+ [LINK /scc-csc/scc-csc/en/item/18/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Young v. Bella
+ - 2006 SCC 3
+ - [2006] 1 SCR 108
+ - 2006-01-27
+ Supreme Court Judgments
+ Torts
+ Applied: Hill v. Church of Scientology of Toronto, [1995] 2 S.C.R. 1130; distinguished: Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; Thornton v. School District No. 57 (Prince George), [1978] 2 S.C.R. 267; Arnold v. Teno, [1978] 2 S.C.R. 287; referred to: Housen v. Nikolaisen, [2002] 2 S.C.R. 235, 2002 SCC [...] 65 The respondents also argue that the cap on non-pecuniary damages imposed in catastrophic personal injury cases should be imposed in cases such as this: see Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229, at p. 265; Thornton v. School District No. 57 (Prince George), [1978] 2 S.C.R. 267; and Arnold v. Teno, 
+ [LINK /scc-csc/scc-csc/en/18/1/document.do] 
+ 21.
+ [LINK /scc-csc/scc-csc/en/item/7892/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] de Montigny v. Brossard (Succession)
+ - 2010 SCC 51
+ - [2010] 3 SCR 64
+ - 2010-11-10
+ Supreme Court Judgments
+ Constitutional law
+ Torts
+ (Attorney General), 2005 SCC 25, [2005] 1 S.C.R. 401; Driver v. Coca‐Cola Ltd., [1961] S.C.R. 201; Pantel v. Air Canada, [1975] 1 S.C.R. 472; Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; Hill v. Church of Scientology of Toronto, [1995] 2 S.C.R. 1130; Wilkes v. Wood (1763), Lofft. 1, 98 E.R. 489; Whiten [...] [31] While the Quebec courts have since used the sum of $25,000 awarded by L’Heureux‐Dubé J. as a reference point for determining the amount to be awarded as compensation for moral prejudice, it has never been considered a cap in the same way as the $100,000 awarded by Dickson J. in Andrews v. Grand & Toy Alberta Ltd., 
+ [LINK /scc-csc/scc-csc/en/7892/1/document.do] 
+ 22.
+ [LINK /scc-csc/scc-csc/en/item/1897/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Naylor Group Inc. v. Ellis-Don Construction Ltd.
+ - 2001 SCC 58
+ - [2001] 2 SCR 943
+ - 2001-09-27
+ Supreme Court Judgments
+ Contract
+ L.R. (2d) 118; Victoria Wood Development Corp. v. Ondrey (1978), 92 D.L.R. (3d) 229; Marathon-Delco Inc., [2000] O.L.R.D. No. 542 (QL); Twin City Mechanical v. Bradsil (1967) Ltd. (1996), 31 C.L.R. (2d) 210; Lang v. Pollard, [1957] S.C.R. 858; Woelk v. Halvorson, [1980] 2 S.C.R. 430; Andrews v. Grand & Toy Alberta Ltd., [...] or considered irrelevant factors, or otherwise, in the result, made “a palpably incorrect” or “wholly erroneous” assessment of the damages (Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229, at p. 235; Laurentide Motels Ltd. v. Beauport (City), [1989] 1 S.C.R. 705, at p. 810; Widrig v. Strazer, [1964] 
+ [LINK /scc-csc/scc-csc/en/1897/1/document.do] 
+ 23.
+ [LINK /scc-csc/scc-csc/en/item/601/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Ratych v. Bloomer
+ - [1990] 1 SCR 940
+ - 1990-05-03
+ Supreme Court Judgments
+ Torts
+ (1961), 106 C.L.R. 340; Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; Thornton v. Prince George School Board, [1978] 2 S.C.R. 267; Arnold v. Teno, [1978] 2 S.C.R. 287; Phillips v. South Western Railway Co. (1879), 4 Q.B.D. 406; Browning v. War Office, [1962] 3 All E.R. 1089; Bradburn v. Great Western Rail. [...] This is implicit in the principles governing the recovery of damages for personal injury set forth by this Court in the trilogy of Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229, Thornton v. Prince George School Board, [1978] 2 S.C.R. 267, and Arnold v. Teno, [1978] 2 S.C.R. 287. 
+ [LINK /scc-csc/scc-csc/en/601/1/document.do] 
+ 24.
+ [LINK /scc-csc/scc-csc/en/item/13390/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Cinar Corporation v. Robinson
+ - 2013 SCC 73
+ - [2013] 3 SCR 1168
+ - 2013-12-23
+ Supreme Court Judgments
+ Intellectual property
+ Distinguished: Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; Thornton v. School District No. 57 (Prince George), [1978] 2 S.C.R. 267; Arnold v. Teno, [1978] 2 S.C.R. 287; referred to: Massie & Renwick Ltd. v. Underwriters’ Survey Bureau Ltd., [1940] S.C.R. 218; Théberge v. Galerie d’Art du Petit [...] [15] The Court of Appeal held that the cap established in the Andrews trilogy (Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229, Thornton v. School District No. 57 (Prince George), [1978] 2 S.C.R. 267, and Arnold v. Teno, [1978] 2 S.C.R. 287) was applicable to the award for psychological suffering and reduced 
+ [LINK /scc-csc/scc-csc/en/13390/1/document.do] 
+ 25.
+ [LINK /scc-csc/scc-csc/en/item/20113/index.do?q=%22Andrews+v.+Grand+%26+Toy+Alberta%22] Ponce v. Société d’investissements Rhéaume ltée
+ - 2023 SCC 25
+ - 2023-10-27
+ Supreme Court Judgments
+ Torts
+ 3 S.C.R. 3; Lamb v. Kincaid (1907), 38 S.C.R. 516; National Bank of Canada v. Corbeil, [1991] 1 S.C.R. 117; Provincial Bank of Canada v. Gagnon, [1981] 2 S.C.R. 98; Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229; Grenier v. Grenier, 2011 QCCA 964; M.H. v. Axa Assurances inc., 2009 QCCA 2358, [2010] R.R.A. 15. [...] Provincial Bank of Canada v. Gagnon, [1981] 2 S.C.R. 98; see also Baxter, at p. 444, citing Andrews v. Grand & Toy Alberta Ltd., [1978] 2 S.C.R. 229). [115] The presumption established in Baxter therefore serves as the basis for a method of calculating damages to compensate the aggrieved party for the injury sustained. 
+ [LINK /scc-csc/scc-csc/en/20113/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

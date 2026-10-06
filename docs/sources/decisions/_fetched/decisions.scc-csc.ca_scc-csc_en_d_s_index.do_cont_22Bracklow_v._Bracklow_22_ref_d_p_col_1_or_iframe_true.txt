@@ -1,0 +1,672 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=%22Bracklow+v.+Bracklow%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=%22Bracklow+v.+Bracklow%22&ref=&p=&col=1&or=] All Databases (41)
+ Decisions (12)
+ [LINK /scc-csc/en/n/s/index.do?cont=%22Bracklow+v.+Bracklow%22&ref=&p=&col=1&or=] Resources (29)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Bracklow+v.+Bracklow%22&ref=&p=&col=1&or=date] Date
+ 12 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/1688/index.do?q=%22Bracklow+v.+Bracklow%22] Bracklow v. Bracklow
+ - [1999] 1 SCR 420
+ - 1999-03-25
+ Supreme Court Judgments
+ Family law
+ Bracklow v. Bracklow, Bracklow c. Bracklow, 26178, [1999] 1 SCR 420, [1999] 1 RCS 420 [...] Bracklow v. Bracklow, [1999] 1 S.C.R. 420 Sharon Marie Bracklow Appellant v. [...] Indexed as: Bracklow v. Bracklow File No.: 26178. 1998: November 6; 1999: March 25. Present: Lamer C.J. and L’Heureux‐Dubé, Gonthier, Cory, McLachlin, Iacobucci, Major, Bastarache and Binnie JJ. 
+ [LINK /scc-csc/scc-csc/en/1688/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/1708/index.do?q=%22Bracklow+v.+Bracklow%22] Hickey v. Hickey
+ - [1999] 2 SCR 518
+ - 1999-06-10
+ Supreme Court Judgments
+ Family law
+ Referred to: Harrington v. Harrington (1981), 33 O.R. (2d) 150; Pelech v. Pelech, [1987] 1 S.C.R. 801; Moge v. Moge, [1992] 3 S.C.R. 813; Willick v. Willick, [1994] 3 S.C.R. 670; Walker v. Walker (1992), 12 B.C.A.C. 137; Bracklow v. Bracklow, [1999] 1 S.C.R. 420; Ross v. Ross (1995), 168 N.B.R. (2d) 147; Winsor v. Winsor [...] 21 The objectives set out in s. 17(7) parallel those set out in s. 15.2(6), recently considered by this Court in Bracklow v. Bracklow, [1999] 1 S.C.R. 420, per McLachlin J. These objectives set out the principles and values that must be considered by judges in exercising their discretion when making or revising support 
+ [LINK /scc-csc/scc-csc/en/1708/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/2298/index.do?q=%22Bracklow+v.+Bracklow%22] Leskun v. Leskun
+ - 2006 SCC 25
+ - [2006] 1 SCR 920
+ - 2006-06-21
+ Supreme Court Judgments
+ Family law
+ Referred to: Moge v. Moge, [1992] 3 S.C.R. 813; Bracklow v. Bracklow, [1999] 1 S.C.R. 420; Strang v. Strang, [1992] 2 S.C.R. 112; Boston v. Boston, [2001] 2 S.C.R. 413, 2001 SCC 43; Cunha v. Cunha (1994), 99 B.C.L.R. (2d) 93; Choquette v. Choquette (1998), 39 R.F.L. (4th) 384; Willick v. Willick, [1994] 3 S.C.R. 670; [...] This Court has rejected characterizing this objective as a duty, see Moge v. Moge, [1992] 3 S.C.R. 813, at p. 853, and Bracklow v. Bracklow, [1999] 1 S.C.R. 420, at paras. 31-32, 35-36 and 43. The respondent advanced a number of reasons why, despite alleged efforts, she had been unable to return to the workforce. 
+ [LINK /scc-csc/scc-csc/en/2298/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/1881/index.do?q=%22Bracklow+v.+Bracklow%22] Boston v. Boston
+ - 2001 SCC 43
+ - [2001] 2 SCR 413
+ - 2001-07-12
+ Supreme Court Judgments
+ Family law
+ Bracklow v. Bracklow, [1999] 1 S.C.R. 420; LeMoine v. LeMoine (1997), 185 N.B.R. (2d) 173; Nantais v. Nantais (1995), 16 R.F.L. (4th) 201; Moge v. Moge, [1992] 3 S.C.R. 813; Droit de la famille--1688, [1992] R.J.Q. 2797; Ross v. Ross (1995), 168 N.B.R. (2d) 147; Iurincic v. Iurincic (1998), 40 R.F.L. (4th) 258; Strang v. [...] This Court has rendered several judgments in this area, the most important in recent years remaining Moge v. Moge, [1992] 3 S.C.R. 813, and Bracklow v. Bracklow, [1999] 1 S.C.R. 420. 94 The law of support must address an almost infinite number of situations and life experiences. [...] 103 Julien and Marilyn Payne argue that it “is amply demonstrated by Bracklow v. Bracklow [that] needs and capacity to pay as the basis of spousal support have not been superseded by the notion of compensatory support. 
+ [LINK /scc-csc/scc-csc/en/1881/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/19119/index.do?q=%22Bracklow+v.+Bracklow%22] Association de médiation familiale du Québec v. Bouvier
+ - 2021 SCC 54
+ - [2021] 3 SCR 805
+ - 2021-12-17
+ Supreme Court Judgments
+ Family law
+ Pelech v. Pelech, [1987] 1 S.C.R. 801; Lacroix v. Valois, [1990] 2 S.C.R. 1259; Moge v. Moge, [1992] 3 S.C.R. 813; Peter v. Beblow, [1993] 1 S.C.R. 980; Bracklow v. Bracklow, [1999] 1 S.C.R. 420; Boston v. Boston, 2001 SCC 43, [2001] 2 S.C.R. 413; Miglin v. Miglin, 2003 SCC 24, [2003] 1 S.C.R. 303; Rick v. Brandsema, 2009 [...] It has noted the sometimes devastating effects of separation (Lacroix, at p. 1275; Moge, at p. 871; Bracklow v. Bracklow, [1999] 1 S.C.R. 420; Boston v. Boston, 2001 SCC 43, [2001] 2 S.C.R. 413, at para. 55; Hartshorne v. Hartshorne, 2004 SCC 22, [2004] 1 S.C.R. 550, at para. 91, per Deschamps J., dissenting in part), which [...] 801, at p. 850; Lacroix v. Valois, [1990] 2 S.C.R. 1259, at p. 1278; Moge v. Moge, [1992] 3 S.C.R. 813, at p. 848; Peter v. Beblow, [1993] 1 S.C.R. 980; Bracklow v. Bracklow, [1999] 1 S.C.R. 420; Boston v. Boston, 2001 SCC 43, [2001] 2 S.C.R. 413, at para. 55; Miglin v. Miglin, 2003 SCC 24, [2003] 1 S.C.R. 303, at paras. 74
+ [LINK /scc-csc/scc-csc/en/19119/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/2055/index.do?q=%22Bracklow+v.+Bracklow%22] Miglin v. Miglin
+ - 2003 SCC 24
+ - [2003] 1 SCR 303
+ - 2003-04-17
+ Supreme Court Judgments
+ Family law
+ [1987] 1 S.C.R. 801; Richardson v. Richardson, [1987] 1 S.C.R. 857; Caron v. Caron, [1987] 1 S.C.R. 892; considered: Moge v. Moge, [1992] 3 S.C.R. 813; Bracklow v. Bracklow, [1999] 1 S.C.R. 420; Leopold v. Leopold (2000), 12 R.F.L. (5th) 118; Boston v. Boston, [2001] 2 S.C.R. 413, 2001 SCC 43; referred to: Thibaudeau v. [...] A more nuanced approach was developed in Bracklow v. Bracklow, [1999] 1 S.C.R. 420. Self-sufficiency, autonomy and finality remain relevant factors in our case law, but many question whether the emphasis put on them by the trilogy remains. [...] In this regard, Abella J.A. expanded her analysis of s. 15.2 to include a review of the recent jurisprudence of this Court, including Moge v. Moge, [1992] 3 S.C.R. 813, and Bracklow v. Bracklow, [1999] 1 S.C.R. 420. In her view, this jurisprudence reinforced the conclusion she had reached on a plain reading of s. 15.2 of 
+ [LINK /scc-csc/scc-csc/en/2055/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/10536/index.do?q=%22Bracklow+v.+Bracklow%22] Quebec (Attorney General) v. A
+ - 2013 SCC 5
+ - [2013] 1 SCR 61
+ - 2013-01-25
+ Supreme Court Judgments
+ Constitutional law
+ Family law
+ SCC 41, [2008] 2 S.C.R. 483; Withler v. Canada (Attorney General), 2011 SCC 12, [2011] 1 S.C.R. 396; Law v. Canada (Minister of Employment and Immigration), [1999] 1 S.C.R. 497; Miron v. Trudel, [1995] 2 S.C.R. 418; Bracklow v. Bracklow, [1999] 1 S.C.R. 420; Moge v. Moge, [1992] 3 S.C.R. 813; M. v. H., [1999] 2 S.C.R. 3. [...] And in Bracklow v. Bracklow, [1999] 1 S.C.R. 420, McLachlin J. confirmed that the mutual obligation of support is protective: it stresses the interdependencies created by marriage, and “recognizes the reality that when people cohabit over a period of time in a family relationship, their affairs may become intermingled and [...] [387] In Bracklow v. Bracklow, [1999] 1 S.C.R. 420, at para. 15, McLachlin J. (as she then was), writing for the Court, recognized that there are three possible bases for support: the first is compensatory, the second contractual and the third non‐compensatory. 
+ [LINK /scc-csc/scc-csc/en/10536/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/18458/index.do?q=%22Bracklow+v.+Bracklow%22] 1704604 Ontario Ltd. v. Pointes Protection Association
+ - 2020 SCC 22
+ - [2020] 2 SCR 587
+ - 2020-09-10
+ Supreme Court Judgments
+ Courts
+ 2015 ONCA 349, 335 O.A.C. 172; Sheppard v. Co‐operators General Insurance Co. (1997), 33 O.R. (3d) 362; New Brunswick v. O’Leary, [1995] 2 S.C.R. 967; Bracklow v. Bracklow, [1999] 1 S.C.R. 420; Grant v. Torstar Corp., 2009 SCC 61, [2009] 3 S.C.R. 640; Mugesera v. Canada (Minister of Citizenship and Immigration), 2005 SCC [...] O.A.C. 172; Sheppard v. Co-operators General Insurance Co. (1997), 33 O.R. (3d) 362 (C.A.); New Brunswick v. O’Leary, [1995] 2 S.C.R. 967; Bracklow v. Bracklow, [1999] 1 S.C.R. 420). [2] I will refer to the “moving party” as the “defendant”, and the “responding party” as the “plaintiff” in these reasons interchangeably. 
+ [LINK /scc-csc/scc-csc/en/18458/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/2134/index.do?q=%22Bracklow+v.+Bracklow%22] Hartshorne v. Hartshorne
+ - 2004 SCC 22
+ - [2004] 1 SCR 550
+ - 2004-03-26
+ Supreme Court Judgments
+ Family law
+ Gold v. Gold (1993), 82 B.C.L.R. (2d) 165; Miglin v. Miglin, [2003] 1 S.C.R. 303, 2003 SCC 24; Stark v. Stark (1990), 71 D.L.R. (4th) 446, leave to appeal refused, [1991] 1 S.C.R. xiv; Toth v. Toth (1995), 13 B.C.L.R. (3d) 1; Metzner v. Metzner (1997), 34 B.C.L.R. (3d) 314; Bracklow v. Bracklow, [1999] 1 S.C.R. 420; Moge v. [...] As recognized by the B.C. legislature in s. 65(1)(e) of the FRA, and as was reaffirmed by this Court in Bracklow v. Bracklow, [1999] 1 S.C.R. 420, at para. 32, “[i]t is critical to recognize and encourage the self-sufficiency and independence of each spouse” at the time of and after their separation: see also Moge v. Moge, 
+ [LINK /scc-csc/scc-csc/en/2134/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/18460/index.do?q=%22Bracklow+v.+Bracklow%22] Michel v. Graydon
+ - 2020 SCC 24
+ - [2020] 2 SCR 763
+ - 2020-09-18
+ Supreme Court Judgments
+ Family law
+ R.F.L. (4th) 219; McInutly v. Dacyshyn, 2013 ABQB 538; S.K. v. A.K., 2004 BCSC 37; K.A.W. v. M.E.W., 2019 ABQB 563; Moge v. Moge, [1992] 3 S.C.R. 813; Bracklow v. Bracklow, [1999] 1 S.C.R. 420; Miglin v. Miglin, 2003 SCC 24, [2003] 1 S.C.R. 303; Rick v. Brandsema, 2009 SCC 10, [2009] 1 S.C.R. 295; Thibaudeau v. Canada, [...] [88] A decision preventing historical claims for child support under s. 152 of the Family Law Act also ignores how family law calls for an approach that takes into account the broader social framework in which family dynamics operate (Moge v. Moge, [1992] 3 S.C.R. 813, at p. 853; Bracklow v. Bracklow, [1999] 1 S.C.R. 420, 
+ [LINK /scc-csc/scc-csc/en/18460/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/17985/index.do?q=%22Bracklow+v.+Bracklow%22] R.S. v. P.R.
+ - 2019 SCC 49
+ - [2019] 3 SCR 643
+ - 2019-10-25
+ Supreme Court Judgments
+ Considered: Quebec (Attorney General) v. A, 2013 SCC 5, [2013] 1 S.C.R. 61; referred to: Rocois Construction Inc. v. Québec Ready Mix Inc., [1990] 2 S.C.R. 440; Birdsall Inc. v. In Any Event Inc., [1999] R.J.Q. 1344; Moge v. Moge, [1992] 3 S.C.R. 813; Bracklow v. Bracklow, [1999] 1 S.C.R. 420. By Brown J. (dissenting) [...] [140] As a result of these reforms, marriage in Quebec family law is an “egalitarian economic union with a number of patrimonial consequences” (Quebec v. A, at para. 78), a “joint endeavour” (Moge v. Moge, [1992] 3 S.C.R. 813, at p. 870), and a “socio-economic partnership” (Bracklow v. Bracklow, [1999] 1 S.C.R. 420, at 
+ [LINK /scc-csc/scc-csc/en/17985/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/21505/index.do?q=%22Bracklow+v.+Bracklow%22] Ahluwalia v. Ahluwalia
+ - 2026 SCC 16
+ - 2026-05-15
+ Supreme Court Judgments
+ Torts
+ British Columbia (Attorney General) v. Council of Canadians with Disabilities, 2022 SCC 27, [2022] 1 S.C.R. 794; Wilkinson v. Downton, [1897] 2 Q.B. 57; Bracklow v. Bracklow, [1999] 1 S.C.R. 420; Droit de la famille — 251674, 2025 QCCS 4145; K.L.B. v. British Columbia, 2003 SCC 51, [2003] 2 S.C.R. 403; R. v. Kruk, 2024 SCC [...] McLachlin J. (as she then was) has similarly described marriage as creating “the interdependence of two co-equals”, giving rise to “expectations and obligations” between the spouses (Bracklow v. Bracklow, [1999] 1 S.C.R. 420, at para. 30). [105] Notwithstanding the union of interests in intimate partnerships and the 
+ [LINK /scc-csc/scc-csc/en/21505/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

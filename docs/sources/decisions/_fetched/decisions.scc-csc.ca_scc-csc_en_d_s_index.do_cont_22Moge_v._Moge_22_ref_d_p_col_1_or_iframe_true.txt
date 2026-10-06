@@ -1,0 +1,792 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=%22Moge+v.+Moge%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=%22Moge+v.+Moge%22&ref=&p=&col=1&or=] All Databases (85)
+ Decisions (37)
+ [LINK /scc-csc/en/n/s/index.do?cont=%22Moge+v.+Moge%22&ref=&p=&col=1&or=] Resources (48)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ 1
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Moge+v.+Moge%22&ref=&d=&p=&col=1&or=&page=2] 2
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Moge+v.+Moge%22&ref=&d=&p=&col=1&or=&page=2] &gt;
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Moge+v.+Moge%22&ref=&p=&col=1&or=date] Date
+ 37 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/946/index.do?q=%22Moge+v.+Moge%22] Moge v. Moge
+ - [1992] 3 SCR 813
+ - 1992-12-17
+ Supreme Court Judgments
+ Courts
+ Family law
+ Moge v. Moge, Moge c. Moge, 21979, [1992] 3 SCR 813, [1992] 3 RCS 813 Moge v. Moge, [1992] 3 S.C.R. 813 [...] Indexed as: Moge v. Moge File No.: 21979. 1992: April 1; 1992: December 17. Present: La Forest, L'Heureux‐Dubé, Gonthier, Cory, McLachlin, Stevenson* and Iacobucci JJ. 
+ [LINK /scc-csc/scc-csc/en/946/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/984/index.do?q=%22Moge+v.+Moge%22] Peter v. Beblow
+ - [1993] 1 SCR 980
+ - 1993-03-25
+ Supreme Court Judgments
+ Family law
+ Trust
+ It has contributed to the phenomenon of the feminization of poverty which this Court identified in Moge v. Moge, [1992] 3 S.C.R. 813, per L'Heureux-Dubé J., at pp. 853-54. Moreover, the argument cannot stand with the jurisprudence which this and other courts have laid down. [...] If there could be any doubt about the need for the law to honestly recognize the value of domestic services, it must be considered to have been banished by Moge v. Moge, supra. While that case arose under the Divorce Act , R.S.C., 1985, c. 3 (2nd Supp .), the value of the services does not change with the legal remedy [...] This same reasoning has been recently applied in the context of divorce in Moge v. Moge, [1992] 3 S.C.R. 813. It is appropriate to recognize that the same principle should be applied to long-term common law relationships. 
+ [LINK /scc-csc/scc-csc/en/984/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/1292/index.do?q=%22Moge+v.+Moge%22] G. (L.) v. B. (G.)
+ - [1995] 3 SCR 370
+ - 1995-09-21
+ Supreme Court Judgments
+ Family law
+ 27 As discussed in Moge v. Moge, [1992] 3 S.C.R. 813, both the case law and academic writers were not long to react to the trilogy. [...] In Moge v. Moge, supra, the Supreme Court sought to put an end to the uncertainty that prevailed by adopting an interpretation of the 1985 Act consistent with its language and underlying philosophy, especially as regards support obligations and their subsequent variation. [...] In my opinion, Moge v. Moge clearly demonstrates that we must turn to the Divorce Act to ascertain its application in all divorce cases where spousal support is sought, including those where a separation agreement has been negotiated to regulate spousal support. 
+ [LINK /scc-csc/scc-csc/en/1292/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/1708/index.do?q=%22Moge+v.+Moge%22] Hickey v. Hickey
+ - [1999] 2 SCR 518
+ - 1999-06-10
+ Supreme Court Judgments
+ Family law
+ Referred to: Harrington v. Harrington (1981), 33 O.R. (2d) 150; Pelech v. Pelech, [1987] 1 S.C.R. 801; Moge v. Moge, [1992] 3 S.C.R. 813; Willick v. Willick, [1994] 3 S.C.R. 670; Walker v. Walker (1992), 12 B.C.A.C. 137; Bracklow v. Bracklow, [1999] 1 S.C.R. 420; Ross v. Ross (1995), 168 N.B.R. (2d) 147; Winsor v. Winsor [...] These principles were stated by Morden J.A. of the Ontario Court of Appeal in Harrington v. Harrington (1981), 33 O.R. (2d) 150, at p. 154, and approved by the majority of this Court in Pelech v. Pelech, [1987] 1 S.C.R. 801, per Wilson J.; in Moge v. Moge, [1992] 3 S.C.R. 813, per L’Heureux-Dubé J.; and in Willick v. 
+ [LINK /scc-csc/scc-csc/en/1708/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/2134/index.do?q=%22Moge+v.+Moge%22] Hartshorne v. Hartshorne
+ - 2004 SCC 22
+ - [2004] 1 SCR 550
+ - 2004-03-26
+ Supreme Court Judgments
+ Family law
+ v. Clarke (1991), 31 R.F.L. (3d) 383; Gold v. Gold (1993), 82 B.C.L.R. (2d) 165; Nova Scotia (Attorney General) v. Walsh, [2002] 4 S.C.R. 325, 2002 SCC 83; Moge v. Moge, [1992] 3 S.C.R. 813. By Deschamps J. (dissenting in part) Gold v. Gold (1993), 82 B.C.L.R. (2d) 165; Miglin v. Miglin, [2003] 1 S.C.R. 303, 2003 SCC 24; [...] I am not inattentive to the systemic problems discussed in Moge v. Moge, [1992] 3 S.C.R. 813, and agree that the Court must proceed with caution in applying s. 65. [...] As recognized by the B.C. legislature in s. 65(1)(e) of the FRA, and as was reaffirmed by this Court in Bracklow v. Bracklow, [1999] 1 S.C.R. 420, at para. 32, “[i]t is critical to recognize and encourage the self-sufficiency and independence of each spouse” at the time of and after their separation: see also Moge v. Moge, 
+ [LINK /scc-csc/scc-csc/en/2134/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/7983/index.do?q=%22Moge+v.+Moge%22] R.P. v. R.C.
+ - 2011 SCC 65
+ - [2011] 3 SCR 819
+ - 2011-12-21
+ Supreme Court Judgments
+ Family law
+ Applied: L.M.P. v. L.S., 2011 SCC 64, [2011] 3 R.C.S. 775; referred to: Droit de la famille — 705, [1989] R.D.F. 603; Moge v. Moge, [1992] 3 S.C.R. 813; Palmer v. The Queen, [1980] 1 S.C.R. 759; Public School Boards’ Assn. of Alberta v. Alberta (Attorney General), 2000 SCC 2, [2000] 1 S.C.R. 44. [...] It therefore terminated her support, seemingly applying a clean break theory which this Court declared inoperative in 1992 in Moge v. Moge, [1992] 3 S.C.R. 813, to a great extent because too many courts were imposing unachievable expectations of self-sufficiency on long-time homemakers. 
+ [LINK /scc-csc/scc-csc/en/7983/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/4646/index.do?q=%22Moge+v.+Moge%22] Stein v. Stein
+ - 2008 SCC 35
+ - [2008] 2 SCR 263
+ - 2008-06-12
+ Supreme Court Judgments
+ Family law
+ 20 R.F.L. (6th) 143, 2005 BCSC 1457; Murdoch v. Murdoch, [1975] 1 S.C.R. 423; Rathwell v. Rathwell, [1978] 2 S.C.R. 436; Moge v. Moge, [1992] 3 S.C.R. 813; Toth v. Toth (1995), 13 B.C.L.R. (3d) 1; Miglin v. Miglin, [2003] 1 S.C.R. 303, 2003 SCC 24; Clarke v. Clarke, [1990] 2 S.C.R. 795; Best v. Best, [1999] 2 S.C.R. 868. [...] The jurisprudential apex was Moge v. Moge, [1992] 3 S.C.R. 813. [26] The product of this revolution in family law was the principle that the decision either to perform unpaid work on behalf of the family at home, or remunerative work outside the home, should receive equal recognition in assessing the economic consequences 
+ [LINK /scc-csc/scc-csc/en/4646/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/1161/index.do?q=%22Moge+v.+Moge%22] Tataryn v. Tataryn Estate
+ - [1994] 2 SCR 807
+ - 1994-07-14
+ Supreme Court Judgments
+ Estates
+ 2 S.C.R. 38; Peter v. Beblow, [1993] 1 S.C.R. 980; Moge v. Moge, [1992] 3 S.C.R. 813; Brauer v. Hilton (1979), 15 B.C.L.R. 116; Cowan v. Cowan Estate (1988), 30 E.T.R. 216 (B.C.S.C.), aff'd (1990), 37 E.T.R. 308 (B.C.C.A.); Nulty v. Nulty Estate (1989), 41 B.C.L.R. (2d) 343; Bell v. Roy Estate (1993), 75 B.C.L.R. (2d) 213. [...] As L'Heureux-Dubé J. wrote in Moge v. Moge, [1992] 3 S.C.R. 813, at p. 849: ... marriage is, among other things, an economic unit which generates financial benefits .... 
+ [LINK /scc-csc/scc-csc/en/1161/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/1192/index.do?q=%22Moge+v.+Moge%22] Willick v. Willick
+ - [1994] 3 SCR 670
+ - 1994-10-27
+ Supreme Court Judgments
+ Family law
+ As recently recognized by L'Heureux-Dubé J. in Moge v. Moge, [1992] 3 S.C.R. 813, "there is no doubt that divorce and its economic effects" (p. 854) are playing a role in the "feminization of poverty" (p. 853). [...] Moge v. Moge may prove to be extremely useful in reducing some of the financial burden of adducing evidence in family law cases. [...] It was most recently referred to in Moge v. Moge, supra, following Pelech v. Pelech, supra. It is not controversial. 
+ [LINK /scc-csc/scc-csc/en/1192/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/2298/index.do?q=%22Moge+v.+Moge%22] Leskun v. Leskun
+ - 2006 SCC 25
+ - [2006] 1 SCR 920
+ - 2006-06-21
+ Supreme Court Judgments
+ Family law
+ Referred to: Moge v. Moge, [1992] 3 S.C.R. 813; Bracklow v. Bracklow, [1999] 1 S.C.R. 420; Strang v. Strang, [1992] 2 S.C.R. 112; Boston v. Boston, [2001] 2 S.C.R. 413, 2001 SCC 43; Cunha v. Cunha (1994), 99 B.C.L.R. (2d) 93; Choquette v. Choquette (1998), 39 R.F.L. (4th) 384; Willick v. Willick, [1994] 3 S.C.R. 670; [...] This Court has rejected characterizing this objective as a duty, see Moge v. Moge, [1992] 3 S.C.R. 813, at p. 853, and Bracklow v. Bracklow, [1999] 1 S.C.R. 420, at paras. 31-32, 35-36 and 43. 
+ [LINK /scc-csc/scc-csc/en/2298/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/18460/index.do?q=%22Moge+v.+Moge%22] Michel v. Graydon
+ - 2020 SCC 24
+ - [2020] 2 SCR 763
+ - 2020-09-18
+ Supreme Court Judgments
+ Family law
+ L.R. (6th) 1; Moge v. Moge, [1992] 3 S.C.R. 813; Quinn v. Leathem, [1901] A.C. 495; Buckingham v. Buckingham, 2013 ABQB 155, 554 A.R. 256; de Rooy v. Bergstrom, 2010 BCCA 5, 4 B.C.L.R. (5th) 74; McDonald v. McDonald, 2008 BCSC 1203; Rick v. Brandsema, 2009 SCC 10, [2009] 1 S.C.R. 295; Hickey v. Hickey, [1999] 2 S.C.R. 518; [...] Moreover, and significantly, because women continue to face a disproportionate burden of the economic consequences flowing from marriage breakdown (Moge v. Moge, [1992] 3 S.C.R. 813, at pp. 849‐50; I.F., at para. 20), they are also most affected by barriers that prevent courts from considering applications for retroactive [...] [88] A decision preventing historical claims for child support under s. 152 of the Family Law Act also ignores how family law calls for an approach that takes into account the broader social framework in which family dynamics operate (Moge v. Moge, [1992] 3 S.C.R. 813, at p. 853; Bracklow v. Bracklow, [1999] 1 S.C.R. 420, 
+ [LINK /scc-csc/scc-csc/en/18460/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/1688/index.do?q=%22Moge+v.+Moge%22] Bracklow v. Bracklow
+ - [1999] 1 SCR 420
+ - 1999-03-25
+ Supreme Court Judgments
+ Family law
+ Considered: Moge v. Moge, [1992] 3 S.C.R. 813; referred to: Ross v. Ross (1995), 168 N.B.R. (2d) 147; Story v. Story (1989), 23 R.F.L. (3d) 225; Parish v. Parish (1993), 46 R.F.L. (3d) 117; Ashworth v. Ashworth (1995), 15 R.F.L. (4th) 379. [...] He took Moge v. Moge, [1992] 3 S.C.R. 813, to require a tort-based approach to the question of support -- compensation or support is ordered only where the marriage or its breakup caused economic disadvantage to one party. 
+ [LINK /scc-csc/scc-csc/en/1688/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/2026/index.do?q=%22Moge+v.+Moge%22] Nova Scotia (Attorney General) v. Walsh
+ - 2002 SCC 83
+ - [2002] 4 SCR 325
+ - 2002-12-19
+ Supreme Court Judgments
+ Constitutional law
+ Family law
+ Distinguished: M. v. H., [1999] 2 S.C.R. 3; referred to: R. v. Turpin, [1989] 1 S.C.R. 1296; Moge v. Moge, [1992] 3 S.C.R. 813; Egan v. Canada, [1995] 2 S.C.R. 513; Hyde v. Hyde (1866), L.R. 1 P. & D. 130; Layland v. Ontario (Minister of Consumer & Commercial Relations) (1993), 14 O.R. (3d) 658; Miron v. Trudel, [...] In Moge v. Moge, [1992] 3 S.C.R. 813, I wrote at p. 849 that the Divorce Act , R.S.C. 1985, c. 3 (2nd Supp .), requires a “fair and equitable distribution of resources to alleviate the economic consequences of marriage or marriage breakdown for both spouses, regardless of gender”. [...] Similarly, in Moge v. Moge, [1992] 3 S.C.R. 813, at p. 848, this Court made the following comments: 
+ [LINK /scc-csc/scc-csc/en/2026/1/document.do] 
+ 14.
+ [LINK /scc-csc/scc-csc/en/item/7982/index.do?q=%22Moge+v.+Moge%22] L.M.P. v. L.S.
+ - 2011 SCC 64
+ - [2011] 3 SCR 775
+ - 2011-12-21
+ Supreme Court Judgments
+ Family law
+ Applied: Willick v. Willick, [1994] 3 S.C.R. 670; G. (L.) v. B. (G.), [1995] 3 S.C.R. 370; considered: Miglin v. Miglin, 2003 SCC 24, [2003] 1 S.C.R. 303; distinguished: Pelech v. Pelech, [1987] 1 S.C.R. 801; Richardson v. Richardson, [1987] 1 S.C.R. 857; Caron v. Caron, [1987] 1 S.C.R. 892; referred to: Moge v. Moge, [...] [17] The replacement of the 1968 legislation with the 1985 Divorce Act led this Court in Moge v. Moge, [1992] 3 S.C.R. 813, to reject the clean break theory of support that underlay the decisions in the Pelech trilogy. 
+ [LINK /scc-csc/scc-csc/en/7982/1/document.do] 
+ 15.
+ [LINK /scc-csc/scc-csc/en/item/2253/index.do?q=%22Moge+v.+Moge%22] R. v. Spence
+ - 2005 SCC 71
+ - [2005] 3 SCR 458
+ - 2005-12-02
+ Supreme Court Judgments
+ Criminal law
+ Royal Bank of Canada, [1964] S.C.R. 85; Clinton v. Jones, 520 U.S. 681 (1997); R. v. Zundel (1987), 31 C.C.C. (3d) 97; R. v. Lavallee, [1990] 1 S.C.R. 852; Moge v. Moge, [1992] 3 S.C.R. 813; R. v. Wells, [2000] 1 S.C.R. 207, 2000 SCC 10; R. v. Gladue, [1999] 1 S.C.R. 688; Public School Boards’ Assn. of Alberta v. Alberta [...] Examples are the Court’s acceptance of the “battered wife syndrome” to explain the wife’s conduct in R. v. Lavallee, [1990] 1 S.C.R. 852, or the effect of the “feminization of poverty” judicially noticed in Moge v. Moge, [1992] 3 S.C.R. 813, at p. 853, and of the systemic or background factors that have contributed to the 
+ [LINK /scc-csc/scc-csc/en/2253/1/document.do] 
+ 16.
+ [LINK /scc-csc/scc-csc/en/item/1160/index.do?q=%22Moge+v.+Moge%22] Marzetti v. Marzetti
+ - [1994] 2 SCR 765
+ - 1994-07-14
+ Supreme Court Judgments
+ Bankruptcy and insolvency
+ Re Ali (1987), 62 C.B.R. (N.S.) 64; Vachon v. Canada Employment and Immigration Commission, [1985] 2 S.C.R. 417; Re Szatmari (1972), 18 C.B.R. (N.S.) 309; Re Walker (1982), 43 C.B.R. (N.S.) 319; Moge v. Moge, [1992] 3 S.C.R. 813. Statutes and Regulations Cited Act to amend the Bankruptcy Act, S.C. 1966-67, c. 32, s. 10. [...] As recently recognized by L'Heureux-Dubé J. in Moge v. Moge, [1992] 3 S.C.R. 813, "there is no doubt that divorce and its economic effects" (p. 854) are playing a role in the "feminization of poverty" (p. 853). 
+ [LINK /scc-csc/scc-csc/en/1160/1/document.do] 
+ 17.
+ [LINK /scc-csc/scc-csc/en/item/1881/index.do?q=%22Moge+v.+Moge%22] Boston v. Boston
+ - 2001 SCC 43
+ - [2001] 2 SCR 413
+ - 2001-07-12
+ Supreme Court Judgments
+ Family law
+ Bracklow v. Bracklow, [1999] 1 S.C.R. 420; LeMoine v. LeMoine (1997), 185 N.B.R. (2d) 173; Nantais v. Nantais (1995), 16 R.F.L. (4th) 201; Moge v. Moge, [1992] 3 S.C.R. 813; Droit de la famille--1688, [1992] R.J.Q. 2797; Ross v. Ross (1995), 168 N.B.R. (2d) 147; Iurincic v. Iurincic (1998), 40 R.F.L. (4th) 258; Strang v. [...] This Court has rendered several judgments in this area, the most important in recent years remaining Moge v. Moge, [1992] 3 S.C.R. 813, and Bracklow v. Bracklow, [1999] 1 S.C.R. 420. 
+ [LINK /scc-csc/scc-csc/en/1881/1/document.do] 
+ 18.
+ [LINK /scc-csc/scc-csc/en/item/19119/index.do?q=%22Moge+v.+Moge%22] Association de médiation familiale du Québec v. Bouvier
+ - 2021 SCC 54
+ - [2021] 3 SCR 805
+ - 2021-12-17
+ Supreme Court Judgments
+ Family law
+ Becker, [1980] 2 S.C.R. 834; Richardson v. Richardson, [1987] 1 S.C.R. 857; Pelech v. Pelech, [1987] 1 S.C.R. 801; Lacroix v. Valois, [1990] 2 S.C.R. 1259; Moge v. Moge, [1992] 3 S.C.R. 813; Peter v. Beblow, [1993] 1 S.C.R. 980; Bracklow v. Bracklow, [1999] 1 S.C.R. 420; Boston v. Boston, 2001 SCC 43, [2001] 2 S.C.R. 413; [...] They may “be the location of safety and comfort . . . where [their] members have their most intimate human contact”; may represent an “emotional and economic support system”; and may serve as “a means to pass on the values that we deem to be central to our sense of community”: Moge v. Moge, [1992] 3 S.C.R. 813, at p. 848. [...] [2] Rathwell v. Rathwell, [1978] 2 S.C.R. 436; Pettkus v. Becker, [1980] 2 S.C.R. 834, at p. 850; Richardson v. Richardson, [1987] 1 S.C.R. 857, at p. 883, per La Forest J., dissenting; Pelech v. Pelech, [1987] 1 S.C.R. 801, at p. 850; Lacroix v. Valois, [1990] 2 S.C.R. 1259, at p. 1278; Moge v. Moge, [1992] 3 S.C.R. 813, 
+ [LINK /scc-csc/scc-csc/en/19119/1/document.do] 
+ 19.
+ [LINK /scc-csc/scc-csc/en/item/1953/index.do?q=%22Moge+v.+Moge%22] St-Jean v. Mercier
+ - 2002 SCC 15
+ - [2002] 1 SCR 491
+ - 2002-02-21
+ Supreme Court Judgments
+ Appeal
+ Torts
+ [1984] 1 S.C.R. 2; Schwartz v. Canada, [1996] 1 S.C.R. 254; Morin v. Blais, [1977] 1 S.C.R. 570; referred to: P. (D.) v. S. (C.), [1993] 4 S.C.R. 141; Moge v. Moge, [1992] 3 S.C.R. 813; R. v. Nova Scotia Pharmaceutical Society, [1992] 2 S.C.R. 606; Quebec (Public Curator) v. Syndicat national des employés de l’hôpital [...] 34 An appellate court must review a lower court’s judgment on questions of law to determine their correctness (P. (D.) v. S. (C.), [1993] 4 S.C.R. 141, at p. 189 (a contrario); Moge v. Moge, [1992] 3 S.C.R. 813, at p. 833; R. v. Nova Scotia Pharmaceutical Society, [1992] 2 S.C.R. 606, at p. 647; Lapointe v. Hôpital Le 
+ [LINK /scc-csc/scc-csc/en/1953/1/document.do] 
+ 20.
+ [LINK /scc-csc/scc-csc/en/item/1702/index.do?q=%22Moge+v.+Moge%22] M. v. H.
+ - [1999] 2 SCR 3
+ - 1999-05-20
+ Supreme Court Judgments
+ Constitutional law
+ Family law
+ In Moge v. Moge, [1992] 3 S.C.R. 813, at p. 848, L’Heureux‐Dubé J., writing on behalf of the majority of the Court, stated that “the support provisions of the Act are intended to deal with the economic consequences, for both parties, of the marriage or its breakdown” (emphasis in original). [...] This Court specifically rejected such a theory in Moge v. Moge, [1992] 3 S.C.R. 813, at p. 874, and I can see no reason why it should be exhumed here. [...] In Moge v. Moge, [1992] 3 S.C.R. 813, at pp. 853-54 and 861-62, this Court made numerous observations on the feminization of poverty and disproportionate impact of divorce on women and children. 
+ [LINK /scc-csc/scc-csc/en/1702/1/document.do] 
+ 21.
+ [LINK /scc-csc/scc-csc/en/item/2055/index.do?q=%22Moge+v.+Moge%22] Miglin v. Miglin
+ - 2003 SCC 24
+ - [2003] 1 SCR 303
+ - 2003-04-17
+ Supreme Court Judgments
+ Family law
+ Applied: R. v. S. (R.D.), [1997] 3 S.C.R. 484; Committee for Justice and Liberty v. National Energy Board, [1978] 1 S.C.R. 369; distinguished: Pelech v. Pelech, [1987] 1 S.C.R. 801; Richardson v. Richardson, [1987] 1 S.C.R. 857; Caron v. Caron, [1987] 1 S.C.R. 892; considered: Moge v. Moge, [1992] 3 S.C.R. 813; Bracklow v. [...] A compensatory approach was adopted in Moge v. Moge, [1992] 3 S.C.R. 813. A more nuanced approach was developed in Bracklow v. Bracklow, [1999] 1 S.C.R. 420. [...] In this regard, Abella J.A. expanded her analysis of s. 15.2 to include a review of the recent jurisprudence of this Court, including Moge v. Moge, [1992] 3 S.C.R. 813, and Bracklow v. Bracklow, [1999] 1 S.C.R. 420. 
+ [LINK /scc-csc/scc-csc/en/2055/1/document.do] 
+ 22.
+ [LINK /scc-csc/scc-csc/en/item/1725/index.do?q=%22Moge+v.+Moge%22] New Brunswick (Minister of Health and Community Services) v. G. (J.)
+ - [1999] 3 SCR 46
+ - 1999-09-10
+ Supreme Court Judgments
+ Action
+ Appeal
+ Constitutional law
+ Family law
+ Referred to: Andrews v. Law Society of British Columbia, [1989] 1 S.C.R. 143; R. v. Lyons, [1987] 2 S.C.R. 309; R. v. Tran, [1994] 2 S.C.R. 951; Moge v. Moge, [1992] 3 S.C.R. 813; Santosky v. Kramer, 455 U.S. 745 (1982); B. (R.) v. Children’s Aid Society of Metropolitan Toronto, [1995] 1 S.C.R. 315; R. v. Morgentaler, [...] As I wrote in Moge v. Moge, [1992] 3 S.C.R. 813, at p. 853, “In Canada, the feminization of poverty is an entrenched social phenomenon.” The patterns of relationships within marriage disproportionately lead to women taking responsibility for child care, foregoing economic opportunities in the workforce, and suffering 
+ [LINK /scc-csc/scc-csc/en/1725/1/document.do] 
+ 23.
+ [LINK /scc-csc/scc-csc/en/item/1691/index.do?q=%22Moge+v.+Moge%22] Law v. Canada (Minister of Employment and Immigration)
+ - [1999] 1 SCR 497
+ - 1999-03-25
+ Supreme Court Judgments
+ Constitutional law
+ Oakes, [1986] 1 S.C.R. 103; R. v. Edwards Books and Art Ltd., [1986] 2 S.C.R. 713; Machtinger v. HOJ Industries Ltd., [1992] 1 S.C.R. 986; Moge v. Moge, [1992] 3 S.C.R. 813. Statutes and Regulations Cited Canada Pension Plan , R.S.C., 1985, c. C-8 , ss. 44(1) (d) [am. c. 30 (2nd Supp.), s. 13], 58(1)(a) [am. idem., s. 26]. [...] See also Moge v. Moge, [1992] 3 S.C.R. 813, at pp. 881-83, per McLachlin J., regarding the relevance of increased age to a determination of a former spouse’s ability to support himself or herself. 
+ [LINK /scc-csc/scc-csc/en/1691/1/document.do] 
+ 24.
+ [LINK /scc-csc/scc-csc/en/item/1549/index.do?q=%22Moge+v.+Moge%22] R. v. S. (R.D.)
+ - [1997] 3 SCR 484
+ - 1997-09-26
+ Supreme Court Judgments
+ Courts
+ [1973] S.C.R. 833; R. v. Bartle, [1994] 3 S.C.R. 173; R. v. Lavallee, [1990] 1 S.C.R. 852; R. v. Parks (1993), 15 O.R. (3d) 324; Moge v. Moge, [1992] 3 S.C.R. 813; R. v. Smith (1991), 109 N.S.R. (2d) 394; Nova Scotia (Minister of Community Services) v. S.M.S. (1992), 110 N.S.R. (2d) 91; R. v. Burns, [1994] 1 S.C.R. 656. [...] 44 An understanding of the context or background essential to judging may be gained from testimony from expert witnesses in order to put the case in context: R. v. Lavallee, [1990] 1 S.C.R. 852, R. v. Parks (1993), 15 O.R. (3d) 324 (C.A.), and Moge v. Moge, [1992] 3 S.C.R. 813, from academic studies properly placed before 
+ [LINK /scc-csc/scc-csc/en/1549/1/document.do] 
+ 25.
+ [LINK /scc-csc/scc-csc/en/item/19396/index.do?q=%22Moge+v.+Moge%22] Barendregt v. Grebliunas
+ - 2022 SCC 22
+ - [2022] 1 SCR 517
+ - 2022-05-20
+ Supreme Court Judgments
+ Evidence
+ Family law
+ v. Owen, 2003 SCC 33, [2003] 1 S.C.R. 779; Bent v. Platnick, 2020 SCC 23, [2020] 2 S.C.R. 645; Van de Perre v. Edwards, 2001 SCC 60, [2001] 2 S.C.R. 1014; Moge v. Moge, [1992] 3 S.C.R. 813; Children’s Aid Society of Halton (Region) v. A. (K.L.) (2006), 32 R.F.L. (6th) 7; Children’s Aid Society of Toronto v. P. (D.) [...] As this Court recognized in Moge v. Moge, [1992] 3 S.C.R. 813, family litigants, particularly women, are often already shouldering the economic consequences of a marital breakdown. 
+ [LINK /scc-csc/scc-csc/en/19396/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

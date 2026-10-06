@@ -1,0 +1,785 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=%22Snell+v.+Farrell%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=%22Snell+v.+Farrell%22&ref=&p=&col=1&or=] All Databases (83)
+ Decisions (25)
+ [LINK /scc-csc/en/n/s/index.do?cont=%22Snell+v.+Farrell%22&ref=&p=&col=1&or=] Resources (58)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Snell+v.+Farrell%22&ref=&p=&col=1&or=date] Date
+ 25 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/634/index.do?q=%22Snell+v.+Farrell%22] Snell v. Farrell
+ - [1990] 2 SCR 311
+ - 1990-08-16
+ Supreme Court Judgments
+ Professional law
+ Torts
+ Snell v. Farrell, Snell c. Farrell, 20873, [1990] 2 SCR 311, [1990] 2 RCS 311 Snell v. Farrell, [1990] 2 S.C.R. 311 [...] indexed as: snell v. farrell File No.: 20873. 1989: December 6; 1990: August 16. Present: Dickson C.J.* and Wilson, La Forest, L'Heureux‐Dubé, Sopinka, Cory and McLachlin JJ. 
+ [LINK /scc-csc/scc-csc/en/634/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/16042/index.do?q=%22Snell+v.+Farrell%22] British Columbia (Workers’ Compensation Appeal Tribunal) v. Fraser Health Authority
+ - 2016 SCC 25
+ - [2016] 1 SCR 587
+ - 2016-06-24
+ Supreme Court Judgments
+ In doing so, the majority acknowledged the need for “positive evidence linking the disease to employment” (J.R., vol. 1, at p. 16) and cited the decision of this Court in Snell v. Farrell, [1990] 2 S.C.R. 311, as authority for a fact-finder’s ability to draw a “common sense” inference of causation in the absence of [...] is affirmative medical evidence leading to a medical conclusion it is not open to the court to apply ‘the common sense reasoning urged in Snell v. Farrell’”. This precluded “the purported application of common sense on matters of causation where there is contrary expert opinion” (chambers judge’s reasons, at para. 40). [...] Indeed, the Tribunal’s analysis echoes the principle established in Snell v. Farrell, [1990] 2 S.C.R. 311, to the effect that causation need not be determined by scientific precision. 
+ [LINK /scc-csc/scc-csc/en/16042/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/2343/index.do?q=%22Snell+v.+Farrell%22] Resurfice Corp. v. Hanke
+ - 2007 SCC 7
+ - [2007] 1 SCR 333
+ - 2007-02-08
+ Supreme Court Judgments
+ Torts
+ v. British Columbia (Minister of Forests), [2004] 3 S.C.R. 511, 2004 SCC 73; Athey v. Leonati, [1996] 3 S.C.R. 458; Snell v. Farrell, [1990] 2 S.C.R. 311; Walker Estate v. York Finch General Hospital, [2001] 1 S.C.R. 647, 2001 SCC 23; Blackwater v. Plint, [2005] 3 S.C.R. 3, 2005 SCC 58; Cook v. Lewis, [1951] S.C.R. 830. [...] This is inconsistent with this Court’s judgments in Snell v. Farrell, [1990] 2 S.C.R. 311; Athey v. Leonati, at para. 14; Walker Estate v. York Finch General Hospital, [2001] 1 S.C.R. 647, 2001 SCC 23, at paras. 87-88, and Blackwater v. Plint, [2005] 3 S.C.R. 3, 2005 SCC 58, at para. 78. [...] It ensures that a defendant will not be held liable for the plaintiff’s injuries where they “may very well be due to factors unconnected to the defendant and not the fault of anyone”: Snell v. Farrell, at p. 327, per Sopinka J. 24 However, in special circumstances, the law has recognized exceptions to the basic “but for” 
+ [LINK /scc-csc/scc-csc/en/2343/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/1435/index.do?q=%22Snell+v.+Farrell%22] Athey v. Leonati
+ - [1996] 3 SCR 458
+ - 1996-10-31
+ Supreme Court Judgments
+ Torts
+ Considered: Jobling v. Associated Dairies Ltd., [1981] 2 All E.R. 752; Penner v. Mitchell (1978), 89 D.L.R. (3d) 343; referred to: Snell v. Farrell, [1990] 2 S.C.R. 311; McGhee v. National Coal Board, [1972] 3 All E.R. 1008; Horsley v. MacLaren, [1972] S.C.R. 441; Myers v. Peel County Board of Education, [1981] 2 S.C.R. 21; [...] 13 Causation is established where the plaintiff proves to the civil standard on a balance of probabilities that the defendant caused or contributed to the injury: Snell v. Farrell, [1990] 2 S.C.R. 311; McGhee v. National Coal Board, [1972] 3 All E.R. 1008 (H.L.). [...] 16 In Snell v. Farrell, supra, this Court recently confirmed that the plaintiff must prove that the defendant’s tortious conduct caused or contributed to the plaintiff’s injury. 
+ [LINK /scc-csc/scc-csc/en/1435/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/16224/index.do?q=%22Snell+v.+Farrell%22] Benhaim v. St‑Germain
+ - 2016 SCC 48
+ - [2016] 2 SCR 352
+ - 2016-11-10
+ Supreme Court Judgments
+ Torts
+ This Court’s decisions in Snell v. Farrell, [1990] 2 S.C.R. 311, and St‐Jean v. Mercier, 2002 SCC 15, [2002] 1 S.C.R. 491, make it clear that in such circumstances, an adverse inference of causation is one that trial judges are permitted to draw. [...] St‐Jean v. Mercier, 2002 SCC 15, [2002] 1 S.C.R. 491; Housen v. Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235; H.L. v. Canada (Attorney General), 2005 SCC 25, [2005] 1 S.C.R. 401; Snell v. Farrell, [1990] 2 S.C.R. 311; Ediger v. Johnston, 2013 SCC 18, [2013] 2 S.C.R. 98; Martel v. Hôtel‐Dieu St‐Vallier, [1969] S.C.R. 745; [...] Her error of law was her failure to draw an unfavourable or adverse inference of causation that, according to Kasirer and Bélanger JJ.A., was required by this Court’s decisions in Snell v. Farrell, [1990] 2 S.C.R. 311, and St-Jean v. Mercier, 2002 SCC 15, [2002] 1 S.C.R. 491. 
+ [LINK /scc-csc/scc-csc/en/16224/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/13428/index.do?q=%22Snell+v.+Farrell%22] Bruno Appliance and Furniture, Inc. v. Hryniak
+ - 2014 SCC 8
+ - [2014] 1 SCR 126
+ - 2014-01-23
+ Supreme Court Judgments
+ Civil procedure
+ Applied: Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; referred to: Derry v. Peek (1889), 14 App. Cas. 337; Parna v. G. & S. Properties Ltd., [1971] S.C.R. 306; Snell v. Farrell, [1990] 2 S.C.R. 311; Angers v. Mutual Reserve Fund Life Assn. [...] Requiring the plaintiff to prove inducement is consistent with this Court’s later recognition in Snell v. Farrell, [1990] 2 S.C.R. 311, at pp. 319-20, that tort law requires proof that “but for the tortious conduct of the defendant, the plaintiff would not have sustained the injury complained of”. 
+ [LINK /scc-csc/scc-csc/en/13428/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/788/index.do?q=%22Snell+v.+Farrell%22] Rainbow Industrial Caterers Ltd. v. Canadian National Railway Co.
+ - [1991] 3 SCR 3
+ - 1991-09-26
+ Supreme Court Judgments
+ Criminal law
+ Torts
+ & P.E.I.R. 234, 135 A.P.R. 234; H.B. Nickerson & Sons Ltd. v. Wooldridge (1980), 40 N.S.R. (2d) 388, 73 A.P.R. 388; Steer v. Aerovox Inc. (1984), 65 N.S.R. (2d) 91, 147 A.P.R. 91; National Trust Co. v. Wong Aviation Ltd., [1969] S.C.R. 481; Snell v. Farrell, [1990] 2 S.C.R. 311; National Bank of Canada v. Corbeil, [...] See National Trust Co. v. Wong Aviation Ltd., [1969] S.C.R. 481, and Snell v. Farrell, [1990] 2 S.C.R. 311. Valid policy reasons will be sufficient to reverse the ordinary incidence of proof. 
+ [LINK /scc-csc/scc-csc/en/788/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/12961/index.do?q=%22Snell+v.+Farrell%22] Ediger v. Johnston
+ - 2013 SCC 18
+ - [2013] 2 SCR 98
+ - 2013-04-04
+ Supreme Court Judgments
+ Torts
+ Referred to: Hill v. Hamilton‐Wentworth Regional Police Services Board, 2007 SCC 41, [2007] 3 S.C.R. 129; Clements v. Clements, 2012 SCC 32, [2012] 2 S.C.R. 181; Resurfice Corp. v. Hanke, 2007 SCC 7, [2007] 1 S.C.R. 333; H.L. v. Canada (Attorney General), 2005 SCC 25, [2005] 1 S.C.R. 401; Snell v. Farrell, [1990] 2 S.C.R. [...] [36] The Court of Appeal’s reasons also suggest that it understood the trial judge to have improperly relied on Snell v. Farrell, [1990] 2 S.C.R. 311, in order to draw an “inference of causation” (paras. 83-85). 
+ [LINK /scc-csc/scc-csc/en/12961/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/9992/index.do?q=%22Snell+v.+Farrell%22] Clements v. Clements
+ - 2012 SCC 32
+ - [2012] 2 SCR 181
+ - 2012-06-29
+ Supreme Court Judgments
+ Torts
+ Distinguished: Sienkiewicz v. Greif (UK) Ltd., [2011] UKSC 10, [2011] 2 All E.R. 857; referred to: Wilsher v. Essex Area Health Authority, [1988] A.C. 1074; Snell v. Farrell, [1990] 2 S.C.R. 311; Athey v. Leonati, [1996] 3 S.C.R. 458; Betts v. Whittingslowe (1945), 71 C.L.R. 637; Bennett v. Minister of Community Welfare [...] See Wilsher v. Essex Area Health Authority, [1988] A.C. 1074 (H.L.), at p. 1090, per Lord Bridge; Snell v. Farrell, [1990] 2 S.C.R. 311. [10] A common sense inference of “but for” causation from proof of negligence usually flows without difficulty. 
+ [LINK /scc-csc/scc-csc/en/9992/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/1216/index.do?q=%22Snell+v.+Farrell%22] Stewart v. Pettie
+ - [1995] 1 SCR 131
+ - 1995-01-26
+ Supreme Court Judgments
+ Torts
+ [1932] A.C. 562; The Queen in right of Canada v. Saskatchewan Wheat Pool, [1983] 1 S.C.R. 205; Arland v. Taylor, [1955] O.R. 131; Gouge v. Three Top Investment Holdings Inc., [1994] O.J. No. 751 (QL); Snell v. Farrell, [1990] 2 S.C.R. 311. Statutes and Regulations Cited Contributory Negligence Act, R.S.A. 1980, c. C‐23. [...] See Snell v. Farrell, [1990] 2 S.C.R. 311. This makes the plaintiff's task less onerous where there is some inherent difficulty in proving causation with scientific accuracy, or where the facts surrounding causation lie uniquely within the knowledge of the defendant. 
+ [LINK /scc-csc/scc-csc/en/1216/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/1328/index.do?q=%22Snell+v.+Farrell%22] Hollis v. Dow Corning Corp.
+ - [1995] 4 SCR 634
+ - 1995-12-21
+ Supreme Court Judgments
+ Action
+ Torts
+ 77 My colleague refers to a number of cases, such as Cook v. Lewis, [1951] S.C.R. 830, Snell v. Farrell, [1990] 2 S.C.R. 311, and Buchan, supra, which either reversed or relaxed the ordinary burden which rests on the plaintiff to prove causation. [...] 79 Similarly, this Court in Snell v. Farrell, supra, at p. 321, expressed the view that the burden on the plaintiff could be reversed where the subject matter of the alleged tortious conduct lies "particularly within the knowledge" of the defendant. [...] See Snell v. Farrell, supra; Davie Shipbuilding Ltd. v. The Queen, [1984] 1 F.C. 461 (C.A.); Jardine v. Northern Co-operative Timber and Mill Association, [1945] 1 W.W.R. 533 (B.C.C.A.); Nova, An Alberta Corporation v. Guelph Engineering Co. (1989), 70 Alta. 
+ [LINK /scc-csc/scc-csc/en/1328/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/1404/index.do?q=%22Snell+v.+Farrell%22] R. v. Goldhart
+ - [1996] 2 SCR 463
+ - 1996-07-04
+ Supreme Court Judgments
+ Constitutional law
+ Considered: R. v. Strachan, [1988] 2 S.C.R. 980; R. v. Therens, [1985] 1 S.C.R. 613; not followed: R. v. Church of Scientology of Toronto (No. 2) (1992), 74 C.C.C. (3d) 341; referred to: R. v. Kokesch, [1990] 3 S.C.R. 3; R. v. Collins, [1987] 1 S.C.R. 265; Snell v. Farrell, [1990] 2 S.C.R. 311; R. v. S. (R.J.), [1995] 1 [...] See Snell v. Farrell, [1990] 2 S.C.R. 311. 37 Causation has also played an important role in other Charter jurisprudence. 
+ [LINK /scc-csc/scc-csc/en/1404/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/1859/index.do?q=%22Snell+v.+Farrell%22] Walker Estate v. York Finch General Hospital
+ - 2001 SCC 23
+ - [2001] 1 SCR 647
+ - 2001-04-19
+ Supreme Court Judgments
+ Torts
+ Distinguished: Hollis v. Dow Corning Corp., [1995] 4 S.C.R. 634; applied: Snell v. Farrell, [1990] 2 S.C.R. 311; referred to: Ter Neuzen v. Korn, [1995] 3 S.C.R. 674; Athey v. Leonati, [1996] 3 S.C.R. 458. [...] 99 I adopt the reasoning of Sopinka J. in Snell v. Farrell, [1990] 2 S.C.R. 311, where he considered the causation requirement with respect to malpractice cases at pp. 326-27: 
+ [LINK /scc-csc/scc-csc/en/1859/1/document.do] 
+ 14.
+ [LINK /scc-csc/scc-csc/en/item/735/index.do?q=%22Snell+v.+Farrell%22] Laferrière v. Lawson
+ - [1991] 1 SCR 541
+ - 1991-03-21
+ Supreme Court Judgments
+ Professional law
+ Torts
+ (1983), [1990] R.R.A. 397; Zuk v. Mihaly, [1989] R.R.A. 737; Gburek v. Cohen, [1988] R.J.Q. 2424; Lapointe v. Hôpital Le Gardeur, [1989] R.J.Q. 2619; Snell v. Farrell, [1990] 2 S.C.R. 311; Shawinigan Engineering Company v. Naud, [1929] S.C.R. 341; Morin v. Blais, [1977] 1 S.C.R. 570; Laurentide Motels Ltd. v. Beauport [...] Recently, in Snell v. Farrell, [1990] 2 S.C.R. 311, this Court made clear (at p. 328) that "[c]ausation need not be determined by scientific precision" and that "[i]t is not . . . essential that the medical experts provide a firm opinion supporting the plaintiff's theory of causation" (p. 330). [...] I have also made note of this Court's recent decision in Snell v. Farrell, supra, which I take to endorse traditional principles of causation, properly applied. 
+ [LINK /scc-csc/scc-csc/en/735/1/document.do] 
+ 15.
+ [LINK /scc-csc/scc-csc/en/item/1953/index.do?q=%22Snell+v.+Farrell%22] St-Jean v. Mercier
+ - 2002 SCC 15
+ - [2002] 1 SCR 491
+ - 2002-02-21
+ Supreme Court Judgments
+ Appeal
+ Torts
+ (Attorney General) v. Bear Island Foundation, [1991] 2 S.C.R. 570; Hébert v. Lamothe, [1974] S.C.R. 1181; Bonenfant v. O.T.J. de la Rédemption, [1994] R.R.A. 225; Snell v. Farrell, [1990] 2 S.C.R. 311; Labelle v. Charette, [1960] Que Q.B. 770; Massignani v. Veilleux, [1987] R.R.A. 541; Cook v. Lewis, [1951] S.C.R. 830. [...] One of the cases cited is Snell v. Farrell, [1990] 2 S.C.R. 311, at p. 330, which of course expresses greater comfort with use of the term “inference” rather than “reversal of burden”. 
+ [LINK /scc-csc/scc-csc/en/1953/1/document.do] 
+ 16.
+ [LINK /scc-csc/scc-csc/en/item/2085/index.do?q=%22Snell+v.+Farrell%22] K.L.B. v. British Columbia
+ - 2003 SCC 51
+ - [2003] 2 SCR 403
+ - 2003-10-02
+ Supreme Court Judgments
+ Action
+ Torts
+ [2003] 2 S.C.R. 477, 2003 SCC 53; E.D.G. v. Hammer, [2003] 2 S.C.R. 459, 2003 SCC 52; Wilsher v. Essex Area Health Authority, [1988] 2 W.L.R. 557; Snell v. Farrell, [1990] 2 S.C.R. 311; Challand v. Bell (1959), 18 D.L.R. (2d) 150; Ali v. Sydney Mitchell & Co., [1980] A.C. 198; Durham v. Public School Board of [...] As in other areas of negligence law, judges should assess causation using what Sopinka J., citing Lord Bridge in Wilsher v. Essex Area Health Authority, [1988] 2 W.L.R. 557 (H.L.), at p. 569, referred to as a “robust and pragmatic approach” (Snell v. Farrell, [1990] 2 S.C.R. 311, at p. 330). As Sopinka J. emphasized, 
+ [LINK /scc-csc/scc-csc/en/2085/1/document.do] 
+ 17.
+ [LINK /scc-csc/scc-csc/en/item/1574/index.do?q=%22Snell+v.+Farrell%22] Bow Valley Husky (Bermuda) Ltd. v. Saint John Shipbuilding Ltd.
+ - [1997] 3 SCR 1210
+ - 1997-12-18
+ Supreme Court Judgments
+ Torts
+ Construction Co., [1995] 1 S.C.R. 85; Nance v. British Columbia Electric Railway Co., [1951] A.C. 601; Jones v. Livox Quarries Ld., [1952] 2 Q.B. 608; Snell v. Farrell, [1990] 2 S.C.R. 311; Hughes v. Lord Advocate, [1963] A.C. 837; Overseas Tankship (U.K.) Ltd. v. Miller Steamship Co. Pty., [1967] 1 A.C. 617; Sparks v. [...] The fire would not have occurred “but for” the negligence of BVHB: Snell v. Farrell, [1990] 2 S.C.R. 311. The conduct of BVHB viewed independently was negligent. 
+ [LINK /scc-csc/scc-csc/en/1574/1/document.do] 
+ 18.
+ [LINK /scc-csc/scc-csc/en/item/946/index.do?q=%22Snell+v.+Farrell%22] Moge v. Moge
+ - [1992] 3 SCR 813
+ - 1992-12-17
+ Supreme Court Judgments
+ Courts
+ Family law
+ Referred to: Snell v. Farrell, [1990] 2 S.C.R. 311. Statutes and Regulations Cited Divorce Act, R.S.C. 1970, c. D‐8, s. 17(2). [...] What is required under s. 17(7) of the Divorce Act is a common‐sense, non-technical view of causation, such as this Court proposed for personal injury cases in Snell v. Farrell, [1990] 2 S.C.R. 311, per Sopinka J., at p. 330: The legal or ultimate burden remains with the plaintiff, but in the absence of evidence to the 
+ [LINK /scc-csc/scc-csc/en/946/1/document.do] 
+ 19.
+ [LINK /scc-csc/scc-csc/en/item/1380/index.do?q=%22Snell+v.+Farrell%22] Gordon v. Goertz
+ - [1996] 2 SCR 27
+ - 1996-05-02
+ Supreme Court Judgments
+ Family law
+ Stewart (1990), 30 R.F.L. (3d) 67; Snell v. Farrell, [1990] 2 S.C.R. 311; Docherty v. Beckett (1989), 21 R.F.L. (3d) 92, leave to appeal refused, [1990] 1 S.C.R. vii; Catholic Children's Aid Society of Metropolitan Toronto v. M. (C.), [1994] 2 S.C.R. 165; King v. Low, [1985] 1 S.C.R. 87; Grant v. Brotzel (1993), 115 Sask. [...] As Sopinka J. states in Snell v. Farrell, [1990] 2 S.C.R. 311, at p. 321: In a civil case, the two broad principles are: 
+ [LINK /scc-csc/scc-csc/en/1380/1/document.do] 
+ 20.
+ [LINK /scc-csc/scc-csc/en/item/19554/index.do?q=%22Snell+v.+Farrell%22] Nova Chemicals Corp. v. Dow Chemical Co.
+ - 2022 SCC 43
+ - [2022] 3 SCR 352
+ - 2022-11-18
+ Supreme Court Judgments
+ Intellectual property
+ 2013 FC 751, [2015] 1 F.C.R. 405; Snell v. Farrell, [1990] 2 S.C.R. 311; Apotex Inc. v. Sanofi‐Synthelabo Canada Inc., 2008 SCC 61, [2008] 3 S.C.R. 265; Teva Canada Ltd. v. Pfizer Canada Inc., 2012 SCC 60, [2012] 3 S.C.R. 625; Apotex Inc. v. Wellcome Foundation Ltd., 2002 SCC 77, [2002] 4 S.C.R. 153; Atlantic Lottery Corp. [...] Causation “need not be determined by scientific precision: it is ‘essentially a practical question of fact which can best be answered by ordinary common sense’” (Merck & Co., Inc. v. Apotex Inc., 2015 FCA 171, [2016] 2 F.C.R. 202, at para. 44, quoting Snell v. Farrell, [1990] 2 S.C.R. 311, at para. 328). Step 3: If 
+ [LINK /scc-csc/scc-csc/en/19554/1/document.do] 
+ 21.
+ [LINK /scc-csc/scc-csc/en/item/1711/index.do?q=%22Snell+v.+Farrell%22] Winko v. British Columbia (Forensic Psychiatric Institute)
+ - [1999] 2 SCR 625
+ - 1999-06-17
+ Supreme Court Judgments
+ Constitutional law
+ (3d) 154; Davidson v. British Columbia (Attorney-General) (1993), 87 C.C.C. (3d) 269; Slaight Communications Inc. v. Davidson, [1989] 1 S.C.R. 1038; Snell v. Farrell, [1990] 2 S.C.R. 311; R. v. Osolin, [1993] 4 S.C.R. 595; D.H. v. British Columbia (Attorney General), [1994] B.C.J. No. 2011 (QL); Chambers v. British [...] “It is not strictly accurate to speak of the burden shifting to the defendant when what is meant is that evidence adduced by the plaintiff may result in an inference being drawn adverse to the defendant”: Snell v. Farrell, [1990] 2 S.C.R. 311, at pp. 329-30, per Sopinka J. See also J. Sopinka, S. N. Lederman and A. W. 
+ [LINK /scc-csc/scc-csc/en/1711/1/document.do] 
+ 22.
+ [LINK /scc-csc/scc-csc/en/item/18510/index.do?q=%22Snell+v.+Farrell%22] Fraser v. Canada (Attorney General)
+ - 2020 SCC 28
+ - [2020] 3 SCR 113
+ - 2020-10-16
+ Supreme Court Judgments
+ Constitutional law
+ 483; Winko v. British Columbia (Forensic Psychiatric Institute), [1999] 2 S.C.R. 625; Quebec (Attorney General) v. A, 2013 SCC 5, [2013] 1 S.C.R. 61; Snell v. Farrell, [1990] 2 S.C.R. 311; Blatch v. Archer (1774), 1 Cowp. 63, 98 E.R. 969; Auton (Guardian ad litem of) v. British Columbia (Attorney General), 2004 SCC 78, [...] While courts must evaluate evidence in light of “the proof which it was in the power of one side to have produced, and in the power of the other to have contradicted” (Snell v. Farrell, [1990] 2 S.C.R. 311, at p. 328, quoting Blatch v. Archer (1774), 1 Cowp. 63, 98 E.R. 969, at p. 970), ultimately the onus is on the 
+ [LINK /scc-csc/scc-csc/en/18510/1/document.do] 
+ 23.
+ [LINK /scc-csc/scc-csc/en/item/1290/index.do?q=%22Snell+v.+Farrell%22] RJR-MacDonald Inc. v. Canada (Attorney General)
+ - [1995] 3 SCR 199
+ - 1995-09-21
+ Supreme Court Judgments
+ Constitutional law
+ v. Canada, [1991] 1 S.C.R. 139; Snell v. Farrell, [1990] 2 S.C.R. 311; R. v. Keegstra, [1990] 3 S.C.R. 697; R. v. Butler, [1992] 1 S.C.R. 452; Reference re ss. 193 and 195.1(1)(c) of the Criminal Code (Man.), [1990] 1 S.C.R. 1123; R. v. Chaulk, [1990] 3 S.C.R. 1303; Ramsden v. Peterborough (City), [1993] 2 S.C.R. 1084. [...] Discharge of the civil standard does not require scientific demonstration; the balance of probabilities may be established by the application of common sense to what is known, even though what is known may be deficient from a scientific point of view: see Snell v. Farrell, [1990] 2 S.C.R. 311. 138 In summary, while I agree 
+ [LINK /scc-csc/scc-csc/en/1290/1/document.do] 
+ 24.
+ [LINK /scc-csc/scc-csc/en/item/1621/index.do?q=%22Snell+v.+Farrell%22] Thomson Newspapers Co. v. Canada (Attorney General)
+ - [1998] 1 SCR 877
+ - 1998-05-29
+ Supreme Court Judgments
+ Constitutional law
+ Discharge of the civil standard does not require scientific demonstration; the balance of probabilities may be established by the application of common sense to what is known, even though what is known may be deficient from a scientific point of view: see Snell v. Farrell, [1990] 2 S.C.R. 311. [Emphasis added.] McLachlin J.
+ [LINK /scc-csc/scc-csc/en/1621/1/document.do] 
+ 25.
+ [LINK /scc-csc/scc-csc/en/item/2226/index.do?q=%22Snell+v.+Farrell%22] H.L. v. Canada (Attorney General)
+ - 2005 SCC 25
+ - [2005] 1 SCR 401
+ - 2005-04-29
+ Supreme Court Judgments
+ Appeal
+ Causation is established where the plaintiff proves to the civil standard on a balance of probabilities that the defendant caused or contributed to the injury: Snell v. Farrell, [1990] 2 S.C.R. 311; McGhee v. National Coal Board, [1972] 3 All E.R. 1008 (H.L.). 
+ [LINK /scc-csc/scc-csc/en/2226/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

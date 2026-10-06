@@ -1,0 +1,789 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=%22Hryniak+v.+Mauldin%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=%22Hryniak+v.+Mauldin%22&ref=&p=&col=1&or=] All Databases (83)
+ Decisions (31)
+ [LINK /scc-csc/en/n/s/index.do?cont=%22Hryniak+v.+Mauldin%22&ref=&p=&col=1&or=] Resources (52)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ 1
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Hryniak+v.+Mauldin%22&ref=&d=&p=&col=1&or=&page=2] 2
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Hryniak+v.+Mauldin%22&ref=&d=&p=&col=1&or=&page=2] &gt;
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Hryniak+v.+Mauldin%22&ref=&p=&col=1&or=date] Date
+ 31 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/13427/index.do?q=%22Hryniak+v.+Mauldin%22] Hryniak v. Mauldin
+ - 2014 SCC 7
+ - [2014] 1 SCR 87
+ - 2014-01-23
+ Supreme Court Judgments
+ Civil procedure
+ Hryniak v. Mauldin, Hryniak c. Mauldin, 2014 SCC 7, 2014 CSC 7, 34641, [2014] 1 SCR 87, [2014] 1 RCS 87 [...] Citation: Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87 Date: 20140123 Docket: 34641 [...] Hryniak v. Mauldin, 2014 CSC 7, [2014] 1 R.C.S. 87 Robert Hryniak Appellant v. 
+ [LINK /scc-csc/scc-csc/en/13427/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/13428/index.do?q=%22Hryniak+v.+Mauldin%22] Bruno Appliance and Furniture, Inc. v. Hryniak
+ - 2014 SCC 8
+ - [2014] 1 SCR 126
+ - 2014-01-23
+ Supreme Court Judgments
+ Civil procedure
+ The scope and interpretation of the amended Rule 20 summary judgment motion are addressed in the companion appeal, Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87. Summary judgment may not be granted under Rule 20 where there is a genuine issue requiring a trial. [...] Applied: Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; referred to: Derry v. Peek (1889), 14 App. Cas. 337; Parna v. G. & S. Properties Ltd., [1971] S.C.R. 306; Snell v. Farrell, [1990] 2 S.C.R. 311; Angers v. Mutual Reserve Fund Life Assn. [...] [1] Karakatsanis J. — Like its companion, Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87 (Mauldin), this appeal concerns the interpretation and application of Ontario’s new summary judgment rules. 
+ [LINK /scc-csc/scc-csc/en/13428/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/14375/index.do?q=%22Hryniak+v.+Mauldin%22] Trial Lawyers Association of British Columbia v. British Columbia (Attorney General)
+ - 2014 SCC 59
+ - [2014] 3 SCR 31
+ - 2014-10-02
+ Supreme Court Judgments
+ Constitutional law
+ 1 S.C.R. 704; Reference re Remuneration of Judges of the Provincial Court of Prince Edward Island, [1997] 3 S.C.R. 3; B.C.G.E.U. v. British Columbia (Attorney General), [1988] 2 S.C.R. 214, aff’g (1985), 20 D.L.R. (4th) 399; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; Schachter v. Canada, [1992] 2 S.C.R. 679. [...] As stated more recently in Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, per Karakatsanis J., “without an accessible public forum for the adjudication of disputes, the rule of law is threatened and the development of the common law undermined” (para. 26). [...] As this Court has recently noted in the context of summary judgment proceedings, “it is the motion judge, not counsel, who maintains control over the extent of the evidence to be led and the issues to which the evidence is to be directed” (Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, at para. 61, quoting Combined Air
+ [LINK /scc-csc/scc-csc/en/14375/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/19534/index.do?q=%22Hryniak+v.+Mauldin%22] Annapolis Group Inc. v. Halifax Regional Municipality
+ - 2022 SCC 36
+ - [2022] 2 SCR 772
+ - 2022-10-21
+ Supreme Court Judgments
+ Expropriation
+ v. 9120‐4883 Québec inc., 2021 QCCA 630; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; Shannex Inc. v. Dora Construction Ltd., 2016 NSCA 89, 58 C.L.R. (4th) 1; R. v. Imperial Tobacco Canada Ltd., 2011 SCC 42, [2011] 3 S.C.R. 45; Warman v. Law Society of Alberta, 2015 ABCA 368, 609 A.R. 83; Condominium Corp. [...] Thus he did not find the proportionality principle, as described in Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, to support granting summary judgment. [...] [132] Summary judgment is available when there is no genuine issue for trial (Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, at para. 34). The test for summary judgment on evidence in an action under r. 13.04 of the Nova Scotia Civil Procedure Rules was addressed by the Nova Scotia Court of Appeal in Shannex Inc. v. 
+ [LINK /scc-csc/scc-csc/en/19534/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/18895/index.do?q=%22Hryniak+v.+Mauldin%22] Ethiopian Orthodox Tewahedo Church of Canada St. Mary Cathedral v. Aga
+ - 2021 SCC 22
+ - [2021] 1 SCR 868
+ - 2021-05-21
+ Supreme Court Judgments
+ Courts
+ Colony of Hutterian Brethren v. Hofer, [1992] 3 S.C.R. 165; Hofer v. Hofer, [1970] S.C.R. 958; referred to: Ahenakew v. MacKay (2004), 71 O.R. (3d) 130; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; Canada (Attorney General) v. Lameman, 2008 SCC 14, [2008] 1 S.C.R. 372; Transamerica Life Insurance Co. of Canada v. [...] [25] This Court explained in Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, that there will be no genuine issue requiring trial under rule 20.04(2)(a) of Ontario’s Rules of Civil Procedure “when the judge is able to reach a fair and just determination on the merits on a motion for summary judgment. 
+ [LINK /scc-csc/scc-csc/en/18895/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/16958/index.do?q=%22Hryniak+v.+Mauldin%22] Delta Air Lines Inc. v. Lukács
+ - 2018 SCC 2
+ - [2018] 1 SCR 6
+ - 2018-01-19
+ Supreme Court Judgments
+ August 20, 2008; Lukács v. Canadian Transportation Agency, 2014 FCA 76, 456 N.R. 186; Maple Lodge Farms Ltd. v. Government of Canada, [1982] 2 S.C.R. 2; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; Norman Estate v. Air Canada, Canadian Transportation Agency, Decision No. 6‐AT‐A‐2008, January 10, 2008. [...] Access to justice demands that courts and tribunals be encouraged to, not restrained from, developing screening methods to ensure that access to justice will be available to those who need it most in a timely way (Hryniak v. Mauldin, [2014] 1 S.C.R. 87). That is why courts developed standing rules in the first place. 
+ [LINK /scc-csc/scc-csc/en/16958/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/19047/index.do?q=%22Hryniak+v.+Mauldin%22] H.M.B. Holdings Ltd. v. Antigua and Barbuda
+ - 2021 SCC 44
+ - [2021] 3 SCR 285
+ - 2021-11-04
+ Supreme Court Judgments
+ Pte Ltd. v. Procurement Bureau of the Republic of China Ministry of National Defence, [2020] EWCA Civ 1604, [2021] 2 W.L.R. 448; referred to: Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; C.M. Callow Inc. v. Zollinger, 2020 SCC 45, [2020] 3 S.C.R. 908; Reference re Code of Civil Procedure (Que.), art. 35, [...] [55] In recent years, our Court has repeatedly emphasized the importance of removing barriers that impede access to justice (Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, at para. 1; C.M. Callow Inc. v. Zollinger, 2020 SCC 45, [2020] 3 S.C.R. 908, at para. 170; Reference re Code of Civil Procedure (Que.), art. 35, 
+ [LINK /scc-csc/scc-csc/en/19047/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/15305/index.do?q=%22Hryniak+v.+Mauldin%22] Association des parents de l’école Rose‑des‑vents v. British Columbia (Education)
+ - 2015 SCC 21
+ - [2015] 2 SCR 139
+ - 2015-04-24
+ Supreme Court Judgments
+ Constitutional law
+ scolaire Marguerite-Bourgeoys, 2006 SCC 6, [2006] 1 S.C.R. 256; Solski (Tutor of) v. Quebec (Attorney General), 2005 SCC 14, [2005] 1 S.C.R. 201; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; Hamilton v. Open Window Bakery Ltd., 2004 SCC 9, [2004] 1 S.C.R. 303; British Columbia (Minister of Forests) v. [...] [78] Far from being unfair to the parties, limiting the evidence that may be adduced according to the phasing of proceedings heeds this Court’s guidance in Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87. Judges must actively manage the legal process in line with the principle of proportionality, taking into account fair
+ [LINK /scc-csc/scc-csc/en/15305/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/19424/index.do?q=%22Hryniak+v.+Mauldin%22] British Columbia (Attorney General) v. Council of Canadians with Disabilities
+ - 2022 SCC 27
+ - [2022] 1 SCR 794
+ - 2022-06-23
+ Supreme Court Judgments
+ Civil procedure
+ Stores Ltd., [1987] 1 S.C.R. 110; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; R. v. Morgentaler, [1988] 1 S.C.R. 30; Morgentaler v. New Brunswick, 2009 NBCA 26, 344 N.B.R. (2d) 39; Strickland v. Canada (Attorney General), 2015 SCC 37, [2015] 2 S.C.R. 713; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543. [...] For example, summary dismissal may be open to a defendant where there is no evidence to support an element of the claim (as in Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, at para. 93). [71] With these clarifications in mind, I will now return to the question at hand: What suffices to show that a sufficiently 
+ [LINK /scc-csc/scc-csc/en/19424/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/19851/index.do?q=%22Hryniak+v.+Mauldin%22] R. v. Haevischer
+ - 2023 SCC 11
+ - [2023] 1 SCR 416
+ - 2023-04-28
+ Supreme Court Judgments
+ Criminal law
+ R. v. Kuntz‐Angel, 2020 BCSC 1777; R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. Imperial Tobacco Canada Ltd., 2011 SCC 42, [2011] 3 S.C.R. 45; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; R. v. Glegg, 2021 ONCA 100, 400 C.C.C. (3d) 276; R. v. Samaniego, 2022 SCC 9, [2022] 1 S.C.R. 71; R. v. Edwardsen, 2019 [...] Relatedly, the civil rules for summary judgment, which is generally available when there is no genuine issue for trial, are “interpreted broadly, favouring proportionality and fair access to the affordable, timely and just adjudication of claims” (Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, at para. 5; see also 
+ [LINK /scc-csc/scc-csc/en/19851/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/17404/index.do?q=%22Hryniak+v.+Mauldin%22] Brunette v. Legault Joly Thiffault, s.e.n.c.r.l.
+ - 2018 SCC 55
+ - [2018] 3 SCR 481
+ - 2018-12-07
+ Supreme Court Judgments
+ Montoni (1995) division construction inc., 2017 QCCA 620; Bruneau v. Gespro technologies Inc., 2001 CanLII 20199; Montréal (Ville de) v. Montréal‐Ouest (Ville de), 2009 QCCA 2172, [2009] R.J.Q. 2729; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; R. v. Imperial Tobacco Canada Ltd., 2011 SCC 42, [2011] 3 S.C.R. 45. [...] As this Court set out in Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, “undue process and protracted trials, with unnecessary expense and delay, can prevent the fair and just resolution of disputes”: para. 24. 
+ [LINK /scc-csc/scc-csc/en/17404/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/16063/index.do?q=%22Hryniak+v.+Mauldin%22] Lapointe Rosenstein Marchand Melançon LLP v. Cassels Brock & Blackwell LLP
+ - 2016 SCC 30
+ - [2016] 1 SCR 851
+ - 2016-07-15
+ Supreme Court Judgments
+ 2013 SCC 37, [2013] 2 S.C.R. 623; Association des parents de l’école Rose‐des‐vents v. British Columbia (Education), 2015 SCC 21, [2015] 2 S.C.R. 139; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87. By Côté J. (dissenting) Club Resorts Ltd. v. Van Breda, 2012 SCC 17, [2012] 1 S.C.R. 572; Serra v. Serra, 2009 ONCA [...] [60] Overall, therefore, proceeding with all the third party claims before the Ontario courts will ensure that they are resolved in a timelier and more affordable manner: Hryniak v. Mauldin, [2014] 1 S.C.R. 87, at para. 28. All of this leads, as it did in the prior proceedings, to the conclusion that Ontario should assume 
+ [LINK /scc-csc/scc-csc/en/16063/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/18458/index.do?q=%22Hryniak+v.+Mauldin%22] 1704604 Ontario Ltd. v. Pointes Protection Association
+ - 2020 SCC 22
+ - [2020] 2 SCR 587
+ - 2020-09-10
+ Supreme Court Judgments
+ Courts
+ 2 S.C.R. 959; R. v. Imperial Tobacco Canada Ltd., 2011 SCC 42, [2011] 3 S.C.R. 45; R. v. Canadian Broadcasting Corp., 2018 SCC 5, [2018] 1 S.C.R. 196; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; Able Translations Ltd. v. Express International Translations Inc., 2016 ONSC 6785, 410 D.L.R. (4th) 380, aff’d 2018 [...] under which a legally sound claim supported by evidence reasonably capable of belief may nonetheless raise “no genuine issue requiring a trial” (Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87). While Hryniak was admittedly decided in the context of summary judgment motions, which call for an ultimate 
+ [LINK /scc-csc/scc-csc/en/18458/1/document.do] 
+ 14.
+ [LINK /scc-csc/scc-csc/en/item/15478/index.do?q=%22Hryniak+v.+Mauldin%22] Guindon v. Canada
+ - 2015 SCC 41
+ - [2015] 3 SCR 3
+ - 2015-07-31
+ Supreme Court Judgments
+ Constitutional law
+ & P.E.I.R. 1; Bell ExpressVu Limited Partnership v. Rex, 2002 SCC 42, [2002] 2 S.C.R. 559; R. v. Kapp, 2008 SCC 41, [2008] 2 S.C.R. 483; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; R. v. Shubley, [1990] 1 S.C.R. 3; R. v. McKinlay Transport Ltd., [1990] 1 S.C.R. 627; Venne v. The Queen, [1984] C.T.C. 223; Sirois [...] As the Court pointed out in Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, at para. 24, “undue process . . . with unnecessary expense and delay, can prevent the fair and just resolution of disputes” (emphasis in original). 
+ [LINK /scc-csc/scc-csc/en/15478/1/document.do] 
+ 15.
+ [LINK /scc-csc/scc-csc/en/item/18158/index.do?q=%22Hryniak+v.+Mauldin%22] Newfoundland and Labrador (Attorney General) v. Uashaunnuat (Innu of Uashat and of Mani‑Utenam)
+ - 2020 SCC 4
+ - [2020] 1 SCR 15
+ - 2020-02-21
+ Supreme Court Judgments
+ B.C.G.E.U. v. British Columbia (Attorney General), [1988] 2 S.C.R. 214; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; R. v. Côté, [1996] 3 S.C.R. 139; Innu of Uashat and Mani‐Utenam v. Iron Ore Company of Canada, 2016 QCCS 1958, [2017] 4 C.N.L.R. 73; Oppenheim forfait GMBH v. Lexus maritime inc, 1998 CanLII 13001. [...] Trial Lawyers Association of British Columbia, at paras. 39-40; B.C.G.E.U. v. British Columbia (Attorney General), [1988] 2 S.C.R. 214, at pp. 229-230; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, at paras. 1 and 23 et seq. [51] Moreover, the honour of the Crown requires increased attention to minimizing costs and [...] As this Court stated in Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, at para. 2, “[t]he balance between procedure and access struck by our justice system must come to reflect modern reality and recognize that new models of adjudication can be fair and just”. 
+ [LINK /scc-csc/scc-csc/en/18158/1/document.do] 
+ 16.
+ [LINK /scc-csc/scc-csc/en/item/20773/index.do?q=%22Hryniak+v.+Mauldin%22] Dunmore v. Mehralian
+ - 2025 SCC 20
+ - 2025-06-20
+ Supreme Court Judgments
+ Family law
+ v. Pollastro (1999), 43 O.R. (3d) 485; Ogunboye v. Faoye, 2023 ONCJ 46, 84 R.F.L. (8th) 99; Kinsella v. Mills, 2020 ONSC 4785, 44 R.F.L. (8th) 1; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; R. v. Haevischer, 2023 SCC 11; K.F. v. J.F., 2022 NLCA 33, 7 C.A.N.L.R. 609; Rifkin v. Peled-Rifkin, 2017 NBCA 3, 89 [...] [75] I end this section by underscoring that all participants in the justice system bear a critical responsibility to create an environment that promotes “timely and affordable access to the civil justice system” (Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, at para. 2), a responsibility that is especially acute in 
+ [LINK /scc-csc/scc-csc/en/20773/1/document.do] 
+ 17.
+ [LINK /scc-csc/scc-csc/en/item/17654/index.do?q=%22Hryniak+v.+Mauldin%22] TELUS Communications Inc. v. Wellman
+ - 2019 SCC 19
+ - [2019] 2 SCR 144
+ - 2019-04-04
+ Supreme Court Judgments
+ Civil procedure
+ R. 255; Briones v. National Money Mart Co., 2013 MBQB 168, 295 Man. R. (2d) 101, aff’d 2014 MBCA 57, 306 Man. R. (2d) 129; MDG Kingston Inc. v. MDG Computers Canada Inc., 2008 ONCA 656, 92 O.R. (3d) 4; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; Heller v. Uber Technologies Inc., 2019 ONCA 1. [...] [83] Hence, while there can be no doubt as to the importance of promoting access to justice (see Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, at para. 1), this objective cannot, absent express direction from the legislature, be permitted to overwhelm the other important objectives pursued by the Arbitration Act, 
+ [LINK /scc-csc/scc-csc/en/17654/1/document.do] 
+ 18.
+ [LINK /scc-csc/scc-csc/en/item/18406/index.do?q=%22Hryniak+v.+Mauldin%22] Uber Technologies Inc. v. Heller
+ - 2020 SCC 16
+ - [2020] 2 SCR 118
+ - 2020-06-26
+ Supreme Court Judgments
+ K.B. 129, 95 E.R. 532; Scott v. Avery (1856), 5 H.L.C. 811, 10 E.R. 1121; Deuterium of Canada Ltd. v. Burns & Roe Inc., [1975] 2 S.C.R. 124; Reference re Secession of Quebec, [1998] 2 S.C.R. 217; Jonsson v. Lymer, 2020 ABCA 167; B.C.G.E.U. v. British Columbia (Attorney General), [1988] 2 S.C.R. 214; Hryniak v. Mauldin, [...] Both counsel and judges are responsible for ensuring the hearing remains narrowly focused (Hryniak v. Mauldin, [2014] 1 S.C.R. 87, at paras. 31-32). In considering any attempt to expand the record, judges must remain alert to “the danger that a party will obstruct the process by manipulating procedural rules” and the [...] Unless private parties can enforce their legal rights and publicly adjudicate their disputes, “the rule of law is threatened and the development of the common law undermined” (Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, at para. 26). Access to civil justice is paramount to the public legitimacy of the law and the 
+ [LINK /scc-csc/scc-csc/en/18406/1/document.do] 
+ 19.
+ [LINK /scc-csc/scc-csc/en/item/18460/index.do?q=%22Hryniak+v.+Mauldin%22] Michel v. Graydon
+ - 2020 SCC 24
+ - [2020] 2 SCR 763
+ - 2020-09-18
+ Supreme Court Judgments
+ Family law
+ 420; Miglin v. Miglin, 2003 SCC 24, [2003] 1 S.C.R. 303; Rick v. Brandsema, 2009 SCC 10, [2009] 1 S.C.R. 295; Thibaudeau v. Canada, [1995] 2 S.C.R. 627; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; Canada 3000 Inc. (Re), 2006 SCC 24, [2006] 1 S.C.R. 865; Pelech v. Pelech, [1987] 1 S.C.R. 801; Symes v. Canada, [1993] [...] Yet, as this Court stated in Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, at para. 1: “Without an effective and accessible means of enforcing rights, the rule of law is threatened.” 
+ [LINK /scc-csc/scc-csc/en/18460/1/document.do] 
+ 20.
+ [LINK /scc-csc/scc-csc/en/item/18425/index.do?q=%22Hryniak+v.+Mauldin%22] Atlantic Lottery Corp. Inc. v. Babstock
+ - 2020 SCC 19
+ - [2020] 2 SCR 420
+ - 2020-07-24
+ Supreme Court Judgments
+ Civil procedure
+ 3 S.C.R. 45; Pro‐Sys Consultants Ltd. v. Microsoft Corporation, 2013 SCC 57, [2013] 3 S.C.R. 477; Moore v. Sweet, 2018 SCC 52, [2018] 3 S.C.R. 303; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; Das v. George Weston Ltd., 2018 ONCA 1053, 43 E.T.R. (4th) 173; R. v. Salituro, [1991] 3 S.C.R. 654; Syl Apps Secure [...] [18] Secondly, and since Microsoft was decided, this Court has recognized in Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, the need for a culture shift to promote “timely and affordable access to the civil justice system” (para. 2). 
+ [LINK /scc-csc/scc-csc/en/18425/1/document.do] 
+ 21.
+ [LINK /scc-csc/scc-csc/en/item/16325/index.do?q=%22Hryniak+v.+Mauldin%22] Ernst v. Alberta Energy Regulator
+ - 2017 SCC 1
+ - [2017] 1 SCR 3
+ - 2017-01-13
+ Supreme Court Judgments
+ Constitutional law
+ 1 F.C.R. 81; Vancouver (City) v. Ward, 2010 SCC 27, [2010] 2 S.C.R. 28; Henry v. British Columbia (Attorney General), 2015 SCC 24, [2015] 2 S.C.R. 214; Dunsmuir v. New Brunswick, 2008 SCC 9, [2008] 1 S.C.R. 190; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87. By McLachlin C.J. and Moldaver and Brown JJ. (dissenting) [...] That is precisely why s. 43 exists — to prevent an end-run by litigants around the required process, resulting in undue expense and delay for the Board and for the public (Hryniak v. Mauldin, [2014] 1 S.C.R. 87). [130] I would dismiss the appeal with costs. 
+ [LINK /scc-csc/scc-csc/en/16325/1/document.do] 
+ 22.
+ [LINK /scc-csc/scc-csc/en/item/19119/index.do?q=%22Hryniak+v.+Mauldin%22] Association de médiation familiale du Québec v. Bouvier
+ - 2021 SCC 54
+ - [2021] 3 SCR 805
+ - 2021-12-17
+ Supreme Court Judgments
+ Family law
+ Applied: Union Carbide Canada Inc. v. Bombardier Inc., 2014 SCC 35, [2014] 1 S.C.R. 800; considered: Miglin v. Miglin, 2003 SCC 24, [2003] 1 S.C.R. 303; Roberge v. Bolduc, [1991] 1 S.C.R. 374; referred to: Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; Rick v. Brandsema, 2009 SCC 10, [2009] 1 S.C.R. 295; Howick Apparel [...] The issue reflects a shift that has taken place in other parts of Canada, where it is recognized in a variety of contexts that “alternative models of adjudication are no less legitimate than the conventional trial” for ensuring timely and affordable access to civil justice (Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 
+ [LINK /scc-csc/scc-csc/en/19119/1/document.do] 
+ 23.
+ [LINK /scc-csc/scc-csc/en/item/18075/index.do?q=%22Hryniak+v.+Mauldin%22] Canada (Attorney General) v. British Columbia Investment Management Corp.
+ - 2019 SCC 63
+ - [2019] 4 SCR 559
+ - 2019-12-13
+ Supreme Court Judgments
+ Constitutional law
+ Taxation
+ Canada (Attorney General) v. Fontaine, 2017 SCC 47, [2017] 2 S.C.R. 205; Sattva Capital Corp. v. Creston Moly Corp., 2014 SCC 53, [2014] 2 S.C.R. 633; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; Canadian Imperial Bank of Commerce v. Green, 2015 SCC 60, [2015] 3 S.C.R. 801; MiningWatch Canada v. Canada (Fisheries [...] Moly Corp., 2014 SCC 53, [2014] 2 S.C.R. 633, at para. 95; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, at para. 83; see also Canadian Imperial Bank of Commerce v. Green, 2015 SCC 60, [2015] 3 S.C.R. 801, at para. 95; MiningWatch Canada v. Canada (Fisheries and Oceans), 2010 SCC 2, [2010] 1 S.C.R. 6, at para. 43. 
+ [LINK /scc-csc/scc-csc/en/18075/1/document.do] 
+ 24.
+ [LINK /scc-csc/scc-csc/en/item/17113/index.do?q=%22Hryniak+v.+Mauldin%22] Groia v. Law Society of Upper Canada
+ - 2018 SCC 27
+ - [2018] 1 SCR 772
+ - 2018-06-01
+ Supreme Court Judgments
+ Energy of Canada Ltd., 2016 SCC 29, [2016] 1 S.C.R. 770; R. v. Felderhof (2003), 235 D.L.R. (4th) 131; R. v. Felderhof, 2002 CanLII 41888; R. v. Felderhof, 2003 CanLII 41569; R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; R. v. Cody, 2017 SCC 31, [2017] 1 S.C.R. 659. [...] Similarly, in Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87, this Court called for a culture change in the civil context as a means of promoting timely and affordable access to justice: para. 2. 
+ [LINK /scc-csc/scc-csc/en/17113/1/document.do] 
+ 25.
+ [LINK /scc-csc/scc-csc/en/item/15653/index.do?q=%22Hryniak+v.+Mauldin%22] Canadian Imperial Bank of Commerce v. Green
+ - 2015 SCC 60
+ - [2015] 3 SCR 801
+ - 2015-12-04
+ Supreme Court Judgments
+ Civil procedure
+ Securities
+ R. 130; Parker v. Atkinson (1993), 104 D.L.R. (4th) 279; Hogarth v. Hogarth, [1945] 3 D.L.R. 78; Montego Forest Products Ltd. (Re) (1998), 37 O.R. (3d) 651; Couture v. Bouchard (1892), 21 S.C.R. 281; Westman v. Gyselinck, 2014 MBQB 174, 308 Man. R. (2d) 306; Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; McKenna Estate [...] Fam. Ct.), at p. 286; Hogarth v. Hogarth, [1945] 3 D.L.R. 78 (Ont. H.C.), at pp. 78-79; Montego Forest Products Ltd. (Re) (1998), 37 O.R. (3d) 651 (C.A.), at p. 654; Couture v. Bouchard (1892), 21 S.C.R. 281, at p. 285; Westman v. Gyselinck, 2014 MBQB 174, 308 Man. R. (2d) 306, at para. 40, citing Hryniak v. Mauldin, 2014 
+ [LINK /scc-csc/scc-csc/en/15653/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

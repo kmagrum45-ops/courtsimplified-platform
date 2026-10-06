@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/en/d/s/index.do" />
+    <title>    Advanced Search - SCC Cases
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/fr/d/s/index.do?cont=%22Hunter+v.+Southam%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+<ul class="decisia-search-tabs decisia-tabs">
+            <li>
+            <a id="decisia-search-tabs-all-databases" target="_parent" href="/scc-csc/en/a/s/index.do?cont=%22Hunter+v.+Southam%22&amp;ref=&amp;p=&amp;col=1&amp;or=">All Databases (321)</a>
+        </li>
+
+        <li class="active">Decisions (209)</li>
+
+         <li>
+             <a id="decisia-search-tabs-news" target="_parent" href="/scc-csc/en/n/s/index.do?cont=%22Hunter+v.+Southam%22&amp;ref=&amp;p=&amp;col=1&amp;or=">Resources (112)</a>
+         </li>
+</ul>
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="&quot;Hunter v. Southam&quot;" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Report, Case number</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-parties-row">
+        <div class="label">
+            <label for="decisia-parties">Parties</label>
+        </div>
+        <div class="input">
+<input id="decisia-parties" class="decisia-text" type="text" name="p" value="" />
+        </div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abbott, Douglas Charles"
+         >Abbott, Douglas Charles</option>
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Anglin, Francis Alexander"
+         >Anglin, Francis Alexander</option>
+        <option value="Arbour, Louise"
+         >Arbour, Louise</option>
+        <option value="Armour, John Douglas"
+         >Armour, John Douglas</option>
+        <option value="Barclay"
+         >Barclay</option>
+        <option value="Bastarache, Michel"
+         >Bastarache, Michel</option>
+        <option value="Beetz, Jean"
+         >Beetz, Jean</option>
+        <option value="Bernier"
+         >Bernier</option>
+        <option value="Binnie, William Ian Corneil"
+         >Binnie, William Ian Corneil</option>
+        <option value="Bond"
+         >Bond</option>
+        <option value="Brodeur, Louis-Philippe"
+         >Brodeur, Louis-Philippe</option>
+        <option value="Brown, Russell"
+         >Brown, Russell</option>
+        <option value="Cannon, Lawrence Arthur Dumoulin"
+         >Cannon, Lawrence Arthur Dumoulin</option>
+        <option value="Cartwright, John Robert"
+         >Cartwright, John Robert</option>
+        <option value="Cassels"
+         >Cassels</option>
+        <option value="Charron, Louise"
+         >Charron, Louise</option>
+        <option value="Chouinard, Julien"
+         >Chouinard, Julien</option>
+        <option value="Cory, Peter deCarteret"
+         >Cory, Peter deCarteret</option>
+        <option value="Crocket, Oswald Smith"
+         >Crocket, Oswald Smith</option>
+        <option value="Cromwell, Thomas Albert"
+         >Cromwell, Thomas Albert</option>
+        <option value="Côté, Suzanne"
+         >Côté, Suzanne</option>
+        <option value="Davies, Louis Henry"
+         >Davies, Louis Henry</option>
+        <option value="Davis, Henry Hague"
+         >Davis, Henry Hague</option>
+        <option value="Deschamps, Marie"
+         >Deschamps, Marie</option>
+        <option value="Dickson, Robert George Brian"
+         >Dickson, Robert George Brian</option>
+        <option value="Dorion"
+         >Dorion</option>
+        <option value="Duff, Lyman Poore"
+         >Duff, Lyman Poore</option>
+        <option value="Dysart"
+         >Dysart</option>
+        <option value="Estey, James Wilfred"
+         >Estey, James Wilfred</option>
+        <option value="Estey, Willard Zebedee"
+         >Estey, Willard Zebedee</option>
+        <option value="Fauteux, Joseph Honoré Gérald"
+         >Fauteux, Joseph Honoré Gérald</option>
+        <option value="Fish, Morris J."
+         >Fish, Morris J.</option>
+        <option value="Fitzpatrick, Charles"
+         >Fitzpatrick, Charles</option>
+        <option value="Fournier, Télesphore"
+         >Fournier, Télesphore</option>
+        <option value="Galipault"
+         >Galipault</option>
+        <option value="Gascon, Clément"
+         >Gascon, Clément</option>
+        <option value="Gillanders"
+         >Gillanders</option>
+        <option value="Girouard, Désiré"
+         >Girouard, Désiré</option>
+        <option value="Gonthier, Charles Doherty"
+         >Gonthier, Charles Doherty</option>
+        <option value="Gwynne, John Wellington"
+         >Gwynne, John Wellington</option>
+        <option value="Hall, Emmett Matthew"
+         >Hall, Emmett Matthew</option>
+        <option value="Henry, William Alexander"
+         >Henry, William Alexander</option>
+        <option value="Howard"
+         >Howard</option>
+        <option value="Hudson, Albert Blellock"
+         >Hudson, Albert Blellock</option>
+        <option value="Hughes, Frank Joseph"
+         >Hughes, Frank Joseph</option>
+        <option value="Iacobucci, Frank"
+         >Iacobucci, Frank</option>
+        <option value="Idington, John"
+         >Idington, John</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Joyal, Glenn"
+         >Joyal, Glenn</option>
+        <option value="Judson, Wilfred"
+         >Judson, Wilfred</option>
+        <option value="Karakatsanis, Andromache"
+         >Karakatsanis, Andromache</option>
+        <option value="Kasirer, Nicholas"
+         >Kasirer, Nicholas</option>
+        <option value="Kellock, Roy Lindsay"
+         >Kellock, Roy Lindsay</option>
+        <option value="Kerwin, Patrick"
+         >Kerwin, Patrick</option>
+        <option value="Killam, Albert Clements"
+         >Killam, Albert Clements</option>
+        <option value="King, George Edwin"
+         >King, George Edwin</option>
+        <option value="L&#39;Heureux-Dubé, Claire"
+         >L&#39;Heureux-Dubé, Claire</option>
+        <option value="La Forest, Gérard V."
+         >La Forest, Gérard V.</option>
+        <option value="Lamer, Antonio"
+         >Lamer, Antonio</option>
+        <option value="Lamont, John Henderson"
+         >Lamont, John Henderson</option>
+        <option value="Laskin, Bora"
+         >Laskin, Bora</option>
+        <option value="Latchford"
+         >Latchford</option>
+        <option value="Lavergne"
+         >Lavergne</option>
+        <option value="Le Dain, Gerald Eric"
+         >Le Dain, Gerald Eric</option>
+        <option value="LeBel, Louis"
+         >LeBel, Louis</option>
+        <option value="Lemieux"
+         >Lemieux</option>
+        <option value="Locke, Charles Holland"
+         >Locke, Charles Holland</option>
+        <option value="Maclean"
+         >Maclean</option>
+        <option value="Maclennan, James"
+         >Maclennan, James</option>
+        <option value="Magee"
+         >Magee</option>
+        <option value="Major, John C."
+         >Major, John C.</option>
+        <option value="Malouin, Arthur Cyrille Albert"
+         >Malouin, Arthur Cyrille Albert</option>
+        <option value="Martin, Sheilah"
+         >Martin, Sheilah</option>
+        <option value="Martin, Sheilah L."
+         >Martin, Sheilah L.</option>
+        <option value="Martland, Ronald"
+         >Martland, Ronald</option>
+        <option value="Masten"
+         >Masten</option>
+        <option value="McIntyre, William Rogers"
+         >McIntyre, William Rogers</option>
+        <option value="McLachlin, Beverley"
+         >McLachlin, Beverley</option>
+        <option value="Middleton"
+         >Middleton</option>
+        <option value="Mignault, Pierre-Basile"
+         >Mignault, Pierre-Basile</option>
+        <option value="Mills, Davis"
+         >Mills, Davis</option>
+        <option value="Moldaver, Michael J."
+         >Moldaver, Michael J.</option>
+        <option value="Moreau, Mary"
+         >Moreau, Mary</option>
+        <option value="Nesbitt, Wallace"
+         >Nesbitt, Wallace</option>
+        <option value="Newcombe, Edmund Leslie"
+         >Newcombe, Edmund Leslie</option>
+        <option value="Nolan, Henry Grattan"
+         >Nolan, Henry Grattan</option>
+        <option value="Orde"
+         >Orde</option>
+        <option value="O’Bonsawin, Michelle"
+         >O’Bonsawin, Michelle</option>
+        <option value="Patterson, Christopher Salmon"
+         >Patterson, Christopher Salmon</option>
+        <option value="Pigeon, Louis-Philippe"
+         >Pigeon, Louis-Philippe</option>
+        <option value="Pratte, Yves"
+         >Pratte, Yves</option>
+        <option value="Rand, Ivan Cleveland"
+         >Rand, Ivan Cleveland</option>
+        <option value="Richards, William Buell"
+         >Richards, William Buell</option>
+        <option value="Rinfret, Thibaudeau"
+         >Rinfret, Thibaudeau</option>
+        <option value="Ritchie, Roland Almon"
+         >Ritchie, Roland Almon</option>
+        <option value="Ritchie, William Johnstone"
+         >Ritchie, William Johnstone</option>
+        <option value="Rivard"
+         >Rivard</option>
+        <option value="Rothstein, Marshall"
+         >Rothstein, Marshall</option>
+        <option value="Rowe, Malcolm"
+         >Rowe, Malcolm</option>
+        <option value="Sedgewick, Robert"
+         >Sedgewick, Robert</option>
+        <option value="Smith, Robert"
+         >Smith, Robert</option>
+        <option value="Sopinka, John"
+         >Sopinka, John</option>
+        <option value="Spence, Wishart Flett"
+         >Spence, Wishart Flett</option>
+        <option value="St. Germain"
+         >St. Germain</option>
+        <option value="St. Jacques"
+         >St. Jacques</option>
+        <option value="Stevenson, William"
+         >Stevenson, William</option>
+        <option value="Strong, Samuel Henry"
+         >Strong, Samuel Henry</option>
+        <option value="Taschereau, Henri-Elzéar"
+         >Taschereau, Henri-Elzéar</option>
+        <option value="Taschereau, Jean-Thomas"
+         >Taschereau, Jean-Thomas</option>
+        <option value="Taschereau, Robert"
+         >Taschereau, Robert</option>
+        <option value="Tessier"
+         >Tessier</option>
+        <option value="Thorson"
+         >Thorson</option>
+        <option value="Wagner, Richard"
+         >Wagner, Richard</option>
+        <option value="Wilson, Bertha"
+         >Wilson, Bertha</option>
+        <option value="de Grandpré, Louis-Philippe"
+         >de Grandpré, Louis-Philippe</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Status</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Granted</option>
+                <option value="2"
+                >Dismissed</option>
+                <option value="3"
+                >Oral Hearing</option>
+                <option value="4"
+                >Remanded</option>
+                <option value="5"
+                >Quashed</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-district-row">
+        <div class="label select">
+            <label for="decisia-district">On appeal from</label>
+        </div>
+        <div class="input">
+        <select id="decisia-district" name="d"  data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                  <option value="1"
+                       >Canada</option>
+                  <option value="2"
+                       >Federal Court of Appeal</option>
+                  <option value="3"
+                       >British Columbia</option>
+                  <option value="4"
+                       >Alberta</option>
+                  <option value="5"
+                       >Saskatchewan</option>
+                  <option value="6"
+                       >Manitoba</option>
+                  <option value="7"
+                       >Ontario</option>
+                  <option value="8"
+                       >Quebec</option>
+                  <option value="9"
+                       >New Brunswick</option>
+                  <option value="10"
+                       >Nova Scotia</option>
+                  <option value="11"
+                       >Prince Edward Island</option>
+                  <option value="12"
+                       >Newfoundland and Labrador</option>
+                  <option value="13"
+                       >Yukon</option>
+                  <option value="14"
+                       >Northwest Territories</option>
+                  <option value="15"
+                       >Nunavut</option>
+                  <option value="16"
+                       >Court Martial Appeal Court of Canada</option>
+                  <option value="18"
+                       >Saskatchewan, Ontario, Alberta</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-collection-row">
+        <div class="label select">
+            <label for="decisia-collection">Collection</label>
+        </div>
+        <div class="input">
+<select id="decisia-collection" name="col" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+    <option value="1"
+        selected="selected"
+    >
+        Supreme Court Judgments</option>
+    <option value="2"
+    >
+        Applications for Leave</option>
+</select>
+<div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="advanced-field decisia-subjects-row">
+        <div class="label select">
+            <label for="decisia-subjects">Subjects</label>
+        </div>
+        <div class="input">
+    <select id="decisia-subjects" name="su" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+            <option value="34"
+            >Aboriginal law</option>
+            <option value="5"
+            >Access to information</option>
+            <option value="2"
+            >Action</option>
+            <option value="51"
+            >Administrative law</option>
+            <option value="13"
+            >Agency</option>
+            <option value="40"
+            >Air law</option>
+            <option value="9"
+            >Appeal</option>
+            <option value="52"
+            >Arbitration</option>
+            <option value="37"
+            >Armed Forces</option>
+            <option value="30"
+            >Bankruptcy and insolvency</option>
+            <option value="53"
+            >Bills of exchange</option>
+            <option value="44"
+            >Civil law</option>
+            <option value="20"
+            >Civil procedure</option>
+            <option value="41"
+            >Commercial law</option>
+            <option value="29"
+            >Communications law</option>
+            <option value="19"
+            >Competition law</option>
+            <option value="27"
+            >Constitutional law</option>
+            <option value="55"
+            >Contract</option>
+            <option value="61"
+            >Contracts</option>
+            <option value="6"
+            >Courts</option>
+            <option value="16"
+            >Criminal law</option>
+            <option value="14"
+            >Customs and excise</option>
+            <option value="4"
+            >Education law</option>
+            <option value="10"
+            >Elections</option>
+            <option value="17"
+            >Environmental law</option>
+            <option value="57"
+            >Estates</option>
+            <option value="18"
+            >Evidence</option>
+            <option value="48"
+            >Expropriation</option>
+            <option value="7"
+            >Family law</option>
+            <option value="11"
+            >Financial institutions</option>
+            <option value="15"
+            >Fishery</option>
+            <option value="42"
+            >Food and drugs</option>
+            <option value="23"
+            >Guarantee and suretyship</option>
+            <option value="26"
+            >Immigration</option>
+            <option value="28"
+            >Insurance</option>
+            <option value="8"
+            >Intellectual property</option>
+            <option value="31"
+            >International law</option>
+            <option value="45"
+            >Labour law</option>
+            <option value="22"
+            >Lease</option>
+            <option value="25"
+            >Maritime law</option>
+            <option value="43"
+            >Mines and minerals</option>
+            <option value="38"
+            >Motor vehicles</option>
+            <option value="56"
+            >Municipal law</option>
+            <option value="24"
+            >Pensions</option>
+            <option value="35"
+            >Prerogative writs</option>
+            <option value="59"
+            >Prescription</option>
+            <option value="46"
+            >Priorities and hypothecs</option>
+            <option value="58"
+            >Private international law</option>
+            <option value="32"
+            >Professional law</option>
+            <option value="63"
+            >Property</option>
+            <option value="49"
+            >Property law</option>
+            <option value="50"
+            >Public utilities</option>
+            <option value="47"
+            >Sale</option>
+            <option value="36"
+            >Securities</option>
+            <option value="39"
+            >State</option>
+            <option value="62"
+            >Status of persons</option>
+            <option value="3"
+            >Statutes</option>
+            <option value="33"
+            >Taxation</option>
+            <option value="21"
+            >Torts</option>
+            <option value="12"
+            >Transportation</option>
+            <option value="54"
+            >Trust</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+    <ul class="pager">
+                <li class="active current">1</li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">2</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=3">3</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=4">4</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=5">5</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=6">6</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">&gt;</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=9">&gt;&gt;</a></li>
+    </ul>
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>209 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1144/index.do?q=%22Hunter+v.+Southam%22">Comité paritaire de l&#39;industrie de la chemise v. Potash; Comité paritaire de l&#39;industrie de la chemise v. Sélection Milton</a></span>
+                    - <span class="report-citation">[1994] 2 SCR 406</span>
+                - <span class="publicationDate">1994-06-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    In <b>Hunter v. Southam</b> Inc., s. 10(3), and, by implication, s. 10(1), of the Combines Investigation Act, R.S.C. 1970, c. C‐23, were in issue. &nbsp;&nbsp;[...]&nbsp;&nbsp;According to the rules laid down in <b>Hunter v. Southam</b> Inc., a warrant could never be issued in such circumstances. &nbsp;&nbsp;[...]&nbsp;&nbsp;Additionally, the rules in <b>Hunter v. Southam</b> Inc. cannot be applied to administrative inspections in a regulated industry. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1144/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/375/index.do?q=%22Hunter+v.+Southam%22">R. v. Dyment</a></span>
+                    - <span class="report-citation">[1988] 2 SCR 417</span>
+                - <span class="publicationDate">1988-12-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Referred to: <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145; R. v. Collins, [1987] 1 S.C.R. 265. &nbsp;&nbsp;[...]&nbsp;&nbsp;As Dickson J. put it in <b>Hunter v. Southam</b> Inc., supra, at pp. 159‐60: The guarantee of security from unreasonable search and seizure only protects a reasonable expectation. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Hunter v. Southam</b> Inc. ruptured the shackles that confined these claims to property. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/375/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/377/index.do?q=%22Hunter+v.+Southam%22">R. v. Simmons</a></span>
+                    - <span class="report-citation">[1988] 2 SCR 495</span>
+                - <span class="publicationDate">1988-12-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Customs and excise<br/>
+                            Evidence<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    It is true that these sections do not meet the safeguards articulated in <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, but these standards do not apply to customs searches. &nbsp;&nbsp;[...]&nbsp;&nbsp;Referred to: <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145; R. v. Therens, [1985] 1 S.C.R. 613; R. v. Thomsen, [1988] 1 S.C.R. 640. &nbsp;&nbsp;[...]&nbsp;&nbsp;Similarly, though conceding that the search provisions in ss. 143 and 144 did not conform to the criteria established by this Court in <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, the Crown contended that <b>Hunter v. Southam</b> Inc. was inapplicable to the border search situation. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/377/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/667/index.do?q=%22Hunter+v.+Southam%22">R. v. Thompson</a></span>
+                    - <span class="report-citation">[1990] 2 SCR 1111</span>
+                - <span class="publicationDate">1990-10-18</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Wilson v. The Queen, [1983] 2 S.C.R. 594; <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145; Slaight Communications Inc. v. Davidson, [1989] 1 S.C.R. 1038. &nbsp;&nbsp;[...]&nbsp;&nbsp;This and the fact that the section is not attacked is conclusive against the contention that the "resort to" clause is, per se, contrary to the requirements of s. 8 of the Charter as laid down in <b>Hunter v. Southam</b>, supra. <b>Hunter v. Southam</b> concerned a search warrant, whereas this case concerns electronic interception. &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>Hunter v. Southam</b>, this Court enunciated the standards against which the courts are to assess the reasonableness of a given search and seizure. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/667/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/4627/index.do?q=%22Hunter+v.+Southam%22">R. v. Kang-Brown</a></span>
+                        - <span class="citation">2008 SCC 18</span>
+                    - <span class="report-citation">[2008] 1 SCR 456</span>
+                - <span class="publicationDate">2008-04-25</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Professional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    In <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, at pp. 159-60, Dickson J. (as he then was) stated: &nbsp;&nbsp;[...]&nbsp;&nbsp;As this Court stated in <b>Hunter v. Southam</b>, at p. 160, an ex post facto analysis to determine this would be at odds with the purpose of s. 8, which is to prevent unreasonable searches before they occur. &nbsp;&nbsp;[...]&nbsp;&nbsp;[190] <b>Hunter v. Southam</b> (at pp. 159-60) requires that the privacy interests of individuals be balanced against societal interests. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/4627/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1097/index.do?q=%22Hunter+v.+Southam%22">R. v. Colarusso</a></span>
+                    - <span class="report-citation">[1994] 1 SCR 20</span>
+                - <span class="publicationDate">1994-01-26</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Given this irrelevancy, the applicability of the other <b>Hunter v. Southam</b> Inc. criteria was doubtful. No police seizure occurred here. &nbsp;&nbsp;[...]&nbsp;&nbsp;The <b>Hunter v. Southam</b> Inc. criterion that there be reasonable and probable cause to believe that a specific offence has been committed is inapplicable in this context. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, teaches us that s. 8, like other Charter rights, must be broadly and liberally construed to effect its purpose. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1097/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/4628/index.do?q=%22Hunter+v.+Southam%22">R. v. A.M.</a></span>
+                        - <span class="citation">2008 SCC 19</span>
+                    - <span class="report-citation">[2008] 1 SCR 569</span>
+                - <span class="publicationDate">2008-04-25</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Professional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    For reasons to be explained, I would not go so far as the accused who insists that the full <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, requirement of prior judicial authorization must be imposed. &nbsp;&nbsp;[...]&nbsp;&nbsp;[10] In the United States, from whose Fourth Amendment decisions <b>Hunter v. Southam</b> drew inspiration, a series of divided Supreme Court decisions has declined to grant any Fourth Amendment protection against “narcotic” sniffer dogs. &nbsp;&nbsp;[...]&nbsp;&nbsp;The <b>Hunter v. Southam</b> requirement of prior judicial authorization is the gold standard because an important purpose of s. 8 is to prevent unreasonable searches and not in the usual case just to give an after-the-fact remedy. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/4628/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2183/index.do?q=%22Hunter+v.+Southam%22">R. v. Tessling</a></span>
+                        - <span class="citation">2004 SCC 67</span>
+                    - <span class="report-citation">[2004] 3 SCR 432</span>
+                - <span class="publicationDate">2004-10-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    These areas we have now gathered up under the general heading of privacy, although in <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, at p. 159, Dickson J., as he then was, was careful not to foreclose the existence of s. 8 “interests beyond the right of privacy”, saying: &nbsp;&nbsp;[...]&nbsp;&nbsp;The perspective adopted by the Court in <b>Hunter v. Southam</b>, supra, accordingly, is that s. 8 “protects people, not places” (p. 159). &nbsp;&nbsp;[...]&nbsp;&nbsp;33 With respect to this second question, as Abella J.A. pointed out, the law is clear that warrantless searches are presumptively unreasonable, absent exigent circumstances (<b>Hunter v. Southam</b>, supra; Collins, supra, at p. 278; Evans, supra; and Grant, supra). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2183/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/583/index.do?q=%22Hunter+v.+Southam%22">Thomson Newspapers Ltd. v. Canada (Director of Investigation and Research, Restrictive Trade Practices Commission)</a></span>
+                    - <span class="report-citation">[1990] 1 SCR 425</span>
+                - <span class="publicationDate">1990-03-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Competition law<br/>
+                            Constitutional law<br/>
+                            Evidence<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    In <b>Hunter v. Southam</b> Inc. this Court discussed the general nature of the s. 8 right. &nbsp;&nbsp;[...]&nbsp;&nbsp;Sections 10 and 17 -‐ <b>Hunter v. Southam</b> Inc. The foregoing conclusion is in no way inconsistent with this Court's decision in <b>Hunter v. Southam</b> Inc., supra, notwithstanding that it also concerned the constitutionality of investigative powers under the Combines Investigation Act, specifically those provided by s. 10. &nbsp;&nbsp;[...]&nbsp;&nbsp; [1990] 1 S.C.R. 000, in which the <b>Hunter v. Southam</b> Inc. standards are almost completely diluted. Instead of a sliding scale of <b>Hunter v. Southam</b> Inc. standards, I prefer a more restrictive interpretation of what constitutes a seizure, reserving the application of the <b>Hunter v. Southam</b> Inc. standards for those state 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/583/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1620/index.do?q=%22Hunter+v.+Southam%22">Schreiber v. Canada (Attorney General)</a></span>
+                    - <span class="report-citation">[1998] 1 SCR 841</span>
+                - <span class="publicationDate">1998-05-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Referred to: <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145; R. v. Terry, [1996] 2 S.C.R. 207; R. v. Filonov (1993), 82 C.C.C. (3d) 516; Canada v. Schmidt, [1987] 1 S.C.R. 500; Argentina v. Mellino, [1987] 1 S.C.R. 536; Kindler v. Canada (Minister of Justice), [1991] 2 S.C.R. 779. &nbsp;&nbsp;[...]&nbsp;&nbsp;He held that prior authorization is crucial in balancing the interests of the individual with those of the government, and that it cannot be done by the police or government enforcement authorities (<b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145). As a result, such authorization should have been obtained before the letter of &nbsp;&nbsp;[...]&nbsp;&nbsp;Dickson J. (as he then was) defined the purpose of s. 8 in <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145 (at p. 160) as the protection of individuals “from unjustified state intrusions upon their privacy” (emphasis added). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1620/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/845/index.do?q=%22Hunter+v.+Southam%22">R. v. Wise</a></span>
+                    - <span class="report-citation">[1992] 1 SCR 527</span>
+                - <span class="publicationDate">1992-02-27</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    And as <b>Hunter v. Southam</b>, supra, instructs us, the issuance of a warrant to conduct a search will ordinarily call for an objective showing of reasonable and probable cause by those seeking the warrant. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Hunter v. Southam</b>, supra, instructs us that there may be occasions where danger to some person may constitute a ground for lowering the standard. &nbsp;&nbsp;[...]&nbsp;&nbsp;As Dickson J. put it in <b>Hunter v. Southam</b>, supra, at p. 167: The state's interest in detecting and preventing crime begins to prevail. . . where credibly-based probability replaces suspicion. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/845/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">12.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/591/index.do?q=%22Hunter+v.+Southam%22">R. v. Greffe</a></span>
+                    - <span class="report-citation">[1990] 1 SCR 755</span>
+                - <span class="publicationDate">1990-04-12</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    This Court had not yet pronounced its decision in <b>Hunter v. Southam</b> Inc., supra; nor had the Court yet had the opportunity to deal with the threshold of reasonable and probable grounds in the context of confidential informant information. &nbsp;&nbsp;[...]&nbsp;&nbsp;As support for this proposition, the appellant cites this Court's decisions in <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, R. v. Pohoretsky, [1987] 1 S.C.R. 945; Simmons, supra, and R. v. Jacoy, [1988] 2 S.C.R. 548. &nbsp;&nbsp;[...]&nbsp;&nbsp;As I stated in Collins, at p. 278, reiterating the words of Dickson J. (as he then was) in <b>Hunter v. Southam</b> Inc., supra, at p. 161: . . . once the appellant has demonstrated that the search was a warrantless one, the Crown has the burden of showing that the search was, on a balance of probabilities, reasonable. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/591/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">13.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/958/index.do?q=%22Hunter+v.+Southam%22">Baron v. Canada</a></span>
+                    - <span class="report-citation">[1993] 1 SCR 416</span>
+                - <span class="publicationDate">1993-01-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Taxation<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Given the intrusive nature of searches and the corresponding purpose of such a search to gather evidence for the prosecution of a taxpayer, there is no reason for a radical departure from the guidelines and principles expressed in <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145. The effect of any lessened expectation of privacy&nbsp;&nbsp;[...]&nbsp;&nbsp; the requirements of a constitutionally valid search and seizure power, as set out in <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, ... ; (3) the requirements under subsection 231.3(3) do not meet the requirements of <b>Hunter v. Southam</b> (supra) because they only require that there be reasonable grounds to believe that an &nbsp;&nbsp;[...]&nbsp;&nbsp;It was submitted, however, that the above conclusion, while it might be correct in a <b>Hunter v. Southam</b> Inc. situation, has no application to the ITA because it is a regulatory statute and the criteria of Hunter must be relaxed. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/958/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">14.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1835/index.do?q=%22Hunter+v.+Southam%22">Little Sisters Book and Art Emporium v. Canada (Minister of Justice)</a></span>
+                        - <span class="citation">2000 SCC 69</span>
+                    - <span class="report-citation">[2000] 2 SCR 1120</span>
+                - <span class="publicationDate">2000-12-15</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Customs and excise<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Similar arguments were considered in <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, and R. v. Bain, [1992] 1 S.C.R. 91. &nbsp;&nbsp;[...]&nbsp;&nbsp;In Morgentaler, <b>Hunter v. Southam</b> and Bain, this Court rejected the government’s invitation to trust them. &nbsp;&nbsp;[...]&nbsp;&nbsp;Even leaving aside the precedents of <b>Hunter v. Southam</b>, Morgentaler, and Bain, Customs have proven themselves unworthy of trust. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1835/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">15.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/555/index.do?q=%22Hunter+v.+Southam%22">Edmonton Journal v. Alberta (Attorney General)</a></span>
+                    - <span class="report-citation">[1989] 2 SCR 1326</span>
+                - <span class="publicationDate">1989-12-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    See Attorney General of Nova Scotia v. MacIntyre, supra; <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, at pp. 159-60; R. v. Amway Corp., [1989] 1 S.C.R. 21, at p. 40, and R. v. Dyment, [1988] 2 S.C.R. 417, at pp. 427-28. &nbsp;&nbsp;[...]&nbsp;&nbsp;This Court has recently considered the right to privacy in cases involving the search of a person's property without his or her consent (see <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145; R. v. Genest, [1989] 1 S.C.R. 59) and the search of a person's body without his or her consent (see R. v. Beare, [1988] 2 S.C.R. 387; R. v.&nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, it was held to underlie the protection against unreasonable search and seizure enshrined in s. 8 of the Charter . 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/555/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">16.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/13233/index.do?q=%22Hunter+v.+Southam%22">Divito v. Canada (Public Safety and Emergency Preparedness)</a></span>
+                        - <span class="citation">2013 SCC 47</span>
+                    - <span class="report-citation">[2013] 3 SCR 157</span>
+                - <span class="publicationDate">2013-09-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    We start with this Court’s primordial direction that rights be defined generously in light of the interests the Charter was intended to protect: <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, at p. 156; R. v. Big M Drug Mart Ltd., [1985] 1 S.C.R. 295, at p. 344; Eldridge v. British Columbia (Attorney General), [1997] 3 S.C.R.&nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, this Court expressed the view that the proper approach to the definition of the rights and freedoms guaranteed by the Charter was a purposive one. &nbsp;&nbsp;[...]&nbsp;&nbsp;In this regard, see United States of America v. Cotroni, [1989] 1 S.C.R. 1469, at p. 1480; R. v. Big M Drug Mart Ltd., [1985] 1 S.C.R. 295, at p. 344; <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, at p. 156. [56] In the two leading cases on s. 6(1) of the Charter — Cotroni and Sriskandarajah v. United States of America, 2012
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/13233/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">17.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1340/index.do?q=%22Hunter+v.+Southam%22">R. v. Edwards</a></span>
+                    - <span class="report-citation">[1996] 1 SCR 128</span>
+                - <span class="publicationDate">1996-02-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    29 In <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, Dickson J. (as he then was), writing for the Court, emphatically rejected any requirement of a connection between the rights protected by s. 8 and a property interest in the premises searched. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Hunter v. Southam</b>, supra, is authority for the proposition that s. 8 of the Charter does not authorize a search and seizure, but rather acts as a limitation on the powers of search and seizure set out in the Code. &nbsp;&nbsp;[...]&nbsp;&nbsp;Thus it is noteworthy that in the seminal case of <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, in the very passage cited by my colleagues, Dickson J. (as he then was) for the Court indicated, at p. 159, that what was being protected by s. 8 was "the public's interest in being left alone". 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1340/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">18.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/559/index.do?q=%22Hunter+v.+Southam%22">R. v. Duarte</a></span>
+                    - <span class="report-citation">[1990] 1 SCR 30</span>
+                - <span class="publicationDate">1990-01-25</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Criminal law<br/>
+                            Evidence<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, instructs us that the primary value served by s. 8 is privacy, and, as I noted in R. v. Dyment, [1988] 2 S.C.R. 417, at p. 426, the spirit of s. 8 must not be constrained by narrow legalistic classifications. &nbsp;&nbsp;[...]&nbsp;&nbsp;If one is to give s. 8 the purposive meaning attributed to it by <b>Hunter v. Southam</b> Inc., one can scarcely imagine a state activity more dangerous to individual privacy than electronic surveillance and to which, in consequence, the protection accorded by s. 8 should be more directly aimed, an issue I shall more fully develop&nbsp;&nbsp;[...]&nbsp;&nbsp;Accordingly the constitutionality of "participant surveillance" should fall to be determined by application of the same standard as that employed in third party surveillance, i.e., by application of the standard of reasonableness enunciated in <b>Hunter v. Southam</b> Inc., supra. By application of that standard, the warrantless 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/559/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">19.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/8002/index.do?q=%22Hunter+v.+Southam%22">R. v. Tse</a></span>
+                        - <span class="citation">2012 SCC 16</span>
+                    - <span class="report-citation">[2012] 1 SCR 531</span>
+                - <span class="publicationDate">2012-04-13</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    [16] In the landmark decision <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, this Court determined that a warrantless search is presumptively unreasonable. &nbsp;&nbsp;[...]&nbsp;&nbsp;The constitutional balance between the reasonable expectation of privacy and the legitimate needs of the state in detecting and preventing crime requires an objective standard — credibly based probability: <b>Hunter v. Southam</b>, at pp. 166-68; R. v. Kang-Brown, 2008 SCC 18, [2008] 1 S.C.R. 456, at paras. 75-79. &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>Hunter v. Southam</b>, Dickson J. explained that “[a] provision authorizing . . . an unreviewable power would clearly be inconsistent with s. 8 of the Charter ” (p. 166). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/8002/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">20.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1256/index.do?q=%22Hunter+v.+Southam%22">R. v. Silveira</a></span>
+                    - <span class="report-citation">[1995] 2 SCR 297</span>
+                - <span class="publicationDate">1995-05-18</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    This reasoning involves an ex post facto determination that, as <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, at pp. 160-61, has held, is unacceptable. &nbsp;&nbsp;[...]&nbsp;&nbsp;As Dickson J. (as he then was) has reminded us in <b>Hunter v. Southam</b> Inc., supra, caution should be exercised in using American techniques too liberally without an awareness of the context out of which they arose. &nbsp;&nbsp;[...]&nbsp;&nbsp;118 In <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, Dickson J. made it clear that the expectation of privacy was at the forefront of a s. 8 Charter analysis. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1256/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">21.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/100/index.do?q=%22Hunter+v.+Southam%22">Re B.C. Motor Vehicle Act</a></span>
+                    - <span class="report-citation">[1985] 2 SCR 486</span>
+                - <span class="publicationDate">1985-12-17</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    22. I propose therefore to approach the interpretation of s. 7 in the manner set forth by Dickson J. in <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, and R. v. Big M Drug Mart Ltd., supra, and by Le Dain J. in R. v. Therens, [1985] 1 S.C.R. 613. &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, this Court expressed the view that the proper approach to the definition of the rights and freedoms guaranteed by the Charter was a purposive one. &nbsp;&nbsp;[...]&nbsp;&nbsp;Accordingly, the point of departure for the analysis has been a consideration of the general objectives of the Charter in the light of the general principles of Charter interpretation set forth in Law Society of Upper Canada v. Skapinker, supra, and <b>Hunter v. Southam</b> Inc., supra. This was followed by a detailed analysis of 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/100/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">22.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1333/index.do?q=%22Hunter+v.+Southam%22">R. v. Evans</a></span>
+                    - <span class="report-citation">[1996] 1 SCR 8</span>
+                - <span class="publicationDate">1996-01-25</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Referred to: Robson v. Hallett, [1967] 2 All E.R. 407; R. v. Bushman (1968), 4 C.R.N.S. 13; R. v. Johnson (1994), 45 B.C.A.C. 102; R. v. Sandhu (1993), 82 C.C.C. (3d) 236; <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145; R. v. Duarte, [1990] 1 S.C.R. 30; R. v. Wong, [1990] 3 S.C.R. 36. &nbsp;&nbsp;[...]&nbsp;&nbsp;As this Court stated in <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, at p. 160, the objective of s. 8 of the Charter is "to protect individuals from unjustified state intrusions upon their privacy". &nbsp;&nbsp;[...]&nbsp;&nbsp;Dickson J. (as he then was) in <b>Hunter v. Southam</b> Inc. [1984] 2 S.C.R. 145, stated at pp. 159-60: The guarantee of security from unreasonable search and seizure only protects a reasonable expectation. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1333/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">23.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/14502/index.do?q=%22Hunter+v.+Southam%22">R. v. Fearon</a></span>
+                        - <span class="citation">2014 SCC 77</span>
+                    - <span class="report-citation">[2014] 3 SCR 621</span>
+                - <span class="publicationDate">2014-12-11</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    This Court has described the higher threshold of “reasonable and probable grounds” as requiring “reasonable probability” or “credibly-based probability”: Debot, at p. 1166; <b>Hunter v. Southam</b> Inc., at p. 167. In my respectful opinion, imposing that threshold here would significantly undermine the important law enforcement &nbsp;&nbsp;[...]&nbsp;&nbsp;[120] <b>Hunter v. Southam</b> Inc. established that, when feasible, there must be prior judicial authorization of a search. &nbsp;&nbsp;[...]&nbsp;&nbsp;Dickson J. made this clear in <b>Hunter v. Southam</b> Inc. After repeating that the purpose of s. 8 of the Charter was to protect individuals against unjustified state intrusion, he continued at p. 160: 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/14502/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">24.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/15550/index.do?q=%22Hunter+v.+Southam%22">Goodwin v. British Columbia (Superintendent of Motor Vehicles)</a></span>
+                        - <span class="citation">2015 SCC 46</span>
+                    - <span class="report-citation">[2015] 3 SCR 250</span>
+                - <span class="publicationDate">2015-10-16</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    It would also be inconsistent with the flexible and purposive interpretation, focused on protecting people and not places, that s. 8 demands: McKinlay Transport Ltd., at p. 647, per Wilson J.; <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, at pp. 158-59. The analysis of a search or seizure under s. 8 is a contextual inquiry: &nbsp;&nbsp;[...]&nbsp;&nbsp;The protection that began as security against trespass (Lord Coke’s dictum, “A man’s home is his castle”: see R. v. Tessling, 2004 SCC 67, [2004] 3 S.C.R. 432, at para. 22; see also <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, at pp. 157-58; R. v. Dyment, [1988] 2 S.C.R. 417, at pp. 426-29) has been elaborated under s. 8 to&nbsp;&nbsp;[...]&nbsp;&nbsp;This concern explains the general requirement of prior judicial authorization for a criminal search, failing which the search is prima facie unreasonable: R. v. Collins, [1987] 1 S.C.R. 265, at pp. 277-78; <b>Hunter v. Southam</b> Inc., at p. 161. It also explains the requirement that in some circumstances the authorities must 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/15550/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">25.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/7611/index.do?q=%22Hunter+v.+Southam%22">R. v. Patrick</a></span>
+                        - <span class="citation">2009 SCC 17</span>
+                    - <span class="report-citation">[2009] 1 SCR 579</span>
+                - <span class="publicationDate">2009-04-09</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    This is inherent in the “assessment” called for by Dickson J. (as he then was) in <b>Hunter v. Southam</b> Inc., [1984] 2 S.C.R. 145, at pp. 159-60: This limitation on the right guaranteed by s. 8, whether it is expressed negatively as freedom from “unreasonable” search and seizure, or positively as an entitlement to a &nbsp;&nbsp;[...]&nbsp;&nbsp;[15] Thus in Thomson Newspapers Ltd. v. Canada (Director of Investigation and Research, Restrictive Trade Practices Commission), [1990] 1 S.C.R. 425, a majority concluded that a regulatory order to produce business records did not require the prior judicial approval envisaged in <b>Hunter v. Southam</b>, and did not violate s. 8. &nbsp;&nbsp;[...]&nbsp;&nbsp;There is always, as <b>Hunter v. Southam</b> established, a realistic balance that must be struck between privacy and the legitimate demands of law enforcement and criminal investigation. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/7611/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+            yearRangeString: "1877:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>

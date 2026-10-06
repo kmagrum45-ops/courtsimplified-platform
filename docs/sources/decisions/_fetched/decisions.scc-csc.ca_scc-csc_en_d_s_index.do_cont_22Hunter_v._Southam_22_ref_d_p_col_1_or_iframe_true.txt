@@ -1,0 +1,796 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=%22Hunter+v.+Southam%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=%22Hunter+v.+Southam%22&ref=&p=&col=1&or=] All Databases (321)
+ Decisions (209)
+ [LINK /scc-csc/en/n/s/index.do?cont=%22Hunter+v.+Southam%22&ref=&p=&col=1&or=] Resources (112)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ 1
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&ref=&d=&p=&col=1&or=&page=2] 2
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&ref=&d=&p=&col=1&or=&page=3] 3
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&ref=&d=&p=&col=1&or=&page=4] 4
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&ref=&d=&p=&col=1&or=&page=5] 5
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&ref=&d=&p=&col=1&or=&page=6] 6
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&ref=&d=&p=&col=1&or=&page=2] &gt;
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&ref=&d=&p=&col=1&or=&page=9] &gt;&gt;
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Hunter+v.+Southam%22&ref=&p=&col=1&or=date] Date
+ 209 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/1144/index.do?q=%22Hunter+v.+Southam%22] Comité paritaire de l'industrie de la chemise v. Potash; Comité paritaire de l'industrie de la chemise v. Sélection Milton
+ - [1994] 2 SCR 406
+ - 1994-06-23
+ Supreme Court Judgments
+ Constitutional law
+ In Hunter v. Southam Inc., s. 10(3), and, by implication, s. 10(1), of the Combines Investigation Act, R.S.C. 1970, c. C‐23, were in issue. [...] According to the rules laid down in Hunter v. Southam Inc., a warrant could never be issued in such circumstances. [...] Additionally, the rules in Hunter v. Southam Inc. cannot be applied to administrative inspections in a regulated industry. 
+ [LINK /scc-csc/scc-csc/en/1144/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/375/index.do?q=%22Hunter+v.+Southam%22] R. v. Dyment
+ - [1988] 2 SCR 417
+ - 1988-12-08
+ Supreme Court Judgments
+ Constitutional law
+ Referred to: Hunter v. Southam Inc., [1984] 2 S.C.R. 145; R. v. Collins, [1987] 1 S.C.R. 265. [...] As Dickson J. put it in Hunter v. Southam Inc., supra, at pp. 159‐60: The guarantee of security from unreasonable search and seizure only protects a reasonable expectation. [...] Hunter v. Southam Inc. ruptured the shackles that confined these claims to property. 
+ [LINK /scc-csc/scc-csc/en/375/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/377/index.do?q=%22Hunter+v.+Southam%22] R. v. Simmons
+ - [1988] 2 SCR 495
+ - 1988-12-08
+ Supreme Court Judgments
+ Constitutional law
+ Customs and excise
+ Evidence
+ It is true that these sections do not meet the safeguards articulated in Hunter v. Southam Inc., [1984] 2 S.C.R. 145, but these standards do not apply to customs searches. [...] Referred to: Hunter v. Southam Inc., [1984] 2 S.C.R. 145; R. v. Therens, [1985] 1 S.C.R. 613; R. v. Thomsen, [1988] 1 S.C.R. 640. [...] Similarly, though conceding that the search provisions in ss. 143 and 144 did not conform to the criteria established by this Court in Hunter v. Southam Inc., [1984] 2 S.C.R. 145, the Crown contended that Hunter v. Southam Inc. was inapplicable to the border search situation. 
+ [LINK /scc-csc/scc-csc/en/377/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/667/index.do?q=%22Hunter+v.+Southam%22] R. v. Thompson
+ - [1990] 2 SCR 1111
+ - 1990-10-18
+ Supreme Court Judgments
+ Constitutional law
+ Criminal law
+ Wilson v. The Queen, [1983] 2 S.C.R. 594; Hunter v. Southam Inc., [1984] 2 S.C.R. 145; Slaight Communications Inc. v. Davidson, [1989] 1 S.C.R. 1038. [...] This and the fact that the section is not attacked is conclusive against the contention that the "resort to" clause is, per se, contrary to the requirements of s. 8 of the Charter as laid down in Hunter v. Southam, supra. Hunter v. Southam concerned a search warrant, whereas this case concerns electronic interception. [...] In Hunter v. Southam, this Court enunciated the standards against which the courts are to assess the reasonableness of a given search and seizure. 
+ [LINK /scc-csc/scc-csc/en/667/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/4627/index.do?q=%22Hunter+v.+Southam%22] R. v. Kang-Brown
+ - 2008 SCC 18
+ - [2008] 1 SCR 456
+ - 2008-04-25
+ Supreme Court Judgments
+ Constitutional law
+ Professional law
+ In Hunter v. Southam Inc., [1984] 2 S.C.R. 145, at pp. 159-60, Dickson J. (as he then was) stated: [...] As this Court stated in Hunter v. Southam, at p. 160, an ex post facto analysis to determine this would be at odds with the purpose of s. 8, which is to prevent unreasonable searches before they occur. [...] [190] Hunter v. Southam (at pp. 159-60) requires that the privacy interests of individuals be balanced against societal interests. 
+ [LINK /scc-csc/scc-csc/en/4627/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/1097/index.do?q=%22Hunter+v.+Southam%22] R. v. Colarusso
+ - [1994] 1 SCR 20
+ - 1994-01-26
+ Supreme Court Judgments
+ Constitutional law
+ Given this irrelevancy, the applicability of the other Hunter v. Southam Inc. criteria was doubtful. No police seizure occurred here. [...] The Hunter v. Southam Inc. criterion that there be reasonable and probable cause to believe that a specific offence has been committed is inapplicable in this context. [...] Hunter v. Southam Inc., [1984] 2 S.C.R. 145, teaches us that s. 8, like other Charter rights, must be broadly and liberally construed to effect its purpose. 
+ [LINK /scc-csc/scc-csc/en/1097/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/4628/index.do?q=%22Hunter+v.+Southam%22] R. v. A.M.
+ - 2008 SCC 19
+ - [2008] 1 SCR 569
+ - 2008-04-25
+ Supreme Court Judgments
+ Constitutional law
+ Professional law
+ For reasons to be explained, I would not go so far as the accused who insists that the full Hunter v. Southam Inc., [1984] 2 S.C.R. 145, requirement of prior judicial authorization must be imposed. [...] [10] In the United States, from whose Fourth Amendment decisions Hunter v. Southam drew inspiration, a series of divided Supreme Court decisions has declined to grant any Fourth Amendment protection against “narcotic” sniffer dogs. [...] The Hunter v. Southam requirement of prior judicial authorization is the gold standard because an important purpose of s. 8 is to prevent unreasonable searches and not in the usual case just to give an after-the-fact remedy. 
+ [LINK /scc-csc/scc-csc/en/4628/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/2183/index.do?q=%22Hunter+v.+Southam%22] R. v. Tessling
+ - 2004 SCC 67
+ - [2004] 3 SCR 432
+ - 2004-10-29
+ Supreme Court Judgments
+ Constitutional law
+ These areas we have now gathered up under the general heading of privacy, although in Hunter v. Southam Inc., [1984] 2 S.C.R. 145, at p. 159, Dickson J., as he then was, was careful not to foreclose the existence of s. 8 “interests beyond the right of privacy”, saying: [...] The perspective adopted by the Court in Hunter v. Southam, supra, accordingly, is that s. 8 “protects people, not places” (p. 159). [...] 33 With respect to this second question, as Abella J.A. pointed out, the law is clear that warrantless searches are presumptively unreasonable, absent exigent circumstances (Hunter v. Southam, supra; Collins, supra, at p. 278; Evans, supra; and Grant, supra). 
+ [LINK /scc-csc/scc-csc/en/2183/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/583/index.do?q=%22Hunter+v.+Southam%22] Thomson Newspapers Ltd. v. Canada (Director of Investigation and Research, Restrictive Trade Practices Commission)
+ - [1990] 1 SCR 425
+ - 1990-03-29
+ Supreme Court Judgments
+ Competition law
+ Constitutional law
+ Evidence
+ In Hunter v. Southam Inc. this Court discussed the general nature of the s. 8 right. [...] Sections 10 and 17 -‐ Hunter v. Southam Inc. The foregoing conclusion is in no way inconsistent with this Court's decision in Hunter v. Southam Inc., supra, notwithstanding that it also concerned the constitutionality of investigative powers under the Combines Investigation Act, specifically those provided by s. 10. [...] [1990] 1 S.C.R. 000, in which the Hunter v. Southam Inc. standards are almost completely diluted. Instead of a sliding scale of Hunter v. Southam Inc. standards, I prefer a more restrictive interpretation of what constitutes a seizure, reserving the application of the Hunter v. Southam Inc. standards for those state 
+ [LINK /scc-csc/scc-csc/en/583/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/1620/index.do?q=%22Hunter+v.+Southam%22] Schreiber v. Canada (Attorney General)
+ - [1998] 1 SCR 841
+ - 1998-05-28
+ Supreme Court Judgments
+ Constitutional law
+ Referred to: Hunter v. Southam Inc., [1984] 2 S.C.R. 145; R. v. Terry, [1996] 2 S.C.R. 207; R. v. Filonov (1993), 82 C.C.C. (3d) 516; Canada v. Schmidt, [1987] 1 S.C.R. 500; Argentina v. Mellino, [1987] 1 S.C.R. 536; Kindler v. Canada (Minister of Justice), [1991] 2 S.C.R. 779. [...] He held that prior authorization is crucial in balancing the interests of the individual with those of the government, and that it cannot be done by the police or government enforcement authorities (Hunter v. Southam Inc., [1984] 2 S.C.R. 145). As a result, such authorization should have been obtained before the letter of [...] Dickson J. (as he then was) defined the purpose of s. 8 in Hunter v. Southam Inc., [1984] 2 S.C.R. 145 (at p. 160) as the protection of individuals “from unjustified state intrusions upon their privacy” (emphasis added). 
+ [LINK /scc-csc/scc-csc/en/1620/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/845/index.do?q=%22Hunter+v.+Southam%22] R. v. Wise
+ - [1992] 1 SCR 527
+ - 1992-02-27
+ Supreme Court Judgments
+ Constitutional law
+ Criminal law
+ And as Hunter v. Southam, supra, instructs us, the issuance of a warrant to conduct a search will ordinarily call for an objective showing of reasonable and probable cause by those seeking the warrant. [...] Hunter v. Southam, supra, instructs us that there may be occasions where danger to some person may constitute a ground for lowering the standard. [...] As Dickson J. put it in Hunter v. Southam, supra, at p. 167: The state's interest in detecting and preventing crime begins to prevail. . . where credibly-based probability replaces suspicion. 
+ [LINK /scc-csc/scc-csc/en/845/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/591/index.do?q=%22Hunter+v.+Southam%22] R. v. Greffe
+ - [1990] 1 SCR 755
+ - 1990-04-12
+ Supreme Court Judgments
+ Constitutional law
+ This Court had not yet pronounced its decision in Hunter v. Southam Inc., supra; nor had the Court yet had the opportunity to deal with the threshold of reasonable and probable grounds in the context of confidential informant information. [...] As support for this proposition, the appellant cites this Court's decisions in Hunter v. Southam Inc., [1984] 2 S.C.R. 145, R. v. Pohoretsky, [1987] 1 S.C.R. 945; Simmons, supra, and R. v. Jacoy, [1988] 2 S.C.R. 548. [...] As I stated in Collins, at p. 278, reiterating the words of Dickson J. (as he then was) in Hunter v. Southam Inc., supra, at p. 161: . . . once the appellant has demonstrated that the search was a warrantless one, the Crown has the burden of showing that the search was, on a balance of probabilities, reasonable. 
+ [LINK /scc-csc/scc-csc/en/591/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/958/index.do?q=%22Hunter+v.+Southam%22] Baron v. Canada
+ - [1993] 1 SCR 416
+ - 1993-01-21
+ Supreme Court Judgments
+ Taxation
+ Given the intrusive nature of searches and the corresponding purpose of such a search to gather evidence for the prosecution of a taxpayer, there is no reason for a radical departure from the guidelines and principles expressed in Hunter v. Southam Inc., [1984] 2 S.C.R. 145. The effect of any lessened expectation of privacy [...] the requirements of a constitutionally valid search and seizure power, as set out in Hunter v. Southam Inc., [1984] 2 S.C.R. 145, ... ; (3) the requirements under subsection 231.3(3) do not meet the requirements of Hunter v. Southam (supra) because they only require that there be reasonable grounds to believe that an [...] It was submitted, however, that the above conclusion, while it might be correct in a Hunter v. Southam Inc. situation, has no application to the ITA because it is a regulatory statute and the criteria of Hunter must be relaxed. 
+ [LINK /scc-csc/scc-csc/en/958/1/document.do] 
+ 14.
+ [LINK /scc-csc/scc-csc/en/item/1835/index.do?q=%22Hunter+v.+Southam%22] Little Sisters Book and Art Emporium v. Canada (Minister of Justice)
+ - 2000 SCC 69
+ - [2000] 2 SCR 1120
+ - 2000-12-15
+ Supreme Court Judgments
+ Constitutional law
+ Customs and excise
+ Similar arguments were considered in Hunter v. Southam Inc., [1984] 2 S.C.R. 145, and R. v. Bain, [1992] 1 S.C.R. 91. [...] In Morgentaler, Hunter v. Southam and Bain, this Court rejected the government’s invitation to trust them. [...] Even leaving aside the precedents of Hunter v. Southam, Morgentaler, and Bain, Customs have proven themselves unworthy of trust. 
+ [LINK /scc-csc/scc-csc/en/1835/1/document.do] 
+ 15.
+ [LINK /scc-csc/scc-csc/en/item/555/index.do?q=%22Hunter+v.+Southam%22] Edmonton Journal v. Alberta (Attorney General)
+ - [1989] 2 SCR 1326
+ - 1989-12-21
+ Supreme Court Judgments
+ Constitutional law
+ See Attorney General of Nova Scotia v. MacIntyre, supra; Hunter v. Southam Inc., [1984] 2 S.C.R. 145, at pp. 159-60; R. v. Amway Corp., [1989] 1 S.C.R. 21, at p. 40, and R. v. Dyment, [1988] 2 S.C.R. 417, at pp. 427-28. [...] This Court has recently considered the right to privacy in cases involving the search of a person's property without his or her consent (see Hunter v. Southam Inc., [1984] 2 S.C.R. 145; R. v. Genest, [1989] 1 S.C.R. 59) and the search of a person's body without his or her consent (see R. v. Beare, [1988] 2 S.C.R. 387; R. v. [...] In Hunter v. Southam Inc., [1984] 2 S.C.R. 145, it was held to underlie the protection against unreasonable search and seizure enshrined in s. 8 of the Charter . 
+ [LINK /scc-csc/scc-csc/en/555/1/document.do] 
+ 16.
+ [LINK /scc-csc/scc-csc/en/item/13233/index.do?q=%22Hunter+v.+Southam%22] Divito v. Canada (Public Safety and Emergency Preparedness)
+ - 2013 SCC 47
+ - [2013] 3 SCR 157
+ - 2013-09-19
+ Supreme Court Judgments
+ Constitutional law
+ We start with this Court’s primordial direction that rights be defined generously in light of the interests the Charter was intended to protect: Hunter v. Southam Inc., [1984] 2 S.C.R. 145, at p. 156; R. v. Big M Drug Mart Ltd., [1985] 1 S.C.R. 295, at p. 344; Eldridge v. British Columbia (Attorney General), [1997] 3 S.C.R. [...] In Hunter v. Southam Inc., [1984] 2 S.C.R. 145, this Court expressed the view that the proper approach to the definition of the rights and freedoms guaranteed by the Charter was a purposive one. [...] In this regard, see United States of America v. Cotroni, [1989] 1 S.C.R. 1469, at p. 1480; R. v. Big M Drug Mart Ltd., [1985] 1 S.C.R. 295, at p. 344; Hunter v. Southam Inc., [1984] 2 S.C.R. 145, at p. 156. [56] In the two leading cases on s. 6(1) of the Charter — Cotroni and Sriskandarajah v. United States of America, 2012
+ [LINK /scc-csc/scc-csc/en/13233/1/document.do] 
+ 17.
+ [LINK /scc-csc/scc-csc/en/item/1340/index.do?q=%22Hunter+v.+Southam%22] R. v. Edwards
+ - [1996] 1 SCR 128
+ - 1996-02-08
+ Supreme Court Judgments
+ Constitutional law
+ 29 In Hunter v. Southam Inc., [1984] 2 S.C.R. 145, Dickson J. (as he then was), writing for the Court, emphatically rejected any requirement of a connection between the rights protected by s. 8 and a property interest in the premises searched. [...] Hunter v. Southam, supra, is authority for the proposition that s. 8 of the Charter does not authorize a search and seizure, but rather acts as a limitation on the powers of search and seizure set out in the Code. [...] Thus it is noteworthy that in the seminal case of Hunter v. Southam Inc., [1984] 2 S.C.R. 145, in the very passage cited by my colleagues, Dickson J. (as he then was) for the Court indicated, at p. 159, that what was being protected by s. 8 was "the public's interest in being left alone". 
+ [LINK /scc-csc/scc-csc/en/1340/1/document.do] 
+ 18.
+ [LINK /scc-csc/scc-csc/en/item/559/index.do?q=%22Hunter+v.+Southam%22] R. v. Duarte
+ - [1990] 1 SCR 30
+ - 1990-01-25
+ Supreme Court Judgments
+ Constitutional law
+ Criminal law
+ Evidence
+ Hunter v. Southam Inc., [1984] 2 S.C.R. 145, instructs us that the primary value served by s. 8 is privacy, and, as I noted in R. v. Dyment, [1988] 2 S.C.R. 417, at p. 426, the spirit of s. 8 must not be constrained by narrow legalistic classifications. [...] If one is to give s. 8 the purposive meaning attributed to it by Hunter v. Southam Inc., one can scarcely imagine a state activity more dangerous to individual privacy than electronic surveillance and to which, in consequence, the protection accorded by s. 8 should be more directly aimed, an issue I shall more fully develop [...] Accordingly the constitutionality of "participant surveillance" should fall to be determined by application of the same standard as that employed in third party surveillance, i.e., by application of the standard of reasonableness enunciated in Hunter v. Southam Inc., supra. By application of that standard, the warrantless 
+ [LINK /scc-csc/scc-csc/en/559/1/document.do] 
+ 19.
+ [LINK /scc-csc/scc-csc/en/item/8002/index.do?q=%22Hunter+v.+Southam%22] R. v. Tse
+ - 2012 SCC 16
+ - [2012] 1 SCR 531
+ - 2012-04-13
+ Supreme Court Judgments
+ Constitutional law
+ [16] In the landmark decision Hunter v. Southam Inc., [1984] 2 S.C.R. 145, this Court determined that a warrantless search is presumptively unreasonable. [...] The constitutional balance between the reasonable expectation of privacy and the legitimate needs of the state in detecting and preventing crime requires an objective standard — credibly based probability: Hunter v. Southam, at pp. 166-68; R. v. Kang-Brown, 2008 SCC 18, [2008] 1 S.C.R. 456, at paras. 75-79. [...] In Hunter v. Southam, Dickson J. explained that “[a] provision authorizing . . . an unreviewable power would clearly be inconsistent with s. 8 of the Charter ” (p. 166). 
+ [LINK /scc-csc/scc-csc/en/8002/1/document.do] 
+ 20.
+ [LINK /scc-csc/scc-csc/en/item/1256/index.do?q=%22Hunter+v.+Southam%22] R. v. Silveira
+ - [1995] 2 SCR 297
+ - 1995-05-18
+ Supreme Court Judgments
+ Constitutional law
+ This reasoning involves an ex post facto determination that, as Hunter v. Southam Inc., [1984] 2 S.C.R. 145, at pp. 160-61, has held, is unacceptable. [...] As Dickson J. (as he then was) has reminded us in Hunter v. Southam Inc., supra, caution should be exercised in using American techniques too liberally without an awareness of the context out of which they arose. [...] 118 In Hunter v. Southam Inc., [1984] 2 S.C.R. 145, Dickson J. made it clear that the expectation of privacy was at the forefront of a s. 8 Charter analysis. 
+ [LINK /scc-csc/scc-csc/en/1256/1/document.do] 
+ 21.
+ [LINK /scc-csc/scc-csc/en/item/100/index.do?q=%22Hunter+v.+Southam%22] Re B.C. Motor Vehicle Act
+ - [1985] 2 SCR 486
+ - 1985-12-17
+ Supreme Court Judgments
+ Constitutional law
+ Criminal law
+ 22. I propose therefore to approach the interpretation of s. 7 in the manner set forth by Dickson J. in Hunter v. Southam Inc., [1984] 2 S.C.R. 145, and R. v. Big M Drug Mart Ltd., supra, and by Le Dain J. in R. v. Therens, [1985] 1 S.C.R. 613. [...] In Hunter v. Southam Inc., [1984] 2 S.C.R. 145, this Court expressed the view that the proper approach to the definition of the rights and freedoms guaranteed by the Charter was a purposive one. [...] Accordingly, the point of departure for the analysis has been a consideration of the general objectives of the Charter in the light of the general principles of Charter interpretation set forth in Law Society of Upper Canada v. Skapinker, supra, and Hunter v. Southam Inc., supra. This was followed by a detailed analysis of 
+ [LINK /scc-csc/scc-csc/en/100/1/document.do] 
+ 22.
+ [LINK /scc-csc/scc-csc/en/item/1333/index.do?q=%22Hunter+v.+Southam%22] R. v. Evans
+ - [1996] 1 SCR 8
+ - 1996-01-25
+ Supreme Court Judgments
+ Constitutional law
+ Referred to: Robson v. Hallett, [1967] 2 All E.R. 407; R. v. Bushman (1968), 4 C.R.N.S. 13; R. v. Johnson (1994), 45 B.C.A.C. 102; R. v. Sandhu (1993), 82 C.C.C. (3d) 236; Hunter v. Southam Inc., [1984] 2 S.C.R. 145; R. v. Duarte, [1990] 1 S.C.R. 30; R. v. Wong, [1990] 3 S.C.R. 36. [...] As this Court stated in Hunter v. Southam Inc., [1984] 2 S.C.R. 145, at p. 160, the objective of s. 8 of the Charter is "to protect individuals from unjustified state intrusions upon their privacy". [...] Dickson J. (as he then was) in Hunter v. Southam Inc. [1984] 2 S.C.R. 145, stated at pp. 159-60: The guarantee of security from unreasonable search and seizure only protects a reasonable expectation. 
+ [LINK /scc-csc/scc-csc/en/1333/1/document.do] 
+ 23.
+ [LINK /scc-csc/scc-csc/en/item/14502/index.do?q=%22Hunter+v.+Southam%22] R. v. Fearon
+ - 2014 SCC 77
+ - [2014] 3 SCR 621
+ - 2014-12-11
+ Supreme Court Judgments
+ Constitutional law
+ This Court has described the higher threshold of “reasonable and probable grounds” as requiring “reasonable probability” or “credibly-based probability”: Debot, at p. 1166; Hunter v. Southam Inc., at p. 167. In my respectful opinion, imposing that threshold here would significantly undermine the important law enforcement [...] [120] Hunter v. Southam Inc. established that, when feasible, there must be prior judicial authorization of a search. [...] Dickson J. made this clear in Hunter v. Southam Inc. After repeating that the purpose of s. 8 of the Charter was to protect individuals against unjustified state intrusion, he continued at p. 160: 
+ [LINK /scc-csc/scc-csc/en/14502/1/document.do] 
+ 24.
+ [LINK /scc-csc/scc-csc/en/item/15550/index.do?q=%22Hunter+v.+Southam%22] Goodwin v. British Columbia (Superintendent of Motor Vehicles)
+ - 2015 SCC 46
+ - [2015] 3 SCR 250
+ - 2015-10-16
+ Supreme Court Judgments
+ Constitutional law
+ It would also be inconsistent with the flexible and purposive interpretation, focused on protecting people and not places, that s. 8 demands: McKinlay Transport Ltd., at p. 647, per Wilson J.; Hunter v. Southam Inc., [1984] 2 S.C.R. 145, at pp. 158-59. The analysis of a search or seizure under s. 8 is a contextual inquiry: [...] The protection that began as security against trespass (Lord Coke’s dictum, “A man’s home is his castle”: see R. v. Tessling, 2004 SCC 67, [2004] 3 S.C.R. 432, at para. 22; see also Hunter v. Southam Inc., [1984] 2 S.C.R. 145, at pp. 157-58; R. v. Dyment, [1988] 2 S.C.R. 417, at pp. 426-29) has been elaborated under s. 8 to [...] This concern explains the general requirement of prior judicial authorization for a criminal search, failing which the search is prima facie unreasonable: R. v. Collins, [1987] 1 S.C.R. 265, at pp. 277-78; Hunter v. Southam Inc., at p. 161. It also explains the requirement that in some circumstances the authorities must 
+ [LINK /scc-csc/scc-csc/en/15550/1/document.do] 
+ 25.
+ [LINK /scc-csc/scc-csc/en/item/7611/index.do?q=%22Hunter+v.+Southam%22] R. v. Patrick
+ - 2009 SCC 17
+ - [2009] 1 SCR 579
+ - 2009-04-09
+ Supreme Court Judgments
+ Constitutional law
+ This is inherent in the “assessment” called for by Dickson J. (as he then was) in Hunter v. Southam Inc., [1984] 2 S.C.R. 145, at pp. 159-60: This limitation on the right guaranteed by s. 8, whether it is expressed negatively as freedom from “unreasonable” search and seizure, or positively as an entitlement to a [...] [15] Thus in Thomson Newspapers Ltd. v. Canada (Director of Investigation and Research, Restrictive Trade Practices Commission), [1990] 1 S.C.R. 425, a majority concluded that a regulatory order to produce business records did not require the prior judicial approval envisaged in Hunter v. Southam, and did not violate s. 8. [...] There is always, as Hunter v. Southam established, a realistic balance that must be struck between privacy and the legitimate demands of law enforcement and criminal investigation. 
+ [LINK /scc-csc/scc-csc/en/7611/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

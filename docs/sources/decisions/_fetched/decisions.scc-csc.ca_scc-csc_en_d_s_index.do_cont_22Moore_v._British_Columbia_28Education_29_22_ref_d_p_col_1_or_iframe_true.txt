@@ -1,0 +1,676 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=%22Moore+v.+British+Columbia+%28Education%29%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=%22Moore+v.+British+Columbia+%28Education%29%22&ref=&p=&col=1&or=] All Databases (38)
+ Decisions (13)
+ [LINK /scc-csc/en/n/s/index.do?cont=%22Moore+v.+British+Columbia+%28Education%29%22&ref=&p=&col=1&or=] Resources (25)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Moore+v.+British+Columbia+%28Education%29%22&ref=&p=&col=1&or=date] Date
+ 13 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/12680/index.do?q=%22Moore+v.+British+Columbia+%28Education%29%22] Moore v. British Columbia (Education)
+ - 2012 SCC 61
+ - [2012] 3 SCR 360
+ - 2012-11-09
+ Supreme Court Judgments
+ Education law
+ Citation: Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360 Date: 20121109 [...] Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360 Frederick Moore on behalf of Jeffrey P. Moore Appellant [...] Indexed as: Moore v. British Columbia (Education) 2012 SCC 61 File Nos.: 34040, 34041. 2012: March 22; 2012: November 9. 
+ [LINK /scc-csc/scc-csc/en/12680/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/16679/index.do?q=%22Moore+v.+British+Columbia+%28Education%29%22] Stewart v. Elk Valley Coal Corp.
+ - 2017 SCC 30
+ - [2017] 1 SCR 591
+ - 2017-06-15
+ Supreme Court Judgments
+ Referred to: British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3; Hydro‐Québec v. Syndicat des employé‐e‐s de techniques professionnelles et de bureau d’Hydro‐Québec, section locale 2000 (SCFP‐FTQ), 2008 SCC 43, [2008] 2 S.C.R. 561; Moore v. British Columbia (Education), 2012 SCC 61, [...] [14] On the issue of prima facie discrimination, the majority applied this Court’s three-part test set out in Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360, and held that disability must be a real factor in the adverse impact, not just part of the background. [...] 2015 SCC 39, [2015] 2 S.C.R. 789, at para. 35; Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360, at para. 33. [70] Despite this established test, the decisions below rendered by the Tribunal, the Court of Queen’s Bench, and the Court of Appeal majority took different approaches to contribution. 
+ [LINK /scc-csc/scc-csc/en/16679/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/13663/index.do?q=%22Moore+v.+British+Columbia+%28Education%29%22] McCormick v. Fasken Martineau DuMoulin LLP
+ - 2014 SCC 39
+ - [2014] 2 SCR 108
+ - 2014-05-22
+ Supreme Court Judgments
+ Referred to: Crane v. British Columbia (Ministry of Health Services) (No. 1), 2005 BCHRT 361, 53 C.H.R.R. D/156, rev’d 2007 BCSC 460, 60 C.H.R.R. D/381; Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360; British Columbia (Workers’ Compensation Board) v. Figliola, 2011 SCC 52, [2011] 3 S.C.R. 422; [...] Since the issue does not deal with a finding of fact or the exercise of the Tribunal’s discretion, under s. 59 of the B.C. Administrative Tribunals Act[13] a correctness standard is mandated: Moore v. British Columbia (Education), [2012] 3 S.C.R. 360, at paras. 55-57; British Columbia (Workers’ Compensation Board) v. 
+ [LINK /scc-csc/scc-csc/en/13663/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/16919/index.do?q=%22Moore+v.+British+Columbia+%28Education%29%22] British Columbia Human Rights Tribunal v. Schrenk
+ - 2017 SCC 62
+ - [2017] 2 SCR 795
+ - 2017-12-15
+ Supreme Court Judgments
+ The starting point for the discrimination analysis is the prima facie test for discrimination set out in Moore v. British Columbia (Education), [2012] 3 S.C.R. 360. In the employment context, the complainant must demonstrate that he or she has a characteristic protected under the Code, that he has experienced an adverse [...] Human Rights Commission v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536; Robichaud v. Canada (Treasury Board), [1987] 2 S.C.R. 84; Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360; Stewart v. Elk Valley Coal Corp., 2017 SCC 30, [2017] 1 S.C.R. 591; Janzen v. Platy Enterprises Ltd., [1989] 1 S.C.R. 1252. [...] The starting point for the discrimination analysis is the prima facie test for discrimination set out in Moore v. British Columbia (Education), [2012] 3 S.C.R. 360, a case involving discrimination in the provision of educational services to children with learning disabilities. 
+ [LINK /scc-csc/scc-csc/en/16919/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/15471/index.do?q=%22Moore+v.+British+Columbia+%28Education%29%22] Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center)
+ - 2015 SCC 39
+ - [2015] 2 SCR 789
+ - 2015-07-23
+ Supreme Court Judgments
+ University Health Centre (Montreal General Hospital) v. Syndicat des employés de l’Hôpital général de Montréal, 2007 SCC 4, [2007] 1 S.C.R. 161; Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360; British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3; Gaz [...] If the defendant fails to do so, discrimination will then be found to have occurred: McGill University Health Centre (Montreal General Hospital) v. Syndicat des employés de l’Hôpital général de Montréal, 2007 SCC 4, [2007] 1 S.C.R. 161 (“McGill”), at para. 50; see also Moore v. British Columbia (Education), 2012 SCC 61, 
+ [LINK /scc-csc/scc-csc/en/15471/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/16959/index.do?q=%22Moore+v.+British+Columbia+%28Education%29%22] Quebec (Commission des normes, de l’équité, de la santé et de la sécurité du travail) v. Caron
+ - 2018 SCC 3
+ - [2018] 1 SCR 35
+ - 2018-02-01
+ Supreme Court Judgments
+ of Human Rights), [1999] 3 S.C.R. 868; Council of Canadians with Disabilities v. VIA Rail Canada Inc., 2007 SCC 15, [2007] 1 S.C.R. 650; Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360; Central Alberta Dairy Pool v. Alberta (Human Rights Commission), [1990] 2 S.C.R. 489; McGill University [...] [27] In short, the duty to accommodate requires accommodation to the point that an employer is able to demonstrate “that it could not have done anything else reasonable or practical to avoid the negative impact on the individual” (Moore v. British Columbia (Education), [2012] 3 S.C.R. 360, at para. 49, quoting Meiorin, at 
+ [LINK /scc-csc/scc-csc/en/16959/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/20798/index.do?q=%22Moore+v.+British+Columbia+%28Education%29%22] Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Directrice de la protection de la jeunesse du CISSS A
+ - 2024 SCC 43
+ - 2024-12-20
+ Supreme Court Judgments
+ 2752; P. (D.) v. S. (C.), [1993] 4 S.C.R. 141; Canadian National Railway Co. v. Canada (Canadian Human Rights Commission), [1987] 1 S.C.R. 1114; Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360; Housen v. Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235; Canada (Transportation Safety Board) v. [...] A preventive corrective measure related to the interests and rights of the child whose situation has been referred to the tribunal may very well have positive indirect and incidental consequences for a large number of children (see Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360, at para. 63). I 
+ [LINK /scc-csc/scc-csc/en/20798/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/15288/index.do?q=%22Moore+v.+British+Columbia+%28Education%29%22] Mouvement laïque québécois v. Saguenay (City)
+ - 2015 SCC 16
+ - [2015] 2 SCR 3
+ - 2015-04-15
+ Supreme Court Judgments
+ Administrative law
+ [2011] 3 S.C.R. 708; Loyola High School v. Quebec (Attorney General), 2015 SCC 12, [2015] 1 S.C.R. 613; Dunsmuir v. New Brunswick, 2008 SCC 9, [2008] 1 S.C.R. 190; Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360; Saskatchewan (Human Rights Commission) v. Whatcott, 2013 SCC 11, [2013] 1 S.C.R. 467. [...] In Moore v. British Columbia (Education), [2012] 3 S.C.R. 360, for example, this Court reviewed the British Columbia Human Rights Tribunal’s decision that the failure to provide educational support to a child with dyslexia constituted discrimination on the basis of disability. 
+ [LINK /scc-csc/scc-csc/en/15288/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/19046/index.do?q=%22Moore+v.+British+Columbia+%28Education%29%22] Ward v. Quebec (Commission des droits de la personne et des droits de la jeunesse)
+ - 2021 SCC 43
+ - [2021] 3 SCR 176
+ - 2021-10-29
+ Supreme Court Judgments
+ University Health Centre (Montreal General Hospital) v. Syndicat des employés de l’Hôpital général de Montréal, 2007 SCC 4, [2007] 1 S.C.R. 161; Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360; British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 [...] Hospital) v. Syndicat des employés de l’Hôpital général de Montréal, [2007] 1 S.C.R. 161, at para. 44, per Abella J., concurring; Moore v. British Columbia (Education), [2012] 3 S.C.R. 360; British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868, at para. 20). 
+ [LINK /scc-csc/scc-csc/en/19046/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/18510/index.do?q=%22Moore+v.+British+Columbia+%28Education%29%22] Fraser v. Canada (Attorney General)
+ - 2020 SCC 28
+ - [2020] 3 SCR 113
+ - 2020-10-16
+ Supreme Court Judgments
+ Constitutional law
+ [1997] 1 S.C.R. 241; British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868; Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360; Egan v. Canada, [1995] 2 S.C.R. 513; Central Alberta Dairy Pool v. Alberta (Human Rights Commission), [...] since Meiorin (paras. 50‐54; see also British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868, at paras. 18‐19; Moore v. British Columbia (Education), [2012] 3 S.C.R. 360, at para. 61). A unified approach, in my view, is equally justified under the Charter. 
+ [LINK /scc-csc/scc-csc/en/18510/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/15373/index.do?q=%22Moore+v.+British+Columbia+%28Education%29%22] R. v. Kokopenace
+ - 2015 SCC 28
+ - [2015] 2 SCR 398
+ - 2015-05-21
+ Supreme Court Judgments
+ Constitutional law
+ S.C.R. 695; Quebec (Attorney General) v. A, 2013 SCC 5, [2013] 1 S.C.R. 61; R. v. Askov, [1990] 2 S.C.R. 1199; R. v. Morin, [1992] 1 S.C.R. 771; Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360; R. v. W.E.B., 2014 SCC 2, [2014] 1 S.C.R. 34; R. v. Clark, 2005 SCC 2, [2005] 1 S.C.R. 6; Housen v. [...] In Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360, an adverse effects discrimination case under British Columbia’s Human Rights Code, R.S.B.C. 1996, c. 210, this Court stated that a prima facie breach exists when state action had the result of denying a student meaningful access to the mandated 
+ [LINK /scc-csc/scc-csc/en/15373/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/19458/index.do?q=%22Moore+v.+British+Columbia+%28Education%29%22] R. v. Kirkpatrick
+ - 2022 SCC 33
+ - [2022] 2 SCR 480
+ - 2022-07-29
+ Supreme Court Judgments
+ Criminal law
+ 2014 SCC 14, [2014] 1 S.C.R. 270, aff’g 2013 ABCA 219, 309 C.C.C. (3d) 163; 1704604 Ontario Ltd. v. Pointes Protection Association, 2020 SCC 22; Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360; Alberta (Aboriginal Affairs and Northern Development) v. Cunningham, 2011 SCC 37, [2011] 2 S.C.R. 670; R. [...] problems associated with condom refusal and removal (1704604 Ontario Ltd. v. Pointes Protection Association, 2020 SCC 22, at paras. 6 and 14-15; Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360, at paras. 5 and 37; Alberta (Aboriginal Affairs and Northern Development) v. Cunningham, 2011 SCC 37, 
+ [LINK /scc-csc/scc-csc/en/19458/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/18078/index.do?q=%22Moore+v.+British+Columbia+%28Education%29%22] Canada (Minister of Citizenship and Immigration) v. Vavilov
+ - 2019 SCC 65
+ - [2019] 4 SCR 653
+ - 2019-12-19
+ Supreme Court Judgments
+ Administrative law
+ 539; R. v. Owen, 2003 SCC 33, [2003] 1 S.C.R. 779; British Columbia (Workers’ Compensation Board) v. Figliola, 2011 SCC 52, [2011] 3 S.C.R. 422; Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360; McCormick v. Fasken Martineau DuMoulin LLP, 2014 SCC 39, [2014] 2 S.C.R. 108; British Columbia (Workers’ [...] paras. 31-32; Khosa, at paras. 18-19; British Columbia (Workers’ Compensation Board) v. Figliola, 2011 SCC 52, [2011] 3 S.C.R. 422, at para. 20; Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360, at para. 55; McCormick v. Fasken Martineau DuMoulin LLP, 2014 SCC 39, [2014] 2 S.C.R. 108, at para. 16; 
+ [LINK /scc-csc/scc-csc/en/18078/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";
