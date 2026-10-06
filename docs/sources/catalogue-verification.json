@@ -9853,6 +9853,38 @@
    ],
    "howRead": "Read in docs/sources/corpus/oreg-333-08-motor-vehicle-dealers-general.txt (consolidation from 2025-01-01), vendored 2026-09-30.",
    "problemCorrected": "Previously unverifiable (regulation not retrieved). On reading, everything stated was supported; the s. 50(3) exclusion for a lessee who buys the leased vehicle was missing and has been added."
+  },
+  {
+   "key": "sc-claim-slip-and-fall-occupier-liability|plaintiffElement|notice-if-snow-or-ice",
+   "verifiedAt": "2026-10-06",
+   "outcome": "authored",
+   "fingerprint": "4d0ff9b5308af321e00a308a1fbd143e35b639fbdf4328523d437f0982aefab1",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+     "pinpoint": "s. 6.1 (1)",
+     "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim, including the date, time and location of the occurrence, has been personally served on or sent by registered mail to at least one person listed in subsection (2)."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+     "pinpoint": "s. 6.1 (2)",
+     "quote": "The persons referred to in subsection (1) are the following: 1. An occupier. 2. An independent contractor employed by the occupier to remove snow or ice on the premises during the relevant period in which the injury occurred."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+     "pinpoint": "s. 6.1 (5)",
+     "quote": "Failure to give notice in accordance with subsection (1) is not a bar to the action in the case of the death of the injured person as a result of the injury."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+     "pinpoint": "s. 6.1 (6)",
+     "quote": "Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/90o02_e.doc: vendored text in docs/sources/corpus/occupiers-liability-act.txt (see manifest.json); the same four quotes are in src/lib/case-system/stage-map/citations.ts",
+   "independentReviews": [
+    "Independent re-read against the vendored Act (2026-10-06): no statement wrong; corrected the period of the contractor's employment ('during the relevant period', not 'at the time'), the 60 days' starting point, and that s. 6.1(5) covers failure to give notice only. The question was reworded to name the occupier as the Act defines it and to ask whether the notice gave the date, time and location."
+   ]
   }
  ],
  "nextSteps": [
