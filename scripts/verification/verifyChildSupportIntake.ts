@@ -137,7 +137,11 @@ function main(): void {
     "the residence question states why it decides the table",
     body.includes("cs-residence-reason") &&
       /parent the order is sought against/i.test(body) &&
-      /not where you\s*\n?\s*live/i.test(body.replace(/\s+/g, " ")),
+      // The property: it says what does NOT decide the table. The wording
+      // moved from "not where you live" to "not where the children live and
+      // not where the case is filed"; pinning the old words failed the
+      // improvement (CLAUDE.md section 5).
+      /not where (?:you|the children)\s+live/i.test(body.replace(/\s+/g, " ")),
   );
 
   // ---- No readiness gate on this path ----
