@@ -31,17 +31,27 @@ in_manifest() {
   node -e "const m=require('./docs/sources/corpus/manifest.json'); process.exit(m.entries.some(e=>e.id===process.argv[1])?0:1)" "$1"
 }
 
+# Removes the declaration AND the failure fetchCorpus recorded for it in the
+# manifest. Leaving the failure behind (2026-10-06) made test:rules-corpus
+# fail "a declared source is not in the corpus" for the whole run, so one law
+# that did not verify (the Fraudulent Conveyances Act) kept eight that did
+# out of the library.
 drop_declaration() {
   node -e "
-    const fs=require('fs'); const p='scripts/rules/requestedSources.json';
-    const list=JSON.parse(fs.readFileSync(p,'utf8')).filter(e=>e.id!==process.argv[1]);
-    fs.writeFileSync(p, JSON.stringify(list,null,2)+'\n');" "$1"
+    const fs=require('fs'); const id=process.argv[1];
+    const p='scripts/rules/requestedSources.json';
+    const list=JSON.parse(fs.readFileSync(p,'utf8')).filter(e=>e.id!==id);
+    fs.writeFileSync(p, JSON.stringify(list,null,2)+'\n');
+    const m='docs/sources/corpus/manifest.json';
+    const manifest=JSON.parse(fs.readFileSync(m,'utf8'));
+    manifest.failures=manifest.failures.filter(f=>f.id!==id);
+    fs.writeFileSync(m, JSON.stringify(manifest,null,2)+'\n');" "$1"
 }
 
 while IFS=$'\t' read -r num name; do
   [ -z "${name:-}" ] && continue
   out="$(npx tsx scripts/sources/resolveSourceRequest.ts "$name" 2>/dev/null | tail -1)"
-  echo "::notice title=Resolve::#$num $name -> $out"
+  echo "::notice title=Resolve::#$num $name -> $out" >&2
   case "$out" in
     id=*)
       id="${out#id=}"
@@ -52,7 +62,7 @@ while IFS=$'\t' read -r num name; do
         ANY=yes
       else
         reason="$(grep -m1 -iE 'fail|missing|not contain|minimum' "fetch-$id.log" | cut -c1-160)"
-        echo "::warning title=Fetch::$id did not verify: $reason"
+        echo "::warning title=Fetch::$id did not verify: $reason" >&2
         drop_declaration "$id"
         printf '%s\t%s\tnot-verified:%s\n' "$num" "$name" "$id" >> "$RESULTS"
       fi

@@ -127,6 +127,9 @@ async function main() {
   check("every run handles every open request", workflow.includes("labels=source-request") && workflow.includes("processSourceRequests.sh"));
   const processor = read("scripts/sources/processSourceRequests.sh");
   check("a request that does not verify leaves nothing declared", /else[\s\S]{0,300}drop_declaration "\$id"/.test(processor));
+  // One law that did not verify left its failure in the manifest and kept
+  // eight that did out of the library (2026-10-06).
+  check("a request that does not verify leaves no failure in the manifest", /drop_declaration\(\)[\s\S]{0,800}manifest\.failures\s*=\s*manifest\.failures\.filter/.test(processor));
   check("a request marked needs-human is not retried every run", workflow.includes('index("needs-human")'));
   check("Vercel never builds a request branch", read("vercel.json").includes('"source-request-*": false'));
   check("the analysis files the gaps", read("src/lib/case-system/intelligence/courtSimplifiedBrain.ts").includes("fileSourceRequests("));

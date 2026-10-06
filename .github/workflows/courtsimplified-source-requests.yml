@@ -86,8 +86,11 @@ jobs:
         id: fetch
         if: steps.collect.outputs.count != '0'
         run: |
+          # Notes go to stderr so they reach the log and annotations; only
+          # the last stdout line is the step's output.
           out="$(bash scripts/sources/processSourceRequests.sh requests.tsv results.tsv | tail -1)"
           echo "$out" >> "$GITHUB_OUTPUT"
+          for f in fetch-*.log; do [ -f "$f" ] && { echo "== $f"; tail -8 "$f"; }; done
           cat results.tsv
 
       - name: Index and check
@@ -101,7 +104,7 @@ jobs:
           set -o pipefail
           for step in retrieval:index test:rules-corpus test:corpus-retrieval; do
             if ! npm run "$step" 2>&1 | tee step.log; then
-              { echo "$step failed:"; grep -E 'FAIL|Error|error:' step.log | head -15; } > failure.txt
+              { echo "$step failed:"; grep -E -A4 'FAIL|Error|error:' step.log | head -20; } > failure.txt
               [ -s failure.txt ] || tail -15 step.log >> failure.txt
               while IFS= read -r line; do echo "::error title=$step::${line:0:300}"; done < failure.txt
               exit 1
