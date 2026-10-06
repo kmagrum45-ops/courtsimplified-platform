@@ -117,8 +117,10 @@ Return JSON: {"questions": [{"question": "...", "why": "...", "passageId": "..."
 
 export const CHECK_SYSTEM_PROMPT = `You check follow-up questions a legal information service wants to ask a person. You did not write them. Each comes with a passage of law and a "why" line that is meant to say what the passage provides. Be strict: a person will rely on it.
 
+The COURT AND SITUATION line says which Ontario court the matter is in; take that as given. The questions were written from the person's own account, which you are not shown: a question may name facts from it (what was damaged, who did it, what was said). That is not presupposing.
+
 For each item decide "ok": true only if ALL of these hold:
-1. The "why" says only what the passage says: nothing added, no number changed, "may" not turned into "must", no condition or exception dropped that would mislead.
+1. The "why" says only what the passage says: nothing added, no number changed, "may" not turned into "must". It is one short sentence and need not list every condition or exception; refuse only if what it leaves out makes what it does say wrong.
 2. The passage is written for this kind of situation (a rule for a different situation -- another kind of claim, another place, another court -- does not apply).
 3. The question asks for facts, neutrally. It does not suggest what the answer should be, does not tell the person what to do, and does not say or hint whether they have a case or how it will turn out.
 
@@ -289,7 +291,7 @@ export async function questionsFromPassages(
 
     const verdicts = parseVerdicts(
       await (deps.check ?? checkWithModel)(
-        situation,
+        checkerSituation(input, situation),
         passed.map(({ id, question, why, passage }) => ({ id, question, why, passage })),
       ),
     );
@@ -398,12 +400,30 @@ export function writingPrompt(input: RetrievalInput, passages: readonly Passage[
   return `COURT: ${input.courtPath}.${who}\n\nTHEIR ACCOUNT:\n${input.story.slice(0, 6000)}\n\nPASSAGES:\n\n${passages.map(passageBlock).join("\n\n")}`;
 }
 
+const COURT_NAMES: Record<string, string> = {
+  "small-claims": "Ontario Small Claims Court",
+  civil: "Ontario Superior Court of Justice, a civil action or application",
+  family: "Ontario family court",
+};
+
+/**
+ * The checker's SITUATION line: the court and side, then research's neutral
+ * line. Without the court (2026-10-06 coverage run) it refused every Small
+ * Claims rule on a trial-preparation story as "applicability not
+ * established". Never the story. Pure; exported for the suite.
+ */
+export function checkerSituation(input: Pick<RetrievalInput, "courtPath" | "side">, situation: string): string {
+  const court = COURT_NAMES[input.courtPath] ?? input.courtPath;
+  const side = input.side ? ` The person is the ${input.side === "plaintiff" ? "one bringing the matter" : "one responding to it"}.` : "";
+  return `${court}.${side}${situation ? ` ${situation}` : ""}`;
+}
+
 /** What the checker is shown -- never the story. Exported for the suite. */
 export function checkingPrompt(
   situation: string,
   items: readonly { id: string; question: string; why: string; passage: Passage }[],
 ): string {
-  return `SITUATION: ${situation || "(not given)"}\n\n${items
+  return `COURT AND SITUATION: ${situation || "(not given)"}\n\n${items
     .map((item) => `ITEM ${item.id}\nPASSAGE: ${passageBlock(item.passage)}\nWHY: ${item.why}\nQUESTION: ${item.question}`)
     .join("\n\n---\n\n")}`;
 }
