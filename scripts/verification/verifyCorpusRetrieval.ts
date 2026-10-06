@@ -591,7 +591,16 @@ async function main() {
     check(`the ${court} analysis carries applied law to the page`, /appliedLaw: (result\.brain\.)?intelligence\.appliedLaw/.test(read(file)));
   }
   const panel = read("app/_components/AppliedLawPanel.tsx");
-  check("the overview renders the panel", /<AppliedLawPanel items=\{analysis\.appliedLaw\}/.test(read("app/builder/_components/IntelligenceOverviewPanel.tsx")));
+  // The panel renders the analysis's applied law. Since 2026-10-06 it leaves
+  // out what "What we looked into" already quoted, so either form passes as
+  // long as the items come from analysis.appliedLaw.
+  const overview = read("app/builder/_components/IntelligenceOverviewPanel.tsx");
+  const itemsVar = /<AppliedLawPanel items=\{([\w.]+)\}/.exec(overview)?.[1] ?? "";
+  check(
+    "the overview renders the panel, from the analysis's applied law",
+    itemsVar === "analysis.appliedLaw" || new RegExp(`const ${itemsVar.replace(/\./g, "\\.")} = \\(analysis\\.appliedLaw`).test(overview),
+    itemsVar,
+  );
   check(
     "the panel shows the provision's text, citation and official link, and says it is not a view on the outcome",
     panel.includes("{item.text}") && panel.includes("item.citation || item.label") && panel.includes("publicSourceUrl(item.sourceUrl)") && panel.includes("not how your case"),

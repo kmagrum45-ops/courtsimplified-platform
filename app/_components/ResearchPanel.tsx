@@ -23,7 +23,21 @@ export default function ResearchPanel({ findings }: { findings: readonly Researc
       <ol className="space-y-4">
         {findings.map((finding, index) => (
           <li key={`${index}-${finding.question}`} className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
-            <p className="text-sm font-semibold text-[#16302b]">{finding.question}</p>
+            {/*
+              Each question opens to its passages (2026-10-06): a results page
+              showed about fifteen provisions in full, one after another, and
+              read as the same law repeated. The questions stay in view; the
+              first is open.
+            */}
+            <details open={index === 0}>
+            <summary className="cursor-pointer text-sm font-semibold text-[#16302b]">
+              {finding.question}
+              {finding.status === "answered" && finding.provisions.length > 0 ? (
+                <span className="ml-2 text-xs font-normal text-[#4d675f]">
+                  ({finding.provisions.length} {finding.provisions.length === 1 ? "passage" : "passages"})
+                </span>
+              ) : null}
+            </summary>
             {finding.status === "answered" && finding.provisions.length > 0 ? (
               <ul className="mt-2 space-y-3">
                 {finding.provisions.map((provision) => {
@@ -61,6 +75,7 @@ export default function ResearchPanel({ findings }: { findings: readonly Researc
             ) : (
               <p className="mt-2 text-sm text-[#4d675f]">We could not find this in our checked library.</p>
             )}
+            </details>
           </li>
         ))}
       </ol>
