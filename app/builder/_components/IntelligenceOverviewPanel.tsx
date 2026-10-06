@@ -201,9 +201,20 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
     ],
     filingFacts,
   );
+  // Once the stage is known ("I have not filed anything yet", "I was served
+  // and need to respond"), the generic filing questions are answered by it,
+  // and the deadline question by the dates on the step (page review,
+  // 2026-10-06: a mother who answered "Nothing filed yet" was asked "Has
+  // anything already been filed?" on every page).
+  const stageKnown = analysis.caseStage === "starting-case" || analysis.caseStage === "responding";
+  const STAGE_ANSWERS =
+    /^(Has anything already been (filed|served)\?|Are there court dates, limitation dates, or urgent deadlines\?)$/;
+  const stillToConfirm = stageKnown
+    ? candidateQuestions.filter((question) => !STAGE_ANSWERS.test(question.trim()))
+    : candidateQuestions;
   const confirmQuestion = askDefenceQuestion
     ? defenceQuestion
-    : candidateQuestions[0] || GENERIC_CONFIRM_QUESTION;
+    : stillToConfirm[0] || GENERIC_CONFIRM_QUESTION;
   const textItems = (values: readonly string[]): SourcedListItem[] =>
     Array.from(new Set(values)).map((text) => ({ text }));
   const evidenceToOrganize: SourcedListItem[] = hasAdoptionSignal

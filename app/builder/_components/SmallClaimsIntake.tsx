@@ -366,6 +366,10 @@ function inferStage(input: SmallClaimsIntelligenceInput): UniversalStage {
   return "starting-case";
 }
 
+function isDefendantRole(role: string | undefined): boolean {
+  return /defendant|responding/i.test(role ?? "");
+}
+
 function buildMissingPrompt(input: SmallClaimsIntelligenceInput): string {
   const missing: string[] = [];
 
@@ -373,13 +377,16 @@ function buildMissingPrompt(input: SmallClaimsIntelligenceInput): string {
   if (!hasText(input.otherParty)) missing.push("the other party’s name");
   if (!hasText(input.defendantAddress)) missing.push("the other party’s address for service");
   if (!hasText(input.facts)) missing.push("the case story");
-  if (!hasText(input.timeline)) missing.push("important dates");
+  // Dates and evidence already in the story count (page review, 2026-10-06:
+  // "important dates" was asked for after "the papers came on September 25").
+  const storyHasDate = /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d{1,2}\b|\b\d{4}-\d{2}-\d{2}\b/i.test(input.facts);
+  if (!hasText(input.timeline) && !storyHasDate) missing.push("important dates");
   if (!hasText(input.evidence)) missing.push("what evidence you have");
-  if (!hasText(input.amountClaimed)) missing.push("the amount claimed, if money is requested");
-  if (!hasText(input.damagesBreakdown)) missing.push("how the amount was calculated");
+  if (!hasText(input.amountClaimed)) missing.push(isDefendantRole(input.yourRole) ? "the amount the claim asks for" : "the amount claimed, if money is requested");
+  if (!hasText(input.damagesBreakdown) && !isDefendantRole(input.yourRole)) missing.push("how the amount was calculated");
 
   if (!missing.length) {
-    return "The intake has enough to run an initial analysis, but the system will still check for proof gaps.";
+    return "You have given enough to see your next steps. You can add more later.";
   }
 
   return `Still useful to add: ${missing.join(", ")}.`;
@@ -406,11 +413,14 @@ function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
     other: "other",
   };
 
+  // Nothing is guessed before there is a story (page review, 2026-10-06: a
+  // blank form read "Likely direction: starting case · not yet classified").
+  if (!hasText(input.facts)) return "";
   const issueText = issues.length
     ? issues.map((issue) => labels[issue]).join(", ")
-    : "not yet classified";
+    : "kind of claim not clear yet";
 
-  return `Likely direction: ${stage.replace(/-/g, " ")} · ${issueText}`;
+  return `So far this looks like: ${stage.replace(/-/g, " ")} · ${issueText}`;
 }
 
 
@@ -720,12 +730,23 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
     }
 
     try {
+      const stage = inferStage(input);
+      // A defendant who is responding was served a claim, so "Nothing filed
+      // yet" -- the form's default, never chosen -- is not saved for them
+      // (page review, 2026-10-06: the record said "Nothing filed yet" beside
+      // "I was served a plaintiff's claim"). Only the untouched default is
+      // replaced; anything the user ticked stands.
+      const untouchedDefault = input.filedDocuments.length === 0 || (input.filedDocuments.length === 1 && input.filedDocuments[0] === "nothing");
       const preparedInput: SmallClaimsIntelligenceInput = {
         ...input,
-        caseStage: inferStage(input),
+        caseStage: stage,
         issues: inferIssuesFromStory(input),
         filedDocuments:
-          input.filedDocuments.length > 0 ? input.filedDocuments : ["nothing"],
+          stage === "responding" && untouchedDefault
+            ? ["plaintiffs-claim"]
+            : input.filedDocuments.length > 0
+              ? input.filedDocuments
+              : ["nothing"],
       };
 
       const response = await requestSmallClaimsAnalysis(
@@ -776,7 +797,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
         </p>
 
         <div className="mt-4 rounded-2xl border border-[#cde7dc] bg-white p-4 text-sm text-[#24463d]">
-          <p className="font-semibold">{inferredDirection}</p>
+          {inferredDirection ? <p className="font-semibold">{inferredDirection}</p> : null}
           <p className="mt-2">{missingPrompt}</p>
         </div>
       </div>
@@ -960,7 +981,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
 
           <label className="block">
             <span className="font-semibold text-[#16302b]">
-              What do you want the court to order?
+              {/* A defendant does not ask the court for an order on the claim;
+                  page review, 2026-10-06. */}
+              {isDefendantRole(input.yourRole) ? "What do you want to happen with the claim against you?" : "What do you want the court to order?"}
             </span>
             <textarea
               data-testid="sc-intake-goal" value={input.goal}
@@ -990,7 +1013,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
 
           <label className="block">
             <span className="font-semibold text-[#16302b]">
-              Breakdown of amount claimed
+              {isDefendantRole(input.yourRole) ? "Which part of the amount you dispute, and why" : "Breakdown of amount claimed"}
             </span>
             <input
               data-testid="sc-intake-damagesBreakdown" value={input.damagesBreakdown}
