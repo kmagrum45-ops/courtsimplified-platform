@@ -2078,3 +2078,22 @@ Things this cost and should not be relearned:
 - **Keeping every condition makes some answers long** (the motion step is 26
   sentences of "what to do next"). Splitting the longest into narrower steps
   is the next readability task, not cutting conditions.
+
+### Run-17: twenty more civil and family steps (2026-10-06)
+
+Same process as run-16, with the review lessons added to the authoring brief
+up front. Errors per review round: about 35, then 5, then 0 (plus one
+borderline omission closed: proof of income when asking to change or cancel
+support arrears, r. 13 (5.0.1) para. 3). Fewer rounds than run-16, which is
+the brief's "Lessons" section doing its job. 66 answers are now published:
+36 Small Claims, 15 civil, 15 family.
+
+The review also found an error in the stage map itself, not in any answer:
+three civil reply deadlines said "A reply is optional." r. 25.08 makes a
+reply required where you will prove a different version of the facts or
+must raise a matter that could surprise the other side, and forbids it
+otherwise. The qualifiers now say so, with r. 25.08 (1)-(3) attached as
+exceptions, and the one published answer whose deadline section renders that
+text was regenerated from `renderDeadlineSection`. **A stage-map wording fix
+changes `yourDeadline` for every published block of that stage; regenerate
+them from the renderer, never by hand.**
