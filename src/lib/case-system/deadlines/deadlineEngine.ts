@@ -34,6 +34,23 @@
  * using s. 88 (2), in which SATURDAY IS NOT A HOLIDAY. The same 10 days from
  * the same event can end on different dates depending on which applies, and on
  * a notice period the difference is the claim.
+ *
+ * *** AND THE CIVIL AND FAMILY RULES (2026-10-05) ***
+ *
+ * Until 2026-10-05 civil and family periods were shown only as periods: the
+ * working cited the Small Claims and Legislation Act provisions, which would
+ * have been the wrong citations. They now count under their own rules, with
+ * their own citations:
+ *   - civil, Rules of Civil Procedure r. 3.01 (1): the same holiday list as
+ *     Small Claims (r. 1.03 (1) is word for word r. 1.02 (1)), and holidays
+ *     not counted in a period of seven days or less;
+ *   - family, Family Law Rules r. 3: count from the day after; Saturdays,
+ *     Sundays and days all court offices are closed not counted in a period of
+ *     less than seven days; a last day on a closed day runs to the next open
+ *     day. The rules do not list closed days, so a public holiday is treated
+ *     the way that gives the earlier date, marked confirm-with-court.
+ * Months and years under all three sets of rules come from the Legislation
+ * Act (s. 46 applies Part VI to every regulation).
  */
 
 import type { RuleCitation } from "../stage-map/citations";
@@ -110,25 +127,39 @@ export type DeadlineInput = {
   direction?: "after" | "before";
 };
 
-const holidayRegime = (regime: CountingRegime): HolidayRegime => {
-  // Civil and family periods are never computed (computedDeadline.ts skips
-  // them): the working below cites Small Claims and Legislation Act provisions,
-  // which would be the wrong citations for those courts.
-  if (regime === "civil-rules" || regime === "family-rules") {
-    throw new Error(`regime ${regime} is shown as a period and is not computed`);
-  }
-  return regime === "small-claims-rules" ? "small-claims-rules" : "legislation-act";
-};
+/*
+ * Which holiday list a regime uses.
+ *
+ * Civil: Rules of Civil Procedure r. 1.03 (1)'s "holiday" is word for word
+ * r. 1.02 (1)'s (Saturday and Sunday included, the same named days, the same
+ * Monday and Tuesday substitutions), so it is the same calendar.
+ *
+ * Family: the Family Law Rules count around "days when all court offices are
+ * closed" (r. 3 (2), (3)) and do not list them. Saturday and Sunday are certain
+ * -- r. 3 (2) names them. The rules' public-holiday list is used only to find
+ * the days we cannot be sure of; see the family branches below.
+ */
+const holidayRegime = (regime: CountingRegime): HolidayRegime =>
+  regime === "legislation-act" ? "legislation-act" : "small-claims-rules";
 
 /** The provision that says to exclude the first day and include the last. */
 function countingRule(regime: CountingRegime): RuleCitation {
+  if (regime === "civil-rules") return C.RCP_3_01_COUNT;
+  if (regime === "family-rules") return C.F_R3_1_COUNTING;
   return regime === "small-claims-rules" ? C.R_3_01_COMPUTATION : C.S_LEGISLATION_89_3_BETWEEN;
 }
 
-/** The provision that extends a period ending on a holiday. */
+/** The provision that extends a period ending on a holiday (or, for family, a closed day). */
 function extensionRule(regime: CountingRegime): RuleCitation {
+  if (regime === "civil-rules") return C.RCP_3_01_COUNT;
+  if (regime === "family-rules") return C.F_R3_3_CLOSED;
   return regime === "small-claims-rules" ? C.R_3_01_COMPUTATION : C.S_LEGISLATION_89_1_HOLIDAY;
 }
+
+const isWeekend = (date: IsoDate) => {
+  const dow = dayOfWeek(date);
+  return dow === 0 || dow === 6;
+};
 
 /**
  * Months, per Legislation Act s. 89 (6).
@@ -171,7 +202,6 @@ function addYears(from: IsoDate, years: number): { date: IsoDate; leapAdjusted: 
 
 export function computeDeadline(input: DeadlineInput): DeadlineResult {
   const { from, length, regime } = input;
-  holidayRegime(regime); // throws for civil-rules and family-rules: never computed here
 
   /*
    * *** A PERIOD OF ZERO IS NOT A PERIOD ***
@@ -195,12 +225,79 @@ export function computeDeadline(input: DeadlineInput): DeadlineResult {
   }
   const direction = input.direction ?? "after";
   const steps: ComputationStep[] = [];
+  let certainty: DeadlineCertainty = "computed";
+  let uncertainty: string | undefined;
+  let uncertaintyTemplate: DeadlineTemplateId | undefined;
 
   // --- 1. the raw period -------------------------------------------------
 
   let date: IsoDate;
 
-  if (length.unit === "days") {
+  /*
+   * Short periods under the civil and family rules skip days.
+   *
+   * Civil, r. 3.01 (1) (b): in a period of seven days or less, holidays (every
+   * Saturday and Sunday among them) are not counted. Family, r. 3 (2): in a
+   * period of LESS than seven days, Saturdays, Sundays and other days all
+   * court offices are closed are not counted. The two thresholds differ by a
+   * day and that day is a real seven-day period.
+   *
+   * A family public holiday is a day we cannot be sure of. Counting forward,
+   * counting it gives the earlier last day; counting back from a hearing,
+   * skipping it gives the earlier date to act by. Either way the engine takes
+   * the earlier date and says why.
+   */
+  const shortCivil = regime === "civil-rules" && length.unit === "days" && length.count <= 7;
+  const shortFamily = regime === "family-rules" && length.unit === "days" && length.count < 7;
+
+  if (shortCivil || shortFamily) {
+    const signed = direction === "after" ? 1 : -1;
+    let cursor = from;
+    let counted = 0;
+    for (let guard = 0; counted < length.count && guard < 60; guard += 1) {
+      cursor = addDays(cursor, signed);
+      if (shortCivil) {
+        const holiday = holidayFor(cursor, "small-claims-rules");
+        if (holiday) {
+          if (holiday.basis.kind === "settled-practice") {
+            certainty = "confirm-with-court";
+            uncertaintyTemplate = "uncertain-settled-practice-holiday";
+            uncertainty = fillTemplate("uncertain-settled-practice-holiday", { holiday: holiday.name });
+          }
+          continue;
+        }
+        counted += 1;
+        continue;
+      }
+      if (isWeekend(cursor)) continue;
+      const possible = holidayFor(cursor, "small-claims-rules");
+      if (possible) {
+        certainty = "confirm-with-court";
+        uncertaintyTemplate = "uncertain-family-court-office-closure";
+        uncertainty = fillTemplate("uncertain-family-court-office-closure", {
+          day: formatLongDate(cursor),
+          holiday: possible.name,
+        });
+        if (direction === "before") continue;
+      }
+      counted += 1;
+    }
+    date = cursor;
+    const template: DeadlineTemplateId = shortCivil
+      ? direction === "after"
+        ? "counted-days-forward-skipping-holidays"
+        : "counted-days-backward-skipping-holidays"
+      : direction === "after"
+        ? "counted-days-forward-skipping-weekends"
+        : "counted-days-backward-skipping-weekends";
+    steps.push(
+      step(
+        template,
+        { count: String(length.count), from: formatLongDate(from), result: formatLongDate(date) },
+        shortCivil ? C.RCP_3_01_SHORT : C.F_R3_2_SHORT,
+      ),
+    );
+  } else if (length.unit === "days") {
     const signed = direction === "after" ? length.count : -length.count;
     date = addDays(from, signed);
     steps.push(
@@ -224,6 +321,8 @@ export function computeDeadline(input: DeadlineInput): DeadlineResult {
       // r. 3.01 counts days, not months, so the Legislation Act supplies the
       // month arithmetic even for a period set by the rules.
       steps.push(step("months-supplied-by-legislation-act", {}, C.S_LEGISLATION_46_APPLIES));
+    } else if (regime === "civil-rules" || regime === "family-rules") {
+      steps.push(step("months-supplied-by-legislation-act-for-the-rules", {}, C.S_LEGISLATION_46_APPLIES));
     }
   } else {
     const signed = direction === "after" ? length.count : -length.count;
@@ -245,14 +344,14 @@ export function computeDeadline(input: DeadlineInput): DeadlineResult {
         ),
       );
     }
+    if (regime === "civil-rules" || regime === "family-rules") {
+      steps.push(step("months-supplied-by-legislation-act-for-the-rules", {}, C.S_LEGISLATION_46_APPLIES));
+    }
   }
 
   // --- 2. the holiday extension -----------------------------------------
 
   const hRegime = holidayRegime(regime);
-  let certainty: DeadlineCertainty = "computed";
-  let uncertainty: string | undefined;
-  let uncertaintyTemplate: DeadlineTemplateId | undefined;
 
   /*
    * A period counted BACKWARDS is not extended.
@@ -275,6 +374,45 @@ export function computeDeadline(input: DeadlineInput): DeadlineResult {
         result: formatLongDate(date),
         holiday: landed.name,
       });
+    }
+    return { from, deadline: date, certainty, steps, uncertainty, uncertaintyTemplate };
+  }
+
+  if (regime === "family-rules") {
+    /*
+     * r. 3 (3): a period whose last day falls on a day court offices are
+     * closed ends on the next day they are open. Saturday and Sunday are
+     * certain. A public holiday is not something we can confirm, so the date
+     * is NOT moved past it -- that would give a later date than may be right
+     * -- and the reader is told to check.
+     */
+    const moved: ComputationStep[] = [];
+    for (let guard2 = 0; guard2 < 10; guard2 += 1) {
+      if (isWeekend(date)) {
+        moved.push(
+          step(
+            "landed-on-court-closed-weekend",
+            { result: formatLongDate(date), holiday: dayOfWeek(date) === 0 ? "Sunday" : "Saturday" },
+            C.F_R3_3_CLOSED,
+          ),
+        );
+        date = addDays(date, 1);
+        continue;
+      }
+      const possible = holidayFor(date, "small-claims-rules");
+      if (possible) {
+        certainty = "confirm-with-court";
+        uncertaintyTemplate = "uncertain-family-court-office-closure";
+        uncertainty = fillTemplate("uncertain-family-court-office-closure", {
+          day: formatLongDate(date),
+          holiday: possible.name,
+        });
+      }
+      break;
+    }
+    if (moved.length > 0) {
+      steps.push(...moved);
+      steps.push(step("extended-to-next-open-day", { result: formatLongDate(date) }, C.F_R3_3_CLOSED));
     }
     return { from, deadline: date, certainty, steps, uncertainty, uncertaintyTemplate };
   }
@@ -309,6 +447,8 @@ export function computeDeadline(input: DeadlineInput): DeadlineResult {
     );
     if (regime === "small-claims-rules") {
       steps.push(step("weekends-are-holidays-under-the-rules", {}, C.R_1_02_HOLIDAY));
+    } else if (regime === "civil-rules") {
+      steps.push(step("weekends-are-holidays-under-the-civil-rules", {}, C.RCP_1_03_HOLIDAY));
     }
   } else if (regime === "legislation-act" && dayOfWeek(date) === 6) {
     /*

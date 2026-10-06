@@ -836,3 +836,52 @@ export const S_TRUSTEE_38_3_LIMITATION: RuleCitation = {
   quote:
     "An action under this section shall not be brought after the expiration of two years from the death of the deceased.",
 };
+
+// ------------------------------------------------------------ civil and family counting
+//
+// Moved here from civilStages.ts and familyStages.ts (2026-10-05) so the
+// deadline engine can cite them when it computes civil and family dates.
+
+const civilRule = (pinpoint: string, quote: string): RuleCitation => ({
+  sourceId: "rules-of-civil-procedure",
+  pinpoint,
+  quote,
+});
+
+const familyRule = (pinpoint: string, quote: string): RuleCitation => ({
+  sourceId: "family-law-rules",
+  pinpoint,
+  quote,
+});
+
+/** Days between two events, "at least" included, and the next-day rule for holidays. */
+export const RCP_3_01_COUNT = civilRule(
+  "r. 3.01 (1) (a), (c)",
+  "(a) where there is a reference to a number of days between two events, they shall be counted by excluding the day on which the first event happens and including the day on which the second event happens, even if they are described as clear days or the words \"at least\" are used; ... (c) where the time for doing an act expires on a holiday, the act may be done on the next day that is not a holiday;",
+);
+
+/** Periods of seven days or less: holidays (which include Saturdays and Sundays) are not counted. */
+export const RCP_3_01_SHORT = civilRule(
+  "r. 3.01 (1) (a), (b)",
+  "(a) where there is a reference to a number of days between two events, they shall be counted by excluding the day on which the first event happens and including the day on which the second event happens, even if they are described as clear days or the words \"at least\" are used; (b) where a period of seven days or less is prescribed, holidays shall not be counted;",
+);
+
+export const RCP_1_03_HOLIDAY = civilRule(
+  "r. 1.03 (1)",
+  "\"holiday\" means, (a) any Saturday or Sunday, (b) New Year's Day, (b.1) Family Day, (c) Good Friday, (d) Easter Monday, (e) Victoria Day, (f) Canada Day, (g) Civic Holiday, (h) Labour Day, (i) Thanksgiving Day, (j) Remembrance Day, (k) Christmas Day, (l) Boxing Day, and (m) any special holiday proclaimed by the Governor General or the Lieutenant Governor,",
+);
+
+export const F_R3_1_COUNTING = familyRule(
+  "r. 3 (1)",
+  "In these rules or an order, the number of days between two events is counted as follows: 1. The first day is the day after the first event. 2. The last day is the day of the second event.",
+);
+
+export const F_R3_2_SHORT = familyRule(
+  "r. 3 (2)",
+  "If a rule or order provides a period of less than seven days for something to be done, Saturdays, Sundays and other days when all court offices are closed do not count as part of the period.",
+);
+
+export const F_R3_3_CLOSED = familyRule(
+  "r. 3 (3)",
+  "If the last day of a period of time under these rules or an order falls on a day when court offices are closed, the period ends on the next day they are open.",
+);

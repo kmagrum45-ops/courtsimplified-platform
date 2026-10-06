@@ -30,7 +30,8 @@ import { assertApprovedUserContent } from "./outputGuard";
 import { publishedBlockFor, PUBLISHED_RELEASE } from "./publishedLibrary";
 import { fillSlots, slotsUsed, type StageAnswer } from "./stageAnswers";
 import { OFFICIAL_URLS, SOURCE_NAMES } from "../case-system/stage-map/citations";
-import { findStage } from "../case-system/stage-map/stageMap";
+import { findStage, isSpecialStage } from "../case-system/stage-map/stageMap";
+import { stageRulesText } from "./stageRules";
 import { SCOPE_CONFIDENCE_FLOOR } from "../case-system/stage-map/resolveCasePosition";
 import type { CaseDates } from "../case-system/deadlines/deadlineEvents";
 import { computedDeadlinesFor, computedDeadlineProse, type ComputedDeadline } from "./computedDeadline";
@@ -56,7 +57,7 @@ export type RenderedStageAnswer = {
    * Shown to the user. `no-source` blocks are honest about being incomplete,
    * and hiding that would defeat the point of having the status.
    */
-  status: "verified-draft" | "no-source" | "approved";
+  status: "verified-draft" | "no-source" | "approved" | "rules-only";
   /**
    * The dates that could be computed, structured, with the provision behind
    * each step.
@@ -309,5 +310,49 @@ function renderPublishedBlock(
     status: status as RenderedStageAnswer["status"],
     computed,
     release: { runId: PUBLISHED_RELEASE.runId, promotedAt: PUBLISHED_RELEASE.promotedAt },
+  };
+}
+
+/**
+ * A step's deadlines and rules, for a step with no published answer
+ * (stageRules.ts). Called only after `renderStageAnswerOrRefuse` refused with
+ * "not-published" -- so the forum gate and the confirmed-fact rule have
+ * already passed for this step -- and through the same guard.
+ */
+export function renderStageRulesOnly(stageId: string, dates: CaseDates = {}): RenderedStageAnswer | null {
+  const stage = findStage(stageId);
+  if (!stage || isSpecialStage(stageId)) return null;
+  const text = stageRulesText(stage);
+  const context = `stageRulesOnly:${stageId}`;
+
+  const computed = computedDeadlinesFor(
+    stage.deadlines.filter((deadline) => deadline.actor !== "court"),
+    dates,
+    context,
+  );
+
+  const sections: RenderedSection[] = [];
+  const deadlines = text.deadlines ? assertApprovedUserContent(text.deadlines, `${context}:deadlines`) : null;
+  if (deadlines) {
+    const prose = computed.length > 0 ? computedDeadlineProse(computed, context) : "";
+    sections.push({ heading: "Your deadline", text: prose ? `${deadlines}\n\n${prose}` : deadlines });
+  }
+  const rules = text.rules ? assertApprovedUserContent(text.rules, `${context}:rules`) : null;
+  if (rules) sections.push({ heading: "The rules for this step", text: rules });
+  const title = assertApprovedUserContent(text.title, `${context}:title`);
+  if (sections.length === 0 || !title) return null;
+
+  return {
+    stageId,
+    question: title,
+    sections,
+    sources: stage.rules.map((rule) => ({
+      name: SOURCE_NAMES[rule.sourceId],
+      pinpoint: rule.pinpoint,
+      url: OFFICIAL_URLS[rule.sourceId],
+    })),
+    status: "rules-only",
+    computed,
+    release: { runId: "stage-map", promotedAt: "" },
   };
 }

@@ -118,6 +118,12 @@ function AnswerView({ answer, court }: { answer: RenderedAnswer; court: string }
   return (
     <div className="mt-4 space-y-4" data-testid="stage-answer">
       <h4 className="text-base font-bold text-[#10231f]">{answer.question}</h4>
+      {answer.status === "rules-only" ? (
+        <p data-testid="stage-rules-only" className="text-xs leading-5 text-[#4d675f]">
+          We have not written a step-by-step answer for this step yet. These are its deadlines and
+          the rules that apply to it, in the official words.
+        </p>
+      ) : null}
       {answer.sections.map((section) => (
         <div key={section.heading}>
           <p className="text-sm font-semibold text-[#16302b]">{section.heading}</p>
@@ -141,7 +147,7 @@ function AnswerView({ answer, court }: { answer: RenderedAnswer; court: string }
         </div>
       )}
       <p className="text-xs leading-5 text-[#4d675f]">
-        Written from the official sources above. CourtSimplified guides you through the process
+        {answer.status === "rules-only" ? "Quoted from" : "Written from"} the official sources above. CourtSimplified guides you through the process
         but is not your lawyer, so check the source before you rely on it.
       </p>
     </div>

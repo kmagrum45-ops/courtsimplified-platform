@@ -54,7 +54,17 @@ export type DeadlineTemplateId =
   | "how-this-was-counted"
   | "confirm-the-computed-date"
   | "court-office-closed-on-this-date"
-  | "court-office-closes-soon-after-this-date";
+  | "court-office-closes-soon-after-this-date"
+  // 2026-10-05: civil and family dates are computed too.
+  | "counted-days-forward-skipping-holidays"
+  | "counted-days-backward-skipping-holidays"
+  | "counted-days-forward-skipping-weekends"
+  | "counted-days-backward-skipping-weekends"
+  | "landed-on-court-closed-weekend"
+  | "extended-to-next-open-day"
+  | "weekends-are-holidays-under-the-civil-rules"
+  | "months-supplied-by-legislation-act-for-the-rules"
+  | "uncertain-family-court-office-closure";
 
 export type DeadlineTemplate = {
   id: DeadlineTemplateId;
@@ -248,6 +258,80 @@ export const DEADLINE_TEMPLATES: Record<DeadlineTemplateId, DeadlineTemplate> = 
    * never from a model and never typed. It carries no legal meaning, which is
    * what the slot rule forbids.
    */
+  /*
+   * ---- civil and family (2026-10-05) ----
+   *
+   * Rules of Civil Procedure r. 3.01 (1) (b) does not count holidays in a
+   * period of seven days or less; its holiday list (r. 1.03) is word for word
+   * the Small Claims one. Family Law Rules r. 3 (2) does not count Saturdays,
+   * Sundays and other days all court offices are closed in a period of less
+   * than seven days, and r. 3 (3) carries a period that ends on a closed day to
+   * the next open day. The Family Law Rules do not list closed days, so a
+   * public holiday is a day we cannot be sure of: the engine takes the reading
+   * that gives the earlier date and says so.
+   */
+  "counted-days-forward-skipping-holidays": {
+    id: "counted-days-forward-skipping-holidays",
+    text:
+      "Counted {count} days from {from}, not counting that day itself and not counting " +
+      "holidays, because this period is seven days or less. That gives {result}.",
+    cites: C.RCP_3_01_SHORT,
+  },
+  "counted-days-backward-skipping-holidays": {
+    id: "counted-days-backward-skipping-holidays",
+    text:
+      "Counted back {count} days from {from}, not counting holidays, because this period " +
+      "is seven days or less. That gives {result}.",
+    cites: C.RCP_3_01_SHORT,
+  },
+  "counted-days-forward-skipping-weekends": {
+    id: "counted-days-forward-skipping-weekends",
+    text:
+      "Counted {count} days from {from}, starting the day after it and not counting " +
+      "Saturdays and Sundays, because this period is less than seven days. That gives {result}.",
+    cites: C.F_R3_2_SHORT,
+  },
+  "counted-days-backward-skipping-weekends": {
+    id: "counted-days-backward-skipping-weekends",
+    text:
+      "Counted back {count} days from {from}, not counting Saturdays and Sundays, because " +
+      "this period is less than seven days. That gives {result}.",
+    cites: C.F_R3_2_SHORT,
+  },
+  "landed-on-court-closed-weekend": {
+    id: "landed-on-court-closed-weekend",
+    text: "{result} is a {holiday}, when court offices are closed.",
+    cites: C.F_R3_3_CLOSED,
+  },
+  "extended-to-next-open-day": {
+    id: "extended-to-next-open-day",
+    text: "The period therefore ends on the next day court offices are open: {result}.",
+    cites: C.F_R3_3_CLOSED,
+  },
+  "weekends-are-holidays-under-the-civil-rules": {
+    id: "weekends-are-holidays-under-the-civil-rules",
+    text:
+      "Under the Rules of Civil Procedure every Saturday and Sunday is a holiday, along " +
+      "with the named days.",
+    cites: C.RCP_1_03_HOLIDAY,
+  },
+  "months-supplied-by-legislation-act-for-the-rules": {
+    id: "months-supplied-by-legislation-act-for-the-rules",
+    text:
+      "These rules say how to count days. The Legislation Act supplies the month and year " +
+      "arithmetic, because Part VI of that Act applies to every Act and regulation.",
+    cites: C.S_LEGISLATION_46_APPLIES,
+  },
+  "uncertain-family-court-office-closure": {
+    id: "uncertain-family-court-office-closure",
+    text:
+      "{day} is {holiday}. The Family Law Rules count around days when all court offices " +
+      "are closed. We could not find a list of those days, so we could not confirm whether " +
+      "court offices are closed on {holiday}. The date above treats {day} in the way that " +
+      "gives the earlier date. The court office can tell you whether it is open that day.",
+    cites: C.F_R3_3_CLOSED,
+  },
+
   "court-office-closed-on-this-date": {
     id: "court-office-closed-on-this-date",
     text:

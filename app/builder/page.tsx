@@ -1534,7 +1534,7 @@ function BuilderPageContent() {
                 caseId={savedCaseId()}
                 initialStepId={savedPosition.stepId}
                 initialDateAnswers={savedPosition.dateAnswers}
-                storyHints={storyHintsForDates(caseData?.facts)}
+                storyHints={storyHintsForDates([caseData?.facts, caseData?.timeline].filter(Boolean).join("\n"))}
               />
             ) : null}
             {confirmedStage && (courtPath === "family" || courtPath === "civil") ? (

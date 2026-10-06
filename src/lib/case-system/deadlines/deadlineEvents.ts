@@ -157,6 +157,110 @@ export type DeadlineEvent = {
   questionId?: string;
   /** Present only where `question` is null. Why we are not asking. */
   notAskedBecause?: string;
+  /**
+   * Where the question is asked. Absent: the Small Claims intake bank
+   * (QUESTION_BANK). "case-page": the date questions on the case page, for
+   * the step the reader is at (casePosition.dateQuestionsForStep).
+   */
+  askedOn?: "case-page";
+};
+
+/*
+ * *** CIVIL AND FAMILY DATES, ASKED ON THE CASE PAGE (2026-10-05) ***
+ *
+ * Until 2026-10-05 every civil and family event was recorded but not asked,
+ * because the engine did not count under those courts' rules. It does now
+ * (deadlineEngine.ts), so each of these is asked where the reader picks their
+ * step on the case page (casePosition.dateQuestionsForStep), not in the Small
+ * Claims intake bank. Each asks for a date on a document or a calendar: the
+ * day something was served, filed, issued, scheduled or made.
+ *
+ * Still not asked, and why, in NOT_ASKED below: a date that is itself a legal
+ * conclusion (when spouses separated, when pleadings closed, when someone
+ * "learned" of a libel), a date the rules compute rather than one that
+ * happened, or an event whose start the rules leave open.
+ */
+const CASE_PAGE_QUESTIONS: Partial<Record<DeadlineEventKey, string>> = {
+  "order-made": "If the court made an order, what date was it made?",
+  "motion-hearing-date": "If a motion has been scheduled, what date will it be heard?",
+  "pre-trial-conference-date": "If a pretrial conference has been scheduled, what date is it?",
+  "trial-date": "If a trial date has been set, what is the first day of trial?",
+  "served-with-application": "If you were served with an application, what date was it served?",
+  "served-with-motion-to-change": "If you were served with a motion to change, what date was it served?",
+  "case-conference-date": "If a case conference has been scheduled, what date is it?",
+  "spouse-died": "If your spouse died, what date did they die?",
+  "answer-served": "If an answer has been served, what date was it served?",
+  "motion-form-served": "If a motion form (Form 14B) was served, what date was it served?",
+  "automatic-order-issued": "If the court issued an automatic order, what date is on it?",
+  "family-settlement-conference-date": "If a settlement conference has been scheduled in your family case, what date is it?",
+  "trial-management-conference-date": "If a trial management conference has been scheduled, what date is it?",
+  "disclosure-requested": "If someone asked in writing for more financial information, what date did they ask?",
+  "notice-of-approaching-dismissal-served": "If you were served with a notice of approaching dismissal, what date was it served?",
+  "served-with-notice-of-default-hearing": "If you were served with a notice of default hearing, what date was it served?",
+  "documents-requested": "If another party asked for an affidavit listing documents, what date did they ask?",
+  "costs-submissions-requested": "If the court asked for written submissions on costs, what date did it ask?",
+  "draft-order-served": "If a draft order was served for approval, what date was it served?",
+  "served-with-amended-application": "If you were served with an amended application, what date was it served?",
+  "appellant-record-served": "If the appellant's appeal record and factum were served, what date were they served?",
+  "licence-suspension-first-notice-served": "If you were served with a first notice that your driver's licence may be suspended, what date was it served?",
+  "served-with-notice-of-garnishment": "If you were served with a notice of garnishment, what date was it served?",
+  "stay-or-dismiss-notice-received": "If you received a notice that your case or motion may be stayed or dismissed (Form 1.4A), what date did you receive it?",
+  "stay-or-dismiss-submission-received": "If you received the other party's written submission about the stay or dismissal, what date did you receive it?",
+  "childrens-lawyer-report-served": "If the Children's Lawyer's report was served, what date was it served?",
+  "served-with-request-for-financial-statement": "If you were served with a request for a financial statement (Form 27), what date was it served?",
+  "served-with-order-for-financial-statement": "If you were served with an order to serve and file a financial statement, what date was it served?",
+  "bjdr-hearing-date": "If a binding judicial dispute resolution hearing has been scheduled, what date is it?",
+  "questioning-date": "If a questioning has been scheduled, what date is it?",
+  "financial-examination-date": "If a financial examination has been scheduled, what date is it?",
+  "defence-served": "If a statement of defence was served, what date was it served?",
+  "own-defence-delivered": "If you delivered your statement of defence, what date did you deliver it?",
+  "mediation-session-date": "If a mediation session has been scheduled, what date is it?",
+  "set-down-for-trial": "If the action was set down for trial, what date was it set down?",
+  "struck-off-trial-list": "If the action was struck off the trial list, what date was that?",
+  "action-dismissed-for-delay": "If the action was dismissed for delay, what date was it dismissed?",
+  "served-with-request-to-admit": "If you were served with a request to admit, what date was it served?",
+  "served-with-third-party-claim": "If you were served with a third party claim, what date was it served?",
+  "third-party-claim-issued": "If a third party claim was issued, what date is on it?",
+  "writ-issued": "If a writ of seizure and sale was issued, what date is on it?",
+  "served-with-notice-of-appeal": "If you were served with a notice of appeal, what date was it served?",
+  "served-with-motion-material": "If you were served with material for a motion in writing, what date was it served?",
+  "discovery-answer-given": "If an undertaking was given, or a question taken under advisement, at an examination for discovery, what date was that?",
+  "notice-of-appeal-filed": "If a notice of appeal was filed, what date was it filed?",
+  "transcript-ready-notice": "If you were told the evidence for the appeal has been transcribed, what date were you told?",
+  "served-with-appeal-materials": "If you were served with the appellant's appeal book, exhibit book, transcript and factum, what date were they served?",
+  "appeal-hearing-date": "If the appeal has been scheduled, what date will it be heard?",
+  "leave-motion-record-served": "If the motion record for leave to appeal was served, what date was it served?",
+  "served-with-crossclaim": "If you were served with a statement of defence and crossclaim, what date was it served?",
+  "action-discontinued": "If the action was discontinued, what date was it discontinued?",
+  "third-party-defence-served": "If the third party's statement of defence in the main action was served on the plaintiff, what date was it served?",
+  "defence-to-counterclaim-served": "If a defence to counterclaim was served, what date was it served?",
+  "served-with-removal-order": "If you were served with an order removing your lawyer from the record, what date was it served?",
+  "served-with-amended-pleading": "If you were served with an amended pleading, what date was it served?",
+};
+
+const NOT_ASKED_DEFAULT =
+  "not a date a person reads off a document or a calendar; shown as a period with the rule that sets it";
+
+const NOT_ASKED: Partial<Record<DeadlineEventKey, string>> = {
+  "pleadings-closed": "when pleadings close is decided under the rules, not reported as a fact",
+  "spouses-separated":
+    "the date of separation can itself be disputed and decided by the court; computing a limitation date from a typed answer would be this system deciding it",
+  "marriage-terminated":
+    "a divorce takes effect on the thirty-first day after the judgment, subject to exceptions (Divorce Act s. 12 (1)), so the date on the order is not the date asked for; shown as a period",
+  "family-case-started": "recorded; the date the case started is read from the application, which the case page does not yet ask for",
+  "financial-statement-due": "a date the rules compute, not one that happened",
+  "defence-time-expired": "a date the rules compute, not one that happened",
+  "witness-attendance-date": "depends on whose attendance; shown as a period",
+  "co-owner-notice-served": "r. 29 (9) holds the money 30 days but does not fix when they start",
+  "libel-came-to-knowledge": "when a person learned of a libel is decided under the Libel and Slander Act, not reported as a fact",
+  "evidence-tendered": "a step at a future hearing, not a date that has happened",
+  // Every deadline counted from these sets no fixed period (count 0), so a
+  // date would compute nothing; asking for it would be a question that does
+  // nothing with the answer.
+  "motion-to-change-filed": "the rule that runs from it sets no fixed number of days",
+  "default-hearing-date": "the rule that runs from it sets no fixed number of days",
+  "offer-served": "the rule that runs from it sets no fixed number of days",
+  "order-came-to-attention": "the rules that run from it set no fixed number of days",
 };
 
 export const DEADLINE_EVENTS = {
@@ -342,17 +446,15 @@ export const DEADLINE_EVENTS = {
         ["served-with-removal-order", "the day the client was served with the order removing their lawyer from the record"],
         ["served-with-amended-pleading", "the day the amended pleading was served"],
       ] as const
-    ).map(([key, label]) => [
-      key,
-      {
+    ).map(([key, label]) => {
+      const question = CASE_PAGE_QUESTIONS[key as DeadlineEventKey];
+      return [
         key,
-        label,
-        question: null,
-        notAskedBecause:
-          "a civil or family date. Those deadlines are shown as periods with the rule " +
-          "that sets them; the engine computes Small Claims and statutory dates only",
-      },
-    ]),
+        question
+          ? { key, label, question, questionId: `case-date-${key}`, askedOn: "case-page" as const }
+          : { key, label, question: null, notAskedBecause: NOT_ASKED[key as DeadlineEventKey] ?? NOT_ASKED_DEFAULT },
+      ];
+    }),
   ),
 } as Record<DeadlineEventKey, DeadlineEvent>;
 

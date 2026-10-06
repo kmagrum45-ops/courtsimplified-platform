@@ -187,7 +187,6 @@ export function dateQuestionsForStep(stepId: string | null | undefined): DateQue
   const byId = new Map<string, DateQuestion>();
   for (const deadline of stage.deadlines) {
     if (deadline.length.count === 0) continue;
-    if (deadline.regime === "civil-rules" || deadline.regime === "family-rules") continue;
     const event = DEADLINE_EVENTS[deadline.countFromEvent as keyof typeof DEADLINE_EVENTS] as
       | { questionId?: string; question: string | null }
       | undefined;
@@ -256,6 +255,21 @@ const STORY_CUES: Record<string, RegExp> = {
   "sc-date-claim-issued": /\b(issued|filed (?:my|the|a) (?:claim|plaintiff'?s claim))\b/i,
   "sc-date-defence-filed": /\bfiled (?:my|a|the|our) defen[cs]e\b/i,
   "sc-date-settlement-conference": /\bsettlement conference\b/i,
+  "sc-date-injury": /\b(hurt|injur(?:ed|y)|fell|slipped|tripped|bitten|bit me|hit by|accident|crash(?:ed)?)\b/i,
+  // Civil and family (2026-10-05). Each names the document or event the date
+  // question asks about, so the quote beside the question is about that.
+  "case-date-served-with-application": /\b(served|got|received)\b.*\bapplication\b/i,
+  "case-date-served-with-motion-to-change": /\bmotion to change\b/i,
+  "case-date-case-conference-date": /\bcase conference\b/i,
+  "case-date-family-settlement-conference-date": /\bsettlement conference\b/i,
+  "case-date-trial-management-conference-date": /\btrial management conference\b/i,
+  "case-date-trial-date": /\btrial\b/i,
+  "case-date-motion-hearing-date": /\bmotion\b.*\b(heard|hearing|scheduled|date)\b/i,
+  "case-date-served-with-notice-of-appeal": /\bnotice of appeal\b/i,
+  "case-date-order-made": /\b(judge|court) (?:made|gave|issued) (?:an |a |the )?order\b|\border was made\b/i,
+  "case-date-defence-served": /\bstatement of defen[cs]e\b/i,
+  "case-date-served-with-request-to-admit": /\brequest to admit\b/i,
+  "case-date-mediation-session-date": /\bmediation\b/i,
 };
 
 const MONTH = "(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)";

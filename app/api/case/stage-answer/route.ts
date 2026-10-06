@@ -25,7 +25,7 @@
 
 import { NextResponse } from "next/server";
 
-import { renderStageAnswerOrRefuse } from "../../../../src/lib/content-library/stageAnswerView";
+import { renderStageAnswerOrRefuse, renderStageRulesOnly } from "../../../../src/lib/content-library/stageAnswerView";
 import { findStage, isSpecialStage } from "../../../../src/lib/case-system/stage-map/stageMap";
 import { caseDatesFrom } from "../../../../src/lib/case-system/deadlines/deadlineEvents";
 import { dateQuestionsForStep, isDateQuestionId } from "../../../../src/lib/case-system/casePosition";
@@ -100,6 +100,19 @@ export async function POST(request: Request) {
       question: outcome.refusal.question,
       answer: general?.kind === "rendered" ? general.answer : null,
     });
+  }
+
+  /*
+   * No written answer for this step yet (every civil and family step, as of
+   * 2026-10-05): show its deadlines and rules from the stage map instead of
+   * "unavailable". The gates above have passed -- "not-published" is only
+   * reached after them.
+   */
+  if (outcome.refusal.reason === "not-published") {
+    const rulesOnly = renderStageRulesOnly(stageId, dates);
+    if (rulesOnly) {
+      return NextResponse.json({ outcome: "rendered", answer: rulesOnly, dateQuestions: dateQuestionsForStep(stageId) });
+    }
   }
 
   return NextResponse.json({

@@ -1966,3 +1966,49 @@ What it cannot do yet: elements that come from decisions rather than
 statutes. A Charter search story gets limitation and procedure questions, not
 what must be shown for Charter damages, because that test is in case law the
 library does not hold (CanLII cannot be fetched automatically).
+
+## Civil and family dates are computed, and every step shows its rules (2026-10-05)
+
+**What was missing.** The engine counted only Small Claims and statutory
+periods. 74 civil and 62 family deadlines were shown as periods ("within 30
+days") and never as dates, and their events were recorded but not asked. And
+since only Small Claims steps have published answers, the case page told
+every civil and family reader "we do not have reviewed next steps for that
+stage yet" -- even though each step's deadlines and rules are in the stage
+map, every quote checked by `test:stage-map`.
+
+**What the rules say, read from the vendored text:**
+
+| | Civil (Reg. 194) | Family (O. Reg. 114/99) |
+|---|---|---|
+| Counting | r. 3.01 (1) (a): exclude the first day, include the last | r. 3 (1): first day is the day after; last day is the day of the second event |
+| Short periods | r. 3.01 (1) (b): **seven days or less**, holidays not counted | r. 3 (2): **less than seven days**, Saturdays, Sundays and days all court offices are closed not counted |
+| Last day | r. 3.01 (1) (c): on a holiday, the next day that is not | r. 3 (3): on a day court offices are closed, the next day they are open |
+| Holidays | r. 1.03 (1): word for word r. 1.02 (1), the Small Claims list | not listed |
+
+**Decisions.**
+- Civil uses the Small Claims holiday calendar (same definition) with its own
+  citations, plus the short-period rule.
+- Family: Saturday and Sunday are certain (r. 3 (2) names them). A public
+  holiday is a day we cannot confirm court offices are closed on, so the
+  engine takes the reading that gives the **earlier** date -- counting it
+  forward, skipping it backward, never moving a last day past it -- and marks
+  the result confirm-with-court with a sentence saying exactly that.
+- Months and years come from the Legislation Act under all three sets of
+  rules (s. 46), with a step saying so.
+- The ministry closure notice is not attached to civil or family dates: under
+  family r. 3 (3) a closure DOES move the date, and the notice's date-stamping
+  statement comes from the Small Claims online-filing page.
+- Civil and family dates are asked on the case page for the step the reader
+  picked (`case-date-<event>`), not in the Small Claims intake bank. Still not
+  asked, each with its reason: dates that are legal conclusions (separation,
+  pleadings closed, when a libel was learned of), dates the rules compute, and
+  events whose deadlines set no fixed period.
+- A step with no published answer now shows its deadlines (`renderDeadlineSection`)
+  and its rules quoted verbatim (`stageRules.ts`, `renderStageRulesOnly`),
+  indexed in the content inventory and passed through the guard, labelled as
+  having no written answer yet.
+
+`test:deadlines` now runs every court's deadlines and has seven civil and
+family worked cases, including the Family Law Rules' own example in r. 3 (4)
+(served Monday, motion the second following Tuesday).
