@@ -155,6 +155,28 @@ const TENANCY_ENDED_SIGNALS = [
   "already moved",
 ];
 
+/**
+ * The person says the case is already in Small Claims Court ("my former
+ * landlord sued me in Small Claims for $6,000"). Where a former tenancy
+ * belongs is a boundary this platform cannot source (above), but a case
+ * already filed there is where they must respond, so it is not sent to a
+ * tribunal (independent review of the coverage run, 2026-10-06). Narrow by
+ * design: the court must be named.
+ */
+const EXISTING_SMALL_CLAIMS_CASE = /\b(?:sued|suing|sues|claim|filed|served)\b[^.?!]{0,60}\bsmall claims\b/i;
+
+export function namesExistingSmallClaimsCase(story: string): boolean {
+  return EXISTING_SMALL_CLAIMS_CASE.test(story);
+}
+
+const ALREADY_IN_SMALL_CLAIMS: Omit<CourtPathClassification, "source" | "aiCalled" | "matters"> = {
+  primaryPath: "small-claims",
+  secondaryPath: null,
+  outOfScopeForum: null,
+  confidence: 0.8,
+  reasoning: "You said the case is already in Small Claims Court, so this follows that case.",
+};
+
 function hasTenancyEndedSignal(story: string): boolean {
   const normalized = story.toLowerCase();
   return TENANCY_ENDED_SIGNALS.some((signal) => normalized.includes(signal));
@@ -657,6 +679,7 @@ export function coerceModelPayload(
      * suing me for damage" to the LTB at high confidence — turning people away
      * with a certainty nobody could source. Same rule, both paths.
      */
+    if (forum && forum.id === "ltb" && namesExistingSmallClaimsCase(story)) return { ...ALREADY_IN_SMALL_CLAIMS };
     if (forum && forum.id === "ltb" && hasTenancyEndedSignal(story)) {
       return {
         primaryPath: "out-of-scope",
@@ -799,6 +822,7 @@ function keywordOnlyResult(args: {
     // object itself (name, redirectMessage) is untouched -- reused as-is,
     // exactly the existing, already-reviewed LTB content, and the ordinary
     // active-tenancy case below is completely unaffected.
+    if (outOfScope.id === "ltb" && namesExistingSmallClaimsCase(args.story)) return { ...ALREADY_IN_SMALL_CLAIMS, source: args.source, aiCalled: false, matters: NO_MATTERS };
     if (outOfScope.id === "ltb" && hasTenancyEndedSignal(args.story)) {
       return {
         primaryPath: "out-of-scope",

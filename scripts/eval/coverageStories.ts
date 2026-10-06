@@ -91,7 +91,7 @@ export const COVERAGE_SET: CoverageStory[] = [
   sc("missed-trial", "default", "I missed my Small Claims trial because I had the wrong date. The judge ruled against me.", "defendant"),
   sc("garnishment", "enforcement", "My bank account was frozen because of a Small Claims judgment. I need that money for rent. What can I do?", "defendant"),
   sc("served-wrong-name", "defence", "I was served with a claim against my company but they named me personally. The contract was with my corporation.", "defendant"),
-  sc("served-tenant-damage", "defence", "My former landlord sued me in Small Claims for $6,000 for damage after I moved out of my apartment. The damage was there before.", "defendant", ["small-claims", "out-of-scope:ltb"]),
+  sc("served-tenant-damage", "defence", "My former landlord sued me in Small Claims for $6,000 for damage after I moved out of my apartment. The damage was there before.", "defendant", ["small-claims"]),
 
   // ------------------------------------------------------------ Civil (Superior Court)
   cv("charter-search", "charter", "Two police officers came into my apartment last spring without a warrant and searched my bedroom. They said they were looking for someone else. Nothing was found and no charges were laid. I want to sue the police service for violating my rights."),

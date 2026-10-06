@@ -107,6 +107,9 @@ Rules you must never break:
 - Do not suggest what the answer should be. Ask neutrally.
 - Do not ask what their account already answers.
 - Do not ask for names, addresses, phone numbers, or general questions any intake asks (what happened, how much, what proof they have). Ask only about points a passage raises.
+- Ask about a condition or exception only if their account gives some sign it could apply to them (do not ask whether their children are married when nothing suggests it).
+- Do not assume what they claim is right: "Did the artist make an error?" not "When did you realize the artist made the error?"
+- Each question must make sense alone: the person never sees the passage, so never write "this section", "this rule" or "that notice" for something the question does not name.
 - Plain, everyday words. One question each, under 200 characters.
 - For each, "why" is one plain sentence saying what the law provides on that point (not what it means for this person), under 250 characters. Name the law it comes from ("The Insurance Act says ...", "The Small Claims Court rules require ..."); never write "the passage". Write any number exactly as the passage does.
 - For each, give the passage id and a short quote copied EXACTLY, character for character, from that passage, showing the point.
@@ -162,6 +165,9 @@ export function questionRejection(draft: Draft, passage: Passage | undefined): s
   const term = outcomeTermNotInProvision(`${question} ${draft.why}`, passage.text);
   if (term) return `outcome wording "${term}"`;
   for (const pattern of ADVICE) if (pattern.test(`${question} ${draft.why}`)) return "advice or outcome";
+  // The person sees the question, not the passage (independent review,
+  // 2026-10-06: "...agreement to be bound by this section?").
+  if (/\b(?:this|that|the above) (?:section|subsection|clause|rule|regulation|provision|passage)\b/i.test(question)) return "refers to text the person cannot see";
   return null;
 }
 

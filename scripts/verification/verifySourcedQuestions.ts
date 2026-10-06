@@ -103,6 +103,7 @@ async function main() {
   check("outcome wording is refused", questionRejection({ ...good, why: "Giving notice makes for a strong case under the Insurance Act provision." }, notice) !== null);
   check("advice is refused", questionRejection({ ...good, question: "You should send notice right away, have you done it?" }, notice) !== null);
   check("'do you have a case' is refused", questionRejection({ ...good, question: "Do you think you have a case against the driver?" }, notice) !== null);
+  check("a question pointing at text the person cannot see is refused", questionRejection({ ...good, question: "Had you filed an agreement to be bound by this section?" }, notice) !== null);
   check("a statement is not a question", questionRejection({ ...good, question: "Tell us whether you sent the written notice." }, notice) !== null);
 
   console.log("\n2. The pipeline");
