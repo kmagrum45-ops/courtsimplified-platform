@@ -157,6 +157,7 @@
     "eval:explain": "node --import tsx scripts/eval/explainProbe.ts",
     "eval:research": "node --import tsx scripts/eval/researchProbe.ts",
     "eval:sourced-questions": "node --import tsx scripts/eval/sourcedQuestionsProbe.ts",
+    "eval:coverage": "node --import tsx scripts/eval/coverageProbe.ts",
     "test:ai-call-log-sink": "node --import tsx scripts/verification/verifyAiCallLogSink.ts",
     "test:library-chat": "node --import tsx scripts/verification/verifyLibraryChat.ts",
     "test:presentation-help": "node --import tsx scripts/verification/verifyPresentationHelp.ts",
