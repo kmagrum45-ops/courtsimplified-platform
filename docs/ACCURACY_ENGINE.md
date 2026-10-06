@@ -2042,3 +2042,39 @@ Measured (`eval:assistant-law`, 8 questions across the three courts): 36
 provisions shown, 10-24 s per question. The questions it could not answer
 name the case-law gap exactly: the test for Charter damages under s. 24 (1),
 and retroactive child support where income was hidden.
+
+## Civil and family written answers begin (run-16, 2026-10-06)
+
+The ten most-used civil and family steps now have published written answers,
+alongside the 36 Small Claims ones: served with a statement of claim, starting
+a claim, notice before suing, waiting for a defence, motions; served with
+family papers, deciding where to start, serving an application, the case
+conference, missing financial disclosure. Every other civil and family step
+still shows its deadlines and rules (stageRules.ts) until its answer is
+written.
+
+How they were made, so the next batch repeats it:
+- Authored by agents from the stage's own rules and the vendored corpus only,
+  every sentence with a verbatim quote, `yourDeadline` byte-identical to
+  `renderDeadlineSection`, each block passing `gateFailures` before hand-back.
+  The brief and reviewer brief used are reproduced in the run-16 PR.
+- Reviewed by fresh agents that had not seen the drafting, reading each quoted
+  provision in context. Errors per round: 21, 26, 0, then 1 (a placement that
+  made a general motion duty read as simplified-procedure only) in the
+  confirming round, fixed and re-gated. Nearly every error was a dropped
+  condition or an incomplete list -- the same shape run-13 found.
+- `promoteContentRun.ts`, `verifyPublishedLibrary.ts` and
+  `verifyStageAnswers.ts` looked stages up in `CASE_STAGES` (Small Claims
+  only), so a civil or family block was refused as "not in the stage map".
+  They now use `ALL_STAGES`. The gates themselves needed no change.
+
+Things this cost and should not be relearned:
+- **Subagents cannot write report files here**, only their output JSON; review
+  findings come back as text and are relayed to the author by message.
+- **Parallel agents sharing the scratchpad overwrite each other's helper
+  files.** Give each its own subfolder from the start.
+- **A Table of Forms row ends in "|", which the gate's " | " quote splitter
+  reads as a separator**; put such a row last in a joined quote.
+- **Keeping every condition makes some answers long** (the motion step is 26
+  sentences of "what to do next"). Splitting the longest into narrower steps
+  is the next readability task, not cutting conditions.

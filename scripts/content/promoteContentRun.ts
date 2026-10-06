@@ -36,7 +36,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import path from "node:path";
 
 import { gateFailures, isPublishable } from "./blockGates";
-import { CASE_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
+import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 import type { StageAnswer } from "../../src/lib/content-library/stageAnswers";
 import { hashBlocks, PUBLISHED_RELEASE } from "../../src/lib/content-library/publishedLibrary";
 
@@ -74,7 +74,9 @@ function main(): void {
   }
 
   const blocks = JSON.parse(readFileSync(candidatePath, "utf8")) as StageAnswer[];
-  const stages = new Map(CASE_STAGES.map((stage) => [stage.id, stage]));
+  // Every court's steps (2026-10-06): civil and family answers are published
+  // through the same gate as Small Claims.
+  const stages = new Map(ALL_STAGES.map((stage) => [stage.id, stage]));
 
   const publishable = blocks.filter(isPublishable);
   const withheld = blocks.filter((block) => !isPublishable(block));
