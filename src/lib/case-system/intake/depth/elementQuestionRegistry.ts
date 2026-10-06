@@ -348,6 +348,29 @@ export const DEPTH_QUESTIONS: DepthQuestion[] = [
     reviewedAt: "2026-09-14",
   },
   {
+    id: "depth-slip-snow-ice-notice",
+    elementId: "notice-if-snow-or-ice",
+    text:
+      "If snow or ice caused your injury: have you given or sent written notice of your claim to whoever " +
+      "runs or controls the property (for example the business there, the landlord or the property " +
+      "manager), or to the company they hired to clear snow or ice? If so, on what date, was it handed " +
+      "to them in person or sent by registered mail, and did it say the date, time and place of the fall?",
+    // Verified 2026-10-06 against docs/sources/corpus/occupiers-liability-act.txt,
+    // s. 6.1 (1)-(2) (the quotes in stage-map/citations.ts S_OLA_6_1_NOTICE and
+    // S_OLA_6_1_2_WHO).
+    why:
+      "Under s. 6.1 of the Occupiers' Liability Act, a claim for an injury caused by snow or ice can't go ahead " +
+      "unless, within 60 days after the injury, written notice giving the date, time and location was personally " +
+      "served on, or sent by registered mail to, the occupier or their snow-removal contractor. Missing notice is " +
+      "not a bar if the injured person died of the injury (s. 6.1(5)), or if a judge finds a reasonable excuse and " +
+      "no prejudice to the defendant (s. 6.1(6)).",
+    sourceUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
+    examples: ["a letter sent by registered mail", "a notice handed to the manager", "nothing in writing yet"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-10-06",
+  },
+  {
     id: "depth-slip-injury",
     elementId: "injury-and-connection",
     text: "What injury did you have, and what treatment did you get?",

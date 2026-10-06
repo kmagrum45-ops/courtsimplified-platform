@@ -822,6 +822,34 @@ export const CLAIM_TYPES: ClaimType[] = [
           },
         ],
       },
+      // Page review, 2026-10-06: the site owner's own ice-slip story was never
+      // asked whether written notice had gone to the store, though the claim
+      // cannot be brought without it (subject to s. 6.1 (5)-(6)).
+      {
+        id: "notice-if-snow-or-ice",
+        name: "If the injury was caused by snow or ice, written notice was given within 60 days after the injury",
+        plainExplanation:
+          "Under s. 6.1(1) of the Occupiers' Liability Act, no action for damages for personal injury " +
+          "caused by snow or ice can be brought against an occupier, or an independent contractor the " +
+          "occupier hired to remove snow or ice on the premises during the period when the injury " +
+          "happened (s. 6.1(2)), unless written notice of " +
+          "the claim, including the date, time and location of the occurrence, was personally served on " +
+          "or sent by registered mail to at least one of them within 60 days after the injury. Under " +
+          "s. 6.1(6), failing to give the notice, or giving one that is insufficient, is not a bar to the " +
+          "action if a judge finds there is a reasonable excuse and that the defendant is not prejudiced " +
+          "in its defence. Under s. 6.1(5), failing to give the notice is not a bar to the action where the " +
+          "injured person died as a result of the injury.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
+        verifiedAt: "2026-10-06",
+        consolidationPeriod: "2021-01-29",
+        evidenceCategories: [
+          {
+            name: "Copy of the written notice sent",
+            why: "Shows the notice step was taken, when, and how it was delivered, if this notice requirement applies.",
+            examples: ["Copy of the notice letter", "Registered mail receipt", "Record of who it was handed to and when"],
+          },
+        ],
+      },
     ],
     defendantConsiderations: [
       {
