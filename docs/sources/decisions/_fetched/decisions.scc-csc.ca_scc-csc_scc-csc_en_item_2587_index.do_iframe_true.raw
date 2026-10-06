@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/2587/index.do" />
+    <title>    Andrews v. Grand &amp; Toy Alberta Ltd. - SCC Cases
+</title>
+    <link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/scc-csc/scc-csc/en/2587/1757143/res.do" />
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Andrews v. Grand &amp; Toy Alberta Ltd.</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Andrews v. Grand &amp; Toy Alberta Ltd.</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/scc-csc/fr/item/2587/index.do?alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content">
+<div id="decisia-document-header" class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisia-box">
+
+<h1>
+    <a id="decisia-decisions"></a>
+    Supreme Court Judgments
+</h1>
+
+<h2 class="accessibility-only">Decision Information</h2>
+<div class="metadata">
+
+    <h3 class="title">Andrews v. Grand &amp; Toy Alberta Ltd.</h3>
+    <table>
+                    <tr>
+                        <td class="label">Collection</td>
+                        <td class="metadata">
+                                Supreme Court Judgments
+                    </tr>
+                    <tr>
+                        <td class="label">Date</td>
+                        <td class="metadata">
+                                1978-01-19
+                    </tr>
+                    <tr>
+                        <td class="label">Report</td>
+                        <td class="metadata">
+                                [1978] 2 SCR 229
+                    </tr>
+                    <tr>
+                        <td class="label">Judges</td>
+                        <td class="metadata">
+                                Laskin, Bora; Martland, Ronald; Judson, Wilfred; Ritchie, Roland Almon; Spence, Wishart Flett; Pigeon, Louis-Philippe; Dickson, Robert George Brian; Beetz, Jean; de Grandpré, Louis-Philippe
+                    </tr>
+                    <tr>
+                        <td class="label">On appeal from</td>
+                        <td class="metadata">
+                                Alberta
+                    </tr>
+                    <tr>
+                        <td class="label">Subjects</td>
+                        <td class="metadata">
+                                Torts<br/>
+                    </tr>
+    </table>
+
+    <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2587/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+    </div>
+</div>
+
+
+
+</div>
+
+<div id="lexboxHook"></div>
+
+<h2 class="accessibility-only">Decision Content</h2>
+
+</div> 
+
+<div id="document-content">
+
+        
+<div class="documentcontent"> 
+  <div class="Section1"> 
+   <p class="Metadata" style="margin:0cm;margin-bottom:.0001pt"><b><span lang="EN-CA">SUPREME COURT OF CANADA</span></b></p> 
+   <p class="Metadata" style="margin:0cm;margin-bottom:.0001pt"><b><span lang="EN-CA">Andrews v. Grand &amp; Toy Alberta Ltd., [1978] 2 S.C.R. 229 </span></b></p> 
+   <p class="Metadata" style="margin:0cm;margin-bottom:.0001pt"><b><span lang="EN-CA">Date: 1978-01-19</span></b></p> 
+   <p class="Metadata"><span lang="EN-CA">J. A. Andrews, </span><span lang="EN-CA">Dorothy Andrews, Ivan </span><span lang="EN-CA">Stefanyk </span><i><span lang="EN-CA">(Plaintiffs) Appellants;</span></i></p> 
+   <p class="Metadata"><span lang="EN-CA">and</span></p> 
+   <p class="Metadata"><span lang="EN-CA">Grand &amp; Toy Alberta Ltd. </span><span lang="EN-CA">and Robert G. Anderson </span><i><span lang="EN-CA">(Defendants) Respondents.</span></i></p> 
+   <p class="Metadata"><span lang="EN-CA">1977: June 15, 16; 1978: January 19.</span></p> 
+   <p class="Metadata"><span lang="EN-CA">Present: Laskin C.J. and Martland, Judson, Ritchie, Spence, Pigeon, Dickson, Beetz and de Grandpré JJ.</span></p> 
+   <p class="Metadata"><span lang="EN-CA">ON APPEAL FROM THE SUPREME COURT OF ALBERTA, APPELLATE DIVISION</span></p> 
+   <p class="Keywords"><span lang="EN-CA">Damages — Young adult rendered a quadriplegic and faced with lifetime of dependency on others — Applicable principles in assessment of damages.</span></p> 
+   <p class="SummaryCxSpFirst"><span lang="EN-CA">In a negligence action for personal injury involving a young man rendered a quadriplegic in a traffic accident, ' the trial judge awarded $1,022,477.48. The Appellate Division of the Supreme Court of Alberta reduced that sum to $516,544.48. Leave to appeal to this Court was granted on the question whether the Appellate Division erred in law in the assessment of damages.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">Liability was not an issue. The trial judge found that the fault was entirely that of the respondents. The Appellate Division (one member dissenting on this issue) found the appellant James Andrews 25 per cent con­tributorily negligent. Those findings did not arise for discussion in this appeal. Nor did the question of special damages.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">This Court was called upon to establish the correct principles of law applicable in assessing damages in cases such as this where a young person has suffered wholly incapacitating injuries and faces a lifetime of dependency on others. On the date of the accident, Andrews was an apprentice carman, 21 years of age and unmarried.</span></p> 
+   <p class="SummaryCxSpLast"><i><span lang="EN-CA">Held: </span></i><span lang="EN-CA">The appeal should be allowed. General damages were assessed at $740,000 which together with the special damages of $77,344 gave a final figure of $817, 344. Of this amount the appellant was granted judgment for 75 per cent, that is $613,008, under the uncontested apportionment of liability.</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 230]</span></p> 
+   <p class="SummaryCxSpFirst"><span lang="EN-CA">1. <u>Pecuniary loss</u> </span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">(a) <u>Future care</u></span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">(i) <u>Standard of care:</u> The paramount issue to be decided was whether in a case of total or near-total disability the future care of the victim should be in an institutional or a home care environment. The trial judge chose home care and found that it would take $4,135 per month to provide such care for Andrews. The Appellate Division agreed that home care would be better but denied it to him. It considered that this standard of care was unreasonably and unrealistically high. Without giving any reason for selecting the par­ticular figure chosen, it substituted $l,000 per month. The Court of Appeal erred in law in the approach it took. It failed to show that the trial judge applied any wrong principle of law or that the overall amount awarded by him was a wholly erroneous estimate of the damage.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">Contrary to the view expressed in the Appellate Divi­sion, there is no duty to mitigate damage, in the sense of being forced to accept less than real loss. There is a duty to be reasonable. There cannot be "complete" or "per­fect" compensation. An award must be moderate and fair to both parties. Clearly, compensation must not be determined on the basis of sympathy, or compassion for the plight of the injured person. What is being sought is compensation, not retribution. But, in a case like the present, where both Courts have favoured a home envi­ronment, "reasonable" means reasonableness in what is to be provided in that home environment. It does not mean that Andrews must languish in an institution which on all evidence is inappropriate for him. The ability of the defendant to pay has never been regarded as a relevant consideration in the assessment of damages at common law. The focus should be on the injuries of the innocent party. Fairness to the other party is achieved by assuring that the claims against him are legitimate and justifiable.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">Was it reasonable for Andrews to ask for $4,135 per month for home care? Home care is expensive, but auxiliary hospital care is so utterly unattractive and so utterly in conflict with the principle of proper compensa­tion that this Court was offered no middle ground.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpLast"><span lang="EN-CA">(ii) <u>Life expectancy:</u> Figures introduced at trial showed that the life expectancy of 23-year-old persons in general is 50 years. However, a statistical average is helpful only if the appropriate group is used. Medical testimony at trial indicated that possibly five years less than normal would be a reasonable expectation of life</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 231]</span></p> 
+   <p class="SummaryCxSpFirst"><span lang="EN-CA">for a quadriplegic. This figure was accepted by the Appellate Division and also by this Court.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">(iii) <u>Contingencies of life:</u> The trial judge allowed a 20 per cent discount for "contingencies and hazards of life". The allowance by the Appellate Division of a further 10 per cent discount was an error. The trial judge's figure of 20 per cent as a discount for contingen­cies was not an allowance for a decreased life expectan­cy, as the Appellate Division characterized it, for this had already been taken into account by reducing the normal 50-year expectancy to 45 years. The "contingen­cies and hazards of life" in the context of future care are distinct. They relate essentially to duration of expense and are different from those which might affect future earnings, such as unemployment, accident, illness. They are not merely to be added to the latter so as to achieve a cumulative result. The trial judge's figure of 20 per cent was accepted by this Court as a reasonable allowance for the contingencies relating to future care.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">(iv) <u>Duplication with compensation for loss of future earnings:</u> Proper future care is the paramount goal of damages for personal injuries. To determine accurately the needs and costs in respect of future care, basic living expenses should be included. The costs of necessaries when in an infirm state may well be different from those when in a state of health. Thus, while the types of expenses would have been incurred in any event, the level of expenses for the victim may be seen as attributable to the accident. The projected cost of neces­sities should, therefore, be included in calculating the cost of future care, and a percentage attributable to the necessities of a person in a normal state should be reduced from the award for future earnings.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">(v) <u>Cost of special equipment:</u> In addition to his anticipated monthly expenses, Andrews required an ini­tial capital amount for special equipment. The assessment by both Courts below was correct in principle and was therefore accepted.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">(b) <u>Prospective loss of earnings</u></span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">It is not loss of earnings but, rather, loss of earning capacity for which compensation must be made.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">(i) <u>Level of earnings:</u> The holding of the Appellate Division that $1,200 per month represents a reasonable estimate of Andrews' future average level of earnings was affirmed.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpLast"><span lang="EN-CA">(ii) <u>Length of working life:</u> The capitalization of future earning capacity must be based not on the shortened life expectancy but rather on the expected working life span prior to the accident. It is the loss of the</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 232]</span></p> 
+   <p class="SummaryCxSpFirst"><span lang="EN-CA">income-earning capacity which existed prior to the acci­dent for which the appellant must be compensated.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">(iii) <u>Contingencies:</u> The figure used to take account of contingencies which might have affected future earnings, such as unemployment, illness, accidents and busi­ness depression, is obviously an arbitrary one. The figure of 20 per cent which was used in the lower Courts (and in many other cases), although not entirely satisfactory, should be accepted.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">(iv) <u>Duplication of the cost of future basic mainte­nance:</u> At trial evidence was given that the cost of basics for a person in the position of Andrews prior to the accident would be approximately 53 per cent of income. This figure was accepted and his anticipated future monthly earnings were accordingly reduced to $564.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">(c) <u>Considerations relevant to both heads of pecuniary loss</u></span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">(i) <u>Capitalization rate: allowance for inflation and</u> <u>the rate of return on</u> <u>investments:</u> The discount rate to be used in calculating the present value of the awards for future care and loss of earnings in this case should be varied from five to seven per cent. The approach at trial was to take as a rate of return the rental value of money which might exist during periods of economic stability, and consequently to ignore inflation. The approach adopted by this Court was to use present rates of return on long-term investments and to make some allowance for the effects of future inflation.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">(ii) <u>Allowance for Tax:</u> As it is earning capacity and not lost earnings which is the subject of compensa­tion, no consideration should be taken of the amount by which the income from the award for prospective earnings will be reduced by payment of taxes on the interest, dividends or capital gain. A capital sum is appropriate to replace the lost capital asset of earning capacity. Tax on income is irrelevant either to decrease the sum for taxes the victim would have paid on income from his job, or to increase it for taxes he will now have to pay on income from the award.</span></p> 
+   <p class="SummaryCxSpLast"><span lang="EN-CA">The impact of taxation upon the income from the capital sum for future care is mitigated by the existence of s. 110(1) (c) (IV.1) of the <i>Income Tax Act </i>in respect of the deduction of medical expenses. Because of this provision and because of the position taken in the Courts below, where no allowance was made to adjust the amount assessed for future care in light of the reduction from taxation, this Court made no allowance for that item.</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 233]</span></p> 
+   <p class="SummaryCxSpFirst"><span lang="EN-CA">Also, with respect to the determination of the present value of the cost of future care, the calculations should provide for a self-extinguishing sum. To allow a residual capital amount would be to over-compensate the injured person by creating an estate for him.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">2. <u>Non-pecuniary losses</u></span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">In the case of a young adult quadriplegic like Andrews the amount of $100,000 should be adopted as the appropriate award for all non-pecuniary loss, includ­ing such factors as pain and suffering, loss of amenities and loss of expectation of life. Save in exceptional circumstances, this should be regarded as an upper limit of non-pecuniary loss in cases of this nature.</span></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="SummaryCxSpMiddle"><u><span lang="EN-CA">Total award</span></u></p> 
+   <p class="SummaryCxSpMiddle"><span lang="EN-CA">Rather than make an overall assessment of the total sum, it is more appropriate to make an overall assessment of the total under each head of future care, prospective earnings, and non-pecuniary loss, in each case in light of general considerations such as the awards of other courts in similar cases and an assessment of the reasonableness of the award.</span></p> 
+   <p class="SummaryCxSpLast"><i><span lang="EN-CA">Nance v. B.C. Electric Railway Co., </span></i><span lang="EN-CA">[1951] A.C. 601; <i>Admiralty Commissioners v. S.S. Susquehanna, </i>[1926] A.C. 655; <i>West &amp; Son Ltd. v. Shephard, </i>[1964] A.C. 326; <i>Admiralty Commissioners v. S.S. Valeria, </i>[1922] 2 A.C. 242; <i>Livingstone v. Rawyards Coal Co. </i>(1880), 5 App. Cas. 25; <i>Cunningham v. Harrison, </i>[1973] 3 All E.R. 463; <i>Fletcher v. Autocar &amp; Transporters Ltd., </i>[1968] 1 All E.R. 726; <i>R. v. Jennings, </i>[1966] S.C.R. 532; <i>Bisson v. Corporation of Powell River </i>(1967), 62 W.W.R. 707, 64 W.W.R. 768; <i>Jennings v. Cronsberry </i>(1965), 50 D.L.R. (2d) 385; <i>Skelton v. Collins </i>(1966), 39 A.L.J.R. 480; <i>Olivier v. Ashman, </i>[1962] 2 Q.B. 210; <i>McCann v. Sheppard, </i>[1973] 1 W.L.R. 540; <i>Warren v. King, </i>[1963] 3 All E.R. 521; <i>McKay v. Board of Govan School Unit No. 29 of Saskatchewan, </i>[1968] S.C.R. 589; <i>Bresatz v. Przibilla </i>(1962), 108 C.L.R. 541; <i>Mallet v. McMonagle, </i>[1970] A.C. 166; <i>Re: Anti-Inflation Act, </i>[1976] 2 S.C.R. 373; <i>Schroth v. Innes, Perry and Shiels, </i>[1976] 4 W.W.R. 225; <i>Ward v. James, </i>[1965] 1 All E.R. 563; <i>Hamel v. Prather, </i>[1976] 2 W.W.R. 742; <i>Jackson v. Millar, </i>[1976] 1 S.C.R. 225, referred to.</span></p> 
+   <p class="History"><span lang="EN-CA">APPEAL by the plaintiffs, from a judgment of the Supreme Court of Alberta, Appellate Division<a href="#_ftn1" name="_ftnref1" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><span lang="EN-CA" style="font-size:12.0pt;font-family:Arial">[1]</span></span></span></a>, reducing an award of damages of Kirby</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 234] </span></p> 
+   <p class="History"><span lang="EN-CA">J. in a negligence action for personal injuries. Appeal allowed.</span></p> 
+   <p class="Sollicitors"><span lang="EN-CA">D. K. Laidlaw, Q.C., R. Cummings and </span><span lang="EN-CA">D. </span><span lang="EN-CA">Andrews, for the plaintiffs, appellants.</span></p> 
+   <p class="Sollicitors"><span lang="EN-CA">J. </span><span lang="EN-CA">A. Weir and B. Larbalestier, for the defendants, respondents.</span></p> 
+   <p class="Para"><span lang="EN-CA">The judgment of the Court was delivered by</span></p> 
+   <p class="Para"><span lang="EN-CA">DICKSON </span><span lang="EN-CA">J.—This is a negligence action for personal injury involving a young man rendered a quadriplegic in a traffic accident for which the respondent Anderson and his employer, Grand &amp; Toy Alberta Ltd., have been found partially liable. Leave to appeal to this Court was granted on the question whether the Appellate Division of the Supreme Court of Alberta erred in law in the assessment of damages. At trial Mr. Justice Kirby awarded $1,022,477.48; the Appellate Division reduced that sum to $516,544.48.</span></p> 
+   <p class="Para"><span lang="EN-CA">The amount awarded in each Court under each of the several heads of damages is set out below:</span></p> 
+   <table class="MsoTableGrid" border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:none"> 
+    <tbody>
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><u><span lang="EN-CA" style="font-size:10.0pt">Pecuniary Loss</span></u></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">(a) <u>Cost of Future Care</u></span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><u><span lang="EN-CA" style="font-size:10.0pt">Trial</span></u></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><u><span lang="EN-CA" style="font-size:10.0pt">Appellate Division</span></u></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—special equipement</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">$14,200</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">$14,200</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—monthly amount</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">4,135</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">1,000</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—contingencies</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">20%</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">30%</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—capitalization rate</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">5%</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">5%</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—life expectancy</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">45 years</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">45 years</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><u><span lang="EN-CA" style="font-size:10.0pt"><span style="text-decoration:none">&nbsp;</span></span></u></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">$735,594</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">$164,200</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">(b) <u>Loss of Prospective Earnings</u></span></p> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—level of earnings</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">$ 830</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">$1,200</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—basic deduction to avoid duplication between the award for future care and that part of the lost earnings that would have been spent on living expenses</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">440</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">Net</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">$390</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">$1,200</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—contingencies</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">20%</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">20%</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—work span</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">30.81</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">30.81</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—capitalization rate</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">5%</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">5%</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">Total</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">$ 59,539</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">$175,000</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><u><span lang="EN-CA" style="font-size:10.0pt">Non-Pecuniary Loss</span></u></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—Pain and Suffering</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">$150,000</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">$100,000</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—Loss of Amenities</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—Loss of Expectation of Life</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="198" valign="top" style="width:148.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><u><span lang="EN-CA" style="font-size:10.0pt">Special Damages</span></u></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">$77,344</span></p> </td> 
+      <td width="198" valign="top" style="width:148.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">$77,344</span></p> </td> 
+     </tr> 
+    </tbody>
+   </table> 
+   <p class="Para"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 235]</span></p> 
+   <p class="Para"><span lang="EN-CA">Liability is not an issue. The trial judge found that the fault was entirely that of the respondents. The Appellate Division (McDermid J.A. dissent­ing on this issue) found the appellant James Andrews 25 per cent contributorily negligent. Those findings do not arise for discussion in this appeal. Nor does the question of special damages.</span></p> 
+   <p class="Para"><span lang="EN-CA">This Court is called upon to establish the correct principles of law applicable in assessing damages in cases such as this where a young person has suffered wholly incapacitating injuries and faces a lifetime of dependency on others. The question of "million dollar" awards has not arisen in Canada until recently, but within the past several years four such cases have been before the Courts, namely: (i) the case at bar; (ii) <i>Thornton v. The v Board of School Trustees of School District No. 57 (Prince George), </i>at present under appeal to this Court, in which the award at trial was $1,534,058, reduced on appeal to $649,628; (iii) <i>Teno v. Arnold, </i>also under appeal to this Court, in which the award for general damages at trial was $950, 000, reduced on appeal to $875,000; (iv) <i>McLeod v. Hodgins, </i>(unreported), in which Mr. Justice Robins, of the Ontario High Court, awarded at trial an amount of $1,041,197, of which $1,000, 000 were general damages.</span></p> 
+   <p class="Para"><span lang="EN-CA">Let me say in introduction what has been said many times before, that no appellate court is justified in substituting a figure of its own for that awarded at trial simply because it would have awarded a different figure if it had tried the case at first instance. It must be satisfied that a wrong principle of law was applied, or that the overall amount is a wholly erroneous estimate of the damage; <i>Nance v. B.C. Electric Railway Co.<a href="#_ftn2" name="_ftnref2" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;font-family:Arial">[2]</span></b></span></span></a></i></span></p> 
+   <p class="Para"><span lang="EN-CA">The method of assessing general damages in separate amounts, as has been done in this case, in my opinion, is a sound one. It is the only way in which any meaningful review of the award is possible on appeal and the only way of affording</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 236]</span></p> 
+   <p class="Para"><span lang="EN-CA">reasonable guidance in future cases. Equally important, it discloses to the litigants and their advisers the components of the overall award, assuring them thereby, that each of the various heads of damage going to make up the claim has been given thoughtful consideration.</span></p> 
+   <p class="Para"><span lang="EN-CA">The subject of damages for personal injury is an area of the law which cries out for legislative reform. The expenditure of time and money in the determination of fault and of damage is prodigal. The disparity resulting from lack of provision for victims who cannot establish fault must be disturb­ing. When it is determined that compensation is to be made, it is highly irrational to be tied to a lump sum system and a once-and-for-all award.</span></p> 
+   <p class="Para"><span lang="EN-CA">The lump sum award presents problems of great importance. It is subject to inflation, it is subject to fluctuation on investment, income from it is subject to tax. After judgment new needs of the plaintiff arise and present needs are extinguished; yet, our law of damages knows nothing of periodic payment. The difficulties are greatest where there is a continuing need for intensive and expensive care and a long-term loss of earning capacity. It should be possible to devise some system whereby payments would be subject to periodic review and variation in the light of the continuing needs of the injured person and the cost of meeting those needs. In making this comment I am not unaware of the negative recommendation of the British Law Com­mission (Law Corn. <i>56-Report on Personal Injury Litigation-Assessment of Damages) </i>following strong opposition from insurance interests and the plaintiffs' bar.</span></p> 
+   <p class="Para"><span lang="EN-CA">The apparent reliability of assessments provided by modern actuarial practice is largely illusionary, for actuarial science deals with probabilities, not actualities. This is in no way to denigrate a respected profession, but it is obvious that the validity of the answers given by the actuarial witness, as with a computer, depends upon the soundness of the postulates from which he pro­ceeds. Although a useful aid, and a sharper tool than the "multiplier-multiplicand" approach favoured in some jurisdictions, actuarial evidence speaks in terms of group experience. It cannot, and does not 'purport to, speak as to the individual sufferer. So long as we are tied to lump sum</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 237]</span></p> 
+   <p class="Para"><span lang="EN-CA">awards, however, we are tied also to actuarial calculations as the best available means of determining amount.</span></p> 
+   <p class="Para"><span lang="EN-CA">In spite of these severe difficulties with the present law of personal injury compensation, the positive administrative machinery required for a system of reviewable periodic payments, and the need to hear all interested parties in order to fashion a more enlightened system, both dictate that the appropriate body to act must be the Legislature rather than the Courts. Until such time as the Legislature acts, the Courts must proceed on established principles to award damages which compensate accident victims with jus­tice and humanity for the losses they may suffer.</span></p> 
+   <p class="Para"><span lang="EN-CA">I proceed now to a brief recital of the injuries sustained by the appellant James Andrews in the present case. He suffered a fracture with disloca­tion of the cervical spine between the fifth and sixth cervical vertebrae, causing functional tran­section of the spinal cord, but leaving some con­tinuity; compound fracture of the left tibia and left humerus; fracture of the left patella. The left radial nerve was damaged. The lesion of the spinal cord left Andrews with paralysis involving most of the upper limbs, spine and lower limbs. He has lost the use of his legs, his trunk, essentially his left arm and most of his right arm. To add to the misery he does not have normal bladder, bowel and sex functions. He suffers from spasticity in both upper and lower limbs. He has difficulty turning in bed and must be repositioned every two hours. He needs regular physiotherapy and should have someone in close association with him at all times, such as a trained male orderly. The only functioning muscles of respiration are those of the diaphragm and shoulders. There is much more in the evidence but it need not be recited. Andrews is severely, if not totally disabled. Dr. Weir, a spe­cialist in neurosurgery, said of Andrews' condition that "there is no hope of functional improvement." For the rest of his life he will be dependent on others for dressing, personal hygiene, feeding and, indeed, for his very survival. But, of utmost impor­tance, he is not a vegetable or a piece of cordwood. He is a man of above average intelligence and his mind is unimpaired. He can see, hear and speak as before. He has partial use of his right arm and</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 238]</span></p> 
+   <p class="Para"><span lang="EN-CA">hand. With the aid of a wheelchair he is mobile. With a specially-designed van he can go out in the evening to visit friends, or to the movies, or to a pub. He is taking driving lessons and proving to be an apt pupil. He wants to live as other human beings live. Since May 31, 1974, he has resided in his own apartment with private attendant care. The medical long-term care required is not at a sophisticated level but rather at a practical care level.</span></p> 
+   <p class="Para"><span lang="EN-CA">Andrews was twenty-one years of age and unmarried on the date of the accident. On that date he was an apprentice carman employed by the Canadian National Railways in the City of Edmonton.</span></p> 
+   <p class="Para"><span lang="EN-CA">I turn now to consider assessment of the damages to which Andrews is entitled.</span></p> 
+   <p class="Para"><u><span lang="EN-CA">Pecuniary Loss</span></u><span lang="EN-CA"> </span></p> 
+   <p class="Para"><span lang="EN-CA">(a) <u>Future Care</u></span></p> 
+   <p class="Para"><span lang="EN-CA">(i) <u>Standard of Care:</u> While there are several subsidiary issues to be decided in this case, there is one paramount issue: in a case of total or near-total disability should the future care of the victim be in an institutional or a home care environment? The trial judge chose home care. The Appellate Division agreed that home care would be better but denied it to him. Chief Justice McGillivray who delivered the judgment of the Court on this issue said: "All the evidence called supports the proposition that psychologically and emotionally Andrews would be better in a home of his own, where he would be lord of the manor, as it were." Some evidence even indicated the medical superi­ority of a home environment.</span></p> 
+   <p class="Para"><span lang="EN-CA">The trial judge found that it would take $4,135 per month to provide care for Andrews in a home environment. The Appellate Division considered that this standard of care was unreasonably and unrealistically high. Without giving any reason for selecting the particular figure chosen, the Appellate Division substituted $1,000 per month. Obvi­ously, here is the heart of the controversy. On</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 239]</span></p> 
+   <p class="Para"><span lang="EN-CA">other matters there was substantial agreement be­tween the lower Courts.</span></p> 
+   <p class="Para"><span lang="EN-CA">In my opinion, the Court of Appeal erred in law in the approach it took. After the statement quoted above that Andrews would be better psychological­ly and emotionally in a home of his own, Chief Justice McGillivray referred to some of the evi­dence supporting that proposition. He quoted the following passage from the evidence of Dr. Weir:</span></p> 
+   <p class="Citation1"><span lang="EN-CA">Well, J think [sic] that the greatest problem they have and the greatest burden of their affliction is the fact that they are all depressed because not only have they lost the potential for many normal and enjoyable human activities. In fact up until the present they pretty well have been converted into lifelong inhabitants of a hospi­tal institution and an institution is an institution, it is virtually a life sentence and has been to this date. I would say that if you really, you know, if you wanted to give him the optimal potential it would be in a home environment in which he had some, in which he had the control of it to the same extent that the rest of us have control over our own homes and dwelling places. I don't really think that any hospital or medical institution has the potential to give someone that same feeling that they are in fact the lords and masters of their own castle.</span></p> 
+   <p class="Para"><span lang="EN-CA">The Chief Justice noted that Andrews had said he would not live in an institution and the following excerpts from the evidence were quoted:</span></p> 
+   <p class="Citation1"><span lang="EN-CA">Q. Tell us, Jim, would you be prepared to live in an auxiliary hospital?</span></p> 
+   <p class="Citation1"><span lang="EN-CA">A. Never.</span></p> 
+   <p class="Citation1"><span lang="EN-CA">Q. Would you elaborate on that?</span></p> 
+   <p class="Citation1"><span lang="EN-CA">A. Well there is just no way that I would go into an auxiliary hospital that is—I don't know, I think that is one step into a grave, that is all it is, too many old folks that have nothing to do but remi­nisce, you know, I don't know, but just from what I have heard of auxiliary hospitals.</span></p> 
+   <p class="Citation1"><span lang="EN-CA">Q. Well how about other disabled people, do you have any difficulty getting along with them, would you be prepared to live with them, say if they were even younger?</span></p> 
+   <p class="Citation1"><span lang="EN-CA">A. My age?</span></p> 
+   <p class="Citation1"><span lang="EN-CA">Q. Yes.</span></p> 
+   <p class="Citation1"><span lang="EN-CA">A. With my same disability?</span></p> 
+   <p class="Citation1"><span lang="EN-CA">Q. Yes, if you were in some place with people that have disabled problems?</span></p> 
+   <p class="Citation1"><span lang="EN-CA">A. No, because it is the same thing, people get into a state of depression and they throw it on the group,</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 240]</span></p> 
+   <p class="Citation1"><span lang="EN-CA">like even now in the hospital like the way it is now there is a group of younger people and, you know, even friction can be created amongst us because of one person's bad day kind of thing, and I wouldn't want to live with other disabled persons, not at all.</span></p> 
+   <p class="Para"><span lang="EN-CA">I am hesitant to enter upon a detailed analysis </span><span lang="EN-CA">of </span><span lang="EN-CA">the reasons advanced by the Appellate Division for its decision, but in view of the importance of the matters raised in this litigation, not only for the appellant Andrews but for others in a similar plight, I do not think any other course is open.</span></p> 
+   <p class="Para"><span lang="EN-CA">Following the passage from the evidence </span><span lang="EN-CA">of </span><span lang="EN-CA">Andrews which I have quoted, Chief Justice McGillivray said:</span></p> 
+   <p class="Citation1"><span lang="EN-CA">In having a home of his own, it is stated that Andrews needs at least 20 hours a day care. He has to be turned at night every two hours, he has to have constant attention, and it is on this footing that two orderlies and a housekeeper and the cost of operating a three-bedroom home are advanced as being reasonable costs. Now, while the proposition that to the extent that money can do it, a plaintiff should be put into the position he would have been in, but for the accident, this does not mean that the plaintiff does not have to be reasonable and mitigate damage.</span></p> 
+   <p class="Para"><span lang="EN-CA">With respect, I agree that a plaintiff must be reasonable in making a claim. I do not believe that the doctrine of mitigation of damages which might be applicable, for example, in an action for conver­sion of goods, has any place in a personal injury claim. In assessing damages in claims arising out of personal injuries, the ordinary common law principles apply. The basic principle was stated by. Viscount Dunedin in <i>Admiralty Commissioners v. S.S. Susquehanna<a href="#_ftn3" name="_ftnref3" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;font-family:Arial">[3]</span></b></span></span></a>, </i>at p. 661 (cited with approval in <i>West &amp; Son Ltd. v. Shephard<a href="#_ftn4" name="_ftnref4" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;
+font-family:Arial">[4]</span></b></span></span></a>, </i>at p. 345) in these words:</span></p> 
+   <p class="Citation1"><span lang="EN-CA">... the common law says that the damages due either for breach of contract or for tort are damages which, so far as money can compensate, will give the injured party reparation for the wrongful act .. .</span></p> 
+   <p class="Para"><span lang="EN-CA">The principle was phrased differently by Lord Dunedin in the earlier case of <i>Admiralty Commissioners</i></span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 241]</span></p> 
+   <p class="Para"><i><span lang="EN-CA">v. S.S. Valeria<a href="#_ftn5" name="_ftnref5" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;
+font-family:Arial">[5]</span></b></span></span></a>, </span></i><span lang="EN-CA">at p. 248, but to the same effect:</span></p> 
+   <p class="Citation1"><span lang="EN-CA">… </span><span lang="EN-CA">in </span><span lang="EN-CA">calculating damages you are to consider what is the pecuniary sum which </span><span lang="EN-CA">will </span><span lang="EN-CA">make good to the sufferer, so far as money can do, the loss which he has suffered as the natural result of the wrong done to him.</span></p> 
+   <p class="Para"><span lang="EN-CA">The principle that compensation should be full for pecuniary loss is well established. See <i>McGre­</i></span><i><span lang="EN-CA">gor </span></i><i><span lang="EN-CA">on Damages, </span></i><span lang="EN-CA">13 </span><span lang="EN-CA">ed., at p. 738:</span></p> 
+   <p class="Citation1"><span lang="EN-CA">The plaintiff can recover, subject to the rules of remote­ness and mitigation, full compensation for the pecuniary loss he has suffered. This is today a clear principle of law.</span></p> 
+   <p class="Para"><span lang="EN-CA">To the same effect, Kemp &amp; Kemp, <i>Quantum of Damages, vol. </i>1, 3rd ed., at p. 4: </span><span lang="EN-CA">"</span><span lang="EN-CA">The person suffering the damage is entitled to full compensa­tion for the financial loss suffered." This broad principle was propounded by Lord Blackburn at an early date in <i>Livingstone v. Rawyards Coal Company<a href="#_ftn6" name="_ftnref6" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;
+font-family:Arial">[6]</span></b></span></span></a>, </i>at p. 39, in these words:</span></p> 
+   <p class="Citation1"><span lang="EN-CA">I do not think there is any difference of opinion as to its being </span><span lang="EN-CA">a </span><span lang="EN-CA">general rule that, where any injury is to be compensated by damages, in settling the sum of money to be given for reparation of damages you should as nearly as possible get at that sum of money which will put the party who has been injured, or who has suffered, in the same position as he would have been in if he had not sustained the wrong for which he is now getting his compensation or reparation.</span></p> 
+   <p class="Para"><span lang="EN-CA">In theory a claim for the cost of future care is a pecuniary claim for the amount which may reasonably be expected to be expended in putting the injured party in the position he would have been in if he had not sustained the injury. Obviously, a plaintiff who has been gravely and permanently impaired can never be put in the position he would have been in if the tort had not been committed. To this extent, <i>restitutio in integrum is </i>not possi­ble. Money is a barren substitute for health and personal happiness, but to the exent [sic] within reason that money can be used to sustain or improve the <u>mental</u> or physical health of the injured person it</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 242]</span></p> 
+   <p class="Para"><span lang="EN-CA">may properly form part of a claim.</span></p> 
+   <p class="Para"><span lang="EN-CA">Contrary to the view expressed in the Appellate Division of Alberta, there is no duty to mitigate, in the sense of being forced to accept less than real loss. There is a duty to be reasonable. There cannot be "complete" or "perfect" compensation. An award must be moderate and fair to both parties. Clearly, compensation must not be determined on the basis of sympathy, or compassion for the plight of the injured person. What is being sought is compensation, not retribution. But, in a case like the present, where both Courts have favoured a home environment, "reasonable" means reasonableness in what is to be provided in that home environment. It does not mean that Andrews must languish in an institution which on all evidence is inappropriate for him.</span></p> 
+   <p class="Para"><span lang="EN-CA">The reasons for judgment of the Appellate Divi­sion embodied three observations which are worthy of brief comment. The first: "It is the choice of the Respondent to live in a home of his own, and from the point of view of advancing a claim for damages, it is a most salutary choice, because it is vastly the most expensive." I am not entirely cer­tain as to what is meant by this observation. If the import is that the appellant claimed a home life for the sole purpose of inflating his damage claim, then I think the implication is both unfair and unsupported by evidence. There is no doubt upon the medical and other evidence that a home envi­ronment would be salutary to the health of the appellant and productive of good effects. It cannot be unreasonable for a person to want to live in a home of his own.</span></p> 
+   <p class="Para"><span lang="EN-CA">The next observation:</span></p> 
+   <p class="Citation1"><span lang="EN-CA">Secondly, it should be observed that in many cases, particularly in Alberta, where damages have been awarded, the persons injured were going to live with their families. Here, the evidence (in spite of the fact that the Respondent's mother advanced a claim for $237.00 which represented a towing charge for the motor cycle and parking, taxis and bus fare expended on visits to her son in the Hospital for approximately a</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 243]</span></p> 
+   <p class="Citation1"><span lang="EN-CA">nine-month period prior to the issue of the Statement of Claim) is that the Respondent and his mother were not close before the accident, and matters proceeded on the footing that the mother's natural love and affection should have no part in Andrews' future. Again, this situation is the most expensive from the point of view of the Respondent.</span></p> 
+   <p class="Para"><span lang="EN-CA">The evidence showed that the mother of the appellant James Andrews was living alone, in a second-floor apartment and that relations between Andrews and his mother were strained at times. This should have no bearing in minimizing Andrews' damages. Even if his mother had been able to look after Andrews in her own home, there is now ample authority for saying that dedicated wives or mothers who choose to devote their lives to looking after infirm husbands or sons are not expected to do so on a gratuitous basis. The second observation is irrelevant.</span></p> 
+   <p class="Para"><span lang="EN-CA">The third observation was in these words:</span></p> 
+   <p class="Citation1"><span lang="EN-CA">Thirdly, it should be observed that the learned trial judge has referred with approval to the English authori­ties which held that </span><span lang="EN-CA">full </span><span lang="EN-CA">compensation for pecuniary loss must be given. It does not, however, follow that every conceivable expense which a plaintiff may conjure up is a pecuniary loss. On the evidence, then, should this Court consider that Andrews should live in a home of his own for the next 45 years at the expense of the Appellant?</span></p> 
+   <p class="Para"><span lang="EN-CA">I agree that a plaintiff cannot "conjure up" "every conceivable expense." I do not think that a request for home care falls under that rubric.</span></p> 
+   <p class="Para"><span lang="EN-CA">Each of the three observations seems to look at the matter solely from the point of view of the respondents and the expense to them. An award must be fair to both parties but the ability of the defendant to pay has never been regarded as a relevant consideration in the assessment of damages at common law. The focus should be on the injuries of the innocent party. Fairness to the other party is achieved by assuring that the claims raised</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 244]</span></p> 
+   <p class="Para"><span lang="EN-CA">against him are legitimate and justifiable.</span></p> 
+   <p class="Para"><span lang="EN-CA">The Appellate Division relied upon <i>Cunningham v. Harrison<a href="#_ftn7" name="_ftnref7" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;font-family:Arial">[7]</span></b></span></span></a>. </i>In that case, as a result of an acci­dent, the plaintiff was permanently paralyzed in his body and all four limbs. The trial judge found that the plaintiff was a self-opinionated person who should, if possible, live in some dwelling of his own where he would be looked after by a housekeeper and the persons who did the nursing. The Court of Appeal held that the plaintiff's enti­tlement to reasonable expenses for nursing and accommodation appropriate to a normal person should not be increased by reason of his exceptional personality. The Court of Appeal in reducing the award from £72,616 to £59,316 took into account three factors: (i) the difficulty of obtain­ing a housekeeper and nurses; (ii) that ground floor flats specially designed for handicapped persons were being built in the Borough; (iii) that the plaintiff might accept the aid of statutory and voluntary organizations at much less cost. None of these factors is significant in the present case. Although it reduced the award, the Court never­theless affirmed that the award included provision for a housekeeper and nursing services and also for extra accommodation. The case does not stand for the proposition that though home care is better, it will not be provided because the cost is excessive. In the present case, the Appellate Division asked: "If Andrews does have a home of his own, however, should he not so locate that orderly service from existing hospitals could be available to him at night and in the daytime for his hygienic and getting-up periods? Is it to be assumed that in a province such as Alberta, orderly services could not be given outside the four walls of an institution if the subject of the service is a nearby resident?" The respondents did not raise the possibility about which the Court speculated. There was no evi­dence as to the feasibility of such a proposal, no evidence as to the availability or cost of outpatient care.</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 245]</span></p> 
+   <p class="Para"><span lang="EN-CA">With respect to Andrews' disinclination to live in an institution, the Court commented: "He might equally say that he would not live in Alberta, as he did not wish to face old friends, or for any other reasons, and that he wished to live in Switzerland or the Bahamas." Andrews is not asking for a life in Europe or in the Carribean. He asks that he be permitted to continue to live in Alberta and to see his old friends, but in his own home or apartment, not in an institution.</span></p> 
+   <p class="Para"><span lang="EN-CA">The Court then expressed the view that the standard accepted by the trial judge was the equivalent of supplying a private hospital. The phrase "private hospital" is both pejorative and misleading. It suggests an extravagant standard of care. The standard sought by the appellant is simply practical nursing in the home. The amount Andrews is seeking is, without question, very sub­stantial, but essentially it means providing two orderlies and a housekeeper. The amount is large because the victim is young and because life is long. He has forty-five years ahead. That is a long time.</span></p> 
+   <p class="Para"><span lang="EN-CA">In reducing the monthly amount to $1,000, the Appellate Division purported to apply a "final test" which was expressed in terms of the expenses that reasonably-minded people would incur, assuming sufficient means to bear such expense. It seems to me difficult to conceive of any reason­ably-minded person of ample means who would not be ready to incur the expense of home care, rather than institutional care, for himself or for someone in the condition of Andrews for whom he was responsible. No other conclusion is open upon the evidence adduced in this case. If the test enunciated by the Appellate Division is simply a plea for moderation then, of course, no one would question it. If the test was intended to suggest that reasonably-minded people would refuse to bear the expense of home care, there is simply no evidence to support that conclusion.</span></p> 
+   <p class="Para"><span lang="EN-CA">The Appellate Division, seeking to give some meaning to the test, said that it should be open to consider "standards of society as a whole as they</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 246]</span></p> 
+   <p class="Para"><span lang="EN-CA">presently exist." As instances of such standards the Court selected the daily allowances provided under <i>The Workmen's Compensation Act, </i>1973 (Alta.), c. <i>87, s. </i>56, and the federal <i>Pension Act, </i>R.S.C. 1970, <i>c. P-7, s. 28. </i>The standard of care expected in our society in physical injury cases is an elusive concept. What a legislature sees fit to provide in the cases of veterans and in the cases of injured workers and the elderly is only of marginal assistance. The standard to be applied to Andrews is not merely "provision", but "compensation": <i>i.e. </i>what is the proper compensation for a person who would have been able to care for himself and live in a home environment if he had not been injured? The answer must surely be home care. If there were severe mental impairment, or in the case of an immobile quadriplegic, the results might well be different; but where the victim is mobile and still in full control of his mental facilities, as Andrews is, it cannot be said that institutionaliza­tion in an auxiliary hospital represents proper compensation for his loss. Justice requires something better.</span></p> 
+   <p class="Para"><span lang="EN-CA">Other points raised by the Appellate Division in support of its reversal of the trial judge, may be briefly noted: (i) "It seems to me probable that there will be, at Government expense, people employed to look after quadriplegics. In the United States, there are now a few institutions which have special apartments as part of the hospi­tal setting, where patients can receive attention and, at the same time, have privacy." There is no evidence that the Government of Alberta at present has any plans to provide special care or institutions for quadriplegics. Any such possibility is speculation. (ii) "Will the Respondent, in fact, operate a home of his own?" The Court expressed the fear that Andrews would take the award, then go into an auxiliary hospital and have the public pay. It is not for the Court to conjecture upon how a plaintiff will spend the amount awarded to him. There is always the possibility that the victim will not invest his award wisely but will dissipate it. That is not something which ought to be allowed to affect a consideration of the proper basis of</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 247]</span></p> 
+   <p class="Para"><span lang="EN-CA">compensation within a fault-based system. The plaintiff is free to do with that sum of money as he likes. Financial advice is readily available. He has the flexibility to plan his life and to plan for contingencies. The preference of our law to date has been to leave this flexibility in the plaintiffs hands: see Fleming, "Damages: Capital or Rent?" (1969), 19 U. of Toronto L.J. 295. Save for infants and the mentally incompetent, the courts have no power to control the expenditure of the award. There is nothing to show that the dangers the Appellate Division envisaged have any basis in fact.</span></p> 
+   <p class="Para"><span lang="EN-CA">In its conclusion, the Appellate Division held that the damages awarded by the trial judge were "unreasonably and unrealistically high" and an award which would result in the appellant receiv­ing approximately $1,000 a month for cost of care would be entirely adequate and would constitute a generous award. The Appellate Division further reduced the award by 30 per cent for potential contingencies. Why $1,000? The main issue at trial was the choice between home care and insti­tutional care. There is no question but that Andrews could be taken care of in an auxiliary hospital, but both Courts below concluded that home care was the appropriate standard. The trial judge made an award reflecting the cost of home care. The Appellate Division made an award relat­ed to neither home care nor institutional care. The effect </span><span lang="EN-CA">is </span><span lang="EN-CA">to compel a youthful quadriplegic to live the rest of his life in an auxiliary hospital. In my opinion, the Appellate Division failed to show that the trial judge applied any wrong principle of law or that the overall amount awarded by him was a wholly erroneous estimate of the damage. With great respect, the irrelevant considerations which the Appellate Division took into account were errors in law.</span></p> 
+   <p class="Para"><span lang="EN-CA">Is it reasonable for Andrews to ask for $4,135 per month for home care? Part of the difficulty of this case is that twenty-four hour orderly care was not directly challenged. Counsel never really engaged in consideration of whether, assuming</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 248]</span></p> 
+   <p class="Para"><span lang="EN-CA">home care, such care could be provided at lesser expense. Counsel wants the Court, rather, to choose between home care and auxiliary hospital care. There are unanimous findings below that home care is better. Although home care is expen­sive, auxiliary hospital care is so utterly unattrac­tive and so utterly in conflict with the principle of proper compensation that this Court is offered no middle ground.</span></p> 
+   <p class="Para"><span lang="EN-CA">The basic argument, indeed the only argument, against home care is that the social cost is too high. In these days the cost is distributed through society through insurance premiums. In this respect, I would adopt what was said by Salmon L.J. in </span><i><span lang="EN-CA">Fletcher v. Autocar &amp; Transporters, Ltd.<a href="#_ftn8" name="_ftnref8" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;font-family:Arial">[8]</span></b></span></span></a>, </span></i><span lang="EN-CA">at p. 750, where he stated:</span></p> 
+   <p class="Citation1"><span lang="EN-CA">Today, however, virtually all defendants in accident cases are insured. This certainly does not mean compen­sation should be extravagant, but there is no reason why it should not be realistic... . It might result in some moderate increase in premium rates which none would relish, but of which no one in my view, could justly complain. It would be monstrous to keep down premi­ums by depressing damages below their proper level, i.e., a level which ordinary men would regard as fair-unprejudiced by its impact on their own pockets.</span></p> 
+   <p class="Para"><span lang="EN-CA">I do not think the area of future care is one in which the argument of the social burden of the expense should be controlling, particularly in a case like the present where the consequences of acceding to it would be to fail in large measure to compensate the victim for his loss. Greater weight might be given to this consideration where the choice with respect to future care is not so stark as between home care and an auxiliary hospital. Minimizing the social burden of expense may be a factor influencing a choice between acceptable alternatives. It should never compel the choice of the unacceptable.</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 249]</span></p> 
+   <p class="Para"><span lang="EN-CA">(ii) <u>Life expectancy:</u> At trial, figures were introduced which showed that the life expectancy of 23-year-old persons in general is 50 years. As Chief Justice McGillivray said in the Appellate Division, it would be more useful to use statistics on the expectation of life of quadriplegics. A sta­tistical average is helpful only if the appropriate group is used. At trial, Dr. Weir and Dr. Gingras testified that possibly five years less than normal would be a reasonable expectation of life for a quadriplegic. The Appellate Division accepted this figure. On the evidence I am willing to accept it.</span></p> 
+   <p class="Para"><span lang="EN-CA">(iii) <u>Contingencies of Life:</u> The trial judge did, however, allow a 20 per cent discount for "contingencies and hazards of life." The Appellate Division allowed a further 10 per cent discount. It characterized the trial judge's discount as being for "life expectancy" or "duration of life", and said that this ignored the contingency of "duration of expense": <i>i.e. </i>that despite any wishes to the contrary, Andrews in the years to come may be obliged to spend a great deal of time in hospital for medical reasons or because of the difficulty of obtaining help. With respect, the Appellate Divi­sion appears to have misunderstood what the trial judge did. The figure of 20 per cent as a discount for contingencies was arrived at first under the heading of Prospective Loss of Earnings and then simply transferred to the calculation of Costs of Future Care. It was not an allowance for a decreased life expectancy, for this had already been taken into account by reducing the normal 50-year expectancy to 45 years. The "contingen­cies and hazards of life" in the context of future care are distinct. They relate essentially to dura­tion of expense and are different from those which might affect future earnings, such as unemploy­ment, accident, illness. They are not merely to be added to the latter so as to achieve a cumulative result. Thus, so far as the action taken by the Appellate Division is concerned, in my opinion, it was an error to increase by an extra 10 per cent the contingency allowance of the trial judge.</span></p> 
+   <p class="Para"><span lang="EN-CA">This whole question of contingencies is fraught with difficulty, for it is in large measure pure speculation. It is a small element of the illogical</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 250]</span></p> 
+   <p class="Para"><span lang="EN-CA">practice of awarding lump sum payments for expenses and losses projected to continue over long periods of time. To vary an award by the value of the chance that certain contingencies may occur is to assure either over-compensation or under-com­pensation, depending on whether or not the event occurs. In light of the considerations I have men­tioned, I think it would be reasonable to allow a discount for contingencies in the amount of 20 per cent, in accordance with the decision of the trial judge.</span></p> 
+   <p class="Para"><span lang="EN-CA">(iv) <u>Duplication with compensation for loss of future earnings</u></span></p> 
+   <p class="Para"><span lang="EN-CA">It is clear that a plaintiff cannot recover for the expense of providing for basic necessities as part of the cost of future care while still recovering fully for prospective loss of earnings. Without the acci­dent, expenses for such items as food, clothing and accommodation would have been paid for out of earnings. They are not an additional type of expense occasioned by the accident.</span></p> 
+   <p class="Para"><span lang="EN-CA">When calculating the damage award, however, there are two possible methods of proceeding. One method is to give the injured party an award for future care which makes no deduction in respect of the basic necessities for which he would have had to pay in any event. A deduction must then be made for the cost of such basic necessities when computing the award for loss of prospective earnings: </span><i><span lang="EN-CA">i.e. </span></i><span lang="EN-CA">the award is on the basis of net earnings and not gross earnings. The alternative method is the reverse: </span><i><span lang="EN-CA">i.e. </span></i><span lang="EN-CA">to deduct the cost of basic necessi­ties when computing the award for future care and then to compute the earnings award on the basis of gross earnings.</span></p> 
+   <p class="Para"><span lang="EN-CA">The trial judge took the first approach, reducing loss of future earnings by 53 per cent. The Appellate Division took the second. In my opinion, the approach of the trial judge is to be preferred. This is in accordance with the principle which I believe should underlie the whole consideration of damages for personal injuries: that proper future care is the paramount goal of such damages. To determine accurately the needs and costs in respect of future care, basic living expenses should be included.</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 251]</span></p> 
+   <p class="Para"><span lang="EN-CA">The costs of necessaries when in an infirm state may well be different from those when in a state of health. Thus, while the types of expenses would have been incurred in any event, the level of expenses for the victim may be seen as attributable to the accident. In my opinion, the projected cost of necessities should, therefore, be included in calculating the cost of future care, and a percentage attributable to the necessities of a person in a normal state should be reduced from the award for future earnings. For the acceptability of this method of proceeding see the judgment of this Court in <i>The Queen v. Jennings<a href="#_ftn9" name="_ftnref9" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;font-family:Arial">[9]</span></b></span></span></a>, </i>at pp. 540-1, and also <i>Bisson v. Corporation of Powell River<a href="#_ftn10" name="_ftnref10" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;
+font-family:Arial">[10]</span></b></span></span></a>, </i>at pp. 720-1, <i>Jennings v. Cronsberry<a href="#_ftn11" name="_ftnref11" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;font-family:Arial">[11]</span></b></span></span></a>, </i>at p. 418,</span></p> 
+   <p class="Para"><span lang="EN-CA">(v) <u>Cost of special equipment:</u> In addition to his anticipated monthly expenses, Andrews requires an initial capital amount for special equipment. Both Courts below held that $14,200 was an appropriate figure for the cost of this equipment. In my opinion, this assessment is cor­rect in principle, and I would therefore accept it.</span></p> 
+   <p class="Para"><span lang="EN-CA">(b) <u>Prospective loss of earnings</u></span></p> 
+   <p class="Para"><span lang="EN-CA">We must now gaze more deeply into the crystal ball. What sort of a career would the accident victim have had? What were his prospects and potential prior to the accident? It is not loss of earnings but, rather, loss of earning capacity for which compensation must be made: <i>The Queen v. Jennings, supra. A </i>capital asset has been lost: what was its value?</span></p> 
+   <p class="Para"><span lang="EN-CA">(i) <u>Level of earnings:</u> The trial judge fixed the projected level of earnings of Andrews at $830 per month, which would have been his earnings on January 1, 1973. The Appellate Division raised this to $1,200 per month, a figure between his present salary and the maximum for his type of work of $1,750 per month. Without doubt the value of Andrews' earning capacity over his work­ing life is higher than his earnings at the time of</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 252]</span></p> 
+   <p class="Para"><span lang="EN-CA">the accident. Although I am inclined to view even that figure as somewhat conservative, I would affirm the holding of the Appellate Division that $1,200 per month represents a reasonable estimate of Andrews' future average level of earnings.</span></p> 
+   <p class="Para"><span lang="EN-CA">(ii) <u>Length of working life:</u> Counsel for the appellants objected to the use of 55 rather than 65 as the projected retirement age for Andrews. It is agreed that he could retire on full pension at 55 if he stayed with his present employer, Canadian National Railways. I think it is reasonable to assume that he would, in fact, retire as soon as it was open for him to do so on full pension.</span></p> 
+   <p class="Para"><span lang="EN-CA">One must then turn to the mortality tables to determine the working life expectancy for the appellant over the period between the ages of 23 and 55. The controversial question immediately arises whether the capitalization of future earning capacity should be based on the expected working life span prior to the accident, or the shortened life expectancy. Does one give credit for the "lost years"? When viewed as the loss of a capital asset consisting of income-earning capacity rather than a loss of income, the answer is apparent: it must be the loss of that capacity which existed prior to the accident. This is the figure which best fulfils the principle of compensating the plaintiff for what he has lost: see <i>Mayne and McGregor on Damages, </i>12 ed., at p. 659; Kemp &amp; Kemp, <i>Quantum of Damages, </i>3rd ed., vol. 1, Supplement, c. 3, p. 28; <i>Skelton v. Collins<a href="#_ftn12" name="_ftnref12" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;
+font-family:Arial">[12]</span></b></span></span></a>. </i>In the instant case, the trial judge refused to follow the <i>Olivier v. Ashman<a href="#_ftn13" name="_ftnref13" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;
+font-family:Arial">[13]</span></b></span></span></a> </i>approach, the manifest injustice of which is demonstrated in the much criticized case of <i>McCann v. Sheppard<a href="#_ftn14" name="_ftnref14" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;font-family:Arial">[14]</span></b></span></span></a>, </i>and in this I think the judge was right. I would accept his decision that Andrews had a working life expectancy of 30.81 years.</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 253]</span></p> 
+   <p class="Para"><span lang="EN-CA">&nbsp;(iii) <u>Contingencies:</u> It is a general practice to take account of contingencies which might have affected future earnings, such as unemployment, illness, accidents and business depression. In the <i>Bisson </i>case, which also concerned a young quadri­plegic, an allowance of 20 per cent was made. There is much support for the view that such a discount for contingencies should be made: see <i>e.g. Warren v. King<a href="#_ftn15" name="_ftnref15" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;
+font-family:Arial">[15]</span></b></span></span></a>; McKay v. Board of Govan School Unit No. 29 of Saskatchewan<a href="#_ftn16" name="_ftnref16" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;font-family:Arial">[16]</span></b></span></span></a>. </i>There are, however, a number of qualifications which should be made. First, in many respects, these contingen­cies implicitly are already contained in an assessment of the projected average level of earnings of the injured person, for one must assume that this figure is a projection with respect to the real world of work, vicissitudes and all. Second, not all con­tingencies are adverse, as the above list would appear to indicate. As is said in <i>Bresatz v. Przibilla<a href="#_ftn17" name="_ftnref17" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;font-family:Arial">[17]</span></b></span></span></a></i></span><i><span lang="EN-CA">, </span></i><span lang="EN-CA">in the Australian High Court, at p. 544: "Why count the possible buffets and ignore the rewards of fortune?" Finally, in modern socie­ty there are many public and private schemes which cushion the individual against adverse con­tingencies. Clearly, the percentage deduction which is proper will depend on the facts of the individual case, particularly the nature of the plaintiff's occupation, but generally it will be small: see Stevens, "Actuarial Assessment of Damages: The Thalidomide Case" (1972), 35 M.L.R. 140, at p. 150.</span></p> 
+   <p class="Para"><span lang="EN-CA">In reducing Andrews' award by 20 per cent Mr. Justice Kirby gives no reasons. The Appellate Division also applied a 20 per cent reduction. It seems to me that actuarial evidence could be of great help here. Contingencies are susceptible to more exact calculation than is usually apparent in the cases; see Traversy: "Actuaries and the Courts", 29 Aust. L.J. 557. In my view, some degree of specificity, supported by evidence, ought to be forthcoming at trial.</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 254]</span></p> 
+   <p class="Para"><span lang="EN-CA">The figure used to take account of contingencies is obviously an arbitrary one. The figure of 20 per cent which was used in the lower Courts (and in many other cases) although not entirely satisfacto­ry, should, I think, be accepted.</span></p> 
+   <p class="Para"><span lang="EN-CA">(iv) <u>Duplication of the Cost of Future Basic Maintenance</u></span></p> 
+   <p class="Para"><span lang="EN-CA">As discussed, since basic needs such as food, shelter, and clothing have been included in the cost of future care, a deduction must be made from the award for prospective earnings to avoid duplica­tion. The injured person would have incurred expenses of this nature even if he had not suffered the injury. At trial evidence was given that the cost of basics for a person in the position of Andrews prior to the accident would be approximately 53 per cent of income. I would accept this figure and reduce his anticipated future monthly earnings accordingly to a figure of $564.</span></p> 
+   <p class="Para"><span lang="EN-CA">(c) <u>Considerations relevant to both heads of pecuniary loss</u></span></p> 
+   <p class="Para"><span lang="EN-CA">(i) <u>Capitalization rate: allowance for inflation and the rate of return on investments</u></span></p> 
+   <p class="Para"><span lang="EN-CA">What rate of return should the Court assume the appellant will be able to obtain on his investment of the award? How should the Court recog­nize future inflation? Together these consider­ations will determine the discount rate to use in actuarially calculating the lump sum award.</span></p> 
+   <p class="Para"><span lang="EN-CA">The approach at trial was to take as a rate of return the rental value of money which might exist during periods of economic stability, and conse­quently to ignore inflation. This approach is widely referred to as the Lord Diplock approach, as he lent it his support in <i>Mallett v. McMonagle<a href="#_ftn18" name="_ftnref18" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;font-family:Arial">[18]</span></b></span></span></a>.</i>Although this method of proceeding has found favour in several jurisdictions in this country and elsewhere, it has an air of unreality. Stable, non-inflationary economic conditions do not exist at present, nor did they exist in the recent past, nor are they to be expected in the foreseeable future.</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 255]</span></p> 
+   <p class="Para"><span lang="EN-CA">In my opinion, it would be better to proceed from what known factors are available rather than to ignore economic reality. Analytically, the alternate approach to assuming a stable economy is to use existing interest rates and then make an allowance for the long-term expected rate of inflation. At trial the expert actuary, Mr. Grindley, testified as follows:</span></p> 
+   <p class="Citation1"><span lang="EN-CA">Yes, as J mentioned yesterday, I was comfortable with that assumption 5% interest because it produces the same result as for example 8% interest and 3% inflation.</span></p> 
+   <p class="Citation1"><span lang="EN-CA">…</span></p> 
+   <p class="Citation1"><span lang="EN-CA">I would be happy to use either of the following two packages of assumption, either an 8% interest rate com­bined with provision for amounts which would increase 3% in every year in the future or a 5% interest rate and level amount, level amounts, that is no allowance for inflation.</span></p> 
+   <p class="Para"><span lang="EN-CA">One thing is abundantly clear: present interest rates should not be used with no allowance for future inflation. To do so would be patently unfair to the plaintiff. It is not, however, the level of inflation in the short term for which allowance must be made, but that predicted over the long term. It is this expectation which is built into present interest rates for long-term investments. It is also this level of inflation which may at present be predicted to operate over the lifetime of the plaintiff to increase the cost of care for him at the level accepted by the Court, and to erode the value of the sum provided for lost earning capacity.</span></p> 
+   <p class="Para"><span lang="EN-CA">In <i>Bisson v. Corporation of Powell River, supra, </i>the British Columbia Court of Appeal held that there had been a misdirection, or non-direction amounting to misdirection, in the trial judge's charge to the jury with respect to quantum of damages for the plaintiff's personal injuries. Bull J.A. listed several instances of misdirection, including failure to instruct the jury that although they might give some thought to possibilities of future inflation, it was wrong to include any built-in inflation factors in the actuarial calculations with respect to the sums for future care and loss of prospective earnings. An appeal to this Court was</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 256]</span></p> 
+   <p class="Para"><span lang="EN-CA">dismissed<a href="#_ftn19" name="_ftnref19" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><span lang="EN-CA" style="font-size:12.0pt;font-family:Arial">[19]</span></span></span></a>, Cartwright C.J.C. giving short oral reasons as follows:</span></p> 
+   <p class="Citation1"><span lang="EN-CA">We are all of opinion that the Court of Appeal (1968) 62 W.W.R. 707, were right in holding that they were justified in setting aside the assessment of damages made by the jury. In such circumstances they had jurisdiction under R. 36 of the British Columbia Court of Appeal Rules to reduce the damages instead of ordering a new trial. We find ourselves unable to say that in fixing the amount of damages the Court of Appeal erred in principle or that the figure at which they arrived was such as to represent a wholly erroneous estimate.</span></p> 
+   <p class="Para"><span lang="EN-CA">In my opinion, this cannot be taken as an express endorsement by this Court of the method of calculation expressed by Bull J.A. When discussing this issue, Bull J.A. stated that the correct procedure was to use a capitalization rate of five or six per cent, since there was evidence that six per cent was a normal and available rate of return on first-class securities, and not to build in any inflation rate at all. With respect, I cannot under-stand how thought is to be given to the possibility of inflation in calculating the award if no inflation factor is to be built into the calculation of the award. In his judgment, Bull J.A. further states, p. 723:</span></p> 
+   <p class="Citation1"><span lang="EN-CA">If inflationary trends appear, it may well be that the </span><span lang="EN-CA">use </span><span lang="EN-CA">to which the money is put, whatever it may be, will itself increase its own amount as part of an inflationary process. It is well known that interest rates, or the "wages" of money, rise in times of inflation.</span></p> 
+   <p class="Para"><span lang="EN-CA">One might offer two comments: First, the words: </span><span lang="EN-CA">"</span><span lang="EN-CA">If inflationary trends appear ..." reflect eco­nomic conditions in 1967 when serious inflation was only on the horizon. During the past ten years, inflation has become one of the most serious Canadian problems. This Court<a href="#_ftn20" name="_ftnref20" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><span lang="EN-CA" style="font-size:12.0pt;font-family:Arial">[20]</span></span></span></a> recognized the </span><i><span lang="EN-CA">Anti-Inflation Act, </span></i><span lang="EN-CA">1974-75-76 (Can.), c. 75, as a measure necessary to meet a situation of economic crisis imperilling the well-being of the people of Canada as a whole. Second, the passage immediately</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 257]</span></p> 
+   <p class="Para"><span lang="EN-CA">above quoted accepts the proposition that interest rates or the "wages" of money rise in times of inflation. This rise is attributable, at least in part, to the erosion of the dollar. Accepting the highly unlikely proposition that the appellant will be able to invest for the balance of his lifetime at current high rates the capital sum awarded to him, this investment will provide him with a constant number of dollars each year, but the services which those dollars will provide will become more costly by the year. If current high interest rates abate with a reduction of inflationary pressures and return, say, to the 1967 rates of five or six per cent, it is obvious that reinvestment from time to time in later years of the equities or fixed income securities comprising the capital sum will be at rates which fall far short of those at present available. Then, even the number of dollars the appel­lant gets will be less than <i>even the present cost of care. </i>With respect, the economic analysis in <i>Bisson </i>proceeds on the erroneous basis that the cost of services decreases as the rate of inflation decreases. On the contrary, a decrease in the rate of inflation merely results in a lower rate of increase in the cost of these services.</span></p> 
+   <p class="Para"><span lang="EN-CA">In <i>Schroth v. Innes, Perry and Shiels<a href="#_ftn21" name="_ftnref21" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;
+font-family:Arial">[21]</span></b></span></span></a>, </i>Bull J.A., delivering the judgment of the Court, repeated his views on this matter. Again, the relevance of inflation was recognized in principle but was excluded from the calculation of the award. At p. 236, Bull J.A. states, "... it is today's money to which the respondent Shiels is entitled in damages." With respect, we are not concerned only with today's money. The real concern is in determining what that money will provide in the way of services over the next 45 years.</span></p> 
+   <p class="Para"><span lang="EN-CA">Bull J.A. voiced his disapproval of any recogni­tion for inflation, whether by building in an infla­tion factor while using current rates of return, or by using a hypothetical "stable state." The learned judge attempted to refute the conclusion that inflation should be included. He said, p. 239:</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 258]</span></p> 
+   <p class="Citation1"><span lang="EN-CA">With the greatest deference, I do not agree with the basic premises of those conclusions. To me what was really said was that current interest rates, much higher than those prevailing in the old days of the so-called "stable economy", exist only because of an existing inflated economy and of current fear of future inflation; and hence should not be used unless future inflation estimates or factors are fed into the computer also. That may well be so in England but I am not prepared to accede to that proposition with respect to this country. I think it general knowledge that interest rates in Canada for many years have reached higher levels because of the desire and need to attract new capital from abroad to create and service our expanding industrial and com­mercial economy. But I content myself with saying that I am satisfied that the current high rates of interest (which have been with us for years with only modest variations up and down) reflect today the present value of already inflated money in exactly the same way as do current high wages and prices generally. They live to­gether, and the use of a high level of wages as one side of the coin and a low level of interest for the other is, in my respectful view, wrong.</span></p> 
+   <p class="Para"><span lang="EN-CA">In my opinion, this analysis is manifestly in error. Fear of future inflation is not confined to England. It is such as to have constituted a national emer­gency in this country. The current high rates of interest do not merely reflect the present value of already inflated money. They reflect the present expectation of <i>future </i>inflation. This is not the only factor which determines the existing interest rate, but it is without doubt one of the major factors. In my opinion, recognition of this fact must be made in the calculations of a damage award.</span></p> 
+   <p class="Para"><span lang="EN-CA">The approach which I would adopt, therefore, is to use present rates of return on long-term invest­ments and to make some allowance for the effects of future inflation. Once this approach is adopted, the result, in my opinion, is different from the five per cent discount figure accepted by the trial judge. While there was much debate at trial over a difference of a half to one percentage point, I think it is clear from the evidence that high quality long-term investments were available at time of trial at rates of return in excess of ten per cent. On the other hand, evidence was specifically intro­duced that the former' head of the Economic Coun­cil of Canada, Dr. Deutsch, had recently forecast a</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 259]</span></p> 
+   <p class="Para"><span lang="EN-CA">rate of inflation of three and one-half per cent over the long-term future. These figures must all be viewed flexibly. In my opinion, they indicate that the appropriate discount rate is approximately seven per cent. I would adopt that figure. It appears to me to be the correct result of the approach I have adopted: <i>i.e. </i>having regard to present investment market conditions and making an appropriate allowance for future inflation. I would, accordingly, vary to seven per cent the discount rate to be used in calculating the present value of the awards for future care and loss of earnings in this case. The result in future cases will depend upon the evidence adduced in those cases.</span></p> 
+   <p class="Para"><span lang="EN-CA">(ii) <u>Allowance for tax:</u> In <i>The Queen v. Jen­nings, supra, </i>this Court held that an award for prospective income should be calculated with no deduction for tax which might have been attracted had it been earned over the working life of the plaintiff. This results [sic] from the fact that it is earning capacity and not lost earnings which is the subject of compensation. For the same reason, no consideration should be taken of the amount by which the income from the award will be reduced by payment of taxes on the interest, dividends, or capital gain. A capital sum is appropriate to replace the lost capital asset of earning capacity. Tax on income is irrelevant either to decrease the sum for taxes the victim would have paid on income from his job, or to increase it for taxes he will now have to pay on income from the award.</span></p> 
+   <p class="Para"><span lang="EN-CA">In contrast with the situation in personal injury cases, awards under the <i>Fatal Accident Acts </i>should reflect tax considerations, since they are to compensate dependants for the loss of support payments made by the deceased. These support payments could only come out of take-home pay, and the payments from the award will only be received net of taxes: see the contemporaneous decision of this Court in <i>Keizer v. Hanna and Buch.</i></span></p> 
+   <p class="Para"><span lang="EN-CA">The impact of taxation upon the income from the capital sum for future care is mitigated by the</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 260]</span></p> 
+   <p class="Para"><span lang="EN-CA">existence of s. 110(1)(c)(iv.1) of the <i>Income Tax Act, </i>in respect of the deduction of medical expenses, which provides that medical expenses in excess of three per cent of the taxpayer's income includes "remuneration for one full-time attendant upon an individual who was a taxpayer ... in a self-contained domestic establishment in which the cared for person lived." This exemption, I should think, permits a deduction for the payment of one full-time attendant for seven days a week, regardless of whether this attendance is provided by several attendants working over twenty-four hour periods, or one person working twenty-four hour shifts seven days a week.</span></p> 
+   <p class="Para"><span lang="EN-CA">The exact tax burden is extremely difficult to predict, as the rate and coverage of taxes swing with the political winds. What concerns us here is whether some allowance must be made to adjust the amount assessed for future care in light of the reduction from taxation. No such allowance was made by the Courts below. Elaborate calculations were provided by the appellant to give an illusion of accuracy to this aspect of the wholly speculative projection of future costs. Because of the provision made in the <i>Income Tax Act </i>and because of the position taken in the Alberta Courts, I would make no allowance for that item. The Legislature might well consider a more generous income tax treatment of cases where a fund is established by judicial decision and the sole purpose of the fund is to provide treatment or care of an accident victim.</span></p> 
+   <p class="Para"><span lang="EN-CA">One subsidiary point should be affirmed with respect to the determination of the present value of the cost of future care. The calculations should provide for a self-extinguishing sum. To allow a residual capital amount would be to over-compen­sate the injured person by creating an estate for him. This point was accepted by the lower Courts and not challenged by the parties.</span></p> 
+   <p class="Para"><u><span lang="EN-CA">Non-Pecuniary Losses</span></u></p> 
+   <p class="Para"><span lang="EN-CA">Andrews used to be a healthy young man, ath­letically active and socially congenial. Now he is a cripple, deprived of many of life's pleasures and subjected to pain and disability. For this, he is</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 261]</span></p> 
+   <p class="Para"><span lang="EN-CA">entitled to compensation. But the problem here is qualitatively different from that of pecuniary losses. There is no medium of exchange for happi­ness. There is no market for expectation of life. The monetary evaluation of non-pecuniary losses is a philosophical and policy exercise more than a legal or logical one. The award must be fair and reasonable, fairness being gauged by earlier deci­sions; but the award must also of necessity be arbitrary or conventional. No money can provide true restitution. Money can provide for proper care: this is the reason that I think the paramount concern of the courts when awarding damages for personal injuries should be to assure that there will be adequate future care.</span></p> 
+   <p class="Para"><span lang="EN-CA">However, if the principle of the paramountcy of care is accepted, then it follows that there is more room for the consideration of other policy factors in the assessment of damages for non-pecuniary losses. In particular, this is the area where the social burden of large awards deserves considerable weight. The sheer fact is that there is no objective yardstick for translating non-pecuniary losses, such as pain and suffering and loss of amenities, into monetary terms. This area is open to widely extravagant claims. It is in this area that awards in the United States have soared to dramatically high levels in recent years. Statisti­cally, it is the area where the danger of excessive burden of expense is greatest.</span></p> 
+   <p class="Para"><span lang="EN-CA">It is also the area where there is the clearest justification for moderation. As one English commentator has suggested, there are three theoretical approaches to the problem of non-pecuniary loss (Ogus, 35 M.L.R.I). The first, the "conceptual" approach, treats each faculty as a proprietary asset with an objective value, independent of the individual's own use or enjoyment of it. This was the ancient "bot," or tariff system, which prevailed in the days of King Alfred, when a thumb was worth thirty shillings. Our law has long since thought such a solution unsubtle. The second, the "personal" approach, values the injury in terms of the loss of human happiness by the particular victim. The third, or "functional" approach,</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 262]</span></p> 
+   <p class="Para"><span lang="EN-CA">accepts the personal premise of the second, but rather than attempting to set a value on lost happiness, it attempts to assess the compensation required to provide the injured person "with reasonable solace for his misfortune." "Solace" in this sense is taken to mean physical arrangements which can make his life more endurable rather than "solace" in the sense of sympathy. To my mind, this last approach has much to commend it, as it provides a rationale as to why money is considered compensation for non-pecuniary losses such as loss of amenities, pain and suffering, and loss of expectation of life. Money is awarded because it will serve a useful function in making up for what has been lost in the only way possible, accepting that what has been lost is incapable of being replaced in any direct way. As Windeyer J. said in </span><i><span lang="EN-CA">Skelton v. </span></i><i><span lang="EN-CA">Collins, supra, </span></i><span lang="EN-CA">at p. 495:</span></p> 
+   <p class="Citation1"><span lang="EN-CA">... he is, I do not doubt, entitled to compensation for what he suffers. Money may be compensation for him if having it can give him pleasure or satisfaction.... But the money </span><span lang="EN-CA">is </span><span lang="EN-CA">not then a recompense for a loss of something having a money value. It is given as some consolation or solace for the distress that is the conse­quence of a loss on which no monetary value can be put.</span></p> 
+   <p class="Para"><span lang="EN-CA">If damages for non-pecuniary loss are viewed from a functional perspective, it is reasonable that large amounts should not be awarded once a person is properly provided for in terms of future care for his injuries and disabilities. The money for future care is to provide physical arrangements for assistance, equipment and facilities directly related to the injuries. Additional money to make life more endurable should then be seen as providing more general physical arrangements above and beyond those relating directly to the injuries. The result is a coordinated and interlocking basis for compensation, and a more rational justification for non-pecuniary loss compensation.</span></p> 
+   <p class="Para"><span lang="EN-CA">However one may view such awards in a theoretical perspective, the amounts are still large­ly arbitrary or conventional. As Denning L.J. said</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 263]</span></p> 
+   <p class="Para"><span lang="EN-CA">in <i>Ward v. James<a href="#_ftn22" name="_ftnref22" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;
+font-family:Arial">[22]</span></b></span></span></a>, </i>there is a great need in this area for assessability, uniformity and predictabili­ty. In my opinion, this does not mean that the courts should not have regard to the individual situation of the victim. On the contrary, they must do so to determine what has been lost. For exam­ple, the loss of a finger would be a greater loss of amenities for an amateur pianist than for a person not engaged in such an activity. Greater compen­sation would be required to provide things and activities which would function to make up for this loss. But there should be guidelines for the transla­tion into monetary terms of what has been lost. There must be an exchange rate, albeit conven­tional. In <i>Warren v. King, supra, </i>at p. 528, the following dictum of Harman L.J. appears, which I would adopt, in respect of the assessment of non-pecuniary loss for a living plaintiff:</span></p> 
+   <p class="Citation1"><span lang="EN-CA">It seems to me that the first element in assessing such compensation </span><span lang="EN-CA">is </span><span lang="EN-CA">not to add up items as loss of pleasures, of earnings, of marriage prospects, of children and so on, but to consider the matter from the other side, what can be done to alleviate the disaster to the victim, what will it cost to enable her to live as tolerably as may be in the circumstances.</span></p> 
+   <p class="Para"><span lang="EN-CA">Cases like the present enable the Court to estab­lish a rough upper parameter on these awards. It is difficult to conceive of a person of his age losing more than Andrews has lost. Of course, the figures must be viewed flexibly in future cases in recogni­tion of the inevitable differences in injuries, the situation of the victim, and changing economic conditions.</span></p> 
+   <p class="Para"><span lang="EN-CA">The amounts of such awards should not vary greatly from one part of the country to another. Everyone in Canada, wherever he may reside, is entitled to a more or less equal measure of com­pensation for similar non-pecuniary loss. Variation should be made for what a particular individual has lost in the way of amenities and enjoyment of life, and for what will function to make up for this</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 264]</span></p> 
+   <p class="Para"><span lang="EN-CA">loss, but variation should not be made merely for the province in which he happens to live.</span></p> 
+   <p class="Para"><span lang="EN-CA">There has been a significant increase in the size of awards under this head in recent years. As Moir J.A., of the Appellate Division of the Alberta Supreme Court, has warned: "To my mind, damages under the head of loss of amenities will go up and up until they are stabilized by the Supreme Court of Canada." <i>(Hamel v. Prather<a href="#_ftn23" name="_ftnref23" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;
+font-family:Arial">[23]</span></b></span></span></a>, </i>at p. 748.) In my opinion, this time has come.</span></p> 
+   <p class="Para"><span lang="EN-CA">It is customary to set only one figure for all non-pecuniary loss, including such factors as pain and suffering, loss of amenities, and loss of expec­tation of life. This is a sound practice. Although these elements are analytically distinct, they overlap and merge at the edges and in practice. To suffer pain is surely to lose an amenity of a happy life at that time. To lose years of one's expectation of life is to lose all amenities for the lost period, and to cause mental pain and suffering in the contemplation of this prospect. These problems, as well as the fact that these losses have the common trait of irreplaceability, [sic] favour a composite award for all non-pecuniary losses.</span></p> 
+   <p class="Para"><span lang="EN-CA">There is an extensive review of authorities in the Court of Appeal judgment in this case (reported [1976] 2 W.W.R. 385) as well as in the <i>Thornton </i>(reported [1976] 5 W.W.R. 240) and <i>Teno </i>(reported (1976), 67 D.L.R. (3d.) 9) cases to which I have referred. I need not review these past authorities. What is important is the general pic­ture. It is clear that until very recently damages for non-pecuniary losses, even from very serious injuries such as quadriplegia, were substantially below $100,000. Recently, though, the figures have increased markedly. In <i>Jackson v. Millar<a href="#_ftn24" name="_ftnref24" title=""><span class="MsoFootnoteReference"><span class="MsoFootnoteReference"><b><span lang="EN-CA" style="font-size:12.0pt;
+font-family:Arial">[24]</span></b></span></span></a>, </i>this Court affirmed a figure of $150,000 for non-pecuniary loss in an Ontario case of a paraplegic. However, this was done essentially on the principle of non-interference with awards allowed by provin­cial Courts of Appeal. The need for a general assessment with respect to damages for non‑pecuniary</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 265]</span></p> 
+   <p class="Para"><span lang="EN-CA">loss, which is now apparent, was not as evident at that time. Even in Ontario, prior to these recent cases, general damages allocable for non-pecuniary loss, such as pain and suffering and loss of amenities, were well below $100,000.</span></p> 
+   <p class="Para"><span lang="EN-CA">In the present case, $150,000 was awarded at trial, but this amount was reduced to $100,000 by the Appellate Division. In <i>Thornton </i>and <i>Teno </i>$200,000 was awarded in each case, unchanged in the provincial Courts of Appeal.</span></p> 
+   <p class="Para"><span lang="EN-CA">I would adopt as the appropriate award in the case of a young adult quadriplegic like Andrews the amount of $100,000. Save in exceptional cir­cumstances, this should be regarded as an upper limit of non-pecuniary loss in cases of this nature.</span></p> 
+   <p class="Para"><u><span lang="EN-CA">Total Award</span></u></p> 
+   <p class="Para"><span lang="EN-CA">This is largely a matter of arithmetic. Of course, in addition, it is customary for the Court to make an overall assessment of the total sum. This, however, seems to me to be a hangover from the days of global sums for all general damages. It is more appropriate to make an overall assessment of the total under each head of future care, prospective earnings, and non-pecuniary loss, in each case in light of general considerations such as the awards of other courts in similar cases and an assessment of the reasonableness of the award.</span></p> 
+   <p class="Para"><span lang="EN-CA">In the result I would assess general damages for the appellant Andrews as follows:</span></p> 
+   <table class="MsoTableGrid" border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:none"> 
+    <tbody>
+     <tr> 
+      <td width="297" valign="top" style="width:222.9pt;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">1. <u>Pecuniary Loss</u></span></p> </td> 
+      <td width="297" valign="top" style="width:222.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="297" valign="top" style="width:222.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">(a) <u>Cost of future care</u></span></p> </td> 
+      <td width="297" valign="top" style="width:222.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="297" valign="top" style="width:222.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—special equipment</span></p> </td> 
+      <td width="297" valign="top" style="width:222.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">$14,200</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="297" valign="top" style="width:222.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">—amount for monthly payments (monthly amount $4,135: life expectancy 45 years; contingencies 20%; capitalization rate 7%</span></p> </td> 
+      <td width="297" valign="top" style="width:222.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">&nbsp;</span></p> <p class="Para"><span lang="EN-CA" style="font-size:10.0pt">557,232</span></p> </td> 
+     </tr> 
+    </tbody>
+   </table> 
+   <p class="Para"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="Page"><span lang="EN-CA">[Page 266]</span></p> 
+   <table class="MsoTableGrid" border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:none"> 
+    <tbody>
+     <tr> 
+      <td width="297" valign="top" style="width:222.9pt;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA">(b) <u>Prospective loss of earnings</u></span></p> </td> 
+      <td width="297" valign="top" style="width:222.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA">&nbsp;</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="297" valign="top" style="width:222.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA">(monthly amount $564; work span 30.81 years; contingencies 20%; capitalization rate 7%)</span></p> </td> 
+      <td width="297" valign="top" style="width:222.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA">&nbsp;</span></p> <p class="Para"><span lang="EN-CA">$ 69,981</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="297" valign="top" style="width:222.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA">2. <u>Non-pecuniary Loss</u></span></p> </td> 
+      <td width="297" valign="top" style="width:222.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA">&nbsp;</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="297" valign="top" style="width:222.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA">—compensation for physical and mental pain and suffering endured and to be endured, loss of amenities and enjoyment of life, loss of expectation of life</span></p> </td> 
+      <td width="297" valign="top" style="width:222.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA">&nbsp;</span></p> <p class="Para"><span lang="EN-CA">&nbsp;</span></p> <p class="Para"><span lang="EN-CA">&nbsp;</span></p> <p class="Para"><span lang="EN-CA">100,000</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="297" valign="top" style="width:222.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA">Total General Damages</span></p> </td> 
+      <td width="297" valign="top" style="width:222.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA">$741,413</span></p> </td> 
+     </tr> 
+     <tr> 
+      <td width="297" valign="top" style="width:222.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA">Rounded off at</span></p> </td> 
+      <td width="297" valign="top" style="width:222.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt"> <p class="Para"><span lang="EN-CA">$740,000</span></p> </td> 
+     </tr> 
+    </tbody>
+   </table> 
+   <p class="Para"><span lang="EN-CA">&nbsp;</span></p> 
+   <p class="Para"><span lang="EN-CA">To arrive at the total damage award, the special damages of $77,344 must be added to give a final figure of $817,344.</span></p> 
+   <p class="Para"><span lang="EN-CA">The appellant Andrews will have judgment for seventy-five per cent of that amount, that is, $613,008.</span></p> 
+   <p class="Para"><span lang="EN-CA">The appellants should have their costs in this Court and in the trial court. The respondents should have their costs in the Court of Appeal as they achieved substantial success in that Court in respect of the finding of contributory negligence on the part of Andrews.</span></p> 
+   <p class="Disposition"><i><span lang="EN-CA">Judgment accordingly.</span></i></p> 
+   <p class="Sollicitors"><span lang="EN-CA">Solicitors for the plaintiffs, appellants.. Klingle, Cummings, Andrews &amp; Wilton, Edmonton.</span></p> 
+   <p class="Sollicitors"><span lang="EN-CA">Solicitors for the defendants, respondents: Newson, Hyde, Edmonton.</span></p> 
+  </div> 
+  <div>
+   <br clear="all"/> 
+   <hr align="left" size="1" width="33%"/> 
+   <div id="ftn1"> 
+    <p class="Para"><a href="#_ftnref1" name="_ftn1" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[1]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1976] 2 W.W.R. 385, 64 D.L.R. (3d) 663.</span></p> 
+   </div> 
+   <div id="ftn2"> 
+    <p class="Para"><a href="#_ftnref2" name="_ftn2" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[2]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1951] A.C. </span><span lang="EN-CA">601.</span></p> 
+   </div> 
+   <div id="ftn3"> 
+    <p class="MsoFootnoteText"><a href="#_ftnref3" name="_ftn3" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[3]</span></span></span></span></a><i><span lang="FR-CA"> </span></i><span lang="EN-CA">[1926] A.C. 655. </span></p> 
+   </div> 
+   <div id="ftn4"> 
+    <p class="Para"><a href="#_ftnref4" name="_ftn4" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[4]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1964] A.C. 326.</span></p> 
+   </div> 
+   <div id="ftn5"> 
+    <p class="Para"><a href="#_ftnref5" name="_ftn5" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[5]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1922] 2 A.C. 242.</span></p> 
+   </div> 
+   <div id="ftn6"> 
+    <p class="Para"><a href="#_ftnref6" name="_ftn6" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[6]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">(1880), 5 App. Cas. 25.</span></p> 
+   </div> 
+   <div id="ftn7"> 
+    <p class="Para"><a href="#_ftnref7" name="_ftn7" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[7]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1973] 3 All E.R. 463.</span></p> 
+   </div> 
+   <div id="ftn8"> 
+    <p class="Para"><a href="#_ftnref8" name="_ftn8" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[8]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1968] 1 All E.R. 726.</span></p> 
+   </div> 
+   <div id="ftn9"> 
+    <p class="Para"><a href="#_ftnref9" name="_ftn9" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[9]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1966] S.C.R. 532.</span></p> 
+   </div> 
+   <div id="ftn10"> 
+    <p class="Para"><a href="#_ftnref10" name="_ftn10" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[10]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">(1967), 62 W.W.R. 707.</span></p> 
+   </div> 
+   <div id="ftn11"> 
+    <p class="Para"><a href="#_ftnref11" name="_ftn11" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[11]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">(1965), 50 D.L.R. (2d) 385.</span></p> 
+   </div> 
+   <div id="ftn12"> 
+    <p class="MsoFootnoteText"><a href="#_ftnref12" name="_ftn12" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[12]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">(1966), 39 A.L.J.R. 480.</span></p> 
+   </div> 
+   <div id="ftn13"> 
+    <p class="MsoFootnoteText"><a href="#_ftnref13" name="_ftn13" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[13]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1962] 2 Q.B. 210.</span></p> 
+   </div> 
+   <div id="ftn14"> 
+    <p class="Para"><a href="#_ftnref14" name="_ftn14" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[14]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1973] 1 W.L.R. 540.</span></p> 
+   </div> 
+   <div id="ftn15"> 
+    <p class="MsoFootnoteText"><a href="#_ftnref15" name="_ftn15" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[15]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1963] 3 All E.R. 521.</span></p> 
+   </div> 
+   <div id="ftn16"> 
+    <p class="MsoFootnoteText"><a href="#_ftnref16" name="_ftn16" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[16]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1968] S.C.R. 589.</span></p> 
+   </div> 
+   <div id="ftn17"> 
+    <p class="Para"><a href="#_ftnref17" name="_ftn17" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[17]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">(1962), 108 C.L.R. 541.</span></p> 
+   </div> 
+   <div id="ftn18"> 
+    <p class="Para"><a href="#_ftnref18" name="_ftn18" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[18]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1970] A.C. 166.</span></p> 
+   </div> 
+   <div id="ftn19"> 
+    <p class="Para"><a href="#_ftnref19" name="_ftn19" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[19]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1968] S.C.R. v., 64 W.W.R. 768.</span></p> 
+   </div> 
+   <div id="ftn20"> 
+    <p class="Para"><a href="#_ftnref20" name="_ftn20" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[20]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1976] 2 S.C.R. 373.</span></p> 
+   </div> 
+   <div id="ftn21"> 
+    <p class="Para"><a href="#_ftnref21" name="_ftn21" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[21]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1976] 4 W.W.R. 225.</span></p> 
+   </div> 
+   <div id="ftn22"> 
+    <p class="Para"><a href="#_ftnref22" name="_ftn22" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[22]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1965] 1 All E.R. 563.</span></p> 
+   </div> 
+   <div id="ftn23"> 
+    <p class="Para"><a href="#_ftnref23" name="_ftn23" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[23]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1976] 2 W.W.R. 742.</span></p> 
+   </div> 
+   <div id="ftn24"> 
+    <p class="Para"><a href="#_ftnref24" name="_ftn24" title=""><span class="MsoFootnoteReference"><span lang="FR-CA"><span class="MsoFootnoteReference"><span lang="FR-CA" style="font-size:12.0pt;font-family:Arial">[24]</span></span></span></span></a><span lang="FR-CA"> </span><span lang="EN-CA">[1976] 1 S.C.R. 225.</span></p> 
+   </div> 
+  </div> 
+ </div>
+</div>
+<div id="lexboxAnnotationHook"></div>
+<div id="decisia-reflex2-dialog" class="decisia-content" title="Citation automatically hyperlinked by Norma">
+    <div class="decisia-box">
+        <div style="margin-bottom:10px">
+            <div><span class="icon-warning-sign">&nbsp;</span>You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.</div>
+        </div>
+        <div style="float:right">
+            <button id="decisia-reflex2-continue-button" type="button">Continue&nbsp;<span class="icon-arrow-right"></span></button>
+        </div>
+        <div style="clear:both"></div>
+        <input id="decisia-reflex2-ignore-warning" type="checkbox"/>
+        <label for="decisia-reflex2-ignore-warning">Do not display this message anymore</label>
+    </div>
+</div></div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.modalClose = "Close";
+</script>
+</body>
+
+</html>

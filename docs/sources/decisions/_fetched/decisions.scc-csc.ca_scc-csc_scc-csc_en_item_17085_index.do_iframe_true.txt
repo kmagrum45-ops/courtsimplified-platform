@@ -1,0 +1,516 @@
+ Rankin (Rankin’s Garage & Sales) v. J.J. - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Rankin (Rankin&rsquo;s Garage & Sales) v. J.J.
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Rankin (Rankin&rsquo;s Garage & Sales) v. J.J.
+ /scc-csc/scc-csc/fr/item/17085/index.do?alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Supreme Court Judgments
+Decision Information
+ Rankin (Rankin’s Garage & Sales) v. J.J.
+ Collection
+ Supreme Court Judgments
+ Date
+ 2018-05-11
+ Neutral citation
+ 2018 SCC 19
+ Report
+ [2018] 1 SCR 587
+ Case number
+ 37323
+ Judges
+ McLachlin, Beverley; Abella, Rosalie Silberman; Moldaver, Michael J.; Karakatsanis, Andromache; Wagner, Richard; Gascon, Clément; Côté, Suzanne; Brown, Russell; Rowe, Malcolm
+ On appeal from
+ Ontario
+ Notes
+ [LINK https://www.scc-csc.ca/judgments-jugements/cb/2018/37323/] Case in Brief
+[LINK https://www.scc-csc.ca/cases-dossiers/search-recherche/37323/] SCC Case Information
+ [LINK /scc-csc/scc-csc/en/17085/1/document.do] 
+Decision Content
+ SUPREME COURT OF CANADA 
+ Citation: Rankin (Rankin’s Garage & Sales) v. J.J., 2018 SCC 19, [2018] 1 S.C.R. 587 
+ Appeal Heard: October 5, 2017 Judgment Rendered: May 11, 2018 Docket: 37323 
+ Between: 
+ James Chadwick Rankin, carrying on business as Rankin’s Garage & Sales 
+ Appellant 
+ <p class="SCCLsocVersus" align="center" style="margin-bottom:0in;margin-bottom:
+.0001pt;text-align:center">and 
+ J.J. by his Litigation Guardian, J.A.J., J.A.J., A.J. and C.C. 
+ Respondents 
+ <p class="SCCLsocOtherPartySeparator" align="center" style="margin-bottom:0in;
+margin-bottom:.0001pt;text-align:center">- and - 
+ Ontario Trial Lawyers Association and Justice for Children and Youth 
+ Interveners 
+ Coram: McLachlin C.J. and Abella, Moldaver, Karakatsanis, Wagner, Gascon, Côté, Brown and Rowe JJ. 
+ Reasons for Judgment: (paras. 1 to 67) 
+ Karakatsanis J. (McLachlin C.J. and Abella, Moldaver, Wagner, Côté and Rowe JJ. concurring) 
+ Dissenting Reasons: (paras. 68 to 85) 
+ Brown J. (Gascon J. concurring) 
+ Rankin (Rankin’s Garage & Sales) v. <span style="font-variant:
+normal !important">J.J., 2018 SCC 19, [2018] 1 S.C.R. 587 
+ James Chadwick Rankin, 
+ carrying on business as Rankin’s Garage & Sales Appellant 
+ v. 
+ J.J. by his Litigation Guardian, J.A.J., 
+ J.A.J., 
+ A.J. and 
+ C.C. Respondents 
+ and 
+ Ontario Trial Lawyers Association and 
+ Justice for Children and Youth Interveners 
+ Indexed as: Rankin (Rankin’s Garage & Sales) v. J.J. 
+ 2018 SCC 19 
+ File No.: 37323. 
+ 2017: October 5; 2018: May 11. 
+ Present: McLachlin C.J. and Abella, Moldaver, Karakatsanis, Wagner, Gascon, Côté, Brown and Rowe JJ. 
+ on appeal from the court of appeal for ontario 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Torts — Negligence — Duty of Care — Foreseeability — Personal injury — Motor vehicles — Teenagers stealing vehicle from commercial garage and joyriding — Vehicle crashing causing serious injury to passenger — Whether business owes duty of care to injured passenger — Whether risk of personal injury reasonably foreseeable — Whether business had positive duty to guard against risk of theft by minors — Whether illegal conduct could sever any proximity between parties or negate prima facie duty of care — Whether lower courts erred in recognizing duty of care. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> J and his friend C, both then minors, were at the house of C’s mother drinking alcohol and smoking marijuana. Sometime after midnight, they left the house to walk around town, with the intention of stealing valuables from unlocked cars. Eventually they made their way to R (a commercial car garage) located near the main intersection. The garage property was not secured, and the boys began walking around the lot checking for unlocked cars. C found an unlocked car parked behind the garage. He opened it and found its keys in the ashtray. Though he did not have a driver’s licence and had never driven a car on the road before, C decided to steal the car so that he could go and pick up a friend in a nearby town. C told J to “get in”, which he did. C drove the car out of the garage and on the highway where the car crashed. J suffered a catastrophic brain injury. Through his litigation guardian, J sued R, C and C’s mother for negligence. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> At trial, it was held that R owed a duty of care to J. The jury found that all parties had been negligent and made the following apportionment of liability: R’s garage, 37 percent liable; C, 23 percent liable; C’s mother, 30 percent liable; and J, 10 percent liable. The Ontario Court of Appeal upheld the trial judge’s finding that R owed a duty of care to J and dismissed the appeal. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> The only issue in this appeal is whether R owed J a duty of care. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Held (Gascon and Brown JJ. dissenting): The appeal should be allowed and the claim against R dismissed. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Per McLachlin C.J. and Abella, Moldaver, Karakatsanis, Wagner, Côté and Rowe JJ.: This case can be resolved based on a straightforward application of existing tort law principles. J did not provide sufficient evidence to support the establishment of a duty of care owed by R. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> There is no clear guidance in Canadian case law on whether a business owes a duty of care to someone who is injured following the theft of a vehicle from its premises. Therefore, an Anns/Cooper analysis will be conducted in this case. To establish a duty of care, there must be a relationship of proximity in which the failure to take reasonable care might foreseeably cause loss or harm to the plaintiff. Once foreseeability and proximity are made out, a prima facie duty of care is established. Whether or not something is “reasonably foreseeable” is an objective test. The question is properly focussed on whether foreseeability was present prior to the incident occurring and not with the aid of 20/20 hindsight. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Here, it is not enough to determine simply whether the theft of the vehicle was reasonably foreseeable. The proper question to be asked is whether the type of harm suffered — personal injury — was reasonably foreseeable to someone in the position of R when considering the security of the vehicles stored at the garage. The evidence could establish, as the jury found, that R ought to have known of the risk of theft. However, physical injury is only foreseeable when there is something in the facts to suggest that there is not only a risk of theft, but a risk that the stolen vehicle might be operated in a dangerous manner. To find a duty of care, there must be some circumstance or evidence to suggest that a person in the position of R ought to have reasonably foreseen the risk of injury — that the stolen vehicle could be operated unsafely. In the circumstances of this case, the courts below relied upon the risk of theft by minors (who could well be inexperienced or reckless drivers) to connect the failure to secure the vehicles with the nature of the harm suffered, personal injury. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> The risk of theft in general does not automatically include the risk of theft by minors. Some evidentiary basis is required before a court can conclude that the risk of theft includes the risk of theft by minors. Here, there was insufficient evidence to suggest that minors would frequent the premises at night, or be involved in joyriding or theft. Aside from evidence that could establish a risk of theft in general, there was nothing else in this case to connect the risk of theft of the car to the risk of someone being physically injured. Thus, the evidence did not provide specific circumstances to make it reasonably foreseeable that the stolen car might be driven in a way that would cause personal injury. The burden of establishing a prima facie duty of care owed by R has not been met. Reasonable foreseeability could not be established on this record. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Further, R, as a commercial garage, did not have a positive duty to guard against the risk of theft by minors. The fact that J was a minor does not automatically create an obligation to act. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> It is not necessary to consider whether illegal conduct could sever the proximate relationship between the parties or negate a prima facie duty of care. However, the notion that illegal or immoral conduct by a plaintiff precludes the existence of a duty of care has consistently been rejected by the Court. Whether the personal injury caused by unsafe driving of the stolen car is suffered by the thief or a third party makes no analytical difference to the duty of care analysis. Both are reasonably foreseeable when circumstances connect the theft of the car to the unsafe operation of the stolen vehicle. While illegality can operate as a defence to a tort action in limited circumstances when it is necessary to preserve the integrity of the legal system, this concern does not arise in the circumstances of this case. Plaintiff wrongdoing is integrated into the analysis through contributory negligence, as occurred here. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> J has not met the burden of establishing a prima facie duty of care owed by R. Reasonable foreseeability could not be established on this record. A business will only owe a duty to someone who is injured following the theft of a vehicle when, in addition to theft, the unsafe operation of the stolen vehicle was reasonably foreseeable. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Per Gascon and Brown JJ. (dissenting): The trial judge’s finding that R owed a duty of care to J should be upheld and the appeal should be dismissed. The relationship between R and J falls within a category of relationships in which a duty of care has been previously found to exist. This case does not require the Court to undertake a full analysis to establish a novel duty of care. It involves the application of a category of relationships that has long been recognized as imposing a duty of care — namely, where the defendant’s act foreseeably causes physical harm to the plaintiff. Physical injury to J was a reasonably foreseeable consequence of R’s negligence. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> The reasonable foreseeability inquiry is objective (that is, into what reasonably ought to have been foreseen), and it must be undertaken from the standpoint of a reasonable person. Whether, therefore, the defendant actually foresaw the risk which ultimately manifested in injury to the plaintiff is not determinative. Reasonable foreseeability represents a low threshold and is usually quite easy to overcome. A plaintiff must merely provide evidence to persuade the court that the risk of the type of damage that occurred was reasonably foreseeable to the class of plaintiff that was damaged. In this case, both the trial judge and the Court of Appeal held that it was reasonably foreseeable that an individual such as J could suffer physical injury as a consequence of R’s negligence in the locking, securing and storing of vehicles. The majority concedes that the risk of theft was reasonably foreseeable but would have required additional evidence that theft would have occurred at the hands of a minor in order to find that physical injury to J was foreseeable. Even were J required to show that theft by a minor must have been reasonably foreseen in order to support the trial judge’s finding, J has satisfied that burden. Minors are no less likely to steal a car than any other individual. In order to establish a duty of care, however, J was not required to show that the characteristics of the particular thief who stole the vehicle or the way in which the injury occurred were foreseeable. Imposition of a duty of care was conditioned in this case only upon J showing that physical injury to him was reasonably foreseeable under any circumstances flowing from R’s negligence. It was open to the trial judge to conclude that R’s negligence in leaving unattended vehicles unlocked with keys inside overnight could have led to reasonably foreseeable physical injury. There is no palpable and overriding error in these findings and, therefore, they should not be interfered with. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> The trial judge’s finding of reasonably foreseeable physical injury is sufficient to bring the circumstances of this case within a category of relationships which has already been found to support a duty of care. As a matter of law, proximity is thereby established, and it is unnecessary to proceed to the second stage of the Anns/Cooper framework. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in">Cases Cited 
+ By Karakatsanis J. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Applied: Anns v. Merton London Borough Council, [1978] A.C. 728; Cooper v. Hobart, 2001 SCC 79, [2001] 3 S.C.R. 537; distinguished: Holian v. United Grain Growers Ltd. (1980), 112 D.L.R. (3d) 611, rev’d (1980), 114 D.L.R. (3d) 449; considered: Kalogeropoulos v. Ottawa (City) (1996), 35 M.P.L.R. (2d) 287; Cairns v. General Accident Assurance Co. of Canada, [1992] O.J. No. 1432 (QL); Provost v. Bolton, 2017 BCSC 1608, 100 B.C.L.R. (5th) 362; referred to: Donoghue v. Stevenson, [1932] A.C. 562; Stewart v. Pettie, [1995] 1 S.C.R. 131; Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, [2008] 2 S.C.R. 114; Deloitte & Touche v. Livent Inc. (Receiver of), 2017 SCC 63, [2017] 2 S.C.R. 855; R. v. Imperial Tobacco Canada Ltd., 2011 SCC 42, [2011] 3 S.C.R. 45; Childs v. Desormeaux, 2006 SCC 18, [2006] 1 S.C.R. 643; Galaske v. O’Donnell, [1994] 1 S.C.R. 670; Hercules Managements Ltd. v. Ernst & Young, [1997] 2 S.C.R. 165; Hollett v. Coca‑Cola Ltd. (1980), 37 N.S.R. (2d) 695; Tong v. Bedwell, 2002 ABQB 213, 311 A.R. 174; Moore v. Fanning (1987), 60 O.R. (2d) 225; Werbeniuk v. Maynard (1994), 93 Man. R. (2d) 318; Norgard v. Asuchak, [1984] A.J. No. 394 (QL); Hill v. Hamilton‑Wentworth Regional Police Services Board, 2007 SCC 41, [2007] 3 S.C.R. 129; Canada (Attorney General) v. LaFlamme, [1983] 3 W.W.R. 350; Aldus v. Belair (1992), 41 M.V.R. (2d) 129; Campiou Estate v. Gladue, 2002 ABQB 1037, 332 A.R. 109; Canadian Pacific Ltd. v. Swift Current No. 137 (Rural Municipality) (1991), 88 Sask. R. 281, aff’d (1992), 109 Sask. R. 33; Arnold v. Teno, [1978] 2 S.C.R. 287; Jordan House Ltd. v. Menow, [1974] S.C.R. 239; Myers v. Peel County Board of Education, [1981] 2 S.C.R. 21; K.L.B. v. British Columbia, 2003 SCC 51, [2003] 2 S.C.R. 403; Hall v. Hebert, [1993] 2 S.C.R. 159; British Columbia v. Zastowny, 2008 SCC 4, [2008] 1 S.C.R. 27. 
+ By Brown J. (dissenting) 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Anns v. Merton London Borough Council, [1978] A.C. 728; Cooper v. Hobart, 2001 SCC 79, [2001] 3 S.C.R. 537; Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, [2008] 2 S.C.R. 114; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543; Deloitte & Touche v. Livent Inc. (Receiver of), 2017 SCC 63, [2017] 2 S.C.R. 855; Edwards v. Law Society of Upper Canada, 2001 SCC 80, [2001] 3 S.C.R. 562; Childs v. Desormeaux, 2006 SCC 18, [2006] 1 S.C.R. 643; Donoghue v. Stevenson, [1932] A.C. 562; Hill v. Hamilton‑Wentworth Regional Police Services Board, 2007 SCC 41, [2007] 3 S.C.R. 129; Fullowka v. Pinkerton’s of Canada Ltd., 2010 SCC 5, [2010] 1 S.C.R. 132; Hercules Managements Ltd. v. Ernst & Young, [1997] 2 S.C.R. 165. 
+ Statutes and Regulations Cited 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Occupiers’ Liability Act, R.S.O. 1990, c. O.2, s. 4(1), (2). 
+ Authors Cited 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Clerk & Lindsell on Torts, 21st ed. by Michael A. Jones. London: Sweet & Maxwell, 2014. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Klar, Lewis N., and Cameron S. G. Jefferies. Tort Law, 6th ed. Toronto: Thomson Reuters, 2017. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Linden, Allen M., and Bruce Feldthusen. Canadian Tort Law, 10th ed. Toronto: LexisNexis, 2015. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Osborne, Philip H. The Law of Torts, 5th ed. Toronto: Irwin Law, 2015. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Owen, David G. “Figuring Foreseeability” (2009), 44 Wake Forest L. Rev. 1277. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Perry, Stephen R. “Protected Interests and Undertakings in the Law of Negligence” (1992), 42 U.T.L.J. 247. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Weinrib, Ernest J. “The Disintegration of Duty” (2006), 31 Adv. Q. 212. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Weinrib, Ernest J. “The Disintegration of Duty”, in M. Stuart Madden, ed., Exploring Tort Law. New York: Cambridge University Press, 2005, 143. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> APPEAL from a judgment of the Ontario Court of Appeal (Strathy C.J. and Brown and Huscroft JJ.A.), 2016 ONCA 718, 403 D.L.R. (4th) 408, 32 C.C.L.T. (4th) 245, [2016] O.J. No. 5082 (QL), 2016 CarswellOnt 15069 (WL Can.), affirming a judgment of Morissette J., sitting with a jury, dated September 25, 2014, on the issue of the duty of care, and the jury verdict on the issue of liability. Appeal allowed, Gascon and Brown JJ. dissenting. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> David S. Young, Kevin R. Bridel, Cory Giordano and Marie‑France Major, for the appellant. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Maia Bent, Cynthia B. Kuehl and Alfonso E. Campos Reales, for the respondents J.J. by his Litigation Guardian, J.A.J., J.A.J. and A.J. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Jennifer Chapman and John Friendly, for the respondent C.C. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Gavin MacKenzie and Brooke MacKenzie, for the intervener the Ontario Trial Lawyers Association. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Bryn E. Gray, Mary Birdsell and Carole Piovesan, for the intervener Justice for Children and Youth. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> The judgment of McLachlin C.J. and Abella, Moldaver, Karakatsanis, Wagner, Côté and Rowe JJ. was delivered by 
+ [1] Karakatsanis J. — A vehicle is stolen from a commercial garage. The vehicle is crashed. Someone is injured. Does the business owe a duty of care to the injured party? The question in this appeal is whether the courts below erred in recognizing a duty of care owed by a business that stores vehicles to someone who is injured following the theft of a vehicle. 
+ [2] In my view, this case is easily resolved based on a straightforward application of existing tort law principles. This requires analytical rigour and a proper evidentiary basis. The plaintiff did not provide sufficient evidence to support the establishment of a duty of care in these circumstances. While the risk of theft was reasonably foreseeable, the evidence did not establish that it was foreseeable that someone could be injured by the stolen vehicle. Here, there was no evidence to support the inference that the stolen vehicle might be operated in an unsafe manner, causing injury. When considering the security of the automobiles stored at the garage, there was no reason upon this record for someone in the position of the defendant garage owner to foresee the risk of injury. I would allow the appeal. A business will only owe a duty to someone who is injured following the theft of a vehicle when, in addition to theft, the unsafe operation of the stolen vehicle was reasonably foreseeable. 
+ <span style="text-decoration:
+none">I. Background 
+ A. Facts 
+ [3] This case emerges from a tragic set of events. On an evening in July 2006, in the small village of Paisley, Ontario, the plaintiff J. (then 15 years old) and his friend C. (then 16 years old) were at the house of C.’s mother. The boys drank alcohol (some of which was provided by the mother) and smoked marijuana. 
+ [4] Sometime after midnight, the boys left the house to walk around Paisley, with the intention of stealing valuables from unlocked cars. Eventually they made their way to Rankin’s Garage & Sales, a car garage located near the main intersection in Paisley that was owned by James Chadwick Rankin. The garage property was not secured, and the boys began walking around the lot checking for unlocked cars. C. found an unlocked Toyota Camry parked behind the garage. He opened the Camry and found its keys in the ashtray. Though he did not have a driver’s licence and had never driven a car on the road before, C. decided to steal the car so that he could go and pick up a friend in nearby Walkerton, Ontario. C. told J. to “get in”, which he did. 
+ [5] The 16-year-old C. drove the car out of the garage and around Paisley before starting toward Walkerton. On the highway, the car crashed. J. suffered a catastrophic brain injury. 
+ [6] Through his litigation guardian, J. sued Rankin’s Garage, his friend C. and his friend’s mother for negligence. The issue in this appeal is whether Rankin’s Garage owed the plaintiff a duty of care. 
+ B. Judicial History 
+ [7] At trial, Morissette J. held that Rankin’s Garage owed a duty of care to the plaintiff: Ontario Superior Court of Justice, September 25, 2014. The trial judge concluded that previous cases had already established the existence of this duty. She nonetheless conducted an analysis to determine whether the duty should be recognized. The trial judge held that the risk of harm to J. was reasonably foreseeable. She based this ruling, in part, on the fact that Mr. Rankin knew he had an obligation to secure his vehicles on his property, and that “[i]t certainly ought to be foreseeable that injury could occur if a vehicle were used by inebriated teenagers”. The trial judge further held there were no policy reasons to negate the duty of care. 
+ [8] The jury found that all parties (including J. himself) had been negligent and made the following apportionment of liability: Rankin’s Garage, 37 percent liable; the friend (C.), 23 percent liable; C.’s mother, 30 percent liable; and the plaintiff (J.), 10 percent liable. With respect to Rankin’s Garage, the jury set out the particulars of the negligence finding as follows: 
+ - Left car unlocked; 
+ - Key in it; 
+ - Knew or ought to have known the potential risk of theft; 
+ - Very little security; and 
+ - Testimony inconsistencies. 
+ [9] The Ontario Court of Appeal upheld the trial judge’s holding that Rankin’s Garage owed a duty of care to the plaintiff. Writing for the court, Huscroft J.A. held that the trial judge erred in concluding that a duty of care had already been recognized. The Court of Appeal therefore conducted a full duty of care analysis, following the test laid out in Anns v. Merton London Borough Council, [1978] A.C. 728, as affirmed and explained in Cooper v. Hobart, 2001 SCC 79, [2001] 3 S.C.R. 537 (Anns/Cooper test). 
+ [10] The Court of Appeal concluded that there was sufficient foreseeability of harm and proximity between the parties to impose a duty of care. There was “ample evidence to support the conclusion of foreseeability in this case”: 2016 ONCA 718, 403 D.L.R. (4th) 408, at para. 39. The court reasoned that Rankin’s Garage “had care and control of many vehicles for commercial purposes”; with that “comes the responsibility of securing them against minors, in whose hands they are potentially dangerous” (para. 57). As such, the court concluded that “it is fair and just to impose a duty of care in these circumstances” (para. 59). 
+ [11] Moving to the second stage of the Anns/Cooper test, Huscroft J.A. concluded there were no residual policy considerations that negated the prima facie duty of care (para. 73). The law does not already provide a remedy in this case (para. 63); the recognition of a duty in these circumstances would not create the spectre of unlimited liability (para. 65); and there are no other policy considerations (such as the illegality of the plaintiff’s conduct) that negated the duty (paras. 68-73). 
+ [12] The Court of Appeal dismissed the appeal. 
+ <span style="text-decoration:
+none">II. Issues 
+ [13] Before this Court, Rankin’s Garage submits that it was not reasonably foreseeable that an individual would steal a car from the garage and operate it in an unsafe manner. In any event, J.’s illegal conduct would sever any proximate relationship between the parties or operate as a residual policy basis upon which to negate a duty of care. 
+ [14] In response, J. argues that the foreseeability component of the Anns/Cooper test does not impose a high threshold and it is a matter of common sense that vehicle theft is carried out by inexperienced youth. Further, Rankin’s Garage had a positive duty to guard against the risk of theft because it was storing goods that are potentially dangerous in the hands of minors. Rankin’s Garage had a special duty to protect minors who might steal a car and suffer injuries in a subsequent accident. 
+ [15] This appeal raises the issue of whether a duty of care exists in these circumstances: 
+ <p class="Title2LevelTitre2Niveau" style="margin-left:38.15pt;text-indent:-38.15pt;
+line-height:200%">A. Was the risk of personal injury reasonably foreseeable in this case? 
+ <p class="Title2LevelTitre2Niveau" style="margin-left:38.15pt;text-indent:-38.15pt;
+line-height:200%">B. Did the commercial garage have a positive duty to guard against the risk of theft by minors? 
+ <p class="Title2LevelTitre2Niveau" style="margin-left:38.15pt;text-indent:-38.15pt;
+line-height:200%">C. Could illegal conduct sever any proximity between the parties or negate a prima facie duty of care? 
+ <span style="text-decoration:
+none">III. The Anns/Cooper Test 
+ [16] Perhaps the most famous negligence case in history also occurred in a town called Paisley — Paisley, Scotland. That decision, Donoghue v. Stevenson, [1932] A.C. 562 (H.L.), revolutionized tort law by defining a principled approach to the development of the tort of negligence. Lord Atkin’s famous achievement in this regard was his articulation of the “neighbour principle”, under which parties owe a duty of care to those whom they ought reasonably to have in contemplation as being at risk when they act: Stewart v. Pettie, [1995] 1 S.C.R. 131, at para. 25. 
+ [17] The modern law of negligence remains based on the foundations set out in Donoghue. It is still the case today that “[t]he law takes no cognizance of carelessness in the abstract”: Donoghue, at p. 618, per Lord Macmillan. Unless a duty of care is found, no liability will follow. Similarly, the neighbour principle continues to animate the Anns/Cooper test that Canadian courts use to determine whether a duty of care exists. 
+ [18] It is not necessary to conduct a full Anns/Cooper analysis if a previous case has already established that the duty of care in question (or an analogous duty) exists: Cooper, at para. 36; Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, [2008] 2 S.C.R. 114, at paras. 5-6; Deloitte & Touche v. Livent Inc. (Receiver of), 2017 SCC 63, [2017] 2 S.C.R. 855, at para. 26. If it is necessary to determine whether a novel duty exists, the first stage of the Anns/Cooper test asks whether there is a relationship of proximity in which the failure to take reasonable care might foreseeably cause loss or harm to the plaintiff: R. v. Imperial Tobacco Canada Ltd., 2011 SCC 42, [2011] 3 S.C.R. 45, at para. 39; see also Childs v. Desormeaux, 2006 SCC 18, [2006] 1 S.C.R. 643, at para. 12; Cooper, at para. 30. Once foreseeability and proximity are made out, a prima facie duty of care is established. 
+ [19] Whether or not a duty of care exists is a question of law and I proceed on that basis: Galaske v. O’Donnell, [1994] 1 S.C.R. 670, at p. 690. The plaintiff bears the legal burden of establishing a cause of action, and thus the existence of a prima facie duty of care: Childs, at para. 13. In order to meet this burden, the plaintiff must provide a sufficient factual basis to establish that the harm was a reasonably foreseeable consequence of the defendant’s conduct in the context of a proximate relationship. In the absence of such evidence, the claim may fail: see, e.g., Childs, at para. 30. 
+ [20] Once the plaintiff has demonstrated that a prima facie duty of care exists, the evidentiary burden then shifts to the defendant to establish that there are residual policy reasons why this duty should not be recognized: Childs, at para. 13; Imperial Tobacco, at para. 39. 
+ Reasonable Foreseeability and Proximity 
+ [21] Since Donoghue, the “neighbour principle” has been the cornerstone of the law of negligence. Lord Atkin’s famous quote respecting how far a legal neighbourhood extends incorporates the dual concerns of reasonable foreseeability of harm and proximity: 
+ The rule that you are to love your neighbour becomes in law, you must not injure your neighbour; and the lawyer’s question, Who is my neighbour? receives a restricted reply. You must take reasonable care to avoid acts or omissions which you can reasonably foresee would be likely to injure your neighbour. Who, then, in law is my neighbour? The answer seems to be — persons who are so closely and directly affected by my act that I ought reasonably to have them in contemplation as being so affected when I am directing my mind to the acts or omissions which are called in question. [p. 580] 
+ Reasonable foreseeability of harm and proximity operate as crucial limiting principles in the law of negligence. They ensure that liability will only be found when the defendant ought reasonably to have contemplated the type of harm the plaintiff suffered. 
+ [22] The rationale underlying this approach is self-evident. It would simply not be just to impose liability in cases where there was no reason for defendants to have contemplated that their conduct could result in the harm complained of. Through the neighbour principle, the defendant, as creator of an unreasonable risk, is connected to the plaintiff, the party whose endangerment made the risk unreasonable: E. J. Weinrib, “The Disintegration of Duty”, in M. S. Madden, ed., Exploring Tort Law (2005), 143, at p. 151. The wrongdoing relates to the harm caused. Thus, foreseeability operates as the “fundamental moral glue of tort”, shaping the legal obligations we owe to one another, and defining the boundaries of our individual liability: D. G. Owen, “Figuring Foreseeability” (2009), 44 Wake Forest L. Rev. 1277, at p. 1278. 
+ [23] In addition to foreseeability of harm, proximity between the parties is also required: Cooper, at para. 31. The proximity analysis determines whether the parties are sufficiently “close and direct” such that the defendant is under an obligation to be mindful of the plaintiff’s interests: Cooper, at para. 32; Hercules Managements Ltd. v. Ernst & Young, [1997] 2 S.C.R. 165, at para. 24. This is what makes it just and fair to impose a duty: Cooper, at para. 34. The proximity inquiry considers the “expectations, representations, reliance, and the property or other interests involved” as between the parties: Cooper, at para. 34. In cases of personal injury, when there is no relationship between the parties, proximity will often (though not always) be established solely on the basis of reasonable foreseeability: see Childs, at para. 31. 
+ [24] When determining whether reasonable foreseeability is established, the proper question to ask is whether the plaintiff has “offer[ed] facts to persuade the court that the risk of the type of damage that occurred was reasonably foreseeable to the class of plaintiff that was damaged”: A. M. Linden and B. Feldthusen, Canadian Tort Law (10th ed. 2015), at p. 322 (emphasis added). This approach ensures that the inquiry considers both the defendant who committed the act as well as the plaintiff, whose harm allegedly makes the act wrongful. As Professor Weinrib notes, the duty of care analysis is a search for the connection between the wrong and the injury suffered by the plaintiff: p. 150; see also Anns, at pp. 751-52; Childs, at para. 25. 
+ [25] The facts of this case highlight the importance of framing the question of whether harm is foreseeable with sufficient analytical rigour to connect the failure to take care to the type of harm caused to persons in the plaintiff’s situation. Here, the claim is brought by an individual who was physically injured following the theft of the car from Rankin’s Garage. The foreseeability question must therefore be framed in a way that links the impugned act (leaving the vehicle unsecured) to the harm suffered by the plaintiff (physical injury). 
+ [26] Thus, in this context, it is not enough to determine simply whether the theft of the vehicle was reasonably foreseeable. The claim is not brought by the owner of the car for the loss of the property interest in the car; if that were the case, a risk of theft in general would suffice. Characterizing the nature of the risk-taking as the risk of theft does not illuminate why the impugned act is wrongful in this case since creating a risk of theft would not necessarily expose the plaintiff to a risk of physical injury. Instead, further evidence is needed to create a connection between the theft and the unsafe operation of the stolen vehicle. The proper question to be asked in this context is whether the type of harm suffered — personal injury — was reasonably foreseeable to someone in the position of the defendant when considering the security of the vehicles stored at the garage. 
+ <span style="text-decoration:
+none">IV. Analysis 
+ [27] There is no clear guidance in Canadian case law on whether a business owes a duty of care to someone who is injured following the theft of a vehicle from its premises. The lower court jurisprudence is divided and there is no consensus: see, e.g., Hollett v. Coca-Cola Ltd. (1980), 37 N.S.R. (2d) 695 (S.C.T.D.); Tong v. Bedwell, 2002 ABQB 213, 311 A.R. 174; Moore v. Fanning (1987), 60 O.R. (2d) 225 (H.C.J.); Werbeniuk v. Maynard (1994), 93 Man. R. (2d) 318 (Q.B.); and Norgard v. Asuchak, [1984] A.J. No. 394 (QL) (Q.B.); but see Kalogeropoulos v. Ottawa (City) (1996), 35 M.P.L.R. (2d) 287 (Ont. C.J. (Gen. Div.)); Cairns v. General Accident Assurance Co. of Canada, [1992] O.J. No. 1432 (QL) (Gen. Div.); and Provost v. Bolton, 2017 BCSC 1608, 100 B.C.L.R. (5th) 362. The courts below disagreed on whether a duty had been established in the jurisprudence, but both conducted an Anns/Cooper analysis. This Court has never addressed the issue. Like the courts below, I turn to the Anns/Cooper analysis. 
+ [28] I cannot agree with my colleague’s position that this case is captured by a broad category defined simply as foreseeable physical injury: see Cooper; Childs. Such an approach would be contrary to recent guidance from this Court that categories should be framed narrowly (see Deloitte, at para. 28); indeed, even in Deloitte, the “broad” categories discussed were narrower than foreseeable physical injury (e.g. the duty of care owed by a motorist to other users of the highway; the duty of care owed by a doctor to a patient) (see para. 27). Moreover, in a case like this, applying such a broad category would ignore any distinction between a business and a residential defendant that may be relevant to proximity and/or policy considerations. The application of my colleague’s proposed category to the facts in this case would signal an expansion of that category in a manner that would subsume many of the categories recognized in tort law, rendering them redundant in cases of physical injury (e.g. the duty of a motorist to users of the highway (Hill v. Hamilton-Wentworth Regional Police Services Board, 2007 SCC 41, [2007] 3 S.C.R. 129, at para. 25); the duty of a manufacturer to consumers (Mustapha, at para. 6)). Neither the courts below nor the parties articulated the issue in this case so broadly. Finally, foreseeability of injury is built into the category that my colleague identifies — and, as discussed below, foreseeability of injury is not present in the instant case. 
+ A. Was the Risk of Personal Injury Reasonably Foreseeable in This Case? 
+ [29] The trial judge, in brief oral reasons on foreseeability, found that “Mr. Chad Rankin knew he had an obligation to secure his vehicles on his property”. She went on to note that “[i]t certainly ought to be foreseeable that injury could occur if a vehicle were used by inebriated teenagers”. 
+ [30] The Court of Appeal conducted a more robust analysis on this point, and found that there was “ample evidence to support the conclusion of foreseeability in this case”. However, its analysis of the evidence was related only to the risk of theft in general. 
+ [31] The Court of Appeal noted that Rankin’s Garage was a commercial establishment with care and control of many vehicles on an ongoing basis and that several witnesses testified that Rankin’s Garage had a practice of leaving cars unlocked with keys in them. In addition, it relied upon evidence of two witnesses respecting a prior history of vehicle theft from Rankin’s Garage and the area in general. C.’s older sister testified that between 9 and 11 years prior to this incident, she witnessed a stolen vehicle being returned to Rankin’s Garage sometime after midnight, and overheard unknown individuals discussing how they had taken the vehicle to McDonald’s. 
+ [32] In addition, a police officer gave evidence that vehicle theft and/or mischief — people rummaging through vehicles — was a common occurrence in the detachment area prior to this incident occurring. He further testified that local detachments would place articles in newspapers and use radio advertising to remind people to lock their vehicles. In 2007 — after the accident occurred — a “Lock It or Lose It” program was established. Through this program, auxiliary police members would check to see if vehicles were locked and notify owners if they were not. 
+ [33] All the evidence respecting the practices of Rankin’s Garage or the history of theft in the area, such as it was, concerns the risk of theft. The evidence did not suggest that a vehicle, if stolen, would be operated in an unsafe manner. This evidence did not address the risk of theft by a minor, or the risk of theft leading to an accident causing personal injury. Indeed, the jury noted that it found liability based on the foreseeability of theft. 
+ [34] I accept that the evidence could establish, as the jury found, that the defendant ought to have known of the risk of theft. However, it does not automatically flow from evidence of the risk of theft in general that a garage owner should have considered the risk of physical injury. I do not accept that anyone that leaves a vehicle unlocked with the keys in it should always reasonably anticipate that someone could be injured if the vehicle were stolen. This would extend tort liability too far. Physical injury is only foreseeable when there is something in the facts to suggest that there is not only a risk of theft, but that the stolen vehicle might be operated in a dangerous manner. 
+ [35] This approach is consistent with the weight of lower court jurisprudence. In most of the cases we were referred to and which were cited by the courts below, the courts concluded that subsequent harm (to a third party) was not reasonably foreseeable. The rationale is often that while theft may have been foreseeable, injury, loss, and damage arising from the subsequent negligent operation of the motor vehicle was not: see, e.g., Hollett; Tong; Moore; Werbeniuk; and Norgard. See also Canada (Attorney General) v. LaFlamme, [1983] 3 W.W.R. 350 (B.C. Co. Ct.); Aldus v. Belair (1992), 41 M.V.R. (2d) 129 (Ont. C.J. (Gen. Div.)); Campiou Estate v. Gladue, 2002 ABQB 1037, 332 A.R. 109; and Canadian Pacific Ltd. v. Swift Current No. 137 (Rural Municipality) (1991), 88 Sask. R. 281 (Q.B.), aff’d (1992), 109 Sask. R. 33 (C.A.). 
+ [36] We were referred to only three trial court decisions where the subsequent injury to a third party was found to be foreseeable: Kalogeropoulos (relied on by the trial judge); Cairns; and Provost. 
+ [37] In Kalogeropoulos, a defendant left a vehicle running in an area with bars nearby just after closing time (paras. 50-52). A man returning from an evening of drinking stole the vehicle. The defendant’s colleagues chased the thief and the stolen vehicle was crashed into a taxi cab. 
+ [38] In Cairns, a group of high school students stole the keys for six cars from a car dealership and returned to the car dealership a few days later to steal two cars in broad daylight. One of the youth, who had never driven before, drove through a red light and struck and killed a pedestrian. The trial judge found as a fact that the dealership was aware that young people without driving experience were the most likely perpetrators of the theft of the keys (p. 4). In these circumstances, it was foreseeable that they would return to steal the cars. This connected the risk of theft to a risk of harm from an inexperienced driver fleeing the scene of the theft. 
+ [39] In Provost, a duty of care on the part of an automobile dealership was found based on the Court of Appeal’s decision in the present case. Provost concerned the theft of a truck left running for 40 minutes in public view in an open area frequented by many. The accident occurred while fleeing the scene of the crime. Without determining whether this evidence was sufficient to establish a duty of care, I note that there was specific evidence led about the risk of erratic driving that flows from fleeing the police in a stolen vehicle (paras. 142-45). 
+ [40] In each of these cases, there was something in the factual matrix that could connect the theft and the subsequent unsafe driving of the stolen car and thus make personal injury foreseeable. 
+ [41] I agree with the weight of the case law that the risk of theft does not automatically include the risk of injury from the subsequent operation of the stolen vehicle. It is a step removed. To find a duty, there must be some circumstance or evidence to suggest that a person in the position of the defendant ought to have reasonably foreseen the risk of injury — that the stolen vehicle could be operated unsafely. That evidence need not be related to the characteristics of the particular thief who stole the vehicle or the way in which the injury occurred, but the court must determine whether reasonable foreseeability of the risk of injury was established on the evidence before it. 
+ [42] In the circumstances of this case, the courts below relied upon the risk of theft by minors (who could well be inexperienced or reckless drivers) to connect the failure to secure the vehicles with the nature of the harm suffered, personal injury. 
+ [43] Despite the fact that all of the evidence went to the risk of theft in general, the Court of Appeal nonetheless found the harm in this case — personal injury — to be reasonably foreseeable. In doing so, the court relied on a number of assumptions. It reasoned that because the business stored many vehicles, it had a responsibility to secure them against minors, in whose hands they are potentially dangerous. It accepted that a general risk of theft includes a risk of theft by minors (paras. 53 and 57); storing the cars created an “inviting target” for theft and joyriding by minors (para. 68); and that minors might harm themselves in joyriding, especially if they are impaired by alcohol or drugs (para. 53). Thus, the Court of Appeal determined that the garage “should have had minors . . . in mind when [it] considered security measures” (para. 56). 
+ [44] The Court of Appeal summarized its decision on foreseeability as follows: 
+ In summary, Rankin’s Garage was easily accessible by anyone. There was no evidence of any security measures designed to keep people off the property when the business was not open. Cars were left unlocked with the keys in them. The risk of theft was clear. 
+ In these circumstances, it was foreseeable that minors might take a car from Rankin’s Garage that was made easily available to them. Evidence that a vehicle had been stolen from Rankin’s Garage years earlier for joyriding, and that vehicle theft and mischief were common occurrences in the area, reinforces this conclusion. It is a matter of common sense that minors might harm themselves in joyriding, especially if they are impaired by alcohol or drugs. [paras. 52-53] 
+ [45] However, the risk of theft in general does not automatically include the risk of theft by minors. I cannot agree with my colleague’s suggestion that because minors are reckless, “minors are no less likely to steal a car than any other individual” and therefore, theft by a minor is reasonably foreseeable (para. 83). The inferential chain of reasoning is too weak — it is not enough to say that it is possible that unsupervised minors would be roaming the lot looking for unlocked vehicles. 
+ [46] The fact that something is possible does not mean that it is reasonably foreseeable. Obviously, any harm that has occurred was by definition possible. Thus, for harm to be reasonably foreseeable, a higher threshold than mere possibility must be met: Childs, at para. 29. Some evidentiary basis is required before a court can conclude that the risk of theft includes the risk of theft by minors. Otherwise theft by a minor would always be foreseeable — even without any evidence to suggest that this risk was more than a mere possibility. This would fundamentally change tort law and could result in a significant expansion of liability. 
+ [47] J. relies on the case of Holian v. United Grain Growers Ltd. (1980), 112 D.L.R. (3d) 611 (Man. Q.B.), rev’d on other grounds (1980), 114 D.L.R. (3d) 449 (Man. C.A.), for the proposition that a commercial enterprise ought to have regard for possible injury if there is a theft by a minor. In that case, the plaintiff was injured after a group of boys, aged 8 to 13, stole some insecticide from the defendant’s unlocked storage shed to use as “stink bombs”. They then threw the insecticide into the plaintiff’s car and the plaintiff was injured after inhaling the poisonous gas. The court concluded that the defendant’s employees knew that children used the area near the storage shed as a shortcut. This made it reasonably foreseeable that minors may have stolen from the storage shed. 
+ [48] Here, there is nothing about the circumstances of cars stored in a garage lot after hours in the main intersection of this town that was intended or known to attract minors. Indeed, there is no evidence that J. or his friend were targeting Rankin’s Garage in particular; they were looking all over town for unlocked cars. Unlike an ice cream truck, vehicles are not designed to attract children: see Arnold v. Teno, [1978] 2 S.C.R. 287, at pp. 300-302. The witnesses who discussed the history of car thefts in the area did not suggest that minors were responsible for the thefts. Thus, there was insufficient evidence to suggest that minors would frequent the premises at night, or be involved in joyriding or theft. 
+ [49] The only evidence that is relevant to the issue of whether it was reasonably foreseeable that minors might steal the car was testimony from J.’s father that Rankin’s Garage is located across the street from a gas station or variety store. He had been to the variety store once before the accident when he was picking up J. From this one visit, he concluded that the variety store was a youth hangout because other kids were there, it was open later at night, and it sold pop and chips. On its own, this evidence does not establish that it was reasonably foreseeable that minors might steal a car and cause injury. It is not a sufficient basis upon which to found a duty of care. 
+ [50] Given the absence of compelling evidence on this point, the Court of Appeal could only rely on speculation to connect the risk of theft to the risk of personal injury. This was inappropriate. Courts need to ensure that “common sense” is tied to the specific circumstances of the case and not to general notions of responsibility to minors. 
+ [51] Finally, despite this dearth of evidence, J. relies upon the testimony of Mr. Rankin to suggest that personal injury was reasonably foreseeable. During the cross-examination of Mr. Rankin, the following exchange occurred: 
+ Q. Do you agree that security is important, because you’d like to ensure that anybody who takes a vehicle won’t get hurt? 
+ A. How would they get hurt? 
+ Q. Let me ask you the question again. 
+ A. Right. 
+ Q. Okay. Would you agree security is important to ensure that anyone who takes a vehicle doesn’t get hurt? 
+ A. Yes, I guess so. 
+ On re-examination by defence counsel, Mr. Rankin was asked the following: 
+ Q. Did you anticipate that somebody that was drunk would take your car? 
+ A. No. 
+ [52] This evidence cannot provide the foundation for a legal duty of care. On cross-examination, Mr. Rankin was asked a general question that was answered with the benefit of hindsight. As a general question about whether, in his opinion at the time of the trial, “security is important” to prevent physical injury, the question does not relate to the relevant issue: whether physical injury was reasonably foreseeable prior to the occurrence of the accident, an objective inquiry. When Mr. Rankin was asked a question regarding foreseeability during re-examination, he answered it in the negative. 
+ [53] Whether or not something is “reasonably foreseeable” is an objective test. The analysis is focussed on whether someone in the defendant’s position ought reasonably to have foreseen the harm rather than whether the specific defendant did. Courts should be vigilant in ensuring that the analysis is not clouded by the fact that the event in question actually did occur. The question is properly focussed on whether foreseeability was present prior to the incident occurring and not with the aid of 20/20 hindsight: L. N. Klar and C.S.G. Jefferies, Tort Law (6th ed. 2017), at p. 212. 
+ [54] I have the same concerns respecting my colleague’s reliance on Mr. Rankin’s testimony. My colleague suggests that foreseeability is made out here because Mr. Rankin testified that he always locked his vehicles. (This self-serving testimony was rejected by the jury.) In my view, this evidence is not determinative of whether foreseeability was objectively present here. Moreover, this testimony only suggests that Mr. Rankin thought that theft, rather than personal injury, was foreseeable. 
+ [55] To summarize, the evidence did not provide specific circumstances to make it reasonably foreseeable that the stolen car might be driven in a way that would cause personal injury. The evidence did not, for example, establish that the risk of theft included the risk of theft by minors. While in this case, it was argued that it was the risk of theft by minors that could make the risk of the unsafe operation of the stolen vehicle foreseeable, had there been other evidence or circumstances making the risk of personal injury reasonably foreseeable, a duty of care would exist. 
+ [56] As was the case in many similar decisions by trial courts, I am not satisfied that the evidence here demonstrates that bodily harm resulting from the theft of the vehicle was reasonably foreseeable. I conclude that the plaintiff did not satisfy the onus to establish that the defendant ought to have contemplated the risk of personal injury when considering its security practices. The inferential chain of reasoning was too weak to support the establishment of reasonable foreseeability: see Childs, at para. 29. For these reasons, the plaintiff has not met his burden of establishing a prima facie duty of care owed by Rankin’s Garage to him. Reasonable foreseeability could not be established on this record. 
+ B. Did the Commercial Garage Have a Positive Duty to Guard Against the Risk of Theft by Minors? 
+ [57] In this case, the plaintiff J. and interveners made additional arguments that proximity was established because Rankin’s Garage had a positive duty to act. While there is no need to address this issue given my conclusion that the injury was not reasonably foreseeable, the parties made extensive submissions in this regard. 
+ [58] J. submits that Rankin’s Garage had a positive duty to secure the vehicles. His position is that as a commercial establishment dealing with goods that are potentially dangerous, Rankin’s Garage owed a duty to children to secure the vehicles against theft. The intervener the Ontario Trial Lawyers Association supports this analysis and suggests that businesses that introduce a danger into their communities have a duty to individuals who are injured as a result of those dangers. Since these businesses benefit from the sale or storage of dangerous goods, they have an implied responsibility to the public to reduce the risks associated with the goods. J. and the intervener argue that in this way, a car garage is analogous to a commercial vendor of alcohol, who has a duty to those who may be harmed by damage caused by an intoxicated patron: see Stewart. 
+ [59] In my view, this analogy is misguided. Bar owners have a positive duty to take steps to prevent potential harm caused by intoxicated patrons: see Childs; Stewart; Jordan House Ltd. v. Menow, [1974] S.C.R. 239. The existence of this duty is based on a number of considerations specific to that relationship, including the regulatory context surrounding alcohol sales (Childs, at paras. 19-21), the contractual relationship between the bar and the customer, and the fact that bars have a commercial incentive to over-serve alcohol, thus increasing the risk to the public (Childs, at para. 22). While Childs contemplated that other types of commercial entities may also have positive duties to act (para. 37), in my view, commercial garages do not universally fall within this category. The context simply does not warrant it. While a garage benefits financially from servicing cars, they have no commercial relationship with, and do not profit from or encourage the persons who might steal the cars. 
+ [60] Vehicles are ubiquitous in our society. They are not like loaded guns that are inherently dangerous and therefore must be stored carefully in order to protect the public. Commercial garages, unlike an individual who leaves a car unlocked with the keys accessible, have care and control of many vehicles and necessarily have to turn their mind to the security of those vehicles, especially after hours, to prevent theft of the vehicles. Having many vehicles, however, does not necessarily create a risk of personal injury. While cars can be dangerous in the hands of someone who does not know how to drive, this risk would only realistically exist in certain circumstances. 
+ [61] Similarly, the fact that J. was a minor does not automatically create an obligation to act. There are circumstances where courts recognize a specific duty of care owed to children. However, these duties are imposed based on the relationship of care, supervision, and control, rather than the age of the child alone. These specific duties include the obligation on school authorities to adequately supervise and protect students (Myers v. Peel County Board of Education, [1981] 2 S.C.R. 21), on drivers to ensure that child passengers wear seatbelts (Galaske), and on parents and those exercising a similar form of control over children (K.L.B. v. British Columbia, 2003 SCC 51, [2003] 2 S.C.R. 403, at para. 14). The rationale for imposing such duties is not based solely on the age of the plaintiff, but rather the relationship of control, responsibility, and supervision: Childs, at para. 36. No similar relationship exists here. Thus, the mere fact that the plaintiff was a minor is insufficient to establish a positive duty to act. Tort law does not make everyone responsible for the safety of children at all times. 
+ C. Could Illegal Conduct Sever Any Proximity Between the Parties or Negate a Prima Facie Duty of Care? 
+ [62] Given my conclusions above, it is not necessary to consider whether illegal conduct could sever the proximate relationship between the parties or negate a prima facie duty of care. However, since this was the focus of the submissions before this Court, I offer the following comments. 
+ [63] Rankin’s Garage submits that illegal acts by the plaintiff sever any proximate relationship between the parties or, alternately, operate as a residual policy basis on which to negate the duty of care. The notion that illegal or immoral conduct by the plaintiff precludes the existence of a duty of care has consistently been rejected by this Court: see Hall v. Hebert, [1993] 2 S.C.R. 159; British Columbia v. Zastowny, 2008 SCC 4, [2008] 1 S.C.R. 27. Tort law does not seek to punish wrongdoing in the abstract. Rather, private law is corrective and based on compensation for harm that results from the defendant’s unreasonable creation of the risk of that harm. If the mere fact of illegal behaviour could eliminate a duty, this would effectively immunize negligent defendants from the consequences of their actions. Seriously injured victims would be entirely denied recovery, even when the defendant bears most of the fault. While illegality can operate as a defence to a tort action in limited circumstances when it is necessary to preserve the integrity of the legal system, this concern does not arise in the circumstances of this case: see Hall, at pp. 169 and 179-80. Plaintiff wrongdoing is integrated into the analysis through contributory negligence, as occurred here. 
+ [64] Thus, whether the personal injury caused by unsafe driving of the stolen car is suffered by the thief or a third party makes no analytical difference to the duty of care analysis. Both are reasonably foreseeable when circumstances connect the theft of the car to the unsafe operation of the stolen vehicle. In effect, it is the same problem which creates the risk to the third parties as creates the risk to the driver and “only chance” determines which party is injured: see Stewart, at para. 28. 
+ [65] I acknowledge that the legislature has taken a different policy approach in Ontario regarding occupier’s liability. Section 4(2) of the Occupiers’ Liability Act, R.S.O. 1990, c. O.2, sets out that “[a] person who is on premises with the intention of committing, or in the commission of, a criminal act” is deemed to have “willingly assumed all risks”. In such circumstances, the duty of care is not eliminated, but occupiers are held to a lower standard of care. They are only required to “not create a danger with the deliberate intent of doing harm or damage to the person or his or her property and to not act with reckless disregard of the presence of the person or his or her property” (s. 4(1)). All agree that the Act does not apply here as the accident occurred on a public road. The legislature did not opt to modify the common law for accidents occurring off the premises. 
+ <span style="text-decoration:
+none">V. Conclusion 
+ [66] Under tort law, liability is only imposed when a defendant breaches a duty of care. The Anns/Cooper test ensures that a duty of care will only be recognized when it is fair and just to do so. As such, it is necessary to approach each step in the test with analytical rigour. While common sense can play a useful role in assessing reasonable foreseeability, it is not enough, on its own, to ground the recognition of a new duty of care in this case. Aside from evidence that could establish a risk of theft in general, there was nothing else to connect the risk of theft of the car to the risk of someone being physically injured. For example, Rankin’s Garage had been in operation for many years and no evidence was presented to suggest that there was ever a risk of theft by minors at any point in its history. 
+ [67] This is not to say that a duty of care will never exist when a car is stolen from a commercial establishment and involved in an accident. Another plaintiff may establish that circumstances were such that the business ought to have foreseen the risk of personal injury. However, on this record, I conclude that the courts below erred in holding that Rankin’s Garage owed a duty of care to the plaintiff. I would allow the appeal and dismiss the claim against the appellant with costs in this Court and in the courts below. 
+ The reasons of Gascon and Brown JJ. were delivered by 
+ Brown J. (dissenting) — 
+ I. Introduction 
+ [68] The question raised by this appeal is whether the trial judge erred in finding that the appellant Rankin owed a duty of care to the respondent J. Having read the reasons of the majority, I disagree with its analysis in two respects that would lead me to dismiss the appeal. 
+ [69] First, this case does not require this Court to undertake a full Anns/Cooper analysis[LINK #_ftn1] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";text-decoration:
+none">[1] to establish a novel duty of care. Instead, it involves the unremarkable application of a category of relationships that has long been recognized as imposing a duty of care — namely, “where the defendant’s act foreseeably causes physical harm to the plaintiff”.[LINK #_ftn2] <span style="font-size:12.0pt;font-family:
+"Times New Roman","serif";text-decoration:none">[2] So long as the trial judge did not err in finding that physical injury to J. was a reasonably foreseeable consequence of Rankin’s negligence, it follows that proximity is established on the basis of this previously recognized duty of care. 
+ [70] This brings me to the second point of divergence from the majority. On the record before her, the trial judge did not err in finding that physical injury to J. was a reasonably foreseeable consequence of Rankin’s negligence. I would therefore uphold the trial judge’s finding that a duty of care was owed. 
+ II. Analysis 
+ A. Establishing a Duty of Care Under the Anns/Cooper Framework 
+ [71] A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him or her a duty of care; (2) that the defendant’s behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant’s breach.[LINK #_ftn3] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";text-decoration:
+none">[3] Before us, the parties framed this appeal as one pertaining solely to whether Rankin owed J. a duty of care. 
+ [72] At Canadian law, a duty of care is established through the application of the Anns/Cooper framework. Divided into two stages, the framework asks: (1) Does a prima facie duty of care exist between the parties; and (2) if a prima facie duty of care does exist, are there residual policy concerns that negate that duty? At the first stage, the plaintiff bears the burden of proving that “the circumstances disclose reasonably foreseeable harm and proximity”.[LINK #_ftn4] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";text-decoration:
+none">[4] As a matter of precedent, where a case falls within, or is analogous to, a category of relationships in which a duty of care has previously been recognized, the proximity requirement will be satisfied.[LINK #_ftn5] <span style="text-decoration:
+none"><span style="font-size:12.0pt;
+font-family:"Times New Roman","serif";text-decoration:none">[5] And, assuming that the plaintiff has proven that injury to him or her was a reasonably foreseeable consequence of the defendant’s negligence, a duty of care will be properly found without the need to consider the second stage of the Anns/Cooper framework.[LINK #_ftn6] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";text-decoration:
+none">[6] Where no such previously recognized duty has been found to exist, a full Anns/Cooper analysis must be completed to determine whether a novel duty of care should be recognized.[LINK #_ftn7] <span style="font-size:12.0pt;font-family:
+"Times New Roman","serif";text-decoration:none">[7] 
+ B. Does the Relationship in This Case Fall Within a Previously Recognized Category? 
+ [73] The trial judge found, and J. argued before this Court, that the relationship between Rankin and J. falls within a category of relationships in which a duty of care has been previously found to exist, such that a full Anns/Cooper analysis is unnecessary. I agree. In Cooper v. Hobart, this Court identified the first category of relationships in which a duty of care has been previously recognized as being that “where the defendant’s act foreseeably causes physical harm to the plaintiff”. To show that the circumstances of a case fall within this category, a plaintiff need only demonstrate that physical injury to him or her was a reasonably foreseeable consequence of a defendant’s overt act of negligence.[LINK #_ftn8] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[8] This is because, as this Court explained in Deloitte & Touche v. Livent Inc. (Receiver of), when determining whether a previously recognized category applies, “court[s] should be attentive to the particular factors which justified recognizing that prior category in order to determine whether the relationship at issue is, in fact, truly the same as or analogous to that which was previously recognized”.[LINK #_ftn9] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[9] And, in cases of foreseeable physical injury, the “factor” which justifies the establishment of a proximate relationship and a duty of care is the foreseeability of injury alone. Indeed, the majority appears to agree that this will “often” be the case.[LINK #_ftn10] <span style="text-decoration:
+none"><span style="font-size:12.0pt;
+font-family:"Times New Roman","serif";text-decoration:none">[10] Where foreseeability of physical injury is shown, proximity is established by analogy to those cases where reasonably foreseeable physical injury had previously prompted a court to recognize a duty of care. It follows that, in such cases, a duty of care will be properly recognized under the categorical approach and there will be no need to undertake a full Anns/Cooper analysis.[LINK #_ftn11] <span style="text-decoration:
+none"><span style="font-size:12.0pt;
+font-family:"Times New Roman","serif";text-decoration:none">[11] 
+ [74] In response to the foregoing, the majority insists that the category of foreseeable physical injury is — despite its longstanding recognition by this Court — too “broad” to be serviceable, and therefore inapplicable.[LINK #_ftn12] <span style="font-size:12.0pt;font-family:
+"Times New Roman","serif";text-decoration:none">[12] Specifically, the majority says that its application here would signal “an expansion” of that category such that it would “subsume many of the categories recognized in tort law”.[LINK #_ftn13] <span style="text-decoration:
+none"><span style="font-size:12.0pt;
+font-family:"Times New Roman","serif";text-decoration:none">[13] The majority does not, however, explain why the application of the category of foreseeable physical injury in a case of physical injury would constitute an “expansion” of that category. This unelaborated concern leads the majority to conclude that a novel duty of care analysis must be taken and that the duty inquiry in this case must be narrowed to “injur[y] following the theft of a vehicle from [a commercial garage]”.[LINK #_ftn14] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";text-decoration:
+none">[14] In saying so, the majority contradicts its own finding that the foreseeability of injury is often sufficient to establish proximity in cases of physical injury (the factor which, as noted above, brings this case within the previously recognized category).[LINK #_ftn15] <span style="font-size:12.0pt;font-family:
+"Times New Roman","serif";text-decoration:none">[15] Of greater consequence, however, is that its approach disregards considerable authority to the contrary. It disregards this Court’s jurisprudence which has twice affirmed the category of foreseeable physical injury as sufficient to establish a duty of care without any word of concern that such a category would “subsume” others.[LINK #_ftn16] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";text-decoration:
+none">[16] It disregards leading academic commentary which maintains that “when considering foreseeability of harm as an element of duty, courts should approach the question at a general, non fact specific, conceptual level”[LINK #_ftn17] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[17] and that “[d]uty is a general notion describing a class or type of case, not a particular fact situation”.[LINK #_ftn18] <span style="text-decoration:
+none"><span style="font-size:12.0pt;
+font-family:"Times New Roman","serif";text-decoration:none">[18] And it disregards this Court’s recent statement in Livent that previously recognized categories may be framed broadly or narrowly,[LINK #_ftn19] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[19] but a previously recognized category can — and should — be applied wherever the circumstances that originally justified its recognition are present.[LINK #_ftn20] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[20] 
+ [75] An additional difficulty with the majority’s view (that the category of foreseeable physical injury is inapplicable where, as here, the only factor which could establish a duty of care is the foreseeability of physical injury itself) is that it does not explain where this category will henceforward ever apply. The majority relies upon a few more narrowly stated “categories” of duties — physician to patient, manufacturer to consumer, and motorist to highway user — as demonstrative of the need to define duties which involve physical injury with some particularity. Significantly, none of these “categories” are applicable here. Further, the necessary implication of the majority’s reliance upon them to reject the applicability of the category of foreseeable physical injury in this case is that the category of foreseeable physical injury can never be applied, lest courts risk “subsum[ing]” these others. The majority’s approach thereby risks rendering meaningless a long established category of relationships which have been found to give rise to a duty of care and undermining the viability of the categorical approach altogether. 
+ [76] In saying this, I do not wish to be taken as suggesting that the categorical approach established in this Court’s jurisprudence is without difficulties. Indeed, the very notion of “categories” of duties is in tension with the great achievement of Lord Atkin in Donoghue v. Stevenson,[LINK #_ftn21] <span style="font-size:12.0pt;font-family:
+"Times New Roman","serif";text-decoration:none">[21] being his systematic integration of previously disparate, case-specific duties of care into a single conception of the circumstances which give rise to a duty of care. Accepting, however, that categorization of duties of care remains central to this Court’s Anns/Cooper framework, it ought to be applied properly, bearing in mind the risks inherent in its misapplication. As Professor Stephen R. Perry has explained, “[c]ategories of cases are, after all, defined by principles stated at one or another level of generality”.[LINK #_ftn22] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";text-decoration:
+none">[22] Significantly, he notes the danger that courts might overreact to a previous articulation of a principle (that is, a category) which it views as having been too broadly stated, by repudiating general principles altogether. There is also the related danger of rendering categorization meaningless by expressing principles (that is, categories) too narrowly. In my respectful opinion, the majority’s reasons court both kinds of risk. But these risks can be minimized, if not entirely avoided, by adhering to this Court’s recent direction in Livent, to which I have just referred, and from which the majority’s analysis on this point departs. 
+ C. Was Physical Injury to J. a Reasonably Foreseeable Consequence of Rankin’s Negligence? 
+ [77] Having concluded that the category of foreseeable physical injury is applicable in this case, I turn now to consider whether injury was, in fact, reasonably foreseeable here. Within the duty of care analysis, the reasonable foreseeability inquiry asks whether injury to the plaintiff, or to a class of persons to which the plaintiff belongs, was a reasonably foreseeable consequence of the defendant’s negligence.[LINK #_ftn23] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[23] Where a plaintiff can show that he is so “closely and directly affected” by a defendant’s actions that the defendant ought “reasonably to have [the plaintiff] in contemplation as being so affected when . . . directing [his or her] mind to the acts or omissions which are called in question”, this requirement will be satisfied.[LINK #_ftn24] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[24] The inquiry being objective (that is, into what reasonably ought to have been foreseen), it must be undertaken from the standpoint of a reasonable person. Whether, therefore, the defendant actually foresaw the risk which ultimately manifested in injury to the plaintiff is not determinative.[LINK #_ftn25] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";text-decoration:
+none">[25] 
+ [78] Reasonable foreseeability represents a low threshold and is “usually quite easy to overcome”.[LINK #_ftn26] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";text-decoration:
+none">[26] At this point, a plaintiff must merely provide evidence to “persuade the court that the risk of the type of damage that occurred was reasonably foreseeable to the class of plaintiff that was damaged”.[LINK #_ftn27] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";text-decoration:
+none">[27] Where a plaintiff has already sustained injury, it is rare for a court to find that a duty of care is not established for a lack of reasonably foreseeable harm.[LINK #_ftn28] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[28] Indeed, in most cases the establishment of reasonable foresight is “plain”.[LINK #_ftn29] <span style="font-size:12.0pt;font-family:
+"Times New Roman","serif";text-decoration:none">[29] In cases of “simple” physical injury, for example, the class of persons who should be reasonably foreseen to be “adversely affected” by the defendant’s negligence will include all “those who are within the area of foreseeable injury when the danger materialises”.[LINK #_ftn30] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";text-decoration:
+none">[30] In other contexts, however, such as harm arising from negligent misstatement, the foreseeability analysis (and, therefore, the definitional scope of the purported duty of care) may require greater particularization as a consequence of the way in which injuries from negligent misstatement arise — that is, from the plaintiff’s reasonable reliance upon the defendant’s undertaking.[LINK #_ftn31] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[31] As this Court recently observed in Livent, “reliance on the part of the plaintiff which falls outside of the scope of the defendant’s undertaking of responsibility — that is, of the purpose for which the representation was made or the service was undertaken — necessarily falls outside the scope of the proximate relationship and, therefore, of the defendant’s duty of care”.[LINK #_ftn32] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[32] 
+ [79] In this case, both the trial judge[LINK #_ftn33] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[33] and the Court of Appeal[LINK #_ftn34] <span style="text-decoration:
+none"><span style="font-size:12.0pt;
+font-family:"Times New Roman","serif";text-decoration:none">[34] held that it was reasonably foreseeable that an individual such as J. could suffer physical injury as a consequence of Rankin’s negligence in the locking, securing and storing of vehicles. I see no palpable and overriding error in these findings and, therefore, would not interfere with them. And, contrary to the majority’s suggestion that this holding will require “anyone that leaves a vehicle unlocked with the keys in it” to reasonably foresee physical injury,[LINK #_ftn35] <span style="font-size:12.0pt;font-family:
+"Times New Roman","serif";text-decoration:none">[35] my conclusion — which I explain below — is merely that there was sufficient evidence, in this case, for the trial judge to find that physical injury was a reasonably foreseeable consequence of Rankin’s negligence. 
+ [80] The evidence before the trial judge was that Rankin stored more than a dozen vehicles on his property and on the street adjacent thereto. The property was unfenced, and Rankin did not employ video surveillance of any kind. Nonetheless, Rankin knew that he had an obligation to properly lock, secure and store his customers’ vehicles. Indeed, he maintained at trial that he had, in fact, satisfied that obligation. He testified that the vehicles were locked whenever they were not being worked on or accessed, and that the keys to each vehicle were stored in a safe inside the garage. He said that at the end of each day, he manually checked each vehicle to ensure that it was locked. Most specifically, he said that before leaving the garage on the day on which J. was injured, he checked to ensure that the Camry, which was ultimately stolen by C. and J., was locked. And at trial, he confirmed that it was. All this, he acknowledged, was because he wanted to keep his customers’ vehicles safe from theft and avoid injuries that could be suffered by anyone who stole a vehicle. 
+ [81] Of course, Rankin’s testimony regarding his diligent security practices was rejected by the jury in the face of its inconsistency with the evidence of at least six other witnesses. Specifically, the jury found that, on the night in question, the Camry was left unlocked with the keys inside. That said, the lengths to which Rankin testified (albeit mendaciously) about the precautions he took to store the vehicles properly and to secure the keys for which he was responsible, provide ample support for the conclusion that a reasonable person in Rankin’s circumstances should have foreseen the risk of injury resulting from the negligent storage of vehicles.[LINK #_ftn36] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[36] Indeed, while the majority sees Rankin’s testimony as revealing only that he foresaw the risk of theft,[LINK #_ftn37] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";text-decoration:
+none">[37] his evidence was clear he also foresaw the risk of injury. The conclusion that physical injury was a reasonably foreseeable result of theft is reinforced by the testimony of two additional witnesses that vehicle theft was known to be a common occurrence in Paisley. 
+ [82] It follows from the foregoing that I disagree with the majority’s holding that the trial judge had inadequate evidence before her to conclude that physical injury to J. was a reasonably foreseeable consequence of Rankin’s negligence. While the majority concedes that the risk of theft was reasonably foreseeable, it would find that the risk of injury was not, because there was no “circumstance or evidence . . . that the stolen vehicle could be operated unsafely”.[LINK #_ftn38] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";text-decoration:
+none">[38] One such “circumstance” relied upon the courts below would have been the reasonably foreseeable risk of theft by minors. This is because, as the majority implicitly acknowledges, minors “could well be inexperienced or reckless drivers”.[LINK #_ftn39] <span style="font-size:12.0pt;font-family:
+"Times New Roman","serif";text-decoration:none">[39] The majority finds, however, that the trial judge erred in relying upon that risk in this case because “the risk of theft in general does not automatically include the risk of theft by minors”.[LINK #_ftn40] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[40] In other words, the majority would have required additional evidence that theft would have occurred at the hands of a minor in order to find, as the trial judge did, that physical injury to J. was foreseeable.[LINK #_ftn41] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[41] 
+ [83] I observe preliminarily, and with respect, that even were J. required to show that theft by a minor must have been reasonably foreseen in order to support the trial judge’s finding, J. has satisfied that burden here. No authority is cited in support of the majority’s pronouncement that “the risk of theft in general does not automatically include the risk of theft by minors”. Indeed, there is likely no such authority, and the majority’s own reasons explain why. As those reasons say of minors, they can be “reckless”. This very characteristic tends to affirm, rather than negate, the obvious fact that minors are no less likely to steal a car than any other individual. Seen in that light, there is a certain unreality to the majority’s reasoning that Rankin should have foreseen theft, but could not reasonably have foreseen theft by a minor. All this is aside from the fact that, in drawing this curious distinction, the majority overturns the trial judge’s finding of fact without legal justification for doing so. 
+ [84] In any event, however, I agree with the majority that J. was not required to show that the “characteristics of the particular thief who stole the vehicle or the way in which the injury occurred”[LINK #_ftn42] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[42] were foreseeable in order to establish a duty of care. While the trial judge relied upon the foreseeability of theft by a minor to impose a duty of care, such duties are not conditioned upon the reasonable foreseeability of the particular circumstances which gave rise to the plaintiff’s actual injury (a matter which is properly considered at the remoteness or legal causation stage).[LINK #_ftn43] <span style="font-size:12.0pt;font-family:
+"Times New Roman","serif";text-decoration:none">[43] Imposition of a duty of care, rather, was conditioned in this case only upon J. showing that physical injury to him was reasonably foreseeable under any circumstances flowing from Rankin’s negligence. And, as I have explained above, it was open on the basis of Rankin’s own testimony to conclude that his negligence in leaving unattended vehicles unlocked with keys inside overnight could have led to reasonably foreseeable physical injury. This evidence is sufficient to support the trial judge’s conclusion that physical injury to J. was a reasonably foreseeable consequence of Rankin’s negligence. 
+ <span style="text-decoration:
+none">III. Conclusion 
+ [85] The trial judge’s finding of reasonably foreseeable physical injury is sufficient to bring the circumstances of this case within a category of relationships which has already been found to support a duty of care. As a matter of law, proximity is thereby established, and it is unnecessary to proceed to the second stage of the Anns/Cooper framework.[LINK #_ftn44] <span style="font-size:12.0pt;font-family:"Times New Roman","serif";
+text-decoration:none">[44] Given that the parties argued the issue to be decided in this appeal, and in the courts below, as one of duty of care and not of remoteness, a finding on duty of care is dispositive. I would therefore dismiss the appeal with costs in this Court to the respondents J. by his litigation guardian, J.A.J., J.A.J. and A.J. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Appeal allowed with costs, Gascon and Brown JJ. dissenting. 
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitors for the appellant: Benson Percival Brown, Toronto; Supreme Advocacy, Ottawa. 
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitors for the respondents J.J. by his Litigation Guardian, J.A.J., J.A.J. and A.J.: Lerners, London, Ontario. 
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitors for the respondent C.C.: Brown Beattie O’Donovan, London, Ontario; Ministry of the Attorney General, Civil Law Division, FSCO Branch, Toronto. 
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitors for the intervener the Ontario Trial Lawyers Association: MacKenzie Barristers, Toronto. 
+ Solicitors for the intervener Justice for Children and Youth: McCarthy Tétrault, Toronto; Justice for Children and Youth, Toronto. 
+ [LINK #_ftnref1] [1] Anns v. Merton London Borough Council, [1978] A.C. 728; Cooper v. Hobart, 2001 SCC 79, [2001] 3 S.C.R. 537. 
+ [LINK #_ftnref2] [2] Cooper, at para. 36. 
+ [LINK #_ftnref3] [3] Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, [2008] 2 S.C.R. 114, at para. 3; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543, at para. 13; Deloitte & Touche v. Livent Inc. (Receiver of), 2017 SCC 63, [2017] 2 S.C.R. 855, at para. 77. 
+ [LINK #_ftnref4] [4] Edwards v. Law Society of Upper Canada, 2001 SCC 80, [2001] 3 S.C.R. 562, at para. 9; see also Cooper, at para. 31; Livent, at para. 23. 
+ [LINK #_ftnref5] [5] Cooper, at paras. 36 and 39; Edwards, at paras. 9-10; Childs v. Desormeaux, 2006 SCC 18, [2006] 1 S.C.R. 643, at para. 15; Mustapha, at para. 6; Livent, at para. 26. 
+ [LINK #_ftnref6] [6] Ibid. 
+ [LINK #_ftnref7] [7] Cooper, at para. 39; Edwards, at para. 10; Childs, at para. 23; Livent, at para. 29. 
+ [LINK #_ftnref8] [8] Childs, at para. 31. See also A. M. Linden and B. Feldthusen, Canadian Tort Law (10th ed. 2015), at §9.57. 
+ [LINK #_ftnref9] [9] At para. 28 (emphasis added). 
+ [LINK #_ftnref10] [10] At paras. 23 and 55. 
+ [LINK #_ftnref11] [11] Cooper, at paras. 36 and 39; Edwards, at paras. 9-10; Childs, at para. 15; Mustapha, at para. 6; Livent, at para. 26. 
+ [LINK #_ftnref12] [12] At para. 28. 
+ [LINK #_ftnref13] [13] Ibid. 
+ [LINK #_ftnref14] [14] At para. 27. 
+ [LINK #_ftnref15] [15] At paras. 23 and 55. 
+ [LINK #_ftnref16] [16] Cooper, at para. 36; Childs, at para. 31. 
+ [LINK #_ftnref17] [17] L. N. Klar and C. S. G. Jefferies, Tort Law (6th ed. 2017), at pp. 210-11, and fn. 60. 
+ [LINK #_ftnref18] [18] Linden and Feldthusen, at §9.57. 
+ [LINK #_ftnref19] [19] At para. 27. 
+ [LINK #_ftnref20] [20] Livent, at para. 28. 
+ [LINK #_ftnref21] [21] [1932] A.C. 562 (H.L.). 
+ [LINK #_ftnref22] [22] S. R. Perry, “Protected Interests and Undertakings in the Law of Negligence” (1992), 42 U.T.L.J. 247, at p. 252. 
+ [LINK #_ftnref23] [23] Linden and Feldthusen, at §9.59; Klar and Jefferies, at pp. 211-12; P. H. Osborne, The Law of Torts (5th ed. 2015), at p. 75; Clerk & Lindsell on Torts (21st ed. 2014), by M. A. Jones, at para. 8-08. 
+ [LINK #_ftnref24] [24] Hill v. Hamilton-Wentworth Regional Police Services Board, 2007 SCC 41, [2007] 3 S.C.R. 129, at para. 22 (emphasis deleted), citing Donoghue, at p. 580, per Lord Atkin. 
+ [LINK #_ftnref25] [25] Klar and Jefferies, at pp. 212-13; see also Fullowka v. Pinkerton’s of Canada Ltd., 2010 SCC 5, [2010] 1 S.C.R. 132, at para. 22. 
+ [LINK #_ftnref26] [26] Linden and Feldthusen, at §9.59; see also E. J. Weinrib, “The Disintegration of Duty” (2006), 31 Adv. Q. 212, at p. 237. 
+ [LINK #_ftnref27] [27] Linden and Feldthusen, at §9.59 (emphasis added). 
+ [LINK #_ftnref28] [28] Klar and Jefferies, at pp. 210 and 212; Osborne, at p. 75. 
+ [LINK #_ftnref29] [29] Linden and Feldthusen, at §9.59. 
+ [LINK #_ftnref30] [30] Clerk & Lindsell, at para. 8-08. 
+ [LINK #_ftnref31] [31] Ibid., at para. 8-09; Klar and Jefferies, at pp. 211-12; Livent, at paras. 35, 39 and 55; see also Hercules Managements Ltd. v. Ernst & Young, [1997] 2 S.C.R. 165, at paras. 27 and 40, referred to at para. 39 of Livent. 
+ [LINK #_ftnref32] [32] At para. 31. 
+ [LINK #_ftnref33] [33] Ontario Superior Court of Justice, September 25, 2014. 
+ [LINK #_ftnref34] [34] 2016 ONCA 718, 403 D.L.R. (4th) 408. 
+ [LINK #_ftnref35] [35] At para. 34. 
+ [LINK #_ftnref36] [36] Fullowka, at para. 22. 
+ [LINK #_ftnref37] [37] At para. 34. 
+ [LINK #_ftnref38] [38] At para. 41. 
+ [LINK #_ftnref39] [39] At para. 42. 
+ [LINK #_ftnref40] [40] At para. 45 (emphasis added). 
+ [LINK #_ftnref41] [41] At paras. 46-50. 
+ [LINK #_ftnref42] [42] At para. 41. 
+ [LINK #_ftnref43] [43] Livent, at para. 78; see also Klar and Jefferies, at p. 565; Osborne, at p. 98; Clerk & Lindsell, at para. 8-10. 
+ [LINK #_ftnref44] [44] Cooper, at para. 36; see also Childs, at para. 31. 
+ You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.
+ Continue 
+ Do not display this message anymore
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.modalClose = "Close";

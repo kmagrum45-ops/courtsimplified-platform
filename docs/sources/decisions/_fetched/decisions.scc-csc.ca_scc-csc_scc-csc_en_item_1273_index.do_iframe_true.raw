@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/1273/index.do" />
+    <title>    Vout v. Hay - SCC Cases
+</title>
+    <link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/scc-csc/scc-csc/en/1273/1761840/res.do" />
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Vout v. Hay</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Vout v. Hay</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/scc-csc/fr/item/1273/index.do?alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content">
+<div id="decisia-document-header" class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisia-box">
+
+<h1>
+    <a id="decisia-decisions"></a>
+    Supreme Court Judgments
+</h1>
+
+<h2 class="accessibility-only">Decision Information</h2>
+<div class="metadata">
+
+    <h3 class="title">Vout v. Hay</h3>
+    <table>
+                    <tr>
+                        <td class="label">Collection</td>
+                        <td class="metadata">
+                                Supreme Court Judgments
+                    </tr>
+                    <tr>
+                        <td class="label">Date</td>
+                        <td class="metadata">
+                                1995-06-22
+                    </tr>
+                    <tr>
+                        <td class="label">Report</td>
+                        <td class="metadata">
+                                [1995] 2 SCR 876
+                    </tr>
+                    <tr>
+                        <td class="label">Case number</td>
+                        <td class="metadata">
+                                24009
+                    </tr>
+                    <tr>
+                        <td class="label">Judges</td>
+                        <td class="metadata">
+                                La Forest, Gérard V.; Sopinka, John; McLachlin, Beverley; Iacobucci, Frank; Major, John C.
+                    </tr>
+                    <tr>
+                        <td class="label">On appeal from</td>
+                        <td class="metadata">
+                                Ontario
+                    </tr>
+                    <tr>
+                        <td class="label">Subjects</td>
+                        <td class="metadata">
+                                Estates<br/>
+                    </tr>
+                    <tr>
+                        <td class="label">Notes</td>
+                        <td class="metadata">
+                                SCC Case Information: <a target="_blank" href="https://www.scc-csc.ca/cases-dossiers/search-recherche/24009/">24009</a>
+                    </tr>
+    </table>
+
+    <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1273/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+    </div>
+</div>
+
+
+
+</div>
+
+<div id="lexboxHook"></div>
+
+<h2 class="accessibility-only">Decision Content</h2>
+
+</div> 
+
+<div id="document-content">
+
+        
+<div class="documentcontent"> 
+  <div class="Section1"> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">Vout <i>v.</i> Hay, [1995] 2 S.C.R. 876</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="EN-GB" style="letter-spacing:-.15pt">Sandra Florence Vout</span></b><i><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp; Appellant</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="EN-GB" style="letter-spacing:-.15pt">v.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><b><span lang="EN-GB" style="letter-spacing:-.15pt">Earl Hay, Carl Hay, Larry Parr</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><b><span lang="EN-GB" style="letter-spacing:-.15pt">and Kenneth Parr</span></b><i><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Respondents</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="EN-GB" style="letter-spacing:-.15pt">Indexed as:&nbsp;&nbsp;Vout <i>v.</i> Hay</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">File No.:&nbsp;&nbsp;24009.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">1995:&nbsp;&nbsp;January 26; 1995:&nbsp;&nbsp;June 22.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+  </div> 
+  <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;CG Times&quot;;letter-spacing:
+-.15pt"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section2"> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">Present:&nbsp;&nbsp;La&nbsp;Forest, Sopinka, McLachlin, Iacobucci and Major&nbsp;JJ.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">on appeal from the court of appeal for ontario</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Wills ‑‑ Validity ‑‑ Undue influence ‑‑ Suspicious circumstances ‑‑ Testator leaving bulk of estate to unrelated friend ‑‑ Family members contesting will, alleging undue influence ‑‑ Will admitted into probate ‑‑ Whether trial judge erred in application of doctrine of suspicious circumstances.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; An 81-year-old man left a will under which the appellant was the executrix and major beneficiary.&nbsp; The appellant was 29 years old at the time of trial and had been a friend of the testator in the last few years of his life and had assisted him with various chores on his farm.&nbsp; The respondents, the surviving members of the testator's family, challenged the validity of the will.&nbsp; The will had been prepared by a legal secretary in the office of the appellant's parents' lawyer.&nbsp; The secretary testified that she had received her instructions from a woman who had telephoned several times and who identified herself as the appellant.&nbsp; When the appellant and the testator came to the law offices, the secretary recognized the appellant's voice as the voice on the telephone.&nbsp; She testified that she read the will to the testator in front of the appellant and that at some point he "hesitated".&nbsp; He then looked at the appellant and she stated, "Yes, that's what we discussed.&nbsp; That's what you decided", and he nodded to continue.&nbsp; The appellant testified that her involvement in the preparation of the will was only when asked, that she recommended her parents' lawyer to the testator and that she was never involved in the instructions about the will.&nbsp; She testified that, on the day the will was signed, she met the testator in town and went with him to the lawyer's office where she waited for him.&nbsp; She denied phoning in any will instructions and driving the testator to the office on the day the will was signed.&nbsp; She explained the inconsistency between her testimony and her earlier statement by stating that she was under stress and scared.&nbsp; Several witnesses testified at trial as to the testator's capacity and character, which was described as being eccentric, but alert, smart, independent, determined, and not easily influenced.&nbsp; The will was admitted into probate.&nbsp; The respondents appealed, claiming that the inconsistencies in the appellant's testimony concerning events surrounding the execution of the will constituted "suspicious circumstances" sufficient to render the will invalid.&nbsp; The Court of Appeal set aside the judgment and ordered a new trial.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><i><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Held</span></i><span lang="EN-GB" style="letter-spacing:-.15pt">:&nbsp;&nbsp;The appeal should be allowed.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Where suspicious circumstances are raised, the civil standard of proof on a balance of probabilities applies.&nbsp; The evidence must, however, be scrutinized in accordance with the gravity of the suspicion.&nbsp; The suspicious circumstances may be raised by (1)&nbsp;circumstances surrounding the preparation of the will, (2)&nbsp;circumstances tending to call into question the capacity of the testator, or (3) circumstances tending to show that the free will of the testator was overborne by acts of coercion or fraud.&nbsp; Although the propounder of the will has the legal burden with respect to due execution, knowledge and approval, and testamentary capacity, the propounder is aided by a rebuttable presumption.&nbsp; Upon proof that the will was duly executed with the requisite formalities, after having been read over to or by a testator who appeared to understand it, it will generally be presumed that the testator knew and approved of the contents and had the necessary testamentary capacity.&nbsp; Where suspicious circumstances are present, then the presumption is spent and the propounder of the will reassumes the legal burden of proving knowledge and approval.&nbsp; In addition, if the suspicious circumstances relate to mental capacity, the propounder of the will reassumes the legal burden of establishing testamentary capacity.&nbsp; Both of these issues must be proved in accordance with the civil standard.&nbsp; While it might have been simpler to apply the same principles to the issue of fraud and undue influence so as to cast the legal burden onto the propounder in the presence of suspicious circumstances as to that issue, it is a firmly entrenched principle that fraud and undue influence are to be treated as an affirmative defence to be raised by those attacking the will.&nbsp; Suspicions concerning the presence of fraud or undue influence do no more than rebut the presumption of knowledge and approval and testamentary capacity, and require the propounder of the will to prove these matters.&nbsp; The burden of proof, however, with respect to fraud and undue influence remains with those attacking the will.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Court of Appeal clearly erred in allowing the appeal on the ground that the trial judge failed to deal properly with the issue of suspicious circumstances "which would cast the burden on the [appellant propounder of the will] of disproving undue influence".&nbsp; Moreover, the trial judge did consider the issue of suspicious circumstances.&nbsp; While it would have been preferable for him to have made express findings with respect to the discrepancies in the evidence, in particular as to whether the instructions for the will had been given by the appellant, he scrutinized the evidence to the degree required.&nbsp; The trial judge did not make any error of law or commit any palpable or overriding error with respect to the facts.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><b><span lang="EN-GB" style="letter-spacing:-.15pt">Cases Cited</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Referred to:</span></b><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp; <i>Barry v. Butlin</i> (1838), 2 Moo. P.C. 480, 12 E.R. 1089; <i>Re Martin; MacGregor v. Ryan</i>, [1965] S.C.R. 757; <i>Tyrrell v. Painton</i>, [1894] P.&nbsp;151; <i>Craig v. Lamoureux</i>, [1920] A.C. 349; <i>Riach v. Ferris</i>, [1934] S.C.R. 725.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><b><span lang="EN-GB" style="letter-spacing:-.15pt">Statutes and Regulations Cited</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:12.2pt"><i><span lang="EN-GB" style="letter-spacing:-.15pt">Succession Law Reform Act</span></i><span lang="EN-GB" style="letter-spacing:-.15pt">, R.S.O. 1990, c. S.26</span><span lang="EN-GB" style="letter-spacing:-.15pt"></span><span lang="EN-GB" style="letter-spacing:-.15pt"></span><span lang="EN-GB" style="letter-spacing:-.15pt"></span><span lang="EN-GB" style="letter-spacing:-.15pt"> (formerly R.S.O. 1980, c.&nbsp;488).</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><b><span lang="EN-GB" style="letter-spacing:-.15pt">Authors Cited</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">Macdonell, Ian McLean.&nbsp; <i>Macdonell, Sheard and Hull on Probate Practice</i>, 3rd ed.&nbsp; By Rodney Hull and Maurice C. Cullity.&nbsp; Toronto:&nbsp; Carswell, 1981.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">Wright, Cecil&nbsp;A.&nbsp; "Wills ‑‑ Testamentary Capacity ‑‑ `Suspicious Circumstances' ‑‑ Burden of Proof" (1938), 16 <i>Can. Bar Rev.</i> 405.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; APPEAL from a judgment of the Ontario Court of Appeal, [1993] O.J. No. 3124 (QL), allowing the respondents' appeal from a decision of Byers&nbsp;J., [1990] O.J. No.&nbsp;2538 (QL), admitting a will into probate.&nbsp; Appeal allowed.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Joseph&nbsp;M. Steiner</span></i><span lang="EN-GB" style="letter-spacing:-.15pt"> and <i>Stephen Lamont</i>, for the appellant.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; William&nbsp;E. Baker</span></i><span lang="EN-GB" style="letter-spacing:-.15pt">, for the respondents.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The judgment of the Court was delivered by</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="text-transform:uppercase;letter-spacing:-.15pt">Sopinka J</span><span lang="EN-GB" style="letter-spacing:-.15pt">. --</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><u><span lang="EN-GB" style="letter-spacing:-.15pt">Facts</span></u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">1</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; On June 26, 1988, Clarence Hay, the testator, was murdered.&nbsp; The murder has nothing to do with the wills issues raised by this appeal, and evidence was led at trial that an individual unconnected with this case has been convicted of the murder.&nbsp; The deceased was 81 years old, unmarried, and lived alone on his farm which he actively farmed in an old-fashioned manner with horses.&nbsp; He left a will dated July 11, 1985.&nbsp; His estate was said to be worth approximately $320,000.&nbsp; The appellant, Vout, was the major beneficiary under the will.&nbsp; She was appointed executrix and one farm was given to her and another to a nephew of the testator.&nbsp; The respondent Carl Hay, a brother of the deceased, was given $1,000 and seven nephews and nieces of the deceased were given $3,000 each.&nbsp; Vout was the residual beneficiary.&nbsp; Vout was 29 years old at the time of trial and is unrelated to the deceased, but had been his friend in the last few years of his life and had assisted the testator with various chores on the farm.&nbsp; There were no allegations of a sexual relationship between Vout and the testator.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">2</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The respondents, the surviving members of the Hay family, challenged the validity of the will and put forward a will, dated April 26, 1966, in which the testator left everything to his brother Earl Hay and his sister Florence Parr, now deceased, in equal shares.&nbsp; The trial was held before Byers J. of the Ontario Court (General Division), and there was conflicting evidence as to Vout's involvement in the preparation and execution of the will.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">3</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The evidence revealed that the will was prepared by a legal secretary in the office of Vout's parents' lawyer.&nbsp; One secretary drew the will, and she and another secretary witnessed its execution.&nbsp; No lawyer was involved in the preparation and execution of the will and no record or file was kept.&nbsp; The secretaries gave evidence only from their memory of the execution of the will and their evidence differed as to where in the lawyer's offices the will was signed.&nbsp; One secretary testified that the will was properly signed and that the reading and signing occurred in the secretaries' office.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">4</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The secretary who prepared the will, Lois Clark, testified on cross-examination that she had received her instructions from a woman who identified herself as Vout.&nbsp; The woman telephoned several times but the witness did not recall whether the instructions were received by telephone or by an attendance at the office.&nbsp; When Vout and the testator came to the law offices, Clark recognized Vout's voice as the voice on the telephone.&nbsp; Clark testified that she read the will to the testator in the waiting room in front of Vout.&nbsp; On cross-examination, Clark stated that the testator at some point during the reading of the will "hesitated" and she agreed to the statement that "he had a quizzical look on his face".&nbsp; Clark agreed that she stopped reading and then:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-78.45pt;line-height:12.2pt;page-break-after:avoid"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Q.And what happened then?</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt;page-break-after:
+avoid"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-78.45pt;line-height:12.2pt;page-break-after:avoid"><span lang="EN-GB" style="letter-spacing:-.15pt">A.He looked at me, and I looked at him, and up at Sandra, he looked at Sandra and she stated, "Yes, that's what we discussed.&nbsp; That's what you decided", and he nodded to go on, to continue.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">The secretary finished reading the will and the deceased signed it in the waiting room on his lap.&nbsp; An affidavit of execution was executed, swearing that the will was executed in the presence of Clark and the other secretary, who, both present at the same time, and in the presence of the testator, had attested and subscribed the will as witnesses.&nbsp; The secretary also testified that Vout requested that the account in connection with the preparation of the will not be sent to the farm and that Vout came into the office and paid the bill.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">5</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vout testified that she only became involved in the preparation of the will when asked, that she recommended her parents' lawyer to the deceased and that she was never involved in the instructions about the will, although the deceased did tell her some months before the execution of the will that she would get one of his farms.&nbsp; She testified that, on the day the will was signed, she met the deceased in town and went with him to the lawyer's office where she waited for him.&nbsp; She did not know what the deceased was doing.&nbsp; The appellant denied phoning in any will instructions and driving the deceased to the office on the day the will was signed.&nbsp; Vout testified that she had paid the legal bill with money given to her by the testator but denied having requested that the bill not be sent to the testator's farm.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">6</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The appellant, who was interviewed as a murder suspect on July 6, 1988, told the police that, on the day the will was signed, she gave the deceased a ride to town and that he went into the lawyer's office by himself.&nbsp; The appellant explained the inconsistency between her testimony and her statement to the police by stating that she was under stress and scared.&nbsp; The appellant's response when asked why the deceased would leave so much of his estate to her was that she supposed it was because he was fond of her.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">7</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Several witnesses testified at trial as to the testator's capacity and character, which was described as being eccentric, but alert, smart, independent, determined, and not easily influenced.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">8</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Members of the Hay family testified as to their close contact with the testator and their general lack of knowledge of a relationship between Vout and the testator.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">9</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; On November 13, 1990, Byers J. admitted the will into probate:&nbsp; [1990] O.J. No. 2538 (QL).&nbsp; The respondents appealed to the Ontario Court of Appeal, claiming that the inconsistencies in Vout's testimony concerning events surrounding the execution of the will constituted "suspicious circumstances" sufficient to render the will invalid.&nbsp; On December 22, 1993, the Court of Appeal allowed the respondents' appeal, set aside the judgment and ordered a new trial:&nbsp; [1993] O.J. No. 3124 (QL).</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><u><span lang="EN-GB" style="letter-spacing:-.15pt">Judgments Below</span></u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:24.4pt;page-break-after:avoid"><span lang="EN-GB" style="letter-spacing:-.15pt">A.<i>Ontario Court (General Division)</i></span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">10</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Byers J. found that the deceased was "old and eccentric, but alert, smart, independent, determined, and most important, not easily influenced".&nbsp; He also found that Vout and the testator had a relationship "of some sort".&nbsp; He accepted Vout's evidence that she and the testator were good friends, that she helped him on the farm with chores and spent time with him.&nbsp; Byers J. also accepted the Hay family's evidence that, apart from Carl Hay, they had never met Vout and did not know she existed until the day of the funeral.&nbsp; The testator had concealed, or at least not advertised Vout to other members of his family.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">11</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Byers J. noted the suspicious circumstances raised by the Hay family: the testator went to the lawyer recommended by Vout, Vout's lies were suspicious, and Vout was present and coaching the testator during execution of the will.&nbsp; Nonetheless, he held that:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The hard reality is that the Hay family simply cannot accept that Clarence Hay might really have intended to leave a large portion of his estate to someone outside of the family, nor can they comprehend why he might want to do that.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">... Clarence Hay was self-reliant and independent, was not easily influenced, lived alone and visited all members of the Hay family regularly, and he was all these things both before and for three years following the execution of the Will.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">12</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Byers J. accepted the evidence that the will was prepared by a legal secretary and witnessed by her and another secretary and that the lawyer was not involved.&nbsp; Nonetheless, the evidence of the telephone instructions and exactly when the will was executed was not "as satisfactory as one might hope".&nbsp; He concluded that:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">But this was a one-man law firm, and I am, quite frankly, surprised that the secretaries remember any particulars.&nbsp; But the secretaries testified under oath that the formalities of execution were carried out, and I accept that evidence.&nbsp; Both secretaries seemed satisfied that at that time Clarence Hay had the necessary mental capacity to sign.&nbsp; In the absence of any evidence whatsoever to the contrary, and in fact in the presence of overwhelming evidence as to Clarence Hay's excellent mental and physical condition, I accept that he did in fact have the necessary mental capacity.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">13</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vout had some influence on the testator and he "may well have been somewhat captivated by her" or "they may have been simply friends and she was a person whom he wished to benefit in his Will".&nbsp; No doubt, Vout wanted that benefit and she had been in the office when the will was executed.&nbsp; The testator's motives, however, were immaterial:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I should not speculate on what motivated Clarence Hay to benefit Sandra Vout, so long as his motives were his own.&nbsp; The Will itself recognizes the existence of the entire Hay family and the various family members in it and their relationships to Clarence Hay. . . .&nbsp; [The Hay family's] suspicions were not grounded at all, let alone well-grounded on the circumstances surrounding the preparation and execution of the Will.&nbsp; Those circumstances had not yet been revealed.&nbsp; I am well-satisfied that the suspicious circumstances described in the cases . . . are not present in this case.&nbsp; Even if they were, when looked at in the broader context of the evidence both before and after the Will was executed, then the suspicion has been removed.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In my view Clarence Hay made his Will exactly the way he intended.&nbsp; He did have testamentary capacity; it was duly executed and there has been no undue influence.&nbsp; The Will will therefore be admitted to probate.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">B.&nbsp; <i>Ontario Court of Appeal </i></span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">14</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The court (Blair, Osborne and Doherty JJ.A.) held, in the following short reasons, that:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; There were serious discrepancies between the evidence given at trial by the respondent [Vout], the principal beneficiary named in the disputed will, and her previous statements to the police as well as the evidence given at trial by employees of the law office where the will was executed with respect to the circumstances surrounding the making of the will.&nbsp; The trial judge did not attempt to resolve these discrepancies because he was of the view that the deceased was fully competent mentally when he signed the will.&nbsp; In our respectful opinion he erred in basing his decision entirely on the mental competence of the deceased.&nbsp; He failed to consider properly the equally important issue of whether there had been suspicious circumstances surrounding the execution of the will which would cast the burden on the respondent [Vout] of disproving undue influence.&nbsp; </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; We have therefore concluded that a new trial is necessary.&nbsp; The appeal is allowed, a new trial is directed.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><u><span lang="EN-GB" style="letter-spacing:-.15pt">Issues</span></u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">1.&nbsp; Suspicious Circumstances.&nbsp; Did the trial judge or Court of Appeal err in their application of the doctrine of suspicious circumstances in the context of determining the validity of the will?</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">2.&nbsp; Formalities of Execution.&nbsp; Did the trial judge err in finding that the will had been properly executed?</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">3.&nbsp; Appellate Review of Findings of Fact.&nbsp; Did the Court of Appeal err in overruling the trial judge's findings of fact in the absence of an overriding or palpable error on the part of the trial judge?</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">15</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The first issue is the central one in this appeal and is the issue to which most of the following is directed.&nbsp; The second and third issues are incidental to the main issue and I will deal with them very briefly.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><u><span lang="EN-GB" style="letter-spacing:-.15pt">Analysis</span></u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="EN-GB" style="letter-spacing:-.15pt">Suspicious Circumstances</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">16</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Court of Appeal held that the trial judge had failed to properly consider the important issue of suspicious circumstances surrounding the execution of the will which, in their view, would cast the burden of disproving undue influence on the appellant Vout.&nbsp; The interrelation of suspicious circumstances, testamentary capacity and undue influence has perplexed both the courts and litigants since the leading case of <i>Barry v. Butlin</i> (1838), 2 Moo. P.C. 480, 12 E.R. 1089.&nbsp; Writing a case comment in the <i>Canadian Bar Review</i> in 1938 (Vol. XVI, at p. 405) entitled "Wills -- Testamentary Capacity -- `Suspicious Circumstances' -- Burden of Proof", Dr. Cecil A. Wright observed, at p. 406:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Although superficially simple, problems involved in litigation concerning the establishment of a deceased person's will against attacks of lack of testamentary capacity, fraud and undue influence, are, in the writer's opinion, second to none in difficulty.&nbsp; While the Chief Justice of Canada has recently said in an appeal involving these questions that "the law is well established and well known" [<i>Riach v. Ferris</i>, [1934] S.C.R. 725, at p. 726], the fact remains that judgments dealing with litigation of this kind abound in language that is hazy, obscure, and extremely difficult to reconcile.&nbsp; While paragraphs can be taken from judgments setting out in convenient form an exposition of the existing law, it is an altogether different matter to apply that law to a given set of facts.&nbsp; </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">17</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; It is apparent from the following exchange during the course of the trial of this action that the role of suspicious circumstances is continuing to trouble both trial courts and counsel:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">THE COURT:&nbsp; Well I remember some of those cases about suspicious circumstances and the attempt to make a distinction between that and undue influence, but I must confess I never understood them.&nbsp; It always seemed to me that ...</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">MR. HULL:&nbsp; It's all wrapped up in a ball of wax.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">THE COURT:&nbsp; How did this will get signed?&nbsp; What did this fellow know when he signed it?&nbsp; Who was present when he signed it?&nbsp; That seems to me, are the factual things you want to find out about.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">MRS. BURNS:&nbsp; Yes, but undue influence is separate from suspicious circumstances.&nbsp; If you want to get into suspicious circumstances you allege that with the undue influence.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">MR. HULL:&nbsp; I've never done it, Your Honour.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">THE COURT:&nbsp; She says your book says you're supposed to.&nbsp; [Rodney Hull, Q.C., "Contested Wills and Proof in Solemn Form" (1979), 5 <i>Est. &amp; Tr. Q.</i> 49, at p. 57.]</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">MR. HULL:&nbsp; Well it's wrong.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">MRS. BURNS:&nbsp; Your Honour, this is repeated in the Bar Admissions course.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">MR. HULL:&nbsp; It's all copied out of that article.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">MRS. BURNS:&nbsp; That's right.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">MR. HULL:&nbsp; If I'm wrong once, I'm wrong a hundred times.&nbsp; </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">18</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Order for Directions provided as follows:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">1.&nbsp; Sandra Florence Vout affirms, and Earl Hay and Carl Hay deny that the Will of the said deceased, dated the 11th day of July, 1985, was duly executed.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">2.&nbsp; Sandra Florence Vout affirms, and Earl Hay and Carl Hay deny that at the time of executing the said Will, the said deceased had testamentary capacity.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">3.&nbsp; Earl Hay and Carl Hay affirm, and Sandra Florence Vout denies that the deceased was procured to execute the said Will by undue influence.&nbsp; </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">19</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The first issue requires a finding not only that the formalities required by the <i>Succession Law Reform Act</i>, R.S.O. 1990, c. S.26 (formerly R.S.O. 1980, c. 488), were complied with but that the testator knew and approved of the contents of the will.&nbsp; As the order indicates, these matters are affirmed by Vout, the propounder of the will, on whom lies the burden of proof.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">20</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; With respect to the second issue, testamentary capacity requires the propounder of the will, Vout, to establish that the testator had a disposing mind and memory.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">21</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The third issue casts upon those attacking the will the burden of proving undue influence.&nbsp; This requires proof that the testator's assent to the will was obtained by influence such that instead of representing what the testator wanted, the will is a product of coercion.&nbsp; Although fraud is sometimes treated as a separate issue, "fraud and undue influence" are generally coupled and the burden of proof with respect to fraud also lies on those attacking the will.&nbsp; </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">22</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Any discussion of the role of suspicious circumstances must start with the statement of Baron Parke in <i>Barry v. Butlin</i>, <i>supra</i>, at p. 1090 E.R.:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">[F]irst ... the <i>onus probandi</i> lies in every case upon the party propounding a Will; and he must satisfy the conscience of the Court that the instrument so propounded is the last Will of a free and capable Testator.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">[S]econd ... if a party writes or prepares a Will, under which he takes a benefit, that is a circumstance that ought generally to excite the suspicion of the Court, and calls upon it to be vigilant and jealous in examining the evidence in support of the instrument, in favour of which it ought not to pronounce unless the suspicion is removed, and it is judicially satisfied that the paper propounded does express the true Will of the deceased.&nbsp; </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">23</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; At least two problems are raised by this statement:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">(1)&nbsp; whether suspicious circumstances impose a standard of proof that is higher than the ordinary civil standard; and</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">(2)&nbsp; whether the reference to a free and capable testator requires the propounder of the will to disprove undue influence.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">24</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; With respect to the first problem, in accordance with the general rule applicable in civil cases, it has now been established that the civil standard of proof on a balance of probabilities applies.&nbsp; The evidence must, however, be scrutinized in accordance with the gravity of the suspicion.&nbsp; As stated by Ritchie&nbsp;J. in <i>Re Martin</i>; <i>MacGregor v. Ryan</i>, [1965] S.C.R. 757, at p. 766:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">The extent of the proof required is proportionate to the gravity of the suspicion and the degree of suspicion varies with the circumstances of each case.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">25</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; With respect to the second problem, although <i>Barry v. Butlin</i> and numerous other cases dealt with circumstances in which the procurer of the will obtained a benefit, it has been determined that the dictum in <i>Barry v. Butlin</i> extends to any "well-grounded suspicion" (<i>per</i> Davey L.J. in <i>Tyrrell v. Painton</i>, [1894] P. 151, at pp. 159-60).&nbsp; This was reaffirmed in this Court by Ritchie J. in <i>Re Martin</i>, <i>supra</i>.&nbsp; The suspicious circumstances may be raised by (1) circumstances surrounding the preparation of the will, (2) circumstances tending to call into question the capacity of the testator, or (3) circumstances tending to show that the free will of the testator was overborne by acts of coercion or fraud.&nbsp; Since the suspicious circumstances may relate to various issues, in order to properly assess what effect the obligation to dispel the suspicion has on the burden of proof, it is appropriate to ask the question "suspicion of what?"&nbsp; See Wright, <i>supra</i>, and <i>Macdonell, Sheard and Hull on Probate Practice</i> (3rd ed. 1981), at p. 33.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">26</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Suspicious circumstances in any of the three categories to which I refer above will affect the burden of proof with respect to knowledge and approval.&nbsp; The burden with respect to testamentary capacity will be affected as well if the circumstances reflect on the mental capacity of the testator to make a will.&nbsp; Although the propounder of the will has the legal burden with respect to due execution, knowledge and approval, and testamentary capacity, the propounder is aided by a rebuttable presumption.&nbsp; Upon proof that the will was duly executed with the requisite formalities, after having been read over to or by a testator who appeared to understand it, it will generally be presumed that the testator knew and approved of the contents and had the necessary testamentary capacity.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">27</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Where suspicious circumstances are present, then the presumption is spent and the propounder of the will reassumes the legal burden of proving knowledge and approval.&nbsp; In addition, if the suspicious circumstances relate to mental capacity, the propounder of the will reassumes the legal burden of establishing testamentary capacity.&nbsp; Both of these issues must be proved in accordance with the civil standard.&nbsp; There is nothing mysterious about the role of suspicious circumstances in this respect.&nbsp; The presumption simply casts an evidentiary burden on those attacking the will.&nbsp; This burden can be satisfied by adducing or pointing to some evidence which, if accepted, would tend to negative knowledge and approval or testamentary capacity.&nbsp; In this event, the legal burden reverts to the propounder.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">28</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; It might have been simpler to apply the same principles to the issue of fraud and undue influence so as to cast the legal burden onto the propounder in the presence of suspicious circumstances as to that issue.&nbsp; See Wright, <i>supra</i>, and <i>Macdonell, Sheard and Hull on Probate Practice</i>, <i>supra</i>, at p. 33.&nbsp; Indeed the reference in <i>Barry v. Butlin</i> to the will of a "free and capable" testator would have supported that view.&nbsp; Nevertheless, the principle has become firmly entrenched that fraud and undue influence are to be treated as an affirmative defence to be raised by those attacking the will.&nbsp; They, therefore, bear the legal burden of proof.&nbsp; No doubt this reflects the policy in favour of honouring the wishes of the testator where it is established that the formalities have been complied with, and knowledge and approval as well as testamentary capacity have been established.&nbsp; To disallow probate by reason of circumstances merely raising a suspicion of fraud or undue influence would tend to defeat the wishes of the testator in many cases where in fact no fraud or undue influence existed, but the propounder simply failed to discharge the legal burden.&nbsp; Accordingly, it has been authoritatively established that suspicious circumstances, even though they may raise a suspicion concerning the presence of fraud or undue influence, do no more than rebut the presumption to which I have referred.&nbsp; This requires the propounder of the will to prove knowledge and approval and testamentary capacity.&nbsp; The burden of proof with respect to fraud and undue influence remains with those attacking the will.&nbsp; See <i>Craig v. Lamoureux</i>, [1920] A.C. 349; <i>Riach v. Ferris</i>, [1934] S.C.R. 725; <i>Re Martin</i>, <i>supra</i>.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">29</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; It may be thought that proof of knowledge and approval will go a long way in disproving undue influence.&nbsp; Unquestionably there is an overlap.&nbsp; If it is established that the testator knew and appreciated what he was doing, in many cases there is little room for a finding that the testator was coerced.&nbsp; Nonetheless there is a distinction.&nbsp; This distinction was aptly expressed by Ritchie&nbsp;J. in <i>Re Martin</i>.&nbsp; At pages 765-66, he stated:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; There is a distinction to be borne in mind between producing sufficient evidence to satisfy the Court that a suspicion raised by the circumstances surrounding the execution of the will have been dispelled and producing the evidence necessary to establish an allegation of undue influence.&nbsp; The former task lies upon the proponents of the will, the latter is a burden assumed by those who are attacking the will and can only be discharged by proof of the existence of an influence acting upon the mind of the testator of the kind described by Viscount Haldane in <i>Craig v. Lamoureux</i> [[1920] A.C. 349], at p. 357 where he says:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-78.45pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Undue influence, in order to render a will void, must be an influence which can justly be described by a person looking at the matter judicially to have caused the execution of a paper pretending to express a testator's mind, but which really does not express his mind, but something else which he did not really mean.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The distinction to which I have referred is well described by Crocket J. in <i>Riach v. Ferris</i>, <i>supra</i>, at p. 736 where he says:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-78.45pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Assuming that in the case in behalf of a plaintiff seeking to establish the validity of a will, there may be such circumstances of apparent coercion or fraud disclosed as, coupled with the testator's physical and mental debility, raise a well-grounded suspicion in the mind of the court that the testator did not really comprehend what he was doing when he executed the will, and that in such a case it is for the plaintiff to remove that suspicion by affirmatively proving that the testator did in truth appreciate the effect of what he was doing, there is no question that, once this latter fact is proved, the onus entirely lies upon those impugning the will to affirmatively prove that its execution was procured by the practice of some undue influence or fraud upon the testator.&nbsp; </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">A person may well appreciate what he or she is doing but be doing it as a result of coercion or fraud.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><u><span lang="EN-GB" style="letter-spacing:-.15pt">Application to the Case</span></u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">30</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Court of Appeal allowed the appeal on the ground that the trial judge failed to deal properly with the issue of suspicious circumstances "which would cast the burden on the respondent [Vout] of disproving undue influence".&nbsp; In view of the foregoing, the Court of Appeal clearly erred in this respect.&nbsp; Moreover, the trial judge did consider the issue of suspicious circumstances.&nbsp; Byers J. listed the following matters which were alleged to constitute suspicious circumstances:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">1.&nbsp; Clarence Hay went to the lawyer recommended by Sandra Vout, and that lawyer, Paul Russell, had been the lawyer for Sandra Vout's parents;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">2.&nbsp; Sandra Vout is not to be believed as to her participation in the instruction and execution of the Will, and her lies are suspicious;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">3.&nbsp; Sandra Vout stayed with Clarence Hay and coached him when he hesitated, and confirmed her influence at the critical time of execution.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">Although the trial judge expressed the view that these circumstances did not amount to the type of circumstances referred to in the cases to which he had been referred, he proceeded to deal with them on the basis that they did constitute suspicious circumstances.&nbsp; These circumstances did not relate to the testamentary capacity of the testator, but the trial judge made an affirmative finding on this issue.&nbsp; Apart from his express finding of testamentary capacity, he stated:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">... Clarence Hay, on the evidence, was not a befuddled, senile old man whose mind had been captured by Sandra Vout and who, like the testator in <i>Eady v. Waring</i> [(1974), 2 O.R. (2d) 627], was physically and emotionally controlled and isolated by those persons who stood to benefit.&nbsp; In fact, the reverse is true.&nbsp; Clarence Hay was self-reliant and independent, was not easily influenced, lived alone and visited all members of the Hay family regularly, and he was all these things both before and for three years following the execution of the Will.&nbsp; </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">31</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Court of Appeal was critical of the trial judgment for failing to resolve the discrepancies in the evidence.&nbsp; They attributed this failure to the fact that the trial judge found that the testator was fully mentally competent.&nbsp; While the trial judge did so find, he also reviewed the evidence, pointed out the discrepancies and made a positive finding that the testator knew and approved of the contents of the will.&nbsp; In this regard, he stated:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="EN-GB" style="letter-spacing:-.15pt">In my view Clarence Hay made his Will <u>exactly the way he intended</u>.&nbsp; He did have testamentary capacity; it was duly executed and there has been no undue influence.&nbsp; The Will will therefore be admitted to probate.&nbsp; [Emphasis added.]</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">32</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; While it would have been preferable for the trial judge to have made express findings with respect to the discrepancies and, in particular, as to whether the instructions for the will had been given by the appellant to the secretary Clark, I am satisfied that the trial judge scrutinized the evidence to the degree required.&nbsp; He obviously was of the view that this fully competent, self-reliant and independent-minded individual would not have made the will as he did if he had not appreciated fully what he was doing.&nbsp; The trial judge went further and negatived undue influence.&nbsp;&nbsp; This he was not legally obliged to do simply by reason of the presence of suspicious circumstances.&nbsp; </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">33</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I am unable, therefore, to conclude that the trial judge made any error of law or that he committed any palpable or overriding error with respect to the facts.&nbsp; The respondents also raised the issue of due execution but the Court of Appeal did not deal with this issue.&nbsp; Virtually no argument was directed to this point in this Court and I can find nothing to support this submission.&nbsp; The trial judge found the will was duly executed and there was ample evidence to support this finding.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><u><span lang="EN-GB" style="letter-spacing:-.15pt">Disposition</span></u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">34</span><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I would allow the appeal and set aside the judgment of the Court of Appeal and restore the judgment at trial.&nbsp; The appellant as executor under the will is entitled to her costs of the appeal to the Court of Appeal and to this Court on a solicitor and client basis to be paid out of the estate.&nbsp; In my view, the respondents were justified in appealing to the Court of Appeal as well as responding to the appeal to this Court.&nbsp; I would direct that their costs be paid out of the estate on a party and party basis.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+  </div> 
+  <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;CG Times&quot;;letter-spacing:
+-.15pt"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section3"> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Appeal allowed with costs.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitors for the appellant:&nbsp;&nbsp;Osler, Hoskin &amp; Harcourt, Toronto.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitor for the respondents:&nbsp;&nbsp;William&nbsp;E. Baker, Campbellford, Ont.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="letter-spacing:-.15pt">&nbsp;</span></p> 
+  </div> 
+ </div>
+</div>
+<div id="lexboxAnnotationHook"></div>
+<div id="decisia-reflex2-dialog" class="decisia-content" title="Citation automatically hyperlinked by Norma">
+    <div class="decisia-box">
+        <div style="margin-bottom:10px">
+            <div><span class="icon-warning-sign">&nbsp;</span>You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.</div>
+        </div>
+        <div style="float:right">
+            <button id="decisia-reflex2-continue-button" type="button">Continue&nbsp;<span class="icon-arrow-right"></span></button>
+        </div>
+        <div style="clear:both"></div>
+        <input id="decisia-reflex2-ignore-warning" type="checkbox"/>
+        <label for="decisia-reflex2-ignore-warning">Do not display this message anymore</label>
+    </div>
+</div></div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.modalClose = "Close";
+</script>
+</body>
+
+</html>

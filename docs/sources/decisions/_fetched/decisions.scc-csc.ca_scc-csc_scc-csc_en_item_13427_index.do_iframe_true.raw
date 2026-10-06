@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/13427/index.do" />
+    <title>    Hryniak v. Mauldin - SCC Cases
+</title>
+    <link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/scc-csc/scc-csc/en/13427/1762732/res.do" />
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Hryniak v. Mauldin</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Hryniak v. Mauldin</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/scc-csc/fr/item/13427/index.do?alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content">
+<div id="decisia-document-header" class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisia-box">
+
+<h1>
+    <a id="decisia-decisions"></a>
+    Supreme Court Judgments
+</h1>
+
+<h2 class="accessibility-only">Decision Information</h2>
+<div class="metadata">
+
+    <h3 class="title">Hryniak v. Mauldin</h3>
+    <table>
+                    <tr>
+                        <td class="label">Collection</td>
+                        <td class="metadata">
+                                Supreme Court Judgments
+                    </tr>
+                    <tr>
+                        <td class="label">Date</td>
+                        <td class="metadata">
+                                2014-01-23
+                    </tr>
+                    <tr>
+                        <td class="label">Neutral citation</td>
+                        <td class="metadata">
+                                2014 SCC 7
+                    </tr>
+                    <tr>
+                        <td class="label">Report</td>
+                        <td class="metadata">
+                                [2014] 1 SCR 87
+                    </tr>
+                    <tr>
+                        <td class="label">Case number</td>
+                        <td class="metadata">
+                                34641
+                    </tr>
+                    <tr>
+                        <td class="label">Judges</td>
+                        <td class="metadata">
+                                McLachlin, Beverley; LeBel, Louis; Abella, Rosalie Silberman; Rothstein, Marshall; Cromwell, Thomas Albert; Karakatsanis, Andromache; Wagner, Richard
+                    </tr>
+                    <tr>
+                        <td class="label">On appeal from</td>
+                        <td class="metadata">
+                                Ontario
+                    </tr>
+                    <tr>
+                        <td class="label">Subjects</td>
+                        <td class="metadata">
+                                Civil procedure<br/>
+                    </tr>
+                    <tr>
+                        <td class="label">Notes</td>
+                        <td class="metadata">
+                                SCC Case Information: <a target="_blank" href="https://www.scc-csc.ca/cases-dossiers/search-recherche/34641/">34641</a>
+                    </tr>
+    </table>
+
+    <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/13427/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+    </div>
+</div>
+
+
+
+</div>
+
+<div id="lexboxHook"></div>
+
+<h2 class="accessibility-only">Decision Content</h2>
+
+</div> 
+
+<div id="document-content">
+
+        
+<div class="documentcontent"> 
+  <div class="WordSection1"> 
+   <p class="SCCLsocLastPartyInRole"><span style="font-weight:normal">&nbsp;</span></p> 
+   <p class="MsoNormal" align="center" style="text-align:center"><img width="81" height="87" src="/scc-csc/scc-csc/en/13427/1762730/res.do" /></p> 
+   <p class="MsoNormal">&nbsp;</p> 
+   <p class="MsoNormal" align="center" style="text-align:center"><b>SUPREME COURT OF CANADA</b></p> 
+   <p class="MsoNormal">&nbsp;</p> 
+   <table class="TableGrid5" border="0" cellspacing="0" cellpadding="0" width="638" style="border-collapse:collapse;border:none"> 
+    <tbody>
+     <tr style="page-break-inside:avoid"> 
+      <td width="451" valign="top" style="width:4.7in;padding:2.9pt 2.9pt 2.9pt 2.9pt"> <p class="MsoNormal"><b><span style="font-variant:small-caps">Citation:</span></b> Hryniak<span style="color:black"> <i>v.</i> </span>Mauldin<span style="color:black">,</span><i> </i>2014 SCC 7, [2014] 1 S.C.R. 87&nbsp; </p> </td> 
+      <td width="187" valign="top" style="width:1.95in;padding:2.9pt 2.9pt 2.9pt 2.9pt"> <p class="MsoNormal"><b><span style="font-variant:small-caps">Date:</span></b> 20140123</p> <p class="MsoNormal"><b><span style="font-variant:small-caps">Docket:</span></b> 34641</p> </td> 
+     </tr> 
+    </tbody>
+   </table> 
+   <p class="MsoNormal">&nbsp;</p> 
+   <p class="MsoNormal"><b><span style="font-variant:small-caps">Between:</span></b></p> 
+   <p class="MsoNormal" align="center" style="text-align:center"><b>Robert Hryniak</b></p> 
+   <p class="MsoNormal" align="center" style="text-align:center">Appellant</p> 
+   <p class="MsoNormal" align="center" style="text-align:center">and</p> 
+   <p class="MsoNormal" align="center" style="text-align:center"><b>Fred Mauldin, Dan Myers, Robert Blomberg, Theodore Landkammer, Lloyd Chelli, Stephen Yee, Marvin Cleair, Carolyn Cleair, Richard Hanna, Douglas Laird, Charles Ivans, Lyn White and Athena Smith</b></p> 
+   <p class="MsoNormal" align="center" style="text-align:center">Respondents</p> 
+   <p class="MsoNormal" align="center" style="text-align:center">- and -</p> 
+   <p class="MsoNormal" align="center" style="text-align:center"><b>Ontario Trial Lawyers Association and Canadian Bar Association</b></p> 
+   <p class="MsoNormal" align="center" style="text-align:center">Interveners<br/> <br/> </p> 
+   <p class="MsoNormal"><b><span style="font-variant:small-caps">Coram:</span></b> McLachlin&nbsp;C.J. and LeBel, Abella, Rothstein, Cromwell, Karakatsanis and Wagner&nbsp;JJ.</p> 
+   <p class="MsoNormal">&nbsp;</p> 
+   <table class="TableGrid5" border="0" cellspacing="0" cellpadding="0" style="border-collapse:
+ collapse;border:none"> 
+    <tbody>
+     <tr style="page-break-inside:avoid"> 
+      <td width="241" valign="top" style="width:180.9pt;padding:2.9pt 2.9pt 2.9pt 2.9pt"> <p class="MsoNormal"><b><span style="font-variant:small-caps">Reasons for Judgment:</span></b></p> <p class="MsoNormal">(paras. 1 to 96)</p> </td> 
+      <td width="397" valign="top" style="width:297.9pt;padding:2.9pt 2.9pt 2.9pt 2.9pt"> <p class="MsoNormal">Karakatsanis J. (McLachlin C.J. and LeBel, Abella, Rothstein, Cromwell and Wagner JJ. concurring)</p> </td> 
+     </tr> 
+    </tbody>
+   </table> 
+   <p class="MsoNormal">&nbsp;</p> 
+   <p class="MsoNormal"> </p>
+   <table cellpadding="0" cellspacing="0" align="left"> 
+    <tbody>
+     <tr> 
+      <td width="168" height="18"></td> 
+     </tr> 
+     <tr> 
+      <td></td> 
+      <td><img width="265" height="2" src="/scc-csc/scc-csc/en/13427/1762731/res.do" /></td> 
+     </tr> 
+    </tbody>
+   </table> &nbsp;
+   <p></p> 
+   <p class="SCCLsocLastPartyInRole"><span style="font-weight:normal">&nbsp;</span></p> 
+   <br clear="ALL"/> 
+   <p class="SCCLsocLastPartyInRole"><span style="font-weight:normal">Hryniak<span style="color:black"> <i>v.</i> </span>Mauldin<span style="color:black">,</span></span><i><span style="font-weight:normal"> </span></i><span style="font-weight:normal">2014 CSC 7, [2014] 1 R.C.S. 87</span></p> 
+   <p class="SCCLsocLastPartyInRole">Robert Hryniak<span class="SCCLsocPartyRole"><span style="font-weight:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Appellant</span></span></p> 
+   <p class="SCCLsocVersus">v.</p> 
+   <p class="SCCLsocParty">Fred Mauldin, Dan Myers, Robert Blomberg, </p> 
+   <p class="SCCLsocParty">Theodore Landkammer, Lloyd Chelli, Stephen Yee, </p> 
+   <p class="SCCLsocParty">Marvin Cleair, Carolyn Cleair, Richard Hanna, Douglas </p> 
+   <p class="SCCLsocParty" style="margin-bottom:.5in">Laird, Charles Ivans, Lyn White and Athena Smith<span class="SCCLsocPartyRole"><span style="font-weight:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Respondents</span></span></p> 
+   <p class="SCCLsocOtherPartySeparator">and</p> 
+   <p class="SCCLsocParty">Ontario Trial Lawyers Association and </p> 
+   <p class="SCCLsocLastPartyInRole">Canadian Bar Association<span class="SCCLsocPartyRole"><span style="font-weight:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Interveners</span></span></p> 
+   <p class="MsoNormal" style="margin-bottom:.5in;text-align:justify"><b>Indexed as:&nbsp;&nbsp;Hryniak <i>v.</i> Mauldin</b></p> 
+   <p class="SCCSystemYear" style="margin-bottom:.5in;text-align:justify">2014 SCC&nbsp;7</p> 
+   <p class="MsoNormal" style="margin-bottom:.5in;text-align:justify">File No.:&nbsp;&nbsp;34641.</p> 
+   <p class="MsoNormal" style="margin-bottom:.5in;text-align:justify">2013:&nbsp;&nbsp;March&nbsp;26; 2014:&nbsp; January 23.</p> 
+   <p class="MsoNormal" style="margin-bottom:.5in;text-align:justify">Present:&nbsp; McLachlin&nbsp;C.J. and LeBel, Abella, Rothstein, Cromwell, Karakatsanis and Wagner&nbsp;JJ.</p> 
+   <p class="SCCLowerCourtNameLowercase" style="margin-bottom:.5in;line-height:normal">on appeal from the court of appeal for ontario</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt"><i><span style="line-height:200%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Civil procedure — Summary judgment — Investors bringing action in civil fraud and subsequently bringing a motion for summary judgment — Motion judge granting summary judgment — Purpose of summary judgment motions — Access to justice — Proportionality — Interpretation of recent amendments to Ontario Rules of Civil Procedure — Trial management orders — Standard of review for summary judgment motions — Whether motion judge erred in granting summary judgment — Rules of Civil Procedure, R.R.O. 1990, Reg. 194, Rule&nbsp;20.</span></i></p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In June 2001, two representatives of a group of American investors met with H and others to discuss an investment opportunity. &nbsp;The group wired US$1.2&nbsp;million, which was pooled with other funds and transferred to H’s company, Tropos. &nbsp;A few months later, Tropos forwarded more than US$10&nbsp;million to an offshore bank and the money disappeared. &nbsp;The investors brought an action for civil fraud against H and others and subsequently brought a motion for summary judgment. &nbsp;The motion judge used his powers under Rule&nbsp;20.04(2.1) of the Ontario<i> Rules of Civil Procedure</i> (amended in 2010) to weigh the evidence, evaluate credibility, and draw inferences. &nbsp;He concluded that a trial was not required against H. &nbsp;Despite concluding that this case was not an appropriate candidate for summary judgment, the Court of Appeal was satisfied that the record supported the finding that H had committed the tort of civil fraud against the investors, and therefore dismissed H’s appeal.</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Held</i>: &nbsp;The appeal should be dismissed.</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Our civil justice <span style="line-height:200%">system is premised upon the value that the process of adjudication must be fair and just. &nbsp;This cannot be compromised. &nbsp;However, undue process and protracted trials, with unnecessary expense and delay, can prevent the fair and just resolution of disputes. &nbsp;</span>If the process is disproportionate to the nature of the dispute and the interests involved, then it will not achieve a fair and just result. </p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A shift in culture is required.&nbsp; The proportionality principle is now reflected in many of the provinces’ rules and can act as a touchstone for access to civil justice. &nbsp;<span style="line-height:200%">The proportionality </span>principle means that the best forum for resolving a dispute is not always that with the most painstaking procedure. &nbsp;Summary judgment motions provide an opportunity to simplify pre-trial procedures and move the emphasis away from the conventional trial in favour of proportional procedures tailored to the needs of the particular case. &nbsp;Summary judgment rules must be interpreted broadly, favouring proportionality and fair access to the affordable, timely and just adjudication of claims.</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Rule&nbsp;20 was amended in 2010 to improve access to justice. &nbsp;These reforms embody the evolution of summary judgment rules from highly restricted tools used to weed out clearly unmeritorious claims or defences to their current status as a legitimate alternative means for adjudicating and resolving legal disputes. &nbsp;They offer significant new tools to judges, which allow them to adjudicate more cases through summary judgment motions and attenuate the risks when such motions do not resolve the entire case.<span style="line-height:200%"> &nbsp;</span>The new powers in Rules&nbsp;20.04(2.1) and (2.2) expand the number of cases in which there will be no genuine issue requiring a trial by permitting motion judges to weigh evidence, evaluate credibility and draw reasonable inferences.</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Summary judgment motions must be granted whenever there is no genuine issue requiring a trial. &nbsp;<span style="line-height:200%">There will be no genuine issue requiring a trial when the judge is able to reach a fair and just determination on the merits on a motion for summary judgment.&nbsp; This will be the case when the process (1)&nbsp;allows the judge to make the necessary findings of fact, (2)&nbsp;allows the judge to apply the law to the facts, and (3)&nbsp;is a proportionate, more expeditious and less expensive means to achieve a just result.</span></p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The new fact‑finding powers granted to motion judges in Rule&nbsp;20.04 may be employed on a motion for summary judgment unless it is in the interest of justice for them to be exercised only at trial.&nbsp; When the use of the new powers would enable a judge to fairly and justly adjudicate a claim, it will generally not be against the interest of justice to do so. &nbsp;The power to hear oral evidence should be employed when it allows the judge to reach a fair and just adjudication on the merits and it is the proportionate course of action.&nbsp; While this is more likely to be the case when the oral evidence required is limited, there will be cases where extensive oral evidence can be heard. &nbsp;Where a party seeks to lead oral evidence, it should be prepared to demonstrate why such evidence would assist the motion judge and to provide a description of the proposed evidence so that the judge will have a basis for setting the scope of the oral evidence. </p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; On a motion for summary judgment under Rule&nbsp;20.04, the judge should first determine if there is a genuine issue requiring trial based only on the evidence before her, <i>without</i> using the new fact‑finding powers.&nbsp; There will be no genuine issue requiring a trial if the summary judgment process provides her with the evidence required to fairly and justly adjudicate the dispute and is a timely, affordable and proportionate procedure, under Rule&nbsp;20.04(2)(a).&nbsp; If there appears to be a genuine issue requiring a trial, she should then determine if the need for a trial can be avoided by using the new powers under Rules&nbsp;20.04(2.1) and (2.2).&nbsp; Their use will not be against the interest of justice if they will lead to a fair and just result and will serve the goals of timeliness, affordability and proportionality in light of the litigation as a whole. </p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Failed, or even partially successful, summary judgment motions add to costs and delay. &nbsp;This risk can be attenuated by a judge who makes use of the trial management powers provided in Rule&nbsp;20.05 and the court’s inherent jurisdiction. &nbsp;These powers allow the judge to use the insight she gained from hearing the summary judgment motion to craft a trial procedure that will resolve the dispute in a way that is sensitive to the complexity and importance of the issue, the amount involved in the case, and the effort expended on the failed motion.&nbsp; <span style="line-height:200%">Where a motion judge dismisses a motion for summary judgment, in the absence of compelling reasons to the contrary</span>, she should also seize<span style="line-height:200%"> herself of the matter as the trial judge. </span>&nbsp;</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Absent an error of law, the exercise of powers under the new summary judgment rule attracts deference.&nbsp; When the motion judge exercises her new fact‑finding powers under Rule&nbsp;20.04(2.1) and determines whether there is a genuine issue requiring a trial, this is a question of mixed fact and law which should not be overturned, absent palpable and overriding error. &nbsp;Similarly, the determination of whether it is in the interest of justice for the motion judge to exercise the new fact‑finding powers provided by Rule&nbsp;20.04(2.1) is also a question of mixed fact and law which attracts deference. </p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The motion judge did not err in granting summary judgment in the present case. &nbsp;The tort of civil fraud has four elements, which must be proven on a balance of probabilities:&nbsp; (1)&nbsp;a false representation by the defendant; (2)&nbsp;some level of knowledge of the falsehood of the representation on the part of the defendant (whether knowledge or recklessness); (3)&nbsp;the false representation caused the plaintiff to act; (4)&nbsp;the plaintiff’s actions resulted in a loss. &nbsp;In granting summary judgment to the group against H, the motion judge did not explicitly address the correct test for civil fraud but his findings are sufficient to make out the cause of action. &nbsp;The motion judge found no credible evidence to support H’s claim that he was a legitimate trader, and the outcome was therefore clear, so the motion judge concluded there was no issue requiring a trial. &nbsp;It was neither against the interest of justice for the motion judge to use his fact‑finding powers nor was his discretionary decision to do so tainted with error.</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt;page-break-after:
+avoid"><b>Cases Cited</b></p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Referred to:</b> &nbsp;<i>Bruno Appliance and Furniture, Inc. v. Hryniak</i>, 2014 SCC 8, [2014] 1 S.C.R. 126; <i>New Brunswick (Minister of Health and Community Services) v. G. (J.)</i>, [1999] 3 S.C.R. 46; <i>Medicine Shoppe Canada Inc. v. Devchand</i>, 2012 ABQB 375, 541 A.R. 312; <i>Saturley v. CIBC World Markets Inc.</i>, 2011 NSSC 4, 297 N.S.R. (2d) 371;<i> Szeto v. Dwyer</i>, 2010 NLCA 36, 297 Nfld. &amp; P.E.I.R. 311; &nbsp;<i>Bal Global Finance Canada Corp. v. Aliments Breton (Canada) inc.</i>, 2010 QCCS 325 (CanLII); <i>Vaughan v. Warner Communications, Inc. </i>(1986), 56 O.R. (2d) 242; <i>Canada (Attorney General) v. Lameman</i>, 2008 SCC 14, [2008] 1 S.C.R. 372; <i>Aguonie v. Galion Solid Waste Material Inc.</i> (1998), 38 O.R. (3d) 161; <i>Dawson v. Rexcraft Storage and Warehouse Inc.</i> (1998), 164 D.L.R. (4th) 257; <i>Housen v. Nikolaisen</i>, 2002 SCC 33, [2002] 2 S.C.R. 235.</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt;page-break-after:
+avoid"><b>Statutes and Regulations Cited</b></p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal"><i>Code of Civil Procedure</i>, R.S.Q., c.&nbsp;C‑25, arts.&nbsp; 4.2, 54.1 <i>et seq.</i>, 165(4).</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal"><i>Rules of Civil Procedure</i>, R.R.O. 1990, Reg. 194, rr. 1.04(1), (1.1), 1.05, 20, 20.04(2)(a), (2.1), (2.2), 20.05, 20.06(a).</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:27.0pt;text-indent:-27.0pt;line-height:normal"><i>Supreme Court Civil Rules</i>, B.C. Reg. 168/2009, r.&nbsp;1<i></i><i></i><i></i><i></i><i>‑</i>3(2)<i>.</i></p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt;page-break-after:
+avoid"><b>Authors Cited</b></p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Agrast, Mark David, Juan Carlos Botero and Alejandro Ponce.&nbsp; <i>World Justice Project Rule of Law Index 2011</i>.&nbsp; Washington, D.C.:&nbsp; World Justice Project, 2011.</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Ontario.&nbsp; Ministry of the Attorney General. &nbsp;<i>Civil Justice Reform Project:&nbsp; Summary of Findings and Recommendations</i>.&nbsp; Toronto:&nbsp; The Ministry, 2007.</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:27.0pt;text-indent:-27.0pt;line-height:normal">Walsh, Teresa, and Lauren Posloski.&nbsp; “Establishing a Workable Test for Summary Judgment:&nbsp; Are We There Yet?”, in Todd&nbsp;L. Archibald and Randall Scott Echlin, eds., <i>Annual Review of Civil Litigation 2013</i>.&nbsp; Toronto:&nbsp; Thomson Carswell, 2013, 419.</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; APPEAL from a judgment of the Ontario Court of Appeal (Winkler C.J.O. and Laskin, Sharpe, Armstrong and Rouleau JJ.A.), 2011 ONCA 764, 108 O.R. (3d) 1, 286 O.A.C. 3, 97 C.C.E.L. (3d) 25, 14 C.P.C. (7th) 242, 13 R.P.R. (5th) 167, 93 B.L.R. (4th) 1, 344 D.L.R. (4th) 193, 10 C.L.R. (4th) 17, [2011] O.J. No.&nbsp;5431 (QL), 2011 CarswellOnt 13515 (<i>sub nom. Combined Air Mechanical Services Inc. v. Flesch</i>), affirming a decision of Grace&nbsp;J., 2010 ONSC 5490, [2010] O.J. No.&nbsp;4661 (QL), 2010 CarswellOnt 8325.&nbsp; Appeal dismissed.</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt"><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sarit&nbsp;E. Batner</i>, <i>Brandon Kain</i> and <i>Moya&nbsp;J. Graham</i>, for the appellant.</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt"><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Javad Heydary</i>, <i>Jeffrey&nbsp;D. Landmann</i>, <i>David&nbsp;K. Alderson</i>, <i>Michelle Jackson</i> and <i>Jonathan&nbsp;A. Odumeru</i>, for the respondents.</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt"><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Allan Rouben</i> and <i>Ronald&nbsp;P. Bohm</i>, for the intervener the Ontario Trial Lawyers Association.</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt"><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Paul&nbsp;R. Sweeny</i> and <i>David Sterns</i>, for the intervener the Canadian Bar Association.</p> 
+   <p class="JudgeJuge"><span style="font-variant:normal !important">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The judgment of the Court was delivered by</span></p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[1]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-variant:small-caps">Karakatsanis J.</span> — Ensuring access to justice is the greatest challenge to the rule of law in Canada today.&nbsp; Trials have become increasingly expensive and protracted.&nbsp; Most Canadians cannot afford to sue when they are wronged or defend themselves when they are sued, and cannot afford to go to trial.&nbsp; Without an effective and accessible means of enforcing rights, the rule of law is threatened.&nbsp; Without public adjudication of civil cases, the development of the common law is stunted.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[2]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Increasingly, there is recognition that a culture shift is required in order to create an environment promoting timely and affordable access to the civil justice system.&nbsp; This shift entails simplifying pre-trial procedures and moving the emphasis away from the conventional trial in favour of proportional procedures tailored to the needs of the particular case.&nbsp; The balance between procedure and access struck by our justice system must come to reflect modern reality and recognize that new models of adjudication can be fair and just.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[3]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Summary judgment motions provide one such opportunity.&nbsp; Following the <i>Civil Justice Reform Project: &nbsp;Summary of Findings and Recommendations</i> (2007) (the Osborne Report), Ontario amended the <i>Rules of Civil Procedure</i>, R.R.O. 1990, Reg. 194 (Ontario <i>Rules</i> or Rules) to increase access to justice.&nbsp; This appeal, and its companion, <i>Bruno Appliance and Furniture, Inc. v. Hryniak</i>, 2014 SCC 8, [2014] 1 S.C.R. 126, address the proper interpretation of the amended Rule 20 (summary judgment motion).</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[4]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span style="line-height:200%">In interpreting these provisions, the Ontario Court of Appeal placed too high a premium on the “full appreciation” of evidence that can be gained at a conventional trial, given that such a trial is not a realistic alternative for most litigants.&nbsp; In my view, a trial is not required if a summary judgment motion can achieve a fair and just adjudication, if it provides a process that allows the judge to make the necessary findings of fact, apply the law to those facts, and is a proportionate, more expeditious and less expensive means to achieve a just result than going to trial.</span></p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[5]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>To that end, I conclude that summary judgment rules must be interpreted broadly, favouring proportionality and fair access to the affordable, timely and just adjudication of claims.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[6]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>As the Court of Appeal observed, the inappropriate use of summary judgment motions creates its own costs and delays.&nbsp; However, judges can mitigate such risks by making use of their powers to manage and focus the process and, where possible, remain seized of the proceedings.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[7]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>While I differ in part on the interpretation of Rule 20, I agree with the Court of Appeal’s disposition of the matter and would dismiss the appeal.</p> 
+   <p class="Title1LevelTitre1Niveau-AltL"><span style="text-decoration:
+none">I.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Facts</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[8]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>More than a decade ago, a group of American investors, led by Fred Mauldin (the Mauldin Group), placed their money in the hands of Canadian “traders”.&nbsp; Robert Hryniak was the principal of the company Tropos Capital Inc., which traded in bonds and debt instruments; Gregory Peebles, is a corporate-commercial lawyer (formerly of Cassels Brock &amp; Blackwell) who acted for Hryniak, Tropos and Robert Cranston, formerly a principal of a Panamanian company, Frontline Investments Inc.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[9]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In June 2001, two members of the Mauldin Group met with Cranston, Peebles, and Hryniak, to discuss an investment opportunity.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[10]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>At the end of June 2001, the Mauldin Group wired US$1.2 million to Cassels Brock, which was pooled with other funds and transferred to Tropos.&nbsp; A few months later, Tropos forwarded more than US$10 million to an offshore bank, and the money disappeared.&nbsp; Hryniak claims that at this point, Tropos’ funds, including the funds contributed by the Mauldin Group, were stolen.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[11]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Beyond a small payment of US$9,600 in February 2002, the Mauldin Group lost its investment.</p> 
+   <p class="Title1LevelTitre1Niveau-AltL"><span style="text-decoration:
+none">II.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Judicial History</p> 
+   <p class="Title2LevelTitre2Niveau"><span style="font-style:normal">A.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Ontario Superior Court of Justice, 2010 ONSC 5490 (CanLII)</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[12]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Mauldin Group joined with Bruno Appliance and Furniture, Inc. (the appellants in the companion appeal) in an action for civil fraud against Hryniak, Peebles and Cassels Brock.&nbsp; They brought motions for summary judgment, which were heard together.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[13]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In hearing the motions, the judge used his powers under the new Rule 20.04(2.1) to weigh the evidence, evaluate credibility, and draw inferences.&nbsp; He found that the Mauldin Group’s money was disbursed by Cassels Brock to Hryniak’s company, Tropos, but that there was no evidence to suggest that Tropos had ever set up a trading program.&nbsp; Contrary to the investment strategy that Hryniak had described to the investors, the Mauldin Group’s money was placed in an account with the offshore New Savings Bank, and then disappeared.&nbsp; He rejected Hryniak’s claim that members of the New Savings Bank had stolen the Mauldin Group’s money.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[14]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The motion judge concluded that a trial was not required against Hryniak.&nbsp; However, he dismissed the Mauldin Group’s motion for summary judgment against Peebles, because that claim involved factual issues, particularly with respect to Peebles’ credibility and involvement in a key meeting, which required a trial. Consequently, he also dismissed the motion for summary judgment against Cassels Brock, as those claims were based on the theory that the firm was vicariously liable for Peebles’ conduct.</p> 
+   <p class="Title2LevelTitre2Niveau"><span style="font-style:normal">B.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Court of Appeal for Ontario, 2011 ONCA 764, 108 O.R. (3d) 1</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[15]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Court of Appeal simultaneously heard Hryniak’s appeal of this matter, the companion <i>Bruno Appliance </i>appeal, and three other matters which are not before this Court.&nbsp; This was the first occasion on which the Court of Appeal considered the new Rule 20.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[16]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Court of Appeal set out a threshold test for when a motion judge could employ the new evidentiary powers available under Rule 20.04(2.1) to grant summary judgment under Rule 20.04(2)(a).&nbsp; Under this test, the “interest of justice” requires that the new powers be exercised only at trial, unless a motion judge can achieve the “full appreciation” of the evidence and issues required to make dispositive findings on a motion for summary judgment.&nbsp; The motion judge should assess whether the benefits of the trial process, including the opportunity to hear and observe witnesses, to have the evidence presented by way of a trial narrative, and to experience the fact-finding process first-hand, are necessary to fully appreciate the evidence in the case.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[17]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Court of Appeal suggested that cases requiring multiple factual findings, based on conflicting evidence from a number of witnesses, and involving an extensive record, are generally not fit for determination in this manner.&nbsp; Conversely, cases driven by documents, with few witnesses, and limited contentious factual issues are appropriate candidates for summary judgment.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[18]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Court of Appeal advised motion judges to make use of the power to hear oral evidence, under Rule 20.04(2.2), to hear only from a limited number of witnesses on discrete issues that are determinative of the case.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[19]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Court of Appeal concluded that, given its factual complexity and voluminous record, the Mauldin Group’s action was the type of action for which a trial is generally required.&nbsp; There were numerous witnesses, various theories of liability against multiple defendants, serious credibility issues, and an absence of reliable documentary evidence.&nbsp; Moreover, since Hryniak and Peebles had cross-claimed against each other and a trial would nonetheless be required against the other defendants, summary judgment would not serve the values of better access to justice, proportionality, and cost savings.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[20]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Despite concluding that this case was not an appropriate candidate for summary judgment, the Court of Appeal was satisfied that the record supported the finding that Hryniak had committed the tort of civil fraud against the Mauldin Group, and therefore dismissed Hryniak’s appeal.</p> 
+   <p class="Title1LevelTitre1Niveau-AltL"><span style="text-decoration:
+none">III.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp; </span></span>Outline</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[21]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>In determining the general principles to be followed with respect to summary judgment, I will begin with the values underlying timely, affordable and fair access to justice.&nbsp; Next, I will turn to the role of summary judgment motions generally and the interpretation of Rule 20 in particular.&nbsp; I will then address specific judicial tools for managing the risks of summary judgment motions.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[22]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Finally, I will consider the appropriate standard of review and whether summary judgment should have been granted to the respondents.</p> 
+   <p class="Title1LevelTitre1Niveau-AltL"><span style="text-decoration:
+none">IV.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp; </span></span>Analysis</p> 
+   <p class="Title2LevelTitre2Niveau"><span style="font-style:normal">A.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Access to Civil Justice: &nbsp;A Necessary Culture Shift</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[23]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span style="line-height:200%">This appeal concerns the values and choices underlying our civil justice system, and the ability of ordinary Canadians to access that justice.&nbsp; Our civil justice system is premised upon the value that the process of adjudication must be fair and just.&nbsp; This cannot be compromised.</span></p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[24]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span style="line-height:200%">However, undue process and protracted trials, with unnecessary expense and delay, can <i>prevent</i> the fair and just resolution of disputes.&nbsp; The full trial has become largely illusory because, </span>except where government funding is available,<a href="#_ftn1" name="_ftnref1" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;">[1]</span></span></a> ordinary Canadians cannot afford to access the adjudication of civil disputes.<a href="#_ftn2" name="_ftnref2" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[2]</span></span></a><span style="line-height:200%">&nbsp; The cost and delay associated with the traditional process means that, </span>as counsel for the intervener the Advocates’ Society (in <i>Bruno Appliance</i>) stated at the hearing of this appeal, the trial process denies ordinary people the opportunity to have adjudication.&nbsp; And while going to trial has long been seen as a last resort, other dispute resolution mechanisms such as mediation and settlement are more likely to produce fair and just results when adjudication remains a realistic alternative.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[25]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Prompt judicial resolution of legal disputes allows individuals to get on with their lives.&nbsp; But, when court costs and delays become too great, people look for alternatives or simply give up on justice.&nbsp; Sometimes, they choose to represent themselves, often creating further problems due to their lack of familiarity with the law.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[26]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>In some circles, private arbitration is increasingly seen as an alternative to a slow judicial process.&nbsp; But private arbitration is not the solution since, without an accessible public forum for the adjudication of disputes, the rule of law is threatened and the development of the common law undermined.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[27]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>There is growing support for alternative adjudication of disputes and a developing consensus that the traditional balance struck by <span style="line-height:200%">extensive pre-trial processes and the conventional trial no longer reflects the modern reality and </span>needs to be re-adjusted.&nbsp; A proper balance requires simplified and proportionate procedures for adjudication, and impacts the role of counsel and judges.&nbsp; This balance must recognize that a process can be fair and just, without the expense and delay of a trial, and that alternative models of adjudication are no less legitimate than the conventional trial.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[28]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>This requires a shift in culture.&nbsp; The principal goal remains the same: a fair process that results in a just adjudication of disputes.&nbsp; A fair and just process must permit a judge to find the facts necessary to resolve the dispute and to apply the relevant legal principles to the facts as found.&nbsp; However, that process is illusory unless it is also accessible — proportionate, timely and affordable.<span style="line-height:200%">&nbsp; The proportionality </span>principle means that the best forum for resolving a dispute is not always that with the most painstaking procedure.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[29]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>There is, of course, always some tension between accessibility and the truth-seeking function but, much as one would not expect a jury trial over a contested parking ticket, the procedures used to adjudicate civil disputes must fit the nature of the claim. &nbsp;If the process is disproportionate to the nature of the dispute and the interests involved, then it will not achieve a fair and just result.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[30]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The proportionality principle is now reflected in many of the provinces’ rules and can act as a touchstone for access to civil justice.<a href="#_ftn3" name="_ftnref3" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;">[3]</span></span></a>&nbsp; For example, Ontario Rules 1.04(1) and (1.1) provide:</p> 
+   <p class="Citation-AltCCxSpFirst" style="text-indent:13.7pt"><b>1.04</b> (1)&nbsp; These rules shall be liberally construed to secure the just, most expeditious and least expensive determination of every civil proceeding on its merits.</p> 
+   <p class="Citation-AltCCxSpMiddle">&nbsp;</p> 
+   <p class="Citation-AltCCxSpLast" style="text-indent:13.7pt">(1.1)&nbsp; In applying these rules, the court shall make orders and give directions that are proportionate to the importance and complexity of the issues, and to the amount involved, in the proceeding.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[31]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Even where proportionality is not specifically codified, applying rules of court that involve discretion “includes .&nbsp;.&nbsp;. an underlying principle of proportionality which means taking account of the appropriateness of the procedure, its cost and impact on the litigation, and its timeliness, given the nature and complexity of the litigation”: &nbsp;<i>Szeto v. Dwyer</i>, 2010 NLCA 36, 297 Nfld. &amp; P.E.I.R. 311,<i> </i>at para. 53.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[32]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>This culture shift requires judges to actively manage the legal process in line with the principle of proportionality.&nbsp; While summary judgment motions can save time and resources, like most pre-trial procedures, they can also slow down the proceedings if used inappropriately.&nbsp; While judges can and should play a role in controlling such risks, counsel must, in accordance with the traditions of their profession, act in a way that facilitates rather than frustrates access to justice.&nbsp; Lawyers should consider their client’s limited means and the nature of their case and fashion proportionate means to achieve a fair and just result.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[33]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>A complex claim may involve an extensive record and a significant commitment of time and expense.&nbsp; However, proportionality is inevitably comparative; even slow and expensive procedures can be proportionate when they are the fastest and most efficient alternative.&nbsp; The question is whether the added expense and delay of fact finding at trial is necessary to a fair process and just adjudication.</p> 
+   <p class="Title2LevelTitre2Niveau"><span style="font-style:normal">B.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Summary Judgment Motions</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[34]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The summary judgment motion is an important tool for enhancing access to justice because it can provide a cheaper, faster alternative to a full trial.&nbsp; <span style="line-height:200%">With the exception of Quebec, all provinces feature a summary judgment mechanism in their respective rules of civil procedure.<a href="#_ftn4" name="_ftnref4" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;">[4]</span></span></a>&nbsp; Generally, summary judgment is available where there is no genuine issue for trial.</span></p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[35]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Rule 20 is Ontario’s summary judgment procedure, under which a party may move for summary judgment to grant or dismiss all or part of a claim.&nbsp; While Ontario’s Rule 20 in some ways goes further than other rules throughout the country, the values and principles underlying its interpretation are of general application.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[36]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Rule 20 was amended in 2010, following the recommendations of the Osborne Report, to improve access to justice.&nbsp; These reforms embody the evolution of summary judgment rules from highly restricted tools used to weed out clearly unmeritorious claims or defences to their current status as a legitimate alternative means for adjudicating and resolving legal disputes.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[37]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Early summary judgment rules were quite limited in scope and were available only to plaintiffs with claims based on debt or liquidated damages, where no real defence existed.<a href="#_ftn5" name="_ftnref5" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[5]</span></span></a>&nbsp; Summary judgment existed to avoid the waste of a full trial in a clear case.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[38]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In 1985, the then new Rule 20 extended the availability of summary judgement to both plaintiffs and defendants and broadened the scope of cases that could be disposed of on such a motion.&nbsp; The rules were initially interpreted expansively, in line with the purposes of the rule changes.<a href="#_ftn6" name="_ftnref6" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;">[6]</span></span></a>&nbsp; However, appellate jurisprudence limited the powers of judges and effectively narrowed the purpose of motions for summary judgment to merely ensuring that: “claims that have no chance of success [are] weeded out at an early stage”.<a href="#_ftn7" name="_ftnref7" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[7]</span></span></a></p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[39]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Ontario Government commissioned former Ontario Associate Chief Justice Coulter Osborne, Q.C., to consider reforms to make the Ontario civil justice system more accessible and affordable, leading to the report of the Civil Justice Reform Project.&nbsp; The Osborne Report concluded that few summary judgment motions were being brought and, if the summary judgment rule was to work as intended, the appellate jurisprudence that had narrowed the scope and utility of the rule had to be reversed (p. 35).&nbsp; Among other things, it recommended that summary judgment be made more widely available, that judges be given the power to weigh evidence on summary judgment motions, and that judges be given discretion to direct that oral evidence be presented (pp. 35-36).</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[40]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The report also recommended the adoption of a summary trial procedure similar to that employed in British Columbia (p. 37).&nbsp; This particular recommendation was not adopted, and the legislature made the choice to maintain summary judgment as the accessible procedure.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[41]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Many of the Osborne Report’s recommendations were taken up and implemented in 2010. &nbsp;As noted above, the amendments codify the proportionality principle and provide for efficient adjudication when a conventional trial is not required.&nbsp; They offer significant new tools to judges, which allow them to adjudicate more cases through summary judgment motions and attenuate the risks when such motions do not resolve the entire case.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[42]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Rule 20.04 now reads in part:<a href="#_ftn8" name="_ftnref8" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[8]</span></span></a></p> 
+   <p class="Citation-AltCCxSpFirst" style="text-indent:13.7pt"><b>20.04</b> .&nbsp;.&nbsp;.</p> 
+   <p class="Citation-AltCCxSpMiddle" style="text-indent:13.7pt">&nbsp;</p> 
+   <p class="Citation-AltCCxSpMiddle" style="text-indent:12.6pt">(2) [General] The court shall grant summary judgment if,</p> 
+   <p class="Citation-AltCCxSpMiddle">&nbsp;</p> 
+   <p class="Citation-AltCCxSpMiddle" style="margin-left:92.15pt;text-indent:-21.25pt">(a)&nbsp;&nbsp; the court is satisfied that there is no genuine issue requiring a trial with respect to a claim or defence; or</p> 
+   <p class="Citation-AltCCxSpMiddle" style="text-indent:13.7pt">&nbsp;</p> 
+   <p class="Citation-AltCCxSpMiddle" style="margin-left:92.15pt;text-indent:-21.25pt">(b)&nbsp;&nbsp; the parties agree to have all or part of the claim determined by a summary judgment and the court is satisfied that it is appropriate to grant summary judgment.</p> 
+   <p class="Citation-AltCCxSpMiddle">&nbsp;</p> 
+   <p class="Citation-AltCCxSpMiddle">&nbsp;&nbsp;&nbsp;&nbsp; (2.1) [Powers] In determining under clause (2)(a) whether there is a genuine issue requiring a trial, the court shall consider the evidence submitted by the parties and, if the determination is being made by a judge, the judge may exercise any of the following powers for the purpose, unless it is in the interest of justice for such powers to be exercised only at a trial:</p> 
+   <p class="Citation-AltCCxSpMiddle">&nbsp;</p> 
+   <p class="Citation-AltCCxSpMiddle">&nbsp;&nbsp;&nbsp;&nbsp; 1. Weighing the evidence.</p> 
+   <p class="Citation-AltCCxSpMiddle">&nbsp;</p> 
+   <p class="Citation-AltCCxSpMiddle">&nbsp;&nbsp;&nbsp;&nbsp; 2. Evaluating the credibility of a deponent.</p> 
+   <p class="Citation-AltCCxSpMiddle">&nbsp;</p> 
+   <p class="Citation-AltCCxSpMiddle">&nbsp;&nbsp;&nbsp;&nbsp; 3. Drawing any reasonable inference from the evidence.</p> 
+   <p class="Citation-AltCCxSpMiddle">&nbsp;</p> 
+   <p class="Citation-AltCCxSpLast">&nbsp;&nbsp;&nbsp;&nbsp; (2.2) [Oral Evidence (Mini-Trial)] A judge may, for the purposes of exercising any of the powers set out in subrule (2.1), order that oral evidence be presented by one or more parties, with or without time limits on its presentation.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[43]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Ontario amendments changed the test for summary judgment from asking whether the case presents “a genuine issue <u>for</u> trial” to asking whether there is a “genuine issue <u>requiring</u> a trial”.&nbsp; The new rule, with its enhanced fact‑finding powers, demonstrates that a trial is not the default procedure.&nbsp; Further, it eliminated the presumption of substantial indemnity costs against a party that brought an unsuccessful motion for summary judgment, in order to avoid deterring the use of the procedure.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[44]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The new powers in Rules 20.04(2.1) and (2.2) expand the number of cases in which there will be no genuine issue requiring a trial by permitting motion judges to weigh evidence, evaluate credibility and draw reasonable inferences.<a href="#_ftn9" name="_ftnref9" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;">[9]</span></span></a></p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[45]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>These new fact-finding powers are discretionary and are presumptively available; they may be exercised <i>unless</i> it is in the interest of justice for them to be exercised only at a trial; Rule 20.04(2.1).&nbsp; Thus, the amendments are designed to transform Rule 20 from a means to weed out unmeritorious claims to a significant alternative model of adjudication.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[46]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>I will first consider when summary judgment can be granted on the basis that there is “no genuine issue requiring a trial” (Rule 20.04(2)(a)).&nbsp; Second, I will discuss when it is against the “interest of justice” for the new fact-finding powers in Rule 20.04(2.1) to be used on a summary judgment motion.&nbsp; Third, I will consider the power to call oral evidence and, finally, I will lay out the process to be followed on a motion for summary judgment.</p> 
+   <p class="Title3LevelTitre3Niveau" style="margin-left:56.7pt;text-indent:-35.1pt"><span style="text-decoration:none">(1)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>When Is There No Genuine Issue Requiring a Trial?</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[47]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Summary judgment motions must be granted whenever there is no genuine issue requiring a trial (Rule 20.04(2)(a)).&nbsp; In outlining how to determine whether there is such an issue, I focus on the goals and principles that underlie whether to grant motions for summary judgment.&nbsp; Such an approach allows the application of the rule to evolve organically, lest categories of cases be taken as rules or preconditions which may hinder the system’s transformation by discouraging the use of summary judgment.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[48]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span style="line-height:200%">The Court of Appeal did not explicitly focus upon when there is a genuine issue requiring a trial.&nbsp; However, in considering whether it is against the interest of justice to use the new fact-finding powers, the court suggested that summary judgment would most often be appropriate when cases were document driven, with few witnesses and limited contentious factual issues, or when the record could be supplemented by oral evidence on discrete points.&nbsp; These are helpful observations but, as the court itself recognized, should not be taken as delineating firm categories of cases where summary judgment is and is not appropriate.&nbsp; For example, while this case is complex, with a voluminous record, the Court of Appeal ultimately agreed that there was no genuine issue requiring a trial.</span></p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[49]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span style="line-height:200%">There will be no genuine issue requiring a trial when the judge is able to reach a fair and just determination on the merits on a motion for summary judgment.&nbsp; This will be the case when the process (1) allows the judge to make the necessary findings of fact, (2) allows the judge to apply the law to the facts, and (3) is a proportionate, more expeditious and less expensive means to achieve a just result.</span></p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[50]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>These principles are interconnected and all speak to whether summary judgment will provide a fair and just adjudication.&nbsp; When a summary judgment motion allows the judge to find the necessary facts and resolve the dispute, proceeding to trial would generally not be proportionate, timely or cost effective.&nbsp; Similarly, a process that does not give a judge confidence in her conclusions can never be the proportionate way to resolve a dispute.&nbsp; It bears reiterating that the standard for fairness is not whether the procedure is as exhaustive as a trial, but whether it gives the judge confidence that she can find the necessary facts and apply the relevant legal principles so as to resolve the dispute.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[51]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Often, concerns about credibility or clarification of the evidence can be addressed by calling oral evidence on the motion itself. &nbsp;However, there may be cases where, given the nature of the issues and the evidence required, the judge cannot make the necessary findings of fact, or apply the legal principles to reach a just and fair determination.</p> 
+   <p class="Title3LevelTitre3Niveau" style="margin-left:56.7pt;text-indent:-35.1pt"><span style="text-decoration:none">(2)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>The Interest of Justice</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[52]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The enhanced fact-finding powers granted to motion judges in Rule 20.04(2.1) may be employed on a motion for summary judgment unless it is in the “interest of justice” for them to be exercised only at trial.&nbsp; The “interest of justice” is not defined in the Rules.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[53]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>To determine whether the interest of justice allowed the motion judge to use her new powers, the Court of Appeal required a motion judge to ask herself “can the full appreciation of the evidence and issues that is required to make dispositive findings be achieved by way of summary judgment, or can this full appreciation only be achieved by way of a trial?” (para. 50).</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[54]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Court of Appeal identified the benefits of a trial that contribute to this full appreciation of the evidence: &nbsp;the narrative that counsel can build through trial, the ability of witnesses to speak in their own words, and the assistance of counsel in sifting through the evidence (para. 54).</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[55]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The respondents, as well as the interveners, the Canadian Bar Association, the Attorney General of Ontario and the Advocates’ Society, submit that the Court of Appeal’s emphasis on the virtues of the traditional trial is misplaced and unduly restrictive.&nbsp; Further, some of these interveners submit that this approach may result in the creation of categories of cases inappropriate for summary judgment, and this will limit the development of the summary judgment vehicle.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[56]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>While I agree that a motion judge must have an appreciation of the evidence necessary to make dispositive findings, such an appreciation is not only available at trial.&nbsp; Focussing on how much and what kind of evidence could be adduced at a trial, as opposed to whether a trial is “requir[ed]” as the Rule directs, is likely to lead to the bar being set too high.&nbsp; The interest of justice cannot be limited to the advantageous features of a conventional trial, and must account for proportionality, timeliness and affordability. &nbsp;Otherwise, the adjudication permitted with the new powers — and the purpose of the amendments — would be frustrated.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[57]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>On a summary judgment motion, the evidence need not be equivalent to that at trial, but must be such that the judge is confident that she can fairly resolve the dispute.&nbsp; A documentary record, particularly when supplemented by the new fact-finding tools, including ordering oral testimony, is often sufficient to resolve material issues fairly and justly.&nbsp; The powers provided in Rules 20.04(2.1) and (2.2) can provide an equally valid, if less extensive, manner of fact finding.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[58]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>This inquiry into the interest of justice is, by its nature, comparative. Proportionality is assessed in relation to the full trial.&nbsp; It may require the motion judge to assess the relative efficiencies of proceeding by way of summary judgment, as opposed to trial.&nbsp; This would involve a comparison of, among other things, the cost and speed of both procedures.&nbsp; (Although summary judgment may be expensive and time consuming, as in this case, a trial may be even more expensive and slower.)&nbsp; It may also involve a comparison of the evidence that will be available at trial and on the motion as well as the opportunity to fairly evaluate it.&nbsp; (Even if the evidence available on the motion is limited, there may be no reason to think better evidence would be available at trial.)</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[59]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In practice, whether it is against the “interest of justice” to use the new fact-finding powers will often coincide with whether there is a “genuine issue requiring a trial”. &nbsp;It is logical that, when the use of the new powers would enable a judge to fairly and justly adjudicate a claim, it will generally not be against the interest of justice to do so.&nbsp; What is fair and just turns on the nature of the issues, the nature and strength of the evidence and what is the proportional procedure.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[60]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The “interest of justice” inquiry goes further, and also considers the consequences of the motion in the context of the litigation as a whole.&nbsp; For example, if some of the claims against some of the parties will proceed to trial in any event, it may not be in the interest of justice to use the new fact-finding powers to grant summary judgment against a single defendant.&nbsp; Such partial summary judgment may run the risk of duplicative proceedings or inconsistent findings of fact and therefore the use of the powers may not be in the interest of justice.&nbsp; On the other hand, the resolution of an important claim against a key party could significantly advance access to justice, and be the most proportionate, timely and cost effective approach.</p> 
+   <p class="Title3LevelTitre3Niveau" style="margin-left:56.7pt;text-indent:-35.1pt"><span style="text-decoration:none">(3)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>The Power to Hear Oral Evidence</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[61]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Under Rule 20.04(2.2), the motion judge is given the power to hear oral evidence to assist her in making findings under Rule 20.04(2.1).&nbsp; The decision to allow oral evidence rests with the motion judge since, as the Court of Appeal noted, “it is the motion judge, not counsel, who maintains control over the extent of the evidence to be led and the issues to which the evidence is to be directed” (para.&nbsp;60).</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[62]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Court of Appeal suggested the motion judge should only exercise this power when</p> 
+   <p class="Citation-AltCCxSpFirst" style="margin-left:81.0pt;text-indent:-22.5pt">(1)&nbsp;&nbsp; oral evidence can be obtained from a small number of witnesses and gathered in a manageable period of time;</p> 
+   <p class="Citation-AltCCxSpMiddle">&nbsp;</p> 
+   <p class="Citation-AltCCxSpMiddle" style="margin-left:81.0pt;text-indent:-22.5pt">(2)&nbsp;&nbsp; any issue to be dealt with by presenting oral evidence is likely to have a significant impact on whether the summary judgment motion is granted; and</p> 
+   <p class="Citation-AltCCxSpMiddle">&nbsp;</p> 
+   <p class="Citation-AltCCxSpLast" style="margin-left:81.0pt;text-indent:-22.5pt">(3)&nbsp;&nbsp; any such issue is narrow and discrete — <i>i.e.</i>, the issue can be separately decided and is not enmeshed with other issues on the motion. &nbsp;[para. 103]</p> 
+   <p class="ContinueParaSuitedupar-AltP">This is useful guidance to ensure that the hearing of oral evidence does not become unmanageable; however, as the Court of Appeal recognized, these are not absolute rules.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[63]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>This power should be employed when it allows the judge to reach a fair and just adjudication on the merits and it is the proportionate course of action.&nbsp; While this is more likely to be the case when the oral evidence required is limited, there will be cases where extensive oral evidence can be heard on the motion for summary judgment, avoiding the need for a longer, more complex trial and without compromising the fairness of the procedure.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[64]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Where a party seeks to lead oral evidence, it should be prepared to demonstrate why such evidence would assist the motion judge in weighing the evidence, assessing credibility, or drawing inferences and to provide a “will say” statement or other description of the proposed evidence so that the judge will have a basis for setting the scope of the oral evidence.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[65]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Thus, the power to call oral evidence should be used to promote the fair and just resolution of the dispute in light of principles of proportionality, timeliness and affordability.&nbsp; In tailoring the nature and extent of oral evidence that will be heard, the motion judge should be guided by these principles, and remember that the process is not a full trial on the merits but is designed to determine if there is a genuine issue requiring a trial.</p> 
+   <p class="Title3LevelTitre3Niveau" style="margin-left:56.7pt;text-indent:-35.1pt"><span style="text-decoration:none">(4)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>The Roadmap/Approach to a Motion for Summary Judgment</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[66]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>On a motion for summary judgment under Rule 20.04, the judge should first determine if there is a genuine issue requiring trial based only on the evidence before her, <i>without</i> using the new fact-finding powers.&nbsp; There will be no genuine issue requiring a trial if the summary judgment process provides her with the evidence required to fairly and justly adjudicate the dispute and is a timely, affordable and proportionate procedure, under Rule 20.04(2)(a).&nbsp; If there appears to be a genuine issue requiring a trial, she should then determine if the need for a trial can be avoided by using the new powers under Rules 20.04(2.1) and (2.2).&nbsp; She may, at her discretion, use those powers, provided that their use is not against the interest of justice.&nbsp; Their use will not be against the interest of justice if they will lead to a fair and just result and will serve the goals of timeliness, affordability and proportionality in light of the litigation as a whole.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[67]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Inquiring first as to whether the use of the powers under Rule 20.04(2.1) will allow the dispute to be resolved by way of summary judgment, before asking whether the interest of justice requires that those powers be exercised only at trial, emphasizes that these powers are presumptively available, rather than exceptional, in line with the goal of proportionate, cost-effective and timely dispute resolution.&nbsp; As well, by first determining the consequences of using the new powers, the benefit of their use is clearer.&nbsp; This will assist in determining whether it is in the interest of justice that they be exercised only at trial.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[68]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>While summary judgment <i>must </i>be granted if there is no genuine issue requiring a trial,<a href="#_ftn10" name="_ftnref10" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;">[10]</span></span></a> the decision to use either the expanded fact-finding powers or to call oral evidence is discretionary.<a href="#_ftn11" name="_ftnref11" title=""><span class="MsoFootnoteReference"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;">[11]</span></span></a>&nbsp; The discretionary nature of this power gives the judge some flexibility in deciding the appropriate course of action.&nbsp; This discretion can act as a safety valve in cases where the use of such powers would clearly be inappropriate.&nbsp; There is always the risk that clearly unmeritorious motions for summary judgment could be abused and used tactically to add time and expense.&nbsp; In such cases, the motion judge may choose to decline to exercise her discretion to use those powers and dismiss the motion for summary judgment, without engaging in the full inquiry delineated above.</p> 
+   <p class="Title2LevelTitre2Niveau"><span style="font-style:normal">C.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Tools to Maximize the Efficiency of a Summary Judgment Motion</p> 
+   <p class="Title3LevelTitre3Niveau"><span style="text-decoration:none">(1)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Controlling the Scope of a Summary Judgment Motion</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[69]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>The Ontario <i>Rules</i> and a superior court’s inherent jurisdiction permit a motion judge to be involved early in the life of a motion, in order to control the size of the record, and to remain active in the event the motion does not resolve the entire action.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[70]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>The Rules provide for early judicial involvement, through Rule 1.05, which allows for a motion for directions, to manage the time and cost of the summary judgment motion.&nbsp; This allows a judge to <span style="line-height:200%">provide directions with regard to the timelines for filing affidavits, the length of cross-examination, and the nature and amount of evidence that will be filed.&nbsp; </span>However, motion judges must also be cautious not to impose administrative measures that add an unnecessary layer of cost.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[71]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span style="line-height:200%">Not all motions for summary judgment will require a motion for directions.&nbsp; However, failure to bring such a motion where it was evident that the record would be complex or voluminous may be considered when dealing with costs consequences under Rule 20.06(a).&nbsp; In line with the principle of proportionality, the judge hearing the motion for directions should generally be seized of the summary judgment motion itself, ensuring the knowledge she has developed about the case does not go to waste.</span></p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[72]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="line-height:200%">I agree with the Court of Appeal (at paras. 58 and 258) that a motion for directions also provides the responding party with the opportunity to seek an order to stay or dismiss a premature or improper motion for summary judgment.&nbsp; This may be appropriate to challenge lengthy, complex motions, particularly on the basis that they would not sufficiently advance the litigation, or serve the principles of proportionality, timeliness and affordability.</span></p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[73]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="line-height:200%">A motion for summary judgment will not always be the most proportionate way to dispose of an action.&nbsp; For example, an early date may be available for a short trial, or the parties may be prepared to proceed with a summary trial.&nbsp; Counsel should always be mindful of the most proportionate procedure for their client and the case.</span></p> 
+   <p class="Title3LevelTitre3Niveau" style="margin-left:56.7pt;text-indent:-35.1pt"><span style="text-decoration:none">(2)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Salvaging a Failed Summary Judgment Motion</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[74]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Failed, or even partially successful, summary judgment motions add — sometimes astronomically — to costs and delay. &nbsp;However, this risk can be attenuated by a judge who makes use of the trial management powers provided in Rule 20.05 and the court’s inherent jurisdiction.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[75]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Rules 20.05(1) and (2) provide in part:</p> 
+   <p class="Citation-AltCCxSpFirst">&nbsp;&nbsp;&nbsp;&nbsp; <b>20.05</b> (1) &nbsp;Where summary judgment is refused or is granted only in part, the court may make an order specifying what material facts are not in dispute and defining the issues to be tried, and order that the action proceed to trial expeditiously.</p> 
+   <p class="Citation-AltCCxSpMiddle">&nbsp;</p> 
+   <p class="Citation-AltCCxSpLast">&nbsp;&nbsp;&nbsp;&nbsp; (2)&nbsp; If an action is ordered to proceed to trial under subrule (1), the court may give such directions or impose such terms as are just .&nbsp;.&nbsp;.&nbsp;.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[76]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Rules 20.05(2)(a) through (p) outline a number of specific trial management orders that may be appropriate.&nbsp; The court may: set a schedule; provide a restricted discovery plan; set a trial date; require payment into court of the claim; or order security for costs.&nbsp; The court may order that: the parties deliver a concise summary of their opening statement; the parties deliver a written summary of the anticipated evidence of a witness; any oral examination of a witness at trial will be subject to a time limit or; the evidence of a witness be given in whole or in part by affidavit.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[77]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>These powers allow the judge to use the insight she gained from hearing the summary judgment motion to craft a trial procedure that will resolve the dispute in a way that is sensitive to the complexity and importance of the issue, the amount involved in the case, and the effort expended on the failed motion.&nbsp; The motion judge should look to the summary trial as a model, particularly where affidavits filed could serve as the evidence of a witness, subject to time-limited examinations and cross-examinations.&nbsp; Although the Rules did not adopt the Osborne Report’s recommendation of a summary trial model, this model already exists under the simplified rules or on consent.&nbsp; In my view, the summary trial model would also be available further to the broad powers granted to a judge under Rule 20.05(2).</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[78]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="line-height:200%">Where a motion judge dismisses a motion for summary judgment, in the absence of compelling reasons to the contrary</span>, she should also seize<span style="line-height:200%"> herself of the matter as the trial judge. </span>&nbsp;I agree with the Osborne Report that the involvement of a single judicial officer throughout</p> 
+   <p class="Citation-AltC">saves judicial time since parties will not have to get a different judge up to speed each time an issue arises in the case.&nbsp; It may also have a calming effect on the conduct of litigious parties and counsel, as they will come to predict how the judicial official assigned to the case might rule on a given issue. &nbsp;[p. 88]</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[79]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>While such an approach may complicate scheduling, to the extent that current scheduling practices prevent summary judgment motions being used in an efficient and cost effective manner, the courts should be prepared to change their practices in order to facilitate access to justice.</p> 
+   <p class="Title2LevelTitre2Niveau"><span style="font-style:normal">D.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Standard of Review</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[80]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Court of Appeal concluded that determining the appropriate test for summary judgment — whether there is a genuine issue requiring a trial — is a legal question, reviewable on a correctness standard, while any factual determinations made by the motion judge will attract deference.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[81]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In my view, absent an error of law, the exercise of powers under the new summary judgment rule attracts deference.&nbsp; When the motion judge exercises her new fact-finding powers under Rule 20.04(2.1) and determines whether there is a genuine issue requiring a trial, this is a question of mixed fact and law.&nbsp; Where there is no extricable error in principle, findings of mixed fact and law should not be overturned absent palpable and overriding error: &nbsp;<i>Housen v. Nikolaisen</i>,<i> </i>2002 SCC 33, [2002] 2 S.C.R. 235, at para. 36.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[82]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Similarly, the question of whether it is in the “interest of justice” for the motion judge to exercise the new fact-finding powers provided by Rule 20.04(2.1) depends on the relative evidence available at the summary judgment motion and at trial, the nature, size, complexity and cost of the dispute and other contextual factors.&nbsp; Such a decision is also a question of mixed fact and law which attracts deference.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[83]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Provided that it is not against the “interest of justice”, a motion judge’s decision to exercise the new powers is discretionary.&nbsp; Thus, unless the motion judge misdirected herself, or came to a decision that is so clearly wrong that it resulted in an injustice, her decision should not be disturbed.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[84]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Of course, where the motion judge applies an incorrect principle of law, or errs with regard to a purely legal question, such as the elements that must be proved for the plaintiff to make out her cause of action, the decision will be reviewed on a correctness standard: &nbsp;<i>Housen</i>, at para. 8.</p> 
+   <p class="Title2LevelTitre2Niveau"><span style="font-style:normal">E.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Did the Motion Judge Err by Granting Summary Judgment?</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[85]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The motion judge granted summary judgment in favour of the Mauldin Group.&nbsp; While the Court of Appeal found that the action should not have been decided by summary judgment, it nevertheless dismissed the appeal.&nbsp; Hryniak argues this constituted “prospective overruling” but, in light of my conclusion that the motion judge was entitled to proceed by summary judgment, I need not consider these submissions further.&nbsp; For the reasons that follow, I am satisfied that the motion judge did not err in granting summary judgment.</p> 
+   <p class="Title3LevelTitre3Niveau" style="margin-left:56.7pt;text-indent:-35.1pt"><span style="text-decoration:none">(1)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>The Tort of Civil Fraud</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[86]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The action underlying this motion for summary judgment was one for civil fraud brought against Hryniak, Peebles, and Cassels Brock.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[87]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>As discussed in the companion <i>Bruno Appliance</i> appeal, the tort of civil fraud has four elements, which must be proven on a balance of probabilities:&nbsp; (1) a false representation by the defendant; (2) some level of knowledge of the falsehood of the representation on the part of the defendant (whether knowledge or recklessness); (3) the false representation caused the plaintiff to act; (4) the plaintiff’s actions resulted in a loss.</p> 
+   <p class="Title3LevelTitre3Niveau" style="margin-left:56.7pt;text-indent:-35.1pt"><span style="text-decoration:none">(2)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Was There a Genuine Issue Requiring a Trial?</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[88]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In granting summary judgment to the Mauldin Group against Hryniak, the motion judge did not explicitly address the correct test for civil fraud but, like the Court of Appeal, I am satisfied that his findings support that result.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[89]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The first element of civil fraud is a false representation by the defendant.&nbsp; The Court of Appeal agreed with the motion judge that “[u]nquestionably, the Mauldin group was induced to invest with Hryniak because of what Hryniak said to Fred Mauldin” at the meeting of June 19, 2001 (at para. 158), and this was not disputed in the appellant’s factum.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[90]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The motion judge found the requisite knowledge or recklessness as to the falsehood of the representation, the second element of civil fraud, based on Hryniak’s lack of effort to ensure that the funds would be properly invested and failure to verify that the eventual end-point of the funds, New Savings Bank, was secure.&nbsp; The motion judge also rejected the defence that the funds were stolen, noting Hryniak’s feeble efforts to recover the funds, waiting some 15 months to report the apparent theft of US$10.2 million.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[91]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The motion judge also found an intention on the part of Hryniak that the Mauldin Group would act on his false representations, the third requirement of civil fraud.&nbsp; Hryniak secured a US$76,000 loan for Fred Mauldin and conducted a “test trade”, actions which, in the motion judge’s view, were “undertaken .&nbsp;.&nbsp;. for the purpose of dissuading the Mauldin group from demanding the return of its investment” (para. 113).&nbsp; Moreover, the motion judge detailed Hryniak’s central role in the web of deception that caused the Mauldin Group to invest its funds and that dissuaded them from seeking their return for some time after they had been stolen.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[92]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The final requirement of civil fraud, loss, is clearly present.&nbsp; The Mauldin Group invested US$1.2 million and, but for a small return of US$9,600 in February 2002, lost its investment.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[93]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The motion judge found no credible evidence to support Hryniak’s claim that he was a legitimate trader, and the outcome was therefore clear, so the motion judge concluded there was no issue requiring a trial.&nbsp; He made no palpable and overriding error in granting summary judgment.</p> 
+   <p class="Title3LevelTitre3Niveau" style="margin-left:56.7pt;text-align:justify;
+text-indent:-35.1pt"><span style="text-decoration:none">(3)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Did the Interest of Justice Preclude the Motion Judge From Using His Powers Under Rule 20.04?</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[94]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The motion judge did not err in exercising his fact-finding powers under Rule 20.04(2.1).&nbsp; He was prepared to sift through the detailed record, and was of the view that sufficient evidence had been presented on all relevant points to allow him to draw the inferences necessary to make dispositive findings under Rule 20.&nbsp; Further, while the amount involved is significant, the issues raised by Hryniak’s defence were fairly straightforward.&nbsp; As the Court of Appeal noted, at root, the question turned on whether Hryniak had a legitimate trading program that went awry when the funds were stolen, or whether his program was a sham from the outset (para. 159).&nbsp; The plaintiffs are a group of elderly American investors and, at the return date of the motion, had been deprived of their funds for nearly a decade.&nbsp; The record was sufficient to make a fair and just determination and a timely resolution of the matter was called for.&nbsp; While the motion was complex and expensive, going to trial would have cost even more and taken even longer.</p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[95]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Despite the fact that the Mauldin Group’s claims against Peebles and Cassels Brock had to proceed to trial, there is little reason to believe that granting summary judgment against Hryniak would have a prejudicial impact on the trial of the remaining issues.&nbsp; While the extent of the other defendants’ involvement in the fraud requires a trial, that matter is not predetermined by the conclusion that Hryniak clearly was <i>a</i> perpetrator of the fraud.&nbsp; The motion judge’s findings speak specifically to Hryniak’s involvement and neither rely upon, nor are inconsistent with, the liability of others. &nbsp;His findings were clearly supported by the evidence.&nbsp; It was neither against the interest of justice for the motion judge to use his fact-finding powers nor was his discretionary decision to do so tainted with error.</p> 
+   <p class="Title1LevelTitre1Niveau-AltL"><span style="text-decoration:
+none">V.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Conclusion </p> 
+   <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[96]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Accordingly, I would dismiss the appeal, with costs to the respondents.<br clear="all" style="page-break-before:always"/> </p> 
+   <p class="MsoNormal" align="center" style="text-align:center"><b>APPENDIX</b></p> 
+   <p class="MsoNormal"><i>&nbsp;</i></p> 
+   <p class="MsoNormal"><i>Rules of Civil Procedure</i>, R.R.O. 1990, Reg. 194</p> 
+   <p class="MsoNormal">&nbsp;</p> 
+   <p class="MsoNormal" align="center" style="text-align:center"><b>RULE 20 SUMMARY JUDGMENT</b></p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3713_170056"></a><a name="s20p01s1"></a><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20.01</b>&nbsp; [Where Available] (1) [To Plaintiff] A plaintiff may, after the defendant has delivered a statement of defence or served a notice of motion, move with supporting affidavit material or other evidence for summary judgment on all or part of the claim in the statement of claim.</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3714_170349"></a><a name="s20p01s2"></a>&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (2) The plaintiff may move, without notice, for leave to serve a notice of motion for summary judgment together with the statement of claim, and leave may be given where special urgency is shown, subject to such directions as are just. </p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3716_170639"></a><a name="s20p01s3"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (3) [To Defendant] A defendant may, after delivering a statement of defence, move with supporting affidavit material or other evidence for summary judgment dismissing all or part of the claim in the statement of claim.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3718_170903"></a><a name="s20p02s1"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>20.02</b> [Evidence on Motion] (1) An affidavit for use on a motion for summary judgment may be made on information and belief as provided in subrule 39.01(4), but, on the hearing of the motion, the court may, if appropriate, draw an adverse inference from the failure of a party to provide the evidence of any person having personal knowledge of contested facts.</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3719_171274"></a><a name="s20p02s2"></a>&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (2) In response to affidavit material or other evidence supporting a motion for summary judgment, a responding party may not rest solely on the allegations or denials in the party’s pleadings, but must set out, in affidavit material or other evidence, specific facts showing that there is a genuine issue requiring a trial.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3721_171644"></a><a name="s20p03s1"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>20.03</b> [Factums Required] (1) On a motion for summary judgment, each party shall serve on every other party to the motion a factum consisting of a concise argument stating the facts and law relied on by the party.</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3722_171868"></a><a name="s20p03s2"></a>&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (2) The moving party’s factum shall be served and filed with proof of service in the court office where the motion is to be heard at least seven days before the hearing.</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3723_172067"></a><a name="s20p03s3"></a>&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (3) The responding party’s factum shall be served and filed with proof of service in the court office where the motion is to be heard at least four days before the hearing.</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3724_172269"></a><a name="s20p03s4"></a>&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (4) Revoked.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3727_172337"></a><a name="s20p04s1"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>20.04</b> [Disposition of Motion] (1) [General] Revoked.</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3728_172391"></a><a name="s20p04s2"></a>&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(2)&nbsp;&nbsp; The court shall grant summary judgment if,</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(a)&nbsp;&nbsp; the court is satisfied that there is no genuine issue requiring a trial with respect to a claim or defence; or</p> 
+   <p class="MsoNormal" style="margin-left:81.0pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(b)&nbsp;&nbsp; the parties agree to have all or part of the claim determined by a summary judgment and the court is satisfied that it is appropriate to grant summary judgment.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3732_172776"></a><a name="s20p04s2p1"></a><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b>(2.1) [Powers] In determining under clause (2)(a) whether there is a genuine issue requiring a trial, the court shall consider the evidence submitted by the parties and, if the determination is being made by a judge, the judge may exercise any of the following powers for the purpose, unless it is in the interest of justice for such powers to be exercised only at a trial: </p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. Weighing the evidence.</p> 
+   <p class="MsoNormal">&nbsp;</p> 
+   <p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. Evaluating the credibility of a deponent.</p> 
+   <p class="MsoNormal">&nbsp;</p> 
+   <p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Drawing any reasonable inference from the evidence.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3737_173321"></a><a name="s20p04s2p2"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (2.2) [Oral Evidence (Mini-Trial)] A judge may, for the purposes of exercising any of the powers set out in subrule (2.1), order that oral evidence be presented by one or more parties, with or without time limits on its presentation.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3739_173586"></a><a name="s20p04s3"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (3) [Only Genuine Issue Is Amount] Where the court is satisfied that the only genuine issue is the amount to which the moving party is entitled, the court may order a trial of that issue or grant judgment with a reference to determine the amount.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3741_173910"></a><a name="s20p04s4"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (4) [Only Genuine Issue Is Question Of Law] Where the court is satisfied that the only genuine issue is a question of law, the court may determine the question and grant judgment accordingly, but where the motion is made to a master, it shall be adjourned to be heard by a judge.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3743_174252"></a><a name="s20p04s5"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (5) [Only Claim Is For An Accounting] Where the plaintiff is the moving party and claims an accounting and the defendant fails to satisfy the court that there is a preliminary issue to be tried, the court may grant judgment on the claim with a reference to take the accounts.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3746_174575"></a><a name="s20p05s1"></a><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20.05</b> [Where Trial Is Necessary] (1) [Powers of Court] Where summary judgment is refused or is granted only in part, the court may make an order specifying what material facts are not in dispute and defining the issues to be tried, and order that the action proceed to trial expeditiously.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:.5in"><a name="P3748_174871"></a><a name="s20p05s2"></a>(2) [Directions And Terms] If an action is ordered to proceed to trial under subrule (1), the court may give such directions or impose such terms as are just, including an order,</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(a)&nbsp;&nbsp; that each party deliver, within a specified time, an affidavit of documents in accordance with the court’s directions;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(b)&nbsp;&nbsp; that any motions be brought within a specified time;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(c)&nbsp;&nbsp; that a statement setting out what material facts are not in dispute be filed within a specified time;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(d)&nbsp;&nbsp; that examinations for discovery be conducted in accordance with a discovery plan established by the court, which may set a schedule for examinations and impose such limits on the right of discovery as are just, including a limit on the scope of discovery to matters not covered by the affidavits or any other evidence filed on the motion and any cross-examinations on them;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(e)&nbsp;&nbsp; that a discovery plan agreed to by the parties under Rule 29.1 (discovery plan) be amended;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(f)&nbsp;&nbsp;&nbsp; that the affidavits or any other evidence filed on the motion and any cross-examinations on them may be used at trial in the same manner as an examination for discovery;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(g)&nbsp;&nbsp; that any examination of a person under Rule 36 (taking evidence before trial) be subject to a time limit; </p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(h)&nbsp;&nbsp; that a party deliver, within a specified time, a written summary of the anticipated evidence of a witness;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(i)&nbsp;&nbsp;&nbsp; that any oral examination of a witness at trial be subject to a time limit;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(j)&nbsp;&nbsp;&nbsp; that the evidence of a witness be given in whole or in part by affidavit;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(k)&nbsp;&nbsp; that any experts engaged by or on behalf of the parties in relation to the action meet on a without prejudice basis in order to identify the issues on which the experts agree and the issues on which they do not agree, to attempt to clarify and resolve any issues that are the subject of disagreement and to prepare a joint statement setting out the areas of agreement and any areas of disagreement and the reasons for it if, in the opinion of the court, the cost or time savings or other benefits that may be achieved from the meeting are proportionate to the amounts at stake or the importance of the issues involved in the case and,</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:81.0pt;text-align:justify;text-indent:
+-27.0pt">(i)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; there is a reasonable prospect for agreement on some or all of the issues, or</p> 
+   <p class="MsoNormal" style="margin-left:81.0pt;text-align:justify;text-indent:
+-27.0pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:81.0pt;text-align:justify;text-indent:
+-27.0pt">(ii)&nbsp;&nbsp;&nbsp;&nbsp; the rationale for opposing expert opinions is unknown and clarification on areas of disagreement would assist the parties or the court;</p> 
+   <p class="MsoNormal" style="margin-left:81.0pt;text-align:justify;text-indent:
+-27.0pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(l)&nbsp;&nbsp;&nbsp; that each of the parties deliver a concise summary of his or her opening statement;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(m)&nbsp; that the parties appear before the court by a specified date, at which appearance the court may make any order that may be made under this subrule;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(n)&nbsp;&nbsp; that the action be set down for trial on a particular date or on a particular trial list, subject to the direction of the regional senior judge;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(o)&nbsp;&nbsp; for payment into court of all or part of the claim; and</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+-22.5pt">(p)&nbsp;&nbsp; for security for costs.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3768_177689"></a><a name="s20p05s3"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (3) [Specified Facts] At the trial, any facts specified under subrule (1) or clause (2)(c) shall be deemed to be established unless the trial judge orders otherwise to prevent injustice.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3770_177914"></a><a name="s20p05s4"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (4) [Order re Affidavit Evidence] In deciding whether to make an order under clause (2)(j), the fact that an adverse party may reasonably require the attendance of the deponent at trial for cross-examination is a relevant consideration.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3772_178173"></a><a name="s20p05s5"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (5) [Order re Experts, Costs] If an order is made under clause (2)(k), each party shall bear his or her own costs.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3774_178319"></a><a name="s20p05s6"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (6) [Failure To Comply With Order] Where a party fails to comply with an order under clause (2)(o) for payment into court or under clause (2)(p) for security for costs, the court on motion of the opposite party may dismiss the action, strike out the statement of defence or make such other order as is just.</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3775_178626"></a><a name="s20p05s7"></a>&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (7) Where on a motion under subrule (6) the statement of defence is struck out, the defendant shall be deemed to be noted in default.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3777_178829"></a><a name="s20p06"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>20.06 </b>[Costs Sanctions For Improper Use Of Rule] The court may fix and order payment of the costs of a motion for summary judgment by a party on a substantial indemnity basis if,</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (a) the party acted unreasonably by making or responding to the motion; or</p> 
+   <p class="MsoNormal">&nbsp;</p> 
+   <p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (b) the party acted in bad faith for the purpose of delay.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3781_179149"></a><a name="s20p07"></a><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20.07</b> [Effect Of Summary Judgment] A plaintiff who obtains summary judgment may proceed against the same defendant for any other relief.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3783_179311"></a><a name="s20p08"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>20.08</b> [Stay Of Execution] Where it appears that the enforcement of a summary judgment ought to be stayed pending the determination of any other issue in the action or a counterclaim, crossclaim or third party claim, the court may so order on such terms as are just.</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify"><a name="P3785_179658"></a><a name="s20p09"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>20.09</b> [Application To Counterclaims, Crossclaims And Third Party Claims] Rules 20.01 to 20.08 apply, with necessary modifications, to counterclaims, crossclaims and third party claims.</p> 
+   <p class="SCCNormalDoubleSpacing">&nbsp;</p> 
+   <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Appeal dismissed with costs.</i></p> 
+   <p class="SCCLawFirm" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitors for the appellant:&nbsp;&nbsp;McCarthy Tétrault, Toronto.</p> 
+   <p class="SCCLawFirm" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitors for the respondents:&nbsp;&nbsp;Heydary Hamilton, Toronto.</p> 
+   <p class="SCCLawFirm" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitors for the intervener the Ontario Trial Lawyers Association:&nbsp;&nbsp;Allan Rouben, Toronto; SBMB Law, Richmond Hill, Ontario.</p> 
+   <p class="SCCLawFirm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitors for the intervener the Canadian Bar Association:&nbsp;&nbsp;Evans Sweeny Bordin, Hamilton; Sotos, Toronto. </p> 
+  </div> 
+  <div>
+   <br clear="all"/> 
+   <hr align="left" size="1" width="33%"/> 
+   <div id="ftn1"> 
+    <p class="MsoFootnoteText" style="text-align:justify"><a href="#_ftnref1" name="_ftn1" title=""><span class="MsoFootnoteReference"><span style="font-size:10.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[1]</span></span></a>&nbsp; For instance, state funding is available in the child welfare context under <i>G. (J.)</i> orders even where legal aid is not available (see <i>New Brunswick (Minister of Health and Community Services) v. G. (J.)</i>, [1999] 3 S.C.R. 46), or for cases involving certain minority rights (see the Language Rights Support Program).</p> 
+    <p class="MsoFootnoteText">&nbsp;</p> 
+   </div> 
+   <div id="ftn2"> 
+    <p class="MsoFootnoteText" style="text-align:justify"><a href="#_ftnref2" name="_ftn2" title=""><span class="MsoFootnoteReference"><span style="font-size:10.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[2]</span></span></a>&nbsp; In M. D. Agrast, J. C. Botero and A. Ponce, the 2011 <i>Rule of Law Index</i>, published by the World Justice Project, Canada ranked 9th among 12 European and North American countries in access to justice.&nbsp; Although Canada scored among the top 10 countries in the world in four rule of law categories (limited government powers, order and security, open government, and effective criminal justice), its lowest scores were in access to civil justice.&nbsp; This ranking is “partially explained by shortcomings in the affordability of legal advice and representation, and the lengthy duration of civil cases” (p. 23).</p> 
+    <p class="MsoFootnoteText">&nbsp;</p> 
+   </div> 
+   <div id="ftn3"> 
+    <p class="MsoFootnoteText" style="text-align:justify"><a href="#_ftnref3" name="_ftn3" title=""><span class="MsoFootnoteReference"><span style="font-size:10.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[3]</span></span></a>&nbsp; This principle has been expressly codified in British Columbia, Ontario, and Quebec: <i>Supreme Court Civil Rules</i>, B.C. Reg. 168/2009, Rule 1<i></i><i></i><i></i><i></i><i>-</i>3(2);<i> </i>Ontario<i> Rules</i>, Rule 1.04(1.1);<i> </i>and<i> </i><i>Code of Civil Procedure</i>, R.S.Q., c. C-25, art. 4.2. &nbsp;Aspects of Alberta’s and Nova Scotia’s rules of court have also been interpreted as reflecting proportionality: &nbsp;<i>Medicine Shoppe Canada Inc. v. Devchand</i>, 2012 ABQB 375, 541 A.R. 312, at para. 11; <i>Saturley v. CIBC World Markets Inc.</i>, 2011 NSSC 4, 297 N.S.R. (2d) 371, at para. 12.</p> 
+   </div> 
+   <div id="ftn4"> 
+    <p class="MsoFootnoteText" style="text-align:justify"><a href="#_ftnref4" name="_ftn4" title=""><span class="MsoFootnoteReference"><span style="font-size:10.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[4]</span></span></a>&nbsp; <span style="color:black">Quebec has a procedural device for disposing of abusive claims summarily: &nbsp;see arts. 54.1 <i>et seq.</i> of the <i>Code of Civil Procedure</i></span>.<span style="color:black"> &nbsp;While this procedural device is narrower on its face, it has been likened to summary judgment: &nbsp;see <i>Bal Global Finance Canada Corp. v. Aliments Breton (Canada) inc.</i>, 2010 QCCS 325 (CanLII). </span>&nbsp;Moreover, s. 165(4) of the <i>Code</i> provides that the defendant may ask for an action to be dismissed if the suit is “unfounded in law”.</p> 
+    <p class="MsoFootnoteText" style="text-align:justify"><i><span style="color:black">&nbsp;</span></i></p> 
+   </div> 
+   <div id="ftn5"> 
+    <p class="MsoFootnoteText" style="text-align:justify"><a href="#_ftnref5" name="_ftn5" title=""><span class="MsoFootnoteReference"><span style="font-size:10.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[5]</span></span></a>&nbsp; For a thorough review of the history of summary judgment in Ontario, see T. Walsh and L. Posloski, “Establishing a Workable Test for Summary Judgment:&nbsp; Are We There Yet?”, in T. L. Archibald and R.&nbsp;S. Echlin, eds., <i>Annual Review of Civil Litigation 2013</i> (2013), 419, at pp.&nbsp;422-32.</p> 
+    <p class="MsoFootnoteText" style="text-align:justify">&nbsp;</p> 
+   </div> 
+   <div id="ftn6"> 
+    <p class="MsoFootnoteText" style="text-align:justify"><a href="#_ftnref6" name="_ftn6" title=""><span class="MsoFootnoteReference"><span style="font-size:10.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[6]</span></span></a>&nbsp; Walsh and Posloski, at p.&nbsp;426; for example, see <i>Vaughan v. Warner Communications, Inc. </i>(1986), 56 O.R. (2d) 242 (H.C.J.).</p> 
+    <p class="MsoFootnoteText" style="text-align:justify">&nbsp;</p> 
+   </div> 
+   <div id="ftn7"> 
+    <p class="MsoFootnoteText" style="text-align:justify"><a href="#_ftnref7" name="_ftn7" title=""><span class="MsoFootnoteReference"><span style="font-size:10.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[7]</span></span></a>&nbsp; <i>Canada (Attorney General) v. Lameman</i>, 2008 SCC 14, [2008] 1 S.C.R. 372, at para. 10.</p> 
+    <p class="MsoFootnoteText" style="text-align:justify">&nbsp;</p> 
+   </div> 
+   <div id="ftn8"> 
+    <p class="MsoFootnoteText" style="text-align:justify"><a href="#_ftnref8" name="_ftn8" title=""><span class="MsoFootnoteReference"><span style="font-size:10.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[8]</span></span></a>&nbsp; The full text of Rule 20 is attached as an Appendix.</p> 
+   </div> 
+   <div id="ftn9"> 
+    <p class="MsoFootnoteText" style="text-align:justify"><a href="#_ftnref9" name="_ftn9" title=""><span class="MsoFootnoteReference"><span style="font-size:10.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[9]</span></span></a>&nbsp; As fully canvassed by the Court of Appeal, the powers in Rule 20.04(2.1) were designed specifically to overrule a number of long-standing appellate decisions that had dramatically restricted the use of the rule;<i> Aguonie v. Galion Solid Waste Material Inc.</i> (1998), 38 O.R. (3d) 161 (C.A.); <i>Dawson v. Rexcraft Storage and Warehouse Inc.</i> (1998), 164 D.L.R. (4th) 257 (Ont. C.A.).</p> 
+   </div> 
+   <div id="ftn10"> 
+    <p class="MsoFootnoteText" style="text-align:justify"><a href="#_ftnref10" name="_ftn10" title=""><span class="MsoFootnoteReference"><span style="font-size:10.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[10]</span></span></a>&nbsp; Rule 20.04(2):&nbsp; “The court <u>shall</u> grant summary judgment if, (a) the court is satisfied that there is no genuine issue requiring a trial .&nbsp;.&nbsp;.”</p> 
+    <p class="MsoFootnoteText" style="text-align:justify">&nbsp;</p> 
+   </div> 
+   <div id="ftn11"> 
+    <p class="MsoFootnoteText" style="text-align:justify"><a href="#_ftnref11" name="_ftn11" title=""><span class="MsoFootnoteReference"><span style="font-size:10.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[11]</span></span></a>&nbsp; Rule 20.04(2.1):&nbsp; “In determining .&nbsp;.&nbsp;. whether there is a genuine issue requiring a trial .&nbsp;.&nbsp;. if the determination is being made by a judge, the judge <u>may</u> exercise any of the following powers .&nbsp;.&nbsp;. 1.&nbsp;Weighing the evidence.&nbsp; 2. Evaluating the credibility of a deponent.&nbsp; 3. Drawing any reasonable inference from the evidence.” Rule 20.04(2.2):&nbsp; “A judge <u>may</u> .&nbsp;.&nbsp;. order that oral evidence be presented&nbsp;.&nbsp;.&nbsp;.”</p> 
+   </div> 
+  </div> 
+ </div>
+</div>
+<div id="lexboxAnnotationHook"></div>
+<div id="decisia-reflex2-dialog" class="decisia-content" title="Citation automatically hyperlinked by Norma">
+    <div class="decisia-box">
+        <div style="margin-bottom:10px">
+            <div><span class="icon-warning-sign">&nbsp;</span>You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.</div>
+        </div>
+        <div style="float:right">
+            <button id="decisia-reflex2-continue-button" type="button">Continue&nbsp;<span class="icon-arrow-right"></span></button>
+        </div>
+        <div style="clear:both"></div>
+        <input id="decisia-reflex2-ignore-warning" type="checkbox"/>
+        <label for="decisia-reflex2-ignore-warning">Do not display this message anymore</label>
+    </div>
+</div></div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.modalClose = "Close";
+</script>
+</body>
+
+</html>

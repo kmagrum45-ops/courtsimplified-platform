@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/7868/index.do" />
+    <title>    Vancouver (City) v. Ward - SCC Cases
+</title>
+    <link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/scc-csc/scc-csc/en/7868/1769186/res.do" />
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Vancouver (City) v. Ward</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Vancouver (City) v. Ward</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/scc-csc/fr/item/7868/index.do?alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content">
+<div id="decisia-document-header" class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisia-box">
+
+<h1>
+    <a id="decisia-decisions"></a>
+    Supreme Court Judgments
+</h1>
+
+<h2 class="accessibility-only">Decision Information</h2>
+<div class="metadata">
+
+    <h3 class="title">Vancouver (City) v. Ward</h3>
+    <table>
+                    <tr>
+                        <td class="label">Collection</td>
+                        <td class="metadata">
+                                Supreme Court Judgments
+                    </tr>
+                    <tr>
+                        <td class="label">Date</td>
+                        <td class="metadata">
+                                2010-07-23
+                    </tr>
+                    <tr>
+                        <td class="label">Neutral citation</td>
+                        <td class="metadata">
+                                2010 SCC 27
+                    </tr>
+                    <tr>
+                        <td class="label">Report</td>
+                        <td class="metadata">
+                                [2010] 2 SCR 28
+                    </tr>
+                    <tr>
+                        <td class="label">Case number</td>
+                        <td class="metadata">
+                                33089
+                    </tr>
+                    <tr>
+                        <td class="label">Judges</td>
+                        <td class="metadata">
+                                McLachlin, Beverley; Binnie, William Ian Corneil; LeBel, Louis; Deschamps, Marie; Fish, Morris J.; Abella, Rosalie Silberman; Charron, Louise; Rothstein, Marshall; Cromwell, Thomas Albert
+                    </tr>
+                    <tr>
+                        <td class="label">On appeal from</td>
+                        <td class="metadata">
+                                British Columbia
+                    </tr>
+                    <tr>
+                        <td class="label">Subjects</td>
+                        <td class="metadata">
+                                Constitutional law<br/>
+                    </tr>
+                    <tr>
+                        <td class="label">Notes</td>
+                        <td class="metadata">
+                                SCC Case Information: <a target="_blank" href="https://www.scc-csc.ca/cases-dossiers/search-recherche/33089/">33089</a>
+                    </tr>
+    </table>
+
+    <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/7868/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+    </div>
+</div>
+
+
+
+</div>
+
+<div id="lexboxHook"></div>
+
+<h2 class="accessibility-only">Decision Content</h2>
+
+</div> 
+
+<div id="document-content">
+
+        
+<div class="documentcontent"><div class="Section1">
+ <div>
+  <table cellspacing="0" cellpadding="0" hspace="0" vspace="0" width="74" height="77">
+   <tbody>
+    <tr>
+     <td valign="top" align="left" height="77" style="padding-top:0cm;padding-right:
+  0cm;padding-bottom:0cm;padding-left:0cm"><p class="MsoNormal"><img width="74" height="77" src="/scc-csc/scc-csc/en/7868/1769185/res.do" /></p></td>
+    </tr>
+   </tbody>
+  </table>
+ </div>
+ <p class="MsoNormal" style="text-align:justify"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify"><span lang="EN-GB">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>SUPREME COURT OF CANADA</b></span></p>
+ <p class="MsoNormal" style="text-align:justify"><span lang="EN-GB">&nbsp;</span></p>
+ <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+  <tbody>
+   <tr>
+    <td width="414" valign="top" style="width:310.5pt;padding:0cm 0cm 0cm 0cm"><p class="MsoNormal" style="line-height:6.0pt"><span lang="EN-GB">&nbsp;</span></p> <p class="MsoNormal" style="margin-bottom:2.9pt"><b><span lang="EN-GB" style="text-transform:uppercase">Citation:</span></b><span lang="EN-GB" style="text-transform:uppercase">&nbsp; </span><span lang="EN-GB">Vancouver (City) <i>v.</i> Ward</span>, 2010 SCC 27, [2010] 2 S.C.R. 28</p></td>
+    <td width="210" valign="top" style="width:157.5pt;padding:0cm 0cm 0cm 0cm"><p class="MsoNormal" style="line-height:6.0pt">&nbsp;</p> <p class="MsoNormal" style="margin-left:31.5pt"><b><span style="text-transform:
+  uppercase">Date:</span></b>&nbsp;&nbsp;20100723</p> <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:2.9pt;
+  margin-left:31.5pt"><b><span style="text-transform:uppercase">Docket:</span></b>&nbsp;&nbsp;33089</p></td>
+   </tr>
+  </tbody>
+ </table>
+ <p class="MsoNormal" style="text-align:justify">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify"><b><span style="text-transform:
+uppercase">Between:</span></b></p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b>City of Vancouver</b></p>
+ <p class="MsoNormal" align="center" style="text-align:center">Appellant</p>
+ <p class="MsoNormal" align="center" style="text-align:center">and</p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b>Alan Cameron Ward</b></p>
+ <p class="MsoNormal" align="center" style="text-align:center">Respondent</p>
+ <p class="MsoNormal" style="text-align:justify"><b><span style="text-transform:
+uppercase">And Between:</span></b></p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-GB">Her Majesty The Queen in Right of the</span></b></p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-GB">Province of British Columbia</span></b></p>
+ <p class="MsoNormal" align="center" style="text-align:center">Appellant</p>
+ <p class="MsoNormal" align="center" style="text-align:center">and</p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b>Alan Cameron Ward</b></p>
+ <p class="MsoNormal" align="center" style="text-align:center">Respondent</p>
+ <p class="MsoNormal" align="center" style="text-align:center">‑ and ‑</p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-GB">Attorney General of Canada, Attorney General of Ontario,</span></b></p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-GB">Attorney General of Quebec, Aboriginal Legal Services of</span></b></p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-GB">Toronto Inc., Association in Defence of the Wrongly Convicted,</span></b></p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-GB">Canadian Civil Liberties Association, Canadian Association of</span></b></p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-GB">Chiefs of Police, Criminal Lawyers’ Association (Ontario),</span></b></p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-GB">British Columbia Civil Liberties Association and</span></b></p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-GB">David Asper Centre for Constitutional Rights</span></b></p>
+ <p class="MsoNormal" align="center" style="text-align:center">Interveners</p>
+ <p class="MsoNormal" style="text-align:justify">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify"><b><span style="text-transform:
+uppercase">Coram:</span></b> McLachlin C.J. and Binnie, LeBel, Deschamps, Fish, Abella, Charron, Rothstein and Cromwell&nbsp;JJ.</p>
+ <p class="MsoNormal" style="text-align:justify">&nbsp;</p>
+ <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+  <tbody>
+   <tr>
+    <td width="234" valign="top" style="width:175.5pt;padding:0cm 0cm 0cm 0cm"><p class="MsoNormal" style="line-height:6.0pt">&nbsp;</p> <p class="MsoNormal"><b><span style="text-transform:uppercase">Reasons for Judgment: </span></b></p> <p class="MsoNormal">(paras. 1 to 80)</p> <p class="MsoNormal" style="margin-bottom:2.9pt">&nbsp;</p></td>
+    <td width="390" valign="top" style="width:292.5pt;padding:0cm 0cm 0cm 0cm"><p class="MsoNormal" style="line-height:6.0pt">&nbsp;</p> <p class="MsoNormal" style="margin-bottom:2.9pt">McLachlin C.J. (Binnie, LeBel, Deschamps, Fish, Abella, Charron, Rothstein and Cromwell JJ. concurring)</p></td>
+   </tr>
+  </tbody>
+ </table>
+ <p class="MsoNormal" style="text-align:justify">&nbsp;</p>
+ <p class="MsoNormal" align="center" style="text-align:center">______________________________</p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:always"> </span>
+<div class="Section2">
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">Vancouver (City) <i>v.</i> Ward, 2010 SCC 27, [2010] 2 S.C.R. 28</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><b><span lang="EN-GB">City of Vancouver</span></b><span lang="EN-GB">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Appellant</i></span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="line-height:200%"><i><span lang="EN-GB">v.</span></i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><b><span lang="EN-GB">Alan Cameron Ward</span></b><span lang="EN-GB">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Respondent</i></span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="line-height:200%"><span lang="EN-GB">‑ and ‑</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify"><b><span lang="EN-GB">Her Majesty The Queen in Right </span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><b><span lang="EN-GB">of the Province of British Columbia</span></b><span lang="EN-GB">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Appellant</i></span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><i><span lang="EN-GB">v.</span></i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><b><span lang="EN-GB">Alan Cameron Ward</span></b><span lang="EN-GB">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Respondent</i></span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">and</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal"><b><span lang="EN-GB">Attorney General of Canada, </span></b></p>
+ <p class="MsoNormal" style="text-align:justify"><b><span lang="EN-GB">Attorney General of Ontario, </span></b></p>
+ <p class="MsoNormal" style="text-align:justify"><b><span lang="EN-GB">Attorney General of Quebec, </span></b></p>
+ <p class="MsoNormal" style="text-align:justify"><b><span lang="EN-GB">Aboriginal Legal Services of Toronto Inc., </span></b></p>
+ <p class="MsoNormal" style="text-align:justify"><b><span lang="EN-GB">Association in Defence of the Wrongly Convicted, </span></b></p>
+ <p class="MsoNormal" style="text-align:justify"><b><span lang="EN-GB">Canadian Civil Liberties Association, </span></b></p>
+ <p class="MsoNormal" style="text-align:justify"><b><span lang="EN-GB">Canadian Association of Chiefs of Police, </span></b></p>
+ <p class="MsoNormal" style="text-align:justify"><b><span lang="EN-GB">Criminal Lawyers’ Association (Ontario), </span></b></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section3">
+ <p class="MsoNormal" style="text-align:justify"><b><span lang="EN-GB">British Columbia Civil Liberties Association and</span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><b><span lang="EN-GB">David Asper Centre for Constitutional Rights</span></b><span lang="EN-GB">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Interveners</i></span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><b><span lang="EN-GB">Indexed as:&nbsp;&nbsp;Vancouver (City) <i>v.</i> Ward</span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><b><span lang="EN-GB">2010&nbsp;SCC&nbsp;27</span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">File No.:&nbsp;&nbsp;33089.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">2010:&nbsp;&nbsp;January&nbsp;18; 2010:&nbsp;&nbsp;July&nbsp;23.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">Present:&nbsp;&nbsp;McLachlin&nbsp;C.J. and Binnie, LeBel, Deschamps, Fish, Abella, Charron, Rothstein and Cromwell&nbsp;JJ.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB" style="text-transform:uppercase">on appeal from the court of appeal for british columbia</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Constitutional law — <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter of Rights<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> — Enforcement — Damage award as remedy for breach of rights — Quantum — Claimant strip searched and his car seized in violation of his constitutional rights — Whether claimant entitled to damages as remedy under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1" target="_blank">s.&nbsp;24(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Canadian Charter of Rights and Freedoms<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> — If so, how should quantum of damages be assessed.</span></i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section4">
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><span lang="EN-GB">During a ceremony in Vancouver, the city police department received information that an unknown individual intended to throw a pie at the Prime Minister who was in attendance.&nbsp; Based on his appearance, police officers mistakenly identified W as the would‑be pie‑thrower, chased him down and handcuffed him.&nbsp; W, who loudly protested his detention and created a disturbance, was arrested for breach of the peace and taken to the police lockup.&nbsp; Upon his arrival, the corrections officers conducted a strip search. &nbsp;While W was at the lockup, police officers impounded his car for the purpose of searching it once a search warrant had been obtained.&nbsp; The detectives subsequently determined that they did not have grounds to obtain the required search warrant or evidence to charge W for attempted assault.&nbsp; W was released approximately 4.5&nbsp;hours after his arrest.&nbsp; He brought an action in tort and for breach of his rights guaranteed by the <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Canadian Charter of Rights and Freedoms<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i> against several parties, including the Province and the City.&nbsp; With respect to the strip search and the car seizure, the trial judge held that, although the Province and the City did not act in bad faith and were not liable in tort for either incident, the Province’s strip search and the City’s vehicle seizure violated W’s right to be free from unreasonable search and seizure under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec8" target="_blank">s.&nbsp;8<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the<i> <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i>.&nbsp; The trial judge assessed damages under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1" target="_blank">s.&nbsp;24(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i> at $100 for the seizure of the car and $5,000 for the strip search.&nbsp; The Court of Appeal, in a majority decision, upheld the trial judge’s ruling.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Held</span></i><span lang="EN-GB">:&nbsp; The appeal should be allowed in part.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><span lang="EN-GB">The language of s.&nbsp;24(1) is broad enough to include the remedy of constitutional damages for breach of a claimant’s <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> </i>rights if such remedy is found to be appropriate and just in the circumstances of a particular case.&nbsp; The first step in the inquiry is to establish that a <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i> right has been breached; the second step is to show why damages are a just and appropriate remedy, having regard to whether they would fulfill one or more of the related functions of compensation, vindication of the right, and/or deterrence of future breaches.</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section5">
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><span lang="EN-GB">Once the claimant has established that damages are functionally justified, the state has the opportunity to demonstrate, at the third step, that countervailing factors defeat the functional considerations that support a damage award and render damages inappropriate or unjust.&nbsp; Countervailing considerations include the existence of alternative remedies.&nbsp; Claimants need not show that they have exhausted all other recourses.&nbsp; Rather, it is for the state to show that other remedies including private law remedies or another <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i> remedy are available in the particular case that will sufficiently address the <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i> breach.&nbsp; Concern for effective governance may also negate the appropriateness of s.&nbsp;24(1) damages.&nbsp; In some situations, the state may establish that an award of <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i> damages would interfere with good governance such that damages should not be awarded unless the state conduct meets a minimum threshold of gravity.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section6">
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><span lang="EN-GB">If the state fails to negate that the award is “appropriate and just”, the final step is to assess the quantum of the damages.&nbsp; To be “appropriate and just”, an award of damages must represent a meaningful response to the seriousness of the breach and the objectives of s.&nbsp;24(1) damages.&nbsp; Where the objective of compensation is engaged, the concern is to restore the claimant to the position he or she would have been in had the breach not been committed.&nbsp; With the objectives of vindication and deterrence, the appropriate determination is an exercise in rationality and proportionality.&nbsp; Generally, the more egregious the breach and the more serious the repercussions on the claimant, the higher the award for vindication or deterrence will be.&nbsp; In the end, s.&nbsp;24(1) damages must be fair to both the claimant and the state.&nbsp; In considering what is fair to both, a court may take into account the public interest in good governance, the danger of deterring governments from undertaking beneficial new policies and programs, and the need to avoid diverting large sums of funds from public programs to private interests.&nbsp; Damages under s.&nbsp;24(1) should also not duplicate damages awarded under private law causes of action, such as tort, where compensation of personal loss is at issue.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><span lang="EN-GB">Here, damages were properly awarded for the strip search of W.&nbsp; This search violated his <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec8" target="_blank">s.&nbsp;8<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i> rights and compensation is required, in this case, to functionally fulfill the objects of constitutional damages.&nbsp; Strip searches are inherently humiliating and degrading and the <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> </i>breach significantly impacted on W’s person and rights.&nbsp; The correction officers’ conduct which caused the breach was also serious.&nbsp; Minimum sensitivity to <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i> concerns within the context of the particular situation would have shown the search to be unnecessary and violative.&nbsp; Combined with the police conduct, the impingement on W also engages the objects of vindication of the right and deterrence of future breaches.&nbsp; The state did not establish countervailing factors and damages should be awarded for the breach.&nbsp; Considering the seriousness of the injury and the finding that the corrections officers’ actions were not intentional, malicious, high‑handed or oppressive, the trial judge’s $5,000 damage award was appropriate.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><span lang="EN-GB">With respect to the seizure of the car, W has not established that damages under s.&nbsp;24(1) are appropriate and just from a functional perspective.&nbsp; The object of compensation is not engaged as W did not suffer any injury as a result of the seizure.&nbsp; Nor are the objects of vindication of the right and deterrence of future breaches compelling.&nbsp; While the seizure was wrong, it was not of a serious nature.&nbsp; A declaration under s.&nbsp;24(1) that the vehicle seizure violated W’s right to be free from unreasonable search and seizure under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec8" target="_blank">s.&nbsp;8<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i> adequately serves the need for vindication of the right and deterrence of future improper car seizures. </span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section7">
+ <p class="MsoNormal" style="text-align:justify;line-height:200%;page-break-after:
+avoid"><b><span lang="EN-GB">Cases Cited</span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%;page-break-after:
+avoid"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><b><span lang="EN-GB">Considered: </span></b><span lang="EN-GB">&nbsp;<i>Mackin v. New Brunswick (Minister of Finance)</i>, 2002 SCC 13, [2002] 1 S.C.R. 405; <b>referred to:</b>&nbsp;&nbsp;<i>Mills v. The Queen</i>, [1986] 1 S.C.R. 863; <i>Doucet‑Boudreau v. Nova Scotia (Minister of Education)</i>, 2003 SCC 62, [2003] 3 S.C.R. 3; <i>Dunlea v. Attorney‑General</i>, [2000] NZCA 84, [2000] 3 N.Z.L.R. 136; <i>Andrews v. Grand &amp; Toy Alberta Ltd.</i>, [1978] 2 S.C.R. 229; <i>Anufrijeva v. Southwark London Borough Council</i>, [2003] EWCA Civ 1406, [2004] Q.B. 1124; <i>Bivens v. Six Unknown Named Agents of Federal Bureau of Narcotics</i>, 403 U.S. 388 (1971); <i>Taunoa v. Attorney‑General</i>, [2007] NZSC 70, [2008] 1 N.Z.L.R. 429; <i>Fose v. Minister of Safety and Security</i>, 1997 (3) SA 786; <i>Attorney General of Trinidad and Tobago v. Ramanoop</i>, [2005] UKPC 15, [2006] 1 A.C. 328; <i>Smith v. Wade</i>, 461 U.S. 30 (1983); <i>R. v. B.W.P.</i>, 2006 SCC 27, [2006] 1 S.C.R. 941; <i>Simpson v. Attorney‑General</i>, [1994] 3 N.Z.L.R. 667; <i>Miazga v. Kvello Estate</i>, 2009 SCC 51, [2009] 3 S.C.R. 339;<i> Hill v. Hamilton‑Wentworth Regional Police Services Board</i>, 2007 SCC 41, [2007] 3 S.C.R. 129; <i>Béliveau St‑Jacques v. Fédération des employées et employés de services publics inc.</i>, [1996] 2 S.C.R. 345; <i>R. v. Grant</i>, 2009 SCC 32, [2009] 2 S.C.R. 353; <i>R. v. Conway</i>, 2010 SCC 22, [2010] 1 S.C.R. 765; <i>R. v. Golden</i>, 2001 SCC 83, [2001] 3 S.C.R. 679.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%;page-break-after:
+avoid"><b><span lang="EN-GB">Statutes and Regulations Cited</span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%;page-break-after:
+avoid"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:29.0pt;text-align:justify;text-indent:
+-29.0pt;page-break-after:avoid"><i><span lang="EN-GB">Act respecting industrial accidents and occupational diseases</span></i><span lang="EN-GB">, R.S.Q., c.&nbsp;A‑3.001</span><span lang="EN-GB"></span><span lang="EN-GB"></span><span lang="EN-GB"></span><span lang="EN-GB">.</span></p>
+ <p class="MsoNormal" style="text-align:justify"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:29.0pt;text-align:justify;text-indent:
+-29.0pt"><i><span lang="EN-GB"><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec8" target="_blank">Canadian Charter of Rights and Freedoms<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></span></i><span lang="EN-GB"><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec8" target="_blank">, ss.&nbsp;8<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></span><span lang="EN-GB">, <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec9" target="_blank">9<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a>, <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24" target="_blank">24<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a>,<a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec32" target="_blank"> 32<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a>.</span></p>
+ <p class="MsoNormal" style="text-align:justify"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:29.0pt;text-align:justify;text-indent:
+-29.0pt"><i><span lang="EN-GB">Charter of human rights and freedoms</span></i><span lang="EN-GB">, R.S.Q., c.&nbsp;C‑12</span><span lang="EN-GB"></span><span lang="EN-GB"></span><span lang="EN-GB">, ss.&nbsp;49</span><span lang="EN-GB">, 51.</span></p>
+ <p class="MsoNormal" style="text-align:justify"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:29.0pt;text-align:justify;text-indent:
+-29.0pt;line-height:200%"><i><span lang="EN-GB"><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec52subsec1" target="_blank">Constitution Act, 1982<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></span></i><span lang="EN-GB"><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec52subsec1" target="_blank">, s.&nbsp;52(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></span><span lang="EN-GB">.</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section8">
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><span lang="EN-GB">APPEAL from a judgment of the British Columbia Court of Appeal (Finch C.J.B.C. and Saunders and Low JJ.A.), 2009 BCCA 23, 89 B.C.L.R. (4th) 217, 265 B.C.A.C. 174, 446 W.A.C. 174, 304 D.L.R. (4th) 653, [2009] 6 W.W.R. 261, 63 C.C.L.T. (3d) 165, [2009] B.C.J. No.&nbsp;91 (QL), 2009 CarswellBC 115, affirming a decision of Tysoe J., 2007 BCSC 3, 63 B.C.L.R. (4th) 361, [2007] 4 W.W.R. 502, 45 C.C.L.T. (3d) 121, [2007] B.C.J. No.&nbsp;9 (QL), 2007 CarswellBC 12, finding a breach of <i>Charter</i> rights and awarding damages.&nbsp; Appeal allowed in part.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Tomasz&nbsp;M.</span></i><span lang="EN-GB"> <i>Zworski</i>, for the appellant the City of Vancouver.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Bryant Alexander</span></i><span lang="EN-GB"> <i>Mackey</i> and <i>Barbara Carmichael</i>, for the appellant Her Majesty the Queen in Right of the Province of British Columbia.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Brian&nbsp;M.</span></i><span lang="EN-GB"> <i>Samuels</i>, <i>Kieran&nbsp;A.&nbsp;G. Bridge</i> and<i> Jennifer&nbsp;W. Chan</i>, for the respondent.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Mark&nbsp;R.</span></i><span lang="EN-GB"> <i>Kindrachuk</i>, <i>Q.C.</i>, and <i>Jeffrey&nbsp;G. Johnston</i>, for the intervener the Attorney General of Canada.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Robert&nbsp;E.</span></i><span lang="EN-GB"> <i>Charney</i> and <i>Josh Hunter</i>, for the intervener the Attorney General of Ontario.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Isabelle</span></i><span lang="EN-GB"> <i>Harnois</i> and <i>Gilles Laporte</i>, for the intervener the Attorney General of Quebec.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section9">
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Kimberly&nbsp;R.</span></i><span lang="EN-GB"> <i>Murray</i> and <i>Julian N.&nbsp;Falconer</i>, for the intervener the Aboriginal Legal Services of Toronto Inc.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Louis</span></i><span lang="EN-GB"> <i>Sokolov</i> and <i>Heidi Rubin</i>, for the intervener the Association in Defence of the Wrongly Convicted.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Stuart</span></i><span lang="EN-GB"> <i>Svonkin</i> and <i>Jana Stettner</i>, for the intervener the Canadian Civil Liberties Association.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Vincent</span></i><span lang="EN-GB"> <i>Westwick</i> and <i>Karine LeBlanc</i>, for the intervener the Canadian Association of Chiefs of Police.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Sean</span></i><span lang="EN-GB"> <i>Dewart</i> and <i>Tim Gleason</i>, for the intervener the Criminal Lawyers’ Association (Ontario).</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Kent</span></i><span lang="EN-GB"> <i>Roach</i> and <i>Grace Pastine</i>, for the interveners the British Columbia Civil Liberties Association and the David Asper Centre for Constitutional Rights.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><span lang="EN-GB">The judgment of the Court was delivered by</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><span lang="EN-GB" style="text-transform:uppercase">The Chief Justice </span>—</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:23.3pt;text-align:justify;text-indent:
+-23.3pt;line-height:200%"><span lang="EN-GB">I.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <u>Introduction</u></span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><u><span lang="EN-GB"><span style="text-decoration:none">&nbsp;</span></span></u></p>
+</div> <u><span lang="EN-GB" style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span></u>
+<div class="Section10">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[1]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>The <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Canadian Charter of Rights and Freedoms<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i> guarantees the fundamental rights and freedoms of all Canadians and provides remedies for their breach.&nbsp; The first and most important remedy is the nullification of laws that violate the <i>Charter </i>under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec52subsec1" target="_blank">s.&nbsp;52(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Constitution Act, 1982<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i>.&nbsp; This is supplemented by&nbsp; s. 24(2), under which evidence obtained in breach of the <i>Charter </i>may be excluded if its admission would bring the administration of justice into disrepute, and s. 24(1) — the provision at issue in this case — under which the court is authorized to grant such remedies to individuals for infringement of <i>Charter </i>rights as it “considers appropriate and just in the circumstances”.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[2]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>The respondent Ward’s <i>Charter </i>rights were violated by Vancouver and British Columbia officials who detained him, strip searched his person and seized his car without cause.&nbsp;&nbsp; The trial judge awarded Mr. Ward damages for the <i>Charter </i>breaches, and the majority of the Court of Appeal of British Columbia upheld that award.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[3]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>This appeal raises the question of when damages may be awarded under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1" target="_blank">s. 24(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i>, and what the amount of such damages should be.&nbsp; Although the <i>Charter</i> is 28 years old, authority on this question is sparse, inviting a comprehensive analysis of the object of damages for <i>Charter </i>breaches and the considerations that guide their award.&nbsp;&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section11">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[4]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>I conclude that damages may be awarded for <i>Charter </i>breach under s. 24(1) where appropriate and just.&nbsp; The first step in the inquiry is to establish that a <i>Charter</i> right has been breached.&nbsp; The second step is to show why damages are a just and appropriate remedy, having regard to whether they would fulfill one or more of the related functions of compensation, vindication of the right, and/or deterrence of future breaches.&nbsp; At the third step, the state has the opportunity to demonstrate, if it can, that countervailing factors defeat the functional considerations that support a damage award and render damages inappropriate or unjust.&nbsp; The final step is to assess the quantum of the damages.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[5]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>I conclude that damages were properly awarded for the strip search of Mr. Ward, but not justified for the seizure of his car.&nbsp; I would therefore allow the appeal in part.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:26.2pt;text-align:justify;text-indent:
+-26.2pt;line-height:200%">II.&nbsp;&nbsp;&nbsp;&nbsp; <u>Facts</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[6]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>On August 1, 2002, Prime Minister Chrétien participated in a ceremony to mark the opening of a gate at the entrance to Vancouver’s Chinatown. During the ceremony, the Vancouver Police Department (“VPD”) received information that an unknown individual intended to throw a pie at the Prime Minister, an event that had occurred elsewhere two years earlier. The suspected individual was described as a white male, 30 to 35 years, 5' 9", with dark short hair, wearing a white golf shirt or T‑shirt with some red on it.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section12">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[7]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>Mr. Ward is a Vancouver lawyer who attended the August 1 ceremony. On the day, Mr. Ward, a white male, had grey, collar‑length hair, was in his mid‑40s and was wearing a grey T‑shirt with some red on it. Based on his appearance, Mr. Ward was identified — mistakenly — as the would-be pie-thrower. When the VPD officers noticed him, Mr. Ward was running and appeared to be avoiding interception. The officers chased Mr. Ward down and handcuffed him. Mr. Ward loudly protested his detention and created a disturbance, drawing the attention of a local television camera crew. The television broadcast showed that Mr. Ward had a “very agitated look on his face”, “appeared to be yelling for the benefit of the onlookers” and was “holding back” as he was being escorted down the street.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[8]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>Mr. Ward was arrested for breach of the peace and taken to the police lockup in Vancouver, which was under the partial management of provincial corrections officers.&nbsp; Upon his arrival, the corrections officers instructed Mr. Ward to remove all his clothes in preparation for a strip search. Mr. Ward complied in part but refused to take off his underwear. The officers did not insist on complete removal and Mr. Ward was never touched during the search.&nbsp; After the search was completed, Mr.&nbsp;Ward was placed in a small cell where he spent several hours before being released.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[9]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>While Mr. Ward was at the lockup, VPD officers impounded&nbsp; his car for the purpose of searching it once a search warrant had been obtained. VPD detectives subsequently determined that they did not have grounds to obtain the required search warrant or evidence to charge Mr. Ward for attempted assault. Mr. Ward was released from the lockup approximately 4.5 hours after he was arrested and several hours after the Prime Minister had left Chinatown following the ceremony.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:29.0pt;text-align:justify;text-indent:
+-29.0pt;line-height:200%">III.&nbsp;&nbsp;&nbsp;&nbsp; <u>Judicial History</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:29.0pt;text-align:justify;text-indent:
+-29.0pt;line-height:200%">A.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Supreme Court of British Columbia, 2007 BCSC 3, 63 B.C.L.R. (4th) 361</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section13">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[10]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Mr. Ward brought an action in tort and for breach of his <i>Charter </i>rights against the City, the Province, and individual police and corrections officers for his arrest, detention, strip search, and car seizure. Justice Tysoe found Mr. Ward’s arrest for breach of the peace to be lawful and dismissed the action against the individual police and corrections officers. However, Tysoe J. held that — although they did not act in bad faith and were not liable in tort for either incident — the Province’s strip search and the City’s vehicle seizure violated Mr. Ward’s right to be free from unreasonable search and seizure under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec8" target="_blank">s. 8<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the<i> Charter</i>. In addition, Tysoe J. found that the City breached Mr.&nbsp;Ward’s rights under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec9" target="_blank">s. 9<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i> and committed the tort of wrongful imprisonment by keeping Mr. Ward in the police lockup longer than necessary.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[11]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Tysoe J. assessed damages under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1" target="_blank">s. 24(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i> at $100 for the seizure of the car and $5,000 for the strip search. He rejected the governments’ argument that damages were an inappropriate remedy for <i>Charter</i> breaches absent bad faith, abuse of power, or tortious conduct. In addition, Tysoe J. awarded $5,000 in damages for the wrongful imprisonment. This award is not at issue on this appeal.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:29.0pt;text-align:justify;text-indent:
+-29.0pt;line-height:200%">B.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>British Columbia Court of Appeal, 2009 BCCA 23, 89 B.C.L.R. (4th) 217</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[12]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Justice Low, Finch C.J.B.C. concurring, upheld Tysoe J.’s ruling, agreeing with Mr. Ward that bad faith, abuse of power, or tortious conduct are not necessary requirements for the awarding of <i>Charter</i> damages.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[13]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Justice Saunders, dissenting, would have allowed the Province and City appeals, holding that damages cannot be awarded where the police did not act in bad faith and simply made a mistake as to the proper course of action.</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section14">
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:29.0pt;text-align:justify;text-indent:
+-29.0pt;line-height:200%">IV.&nbsp;&nbsp;&nbsp;&nbsp; <u>Constitutional Provisions</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[14]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1" target="_blank">Section 24(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i> provides as follows:</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+20.85pt">Anyone whose rights or freedoms, as guaranteed by this Charter, have been infringed or denied may apply to a court of competent jurisdiction to obtain such remedy as the court considers appropriate and just in the circumstances.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:23.3pt;text-align:justify;text-indent:
+-23.3pt;line-height:200%">V.&nbsp;&nbsp;&nbsp; <u>Issues</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[15]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The issues are the following:</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:200%">A.&nbsp;&nbsp; When are damages under s. 24(1) available?</p>
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:200%">1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The language of <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1" target="_blank">s. 24(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> and the nature of <i>Charter </i>damages;</p>
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:200%">2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step one: Proof of a <i>Charter</i> breach;</p>
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:200%">3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step two: Functional justification of damages;</p>
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:200%">4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step three: Countervailing factors;</p>
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:200%">5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step four:&nbsp; Quantum of s. 24(1) damages;</p>
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:200%">6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Forum and procedure.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:200%">B.&nbsp;&nbsp;&nbsp; Application to the Facts</p>
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:200%">1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Damages for the strip search;</p>
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:200%">2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Damages for the car seizure.</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section15">
+ <p class="MsoNormal" style="margin-left:29.0pt;text-align:justify;text-indent:
+-29.0pt;line-height:200%">VI.&nbsp;&nbsp;&nbsp;&nbsp; <u>Analysis</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:29.0pt;text-align:justify;text-indent:
+-29.0pt;line-height:200%">A.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>When Are Damages Under Section 24(1) Available?</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:200%">(1)&nbsp;&nbsp; <u>The Language of Section 24(1) and the Nature of <i>Charter</i> Damages</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[16]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Section 24(1) empowers courts of competent jurisdiction to grant “appropriate and just” remedies for <i>Charter </i>breaches.&nbsp; This language invites a number of observations.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[17]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>First, the language of the grant is broad.&nbsp;&nbsp; As McIntyre J. observed, “[i]t is difficult to imagine language which could give the court a wider and less fettered discretion”: <i>Mills v. The Queen</i>, [1986] 1 S.C.R. 863, at p. 965.&nbsp; The judge of “competent jurisdiction” has broad discretion to determine what remedy is appropriate and just in the circumstances of a particular case.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[18]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Second, it is improper for courts to reduce this discretion by casting it in a strait-jacket of judicially prescribed conditions. To quote McIntyre J. in <i>Mills</i> once more, “[i]t is impossible to reduce this wide discretion to some sort of binding formula for general application in all cases, and it is not for appellate courts to pre-empt or cut down this wide discretion”: <i>Mills</i>, at p. 965.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section16">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[19]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Third, the prohibition on cutting down the ambit of s. 24(1) does not preclude judicial clarification of when it may be “appropriate and just” to award damages.&nbsp; The phrase “appropriate and just” limits what remedies are available.&nbsp; The court’s discretion, while broad, is not unfettered.&nbsp; What is appropriate and just will depend on the facts and circumstances of the particular case.&nbsp; Prior cases may offer guidance on what is appropriate and just in a particular situation.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[20]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The general considerations governing what constitutes an appropriate and just remedy under s. 24(1) were set out by Iacobucci and Arbour JJ. in <i>Doucet‑Boudreau v. Nova Scotia (Minister of Education)</i>, 2003 SCC 62, [2003] 3 S.C.R.&nbsp;3.&nbsp; Briefly, an appropriate and just remedy will: (1) meaningfully vindicate the rights and freedoms of the claimants; (2) employ means that are legitimate within the framework of our constitutional democracy; (3) be a judicial remedy which vindicates the right while invoking the function and powers of a court; and (4) be fair to the party against whom the order is made: <i>Doucet‑Boudreau</i>, at paras. 55‑58.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[21]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Damages for breach of a claimant’s <i>Charter </i>rights may meet these conditions. They may meaningfully vindicate the claimant’s rights and freedoms.&nbsp; They employ a means well-recognized within our legal framework.&nbsp; They are appropriate to the function and powers of a court.&nbsp; And, depending on the circumstances and the amount awarded, they can be fair not only to the claimant whose rights were breached, but to the state which is required to pay them.&nbsp; I therefore conclude that s. 24(1) is broad enough to include the remedy of damages for <i>Charter</i> breach. <span lang="EN-GB" style="font-family:Shruti">That said, granting damages under the <i>Charter</i> is a new endeavour, and an approach to when damages are appropriate and just should develop incrementally.&nbsp; <i>Charter</i> damages are only one remedy amongst others available under s. 24(1), and often other s. 24(1) remedies will be more responsive to the breach.&nbsp; </span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section17">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[22]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The term “damages” conveniently describes the remedy sought in this case. However, it should always be borne in mind that these are not private law damages, but the distinct remedy of constitutional damages. As Thomas J. notes in <i>Dunlea v. Attorney-General</i>, [2000] NZCA 84, [2000] 3 N.Z.L.R. 136, at para. 81, a case dealing with New Zealand’s <i>Bill of Rights Act 1990</i>, an action for public law damages “is not a private law action in the nature of a tort claim for which the state is vicariously liable but [a distinct] public law action directly against the state for which the state is primarily liable”.&nbsp; In accordance with <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec32" target="_blank">s. 32<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i>, this is equally so in the Canadian constitutional context.&nbsp; The nature of the remedy is to require the state (or society writ large) to compensate an individual for breaches of the individual’s constitutional rights.&nbsp; An action for public law damages — including constitutional damages — lies against the state and not against individual actors. Actions against individual actors should be pursued in accordance with existing causes of action. However, the underlying policy considerations that are engaged when awarding private law damages against state actors may be relevant when awarding public law damages directly against the state. Such considerations may be appropriately kept in mind.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:200%">(2)&nbsp;&nbsp; <u>Step One: Proof of a <i>Charter</i> Breach</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%"><span lang="EN-GB">[23]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span></span>Section 24(1) is remedial.&nbsp; The first step, therefore, is to establish a <i>Charter</i> breach.&nbsp; This is the wrong on which the claim for damages is based.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:200%">(3)&nbsp;&nbsp; <u>Step Two: Functional Justification of Damages</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><i>&nbsp;</i></p>
+</div> <i><span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span></i>
+<div class="Section18">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[24]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>A functional approach to damages&nbsp; finds damages to be appropriate and just to the extent that they serve a useful function or purpose.&nbsp; This approach has been adopted in awarding non‑pecuniary damages in personal injury cases (<i>Andrews v. Grand &amp; Toy Alberta Ltd.</i>, [1978] 2 S.C.R. 229), and, in my view, a similar approach is appropriate in determining when damages are “appropriate and just” under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1" target="_blank">s. 24(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i>.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[25]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>I therefore turn to the purposes that an order for damages under s. 24(1) may serve.&nbsp; For damages to be awarded, they must further the general objects of the <i>Charter</i>.&nbsp; This reflects itself in three interrelated functions that damages may serve.&nbsp; The function of <i>compensation</i>, usually the most prominent function, recognizes that breach of an individual’s <i>Charter </i>rights may cause personal loss which should be remedied.&nbsp; The function of <i>vindication</i> recognizes that <i>Charter </i>rights must be maintained, and cannot be allowed to be whittled away by attrition.&nbsp; Finally, the function of <i>deterrence</i> recognizes that damages may serve to deter future breaches by state actors.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[26]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>These functions of s. 24(1) damages are supported by foreign constitutional jurisprudence and, by analogy, foreign jurisprudence arising in the statutory human rights context.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section19">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[27]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Compensation has been cited by Lord Woolf C.J. (speaking of the <i>European Convention of Human Rights</i>) as “fundamental”.&nbsp; In most cases, it is the most prominent of the three functions that <i>Charter</i> damages may serve.&nbsp; The goal is to compensate the claimant for the loss caused by the <i>Charter</i> breach; “[t]he applicant should, in so far as this is possible, be placed in the same position as if his Convention rights had not been infringed”: <i>Anufrijeva v. Southwark London Borough Council</i>, [2003] EWCA Civ 1406, [2004] Q.B. 1124, at para. 59, <i>per</i> Lord Woolf C.J.&nbsp; Compensation focuses on the claimant’s personal loss: physical, psychological and pecuniary.&nbsp; To these types of loss must be added harm to the claimant’s intangible interests. In the public law damages context, courts have variously recognized this harm as distress, humiliation, embarrassment, and anxiety: <i>Dunlea</i>; <i>Bivens v. Six Unknown Named Agents of Federal Bureau of Narcotics</i>, 403 U.S. 388 (1971); <i>Taunoa v. Attorney-General</i>, [2007] NZSC 70, [2008] 1 N.Z.L.R. 429. Often the harm to intangible interests effected by a breach of rights will merge with psychological harm.&nbsp; But a resilient claimant whose intangible interests are harmed should not be precluded from recovering damages simply because she cannot prove a&nbsp; substantial psychological injury.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[28]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Vindication, in the sense of affirming constitutional values, has also been recognized as a valid object of damages in many jurisdictions: see <i>Fose v. Minister of Safety and Security</i>, 1997 (3) SA 786 (C.C.), at para. 55, for a summary of the international jurisprudence.&nbsp; Vindication focuses on the harm the infringement causes society. As Didcott J. observed in <i>Fose</i>, violations of constitutionally protected rights harm not only their particular victims, but society as a whole. This is because they “impair public confidence and diminish public faith in the efficacy of the [constitutional] protection”: <i>Fose</i>, at para. 82.&nbsp; While one may speak of vindication as underlining the seriousness of the harm done to the claimant, vindication as an object of constitutional damages focuses on the harm the <i>Charter</i> breach causes to the state and to society.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section20">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[29]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Finally, deterrence of future breaches of the right has also been widely recognized as a valid object of public law damages: e.g., <i>Attorney General of Trinidad and Tobago v. Ramanoop</i>, [2005] UKPC 15, [2006] 1 A.C. 328, at para. 19; <i>Taunoa</i>, at para. 259; <i>Fose</i>, at para. 96; <i>Smith v. Wade</i>, 461 U.S. 30 (1983), at p. 49. Deterrence, like vindication, has a societal purpose. Deterrence seeks to regulate government behaviour, generally, in order to achieve compliance with the Constitution. This purpose is similar to the criminal sentencing object of “general deterrence”, which holds that&nbsp; the example provided by the punishment imposed on a particular offender will dissuade potential criminals from engaging in criminal activity.&nbsp; When general deterrence is factored in the determination of the sentence, the offender is punished more severely, not because he or she deserves it, but because the court decides to send a message to others who may be inclined to engage in similar criminal activity: <i>R. v. B.W.P.</i>, 2006 SCC 27, [2006] 1 S.C.R. 941. Similarly, deterrence as an object of <i>Charter </i>damages is not aimed at deterring the specific wrongdoer, but rather at influencing government behaviour in order to secure state compliance with the <i>Charter </i>in the future.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%"><i>[30]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></i>In most cases, all three objects will be present.&nbsp; Harm to the claimant will evoke the need for compensation.&nbsp; Vindication and deterrence will support the compensatory function and bolster the appropriateness of an award of damages.&nbsp; However, the fact that the claimant has not suffered personal loss does not preclude damages where the objectives of vindication or deterrence clearly call for an award. Indeed, the view that constitutional damages are available only for pecuniary or physical loss has been widely rejected in other constitutional democracies: see, e.g., <i>Anufrijeva</i>; <i>Fose</i>; <i>Taunoa</i>; <i>Smith</i>; and <i>Ramanoop</i>.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[31]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>In summary, damages under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1" target="_blank">s. 24(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i> are a unique public law remedy, which may serve the objectives of: (1) compensating the claimant for loss and suffering caused by the breach; (2) vindicating the right by emphasizing its importance and the gravity of the breach; and (3) deterring state agents from committing future breaches.&nbsp; Achieving one or more of these objects is the first requirement for “appropriate and just” damages under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1" target="_blank">s. 24(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i>.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:200%"><span lang="EN-GB">(4)&nbsp;&nbsp; <u>Step Three: Countervailing Factors</u></span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section21">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%"><span lang="EN-GB">[32]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span></span><span lang="EN-GB">As discussed, the basic requirement for the award of damages to be “appropriate and just” is that the award must be functionally required to fulfill one or more of the objects of compensation, vindication of the right, or deterrence of future <i>Charter</i> breaches. </span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[33]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>However, even if the claimant establishes that damages are functionally justified, the state may establish that other considerations render s. 24(1) damages inappropriate or unjust. A complete catalogue of countervailing considerations remains to be developed as the law in this area matures.&nbsp; At this point, however, two considerations are apparent: the existence of alternative remedies and concerns for good governance.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[34]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>A functional approach to damages under s. 24(1) means that if other remedies adequately meet the need for compensation, vindication and/or deterrence, a further award of damages under s. 24(1) would serve no function and would not be “appropriate and just”.&nbsp; The <i>Charter</i> entered an existent remedial arena which already housed tools to correct violative state conduct. Section 24(1) operates concurrently with, and does not replace, these areas of law. Alternative remedies include private law remedies for actions for personal injury, other <i>Charter</i> remedies like declarations under s. 24(1), and remedies for actions covered by legislation permitting proceedings against the Crown.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section22">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[35]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The claimant must establish basic functionality having regard to the objects of constitutional damages. The evidentiary burden then shifts to the state to show that the engaged functions can be fulfilled through other remedies. The claimant need not show that she has exhausted all other recourses.&nbsp; Rather, it is for the state to show that other remedies are available in the particular case that will sufficiently address the breach.&nbsp; <span lang="EN-GB">For example, if the claimant has brought a concurrent action in tort, it is open to the state to argue that, should the tort claim be successful, the resulting award of damages would adequately address the <i>Charter</i> breach. If that were the case, an award of <i>Charter</i> damages would be duplicative.&nbsp; In addition, it is conceivable that another <i>Charter</i> remedy may, in a particular case, fulfill the function of <i>Charter</i> damages. </span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[36]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The existence of a potential claim in tort does not therefore bar a claimant from obtaining damages under the <i>Charter</i>.<span lang="EN-GB">&nbsp; Tort law and the <i>Charter</i> are distinct legal avenues. </span>&nbsp;However, a concurrent action in tort, or other private law claim, bars s. 24(1) damages if the result would be double compensation: <i>Simpson v. Attorney-General</i>, [1994] 3 N.Z.L.R. 667 (C.A.), at p.&nbsp;678.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[37]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Declarations of <i>Charter</i> breach may provide an adequate remedy for the <i>Charter</i> breach, particularly where the claimant has suffered no personal damage.&nbsp; Considering declarations in <i>Taunoa</i>, at para. 368, McGrath J. writes:</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+20.85pt;line-height:200%">The court’s finding of a breach of rights and a declaration to that effect will often not only be appropriate relief but may also in itself be a sufficient remedy in the circumstances to vindicate a plaintiff’s right.&nbsp; That will often be the case where no damage has been suffered that would give rise to a claim under private causes of action and, in the circumstances, if there is no need to deter persons in the position of the public officials from behaving in a similar way in the future.&nbsp; If in all the circumstances the court’s pronouncement that there has been a breach of rights is a sufficiently appropriate remedy to vindicate the right and afford redress then, subject to any questions of costs, that will be sufficient to meet the primary remedial objective.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section23">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[38]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Another consideration that may negate the appropriateness of s. 24(1) damages is concern for effective governance.&nbsp; Good governance concerns may take different forms.&nbsp; At one extreme, it&nbsp; may be argued that any award of s. 24(1) damages will always have a chilling effect on government conduct, and hence will impact negatively on good governance.&nbsp; The logical conclusion of this argument is that s. 24(1) damages would never be appropriate.&nbsp; Clearly, this is not what the Constitution intends.&nbsp; Moreover, insofar as s. 24(1) damages deter <i>Charter</i> breaches, they promote good governance.&nbsp; Compliance with <i>Charter</i> standards is a foundational principle of good governance.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[39]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>In some situations, however, the state may establish that an award of <i>Charter</i> damages would interfere with good governance such that damages should not be awarded unless the state conduct meets a minimum threshold of gravity.&nbsp; This was the situation in&nbsp; <i>Mackin v. New Brunswick (Minister of Finance)</i>, 2002 SCC 13, [2002] 1 S.C.R. 405, where the claimant sought damages for state conduct pursuant to a valid statute. The Court held that the action must be struck on the ground that duly enacted laws should be enforced until declared invalid, unless&nbsp; the state conduct under the law was “clearly wrong, in bad faith or an abuse of power”:&nbsp; para. 78. The rule of law would be undermined if governments were deterred from enforcing the law by the possibility of future damage awards in the event the law was, at some future date, to be declared invalid.&nbsp; Thus, absent threshold misconduct, an action for damages under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1" target="_blank">s. 24(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i> cannot be combined with an action for invalidity based on <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec52" target="_blank">s. 52<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Constitution Act, 1982<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i>: <i>Mackin</i>, at para. 81.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section24">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[40]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The <i>Mackin</i> principle recognizes that the state must be afforded some immunity from liability in damages resulting from the conduct of certain functions that only the state can perform.&nbsp; Legislative and policy-making functions are one such area of state activity.&nbsp; The immunity is justified because the law does not wish to chill the exercise of policy-making discretion.&nbsp; As Gonthier J. explained:</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;line-height:
+200%">The limited immunity given to government is specifically a means of creating a balance between the protection of constitutional rights and the need for effective government.&nbsp; In other words, this doctrine makes it possible to determine whether a remedy is appropriate and just in the circumstances.&nbsp; Consequently, the reasons that inform the general principle of public law are also relevant in a <i>Charter</i> context. [para. 79]</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[41]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The government argues that the <i>Mackin</i> principle applies in this case, and, in the absence of state conduct that is at least “clearly wrong”, bars Mr. Ward’s claim.&nbsp; I cannot accept this submission. <i>Mackin</i> stands for the principle that state action taken under a statute which is subsequently declared invalid will not give rise to public law damages because good governance requires that public officials carry out their duties under valid statutes without fear of liability in the event that the statute is later struck down.&nbsp; The present is not a situation of state action pursuant to a valid statute that was subsequently declared invalid. Nor is the rationale animating the <i>Mackin </i>principle — that duly enacted laws should be enforced until declared invalid — applicable in the present situation. Thus, the <i>Mackin </i>immunity does not apply to this case.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[42]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>State conduct pursuant to a valid statute may not be the only situation in which the state might seek to show that s. 24(1) damages would deter state agents from doing what is required for effective governance, although no others have been established in this case.&nbsp; It may be that in the future other situations may be recognized where the appropriateness of s. 24(1) damages could be negated on grounds of effective governance.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section25"></div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section26">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[43]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Such concerns may find expression, as the law in this area matures, in various defences to s. 24(1) claims.&nbsp; <i>Mackin</i> established a defence of immunity for state action under valid statutes subsequently declared invalid, unless the state conduct is “clearly wrong, in bad faith or an abuse of power” (para. 78).&nbsp; If and when other concerns under the rubric of effective governance emerge, these may be expected to give rise to analogous public law defences.&nbsp; By analogy to <i>Mackin</i> and the private law, where the state establishes that s. 24(1) damages raise governance concerns, it would seem a minimum threshold, such as clear disregard for the claimant’s <i>Charter</i> rights, may be appropriate.&nbsp; Different situations may call for different thresholds, as is the case at private law.&nbsp; Malicious prosecution, for example, requires that “malice” be proven because of the highly discretionary and quasi-judicial role of prosecutors (<i>Miazga v. Kvello Estate</i>, 2009 SCC 51, [2009] 3 S.C.R. 339), while negligent police investigation, which does not involve the same quasi-judicial decisions as to guilt or innocence or the evaluation of evidence according to legal standards, contemplates the lower “negligence” standard (<i>Hill v. Hamilton‑Wentworth Regional Police Services Board</i>, 2007 SCC 41, [2007] 3 S.C.R. 129). When appropriate, private law thresholds and defences may offer guidance in determining whether s. 24(1) damages would be “appropriate and just”. While the threshold for liability under the <i>Charter</i> must be distinct and autonomous from that developed under private law, the existing causes of action against state actors embody a certain amount of “practical wisdom” concerning the type of situation in which it is or is not appropriate to make an award of damages against the state. Similarly, it may be necessary for the court to consider the procedural requirements of alternative remedies.&nbsp; Procedural requirements associated with existing remedies are crafted to achieve a proper balance between public and private interests, and the underlying policy considerations of these requirements should not be negated by recourse to <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1" target="_blank">s. 24(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i>.&nbsp; As stated earlier, s. 24(1) operates concurrently with, and does not replace, the general law.&nbsp; These are complex matters which have not been explored on this appeal.&nbsp; I therefore leave the exact parameters of future defences to future cases.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[44]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>I find it useful to add a comment on the judgment of our Court in <i>Béliveau St-Jacques v. Fédération des employées et employés de services publics inc</i>., [1996] 2 S.C.R. 345. <i>Béliveau St-Jacques</i> is not determinative of the availability of the public law remedy of damages under s. 24(1). The judgment raised specific issues concerning the interpretation of ss. 49 and 51 of the Quebec<i> </i><i>Charter of human rights and freedoms</i>, R.S.Q., c. C-12, and its interaction with the statutory regime set up under the <i>Act respecting industrial accidents and occupational diseases</i>, R.S.Q., c.&nbsp;A-3.001.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[45]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>If the claimant establishes breach of his <i>Charter</i> rights and shows that an award of damages under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1" target="_blank">s. 24(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i> would serve a functional purpose, having regard to the objects of s. 24(1) damages, and the state fails to negate that the award is “appropriate and just”, the final step is to determine the appropriate amount of the damages.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:200%"><span lang="EN-GB">(5)&nbsp;&nbsp; <u>Step Four:&nbsp; Quantum of Section 24(1) Damages</u></span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[46]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The watchword of s. 24(1) is that the remedy must be “appropriate and just”.&nbsp; This applies to the amount, or quantum, of damages awarded as much as to the initial question of whether damages are a proper remedy.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section27">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[47]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>As discussed earlier, damages may be awarded to compensate the claimant for his loss, to vindicate the right or to deter future violations of the right.&nbsp; These objects, the presence and force of which vary from case to case, determine not only whether damages are appropriate, but also the amount of damages awarded.&nbsp; Generally, compensation will be the most important object, and vindication and deterrence will play supporting roles. This is all the more so because other <i>Charter </i>remedies may not provide compensation for the claimant’s personal injury resulting from the violation of his <i>Charter</i> rights. However, as discussed earlier, cases may arise where vindication or&nbsp; deterrence play a major and even exclusive role.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[48]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Where the objective of compensation is engaged, the concern is to restore the&nbsp; claimant to the position she would have been in had the breach not been committed, as discussed above.&nbsp; As in a tort action, any claim for compensatory damages must be supported by evidence of the loss suffered.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[49]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>In some cases, the <i>Charter </i>breach may cause the claimant pecuniary loss.&nbsp; Injuries, physical and psychological, may require medical treatment, with attendant costs.&nbsp; Prolonged detention may result in loss of earnings.&nbsp; <i>Restitutio in integrum </i>requires compensation for such financial losses.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%"><i>[50]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></i>In other cases, like this one, the claimant’s losses will be non-pecuniary.&nbsp; Non-pecuniary damages are harder to measure.&nbsp; Yet they are not by that reason to be rejected.&nbsp; Again, tort law provides assistance.&nbsp; Pain and suffering are compensable. Absent exceptional circumstances, compensation is fixed at a fairly modest conventional rate, subject to variation for the degree of suffering in the particular case.&nbsp; In extreme cases of catastrophic injury, a higher but still conventionally determined award is given on the basis that it serves the function purpose of providing substitute comforts and pleasures: <i>Andrews v. Grand &amp; Toy</i>.</p>
+</div> <i><span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span></i>
+<div class="Section28">
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[51]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>When we move from compensation to the objectives of vindication and deterrence, tort law is less useful.&nbsp; Making the appropriate determinations is an exercise in rationality and proportionality and will ultimately be guided by precedent as this important chapter of <i>Charter</i> jurisprudence is written by Canada’s courts. That said, some initial observations may be made.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%"><span lang="EN-GB">[52]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span></span>A principal guide to the determination of quantum is the seriousness of the breach, having regard to the objects of s. 24(1) damages. The seriousness of the breach must be evaluated with regard to the impact of the breach on the claimant and the seriousness of the state misconduct: see, in the context of s. 24(2), <i>R. v. Grant</i>, 2009 SCC 32, [2009] 2 S.C.R. 353.&nbsp; Generally speaking, the more egregious the conduct and the more serious the repercussions on the claimant, the higher the award for vindication or deterrence will be.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[53]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Just as private law damages must be fair to both the plaintiff and the defendant, so s. 24(1) damages must be fair — or “appropriate and just” — to both the claimant and the state.&nbsp; The court must arrive at a quantum that respects this.&nbsp; Large awards and the consequent diversion of public funds may serve little functional purpose in terms of the claimant’s needs and may be inappropriate or unjust from the public perspective.&nbsp; In considering what is fair to the claimant and the state, the court may take into account the public interest in good governance, the danger of deterring governments from undertaking beneficial new policies and programs, and the need to avoid diverting large sums of funds from public programs to private interests.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section29">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[54]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Courts in other jurisdictions where an award of damages for breach of rights is available have generally been careful to avoid unduly high damage awards.&nbsp; This may reflect the difficulty of assessing what is required to vindicate the right and deter future breaches, as well as the fact that it is society as a whole that is asked to compensate the claimant.&nbsp; Nevertheless, to be “appropriate and just”, an award of damages must represent a meaningful response to the seriousness of the breach and the objectives of compensation, upholding <i>Charter</i> values, and deterring future breaches.&nbsp; The private law measure of damages for similar wrongs will often be a useful guide. However, as Lord Nicholls warns in <i>Ramanoop</i>, at para. 18, “this measure is no more than a guide because . . . the violation of the constitutional right will not always be coterminous with the cause of action at law”.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[55]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>In assessing s. 24(1) damages, the court must focus on the breach of <i>Charter</i> rights as an independent wrong, worthy of compensation in its own right.&nbsp; At the same time, damages under s. 24(1) should not duplicate damages awarded under private law causes of action, such as tort, where compensation of personal loss is at issue.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%"><span lang="EN-GB">[56]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span></span>A final word on exemplary or punitive damages.&nbsp; In <i>Mackin</i>, Justice Gonthier speculated that “[i]n theory, a plaintiff could seek compensatory and punitive damages by way of ‘appropriate and just’ remedy under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1" target="_blank">s. 24(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i>”: para. 79.&nbsp; The reality is that public law damages, in serving the objects of vindication and deterrence, may assume a punitive aspect.&nbsp; Nevertheless, it is worth noting a general reluctance in the international community to award purely punitive damages: see <i>Taunoa</i>, at paras. 319‑21.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section30">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[57]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>To sum up, the amount of damages must reflect what is required to functionally serve the objects of compensation, vindication of the right and deterrence of future breaches, insofar as they are engaged in a particular case, having regard to the impact of the breach on the claimant and the seriousness of the state conduct.&nbsp; The award must be appropriate and just from the perspective of the claimant and the state.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:200%">(6)&nbsp;&nbsp; <u>Forum and Procedure</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%"><span lang="EN-GB">[58]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span></span>For a tribunal to grant a <i>Charter</i> remedy under s. 24(1), it must have the power to decide questions of law and the remedy must be one that the tribunal is authorized to grant:&nbsp; <i>R. v. Conway</i>, 2010 SCC 22, [2010] 1 S.C.R. 765.&nbsp; Generally, the appropriate forum for an award of damages under s. 24(1) is a court which has the power to consider <i>Charter</i> questions and which by statute or inherent jurisdiction has the power to award damages. Provincial criminal courts are not so empowered and thus do not have the power to award damages under s. 24(1).</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[59]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>As was done here, the claimant may join a s. 24(1) claim with a tort claim.&nbsp; It may be useful to consider the tort claim first, since if it meets the objects of <i>Charter</i> damages, recourse to s. 24(1) will be unnecessary.&nbsp; This may add useful context and facilitate the s. 24(1) analysis. This said, it is not essential that the claimant exhaust her remedies in private law before bringing a s.&nbsp;24(1) claim.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:23.3pt;text-align:justify;text-indent:
+-23.3pt;line-height:200%">B.&nbsp;&nbsp;&nbsp; <i>Application to the Facts</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section31">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[60]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>At trial, Justice Tysoe held that the provincial correction officers’ strip search and the Vancouver Police Department’s vehicle seizure violated Mr. Ward’s right to be free from unreasonable search and seizure under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec8" target="_blank">s. 8<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i>. There are thus two distinct claims to consider.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:-31.5pt;margin-bottom:
+0cm;margin-left:78.45pt;margin-bottom:.0001pt;text-align:justify;text-indent:
+-20.85pt;line-height:200%">(1)&nbsp;&nbsp; <u>Damages for the Strip Search</u></p>
+ <p class="MsoNormal" style="margin-right:-31.5pt;text-align:justify;line-height:
+200%">&nbsp;</p>
+ <p class="1" style="margin-top:0cm;margin-right:-31.5pt;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;text-align:justify;text-indent:57.6pt;
+line-height:200%">[61]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The first question is whether Mr. Ward has established entitlement to the s.&nbsp;24(1) remedy of damages.&nbsp; This requires him to show: (1) a breach of his <i>Charter </i>rights; and (2) that an award of damages would serve a functional purpose in the circumstances, having regard to the objects of s. 24(1) damages.&nbsp; If these are established, the burden shifts to the state (step 3) to show why, having regard to countervailing factors, an award of damages under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1" target="_blank">s. 24(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i> would be inappropriate.&nbsp; If the state fails to negate s. 24(1) damages, the inquiry moves to the final step, assessment of the appropriate amount of the damages.</p>
+ <p class="MsoNormal" style="margin-right:-31.5pt;text-align:justify;line-height:
+200%">&nbsp;</p>
+ <p class="1" style="margin-top:0cm;margin-right:-31.5pt;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;text-align:justify;text-indent:57.6pt;
+line-height:200%">[62]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Here the first step is met.&nbsp; Justice Tysoe found that the strip search violated Mr. Ward’s personal rights under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec8" target="_blank">s. 8<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i>.&nbsp; This finding is not challenged on this appeal.&nbsp; Nor is it suggested that the British Columbia Supreme Court is not an appropriate forum for the action.</p>
+ <p class="MsoNormal" style="margin-right:-31.5pt;text-align:justify;line-height:
+200%">&nbsp;</p>
+ <p class="1" style="margin-top:0cm;margin-right:-31.5pt;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;text-align:justify;text-indent:57.6pt;
+line-height:200%">[63]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The second question is whether damages would serve a functional purpose by serving one or more of the objects of s. 24(1) damages — compensation, vindication and deterrence.</p>
+ <p class="MsoNormal" style="margin-right:-31.5pt;text-align:justify;line-height:
+200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section32">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[64]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>In this case, the need for compensation bulks large.&nbsp; Mr. Ward’s injury was serious.&nbsp; He had a constitutional right to be free from unreasonable search and seizure, which was violated in an egregious fashion. Strip searches are inherently humiliating and degrading regardless of the manner in which they are carried out and thus constitute significant injury to an individual’s intangible interests: <i>R. v. Golden</i>, 2001 SCC 83, [2001] 3 S.C.R. 679, at para. 90.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[65]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The corrections officers’ conduct which caused the breach of Mr. Ward’s <i>Charter</i> rights was also serious. Minimum sensitivity to <i>Charter</i> concerns within the context of the particular situation would have shown the search to be unnecessary and violative.&nbsp; Mr. Ward did not commit a serious offence, he was not charged with an offence associated with evidence being hidden on the body, no weapons were involved and he was not known to be violent or to carry weapons. Mr. Ward did not pose a risk of harm to himself or others, nor was there any suggestion that any of the officers believed that he did. In these circumstances, a reasonable person would understand that the indignity resulting from the search was disproportionate to any benefit which the search could have provided. In addition, without asking officers to be conversant with the details of court rulings, it is not too much to expect that police would be familiar with the settled law that routine strip searches are inappropriate where the individual is being held for a short time in police cells, is not mingling with the general prison population, and where the police have no legitimate concerns that the individual is concealing weapons that could be used to harm themselves or others: <i>Golden</i>, at para. 97.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%"><span lang="EN-GB">[66]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span></span>In sum, the <i>Charter </i>breach significantly impacted on Mr.&nbsp;Ward’s person and rights and the police conduct was serious.&nbsp; The impingement on Mr.&nbsp;Ward calls for compensation.&nbsp; Combined with the police conduct, it also engages the objects of vindication of the right and deterrence of future breaches. It follows that compensation is required in this case to functionally fulfill the objects of public law damages.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section33">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[67]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The next question is whether the state has established countervailing factors that would render s. 24(1) damages inappropriate or unjust.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[68]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The state has not established that alternative remedies are available to achieve the objects of compensation, vindication or deterrence with respect to the strip search.&nbsp; Mr. Ward sued the officers for assault, as well as the City and the Province for negligence. These claims were dismissed and their dismissal was not appealed to this Court. While this defeated Mr. Ward’s claim in tort, it did not change the fact that his right under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec8" target="_blank">s. 8<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter </i>to be secure against unreasonable search and seizure was violated.&nbsp; No tort action was available for that violation and a declaration will not satisfy the need for compensation.&nbsp; Mr. Ward’s only recourse is a claim for damages under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1" target="_blank">s.&nbsp;24(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i>.&nbsp; Nor has the state established that an award of s. 24(1) damages is negated by good governance considerations, such as those raised in <i>Mackin</i>.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%"><span lang="EN-GB">[69]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span></span><span lang="EN-GB">I conclude that damages for the strip search of Mr. Ward are required in this case to functionally fulfill the objects of public law damages, and therefore are <i>prima facie</i> “appropriate and just”.&nbsp; The state has not negated this.&nbsp; It follows that damages should be awarded for this breach of Mr. Ward’s <i>Charter</i> rights. </span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[70]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>This brings us to the issue of quantum.&nbsp; As discussed earlier, the amount of damages must reflect what is required to functionally fulfill the relevant objects of s.&nbsp;24(1) compensation, while remaining fair to both the claimant and the state.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><i>&nbsp;</i></p>
+</div> <i><span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span></i>
+<div class="Section34">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[71]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The object of compensation focuses primarily on the claimant’s personal loss: physical, psychological, pecuniary, and harm to intangible interests.&nbsp; The claimant&nbsp; should, in so far as possible, be placed in the same position as if his <i>Charter</i> rights had not been infringed.&nbsp; Strip searches are inherently humiliating and thus constitute a significant injury to an individual’s intangible interests regardless of the manner in which they are carried out. That said, the present search was relatively brief and not extremely disrespectful, as strip searches go.&nbsp; It did not involve the removal of Mr. Ward’s underwear or the exposure of his genitals. Mr. Ward was never touched during the search and there is no indication that he suffered any resulting physical or psychological injury. While Mr. Ward’s injury was serious, it cannot be said to be at the high end of the spectrum. This suggests a moderate damages award.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[72]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The objects of vindication and deterrence engage the seriousness of the state conduct.&nbsp; The corrections officers’ conduct was serious and reflected a lack of sensitivity to <i>Charter</i> concerns.&nbsp; That said, the officers’ action was not intentional, in that it was not malicious, high-handed or oppressive. In these circumstances, the objects of vindication and deterrence do not require an award of substantial damages against the state.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[73]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Considering all the factors, including the appropriate degree of deference to be paid to the trial judge’s exercise of remedial discretion, I conclude that the trial judge’s $5,000 damage award was appropriate.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:200%">(2)&nbsp;&nbsp; <u>Damages for the Car Seizure</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section35">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[74]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>As with the strip search, we must determine whether Mr. Ward has established entitlement to the s. 24(1) remedy of damages to compensate for the constitutional wrong he suffered due to the City’s seizure of his vehicle. Again, this requires determining: (1) breach of <i>Charter</i> right; (2) whether an award of damages would serve a functional purpose, having regard to the objects of s. 24(1) damages; (3) whether the state has established countervailing factors negating an award of s. 24(1) damages; and (4) quantum, if the right to damages is established.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[75]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The trial judge found that the seizure of the car violated Mr. Ward’s rights under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec8" target="_blank">s. 8<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i>.&nbsp; This finding is not contested and thus satisfies the first requirement.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[76]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The next question is whether Mr. Ward has established that damages under s. 24(1) for the car seizure are appropriate and just from a functional perspective.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[77]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The object of compensation is not engaged by the seizure of the car.&nbsp; The trial judge found that Mr. Ward did not suffer any injury as a result of the seizure. His car was never searched and, upon his release from lockup, Mr. Ward was driven to the police compound to pick up the vehicle.&nbsp; Nor are the objects of vindication of the right and deterrence of future breaches compelling.&nbsp; While the seizure was wrong, it was not of a serious nature. The police officers did not illegally search the car, but rather arranged for its towing under the impression that it would be searched once a warrant had been obtained. When the officers determined that they did not have grounds to obtain the required warrant, the vehicle was made available for pickup.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div> <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section36">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[78]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>I conclude that a declaration under s. 24(1) that the vehicle seizure violated Mr. Ward’s right to be free from unreasonable search and seizure under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec8" target="_blank">s. 8<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i> adequately serves the need for vindication of the right and deterrence of future improper car seizures.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:34.65pt;text-align:justify;text-indent:
+-34.65pt;line-height:200%">VII.&nbsp;&nbsp;&nbsp;&nbsp; <u>Disposition</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[79]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The appeal is allowed in part. The award against the City in the amount of $100 is set aside, substituted by a declaration under s. 24(1) that the vehicle seizure violated Mr. Ward’s right to be free from unreasonable search and seizure under <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec8" target="_blank">s. 8<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i>Charter</i>.&nbsp; The award of damages against the Province in the sum of $5,000 for breach of Mr. Ward’s <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec8" target="_blank">s. 8<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> <i>Charter</i> rights is confirmed.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[80]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>We have been informed of a pre‑existing agreement between Mr. Ward and the Province regarding costs and, as such, no cost order is made between Mr. Ward and the Province. No costs are awarded to or against the City.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Appeal allowed in part.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Solicitor for the appellant the City of Vancouver:&nbsp;&nbsp;City of Vancouver, Vancouver.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><i>&nbsp;</i></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Solicitor for the appellant Her Majesty the Queen in Right of the Province of British Columbia:&nbsp;&nbsp;Attorney General of British Columbia, Victoria.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Solicitors for the respondent:&nbsp;&nbsp;Samuels &amp; Company, Vancouver.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><i>&nbsp;</i></p>
+</div> <i><span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span></i>
+<div class="Section37">
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Solicitor for the intervener the Attorney General of Canada:&nbsp;&nbsp;Attorney General of Canada, Saskatoon.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><i>&nbsp;</i></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Solicitor for the intervener the Attorney General of Ontario:&nbsp;&nbsp;Attorney General of Ontario, Toronto.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><i>&nbsp;</i></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Solicitor for the intervener the Attorney General of Quebec:&nbsp;&nbsp;Attorney General of Quebec, Ste‑Foy.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Solicitors for the intervener the Aboriginal Legal Services of Toronto Inc.:&nbsp;&nbsp;Aboriginal Legal Services of Toronto Inc., Toronto; Falconer Charney, Toronto.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><i>&nbsp;</i></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Solicitors for the intervener the Association in Defence of the Wrongly Convicted:&nbsp;&nbsp;Sack Goldblatt Mitchell, Toronto.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><i>&nbsp;</i></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Solicitors for the intervener the Canadian Civil Liberties Association:&nbsp;&nbsp;Torys, Toronto.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><i>&nbsp;</i></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Solicitor for the intervener the Canadian Association of Chiefs of Police:&nbsp;&nbsp;Ottawa Police Service, Ottawa.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><i>&nbsp;</i></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Solicitors for the intervener the Criminal Lawyers’ Association (Ontario):&nbsp;&nbsp;Sack Goldblatt Mitchell, Toronto.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><i>&nbsp;</i></p>
+</div> <i><span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span></i>
+<div class="Section38">
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Solicitor for the intervener the British Columbia Civil Liberties Association and the David Asper Centre for Constitutional Rights:&nbsp;&nbsp;University of Toronto, Toronto.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p>
+</div></div>
+</div>
+<div id="lexboxAnnotationHook"></div>
+<div id="decisia-reflex2-dialog" class="decisia-content" title="Citation automatically hyperlinked by Norma">
+    <div class="decisia-box">
+        <div style="margin-bottom:10px">
+            <div><span class="icon-warning-sign">&nbsp;</span>You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.</div>
+        </div>
+        <div style="float:right">
+            <button id="decisia-reflex2-continue-button" type="button">Continue&nbsp;<span class="icon-arrow-right"></span></button>
+        </div>
+        <div style="clear:both"></div>
+        <input id="decisia-reflex2-ignore-warning" type="checkbox"/>
+        <label for="decisia-reflex2-ignore-warning">Do not display this message anymore</label>
+    </div>
+</div></div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.modalClose = "Close";
+</script>
+</body>
+
+</html>

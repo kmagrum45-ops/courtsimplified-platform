@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/16664/index.do" />
+    <title>    Saadati v. Moorhead - SCC Cases
+</title>
+    <link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/scc-csc/scc-csc/en/16664/1772670/res.do" />
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Saadati v. Moorhead</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Saadati v. Moorhead</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/scc-csc/fr/item/16664/index.do?alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content">
+<div id="decisia-document-header" class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisia-box">
+
+<h1>
+    <a id="decisia-decisions"></a>
+    Supreme Court Judgments
+</h1>
+
+<h2 class="accessibility-only">Decision Information</h2>
+<div class="metadata">
+
+    <h3 class="title">Saadati v. Moorhead</h3>
+    <table>
+                    <tr>
+                        <td class="label">Collection</td>
+                        <td class="metadata">
+                                Supreme Court Judgments
+                    </tr>
+                    <tr>
+                        <td class="label">Date</td>
+                        <td class="metadata">
+                                2017-06-02
+                    </tr>
+                    <tr>
+                        <td class="label">Neutral citation</td>
+                        <td class="metadata">
+                                2017 SCC 28
+                    </tr>
+                    <tr>
+                        <td class="label">Report</td>
+                        <td class="metadata">
+                                [2017] 1 SCR 543
+                    </tr>
+                    <tr>
+                        <td class="label">Case number</td>
+                        <td class="metadata">
+                                36703
+                    </tr>
+                    <tr>
+                        <td class="label">Judges</td>
+                        <td class="metadata">
+                                McLachlin, Beverley; Abella, Rosalie Silberman; Moldaver, Michael J.; Karakatsanis, Andromache; Wagner, Richard; Gascon, Clément; Côté, Suzanne; Brown, Russell; Rowe, Malcolm
+                    </tr>
+                    <tr>
+                        <td class="label">On appeal from</td>
+                        <td class="metadata">
+                                British Columbia
+                    </tr>
+                    <tr>
+                        <td class="label">Notes</td>
+                        <td class="metadata">
+                                <p>SCC Case Information: <a target="_blank" href="https://www.scc-csc.ca/cases-dossiers/search-recherche/36703/">36703</a></p>
+
+                    </tr>
+    </table>
+
+    <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16664/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+    </div>
+</div>
+
+
+
+</div>
+
+<div id="lexboxHook"></div>
+
+<h2 class="accessibility-only">Decision Content</h2>
+
+</div> 
+
+<div id="document-content">
+
+        
+<div class="documentcontent"><div class="WordSection1">
+ <p class="MsoHeader"><w:ptab alignment="CENTER" relativeto="MARGIN" leader="NONE"></w:ptab> &nbsp;<img width="82" height="86" src="/scc-csc/scc-csc/en/16664/1772671/res.do" />&nbsp; <w:ptab alignment="RIGHT" relativeto="MARGIN" leader="NONE"></w:ptab> &nbsp;</p>
+ <p class="MsoHeader">&nbsp;</p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b>SUPREME COURT OF CANADA</b></p>
+ <p class="MsoNormal">&nbsp;</p>
+ <table class="MsoTableGrid" border="0" cellspacing="0" cellpadding="0" width="0" style="border-collapse:collapse;border:none">
+  <tbody>
+   <tr style="page-break-inside:avoid">
+    <td width="378" valign="top" style="width:283.5pt;padding:2.9pt 2.9pt 2.9pt 2.9pt"><p class="MsoNormal"><b><span style="font-variant:small-caps">Citation:</span></b> <span class="SCCAppellantForIndexChar"><span style="font-weight:normal">Saadati</span></span> <i>v.</i> <span class="SCCRespondentForIndexChar"><span style="font-weight:normal">Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543</span></span></p></td>
+    <td width="260" valign="top" style="width:195.3pt;padding:2.9pt 2.9pt 2.9pt 2.9pt"><p class="MsoNormal"><b><span style="font-variant:small-caps">Appeal Heard:</span></b> January 16, 2017</p> <p class="MsoNormal"><b><span style="font-variant:small-caps">Judgment Rendered:</span></b> June 2, 2017</p> <p class="MsoNormal"><b><span style="font-variant:small-caps">Docket:</span></b> 36703</p></td>
+   </tr>
+  </tbody>
+ </table>
+ <p class="MsoNormal">&nbsp;</p>
+ <p class="SCCLsocPrefix"><span style="font-size:12.0pt">Between:</span></p>
+ <p class="MsoNormal">&nbsp;</p>
+ <p class="SCCLsocParty" align="center" style="text-align:center">Mohsen Saadati, by his Litigation Guardian, Sara Zarei</p>
+ <p class="MsoNormal" align="center" style="text-align:center">Appellant</p>
+ <p class="MsoNormal" align="center" style="text-align:center">&nbsp;</p>
+ <p class="SCCLsocVersus" align="center" style="margin-bottom:0in;margin-bottom:
+.0001pt;text-align:center"><span style="font-style:normal">and</span></p>
+ <p class="MsoNormal" align="center" style="text-align:center">&nbsp;</p>
+ <p class="SCCLsocParty" align="center" style="text-align:center">Grant Iain Moorhead,</p>
+ <p class="SCCLsocParty" align="center" style="text-align:center">Able Leasing (2001) Ltd. and</p>
+ <p class="SCCLsocParty" align="center" style="text-align:center">Thi Hao Hoang</p>
+ <p class="MsoNormal" align="center" style="text-align:center">Respondents</p>
+ <p class="MsoNormal" align="center" style="text-align:center">&nbsp;</p>
+ <p class="SCCLsocOtherPartySeparator" align="center" style="margin-bottom:0in;
+margin-bottom:.0001pt;text-align:center">- and -</p>
+ <p class="MsoNormal" align="center" style="text-align:center">&nbsp;</p>
+ <p class="SCCLsocParty" align="center" style="text-align:center">Insurance Bureau of Canada</p>
+ <p class="MsoNormal" align="center" style="text-align:center">Intervener</p>
+ <p class="MsoNormal">&nbsp;</p>
+ <p class="MsoNormal">&nbsp;</p>
+ <p class="MsoNormal"><b><span style="font-variant:small-caps">Coram:</span></b> McLachlin&nbsp;C.J. and Abella, Moldaver, Karakatsanis, Wagner, Gascon, Côté, Brown and Rowe&nbsp;JJ.</p>
+ <p class="MsoNormal">&nbsp;</p>
+ <table class="MsoTableGrid" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:none">
+  <tbody>
+   <tr style="page-break-inside:avoid">
+    <td width="241" valign="top" style="width:180.9pt;padding:2.9pt 2.9pt 2.9pt 2.9pt"><p class="MsoNormal"><b><span style="font-variant:small-caps">Reasons for Judgment:</span></b></p> <p class="MsoNormal">(paras. 1 to 45)</p></td>
+    <td width="397" valign="top" style="width:297.9pt;padding:2.9pt 2.9pt 2.9pt 2.9pt"><p class="MsoNormal">Brown J. (McLachlin C.J. and Abella, Moldaver, Karakatsanis, Wagner, Gascon, Côté and Rowe JJ. concurring)</p></td>
+   </tr>
+  </tbody>
+ </table>
+ <p class="MsoNormal">&nbsp;</p>
+ <p class="MsoNormal"></p>
+ <table cellpadding="0" cellspacing="0" align="left">
+  <tbody>
+   <tr>
+    <td width="169" height="19"></td>
+   </tr>
+   <tr>
+    <td></td>
+    <td><img width="264" height="1" src="/scc-csc/scc-csc/en/16664/1772669/res.do" /></td>
+   </tr>
+  </tbody>
+ </table> &nbsp; 
+ <p></p>
+ <p class="MsoNormal" style="margin-bottom:.5in;text-align:justify"><span class="SCCAppellantForRunningHeadChar"><span style="font-variant:normal !important">&nbsp;</span></span></p> <br clear="ALL">
+ <p class="MsoNormal" style="margin-bottom:.5in;text-align:justify"><span class="SCCAppellantForRunningHeadChar"><span style="font-variant:normal !important">Saadati <i>v.</i> Moorhead, </span></span>2017 SCC 28, [2017] 1 S.C.R. 543</p>
+ <p class="SCCLsocLastPartyInRole">Mohsen Saadati, by his Litigation Guardian, Sara Zarei<span class="SCCLsocPartyRole"><span style="font-weight:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Appellant</span></span></p>
+ <p class="SCCLsocVersus">v.</p>
+ <p class="SCCLsocParty">Grant Iain Moorhead,</p>
+ <p class="SCCLsocParty">Able Leasing (2001) Ltd. and</p>
+ <p class="SCCLsocLastPartyInRole">Thi Hao Hoang<span class="SCCLsocPartyRole"><span style="font-weight:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Respondents</span></span></p>
+ <p class="SCCLsocOtherPartySeparator">and</p>
+ <p class="SCCLsocLastPartyInRole">Insurance Bureau of Canada<span class="SCCLsocPartyRole"><span style="font-weight:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Intervener</span></span></p>
+ <p class="MsoNormal" style="margin-bottom:.5in;text-align:justify"><b>Indexed as: <span class="SCCAppellantForIndexChar">Saadati</span> <i>v.</i> <span class="SCCRespondentForIndexChar">Moorhead</span></b></p>
+ <p class="SCCSystemYear" style="margin-bottom:.5in;text-align:justify">2017 SCC 28</p>
+ <p class="MsoNormal" style="margin-bottom:.5in;text-align:justify">File No.: 36703.</p>
+ <p class="MsoNormal" style="margin-bottom:.5in;text-align:justify">2017:&nbsp;January&nbsp;16; 2017:&nbsp;June&nbsp;2.</p>
+ <p class="MsoNormal" style="margin-bottom:.5in;text-align:justify">Present: McLachlin&nbsp;C.J. and Abella, Moldaver, Karakatsanis, Wagner, Gascon, Côté, Brown and Rowe&nbsp;JJ.</p>
+ <p class="SCCLowerCourtNameLowercase" style="margin-bottom:.5in;line-height:normal">on appeal from the court of appeal for british columbia</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Torts </i><i>— Negligence — Motor vehicles&nbsp; — Mental injury — Damages — Claimant suing in negligence as result of motor vehicle accident — Trial judge awarding claimant damages for mental injury based on testimony of lay witnesses rather than on expert evidence establishing identified medical cause — What constitutes mental injury — Whether </i><i>recovery for mental</i><i> injury requires expert evidence or other proof of recognized psychiatric illness </i><i>— Whether claimant sustained damage — Whether matter should be remanded to Court of Appeal.&nbsp;</i></p>
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; S’s tractor‑truck was struck by a vehicle driven by M. This accident was the second in a series of five motor vehicle collisions involving S. S had suffered chronic pain since the first accident, which was later aggravated by the third accident. S sued M and the other defendants in negligence, seeking damages for non‑pecuniary loss and past income loss arising from the second accident. The trial judge found that the second accident caused S psychological injuries, including personality change and cognitive difficulties. This finding did not rest on an identified medical cause or expert evidence, but was based on the testimony of S’s friends and family to the effect that S’s personality had changed for the worse after the accident. The trial judge further found that the mental injury originally caused by the second accident was indivisible from any injury caused by the third accident and awarded S $100,000 for non‑pecuniary damages. The Court of Appeal allowed the appeal on the ground that S had not demonstrated by expert evidence a medically recognized psychiatric or psychological injury. It also observed that the trial judge had erred by deciding the case on a basis neither pleaded nor argued by S.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="CitationCar"><span style="color:windowtext">Held</span></span><span class="CitationCar"><span style="color:windowtext;font-style:normal">:</span></span> The appeal should be allowed and the trial judge’s award restored.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The trial judge’s award for mental injury was not made in breach of procedural fairness.&nbsp;While cases should not be decided on grounds not raised, in claims for negligently caused mental injury, it is generally sufficient that the pleadings allege some form of such injury. The many allegations of mental injury in S’s oral and written closing submissions, combined with the broad heads of damage alleged in the pleadings, provided ample notice to the defendants of the case which they had to answer, and they did not object to these allegations.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b>Recovery for mental injury in negligence law depends upon the claimant satisfying the criteria applicable to any successful action in negligence: a duty of care, a breach, damage, and a legal and factual causal relationship between the breach and the damage. Canadian negligence law recognizes that a duty exists at common law to take reasonable care to avoid causing foreseeable mental injury, and that this cause of action protects a right to be free from negligent interference with one’s mental health. The ordinary duty of care analysis is therefore to be applied to claims for negligently caused mental injury. In particular, liability for mental injury must be confined to claims which satisfy the proximity analysis within the duty of care framework and the remoteness inquiry.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A finding of legally compensable mental injury need not rest, in whole or in part, on the claimant proving a recognized psychiatric injury. The law of negligence accords identical treatment to mental and physical injury. Requiring claimants who allege mental injury to prove that their condition meets the threshold of recognizable psychiatric illness, while not imposing a corresponding requirement upon claimants alleging physical injury to show that their condition carries a certain classificatory label, would accord unequal protection to victims of mental injury. Distinct rules which operate to preclude liability in cases of mental injury, but not in cases of physical injury, should not be erected. The elements of the cause of action of negligence, together with the threshold stated in <i>Mustapha</i> <i>v. Culligan of Canada Ltd.</i>, 2008 SCC 27, [2008] 2 S.C.R. 114, for proving mental injury, furnish a sufficiently robust array of protections against unworthy claims.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Furthermore, confining compensable mental injury to conditions that are identifiable with reference to psychiatric diagnostic tools is inherently suspect as a matter of legal methodology. While, for treatment purposes, an accurate diagnosis is obviously important, a trier of fact adjudicating a claim of mental injury is not concerned with diagnosis, but with symptoms and their effects. There is no necessary relationship between reasonably foreseeable mental injury and a diagnostic classification scheme. A negligent defendant need only be shown to have foreseen injury, and not a particular psychiatric<i> </i>illness that comes with its own label. The trier of fact’s inquiry should be directed to the level of harm that the claimant’s particular symptoms represent, not to whether a label could be attached to them.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To establish mental injury, claimants must show that the disturbance is serious and prolonged and rises above the ordinary annoyances, anxieties and fears that come with living in civil society. Expert evidence can assist in determining whether or not a mental injury has been shown, but where a psychiatric diagnosis is unavailable, it remains open to a trier of fact to find on other evidence adduced by the claimant that he or she has proven on a balance of probabilities the occurrence of mental injury. It also remains open to the defendant, in rebutting a claim, to call expert evidence establishing that the accident cannot have caused any<i> </i>mental injury, or at least any mental injury known to psychiatry.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In the instant case, the trial judge accepted evidence that clearly showed a serious and prolonged disruption that transcended ordinary emotional upset or distress.&nbsp;These findings have not been challenged and are entitled to appellate deference. There is no legal error in the trial judge’s treatment of the evidence of S’s symptoms as supporting a finding of mental injury, even in the absence of expert testimony associating them with an identified condition.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; It would not be just in the circumstances to remand this matter to the Court of Appeal on the questions of indivisible injury and the damage award. The indivisibility of two injuries is a finding of fact, which is entitled to deference. In addition, without full submissions and a pertinent lower court record, this is not an appropriate case to decide the effect of workers’ compensation legislation on the divisibility of injuries. Similarly, the trial judge’s damage award is reasonable, supported by the record, and fairly compensates S’s loss.&nbsp;It should therefore be restored.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt"><b>Cases Cited</b></p>
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Applied:</b> <i>Mustapha v. Culligan of Canada Ltd.</i>, 2008 SCC 27, [2008] 2 S.C.R. 114, aff’g (2006), 84 O.R. (3d) 457; <b>referred to:</b> <i>Clements v. Clements</i>, 2012 SCC 32, [2012] 2 S.C.R. 181; <i>Bradley v. Groves</i>, 2010 BCCA 361, 326 D.L.R. (4th) 732; <i>Insurance Corp.&nbsp;of British Columbia v. Patko</i>, 2008 BCCA 65, 290 D.L.R. (4th) 687; <i>Rodaro v. Royal Bank of Canada</i> (2002), 59 O.R. (3d) 74; <i>Burgsteden v. Long</i>, 2014 SKCA 115, 378 D.L.R. (4th) 562; <i>R. v. E.M.W.</i>, 2011 SCC 31, [2011] 2 S.C.R. 542; <i>Canada Trustco Mortgage Co. v. Renard</i>, 2008 BCCA 343, 298 D.L.R. (4th) 216; <i>Odhavji Estate v. Woodhouse</i>, 2003 SCC 69, [2003] 3 S.C.R. 263; <i>McLoughlin v. O’Brian</i>, [1983] 1 A.C. 410; <i>Miner v. Canadian Pacific Railway Co.</i> (1911), 18 W.L.R. 476; <i>Dulieu v. White &amp; Sons</i>, [1901] 2 K.B. 669; <i>Hambrook v. Stokes Brothers</i>, [1925] 1 K.B. 141; <i>Horne v. New Glasgow</i>, [1954] 1 D.L.R. 832; <i>Alcock v. Chief Constable of South Yorkshire Police</i>, [1992] 1 A.C. 310; <i>Page v. Smith</i>, [1996] 1 A.C. 155; <i>White v. Chief Constable of South Yorkshire Police</i>, [1999] 2 A.C. 455; <i>Tame v. New South Wales</i>, [2002] HCA 35, 211 C.L.R. 317; <i>Beecham v. Hughes</i> (1988), 27 B.C.L.R. (2d) 1; <i>Rhodes v. Canadian National Railway</i> (1990), 75 D.L.R. (4th) 248; <i>Toronto Railway Co. v. Toms</i> (1911), 44 S.C.R. 268; <i>Bourhill v. Young</i>, [1943] A.C. 92; <i>Cooper v. Hobart</i>, 2001 SCC 79, [2001] 3 S.C.R. 537; <i>Donoghue v. Stevenson</i>, [1932] A.C. 562; <i>Hinz v. Berry</i>, [1970] 2 Q.B. 40; <i>McDermott v. Ramadanovic Estate</i> (1988), 27 B.C.L.R. (2d) 45; <i>Cox v. Fleming</i> (1995), 15 B.C.L.R. (3d) 201; <i>Mason v. Westside Cemeteries Ltd.</i> (1996), 135 D.L.R. (4th) 361; <i>Flett v. Maxwell</i>, [1996] B.C.J. No.&nbsp;1455 (QL); <i>Vanek v. Great Atlantic &amp; Pacific Co. of Canada</i> (1999), 48 O.R. (3d) 228; <i>Healey v. Lakeridge Health Corp.</i>, 2011 ONCA 55, 103 O.R. (3d) 401; <i>Frazer v. Haukioja</i>, 2010 ONCA 249, 101 O.R. (3d) 528; <i>Kotai v. “Queen of the North” (The)</i>, 2009 BCSC 1405, 70 C.C.L.T. (3d) 221; <i>Young v. Borzoni</i>, 2007 BCCA 16, 277 D.L.R. (4th) 685; <i>Graham v. MacMillan</i>, 2003 BCCA 90, 15 C.C.L.T. (3d) 155; <i>Koerfer v. Davies</i>, [1994] O.J. No.&nbsp;1408 (QL); <i>Duwyn v. Kaprielian</i> (1978), 22 O.R. (2d) 736; <i>van Soest v. Residual Health Management Unit</i>, [1999] NZCA 206, [2000] 1 N.Z.L.R. 179; <i>Sutherland v. Hatton</i>, [2002] EWCA Civ 76, [2002] 2 All E.R. 1; <i>Augustus v. Gosset</i>, [1996] 3 S.C.R. 268; <i>Housen v. Nikolaisen</i>, 2002 SCC 33, [2002] 2 S.C.R. 235; <i>Pinch v. Hofstee</i>, 2015 BCSC 1888; <i>Zawadzki v. Calimoso</i>, 2011 BCSC 45; <i>Wells v. Newfoundland</i>, [1999] 3 S.C.R. 199.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:.5in;line-height:normal"><b>Statutes and Regulations Cited</b></p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal"><i>Civil Code of Québec</i>, art.&nbsp;1457.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal"><i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec46.1" target="_blank">Supreme Court Act<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec46.1" target="_blank">, R.S.C. 1985, c.&nbsp;S‑26, s.&nbsp;46.1<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a>.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal"><i>Workers Compensation Act</i>, R.S.B.C. 1996, c.&nbsp;492, s.&nbsp;10.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:.5in;line-height:normal"><b>Authors Cited</b></p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">American Psychiatric Association. <i>Diagnostic and Statistical Manual of Mental Disorders</i>, 5th ed. Arlington, Va.: American Psychiatric Association, 2013.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Beever, Allan. <i>Rediscovering the Law of Negligence</i>.<i> </i>Oxford: Hart, 2007.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Bélanger‑Hardy, Louise. “Reconsidering the ‘Recognizable Psychiatric Illness’ Requirement in Canadian Negligence Law” (2013), 38 <i>Queen’s L.J.</i> 583.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Bélanger‑Hardy, Louise. “Thresholds of Actionable Mental Harm in Negligence: A Policy‑Based Analysis” (2013), 36 <i>Dal.&nbsp;L.J.</i> 103.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Bryant, Richard&nbsp;A. “Grief as a psychiatric disorder” (2012), 201 <i>Brit. J. Psychiatry</i> 9.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Cochran, Susan&nbsp;D., et al.&nbsp;“Proposed declassification of disease categories related to sexual orientation in the <i>International Statistical Classification of Diseases and Related Health Problems</i> (ICD‑11)” (2014), 92 <i>Bull. World Health Organ. </i>672.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Drescher, Jack. “Out of DSM: Depathologizing Homosexuality” (2015), 5 <i>Behav. Sci.</i> 565.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Fridman, G.&nbsp;H.&nbsp;L. <i>The Law of Torts in Canada</i>, 3rd ed. by G.&nbsp;H.&nbsp;L. Fridman et al.&nbsp;Toronto: Carswell, 2010.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Gray, John E., Margaret Shone and Peter F. Liddle. <i>Canadian Mental Health Law and Policy</i>, 2nd ed. Markham, Ont.: LexisNexis, 2008.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Jones, Michael&nbsp;A. “Liability for Psychiatric Damage: Searching for a Path between Pragmatism and Principle”, in Jason&nbsp;W. Neyers, Erika Chamberlain and Stephen G.&nbsp;A. Pitel, eds., <i>Emerging Issues in Tort Law</i>. Oxford: Hart, 2007, 113.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Klar, Lewis&nbsp;N. <i>Tort Law</i>, 5th ed. Toronto: Carswell, 2012.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Linden, Allen&nbsp;M., and Bruce Feldthusen. <i>Canadian Tort Law</i>, 10th ed. Toronto: LexisNexis, 2015.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal"><i>Markesinis and Deakin’s Tort Law</i>, 7th ed. by Simon Deakin, Angus Johnston and Basil Markesinis. Oxford: Clarendon Press, 2013.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Mulheron, Rachael. “Rewriting the Requirement for a ‘Recognized Psychiatric Injury’ in Negligence Claims” (2012), 32 <i>Oxford J. Leg. Stud.</i> 77.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Mullany, Nicholas&nbsp;J., and Peter&nbsp;R. Handford. <i>Tort Liability for Psychiatric Damage</i>. Sydney, N.S.W.: Law Book Co., 1993.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Ripstein, Arthur. <i>Private Wrongs</i>. Cambridge, Mass.: Harvard University Press, 2016.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Stapleton, Jane. “In Restraint of Tort”, in Peter Birks, ed., <i>The Frontiers of Liability</i>, vol.&nbsp;2. New York: Oxford University Press, 1994, 83.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Stevens, Robert. <i>Torts and Rights</i>. Oxford: Oxford University Press, 2007.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Teff, Harvey. <i>Causing Psychiatric and Emotional Harm: Reshaping the Boundaries of Legal Liability</i>. Oxford: Hart, 2009.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Todd, Stephen, et al.&nbsp;<i>The Law of Torts in New Zealand</i>, 5th ed. Wellington, N.Z.: Brookers, 2009.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:27.0pt;text-indent:-27.0pt;line-height:normal">World Health Organization. <i>International Statistical Classification of Diseases and Related Health Problems</i>, 10th rev. Geneva: W.H.O., 1992.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; APPEAL from a judgment of the British Columbia Court of Appeal (Saunders, Chiasson and Frankel&nbsp;JJ.A.), 2015 BCCA 393, 81 B.C.L.R. (5th) 1, 377 B.C.A.C. 106, 648 W.A.C. 106, 23 C.C.L.T. (4th) 177, 390 D.L.R. (4th) 63, [2016] 4 W.W.R. 259, [2015] B.C.J. No.&nbsp;2027 (QL), 2015 CarswellBC 2694 (WL Can.), setting aside a decision of Funt&nbsp;J., 2014 BCSC 1365, [2014] B.C.J. No.&nbsp;1898 (QL), 2014 CarswellBC 2133 (WL Can.). Appeal allowed.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt"><span class="SCCCounselNameChar"><span style="font-style:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Dairn Shane</span><span class="SCCCounselPartyRoleChar"> and <i>Joseph Fearon</i>, for the appellant.</span></p>
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt"><span class="SCCCounselNameChar"><span style="font-style:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Kathleen&nbsp;S. Duffield</span><span class="SCCCounselSeparatorChar"> and </span><span class="SCCCounselNameChar">Steven&nbsp;W. Lesiuk</span><span class="SCCCounselPartyRoleChar">, for the respondents.</span></p>
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt"><span class="SCCCounselNameChar"><span style="font-style:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Alan D’Silva</span><span class="SCCCounselSeparatorChar"> and </span><span class="SCCCounselNameChar">Aaron Kreaden</span><span class="SCCCounselPartyRoleChar">, for the intervener.</span></p>
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The judgment of the Court was delivered by</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-variant:small-caps">Brown J.</span> —</p>
+ <p class="Title1LevelTitre1Niveau-AltL"><span style="text-decoration:
+none">I.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Introduction</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par1" class="paragAnchor">1</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>This appeal, which arises from a motor vehicle accident in British Columbia, concerns principally the application of the common law of negligence to claims for mental injury.<a href="#_ftn1" name="_ftnref1" title=""><span class="MsoHyperlink"><sup><span class="MsoHyperlink"><sup><span style="font-size:12.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;">[1]</span></sup></span></sup></span></a> A trial judge awarded damages<span style="line-height:200%"> </span>for mental injury to the appellant, Mohsen Saadati, on the strength not of expert evidence, but of the testimony of lay witnesses to the effect that, after the appellant’s involvement in an automobile accident caused by the respondents, his personality had changed. The British Columbia Court of Appeal reversed, holding that recovery for mental injury requires a claimant to prove, with expert medical opinion evidence, a “recognizable [or recogniz<i>ed</i>] psychiatric illness”.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par2" class="paragAnchor">2</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>This Court has, however, never required claimants to show a recognizable psychiatric illness as a precondition to recovery for mental injury. Nor, in my view, would it be desirable for it to do so now. Just as recovery for <i>physical</i> injury is not, as a matter of law, conditioned upon a claimant adducing expert diagnostic evidence in support, recovery for <i>mental</i> injury does not require proof of a recognizable psychiatric illness. This and other mechanisms by which some courts have historically sought to control recovery for mental injury are, in my respectful view, premised upon dubious perceptions of psychiatry and of mental illness in general, which Canadian tort law should repudiate. Further, the elements of the cause of action of negligence, together with the threshold stated by this Court in <i>Mustapha</i> <i>v. Culligan of Canada Ltd.</i>, 2008 SCC 27, [2008] 2 S.C.R. 114, at para. 9, for proving mental injury, furnish a sufficiently robust array of protections against unworthy claims. I therefore conclude that a finding of legally compensable mental injury need not rest, in whole or in part, on the claimant proving a recognized psychiatric illness. It follows that I would allow the appeal and restore the trial judge’s award.</p>
+ <p class="Title1LevelTitre1Niveau-AltL"><span style="text-decoration:
+none">II.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Overview of Facts and Proceedings</p>
+ <p class="Title2LevelTitre2Niveau"><span style="font-style:normal">A.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Background</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par3" class="paragAnchor">3</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>On the night of July 5, 2005, the appellant was driving a tractor-truck along Front Street in New Westminster, British Columbia, when his vehicle was struck by a vehicle driven by the respondent Grant Iain Moorhead. The appellant’s truck sustained significant damage, but he appeared at the time to have been uninjured. He went to a nearby hospital, but was not admitted for observation.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par4" class="paragAnchor">4</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>This accident (“accident”) was the second in a series of five motor vehicle collisions involving the appellant between January 2003 and March 2009, inclusive. The appellant had suffered chronic pain since the first accident, which was later aggravated by the third accident (which occurred on September 17, 2005). In 2007, the appellant sued the respondents in negligence, seeking damages for non-pecuniary loss and past income loss. Two further accidents followed in 2008 and 2009. In 2010, the appellant was declared mentally incompetent and his action was continued by a litigation guardian.</p>
+ <p class="Title2LevelTitre2Niveau"><span style="font-style:normal">B.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Judicial History</p>
+ <p class="Title3LevelTitre3Niveau"><span style="text-decoration:none">(1)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Supreme Court of British Columbia — 2014 BCSC 1365</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par5" class="paragAnchor">5</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The respondents collectively admitted liability for the accident, but took the position that the appellant suffered no damage. Expert evidence was tendered on behalf of the appellant to support his claim of an injury resulting from the accident, much of which the trial judge ruled inadmissible (2013 BCSC 636, 46 B.C.L.R. (5th) 392). After weighing the admissible evidence, he concluded that the appellant had not demonstrated any physical injury resulting from the accident. Citing the test for factual causation stated in <i>Clements v. Clements</i>, 2012 SCC 32, [2012] 2 S.C.R. 181, at para.&nbsp;46, however, he did find (at para. 50 (CanLII)) that the accident caused the appellant “psychological injuries, including personality change and cognitive difficulties”. While this finding did not rest on an identified medical cause, it was based upon the testimony of friends and family of the appellant to the effect that, after the accident, the appellant’s personality changed for the worse. Once a funny, energetic, and charming individual, he had become sullen and prone to mood swings. Historically close relationships with family and friends had deteriorated. He complained of headaches.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par6" class="paragAnchor">6</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The trial judge further found that the appellant’s mental injury was aggravated by the third (September 17, 2005) accident. Applying the principle from <i>Bradley v. Groves</i>, 2010 BCCA 361, 326 D.L.R. (4th) 732, he found that the mental injury originally caused by the accident was indivisible from any injury caused by that later accident. Having regard to the appellant’s personality change, his loss of close personal relationships with family and friends, his age, and the period involved, the trial judge awarded him $100,000 for non-pecuniary damage. The claim for past income loss was dismissed.</p>
+ <p class="Title3LevelTitre3Niveau"><span style="text-decoration:none">(2)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>British Columbia Court of Appeal — 2015 BCCA 393, 81 B.C.L.R. (5th) 1</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par7" class="paragAnchor">7</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>On appeal, the respondents argued (<i>inter alia</i>) that the trial judge erred by awarding damages for mental injury where the appellant had not proven “a medically recognized psychiatric or psychological illness or condition” (para. 22). The Court of Appeal agreed, adding that such an illness or condition must be demonstrated by “expert medical opinion evidence” (para. 32). The law in this regard, it concluded, was left unchanged by this Court’s judgment in <i>Mustapha</i>.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par8" class="paragAnchor">8</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Further, the Court of Appeal also observed (at para. 34) that, in awarding damages for mental injury, the trial judge erred by “decid[ing] the case on a basis neither pleaded nor argued by [the appellant]”. Rather, the trial judge should have notified counsel that he was prepared to consider a claim that had not been pleaded, given the appellant an opportunity to amend his pleadings and, if the amendments were allowed, given the respondents an opportunity to call further evidence and make further submissions.</p>
+ <p class="Title1LevelTitre1Niveau-AltL"><span style="text-decoration:
+none">III.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Analysis</p>
+ <p class="Title2LevelTitre2Niveau"><span style="font-style:normal">A.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Sufficiency of the Pleadings</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par9" class="paragAnchor">9</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Drawing from the Court of Appeal’s statements regarding notice, the respondents argue that the trial judge’s award for mental injury was made in breach of procedural fairness, having no basis in the pleadings or submissions at trial. While I note that the respondents did not argue this point at the Court of Appeal, as the respondents now say and as the Court of Appeal said, cases should not be decided on grounds not raised (<i>Insurance Corp. of British Columbia v. Patko</i>, 2008 BCCA 65, 290 D.L.R. (4th) 687, at para. 37; <i>Rodaro v. Royal Bank of Canada</i> (2002), 59 O.R. (3d) 74 (C.A.), at para. 60; <i>Burgsteden v. Long</i>, 2014 SKCA 115, 378 D.L.R. (4th) 562, at para. 17; <i>R. v. E.M.W.</i>,<i> </i>2011 SCC 31, [2011] 2 S.C.R. 542, at para. 4). This rule is an instance of natural justice: each party is entitled to know and respond to the case that it must answer (<i>Canada Trustco Mortgage Co. v. Renard</i>, 2008 BCCA 343, 298 D.L.R. (4th) 216, at paras. 38-39).</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par10" class="paragAnchor">10</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In claims for negligently caused mental injury, it is generally sufficient that the pleadings allege some form of such injury (<i>Odhavji Estate v. Woodhouse</i>, 2003 SCC 69, [2003] 3 S.C.R. 263, at para. 74). The appellant’s Statement of Claim alleges various injuries caused by the accident, including:</p>
+ <p class="Citation-AltCCxSpFirst" style="margin-left:107.8pt;text-indent:-.5in">h)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; such further and other injuries as may become apparent through medical reports and examinations, details of which shall be provided as they become known;</p>
+ <p class="Citation-AltCCxSpMiddle">&nbsp;</p>
+ <p class="Citation-AltCCxSpMiddle">and the effects or results of the said injuries upon the Plaintiff include headaches, fatigue, dizziness, nausea and sleeplessness.&nbsp;</p>
+ <p class="Citation-AltCCxSpMiddle">&nbsp;</p>
+ <p class="Citation-AltCCxSpLast" style="margin-left:0in">(R.R., vol. I, at p. 7)</p>
+ <p class="ContinueParaSuitedupar-AltP">It also claims “general damages for pain and suffering, loss of earning capacity past, present and future, loss of opportunity, loss of enjoyment of life, loss of physical health&nbsp;.&nbsp;.&nbsp;.” (R.R., vol. I, at p. 7).</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par11" class="paragAnchor">11</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>At trial, the appellant introduced an expert report from Dr. Hiram Mok, a psychiatrist, who diagnosed the appellant with mental disorders (although it was unclear whether these disorders resulted from the accident or subsequent accidents). The appellant’s written closing submissions at trial also alleged the occurrence of a psychological reaction to the accident (or in other words a mental injury):</p>
+ <p class="Citation-AltCCxSpFirst"><u>It is submitted that if the court does not accept a proven concussion, the evidence still shows that the Plaintiff suffered from a change in mood/personality, memory loss, and cognitive difficulties as a result of the July 5 2005 accident.</u></p>
+ <p class="Citation-AltCCxSpMiddle">&nbsp;</p>
+ <p class="Citation-AltCCxSpMiddle">If not caused by a concussion, then it must be caused by something. <u>The only logical conclusion is that these were caused by a psychological reaction to the accident</u>, new pains, or an aggravation of old pains.</p>
+ <p class="Citation-AltCCxSpMiddle">&nbsp;</p>
+ <p class="Citation-AltCCxSpMiddle" align="center" style="text-align:center">.&nbsp;.&nbsp;.</p>
+ <p class="Citation-AltCCxSpMiddle" align="center" style="text-align:center">&nbsp;</p>
+ <p class="Citation-AltCCxSpMiddle"><u>It is therefore submitted that, on a balance of probabilities, if the court finds that Mohsen did not suffer a concussion, then the only logical conclusion is that Mohsen’s problems with memory, cognition and change in behavior arose as a result of the July 2005 accident</u>, which compounded upon the January 2003 accident injuries, and was compounded upon again in the September 2005 accident. [Emphasis added.]</p>
+ <p class="Citation-AltCCxSpMiddle">&nbsp;</p>
+ <p class="Citation-AltCCxSpLast" style="margin-left:0in">(R.R., vol. I, at p. 285)</p>
+ <p class="ContinueParaSuitedupar-AltP">A similar line of argument was delivered in the appellant’s oral submissions:</p>
+ <p class="Citation-AltCCxSpFirst">&nbsp;&nbsp;&nbsp;&nbsp; Now, the alternative argument, of course, we have is that <u>if you don’t find that a concussion has been made out, we submit that there is still evidence that he suffered chronic pain and some kind of emotional reaction, with resulting memory problems and cognitive problems, and change in mood, in the July 2005 accident</u>, which but for the accident he would not have suffered from.</p>
+ <p class="Citation-AltCCxSpMiddle">&nbsp;</p>
+ <p class="Citation-AltCCxSpMiddle" align="center" style="text-align:center">.&nbsp;.&nbsp;.</p>
+ <p class="Citation-AltCCxSpMiddle" align="center" style="text-align:center">&nbsp;</p>
+ <p class="Citation-AltCCxSpMiddle">&nbsp;&nbsp;&nbsp;&nbsp; We say it’s a concussion.&nbsp;.&nbsp;.&nbsp;. <u>But if it’s not a concussion, it’s some reaction to that accident</u> that may be compounding upon the fact that he was injured in an earlier accident back in January 2003, <u>but something changed in this man</u>.&nbsp;.&nbsp;.&nbsp;. <u>That accident triggered that, either by way of it being a concussion or by some kind of psychological, emotional reaction to everything.</u></p>
+ <p class="Citation-AltCCxSpMiddle">&nbsp;</p>
+ <p class="Citation-AltCCxSpMiddle" align="center" style="text-align:center">.&nbsp;.&nbsp;.</p>
+ <p class="Citation-AltCCxSpMiddle" align="center" style="text-align:center">&nbsp;</p>
+ <p class="Citation-AltCCxSpMiddle">&nbsp;&nbsp;&nbsp;&nbsp; .&nbsp;.&nbsp;.&nbsp;Something happened to him that changed him. We say it’s a concussion, but if it’s not a concussion, <u>it must be some kind of emotional psychiatric reaction</u>, which isn’t something that he could control. It clearly just came on him after the accident and caused him to become a changed individual between July and September 2005. <u>And that is clear from the evidence of all of the family members.</u> [Emphasis added.]</p>
+ <p class="Citation-AltCCxSpMiddle">&nbsp;</p>
+ <p class="Citation-AltCCxSpLast" style="margin-left:0in">(R.R., vol. I, at pp. 190-92)</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par12" class="paragAnchor">12</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>None of these arguments regarding a “psychological”, “emotional” or “psychiatric” reaction elicited an objection from the respondents before the trial judge. And, in my view, the many allegations of such reaction appearing in the appellant’s oral and written closing submissions, combined with the broad heads of damage alleged in the pleadings, provided ample notice to the respondents of the case which they had to answer. I see no breach of procedural fairness here.</p>
+ <p class="Title2LevelTitre2Niveau"><span style="font-style:normal">B.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Mental Injury</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par13" class="paragAnchor">13</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Liability in negligence law is conditioned upon the claimant showing (i) that the defendant owed a duty of care to the claimant to avoid the kind of loss alleged; (ii) that the defendant breached that duty by failing to observe the applicable standard of care; (iii) that the claimant sustained damage; and (iv) that such damage was caused, in fact and in law, by the defendant’s breach (<i>Mustapha</i>, at para. 3). At issue here is the third element. As they argued at the Court of Appeal, the respondents say that the trial judge erred by awarding damages for mental injury that did not correspond to a proven, recognized psychiatric illness. More specifically, the Court must answer the narrow question of whether it is strictly <i>necessary</i>, in order to support a finding of legally compensable mental injury, for a claimant to adduce expert evidence or other proof of a recognized psychiatric illness.</p>
+ <p class="Title3LevelTitre3Niveau"><span style="text-decoration:none">(1)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Recovery for Mental Injury in Negligence Law</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par14" class="paragAnchor">14</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The early common law’s posture towards claims for negligently caused mental harm was one of suspicion and sometimes outright hostility (<i>McLoughlin v. O’Brian</i>, [1983] 1 A.C. 410 (H.L.), at p. 433), and was “virtually programmed to entrench primitive suspicions and prejudices about ‘invisible’, intangible harm” (H. Teff, <i>Causing Psychiatric and Emotional Harm: Reshaping the Boundaries of Legal Liability</i> (2009), at p. 40). Mental injury was seen as “not derived through the senses, but [as] a product of the imagination” (<i>Miner v. Canadian Pacific Railway Co.</i> (1911), 18 W.L.R. 476 (Alta. S.C. <i>en banc</i>), at p. 478). This scepticism persisted into the last century, such that mental injury was not compensable unless accompanied by physical injury (see L.&nbsp;Bélanger-Hardy, “Reconsidering the ‘Recognizable Psychiatric Illness’ Requirement in Canadian Negligence Law” (2013), 38 <i>Queen’s L.J.</i> 583, at pp. 599-600).</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par15" class="paragAnchor">15</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>While the absolute bar to recovery for mental injury absent physical injury was eventually lifted, the suspicion which originally impelled that bar persisted, and common law courts continued to impose conditions upon recovery beyond those applied to claims for negligently caused physical injury. While, therefore, in England liability for negligently caused mental injury was first recognized as early as 1901 (<i>Dulieu v. White &amp; Sons</i>, [1901] 2 K.B. 669 (Div. Ct.)), it was conditional upon “a shock which arises from a reasonable fear of immediate personal injury to oneself” (p. 675), or (after <i>Hambrook v. Stokes Brothers</i>, [1925] 1 K.B. 141 (C.A.)), “a reasonable fear of immediate personal injury either to [the claimant, or the claimant’s children]” (p. 152). While recovery for mental injury in Canada remained parasitic to recovery for compensable physical injury well into the 20th century (e.g. <i>Miner</i>), by mid-century Canadian courts had also begun to permit recovery on similar conditions as English law — typically, on claimants having had at the material time a reasonable fear of physical injury to themselves or to their family (e.g. <i>Horne v. New Glasgow</i>, [1954] 1 D.L.R. 832 (N.S.S.C.)).</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par16" class="paragAnchor">16</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Further obstacles to recovery for mental injury arose in English law. In <i>McLoughlin v. O’Brian</i>, at pp. 419-21, Lord Wilberforce posited three considerations that could limit the boundaries of compensable “nervous shock”: the class of persons whose claims should be recognized (often referred to as relational proximity), the proximity of such persons to the accident (locational, or geographical proximity), and the means by which the “shock” is caused (temporal proximity) (G.&nbsp;H.&nbsp;L. Fridman, <i>The Law of Torts in Canada</i> (3rd ed. 2010), at p. 326). Where claimants alleged mental injury arising out of a sudden traumatic event, later judgments further distinguished between a “primary” victim (who was directly involved as a participant) and a “secondary” victim (who witnessed physical injuries caused to others) (see <i>Alcock v. Chief Constable of South Yorkshire Police</i>, [1992] 1 A.C. 310 (H.L.); and <i>Page v. Smith</i>, [1996] 1 A.C. 155 (H.L.)). This distinction has, however, sometimes proven difficult to apply in practice (as shown by the English law’s difficulty in categorizing the status of rescuers — see <i>White v. Chief Constable of South Yorkshire Police</i>, [1999] 2 A.C. 455 (H.L.)), and has been criticized as lacking foundation in principle, having no relevance to the justice of the claimant’s case (A. Beever, <i>Rediscovering the Law of Negligence</i> (2007), at pp. 405-7; J. Stapleton, “In Restraint of Tort”, in P. Birks, ed., <i>The Frontiers of Liability </i>(1994), vol. 2, 83, at p. 95; <i>Mustapha v. Culligan of Canada Ltd.</i> (2006), 84 O.R. (3d) 457 (C.A.), at para. 43). That this is so has never really been disputed. As Lord Hoffmann candidly acknowledged in <i>White</i>, “in this area of the law, the search for principle was called off in <i>Alcock</i> .&nbsp;.&nbsp;.&nbsp;. No one can pretend that the existing law .&nbsp;.&nbsp;. is founded upon principle.”</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par17" class="paragAnchor">17</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Other Commonwealth courts have taken a different path. The High Court of Australia expressly rejected the categories delineated by the House of Lords, preferring a more flexible foreseeability of harm test (<i>Tame v. New South Wales</i>, [2002] HCA 35, 211 C.L.R. 317). In New Zealand, the primary/secondary victim distinction has not been definitively considered (S.&nbsp;Todd et al., <i>The Law of Torts in New Zealand</i> (5th ed. 2009), at pp. 182-84).</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par18" class="paragAnchor">18</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Like the English courts, Canadian courts have occasionally struggled, as Professor Klar has described, “to find words which can clearly explain why, on the basis of arbitrary <i>policy</i> choices, certain types of claims seem to be too remote and uncompensable” (L.&nbsp;N. Klar, <i>Tort Law </i>(5th ed. 2012), at p. 505 (emphasis in original)). In <i>Beecham v. Hughes</i> (1988), 27 B.C.L.R. (2d) 1 (C.A.), and <i>Rhodes v. Canadian National Railway</i> (1990), 75 D.L.R. (4th) 248 (B.C.C.A.), for example, the multi-faceted proximity analysis formalized in <i>McLoughlin v. O’Brian</i> found favour. In <i>Beecham</i>, Lambert J.A. wrote (at p. 43):</p>
+ <p class="Citation-AltC">&nbsp;&nbsp;&nbsp;&nbsp; .&nbsp;.&nbsp;. I would not put the entire emphasis on “causal proximity”, to the exclusion of “temporal proximity”, “geographical proximity” or “emotional proximity”. I would try to balance them all. A close but foreseeable emotional bond, as between a parent and child, may compensate, in the determination of the composite answer on liability, for a more remote causal proximity, as where the parent is not present when the child is injured.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par19" class="paragAnchor">19</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>This Court has not, however, adopted either the primary/secondary victim distinction, or <i>McLoughlin v. O’Brian</i>’s disaggregated proximity analysis. Rather, in <i>Mustapha</i>, recoverability of mental injury was viewed (at para. 3) as depending upon the claimant satisfying the criteria applicable to any successful action in negligence — that is, upon the claimant proving a duty of care, a breach, damage, and a legal and factual causal relationship between the breach and the damage. Each of these elements can pose a significant hurdle: not all claimants alleging mental injury will be in a relationship of proximity with defendants necessary to ground a duty of care; not all conduct resulting in mental harm will breach the standard of care; not all mental disturbances will amount to true “damage” qualifiying as mental injury, which is “serious and prolonged” and rises above the ordinary emotional disturbances that will occasionally afflict any member of civil society without violating his or her right to be free of negligently caused mental injury (<i>Mustapha</i>, at para. 9); and not all mental injury is caused, in fact or in law, by the defendant’s negligent conduct.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par20" class="paragAnchor">20</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Indeed, the claim in <i>Mustapha</i> failed on that last element: the claimant’s damage was not caused in law by (that is, it was too remote from) the defendant’s breach. <i>Mustapha</i> thus serves as a salutary reminder that, even where a duty of care, a breach, damage and factual causation are established, there remains the pertinent threshold question of legal causation, or remoteness — that is, whether the occurrence of mental harm in a person of ordinary fortitude was the reasonably foreseeable result of the defendant’s negligent conduct (<i>Mustapha</i>, at paras. 14-16). And, just as recovery for physical injury will not be possible where injury of that kind was not the foreseeable result of the defendant’s negligence, so too will claimants be denied recovery (as the claimant in <i>Mustapha</i> was denied recovery) where mental injury could not have been foreseen to result from the defendant’s negligence.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par21" class="paragAnchor">21</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>It follows that this Court sees the elements of the cause of action of negligence as furnishing principled and sufficient barriers to unmeritorious or trivial claims for negligently caused mental injury. The view that courts should require something more is founded not on legal principle, but on policy — more particularly, on a collection of concerns regarding claims for mental injury (including those advanced in this appeal by the intervener Insurance Bureau of Canada) founded upon dubious perceptions of, and postures towards, psychiatry and mental illness in general: that mental illness is “subjective” or otherwise easily feigned or exaggerated; and that the law should not provide compensation for “trivial matters” but should foster the growth of “tough hides not easily pierced by emotional responses” (A.&nbsp;M. Linden and B. Feldthusen, <i>Canadian Tort Law</i> (10th ed. 2015), at p. 449; R. Mulheron, “Rewriting the Requirement for a ‘Recognized Psychiatric Injury’ in Negligence Claims” (2012), 32 <i>Oxford J. Leg. Stud.</i> 77, at p. 82). The stigma faced by people with mental illness, including that caused by mental injury, is notorious (J.&nbsp;E. Gray, M. Shone and P. F. Liddle, <i>Canadian Mental Health Law and Policy</i> (2nd ed. 2008), at pp. 139 and 300-301), often unjustly and unnecessarily impeding their participation, so far as possible, in civil society. While tort law does not exist to abolish misguided prejudices, it should not seek to perpetuate them.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par22" class="paragAnchor">22</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Where, therefore, genuine factual uncertainty arises regarding the worthiness of a claim, this can and should be addressed by robust application of those elements by a trier of fact, rather than by tipping the scales via arbitrary mechanisms (R. Stevens, <i>Torts and Rights</i> (2007), at p. 56). Certainly, concerns about “subjective” symptoms or about feigned or exaggerated claims of mental injury are — like most matters of credibility — questions of fact best entrusted to the good sense of triers of fact, upon whose credibility determinations of liability and even of liberty often rest. In short, such concerns should be resolved by “a vigorous search for the truth, not the abdication of judicial responsibility” (Linden and Feldthusen, at p. 449; see also <i>Toronto Railway Co. v. Toms</i> (1911), 44 S.C.R. 268, at p. 276; Stevens, at p. 56).</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par23" class="paragAnchor">23</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>I add this. As to that first necessary element for recovery (establishing that the defendant owed the claimant a duty of care), it is implicit in the Court’s decision in <i>Mustapha</i> that Canadian negligence law recognizes that a duty exists at common law to take reasonable care to avoid causing foreseeable mental injury, and that this cause of action protects a right to be free from negligent interference with one’s mental health. That right is grounded in the simple truth that a person’s mental health — like a person’s physical integrity or property, injury to which is also compensable in negligence law — is an essential means by which that person chooses to live life and pursue goals (A. Ripstein, <i>Private Wrongs</i> (2016), at pp. 87 and 252-53). And, where mental injury is negligently inflicted, a person’s autonomy to make those choices is undeniably impaired, sometimes to an even greater degree than the impairment which follows a serious physical injury (<i>Bourhill v. Young</i>, [1943] A.C. 92 (H.L.), at p. 103; <i>Toronto Railway</i>, at p. 276). To put the point more starkly, “[t]he loss of our mental health is a more fundamental violation of our sense of self than the loss of a finger” (Stevens, at p. 55).</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par24" class="paragAnchor">24</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>It is also implicit in <i>Mustapha</i> that the ordinary duty of care analysis is to be applied to claims for negligently caused mental injury. With great respect to courts that have expressed contrary views, it is in my view unnecessary and indeed futile to re-structure that analysis so as to mandate formal, separate consideration of certain dimensions of proximity, as was done in <i>McLoughlin v. O’Brian</i>. Certainly, “temporal”, “geographic” and “relational” considerations might well inform the proximity analysis to be performed in some cases. But the proximity analysis as formulated by this Court is, and is intended to be, sufficiently flexible to capture all relevant circumstances that might in any given case go to seeking out the “close and direct” relationship which is the hallmark of the common law duty of care (<i>Cooper v. Hobart</i>, 2001 SCC 79, [2001] 3 S.C.R. 537, at para. 32, citing <i>Donoghue v. Stevenson</i>, [1932] A.C. 562 (H.L.), at pp. 580-81). As the Court has said, that analysis</p>
+ <p class="Citation-AltCCxSpFirst">focuses on factors arising from the <u>relationship</u> between the plaintiff and the defendant.&nbsp;.&nbsp;.&nbsp;.</p>
+ <p class="Citation-AltCCxSpMiddle">&nbsp;</p>
+ <p class="Citation-AltCCxSpMiddle" align="center" style="text-align:center">.&nbsp;.&nbsp;.</p>
+ <p class="Citation-AltCCxSpMiddle">&nbsp;</p>
+ <p class="Citation-AltCCxSpMiddle">&nbsp;&nbsp;&nbsp;&nbsp; As this Court stated in <i>Hercules Managements Ltd. v. Ernst &amp; Young</i>, [1997] 2 S.C.R. 165, at para. 24, <i>per</i> La Forest J.:</p>
+ <p class="Citation-AltCCxSpMiddle">&nbsp;</p>
+ <p class="Citation-AltCCxSpMiddle" style="margin-left:1.25in">The label “proximity”, as it was used by Lord Wilberforce in [<i>Anns v. Merton London Borough Council</i>,<i> </i>[1978] A.C. 728 (H.L.)], was clearly intended to connote that the circumstances of the relationship inhering between the plaintiff and the defendant are of <u>such nature that the defendant may be said to be under an obligation to be mindful of the plaintiff’s legitimate interests in conducting his or her affairs</u>.</p>
+ <p class="Citation-AltCCxSpMiddle" style="margin-left:1.25in">&nbsp;</p>
+ <p class="Citation-AltCCxSpLast" style="margin-left:0in">(<i>Cooper</i>,<i> </i>at paras. 30 and 33 (emphasis in original))</p>
+ <p class="Title3LevelTitre3Niveau"><span style="text-decoration:none">(2)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Recognized Psychiatric Illness</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par25" class="paragAnchor">25</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>As I have already said, the principal issue presented by this appeal — and, in particular, by the Court of Appeal’s conclusion that the appellant’s claim failed for lack of expert evidence demonstrating a recognized psychiatric illness — concerns the element of the cause of action of negligence requiring the claimant to show damage. More specifically, it requires the Court to consider what constitutes mental injury, and how it may be proven.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par26" class="paragAnchor">26</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The origins of the putative requirement of showing a recognized psychiatric illness appear to lie in Lord Denning M.R.’s speech in <i>Hinz v. Berry</i>, [1970] 2 Q.B. 40 (C.A.), at p. 42:</p>
+ <p class="Citation-AltC">In English law no damages are awarded for grief or sorrow caused by a person’s death. No damages are to be given for the worry about the children, or for the financial strain or stress, or the difficulties of adjusting to a new life. Damages are, however, recoverable for nervous shock, or, to put it in medical terms, for a recognisable psychiatric illness caused by the breach of duty by the defendant.</p>
+ <p class="ParaNoNdepar-AltN">This statement has been reiterated, albeit with some variation as to terminology. In <i>McLoughlin v. O’Brian</i>, at p. 431, for example, Lord Bridge described this hurdle as requiring “a positive psychiatric illness”. It has also been variously referred to as a “genuine”, “recognized” or “recognizable” psychiatric illness (Mulheron, at p. 81).</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par27" class="paragAnchor">27</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Howsoever the term is phrased, it is far from clear on the text of <i>Hinz v. Berry</i> that it was intended to impose upon claimants the burden of showing a positive expert diagnosis. At the very least, it is not obvious that <i>Hinz v. Berry</i> sought to download to expert psychiatric witnesses the trier of fact’s task of determining whether the claimant sustained mental injury (Teff, at p. 53; Bélanger-Hardy, at pp. 607-11). The respondents’ submission, therefore — that, by “recognizable psychiatric illness”, it was intended that mental injury be “recognizable” to a psychiatrically trained expert witness, and not to an ordinary witness — is founded upon a shaky premise.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par28" class="paragAnchor">28</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Despite some early resistance, however (e.g. <i>McDermott v. Ramadanovic Estate</i> (1988), 27 B.C.L.R. (2d) 45 (S.C.); <i>Rhodes</i>, per<i> </i>Southin J.A., concurring; <i>Cox v. Fleming</i> (1995), 15 B.C.L.R. (3d) 201 (C.A.); <i>Mason v. Westside Cemeteries Ltd</i>. (1996), 135 D.L.R. (4th) 361 (Ont. C.J. (Gen. Div.)); <i>Flett v. Maxwell</i>, [1996] B.C.J. No. 1455 (QL) (Prov. Ct. (Civ. Div.)), Canadian trial and appellate courts after <i>Hinz v. Berry</i> began to see the requirement of a “recognizable psychiatric illness” as conditioning recovery for mental injury upon the claimant adducing expert testimony verifying a condition <i>recognizable to the expert</i> (e.g. <i>Vanek v. Great Atlantic &amp; Pacific Co. of Canada </i>(1999), 48 O.R. (3d) 228 (C.A.), at paras. 65-67; <i>Healey v. Lakeridge Health Corp.</i>, 2011 ONCA 55, 103 O.R. (3d) 401; <i>Frazer v. Haukioja</i>, 2010 ONCA 249, 101 O.R. (3d) 528; <i>Kotai v. “Queen of the North” (The)</i>, 2009 BCSC 1405, 70 C.C.L.T. (3d) 221; <i>Young v. Borzoni</i>, 2007 BCCA 16, 277 D.L.R. (4th) 685; <i>Graham v. MacMillan</i>, 2003 BCCA 90, 15 C.C.L.T. (3d) 155;<i> Koerfer v. Davies</i>, [1994] O.J. No. 1408 (QL) (C.A.); <i>Duwyn v. Kaprielian </i>(1978), 22 O.R. (2d) 736 (C.A.)). Similarly, despite some resistance elsewhere in the Commonwealth to restricting recovery for mental injury to claimants who can adduce such expert psychiatric evidence (N.&nbsp;J. Mullany and P.&nbsp;R. Handford, <i>Tort Liability for Psychiatric Damage</i> (1993), at p. 21), this threshold now prevails in the United Kingdom, Australia, and New Zealand (<i>White</i>, at p. 491; <i>Tame</i>, at paras. 193-94; <i>van Soest v. Residual Health Management Unit</i>, [1999] NZCA 206, [2000] 1 N.Z.L.R. 179, at para. 65).</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par29" class="paragAnchor">29</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In sum — and this is the state of the law which this Court must now evaluate — the law developed by Canadian lower courts (albeit, as I have mentioned, on an unstable premise) requires claimants alleging mental injury to show that such injury has manifested itself to an expert in psychiatry in the form of a clinically diagnosed, recognizable psychiatric illness. This has therefore “place[d] the categories of mental and emotional harm for which damages may be recovered in the hands of psychiatry. Whatever that discipline chooses to identify and name as a psychiatric illness becomes the law’s boundaries for damages in this area” (<i>van Soest</i>, at p. 205, per Thomas J., dissenting).</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par30" class="paragAnchor">30</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Usually, this has been done with reference to what has been said to represent a “considerable degree of international agreement on the classification of mental disorders and their diagnostic criteria”, which are contained in the <i>Diagnostic and Statistical Manual of Mental Disorders</i> (“DSM”), published by the American Psychiatric Association, and the <i>International Statistical Classification of Diseases and Related Health Problems</i> (“ICD”), published by the World Health Organization (Mulheron, at p. 78, citing <i>Sutherland v. Hatton</i>, [2002] EWCA Civ 76, [2002] 2 All E.R. 1, per Hale L.J. (as she then was); see also Bélanger-Hardy, at p.&nbsp;586). The DSM, now in its 5th edition (2013), stipulates diagnostic criteria for, and classifies, mental disorders, while the ICD, now in its 10th revision (1992), contains statistically based classifications of all diseases (including “mental and behavioural disorders”).</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par31" class="paragAnchor">31</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Confining compensable mental injury to conditions that are identifiable with reference to these diagnostic tools is, however, inherently suspect as a matter of legal methodology. While, for treatment purposes, an accurate diagnosis is obviously important, a trier of fact adjudicating a claim of mental injury is not concerned with diagnosis, but with symptoms and their effects (Mulheron, at p. 88). Put simply, there is no necessary relationship between reasonably foreseeable mental injury and a diagnostic classification scheme. As Thomas J. observed in <i>van Soest</i> (at para. 100), a negligent defendant need only be shown to have foreseen <i>injury</i>, and not <i>a particular psychiatric illness</i> that comes with its own label. In other words, the trier of fact’s inquiry should be directed to the level of harm that the claimant’s particular symptoms represent, not to whether a label could be attached to them. Downloading the task of assessing legally recoverable mental injury to the DSM and ICD therefore imports an arbitrary control mechanism upon recovery for mental injury, conditioning recovery not upon any legally principled basis directed to the alleged <i>injury</i>, but upon conformity with a legally irrelevant classification scheme designed to facilitate identification of <i>particular conditions</i> (L. Bélanger-Hardy, “Thresholds of Actionable Mental Harm in Negligence: A Policy-Based Analysis” (2013), 36 <i>Dal. L.J.</i> 103, at pp. 113-15; Mulheron, at pp. 87-88).</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par32" class="paragAnchor">32</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Resort to the DSM or ICD in the context of litigating claims for mental injury has been variously rationalized as fostering objectivity, certainty and predictability of outcomes; and as preventing “indeterminate liability” (<i>Tame</i>, at paras. 193-94; <i>Healey</i>,<i> </i>at para. 65; <i>Queen of the North</i>, at para. 68). These rationalizations, however, do not withstand scrutiny. In particular, the putative objectivity, certainty and predictability said to be furnished by the recognizable psychological illness requirement are in my view overstated. Psychiatric diagnoses — like diagnoses of physical illness or injury — can sometimes be controversial even among treating practitioners (M.&nbsp;A. Jones, “Liability for Psychiatric Damage: Searching for a Path between Pragmatism and Principle”, in J.&nbsp;W. Neyers, E. Chamberlain and S.&nbsp;G.&nbsp;A. Pitel, eds., <i>Emerging Issues in Tort Law</i> (2007), 113, at p. 131). The categories identified in the DSM are, therefore, not static, and continue to be revised to reflect evolving psychiatric consensus on the classification of psychiatric disorders. Labels that were at one time widely accepted may become obsolete. The DSM (DSM-II), for example, identified homosexuality as a psychiatric disorder until 1973, after which it continued to identify “sexual orientation disturbance” for people “in conflict with” their sexual orientation. This was later replaced in the DSM-III with “ego-dystonic homosexuality”, which was itself removed in 1987 (J. Drescher, “Out of DSM: Depathologizing Homosexuality” (2015), 5 <i>Behav. Sci.</i> 565, at p. 571). The ICD retained homosexuality in its classification until 1990, and continues to identify ego-dystonic homosexuality as a recognized condition (although in 2014 the World Health Organization recommended its removal from its 11th revision, now in development) (S. Cochran et al., “Proposed declassification of disease categories related to sexual orientation in the <i>International Statistical Classification of Diseases and Health Related Problems</i> (ICD-11)” (2014), 92 <i>Bull. World Health Organ</i>. 672).</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par33" class="paragAnchor">33</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Conversely, potential disorders originally excluded from the DSM may be “legitimized” by later inclusion. For example, “post-traumatic stress disorder” first appeared in the DSM (DSM-III) in 1980. And, with the publication of the DSM-IV, it no longer required “a psychologically traumatic event that is generally outside the range of usual human experience” (Jones, at p. 132). Similarly, the release of the 5th edition of the DSM (DSM-V) was preceded by a debate about the inclusion of grief as a psychiatric condition (R.&nbsp;A. Bryant, “Grief as a psychiatric disorder” (2012), 201 <i>Brit. J. Psychiatry</i> 9, at pp. 9-10). Rather than fostering objectivity, certainty and predictability of outcomes, then, tethering determinations of legal liability to these iterative diagnostic tools relegates the law of negligence to following a sometimes meandering path as it is cleared by the cutting edge of <i>au courant</i> thinking in modern psychiatry — wherever it may lead, or from wherever it may retreat.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par34" class="paragAnchor">34</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The view that a recognizable psychiatric illness requirement is necessary to prevent indeterminate liability, advanced before us by the respondents and the Insurance Bureau of Canada, is similarly untenable. Article 1457 of the <i>Civil Code of Québec </i>imposes a liability rule binding defendants “to make reparation for the injury, whether it be bodily, moral or material in nature” (see, e.g., <i>Augustus v. Gosset</i>, [1996] 3 S.C.R. 268, at para. 27). And yet, our attention has not been drawn to any instances where Quebec courts imposed liability that was in some way “indeterminate”. Further, and as I have explained is the case with unmeritorious or trivial claims for negligently caused mental injury, robust application of the elements of the cause of action of negligence should also be sufficient to address concerns for indeterminate liability. In particular, liability for mental injury must be confined to claims which satisfy the proximity analysis within the duty of care framework, which focuses on the relationship between the parties (<i>Cooper</i>, at para. 30), and the remoteness inquiry, which asks whether “the harm [is] too unrelated to the wrongful conduct to hold the defendant fairly liable” (<i>Mustapha</i>, at para. 12, quoting Linden and Feldthusen, at p. 360).&nbsp; We have been given no reason to suppose that the same sort of constraints which negligence law imposes upon claimants alleging physical injury would be less effective in weeding out unworthy claims for mental injury. It is therefore not only undesirable, but unnecessary to distort negligence law by applying the mechanism of a diagnostic threshold for proving mental injury.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par35" class="paragAnchor">35</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In short, no cogent basis has been offered to this Court for erecting distinct rules which operate to preclude liability in cases of mental injury, but not in cases of physical injury. Indeed, there is good reason to recognize the law of negligence as already according each of these different forms of personal injury — mental and physical — identical treatment. As the Court observed in <i>Mustapha</i> (at para. 8), the distinction between physical and mental injury is “elusive and arguably artificial in the context of tort”. Continuing (and citing <i>Page v. Smith</i>, at p. 188), the Court explained that, “[i]n an age when medical knowledge is expanding fast, and psychiatric knowledge with it, it would not be sensible to commit the law to a distinction between physical and psychiatric injury, which may .&nbsp;.&nbsp;. soon be altogether outmoded. <u>Nothing will be gained by treating them as different ‘kinds’ of personal injury, so as to require the application of different tests in law</u>” (emphasis in original; see also S. Deakin, A. Johnston and B. Markesinis, <i>Markesinis and Deakin’s Tort Law</i> (7th ed. 2013), at p. 124). This is entirely consistent with the Court’s longstanding view, expressed over a century ago, by Fitzpatrick C.J. in <i>Toronto Railway</i>, at pp. 269-70:</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:1.0in;line-height:normal">It would appear somewhat difficult to distinguish between the injury caused to the human frame by the impact and that resulting to the nervous system in consequence of the shock .&nbsp;.&nbsp;.&nbsp;. The nature of the mysterious relation which exists between the nervous system and the passive tissues of the human body has been the subject of much learned speculation, but I am not aware that the extent to which the one acts and reacts upon the other has yet been definitely ascertained. .&nbsp;.&nbsp;.&nbsp;I cannot find the line of demarcation between the damage resulting to the human [body] .&nbsp;.&nbsp;. and that which may flow from the disturbance of the nervous system .&nbsp;.&nbsp;.&nbsp;. The latter may well be the result of a derangement of the relation existing between the bones, the sinews, the arteries and the nerves. In any event the resultant effect is the same. The victim is incapacitated .&nbsp;.&nbsp;.&nbsp;.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-top:12.0pt">Or, as Davies J. (as he then was) added in <i>Toronto Railways</i> (at p. 275), “[t]he nervous system is just as much a part of man’s physical being as the muscular or other parts”. In a similar vein, Lord Macmillan, in <i>Bourhill v. Young</i> (at p. 103), said “[t]he distinction between mental shock and bodily injury was never a scientific one, for mental shock is presumably in all cases the result of, or at least accompanied by, some physical disturbance in the sufferer’s system.”</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par36" class="paragAnchor">36</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>It follows that requiring claimants who allege one form of personal injury (mental) to prove that their condition meets the threshold of “recognizable psychiatric illness”, while not imposing a corresponding requirement upon claimants alleging another form of personal injury (physical) to show that their condition carries a certain classificatory label, is inconsistent with prior statements of this Court, among others. It accords unequal — that is, less — protection to victims of mental injury. And it does so for no principled reason (Beever, at p. 410).&nbsp; I would not endorse it.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par37" class="paragAnchor">37</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>None of this is to suggest that mental injury is always as readily demonstrable as physical injury. While allegations of injury to muscular tissue may sometimes pose challenges to triers of fact, many physical conditions such as lacerations and broken bones are objectively verifiable. Mental injury, however, will often not be as readily apparent. Further, and as <i>Mustapha</i> makes clear, mental<i> injury</i> is not proven by the existence of mere psychological <i>upset</i>. While, therefore, tort law protects persons from negligent interference with their mental health, there is no legally cognizable right to happiness. Claimants must, therefore, show much more — that the disturbance suffered by the claimant is “serious and prolonged and rise[s] above the ordinary annoyances, anxieties and fears” that come with living in civil society (<i>Mustapha</i>, at para. 9). To be clear, this does not denote distinct legal treatment of mental injury relative to physical injury; rather, it goes to the prior legal question of what constitutes “mental injury”. Ultimately, the claimant’s task in establishing a mental injury is to show the requisite degree of disturbance (although not, as the respondents say, to show its classification as a recognized psychiatric illness).</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par38" class="paragAnchor">38</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Nor should any of this be taken as suggesting that expert evidence cannot assist in determining whether or not a mental injury has been shown. In assessing whether the claimant has succeeded, it will often be important to consider, for example, how seriously the claimant’s cognitive functions and participation in daily activities were impaired, the length of such impairment and the nature and effect of any treatment (Mulheron, at p. 109). To the extent that claimants do not adduce relevant expert evidence to assist triers of fact in applying these and any other relevant considerations, they run a risk of being found to have fallen short. As Thomas J. observed in <i>van Soest</i> (at para. 103), “[c]ourts can be informed by the expert opinion of modern medical knowledge”, “without needing to address the question whether the mental suffering is a recognisable psychiatric illness or not”. To be clear, however: while relevant expert evidence will often be helpful in determining whether the claimant has proven a mental injury, it is not required as a matter of law. Where a psychiatric diagnosis is unavailable, it remains open to a trier of fact to find on other evidence adduced by the claimant that he or she has proven on a balance of probabilities the occurrence of mental injury. And, of course, it also remains open to the defendant, in rebutting a claim, to call expert evidence establishing that the accident cannot have caused <i>any </i>mental injury, or at least any mental injury known to psychiatry. While, for the reasons I have given, the lack of a diagnosis cannot on its own be dispositive, it is something that the trier of fact can choose to weigh against evidence supporting the existence of a mental injury.</p>
+ <p class="Title3LevelTitre3Niveau"><span style="text-decoration:none">(3)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Application</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par39" class="paragAnchor">39</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The trial judge found that the accident caused the appellant to suffer “psychological injuries, including personality change and cognitive difficulties” (para.&nbsp;50) such as slowed speech, leading to a deterioration of his close personal relationships with his family and friends. He remarked (at para. 65) that the appellant “was a changed man with his irritability likely reflecting a dark realization that he was not the man he once was”. These findings have not been challenged. And, as findings of fact, they are entitled to appellate deference, absent palpable and overriding error (<i>Housen v. Nikolaisen</i>, 2002 SCC 33, [2002] 2 S.C.R. 235, at para. 10).</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par40" class="paragAnchor">40</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>I see no legal error in the trial judge’s treatment of the evidence of the appellant’s symptoms as supporting a finding of mental injury. Those symptoms fit well within the <i>Mustapha</i> parameters of mental injury which I have already recounted. While there was no expert testimony associating them with a condition identified in the DSM or ICD, I reiterate that what matters is substance — meaning, those symptoms — and not the label. And, the evidence accepted by the trial judge clearly showed a serious and prolonged disruption that transcended ordinary emotional upset or distress.</p>
+ <p class="Title1LevelTitre1Niveau-AltL"><span style="text-decoration:
+none">IV.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Conclusion and Disposition</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par41" class="paragAnchor">41</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>I would allow the appeal, with costs in this Court and in the courts below.&nbsp;</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par42" class="paragAnchor">42</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The respondents seek to have the matter returned to the Court of Appeal for determination of their alternative grounds of appeal before that court — that the trial judge erred in finding that the mental injury caused by the accident was indivisible from any injury arising from the third accident; and that the damage award was excessive. I would, instead, restore the trial judge’s award.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par43" class="paragAnchor">43</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The (in)divisibility of two injuries is a question of fact (<i>Bradley</i>, at paras. 32 and 37). Here, the trial judge found that “the cause of the change to the plaintiff’s personality and his cognitive difficulties cannot be divided based on the events before and after September 17, 2005” (para. 58). That finding, which was open to him to make on this record, is entitled to deference. The respondents now argue that the <i>Workers Compensation Act</i>, R.S.B.C. 1996, c. 492, “serves to sever the case even in the context of an indivisible injury”, “because the [Act] creates a complete scheme and bars compensation” (transcript, at p. 82). This argument, based on an interpretation of s. 10 of the <i>Workers Compensation Act</i>, was made briefly in oral argument at trial (see R.R., vol. I, at pp. 253-54), but did not appear in their written submissions. While this argument appears to have found support in <i>Pinch v. Hofstee</i>, 2015 BCSC 1888, it was not dealt with by the trial judge in this case.&nbsp; For whatever reason, the respondents did not raise it at the Court of Appeal or in their factum filed at this Court.&nbsp; It was revived only in their oral submissions before us. Without endorsing or rejecting the reasoning in <i>Pinch</i>, I observe that, without full submissions and a pertinent lower court record, this is not an appropriate circumstance to decide the effect of workers’ compensation legislation on the divisibility of injuries.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par44" class="paragAnchor">44</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>As to the quantum of the award, I note that both accidents at the root of this appeal occurred nearly 12 years ago, and that the litigation — in which the respondents have admitted liability — is now (as of this month) fully 10 years old. Further, the modest award in this case is not out of step with non-pecuniary damage awards from British Columbia courts for injuries causing personality changes and cognitive difficulties with similar consequences upon the plaintiff’s enjoyment of life (e.g. <i>Zawadzki v. Calimoso</i>, 2011 BCSC 45).&nbsp;</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par45" class="paragAnchor">45</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Court’s power to remand to a court of appeal is discretionary (<i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec46.1" target="_blank">Supreme Court Act<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec46.1" target="_blank">, R.S.C. 1985, c. S-26, s. 46.1<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a>; <i>Wells v. Newfoundland</i>, [1999] 3 S.C.R. 199, at para. 68).&nbsp; The passage of time since the acknowledged wrong against Mr. Saadati and the commencement of these proceedings militates against remand.&nbsp; As in <i>Wells</i>, the damages assessed by the trial judge are reasonable, supported by the record, and fairly compensate the appellant’s loss.&nbsp; I conclude, therefore, that it would not “be just in the circumstances” (s. 46.1) to remand this matter to the Court of Appeal.</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Appeal allowed with costs throughout.</i></p>
+ <p class="SCCLawFirm" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitors for the appellant:&nbsp;Preszler Law, Vancouver.</p>
+ <p class="SCCLawFirm" style="margin-bottom:24.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitor for the respondents:&nbsp;Intact Insurance Company, Vancouver.</p>
+ <p class="SCCLawFirm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitors for the intervener:&nbsp;Stikeman Elliott, Toronto.</p>
+</div>
+<div><br clear="all">
+ <hr align="left" size="1" width="33%">
+ <div id="ftn1">
+  <p class="MsoFootnoteText"><a href="#_ftnref1" name="_ftn1" title=""><span class="MsoFootnoteReference"><span style="font-size:10.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;">[1]</span></span></a> &nbsp; Legal nomenclature describes this kind of injury variously: for example, as “nervous shock” (see L.&nbsp;N. Klar, <i>Tort Law</i> (5th ed. 2012), at p. 498); or “mental injury” (see <i>Mustapha</i> <i>v. Culligan of Canada Ltd.</i>, 2008 SCC 27, [2008] 2 S.C.R. 114; L. Bélanger-Hardy, “Reconsidering the ‘Recognizable Psychiatric Illness’ Requirement in Canadian Negligence Law” (2013), 38 <i>Queen’s L.J.</i> 583, at p. 586); or “psychological injury” (see Bélanger-Hardy, at p. 584); or “psychiatric damage” (A.&nbsp;M. Linden and B. Feldthusen, <i>Canadian Tort Law</i> (10th ed. 2015), at p. 447), or “psychiatric injury” (<i>Mustapha</i>). &nbsp;For his part, the trial judge employed the term “psychological injury”, while the Court of Appeal referred to “psychiatric or psychological illness”. While there may be meaningful distinctions among these terms within the relevant disciplines, for the purpose of deciding the general bounds of recoverability in law, no legal significance attaches to the particular term used. For the sake of clarity, however, I refer to the injury alleged here as “mental injury”.</p>
+ </div>
+</div></div>
+</div>
+<div id="lexboxAnnotationHook"></div>
+<div id="decisia-reflex2-dialog" class="decisia-content" title="Citation automatically hyperlinked by Norma">
+    <div class="decisia-box">
+        <div style="margin-bottom:10px">
+            <div><span class="icon-warning-sign">&nbsp;</span>You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.</div>
+        </div>
+        <div style="float:right">
+            <button id="decisia-reflex2-continue-button" type="button">Continue&nbsp;<span class="icon-arrow-right"></span></button>
+        </div>
+        <div style="clear:both"></div>
+        <input id="decisia-reflex2-ignore-warning" type="checkbox"/>
+        <label for="decisia-reflex2-ignore-warning">Do not display this message anymore</label>
+    </div>
+</div></div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.modalClose = "Close";
+</script>
+</body>
+
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/16589/index.do" />
+    <title>    Pintea v. Johns - SCC Cases
+</title>
+    <link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/scc-csc/scc-csc/en/16589/1771349/res.do" />
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Pintea v. Johns</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Pintea v. Johns</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/scc-csc/fr/item/16589/index.do?alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content">
+<div id="decisia-document-header" class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisia-box">
+
+<h1>
+    <a id="decisia-decisions"></a>
+    Supreme Court Judgments
+</h1>
+
+<h2 class="accessibility-only">Decision Information</h2>
+<div class="metadata">
+
+    <h3 class="title">Pintea v. Johns</h3>
+    <table>
+                    <tr>
+                        <td class="label">Collection</td>
+                        <td class="metadata">
+                                Supreme Court Judgments
+                    </tr>
+                    <tr>
+                        <td class="label">Date</td>
+                        <td class="metadata">
+                                2017-04-18
+                    </tr>
+                    <tr>
+                        <td class="label">Neutral citation</td>
+                        <td class="metadata">
+                                2017 SCC 23
+                    </tr>
+                    <tr>
+                        <td class="label">Report</td>
+                        <td class="metadata">
+                                [2017] 1 SCR 470
+                    </tr>
+                    <tr>
+                        <td class="label">Case number</td>
+                        <td class="metadata">
+                                37109
+                    </tr>
+                    <tr>
+                        <td class="label">Judges</td>
+                        <td class="metadata">
+                                McLachlin, Beverley; Abella, Rosalie Silberman; Moldaver, Michael J.; Karakatsanis, Andromache; Wagner, Richard; Gascon, Clément; Côté, Suzanne; Brown, Russell; Rowe, Malcolm
+                    </tr>
+                    <tr>
+                        <td class="label">On appeal from</td>
+                        <td class="metadata">
+                                Alberta
+                    </tr>
+                    <tr>
+                        <td class="label">Notes</td>
+                        <td class="metadata">
+                                <p>SCC Case Information: <a target="_blank" href="https://www.scc-csc.ca/cases-dossiers/search-recherche/37109/">37109</a></p>
+
+                    </tr>
+    </table>
+
+    <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16589/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+    </div>
+</div>
+
+
+
+</div>
+
+<div id="lexboxHook"></div>
+
+<h2 class="accessibility-only">Decision Content</h2>
+
+</div> 
+
+<div id="document-content">
+
+        
+<div class="documentcontent"><div class="WordSection1">
+ <p class="MsoHeader"><w:ptab alignment="CENTER" relativeto="MARGIN" leader="NONE"></w:ptab> &nbsp;<img width="82" height="86" src="/scc-csc/scc-csc/en/16589/1771348/res.do" />&nbsp; <w:ptab alignment="RIGHT" relativeto="MARGIN" leader="NONE"></w:ptab> &nbsp;</p>
+ <p class="MsoHeader">&nbsp;</p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b>SUPREME COURT OF CANADA</b></p>
+ <p class="MsoNormal">&nbsp;</p>
+ <table class="MsoTableGrid" border="0" cellspacing="0" cellpadding="0" width="0" style="border-collapse:collapse;border:none">
+  <tbody>
+   <tr style="page-break-inside:avoid">
+    <td width="342" valign="top" style="width:256.5pt;padding:2.9pt 2.9pt 2.9pt 2.9pt"><p class="MsoNormal"><b><span style="font-variant:small-caps">Citation:</span></b> Pintea <i>v.</i> Johns, 2017 SCC 23, [2017] 1 S.C.R. 470</p></td>
+    <td width="296" valign="top" style="width:222.3pt;padding:2.9pt 2.9pt 2.9pt 2.9pt"><p class="MsoNormal" style="margin-left:15.1pt"><b><span style="font-variant:
+  small-caps">Appeal heard:</span></b> April 18, 2017</p> <p class="MsoNormal" style="margin-left:19.6pt;text-indent:-4.5pt"><b><span style="font-variant:small-caps">Judgment rendered:</span></b> April 18, 2017</p> <p class="MsoNormal" style="margin-left:15.1pt"><b><span style="font-variant:
+  small-caps">Docket:</span></b> 37109</p></td>
+   </tr>
+  </tbody>
+ </table>
+ <p class="SCCLsocPrefix">&nbsp;</p>
+ <p class="SCCLsocPrefix">&nbsp;</p>
+ <p class="SCCLsocPrefix">&nbsp;</p>
+ <p class="SCCLsocPrefix"><span style="font-size:12.0pt">Between:</span></p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b>Valentin Pintea</b></p>
+ <p class="MsoNormal" align="center" style="text-align:center">Appellant</p>
+ <p class="MsoNormal" align="center" style="text-align:center">&nbsp;</p>
+ <p class="SCCLsocVersus" align="center" style="margin-bottom:0in;margin-bottom:
+.0001pt;text-align:center"><span style="font-style:normal">and</span></p>
+ <p class="MsoNormal" align="center" style="text-align:center">&nbsp;</p>
+ <p class="SCCLsocParty" align="center" style="text-align:center">Dale Johns and</p>
+ <p class="SCCLsocParty" align="center" style="text-align:center">Dylan Johns</p>
+ <p class="MsoNormal" align="center" style="text-align:center">Respondents</p>
+ <p class="MsoNormal" align="center" style="text-align:center">&nbsp;</p>
+ <p class="MsoNormal" align="center" style="text-align:center">- and -</p>
+ <p class="MsoNormal" align="center" style="text-align:center">&nbsp;</p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b>National Self-Represented Litigants Project, </b></p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b>Pro Bono Ontario and </b></p>
+ <p class="MsoNormal" align="center" style="text-align:center"><b>Access Pro Bono</b></p>
+ <p class="MsoNormal" align="center" style="text-align:center">Interveners</p>
+ <p class="MsoNormal">&nbsp;</p>
+ <p class="MsoNormal">&nbsp;</p>
+ <p class="MsoNormal"><b><span style="font-variant:small-caps">Coram:</span></b> McLachlin&nbsp;C.J. and Abella, Moldaver, Karakatsanis, Wagner, Gascon, Côté, Brown and Rowe&nbsp;JJ.</p>
+ <p class="MsoNormal">&nbsp;</p>
+ <table class="MsoTableGrid" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:none">
+  <tbody>
+   <tr style="page-break-inside:avoid">
+    <td width="241" valign="top" style="width:180.9pt;padding:2.9pt 2.9pt 2.9pt 2.9pt"><p class="MsoNormal"><b><span style="font-variant:small-caps">Reasons for Judgment:</span></b></p> <p class="MsoNormal">(paras. 1 to 5)</p></td>
+    <td width="397" valign="top" style="width:297.9pt;padding:2.9pt 2.9pt 2.9pt 2.9pt"><p class="MsoNormal">Karakatsanis J. (McLachlin&nbsp;C.J. and Abella, Moldaver, Wagner, Gascon, Côté, Brown and Rowe&nbsp;JJ. concurring)</p></td>
+   </tr>
+  </tbody>
+ </table>
+ <p class="MsoNormal">&nbsp;</p>
+ <p class="MsoNormal"></p>
+ <table cellpadding="0" cellspacing="0" align="left">
+  <tbody>
+   <tr>
+    <td width="169" height="19"></td>
+   </tr>
+   <tr>
+    <td></td>
+    <td><img width="264" height="1" src="/scc-csc/scc-csc/en/16589/1771350/res.do" /></td>
+   </tr>
+  </tbody>
+ </table> &nbsp; 
+ <p></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span class="SCCAppellantForRunningHeadChar"><span style="font-variant:normal !important">&nbsp;</span></span></p> <br clear="ALL">
+ <p class="MsoNormal" style="text-align:justify;line-height:200%"><span class="SCCAppellantForRunningHeadChar"><span style="font-variant:normal !important">Pintea <i>v.</i> Johns, 2017 SCC 23, [2017] 1 S.C.R. 470</span></span></p>
+ <p class="MsoNormal" style="text-align:justify">&nbsp;</p>
+ <p class="SCCLsocLastPartyInRole">Valentin Pintea<span class="SCCLsocPartyRole"><span style="font-weight:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Appellant</span></span></p>
+ <p class="SCCLsocVersus">v.</p>
+ <p class="SCCLsocParty">Dale Johns and</p>
+ <p class="SCCLsocLastPartyInRole">Dylan Johns<span class="SCCLsocPartyRole"><span style="font-weight:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Respondents</span></span></p>
+ <p class="SCCLsocOtherPartySeparator">and</p>
+ <p class="SCCLsocParty">National Self-Represented Litigants Project,</p>
+ <p class="SCCLsocParty">Pro Bono Ontario and</p>
+ <p class="SCCLsocLastPartyInRole">Access Pro Bono<span class="SCCLsocPartyRole"><span style="font-weight:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Interveners</span></span></p>
+ <p class="MsoNormal" style="text-align:justify"><b>Indexed as: &nbsp;<span class="SCCAppellantForIndexChar">Pintea</span> <i>v.</i> <span class="SCCRespondentForIndexChar">Johns</span></b></p>
+ <p class="MsoNormal" style="text-align:justify">&nbsp;</p>
+ <p class="SCCSystemYear" style="text-align:justify">2017 SCC&nbsp;23</p>
+ <p class="MsoNormal" style="text-align:justify">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify">File No.:&nbsp; 37109.</p>
+ <p class="MsoNormal" style="text-align:justify">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify">2017:&nbsp; April 18.</p>
+ <p class="MsoNormal" style="text-align:justify">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify">Present:&nbsp; McLachlin&nbsp;C.J. and Abella, Moldaver, Karakatsanis, Wagner, Gascon, Côté, Brown and Rowe&nbsp;JJ.</p>
+ <p class="MsoNormal" style="text-align:justify">&nbsp;</p>
+ <p class="SCCLowerCourtNameLowercase">on appeal from the court of appeal of alberta</p>
+ <p class="SCCNormalDoubleSpacing">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Civil procedure — Contempt of court — Required knowledge — Self-represented plaintiff failing to comply with case management orders and failing to attend case management meetings after having moved without filing change of address with court as required — Case management judge striking claim, finding plaintiff in contempt of court and awarding costs to defendants — Majority of Court of Appeal affirming decision — Dissenting judge finding that plaintiff’s failure to attend case management meetings not act of contempt and that costs award significantly disproportionate consequence for failing to file change of address — Actual knowledge of impugned orders necessary for plaintiff to be found in contempt — Action restored and costs award vacated — Alberta Rules of Court, Alta. Reg. 124/2010, r. 10.52(3)(a)(iii).</i></p>
+ <p class="SCCNormalDoubleSpacing">&nbsp;</p>
+ <p class="SCCNormalDoubleSpacing" style="line-height:normal"><b>Statutes and Regulations Cited</b></p>
+ <p class="SCCNormalDoubleSpacing" style="line-height:normal">&nbsp;</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-left:27.0pt;text-indent:-27.0pt;
+line-height:normal">&nbsp;</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-left:27.0pt;text-indent:-27.0pt;
+line-height:normal"><i>Alberta Rules of Court</i>, Alta. Reg. 124/2010, r. 10.52(3)(a)(iii).</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-left:27.0pt;text-indent:-27.0pt;
+line-height:normal">&nbsp;</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-left:27.0pt;text-indent:-27.0pt;
+line-height:normal">&nbsp;</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-left:27.0pt;text-indent:-27.0pt;
+line-height:normal">&nbsp;</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-left:27.0pt;text-indent:-27.0pt;
+line-height:normal"><b>Authors Cited</b></p>
+ <p class="SCCNormalDoubleSpacing" style="margin-left:27.0pt;text-indent:-27.0pt;
+line-height:normal">&nbsp;</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-left:27.0pt;text-indent:-27.0pt;
+line-height:normal">Canadian Judicial Council.&nbsp; <i>Statement of Principles on Self-represented Litigants and Accused Persons</i>, September 2006 (online: https://www.cjc-ccm.gc.ca/cmslib/general/news_pub_other_PrinciplesStatement_2006_en.pdf; archived version: <a href="http://www.scc-csc.ca/cso-dce/2017SCC-CSC23_1_eng.pdf" target="_blank">http://www.scc-csc.ca/cso-dce/2017SCC-CSC23_1_eng.pdf</a>).</p>
+ <p class="SCCNormalDoubleSpacing" style="margin-left:27.0pt;text-indent:-27.0pt;
+line-height:normal">&nbsp;</p>
+ <p class="SCCNormalDoubleSpacing">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; APPEAL from a judgment of the Alberta Court of Appeal (Martin, McDonald and Veldhuis JJ.A.), 2016 ABCA 99, [2016] A.J. No. 432 (QL), 2016 CarswellAlta 772 (WL Can.), affirming a decision of the Court of Queen’s Bench (Kenny J.). Appeal allowed.</p>
+ <p class="SCCNormalDoubleSpacing">&nbsp;</p>
+ <p class="SCCNormalDoubleSpacing"><span class="SCCCounselNameChar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Colin Feasby</span><span class="SCCCounselSeparatorChar">, </span><span class="SCCCounselNameChar">Sean Sutherland</span><span class="SCCCounselSeparatorChar"> and </span><span class="SCCCounselNameChar">Adam LaRoche</span><span class="SCCCounselPartyRoleChar">, for the appellant.</span></p>
+ <p class="SCCNormalDoubleSpacing">&nbsp;</p>
+ <p class="SCCNormalDoubleSpacing"><span class="SCCCounselNameChar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Duncan C. Boswell </span><span class="SCCCounselNameChar"><span style="font-style:normal">and </span>Alyssa J. Duke</span><span class="SCCCounselPartyRoleChar">, for the respondents.</span></p>
+ <p class="SCCNormalDoubleSpacing">&nbsp;</p>
+ <p class="SCCNormalDoubleSpacing"><span class="SCCCounselNameChar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ilan Ishai </span><span class="SCCCounselNameChar"><span style="font-style:normal">and </span>Ranjan Agarwal</span><span class="SCCCounselPartyRoleChar">, for the intervener the National Self-Represented Litigants Project.</span></p>
+ <p class="SCCNormalDoubleSpacing">&nbsp;</p>
+ <p class="SCCNormalDoubleSpacing"><span class="SCCCounselNameChar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Andrew Bernstein</span><span class="SCCCounselSeparatorChar">, </span><span class="SCCCounselNameChar">Jeremy Opolsky</span><span class="SCCCounselSeparatorChar"> and </span><span class="SCCCounselNameChar">Leora Jackson</span><span class="SCCCounselPartyRoleChar">, for the interveners Pro Bono Ontario and Access Pro Bono.</span></p>
+ <p class="SCCLawFirm">&nbsp;</p>
+ <p class="SCCNormalDoubleSpacing">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The judgment of the Court was delivered orally by</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par1" class="paragAnchor">1</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-variant:small-caps">Karakatsanis</span> <span style="font-variant:small-caps">J</span>. — The common law of civil contempt requires that the respondents prove beyond a reasonable doubt that Mr. Pintea had actual knowledge of the Orders for the case management meetings he failed to attend.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par2" class="paragAnchor">2</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The case management judge failed to consider whether Mr. Pintea had actual knowledge of two of the three Orders upon which she based her decision. The respondents concede that the requirements of Rule 10.52(3)(a)(iii) of the <i>Alberta Rules of Court</i>, Alta. Reg. 124/2010, were not met with respect to these two Orders.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in"><span style="line-height:200%">[<a name="par3" class="paragAnchor">3</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>As a result, the finding of contempt cannot stand.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par4" class="paragAnchor">4</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>We would add that we endorse the <i>Statement of Principles on Self-represented Litigants and Accused Persons</i> (2006) (online) established by the Canadian Judicial Council.</p>
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in">[<a name="par5" class="paragAnchor">5</a>]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The appeal is allowed, the action is restored and the costs award vacated.</p>
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Judgment accordingly.</p>
+ <p class="SCCLawFirm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitors for the appellant:&nbsp; Osler, Hoskin &amp; Harcourt, Calgary.</p>
+ <p class="SCCLawFirm">&nbsp;</p>
+ <p class="SCCLawFirm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitors for the respondents: &nbsp;Gowling WLG (Canada), Calgary.</p>
+ <p class="SCCLawFirm">&nbsp;</p>
+ <p class="SCCLawFirm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitors for the intervener the National Self-Represented Litigants Project:&nbsp; Bennett Jones, Toronto.</p>
+ <p class="SCCLawFirm">&nbsp;</p>
+ <p class="SCCLawFirm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitors for the interveners Pro Bono Ontario and Access Pro Bono:&nbsp; Torys, Toronto.</p>
+ <p class="SCCLawFirm">&nbsp;</p>
+</div></div>
+</div>
+<div id="lexboxAnnotationHook"></div>
+<div id="decisia-reflex2-dialog" class="decisia-content" title="Citation automatically hyperlinked by Norma">
+    <div class="decisia-box">
+        <div style="margin-bottom:10px">
+            <div><span class="icon-warning-sign">&nbsp;</span>You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.</div>
+        </div>
+        <div style="float:right">
+            <button id="decisia-reflex2-continue-button" type="button">Continue&nbsp;<span class="icon-arrow-right"></span></button>
+        </div>
+        <div style="clear:both"></div>
+        <input id="decisia-reflex2-ignore-warning" type="checkbox"/>
+        <label for="decisia-reflex2-ignore-warning">Do not display this message anymore</label>
+    </div>
+</div></div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.modalClose = "Close";
+</script>
+</body>
+
+</html>
