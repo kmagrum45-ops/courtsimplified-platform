@@ -1,0 +1,290 @@
+<html lang="en"
+ dir="ltr">
+ Rankin (Rankin’s Garage & Sales) v. J.J. - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+[LINK #main-cont] Skip to main content
+	[LINK https://scc-csc.ca/home-accueil/] 
+	SUPREME COURT OF CANADA
+	[LINK /scc-csc/scc-csc/fr/item/17085/index.do?alternatelocale=fr] FrançaisFR
+	[LINK /scc-csc/scc-csc/fr/item/17085/index.do?alternatelocale=fr] FR
+<button class="my-auto navbar-search-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#search-mobile"
+ aria-label="Toggle search" aria-controls="search-mobile" aria-expanded="false">
+ Search
+	[LINK https://scc-csc.ca/home-accueil/] 
+	Home
+	<button class="navbar-toggler my-auto" type="button" data-bs-toggle="collapse"
+	data-bs-target="#scc-top-nav" aria-controls="scc-top-nav" aria-expanded="false"
+	aria-label="Toggle navigation">
+	[LINK #] 
+	About us
+	[LINK https://scc-csc.ca/about-apropos/] 
+	About us
+	[LINK https://scc-csc.ca/about-apropos/judges-juges/] 
+	Judges
+	[LINK https://scc-csc.ca/about-apropos/judges-juges/meet-rencontrez/] 
+	Meet our judges
+	[LINK https://scc-csc.ca/about-apropos/judges-juges/list-liste/] 
+	List of current and former judges
+	[LINK https://scc-csc.ca/about-apropos/work-travail/] 
+	The Supreme Court at work
+	[LINK https://scc-csc.ca/about-apropos/work-travail/judicial-judiciaire/] 
+	Judicial work
+	[LINK https://scc-csc.ca/about-apropos/work-travail/independence-independance/] 
+	Judicial independence
+	[LINK https://scc-csc.ca/about-apropos/work-travail/transparent/] 
+	Open and transparent
+	[LINK https://scc-csc.ca/about-apropos/work-travail/outreach-sensibilisation/] 
+	Outreach to Canadians
+	[LINK https://scc-csc.ca/about-apropos/work-travail/engagement/] 
+	International engagement
+	[LINK https://scc-csc.ca/about-apropos/work-travail/review-retro/] 
+	Year in Review
+	[LINK https://scc-csc.ca/about-apropos/registrar-registraire/] 
+	Office of the Registrar
+	[LINK https://scc-csc.ca/about-apropos/registrar-registraire/leadership-dirigeants/] 
+	Our leadership
+	[LINK https://scc-csc.ca/about-apropos/registrar-registraire/admin/] 
+	Administration of the Court
+	[LINK https://scc-csc.ca/about-apropos/registrar-registraire/direction-orientation/] 
+	Strategic direction
+	[LINK https://scc-csc.ca/about-apropos/registrar-registraire/jobs-emplois/] 
+	Jobs
+	[LINK https://scc-csc.ca/about-apropos/library-biblio/] 
+	Library
+	[LINK https://scc-csc.ca/about-apropos/library-biblio/policy-politique/] 
+	Policy on Library use
+	[LINK https://scc-csc.ca/about-apropos/library-biblio/loans-prets/] 
+	Interlibrary loans
+	[LINK https://scc-csc.ca/about-apropos/library-biblio/new-nouveautes/] 
+	New Library titles
+	[LINK #] 
+	Parties
+	[LINK https://scc-csc.ca/parties/] 
+	Parties
+	[LINK https://scc-csc.ca/parties/counsel-avocats/] 
+	Counsel
+	[LINK https://scc-csc.ca/parties/counsel-avocats/filing-depot/] 
+	Filing documents with the Registry
+	[LINK https://scc-csc.ca/parties/self-rep-non-rep/] 
+	Self-represented litigants
+	[LINK https://scc-csc.ca/parties/self-rep-non-rep/role/] 
+	The role of the Registry
+	[LINK https://scc-csc.ca/parties/self-rep-non-rep/applying-demande/] 
+	Applying for leave to appeal
+	[LINK https://scc-csc.ca/parties/self-rep-non-rep/respondent-intime/] 
+	Being named as a respondent
+	[LINK https://scc-csc.ca/parties/self-rep-non-rep/glossary-lexique/] 
+	Glossary of terms
+	[LINK https://scc-csc.ca/parties/self-rep-non-rep/info/] 
+	Sources of legal information available to the public
+	[LINK https://scc-csc.ca/parties/self-rep-non-rep/feedback-commentaires/] 
+	Provide feedback
+	[LINK https://scc-csc.ca/parties/arf-lrf/] 
+	Act, rules and forms
+	[LINK https://laws-lois.justice.gc.ca/eng/acts/S-26/index.html] 
+	Supreme Court Act
+	[LINK https://laws-lois.justice.gc.ca/eng/regulations/SOR-2002-156/index.html] 
+	Rules of the Supreme Court of Canada
+	[LINK https://scc-csc.ca/parties/arf-lrf/amendments-modifications/] 
+	Amendments to the Rules of the Supreme Court of Canada
+	[LINK https://scc-csc.ca/parties/arf-lrf/notices-avis/] 
+	Notices to the profession
+	[LINK https://scc-csc.ca/parties/arf-lrf/forms-formulaires/] 
+	Forms to be filed with the Supreme Court of Canada
+	[LINK #] 
+	File a document
+	[LINK https://scc-csc.ca/filing-depot/] 
+	File a document
+	[LINK https://scc-csc.ca/filing-depot/portal-portail/] 
+	Electronic Filing Portal
+	[LINK https://scc-csc.ca/filing-depot/guide/] 
+	Guide to preparing documents
+	[LINK https://scc-csc.ca/filing-depot/deadlines-delais/] 
+	Calculating deadlines
+	[LINK #] 
+	Cases
+	[LINK https://scc-csc.ca/cases-dossiers/] 
+	Cases
+	[LINK https://scc-csc.ca/cases-dossiers/search-recherche] 
+	Search case information
+	[LINK https://scc-csc.ca/cases-dossiers/hearings-audiences/] 
+	Court hearings
+	[LINK https://scc-csc.ca/cases-dossiers/hearings-audiences/scheduled-prevues/] 
+	Scheduled hearings
+	[LINK https://scc-csc.ca/cases-dossiers/hearings-audiences/past-passees/] 
+	Past hearings
+	[LINK https://scc-csc.ca/cases-dossiers/hearings-audiences/seating-place/] 
+	Reserved seating policy and procedure
+	[LINK https://scc-csc.ca/cases-dossiers/records-documents/] 
+	Access to Court records
+	[LINK https://scc-csc.ca/cases-dossiers/records-documents/policy-politique/] 
+	Policy for access to Supreme Court of Canada court records
+	[LINK https://scc-csc.ca/cases-dossiers/records-documents/request-demande/] 
+	Request for Court records
+	[LINK https://scc-csc.ca/cases-dossiers/records-documents/registered-autorise/request-demande/] 
+	Request for registered access to Court records
+	[LINK https://scc-csc.ca/cases-dossiers/records-documents/media-medias/request-demande/] 
+	Request to use Court photographs, webcasts or recordings
+	[LINK https://decisions.scc-csc.ca/scc-csc/bulletins/en/nav_date.do] 
+	Bulletins of proceedings
+	[LINK #] 
+	Judgments
+	[LINK https://scc-csc.ca/judgments-jugements/] 
+	Judgments
+	[LINK https://decisions.scc-csc.ca/scc-csc/scc-l-csc-a/en/nav_date.do] 
+	Judgments on leave applications
+	[LINK https://decisions.scc-csc.ca/scc-csc/scc-csc/en/nav_date.do] 
+	Judgments on appeals
+	[LINK https://scc-csc.ca/judgments-jugements/cb/] 
+	Cases in Brief
+	[LINK https://scc-csc.ca/judgments-jugements/archive-sources/1998-2016/] 
+	Archive of sources cited in Supreme Court of Canada reasons for judgment (1998-2016)
+	[LINK https://decisions.scc-csc.ca/scc-csc/scr/en/nav_date.do] 
+	Canada Supreme Court Reports
+	[LINK #] 
+	Visit us
+	[LINK https://scc-csc.ca/visit-visitez/] 
+	Visit us
+	[LINK https://scc-csc.ca/visit-visitez/tours-visites/] 
+	Guided tours
+	[LINK https://scc-csc.ca/visit-visitez/education/] 
+	Educators and students
+	[LINK https://scc-csc.ca/visit-visitez/history-histoire/] 
+	History
+	[LINK https://scc-csc.ca/visit-visitez/building-edifice/] 
+	The building
+	[LINK https://scc-csc.ca/visit-visitez/photos/] 
+	Photo gallery
+	[LINK #] 
+	Media
+	[LINK https://scc-csc.ca/media-medias/] 
+	Media
+	[LINK https://decisions.scc-csc.ca/scc-csc/news/en/nav_date.do] 
+	News releases
+	[LINK https://scc-csc.ca/media-medias/new-nouveautes/] 
+	What’s new
+	[LINK https://scc-csc.ca/media-medias/resources-ressources/] 
+	Resources for media
+ [LINK https://scc-csc.ca/home-accueil] Home
+	&gt;
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Rankin (Rankin&rsquo;s Garage & Sales) v. J.J.
+ [LINK /scc-csc/en/l.do] Mailing List
+ [LINK /scc-csc/en/rss/index.do] RSS Feeds
+ [LINK /scc-csc/en/rss/json/index.do] JSON Feeds
+ Date modified: 2026-10-05
+ [LINK https://lexum.com/en/norma/] 
+ [LINK https://scc-csc.ca/resources-ressources/] Resources
+ [LINK https://scc-csc.ca/resources-ressources/terms-avis/] Terms and conditions
+ [LINK https://scc-csc.ca/resources-ressources/reports-rapports/] Plans and reports
+ [LINK https://scc-csc.ca/resources-ressources/sitemap-plandusite/] Sitemap
+ [LINK https://scc-csc.ca/resources-ressources/accessibility-accessibilite/] Accessibility
+ [LINK https://scc-csc.ca/resources-ressources/disclosure-divulgation/] Proactive disclosure
+ [LINK https://scc-csc.ca/contact/] Contact us
+ [LINK https://scc-csc.ca/contact/directions/] Getting here
+ [LINK https://scc-csc.ca/contact/inquiries-renseignements/] General inquiries
+ [LINK https://scc-csc.ca/contact/speaker-conferencier/request-demande/] Request a speaker
+ [LINK https://scc-csc.ca/contact/social-media-medias-sociaux/] Social media
+ [LINK https://scc-csc.ca/contact/subscriptions-abonnements/] Subscriptions
+ <a title="LinkedIn" class="me-2"
+ href="https://www.linkedin.com/company/supreme-court-of-canada-cour-supreme-du-canada"><i
+ class="fa-brands fa-linkedin fa-lg">
+ [LINK https://www.facebook.com/supremecourtofcanada] <i
+ class="fa-brands fa-facebook fa-lg">
+ [LINK http://www.instagram.com/scc.eng] <i
+ class="fa-brands fa-instagram fa-lg">
+ [LINK http://www.youtube.com/@SCC_eng] <i
+ class="fa-brands fa-square-youtube fa-lg">
+ jQuery.noConflict(true);
