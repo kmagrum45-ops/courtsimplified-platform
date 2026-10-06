@@ -1142,6 +1142,8 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
             <div
               key={index}
               className="mb-3"
+              data-testid="guided-message"
+              data-from={message.from}
               style={{ textAlign: message.from === "user" ? "right" : "left" }}
             >
               <div

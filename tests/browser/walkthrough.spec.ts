@@ -159,6 +159,115 @@ async function smallClaims(page: Page, persona: Persona, steps: Step[]) {
   await capture(page, persona, steps, "after-analysis");
 }
 
+
+/**
+ * Answers one guided-intake question the way the persona would, from the
+ * persona's backstory only. A model plays the user because the questions are
+ * written live and cannot be scripted in advance; it never grades anything.
+ * Without a key it answers "I'm not sure." so the run still gets through.
+ */
+async function answerAsPersona(persona: Persona, transcript: string[], question: string): Promise<string> {
+  const key = process.env.OPENAI_API_KEY;
+  if (!key) return "I'm not sure.";
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
+    body: JSON.stringify({
+      model: "gpt-4o-mini",
+      temperature: 0.3,
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are playing an ordinary person using a legal self-help website in Ontario. Answer the website's " +
+            "latest question in one or two short sentences, the way this person would type: casual, plain, no " +
+            "legal terms they would not know. Use only what the person knows (below). If the question offers " +
+            "choices, answer with the one that fits. If the person would not know, say you're not sure. Never " +
+            "ask the website a question back.\n\nWhat the person knows:\n" + (persona.backstory ?? persona.story),
+        },
+        { role: "user", content: `Conversation so far:\n${transcript.slice(-8).join("\n")}\n\nThe website now asks:\n${question}\n\nYour reply:` },
+      ],
+    }),
+  }).catch(() => null);
+  const body = response?.ok ? ((await response.json()) as { choices?: { message?: { content?: string } }[] }) : null;
+  return body?.choices?.[0]?.message?.content?.trim() || "I'm not sure.";
+}
+
+async function waitUntilIdle(page: Page) {
+  // While a turn is in flight the intake's buttons read "...".
+  await expect
+    .poll(async () => page.getByRole("button", { name: "...", exact: true }).count(), { timeout: 180_000 })
+    .toBe(0);
+}
+
+/**
+ * The guided Small Claims intake, played start to finish (2026-10-06). Every
+ * question is answered from the persona's backstory; the page is captured at
+ * each kind of screen the user meets, and the whole conversation at the end.
+ */
+async function guidedSmallClaims(page: Page, persona: Persona, steps: Step[]) {
+  const chooseGuided = page.getByRole("button", { name: /Answer questions one at a time/i });
+  await expect(chooseGuided).toBeVisible({ timeout: 60_000 });
+  await capture(page, persona, steps, "mode-chooser");
+  await chooseGuided.click();
+  const input = page.getByPlaceholder(/Tell us what happened/i);
+  await expect(input).toBeVisible({ timeout: 60_000 });
+  await capture(page, persona, steps, "guided-start");
+  await input.fill(persona.story);
+  await page.getByRole("button", { name: "Send", exact: true }).click();
+
+  const overview = page.getByTestId("completed-case-overview");
+  const seen = new Set<string>();
+  const transcript: string[] = [`Person: ${persona.story}`];
+  let questionsAnswered = 0;
+  for (let turn = 0; turn < 60; turn += 1) {
+    await waitUntilIdle(page);
+    if (await overview.isVisible().catch(() => false)) break;
+
+    const proposals = page.getByTestId("story-proposals");
+    if (await proposals.isVisible().catch(() => false)) {
+      if (!seen.has("proposals")) await capture(page, persona, steps, "story-proposals", "What the AI took from the story, offered for confirmation.");
+      seen.add("proposals");
+      await page.getByRole("button", { name: "Looks right, continue" }).click();
+      continue;
+    }
+    const confirmType = page.getByRole("button", { name: "Yes, that's right" });
+    if (await confirmType.isVisible().catch(() => false)) {
+      if (!seen.has("claim-type")) await capture(page, persona, steps, "claim-type-suggestion");
+      seen.add("claim-type");
+      await confirmType.click();
+      continue;
+    }
+    const nextSteps = page.getByRole("button", { name: /Continue to your next steps|Skip and continue/ });
+    if (await nextSteps.isVisible().catch(() => false)) {
+      // Give the sourced questions a chance to load before reading them.
+      await expect(page.getByRole("button", { name: "Continue to your next steps" }))
+        .toBeVisible({ timeout: 60_000 })
+        .catch(() => undefined);
+      await capture(page, persona, steps, "guided-conversation", `${questionsAnswered} questions answered.`);
+      await nextSteps.first().click();
+      continue;
+    }
+    const answerBox = page.getByPlaceholder(/Your answer/i);
+    if (await answerBox.isVisible().catch(() => false)) {
+      const messages = page.getByTestId("guided-message");
+      const count = await messages.count();
+      const question = count ? (await messages.nth(count - 1).innerText()).trim() : "";
+      if (questionsAnswered === 0) await capture(page, persona, steps, "first-question");
+      const reply = await answerAsPersona(persona, transcript, question);
+      transcript.push(`Website: ${question}`, `Person: ${reply}`);
+      await answerBox.fill(reply);
+      await page.getByRole("button", { name: "Send", exact: true }).click();
+      questionsAnswered += 1;
+      continue;
+    }
+    await page.waitForTimeout(2_000);
+  }
+  await expect(overview).toBeVisible({ timeout: 180_000 });
+  await page.waitForTimeout(4_000);
+  await capture(page, persona, steps, "after-analysis");
+}
+
 async function confirmStage(page: Page, persona: Persona, steps: Step[]) {
   const select = page.getByTestId("stage-select");
   if ((await select.count()) === 0) return;
@@ -238,14 +347,15 @@ test.describe("page walkthrough", () => {
 
   for (const persona of PERSONAS) {
     test(persona.id, async ({ page }) => {
-      test.setTimeout(600_000);
+      test.setTimeout(persona.mode === "guided" ? 1_200_000 : 600_000);
       const steps: Step[] = [];
       let failure: string | null = null;
       try {
         // Real case rows (staging only, see the guard) so the case page can open.
         await authenticateRealTestUser(page, { realCases: true });
         await passGate(page, persona, steps);
-        if (persona.path === "small-claims") await smallClaims(page, persona, steps);
+        if (persona.path === "small-claims" && persona.mode === "guided") await guidedSmallClaims(page, persona, steps);
+        else if (persona.path === "small-claims") await smallClaims(page, persona, steps);
         else await familyOrCivil(page, persona, steps);
         await confirmStage(page, persona, steps);
         await backAndForward(page, persona, steps);
