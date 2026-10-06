@@ -36,6 +36,25 @@ in_manifest() {
 # fail "a declared source is not in the corpus" for the whole run, so one law
 # that did not verify (the Fraudulent Conveyances Act) kept eight that did
 # out of the library.
+# e-Laws answers HTTP 403 for a file that does not exist, and some Acts are
+# published only under an "elaws_statutes_" file name (the Negligence Act,
+# and the Fraudulent Conveyances Act, whose plain name was a 403 on
+# 2026-10-06; SOURCING_NOTES.md, "the elaws_statutes_ prefix cuts both
+# ways"). That form can also be a stale copy, so the retry must find "TO THE
+# E-LAWS CURRENCY DATE", which only a current consolidation prints.
+try_prefixed() {
+  node -e "
+    const fs=require('fs'); const id=process.argv[1];
+    const p='scripts/rules/requestedSources.json';
+    const list=JSON.parse(fs.readFileSync(p,'utf8'));
+    const e=list.find(x=>x.id===id);
+    const m=e && /^https:\/\/www\.ontario\.ca\/laws\/docs\/([0-9a-z]+_e\.doc)$/.exec(e.url);
+    if (!m) process.exit(1);
+    e.url='https://www.ontario.ca/laws/docs/elaws_statutes_'+m[1];
+    if (!e.mustContain.includes('TO THE E-LAWS CURRENCY DATE')) e.mustContain.push('TO THE E-LAWS CURRENCY DATE');
+    fs.writeFileSync(p, JSON.stringify(list,null,2)+'\n');" "$1"
+}
+
 drop_declaration() {
   node -e "
     const fs=require('fs'); const id=process.argv[1];
@@ -56,6 +75,10 @@ while IFS=$'\t' read -r num name; do
     id=*)
       id="${out#id=}"
       npx tsx scripts/rules/fetchCorpus.ts --only "$id" > "fetch-$id.log" 2>&1
+      if ! in_manifest "$id" && grep -q "HTTP 403" "fetch-$id.log" && try_prefixed "$id"; then
+        echo "::notice title=Fetch::$id was a 403; trying the elaws_statutes_ file name" >&2
+        npx tsx scripts/rules/fetchCorpus.ts --only "$id" > "fetch-$id.log" 2>&1
+      fi
       if in_manifest "$id"; then
         printf '%s\t%s\tvendored:%s\n' "$num" "$name" "$id" >> "$RESULTS"
         VENDORED_IDS="$VENDORED_IDS $id"
