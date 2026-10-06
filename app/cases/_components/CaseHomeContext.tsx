@@ -48,7 +48,9 @@ export async function authHeaders(): Promise<Record<string, string> | null> {
 export const COURT_LABELS: Record<string, string> = {
   "small-claims": "Ontario Small Claims Court",
   civil: "Ontario Superior Court of Justice (civil)",
-  family: "Ontario family court",
+  // Not "family court": the Family Court is one branch that sits only in some
+  // places (FLR r. 1 (3)); a Sudbury case is not in it (page review, 2026-10-06).
+  family: "Ontario family case",
 };
 
 export function caseTitle(record: CaseRecord): string {

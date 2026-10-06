@@ -475,7 +475,13 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
       )}
       {familyResources.length > 0 && familyResources.map((topic) => (
         <Card key={topic.id} title={topic.title}>
-          <p className="whitespace-pre-line">{topic.content}</p>
+          {/* Collapsed: still on every family case, never assessed against
+              the user's facts, but no longer a full section above their next
+              step when they said there are no safety concerns (page review,
+              2026-10-06). */}
+          <details>
+          <summary className="cursor-pointer font-semibold text-[#2f7d67]">Who to contact, and how</summary>
+          <p className="mt-2 whitespace-pre-line">{topic.content}</p>
           <ul className="mt-3 list-disc space-y-1 pl-5">
             {topic.citations.map((citation) => (
               <li key={citation.officialUrl}>
@@ -485,6 +491,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
               </li>
             ))}
           </ul>
+          </details>
         </Card>
       ))}
       {hasAdoptionSignal && <Card title="Official Ontario resources to review"><ul className="list-disc space-y-2 pl-5"><li><a className="text-[#2f7d67] underline" href="https://www.ontario.ca/page/adopt-stepchild-or-relative" target="_blank" rel="noreferrer">Ontario: Adopt a stepchild or relative</a></li><li><a className="text-[#2f7d67] underline" href="https://ontariocourtforms.on.ca/en/family-law-rules-forms/8d/" target="_blank" rel="noreferrer">Ontario Court Services: Form 8D, Application (adoption)</a></li><li><a className="text-[#2f7d67] underline" href="https://www.ontario.ca/laws/statute/17c14" target="_blank" rel="noreferrer">Ontario Child, Youth and Family Services Act</a></li></ul><p className="mt-3">Form 8D is an official Ontario adoption application form to review. Court requirements and any consent or notice issues must be confirmed before filing.</p></Card>}
