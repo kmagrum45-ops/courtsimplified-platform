@@ -32,9 +32,11 @@ export default function CaseFormsSection() {
     // Every civil and family step now has a written answer (run-19), so all
     // three courts read the forms from the same answer the user was shown.
     // The short next-step block stays as the fallback for a step without one.
+    const court = courtPath;
+    const stage = position.confirmedStage;
     const fallback = () => {
-      if (courtPath === "small-claims") return [];
-      const block = nextStepBlockFor(courtPath, position.confirmedStage);
+      if (court === "small-claims") return [];
+      const block = nextStepBlockFor(court, stage);
       return block && !isPlaceholder(block) ? [block.text] : [];
     };
     if (!stepId) {
