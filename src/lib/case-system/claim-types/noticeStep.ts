@@ -33,7 +33,25 @@ const POINTS_TO: Record<string, (story: string) => boolean> = {
   "before-filing:notice-toronto": (story) => PUBLIC_SURFACE.test(story) && TORONTO.test(story),
 };
 
-export function suggestedNoticeStep(args: { claimTypeId?: string | null; story?: string | null }): string | null {
+/** The civil step covering every written notice before suing (Crown, municipality, occupier, libel). */
+export const CIVIL_NOTICE_STEP = "civil:before-filing:notice-required-before-suing";
+const GOVERNMENT = /\b(ontario government|provincial government|the province|a ministry|the ministry|the crown)\b/i;
+const PUBLISHED = /\b(newspapers?|broadcasts?|radio|television|tv station)\b/i;
+
+export function suggestedNoticeStep(args: {
+  claimTypeId?: string | null;
+  story?: string | null;
+  courtPath?: "small-claims" | "civil" | "family";
+}): string | null {
+  if (args.courtPath === "family") return null;
+  if (args.courtPath === "civil") {
+    // One civil step explains all four notices, so the story only has to
+    // point to one of them; there is no wrong one to pick.
+    const story = args.story ?? "";
+    const points =
+      SNOW_OR_ICE.test(story) || PUBLIC_SURFACE.test(story) || GOVERNMENT.test(story) || PUBLISHED.test(story);
+    return points ? CIVIL_NOTICE_STEP : null;
+  }
   const claimTypeId = args.claimTypeId ?? "";
   if (!claimTypeId) return null;
   const story = args.story ?? "";

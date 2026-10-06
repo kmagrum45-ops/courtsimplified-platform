@@ -23,7 +23,7 @@ import path from "node:path";
 
 import { userIsResponding } from "../../app/builder/_components/respondingSide";
 import { orderGroupsForReader, suggestedStageFor } from "../../app/builder/_components/StageAnswerPanel";
-import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
+import { ALL_STAGES, findStage } from "../../src/lib/case-system/stage-map/stageMap";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -85,7 +85,20 @@ for (const stage of ["starting-case", "responding", "already-started", "conferen
   }
 }
 check("a served defendant is shown the defence step", suggestedStageFor("small-claims", "responding", true) === "defendant:served-defence-period-running");
-check("no suggestion where answers are not published", suggestedStageFor("civil", "responding", true) === "");
+// Civil and family steps all show their deadlines and rules now (2026-10-06),
+// so they are suggested too. The property: a suggestion is a real step of
+// that court, and a served party is shown the step for answering.
+{
+  const civil = suggestedStageFor("civil", "responding", true);
+  const family = suggestedStageFor("family", "responding", true);
+  check("a served civil defendant is shown the defence step", civil === "civil:defendant:served-defence-period-running");
+  check("a served family respondent is shown the answer step", family === "family:respondent:served-time-to-answer-running");
+  const all = new Set(ALL_STAGES.map((stage) => stage.id));
+  const suggestions = (["civil", "family", "small-claims"] as const).flatMap((court) =>
+    ["starting-case", "responding", "conference", "motion", "trial", "enforcement"].flatMap((stage) => [true, false].map((r) => suggestedStageFor(court, stage, r))),
+  );
+  check("every suggested step exists", suggestions.every((id) => !id || all.has(id)), suggestions.filter((id) => id && !all.has(id)).join(", "));
+}
 {
   const groups = [{ side: "plaintiff", label: "P" }, { side: "defendant", label: "D" }, { side: "both", label: "B" }];
   check("a defendant sees their own questions first", orderGroupsForReader(groups, true)[0].side === "defendant");

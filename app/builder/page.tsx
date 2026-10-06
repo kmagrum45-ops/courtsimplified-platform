@@ -1529,8 +1529,11 @@ function BuilderPageContent() {
               }}
             />
 
-            {/* Civil and family join once their reviewed answers are published. */}
-            {confirmedStage && courtPath === "small-claims" ? (
+            {/* Civil and family: the stage's written overview first, then the exact step with its deadlines and rules. */}
+            {confirmedStage && (courtPath === "family" || courtPath === "civil") ? (
+              <NextStepsCard pathway={courtPath} stage={confirmedStage} userWords={userWordsOf(caseData)} />
+            ) : null}
+            {confirmedStage ? (
               <StageAnswerPanel
                 courtPath={courtPath}
                 confirmedStage={confirmedStage}
@@ -1547,11 +1550,9 @@ function BuilderPageContent() {
                       ? (asRecord(caseData?.extra).confirmedClaimTypeId as string)
                       : null),
                   story: caseData?.facts,
+                  courtPath,
                 })}
               />
-            ) : null}
-            {confirmedStage && (courtPath === "family" || courtPath === "civil") ? (
-              <NextStepsCard pathway={courtPath} stage={confirmedStage} userWords={userWordsOf(caseData)} />
             ) : null}
             {confirmedStage && (
               <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
