@@ -31,6 +31,7 @@ export type DraftKind =
   | "your-story"
   | "affidavit-outline"
   | "starting-document"
+  | "responding-document"
   | "imported";
 
 export const DRAFT_KIND_LABELS: Record<DraftKind, string> = {
@@ -39,6 +40,7 @@ export const DRAFT_KIND_LABELS: Record<DraftKind, string> = {
   "your-story": "Your story",
   "affidavit-outline": "Affidavit outline",
   "starting-document": "Starting document",
+  "responding-document": "Response to the case",
   imported: "Imported draft",
 };
 

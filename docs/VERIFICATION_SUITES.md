@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-117 documented, 28 without a header.
+118 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -93,6 +93,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:reference-not-shipped` | **Nothing under `app/` or `src/` reads the non-shipping reference folders, and no**<br>commercial publication is a corpus source. |
 | `npm run test:research-step` | **The research step (src/lib/case-system/retrieval/researchStory.ts): the**<br>model chooses the questions and reads the passages, and code decides what counts as an answer. |
 | `npm run test:reset-intake` | **resetIntake clears everything an intake left behind, and nothing it should**<br>not. |
+| `npm run test:responding-draft` | **The side responding to a case is offered a draft of its response -- Defence**<br>(Small Claims Form 9A), Statement of Defence (civil Form 18A), Answer (family Form 10) -- built only from its own answers. |
 | `npm run test:responding-side` | **The document that STARTS a case is never offered to the side responding to it.**<br>COSTS NOTHING. A pure function plus a source scan of the builder page. |
 | `npm run test:retrieval-bundled` | **The deployed analysis routes carry the retrieval index and the corpus.**<br>WHAT IT CATCHES. Retrieval reads its index and the vendored corpus from disk by file names the bundler cannot see, so next.config.ts lists them in outputFileTracingIncludes. If that stops working -- a renamed route, a changed config key, a Next.js upgrade that |
 | `npm run test:rls-matrix` | **Every RLS scenario, attacked for real: two litigants, an anonymous visitor and the**<br>service role against a database built from supabase/migrations/, on every table. |

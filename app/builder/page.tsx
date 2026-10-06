@@ -44,6 +44,7 @@ import {
 } from "./_components/builderTypes";
 import StageConfirmation from "./_components/StageConfirmation";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
+import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "../../src/lib/case-system/drafts/respondingDocumentDraft";
 import NextStepsCard from "./_components/NextStepsCard";
 import { originatingDocumentRecorded, userIsResponding } from "./_components/respondingSide";
 import { readCasePosition, storyHintsForDates, suggestedDatesFromAnswers, type SuggestedDate } from "../../src/lib/case-system/casePosition";
@@ -1009,6 +1010,17 @@ function BuilderPageContent() {
     if (draft) void saveDraftAndOpen(caseId, draft);
   }
 
+  function createRespondingDraft() {
+    if (FORM_COMPLETION_PAUSED) return; // paused: see phaseScope.ts
+    const caseId = savedCaseId();
+    if (!caseData || !caseId) {
+      setSaveError("Save the selected case before creating a working draft.");
+      return;
+    }
+    const draft = respondingDocumentDraft(courtPath, caseData as RespondingDocumentIntake, new Date());
+    if (draft) void saveDraftAndOpen(caseId, draft);
+  }
+
   /** Saves a working draft to the case and opens it on the case page's Drafts tab. */
   async function saveDraftAndOpen(caseId: string, draft: CaseDraft) {
     try {
@@ -1598,7 +1610,7 @@ function BuilderPageContent() {
               {respondingSide && !originatingDocumentFiled ? (
                 <p className="mt-3 text-sm leading-6 text-[#4d675f]" data-testid="responding-side-no-originating-draft">
                   You are responding to a case the other side started, so a draft of the document
-                  that starts a case is not offered here.
+                  that starts a case is not offered here. A draft of your response is.
                 </p>
               ) : null}
               {COURT_DOCUMENT_DRAFTING_ENABLED ? (
@@ -1620,6 +1632,11 @@ function BuilderPageContent() {
                 {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "family" && savedCaseId() && offerOriginatingDraft ? (
                   <button type="button" onClick={() => createCourtAreaWorkingDraft("family")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Family Application draft (Form 8)
+                  </button>
+                ) : null}
+                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && respondingSide && savedCaseId() && respondingDocumentTitle(courtPath) ? (
+                  <button type="button" data-testid="create-responding-draft" onClick={createRespondingDraft} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
+                    Create {respondingDocumentTitle(courtPath)?.replace(/^Draft /, "")} draft
                   </button>
                 ) : null}
                 {/*
