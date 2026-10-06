@@ -532,7 +532,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
       }
 
       const result = await response.json();
-      setFormApplicability(withKnownAnswers(result.formApplicability || {}, applicableStage(masterResult)));
+      setFormApplicability(result.formApplicability || {});
       setApplicabilityQuestions(Array.isArray(result.applicabilityQuestions) ? result.applicabilityQuestions : []);
       setVerifiedRecommendations(Array.isArray(result.recommendations) ? result.recommendations : []);
       setStageSupport(
@@ -1380,30 +1380,6 @@ export default function FormsWorkspace(props: FormsWorkspaceProps = {}) {
       <FormsPageContent {...props} />
     </Suspense>
   );
-}
-
-/**
- * Answers the case already gives, filled in for the user to check and save --
- * never saved until they press "Save confirmations" (CLAUDE.md section 4).
- * Page review, 2026-10-06: a confirmed defendant was asked "Are you responding
- * to a Plaintiff's Claim?" on the forms page.
- */
-function withKnownAnswers(saved: FormApplicability, stage: string): FormApplicability {
-  if (stage !== "starting-case" && stage !== "responding") return saved;
-  const responding = stage === "responding";
-  const known: Record<string, Record<string, boolean | string>> = {
-    smallClaims: { respondingToPlaintiffsClaim: responding },
-    family: { respondingToFamilyApplication: responding },
-    ...(responding ? { civil: { responseDocument: "statement-of-defence" } } : {}),
-  };
-  const next: FormApplicability = { ...saved };
-  for (const [group, fields] of Object.entries(known)) {
-    const current = asRecord(next[group]) || {};
-    const filled = { ...current };
-    for (const [field, value] of Object.entries(fields)) if (!(field in current)) filled[field] = value;
-    next[group] = filled;
-  }
-  return next;
 }
 
 function applicableStage(masterResult: MasterResult | null): string {

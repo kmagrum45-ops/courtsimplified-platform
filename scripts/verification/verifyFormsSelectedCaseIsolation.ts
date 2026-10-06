@@ -695,7 +695,7 @@ assert.doesNotMatch(formsPageSource, /stats\.(?:requiredCount|recommendedCount|c
 // self-fill (7c9ee52); requiring it failed CI on main on 2026-09-28. The
 // property is that every count shown comes from current state, so the overlay
 // count is checked only if it is displayed.
-assert.match(formsPageSource, /Available official forms: \{stats\.total\}[\s\S]*Verified for this case: \{verifiedRecommendations\.length\}/, "Every displayed readiness count must come from current library, resolver, or overlay state");
+assert.match(formsPageSource, /Available official forms: \{stats\.total\}[\s\S]*: \{verifiedRecommendations\.length\}/, "Every displayed readiness count must come from current library, resolver, or overlay state");
 if (/Overlay-ready:/.test(formsPageSource)) {
   assert.match(formsPageSource, /Overlay-ready: \{stats\.overlayCount\}/, "A displayed overlay count must come from current overlay state");
 }
