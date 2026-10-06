@@ -2939,6 +2939,18 @@
       "characters": 115307,
       "lines": 1789,
       "file": "bills-of-exchange-act.txt"
+    },
+    {
+      "id": "fraudulent-conveyances-act",
+      "title": "Fraudulent Conveyances Act",
+      "citation": "R.S.O. 1990, c. F.29",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90f29_e.doc",
+      "retrievedAt": "2026-10-06T02:43:26.637Z",
+      "sha256": "d9c3cb10aabd8fda0e947bbaca1327b0afd8a40e8fddf906f99b6125a47c2ee2",
+      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 31, 1990 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 5383,
+      "lines": 104,
+      "file": "fraudulent-conveyances-act.txt"
     }
   ],
   "failures": []
