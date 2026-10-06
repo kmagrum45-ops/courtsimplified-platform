@@ -23,7 +23,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { suggestedNoticeStep } from "../../src/lib/case-system/claim-types/noticeStep";
+import { CIVIL_NOTICE_STEP, suggestedNoticeStep } from "../../src/lib/case-system/claim-types/noticeStep";
 import { suggestedDatesFromAnswers } from "../../src/lib/case-system/casePosition";
 import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
 
@@ -48,6 +48,12 @@ check("a Toronto sidewalk fall goes to the Toronto notice", suggestedNoticeStep(
 check("ice on a sidewalk is not sent to the private-property notice", suggestedNoticeStep({ claimTypeId: SLIP, story: "I slipped on ice on the sidewalk" }) !== "before-filing:notice-snow-ice-private");
 check("a story that places no notice gets no suggestion", suggestedNoticeStep({ claimTypeId: SLIP, story: "I tripped on a loose mat inside the store" }) === null);
 check("no claim type, no suggestion", suggestedNoticeStep({ claimTypeId: null, story: live }) === null);
+
+check("civil: a story pointing to a notice gets the civil notice step", suggestedNoticeStep({ courtPath: "civil", story: "I slipped on ice outside a grocery store" }) === CIVIL_NOTICE_STEP);
+check("civil: a claim against the province gets it too", suggestedNoticeStep({ courtPath: "civil", story: "The Ontario government cancelled my contract" }) === CIVIL_NOTICE_STEP);
+check("civil: a plain contract story gets none", suggestedNoticeStep({ courtPath: "civil", story: "My business partner kept the profits" }) === null);
+check("civil: the notice step exists", Boolean(findStage(CIVIL_NOTICE_STEP)));
+check("family: never a notice suggestion", suggestedNoticeStep({ courtPath: "family", story: "the road was icy" }) === null);
 
 const dates = suggestedDatesFromAnswers([
   { questionId: "sc-date-injury", answerText: "January 13, 2025" },
