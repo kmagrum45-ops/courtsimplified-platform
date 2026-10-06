@@ -53,6 +53,7 @@ import type { StageDeadline } from "../case-system/stage-map/stageMap";
 import type { RuleCitation } from "../case-system/stage-map/citations";
 import { assertApprovedUserContent } from "./outputGuard";
 import { fillSlots } from "./stageAnswers";
+import { isInScope } from "../case-system/policy/a2iScope";
 
 export type ComputedDeadlineWorking = {
   text: string;
@@ -86,6 +87,8 @@ export type ComputedDeadline = {
    * verifies what they have just been told.
    */
   date: string;
+  /** Set when the date was counted under a legal presumption, which this says (and that it can be displaced). */
+  presumption?: string | null;
   /** The one-sentence statement of the date, already guarded and filled. */
   statement: string;
   /** The engine's steps, each guarded and filled. */
@@ -140,6 +143,27 @@ function guardedFill(
  * period is a fixed number. Everything else is silently absent, which is what
  * leaves the period text as the answer.
  */
+/**
+ * The date a deadline is counted from. The two-year limit, whose start (the
+ * day the claim was discovered) is never asked, is counted from the injury
+ * date under s. 5 (2)'s presumption, and `presumed` says so -- so the prose can
+ * (deadlineTemplates "presumed-discovery-from-injury").
+ */
+export function countFromDate(
+  deadline: Pick<StageDeadline, "countFromEvent">,
+  dates: CaseDates,
+): { from: string | undefined; presumed: boolean } {
+  const presumed =
+    deadline.countFromEvent === "claim-discovered" &&
+    !dates["claim-discovered"] &&
+    Boolean(dates["injury-occurred"]) &&
+    isInScope("caseSpecificDeadlines");
+  return {
+    from: presumed ? dates["injury-occurred"] : dates[deadline.countFromEvent as keyof CaseDates],
+    presumed,
+  };
+}
+
 export function computedDeadlinesFor(
   deadlines: readonly StageDeadline[],
   dates: CaseDates,
@@ -156,7 +180,7 @@ export function computedDeadlinesFor(
     // Civil and family periods are computed too since 2026-10-05, each under
     // its own rules with its own citations (deadlineEngine.ts).
 
-    const from = dates[deadline.countFromEvent];
+    const { from, presumed } = countFromDate(deadline, dates);
     if (!from) continue;
 
     let result;
@@ -253,9 +277,13 @@ export function computedDeadlinesFor(
       uncertainty = result.uncertainty;
     }
 
+    const presumption = presumed ? guardedFill("presumed-discovery-from-injury", {}, context) : null;
+    if (presumed && !presumption) continue;
+
     computed.push({
       deadlineId: deadline.id,
       date: result.deadline,
+      presumption,
       statement,
       working,
       uncertainty,
@@ -287,6 +315,7 @@ export function computedDeadlineProse(
   const parts: string[] = [];
 
   for (const entry of computed) {
+    if (entry.presumption) parts.push(entry.presumption);
     parts.push(entry.statement);
     if (entry.date < today) {
       const passed = guardedFill("computed-date-has-passed", {}, context);

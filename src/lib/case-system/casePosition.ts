@@ -29,6 +29,7 @@ import {
   type DeadlineEventKey,
 } from "./deadlines/deadlineEvents";
 import { findStage, isSpecialStage, pathwayOf, type StagePathway } from "./stage-map/stageMap";
+import { isInScope } from "./policy/a2iScope";
 
 /** The broad stages the builder's confirmation offers. Mirrors UniversalStage. */
 export const CONFIRMABLE_STAGES = [
@@ -187,7 +188,13 @@ export function dateQuestionsForStep(stepId: string | null | undefined): DateQue
   const byId = new Map<string, DateQuestion>();
   for (const deadline of stage.deadlines) {
     if (deadline.length.count === 0) continue;
-    const event = DEADLINE_EVENTS[deadline.countFromEvent as keyof typeof DEADLINE_EVENTS] as
+    // The two-year limit is counted from an injury date under the Act's
+    // presumption (computedDeadline.ts), so the injury date is asked for it.
+    const countFrom =
+      deadline.countFromEvent === "claim-discovered" && isInScope("caseSpecificDeadlines")
+        ? "injury-occurred"
+        : deadline.countFromEvent;
+    const event = DEADLINE_EVENTS[countFrom as keyof typeof DEADLINE_EVENTS] as
       | { questionId?: string; question: string | null }
       | undefined;
     if (!event?.questionId || !event.question) continue;
