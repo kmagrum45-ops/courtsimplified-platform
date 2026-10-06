@@ -1539,3 +1539,17 @@ earlier decision's passages changed.
 Not found by the search and not added: Hunter v. Southam (the search for the
 name returned other s. 8 cases; the Charter's own s. 8 is in the library) and
 Wastech (no hits; Bhasin and Callow are held).
+
+### FLR r. 38 (2) para. 6 points at a subrule that no longer sets the time (2026-10-06)
+
+Family Law Rules r. 38 (2) para. 6 says that in a Child, Youth and Family
+Services Act, 2017 case "The time period referred to in subrule 62.02 (5) for
+serving the notice of motion for leave to appeal shall be 30 days." The
+current Rules of Civil Procedure r. 62.02 (5) sets no serving time: it only
+applies r. 61.03.1 (4) to (19) to a Divisional Court leave motion. The serving
+time is in r. 61.03.1 (3) (15 days), reached through r. 62.02 (3). So the
+30 days modifies a time the referenced subrule no longer contains. Both
+vendored texts were read (family-law-rules.txt ~line 7647,
+rules-of-civil-procedure.txt ~line 14555). The published answers do not state
+the 30 days; do not add it back from r. 38 (2) alone. Found by an independent
+reviewer of run-18.
