@@ -93,10 +93,20 @@ jobs:
       - name: Index and check
         id: index
         if: steps.fetch.outputs.verified == 'yes'
+        # A failure here used to say only "indexing or the corpus checks
+        # failed" (nine requests, 2026-10-06), and job logs are not readable
+        # everywhere the result is read. The failing lines now go out as
+        # annotations and into failure.txt, which the report puts on each issue.
         run: |
-          npm run retrieval:index
-          npm run test:rules-corpus
-          npm run test:corpus-retrieval
+          set -o pipefail
+          for step in retrieval:index test:rules-corpus test:corpus-retrieval; do
+            if ! npm run "$step" 2>&1 | tee step.log; then
+              { echo "$step failed:"; grep -E 'FAIL|Error|error:' step.log | head -15; } > failure.txt
+              [ -s failure.txt ] || tail -15 step.log >> failure.txt
+              while IFS= read -r line; do echo "::error title=$step::${line:0:300}"; done < failure.txt
+              exit 1
+            fi
+          done
 
       - name: Merge
         id: merge
@@ -132,7 +142,9 @@ jobs:
                   gh api repos/${GITHUB_REPOSITORY}/issues/$num/comments -f body="Added to the library in #$PR (${outcome#vendored:}). Research can now find and quote it." >/dev/null
                   gh api -X PATCH repos/${GITHUB_REPOSITORY}/issues/$num -f state=closed >/dev/null
                 else
-                  gh api repos/${GITHUB_REPOSITORY}/issues/$num/comments -f body="Fetched and verified (${outcome#vendored:}), but indexing or the corpus checks failed, so nothing was merged. Left open for a person." >/dev/null
+                  why="$( [ -f failure.txt ] && head -c 1500 failure.txt || echo 'the merge step failed' )"
+                  body="$(printf 'Fetched and verified (%s), but nothing was merged. Left open for a person. What failed:\n\n```\n%s\n```' "${outcome#vendored:}" "$why")"
+                  gh api repos/${GITHUB_REPOSITORY}/issues/$num/comments -f body="$body" >/dev/null
                   gh api repos/${GITHUB_REPOSITORY}/issues/$num/labels -f "labels[]=needs-human" >/dev/null
                 fi
                 ;;
