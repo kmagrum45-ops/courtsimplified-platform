@@ -2113,3 +2113,34 @@ both conditions, and the answer's deadline section was regenerated from the
 renderer. It also found that FLR r. 38 (2) para. 6's 30-day leave time points
 at a subrule that no longer sets a time (SOURCING_NOTES); the answers leave
 it out.
+
+### Run-19: the last forty civil and family steps (2026-10-06)
+
+Every civil and family stage now has a published written answer: 126 in
+all (36 Small Claims, 45 civil, 45 family). Same process, three review
+rounds of eight blocks per reviewer; errors per round about 45, then about
+20, then 1 (a discontinuance "does not stop a later action", where r. 23.04
+(1) says only that it is "not a defence" to one -- the limitation period
+still runs).
+
+Stage-map wording fixed by the reviews, with every affected deadline section
+regenerated from the renderer:
+- the amended-answer qualifier offered "the consent of all parties" after the
+  14 days; r. 11 (2) para. 2 gives that route only "If the application has
+  not been amended", so after an amended application it is court permission;
+- four appeal qualifiers said "Only a judge of the appeal court can extend
+  the time"; r. 3.02 (3) restricts who may make an *order* extending it,
+  and r. 3.02 (4) separately allows a filed consent, so they now say "An
+  order extending the time can be made only by a judge of the appeal court";
+- the discontinuance qualifier, as above.
+
+Two reviewers disagreed on whether to point out that r. 48.14 (9) carries
+rules 24.03 to 24.05, not 24.05.1, over to a registrar's dismissal. The
+prose now states r. 24.05.1 in its own words and leaves the doubt to the
+deadline section, which already states it -- a prose sentence that names
+the gap reads as "the costs motion is unavailable", which the rules do not
+say.
+
+Session limits: launching twenty authoring agents at once hit the account's
+usage limit and lost every in-flight agent's work; waves of five to seven
+completed without trouble.

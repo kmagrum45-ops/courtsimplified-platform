@@ -1806,7 +1806,7 @@ function appealDeadline(id: string, extraQualifier = "", extraExceptions: RuleCi
     computation: C.R_RCP_3_01_HOLIDAY,
     consequence: "changes-what-happens-next",
     qualifier:
-      "File the notice, with proof of service, within 10 days after you serve it. Which court hears the appeal depends on the order. Some final orders of a Superior Court judge go to the Divisional Court. These include an order to pay one sum of $50,000 or less, or payments of $50,000 or less in the first 12 months, not counting costs. They also include an order dismissing a claim for $50,000 or less. So does an order dismissing a larger claim where the judge or jury says the award would have been $50,000 or less. Other final orders of a Superior Court judge go to the Court of Appeal. A final order of an associate judge goes to the Divisional Court. An appeal only about costs, or from an order made with everyone's consent, needs leave first. Only a judge of the appeal court can extend the time." +
+      "File the notice, with proof of service, within 10 days after you serve it. Which court hears the appeal depends on the order. Some final orders of a Superior Court judge go to the Divisional Court. These include an order to pay one sum of $50,000 or less, or payments of $50,000 or less in the first 12 months, not counting costs. They also include an order dismissing a claim for $50,000 or less. So does an order dismissing a larger claim where the judge or jury says the award would have been $50,000 or less. Other final orders of a Superior Court judge go to the Court of Appeal. A final order of an associate judge goes to the Divisional Court. An appeal only about costs, or from an order made with everyone's consent, needs leave first. An order extending the time can be made only by a judge of the appeal court." +
       extraQualifier,
     exceptions: [
       C.R_61_04_FILE_10_DAYS,
@@ -2890,7 +2890,7 @@ const PLAINTIFF: CaseStage[] = [
         computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "The rule fixes no number of days. The cut-off is the close of pleadings. After that, you need the court's leave. You can also discontinue at any time by filing the consent of all parties. If any party is under a disability, discontinuing by or against that party needs a judge's leave. A defendant who counterclaimed then has 30 days to choose to go on with the counterclaim. A discontinuance does not stop a later action on the same claim, unless the leave order or a filed consent says so. But a later action can be put on hold until the costs of the discontinued one are paid.",
+          "The rule fixes no number of days. The cut-off is the close of pleadings. After that, you need the court's leave. You can also discontinue at any time by filing the consent of all parties. If any party is under a disability, discontinuing by or against that party needs a judge's leave. A defendant who counterclaimed then has 30 days to choose to go on with the counterclaim. The discontinuance itself is not a defence to a later action on the same claim, unless the leave order or a filed consent says otherwise. But a later action can be put on hold until the costs of the discontinued one are paid.",
         exceptions: [RCP_25_05_CLOSE, RCP_23_01_DISABILITY, RCP_23_02_COUNTERCLAIM_ELECTION, RCP_23_04_NOT_A_DEFENCE, RCP_23_04_STAY],
       },
       discontinuanceCosts("deadline:civil:discontinuance-costs-30-days"),
@@ -4641,7 +4641,7 @@ const BOTH: CaseStage[] = [
         computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This applies if you want the order set aside or changed. It also applies if you want a different result if the appeal succeeds. Only a judge of the appeal court can extend the time.",
+          "This applies if you want the order set aside or changed. It also applies if you want a different result if the appeal succeeds. An order extending the time can be made only by a judge of the appeal court.",
         exceptions: [RCP_3_02_APPEALS],
       },
     ],
@@ -4698,7 +4698,7 @@ const BOTH: CaseStage[] = [
         computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "The 30 days to file proof that you ordered a transcript, and the 30 days to perfect an appeal that needs no transcript, are both counted from the day you file it. Only a judge of the appeal court can extend the time.",
+          "The 30 days to file proof that you ordered a transcript, and the 30 days to perfect an appeal that needs no transcript, are both counted from the day you file it. An order extending the time can be made only by a judge of the appeal court.",
         exceptions: [RCP_61_05_TRANSCRIPT_ORDERED, RCP_61_09_PERFECT, RCP_3_02_APPEALS],
       },
       {
@@ -4767,7 +4767,7 @@ const BOTH: CaseStage[] = [
         rule: RCP_61_12_RESPONDENT_FACTUM,
         computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
-        qualifier: "Deliver means serve it on the other parties and file it with proof of service. Only a judge of the appeal court can extend the time.",
+        qualifier: "Deliver means serve it on the other parties and file it with proof of service. An order extending the time can be made only by a judge of the appeal court.",
         exceptions: [RCP_1_03_DELIVER, RCP_3_02_APPEALS],
       },
     ],
