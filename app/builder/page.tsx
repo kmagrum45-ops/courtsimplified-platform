@@ -1577,7 +1577,7 @@ function BuilderPageContent() {
           </div>
         ) : null}
 
-        {resultsVisible && canonicalIntakeSaved && (
+        {resultsVisible && analysis && canonicalIntakeSaved && (
           <section ref={completedOverviewRef} className="mt-8 space-y-6" data-testid="completed-case-overview" tabIndex={-1}>
             {/*
               SUGGEST THEN CONFIRM, BEFORE ANY NEXT STEPS RENDER.
