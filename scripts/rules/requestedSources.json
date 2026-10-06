@@ -37,5 +37,173 @@
       "from": "PART I Canadian Charter of Rights and Freedoms",
       "to": "PART II Rights of the Aboriginal Peoples"
     }
+  },
+  {
+    "id": "environmental-protection-act",
+    "title": "Environmental Protection Act",
+    "citation": "R.S.O. 1990, c. E.19",
+    "url": "https://www.ontario.ca/laws/docs/90e19_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "ENVIRONMENTAL PROTECTION ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Environmental Protection Act, R.S.O. 1990, c. E.19\")."
+  },
+  {
+    "id": "condominium-authority-tribunal",
+    "title": "Condominium Authority Tribunal",
+    "citation": "O. Reg. 179/17",
+    "url": "https://www.ontario.ca/laws/docs/170179_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONDOMINIUM AUTHORITY TRIBUNAL",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Condominium Authority Tribunal, O. Reg. 179/17\")."
+  },
+  {
+    "id": "estates-act",
+    "title": "Estates Act",
+    "citation": "R.S.O. 1990, c. E.21",
+    "url": "https://www.ontario.ca/laws/docs/90e21_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "ESTATES ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Estates Act, R.S.O. 1990, c. E.21\")."
+  },
+  {
+    "id": "succession-law-reform-act",
+    "title": "Succession Law Reform Act",
+    "citation": "R.S.O. 1990, c. S.26",
+    "url": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "SUCCESSION LAW REFORM ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Succession Law Reform Act, R.S.O. 1990, c. S.26\")."
+  },
+  {
+    "id": "child",
+    "title": "Child",
+    "citation": "S.O. 2017, c. 14, Sched. 1",
+    "url": "https://www.ontario.ca/laws/docs/17c14_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CHILD",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Child, Youth and Family Services Act, 2017, S.O. 2017, c. 14, Sched. 1\")."
+  },
+  {
+    "id": "partition-act",
+    "title": "Partition Act",
+    "citation": "R.S.O. 1990, c. P.4",
+    "url": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PARTITION ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Partition Act, R.S.O. 1990, c. P.4\")."
+  },
+  {
+    "id": "class-proceedings-act",
+    "title": "Class Proceedings Act",
+    "citation": "S.O. 1992, c. 6",
+    "url": "https://www.ontario.ca/laws/docs/92c06_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CLASS PROCEEDINGS ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Class Proceedings Act, 1992, S.O. 1992, c. 6\")."
+  },
+  {
+    "id": "mortgages-act",
+    "title": "Mortgages Act",
+    "citation": "R.S.O. 1990, c. M.40",
+    "url": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "MORTGAGES ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Mortgages Act, R.S.O. 1990, c. M.40\")."
+  },
+  {
+    "id": "substitute-decisions-act",
+    "title": "Substitute Decisions Act",
+    "citation": "S.O. 1992, c. 30",
+    "url": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "SUBSTITUTE DECISIONS ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Substitute Decisions Act, 1992, S.O. 1992, c. 30\")."
+  },
+  {
+    "id": "personal-health-information-protection-act",
+    "title": "Personal Health Information Protection Act",
+    "citation": "S.O. 2004, c. 3, Sched. A",
+    "url": "https://www.ontario.ca/laws/docs/04p03_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PERSONAL HEALTH INFORMATION PROTECTION ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Personal Health Information Protection Act, 2004, S.O. 2004, c. 3, Sched. A\")."
+  },
+  {
+    "id": "community-safety-and-policing-act",
+    "title": "Community Safety and Policing Act",
+    "citation": "S.O. 2019, c. 1, Sched. 1",
+    "url": "https://www.ontario.ca/laws/docs/19c01_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "COMMUNITY SAFETY AND POLICING ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Community Safety and Policing Act, 2019, S.O. 2019, c. 1, Sched. 1\")."
+  },
+  {
+    "id": "termination-and-severance-of-employment",
+    "title": "Termination and Severance of Employment",
+    "citation": "O. Reg. 288/01",
+    "url": "https://www.ontario.ca/laws/docs/010288_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "TERMINATION AND SEVERANCE OF EMPLOYMENT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Termination and Severance of Employment, O. Reg. 288/01\")."
+  },
+  {
+    "id": "business-corporations-act",
+    "title": "Business Corporations Act",
+    "citation": "R.S.O. 1990, c. B.16",
+    "url": "https://www.ontario.ca/laws/docs/90b16_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "BUSINESS CORPORATIONS ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Business Corporations Act, R.S.O. 1990, c. B.16\")."
+  },
+  {
+    "id": "real-property-limitations-act",
+    "title": "Real Property Limitations Act",
+    "citation": "R.S.O. 1990, c. L.15",
+    "url": "https://www.ontario.ca/laws/docs/90l15_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "REAL PROPERTY LIMITATIONS ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Real Property Limitations Act, R.S.O. 1990, c. L.15\")."
   }
 ]
