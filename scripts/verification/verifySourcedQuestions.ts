@@ -26,7 +26,7 @@
  * Run: npm run test:sourced-questions
  */
 
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import { NextRequest } from "next/server";
@@ -237,6 +237,17 @@ function wiring() {
   check("declared as a model call site", read("scripts/verification/verifyOutputGuard.ts").includes('"src/lib/case-system/retrieval/sourcedQuestions.ts"'));
   const routeSource = read("app/api/intake/sourced-questions/route.ts");
   check("the route obeys the switch", routeSource.includes("sourcedQuestionsEnabled()"));
+  // A route that reads the index must have it packaged with it on Vercel
+  // (next.config outputFileTracingIncludes); this one was missing before
+  // release and would have found no index in production.
+  const config = read(readdirSync(ROOT).find((file) => /^next\.config\./.test(file))!);
+  const readers = readdirSync(path.join(ROOT, "app", "api"), { recursive: true })
+    .map(String)
+    .filter((file) => file.endsWith("route.ts"))
+    .filter((file) => /case-system\/retrieval\/(corpusIndex|sourcedQuestions|researchStory|explainProvision)"/.test(read(path.join("app", "api", file))))
+    .map((file) => `/api/${path.dirname(file).split(path.sep).join("/")}`);
+  const unshipped = readers.filter((route) => !config.includes(`"${route}": RETRIEVAL_FILES`));
+  check("every route that reads the index ships it", readers.length > 0 && unshipped.length === 0, unshipped.join(", "));
   for (const [court, file] of [
     ["Small Claims", "app/builder/_components/GuidedSmallClaimsIntake.tsx"],
     ["Civil", "app/builder/_components/CivilIntake.tsx"],

@@ -76,7 +76,12 @@ for (const file of [
   const source = readFileSync(file, "utf8");
   assert.match(source, /const \[initialPrefill\] = useState/);
   assert.match(source, /useState[\s\S]{0,500}initialPrefill/);
-  assert.doesNotMatch(source, /useEffect[\s\S]{0,1200}consumeNarrativePrefill/);
+  // The prefill is consumed once, in useState's initialiser -- never in an
+  // effect, which runs twice in development and after every render it
+  // depends on. Asserted on an effect's BODY: the earlier form ("useEffect"
+  // anywhere within 1,200 characters before the call) failed on a plain
+  // `import { useEffect, ... }` at the top of CivilIntake (2026-10-05).
+  assert.doesNotMatch(source, /useEffect\(\s*\(\)\s*=>\s*\{[^}]{0,1200}consumeNarrativePrefill/);
 }
 assert.match(readFileSync("app/builder/_components/SmallClaimsIntake.tsx", "utf8"), /damagesBreakdown: String\(values\.damagesBreakdown/);
 assert.match(readFileSync("app/builder/_components/CivilIntake.tsx", "utf8"), /settlementEfforts: String\(values\.settlementEfforts/);
