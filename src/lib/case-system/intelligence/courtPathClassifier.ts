@@ -545,6 +545,23 @@ const SYSTEM_PROMPT =
   "said about the person. A claim of that size must be started there. A claim for more than $50,000 is civil. When " +
   "the story states the amount in dispute, route by it; when it states none, an ordinary money dispute between " +
   "individuals or small businesses is small-claims. " +
+  // 2026-10-05 coverage test: 11 of 44 civil stories with no amount went to
+  // small-claims -- a spinal injury, 22 years of employment, a defamation that
+  // halved a business -- because "no amount means small-claims" was the only
+  // rule. Relief other than money or property is never small-claims (the
+  // court's jurisdiction is money and personal property, as above).
+  "But when no amount is stated and the claim is of a kind that commonly exceeds $50,000 -- a serious or " +
+  "permanent injury (a spinal or brain injury, years unable to work, a death), the end of long employment (many " +
+  "years of service, or a senior role), the loss of a business or of a large investment, a failed sale of a house " +
+  "-- use civil as primaryPath with small-claims as secondaryPath and confidence below 0.7, because the amount " +
+  "will decide it. Relief other than money or personal property -- stopping someone from doing something, a " +
+  "declaration, title to land, an estate or a will, a corporate or shareholder remedy, a lien on land -- is civil " +
+  "whatever the amount. " +
+  "criminal-related is only for a person who is facing a charge now or asking about criminal court. A lawsuit " +
+  "ABOUT a past arrest, search, prosecution or police conduct -- for malicious prosecution, false arrest, a " +
+  "Charter breach -- is civil (or small-claims if it is for $50,000 or less), not criminal-related. " +
+  "ltb is only for a rented HOME. Being locked out of something else -- a business, a bank account, an office, " +
+  "an email account -- is not a tenancy. " +
   "When the story is in scope, decide by the relief actually being sought, not by the most prominent topic " +
   "mentioned. A story can name one court's subject matter as background, context or motive while the relief the " +
   "person actually wants belongs to a different court. Identify the operative claim. For example, a story about " +

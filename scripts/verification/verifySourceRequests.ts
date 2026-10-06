@@ -117,6 +117,12 @@ async function main() {
   // first had just added.
   const issueTypes = /issues:\s*\n(?:\s*#.*\n)*\s*types:\s*\[([^\]]*)\]/.exec(workflow)?.[1] ?? "";
   check("one request runs the workflow once", !/opened/.test(issueTypes) && /labeled/.test(issueTypes) && workflow.includes("github.event.label.name == 'source-request'"));
+  // A burst of requests: GitHub keeps one pending run per concurrency group
+  // and cancels older ones, so each run must sweep every open request.
+  check("every run handles every open request", workflow.includes("labels=source-request") && workflow.includes("processSourceRequests.sh"));
+  const processor = read("scripts/sources/processSourceRequests.sh");
+  check("a request that does not verify leaves nothing declared", /else[\s\S]{0,300}drop_declaration "\$id"/.test(processor));
+  check("a request marked needs-human is not retried every run", workflow.includes('index("needs-human")'));
   check("Vercel never builds a request branch", read("vercel.json").includes('"source-request-*": false'));
   check("the analysis files the gaps", read("src/lib/case-system/intelligence/courtSimplifiedBrain.ts").includes("fileSourceRequests("));
   check("requested sources join the corpus", read("scripts/rules/corpusSources.ts").includes("...REQUESTED_SOURCES"));

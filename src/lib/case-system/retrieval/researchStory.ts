@@ -91,6 +91,8 @@ export type ResearchResult = RetrievalResult & {
   findings: ResearchFinding[];
   sourceRequests: string[];
   rounds: number;
+  /** Set when time ran out after some questions were read: what was answered by then. */
+  partial?: true;
 };
 
 export type ResearchDeps = {
@@ -292,48 +294,25 @@ export async function researchStory(input: RetrievalInput, deps: ResearchDeps = 
   const read = deps.readPassages ?? readPassagesWithModel;
   const embed = deps.embed ?? embedWithModel;
 
-  const work = async (): Promise<ResearchResult> => {
-    const issues = await spot(input);
-    if (issues.length === 0) return empty("no issues");
+  /*
+   * What has been read so far, kept as it arrives, so a run that runs out of
+   * time returns the questions it DID answer instead of nothing. The coverage
+   * test (2026-10-05) found 17 of 148 stories with no research at all because
+   * the step timed out under load, after most of its reading was done.
+   */
+  let issuesSoFar: ResearchIssue[] = [];
+  let passagesSoFar = new Map<string, Passage[]>();
+  const readSoFar = new Map<string, ReadResult>();
+  let roundsSoFar = 0;
 
-    const passagesByIssue = await searchIssues(index, input, issues, embed);
-    // Each question is read in its own call, all at once: one call over every
-    // question's passages took longer than the whole step may (first probe,
-    // 2026-10-05: 9 of 10 stories timed out at 45 s).
-    const readEach = async (asked: readonly ResearchIssue[]) =>
-      (
-        await Promise.all(
-          asked.map(async (issue) => {
-            try {
-              return parseReadResults(await read(input, [issue], passagesByIssue), [issue], passagesByIssue);
-            } catch {
-              return [];
-            }
-          }),
-        )
-      ).flat();
-    let results = await readEach(issues);
-    let rounds = 1;
-
-    // One more round for the questions the reader could not answer from what
-    // was found, with the phrases it asked for. Their new passages are added
-    // to what the issue already had, so an answer can come from either.
-    const again = results.filter((result) => result.status === "search-again" && result.queries.length > 0);
-    if (again.length > 0) {
-      const retry = again.map((result) => ({ ...issues.find((issue) => issue.id === result.issueId)!, queries: result.queries }));
-      const more = await searchIssues(index, input, retry, embed);
-      for (const issue of retry) {
-        const had = passagesByIssue.get(issue.id) ?? [];
-        const seen = new Set(had.map((passage) => passage.id));
-        passagesByIssue.set(issue.id, [...had, ...(more.get(issue.id) ?? []).filter((passage) => !seen.has(passage.id))]);
-      }
-      const second = await readEach(retry);
-      results = results.map((result) => second.find((s) => s.issueId === result.issueId) ?? result);
-      rounds = 2;
-    }
-
+  const assemble = (
+    issues: readonly ResearchIssue[],
+    passagesByIssue: ReadonlyMap<string, readonly Passage[]>,
+    results: ReadonlyMap<string, ReadResult>,
+    rounds: number,
+  ): ResearchResult => {
     const findings: ResearchFinding[] = issues.map((issue) => {
-      const result = results.find((r) => r.issueId === issue.id);
+      const result = results.get(issue.id);
       if (result?.status === "answered") {
         return { issueId: issue.id, question: issue.question, status: "answered", answeredBy: result.answers };
       }
@@ -359,17 +338,75 @@ export async function researchStory(input: RetrievalInput, deps: ResearchDeps = 
       queries: issues.flatMap((issue) => issue.queries),
       passages: ordered,
       items: ordered.map(passageItem) as SourceItem[],
-      issues,
+      issues: [...issues],
       findings,
       sourceRequests,
       rounds,
     };
   };
 
+  const work = async (): Promise<ResearchResult> => {
+    const issues = await spot(input);
+    if (issues.length === 0) return empty("no issues");
+    issuesSoFar = issues;
+
+    const passagesByIssue = await searchIssues(index, input, issues, embed);
+    passagesSoFar = passagesByIssue;
+    // Each question is read in its own call, all at once: one call over every
+    // question's passages took longer than the whole step may (first probe,
+    // 2026-10-05: 9 of 10 stories timed out at 45 s). Each verdict is kept the
+    // moment it arrives (readSoFar), for a timeout to return.
+    const readEach = async (asked: readonly ResearchIssue[]) =>
+      (
+        await Promise.all(
+          asked.map(async (issue) => {
+            try {
+              const verdicts = parseReadResults(await read(input, [issue], passagesByIssue), [issue], passagesByIssue);
+              for (const verdict of verdicts) {
+                // A second round never replaces an answer with a non-answer.
+                const had = readSoFar.get(verdict.issueId);
+                if (!had || had.status !== "answered" || verdict.status === "answered") readSoFar.set(verdict.issueId, verdict);
+              }
+              return verdicts;
+            } catch {
+              return [];
+            }
+          }),
+        )
+      ).flat();
+    roundsSoFar = 1;
+    const results = await readEach(issues);
+
+    // One more round for the questions the reader could not answer from what
+    // was found, with the phrases it asked for. Their new passages are added
+    // to what the issue already had, so an answer can come from either.
+    const again = results.filter((result) => result.status === "search-again" && result.queries.length > 0);
+    if (again.length > 0) {
+      const retry = again.map((result) => ({ ...issues.find((issue) => issue.id === result.issueId)!, queries: result.queries }));
+      const more = await searchIssues(index, input, retry, embed);
+      for (const issue of retry) {
+        const had = passagesByIssue.get(issue.id) ?? [];
+        const seen = new Set(had.map((passage) => passage.id));
+        passagesByIssue.set(issue.id, [...had, ...(more.get(issue.id) ?? []).filter((passage) => !seen.has(passage.id))]);
+      }
+      roundsSoFar = 2;
+      await readEach(retry);
+    }
+
+    return assemble(issues, passagesByIssue, readSoFar, roundsSoFar);
+  };
+
   try {
     let timer: ReturnType<typeof setTimeout> | undefined;
     const timeout = new Promise<ResearchResult>((resolve) => {
-      timer = setTimeout(() => resolve(empty("timeout")), deps.timeoutMs ?? RESEARCH_TIMEOUT_MS);
+      timer = setTimeout(() => {
+        // Out of time: what was answered so far, if anything was read.
+        if (issuesSoFar.length > 0 && readSoFar.size > 0) {
+          resolve({ ...assemble(issuesSoFar, passagesSoFar, readSoFar, roundsSoFar), partial: true });
+        } else {
+          resolve(empty("timeout"));
+        }
+      }, deps.timeoutMs ?? RESEARCH_TIMEOUT_MS);
     });
     const result = await Promise.race([work(), timeout]);
     if (timer) clearTimeout(timer);

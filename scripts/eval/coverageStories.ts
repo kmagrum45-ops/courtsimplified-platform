@@ -70,14 +70,16 @@ export const COVERAGE_SET: CoverageStory[] = [
   sc("renovation-damage", "contract", "A plumber we hired flooded our basement when he didn't cap a pipe properly. Damage was $16,000."),
   sc("over-limit", "jurisdiction", "My business partner took about $70,000 out of our company account and disappeared. Can I sue him in small claims?", "plaintiff", ["small-claims", "civil"]),
   sc("judgment-unpaid", "enforcement", "I won a Small Claims judgment for $8,000 against a contractor last year and he still hasn't paid anything. How do I collect?"),
-  sc("claim-not-served", "procedure", "I filed my claim against a former tenant of my rental unit for damage six months ago but I can't find her to serve her."),
+  // A landlord's claim against a former tenant may belong to the Landlord and Tenant Board as well.
+  sc("claim-not-served", "procedure", "I filed my claim against a former tenant of my rental unit for damage six months ago but I can't find her to serve her.", "plaintiff", ["small-claims", "out-of-scope:ltb"]),
   sc("settlement-conference", "procedure", "My settlement conference is in three weeks. The defendant never filed a defence. What do I need to do?"),
   // ------------------------------------------------------------ Small Claims, defending
   sc("served-debt", "defence", "I got served with a Small Claims claim saying I owe a credit card company $7,000. I think it's past the time limit, the last payment was in 2021.", "defendant"),
   sc("served-contractor", "defence", "A customer is suing me for $12,000 saying my renovation was bad. I'm the contractor. He still owes me $4,000 on the job.", "defendant"),
   sc("served-landlord", "defence", "My old commercial landlord is suing me for unpaid rent after I left early, but they rented it to someone else a month later.", "defendant"),
   sc("served-roommate", "defence", "My former roommate is suing me for $3,000 saying I damaged furniture. It was already worn and I have photos from the first day.", "defendant"),
-  sc("noted-default", "default", "I didn't file a defence on time because I was in the hospital and now I've been noted in default. Can I fix this?", "defendant"),
+  // Names no court and no amount: noting in default exists in both.
+  sc("noted-default", "default", "I didn't file a defence on time because I was in the hospital and now I've been noted in default. Can I fix this?", "defendant", ["small-claims", "civil"]),
   sc("default-judgment", "default", "There's a default judgment against me for $9,000 for a claim I was never served with. I found out when my wages were garnished.", "defendant"),
   sc("served-defamation", "defence", "My neighbour is suing me for defamation over a Google review I wrote about her dog grooming business. Everything I wrote was true.", "defendant"),
   sc("served-car-accident", "defence", "I'm being sued over a fender bender in a parking lot. The other driver says I backed into her, but she was the one moving.", "defendant"),
