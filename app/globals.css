@@ -117,6 +117,15 @@ select {
   transition: border 0.2s ease;
 }
 
+/* The rule above stretched every checkbox and radio to full width, so a
+   tick box floated mid-row away from its label (live test, 2026-10-06). */
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  padding: 0;
+  flex-shrink: 0;
+}
+
 input:focus,
 textarea:focus,
 select:focus {
