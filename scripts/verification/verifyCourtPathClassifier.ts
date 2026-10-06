@@ -618,6 +618,21 @@ async function main() {
   assert.notEqual(overLimit.source, "keyword", `an over-limit amount must escalate, got ${describe(overLimit)}`);
   assert.match(overLimit.reasoning, /50,000/);
 
+  // 2026-10-05 coverage test: "locked me out" alone was an LTB keyword, so a
+  // business partner locked out of the company's accounts was sent to the
+  // Landlord and Tenant Board without the model ever seeing it.
+  const lockout = await classifyCourtPath({
+    story: "My business partner and I own a company 50/50. He locked me out of the bank accounts and is running it without me.",
+    allowExternalCognition: false,
+  });
+  assert.notEqual(lockout.outOfScopeForum?.id, "ltb", `a business lockout was sent to ${describe(lockout)}`);
+  const homeLockout = await classifyCourtPath({
+    story: "My landlord locked me out of my apartment yesterday and my things are still inside.",
+    allowExternalCognition: false,
+  });
+  assert.equal(homeLockout.outOfScopeForum?.id, "ltb", `a landlord lockout must still reach the LTB, got ${describe(homeLockout)}`);
+  checks += 2;
+
   // 2026-09-28: RTA s. 3 (1) -- the LTB is residential only. A commercial
   // lease must not be sent there; a residential one still must.
   const commercial = await classifyCourtPath({

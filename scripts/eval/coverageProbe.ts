@@ -44,6 +44,7 @@ type Row = {
   missing: string[];
   questions: string[];
   questionsSkipped?: string;
+  refusals?: string[];
   partial?: boolean;
   citations: string[];
   seconds: number;
@@ -94,6 +95,7 @@ async function runOne(story: CoverageStory, index: NonNullable<ReturnType<typeof
       }
       const questions = await questionsFromPassages(input, passages, research.issues[0]?.situation ?? "");
       row.questions = questions.questions.map((q) => q.question);
+      if (questions.refusals?.length) row.refusals = questions.refusals;
       if (questions.skipped) row.questionsSkipped = `${questions.skipped} (written ${questions.counts.written}, refused by code ${questions.counts.refusedByCode}, by the check ${questions.counts.refusedByChecker})`;
     }
   } catch (error) {
@@ -164,6 +166,7 @@ async function main() {
       lines.push(`- research: ${row.answered}/${row.issues} answered${row.missing.length ? `; lacks: ${row.missing.join("; ")}` : ""}`);
       if (row.citations.length) lines.push(`- law found: ${row.citations.join(" · ")}`);
       for (const q of row.questions) lines.push(`  - Q: ${q}`);
+      for (const refusal of row.refusals ?? []) lines.push(`  - refused (${refusal})`);
     }
     lines.push("");
   }
