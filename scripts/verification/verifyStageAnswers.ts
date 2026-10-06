@@ -30,7 +30,7 @@ import path from "node:path";
 import { findQuote } from "../content/verifiedContentPipeline";
 import { forumCheckOnlyProblems } from "../content/blockGates";
 import { gateFailures } from "../content/blockGates";
-import { CASE_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
+import { ALL_STAGES, CASE_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 import {
   answerText,
   NO_SOURCE_NOTICE,
@@ -64,7 +64,8 @@ if (!existsSync(ANSWERS)) {
 }
 
 const answers = JSON.parse(readFileSync(ANSWERS, "utf8")) as StageAnswer[];
-const stages = new Map(CASE_STAGES.map((stage) => [stage.id, stage]));
+// Every court's steps (2026-10-06): civil and family answers are published too.
+const stages = new Map(ALL_STAGES.map((stage) => [stage.id, stage]));
 
 const verified = answers.filter((a) => a.verification.status === "verified-draft");
 const needsHuman = answers.filter((a) => a.verification.status === "needs-human");

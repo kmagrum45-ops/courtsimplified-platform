@@ -25,7 +25,7 @@ import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 
 import { gateFailures, isPublishable } from "../content/blockGates";
-import { CASE_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
+import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 import {
   hashBlocks,
   PUBLISHED_BLOCKS,
@@ -106,7 +106,8 @@ if (PUBLISHED_BLOCKS.length > 0) {
 // 2. Still valid, against the corpus as it stands now
 // ---------------------------------------------------------------------------
 
-const stages = new Map(CASE_STAGES.map((stage) => [stage.id, stage]));
+// Every court's steps (2026-10-06): civil and family answers are published too.
+const stages = new Map(ALL_STAGES.map((stage) => [stage.id, stage]));
 
 for (const block of PUBLISHED_BLOCKS) {
   const reasons = gateFailures(block, stages.get(block.stageId));
