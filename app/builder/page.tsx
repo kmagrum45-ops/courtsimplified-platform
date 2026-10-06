@@ -46,7 +46,8 @@ import StageConfirmation from "./_components/StageConfirmation";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import NextStepsCard from "./_components/NextStepsCard";
 import { originatingDocumentRecorded, userIsResponding } from "./_components/respondingSide";
-import { readCasePosition, storyHintsForDates } from "../../src/lib/case-system/casePosition";
+import { readCasePosition, storyHintsForDates, suggestedDatesFromAnswers, type SuggestedDate } from "../../src/lib/case-system/casePosition";
+import { suggestedNoticeStep } from "../../src/lib/case-system/claim-types/noticeStep";
 import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
 import { type CaseDraft } from "../../src/lib/case-system/drafts/caseDrafts";
@@ -318,6 +319,8 @@ function BuilderPageContent() {
   // takes over rendering, same as the form path.
   const [guidedAnalyzing, setGuidedAnalyzing] = useState(false);
   const [guidedAnalysisError, setGuidedAnalysisError] = useState("");
+  // Dates confirmed in the guided intake, offered on the next-steps panel.
+  const [guidedDates, setGuidedDates] = useState<Record<string, SuggestedDate>>({});
 
   /*
    * Picking a mode is an internal state change, not a URL change, so
@@ -874,6 +877,7 @@ function BuilderPageContent() {
       // without that, deriveCaseStageWithEvents receives {} and the stage comes
       // entirely from confirmed events.
       setDraftIntakeFacts(result.facts as Record<string, unknown>);
+      setGuidedDates(suggestedDatesFromAnswers(result.answers ?? []));
 
       // The active case, so the run sees the events the user confirmed.
       const response = await requestSmallClaimsAnalysis(
@@ -1535,6 +1539,15 @@ function BuilderPageContent() {
                 initialStepId={savedPosition.stepId}
                 initialDateAnswers={savedPosition.dateAnswers}
                 storyHints={storyHintsForDates([caseData?.facts, caseData?.timeline].filter(Boolean).join("\n"))}
+                suggestedDates={guidedDates}
+                noticeStepId={suggestedNoticeStep({
+                  claimTypeId:
+                    draftClaimTypeId ||
+                    (typeof asRecord(caseData?.extra).confirmedClaimTypeId === "string"
+                      ? (asRecord(caseData?.extra).confirmedClaimTypeId as string)
+                      : null),
+                  story: caseData?.facts,
+                })}
               />
             ) : null}
             {confirmedStage && (courtPath === "family" || courtPath === "civil") ? (

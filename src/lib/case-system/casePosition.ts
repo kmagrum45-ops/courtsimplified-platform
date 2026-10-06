@@ -280,6 +280,28 @@ const FULL_DATE = new RegExp(
 
 const MENTIONS_DATE = new RegExp(`\\b${MONTH}\\b|\\b\\d{1,2}[/-]\\d{1,2}\\b|\\b\\d{4}-\\d{1,2}-\\d{1,2}\\b`, "i");
 
+/**
+ * Dates the person already gave in the guided intake, offered -- never
+ * applied -- for the same date question on the next-steps panel. Live test,
+ * 2026-10-06: the injury date was confirmed in the intake and the panel asked
+ * for it again. Only a full date in the answer counts; "last March" offers
+ * nothing.
+ */
+export function suggestedDatesFromAnswers(
+  answers: ReadonlyArray<{ questionId: string; answerText: string }>,
+): Record<string, SuggestedDate> {
+  const suggestions: Record<string, SuggestedDate> = {};
+  for (const answer of answers) {
+    if (!isDateQuestionId(answer.questionId) || suggestions[answer.questionId]) continue;
+    const match = FULL_DATE.exec(answer.answerText);
+    const value = match ? parseUserDate(match[1].replace(/,/g, "")) : null;
+    if (!value) continue;
+    const quoted = answer.answerText.trim().slice(0, 120);
+    suggestions[answer.questionId] = { value, basis: `You answered: “${quoted}”` };
+  }
+  return suggestions;
+}
+
 export type StoryHint = { quote: string; value: string | null };
 
 export function storyHintsForDates(story: string | null | undefined): Record<string, StoryHint> {
