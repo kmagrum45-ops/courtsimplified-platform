@@ -27,6 +27,7 @@ const nextConfig: NextConfig = {
     "/api/family/analyze": RETRIEVAL_FILES,
     "/api/law/explain": RETRIEVAL_FILES,
     "/api/intake/sourced-questions": RETRIEVAL_FILES,
+    "/api/assistant/law": RETRIEVAL_FILES,
   },
   // Pages removed or folded into the case page in the 2026-10-04 clean-up,
   // sent to what replaced them so an old link or bookmark still lands

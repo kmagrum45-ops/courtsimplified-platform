@@ -58,8 +58,9 @@ import {
   type GroundingReport,
   type SourcePack,
 } from "./groundedCognition";
-import { passageItem, retrieveForStory, type RetrievalInput, type RetrievalResult } from "../retrieval/storyRetrieval";
+import { retrieveForStory, type RetrievalInput, type RetrievalResult } from "../retrieval/storyRetrieval";
 import { researchStory, type ResearchResult } from "../retrieval/researchStory";
+import { findingsView } from "../retrieval/findingsView";
 import { fileSourceRequests } from "../retrieval/sourceRequests";
 import { buildBrainMigrationLayer } from "../orchestration/brainMigrationLayer";
 import { buildEvidenceIntelligenceAnalysis } from "../evidence/evidenceIntelligenceEngine";
@@ -2606,28 +2607,7 @@ export async function runCourtSimplifiedBrain(
       ? {
           rounds: retrieved.rounds ?? 1,
           sourceRequests: retrieved.sourceRequests ?? [],
-          findings: retrieved.findings.map((finding) => ({
-            question: finding.question,
-            status: finding.status,
-            ...(finding.missingSource ? { missingSource: finding.missingSource } : {}),
-            provisions: finding.answeredBy
-              .map((answer) => {
-                const passage = retrieved.passages.find((candidate) => candidate.id === answer.passageId);
-                if (!passage) return null;
-                const { id, label, citation, text, sourceUrl, kind } = passageItem(passage);
-                return {
-                  id,
-                  label,
-                  text,
-                  sourceUrl,
-                  quote: answer.quote,
-                  ...(citation ? { citation } : {}),
-                  ...(kind ? { kind } : {}),
-                  ...(explainable ? { explainable } : {}),
-                };
-              })
-              .filter((item): item is NonNullable<typeof item> => item !== null),
-          })),
+          findings: findingsView(retrieved as ResearchResult, explainable),
         }
       : undefined;
   if (retrieved?.sourceRequests?.length) {

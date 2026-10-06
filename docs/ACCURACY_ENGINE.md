@@ -2012,3 +2012,20 @@ map, every quote checked by `test:stage-map`.
 `test:deadlines` now runs every court's deadlines and has seven civil and
 family worked cases, including the Family Law Rules' own example in r. 3 (4)
 (served Monday, motion the second following Tuesday).
+
+## The Court Assistant answers with the law (2026-10-05)
+
+The live chat (`CourtAssistantChat` → `/api/guided-assistant`) makes no model
+call and holds no law: replies are hand-written blocks chosen by keyword. (The
+model-routed library chat, `/api/case/chat`, is not wired to any page.) Each
+question now also goes to `/api/assistant/law`, which researches it with
+`retrieval/researchQuestion.ts` -- one or two research questions, the same
+search, reading call and code check on every quote as the story research --
+and the reply shows "The law on your question" in the provisions' own words
+(`ResearchPanel`, via the shared `findingsView`). Fetched beside the reply;
+missing laws are filed as source requests. Switch `ASSISTANT_LAW`.
+
+Measured (`eval:assistant-law`, 8 questions across the three courts): 36
+provisions shown, 10-24 s per question. The questions it could not answer
+name the case-law gap exactly: the test for Charter damages under s. 24 (1),
+and retroactive child support where income was hidden.

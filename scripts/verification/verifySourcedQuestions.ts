@@ -244,7 +244,7 @@ function wiring() {
   const readers = readdirSync(path.join(ROOT, "app", "api"), { recursive: true })
     .map(String)
     .filter((file) => file.endsWith("route.ts"))
-    .filter((file) => /case-system\/retrieval\/(corpusIndex|sourcedQuestions|researchStory|explainProvision)"/.test(read(path.join("app", "api", file))))
+    .filter((file) => /case-system\/retrieval\/(?!sourceRequests)\w+"/.test(read(path.join("app", "api", file))))
     .map((file) => `/api/${path.dirname(file).split(path.sep).join("/")}`);
   const unshipped = readers.filter((route) => !config.includes(`"${route}": RETRIEVAL_FILES`));
   check("every route that reads the index ships it", readers.length > 0 && unshipped.length === 0, unshipped.join(", "));

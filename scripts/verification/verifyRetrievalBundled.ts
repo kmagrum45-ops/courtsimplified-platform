@@ -23,7 +23,7 @@ const ROOT = process.cwd();
 // here AND from next.config's outputFileTracingIncludes gets no index on
 // Vercel and silently does nothing (/api/intake/sourced-questions, caught
 // before release 2026-10-05).
-const ROUTES = ["small-claims/analyze", "civil/analyze", "family/analyze", "law/explain", "intake/sourced-questions"];
+const ROUTES = ["small-claims/analyze", "civil/analyze", "family/analyze", "law/explain", "intake/sourced-questions", "assistant/law"];
 const MUST_SHIP = [
   "docs/sources/retrieval/corpus-index.json",
   "docs/sources/retrieval/corpus-vectors.bin",

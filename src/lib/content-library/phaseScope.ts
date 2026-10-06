@@ -229,3 +229,16 @@ export function sourcedQuestionsEnabled(
 ): boolean {
   return env.SOURCED_QUESTIONS !== "off" && aiAnalysisTextToUsers(env) && researchStepEnabled(env);
 }
+
+/**
+ * "The law on your question" in the Court Assistant
+ * (retrieval/researchQuestion.ts, /api/assistant/law): each question the
+ * person asks is researched and answered with the provisions' own words and
+ * verified quotes. Its own switch: ASSISTANT_LAW=off. It shows provisions,
+ * so it also follows APPLIED_LAW, and it needs the research step.
+ */
+export function assistantLawEnabled(
+  env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+): boolean {
+  return env.ASSISTANT_LAW !== "off" && appliedLawEnabled(env) && researchStepEnabled(env);
+}
