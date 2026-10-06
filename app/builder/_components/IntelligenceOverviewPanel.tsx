@@ -307,6 +307,9 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
   // null for (Family/Civil, or a Small Claims story matching none of the 19
   // CLAIM_TYPES entries yet), same as courtPoints.
   const commonDefences: SourcedListItem[] = claimTypeContent ? claimTypeContent.commonDefences : [];
+  // Law the research already showed is not quoted a second time below.
+  const researchedIds = new Set((analysis.research?.findings ?? []).flatMap((finding) => finding.provisions.map((provision) => provision.id)));
+  const lawNotAlreadyShown = (analysis.appliedLaw ?? []).filter((item) => !researchedIds.has(item.id));
   // 2026-09-28. Labelled rows instead of one run-on paragraph that ended with
   // the whole story pasted in. Values are still the user's own words, shown
   // as entered -- nothing is corrected or restated -- and the story sits
@@ -361,7 +364,8 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
       {(recordedEvidence.length > 0 || evidenceToOrganize.length > 0) && <Card title="Evidence and proof to organize">{recordedEvidence.length > 0 && <><h3 className="font-semibold">Files you have added</h3><ul className="mt-2 list-disc space-y-1 pl-5">{recordedEvidence.map((item) => <li key={item}>{item}</li>)}</ul></>}{evidenceToOrganize.length > 0 && <><h3 className={recordedEvidence.length ? "mt-5 font-semibold" : "font-semibold"}>Evidence to organize or confirm</h3><ul className="mt-2 list-disc space-y-1 pl-5">{evidenceToOrganize.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={publicSourceUrl(item.sourceUrl)} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></>}</Card>}
       {/* 2026-10-05: the provisions the analysis rests on, found by meaning-based retrieval and quote-checked. Verbatim text only; see AppliedLawPanel. */}
       {analysis.research && analysis.research.findings.length > 0 && <Card title="What we looked into"><ResearchPanel findings={analysis.research.findings} /></Card>}
-      {analysis.appliedLaw && analysis.appliedLaw.length > 0 && <Card title="The law behind this"><AppliedLawPanel items={analysis.appliedLaw} /></Card>}
+      {/* 2026-10-06: the same passage was quoted under "What we looked into" and again here (walkthrough: rule 7.01 three times on one page). Only what the research did not already show is listed. */}
+      {lawNotAlreadyShown.length > 0 && <Card title="The law behind this"><AppliedLawPanel items={lawNotAlreadyShown} /></Card>}
       {showStartingSteps && (
         <Card title="What the rules say about starting a Small Claims action">
           <p className="mb-3 text-sm leading-6 text-[#4d675f]">
