@@ -63,8 +63,17 @@ export function declarationFor(proposal: Proposal, requestedAs: string): CorpusS
   // September 1, 2010" is printed with an en dash in e-Laws and a hyphen in a
   // model's answer, and the marker check is exact (first run, 2026-10-05:
   // resolved to the right document, failed on the dash).
-  const title = (proposal.title || "").replace(/\s+/g, " ").trim().split(/\s[-–—]\s|,|\(/)[0].trim();
+  // A comma ends the title only where a citation follows it ("..., O. Reg.
+  // 34/10"): "Child, Youth and Family Services Act, 2017" was cut to "Child",
+  // and its title marker -- "CHILD" -- proved nothing (2026-10-05).
+  const title = (proposal.title || "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .split(/\s[-–—]\s|\(|,\s*(?=(?:R\.S\.O\.|S\.O\.|O\. Reg\.|R\.R\.O\.|R\.S\.C\.|S\.C\.|SOR\/|C\.R\.C\.|Part\s|Sched))/)[0]
+    .trim();
   if (title.length < 4) return { unresolved: "no title" };
+  // One word is not a title anyone could verify a document by.
+  if (!/\s/.test(title)) return { unresolved: "title too short to verify the document by" };
   const id = idFromTitle(title);
   if (proposal.jurisdiction === "ontario" && proposal.elawsCode && /^[0-9]{2}[a-z][0-9]{2}$|^[0-9]{6}$/.test(proposal.elawsCode)) {
     return {

@@ -1508,3 +1508,28 @@ not under Justice Laws `acts/` or `regulations/`; `Const` is the path.
 
 Any other page that prints several instruments together needs the same
 treatment. The sign is a pinpoint far past the instrument's last section.
+
+### Supreme Court judgments: the text is in the frame, `index.do?iframe=true` (2026-10-05)
+
+`decisions.scc-csc.ca/scc-csc/scc-csc/en/item/<id>/index.do` is a 35 KB page
+shell: the judgment is loaded into an iframe whose source is the same URL with
+`?iframe=true`. Fetch that (Fetch Decisions workflow) and convert the HTML to
+text with every tag removed (the line-by-line `sed` in fetchDecisionPages.sh
+leaves multi-line `<p style=...>` fragments in the text). Lexum marks the
+author with a `//Name J.//` line that must be dropped, or the decision
+chunker does not see the majority's heading. Older judgments number
+paragraphs `1 Text` rather than `[1] Text`; rewrite only where the numbers run
+in sequence. The search page (`/scc-csc/en/d/s/index.do?cont="<name>"`) lists
+each hit's `item/<id>` with its citation on the next lines.
+
+Two chunker bugs this found, both fixed in decisionChunker.ts: the heading
+window took "the judgment of the Court of Appeal" in the paragraph above a
+heading for "The judgment of the Court" (99 judges), so a one-judge
+concurrence outranked the majority (WIC Radio, Moge); and the author-line
+pattern used `\w`, so "L'Heureux‑Dubé J." and "Côté J. (dissenting)" were not
+recognised -- Barendregt had been keeping Côté J.'s partial dissent. No
+earlier decision's passages changed.
+
+Not found by the search and not added: Hunter v. Southam (the search for the
+name returned other s. 8 cases; the Charter's own s. 8 is in the library) and
+Wastech (no hits; Bhasin and Callow are held).
