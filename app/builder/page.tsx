@@ -45,7 +45,6 @@ import {
 import StageConfirmation from "./_components/StageConfirmation";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "../../src/lib/case-system/drafts/respondingDocumentDraft";
-import NextStepsCard from "./_components/NextStepsCard";
 import { originatingDocumentRecorded, userIsResponding } from "./_components/respondingSide";
 import { readCasePosition, storyHintsForDates, suggestedDatesFromAnswers, type SuggestedDate } from "../../src/lib/case-system/casePosition";
 import { suggestedNoticeStep } from "../../src/lib/case-system/claim-types/noticeStep";
@@ -1611,9 +1610,8 @@ function BuilderPageContent() {
             />
 
             {/* Civil and family: the stage's written overview first, then the exact step with its deadlines and rules. */}
-            {confirmedStage && (courtPath === "family" || courtPath === "civil") ? (
-              <NextStepsCard pathway={courtPath} stage={confirmedStage} userWords={userWordsOf(caseData)} />
-            ) : null}
+            {/* The stage overview (NextStepsCard) repeated what the step answer
+                below says, for civil and family (page review, 2026-10-06). */}
             {confirmedStage ? (
               <StageAnswerPanel
                 courtPath={courtPath}

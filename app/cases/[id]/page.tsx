@@ -207,7 +207,12 @@ export default function CaseOverviewPage() {
           <h2 id="next-heading" className="text-xl font-bold text-[#10231f]">
             Your next step
           </h2>
-          {courtPath === "small-claims" ? (
+          {/* Every court now has written step answers (run-19), so the case page
+              shows the same panel as the builder -- with the dates the user
+              gave, counted. Civil and family showed only the stage overview
+              here, so a counted deadline never reached the case page (page
+              review, 2026-10-06). */}
+          {courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? (
             <StageAnswerPanel
               courtPath={courtPath}
               confirmedStage={confirmed}
