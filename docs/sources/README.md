@@ -658,3 +658,265 @@ Court of Justice's list of courthouse email addresses by region
 2026-09-30 by the Fetch Decisions workflow (run 36772144591), tags, scripts
 and HTML comments removed. 58 courthouses; source of
 `src/lib/content-library/courts/ocjCourthouses.json`.
+
+## Decisions added 2026-10-05 for the coverage gaps
+
+Each fetched by the CourtSimplified Fetch Decisions workflow from the court's own
+site (never CanLII), and read from the text saved here. Supreme Court judgments
+are read from the judgment frame (`index.do?iframe=true`) of the decision's page
+and converted to plain text (markup removed; paragraphs and their numbers kept;
+older judgments' bare paragraph numbers written as `[n]`, only where they run in
+sequence). "Retrieved for" names the question the decision was fetched for, not
+what it decides; nothing is said about any of them except in its own words.
+
+### `decisions/vancouver-city-v-ward-2010-SCC-27.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Vancouver (City) v. Ward*.
+- **Citation:** 2010 SCC 27, [2010] 2 S.C.R. 28
+- **Retrieved for:** damages for a breach of the Charter (s. 24 (1)).
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/7868/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/henry-v-british-columbia-2015-SCC-24.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Henry v. British Columbia (Attorney General)*.
+- **Citation:** 2015 SCC 24, [2015] 2 S.C.R. 214
+- **Retrieved for:** Charter damages for wrongful non-disclosure by prosecutors.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/15329/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/moore-v-british-columbia-education-2012-SCC-61.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Moore v. British Columbia (Education)*.
+- **Citation:** 2012 SCC 61, [2012] 3 S.C.R. 360
+- **Retrieved for:** what a discrimination claim must show.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/12680/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/saadati-v-moorhead-2017-SCC-28.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Saadati v. Moorhead*.
+- **Citation:** 2017 SCC 28, [2017] 1 S.C.R. 543
+- **Retrieved for:** recovery for mental injury in negligence.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/16664/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/rankin-v-jj-2018-SCC-19.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Rankin (Rankin’s Garage & Sales) v. J.J.*.
+- **Citation:** 2018 SCC 19, [2018] 1 S.C.R. 587
+- **Retrieved for:** whether a duty of care exists.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/17085/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/nelson-city-v-marchi-2021-SCC-41.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Nelson (City) v. Marchi*.
+- **Citation:** 2021 SCC 41, [2021] 3 S.C.R. 55
+- **Retrieved for:** negligence claims against public authorities.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/19036/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/hryniak-v-mauldin-2014-SCC-7.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Hryniak v. Mauldin*.
+- **Citation:** 2014 SCC 7, [2014] 1 S.C.R. 87
+- **Retrieved for:** summary judgment in Ontario.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/13427/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/pintea-v-johns-2017-SCC-23.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Pintea v. Johns*.
+- **Citation:** 2017 SCC 23, [2017] 1 S.C.R. 470
+- **Retrieved for:** self-represented litigants.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/16589/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/andrews-v-grand-and-toy-1978-2-SCR-229.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Andrews v. Grand & Toy Alberta Ltd.*.
+- **Citation:** [1978] 2 S.C.R. 229
+- **Retrieved for:** damages for personal injury.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/2587/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/snell-v-farrell-1990-2-SCR-311.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Snell v. Farrell*.
+- **Citation:** [1990] 2 S.C.R. 311
+- **Retrieved for:** proving causation.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/634/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/matthews-v-ocean-nutrition-2020-SCC-26.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Matthews v. Ocean Nutrition Canada Ltd.*.
+- **Citation:** 2020 SCC 26, [2020] 3 S.C.R. 64
+- **Retrieved for:** damages on dismissal without reasonable notice.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/18496/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/potter-v-nb-legal-aid-2015-SCC-10.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Potter v. New Brunswick Legal Aid Services Commission*.
+- **Citation:** 2015 SCC 10, [2015] 1 S.C.R. 500
+- **Retrieved for:** constructive dismissal.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/14677/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/dbs-v-srg-2006-SCC-37.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *D.B.S. v. S.R.G.; L.J.W. v. T.A.R.; Henry v. Henry; Hiemstra v. Hiemstra*.
+- **Citation:** 2006 SCC 37, [2006] 2 S.C.R. 231
+- **Retrieved for:** retroactive child support.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/2311/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/michel-v-graydon-2020-SCC-24.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Michel v. Graydon*.
+- **Citation:** 2020 SCC 24, [2020] 2 S.C.R. 763
+- **Retrieved for:** retroactive child support.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/18460/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/colucci-v-colucci-2021-SCC-24.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Colucci v. Colucci*.
+- **Citation:** 2021 SCC 24, [2021] 2 S.C.R. 3
+- **Retrieved for:** retroactively changing child support.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/18909/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/barendregt-v-grebliunas-2022-SCC-22.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Barendregt v. Grebliunas*.
+- **Citation:** 2022 SCC 22, [2022] 1 S.C.R. 517
+- **Retrieved for:** relocation of a child.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/19396/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/bracklow-v-bracklow-1999-1-SCR-420.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Bracklow v. Bracklow*.
+- **Citation:** [1999] 1 S.C.R. 420
+- **Retrieved for:** the bases of spousal support.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/1688/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/moge-v-moge-1992-3-SCR-813.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Moge v. Moge*.
+- **Citation:** [1992] 3 S.C.R. 813
+- **Retrieved for:** spousal support.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/946/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/miglin-v-miglin-2003-SCC-24.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Miglin v. Miglin*.
+- **Citation:** 2003 SCC 24, [2003] 1 S.C.R. 303
+- **Retrieved for:** spousal support where there is a separation agreement.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/2055/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/rick-v-brandsema-2009-SCC-10.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Rick v. Brandsema*.
+- **Citation:** 2009 SCC 10, [2009] 1 S.C.R. 295
+- **Retrieved for:** disclosure in negotiating separation agreements.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/6396/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/pointes-protection-2020-SCC-22.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *1704604 Ontario Ltd. v. Pointes Protection Association*.
+- **Citation:** 2020 SCC 22, [2020] 2 S.C.R. 587
+- **Retrieved for:** Courts of Justice Act s. 137.1 (motions to dismiss a lawsuit about expression on a matter of public interest).
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/18458/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/wic-radio-v-simpson-2008-SCC-40.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *WIC Radio Ltd. v. Simpson*.
+- **Citation:** 2008 SCC 40, [2008] 2 S.C.R. 420
+- **Retrieved for:** the defence of fair comment in defamation.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/5670/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/bce-v-1976-debentureholders-2008-SCC-69.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *BCE Inc. v. 1976 Debentureholders*.
+- **Citation:** 2008 SCC 69, [2008] 3 S.C.R. 560
+- **Retrieved for:** the oppression remedy.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/6238/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/miazga-v-kvello-estate-2009-SCC-51.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Miazga v. Kvello Estate*.
+- **Citation:** 2009 SCC 51, [2009] 3 S.C.R. 339
+- **Retrieved for:** malicious prosecution.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/7827/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/nelles-v-ontario-1989-2-SCR-170.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Nelles v. Ontario*.
+- **Citation:** [1989] 2 S.C.R. 170
+- **Retrieved for:** malicious prosecution and Crown immunity.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/499/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/vout-v-hay-1995-2-SCR-876.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Vout v. Hay*.
+- **Citation:** [1995] 2 S.C.R. 876
+- **Retrieved for:** proving a will and suspicious circumstances.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/1273/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-05 (Fetch Decisions runs 37397793266, 37397959991)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/jones-v-tsige-2012-ONCA-32.txt`
+
+- **What it is:** Court of Appeal for Ontario decision, *Jones v. Tsige*.
+- **Citation:** 2012 ONCA 32
+- **Retrieved for:** a civil claim for invasion of privacy.
+- **Retrieved from:** https://coadecisions.ontariocourts.ca/coa/coa/en/10962/1/document.do (case page item/10962); text by `pdftotext -layout`
+- **Downloaded:** 2026-10-05 (Fetch Decisions run 37397793266)
+- **Noted up:** no
+
+### `decisions/waksdale-v-swegon-2020-ONCA-391.txt`
+
+- **What it is:** Court of Appeal for Ontario decision, *Waksdale v. Swegon North America Inc.*.
+- **Citation:** 2020 ONCA 391
+- **Retrieved for:** termination clauses in employment contracts.
+- **Retrieved from:** https://coadecisions.ontariocourts.ca/coa/coa/en/18855/1/document.do (case page item/18855); text by `pdftotext -layout`
+- **Downloaded:** 2026-10-05 (Fetch Decisions run 37397793266)
+- **Noted up:** no

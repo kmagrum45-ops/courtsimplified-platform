@@ -1,0 +1,1722 @@
+                                           CITATION: Jones v. Tsige, 2012 ONCA 32
+                                                                  DATE: 20120118
+                                                                 DOCKET: C53577
+
+                     COURT OF APPEAL FOR ONTARIO
+
+
+               Winkler C.J.O., Sharpe J.A. & Cunningham A.C.J. (ad hoc)
+
+BETWEEN
+
+                                    Sandra Jones
+
+                                                                  Plaintiff (Appellant)
+
+                                         and
+
+                                    Winnie Tsige
+
+                                                               Defendant (Respondent)
+
+Christopher Du Vernet and Carlin McGoogan, for the appellant
+
+
+Alex Cameron and N. Melanson, for the respondent
+
+
+Heard: September 29, 2011
+
+On appeal from the judgment of Justice Kevin M.V. Whitaker of the Superior Court of
+Justice dated March 23, 2011, with reasons reported at 2011 ONSC 1475, 333 D.L.R.
+(4th) 566.
+
+
+Sharpe J.A.:
+
+[1]   Does Ontario law recognize a right to bring a civil action for damages for the
+
+invasion of personal privacy?
+                                         Page: 2
+
+
+
+[2]    In July 2009, the appellant, Sandra Jones, discovered that the respondent, Winnie
+
+Tsige, had been surreptitiously looking at Jones‟ banking records. Tsige and Jones did
+
+not know each other despite the fact that they both worked for the same bank and Tsige
+
+had formed a common-law relationship with Jones‟ former husband. As a bank
+
+employee, Tsige had full access to Jones‟ banking information and, contrary to the bank‟s
+
+policy, looked into Jones‟ banking records at least 174 times over a period of four years.
+
+[3]    The central issue on this appeal is whether the motion judge erred by granting
+
+summary judgment and dismissing Jones‟ claim for damages on the ground that Ontario
+
+law does not recognize the tort of breach of privacy.
+
+FACTS
+
+[4]    Jones and Tsige worked at different branches of the Bank of Montreal (“BMO”).
+
+Jones maintains her primary bank account there. Jones and Tsige did not know or work
+
+with each other. However, Tsige became involved in a relationship with Jones‟ former
+
+husband. For about four years, Tsige used her workplace computer to access Jones‟
+
+personal BMO bank accounts at least 174 times. The information displayed included
+
+transactions details, as well as personal information such as date of birth, marital status
+
+and address. Tsige did not publish, distribute or record the information in any way.
+
+[5]    Jones became suspicious that Tsige was accessing her account and complained to
+
+BMO. When confronted by BMO, Tsige admitted that she had looked at Jones‟ banking
+
+information, that she had no legitimate reason for viewing the information and that she
+                                          Page: 3
+
+
+
+understood it was contrary to BMO‟s Code of Business Conduct and Ethics and her
+
+professional responsibility. Tsige explained then, and maintains in this action, that she
+
+was involved in a financial dispute with the appellant‟s former husband and accessed the
+
+accounts to confirm whether he was paying child support to the appellant. Jones does not
+
+accept that explanation as she says it is inconsistent with the timing and frequency of
+
+Tsige‟s snooping.
+
+[6]    Tsige has apologized for her actions and insists that she has ceased looking at
+
+Jones‟ banking information. Tsige is contrite and embarrassed by her actions. BMO
+
+disciplined Tsige by suspending her for one week without pay and denying her a bonus.
+
+[7]    In her statement of claim, Jones asserts that her privacy interest in her confidential
+
+banking information has been “irreversibly destroyed” and claims damages of $70,000
+
+for invasion of privacy and breach of fiduciary duty, and punitive and exemplary
+
+damages of $20,000.
+
+1. Motions for summary judgment
+[8]    Jones proceeded under the simplified procedure of Rule 76 of the Rules of Civil
+
+Procedure, R.R.O. 1990, Reg. 194, and moved for summary judgment. Tsige brought a
+
+cross-motion for summary judgment to dismiss the action.
+
+[9]    The motion judge found that Tsige did not owe Jones a fiduciary obligation and
+
+dismissed that claim. Jones has not appealed that finding.
+
+[10]   The motion judge then reviewed the jurisprudence concerning the existence of a
+
+tort of invasion of privacy. He observed that recent Superior Court decisions have refused
+                                        Page: 4
+
+
+
+to strike out such claims at the pleading stage and that some academic writing indicates
+
+that that the tort may exist.
+
+[11]   The motion judge concluded, however, that the statement of Cronk J.A. in
+
+Euteneier v. Lee (2005), 77 O.R. (3d) 621 (C.A.), leave to appeal refused, [2005]
+
+S.C.C.A. No. 516, at para. 63, is, in his words, “binding and dispositive of the question”
+
+of whether the tort of invasion of privacy exists at common law in Ontario. Euteneier
+
+concerned a lawsuit brought by a woman whose clothes were forcibly removed by police
+
+following her suicide attempt while she was detained in a holding cell. In considering
+
+whether the trial judge had accurately described the plaintiff‟s privacy and dignity
+
+interests, Cronk J.A. observed, at para. 63, “[the plaintiff] properly conceded in oral
+
+argument before this court that there is no „free-standing‟ right to dignity or privacy
+
+under the Charter or at common law.”
+
+[12]   The motion judge added that given the existence of privacy legislation protecting
+
+certain rights, any expansion of those rights should be dealt with by statute rather than
+
+common law.
+
+[13]   The motion judge dismissed Jones‟ motion for summary judgment and granted the
+
+motion brought by Tsige. He rejected Jones‟ submission that costs should be denied on
+
+the ground that the issue was novel and that Tsige‟s conduct was objectionable. The
+
+motion judge felt that Jones had pursued the litigation aggressively and failed to accept
+
+reasonable settlement offers. He awarded costs fixed at $35,000.
+                                          Page: 5
+
+
+
+ISSUES
+
+[14]   Jones appeals to this court, raising the following issues:
+
+       1. Did the motion judge err in holding that Ontario law does not
+          recognize a cause of action for invasion of privacy?
+
+       2. Did the motion judge err with respect to costs?
+
+ANALYSIS
+
+Issue 1. Does Ontario law recognize a cause of action for invasion of privacy?
+
+a) Introduction
+[15]   The question of whether the common law should recognize a cause of action in
+
+tort for invasion of privacy has been debated for the past one hundred and twenty years.
+
+Aspects of privacy have long been protected by causes of action such as breach of
+
+confidence, defamation, breach of copyright, nuisance, and various property rights.
+
+Although the individual‟s privacy interest is a fundamental value underlying such claims,
+
+the recognition of a distinct right of action for breach of privacy remains uncertain. As
+
+Adams J. stated in Ontario (Attorney General) v. Dieleman (1994), 117 D.L.R. (4th) 449
+
+(Ont. Gen. Div.) at p. 688, after a comprehensive review of the case law, “invasion of
+
+privacy in Canadian common law continues to be an inceptive, if not ephemeral, legal
+
+concept, primarily operating to extend the margins of existing tort doctrine.”
+
+[16]   Canadian, English and American courts and commentators almost invariably take
+
+the seminal articles of S.D. Warren & L.D. Brandeis, “The Right to Privacy” (1890) 4
+
+Harv. L. R. 193 and William L. Prosser, “Privacy” (1960), 48 Cal. L. R. 383 as their
+
+starting point.
+                                              Page: 6
+
+
+
+[17]   Warren and Brandeis argued for the recognition of a right of privacy to meet the
+
+problems posed by technological and social change that saw “instantaneous photographs”
+
+and “newspaper enterprise” invade “the sacred precincts of private life” (at p. 195). They
+
+identified the “general right of the individual to be let alone”, the right to “inviolate
+
+personality” (at p. 205), “the more general right to the immunity of the person” and “the
+
+right to one‟s personality” (at p. 207) as fundamental values underlying such well-known
+
+causes of action as breach of confidence, defamation and breach of copyright. They urged
+
+that open recognition of a right of privacy was well-supported by these underlying legal
+
+values and required to meet the changing demands of the society in which they lived.
+
+[18]   Professor Prosser‟s article picked up the threads of the American jurisprudence
+
+that had developed in the seventy years following the influential Warren and Brandeis
+
+article. Prosser argued that what had emerged from the hundreds of cases he canvassed
+
+was not one tort, but four, tied together by a common theme and name, but comprising
+
+different elements and protecting different interests. Prosser delineated a four-tort
+
+catalogue, summarized as follows, at p. 389:
+
+
+       1. Intrusion upon the plaintiff‟s seclusion or solitude, or into his private affairs.
+
+
+       2. Public disclosure of embarrassing private facts about the plaintiff.
+
+       3. Publicity which places the plaintiff in a false light in the public eye.
+
+       4. Appropriation, for the defendant‟s advantage, of the plaintiff‟s name or likeness.
+                                           Page: 7
+
+
+
+[19]   Most American jurisdictions now accept Prosser‟s classification and it has also
+
+been adopted by the Restatement (Second) of Torts (2010). The tort that is most relevant
+
+to this case, the tort of “intrusion upon seclusion”, is described by the Restatement, at §
+
+652B as:
+
+              One who intentionally intrudes, physically or otherwise, upon
+              the seclusion of another or his private affairs or concerns, is
+              subject to liability to the other for invasion of his privacy, if
+              the invasion would be highly offensive to a reasonable
+              person.
+
+[20]   The comment section of the Restatement elaborates this proposition and explains
+
+that the tort includes physical intrusions into private places as well as listening or
+
+looking, with or without mechanical aids, into the plaintiff‟s private affairs. Of particular
+
+relevance to this appeal, is the observation that other non-physical forms of investigation
+
+or examination into private concerns may be actionable. These include opening private
+
+and personal mail or examining a private bank account, “even though there is no
+
+publication or other use of any kind” of the information obtained.
+
+[21]   If Jones has a right of action, it falls into Prosser‟s first category of intrusion upon
+
+seclusion. While I will make some reference to the fourth category of appropriation of the
+
+plaintiff‟s name or likeness in my discussion below, I will focus primarily on intrusion
+
+upon seclusion. I do so for two reasons. First, I accept Prosser‟s insight that the general
+
+right to privacy embraces four distinct torts, each with its own considerations and rules,
+
+and that confusion may result from a failure to maintain appropriate analytic distinctions
+
+between the categories. Second, as a court of law, we should restrict ourselves to the
+                                           Page: 8
+
+
+
+particular issues posed by the facts of the case before us and not attempt to decide more
+
+than is strictly necessary to decide that case. A cause of action of any wider breadth
+
+would not only over-reach what is necessary to resolve this case, but could also amount
+
+to an unmanageable legal proposition that would, as Prosser warned, breed confusion and
+
+uncertainty.
+
+[22]   The following discussion will examine whether the common law recognizes a
+
+cause of action for invasion of privacy. I will canvass case law from Ontario and other
+
+provinces and examine federal and provincial legislation relating to privacy. For
+
+completeness, I will also discuss the state of the law in foreign jurisdictions.
+
+b) Case law
+[23]   Reflecting on Canadian jurisprudence, Allen M. Linden and Bruce Feldthusen,
+
+Canadian Tort Law, 9th ed. (Toronto: LexisNexis, 2011) observed at p. 59, that “[w]e
+
+seem to be drifting closer to the American model.” See also Colin H.H. McNairn and
+
+Alexander K. Scott, Privacy Law in Canada (Toronto: Butterworths, 2001) at ch. 3;
+
+Barbara McIsaac, Rick Shields and Kris Klein, The Law of Privacy in Canada, looseleaf
+
+(Toronto: Carswell, 2000) at 2.4; Philip Osborne, The Law of Torts, 4th ed. (Toronto:
+
+Irwin Law, 2011) at pp. 267-71.
+
+[24]   My analysis of the case law supports the same conclusion: Ontario has already
+
+accepted the existence of a tort claim for appropriation of personality and, at the very
+
+least, remains open to the proposition that a tort action will lie for an intrusion upon
+
+seclusion.
+                                          Page: 9
+
+
+
+       i) Ontario case law
+[25]   In Canada, there has been no definitive statement from an appellate court on the
+
+issue of whether there is a common law right of action corresponding to the intrusion on
+
+seclusion category. Ontario trial judges have, however, often refused to dismiss such
+
+claims at the pleading stage as disclosing no cause of action and some have awarded
+
+damages for claims based on violations of the right to be free of intrusion upon seclusion.
+
+The clear trend in the case law is, at the very least, to leave open the possibility that such
+
+a cause of action does exist.
+
+[26]   Saccone v. Orr (1981), 34 O.R. (2d) 317 (Co. Ct.), for example, involved the
+
+recording of a private conversation without the knowledge or consent of the plaintiff. The
+
+recording was then played at a municipal council meeting and a transcript of the
+
+conversation published in a local newspaper. Jacob Co. Ct. J. dismissed the defendant‟s
+
+argument against the existence of a tort of invasion of privacy, found in favour of the
+
+plaintiff and awarded damages of $500.
+
+[27]   Roth v. Roth (1991), 4 O.R. (3d) 740 (Gen. Div) involved interference with the
+
+plaintiffs‟ ability to use and enjoy their cottage property. Mandel J. considered the
+
+application of several torts – assault, battery, nuisance and trespass – but found that the
+
+cumulative effect of the defendants‟ actions could best be described as an invasion of
+
+privacy. He rejected the contention that the common law did not allow for a claim for
+
+invasion of privacy and held, at p. 743, that the common law should not be confined to
+
+existing categories but must evolve. In recognizing the right of privacy, Mandel J. quoted
+                                           Page: 10
+
+
+
+a passage from a leading torts text indicating that liability for breach of privacy should
+
+only be imposed where the intrusion is substantial and would be regarded as offensive
+
+and intolerable to a person of reasonable sensitivity. He then stated, at p. 758, “whether
+
+the invasion of privacy of an individual will be actionable will depend on the
+
+circumstances of the particular case and the conflicting rights involved.”
+
+[28]   A third trial judgment to award damages for breach of privacy falls under
+
+Prosser‟s fourth category of appropriation of the plaintiff‟s name or likeness. Athans v.
+
+Canadian Adventure Camps Ltd. (1977), 17 O.R. (2d) 425 (H.C.J.) involved a claim by
+
+an expert water-skier against a public relations firm that had copied a distinctive
+
+photograph of the plaintiff water skiing. Henry J. relied on Krouse v. Chrysler (1973), 1
+
+O.R. (2d) 225 (Ont. C.A.) in which Estey J.A. had suggested that an action in tort for the
+
+appropriation of personality did exist under the common law of Ontario. Henry J. held
+
+that the plaintiff failed to make out the tort of passing off, but did have a claim for the tort
+
+of “appropriation of personality”. The plaintiff recovered damages measured by the
+
+amount the plaintiff ought reasonably to have received in the market for permission to
+
+use his image.
+
+[29]   There are also several Ontario cases in which the trial judge refused to strike
+
+pleadings alleging the tort of invasion of privacy as disclosing no cause of action.
+
+[30]   Somwar v. McDonald’s Restaurants of Canada Ltd. (2006), 79 O.R. (3d) 172
+
+(S.C.) contains perhaps the most coherent and definitive pronouncement in Ontario
+                                         Page: 11
+
+
+
+jurisprudence of the existence of a common law tort of invasion of privacy corresponding
+
+to the intrusion upon seclusion category. Somwar accused his employer, McDonald‟s
+
+Restaurants, of unlawfully invading his privacy by conducting a credit bureau check on
+
+him without his consent. The plaintiff claimed damages for invasion of privacy and for
+
+punitive damages. The defendant moved to strike the statement of claim and dismiss the
+
+plaintiff‟s action on the basis that it did not disclose a reasonable cause of action under
+
+rule 21.01(1)(b) of the Rules of Civil Procedure.
+
+[31]   Stinson J. reviewed the Ontario case law and observed that while the cases were
+
+not entirely consistent, even where the courts did not accept the existence of a privacy
+
+tort, they rarely went so far as to rule out the potential of such a tort. The body of case
+
+law, together with the recognition by the Supreme Court of Canada of the protection of
+
+privacy under s.8 of the Canadian Charter of Rights and Freedoms led him to conclude
+
+at para. 29 and 31:
+
+              With advancements in technology, personal data of an
+              individual can now be collected, accessed (properly and
+              improperly) and disseminated more easily than ever before.
+              There is a resulting increased concern in our society about the
+              risk of unauthorized access to an individual's personal
+              information. The traditional torts such as nuisance, trespass
+              and harassment may not provide adequate protection against
+              infringement of an individual's privacy interests. Protection of
+              those privacy interests by providing a common law remedy
+              for their violation would be consistent with Charter values
+              and an "incremental revision" and logical extension of the
+              existing jurisprudence.
+
+              …
+                                          Page: 12
+
+
+
+              Even if the plaintiff's claim for invasion of privacy were
+              classified as "novel" (which, in any event, is not a proper
+              basis for dismissing it), the foregoing analysis leads me to
+              conclude that the time has come to recognize invasion of
+              privacy as a tort in its own right. It therefore follows that it is
+              neither plain nor obvious that the plaintiff's action cannot
+              succeed on the basis that he has not pleaded a reasonable
+              cause of action.
+
+[32]   Somwar was followed in Nitsopoulos v. Wong (2008) 298 D.L.R. (4th) 265 (Ont.
+
+S.C.). See also Capan v. Capan (1980), 14 C.C.L.T. 191 (Ont. H.C.); Lipiec v. Borsa
+
+(1996), 31 C.C.L.T. (2d) 294 (Ont. Gen. Div.); Shred-Tech Corp. v. Viveen, 2006
+
+CarswellOnt 7762 (Ont. S.C.) at para. 30. Compare Haskett v. Trans Union of Canada
+
+Inc. (2002), 10 C.C.L.T. (3d) 128 (Ont. S.C.).
+
+       ii) Provincial case law
+[33]   While there appears to be no appellate decision from another province definitively
+
+establishing a common law right of action for intrusion upon seclusion, dicta in at least
+
+two cases support the idea. In Motherwell v. Motherwell (1976), 73 D.L.R. (3d) 62 (Alta.
+
+S.C. App. Div.), a case involving harassing telephone calls, the court held the plaintiff
+
+had a right of action in nuisance but added, at para. 25, that “the interests of our
+
+developing jurisprudence would be better served by approaching invasion of privacy by
+
+abuse of the telephone system as a new category, rather than seeking by rationalization to
+
+enlarge” the existing categories of nuisance.
+
+[34]   The issue in Dyne Holdings Ltd. v. Royal Insurance Co. of Canada (1996), 135
+
+D.L.R. (4th) 142, leave to appeal to S.C.C. refused, [1996] S.C.C.A. No. 344, was an
+
+insurer‟s duty to defend. One aspect of the claim arguably amounted to an invasion of
+                                         Page: 13
+
+
+
+privacy akin to the category of intrusion upon exclusion. After a review of the
+
+jurisprudence, Carruthers C.J. observed, at p. 160: “the courts in Canada are not far from
+
+recognizing a common law right to privacy if they have not already done so. It is also
+
+clear that Canadian courts do not hesitate to protect privacy interests under some
+
+recognized tort.”
+
+       iii) Euteneier v. Lee
+[35]   This brings me to Euteneier v. Lee, and the statement from the case that the
+
+motion judge here found to be dispositive. In my respectful view, the motion judge‟s
+
+reliance on Euteneier for the proposition Ontario law excludes any and all claims for
+
+breach of privacy interests was misplaced. The plaintiff in Euteneier had been arrested
+
+and detained on criminal charges. She complained of her treatment while in police
+
+custody and sought damages for negligence, assault, civil conspiracy, and breach of her
+
+ss. 7, 9, 12, and 15 rights under the Charter. The trial judge found that based on the
+
+appellant‟s own behaviour while in custody, which included an apparent suicide attempt,
+
+the defendant police officers had conducted themselves in a reasonable and prudent
+
+manner. They had breached no duty nor exhibited any bad faith or malice to ground any
+
+of the claims she had asserted and the claim was dismissed.
+
+[36]   The plaintiff‟s first appeal was to the Divisional Court on account of the quantum
+
+of damages assessed by the trial judge: see Euteneier v. Lee (2003), 113 C.R.R. (2d) 44
+
+(Ont. Div. Ct.). The Divisional Court allowed the appeal in part. A new trial was ordered
+
+on the issue of whether, after disrobing the plaintiff to prevent her from continuing to use
+                                          Page: 14
+
+
+
+articles of clothing to hang herself, the police were negligent, committed assault, or
+
+breached the plaintiff‟s Charter rights “by confining her in the [holding cell] and by
+
+handcuffing her to its bars without taking steps to maintain her dignity or to prevent her
+
+humiliation.”
+
+[37]   The defendants appealed the order for a new trial to this court and the plaintiff
+
+cross-appealed seeking a new trial on all issues. This court allowed the appeal and
+
+dismissed the cross-appeal. Cronk J.A., writing for the court, held that the Divisional
+
+Court had failed to apply the proper standard of review with respect to the trial judge‟s
+
+factual findings. Of particular significance to the point at issue on this appeal is Cronk
+
+J.A.‟s observation, at paras. 47 and 56. She noted that the plaintiff did not plead that that
+
+the defendants owed her any duty to maintain her dignity and prevent her humiliation,
+
+and that any reference to her dignity or privacy interests were as particulars of other
+
+causes of action or as the consequences she alleged flowed from the actions of the
+
+defendants. Cronk J.A. held that the Divisional Court had erred in treating those
+
+allegations as stand-alone causes of action.
+
+[38]   Accordingly, it is clear from the context and from the words used that the passage
+
+at para. 63 relied on by the motion judge – “[the plaintiff] properly conceded in oral
+
+argument before this court that there is no „free standing‟ right to dignity or privacy under
+
+the Charter or at common law” – could not have been intended to express any dispositive
+
+or definitive opinion as to the existence of a tort claim for breach of a privacy interest. No
+                                         Page: 15
+
+
+
+such claim had been advanced by the plaintiff, no argument on that point was addressed
+
+by counsel, and in my view, no opinion on that point was expressed by this court.
+
+c) Charter Jurisprudence
+[39]   Charter jurisprudence identifies privacy as being worthy of constitutional
+
+protection and integral to an individual‟s relationship with the rest of society and the
+
+state. The Supreme Court of Canada has consistently interpreted the Charter’s s. 8
+
+protection against unreasonable search and seizure as protecting the underlying right to
+
+privacy. In Hunter v. Southam Inc., [1984] 2 S.C.R. 145, at p. 158-59, Dickson J. adopted
+
+the purposive method of Charter interpretation and observed that the interests engaged by
+
+s. 8 are not simply an extension of the concept of trespass, but rather are grounded in an
+
+independent right to privacy held by all citizens.
+
+[40]   In R. v. Dyment, [1988] 2 S.C.R. 417 at p. 427, La Forest J. characterized the s. 8
+
+protection of privacy as “[g]rounded in a man‟s physical and moral autonomy” and stated
+
+that “privacy is essential for the well-being of the individual. For this reason alone, it is
+
+worthy of constitutional protection, but it also has profound significance for the public
+
+order.” La Forest added, at p. 429:
+
+              In modern society, especially, retention of information about
+              oneself is extremely important. We may, for one reason or
+              another, wish or be compelled to reveal such information, but
+              situations abound where the reasonable expectations of the
+              individual that the information shall remain confidential to
+              the persons to whom, and restricted to the purposes for which
+              it is divulged, must be protected.
+                                           Page: 16
+
+
+
+[41]   Charter jurisprudence has recognized three distinct privacy interests: Dyment at
+
+pp. 428-9; R. v. Tessling, 2004 SCC 67, [2004] 3 S.C.R. 432, at paras. 19-23. The first
+
+two interests, personal privacy and territorial privacy, are deeply rooted in the common
+
+law. Personal privacy, grounded in the right to bodily integrity, protects “the right not to
+
+have our bodies touched or explored to disclose objects or matters we wish to conceal.”
+
+Territorial privacy protects the home and other spaces where the individual enjoys a
+
+reasonable expectation of privacy. The third category, informational privacy, is the
+
+interest at stake in this appeal. In Tessling, Binnie J. described it, at para. 23:
+
+               Beyond our bodies and the places where we live and work,
+               however, lies the thorny question of how much information
+               about ourselves and activities we are entitled to shield from
+               the curious eyes of the state (R. v. S.A.B., [2003] 2 S.C.R.
+               678, 2003 SCC 60). This includes commercial information
+               locked in a safe kept in a restaurant owned by the accused (R.
+               v. Law, [2002] 1 S.C.R. 227, 2002 SCC 10, at para. 16).
+               Informational privacy has been defined as “the claim of
+               individuals, groups, or institutions to determine for
+               themselves when, how, and to what extent information about
+               them is communicated to others”: A. F. Westin, Privacy and
+               Freedom (1970), at p. 7. Its protection is predicated on the
+               assumption that all information about a person is in a
+               fundamental way his own, for him to communicate or retain .
+               . . as he sees fit.
+               (Report of a Task Force established jointly by Department of
+               Communications/Department of Justice, Privacy and
+               Computers (1972), at p. 13).
+
+[42]   This characterization would certainly include Jones‟ claim to privacy in her
+
+banking records.
+                                         Page: 17
+
+
+
+[43]   In Hill v. Church of Scientology of Toronto, [1995] 2 S.C.R. 1130, Cory J.
+
+observed, at para. 121, that the right to privacy has been accorded constitutional
+
+protection and should be considered as a Charter value in the development of the
+
+common law tort of defamation. In Hill, Cory J. stated, at para. 121: “reputation is
+
+intimately related to the right to privacy which has been accorded constitutional
+
+protection.” See also R. v. O’Connor, [1995] 4 S.C.R. 411 at para. 113, per
+
+L‟Heureux-Dubé J.: identifying privacy as “an essential component of what it means to
+
+be „free‟.”
+
+[44]   The Charter treatment of privacy accords with art. 12 of the Universal
+
+Declaration of Human Rights, G.A. Res. 271(III), UNGAOR, 3d Sess., Supp. No. 13,
+
+UN. Doc. A/810 (1948) 71, which provides that “[n]o one shall be subjected to arbitrary
+
+interference with his privacy, home or correspondence” and proclaims that “[e]veryone
+
+has the right to the protection of the law against such interference or attacks”. Privacy is
+
+also recognized as a fundamental human right by art. 17 of the International Covenant on
+
+Civil and Political Rights, 19 December 1966, 999 U.N.T.S. 171.
+
+[45]   While the Charter does not apply to common law disputes between private
+
+individuals, the Supreme Court has acted on several occasions to develop the common
+
+law in a manner consistent with Charter values: see R.W.D.S.U. v. Dolphin Delivery Ltd.,
+
+[1986] 2.S.C.R. 573 at 603; R. v. Salituro, [1991] 3 S.C.R. 654, at pp. 666 and 675; Hill
+
+v. Scientology at p. 1169; R.W.D.S.U., Local 558 v. Pepsi-Cola Canada Beverages (West)
+                                        Page: 18
+
+
+
+Ltd., 2002 SCC 8, [2002] 1 S.C.R. 156; Grant v. Torstar Corp., 2009 SCC 61, [2009] 3
+
+S.C.R. 640.
+
+[46]   The explicit recognition of a right to privacy as underlying specific Charter rights
+
+and freedoms, and the principle that the common law should be developed in a manner
+
+consistent with Charter values, supports the recognition of a civil action for damages for
+
+intrusion upon the plaintiff‟s seclusion: see John D.R. Craig, “Invasion of Privacy and
+
+Charter Values: The Common Law Tort Awakens” (1997), 42 McGill L.J. 355.
+
+d) Legislation
+
+       i) Acts relating to Private Information
+[47]   The federal and Ontario governments have enacted a complex legislative
+
+framework addressing the issue of privacy. These include: Personal Information
+
+Protection and Electronic Documents Act, 2000, S.C. 2000, c. 5 (“PIPEDA”); Personal
+
+Health Information Protection Act, 2004, S.O. 2004, c. 3; Freedom of Information and
+
+Protection of Privacy Act, R.S.O. 1990, c. F.31; Municipal Freedom of Information and
+
+Protection of Privacy Act, R.S.O. 1990, c. M.56; Consumer Reporting Act, R.S.O. 1990,
+
+c. C.33
+
+[48]   Tsige argues that it is not open to this court to adapt the common law to deal with
+
+the invasion of privacy on the ground that privacy is already the subject of legislation in
+
+Ontario and Canada that reflects carefully considered economic and policy choices. It is
+
+submitted that expanding the reach of the common law in this area would interfere with
+                                         Page: 19
+
+
+
+these carefully crafted regimes and that any expansion of the law relating to the
+
+protection of privacy should be left to Parliament and the legislature.
+
+[49]   I am not persuaded that the existing legislation provides a sound basis for this
+
+court to refuse to recognize the emerging tort of intrusion upon seclusion and deny Jones
+
+a remedy. In my view, it would take a strained interpretation to infer from these statutes a
+
+legislative intent to supplant or halt the development of the common law in this area: see
+
+Robyn Bell, “Tort of Invasion of Privacy – Has its Time Finally Come?” in Archibald
+
+and Cochrane (eds.), Annual Review of Civil Litigation (Toronto: Thompson Carswell,
+
+2005) at p. 225.
+
+[50]   PIPEDA is federal legislation dealing with “organizations” subject to federal
+
+jurisdiction and does not speak to the existence of a civil cause of action in the province.
+
+While BMO is subject to PIPEDA, there are at least three reasons why, in my view, Jones
+
+should not be restricted to the remedy of a PIPEDA complaint against BMO. First, Jones
+
+would be forced to lodge a complaint against her own employer rather than against Tsige,
+
+the wrongdoer. Second, Tsige acted as a rogue employee contrary to BMO‟s policy and
+
+that may provide BMO with a complete answer to the complaint. Third, the remedies
+
+available under PIPEDA do not include damages and it is difficult to see what Jones
+
+would gain from such a complaint.
+
+[51]   The Ontario legislation essentially deals with freedom of information and the
+
+protection of certain private information with respect to government and other public
+                                        Page: 20
+
+
+
+institutions. Like PIPEDA, it has nothing to do with private rights of action between
+
+individuals.
+
+       ii) Provincial Privacy Acts
+[52]   Four common law provinces currently have a statutorily created tort of invasion of
+
+privacy: British Columbia, Privacy Act, R.S.B.C. 1996 c. 373; Manitoba, Privacy Act,
+
+R.S.M. 1987 c.P125; Saskatchewan, Privacy Act, R.S.S. 1978, c. P-24; and
+
+Newfoundland, Privacy Act, R.S.N. 1990, c.P-22. All four Privacy Acts are similar. They
+
+establish a limited right of action, whereby liability will only be found if the defendant
+
+acts wilfully (not a requirement in Manitoba) and without a claim of right. Moreover, the
+
+nature and degree of the plaintiff‟s privacy entitlement is circumscribed by what is
+
+“reasonable in the circumstances”.
+
+[53]   Under Quebec law, the right to privacy is explicitly protected both by arts. 3 and
+
+35-37 of the Civil Code of Quebec and by s. 5 of the Charter of Human Rights and
+
+Freedoms, R.S.Q. c. C-12. See Robbins v. Canadian Broadcasting Corp. (1957), 12
+
+D.L.R. (2d) 37 (Que. S.C.); Aubry v. Éditions Vice-Versa, [1998] 1 S.C.R. 591; H.
+
+Patrick Glenn “The Right to Privacy in Quebec Law” in Aspects Privacy Law: Essays in
+
+Honour of John M. Sharp, Dale Gibson ed. (Toronto: Butterworths, 1980) at ch. 3.
+
+[54]   Significantly, however, no provincial legislation provides a precise definition of
+
+what constitutes an invasion of privacy. The courts in provinces with a statutory tort are
+
+left with more or less the same task as courts in provinces without such statutes. The
+
+nature of these acts does not indicate that we are faced with a situation where sensitive
+                                         Page: 21
+
+
+
+policy choices and decisions are best left to the legislature. To the contrary, existing
+
+provincial legislation indicates that when the legislatures have acted, they have simply
+
+proclaimed a sweeping right to privacy and left it to the courts to define the contours of
+
+that right.
+
+e) Other Jurisdictions
+       i) United States
+[55]   As already indicated, most American states have recognized a right of action for
+
+invasion of privacy rights as defined by the four categories identified by Prosser and now
+
+adopted by the Restatement.
+
+[56]   Generally speaking, to make out cause of action for intrusion upon seclusion, a
+
+plaintiff must show:
+
+       1. an unauthorized intrusion;
+
+       2. that the intrusion was highly offensive to the reasonable person;
+
+       3. the matter intruded upon was private; and,
+
+       4. the intrusion caused anguish and suffering.
+
+
+See William Prosser, Law of Torts, 4th ed. (West Publishing Company, 1971) at p. 808-
+
+12.
+
+
+[57]   The first element indicates that the tort focuses on the act of intrusion, as opposed
+
+to dissemination or publication of information: Roe v. Cheyenne Mt. Conf. Resort, Inc.,
+
+124 F(3d) 1221 at 1236 (10th Cir. 1997). The focus of the court in determining whether
+                                        Page: 22
+
+
+
+this element is satisfied is on “the type of interest involved and not the place where the
+
+invasion occurs”: Evans v. Detlefsen, 857 F(2d) 330 at 338 (6th Cir. 1988).
+
+[58]   With regard to the second element, factors to be considered in determining
+
+whether a particular action is highly offensive include the degree of intrusion, the
+
+context, conduct and circumstances of the intrusion, the tortfeasor‟s motives and
+
+objectives and the expectations of those whose privacy is invaded: see J.D. Lee & Barry
+
+A. Lindahl, Modern Tort Law: Liability & Litigation, 2d ed., looseleaf (Thomson West,
+
+2002) at § 48:6.
+
+[59]   In determining the third element, the plaintiff must establish that the expectation
+
+of seclusion or solitude was objectively reasonable. The courts have adopted the two-
+
+prong test used in the application of the Fourth Amendment of the United States
+
+Constitution. The first step is demonstrating an actual subjective expectation of privacy,
+
+and the second step asks if that expectation is objectively reasonable: Katz v. United
+
+States, 389 U.S. 347 at 361 (1967).
+
+[60]   The fourth element has received considerably less attention as anguish and
+
+suffering are generally presumed once the first three elements have been established.
+
+       ii) Commonwealth Jurisdictions
+[61]   In England, privacy is expressly protected by art. 8 of the Convention for the
+
+Protection of Human Rights and Fundamental Freedoms, 4 November 1950, 213
+
+U.N.T.S. 221 at 223, incorporated by the Human Rights Act 1998 (UK), c. 42:
+
+“Everyone has the right to respect for his private and family life, his home and his
+                                         Page: 23
+
+
+
+correspondence.” However, the House of Lords held in Wainwright v. Home Office
+
+[2003] UKHL 53, [2003] 4 All E.R. 969 at para. 31, that while privacy may be “a value
+
+which underlies the existence of a rule of law (and may point the direction in which the
+
+law should develop)”, privacy is not “a principle of law in itself” capable of supporting a
+
+private law right if action for damages. Yet the next year, in Campbell v. MGN Ltd.
+
+[2004] UKHL 22, [2004] 2 A.C. 467, the House of Lords granted an injunction to restrain
+
+on grounds of breach of confidence publication of newspaper stories and photographs of
+
+a supermodel leaving a drug addiction treatment facility. Lord Hoffman held, in
+
+Campbell at para. 51, that the tort of breach of confidence had evolved into a form of
+
+privacy protection, described by the court as a tort of misuse of private information:
+
+              [T]he new approach takes a different view of the underlying
+              value which the law protects. Instead of the cause of action
+              being based upon the duty of good faith applicable to
+              confidential personal information and trade secrets alike, it
+              focuses upon the protection of human autonomy and dignity –
+              the right to control the dissemination of information about
+              one‟s private life and the right to the esteem and respect of
+              people.
+
+[62]   The reformulated action for breach of confidence has been held to embrace
+
+damages claims to protect privacy interests that would easily fall within the intrusion
+
+upon seclusion category: see Mosely v. News Group Newspapers Ltd. [2008] EWHC
+
+1777 (Q.B.) at para. 7: “[t]he law now affords protection to information in respect of
+
+which there is a reasonable expectation of privacy, even in circumstances where there is
+
+no pre-existing relationship giving rise of itself to an enforceable duty of confidence.”
+                                           Page: 24
+
+
+
+[63]   In Lenah Game Meats Pty Ltd v. Australian Broadcasting Corp., [2001] H.C.A.
+
+63, 185 ALR 1, the High Court of Australia expressly left the door open to the
+
+recognition of a common law right to privacy despite earlier authority to the contrary.
+
+This was applied in Grosse v. Purvis, [2003] Q.D.C. 151, Aust. Torts Reports 81-706,
+
+where the elements for the tort were found to be:
+
+       1. a willed act by the defendant;
+
+       2. which intrudes upon the privacy or seclusion of the plaintiff;
+
+       3. in a manner which would be considered highly offensive to a reasonable
+
+          person of ordinary sensibilities; and
+
+       4. which causes the plaintiff detriment in the form of mental, psychological or
+
+          emotional harm or distress or which prevents or hinders the plaintiff from
+
+          doing an act which she is lawfully entitled to do.
+
+[64]   In Hosking v. Runting, [2004] NZCA 34, the New Zealand Court of Appeal
+
+recognized a common law tort of breach of privacy that is separate and distinct from the
+
+tort of breach of confidence. Although the court dismissed the claim on the merits, the
+
+majority judgment confirmed the existence of a privacy tort in New Zealand dealing with
+
+wrongful publication of private facts to address publicity that is (at para. 26) “truly
+
+humiliating and distressful or otherwise harmful”. The elements of the tort were
+
+described at para. 109:
+                                         Page: 25
+
+
+
+               1. the existence of facts in respect of which there is a reasonable
+
+               expectation of privacy; and
+
+               2. the publicity given to those private facts must be considered highly
+
+               offensive to an objective reasonable person.
+
+2. Defining the tort of intrusion upon seclusion
+
+a) Introduction
+
+[65]   In my view, it is appropriate for this court to confirm the existence of a right of
+
+action for intrusion upon seclusion. Recognition of such a cause of action would amount
+
+to an incremental step that is consistent with the role of this court to develop the common
+
+law in a manner consistent with the changing needs of society.
+
+b) Rationale
+
+[66]   The case law, while certainly far from conclusive, supports the existence of such a
+
+cause of action. Privacy has long been recognized as an important underlying and
+
+animating value of various traditional causes of action to protect personal and territorial
+
+privacy. Charter jurisprudence recognizes privacy as a fundamental value in our law and
+
+specifically identifies, as worthy of protection, a right to informational privacy that is
+
+distinct from personal and territorial privacy. The right to informational privacy closely
+
+tracks the same interest that would be protected by a cause of action for intrusion upon
+
+seclusion. Many legal scholars and writers who have considered the issue support
+
+recognition of a right of action for breach of privacy: see e.g. P. Winfield, “Privacy”
+
+(1931), 47 L.Q.R. 23; D. Gibson, “Common Law Protection of Privacy: What to do Until
+                                        Page: 26
+
+
+
+the Legislators Arrive” in Lewis Klar (ed.), Studies in Canadian Tort Law (Toronto:
+
+Butterworths, 1977) 343; Robyn M. Ryan Bell, “Tort of Invasion of Privacy – Has its
+
+Time Finally Come?” in Todd Archibald & Michael Cochrane, Annual Review of Civil
+
+Litigation (Toronto: Thomson Carswell, 2005) 225; Peter Burns, “The Law and Privacy:
+
+the Canadian Experience” (1976), 54 Can. Bar Rev. 1; John D.R. Craig, “Invasion of
+
+Privacy and Charter Values: The Common Law Tort Awakens” (1997), 52 McGill L.J.
+
+355.
+
+[67]   For over one hundred years, technological change has motivated the legal
+
+protection of the individual‟s right to privacy. In modern times, the pace of technological
+
+change has accelerated exponentially. Legal scholars such as Peter Burns have written of
+
+“the pressing need to preserve „privacy‟ which is being threatened by science and
+
+technology to the point of surrender”: “The Law and Privacy: the Canadian Experience”
+
+at p. 1. See also Alan Westin, Privacy and Freedom (New York: Atheneum, 1967). The
+
+internet and digital technology have brought an enormous change in the way we
+
+communicate and in our capacity to capture, store and retrieve information. As the facts
+
+of this case indicate, routinely kept electronic data bases render our most personal
+
+financial information vulnerable. Sensitive information as to our health is similarly
+
+available, as are records of the books we have borrowed or bought, the movies we have
+
+rented or downloaded, where we have shopped, where we have travelled, and the nature
+
+of our communications by cell phone, e-mail or text message.
+                                              Page: 27
+
+
+
+[68]   It is within the capacity of the common law to evolve to respond to the problem
+
+posed by the routine collection and aggregation of highly personal information that is
+
+readily accessible in electronic form. Technological change poses a novel threat to a right
+
+of privacy that has been protected for hundreds of years by the common law under
+
+various guises and that, since 1982 and the Charter, has been recognized as a right that is
+
+integral to our social and political order.
+
+[69]   Finally, and most importantly, we are presented in this case with facts that cry out
+
+for a remedy. While Tsige is apologetic and contrite, her actions were deliberate,
+
+prolonged and shocking. Any person in Jones‟ position would be profoundly disturbed by
+
+the significant intrusion into her highly personal information. The discipline administered
+
+by Tsige‟s employer was governed by the principles of employment law and the interests
+
+of the employer and did not respond directly to the wrong that had been done to Jones. In
+
+my view, the law of this province would be sadly deficient if we were required to send
+
+Jones away without a legal remedy.
+
+c) Elements
+[70]   I would essentially adopt as the elements of the action for intrusion upon seclusion
+
+the Restatement (Second) of Torts (2010) formulation which, for the sake of convenience,
+
+I repeat here:
+
+                 One who intentionally intrudes, physically or otherwise, upon
+                 the seclusion of another or his private affairs or concerns, is
+                 subject to liability to the other for invasion of his privacy, if
+                 the invasion would be highly offensive to a reasonable
+                 person.
+                                         Page: 28
+
+
+
+[71]   The key features of this cause of action are, first, that the defendant‟s conduct
+
+must be intentional, within which I would include reckless; second that the defendant
+
+must have invaded, without lawful justification, the plaintiff‟s private affairs or concerns;
+
+and third, that a reasonable person would regard the invasion as highly offensive causing
+
+distress, humiliation or anguish. However, proof of harm to a recognized economic
+
+interest is not an element of the cause of action. I return below to the question of
+
+damages, but state here that I believe it important to emphasize that given the intangible
+
+nature of the interest protected, damages for intrusion upon seclusion will ordinarily be
+
+measured by a modest conventional sum.
+
+d) Limitations
+[72]   These elements make it clear that recognizing this cause of action will not open
+
+the floodgates. A claim for intrusion upon seclusion will arise only for deliberate and
+
+significant invasions of personal privacy. Claims from individuals who are sensitive or
+
+unusually concerned about their privacy are excluded: it is only intrusions into matters
+
+such as one‟s financial or health records, sexual practices and orientation, employment,
+
+diary or private correspondence that, viewed objectively on the reasonable person
+
+standard, can be described as highly offensive.
+
+[73]   Finally, claims for the protection of privacy may give rise to competing claims.
+
+Foremost are claims for the protection of freedom of expression and freedom of the press.
+
+As we are not confronted with such a competing claim here, I need not consider the issue
+
+in detail. Suffice it to say, no right to privacy can be absolute and many claims for the
+                                         Page: 29
+
+
+
+protection of privacy will have to be reconciled with, and even yield to, such competing
+
+claims. A useful analogy may be found in the Supreme Court of Canada‟s elaboration of
+
+the common law of defamation in Grant v. Torstar where the court held, at para. 65, that
+
+“[w]hen proper weight is given to the constitutional value of free expression on matters
+
+of public interest, the balance tips in favour of broadening the defences available to those
+
+who communicate facts it is in the public‟s interest to know.”
+
+3. Damages
+
+a) Introduction
+[74]   As I have indicated, proof of actual loss is not an element of the cause of action for
+
+intrusion upon seclusion. However, the question necessarily arises: what is the
+
+appropriate approach to damages in cases, like the present, where the plaintiff has
+
+suffered no pecuniary loss?
+
+[75]   Where the plaintiff has suffered no provable pecuniary loss, the damages fall into
+
+the category of what Professor Stephen M. Waddams, The Law of Damages, looseleaf ed.
+
+(Toronto: Canada Law Book, 2011) at para. 10.50 describes as “symbolic” and others
+
+have labeled as “moral” damages: see Dulude v. Canada (2000), 192 D.L.R. (4th) 714 at
+
+para. 30 (Fed. C.A.). They are awarded “to vindicate rights or symbolize recognition of
+
+their infringement”: Waddams, at para. 10.50. I agree with Prof. Waddams‟ observation
+
+that a conventional range of damages is necessary to maintain “consistency, predictability
+
+and fairness between one plaintiff and another.”
+                                         Page: 30
+
+
+
+[76]   Guidance in determining an appropriate range of damages can be gleaned from
+
+existing case law from Ontario as well as from the provinces where there is a statutory
+
+cause of action.
+
+b) Damages under Ontario case law
+[77]   Although the tort of intrusion upon exclusion has not been fully recognized in
+
+Ontario law, several cases award damages for invasion of privacy in conjunction with, or
+
+under the head of, a traditional tort such as nuisance or trespass. These claims typically
+
+involve intangible harm such as hurt feelings, embarrassment or mental distress, rather
+
+than damages for pecuniary losses. I attach, as Appendix A, a summary of these cases
+
+and the damages awarded and will briefly discuss the facts of some of those cases here.
+
+[78]   In Saccone v. Orr, the court found that the proven damages were minimal; the
+
+plaintiff had not lost his job or suffered any material loss. However, acknowledging that
+
+the plaintiff‟s privacy was invaded and that he was embarrassed and felt that his
+
+confidence had been betrayed, the court awarded damages in the amount of $500.
+
+Similarly, in Provincial Partitions Inc. v. Ashcor Inplant Structures Ltd. (1993), 50
+
+C.P.R. (3d) 497, (Ont. Gen. Div.), the judge found that the defendant committed the tort
+
+of nuisance by invasion of privacy through abuse of telephone communications when
+
+they called the plaintiff, a competitor company, dozens of times. The judge awarded only
+
+$500 against each defendant and because the defendants had already ceased placing the
+
+phone calls, the judge declined to provide injunctive relief.
+                                        Page: 31
+
+
+
+[79]   In Roth v. Roth, the plaintiff claimed $100,000 in damages for intimidation,
+
+harassment and invasion of privacy, in addition to approximately $400,000 in additional
+
+damages for other tortious acts. The judge found that because the various causes of action
+
+overlapped, damages were best addressed as a lump sum and that the plaintiff was
+
+entitled to aggravated damages. Despite the lack of evidence of actual physical or
+
+psychological harm, the plaintiff was awarded the sum of $20,000.
+
+[80]   MacKay v. Buelow (1995), 24 C.C.L.T. (2d) 184 (Ont. Gen. Div.) involved a
+
+family law dispute in which the defendant had harassed his ex-wife over a period of four
+
+months. He continuously called her, stalked her on several occasions, threatened to kill
+
+her, and threatened to kidnap their child and take her to another country. The trial judge
+
+found that the plaintiff was entitled to a remedy for the “calculated, devilishly creative
+
+and entirely reprehensible conduct by the defendant” and awarded $25,000 general
+
+damages, $15,000 aggravated damages, $15,000 punitive damages, together with special
+
+damages and a significant award for the future medical care she would require.
+
+
+
+
+c) Damages under provincial legislation
+
+[81]   The four provincial privacy acts do not require proof of damage as an element of
+
+the cause of action. The Manitoba Privacy Act, however, is the only statute that provides
+
+specific guidance with regard to the determination of damages:
+
+             Considerations in awarding damages
+                                         Page: 32
+
+
+
+              4(2) In awarding damages in an action for a violation of
+              privacy of a person, the court shall have regard to all the
+              circumstances of the case including
+
+                     (a) the nature, incidence and occasion of the act,
+                     conduct or publication constituting the violation
+                     of privacy of that person;
+                     (b) the effect of the violation of privacy on the
+                     health, welfare, social, business or financial
+                     position of that person or his family;
+                     (c) any relationship, whether domestic or
+                     otherwise, between the parties to the action;
+                     (d) any distress, annoyance or embarrassment
+                     suffered by that person or his family arising
+                     from the violation of privacy; and
+                     (e) the conduct of that person and the defendant,
+                     both before and after the commission of the
+                     violation of privacy, including any apology or
+                     offer of amends made by the defendant.
+
+[82]   The other provincial statutes leave this determination to judicial discretion. The
+
+case law, however, demonstrates that courts frequently consider the same factors
+
+enumerated in the Manitoba Act. Appendix B contains a summary of these cases, mostly
+
+from British Columbia.
+
+[83]   Absent proof of actual pecuniary loss, the awards are, for the most part, modest.
+
+For example, in Heckert v. 5470 Investments Ltd., 2008 BCSC 1298, 299 D.L.R. (4th)
+
+689, the judge noted that the only evidence regarding damages were “Ms. Heckert‟s
+
+general statements that she felt stressed and needed to see her chiropractor and
+
+acupuncturist for additional visits.” The judge still found that Ms. Heckert‟s landlord had
+
+invaded her privacy by installing close imaging cameras in the hallway outside of her
+                                         Page: 33
+
+
+
+door, but that the lack of medical evidence meant that the award could be not more than
+
+nominal damages of $3,500.
+
+[84]   Egregious conduct, however, has attracted awards of aggravated damages. In
+
+Watts v. Klaemt, 2007 BCSC 662, 71 B.C.L.R. (4th) 362, the plaintiff was terminated
+
+from her job when her next door neighbour, the defendant, recorded her phone calls and
+
+after discovering she was perpetrating fraud against her company, reported this to her
+
+employer. The plaintiff claimed general damages for emotional pain and suffering, loss of
+
+enjoyment of life and diminution of her reputation as well as punitive or exemplary
+
+damages for the invasion of privacy. In assessing the quantum of damages, the judge
+
+considered the degree to which the plaintiff‟s life was destroyed following the invasion of
+
+privacy - notably the termination of her employment, the need to seek psychological care
+
+for depression and post traumatic stress disorder – and weighed this against the plaintiff‟s
+
+own misconduct. The judge awarded $30,000 including aggravated damages for the
+
+“substantial degree of suffering experienced by the plaintiff”.
+
+[85]   The benchmark case for exemplary or punitive damages for an invasion of privacy
+
+under the British Columbia regime is Malcolm v. Fleming, [2000] CarswellBC 1316,
+
+(B.C.S.C.). The defendant, the plaintiff‟s landlord, installed a video camera in the
+
+plaintiff‟s apartment and recorded her in various stages of undress in her bathroom and
+
+bedroom. The judge awarded punitive damages of $35,000 in addition to $15,000 in
+
+general damages. In determining the figure for punitive damages the judge considered
+
+such factors as the intimate location of the invasion, the relationship between the parties
+                                         Page: 34
+
+
+
+as landlord and tenant as having a high expectation of privacy, the substantial
+
+premeditation and planning, the additional humiliation of discovery prior to trial, the fact
+
+that a permanent record of the violation existed creating the potential for future
+
+embarrassment and the fact that there was no other means of punishment as there was no
+
+criminal act perpetrated.
+
+[86]   Other cases have awarded punitive damages in consideration of society‟s
+
+abhorrence of the defendant‟s actions, a lack of remorse on the part of the defendant and
+
+the desire to promote specific deterrence: see Watts v. Klaemt; Lee v. Jacobson; Weber v.
+
+Jacobson (1992), 87 D.L.R. (4th) 401 (B.C. S.C.), rev‟d (1994), D.L.R. (4th) 155
+
+(B.C.C.A). In Hollinsworth v. BCTV (1996), 34 C.C.L.T. (2d) 95 (B.C. S.C.), aff‟d 1998
+
+B.C.C.A. 304, for example, the court assessed the plaintiff‟s damages for both breach of
+
+confidentiality and for the invasion of privacy at $15,000. The court there noted at para.
+
+27 that these damages were higher than usual for breaches of the Privacy Act in
+
+consideration of the “reprehensible conduct” of the defendant. In Hollinsworth the
+
+defendant lied to a reporter saying that he had consent to use a videotape of the plaintiff
+
+undergoing surgery to treat baldness. The video was then aired during a news broadcast.
+
+d) Determining the quantum of damages
+[87]   In my view, damages for intrusion upon seclusion in cases where the plaintiff has
+
+suffered no pecuniary loss should be modest but sufficient to mark the wrong that has
+
+been done. I would fix the range at up to $20,000. The factors identified in the Manitoba
+
+Privacy Act, which, for convenience, I summarize again here, have also emerged from
+                                          Page: 35
+
+
+
+the decided cases and provide a useful guide to assist in determining where in the range
+
+the case falls:
+
+       1. the nature, incidence and occasion of the defendant‟s wrongful act;
+
+       2. the effect of the wrong on the plaintiff‟s health, welfare, social, business or
+
+           financial position;
+
+       3. any relationship, whether domestic or otherwise, between the parties;
+
+       4. any distress, annoyance or embarrassment suffered by the plaintiff arising from
+
+           the wrong; and
+
+       5. the conduct of the parties, both before and after the wrong, including any
+
+           apology or offer of amends made by the defendant.
+
+[88]   I would neither exclude nor encourage awards of aggravated and punitive
+
+damages. I would not exclude such awards as there are bound to be exceptional cases
+
+calling for exceptional remedies. However, I would not encourage such awards as, in my
+
+view, predictability and consistency are paramount values in an area where symbolic or
+
+moral damages are awarded and absent truly exceptional circumstances, plaintiffs should
+
+be held to the range I have identified.
+
+3. Application to this case
+
+[89]   It is my view that in this case, Tsige committed the tort of intrusion upon seclusion
+
+when she repeatedly examined the private bank records of Jones. These acts satisfy the
+
+elements laid out above: the intrusion was intentional, it amounted to an unlawful
+                                        Page: 36
+
+
+
+invasion of Jones‟ private affairs, it would be viewed as highly offensive to the
+
+reasonable person and caused distress, humiliation or anguish.
+
+[90]   In determining damages, there are a number of factors to consider. Favouring a
+
+higher award is the fact that Tsige‟s actions were deliberate and repeated and arose from
+
+a complex web of domestic arrangements likely to provoke strong feelings and
+
+animosity. Jones was understandably very upset by the intrusion into her private financial
+
+affairs. On the other hand, Jones suffered no public embarrassment or harm to her health,
+
+welfare, social, business or financial position and Tsige has apologized for her conduct
+
+and made genuine attempts to make amends. On balance, I would place this case at the
+
+mid-point of the range I have identified and award damages in the amount of $10,000.
+
+Tsige‟s intrusion upon Jones‟ seclusion, this case does not, in my view, exhibit any
+
+exceptional quality calling for an award of aggravated or punitive damages.
+
+
+
+
+Issue 2. Did the motion judge err with respect to costs?
+[91]   As I would set aside the judgment in favour of Tsige and grant judgment in favour
+
+of Jones, it is not necessary for me to consider Jones‟ contention that the motion judge
+
+erred in his costs award.
+                                        Page: 37
+
+
+
+DISPOSITION
+
+[92]   Accordingly, I would allow the appeal, set aside the summary judgment
+
+dismissing the action and in its place substitute an order granting summary judgment in
+
+Jones‟ favour for damages in the amount of $10,000.
+
+[93]   Both parties have filed bills of costs asking for significant awards. In my view, it
+
+is appropriate to take into account the novel issue raised by this case which has clearly
+
+broken new ground. There is discretion to depart from the usual order in cases of novelty.
+
+In my view, in the unusual circumstances of this case, the parties should bear their own
+
+costs throughout and I would make no order as to costs.
+
+                                                                      “Robert J. Sharpe J.A.”
+                                                              “I agree W.K. Winkler C.J.O.”
+                                                          “I agree J.D. Cunningham A.C.J.”
+RELEASED: January 18, 2012
+Appendix A: Ontario damage awards
+
+                    Facts                     Details                  Remedy
+Saccone v. Orr      Played tape of private    Cause of action:         $500 – General
+(1981), 34 O.R.     telephone                 Invasion of privacy      Damages
+(2d) 317, (Ont. Co. conversation aloud at
+Ct.)                municipal council         Held: Defendant did
+                    meeting without           not act with malice
+                    counsel.                  and proven damages
+                                              were minimal.
+Provincial           Persistent crank calls   Cause of action:         $1000 – General
+Partitions Inc. v.   to rival business.       Nuisance by invasion     Damages
+Ashcor Inplant                                of privacy.
+Structures Ltd.
+(1993), 50 C.P.R.
+(3d) 497, (Ont.
+Gen. Div.)
+Palad v.             Harassment of           Cause of action:          $2,500 – General
+Pantaleon,           borrower in an          Invasion of privacy       Damages
+[1989] O.J. No.      attempt to collect on a
+985, (Ont. Dist.     debt.
+Ct.)
+Lipiec v. Borsa      Surveillance of    Causes of action:              $3,000 – General
+(1996), 31           backyard.          Trespass and                   Damages
+C.C.L.T. (2d) 294,                      nuisance by
+(Ont. Gen. Div.)                        deliberate invasion of
+                                        privacy
+S. & A. Nagy Farm Malicious attempt to  Causes of action:              $4,000 – General
+v. Repsys, [1987] persuade borrowers to Defamation and                 Damages
+O.J. No. 1987,    amend mortgage        invasion of privacy.           (Husband and
+(Ont. Dist. Ct.)  agreement by                                         Wife)
+                  embarrassing and
+                  harassing them.
+
+Roth v. Roth         Interference with        Causes of action:        $20,000 – General
+(1991) 9 C.C.L.T.    access to cottage and    Harassment, statutory    Damages
+(2d) 141, (Ont.      with enjoyment of        breach, trespass and     $5,000 –
+Gen. Div.)           property.                invasion of privacy`     Exemplary
+                                                                       Damages
+Garrett v.        Man harassed                Causes of action:        $25,000 – General
+Mikalachki [2000] neighbour, reducing         Defamation,              Damages
+O.J. No. 1326,    neighbour‟s                 intentional infliction
+                                       Page: 2
+
+
+
+(Ont. S.C.)        enjoyment of              of emotional distress,
+                   property, and spread      nuisance, invasion of
+                   rumours about the         privacy, harassment.
+                   neighbour‟s alleged
+                   criminal past.
+Tran v. Financial  Repeated abusive          Causes of action:        $25,000 – General
+Debt Recovery Ltd. calls to debtor and his   Defamation,              Damages
+(2000), 193 D.L.R. work colleagues           intentional
+(4th) 168 (Ont.    regarding repayment.      interference with
+S.C.)                                        economic interests,
+                                             intentional infliction
+                                             of emotional harm,
+                                             invasion of privacy
+MacKay v. Buelow    Stalked former           Causes of action:        $25,000 – General
+(1995), 24          spouse.                  invasion of privacy,     Damages
+C.C.L.T. (2d) 184                            trespass to person and   $15,000 –
+(Ont. Gen. Div.)                             intentional infliction   Aggravated
+                                             of mental suffering      Damages
+                                             and emotional            $15,000 –
+                                             distress                 Punitive Damages
+                                                                      $6,248 – Special
+                                             Held: Defendant‟s        Damages
+                                             actions were             $44,000 – Costs
+                                             “calculated,             of future care
+                                             devilishly creative
+                                             and entirely
+                                             reprehensible”.
+                                        Page: 3
+
+
+
+Appendix B: Damage awards under provincial privacy legislation
+
+                     Facts                                       Remedy
+Pateman et. al. v.   Woman harassed ex-boyfriend and his         Interlocutory injunction
+Ross (1988), 68      new wife with threatening phone calls,
+Mr. R. (2d) 181      letters and visits.
+(Man. Q.B.)
+Insurance Corp of    Insurance company investigator asked        $1,000 – General
+British Columbia     invasive questions about car driver after   Damages
+v. Somosh (1983),    accident, although the insurance
+51 B.C.L.R. 344      company had no claim at law against         $1,000 – Punitive
+(B.C.S.C.)           driver                                      Damages
+Wasserman v.         Claim for breach of privacy and             $3,500 – General
+Hall, 2009 BCSC      nuisance; breach was described as           Damages
+1318, 87 R.P.R.      “relatively minor”.
+(4th) 184
+Heckert v. 5470      Landlord placed a video camera in the       $3,500 – Nominal
+Investments Ltd.     hallway of the building. Held that there    Damages
+2008 BCSC 1298,      was no legitimate reason for close-up
+299 D.L.R. (4th)     imaging people immediately outside
+689.                 their apartment doors.
+Hollinsworth v.      Defendant released videotape of plaintiff   $15,000 – General
+BCTV (1996), 34      having hair transplant surgery and media    Damages
+C.C.L.T. (2d) 95     aired video.
+(B.C.S.C.), aff‟d
+1998 B.C.C.A.
+304.
+F. (J.M.) v.         Defendant published the name of             $3,000 – General
+Chappell, (1998)     complainant in sexual assault case in       Damages
+45 B.C.L.R. (3d)     breach of publication ban. Jury awarded
+64 (B.C.C.A.),       $19,000 in damages, but the judge           $15,000 – Punitive
+leave to appeal to   countenanced a defence of publication       Damages
+SCC refused,         privilege and reduced this to $1,000.
+(1998), 231 N.R.                                                 $1,000 Non-pecuniary
+400.                 Court of Appeal reinstated the jury         Damages
+                     award.
+Lee v. Jacobson;     Landlord drilled a secret hold to spy on    $2,000 – General
+Weber v. Jacobson    tenant.                                     Damages
+(1992), 87 D.L.R.
+(4th) 401 (B.C.      Note: Findings of fact were overturned.     $22,500 – Punitive
+S.C.), rev‟d                                                     Damages
+                                          Page: 4
+
+
+
+(1994), D.L.R.
+(4th) 155
+(B.C.C.A).
+Watts v. Klaemt       Defendant recorded the plaintiff‟s           $30,000 – Actual
+2007 BCSC 662,        telephone conversations and the reported     damages
+71 B.C.L.R. (4th)     the content to the plaintiff‟s employer.
+362.                  Plaintiff was then fired.                    $5,000 – Punitive
+                                                                   Damages
+Malcolm v.            Defendant landlord secretly videotaped       $15,000 – General
+Fleming, [2000]       plaintiff while she was in her bathroom      Damages
+CarswellBC 1316,      and bedroom.
+(B.C.S.C.)                                                         $35,000 – Punitive
+                                                                   Damages
+Nesbitt v. Neufeld,   Family dispute: defendant published          $40,000 – General
+2010 BCSC 1605,       private documents, started websites,         Damages
+[2011] B.C.W.L.D.     Facebook groups, sent letters to friends /
+407.                  colleagues / professional associations
+                      accusing her of drug abuse, suicide
+                      attempts, mental illness and sexual
+                      promiscuity.
+

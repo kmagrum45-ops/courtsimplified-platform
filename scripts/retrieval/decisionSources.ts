@@ -56,6 +56,24 @@ const onca = (id: string, title: string, citation: string, year: number, file: s
   readableUrl: `https://coadecisions.ontariocourts.ca/coa/coa/en/item/${item}/index.do`,
 });
 
+/*
+ * Read from the Court's own page (2026-10-05): the judgment text is in the
+ * frame at index.do?iframe=true, fetched by the Fetch Decisions workflow and
+ * converted to plain text (all markup removed, paragraphs and their numbers
+ * kept). The reader is linked to the judgment's page on the Court's site.
+ */
+const sccPage = (id: string, title: string, citation: string, year: number, file: string, item: number): DecisionSource => ({
+  id: `decision-${id}`,
+  kind: "decision",
+  court: "SCC",
+  title,
+  citation,
+  year,
+  path: `decisions/${file}`,
+  url: `https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/${item}/index.do`,
+  readableUrl: `https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/${item}/index.do`,
+});
+
 const pdfDerived = (base: string, html = false) => [`${base}.${html ? "html" : "english"}.txt`, `${base}.pdf`] as const;
 
 export const DECISION_SOURCES: DecisionSource[] = [
@@ -97,4 +115,36 @@ export const DECISION_SOURCES: DecisionSource[] = [
   onca("jesan", "Jesan Real Estate Ltd. v. Doyle", "2020 ONCA 714", 2020, "jesan-real-estate-v-doyle-2020-ONCA-714.txt", 19170),
   onca("jaffer", "Jaffer v. York University", "2010 ONCA 654", 2010, "jaffer-v-york-university-2010-ONCA-654.txt", 9970),
   onca("brake", "Brake v. PJ-M2R Restaurant Inc.", "2017 ONCA 402", 2017, "brake-v-pj-m2r-restaurant-2017-ONCA-402.txt", 15800),
+  // ---- 2026-10-05: leading decisions for the gaps the coverage test and
+  // the Court Assistant probe found (Charter damages, discrimination,
+  // retroactive child support, relocation, spousal support, agreements,
+  // anti-SLAPP, oppression, malicious prosecution, wills, privacy, ...).
+  sccPage("ward", "Vancouver (City) v. Ward", "2010 SCC 27", 2010, "vancouver-city-v-ward-2010-SCC-27.html.txt", 7868),
+  sccPage("henry", "Henry v. British Columbia (Attorney General)", "2015 SCC 24", 2015, "henry-v-british-columbia-2015-SCC-24.html.txt", 15329),
+  sccPage("moore-bc", "Moore v. British Columbia (Education)", "2012 SCC 61", 2012, "moore-v-british-columbia-education-2012-SCC-61.html.txt", 12680),
+  sccPage("saadati", "Saadati v. Moorhead", "2017 SCC 28", 2017, "saadati-v-moorhead-2017-SCC-28.html.txt", 16664),
+  sccPage("rankin", "Rankin (Rankin’s Garage & Sales) v. J.J.", "2018 SCC 19", 2018, "rankin-v-jj-2018-SCC-19.html.txt", 17085),
+  sccPage("marchi", "Nelson (City) v. Marchi", "2021 SCC 41", 2021, "nelson-city-v-marchi-2021-SCC-41.html.txt", 19036),
+  sccPage("hryniak", "Hryniak v. Mauldin", "2014 SCC 7", 2014, "hryniak-v-mauldin-2014-SCC-7.html.txt", 13427),
+  sccPage("pintea", "Pintea v. Johns", "2017 SCC 23", 2017, "pintea-v-johns-2017-SCC-23.html.txt", 16589),
+  sccPage("andrews", "Andrews v. Grand & Toy Alberta Ltd.", "[1978] 2 S.C.R. 229", 1978, "andrews-v-grand-and-toy-1978-2-SCR-229.html.txt", 2587),
+  sccPage("snell", "Snell v. Farrell", "[1990] 2 S.C.R. 311", 1990, "snell-v-farrell-1990-2-SCR-311.html.txt", 634),
+  sccPage("matthews", "Matthews v. Ocean Nutrition Canada Ltd.", "2020 SCC 26", 2020, "matthews-v-ocean-nutrition-2020-SCC-26.html.txt", 18496),
+  sccPage("potter", "Potter v. New Brunswick Legal Aid Services Commission", "2015 SCC 10", 2015, "potter-v-nb-legal-aid-2015-SCC-10.html.txt", 14677),
+  sccPage("dbs", "D.B.S. v. S.R.G.; L.J.W. v. T.A.R.; Henry v. Henry; Hiemstra v. Hiemstra", "2006 SCC 37", 2006, "dbs-v-srg-2006-SCC-37.html.txt", 2311),
+  sccPage("michel", "Michel v. Graydon", "2020 SCC 24", 2020, "michel-v-graydon-2020-SCC-24.html.txt", 18460),
+  sccPage("colucci", "Colucci v. Colucci", "2021 SCC 24", 2021, "colucci-v-colucci-2021-SCC-24.html.txt", 18909),
+  sccPage("barendregt", "Barendregt v. Grebliunas", "2022 SCC 22", 2022, "barendregt-v-grebliunas-2022-SCC-22.html.txt", 19396),
+  sccPage("bracklow", "Bracklow v. Bracklow", "[1999] 1 S.C.R. 420", 1999, "bracklow-v-bracklow-1999-1-SCR-420.html.txt", 1688),
+  sccPage("moge", "Moge v. Moge", "[1992] 3 S.C.R. 813", 1992, "moge-v-moge-1992-3-SCR-813.html.txt", 946),
+  sccPage("miglin", "Miglin v. Miglin", "2003 SCC 24", 2003, "miglin-v-miglin-2003-SCC-24.html.txt", 2055),
+  sccPage("rick", "Rick v. Brandsema", "2009 SCC 10", 2009, "rick-v-brandsema-2009-SCC-10.html.txt", 6396),
+  sccPage("pointes", "1704604 Ontario Ltd. v. Pointes Protection Association", "2020 SCC 22", 2020, "pointes-protection-2020-SCC-22.html.txt", 18458),
+  sccPage("wic-radio", "WIC Radio Ltd. v. Simpson", "2008 SCC 40", 2008, "wic-radio-v-simpson-2008-SCC-40.html.txt", 5670),
+  sccPage("bce", "BCE Inc. v. 1976 Debentureholders", "2008 SCC 69", 2008, "bce-v-1976-debentureholders-2008-SCC-69.html.txt", 6238),
+  sccPage("miazga", "Miazga v. Kvello Estate", "2009 SCC 51", 2009, "miazga-v-kvello-estate-2009-SCC-51.html.txt", 7827),
+  sccPage("nelles", "Nelles v. Ontario", "[1989] 2 S.C.R. 170", 1989, "nelles-v-ontario-1989-2-SCR-170.html.txt", 499),
+  sccPage("vout", "Vout v. Hay", "[1995] 2 S.C.R. 876", 1995, "vout-v-hay-1995-2-SCR-876.html.txt", 1273),
+  onca("jones-tsige", "Jones v. Tsige", "2012 ONCA 32", 2012, "jones-v-tsige-2012-ONCA-32.txt", 10962),
+  onca("waksdale", "Waksdale v. Swegon North America Inc.", "2020 ONCA 391", 2020, "waksdale-v-swegon-2020-ONCA-391.txt", 18855),
 ];
