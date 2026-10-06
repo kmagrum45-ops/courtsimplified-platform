@@ -333,6 +333,10 @@ export const DEADLINE_EVENTS = {
       "when a claim was discovered is decided under Limitations Act s. 5, not reported " +
       "as a fact, and computing a limitation date from a typed answer would be this " +
       "system applying the law to the reader's facts",
+    // Still never asked. Since 2026-10-06 (CLAUDE.md "guide like a lawyer",
+    // caseSpecificDeadlines in a2iScope.ts) the two-year date is counted from
+    // the INJURY date instead, under s. 5 (2)'s presumption and saying so --
+    // computedDeadline.ts, template "presumed-discovery-from-injury".
   },
   /*
    * *** THIS WAS THE ONE REAL WIRING GAP, AND IT WAS THE WORST ONE TO HAVE ***

@@ -66,7 +66,9 @@ export type DeadlineTemplateId =
   | "months-supplied-by-legislation-act-for-the-rules"
   | "uncertain-family-court-office-closure"
   // 2026-10-06 (page review): a counted date in the past read as still open.
-  | "computed-date-has-passed";
+  | "computed-date-has-passed"
+  // 2026-10-06: the two-year limit counted from an injury date, under the presumption.
+  | "presumed-discovery-from-injury";
 
 export type DeadlineTemplate = {
   id: DeadlineTemplateId;
@@ -237,6 +239,23 @@ export const DEADLINE_TEMPLATES: Record<DeadlineTemplateId, DeadlineTemplate> = 
    * today and nothing about what follows: the steps for a missed deadline are
    * their own answers, and what a court would do is never said here.
    */
+  /*
+   * The general two-year limit runs from the day a claim is discovered, which
+   * the Act decides (s. 5 (1)). It also PRESUMES that day is the day of the act
+   * or omission, unless the contrary is proved (s. 5 (2)). Counting from the
+   * injury date under that presumption -- and saying so, and that it can be
+   * displaced -- is applying the law to the person's facts, which CLAUDE.md's
+   * "guide like a lawyer" rule now asks for; behind caseSpecificDeadlines.
+   * Page review, 2026-10-06: the site owner's own ice-slip story (13 January
+   * 2025) never saw its last day to sue, 13 January 2027.
+   */
+  "presumed-discovery-from-injury": {
+    id: "presumed-discovery-from-injury",
+    text:
+      "The Limitations Act presumes you knew about your claim on the day it happened, unless " +
+      "you can prove you learned of it later. So this is counted from the date you gave for the injury.",
+    cites: C.S_LIMITATIONS_5_2_PRESUMPTION,
+  },
   "computed-date-has-passed": {
     id: "computed-date-has-passed",
     text:

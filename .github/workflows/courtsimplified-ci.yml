@@ -54,6 +54,9 @@ jobs:
       - name: The user's own words shown back, and story dates offered for deadlines
         run: npm run test:user-story
 
+      - name: Two-year limit counted from an injury under the s. 5 (2) presumption
+        run: npm run test:presumed-limitation
+
       - name: Written-notice step suggested before filing
         run: npm run test:notice-step
 

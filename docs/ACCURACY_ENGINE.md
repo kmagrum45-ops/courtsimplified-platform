@@ -2144,3 +2144,23 @@ say.
 Session limits: launching twenty authoring agents at once hit the account's
 usage limit and lost every in-flight agent's work; waves of five to seven
 completed without trouble.
+
+### Two-year limit counted from the injury, under the presumption (2026-10-06)
+
+The general two-year limit runs from the day a claim is "discovered", which
+Limitations Act s. 5 (1) decides and which the deadline engine deliberately
+never asks for (deadlineEvents.ts, `claim-discovered`). Under CLAUDE.md's
+"guide like a lawyer" rule and behind `caseSpecificDeadlines`, the date is now
+counted from the injury date under s. 5 (2)'s presumption ("presumed to have
+known ... on the day the act or omission ... took place, unless the contrary
+is proved"), and the prose says it is a presumption the person can displace
+(`presumed-discovery-from-injury`). `countFromDate` in computedDeadline.ts is
+the one place that decides this; verifyCasePosition uses it too.
+
+The three injury notice steps (municipal, Toronto, snow and ice on private
+property) now carry the two-year deadline as well as the notice deadline, as
+the vehicle-notice step already did. And any counted date before today says
+"That date has already passed" (`computed-date-has-passed`). Found by the page
+review of the site owner's own story: injured 13 January 2025, told "you have
+60 days" with no sign the time ended 14 March 2025, and never shown the last
+day to sue, 13 January 2027.

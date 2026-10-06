@@ -408,6 +408,23 @@ const BEFORE_FILING: CaseStage[] = [
         consequence: "bars-the-claim",
         exceptions: [C.S_MUNICIPAL_44_11_DEATH, C.S_MUNICIPAL_44_12_EXCUSE],
       },
+      // The general two-year limit too (page review, 2026-10-06): the
+      // notice step's prose mentioned it, but the site owner's ice-slip
+      // story never saw its date. Same entry as the vehicle-notice stage.
+      {
+        id: "deadline:basic-limitation",
+        what: "The general deadline to start a court case",
+        qualifier:
+          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.",
+        countFrom: "the day the claim was discovered",
+        countFromEvent: "claim-discovered",
+        length: { unit: "years", count: 2 },
+        regime: "legislation-act",
+        rule: C.S_LIMITATIONS_4_BASIC,
+        computation: C.S_LEGISLATION_89_6_MONTHS,
+        consequence: "bars-the-claim",
+        exceptions: [C.S_LIMITATIONS_5_DISCOVERY, C.S_LIMITATIONS_16_NONE],
+      },
     ],
   },
   {
@@ -451,6 +468,23 @@ const BEFORE_FILING: CaseStage[] = [
         computation: C.S_LEGISLATION_89_3_BETWEEN,
         consequence: "bars-the-claim",
         exceptions: [C.S_TORONTO_42_7_DEATH, C.S_TORONTO_42_8_EXCUSE],
+      },
+      // The general two-year limit too (page review, 2026-10-06): the
+      // notice step's prose mentioned it, but the site owner's ice-slip
+      // story never saw its date. Same entry as the vehicle-notice stage.
+      {
+        id: "deadline:basic-limitation",
+        what: "The general deadline to start a court case",
+        qualifier:
+          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.",
+        countFrom: "the day the claim was discovered",
+        countFromEvent: "claim-discovered",
+        length: { unit: "years", count: 2 },
+        regime: "legislation-act",
+        rule: C.S_LIMITATIONS_4_BASIC,
+        computation: C.S_LEGISLATION_89_6_MONTHS,
+        consequence: "bars-the-claim",
+        exceptions: [C.S_LIMITATIONS_5_DISCOVERY, C.S_LIMITATIONS_16_NONE],
       },
     ],
     /*
@@ -515,6 +549,23 @@ const BEFORE_FILING: CaseStage[] = [
         computation: C.S_LEGISLATION_89_3_BETWEEN,
         consequence: "bars-the-claim",
         exceptions: [C.S_OLA_6_1_5_DEATH, C.S_OLA_6_1_6_EXCUSE],
+      },
+      // The general two-year limit too (page review, 2026-10-06): the
+      // notice step's prose mentioned it, but the site owner's ice-slip
+      // story never saw its date. Same entry as the vehicle-notice stage.
+      {
+        id: "deadline:basic-limitation",
+        what: "The general deadline to start a court case",
+        qualifier:
+          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.",
+        countFrom: "the day the claim was discovered",
+        countFromEvent: "claim-discovered",
+        length: { unit: "years", count: 2 },
+        regime: "legislation-act",
+        rule: C.S_LIMITATIONS_4_BASIC,
+        computation: C.S_LEGISLATION_89_6_MONTHS,
+        consequence: "bars-the-claim",
+        exceptions: [C.S_LIMITATIONS_5_DISCOVERY, C.S_LIMITATIONS_16_NONE],
       },
     ],
   },

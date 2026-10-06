@@ -583,6 +583,13 @@ export const S_LIMITATIONS_5_DISCOVERY: RuleCitation = {
   quote: "A claim is discovered on the earlier of,",
 };
 
+export const S_LIMITATIONS_5_2_PRESUMPTION: RuleCitation = {
+  sourceId: "limitations-act-2002",
+  pinpoint: "s. 5 (2)",
+  quote:
+    "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved.",
+};
+
 export const S_MONETARY_LIMIT: RuleCitation = {
   sourceId: "oreg-626-00-monetary-jurisdiction",
   pinpoint: "s. 1 (1)",

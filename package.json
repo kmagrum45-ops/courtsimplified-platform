@@ -74,6 +74,7 @@
     "test:notice-step": "node --import tsx scripts/verification/verifyNoticeStep.ts",
     "test:responding-draft": "node --import tsx scripts/verification/verifyRespondingDraft.ts",
     "test:user-story": "node --import tsx scripts/verification/verifyUserStory.ts",
+    "test:presumed-limitation": "node --import tsx scripts/verification/verifyPresumedLimitation.ts",
     "test:narrative-prefill": "node --import tsx scripts/verification/verifyNarrativePrefill.ts",
     "test:ontario-beta-bundle": "node --import tsx scripts/verification/verifyOntarioBetaProcedureAuthorityBundle.ts",
     "test:overview-labels": "node --import tsx scripts/verification/verifyOverviewIssueAndDocumentLabels.ts",

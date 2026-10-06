@@ -42,6 +42,7 @@ import {
 } from "../../src/lib/case-system/casePosition";
 import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
 import { ALL_STAGES, stagesForPathway } from "../../src/lib/case-system/stage-map/stageMap";
+import { countFromDate } from "../../src/lib/content-library/computedDeadline";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -141,7 +142,7 @@ const familyStep = stagesForPathway("family")[0]?.id ?? "";
     const dates = caseDatesFrom(Object.fromEntries(questions.map((question) => [question.id, "2026-02-02"])));
     for (const deadline of stage.deadlines) {
       if (!questions.some((question) => question.sets.includes(deadline.what))) continue;
-      const from = dates[deadline.countFromEvent];
+      const { from } = countFromDate(deadline, dates);
       try {
         if (!from) throw new Error("no date");
         computeDeadline({ from, length: deadline.length, regime: deadline.regime, direction: deadline.direction });
