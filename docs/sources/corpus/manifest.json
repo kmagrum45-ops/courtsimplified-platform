@@ -2843,6 +2843,102 @@
       "characters": 43357,
       "lines": 714,
       "file": "real-property-limitations-act.txt"
+    },
+    {
+      "id": "criminal-code",
+      "title": "Criminal Code",
+      "citation": "R.S.C. 1985, c. C-46",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/FullText.html",
+      "retrievedAt": "2026-10-06T02:30:02.602Z",
+      "sha256": "1115c9ee667e60cd8ddfd1ca54c6e7b8e8ef074b62ec4f989c46647db6807234",
+      "consolidation": "(none stated)",
+      "characters": 2633721,
+      "lines": 36137,
+      "file": "criminal-code.txt"
+    },
+    {
+      "id": "child-care-and-early-years-act-2014",
+      "title": "Child Care and Early Years Act, 2014",
+      "citation": "S.O. 2014, c. 11, Sched. 1",
+      "url": "https://www.ontario.ca/laws/docs/14c11_e.doc",
+      "retrievedAt": "2026-10-06T02:30:07.275Z",
+      "sha256": "398f85440cc90cc18162bc9d24ec737bd1a785449798487c19395ac65e91b35d",
+      "consolidation": "CONSOLIDATION PERIOD: FROM MAY 7, 2026 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 150766,
+      "lines": 2968,
+      "file": "child-care-and-early-years-act-2014.txt"
+    },
+    {
+      "id": "bankruptcy-and-insolvency-act",
+      "title": "Bankruptcy and Insolvency Act",
+      "citation": "R.S.C. 1985, c. B-3",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/B-3/FullText.html",
+      "retrievedAt": "2026-10-06T02:30:12.864Z",
+      "sha256": "88a7455ae7515cff8fec8c3d2fffeed5c1340b574538dcdc355a5d560ff68b7d",
+      "consolidation": "(none stated)",
+      "characters": 597963,
+      "lines": 7605,
+      "file": "bankruptcy-and-insolvency-act.txt"
+    },
+    {
+      "id": "land-titles-act",
+      "title": "Land Titles Act",
+      "citation": "R.S.O. 1990, c. L.5",
+      "url": "https://www.ontario.ca/laws/docs/90l05_e.doc",
+      "retrievedAt": "2026-10-06T02:30:21.557Z",
+      "sha256": "3ce94361a53a495f2820a62073b68d3cf524a3f4aee6e529ac86fa4cfeb7be13",
+      "consolidation": "CONSOLIDATION PERIOD: FROM AUGUST 17, 2026 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 256505,
+      "lines": 4628,
+      "file": "land-titles-act.txt"
+    },
+    {
+      "id": "veterinarians-act",
+      "title": "Veterinarians Act",
+      "citation": "R.S.O. 1990, c. V.3",
+      "url": "https://www.ontario.ca/laws/docs/90v03_e.doc",
+      "retrievedAt": "2026-10-06T02:30:25.252Z",
+      "sha256": "7bfa16ec1696e1c08b4bae306d42c077d3024c90d38189e715087047dca0f6a2",
+      "consolidation": "CONSOLIDATION PERIOD: FROM JUNE 6, 2024 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 124844,
+      "lines": 2370,
+      "file": "veterinarians-act.txt"
+    },
+    {
+      "id": "towing-and-storage-safety-and-enforcement-act-2021",
+      "title": "Towing and Storage Safety and Enforcement Act, 2021",
+      "citation": "S.O. 2021, c. 26, Sched. 3",
+      "url": "https://www.ontario.ca/laws/docs/21t26_e.doc",
+      "retrievedAt": "2026-10-06T02:30:32.340Z",
+      "sha256": "940029faac4b10cdf25ddf83386b4dc4a638dae2c2d27256936a700a0b91655e",
+      "consolidation": "CONSOLIDATION PERIOD: FROM JULY 1, 2026 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 90232,
+      "lines": 1793,
+      "file": "towing-and-storage-safety-and-enforcement-act-2021.txt"
+    },
+    {
+      "id": "frustrated-contracts-act",
+      "title": "Frustrated Contracts Act",
+      "citation": "R.S.O. 1990, c. F.34",
+      "url": "https://www.ontario.ca/laws/docs/90f34_e.doc",
+      "retrievedAt": "2026-10-06T02:30:36.068Z",
+      "sha256": "565c8b9fa80a2642e0dc03b0df46b7fd6e5f438db2c64ecb47a547339de7c27d",
+      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 2, 1993 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 5534,
+      "lines": 112,
+      "file": "frustrated-contracts-act.txt"
+    },
+    {
+      "id": "bills-of-exchange-act",
+      "title": "Bills of Exchange Act",
+      "citation": "R.S.C. 1985, c. B-4",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/B-4/FullText.html",
+      "retrievedAt": "2026-10-06T02:30:39.721Z",
+      "sha256": "fb73d905df3e2d5a1ecd0931fb95200a0797b8b32e220d316d5ae5dd381463bf",
+      "consolidation": "(none stated)",
+      "characters": 115307,
+      "lines": 1789,
+      "file": "bills-of-exchange-act.txt"
     }
   ],
   "failures": []

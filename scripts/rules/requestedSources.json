@@ -205,5 +205,98 @@
       "CONSOLIDATION PERIOD"
     ],
     "why": "Named as missing by the research step (\"Real Property Limitations Act, R.S.O. 1990, c. L.15\")."
+  },
+  {
+    "id": "criminal-code",
+    "title": "Criminal Code",
+    "citation": "R.S.C. 1985, c. C-46",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/FullText.html",
+    "format": "html",
+    "mustContain": [
+      "Criminal Code"
+    ],
+    "why": "Named as missing by the research step (\"Criminal Code, R.S.C. 1985, c. C-46\")."
+  },
+  {
+    "id": "child-care-and-early-years-act-2014",
+    "title": "Child Care and Early Years Act, 2014",
+    "citation": "S.O. 2014, c. 11, Sched. 1",
+    "url": "https://www.ontario.ca/laws/docs/14c11_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CHILD CARE AND EARLY YEARS ACT, 2014",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Child Care and Early Years Act, 2014, S.O. 2014, c. 11, Sched. 1\")."
+  },
+  {
+    "id": "bankruptcy-and-insolvency-act",
+    "title": "Bankruptcy and Insolvency Act",
+    "citation": "R.S.C. 1985, c. B-3",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/B-3/FullText.html",
+    "format": "html",
+    "mustContain": [
+      "Bankruptcy and Insolvency Act"
+    ],
+    "why": "Named as missing by the research step (\"Bankruptcy and Insolvency Act, R.S.C. 1985, c. B-3\")."
+  },
+  {
+    "id": "land-titles-act",
+    "title": "Land Titles Act",
+    "citation": "R.S.O. 1990, c. L.5",
+    "url": "https://www.ontario.ca/laws/docs/90l05_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "LAND TITLES ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Land Titles Act, R.S.O. 1990, c. L.5\")."
+  },
+  {
+    "id": "veterinarians-act",
+    "title": "Veterinarians Act",
+    "citation": "R.S.O. 1990, c. V.3",
+    "url": "https://www.ontario.ca/laws/docs/90v03_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "VETERINARIANS ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Veterinarians Act, R.S.O. 1990, c. V.3\")."
+  },
+  {
+    "id": "towing-and-storage-safety-and-enforcement-act-2021",
+    "title": "Towing and Storage Safety and Enforcement Act, 2021",
+    "citation": "S.O. 2021, c. 26, Sched. 3",
+    "url": "https://www.ontario.ca/laws/docs/21t26_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "TOWING AND STORAGE SAFETY AND ENFORCEMENT ACT, 2021",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Towing and Storage Safety and Enforcement Act, 2021, S.O. 2021, c. 26, Sched. 3\")."
+  },
+  {
+    "id": "frustrated-contracts-act",
+    "title": "Frustrated Contracts Act",
+    "citation": "R.S.O. 1990, c. F.34",
+    "url": "https://www.ontario.ca/laws/docs/90f34_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "FRUSTRATED CONTRACTS ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Frustrated Contracts Act, R.S.O. 1990, c. F.34\")."
+  },
+  {
+    "id": "bills-of-exchange-act",
+    "title": "Bills of Exchange Act",
+    "citation": "R.S.C. 1985, c. B-4",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/B-4/FullText.html",
+    "format": "html",
+    "mustContain": [
+      "Bills of Exchange Act"
+    ],
+    "why": "Named as missing by the research step (\"Bills of Exchange Act, R.S.C. 1985, c. B-4\")."
   }
 ]
