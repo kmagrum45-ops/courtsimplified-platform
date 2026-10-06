@@ -196,6 +196,7 @@ export default function StageAnswerPanel({
   initialDateAnswers = {},
   suggestedDates = {},
   storyHints = {},
+  noticeStepId = null,
 }: {
   courtPath: StagePathway;
   confirmedStage?: string | null;
@@ -213,13 +214,25 @@ export default function StageAnswerPanel({
   suggestedDates?: Record<string, SuggestedDate>;
   /** Sentences from the user's story about each moment, quoted beside its question. */
   storyHints?: Record<string, StoryHint>;
+  /**
+   * A written-notice step the person's claim and story point to
+   * (claim-types/noticeStep.ts). Suggested first when nothing is filed yet,
+   * because its deadline runs from the incident and comes before filing.
+   */
+  noticeStepId?: string | null;
 }) {
-  const suggested = suggestedStageFor(courtPath, confirmedStage, responding);
   const options = stagesForPathway(courtPath).map((stage) => ({
     id: stage.id,
     group: groupOf(stage),
     label: stage.userQuestion,
   }));
+  const noticeFirst =
+    courtPath === "small-claims" &&
+    !responding &&
+    (confirmedStage === "starting-case" || !confirmedStage) &&
+    Boolean(noticeStepId) &&
+    options.some((option) => option.id === noticeStepId);
+  const suggested = noticeFirst ? (noticeStepId as string) : suggestedStageFor(courtPath, confirmedStage, responding);
   const savedStep = initialStepId && options.some((option) => option.id === initialStepId) ? initialStepId : "";
   const startingStep = savedStep || suggested;
   const [stageId, setStageId] = useState(startingStep);
@@ -264,7 +277,9 @@ export default function StageAnswerPanel({
     >
       <h3 className="text-lg font-bold text-[#10231f]">What happens next at your exact step</h3>
       <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-        {suggested
+        {noticeFirst && suggested === stageId
+          ? "Before filing: this step may apply to the kind of claim you described. It shows a written-notice deadline counted from the day of the injury, with the rule it comes from. If it does not fit, choose the question closest to where your case is."
+          : suggested
           ? "Based on what you told us, this is your step. If it is not right, choose the question closest to where your case is."
           : "Choose the question closest to where your case is. We will show what the court rules and official guides say about that step, with the sources."}
       </p>

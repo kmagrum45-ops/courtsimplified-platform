@@ -199,6 +199,12 @@ export type GuidedIntakeCompletionResult = {
    * were answered.
    */
   followUpText?: string;
+  /**
+   * Every answer the person confirmed or typed, by question id. The page
+   * offers the dates among them on the next-steps panel instead of asking
+   * again (live test, 2026-10-06).
+   */
+  answers?: ConfirmedStoryAnswer[];
 };
 
 /**
@@ -904,7 +910,8 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
   // ask the ones written from the law that applies, if research found any.
   // Held while they load; released at once when there are none. A claim
   // type with its own reviewed questions (the depth phase) uses those.
-  function completeWithSourced(payload: GuidedIntakeCompletionResult) {
+  function completeWithSourced(completed: GuidedIntakeCompletionResult) {
+    const payload = { ...completed, answers: earlierAnswers };
     if (sourced.state === "loading" || (sourced.state === "ready" && sourced.questions.length > 0)) {
       setHeldPayload(payload);
       return;
