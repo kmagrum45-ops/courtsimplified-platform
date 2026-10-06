@@ -1937,6 +1937,19 @@ index unattended in about seven minutes each. The workflow listens to
 `labeled` only: an issue created with the label also fires `opened`, and the
 second run flagged the law the first had just added.
 
+**"Not in the library" was sometimes wrong (2026-10-06).** The coverage probe
+showed the reading step reporting a law as missing while naming a provision
+the library holds ("Rules of Civil Procedure, r. 20.04"): the search had
+simply not surfaced that rule. A source request for it would have been
+useless -- the workflow answers it "already in the library" and flags it.
+`retrieval/namedProvisions.ts` now parses the provision numbers and the
+longest indexed title out of the missing-law text; when it finds them, those
+passages are put in front of the reader in round 2 and the issue is re-read
+from them, and no request is filed. Asserted in `test:research-step` (3b).
+When a request does fail in the workflow, the failing check's lines are now
+put on the issue (the job log is not readable from every place the result is
+read).
+
 ### Questions from the law, for any kind of case (2026-10-05)
 
 `retrieval/sourcedQuestions.ts`. The owner's direction: the intake should be
