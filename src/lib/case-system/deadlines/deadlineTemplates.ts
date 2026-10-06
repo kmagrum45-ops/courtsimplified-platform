@@ -64,7 +64,9 @@ export type DeadlineTemplateId =
   | "extended-to-next-open-day"
   | "weekends-are-holidays-under-the-civil-rules"
   | "months-supplied-by-legislation-act-for-the-rules"
-  | "uncertain-family-court-office-closure";
+  | "uncertain-family-court-office-closure"
+  // 2026-10-06 (page review): a counted date in the past read as still open.
+  | "computed-date-has-passed";
 
 export type DeadlineTemplate = {
   id: DeadlineTemplateId;
@@ -226,6 +228,20 @@ export const DEADLINE_TEMPLATES: Record<DeadlineTemplateId, DeadlineTemplate> = 
   "computed-date-backward": {
     id: "computed-date-backward",
     text: "Based on the date you gave us, this has to be done by {result} at the latest.",
+    cites: null,
+  },
+  /*
+   * A counted date before today (page review, 2026-10-06): an injured person
+   * whose 60-day notice ended 19 months earlier was shown "You have 60 days"
+   * with nothing saying the time was gone. It states the date's relation to
+   * today and nothing about what follows: the steps for a missed deadline are
+   * their own answers, and what a court would do is never said here.
+   */
+  "computed-date-has-passed": {
+    id: "computed-date-has-passed",
+    text:
+      "That date has already passed. If you missed it, look for the step about a missed " +
+      "deadline in the list of steps above.",
     cites: null,
   },
   "how-this-was-counted": {

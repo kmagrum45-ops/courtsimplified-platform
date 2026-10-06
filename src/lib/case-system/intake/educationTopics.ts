@@ -189,6 +189,8 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
     id: "sc-topic-limitation-period",
     courtArea: "small-claims",
     title: "Time limits on starting a claim",
+    // About starting a claim; a served defendant was shown it (page review, 2026-10-06).
+    surfacedWhen: { any: [{ field: "role", op: "notExists" }, { field: "role", op: "equals", value: "plaintiff" }] },
     plainExplanation:
       "In most cases, Ontario's Limitations Act, 2002 gives someone 2 years from when they discovered " +
       "their claim (or when a reasonable person in their circumstances ought to have discovered it) to " +
@@ -235,6 +237,8 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
     id: "sc-topic-demand-letters",
     courtArea: "small-claims",
     title: "Sending a demand letter before suing",
+    // Not for a defendant, and not for an injury: it says no step is required before suing, and an injury on snow or ice needs written notice within 60 days (OLA s. 6.1). Page review, 2026-10-06.
+    surfacedWhen: { all: [{ any: [{ field: "role", op: "notExists" }, { field: "role", op: "equals", value: "plaintiff" }] }, { any: [{ field: "disputeCategory", op: "notExists" }, { field: "disputeCategory", op: "in", values: ["unpaid-money", "work-or-services", "contract-dispute", "loan-or-debt", "deposit-refund", "consumer-purchase", "vehicle-dispute", "property-damage", "defamation", "other"] }] }] },
     plainExplanation:
       "Ontario's own guidance suggests that before starting a claim, it can be worth sending a " +
       "letter or talking to the other side directly to ask for payment or resolution first. This " +
@@ -286,7 +290,8 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
     id: "sc-topic-six-month-service-window",
     courtArea: "small-claims",
     title: "Serving a claim after it is issued — the six-month window",
-    surfacedWhen: { field: "claimFiled", op: "equals", value: true },
+    // The plaintiff's own service deadline; a served defendant was shown it (page review, 2026-10-06).
+    surfacedWhen: { all: [{ field: "claimFiled", op: "equals", value: true }, { any: [{ field: "role", op: "notExists" }, { field: "role", op: "equals", value: "plaintiff" }] }] },
     plainExplanation:
       "Issuing a claim and serving it are two different steps, and the second one has its own deadline. " +
       "Under the Rules of the Small Claims Court, a claim must be served within SIX MONTHS after the " +
@@ -332,6 +337,8 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
     id: "sc-topic-collecting-after-judgment",
     courtArea: "small-claims",
     title: "Collecting money after winning a judgment",
+    // Plaintiff-side; a served defendant was shown it (page review, 2026-10-06).
+    surfacedWhen: { any: [{ field: "role", op: "notExists" }, { field: "role", op: "equals", value: "plaintiff" }] },
     plainExplanation:
       "Winning a case doesn't mean payment happens automatically -- a judgment has to be enforced " +
       "if the other side doesn't pay voluntarily. Ontario's guidance describes several enforcement " +
