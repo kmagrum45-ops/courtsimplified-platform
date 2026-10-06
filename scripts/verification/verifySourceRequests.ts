@@ -130,6 +130,10 @@ async function main() {
   // One law that did not verify left its failure in the manifest and kept
   // eight that did out of the library (2026-10-06).
   check("a request that does not verify leaves no failure in the manifest", /drop_declaration\(\)[\s\S]{0,800}manifest\.failures\s*=\s*manifest\.failures\.filter/.test(processor));
+  check(
+    "an e-Laws 403 is retried under the elaws_statutes_ name, and only a current consolidation is kept",
+    /HTTP 403[\s\S]{0,200}try_prefixed/.test(processor) && /elaws_statutes_[\s\S]{0,200}TO THE E-LAWS CURRENCY DATE/.test(processor),
+  );
   check("a request marked needs-human is not retried every run", workflow.includes('index("needs-human")'));
   check("Vercel never builds a request branch", read("vercel.json").includes('"source-request-*": false'));
   check("the analysis files the gaps", read("src/lib/case-system/intelligence/courtSimplifiedBrain.ts").includes("fileSourceRequests("));

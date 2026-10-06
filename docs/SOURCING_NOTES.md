@@ -735,6 +735,12 @@ stale — the reverse of the Negligence Act already recorded above:
 Both return HTTP 200. The header is the only reliable discriminator; there is
 no filename rule in either direction.
 
+**Automated since 2026-10-06.** The source-request workflow
+(`scripts/sources/processSourceRequests.sh`) retries an e-Laws 403 under the
+`elaws_statutes_` name and keeps it only if the text says "TO THE E-LAWS
+CURRENCY DATE". It was needed for the Fraudulent Conveyances Act, R.S.O. 1990,
+c. F.29, whose `90f29_e.doc` was a 403 on 2026-10-06.
+
 ### Consolidations current as of 2026-09-14, for anything relying on them
 
 | Instrument | File | Consolidation |
