@@ -26,7 +26,9 @@ import { COVERAGE_SET, type CoverageStory } from "./coverageStories";
 
 const LIMIT = Number(process.env.COVERAGE_LIMIT || COVERAGE_SET.length);
 const ONLY = (process.env.COVERAGE_ONLY || "").split(",").map((s: string) => s.trim()).filter(Boolean);
-const WORKERS = Number(process.env.COVERAGE_WORKERS || 6);
+// Three at a time: six made the research step time out on stories it
+// answers alone (first run, 2026-10-05), which measured load, not coverage.
+const WORKERS = Number(process.env.COVERAGE_WORKERS || 3);
 
 type Row = {
   id: string;
@@ -41,6 +43,8 @@ type Row = {
   answered: number;
   missing: string[];
   questions: string[];
+  questionsSkipped?: string;
+  partial?: boolean;
   citations: string[];
   seconds: number;
   skipped?: string;
@@ -82,6 +86,7 @@ async function runOne(story: CoverageStory, index: NonNullable<ReturnType<typeof
       row.answered = research.findings.filter((f) => f.status === "answered").length;
       row.missing = research.sourceRequests;
       if (research.skipped) row.skipped = research.skipped;
+      if (research.partial) row.partial = true;
       const passages = answeringPassages(research);
       for (const passage of passages.slice(0, 6)) {
         const p = readPassage(index, passage.id, 1);
@@ -89,6 +94,7 @@ async function runOne(story: CoverageStory, index: NonNullable<ReturnType<typeof
       }
       const questions = await questionsFromPassages(input, passages, research.issues[0]?.situation ?? "");
       row.questions = questions.questions.map((q) => q.question);
+      if (questions.skipped) row.questionsSkipped = `${questions.skipped} (written ${questions.counts.written}, refused by code ${questions.counts.refusedByCode}, by the check ${questions.counts.refusedByChecker})`;
     }
   } catch (error) {
     row.error = error instanceof Error ? error.message.slice(0, 120) : "error";
@@ -146,7 +152,7 @@ async function main() {
 
   lines.push("## Weakest research (fewer than half the questions answered, or no questions from the law)", "");
   for (const row of inScope.filter((r) => r.issues === 0 || r.answered / r.issues < 0.5 || r.questions.length === 0)) {
-    lines.push(`- ${row.id} (${row.area}): ${row.answered}/${row.issues} answered, ${row.questions.length} questions${row.skipped ? `, ${row.skipped}` : ""}${row.error ? `, error ${row.error}` : ""}`);
+    lines.push(`- ${row.id} (${row.area}): ${row.answered}/${row.issues} answered${row.partial ? " (partial: time ran out)" : ""}, ${row.questions.length} questions${row.questionsSkipped ? ` (${row.questionsSkipped})` : ""}${row.skipped ? `, ${row.skipped}` : ""}${row.error ? `, error ${row.error}` : ""}`);
   }
   lines.push("");
 

@@ -15,7 +15,8 @@
  *     or a source request appearing without a gap.
  *   - Another court's procedure being searched for this court.
  *   - Any failure (model error, bad JSON, timeout) blocking the analysis
- *     instead of returning nothing.
+ *     instead of returning nothing -- and a timeout after some reading
+ *     throwing away what was already answered.
  *   - The story reaching the reading call or the embeddings (only the
  *     issue-spotting call may see it).
  *   - A model call without structured output, unaudited, or undeclared.
@@ -192,6 +193,29 @@ async function main() {
   check("no questions, nothing searched", noIssues.skipped === "no issues" && noIssues.items.length === 0);
   const garbage = await researchStory({ story: STORY, courtPath: "small-claims" }, { index, spotIssues: async () => twoIssues, embed, readPassages: async () => "not json" });
   check("an unreadable verdict leaves every question unanswered, with passages still offered", garbage.findings.every((f) => f.status === "not-found") && garbage.items.length > 0);
+
+  // Out of time after some reading: the answered questions come back, not
+  // nothing (coverage test, 2026-10-05: 17 of 148 stories lost all research
+  // to a timeout that came after most of the reading was done).
+  const slow = await researchStory(
+    { story: STORY, courtPath: "small-claims" },
+    {
+      index,
+      timeoutMs: 400,
+      spotIssues: async () => twoIssues,
+      embed,
+      readPassages: async (_input, asked, byIssue) => {
+        if (asked[0].id === "issue-2") return new Promise(() => undefined);
+        const passage = byIssue.get("issue-1")?.[0];
+        return { results: [{ issueId: "issue-1", status: "answered", answers: passage ? [{ passageId: passage.id, quote: passage.text.slice(0, 60) }] : [] }] };
+      },
+    },
+  );
+  check(
+    "a timeout after some reading returns what was answered",
+    slow.partial === true && slow.findings.find((f) => f.issueId === "issue-1")?.status === "answered" && slow.findings.find((f) => f.issueId === "issue-2")?.status === "not-found",
+    JSON.stringify({ partial: slow.partial, skipped: slow.skipped, statuses: slow.findings.map((f) => f.status) }),
+  );
 
   finish();
 }

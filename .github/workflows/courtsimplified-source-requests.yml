@@ -8,6 +8,12 @@ name: CourtSimplified Source Requests
 # quote it. Anything that does not resolve or verify is left on the issue
 # for a person, labelled needs-human; nothing unverified is ever vendored.
 #
+# EACH RUN SWEEPS EVERY OPEN REQUEST (2026-10-05). GitHub keeps one running
+# and one pending run per concurrency group and cancels older pending ones, so
+# a burst of requests handled one per run would lose most of them. A run now
+# processes every open request not marked needs-human, and indexes and merges
+# them together (scripts/sources/processSourceRequests.sh).
+#
 # Can also be run by hand with a law's name.
 #
 # NEEDS the repository setting Settings > Actions > General > "Allow GitHub
@@ -15,7 +21,7 @@ name: CourtSimplified Source Requests
 # it everything up to the merge works and the PR step is refused (403).
 
 on:
-  # Only "labeled": an issue created with the label fires both "opened" and
+  # Only "labeled": an issue created with the label fires "opened" and
   # "labeled", and the second run found the law just added and flagged the
   # request for a person (first live request, #130, 2026-10-05). Adding the
   # label to an existing issue by hand still fires this.
@@ -24,8 +30,8 @@ on:
   workflow_dispatch:
     inputs:
       request:
-        description: "The law to add, e.g. Statutory Accident Benefits Schedule, O. Reg. 34/10"
-        required: true
+        description: "The law to add, e.g. Statutory Accident Benefits Schedule, O. Reg. 34/10 (blank: every open request)"
+        required: false
 
 permissions:
   contents: write
@@ -40,11 +46,10 @@ jobs:
   resolve:
     if: github.event_name == 'workflow_dispatch' || (github.event.label.name == 'source-request' && github.event.issue.state == 'open')
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 60
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       GH_TOKEN: ${{ github.token }}
-      ISSUE: ${{ github.event.issue.number }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -61,41 +66,29 @@ jobs:
       - name: Install the .doc and PDF text extractors
         run: sudo apt-get update -q && sudo apt-get install -y -q antiword poppler-utils
 
-      - name: The request
-        id: request
+      - name: Collect the open requests
+        id: collect
         env:
-          TITLE: ${{ github.event.issue.title }}
           MANUAL: ${{ inputs.request }}
         run: |
-          name="${MANUAL:-${TITLE#Source request: }}"
-          # One line, no shell metacharacters reach a command line.
-          name="$(printf '%s' "$name" | tr -d '\r\n`$\\' | cut -c1-200)"
-          echo "name=$name" >> "$GITHUB_OUTPUT"
-
-      - name: Resolve to an official source
-        id: resolve
-        env:
-          NAME: ${{ steps.request.outputs.name }}
-        run: |
-          out="$(npx tsx scripts/sources/resolveSourceRequest.ts "$NAME" | tail -1)"
-          echo "$out"
-          echo "result=$out" >> "$GITHUB_OUTPUT"
-          echo "::notice title=Resolve::$out"
+          if [ -n "${MANUAL:-}" ]; then
+            printf '0\t%s\n' "$MANUAL" > requests.raw
+          else
+            gh api "repos/${GITHUB_REPOSITORY}/issues?state=open&labels=source-request&per_page=50" \
+              --jq '.[] | select(([.labels[].name] | index("needs-human")) | not) | [(.number|tostring), (.title | sub("^Source request: "; ""))] | @tsv' > requests.raw
+          fi
+          # One line each; no shell metacharacters reach a command line.
+          tr -d '\r`$\\' < requests.raw | cut -c1-220 > requests.tsv
+          echo "count=$(grep -c . requests.tsv || true)" >> "$GITHUB_OUTPUT"
+          cat requests.tsv
 
       - name: Fetch and verify
         id: fetch
-        if: startsWith(steps.resolve.outputs.result, 'id=')
+        if: steps.collect.outputs.count != '0'
         run: |
-          id="${{ steps.resolve.outputs.result }}"; id="${id#id=}"
-          echo "id=$id" >> "$GITHUB_OUTPUT"
-          npx tsx scripts/rules/fetchCorpus.ts --only "$id" 2>&1 | tee fetch.log
-          if node -e "const m=require('./docs/sources/corpus/manifest.json'); process.exit(m.entries.some(e=>e.id==='$id')?0:1)"; then
-            echo "verified=yes" >> "$GITHUB_OUTPUT"
-          else
-            reason="$(grep -m1 -iE 'fail|missing|not contain|minimum' fetch.log | cut -c1-200)"
-            echo "verified=no" >> "$GITHUB_OUTPUT"
-            echo "::warning title=Fetch::$id did not verify: $reason"
-          fi
+          out="$(bash scripts/sources/processSourceRequests.sh requests.tsv results.tsv | tail -1)"
+          echo "$out" >> "$GITHUB_OUTPUT"
+          cat results.tsv
 
       - name: Index and check
         id: index
@@ -108,38 +101,48 @@ jobs:
       - name: Merge
         id: merge
         if: steps.index.outcome == 'success'
-        env:
-          ID: ${{ steps.fetch.outputs.id }}
-          NAME: ${{ steps.request.outputs.name }}
         run: |
           set -euo pipefail
           branch="source-request-${GITHUB_RUN_ID}"
+          ids="$(grep -oP 'vendored:\K\S+' results.tsv | sort -u | tr '\n' ' ')"
           git config user.name "source-requests-bot"
           git config user.email "source-requests-bot@users.noreply.github.com"
           git checkout -q -b "$branch"
           git add scripts/rules/requestedSources.json docs/sources/corpus docs/sources/retrieval
-          git commit -q -m "Add $ID to the library (source request${ISSUE:+ #$ISSUE})"
+          git commit -q -m "Add to the library: ${ids}(source requests)"
           git push -q origin "$branch"
-          body="Requested by the research step as: $NAME. Resolved, fetched from the official site, verified by its own title and consolidation line, indexed; rules-corpus and corpus-retrieval suites passed."
-          pr="$(gh api repos/${GITHUB_REPOSITORY}/pulls -f title="Add $ID to the library" -f head="$branch" -f base=main -f body="$body" --jq .number)"
+          body="Requested by the research step. Each resolved to its official source, fetched, verified by its own title (and, for e-Laws, the current-consolidation line), and indexed; rules-corpus and corpus-retrieval suites passed. Added: ${ids}"
+          pr="$(gh api repos/${GITHUB_REPOSITORY}/pulls -f title="Add to the library: ${ids}" -f head="$branch" -f base=main -f body="$body" --jq .number)"
           gh api -X PUT repos/${GITHUB_REPOSITORY}/pulls/$pr/merge -f merge_method=squash >/dev/null
           echo "pr=$pr" >> "$GITHUB_OUTPUT"
-          echo "::notice title=Merged::$ID added (PR #$pr)"
+          echo "::notice title=Merged::${ids}(PR #$pr)"
 
-      - name: Report on the issue
-        if: always() && github.event_name == 'issues'
+      - name: Report on each issue
+        if: always() && steps.collect.outputs.count != '0'
         env:
-          RESULT: ${{ steps.resolve.outputs.result }}
-          VERIFIED: ${{ steps.fetch.outputs.verified }}
           PR: ${{ steps.merge.outputs.pr }}
         run: |
-          if [ -n "$PR" ]; then
-            gh api repos/${GITHUB_REPOSITORY}/issues/$ISSUE/comments -f body="Added to the library in #$PR (${RESULT#id=}). Research can now find and quote it." >/dev/null
-            gh api -X PATCH repos/${GITHUB_REPOSITORY}/issues/$ISSUE -f state=closed >/dev/null
-          elif [[ "$RESULT" == in-library=* ]]; then
-            gh api repos/${GITHUB_REPOSITORY}/issues/$ISSUE/comments -f body="This law is already in the library (${RESULT#in-library=}). The research step did not find the provision it needed in it, which is a search problem, not a missing source. Left open for a person." >/dev/null
-            gh api repos/${GITHUB_REPOSITORY}/issues/$ISSUE/labels -f "labels[]=needs-human" >/dev/null
-          else
-            gh api repos/${GITHUB_REPOSITORY}/issues/$ISSUE/comments -f body="Could not add this automatically (${RESULT:-no result}${VERIFIED:+, verified=$VERIFIED}). Nothing was vendored. Left open for a person." >/dev/null
-            gh api repos/${GITHUB_REPOSITORY}/issues/$ISSUE/labels -f "labels[]=needs-human" >/dev/null
-          fi
+          [ -f results.tsv ] || exit 0
+          while IFS=$'\t' read -r num name outcome; do
+            [ "$num" = "0" ] && continue
+            [ -z "$num" ] && continue
+            case "$outcome" in
+              vendored:*)
+                if [ -n "$PR" ]; then
+                  gh api repos/${GITHUB_REPOSITORY}/issues/$num/comments -f body="Added to the library in #$PR (${outcome#vendored:}). Research can now find and quote it." >/dev/null
+                  gh api -X PATCH repos/${GITHUB_REPOSITORY}/issues/$num -f state=closed >/dev/null
+                else
+                  gh api repos/${GITHUB_REPOSITORY}/issues/$num/comments -f body="Fetched and verified (${outcome#vendored:}), but indexing or the corpus checks failed, so nothing was merged. Left open for a person." >/dev/null
+                  gh api repos/${GITHUB_REPOSITORY}/issues/$num/labels -f "labels[]=needs-human" >/dev/null
+                fi
+                ;;
+              in-library:*)
+                gh api repos/${GITHUB_REPOSITORY}/issues/$num/comments -f body="This law is already in the library (${outcome#in-library:}). The research step did not find the provision it needed in it, which is a search problem, not a missing source. Left open for a person." >/dev/null
+                gh api repos/${GITHUB_REPOSITORY}/issues/$num/labels -f "labels[]=needs-human" >/dev/null
+                ;;
+              *)
+                gh api repos/${GITHUB_REPOSITORY}/issues/$num/comments -f body="Could not add this automatically (${outcome}). Nothing was vendored. Left open for a person." >/dev/null
+                gh api repos/${GITHUB_REPOSITORY}/issues/$num/labels -f "labels[]=needs-human" >/dev/null
+                ;;
+            esac
+          done < results.tsv
