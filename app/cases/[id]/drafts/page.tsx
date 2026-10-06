@@ -35,6 +35,7 @@ import {
   type TimelineEntry,
 } from "@/src/lib/case-system/drafts/caseDrafts";
 import { startingDocumentDraft, startingDocumentTitle, type StartingDocumentIntake } from "@/src/lib/case-system/drafts/startingDocumentDraft";
+import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "@/src/lib/case-system/drafts/respondingDocumentDraft";
 import { COURT_DOCUMENT_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
 import { FORM_COMPLETION_PAUSED } from "@/src/lib/content-library/phaseScope";
 import { originatingDocumentRecorded } from "../../../builder/_components/respondingSide";
@@ -206,6 +207,12 @@ export default function CaseDraftsSection() {
       intakeFacts: (master.intakeFacts as Record<string, unknown> | undefined) ?? null,
     });
 
+  // The document that RESPONDS to a case, offered to the side responding
+  // (respondingDocumentDraft.ts), under the same drafting gates.
+  const respondingTitle = respondingDocumentTitle(courtPath);
+  const offerRespondingDocument =
+    COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && Boolean(respondingTitle) && responding;
+
   if (open) {
     return (
       <DraftEditor
@@ -266,7 +273,7 @@ export default function CaseDraftsSection() {
           Each one starts from what you have already told us, laid out under plain headings for you to edit. It is saved to
           your case, and you can download it for Word.
         </p>
-        {offerStartingDocument ? (
+        {offerStartingDocument || offerRespondingDocument ? (
           <div className="mt-3">
             <ScopePreviewNotice scope="formCompletion" />
           </div>
@@ -299,6 +306,16 @@ export default function CaseDraftsSection() {
               description="The document that starts your case, laid out from your answers, to compare with the official form."
               onClick={() => {
                 const draft = startingDocumentDraft(courtPath, master.intakeData as StartingDocumentIntake, now());
+                if (draft) void create(draft);
+              }}
+            />
+          ) : null}
+          {offerRespondingDocument && respondingTitle ? (
+            <StartOption
+              title={respondingTitle.replace(/^Draft /, "")}
+              description="Your response to the case, laid out from your answers, to compare with the official form."
+              onClick={() => {
+                const draft = respondingDocumentDraft(courtPath, master.intakeData as RespondingDocumentIntake, now());
                 if (draft) void create(draft);
               }}
             />
