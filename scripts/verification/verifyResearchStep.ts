@@ -39,6 +39,7 @@ import {
   type ResearchIssue,
 } from "../../src/lib/case-system/retrieval/researchStory";
 import { researchStepEnabled } from "../../src/lib/content-library/phaseScope";
+import { namedNumbers, namedProvisions, namedSource } from "../../src/lib/case-system/retrieval/namedProvisions";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const read = (relative: string) => readFileSync(path.join(ROOT, relative), "utf8");
@@ -157,7 +158,10 @@ async function main() {
         const issue = asked[0];
         const round = readCalls.filter((call) => call.issues[0] === issue.id).length;
         if (issue.id === "issue-2") {
-          return { results: [{ issueId: "issue-2", status: "not-in-library", missingLaw: "Highway Traffic Act, R.S.O. 1990, c. H.8, s. 193" }] };
+          // A law the library does not hold (the Highway Traffic Act, used here
+          // first, was vendored on 2026-10-05 -- and a named law the library
+          // holds is now looked up, which is checked below).
+          return { results: [{ issueId: "issue-2", status: "not-in-library", missingLaw: "Snowmobile Trails Act, R.S.O. 1990, c. S.99, s. 4" }] };
         }
         if (round === 1) {
           return { results: [{ issueId: "issue-1", status: "search-again", queries: ["notice of intention to commence the action within 120 days"] }] };
@@ -173,7 +177,7 @@ async function main() {
   check("the second round reads only the questions that asked for more", readCalls.slice(2).map((call) => call.issues.join()).join() === "issue-1");
   check("the second search used the reader's new phrases", embedded[1]?.[0] === "notice of intention to commence the action within 120 days");
   check("a question answered in round 2 is answered", result.findings.find((f) => f.issueId === "issue-1")?.status === "answered");
-  check("a library gap becomes a source request", result.sourceRequests.join() === "Highway Traffic Act, R.S.O. 1990, c. H.8, s. 193");
+  check("a library gap becomes a source request", result.sourceRequests.join() === "Snowmobile Trails Act, R.S.O. 1990, c. S.99, s. 4");
   const answeringId = result.findings.find((f) => f.issueId === "issue-1")?.answeredBy[0]?.passageId;
   check("the answering passage comes first in what the analysis may cite", Boolean(answeringId) && result.items[0]?.id === answeringId);
   check("the story never reaches the embeddings", !embedded.flat().some((text) => text.includes("dislocated")));
@@ -182,6 +186,30 @@ async function main() {
     "no other court's procedure is searched",
     !result.passages.some((passage) => /^(rules-of-civil-procedure|family-law-rules)$/.test(passage.sourceId)),
   );
+
+  console.log("\n3b. A law named as missing that the library holds is looked up");
+  check("numbers are read from a list", namedNumbers("Rules of Civil Procedure, R.R.O. 1990, Reg. 194, rules 61.04, 62.02 and 3.02").map((r) => r.number).join() === "61.04,62.02,3.02");
+  check("an abbreviated section is read", namedNumbers("Insurance Act, R.S.O. 1990, c. I.8, s. 263 (1)").map((r) => `${r.number}(${r.sub ?? ""})`).join() === "263(1)");
+  check("the title must be the whole title the index holds", namedSource(index, "Insurance Act, R.S.O. 1990, c. I.8, s. 263") === "insurance-act" && namedSource(index, "Snowmobile Trails Act, s. 4") === null);
+  check("the named provision is found", namedProvisions(index, "Rules of Civil Procedure, R.R.O. 1990, Reg. 194, rule 61.04").some((p) => /^r\. 61\.04/.test(p.pinpoint ?? "")));
+  const lookups: string[][] = [];
+  const looked = await researchStory(
+    { story: STORY, courtPath: "civil" },
+    {
+      index,
+      spotIssues: async () => [{ id: "issue-1", question: "How long do I have to appeal to the Court of Appeal?", queries: ["appeal time limit"] }],
+      embed,
+      readPassages: async (_input, asked, byIssue) => {
+        const offered = byIssue.get(asked[0].id) ?? [];
+        lookups.push(offered.map((p) => p.pinpoint ?? ""));
+        const rule = offered.find((p) => /^r\. 61\.04/.test(p.pinpoint ?? ""));
+        if (!rule) return { results: [{ issueId: "issue-1", status: "not-in-library", missingLaw: "Rules of Civil Procedure, R.R.O. 1990, Reg. 194, rule 61.04" }] };
+        return { results: [{ issueId: "issue-1", status: "answered", answers: [{ passageId: rule.id, quote: rule.text.slice(0, 80) }] }] };
+      },
+    },
+  );
+  check("the reader is shown the rule it named, and answers from it", looked.findings[0]?.status === "answered" && lookups.length === 2);
+  check("so no source request is filed for a law the library holds", looked.sourceRequests.length === 0);
 
   console.log("\n4. Failure is harmless");
   const failed = await researchStory(

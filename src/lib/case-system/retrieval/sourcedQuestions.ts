@@ -75,6 +75,11 @@ export type SourcedQuestionsResult = {
   skipped?: string;
   /** Counts for the probe: written, refused by code, refused by the checker. */
   counts: { written: number; refusedByCode: number; refusedByChecker: number };
+  /**
+   * Why drafts were refused -- code's reason or the checker's few words --
+   * for the probe and the coverage report. Never shown to a person.
+   */
+  refusals?: string[];
   /** Laws the research named as missing (already filed as source requests by the analysis path). */
   sourceRequests: string[];
 };
@@ -265,19 +270,22 @@ export async function questionsFromPassages(
     const drafts = parseDrafts(await (deps.write ?? writeWithModel)(input, passages));
     const offered = new Map(passages.map((passage) => [passage.id, passage]));
     const counts = { written: drafts.length, refusedByCode: 0, refusedByChecker: 0 };
+    const refusals: string[] = [];
     const seen = new Set<string>();
     const passed: (Draft & { id: string; passage: Passage })[] = [];
     for (const draft of drafts) {
       const passage = offered.get(draft.passageId);
-      if (questionRejection(draft, passage) || seen.has(norm(draft.question))) {
+      const rejection = questionRejection(draft, passage) ?? (seen.has(norm(draft.question)) ? "duplicate" : null);
+      if (rejection) {
         counts.refusedByCode += 1;
+        refusals.push(`code: ${rejection}`);
         continue;
       }
       seen.add(norm(draft.question));
       passed.push({ ...draft, id: `q${passed.length + 1}`, passage: passage! });
       if (passed.length >= MAX_SOURCED_QUESTIONS) break;
     }
-    if (passed.length === 0) return { questions: [], skipped: "none passed code checks", counts, sourceRequests: [] };
+    if (passed.length === 0) return { questions: [], skipped: "none passed code checks", counts, refusals, sourceRequests: [] };
 
     const verdicts = parseVerdicts(
       await (deps.check ?? checkWithModel)(
@@ -287,8 +295,10 @@ export async function questionsFromPassages(
     );
     const questions: SourcedQuestion[] = [];
     for (const item of passed) {
-      if (!verdicts.find((verdict) => verdict.id === item.id)?.ok) {
+      const verdict = verdicts.find((candidate) => candidate.id === item.id);
+      if (!verdict?.ok) {
         counts.refusedByChecker += 1;
+        refusals.push(`check: ${verdict?.problem ?? "no verdict"} -- ${item.question.slice(0, 120)}`);
         continue;
       }
       const source = passageItem(item.passage);
@@ -302,7 +312,7 @@ export async function questionsFromPassages(
         ...(source.sourceUrl ? { sourceUrl: source.sourceUrl } : {}),
       });
     }
-    return { questions, ...(questions.length === 0 ? { skipped: "none passed the check" } : {}), counts, sourceRequests: [] };
+    return { questions, ...(questions.length === 0 ? { skipped: "none passed the check" } : {}), counts, refusals, sourceRequests: [] };
   };
 
   try {

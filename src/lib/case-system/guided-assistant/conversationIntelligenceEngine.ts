@@ -797,7 +797,13 @@ export function inferCourtArea(message: string): CasePartnerCourtArea {
     "rent arrears",
     "residential lease",
     "rental unit",
-    "locked me out",
+    // Not "locked me out" alone: "he locked me out of the bank accounts" is a
+    // business partner, not a landlord (coverage test, 2026-10-05).
+    "locked me out of my apartment",
+    "locked me out of my unit",
+    "locked me out of my home",
+    "locked me out of the apartment",
+    "changed the locks on my apartment",
     "ltb",
     "landlord and tenant board",
   ]);
