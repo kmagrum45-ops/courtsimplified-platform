@@ -145,6 +145,25 @@ export const STORIES: ReviewStory[] = [
     },
   },
   {
+    id: "SC1b-slip-on-store-ice",
+    area: "small-claims",
+    side: "plaintiff",
+    note:
+      "The site owner's live test, 2026-10-06, verbatim. Says nothing about wanting money or court, only the " +
+      "harm and who failed -- and was asked whether they were bringing or responding to a claim.",
+    story:
+      "i went into the walmart by my house and the entry way was full of ice with no salt on the ground. i " +
+      "slipped and hurt my elbow realy bad and couldnt work for a couple weeks and im self employed so i have " +
+      "no insurance. the store should have put salt down. this happened january 13 2025 at 2 pm in ottawa",
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      claimTypes: ["sc-claim-slip-and-fall-occupier-liability"],
+      answeredByStory: ["sc-orient-role", "sc-orient-when-happened"],
+      role: "plaintiff",
+    },
+  },
+  {
     id: "SC2-freelance-invoice",
     area: "small-claims",
     side: "plaintiff",
