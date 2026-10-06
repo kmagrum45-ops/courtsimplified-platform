@@ -2097,3 +2097,19 @@ exceptions, and the one published answer whose deadline section renders that
 text was regenerated from `renderDeadlineSection`. **A stage-map wording fix
 changes `yourDeadline` for every published block of that stage; regenerate
 them from the renderer, never by hand.**
+
+### Run-18: twenty more civil and family steps (2026-10-06)
+
+Same process. Errors per review round: about 30, then about 20 (mostly
+omissions a reader would act on: a writ of sequestration needs leave, a
+third party claim is optional, the r. 63.03 (3) writ that can still be filed
+during a stay, r. 49.07 (5) costs on an accepted offer silent on costs), then
+0. 86 answers are now published: 36 Small Claims, 25 civil, 25 family.
+
+The review again found a stage-map gap: the offer-to-settle qualifier said
+"jointly liable" where r. 49.11 says "jointly or jointly and severally
+liable ... and rights of contribution or indemnity may exist". It now carries
+both conditions, and the answer's deadline section was regenerated from the
+renderer. It also found that FLR r. 38 (2) para. 6's 30-day leave time points
+at a subrule that no longer sets a time (SOURCING_NOTES); the answers leave
+it out.
