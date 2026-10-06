@@ -227,6 +227,21 @@ const RCP_25_04_REPLY = rcp(
   "A reply, if any, shall be delivered within ten days after service of the statement of defence except where the defendant counterclaims, in which case a reply and defence to counterclaim, if any, shall be delivered within twenty days after service of the statement of defence and counterclaim.",
 );
 
+// 2026-10-06: the reply deadlines said "A reply is optional". r. 25.08 makes a
+// reply required in two cases and forbids it otherwise (review of run-17).
+const RCP_25_08_REPLY_REQUIRED = rcp(
+  "r. 25.08 (1)-(3)",
+  "A party who intends to prove a version of the facts different from that pleaded in the opposite party's defence shall deliver a reply setting out the different version, unless it has already been pleaded in the claim.",
+);
+const RCP_25_08_2_SURPRISE = rcp(
+  "r. 25.08 (2)",
+  "A party who intends to reply in response to a defence on any matter that might, if not specifically pleaded, take the opposite party by surprise or raise an issue that has not been raised by a previous pleading shall deliver a reply setting out that matter, subject to subrule 25.06 (5) (inconsistent claims or new claims).",
+);
+const RCP_25_08_3_ONLY_WHERE_REQUIRED = rcp(
+  "r. 25.08 (3)",
+  "A party shall not deliver a reply except where required to do so by subrule (1) or (2).",
+);
+
 const RCP_25_05_CLOSE = rcp(
   "r. 25.05",
   "Pleadings in an action are closed when, (a) the plaintiff has delivered a reply to every defence in the action or the time for delivery of a reply has expired; and (b) every defendant who is in default in delivering a defence in the action has been noted in default.",
@@ -2594,7 +2609,7 @@ const PLAINTIFF: CaseStage[] = [
     deadlines: [
       {
         id: "deadline:civil:reply-10-days",
-        what: "If you want to reply to the defence, deliver a reply",
+        what: "If a reply is required, deliver it",
         countFrom: "the day the statement of defence was served on you",
         countFromEvent: "defence-served",
         length: { unit: "days", count: 10 },
@@ -2603,8 +2618,8 @@ const PLAINTIFF: CaseStage[] = [
         computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "A reply is optional. If the defendant also counterclaimed, you have 20 days instead for a reply and defence to counterclaim. Deliver means serve it on the other parties and file it with proof of service. Your action may be under the simplified procedure, and the defence may object that your claim does not fit it. Then the action stays under that procedure only if your reply gives up the parts of the claim that do not fit. The time can be extended by filing a consent, or by the court.",
-        exceptions: [RCP_27_05_COMBINED, RCP_1_03_DELIVER, RCP_76_02_OBJECTION, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
+          "A reply is needed only if you will prove a different version of the facts than the defence pleads, or must raise a matter that could take the other side by surprise. Otherwise you must not deliver one. If the defendant also counterclaimed, you have 20 days instead for a reply and defence to counterclaim. Deliver means serve it on the other parties and file it with proof of service. Your action may be under the simplified procedure, and the defence may object that your claim does not fit it. Then the action stays under that procedure only if your reply gives up the parts of the claim that do not fit. The time can be extended by filing a consent, or by the court.",
+        exceptions: [RCP_25_08_REPLY_REQUIRED, RCP_25_08_2_SURPRISE, RCP_25_08_3_ONLY_WHERE_REQUIRED, RCP_27_05_COMBINED, RCP_1_03_DELIVER, RCP_76_02_OBJECTION, RCP_3_02_CONSENT, RCP_3_02_EXTEND],
       },
       simplifiedAffidavit("deadline:civil:simplified-affidavit-of-documents:defence-received"),
       simplifiedSettlementDiscussion("deadline:civil:simplified-settlement-discussion:defence-received"),
@@ -2621,8 +2636,8 @@ const PLAINTIFF: CaseStage[] = [
         rule: RCP_29_05_PLAINTIFF_REPLY,
         computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
-        qualifier: "This applies only where a defendant brought in a third party who has also defended the main action. A reply is optional.",
-        exceptions: [RCP_29_05_DEFEND_MAIN],
+        qualifier: "This applies only where a defendant brought in a third party who has also defended the main action. A reply is needed only if you will prove a different version of the facts than the defence pleads, or must raise a matter that could take the other side by surprise. Otherwise you must not deliver one.",
+        exceptions: [RCP_25_08_REPLY_REQUIRED, RCP_25_08_2_SURPRISE, RCP_25_08_3_ONLY_WHERE_REQUIRED, RCP_29_05_DEFEND_MAIN],
       },
       setDownSixMonths("deadline:civil:set-down-six-months-after-pleadings:defence-received"),
       mediationDeadline("deadline:civil:mediation-180-days:defence-received"),
@@ -3090,8 +3105,8 @@ const DEFENDANT: CaseStage[] = [
         rule: RCP_27_06_REPLY_TO_DEFENCE_TO_COUNTERCLAIM,
         computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
-        qualifier: "This applies only if you counterclaimed. A reply is optional. If you crossclaimed, you have the same 10 days to reply to a defence to crossclaim (Form 28C). If you brought a third party claim, you also have 10 days to reply to the third party defence (Form 29C). Each runs from service of that defence.",
-        exceptions: [RCP_28_08_REPLY, RCP_29_04_REPLY],
+        qualifier: "This applies only if you counterclaimed. A reply is needed only if you will prove a different version of the facts than the defence pleads, or must raise a matter that could take the other side by surprise. Otherwise you must not deliver one. If you crossclaimed, you have the same 10 days to reply to a defence to crossclaim (Form 28C). If you brought a third party claim, you also have 10 days to reply to the third party defence (Form 29C). Each runs from service of that defence.",
+        exceptions: [RCP_25_08_REPLY_REQUIRED, RCP_25_08_2_SURPRISE, RCP_25_08_3_ONLY_WHERE_REQUIRED, RCP_28_08_REPLY, RCP_29_04_REPLY],
       },
       simplifiedSettlementDiscussion("deadline:civil:simplified-settlement-discussion:defence-delivered"),
       mediationDeadline("deadline:civil:mediation-180-days:defence-delivered"),
