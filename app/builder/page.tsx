@@ -64,6 +64,7 @@ import { buildMasterCaseFromIntake } from "../../src/lib/case-system/masterCaseO
 import { buildCaseContextStoragePayload } from "../../src/lib/case-system/caseContextEngine";
 import { consumeGuestIntakeSession } from "../../src/lib/case-system/builderDraftStorage";
 import { BUILDER_LAST_CASE_KEY, COURT_PATH_FINDER_KEY, SHARED_STORAGE_KEYS } from "../../src/lib/case-system/storage/intakeStorageKeys";
+import { userStory } from "@/src/lib/case-system/userStory";
 
 /** The UniversalStage codes, for validating a resolved stage before use. */
 const STAGE_CODES = [
@@ -1397,8 +1398,7 @@ function BuilderPageContent() {
               </h2>
 
               <p className="mt-3 text-sm leading-6 text-[#4d675f]">
-                Your Home location confirmation is already attached to this
-                intake. Add the area-specific case details below.
+                Your location is saved. Add the details of your case below.
               </p>
 
               {/*
@@ -1622,15 +1622,16 @@ function BuilderPageContent() {
                 caseId={savedCaseId()}
                 initialStepId={savedPosition.stepId}
                 initialDateAnswers={savedPosition.dateAnswers}
-                storyHints={storyHintsForDates([caseData?.facts, caseData?.timeline].filter(Boolean).join("\n"))}
+                storyHints={storyHintsForDates([userStory(caseData), caseData?.timeline].filter(Boolean).join("\n"))}
                 suggestedDates={guidedDates}
+                userWords={userWordsOf(caseData)}
                 noticeStepId={suggestedNoticeStep({
                   claimTypeId:
                     draftClaimTypeId ||
                     (typeof asRecord(caseData?.extra).confirmedClaimTypeId === "string"
                       ? (asRecord(caseData?.extra).confirmedClaimTypeId as string)
                       : null),
-                  story: caseData?.facts,
+                  story: userStory(caseData),
                   courtPath,
                 })}
               />
@@ -1655,10 +1656,14 @@ function BuilderPageContent() {
                 onStateMapChange={setDraftElementStateMap}
               />
             ) : null}
-            <ProcedureAuthorityDisplay
-              courtArea={courtPath}
-              procedureStage={getStageForPersistence(analysis, caseData)}
-            />
+            {/* The step answer above already cites its rules; this repeated them
+                once the stage was confirmed (page review, 2026-10-06). */}
+            {!confirmedStage ? (
+              <ProcedureAuthorityDisplay
+                courtArea={courtPath}
+                procedureStage={getStageForPersistence(analysis, caseData)}
+              />
+            ) : null}
             <section className="rounded-2xl border border-[#d8e6df] bg-white p-5">
               <h2 className="text-lg font-bold text-[#16302b]">What CourtSimplified can help with next</h2>
               {/*
@@ -1718,7 +1723,7 @@ function BuilderPageContent() {
                 <button type="button" onClick={() => goToCaseSection("documents")} disabled={savingMaster || !savedCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Add documents and evidence</button>
                 <button type="button" onClick={() => goToCaseSection("forms")} disabled={savingMaster || !savedCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Check official forms</button>
               </div>
-              {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && respondingSide && savedCaseId() && respondingDocumentTitle(courtPath) ? (
+              {confirmedStage && COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && respondingSide && savedCaseId() && respondingDocumentTitle(courtPath) ? (
                 /* Page walkthrough, 2026-10-06: the draft button sat far below
                    the deadline, so a served person could start drafting without
                    seeing when their response is due. */

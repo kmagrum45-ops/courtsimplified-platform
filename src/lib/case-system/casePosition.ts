@@ -302,9 +302,36 @@ export function suggestedDatesFromAnswers(
   return suggestions;
 }
 
-export type StoryHint = { quote: string; value: string | null };
+export type StoryHint = {
+  quote: string;
+  value: string | null;
+  /** True when the story gave a month and day but no year, and the most recent such date was assumed. */
+  yearAssumed?: boolean;
+};
 
-export function storyHintsForDates(story: string | null | undefined): Record<string, StoryHint> {
+const MONTH_DAY = new RegExp(`\\b(${MONTH}) (\\d{1,2})(?:st|nd|rd|th)?\\b|\\b(\\d{1,2})(?:st|nd|rd|th)? (${MONTH})\\b`, "i");
+
+/**
+ * "September 20" with no year: the most recent September 20 on or before
+ * today. Page review, 2026-10-06: every served person's story gave the day
+ * ("I was served on September 20") and no page worked out their deadline,
+ * because the story hint offered a date only when the year was written. The
+ * assumption is shown with the suggestion, and nothing is used until the user
+ * chooses it (CLAUDE.md section 4).
+ */
+function mostRecentDate(sentence: string, now: Date): string | null {
+  const match = MONTH_DAY.exec(sentence);
+  if (!match) return null;
+  const month = (match[1] ?? match[4]) as string;
+  const day = (match[2] ?? match[3]) as string;
+  for (const year of [now.getFullYear(), now.getFullYear() - 1]) {
+    const value = parseUserDate(`${month} ${day} ${year}`);
+    if (value && value <= now.toISOString().slice(0, 10)) return value;
+  }
+  return null;
+}
+
+export function storyHintsForDates(story: string | null | undefined, now: Date = new Date()): Record<string, StoryHint> {
   const hints: Record<string, StoryHint> = {};
   if (!story) return hints;
   const sentences = story.split(/(?<=[.!?])\s+|\n+/).map((sentence) => sentence.trim()).filter(Boolean);
@@ -317,7 +344,12 @@ export function storyHintsForDates(story: string | null | undefined): Record<str
     if (!sentence) continue;
     const match = FULL_DATE.exec(sentence);
     const value = match ? parseUserDate(match[1].replace(/,/g, "")) : null;
-    hints[questionId] = { quote: sentence.length > 240 ? `${sentence.slice(0, 237)}…` : sentence, value };
+    const assumed = value ? null : mostRecentDate(sentence, now);
+    hints[questionId] = {
+      quote: sentence.length > 240 ? `${sentence.slice(0, 237)}…` : sentence,
+      value: value ?? assumed,
+      ...(assumed ? { yearAssumed: true } : {}),
+    };
   }
   return hints;
 }

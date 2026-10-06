@@ -138,6 +138,12 @@ export function mergeFormApplicability(masterResult: unknown, patch: FormApplica
   return { ...master, formApplicability: next };
 }
 function procedureStage(masterResult: Record<string, unknown>): string {
+  // The stage the user confirmed on the results page wins (page review,
+  // 2026-10-06): the forms page told a confirmed defendant "we can confirm
+  // which forms apply only when you are starting a case or responding to one"
+  // because it read only the first analysis's stage fields.
+  const confirmed = text((asRecord(masterResult.position) || {}).confirmedStage);
+  if (confirmed === "starting-case" || confirmed === "responding") return confirmed;
   const masterCase = asRecord(masterResult.masterCase) || {};
   const assembly = asRecord(masterResult.caseSystemAssembly) || asRecord(masterResult.assembly) || {};
   const proceduralState = asRecord(assembly.proceduralState) || {};

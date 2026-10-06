@@ -21,6 +21,7 @@ import { getStageLabel } from "../../../builder/_components/builderTypes";
 import { readCaseDrafts } from "@/src/lib/case-system/drafts/caseDrafts";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { COURT_LABELS, authHeaders, caseTitle, formatDate, useCaseHome } from "../../_components/CaseHomeContext";
+import { userStory } from "@/src/lib/case-system/userStory";
 
 type EventRow = {
   id: string;
@@ -63,6 +64,30 @@ export default function CaseFileSection() {
   const [events, setEvents] = useState<EventRow[] | null>(null);
   const [documents, setDocuments] = useState<DocumentRow[] | null>(null);
   const [deadlines, setDeadlines] = useState<TimelineItem[] | null>(null);
+  // Civil and family: the step's deadline section counted from the dates the
+  // user gave on the Overview (page review, 2026-10-06: the printed file said
+  // deadlines were only shown as periods, even after a date was given).
+  const [stepDeadline, setStepDeadline] = useState<string | null>(null);
+  const datesGiven = Object.keys(position.dateAnswers ?? {}).length > 0;
+
+  useEffect(() => {
+    if (caseRecord.court_path === "small-claims" || !position.stepId || !datesGiven) return;
+    void (async () => {
+      const response = await fetch("/api/case/stage-answer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          stageId: position.stepId,
+          courtPath: caseRecord.court_path,
+          confirmedFacts: {},
+          dateAnswers: position.dateAnswers,
+        }),
+      }).catch(() => null);
+      const body = response?.ok ? await response.json() : null;
+      const sections = (body?.answer?.sections ?? []) as { heading: string; text: string }[];
+      setStepDeadline(sections.find((section) => /deadline/i.test(section.heading))?.text ?? null);
+    })();
+  }, [caseRecord.court_path, position.stepId, position.dateAnswers, datesGiven]);
 
   useEffect(() => {
     void (async () => {
@@ -120,11 +145,13 @@ export default function CaseFileSection() {
                 </li>
               ))}
             </ul>
+          ) : stepDeadline ? (
+            <p className="whitespace-pre-line">{stepDeadline}</p>
           ) : (
             <p>
               {caseRecord.court_path === "small-claims"
                 ? "None yet. Give the dates asked for under \u201cYour next step\u201d on the Overview tab, and the deadlines for your step are worked out for you."
-                : "For this court, deadlines are shown as time periods, each with its rule, in your next step on the Overview tab."}
+                : "None yet. Give the dates asked for under \u201cYour next step\u201d on the Overview tab, and the deadline for your step is worked out for you."}
             </p>
           )}
         </FileSection>
@@ -135,7 +162,7 @@ export default function CaseFileSection() {
               {[intake.yourName && `You: ${intake.yourName}`, intake.otherParty && `Other side: ${intake.otherParty}`].filter(Boolean).join(" · ")}
             </p>
           ) : null}
-          <p className="whitespace-pre-line">{intake.facts?.trim() || "Not recorded."}</p>
+          <p className="whitespace-pre-line">{userStory(intake) || "Not recorded."}</p>
           {intake.goal?.trim() ? (
             <p className="mt-3 whitespace-pre-line">
               <strong>What you want:</strong> {intake.goal.trim()}

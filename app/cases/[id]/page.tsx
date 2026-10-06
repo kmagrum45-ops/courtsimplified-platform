@@ -32,6 +32,7 @@ import {
 import { readCaseDrafts } from "@/src/lib/case-system/drafts/caseDrafts";
 import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { authHeaders, builderHref, formatDate, useCaseHome } from "../_components/CaseHomeContext";
+import { userStory } from "@/src/lib/case-system/userStory";
 
 type EventsResponse = {
   events: Array<{
@@ -215,7 +216,8 @@ export default function CaseOverviewPage() {
               initialStepId={position.stepId}
               initialDateAnswers={position.dateAnswers}
               suggestedDates={suggestedDates}
-              storyHints={storyHintsForDates([intake?.facts, intake?.timeline].filter(Boolean).join("\n"))}
+              storyHints={storyHintsForDates([userStory(intake), intake?.timeline].filter(Boolean).join("\n"))}
+              userWords={userWordsOf(intake)}
             />
           ) : (
             <NextStepsCard pathway={courtPath} stage={confirmed} userWords={userWordsOf(master.intakeData)} />

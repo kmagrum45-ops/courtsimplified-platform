@@ -653,6 +653,9 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
           authenticated: body.authenticated === true,
           completedAt: new Date().toISOString(),
         },
+        // The user's own story, for showing back (userStory.ts); `facts`
+        // above is the labelled record the analysis reads.
+        story: facts,
         yourRole,
         filedDocuments,
         filedDocumentLabels: filedDocuments.map(labelForFiledDocument),
@@ -689,9 +692,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
       <h2 className="text-2xl font-bold text-[#10231f]">Family Intake</h2>
 
       <p className="mt-3 text-[#4d675f]">
-        Build a complete family-law case record. This intake captures parenting,
-        support, property, disclosure, safety, urgency, evidence, and procedural
-        posture for the unified CourtSimplified legal brain.
+        Tell us about your family case. Answer what applies to you; you can
+        leave the rest blank.
       </p>
 
 
@@ -1112,13 +1114,24 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
           ]}
         />
 
+        {sourced.state === "loading" ? (
+          // Page review, 2026-10-06: Continue was pressed before these
+          // questions loaded, so on the normal path nobody saw them; they
+          // appeared only after pressing Back.
+          <p className="text-sm text-[#4d675f]">
+            Questions about your situation are loading. They usually take under a minute.{" "}
+            <button type="button" onClick={handleAnalyze} disabled={isAnalyzing} className="font-semibold text-[#2f7d67] underline">
+              Continue without them
+            </button>
+          </p>
+        ) : null}
         <button
           type="button"
           onClick={handleAnalyze}
-          disabled={isAnalyzing}
+          disabled={isAnalyzing || sourced.state === "loading"}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isAnalyzing ? "Reading what you told us..." : "Continue to your next steps"}
+          {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Finding questions for your situation…" : "Continue to your next steps"}
         </button>
       </div>
     </section>

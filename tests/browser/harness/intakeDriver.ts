@@ -93,7 +93,7 @@ export type CapturedOverview = {
 };
 
 const SUBMIT_LABEL: Record<string, RegExp> = {
-  "small-claims": /^Generate Summary$/,
+  "small-claims": /^Continue to your next steps$/,
   family: /Continue to your next steps/,
   civil: /Continue to your next steps/,
 };
@@ -285,7 +285,7 @@ export async function runScenario(
     captured.issuesCard = captured.cards["Issues to review"] || "";
     captured.fullOverviewText = (await overview.innerText()).trim();
 
-    const panels = page.locator("section", { hasText: "Ontario procedure authority" });
+    const panels = page.locator("section", { hasText: "The rule for this step" });
     if ((await panels.count()) > 0) {
       const panel = panels.last();
       captured.authorityPanelRendered = true;

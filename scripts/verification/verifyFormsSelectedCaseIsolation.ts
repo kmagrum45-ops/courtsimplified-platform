@@ -194,10 +194,10 @@ assert.equal(
   SELECTED_CASE_UNAVAILABLE_MESSAGE,
   "This case could not be loaded. Please return to your case dashboard and try again.",
 );
-assert.equal(
-  UNLINKED_FORM_RECOMMENDATION_MESSAGE,
-  "Review required — no verified canonical form record is linked.",
-);
+// A property, not the wording (CLAUDE.md section 5): an unlinked form must
+// never read as checked, and must send the user to check it themselves.
+assert.ok(!/\bverified\b|checked against your case/i.test(UNLINKED_FORM_RECOMMENDATION_MESSAGE));
+assert.ok(/\bcheck\b/i.test(UNLINKED_FORM_RECOMMENDATION_MESSAGE));
 
 const canonicalFormId = "550e8400-e29b-41d4-a716-446655440000";
 
