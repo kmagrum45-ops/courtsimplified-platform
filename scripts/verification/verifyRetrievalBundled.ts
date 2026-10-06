@@ -19,7 +19,11 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 const ROOT = process.cwd();
-const ROUTES = ["small-claims", "civil", "family"];
+// Every route that reads the passage index at run time. A route missing
+// here AND from next.config's outputFileTracingIncludes gets no index on
+// Vercel and silently does nothing (/api/intake/sourced-questions, caught
+// before release 2026-10-05).
+const ROUTES = ["small-claims/analyze", "civil/analyze", "family/analyze", "law/explain", "intake/sourced-questions"];
 const MUST_SHIP = [
   "docs/sources/retrieval/corpus-index.json",
   "docs/sources/retrieval/corpus-vectors.bin",
@@ -28,10 +32,10 @@ const MUST_SHIP = [
 
 let failures = 0;
 for (const route of ROUTES) {
-  const trace = path.join(ROOT, ".next", "server", "app", "api", route, "analyze", "route.js.nft.json");
+  const trace = path.join(ROOT, ".next", "server", "app", "api", ...route.split("/"), "route.js.nft.json");
   if (!existsSync(trace)) {
     failures += 1;
-    console.log(`FAIL  /api/${route}/analyze: no trace file at ${path.relative(ROOT, trace)} (run npm run build first)`);
+    console.log(`FAIL  /api/${route}: no trace file at ${path.relative(ROOT, trace)} (run npm run build first)`);
     continue;
   }
   const files = (JSON.parse(readFileSync(trace, "utf8")) as { files: string[] }).files.map((file) =>
@@ -40,9 +44,9 @@ for (const route of ROUTES) {
   const missing = MUST_SHIP.filter((file) => !files.includes(file));
   if (missing.length) {
     failures += 1;
-    console.log(`FAIL  /api/${route}/analyze does not ship: ${missing.join(", ")}`);
+    console.log(`FAIL  /api/${route} does not ship: ${missing.join(", ")}`);
   } else {
-    console.log(`pass  /api/${route}/analyze ships the index and the corpus`);
+    console.log(`pass  /api/${route} ships the index and the corpus`);
   }
 }
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
