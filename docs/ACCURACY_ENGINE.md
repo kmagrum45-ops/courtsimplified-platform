@@ -803,7 +803,9 @@ chat routing      4/5   FAIL
 chat advice flag  4/5   FAIL
 ```
 
-- `chat-enforcement-has-no-block` — "How do I actually collect the money?" comes
+- `chat-enforcement-has-no-block` (renamed `chat-enforcement` 2026-10-05, when
+  its expectation of "no block" was found stale: the judgment-unpaid block had
+  been published in #51, so routing to it is right) — "How do I actually collect the money?" comes
   back with `requestsLegalAdvice: true`. It is a plain procedural question whose
   answer we have not written. The reader is told that an ordinary question about
   court procedure is one only a lawyer may answer, which is untrue and
