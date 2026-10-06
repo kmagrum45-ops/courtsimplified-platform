@@ -78,7 +78,12 @@ export function chunkDecision(source: ChunkSource, text: string): CorpusChunk[] 
   for (let index = 0; index < lines.length; index += 1) {
     if (!REASONS_HEADING.test(lines[index])) continue;
     const heading = collapse(lines.slice(Math.max(0, index - 3), index + 1).join(" "));
-    const start = heading.search(/The (judgment|reasons) of|The following are the reasons/i);
+    // The LAST opening in the window: the lines above a heading can end a
+    // paragraph that says "the judgment of the Court of Appeal", which read as
+    // "The judgment of the Court" (99 judges) and made a one-judge concurrence
+    // outrank a seven-judge majority (WIC Radio, Moge, 2026-10-05).
+    const openings = [...heading.matchAll(/The (judgment|reasons) of|The following are the reasons/gi)];
+    const start = openings.length ? openings[openings.length - 1].index ?? -1 : -1;
     headings.push({ index, judges: judgesIn(start >= 0 ? heading.slice(start) : heading) });
   }
   // The lower court's "judgment ... was delivered by" quoted inside the
@@ -93,7 +98,10 @@ export function chunkDecision(source: ChunkSource, text: string): CorpusChunk[] 
     return (
       /^\s*\[\d+\](\s|$)/.test(next) ||
       /^\s*\d{1,3}\s/.test(next) ||
-      /^\s*(?:<[^>]*>\s*)?(?:[A-Z][\w'’.\- ]{0,40}?(?:C\.J\.|J\.|JJ\.)|The Chief Justice)[^—\n]{0,60}(?:—|--|‑‑)/i.test(next)
+      // Any letters: "L'Heureux‑Dubé J. ‑‑" has an accent and a non-breaking
+      // hyphen, and was not recognised, so Moge's majority lost to a
+      // two-judge concurrence (2026-10-05).
+      /^\s*(?:<[^>]*>\s*)?(?:[A-Z][\p{L}'’.\-‑ ]{0,40}?(?:C\.J\.|J\.|JJ\.)|The Chief Justice)[^—\n]{0,60}(?:—|--|‑‑)/iu.test(next)
     );
   });
   // A block whose first paragraph names its author "(dissenting)" is a
@@ -143,7 +151,7 @@ export function chunkDecision(source: ChunkSource, text: string): CorpusChunk[] 
   // A dissent whose heading the extraction mangled still names itself in
   // its first line: "[81] LeBel J. (dissenting in part on the appeal) --".
   const dissentAt = paragraphs.findIndex((paragraph) =>
-    /^\s*(\[\d+\]|\d+)?\s*[A-Z][\w'’.\- ]{0,60}?(C\.J\.|J\.|JJ\.)[^—]{0,10}\((dissenting|dissident)/.test(paragraph.lines.slice(0, 2).join(" ")),
+    /^\s*(\[\d+\]|\d+)?\s*[A-Z][\p{L}'’.\-‑ ]{0,60}?(C\.J\.|J\.|JJ\.)[^—]{0,10}\((dissenting|dissident)/u.test(paragraph.lines.slice(0, 2).join(" ")),
   );
   if (dissentAt >= 0) paragraphs.length = dissentAt;
 
