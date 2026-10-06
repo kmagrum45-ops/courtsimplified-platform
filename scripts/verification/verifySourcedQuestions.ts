@@ -36,6 +36,7 @@ import { loadCorpusIndex, readPassage, type Passage } from "../../src/lib/case-s
 import type { ResearchResult } from "../../src/lib/case-system/retrieval/researchStory";
 import {
   answeringPassages,
+  CHECK_SYSTEM_PROMPT,
   checkingPrompt,
   passagesById,
   questionRejection,
@@ -144,6 +145,10 @@ async function main() {
   check("a question the check refused or did not answer for is not shown", result.counts.refusedByChecker === 1 && !result.questions.some((q) => /what date/i.test(q.question)));
   check("the writer sees the story", writerSaw.includes("dislocated"));
   check("the check never sees the story", !checkerSaw.includes("dislocated") && checkerSaw.includes("SITUATION:"));
+  // Without the court it refused Small Claims rules as "not established"
+  // (coverage run, 2026-10-06).
+  check("the check is told the court and side", checkerSaw.includes("Small Claims Court") && checkerSaw.includes("one bringing the matter"));
+  check("the check is told questions may name the person's own facts", /may name facts from it/.test(CHECK_SYSTEM_PROMPT));
   check("laws the research named as missing are passed on", result.sourceRequests.join() === "Some Missing Act");
 
   const many = await sourcedQuestions(
