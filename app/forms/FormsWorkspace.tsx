@@ -1001,7 +1001,14 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                 ))
               ) : (
                 <p className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] px-4 py-3 text-[#4f685f]">
-                  No required next forms were found in the unified case result.
+                  {/* Page walkthrough, 2026-10-06: "No required next forms were
+                      found in the unified case result" sat under a section that
+                      named Forms 18A and 18B. This box reads only what the first
+                      analysis saved; the forms for the user's next step are
+                      shown above it on the case page. */}
+                  {embedded
+                    ? "Your first case analysis did not flag a form. The forms for your next step, if it names any, are listed above."
+                    : "Your case analysis did not flag a form yet."}
                 </p>
               )}
             </div>

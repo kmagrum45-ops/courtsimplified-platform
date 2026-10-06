@@ -83,6 +83,21 @@ export const DEFLECTION_MESSAGE =
   "it properly, and these services can help you reach one.";
 
 /**
+ * Shown instead of DEFLECTION_MESSAGE while the answerLegalQuestions switch
+ * (a2iScope.ts) is on. Then the only thing turned aside is a request to judge
+ * the case, and the standing answer is CLAUDE.md's: the site does not judge
+ * that -- it helps them prepare and move forward with what they have.
+ */
+export const CASE_JUDGMENT_HEADING = "We don't judge how your case will go";
+
+export const CASE_JUDGMENT_MESSAGE =
+  "CourtSimplified does not say whether you have a case, how strong it is, or " +
+  "how it will turn out. What it does is help you get ready and move forward " +
+  "with what you have, one step at a time. Keep going to see your next step. " +
+  "If you want someone to assess your case, a lawyer or paralegal can, and these " +
+  "services can help you reach one.";
+
+/**
  * Shown when the chat has no verified content that answers the question.
  *
  * *** WHY IT SAYS WHAT WE LACK AND NOT WHAT THE LAW LACKS ***

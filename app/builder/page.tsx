@@ -1718,6 +1718,18 @@ function BuilderPageContent() {
                 <button type="button" onClick={() => goToCaseSection("documents")} disabled={savingMaster || !savedCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Add documents and evidence</button>
                 <button type="button" onClick={() => goToCaseSection("forms")} disabled={savingMaster || !savedCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Check official forms</button>
               </div>
+              {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && respondingSide && savedCaseId() && respondingDocumentTitle(courtPath) ? (
+                /* Page walkthrough, 2026-10-06: the draft button sat far below
+                   the deadline, so a served person could start drafting without
+                   seeing when their response is due. */
+                <p className="mt-3 text-sm leading-6 text-[#4d675f]" data-testid="responding-draft-deadline-note">
+                  Your response has a deadline. Before you draft, check it under{" "}
+                  <a href="#work-out-your-dates" className="font-semibold text-[#2f7d67] underline">
+                    Work out your dates
+                  </a>{" "}
+                  above: give the date you were served and it is counted for you.
+                </p>
+              ) : null}
               {!savingMaster && !savedCaseId() ? (
                 <p className="mt-3 text-sm leading-6 text-[#4d675f]" data-testid="case-not-saved">
                   This case is not saved to an account, so it has no case page yet and will not be here

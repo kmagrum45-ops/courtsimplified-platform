@@ -60,7 +60,7 @@ import {
   STAGE_SCOPE_UNCONFIRMED_MESSAGE,
   STAGE_ANSWER_UNAVAILABLE_MESSAGE,
 } from "../case-system/stage-map/stageMessages";
-import { CHAT_NO_MATCH_MESSAGE, DEFLECTION_MESSAGE } from "./referralResources";
+import { CASE_JUDGMENT_MESSAGE, CHAT_NO_MATCH_MESSAGE, DEFLECTION_MESSAGE } from "./referralResources";
 import { PRESENTATION_CHECKLISTS } from "./presentationHelp";
 import { OFFICIAL_URLS } from "../case-system/stage-map/citations";
 import { DOCTRINE_SEED_LIBRARY } from "../case-system/knowledge/doctrineSeedLibrary";
@@ -630,6 +630,10 @@ export function collectContentInventory(): ContentItem[] {
     "message:cannot-give-advice": {
       text: DEFLECTION_MESSAGE,
       appearsIn: "Beside the answer, when the question asked for legal advice",
+    },
+    "message:does-not-judge-the-case": {
+      text: CASE_JUDGMENT_MESSAGE,
+      appearsIn: "In the intakes, when the user asks whether they have a case or will win (answerLegalQuestions switch on)",
     },
     "message:chat-no-match": {
       text: CHAT_NO_MATCH_MESSAGE,
