@@ -208,6 +208,10 @@ function main(): void {
     // question is shown only when code and the check both pass it
     // (verifySourcedQuestions).
     "src/lib/case-system/retrieval/sourcedQuestions.ts",
+    // Added 2026-10-05: research questions for one question to the Court
+    // Assistant. JSON output; only code-verified quotes from the provisions
+    // are shown (verifyAssistantLaw).
+    "src/lib/case-system/retrieval/researchQuestion.ts",
   ];
 
   for (const file of callSites) {

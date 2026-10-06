@@ -18,6 +18,18 @@ import {
   extractNarrativePrefill,
   persistNarrativePrefill,
 } from "../../../src/lib/case-system/intelligence/narrativePrefill";
+import type { ResearchFindingView } from "../../../src/lib/case-system/intelligence/intelligenceTypes";
+import { supabase } from "../../../src/lib/supabase/client";
+import ResearchPanel from "../../_components/ResearchPanel";
+
+/**
+ * "The law on your question" (2026-10-05): each question is also researched
+ * (/api/assistant/law), and the provisions that answer it are shown under the
+ * assistant's reply, in their own words. Fetched beside the reply, never
+ * before it, so a slow search never holds the conversation up. Keyed by the
+ * index of the person's message it answers.
+ */
+type LawState = { state: "loading" } | { state: "done"; findings: ResearchFindingView[] };
 
 type ChatMessage = {
   role: "user" | "assistant";
@@ -721,6 +733,7 @@ function CourtAssistantChatInner({
   chatStore,
 }: CourtAssistantChatInnerProps) {
   const initialChatState = initialSnapshot.state;
+  const [law, setLaw] = useState<Record<number, LawState>>({});
   const [messages, setMessages] = useState<ChatMessage[]>(
     initialChatState.messages,
   );
@@ -864,6 +877,39 @@ function CourtAssistantChatInner({
     setMessages(nextMessages);
     setInput("");
     setLoading(true);
+
+    if (path === "small-claims" || path === "civil" || path === "family") {
+      const turn = nextMessages.length - 1;
+      const record = (caseData && typeof caseData === "object" ? caseData : {}) as Record<string, unknown>;
+      const story = clean(record.facts).slice(0, 8000);
+      const side = clean(record.yourRole) || clean(record.role);
+      setLaw((current) => ({ ...current, [turn]: { state: "loading" } }));
+      void (async () => {
+        try {
+          const {
+            data: { session },
+          } = await supabase.auth.getSession();
+          const response = await fetch("/api/assistant/law", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+            },
+            body: JSON.stringify({
+              question: trimmed.slice(0, 1000),
+              courtPath: path,
+              ...(story ? { story } : {}),
+              ...(side ? { side } : {}),
+            }),
+          });
+          const data = (await response.json()) as { findings?: ResearchFindingView[] };
+          const findings = Array.isArray(data.findings) ? data.findings : [];
+          setLaw((current) => ({ ...current, [turn]: { state: "done", findings } }));
+        } catch {
+          setLaw((current) => ({ ...current, [turn]: { state: "done", findings: [] } }));
+        }
+      })();
+    }
 
     try {
       const response = await fetch("/api/guided-assistant", {
@@ -1311,6 +1357,23 @@ function CourtAssistantChatInner({
             <div className="whitespace-pre-wrap leading-relaxed">
               {message.content}
             </div>
+            {message.role === "assistant" && law[index - 1]?.state === "loading" ? (
+              <p data-testid="assistant-law-loading" className="mt-3 text-xs text-[#4d675f]">
+                Looking up the law on your question…
+              </p>
+            ) : null}
+            {message.role === "assistant" && law[index - 1]?.state === "done"
+              ? (() => {
+                  const entry = law[index - 1] as { state: "done"; findings: ResearchFindingView[] };
+                  const answered = entry.findings.filter((finding) => finding.provisions.length > 0 || finding.missingSource);
+                  return answered.length > 0 ? (
+                    <div data-testid="assistant-law" className="mt-4 border-t border-[#d8e6df] pt-3">
+                      <p className="mb-2 text-sm font-semibold text-[#16302b]">The law on your question</p>
+                      <ResearchPanel findings={answered} />
+                    </div>
+                  ) : null;
+                })()
+              : null}
           </div>
         ))}
 

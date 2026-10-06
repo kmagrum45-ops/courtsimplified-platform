@@ -151,6 +151,9 @@ jobs:
       - name: Questions from the law are quoted, checked and neutral, or not asked
         run: npm run test:sourced-questions
 
+      - name: The Court Assistant shows the law on each question, quoted and checked
+        run: npm run test:assistant-law
+
       - name: Switch-off path shows no model-written text
         run: npm run test:no-model-text-to-users
 
