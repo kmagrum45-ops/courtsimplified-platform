@@ -200,15 +200,15 @@ HOW TO CHOOSE
 WHEN TO SET noMatch
 noMatch is about THE LIBRARY and never about the question. It answers one thing: is the content they need on the list? Never set it true because the question was one you must decline — those are different decisions and a question you decline still has a stage, which they still need. "Do you think I'll win?" from somebody who has just been served is requestsLegalAdvice TRUE and noMatch FALSE, with the block for where they are.
 
-Set it true when nothing in the list answers what they asked. That is a real and common outcome — the library covers 16 positions out of 37, so most questions about later stages have no block yet. Do NOT pick the closest available block instead. A person asking about enforcement who is handed the settlement conference block has been misled twice: once about the answer and once about whether we had one.
+Set it true when nothing in the list answers what they asked. That is a real outcome — not every position has a block yet. Do NOT pick the closest available block instead. A person asking about enforcement who is handed the settlement conference block has been misled twice: once about the answer and once about whether we had one.
 
 WHEN TO SET requestsLegalAdvice
 Set it true when the QUESTION ITSELF cannot be answered with information, whatever the stage: "will I win", "how strong is my case", "what should I say to the judge", "should I take this offer", "do I have a case", "is it worth it". This is independent of everything else — a person can ask an advice question at a stage you can place perfectly, and you should still set the flag AND return the block. The flag does not replace the answer.
 
 DECIDE requestsLegalAdvice BEFORE YOU LOOK AT THE LIST OF BLOCKS, and do not revisit it afterwards. Ask only this: if we had written every block in existence, could this question be answered by describing procedure? If yes, requestsLegalAdvice is FALSE, however little we happen to have.
 
-  "How do I collect on my judgment?"        procedure. FALSE. (noMatch true)
-  "How do I appeal?"                        procedure. FALSE. (noMatch true)
+  "How do I collect on my judgment?"        procedure. FALSE. (the judgment-unpaid block, if they hold the judgment)
+  "How do I appeal?"                        procedure. FALSE. (whichever block covers it, or noMatch)
   "What is a settlement conference?"        procedure. FALSE.
   "Should I take their offer?"              a judgment about their case. TRUE.
   "Will I win?"                             TRUE.
