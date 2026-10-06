@@ -102,6 +102,17 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     note: "Suffixed by court path. The user's narrative, extracted into intake fields.",
   },
 
+  {
+    key: "courtSimplifiedBuilderLastCase",
+    area: "session",
+    scope: "shared",
+    matches: "exact",
+    holdsCaseContent: false,
+    note:
+      "The id and court path of the case this tab's builder last saved, so a reload of the results " +
+      "step reopens that case instead of a blank intake (2026-10-06). An id, never case content.",
+  },
+
   // ----------------------------------------------------------------- user
   {
     key: "courtSimplifiedBuilderDraft",
@@ -327,6 +338,7 @@ export const LOADED_CASE_CONTEXT_KEY = "courtSimplifiedLoadedCaseContext";
 export const EVIDENCE_PACKAGE_LEGACY_KEY = "courtSimplifiedEvidencePackage";
 export const WORKSPACE_DOCUMENT_KEY = "courtSimplifiedWorkspaceDocument";
 export const PARSED_MESSAGES_KEY = "courtsimplified_parsed_messages";
+export const BUILDER_LAST_CASE_KEY = "courtSimplifiedBuilderLastCase";
 
 /** Every individually-named constant, for the registry-coverage check. */
 export const NAMED_STORAGE_KEYS = [
@@ -338,4 +350,5 @@ export const NAMED_STORAGE_KEYS = [
   EVIDENCE_PACKAGE_LEGACY_KEY,
   WORKSPACE_DOCUMENT_KEY,
   PARSED_MESSAGES_KEY,
+  BUILDER_LAST_CASE_KEY,
 ] as const;

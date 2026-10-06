@@ -63,7 +63,7 @@ import { supabase } from "../../src/lib/supabase/client";
 import { buildMasterCaseFromIntake } from "../../src/lib/case-system/masterCaseOrchestrator";
 import { buildCaseContextStoragePayload } from "../../src/lib/case-system/caseContextEngine";
 import { consumeGuestIntakeSession } from "../../src/lib/case-system/builderDraftStorage";
-import { COURT_PATH_FINDER_KEY, SHARED_STORAGE_KEYS } from "../../src/lib/case-system/storage/intakeStorageKeys";
+import { BUILDER_LAST_CASE_KEY, COURT_PATH_FINDER_KEY, SHARED_STORAGE_KEYS } from "../../src/lib/case-system/storage/intakeStorageKeys";
 
 /** The UniversalStage codes, for validating a resolved stage before use. */
 const STAGE_CODES = [
@@ -309,7 +309,26 @@ function BuilderPageContent() {
    * Continue button that silently would not enable until it was filled.
    */
   const [hydrated, setHydrated] = useState(false);
-  const [smallClaimsMode, setSmallClaimsMode] = useState<"choose" | "form" | "guided">("choose");
+  /*
+   * EACH BUILDER STEP IS A BACK STOP (2026-10-06).
+   *
+   * The mode chooser, the intake and the results were all React state on one
+   * URL, so the browser's Back skipped every one of them and left the
+   * builder; the site owner pressed Back after a live test and landed on a
+   * fresh intake. Each step is now `?step=` in the URL, written with
+   * history.pushState, which Next keeps in step with useSearchParams without
+   * a navigation -- so the page stays mounted and nothing typed is lost.
+   * Intakes already started stay mounted while hidden, so going Back to one
+   * shows it exactly as it was.
+   */
+  const stepParam = searchParams.get("step");
+  const visibleMode: "choose" | "form" | "guided" | null =
+    stepParam === "form" || stepParam === "guided" ? stepParam : stepParam === "results" ? null : "choose";
+  const smallClaimsMode = visibleMode ?? "choose";
+  const [startedModes, setStartedModes] = useState<{ form: boolean; guided: boolean }>({ form: false, guided: false });
+  if ((visibleMode === "form" || visibleMode === "guided") && !startedModes[visibleMode]) {
+    setStartedModes({ ...startedModes, [visibleMode]: true });
+  }
   // Session 29: guided intake's completion result is now mapped into
   // SmallClaimsIntelligenceInput and run through the same
   // /api/small-claims/analyze -> handleComplete pipeline the form uses --
@@ -330,6 +349,13 @@ function BuilderPageContent() {
    * click the mode card, not at the top of the destination screen the app
    * otherwise guarantees on every real navigation.
    */
+  function pushStep(step: "form" | "guided" | "results") {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get("step") === step) return;
+    url.searchParams.set("step", step);
+    window.history.pushState(null, "", `${url.pathname}?${url.searchParams.toString()}`);
+  }
+
   useEffect(() => {
     if (smallClaimsMode !== "choose") {
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
@@ -931,6 +957,7 @@ function BuilderPageContent() {
     );
 
     setAnalysis(result);
+    pushStep("results");
     // A fresh analysis is a fresh stage suggestion, so it is re-confirmed.
     setConfirmedStage(null);
     setCaseData({
@@ -938,6 +965,46 @@ function BuilderPageContent() {
       masterResultPatch,
     });
   }
+
+  /*
+   * The results show only on the results step, so Back from them returns to
+   * the intake as it was, and Forward brings them back.
+   */
+  const resultsVisible = Boolean(analysis) && stepParam === "results";
+
+  // The case this tab last saved, so a reload of the results step reopens it.
+  useEffect(() => {
+    const id = savedCaseId();
+    if (!id) return;
+    try {
+      sessionStorage.setItem(BUILDER_LAST_CASE_KEY, JSON.stringify({ caseId: id, courtPath }));
+    } catch {
+      // Storage unavailable: a reload then starts a fresh intake, as before.
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [masterCaseId, queryCaseId, courtPath]);
+
+  /*
+   * A reload (or a Forward after the tab forgot its state) lands on
+   * ?step=results with nothing in memory. Open the case that was saved
+   * instead of showing an empty page; without one, start the intake.
+   */
+  useEffect(() => {
+    if (!hydrated || stepParam !== "results" || analysis || queryCaseId) return;
+    let last: { caseId?: string; courtPath?: string } | null = null;
+    try {
+      last = JSON.parse(sessionStorage.getItem(BUILDER_LAST_CASE_KEY) || "null");
+    } catch {
+      last = null;
+    }
+    if (last?.caseId && last.courtPath === courtPath) {
+      router.replace(`/cases/${encodeURIComponent(last.caseId)}`);
+      return;
+    }
+    const url = new URL(window.location.href);
+    url.searchParams.delete("step");
+    window.history.replaceState(null, "", `${url.pathname}?${url.searchParams.toString()}`);
+  }, [hydrated, stepParam, analysis, queryCaseId, courtPath, router]);
 
   const originatingDocumentFiled = originatingDocumentRecorded({
     courtPath,
@@ -1244,7 +1311,7 @@ function BuilderPageContent() {
           </div>
         ) : null}
 
-        {!loadingExistingCase && !caseLoadError && !analysis && !confirmedLocation && (
+        {!loadingExistingCase && !caseLoadError && !resultsVisible && !confirmedLocation && (
           <section className="mx-auto max-w-3xl rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">{pathLabel} intake</p>
             <h1 className="mt-2 text-3xl font-bold text-[#10231f]">{pathLabel} structured intake</h1>
@@ -1318,8 +1385,8 @@ function BuilderPageContent() {
           <FamilyStatusTriage state={triageState} onChange={setTriageState} />
         )}
 
-        {!loadingExistingCase && !caseLoadError && !analysis && confirmedLocation && (
-          <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
+        {!loadingExistingCase && !caseLoadError && confirmedLocation && (
+          <section hidden={resultsVisible} className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
             <div className="mb-6">
               <p className="mb-2 text-sm font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">
                 Structured intake
@@ -1382,7 +1449,7 @@ function BuilderPageContent() {
               <div className="grid gap-4 md:grid-cols-2">
                 <button
                   type="button"
-                  onClick={() => setSmallClaimsMode("form")}
+                  onClick={() => pushStep("form")}
                   className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-6 text-left transition hover:border-[#2f7d67]"
                 >
                   <h3 className="text-lg font-bold text-[#10231f]">Fill in the form yourself</h3>
@@ -1393,7 +1460,7 @@ function BuilderPageContent() {
 
                 <button
                   type="button"
-                  onClick={() => setSmallClaimsMode("guided")}
+                  onClick={() => pushStep("guided")}
                   className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-6 text-left transition hover:border-[#2f7d67]"
                 >
                   <h3 className="text-lg font-bold text-[#10231f]">Answer questions one at a time with AI help</h3>
@@ -1404,12 +1471,14 @@ function BuilderPageContent() {
               </div>
             )}
 
-            {courtPath === "small-claims" && smallClaimsMode === "form" && (
-              <SmallClaimsIntake onComplete={handleComplete} location={confirmedLocation} initialStory={homeStory} />
+            {courtPath === "small-claims" && startedModes.form && (
+              <div hidden={visibleMode !== "form"}>
+                <SmallClaimsIntake onComplete={handleComplete} location={confirmedLocation} initialStory={homeStory} />
+              </div>
             )}
 
-            {courtPath === "small-claims" && smallClaimsMode === "guided" && (
-              <>
+            {courtPath === "small-claims" && startedModes.guided && (
+              <div hidden={visibleMode !== "guided"}>
                 <GuidedSmallClaimsIntake
                   location={confirmedLocation}
                   initialStory={homeStory}
@@ -1425,7 +1494,7 @@ function BuilderPageContent() {
                     {guidedAnalysisError}
                   </div>
                 ) : null}
-              </>
+              </div>
             )}
 
             {courtPath === "civil" && (
@@ -1482,7 +1551,7 @@ function BuilderPageContent() {
           );
         })()}
 
-        {analysis && !loadingExistingCase && !caseLoadError && !canonicalIntakeSaved && (
+        {resultsVisible && !loadingExistingCase && !caseLoadError && !canonicalIntakeSaved && (
           <section className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm" aria-live="polite">
             <h2 className="text-xl font-bold text-[#10231f]">Saving core intake</h2>
             <p className="mt-2 text-sm leading-6 text-[#4d675f]">
@@ -1520,7 +1589,7 @@ function BuilderPageContent() {
           </div>
         ) : null}
 
-        {analysis && canonicalIntakeSaved && (
+        {resultsVisible && analysis && canonicalIntakeSaved && (
           <section ref={completedOverviewRef} className="mt-8 space-y-6" data-testid="completed-case-overview" tabIndex={-1}>
             {/*
               SUGGEST THEN CONFIRM, BEFORE ANY NEXT STEPS RENDER.
