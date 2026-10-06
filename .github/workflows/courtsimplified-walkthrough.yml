@@ -34,7 +34,7 @@ concurrency:
 jobs:
   walkthrough:
     runs-on: ubuntu-latest
-    timeout-minutes: 75
+    timeout-minutes: 120
 
     env:
       NODE_OPTIONS: --max-old-space-size=8192

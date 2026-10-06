@@ -30,10 +30,80 @@ export type Persona = {
   fields?: Record<string, string>;
   /** Value for the post-analysis stage confirmation select. */
   confirmStage: string;
+  /**
+   * Small Claims only: "guided" plays the AI-assisted intake (one question at a
+   * time) instead of the form. The site owner's own live tests use this path,
+   * and the form-only walkthrough never saw its questions (2026-10-06).
+   */
+  mode?: "form" | "guided";
+  /**
+   * Guided only: everything this person knows, which the answering model draws
+   * on to reply to each question the way the person would. Facts not here are
+   * answered "not sure".
+   */
+  backstory?: string;
   expect: string[];
 };
 
 export const PERSONAS: Persona[] = [
+  {
+    id: "small-claims-guided-ice-slip",
+    path: "small-claims",
+    mode: "guided",
+    summary: "The site owner's own live test: hurt slipping on an icy store entrance, wants to claim for lost work.",
+    city: "Ottawa",
+    story:
+      "i went into the walmart by my house and the entry way was full of ice with no salt on the ground. i " +
+      "slipped and hurt my elbow realy bad and couldnt work for a couple weeks and im self employed so i have " +
+      "no insurance. the store should have put salt down. this happened january 13 2025 at 2 pm in ottawa",
+    backstory:
+      "You are a self-employed house cleaner in Ottawa. On January 13, 2025 around 2 pm you slipped on ice at the " +
+      "entrance of the Walmart near your home; there was no salt or sand. You hurt your right elbow, went to the " +
+      "Queensway Carleton Hospital emergency room that day, and were told it was a bad sprain. You could not work " +
+      "for about three weeks and lost about $2,400 in cleaning jobs (you have your booking calendar and invoices " +
+      "from before and after). Prescriptions and a brace cost about $180 (you have receipts). You took two photos " +
+      "of the ice on your phone right after. A store employee helped you up; you don't know his name. You told the " +
+      "customer service desk that day but did not get a written report. You have not sent Walmart any letter and " +
+      "have not started any court case. You want to be paid back for lost income and costs, about $2,600 plus " +
+      "something for the pain. You don't know Walmart's legal name or head office address.",
+    role: "Plaintiff / claimant",
+    stage: "starting-case",
+    confirmStage: "starting-case",
+    expect: [
+      "The user is the PLAINTIFF: the store's ice hurt her and she wants to claim. She must never be asked whether she is bringing or responding to a claim once the story makes it plain.",
+      "It happened January 13, 2025; she has not sued yet. Any limitation period or notice step must be pointed out to her directly, with the date worked out where the rules allow.",
+      "Questions should not re-ask what the story or earlier answers already said (date, place, injury, self-employed).",
+      "The site must not say whether she has a good case or will win.",
+    ],
+  },
+  {
+    id: "small-claims-guided-defendant-reno",
+    path: "small-claims",
+    mode: "guided",
+    summary: "A homeowner served by a contractor for an unpaid renovation balance; says the work was defective.",
+    city: "Kitchener",
+    story:
+      "a contractor did my bathroom reno and now hes suing me in small claims for 7500 he says i owe. the tiles " +
+      "are cracked and the shower leaks into the basement so i stopped paying. i got the plaintiffs claim in the " +
+      "mail on september 28",
+    backstory:
+      "You live in Kitchener. A contractor (Dan Ruiz, operating as Ruiz Renovations) renovated your bathroom in " +
+      "June 2026 for $15,000 under a written quote you signed. You paid $7,500 up front. By August tiles cracked " +
+      "and the shower leaked into the basement ceiling. You sent him texts and two emails with photos asking him " +
+      "to fix it; he came once and did not fix it. You got another contractor's written estimate of $5,200 to " +
+      "redo it. You received his Plaintiff's Claim by mail on September 28, 2026; it was mailed to your home. " +
+      "You have not filed anything yet. You want to dispute the claim and maybe ask him to pay for the repairs. " +
+      "You have the quote, the texts, the emails, photos of the leak and the repair estimate.",
+    role: "Defendant / responding party",
+    stage: "responding",
+    confirmStage: "responding",
+    expect: [
+      "The user is the DEFENDANT served with a Plaintiff's Claim by mail on September 28, 2026. The Defence (Form 9A) deadline must be pointed out directly, counted from service, including how mail service changes the date if the rules say so.",
+      "A defendant's claim for the repair cost should be presented as an option with its form, not a recommendation about the merits.",
+      "Questions should not re-ask what the story already said (served, amount, date received).",
+      "The site must not say whether he has a good defence or will win.",
+    ],
+  },
   {
     id: "family-respondent-parenting",
     path: "family",
