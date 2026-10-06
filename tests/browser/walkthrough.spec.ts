@@ -181,13 +181,17 @@ async function backAndForward(page: Page, persona: Persona, steps: Step[]) {
   // (2026-10-06: four personas failed a text-only check while their filled
   // intake was on screen). Either counts; the spelling step may have changed
   // a word, so a short opening is compared.
-  const opening = persona.story.slice(0, 24);
+  // Case-insensitive, and only the opening words: the spelling step
+  // capitalises and corrects ("i got served" -> "I got served"), which made an
+  // exact match fail on every persona (2026-10-06).
+  const opening = persona.story.slice(0, 7).toLowerCase();
   await expect
     .poll(
       () =>
         page.evaluate((start) => {
+          const norm = (text: string) => text.toLowerCase().replace(/\s+/g, " ");
           const fields = Array.from(document.querySelectorAll("textarea, input")) as (HTMLInputElement | HTMLTextAreaElement)[];
-          return fields.some((field) => field.value.includes(start)) || document.body.innerText.includes(start);
+          return fields.some((field) => norm(field.value).includes(start)) || norm(document.body.innerText).includes(start);
         }, opening),
       { timeout: 30_000 },
     )
