@@ -1,0 +1,254 @@
+[
+  {
+    "id": "sc-private-car-sale",
+    "court": "small-claims",
+    "area": "contract",
+    "side": "plaintiff",
+    "expect": [
+      "small-claims"
+    ],
+    "classified": "small-claims",
+    "courtOk": true,
+    "outOfScope": false,
+    "issues": 6,
+    "answered": 5,
+    "missing": [],
+    "questions": [
+      "On what date did you first learn that the engine had not been rebuilt?",
+      "Did the seller say the engine was rebuilt before or after you agreed to buy the car?",
+      "Have you incurred engine repair or replacement costs because the engine had not been rebuilt?",
+      "If a trial date has been set, when did you send any documents or written statements you plan to use to each party who received the notice of trial?",
+      "If you sent the other party a written report from your mechanic to use as expert evidence, did it include a summary of the mechanic's qualifications?"
+    ],
+    "citations": [
+      "Sale of Goods Act, s. 14",
+      "Rules of the Small Claims Court, r. 18.02 (1)-(3)",
+      "Limitations Act, 2002, s. 4",
+      "Sale of Goods Act, s. 51 (1)-(3)",
+      "Sale of Goods Act, s. 51 (4)",
+      "Courts of Justice Act, s. 23 (1)-(2)"
+    ],
+    "seconds": 47.247
+  },
+  {
+    "id": "sc-defamation-facebook",
+    "court": "small-claims",
+    "area": "defamation",
+    "side": "plaintiff",
+    "expect": [
+      "small-claims"
+    ],
+    "classified": "small-claims",
+    "courtOk": true,
+    "outOfScope": false,
+    "issues": 6,
+    "answered": 4,
+    "missing": [],
+    "questions": [
+      "When did you first learn of the Facebook post and the harm it caused?",
+      "What broader issue or discussion, if any, was the Facebook post part of?",
+      "What steps, if any, did your ex-partner take to check the accusations before posting them?",
+      "What mental distress or humiliation, if any, did the post cause you?"
+    ],
+    "citations": [
+      "Limitations Act, 2002, s. 4",
+      "Libel and Slander Act, s. 7",
+      "Small Claims Court Jurisdiction and Appeal Limit, s. 1 (1)-(2)",
+      "Courts of Justice Act, s. 23 (1)-(2)",
+      "Grant v. Torstar Corp., paras. 97-99",
+      "Libel and Slander Act, s. 23"
+    ],
+    "seconds": 46.975,
+    "refusals": [
+      "check: Why adds interest-and-costs exclusion absent from passage -- Are you seeking more than $50,000, excluding interest and court costs?"
+    ]
+  },
+  {
+    "id": "sc-damage-by-child",
+    "court": "small-claims",
+    "area": "injury",
+    "side": "plaintiff",
+    "expect": [
+      "small-claims"
+    ],
+    "classified": "small-claims",
+    "courtOk": true,
+    "outOfScope": false,
+    "issues": 6,
+    "answered": 6,
+    "missing": [],
+    "questions": [
+      "When did the teenager throw the rocks that broke your car windows?",
+      "What supervision, if any, were the parents providing when the teenager threw the rocks?",
+      "What, if anything, had the parents done to prevent or discourage the teenager from throwing rocks?",
+      "Has an insurer paid you any compensation for the broken windows?",
+      "Will the amount you claim, excluding interest and court costs, exceed $50,000?"
+    ],
+    "citations": [
+      "Parental Responsibility Act, 2000, s. 2 (1)-(2)",
+      "Parental Responsibility Act, 2000, s. 10 (1)-(3)",
+      "Limitations Act, 2002, s. 4",
+      "Limitations Act, 2002, s. 5 (1)-(3)",
+      "Courts of Justice Act, s. 23 (1)-(2)",
+      "Small Claims Court Jurisdiction and Appeal Limit, s. 1 (1)-(2)"
+    ],
+    "seconds": 43.912
+  },
+  {
+    "id": "sc-served-defamation",
+    "court": "small-claims",
+    "area": "defence",
+    "side": "defendant",
+    "expect": [
+      "small-claims"
+    ],
+    "classified": "small-claims",
+    "courtOk": true,
+    "outOfScope": false,
+    "issues": 6,
+    "answered": 3,
+    "missing": [],
+    "questions": [
+      "Have you been served with the claim, and if so, on what date?",
+      "Have you served a defence on every other party and filed it with the court clerk, together with proof of service?",
+      "Has your neighbour filed a request to have you noted in default, or has the court already noted you in default?",
+      "Did your review include opinions or judgments, and what words did you use to express them?",
+      "What topic did your review address, and who, beyond you and your neighbour, did it concern?"
+    ],
+    "citations": [
+      "Grant v. Torstar Corp., para. 31",
+      "Libel and Slander Act, s. 23",
+      "Rules of the Small Claims Court, r. 9.01",
+      "Guide to Procedures in Small Claims Court: Serving documents",
+      "Rules of the Small Claims Court, r. 11.06",
+      "Small Claims Court Jurisdiction and Appeal Limit, s. 1 (1)-(2)"
+    ],
+    "seconds": 41.624
+  },
+  {
+    "id": "sc-served-employer",
+    "court": "small-claims",
+    "area": "defence",
+    "side": "defendant",
+    "expect": [
+      "small-claims"
+    ],
+    "classified": "small-claims",
+    "courtOk": true,
+    "outOfScope": false,
+    "issues": 6,
+    "answered": 5,
+    "missing": [],
+    "questions": [
+      "When, if at all, were you served with the employee's claim?",
+      "Have you served a defence on every other party and filed it with the court clerk, along with proof of service?",
+      "Has the court noted you in default or made a default judgment against you?",
+      "When did her employment end, when was her next scheduled pay day, and when, if at all, did you pay her remaining wages?"
+    ],
+    "citations": [
+      "Rules of the Small Claims Court, r. 9.01",
+      "Rules of the Small Claims Court, r. 11.06",
+      "Termination and Severance of Employment, s. 2 (1)",
+      "Employment Standards Act, 2000, s. 11 (5)",
+      "Employment Standards Act, 2000, s. 12.1",
+      "Small Claims Court Jurisdiction and Appeal Limit, s. 1 (1)-(2)"
+    ],
+    "seconds": 55.874,
+    "refusals": [
+      "check: Omits limitation to statutory notice and termination pay. -- Before firing her, how did you respond to any till theft you already knew about?"
+    ]
+  },
+  {
+    "id": "sc-trial-coming",
+    "court": "small-claims",
+    "area": "procedure",
+    "side": "defendant",
+    "expect": [
+      "small-claims"
+    ],
+    "classified": "small-claims",
+    "courtOk": true,
+    "outOfScope": false,
+    "issues": 6,
+    "answered": 5,
+    "missing": [],
+    "questions": [
+      "When, if at all, did you serve the other parties with the documents and witness statements you plan to use at trial, including each author's contact details and address for service?",
+      "What orders, if any, did the judge make at your settlement conference about preparing for trial?",
+      "For any witness you have summoned, when was the summons handed to them personally, and was attendance money paid or offered at that time?",
+      "What notice, if any, have you received from the court about whether you will attend the trial in person or by video?",
+      "Is there any reason you cannot attend on the scheduled trial date?"
+    ],
+    "citations": [
+      "Small Claims Court — Steps in a Case",
+      "Guide to Procedures in Small Claims Court: Getting ready for court",
+      "Rules of the Small Claims Court, r. 2 (2)-(5)",
+      "Rules of the Small Claims Court, r. 18.03 (1)-(5)",
+      "Rules of the Small Claims Court, r. 8.01 (6)-(8)",
+      "Guide to Procedures in Small Claims Court: Getting ready for court"
+    ],
+    "seconds": 39.923
+  },
+  {
+    "id": "cv-partnership-dispute",
+    "court": "civil",
+    "area": "business",
+    "side": "plaintiff",
+    "expect": [
+      "civil"
+    ],
+    "classified": "civil",
+    "courtOk": true,
+    "outOfScope": false,
+    "issues": 6,
+    "answered": 6,
+    "missing": [],
+    "questions": [
+      "Before the lockout, what did you expect your role in managing the company and accessing its bank accounts to be?",
+      "What understandings did you and your partner reach about managing the company and access to its bank accounts?",
+      "How has being excluded from the bank accounts and management affected your interests in the company?",
+      "Was the company incorporated under Ontario law, federal law or another jurisdiction’s law?",
+      "Have you requested a copy of the company’s articles, by-laws or any unanimous shareholder agreement, and did you receive it without charge?"
+    ],
+    "citations": [
+      "Business Corporations Act, s. 2 (1)-(2)",
+      "Business Corporations Act, s. 7",
+      "Business Corporations Act, s. 248 (1)-(2)",
+      "BCE Inc. v. 1976 Debentureholders, paras. 70-71",
+      "BCE Inc. v. 1976 Debentureholders, paras. 62-63",
+      "BCE Inc. v. 1976 Debentureholders, paras. 67-69"
+    ],
+    "seconds": 41.979
+  },
+  {
+    "id": "fm-child-support-decrease",
+    "court": "family",
+    "area": "child-support",
+    "side": "defendant",
+    "expect": [
+      "family"
+    ],
+    "classified": "family",
+    "courtOk": true,
+    "outOfScope": false,
+    "issues": 5,
+    "answered": 5,
+    "missing": [],
+    "questions": [
+      "Do you agree with the change requested in the motion, or are you asking for a different change?",
+      "Did you lose your job before or after the child support order was made or last changed?",
+      "What is the reason you are currently not working?",
+      "Have you attached current income documents and tax assessments or other permitted income documents for the three previous years to your financial statement?",
+      "If you have served a financial statement to request a support change, did you serve a current schedule of arrears from the Family Responsibility Office with it?"
+    ],
+    "citations": [
+      "Child Support Guidelines (Ontario), s. 14",
+      "Federal Child Support Guidelines, s. 14",
+      "Divorce Act, s. 17 (2.2)-(4)",
+      "Family Law Act, s. 37 (1)-(2)",
+      "Federal Child Support Guidelines, s. 2 (1)",
+      "Child Support Guidelines (Ontario), s. 15 (1)-(2)"
+    ],
+    "seconds": 48.375
+  }
+]

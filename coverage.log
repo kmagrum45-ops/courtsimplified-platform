@@ -1,0 +1,14 @@
+
+> courtsimplified@0.1.0 eval:coverage
+> node --import tsx scripts/eval/coverageProbe.ts
+
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+sc-damage-by-child: court ok, research 6/6, 5 q, 0 missing, 44s
+sc-defamation-facebook: court ok, research 4/6, 4 q, 0 missing, 47s
+sc-private-car-sale: court ok, research 5/6, 5 q, 0 missing, 47s
+sc-served-defamation: court ok, research 3/6, 5 q, 0 missing, 42s
+sc-trial-coming: court ok, research 5/6, 5 q, 0 missing, 40s
+sc-served-employer: court ok, research 5/6, 4 q, 0 missing, 56s
+cv-partnership-dispute: court ok, research 6/6, 5 q, 0 missing, 42s
+fm-child-support-decrease: court ok, research 5/5, 5 q, 0 missing, 48s
+coverage: 8 stories; court path right 100%; research answered 83%; stories with questions 100%; 0 missing laws named
