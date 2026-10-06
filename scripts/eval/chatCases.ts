@@ -61,16 +61,18 @@ export const CHAT_CASES: ChatCase[] = [
       "office — with ten days to do it in, and no action at all if they missed it.",
   },
   {
-    id: "chat-enforcement-has-no-block",
+    id: "chat-enforcement",
     question:
       "I have a judgment and they still haven't paid. How do I actually collect the money?",
-    expectBlock: null,
+    expectBlock: "plaintiff:judgment-in-my-favour-unpaid",
     expectAdvice: false,
     because:
-      "Enforcement has no published block, so no-match is right. The advice flag is " +
-      "NOT: this is a plain procedural question with a plain procedural answer we " +
-      "have not written yet. Telling somebody that 'how do I collect' is a question " +
-      "only a lawyer may answer is untrue and discouraging.",
+      "The judgment-unpaid block answers this. (This case was written when no " +
+      "enforcement block was published and expected no match; the block was " +
+      "published in #51 and the stale expectation failed every run until " +
+      "2026-10-05.) The advice flag must stay false: 'how do I collect' is a " +
+      "plain procedural question, and telling somebody only a lawyer may answer " +
+      "it is untrue and discouraging.",
   },
   {
     id: "chat-will-i-win",
