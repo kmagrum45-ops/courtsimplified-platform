@@ -327,7 +327,10 @@ export default function StageAnswerPanel({
     void load(stageId, municipality ? { municipality } : {}, next);
     if (!caseId) return;
     setDateStatus("saving");
-    setDateStatus((await savePosition(caseId, { dateAnswers: asked })) ? "saved" : "not-saved");
+    // The step is saved with the dates: counting a deadline at the suggested
+    // step is the user acting on it, and the case file needs the step to show
+    // the counted date (page review, 2026-10-06).
+    setDateStatus((await savePosition(caseId, { dateAnswers: asked, stepId: stageId || null })) ? "saved" : "not-saved");
   }
 
   return (
