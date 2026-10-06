@@ -215,7 +215,7 @@ export default function CaseOverviewPage() {
               initialStepId={position.stepId}
               initialDateAnswers={position.dateAnswers}
               suggestedDates={suggestedDates}
-              storyHints={storyHintsForDates(intake?.facts)}
+              storyHints={storyHintsForDates([intake?.facts, intake?.timeline].filter(Boolean).join("\n"))}
             />
           ) : (
             <NextStepsCard pathway={courtPath} stage={confirmed} userWords={userWordsOf(master.intakeData)} />

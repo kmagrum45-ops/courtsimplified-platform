@@ -52,22 +52,8 @@ const cja = (pinpoint: string, quote: string): RuleCitation => ({
 
 // ------------------------------------------------------------ counting time
 
-/** Days between two events, "at least" included, and the next-day rule for holidays. */
-const RCP_3_01_COUNT = rcp(
-  "r. 3.01 (1) (a), (c)",
-  "(a) where there is a reference to a number of days between two events, they shall be counted by excluding the day on which the first event happens and including the day on which the second event happens, even if they are described as clear days or the words \"at least\" are used; ... (c) where the time for doing an act expires on a holiday, the act may be done on the next day that is not a holiday;",
-);
 
-/** Periods of seven days or less: holidays (which include Saturdays and Sundays) are not counted. */
-const RCP_3_01_SHORT = rcp(
-  "r. 3.01 (1) (a), (b)",
-  "(a) where there is a reference to a number of days between two events, they shall be counted by excluding the day on which the first event happens and including the day on which the second event happens, even if they are described as clear days or the words \"at least\" are used; (b) where a period of seven days or less is prescribed, holidays shall not be counted;",
-);
 
-const RCP_1_03_HOLIDAY = rcp(
-  "r. 1.03 (1)",
-  "\"holiday\" means, (a) any Saturday or Sunday, (b) New Year's Day, (b.1) Family Day, (c) Good Friday, (d) Easter Monday, (e) Victoria Day, (f) Canada Day, (g) Civic Holiday, (h) Labour Day, (i) Thanksgiving Day, (j) Remembrance Day, (k) Christmas Day, (l) Boxing Day, and (m) any special holiday proclaimed by the Governor General or the Lieutenant Governor,",
-);
 
 const RCP_1_03_DELIVER = rcp(
   "r. 1.03 (1)",
@@ -1526,7 +1512,7 @@ function discontinuanceCosts(id: string): StageDeadline {
     length: { unit: "days", count: 30 },
     regime: "civil-rules",
     rule: RCP_23_05_COSTS,
-    computation: RCP_3_01_COUNT,
+    computation: C.RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
       "Any party to the action can make this motion. It applies whether all or part of the action was discontinued. If a crossclaim or third party claim is treated as dismissed, a costs motion about it can be made within 30 days after that deemed dismissal. The time can be extended by filing a consent, or by the court.",
@@ -1829,7 +1815,7 @@ function setAsideRegistrarOrder(id: string, what: string): StageDeadline {
     length: { unit: "days", count: 0 },
     regime: "civil-rules",
     rule: RCP_37_14_SET_ASIDE_ORDER,
-    computation: RCP_3_01_COUNT,
+    computation: C.RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
       "The rule sets no fixed number of days. Serve the notice of motion forthwith (right away) after the order comes to your attention. It must name the first available hearing date at least three days after you serve it.",
@@ -1846,7 +1832,7 @@ function undertakingsDeadline(id: string): StageDeadline {
     length: { unit: "days", count: 60 },
     regime: "civil-rules",
     rule: RCP_31_07_FAIL,
-    computation: RCP_3_01_COUNT,
+    computation: C.RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
       "If you do not answer in that time, you cannot use that information at trial without the trial judge's permission. You still have to keep an undertaking.",
@@ -1863,7 +1849,7 @@ function simplifiedAffidavit(id: string): StageDeadline {
     length: { unit: "days", count: 10 },
     regime: "civil-rules",
     rule: RCP_76_03_AFFIDAVIT,
-    computation: RCP_3_01_COUNT,
+    computation: C.RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
       "This applies only to an action under the simplified procedure. Pleadings close when every defence has been replied to, or the time for a reply has run out, and every defendant who did not defend has been noted in default. The affidavit must also list the people who might know about the issues, unless the court orders otherwise. A person not named in it cannot be a witness at trial unless the court orders otherwise. The time can be extended by filing a consent, or by the court.",
@@ -1882,7 +1868,7 @@ function simplifiedSetDown(id: string, plaintiffOnlyStage: boolean): StageDeadli
     length: { unit: "days", count: 180 },
     regime: "civil-rules",
     rule: RCP_76_09_SET_DOWN,
-    computation: RCP_3_01_COUNT,
+    computation: C.RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier: plaintiffOnlyStage
       ? "This applies only to an action under the simplified procedure. It replaces the usual way of setting down. If you do not do it, any other party may. You must certify in the notice that there was a settlement discussion. The court can extend the time."
@@ -1900,7 +1886,7 @@ function discoveryPlan(id: string): StageDeadline {
     length: { unit: "days", count: 60 },
     regime: "civil-rules",
     rule: RCP_29_1_03_TIMING,
-    computation: RCP_3_01_COUNT,
+    computation: C.RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
       "The parties can agree to a longer time. But the plan must be agreed before anyone tries to get the evidence, if that comes first. The plan must be in writing. It must set dates for serving each party's affidavit of documents.",
@@ -1935,7 +1921,7 @@ function juryNotice(id: string, afterCounterclaim = false): StageDeadline {
     length: { unit: "days", count: 0 },
     regime: "civil-rules",
     rule: RCP_47_01_JURY,
-    computation: RCP_3_01_COUNT,
+    computation: C.RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
       (afterCounterclaim
@@ -1956,7 +1942,7 @@ function dismissalCosts(id: string): StageDeadline {
     length: { unit: "days", count: 30 },
     regime: "civil-rules",
     rule: RCP_24_05_1_COSTS,
-    computation: RCP_3_01_COUNT,
+    computation: C.RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier:
       "Any party to the action can make this motion. The rule's own words cover any action \"dismissed for delay\". The registrar's five-year order is a dismissal for delay. The only doubt comes from rule 48.14 (9). That rule applies the dismissal rules to a registrar's order, but it names only rules 24.03 to 24.05. So the rules' text does not settle whether this rule, 24.05.1, reaches that order. Bringing the motion within the 30 days avoids the doubt. The time can be extended by filing a consent, or by the court.",
@@ -1979,7 +1965,7 @@ function mediationDeadline(id: string): StageDeadline {
     length: { unit: "days", count: 180 },
     regime: "civil-rules",
     rule: RCP_24_1_09_180_DAYS,
-    computation: RCP_3_01_COUNT,
+    computation: C.RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier: MEDIATION_QUALIFIER,
     exceptions: [
@@ -2003,7 +1989,7 @@ function simplifiedSettlementDiscussion(id: string): StageDeadline {
     length: { unit: "days", count: 60 },
     regime: "civil-rules",
     rule: RCP_76_08_SETTLEMENT_DISCUSSION,
-    computation: RCP_3_01_COUNT,
+    computation: C.RCP_3_01_COUNT,
     consequence: "changes-what-happens-next",
     qualifier: "This applies only to an action under the simplified procedure. The general rules for actions also apply to it, unless Rule 76 says otherwise.",
     exceptions: [RCP_76_01_OTHER_RULES],
@@ -2018,7 +2004,7 @@ const THIRD_PARTY_CLAIM_DEADLINE: StageDeadline = {
   length: { unit: "days", count: 10 },
   regime: "civil-rules",
   rule: RCP_29_02_ISSUE,
-  computation: RCP_3_01_COUNT,
+  computation: C.RCP_3_01_COUNT,
   consequence: "changes-what-happens-next",
   qualifier:
     "You can also issue it at any time before you are noted in default. Or you can issue it within 10 days after the plaintiff delivers a reply to your defence. After that, you can issue it at any time with the plaintiff's consent or the court's leave. The court must give leave unless it would prejudice the plaintiff. You must serve it within 30 days after it is issued. The two-year limitation period still applies to your claim against the third party. For a claim for contribution and indemnity, the Limitations Act, 2002 treats the day you were served with the plaintiff's claim as the day of the act or omission.",
@@ -2376,7 +2362,7 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "days", count: 30 },
         regime: "civil-rules",
         rule: RCP_14_03_THIRTY_DAYS,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This applies only if you started with a notice of action. After the 30 days, you can file the statement of claim only with the defendant's written consent or the court's permission. You must ask for that permission on notice to the defendant.",
@@ -2468,7 +2454,7 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "days", count: 20 },
         regime: "civil-rules",
         rule: RCP_18_01_DEFENCE,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This is the time if the defendant was served in Ontario. If they were served elsewhere in Canada or in the United States, it is 40 days. If they were served anywhere else, it is 60 days. A defendant who delivers a notice of intent to defend in that time gets 10 more days. " +
@@ -2524,7 +2510,7 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "days", count: 30 },
         regime: "civil-rules",
         rule: RCP_24_01_DEFENDANT_MAY_MOVE,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "Only a defendant who is not in default can bring this motion. So it matters mainly where there is more than one defendant. Until a defendant is noted in default, they can still deliver a defence.",
@@ -2614,7 +2600,7 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "days", count: 10 },
         regime: "civil-rules",
         rule: RCP_25_04_REPLY,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "A reply is optional. If the defendant also counterclaimed, you have 20 days instead for a reply and defence to counterclaim. Deliver means serve it on the other parties and file it with proof of service. Your action may be under the simplified procedure, and the defence may object that your claim does not fit it. Then the action stays under that procedure only if your reply gives up the parts of the claim that do not fit. The time can be extended by filing a consent, or by the court.",
@@ -2633,7 +2619,7 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "days", count: 10 },
         regime: "civil-rules",
         rule: RCP_29_05_PLAINTIFF_REPLY,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier: "This applies only where a defendant brought in a third party who has also defended the main action. A reply is optional.",
         exceptions: [RCP_29_05_DEFEND_MAIN],
@@ -2679,7 +2665,7 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "days", count: 20 },
         regime: "civil-rules",
         rule: RCP_27_05_DEFENCE_TO_COUNTERCLAIM,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "If you also deliver a reply, put both in one document called a reply and defence to counterclaim. If you do not deliver a defence to counterclaim in time, the defendant can have you noted in default on the counterclaim. You would then be treated as admitting the facts it alleges. Judgment could then be given against you on it. The time can be extended by filing a consent, or by the court.",
@@ -2778,7 +2764,7 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "days", count: 30 },
         regime: "civil-rules",
         rule: RCP_24_01_E_RESTORE,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This is not an automatic dismissal. It is a motion a defendant may bring. If a judge struck the action off, the leave must come from a judge.",
@@ -2886,7 +2872,7 @@ const PLAINTIFF: CaseStage[] = [
         length: { unit: "days", count: 0 },
         regime: "civil-rules",
         rule: RCP_23_01_DISCONTINUE,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "The rule fixes no number of days. The cut-off is the close of pleadings. After that, you need the court's leave. You can also discontinue at any time by filing the consent of all parties. If any party is under a disability, discontinuing by or against that party needs a judge's leave. A defendant who counterclaimed then has 30 days to choose to go on with the counterclaim. A discontinuance does not stop a later action on the same claim, unless the leave order or a filed consent says so. But a later action can be put on hold until the costs of the discontinued one are paid.",
@@ -3016,7 +3002,7 @@ const DEFENDANT: CaseStage[] = [
         length: { unit: "days", count: 20 },
         regime: "civil-rules",
         rule: RCP_18_01_DEFENCE,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This is the time if you were served in Ontario. If you were served elsewhere in Canada or in the United States, it is 40 days. If you were served anywhere else, it is 60 days. If you deliver a notice of intent to defend (Form 18B) in that time, you get 10 more days for the defence. Deliver means serve it on the other parties and file it with proof of service. " +
@@ -3085,7 +3071,7 @@ const DEFENDANT: CaseStage[] = [
         length: { unit: "days", count: 30 },
         regime: "civil-rules",
         rule: RCP_29_02_SERVE,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "The third party must be served personally or by an alternative to personal service. The other parties to the main action must be served in the same time, but not personally. The time can be extended by filing a consent, or by the court.",
@@ -3102,7 +3088,7 @@ const DEFENDANT: CaseStage[] = [
         length: { unit: "days", count: 10 },
         regime: "civil-rules",
         rule: RCP_27_06_REPLY_TO_DEFENCE_TO_COUNTERCLAIM,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier: "This applies only if you counterclaimed. A reply is optional. If you crossclaimed, you have the same 10 days to reply to a defence to crossclaim (Form 28C). If you brought a third party claim, you also have 10 days to reply to the third party defence (Form 29C). Each runs from service of that defence.",
         exceptions: [RCP_28_08_REPLY, RCP_29_04_REPLY],
@@ -3118,7 +3104,7 @@ const DEFENDANT: CaseStage[] = [
         length: { unit: "days", count: 180 },
         regime: "civil-rules",
         rule: RCP_76_09_SET_DOWN,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This applies only to an action under the simplified procedure. If the plaintiff does not do it, any other party may.",
@@ -3168,7 +3154,7 @@ const DEFENDANT: CaseStage[] = [
         length: { unit: "days", count: 20 },
         regime: "civil-rules",
         rule: RCP_29_03_THIRD_PARTY_DEFENCE,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This is the time if you were served in Ontario. If you were served elsewhere in Canada or in the United States, it is 40 days. If you were served anywhere else, it is 60 days. A notice of intent to defend in that time gives you 10 more days. You can also defend the plaintiff's claim. Do this by delivering a statement of defence in the main action, in the same time. If you do not, you are still bound by any order or finding in the main action between the plaintiff and the defendant who brought you in. If you do not deliver a third party defence in time, you can be noted in default. You would then be treated as admitting the facts the third party claim alleges. Judgment could be given against you at the trial or on a motion to a judge. The time can be extended by filing a consent, or by the court.",
@@ -3212,7 +3198,7 @@ const DEFENDANT: CaseStage[] = [
         length: { unit: "days", count: 20 },
         regime: "civil-rules",
         rule: RCP_27_05_NEW_PARTY_DEFENCE,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This is the time if you were served in Ontario. If you were served elsewhere in Canada or in the United States, it is 40 days. If you were served anywhere else, it is 60 days. A notice of intent to defend in that time gives you 10 more days. You can still deliver a defence at any time before you are noted in default. The default rules apply to a counterclaim. The time can be extended by filing a consent, or by the court.",
@@ -3256,7 +3242,7 @@ const DEFENDANT: CaseStage[] = [
         length: { unit: "days", count: 20 },
         regime: "civil-rules",
         rule: RCP_28_05_DEFENCE_TO_CROSSCLAIM,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "You do not need one if three things are true. First, the crossclaim asks only for contribution or indemnity under the Negligence Act. Second, you have delivered a defence in the main action. Third, you rely on the facts in that defence, with nothing different or surprising. Otherwise, if you do not deliver it in time, you can be noted in default on the crossclaim. You would then be treated as admitting its facts. The co-defendant could then get judgment against you at the trial or on a motion to a judge. The time can be extended by filing a consent, or by the court.",
@@ -3296,7 +3282,7 @@ const DEFENDANT: CaseStage[] = [
         length: { unit: "days", count: 30 },
         regime: "civil-rules",
         rule: RCP_23_02_COUNTERCLAIM_ELECTION,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "If you do not, the counterclaim is treated as discontinued, without costs. You may also have made a crossclaim or third party claim. If so, it is treated as dismissed 30 days after the discontinuance, unless the court orders otherwise within those 30 days. The time can be extended by filing a consent, or by the court.",
@@ -3372,7 +3358,7 @@ const DEFENDANT: CaseStage[] = [
         length: { unit: "days", count: 0 },
         regime: "civil-rules",
         rule: RCP_19_01_LATE_DEFENCE,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "The rules set no further fixed number of days. But you can deliver it only until you are noted in default. The plaintiff can have that done at any time by filing proof of service. After that, you get no notice of further steps. The time can also be extended by filing a consent, or by the court.",
@@ -3419,7 +3405,7 @@ const DEFENDANT: CaseStage[] = [
         length: { unit: "days", count: 0 },
         regime: "civil-rules",
         rule: RCP_19_03_SET_ASIDE_NOTING,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "The rule sets no fixed number of days. If you deliver a defence with the plaintiff's consent, the noting of default is treated as set aside. You are not entitled to notice of further steps, so the plaintiff can seek judgment without telling you.",
@@ -3473,7 +3459,7 @@ const DEFENDANT: CaseStage[] = [
         length: { unit: "days", count: 0 },
         regime: "civil-rules",
         rule: RCP_19_08_SET_ASIDE_SIGNED,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "The rule sets no fixed number of days. The court can set aside a judgment the registrar signed, or one the court granted on a motion under rule 19.04. A judge can set aside one granted on a motion for judgment under rule 19.05, or after a trial. An appeal from a final order of a judge must start within 30 days after the order is made. Appealing a refusal to set aside a default judgment does not by itself stop the judgment from being enforced.",
@@ -3517,7 +3503,7 @@ const DEFENDANT: CaseStage[] = [
         length: { unit: "days", count: 30 },
         regime: "civil-rules",
         rule: RCP_24_03_COUNTERCLAIM_ELECTION,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "If you do not, the counterclaim is treated as discontinued, without costs. This applies to a dismissal by the registrar as well as by the court. The time can be extended by filing a consent, or by the court.",
@@ -3605,7 +3591,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 30 },
         regime: "civil-rules",
         rule: RCP_15_04_OTHER_CLIENTS,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "If you do not, the court may dismiss your case or strike out your defence. In an appeal, a judge of the appeal court may dismiss the appeal, or the court hearing it may refuse to hear you. A corporation has 30 days to do one of two things instead. It can appoint a new lawyer. Or it can get and serve an order letting someone who is not a lawyer represent it. The same results follow if it does not. A party acting in a representative role, or the litigation guardian of a party under disability, has 30 days to appoint a new lawyer. The time can be extended by the court.",
@@ -3649,7 +3635,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 10 },
         regime: "civil-rules",
         rule: RCP_26_05_RESPOND,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "You have the longer of two times: these 10 days, or the time that was left to respond to the original pleading. The court can order otherwise. If you had already responded to the original, you may choose not to respond again. You are then treated as relying on your original pleading.",
@@ -3808,11 +3794,11 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_24_1_10_STATEMENT,
-        computation: RCP_3_01_SHORT,
+        computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. The plaintiff must also include a copy of the pleadings with the mediator's copy. A party may fail to do this, so that holding the session is not practical. Then the mediator cancels it and files a certificate of non-compliance. The matter then goes to a judge or associate judge. The judge can dismiss the action of a plaintiff who did not comply. The judge can strike out the defence of a defendant who did not comply, or make other orders.",
-        exceptions: [RCP_24_1_10_PLEADINGS, RCP_24_1_10_CANCEL, RCP_24_1_13_REFER, RCP_24_1_13_POWERS, RCP_1_03_HOLIDAY],
+        exceptions: [RCP_24_1_10_PLEADINGS, RCP_24_1_10_CANCEL, RCP_24_1_13_REFER, RCP_24_1_13_POWERS, C.RCP_1_03_HOLIDAY],
       },
     ],
     requiresAffirmativeScope: true,
@@ -3852,7 +3838,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 20 },
         regime: "civil-rules",
         rule: RCP_51_03_RESPOND,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "If you do not respond in time, you are treated as admitting the facts or documents in the request, for this case only. You are also treated as admitting anything your response does not specifically deny, or refuse to admit with a reason. The time can be extended by filing a consent, or by the court.",
@@ -3909,11 +3895,11 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_49_03_SEVEN_DAYS,
-        computation: RCP_3_01_SHORT,
+        computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
           "An offer can be made at any time. But if it is made less than seven days before the hearing, the rule 49.10 costs rules do not apply. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. The offer must also stay open, not withdrawn or expired, until the hearing starts. Rule 49 also applies, with needed changes, to motions, counterclaims, crossclaims and third party claims. For an offer on a motion, the hearing is the hearing of that motion. Several defendants may be said to be jointly liable. If so, the rule 49.10 costs rules apply only if the offer meets the terms of rule 49.11. An offer can be withdrawn by written notice at any time before it is accepted. It ends when any time it gives for acceptance runs out. It cannot be accepted after the court decides the claim.",
-        exceptions: [RCP_49_01_1_APPLIES, RCP_49_11_JOINT, RCP_49_10_PLAINTIFF_OFFER, RCP_49_10_DEFENDANT_OFFER, RCP_49_04_WITHDRAW, RCP_49_04_EXPIRES, RCP_49_04_DISPOSED, RCP_1_03_HOLIDAY],
+        exceptions: [RCP_49_01_1_APPLIES, RCP_49_11_JOINT, RCP_49_10_PLAINTIFF_OFFER, RCP_49_10_DEFENDANT_OFFER, RCP_49_04_WITHDRAW, RCP_49_04_EXPIRES, RCP_49_04_DISPOSED, C.RCP_1_03_HOLIDAY],
       },
     ],
     requiresAffirmativeScope: true,
@@ -3968,11 +3954,11 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_20_03_MOVING,
-        computation: RCP_3_01_SHORT,
+        computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
           "A factum is required on this motion. This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday. You must also give the registrar a confirmation of motion (Form 37B) by 2 p.m. five days before the hearing. If you do not, the motion is not heard.",
-        exceptions: [RCP_20_03_FACTUMS, RCP_37_07_SEVEN_DAYS, RCP_37_10_MOTION_RECORD, RCP_37_10_1_CONFIRM, RCP_37_10_1_ABANDONED, RCP_3_01_D_LATE_SERVICE, RCP_1_03_HOLIDAY],
+        exceptions: [RCP_20_03_FACTUMS, RCP_37_07_SEVEN_DAYS, RCP_37_10_MOTION_RECORD, RCP_37_10_1_CONFIRM, RCP_37_10_1_ABANDONED, RCP_3_01_D_LATE_SERVICE, C.RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:summary-judgment-responding-4-days",
@@ -3983,11 +3969,11 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_20_03_RESPONDING,
-        computation: RCP_3_01_SHORT,
+        computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
           "A factum is required on this motion. You cannot rely only on what your pleading says or denies. You must set out specific facts, in affidavits or other evidence, showing there is a genuine issue that needs a trial. This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday.",
-        exceptions: [RCP_20_03_FACTUMS, RCP_20_02_RESPONDING_EVIDENCE, RCP_3_01_D_LATE_SERVICE, RCP_1_03_HOLIDAY],
+        exceptions: [RCP_20_03_FACTUMS, RCP_20_02_RESPONDING_EVIDENCE, RCP_3_01_D_LATE_SERVICE, C.RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:summary-judgment-responding-record-4-days",
@@ -3998,11 +3984,11 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_37_10_RESPONDING_RECORD_FULL,
-        computation: RCP_3_01_SHORT,
+        computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This is how your evidence of specific facts reaches the court. This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. If the moving party did not email you a copy of their confirmation of motion, you may give the registrar your own confirmation of motion (Form 37B) by 10 a.m. four days before the hearing.",
-        exceptions: [RCP_20_02_RESPONDING_EVIDENCE, RCP_37_10_RECORD_CONTENTS, RCP_37_10_1_RESPONDING_CONFIRM, RCP_1_03_HOLIDAY],
+        exceptions: [RCP_20_02_RESPONDING_EVIDENCE, RCP_37_10_RECORD_CONTENTS, RCP_37_10_1_RESPONDING_CONFIRM, C.RCP_1_03_HOLIDAY],
       },
     ],
     requiresAffirmativeScope: true,
@@ -4073,11 +4059,11 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_37_07_SEVEN_DAYS,
-        computation: RCP_3_01_SHORT,
+        computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. Your factum, if you have one, is due by the same day. On a motion for summary judgment, a factum is required. The court can order otherwise for the motion record. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday. On a motion about refusals or undertakings, your refusals and undertakings chart (Form 37C) is due by the same day. You may propose that the motion be heard in writing, without the parties attending. If so, give at least 14 days notice. Serve your motion record, a draft order and a factum for a motion in writing with the notice of motion, and file them right away. In a simplified procedure action, you serve a motion form (Form 76B). The motion may be made with or without supporting material or a motion record.",
-        exceptions: [RCP_37_08_FILE, RCP_37_10_MOTION_RECORD, RCP_37_10_MOVING_FACTUM, RCP_20_03_FACTUMS, RCP_37_10_MOVING_CHART, RCP_37_12_1_IN_WRITING, RCP_37_12_1_IN_WRITING_MATERIAL, RCP_76_05_MOTION_FORM, RCP_76_05_MATERIALS, RCP_3_01_D_LATE_SERVICE, RCP_1_03_HOLIDAY],
+        exceptions: [RCP_37_08_FILE, RCP_37_10_MOTION_RECORD, RCP_37_10_MOVING_FACTUM, RCP_20_03_FACTUMS, RCP_37_10_MOVING_CHART, RCP_37_12_1_IN_WRITING, RCP_37_12_1_IN_WRITING_MATERIAL, RCP_76_05_MOTION_FORM, RCP_76_05_MATERIALS, RCP_3_01_D_LATE_SERVICE, C.RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:confirmation-of-motion-5-days",
@@ -4088,11 +4074,11 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_37_10_1_CONFIRM,
-        computation: RCP_3_01_SHORT,
+        computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
           "Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. If no confirmation is given, the motion is not heard. It is treated as abandoned, unless the court orders otherwise.",
-        exceptions: [RCP_37_10_1_ABANDONED, RCP_1_03_HOLIDAY],
+        exceptions: [RCP_37_10_1_ABANDONED, C.RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:motion-responding-factum-4-days",
@@ -4103,11 +4089,11 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_37_10_RESPONDING_FACTUM,
-        computation: RCP_3_01_SHORT,
+        computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
           "A factum is optional on most motions, but required on a motion for summary judgment. This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. On a motion about refusals or undertakings, your completed chart is due by the same day. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday.",
-        exceptions: [RCP_20_03_FACTUMS, RCP_37_10_CHART, RCP_3_01_D_LATE_SERVICE, RCP_1_03_HOLIDAY],
+        exceptions: [RCP_20_03_FACTUMS, RCP_37_10_CHART, RCP_3_01_D_LATE_SERVICE, C.RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:motion-responding-record-4-days",
@@ -4118,11 +4104,11 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_37_10_RESPONDING_RECORD,
-        computation: RCP_3_01_SHORT,
+        computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted.",
-        exceptions: [RCP_1_03_HOLIDAY],
+        exceptions: [C.RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:responding-confirmation-4-days",
@@ -4133,11 +4119,11 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_37_10_1_RESPONDING_CONFIRM,
-        computation: RCP_3_01_SHORT,
+        computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
           "Because the period is seven days or less, Saturdays, Sundays and holidays are not counted.",
-        exceptions: [RCP_1_03_HOLIDAY],
+        exceptions: [C.RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:motion-in-writing-response-10-days",
@@ -4147,7 +4133,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 10 },
         regime: "civil-rules",
         rule: RCP_37_12_1_RESPONSE,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier: "This applies when the moving party proposed in the notice of motion that the motion be heard in writing.",
         exceptions: [RCP_37_12_1_IN_WRITING],
@@ -4195,7 +4181,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 15 },
         regime: "civil-rules",
         rule: RCP_61_03_1_FIFTEEN_DAYS,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "File the notice, with proof of service, within five days after you serve it. A panel of the Divisional Court hears the leave motion in writing. The same leave process applies to a final order of a Superior Court judge that is only about costs. Within 30 days after filing the notice of motion, file your motion record, factum, any transcripts and any book of authorities, with proof of service. If leave is granted, deliver the notice of appeal, with your certificate respecting evidence (Form 61C), within seven days after leave is granted.",
@@ -4209,11 +4195,11 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 7 },
         regime: "civil-rules",
         rule: RCP_62_01_SEVEN_DAYS,
-        computation: RCP_3_01_SHORT,
+        computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This appeal goes to a judge, not to the Divisional Court. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. The notice must name the first available hearing date at least seven days after you serve it. File it with proof of service no later than seven days before that hearing date.",
-        exceptions: [RCP_62_01_ASSOCIATE_JUDGE, S_CJA_17_ASSOCIATE_JUDGE, RCP_62_01_HEARING_DATE, RCP_62_01_FILE, RCP_1_03_HOLIDAY],
+        exceptions: [RCP_62_01_ASSOCIATE_JUDGE, S_CJA_17_ASSOCIATE_JUDGE, RCP_62_01_HEARING_DATE, RCP_62_01_FILE, C.RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:associate-judge-appeal-record-7-days",
@@ -4224,11 +4210,11 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_62_01_APPEAL_RECORD,
-        computation: RCP_3_01_SHORT,
+        computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted.",
-        exceptions: [RCP_1_03_HOLIDAY],
+        exceptions: [C.RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:associate-judge-appeal-respondent-4-days",
@@ -4239,11 +4225,11 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_62_01_RESPONDENT_FACTUM,
-        computation: RCP_3_01_SHORT,
+        computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted.",
-        exceptions: [RCP_62_01_RESPONDENT_FILE, RCP_1_03_HOLIDAY],
+        exceptions: [RCP_62_01_RESPONDENT_FILE, C.RCP_1_03_HOLIDAY],
       },
       {
         id: "deadline:civil:leave-motion-response-25-days",
@@ -4253,7 +4239,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 25 },
         regime: "civil-rules",
         rule: RCP_61_03_1_RESPONDING_25_DAYS,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier: "This applies to a motion for leave to appeal an interlocutory order or a costs order of a Superior Court judge.",
         exceptions: [RCP_62_02_PROCEDURES, RCP_62_02_LEAVE_FROM],
@@ -4314,7 +4300,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 180 },
         regime: "civil-rules",
         rule: RCP_50_02_SCHEDULE,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "If the parties do not schedule it in that time, the registrar schedules it and tells the parties. The court can order otherwise. The date must be 30 to 120 days before the first trial day, or before the first day of the trial sittings, whichever is later. An order or practice direction can say otherwise.",
@@ -4328,7 +4314,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 60 },
         regime: "civil-rules",
         rule: RCP_53_03_SCHEDULE,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier: "The court can order otherwise.",
         exceptions: [],
@@ -4342,7 +4328,7 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_53_03_EXPERT,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This is the latest it can be done; earlier is fine. A report from an expert who answers another party's expert must be served at least 60 days before the pre-trial conference. An expert cannot testify on an issue that is not in a report served in time, unless the trial judge allows it. The time can be extended by the pre-trial judge, by the court on a motion, or by the parties' written consent. But consent cannot move the trial date.",
@@ -4357,7 +4343,7 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_50_03_1_READINESS,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "For each expert, say whether their report was served in time and, if not, why. This applies even if the time to serve the report was extended. This is the latest it can be done; earlier is fine. If the pre-trial conference is moved, count from the new date.",
@@ -4372,7 +4358,7 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_76_10_PLAN,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This applies only to an action under the simplified procedure. The plan lists every witness, including experts, and divides the trial time between the parties, to a total of no more than five days. This is the latest it can be done; earlier is fine.",
@@ -4387,11 +4373,11 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_50_04_BRIEF,
-        computation: RCP_3_01_SHORT,
+        computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. In a simplified procedure action, each party files other things instead. These are the proposed trial management plan, the party's affidavit of documents and the documents it relies on, any expert affidavit, and any other material needed. Each party also delivers a statement of no more than three pages on the issues and its position, and a trial management checklist (Form 76D).",
-        exceptions: [RCP_76_10_DOCUMENTS, RCP_1_03_HOLIDAY],
+        exceptions: [RCP_76_10_DOCUMENTS, C.RCP_1_03_HOLIDAY],
       },
     ],
     requiresAffirmativeScope: true,
@@ -4433,7 +4419,7 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_53_03_NO_REPORT,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This is the latest it can be done; earlier is fine. A responding supplementary report must be served at least 15 days before trial. Otherwise the expert cannot testify on that issue without the trial judge's leave. The time can be extended by the judge at a pre-trial conference, by the court on a motion, or by the parties' written consent. But consent cannot move the trial date.",
@@ -4448,7 +4434,7 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_76_11_TRIAL_RECORD,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This applies only to an action under the simplified procedure, and only to the party who set it down. It is the latest it can be done; earlier is fine. Witness affidavits, including any outstanding expert affidavits, must be delivered by the dates the pre-trial judge fixed.",
@@ -4493,7 +4479,7 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_25_06_SPECIAL_DAMAGES,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "The notice must be delivered right away once the amounts become known, and in any event not less than ten days before trial.",
@@ -4508,7 +4494,7 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_53_07_ADVERSE_WITNESS,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "The 10 days apply to the notice of intention. Attendance money under Tariff A must be paid or offered at the same time. If the person is already at the trial, no summons or attendance money is needed.",
@@ -4523,7 +4509,7 @@ const BOTH: CaseStage[] = [
         direction: "before",
         regime: "civil-rules",
         rule: RCP_76_12_CROSS_EXAMINE,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This applies only to an action under the simplified procedure. The party who filed the affidavit then arranges for that person to attend. It is the latest it can be done; earlier is fine.",
@@ -4637,7 +4623,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 15 },
         regime: "civil-rules",
         rule: RCP_61_07_CROSS_APPEAL,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "This applies if you want the order set aside or changed. It also applies if you want a different result if the appeal succeeds. Only a judge of the appeal court can extend the time.",
@@ -4694,7 +4680,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 10 },
         regime: "civil-rules",
         rule: C.R_61_04_FILE_10_DAYS,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "The 30 days to file proof that you ordered a transcript, and the 30 days to perfect an appeal that needs no transcript, are both counted from the day you file it. Only a judge of the appeal court can extend the time.",
@@ -4708,7 +4694,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 15 },
         regime: "civil-rules",
         rule: RCP_61_05_RESPONDENT_CERTIFICATE,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "It confirms the appellant's certificate, or sets out additions or deletions. If you do not serve and file it in time, you are treated as confirming the appellant's certificate. A notice of cross-appeal has the same 15 days. It must be filed with proof of service within 10 days after it is served.",
@@ -4722,7 +4708,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 30 },
         regime: "civil-rules",
         rule: RCP_61_05_TRANSCRIPT_ORDERED,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "If you do not, the respondent can ask the Registrar, on ten days notice, to dismiss the appeal for delay. If the problem is not fixed before that motion is heard, the Registrar dismisses the appeal. Costs are then fixed at $750. A judge of the appeal court can allow more time.",
@@ -4736,7 +4722,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 30 },
         regime: "civil-rules",
         rule: RCP_61_09_PERFECT,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "If you do not, the respondent can move to have the appeal dismissed for delay. Or the Registrar can give notice that it will be dismissed unless it is perfected within 10 days. If the problem is not fixed in time, the Registrar dismisses the appeal, with costs fixed at $750. A judge of the appeal court can allow more time after a Registrar's notice. If there is a cross-appeal, deliver your factum as respondent to it within 10 days after the respondent's factum is served.",
@@ -4750,7 +4736,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 60 },
         regime: "civil-rules",
         rule: RCP_61_09_PERFECT,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier:
           "If you do not, the respondent can move to have the appeal dismissed for delay. The Registrar can also give notice that the appeal will be dismissed unless it is perfected within 10 days. The Registrar can do this if the transcript is not filed within 60 days after the Registrar was told it was ready. The Registrar can also do it if the appeal is not perfected within one year after the notice of appeal was filed. If the problem is not fixed in time, the Registrar dismisses the appeal, with costs fixed at $750. If there is a cross-appeal, deliver your factum as respondent to it within 10 days after the respondent's factum is served.",
@@ -4764,7 +4750,7 @@ const BOTH: CaseStage[] = [
         length: { unit: "days", count: 60 },
         regime: "civil-rules",
         rule: RCP_61_12_RESPONDENT_FACTUM,
-        computation: RCP_3_01_COUNT,
+        computation: C.RCP_3_01_COUNT,
         consequence: "changes-what-happens-next",
         qualifier: "Deliver means serve it on the other parties and file it with proof of service. Only a judge of the appeal court can extend the time.",
         exceptions: [RCP_1_03_DELIVER, RCP_3_02_APPEALS],

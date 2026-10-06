@@ -50,6 +50,8 @@ import { QUESTION_EXPLANATIONS } from "./questionExplanations";
 import { PROCEDURAL_STAGES } from "./proceduralStages";
 import { ASSISTANT_BLOCKS } from "./assistantBlocks";
 import { PUBLISHED_BLOCKS } from "./publishedLibrary";
+import { stageRulesText } from "./stageRules";
+import { ALL_STAGES, isSpecialStage } from "../case-system/stage-map/stageMap";
 import { DEADLINE_TEMPLATES } from "../case-system/deadlines/deadlineTemplates";
 import {
   UNKNOWN_STAGE_MESSAGE,
@@ -514,6 +516,29 @@ export function collectContentInventory(): ContentItem[] {
    * a time; indexing the joined block would mean a section on its own was not
    * in the index and would be refused.
    */
+  /*
+   * ---- A step's deadlines and rules, where no answer is written yet ----
+   *
+   * stageRules.ts. Only for steps with no published block: a published
+   * block's deadline section is the same text, and indexing it twice would
+   * point the guard at this item instead of the block's.
+   */
+  const published = new Set(PUBLISHED_BLOCKS.map((block) => block.stageId));
+  for (const stage of ALL_STAGES) {
+    if (published.has(stage.id) || isSpecialStage(stage.id)) continue;
+    const text = stageRulesText(stage);
+    const where = `The case page, for the step "${stage.title}", which has no written answer yet`;
+    const pathway = stage.pathway ?? "small-claims";
+    const sourceUrl = stage.rules[0] ? OFFICIAL_URLS[stage.rules[0].sourceId] : "";
+    items.push(item({ id: `stage-rules:${stage.id}:title`, type: "procedural-stage", pathway, stage: stage.id, text: text.title, sourceUrl, appearsIn: where }));
+    if (text.deadlines) {
+      items.push(item({ id: `stage-rules:${stage.id}:deadlines`, type: "procedural-stage", pathway, stage: stage.id, text: text.deadlines, sourceUrl, appearsIn: where }));
+    }
+    if (text.rules) {
+      items.push(item({ id: `stage-rules:${stage.id}:rules`, type: "procedural-stage", pathway, stage: stage.id, text: text.rules, sourceUrl, appearsIn: where }));
+    }
+  }
+
   for (const block of PUBLISHED_BLOCKS) {
     const sections: Array<[string, string | null]> = [
       ["whats-happening", block.whatsHappening],

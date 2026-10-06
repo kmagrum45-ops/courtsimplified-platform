@@ -153,10 +153,8 @@ export function computedDeadlinesFor(
     // weekend, which is what it used to do.
     if (deadline.length.count === 0) continue;
 
-    // Civil and family periods are shown as periods with their rule, never as
-    // computed dates: the engine's working cites the Small Claims and
-    // Legislation Act counting provisions, and no civil or family date is asked.
-    if (deadline.regime === "civil-rules" || deadline.regime === "family-rules") continue;
+    // Civil and family periods are computed too since 2026-10-05, each under
+    // its own rules with its own citations (deadlineEngine.ts).
 
     const from = dates[deadline.countFromEvent];
     if (!from) continue;
@@ -211,7 +209,16 @@ export function computedDeadlinesFor(
      * date misleads, whereas a correct date without a closure note is merely
      * less helpful than it could be.
      */
-    const closure = closureWarningFor(result.deadline);
+    // Small Claims and statutory deadlines only. The closure sentences say a
+    // closure does NOT move the date, which is false under Family Law Rules
+    // r. 3 (3), where a period ending on a day court offices are closed runs
+    // to the next day they are open; and their source is the Small Claims
+    // online-filing page, whose date-stamping statement is not a source for
+    // how a civil filing is stamped (2026-10-05).
+    const closure =
+      deadline.regime === "family-rules" || deadline.regime === "civil-rules"
+        ? null
+        : closureWarningFor(result.deadline);
     const closureWarning = closure
       ? guardedFill(closure.templateId, closure.values, context)
       : null;

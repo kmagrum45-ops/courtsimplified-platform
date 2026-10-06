@@ -26,12 +26,16 @@
  */
 
 import { readFileSync } from "node:fs";
+
+import { caseDatesFrom } from "../../src/lib/case-system/deadlines/deadlineEvents";
+import { computeDeadline } from "../../src/lib/case-system/deadlines/deadlineEngine";
 import path from "node:path";
 
 import {
   EMPTY_POSITION,
   applyPositionPatch,
   dateQuestionsForStep,
+  isDateQuestionId,
   readCasePosition,
   storyHintsForDates,
   suggestedDatesFromEvents,
@@ -126,20 +130,27 @@ const familyStep = stagesForPathway("family")[0]?.id ?? "";
     "every date asked is tied to a deadline it sets",
     asked.every((question) => question.sets.length > 0 && question.question.length > 0),
   );
-  // A date is asked only where the engine will count from it: never for a
-  // deadline under the civil or family rules, whose periods are shown with
-  // their rule instead (computedDeadline.ts).
-  const uncounted = ALL_STAGES.flatMap((stage) =>
-    stage.deadlines
-      .filter((deadline) => deadline.regime === "civil-rules" || deadline.regime === "family-rules")
-      .map((deadline) => deadline.what),
-  );
-  const askedFor = ALL_STAGES.flatMap((stage) => dateQuestionsForStep(stage.id).flatMap((question) => question.sets));
-  check(
-    "no date is asked for a deadline the engine does not count",
-    askedFor.every((what) => !uncounted.includes(what)),
-    askedFor.filter((what) => uncounted.includes(what)).join("; "),
-  );
+  // A date is asked only where the engine will count from it. (Until
+  // 2026-10-05 that meant never for a civil or family deadline; the engine
+  // now counts under those rules too, so the check asserts the property
+  // itself: every deadline a question sets computes from a known date.)
+  const notCounted: string[] = [];
+  for (const stage of ALL_STAGES) {
+    const questions = dateQuestionsForStep(stage.id);
+    if (questions.length === 0) continue;
+    const dates = caseDatesFrom(Object.fromEntries(questions.map((question) => [question.id, "2026-02-02"])));
+    for (const deadline of stage.deadlines) {
+      if (!questions.some((question) => question.sets.includes(deadline.what))) continue;
+      const from = dates[deadline.countFromEvent];
+      try {
+        if (!from) throw new Error("no date");
+        computeDeadline({ from, length: deadline.length, regime: deadline.regime, direction: deadline.direction });
+      } catch {
+        notCounted.push(`${stage.id}: ${deadline.what}`);
+      }
+    }
+  }
+  check("no date is asked for a deadline the engine does not count", notCounted.length === 0, notCounted.slice(0, 5).join("; "));
   check("an unknown step asks nothing", dateQuestionsForStep("not-a-step").length === 0);
 }
 
@@ -167,6 +178,13 @@ const familyStep = stagesForPathway("family")[0]?.id ?? "";
   const full = storyHintsForDates("I was served on September 20, 2026 at my house.");
   check("a complete story date is offered for the matching question", full["sc-date-claim-served"]?.value === "2026-09-20");
   check("a story with no such moment gives no hint", Object.keys(storyHintsForDates("He owes me money for a painting job.")).length === 0);
+  // Civil and family dates are asked too (2026-10-05), so the reader's own
+  // words are quoted beside those questions as well.
+  const family = storyHintsForDates("My ex wants to move with our son. I was served with the application on September 25, 2026 at work.");
+  check("a family story's service date is offered for the application question", family["case-date-served-with-application"]?.value === "2026-09-25");
+  const injury = storyHintsForDates("I was hit by a bus on March 3, 2026 at the crosswalk.");
+  check("an injury date is offered for the injury question", injury["sc-date-injury"]?.value === "2026-03-03");
+  check("every cue is for a question that is really asked", Object.keys(storyHintsForDates("served application motion to change case conference settlement conference trial management conference trial motion heard notice of appeal judge made an order statement of defence request to admit mediation hit by")).every((id) => isDateQuestionId(id)));
 }
 
 {

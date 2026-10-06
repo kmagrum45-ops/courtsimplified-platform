@@ -52,7 +52,8 @@ import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { collectContentInventory } from "../../src/lib/content-library/contentInventory";
 import { computedDeadlinesFor } from "../../src/lib/content-library/computedDeadline";
 import { assertsAbsenceProblems } from "../content/blockGates";
-import { CASE_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
+import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
+import { dateQuestionsForStep } from "../../src/lib/case-system/casePosition";
 
 let passed = 0;
 const failures: string[] = [];
@@ -69,7 +70,7 @@ type Case = {
   name: string;
   from: string;
   length: Parameters<typeof computeDeadline>[0]["length"];
-  regime: "small-claims-rules" | "legislation-act";
+  regime: "small-claims-rules" | "legislation-act" | "civil-rules" | "family-rules";
   direction?: "after" | "before";
   expect: string;
   /** Why that is the right answer. Shown on failure. */
@@ -221,6 +222,86 @@ const CASES: Case[] = [
       "conference. 20 May less 14 days is Wednesday 6 May — a working day, so " +
       "no question of extension arises.",
     certainty: "computed",
+  },
+
+  // ---- civil and family, counted under their own rules (2026-10-05) ----
+  {
+    name: "civil: 20 days ending on a Sunday runs to Monday",
+    from: "2026-03-02",
+    length: DAYS(20),
+    regime: "civil-rules",
+    expect: "2026-03-23",
+    because:
+      "r. 3.01 (1) (a) excludes the first day; 22 March is a Sunday, a holiday under " +
+      "r. 1.03 (1), and (c) lets the act be done on the next day that is not a holiday.",
+    certainty: "computed",
+  },
+  {
+    name: "civil: 7 days skips the Easter weekend's holidays",
+    from: "2026-04-02",
+    length: DAYS(7),
+    regime: "civil-rules",
+    expect: "2026-04-15",
+    because:
+      "r. 3.01 (1) (b): in a period of seven days or less, holidays are not counted. " +
+      "Good Friday 3 April, the weekend and Easter Monday 6 April are skipped: 7, 8, 9, " +
+      "10, 13, 14, 15 April. Easter Monday has no statutory date, so it is confirm-with-court.",
+    certainty: "confirm-with-court",
+  },
+  {
+    name: "civil: 8 days is not a short period, holidays count",
+    from: "2026-04-02",
+    length: DAYS(8),
+    regime: "civil-rules",
+    expect: "2026-04-10",
+    because: "Eight days is more than seven, so r. 3.01 (1) (b) does not apply: 2 April + 8 is Friday 10 April.",
+    certainty: "computed",
+  },
+  {
+    name: "family: r. 3 (4)'s own example -- served Monday, motion the second following Tuesday",
+    from: "2026-10-27",
+    length: DAYS(6),
+    regime: "family-rules",
+    direction: "before",
+    expect: "2026-10-19",
+    because:
+      "Family Law Rules r. 3 (4) para. 1: service on a Monday is in time for a motion on " +
+      "the second following Tuesday, because Saturday and Sunday are not counted in a " +
+      "period of less than seven days. Tuesday 27 October back six weekdays is Monday 19 October.",
+    certainty: "computed",
+  },
+  {
+    name: "family: 30 days ending on a Saturday runs to Monday",
+    from: "2026-09-03",
+    length: DAYS(30),
+    regime: "family-rules",
+    expect: "2026-10-05",
+    because: "r. 3 (3): a period ending on a day court offices are closed ends on the next day they are open.",
+    certainty: "computed",
+  },
+  {
+    name: "family: 30 days ending on Thanksgiving is NOT moved, and says why",
+    from: "2026-09-12",
+    length: DAYS(30),
+    regime: "family-rules",
+    expect: "2026-10-12",
+    because:
+      "The Family Law Rules count around days court offices are closed but do not list " +
+      "them. Moving past Thanksgiving could give a later date than is right, so the " +
+      "engine keeps the earlier one and marks it confirm-with-court.",
+    certainty: "confirm-with-court",
+  },
+  {
+    name: "family: a short period counted back past Thanksgiving takes the earlier date",
+    from: "2026-10-15",
+    length: DAYS(6),
+    regime: "family-rules",
+    direction: "before",
+    expect: "2026-10-06",
+    because:
+      "Counting back, skipping a day that may be closed gives the earlier date to act by: " +
+      "14, 13, (12 Thanksgiving skipped), 9, 8, 7, 6 October.",
+    certainty: "confirm-with-court",
   },
 ];
 
@@ -379,7 +460,7 @@ function addDaysPlain(date: string, days: number): string {
  * the check does not drift with the calendar.
  */
 const REFERENCE = "2026-02-02";
-for (const stage of CASE_STAGES) {
+for (const stage of ALL_STAGES) {
   for (const deadline of stage.deadlines) {
     if (deadline.length.count === 0) continue; // r. 11.06 sets no fixed period
     try {
@@ -422,7 +503,9 @@ for (const stage of CASE_STAGES) {
 
 // ---- 1. every deadline names an event, and every event is real -------------
 
-for (const stage of CASE_STAGES) {
+// All three courts (was Small Claims only until civil and family dates were
+// computed, 2026-10-05).
+for (const stage of ALL_STAGES) {
   for (const deadline of stage.deadlines) {
     check(
       `${deadline.id} names a real event`,
@@ -440,7 +523,7 @@ for (const stage of CASE_STAGES) {
 // seemed like a useful thing to know.
 
 const eventsUsedByDeadlines = new Set(
-  CASE_STAGES.flatMap((stage) => stage.deadlines.map((deadline) => deadline.countFromEvent)),
+  ALL_STAGES.flatMap((stage) => stage.deadlines.map((deadline) => deadline.countFromEvent)),
 );
 
 for (const event of Object.values(DEADLINE_EVENTS)) {
@@ -464,7 +547,20 @@ for (const event of Object.values(DEADLINE_EVENTS)) {
 
 const bankById = new Map(QUESTION_BANK.map((question) => [question.id, question]));
 
+// A civil or family date is asked on the case page, where the reader picks
+// their step, not in the Small Claims intake bank. "Asked" there means the
+// step's date questions actually include it.
+const askedOnCasePage = new Set(ALL_STAGES.flatMap((stage) => dateQuestionsForStep(stage.id).map((question) => question.id)));
+
 for (const event of askedEvents()) {
+  if (event.askedOn === "case-page") {
+    check(
+      `${event.key} is asked on the case page`,
+      Boolean(event.questionId && askedOnCasePage.has(event.questionId)),
+      `no step's date questions include "${event.questionId}", so nothing asks it`,
+    );
+    continue;
+  }
   const question = event.questionId ? bankById.get(event.questionId) : undefined;
   check(
     `${event.key} has its question in the bank`,
@@ -590,7 +686,7 @@ for (const template of Object.values(DEADLINE_TEMPLATES)) {
 // `defendant:default-judgment-against-me` — is the one the eval calls the place
 // where a wrong answer costs the most.
 
-const noFixedPeriod = CASE_STAGES.flatMap((stage) => stage.deadlines).filter(
+const noFixedPeriod = ALL_STAGES.flatMap((stage) => stage.deadlines).filter(
   (deadline) => deadline.length.count === 0,
 );
 check(
@@ -614,7 +710,7 @@ for (const deadline of noFixedPeriod) {
 // The promise the optional questions rest on. If skipping a date question could
 // make an answer worse, the question is not optional in any meaningful sense.
 
-for (const stage of CASE_STAGES) {
+for (const stage of ALL_STAGES) {
   if (stage.deadlines.length === 0) continue;
   check(
     `${stage.id} computes nothing without dates`,
