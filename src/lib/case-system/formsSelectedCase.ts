@@ -3,8 +3,10 @@ export type FormsCourtPath = "family" | "small-claims" | "civil";
 export const SELECTED_CASE_UNAVAILABLE_MESSAGE =
   "This case could not be loaded. Please return to your case dashboard and try again.";
 
+// Plain words (page review, 2026-10-06): "no verified canonical form record
+// is linked" was internal status shown to users.
 export const UNLINKED_FORM_RECOMMENDATION_MESSAGE =
-  "Review required — no verified canonical form record is linked.";
+  "Named in your case analysis. Check it against the official form in the list below before you use it.";
 
 const CANONICAL_FORM_ID_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;

@@ -1174,13 +1174,24 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           ]}
         />
 
+        {sourced.state === "loading" ? (
+          // Page review, 2026-10-06: Continue was pressed before these
+          // questions loaded, so on the normal path nobody saw them; they
+          // appeared only after pressing Back.
+          <p className="text-sm text-[#4d675f]">
+            Questions about your situation are loading. They usually take under a minute.{" "}
+            <button type="button" onClick={handleAnalyze} disabled={isAnalyzing} className="font-semibold text-[#2f7d67] underline">
+              Continue without them
+            </button>
+          </p>
+        ) : null}
         <button
           type="button"
           onClick={handleAnalyze}
-          disabled={isAnalyzing}
+          disabled={isAnalyzing || sourced.state === "loading"}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isAnalyzing ? "Reading what you told us..." : "Continue to your next steps"}
+          {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Finding questions for your situation…" : "Continue to your next steps"}
         </button>
       </div>
     </section>

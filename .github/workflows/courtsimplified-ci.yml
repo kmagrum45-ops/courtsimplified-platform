@@ -51,6 +51,15 @@ jobs:
       - name: Court path classifier and scenario registry verification
         run: npm run test:scenario-registry
 
+      - name: The user's own words shown back, and story dates offered for deadlines
+        run: npm run test:user-story
+
+      - name: Written-notice step suggested before filing
+        run: npm run test:notice-step
+
+      - name: Responding-document drafts
+        run: npm run test:responding-draft
+
       - name: Reasoning contract verification
         run: npm run test:reasoning-contract
 

@@ -286,7 +286,7 @@ test("Case Partner carries confirmed Small Claims location and displays a date f
   await page.getByLabel("Your role").selectOption("Plaintiff / claimant");
   await page.getByRole("button", { name: "Plaintiff’s Claim already filed / served" }).click();
   await page.getByRole("button", { name: "Affidavit of Service filed with the court" }).click();
-  await page.getByRole("button", { name: "Generate Summary" }).click();
+  await page.getByRole("button", { name: "Continue to your next steps" }).click();
   const overview = page.getByTestId("completed-case-overview");
   await expect(overview).toBeVisible();
   await expect(overview.getByText("Your case overview", { exact: true })).toBeVisible();

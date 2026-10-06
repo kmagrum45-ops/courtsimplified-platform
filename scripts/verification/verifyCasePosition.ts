@@ -169,10 +169,19 @@ const familyStep = stagesForPathway("family")[0]?.id ?? "";
 }
 
 {
-  const noYear = storyHintsForDates("I was served a claim about the car. The papers came on September 25.");
+  // 2026-10-06 (page review): a date with no year is now OFFERED as the most
+  // recent such date, marked as an assumption -- no served person ever saw a
+  // due date while it was only quoted. It is still never applied: the panel
+  // shows it as a button the user chooses (StageAnswerPanel).
+  const noYear = storyHintsForDates(
+    "I was served a claim about the car. The papers came on September 25.",
+    new Date("2026-10-06T12:00:00Z"),
+  );
   check(
-    "a story date with no year is quoted back, never filled in",
-    noYear["sc-date-claim-served"]?.quote === "The papers came on September 25." && noYear["sc-date-claim-served"].value === null,
+    "a story date with no year is quoted back and offered only as an assumption",
+    noYear["sc-date-claim-served"]?.quote === "The papers came on September 25." &&
+      noYear["sc-date-claim-served"].value === "2026-09-25" &&
+      noYear["sc-date-claim-served"].yearAssumed === true,
     JSON.stringify(noYear),
   );
   const full = storyHintsForDates("I was served on September 20, 2026 at my house.");

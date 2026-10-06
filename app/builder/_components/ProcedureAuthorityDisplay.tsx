@@ -113,7 +113,7 @@ export default function ProcedureAuthorityDisplay({
 
   return (
     <section className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5 text-sm leading-6 text-[#24463d]">
-      <h2 className="text-lg font-bold text-[#16302b]">Ontario procedure authority</h2>
+      <h2 className="text-lg font-bold text-[#16302b]">The rule for this step</h2>
       <div className="mt-3 space-y-3">
         {items.map((item, index) => item.state === "review-required" ? (
           <p key={`review-${index}`} className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-amber-900">

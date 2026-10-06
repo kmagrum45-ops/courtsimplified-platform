@@ -109,7 +109,7 @@ function verifyForms(scenario: ScenarioMatrixScenario) {
     courtType: formCourt,
   });
   if (scenario.formState === "missing-id") {
-    record(scenario, lookup === null && /review required/i.test(UNLINKED_FORM_RECOMMENDATION_MESSAGE), "unlinked form recommendation", "null lookup and review-required", { lookup, message: UNLINKED_FORM_RECOMMENDATION_MESSAGE }, "Form identity resolver", "safe review-required state", "Shared canonical form identity boundary");
+    record(scenario, lookup === null && /\bcheck\b/i.test(UNLINKED_FORM_RECOMMENDATION_MESSAGE) && !/\bverified\b/i.test(UNLINKED_FORM_RECOMMENDATION_MESSAGE), "unlinked form recommendation", "null lookup and review-required", { lookup, message: UNLINKED_FORM_RECOMMENDATION_MESSAGE }, "Form identity resolver", "safe review-required state", "Shared canonical form identity boundary");
   } else {
     record(scenario, lookup?.canonicalFormId === canonicalFormId && lookup.courtType === formCourt, "canonical form tuple", { canonicalFormId, courtType: formCourt }, lookup, "Form identity resolver", "product defect", "Shared canonical form identity boundary");
   }

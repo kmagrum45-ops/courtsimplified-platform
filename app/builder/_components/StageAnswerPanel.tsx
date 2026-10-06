@@ -154,7 +154,7 @@ export function orderGroupsForReader<T extends { side: string; label: string }>(
   ];
 }
 
-function AnswerView({ answer, court }: { answer: RenderedAnswer; court: string }) {
+function AnswerView({ answer, court, userWords = "" }: { answer: RenderedAnswer; court: string; userWords?: string }) {
   return (
     <div className="mt-4 space-y-4" data-testid="stage-answer">
       <h4 className="text-base font-bold text-[#10231f]">{answer.question}</h4>
@@ -170,7 +170,7 @@ function AnswerView({ answer, court }: { answer: RenderedAnswer; court: string }
           <p className="mt-1 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{section.text}</p>
         </div>
       ))}
-      <FormsNamedHere texts={answer.sections.map((section) => section.text)} court={court} />
+      <FormsNamedHere texts={answer.sections.map((section) => section.text)} court={court} userWords={userWords} />
       {answer.sources.length > 0 && (
         <div>
           <p className="text-sm font-semibold text-[#16302b]">Sources</p>
@@ -237,6 +237,7 @@ export default function StageAnswerPanel({
   suggestedDates = {},
   storyHints = {},
   noticeStepId = null,
+  userWords = "",
 }: {
   courtPath: StagePathway;
   confirmedStage?: string | null;
@@ -260,6 +261,8 @@ export default function StageAnswerPanel({
    * because its deadline runs from the incident and comes before filing.
    */
   noticeStepId?: string | null;
+  /** The user's own words, so a family step lists only the forms for their kind of case. */
+  userWords?: string;
 }) {
   const options = stagesForPathway(courtPath).map((stage) => ({
     id: stage.id,
@@ -308,6 +311,23 @@ export default function StageAnswerPanel({
     } finally {
       setLoading(false);
     }
+  }
+
+  async function countDeadline(draft: Record<string, string>) {
+    if (result?.outcome !== "rendered") return;
+    const asked = Object.fromEntries(
+      (result.dateQuestions ?? []).map((question) => [question.id, draft[question.id] ?? ""]),
+    );
+    const next = { ...dateAnswers };
+    for (const [key, value] of Object.entries(asked)) {
+      if (value) next[key] = value;
+      else delete next[key];
+    }
+    setDateAnswers(next);
+    void load(stageId, municipality ? { municipality } : {}, next);
+    if (!caseId) return;
+    setDateStatus("saving");
+    setDateStatus((await savePosition(caseId, { dateAnswers: asked })) ? "saved" : "not-saved");
   }
 
   return (
@@ -365,13 +385,11 @@ export default function StageAnswerPanel({
         </p>
       )}
 
-      {result?.outcome === "rendered" && <AnswerView answer={result.answer} court={courtPath} />}
-
       {result?.outcome === "rendered" && (result.dateQuestions?.length ?? 0) > 0 && (
         <div id="work-out-your-dates" data-testid="stage-answer-dates" className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
           <p className="text-sm font-semibold text-[#16302b]">Work out your dates</p>
           <p className="mt-1 text-sm leading-6 text-[#4d675f]">
-            Give the date and we will count the deadline for you, with the working shown above.
+            Give the date and we will count the deadline for you, with the working shown below.
             Leave it empty if you do not know. You will still see the time period.
           </p>
           <div className="mt-3 space-y-4">
@@ -379,7 +397,14 @@ export default function StageAnswerPanel({
               const hint = storyHints[question.id];
               const suggestion =
                 suggestedDates[question.id] ??
-                (hint?.value ? { value: hint.value, basis: `from your story: “${hint.quote}”` } : undefined);
+                (hint?.value
+                  ? {
+                      value: hint.value,
+                      basis: hint.yearAssumed
+                        ? `from your story: “${hint.quote}” — the year is our guess`
+                        : `from your story: “${hint.quote}”`,
+                    }
+                  : undefined);
               const value = dateDraft[question.id] ?? "";
               return (
                 <div key={question.id}>
@@ -400,12 +425,21 @@ export default function StageAnswerPanel({
                     </p>
                   ) : null}
                   {suggestion && !value ? (
+                    // One click uses the suggested date AND counts the deadline:
+                    // choosing it is the user's confirmation (page review,
+                    // 2026-10-06: no served person ever saw their due date).
                     <button
                       type="button"
-                      onClick={() => setDateDraft({ ...dateDraft, [question.id]: suggestion.value })}
-                      className="mt-2 block text-left text-sm font-semibold text-[#2f7d67] underline"
+                      data-testid={`stage-answer-date-suggestion-${question.id}`}
+                      onClick={() => {
+                        const draft = { ...dateDraft, [question.id]: suggestion.value };
+                        setDateDraft(draft);
+                        void countDeadline(draft);
+                      }}
+                      className="mt-2 block rounded-xl border border-[#2f7d67] bg-white px-4 py-2 text-left text-sm font-semibold text-[#2f7d67]"
                     >
-                      Use {formatIso(suggestion.value)} ({suggestion.basis})
+                      Count my deadline from {formatIso(suggestion.value)}
+                      <span className="block text-xs font-normal text-[#4d675f]">{suggestion.basis}</span>
                     </button>
                   ) : null}
                 </div>
@@ -417,21 +451,7 @@ export default function StageAnswerPanel({
               type="button"
               data-testid="stage-answer-dates-save"
               disabled={dateStatus === "saving"}
-              onClick={async () => {
-                const asked = Object.fromEntries(
-                  result.dateQuestions!.map((question) => [question.id, dateDraft[question.id] ?? ""]),
-                );
-                const next = { ...dateAnswers };
-                for (const [key, value] of Object.entries(asked)) {
-                  if (value) next[key] = value;
-                  else delete next[key];
-                }
-                setDateAnswers(next);
-                void load(stageId, municipality ? { municipality } : {}, next);
-                if (!caseId) return;
-                setDateStatus("saving");
-                setDateStatus((await savePosition(caseId, { dateAnswers: asked })) ? "saved" : "not-saved");
-              }}
+              onClick={() => void countDeadline(dateDraft)}
               className="rounded-xl bg-[#2f7d67] px-5 py-2 text-sm font-semibold text-white disabled:opacity-60"
             >
               Count my deadline
@@ -443,6 +463,8 @@ export default function StageAnswerPanel({
           </div>
         </div>
       )}
+
+      {result?.outcome === "rendered" && <AnswerView answer={result.answer} court={courtPath} userWords={userWords} />}
 
       {result?.outcome === "needs-a-fact" && (
         <div className="mt-4">
@@ -463,7 +485,7 @@ export default function StageAnswerPanel({
           >
             Show the steps for that place
           </button>
-          {result.answer && <AnswerView answer={result.answer} court={courtPath} />}
+          {result.answer && <AnswerView answer={result.answer} court={courtPath} userWords={userWords} />}
         </div>
       )}
 

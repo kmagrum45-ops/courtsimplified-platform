@@ -45,6 +45,7 @@ import { createHash } from "node:crypto";
 
 import { type CaseEventRow } from "./caseEventAdapter";
 import { type CaseEventType } from "./caseEventTypes";
+import { sentenceFromRecord } from "../userStory";
 
 /** A dismissal row, as selected from case_event_candidate_dismissals. */
 export type CandidateDismissalRow = {
@@ -218,19 +219,21 @@ export function candidatesFromTimeline(timeline: unknown): EventCandidate[] {
     if (!entry || typeof entry !== "object") continue;
     const record = entry as Record<string, unknown>;
 
-    const sentence =
+    // Cleaned of intake-record labels: the analysis reads a labelled record,
+    // and its "sentences" reached the Timeline as "from what you wrote"
+    // (page review, 2026-10-06). See userStory.ts.
+    const sentence = sentenceFromRecord(
       typeof record.sourceText === "string" && record.sourceText.trim()
-        ? record.sourceText.trim()
-        : typeof record.description === "string" && record.description.trim()
-          ? record.description.trim()
-          : "";
+        ? record.sourceText
+        : typeof record.description === "string"
+          ? record.description
+          : "",
+    );
 
     if (!sentence) continue;
 
-    const title =
-      typeof record.title === "string" && record.title.trim()
-        ? record.title.trim()
-        : sentence.slice(0, 80);
+    const rawTitle = typeof record.title === "string" ? record.title.trim() : "";
+    const title = rawTitle && sentenceFromRecord(rawTitle) === rawTitle ? rawTitle : sentence.slice(0, 80);
 
     candidates.push({
       transientId: typeof record.id === "string" ? record.id : `candidate_${candidates.length}`,

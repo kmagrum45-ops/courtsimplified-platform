@@ -194,10 +194,10 @@ assert.equal(
   SELECTED_CASE_UNAVAILABLE_MESSAGE,
   "This case could not be loaded. Please return to your case dashboard and try again.",
 );
-assert.equal(
-  UNLINKED_FORM_RECOMMENDATION_MESSAGE,
-  "Review required — no verified canonical form record is linked.",
-);
+// A property, not the wording (CLAUDE.md section 5): an unlinked form must
+// never read as checked, and must send the user to check it themselves.
+assert.ok(!/\bverified\b|checked against your case/i.test(UNLINKED_FORM_RECOMMENDATION_MESSAGE));
+assert.ok(/\bcheck\b/i.test(UNLINKED_FORM_RECOMMENDATION_MESSAGE));
 
 const canonicalFormId = "550e8400-e29b-41d4-a716-446655440000";
 
@@ -695,7 +695,7 @@ assert.doesNotMatch(formsPageSource, /stats\.(?:requiredCount|recommendedCount|c
 // self-fill (7c9ee52); requiring it failed CI on main on 2026-09-28. The
 // property is that every count shown comes from current state, so the overlay
 // count is checked only if it is displayed.
-assert.match(formsPageSource, /Available official forms: \{stats\.total\}[\s\S]*Verified for this case: \{verifiedRecommendations\.length\}/, "Every displayed readiness count must come from current library, resolver, or overlay state");
+assert.match(formsPageSource, /Available official forms: \{stats\.total\}[\s\S]*: \{verifiedRecommendations\.length\}/, "Every displayed readiness count must come from current library, resolver, or overlay state");
 if (/Overlay-ready:/.test(formsPageSource)) {
   assert.match(formsPageSource, /Overlay-ready: \{stats\.overlayCount\}/, "A displayed overlay count must come from current overlay state");
 }

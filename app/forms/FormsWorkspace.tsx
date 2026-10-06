@@ -273,9 +273,11 @@ function getFormStatus(form: CleanFormItem, verified: Map<string, VerifiedFormRe
 }
 
 function getStatusLabel(status: FormMatchStatus) {
-  if (status === "verified") return "Verified for this case";
-  if (status === "review") return "May require review";
-  return "Official catalogue record — routing not yet verified";
+  // Plain words (page review, 2026-10-06: "routing not yet verified" on every
+  // row was internal status, not something a user can act on).
+  if (status === "verified") return "Checked against your case";
+  if (status === "review") return "Official form";
+  return "Official form";
 }
 
 function getStatusClass(status: FormMatchStatus) {
@@ -850,7 +852,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                 Available official forms: {stats.total}
               </p>
               <p className="mt-1 text-[#4f685f]">
-                Verified for this case: {verifiedRecommendations.length}
+                Checked against your case: {verifiedRecommendations.length}
               </p>
 
               {/*
@@ -1094,7 +1096,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
 
             <div>
               <label className="block font-bold text-[#10231f]">
-                Workflow filter
+                Show
               </label>
               <select
                 value={statusFilter}
@@ -1104,19 +1106,16 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                 className="mt-3 w-full rounded-2xl border border-[#d8e6df] bg-white p-4 text-base outline-none focus:border-[#2f7d67]"
               >
                 <option value="all">All forms</option>
-                <option value="library">Official catalogue record</option>
-                <option value="verified">Verified for this case</option>
-                <option value="review">May require review</option>
+                <option value="verified">Checked against your case</option>
               </select>
             </div>
           </div>
 
           <p className="mt-3 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm leading-6 text-[#4f685f]">
-            These are the official Ontario court forms. A form marked verified has been checked against your
-            case&apos;s answers; the rest are listed so you can find them. CourtSimplified has not assessed
-            deadlines, service, evidence, eligibility, filing readiness, or whether filing is appropriate, and
-            does not complete court forms for you. Download the form, fill it in yourself, and review every field
-            carefully before filing.
+            These are the official Ontario court forms. A form marked &ldquo;checked against your case&rdquo; matches
+            the answers you confirmed; the rest are listed so you can find them. The deadline for your step is on
+            your Overview. Drafts you start on this site are suggestions for you to edit: review every field
+            before filing.
           </p>
           <p className="mt-4 text-sm text-[#4f685f]">
             Showing {filteredForms.length} of {forms.length} forms.
@@ -1384,6 +1383,9 @@ export default function FormsWorkspace(props: FormsWorkspaceProps = {}) {
 }
 
 function applicableStage(masterResult: MasterResult | null): string {
+  // The user's confirmed stage first, as the form-applicability route does.
+  const confirmed = asRecord(asRecord(masterResult)?.position)?.confirmedStage;
+  if (confirmed === "starting-case" || confirmed === "responding") return confirmed;
   for (const value of [masterResult?.stage, masterResult?.proceduralStage, masterResult?.currentStage]) {
     if (value === "starting-case" || value === "responding") return value;
   }

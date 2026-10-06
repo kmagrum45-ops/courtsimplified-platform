@@ -126,9 +126,12 @@ async function familyOrCivil(page: Page, persona: Persona, steps: Step[]) {
   for (const [label, value] of Object.entries(persona.fields ?? {})) await fillLabelled(page, label, value);
 
   await runSpellingCheck(page, persona, steps);
+  // The questions the law raises load after the story; a user waits for them
+  // now that Continue waits too (page review, 2026-10-06).
+  await expect(page.getByTestId("sourced-questions-loading")).toBeHidden({ timeout: 150_000 }).catch(() => undefined);
   await capture(page, persona, steps, "intake-filled");
 
-  await page.getByRole("button", { name: /Continue to your next steps/ }).click();
+  await page.getByRole("button", { name: /Continue to your next steps/ }).click({ timeout: 150_000 });
   await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 180_000 });
   await page.waitForTimeout(4_000);
   await capture(page, persona, steps, "after-analysis");
@@ -275,6 +278,13 @@ async function confirmStage(page: Page, persona: Persona, steps: Step[]) {
   await page.getByTestId("stage-confirm").click();
   await page.waitForTimeout(3_000);
   await capture(page, persona, steps, "stage-confirmed");
+  // A user offered "Count my deadline from <the date in my story>" takes it.
+  const suggestion = page.locator('[data-testid^="stage-answer-date-suggestion-"]').first();
+  if (await suggestion.isVisible().catch(() => false)) {
+    await suggestion.click();
+    await page.waitForTimeout(4_000);
+    await capture(page, persona, steps, "deadline-counted", "The user chose the date from their story.");
+  }
 }
 
 /**

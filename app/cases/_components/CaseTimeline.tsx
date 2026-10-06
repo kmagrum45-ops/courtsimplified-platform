@@ -288,7 +288,9 @@ export default function CaseTimeline({
           </span>
         </p>
 
-        {data?.stage.basis.length ? (
+        {/* The "unknown" basis line only repeated the label above it ("Not
+            enough recorded to say • not enough confirmed facts to say"). */}
+        {data?.stage.basis.length && data.stage.stage !== "unknown" ? (
           <ul className="mt-3 space-y-1 text-sm text-[#4f685f]">
             {data.stage.basis.map((line) => (
               <li key={line}>• {line}</li>
@@ -341,8 +343,8 @@ export default function CaseTimeline({
 
         {!canRecord ? (
           <p className="mt-3 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm text-[#4f685f]">
-            Recording steps here is available for Small Claims cases so far. For this court, your documents
-            and the dates you confirm on them build your timeline below.
+            For this kind of case, your timeline is built from your documents and the dates you confirm on
+            them, below. Your deadline is worked out on the Overview, from the dates you give there.
           </p>
         ) : null}
 

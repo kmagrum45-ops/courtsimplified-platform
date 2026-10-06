@@ -54,8 +54,10 @@ const SPECIAL_FAMILY_PROCEEDINGS: { form: RegExp; mentioned: RegExp }[] = [
     form: /children[’']s aid|child protection|child, youth and family services|secure treatment|plan of care/i,
     mentioned: /children[’']s aid|\bCAS\b|child protection|protection worker/i,
   },
-  { form: /adopt/i, mentioned: /adopt/i },
-  { form: /divorce/i, mentioned: /divorce|married|marriage|husband|wife/i },
+  { form: /adopt|openness/i, mentioned: /adopt/i },
+  // "We were never married" is not a divorce (page review, 2026-10-06: an
+  // unmarried mother was shown the divorce application).
+  { form: /divorce/i, mentioned: /divorce|(?<!never |not |n't |were not |weren't )married|(?<!no )marriage|husband|wife/i },
 ];
 
 export function relevantToFamilyCase(entry: OfficialFormEntry, userWords: string): boolean {

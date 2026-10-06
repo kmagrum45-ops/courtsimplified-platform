@@ -29,6 +29,7 @@ import {
   SMALL_CLAIMS_RULES_URL,
 } from "../../../src/lib/case-system/intake/defaultProceedings";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
+import { userStory } from "@/src/lib/case-system/userStory";
 
 type Props = { analysis: AnalysisResult; intake: StoredCaseData | null };
 
@@ -117,7 +118,8 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
     listField(intake, analysis.courtPath === "civil" ? "documents" : "filedDocuments"),
   );
   const hasClaimAndService = analysis.courtPath === "small-claims" && documents.includes("plaintiffs-claim") && documents.includes("affidavit-service");
-  const facts = intake?.facts.trim() || "";
+  // The user's own story, not the labelled record the analysis reads.
+  const facts = userStory(intake);
   const amount = textField(intake, "amountClaimed");
   const outcome = intake?.goal.trim() || textField(intake, "legalRemedy");
   const parties = [intake?.yourName.trim(), intake?.otherParty.trim()].filter(Boolean).join(" and ");
@@ -323,7 +325,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
     ...(displayRole(role) ? ([["Your role", displayRole(role)]] as Array<[string, string]>) : []),
     ["Current stage", displayStage(analysis.caseStage)],
     ...(timeline ? ([["When (your words)", timeline]] as Array<[string, string]>) : []),
-    ...(amount ? ([["Amount (your words)", formatRecordedAmount(amount)]] as Array<[string, string]>) : []),
+    ...(amount ? ([["Amount", formatRecordedAmount(amount)]] as Array<[string, string]>) : []),
     ...(outcome ? ([["What you want (your words)", outcome]] as Array<[string, string]>) : []),
   ];
 
