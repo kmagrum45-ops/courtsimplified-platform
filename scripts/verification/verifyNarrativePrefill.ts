@@ -2,8 +2,11 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 import {
+  PREFILL_MAX_AGE_MS,
+  consumeNarrativePrefill,
   directPrefillValues,
   extractNarrativePrefill,
+  persistNarrativePrefill,
 } from "../../src/lib/case-system/intelligence/narrativePrefill";
 
 const narrative = "I am Alex Example. Alex Example served Jordan Example with a Plaintiff's Claim on March 4, 2026. I seek $2,500 for the unpaid invoice. I have emails, screenshots, and a witness.";
@@ -88,3 +91,24 @@ assert.match(readFileSync("app/builder/_components/CivilIntake.tsx", "utf8"), /s
 assert.match(readFileSync("app/builder/_components/FamilyIntake.tsx", "utf8"), /initialValues\.urgent/);
 
 console.log("Narrative prefill verification passed: one story, direct-fact prefill, actor direction, focused review questions, and three-area isolated handoff.");
+
+// 2026-10-06: a story typed into the chat in an earlier test, same tab,
+// filled the form after the site owner pressed Back. The hand-off is read
+// once and expires.
+{
+  const store = new Map<string, string>();
+  const storage = { getItem: (k: string) => store.get(k) ?? null, setItem: (k: string, v: string) => void store.set(k, v), removeItem: (k: string) => void store.delete(k) };
+  const prefill = extractNarrativePrefill({ narrative: "I hired a guy off kijiji to redo my bathroom.", courtPath: "small-claims" });
+  persistNarrativePrefill(prefill, storage, 1_000_000);
+  assert.ok(consumeNarrativePrefill({ courtPath: "small-claims" }, storage, 1_000_000 + 60_000), "a recent hand-off is used");
+  assert.equal(consumeNarrativePrefill({ courtPath: "small-claims" }, storage, 1_000_000 + 60_000), null, "and used only once");
+  persistNarrativePrefill(prefill, storage, 1_000_000);
+  assert.equal(consumeNarrativePrefill({ courtPath: "small-claims" }, storage, 1_000_000 + PREFILL_MAX_AGE_MS + 1), null, "an old hand-off is never used");
+  assert.equal(store.size, 0, "and is removed, not left for the next visit");
+  store.set("courtsimplified-ai-case-partner-chat:narrative-prefill:small-claims", JSON.stringify(prefill));
+  assert.equal(consumeNarrativePrefill({ courtPath: "small-claims" }, storage, 1_000_000), null, "one stored before expiry existed is dropped");
+  persistNarrativePrefill({ ...prefill, caseId: "case-a" }, storage, 1_000_000);
+  assert.equal(consumeNarrativePrefill({ courtPath: "small-claims", caseId: "case-b" }, storage, 1_000_000), null, "another case's hand-off is not used");
+  assert.equal(store.size, 0, "and is not kept either");
+  console.log("narrative prefill: read once, expires, never another case's");
+}
