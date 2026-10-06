@@ -1,0 +1,6 @@
+
+> courtsimplified@0.1.0 eval:retrieval
+> node --import tsx scripts/eval/retrievalProbe.ts
+
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+12 of 12 stories retrieved an expected source. Wrote /home/runner/work/courtsimplified-platform/courtsimplified-platform/retrieval-probe.md.

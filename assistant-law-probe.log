@@ -1,0 +1,14 @@
+
+> courtsimplified@0.1.0 eval:assistant-law
+> node --import tsx scripts/eval/assistantLawProbe.ts
+
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+bus-notice: 0/2 answered, 15.5s
+defence-time: 1/1 answered, 8.5s
+collect-judgment: 2/2 answered, 16.0s
+charter-damages: 1/2 answered, 16.9s
+summary-judgment: 2/2 answered, 12.8s
+relocation-notice: 2/2 answered, 12.6s
+child-support-retro: 2/2 answered, 13.7s
+will-i-win: 1/2 answered, 14.8s
+33 provisions shown for 8 questions

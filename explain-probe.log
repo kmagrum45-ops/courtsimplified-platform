@@ -1,0 +1,46 @@
+
+> courtsimplified@0.1.0 eval:explain
+> node --import tsx scripts/eval/explainProbe.ts
+
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+shown    corpus:oreg-258-98-small-claims-rules:67 15.9s
+shown    corpus:oreg-258-98-small-claims-rules:77 4.1s
+shown    corpus:oreg-258-98-small-claims-rules:84 4.6s
+shown    corpus:oreg-258-98-small-claims-rules:43 6.4s
+shown    corpus:oreg-258-98-small-claims-rules:99 15.1s
+shown    corpus:oreg-626-00-monetary-jurisdiction:0 3.6s
+shown    corpus:cja-courts-of-justice-act:60 4.0s
+shown    corpus:limitations-act-2002:2 4.7s
+shown    corpus:consumer-protection-act-2002:58 9.7s
+shown    corpus:consumer-protection-act-2002:11 4.0s
+shown    corpus:consumer-protection-act-2002:19 23.5s
+shown    corpus:sale-of-goods-act:15 13.5s
+withheld corpus:cleo-debt-and-consumer-rights-collection-agency-called-me-do-i-have-talk-them:0 0.0s
+withheld corpus:consumer-reporting-act:41 10.0s
+withheld corpus:residential-tenancies-act-2006:51 31.0s
+shown    corpus:residential-tenancies-act-2006:44 4.6s
+shown    corpus:dog-owners-liability-act:1 7.2s
+shown    corpus:municipal-act-2001:74 15.4s
+shown    corpus:city-of-toronto-act-2006:62 28.6s
+shown    corpus:negligence-act:2 4.8s
+shown    corpus:trespass-to-property-act:1 21.5s
+shown    corpus:esa-2000-ontario:222 4.5s
+shown    corpus:decision-honda:8 11.1s
+shown    corpus:decision-machtinger:0 7.8s
+withheld corpus:esa-2000-ontario:243 23.1s
+shown    corpus:esa-2000-ontario:35 3.8s
+withheld corpus:esa-2000-ontario:4 28.7s
+shown    corpus:human-rights-code:4 7.7s
+shown    corpus:childrens-law-reform-act:36 8.9s
+withheld corpus:divorce-act:4 32.8s
+shown    corpus:childrens-law-reform-act:77 8.3s
+shown    corpus:federal-child-support-guidelines-full:4 6.1s
+shown    corpus:family-law-act:58 4.4s
+shown    corpus:childrens-law-reform-act:16 5.8s
+shown    corpus:family-law-rules:113 6.4s
+shown    corpus:childrens-law-reform-act:49 11.3s
+shown    corpus:rules-of-civil-procedure:237 4.5s
+shown    corpus:decision-garland:4 10.4s
+withheld corpus:decision-whiten:0 23.4s
+shown    corpus:decision-bhasin:10 9.6s
+33 of 40 explanations shown

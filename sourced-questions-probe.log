@@ -1,0 +1,18 @@
+
+> courtsimplified@0.1.0 eval:sourced-questions
+> node --import tsx scripts/eval/sourcedQuestionsProbe.ts
+
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+bus-pedestrian: 5 question(s), 45.2s
+charter-search: 4 question(s), 45.8s
+human-rights-employment: 5 question(s), 49.2s
+relocation-child: 3 question(s), 45.8s
+defendant-damage-deposit: 5 question(s), 44.5s
+defend-served-claim: 4 question(s), 31.9s
+too-much-for-small-claims: 2 question(s), 39.1s
+mechanic-holding-car: 5 question(s), 38.6s
+repairs-ignored: 1 question(s), 39.6s
+both-at-fault-fence: 5 question(s), 41.6s
+overtime: 3 question(s), 37.8s
+parenting-decisions: 5 question(s), 34.1s
+47 questions across 12 stories; 0 with none; median 41.6s

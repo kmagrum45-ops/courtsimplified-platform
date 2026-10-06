@@ -1,0 +1,16 @@
+
+> courtsimplified@0.1.0 eval:research
+> node --import tsx scripts/eval/researchProbe.ts
+
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+bus-pedestrian (live run 2026-10-05): 5/6 answered, 31.3s
+defend-served-claim: 4/5 answered, 19.6s
+conference-coming: 6/6 answered, 19.7s
+found-out-late: 5/6 answered, 25.8s
+product-not-fit: 5/5 answered, 25.0s
+own-use-eviction: 5/6 answered, 34.1s
+newspaper-lie: 6/6 answered, 31.3s
+severance: 6/6 answered, 36.2s
+afraid-of-ex: 5/5 answered, 23.8s
+urgent-family-motion: 6/6 answered, 33.6s
+53 of 57 questions answered; median 31.3s
