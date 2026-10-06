@@ -122,6 +122,16 @@ type GuidedTurnResult = {
 /** One proposal as the user is reviewing it. */
 type ProposalDraft = StoryAnswerProposal & { keep: boolean };
 
+/**
+ * What was confirmed, listed, so the conversation shows what was recorded
+ * (page review, 2026-10-06: "Confirmed 4 answers from my story" hid every
+ * answer, so a wrong one could not be spotted afterwards).
+ */
+function confirmedSummary(drafts: readonly ProposalDraft[], from: string): string {
+  const kept = drafts.filter((draft) => draft.keep && draft.answer.trim());
+  return [`Confirmed from ${from}:`, ...kept.map((draft) => `• ${draft.questionText} ${draft.answer.trim()}`)].join("\n");
+}
+
 type ChatMessage = {
   from: "user" | "assistant";
   text: string;
@@ -1030,7 +1040,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
         from: "user",
         text:
           confirmed.length > 0
-            ? `Confirmed ${confirmed.length} answer${confirmed.length === 1 ? "" : "s"} from what I've told you.`
+            ? confirmedSummary(proposalDrafts, "what I've told you")
             : "None of those were right.",
       },
     ]);
@@ -1099,7 +1109,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
         from: "user",
         text:
           confirmed.length > 0
-            ? `Confirmed ${confirmed.length} answer${confirmed.length === 1 ? "" : "s"} from my story.`
+            ? confirmedSummary(proposalDrafts, "my story")
             : "None of those were right.",
       },
     ]);

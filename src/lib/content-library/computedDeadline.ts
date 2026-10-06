@@ -276,7 +276,11 @@ export function computedDeadlinesFor(
  * render time would break that check for a good reason and then somebody would
  * loosen the check.
  */
-export function computedDeadlineProse(computed: ComputedDeadline[], context = "computedDeadline"): string {
+export function computedDeadlineProse(
+  computed: ComputedDeadline[],
+  context = "computedDeadline",
+  today: string = new Date().toISOString().slice(0, 10),
+): string {
   if (computed.length === 0) return "";
 
   const heading = guardedFill("how-this-was-counted", {}, context);
@@ -284,6 +288,10 @@ export function computedDeadlineProse(computed: ComputedDeadline[], context = "c
 
   for (const entry of computed) {
     parts.push(entry.statement);
+    if (entry.date < today) {
+      const passed = guardedFill("computed-date-has-passed", {}, context);
+      if (passed) parts.push(passed);
+    }
     if (entry.uncertainty) parts.push(entry.uncertainty);
     /*
      * Immediately after the date and any uncertainty, and BEFORE the working.

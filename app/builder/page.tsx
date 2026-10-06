@@ -1648,7 +1648,9 @@ function BuilderPageContent() {
               path reconstructs.
             */}
             {/* Paused with official-form completion: see FORM_COMPLETION_PAUSED in phaseScope.ts. */}
-            {draftInput && !FORM_COMPLETION_PAUSED ? (
+            {/* Never for a defendant: a served person was shown "Preparing your
+                Plaintiff's Claim (Form 7A)" (page review, 2026-10-06). */}
+            {draftInput && !FORM_COMPLETION_PAUSED && !respondingSide ? (
               <StatementOfClaimSurface
                 matchedClaimTypeId={draftClaimTypeId}
                 initialElementStateMap={draftElementStateMap}
