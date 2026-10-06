@@ -69,6 +69,11 @@ async function main() {
   check("a missing marker fails the fetch, not keeps the whole page", keepSection(page, { from: "PART IX", to: "PART II" }) === null && keepSection(page, { from: "PART I Canadian", to: "PART XI" }) === null);
   const charterEntry = REQUESTED_SOURCES.find((source) => source.id === "canadian-charter-of-rights-and-freedoms");
   check("the vendored Charter declaration keeps only the Charter", Boolean(charterEntry?.section));
+  const cyfsa = declarationFor({ title: "Child, Youth and Family Services Act, 2017", citation: "S.O. 2017, c. 14, Sched. 1", jurisdiction: "ontario", elawsCode: "17c14" }, "CYFSA");
+  check("a comma inside a title does not end it", "url" in cyfsa && cyfsa.title === "Child, Youth and Family Services Act, 2017" && cyfsa.mustContain[0] === "CHILD, YOUTH AND FAMILY SERVICES ACT, 2017");
+  const cited = declarationFor({ title: "Statutory Accident Benefits Schedule, O. Reg. 34/10", citation: "O. Reg. 34/10", jurisdiction: "ontario", elawsCode: "100034" }, "SABS");
+  check("a citation after a comma is cut off the title", "url" in cited && cited.title === "Statutory Accident Benefits Schedule");
+  check("a one-word title is refused", "unresolved" in declarationFor({ title: "Child", citation: "", jurisdiction: "ontario", elawsCode: "17c14" }, "x"));
   check("a malformed code is refused", "unresolved" in declarationFor({ title: "Highway Traffic Act", citation: "", jurisdiction: "ontario", elawsCode: "../../evil" }, "x"));
   check("a path off Justice Laws is refused", "unresolved" in declarationFor({ title: "Criminal Code", citation: "", jurisdiction: "canada", justiceLawsPath: "https://example.com/x" }, "x"));
   check("no code, no declaration", "unresolved" in declarationFor({ title: "Some Act", citation: "", jurisdiction: "ontario" }, "x"));

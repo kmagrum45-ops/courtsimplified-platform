@@ -87,13 +87,13 @@
     "why": "Named as missing by the research step (\"Succession Law Reform Act, R.S.O. 1990, c. S.26\")."
   },
   {
-    "id": "child",
-    "title": "Child",
+    "id": "child-youth-and-family-services-act-2017",
+    "title": "Child, Youth and Family Services Act, 2017",
     "citation": "S.O. 2017, c. 14, Sched. 1",
     "url": "https://www.ontario.ca/laws/docs/17c14_e.doc",
     "format": "elaws-doc",
     "mustContain": [
-      "CHILD",
+      "CHILD, YOUTH AND FAMILY SERVICES ACT, 2017",
       "CONSOLIDATION PERIOD"
     ],
     "why": "Named as missing by the research step (\"Child, Youth and Family Services Act, 2017, S.O. 2017, c. 14, Sched. 1\")."
