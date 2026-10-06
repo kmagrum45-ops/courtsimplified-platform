@@ -169,6 +169,32 @@ async function confirmStage(page: Page, persona: Persona, steps: Step[]) {
 }
 
 /**
+ * Back and Forward (2026-10-06). The site owner pressed Back after a live
+ * test and lost the case: every builder step shared one URL. Back from the
+ * results must show the intake as it was filled, Forward the results again.
+ */
+async function backAndForward(page: Page, persona: Persona, steps: Step[]) {
+  const results = page.getByTestId("completed-case-overview");
+  await page.goBack();
+  await expect(results).toBeHidden({ timeout: 30_000 });
+  await expect(page.getByText(persona.story.slice(0, 40), { exact: false }).first()).toBeVisible({ timeout: 30_000 });
+  await capture(page, persona, steps, "back-to-intake", "Browser Back from the results: the intake as it was filled.");
+  await page.goForward();
+  await expect(results).toBeVisible({ timeout: 30_000 });
+  await capture(page, persona, steps, "forward-to-results", "Browser Forward: the results again.");
+}
+
+/**
+ * A reload of the results step reopens the saved case (2026-10-06), never a
+ * blank intake. Run last: it leaves the builder.
+ */
+async function reloadReopensCase(page: Page, persona: Persona, steps: Step[]) {
+  await page.goto(`/builder?path=${persona.path}&step=results`, { waitUntil: "domcontentloaded" });
+  await expect(page.getByTestId("case-home-title")).toBeVisible({ timeout: 60_000 });
+  await capture(page, persona, steps, "reload-reopens-case", "Reloading the results step opened the saved case.");
+}
+
+/**
  * The case page, tab by tab (2026-10-04). After intake the user's case lives at
  * /cases/[id]; the walkthrough follows them there so the critic reads what they
  * actually work from, not only the builder.
@@ -204,7 +230,9 @@ test.describe("page walkthrough", () => {
         if (persona.path === "small-claims") await smallClaims(page, persona, steps);
         else await familyOrCivil(page, persona, steps);
         await confirmStage(page, persona, steps);
+        await backAndForward(page, persona, steps);
         await visitCaseHome(page, persona, steps);
+        await reloadReopensCase(page, persona, steps);
       } catch (error) {
         failure = error instanceof Error ? error.message.split("\n")[0].slice(0, 400) : String(error);
         await capture(page, persona, steps, "failed-here", failure).catch(() => undefined);
