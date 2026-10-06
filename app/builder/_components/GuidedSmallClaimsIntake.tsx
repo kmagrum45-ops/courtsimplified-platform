@@ -346,36 +346,7 @@ function GuidanceDisclosure({
 
       {expanded ? (
         <div className="mt-3 space-y-4">
-          {hasClaim ? (
-            <div className="rounded-2xl border border-violet-200 bg-violet-50 p-4 text-sm leading-6 text-[#24463d]">
-              <p className="font-semibold text-[#10231f]">General information for situations like this</p>
-
-              {claimGuidance!.educationTopics.length > 0 ? (
-                <div className="mt-2">
-                  {claimGuidance!.educationTopics.map((topic) => (
-                    <GuidanceEntry key={topic.id} entry={topic} />
-                  ))}
-                </div>
-              ) : null}
-
-              {claimGuidance!.remedies.length > 0 ? (
-                <div className="mt-3">
-                  <p className="font-semibold">
-                    What courts in this category of situation can generally order
-                  </p>
-                  {claimGuidance!.remedies.map((remedy) => (
-                    <GuidanceEntry key={remedy.id} entry={remedy} />
-                  ))}
-                </div>
-              ) : null}
-
-              <p className="mt-3 text-xs text-[#557168]">
-                This is general information about situations like yours, not an assessment of what your
-                case is entitled to or a substitute for advice from a licensed paralegal or lawyer.
-              </p>
-            </div>
-          ) : null}
-
+          {/* What to gather comes first: it is what the person acts on (site owner, live test 2026-10-06). */}
           {hasEvidence ? (
             <div className="rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm leading-6 text-[#24463d]">
               <p className="font-semibold text-[#10231f]">
@@ -410,6 +381,36 @@ function GuidanceDisclosure({
               </p>
             </div>
           ) : null}
+          {hasClaim ? (
+            <div className="rounded-2xl border border-violet-200 bg-violet-50 p-4 text-sm leading-6 text-[#24463d]">
+              <p className="font-semibold text-[#10231f]">General information for situations like this</p>
+
+              {claimGuidance!.educationTopics.length > 0 ? (
+                <div className="mt-2">
+                  {claimGuidance!.educationTopics.map((topic) => (
+                    <GuidanceEntry key={topic.id} entry={topic} />
+                  ))}
+                </div>
+              ) : null}
+
+              {claimGuidance!.remedies.length > 0 ? (
+                <div className="mt-3">
+                  <p className="font-semibold">
+                    What courts in this category of situation can generally order
+                  </p>
+                  {claimGuidance!.remedies.map((remedy) => (
+                    <GuidanceEntry key={remedy.id} entry={remedy} />
+                  ))}
+                </div>
+              ) : null}
+
+              <p className="mt-3 text-xs text-[#557168]">
+                This is general information about situations like yours, not an assessment of what your
+                case is entitled to or a substitute for advice from a licensed paralegal or lawyer.
+              </p>
+            </div>
+          ) : null}
+
         </div>
       ) : null}
     </div>
