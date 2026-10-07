@@ -1,0 +1,1045 @@
+{
+  "records": [
+    {
+      "key": "sc-claim-tree-roots-damage|plaintiffElement|substantial-interference-tr",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "915dcec29bd113a701fbcac88b718f70d11ac39546b1248780206ababe45f11e",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 18",
+          "quote": "The Court of Appeal concluded that a nuisance consists of an interference with the claimant’s use or enjoyment of land that is both substantial and unreasonable: paras. 79-80. In my view, this conclusion is correct."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 19",
+          "quote": "A substantial interference with property is one that is non-trivial."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 22",
+          "quote": "a substantial injury to the complainant’s property interest is one that amounts to more than a slight annoyance or trifling interference."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 23",
+          "quote": "Nuisance may take a variety of forms and may include not only actual physical damage to land but also interference with the health, comfort or convenience of the owner or occupier"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 24",
+          "quote": "I therefore find that a private nuisance cannot be established where the interference with property interests is not, at least, substantial."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-tree-roots-damage|plaintiffElement|unreasonable-interference-tr",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "49c0a8c1bf753aa5f3cd9e30e47b7810d1c7805a6f09dc2bb74da0901c6fab51",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 19",
+          "quote": "Where this threshold is met, the inquiry proceeds to the reasonableness analysis, which is concerned with whether the non-trivial interference was also unreasonable in all of the circumstances."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "In the traditional law of private nuisance, the courts assess, in broad terms, whether the interference is unreasonable by balancing the gravity of the harm against the utility of the defendant’s conduct in all of the circumstances"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "In relation to the gravity of the harm, the courts have considered factors such as the severity of the interference, the character of the neighbourhood and the sensitivity of the plaintiff"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "The frequency and duration of an interference may also be relevant in some cases"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "The point for now is that these factors are not a checklist"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 29",
+          "quote": "Where the conduct is either malicious or careless, that will be a significant factor in the reasonableness analysis"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 51",
+          "quote": "I therefore conclude that reasonableness is to be assessed in all cases where private nuisance is alleged."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-tree-roots-damage|plaintiffElement|amount-tr",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7d7d24783e29ac7c1f21394509076e7373bfe322f68280a5c0c4674cd96ceca1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-tree-roots-damage|defendantConsideration|dispute-tr",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "aba425a6e307562a7a72d8e257b9906a61b1561acde4b243d8817e68fcafe6a3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/oreg-258-98-small-claims-rules.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-tree-roots-damage|defendantConsideration|reasonable-conduct-tr",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b6b5ee29f073eeea7d52205c59d0f3f485c2a51bbafbc4c7b0d4960d692ec69f",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 29",
+          "quote": "Moreover, where the defendant can establish that his or her conduct was reasonable, that can be a relevant consideration, particularly in cases where a claim is brought against a public authority. A finding of reasonable conduct will not, however, necessarily preclude a finding of liability."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-tree-roots-damage|defendantConsideration|boundary-tree-tr",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0c081b81db87d12f4a1c8444b06683c2dc0a6b6b2ffefc3d9684e430c8e09240",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f26_e.doc",
+          "pinpoint": "s. 10(2)",
+          "quote": "Every tree whose trunk is growing on the boundary between adjoining lands is the common property of the owners of the adjoining lands."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f26_e.doc",
+          "pinpoint": "s. 10(3)",
+          "quote": "Every person who injures or destroys a tree growing on the boundary between adjoining lands without the consent of the land owners is guilty of an offence under this Act."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/forestry-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-tree-roots-damage|proceduralNote|sc-claim-tree-roots-damage#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-tree-roots-damage|proceduralNote|sc-claim-tree-roots-damage#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-noise-and-nuisance|plaintiffElement|substantial-interference-nn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5be3ff9f4447e9013b6e0460207b867c10726d21fd1b5a4b61ad8387c5297fa2",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 18",
+          "quote": "The Court of Appeal concluded that a nuisance consists of an interference with the claimant’s use or enjoyment of land that is both substantial and unreasonable: paras. 79-80. In my view, this conclusion is correct."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 19",
+          "quote": "A substantial interference with property is one that is non-trivial."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 22",
+          "quote": "a substantial injury to the complainant’s property interest is one that amounts to more than a slight annoyance or trifling interference."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 23",
+          "quote": "Nuisance may take a variety of forms and may include not only actual physical damage to land but also interference with the health, comfort or convenience of the owner or occupier"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 24",
+          "quote": "I therefore find that a private nuisance cannot be established where the interference with property interests is not, at least, substantial."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 22",
+          "quote": "actionable nuisances include “only those inconveniences that materially interfere with ordinary comfort as defined according to the standards held by those of plain and sober tastes”"
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-noise-and-nuisance|plaintiffElement|unreasonable-interference-nn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1a6ddeb50028e330218806c264e7f8fca990c32537a696723c156cf55b9ee384",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 19",
+          "quote": "Where this threshold is met, the inquiry proceeds to the reasonableness analysis, which is concerned with whether the non-trivial interference was also unreasonable in all of the circumstances."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "In the traditional law of private nuisance, the courts assess, in broad terms, whether the interference is unreasonable by balancing the gravity of the harm against the utility of the defendant’s conduct in all of the circumstances"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "In relation to the gravity of the harm, the courts have considered factors such as the severity of the interference, the character of the neighbourhood and the sensitivity of the plaintiff"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "The frequency and duration of an interference may also be relevant in some cases"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "The point for now is that these factors are not a checklist"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 29",
+          "quote": "Where the conduct is either malicious or careless, that will be a significant factor in the reasonableness analysis"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 51",
+          "quote": "I therefore conclude that reasonableness is to be assessed in all cases where private nuisance is alleged."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-noise-and-nuisance|plaintiffElement|amount-nn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e1418df765921c6723c2e74d8cf37b15dff2c57c8ffda637254d5531aac2bba5",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-noise-and-nuisance|defendantConsideration|dispute-nn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cefeb56974a2df1df0e47f8e3df1ac4cf4a93fcd5365bb45cf94d4c540063a4a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/oreg-258-98-small-claims-rules.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-noise-and-nuisance|defendantConsideration|reasonable-conduct-nn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1ddedbb471c9b8eac79046488c3575c9d70624e3351a71e14f07fa73a2a53e97",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 29",
+          "quote": "Moreover, where the defendant can establish that his or her conduct was reasonable, that can be a relevant consideration, particularly in cases where a claim is brought against a public authority. A finding of reasonable conduct will not, however, necessarily preclude a finding of liability."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-noise-and-nuisance|proceduralNote|sc-claim-noise-and-nuisance#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3ca6dd6a522971a388c1ff0c5ff45593b8719c3d8bcb7073643e24dae5022c4d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 117 (2)",
+          "quote": "No person shall carry on an activity or permit an activity to be carried on in a unit, the common elements or the assets, if any, of the corporation if the activity results in the creation of or continuation of, (a) any unreasonable noise that is a nuisance, annoyance or disruption to an individual in a unit, the common elements or the assets, if any, of the corporation; or (b) any other prescribed nuisance, annoyance or disruption to an individual in a unit, the common elements or the assets, if any, of the corporation."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 1.36 (2)",
+          "quote": "an owner or a mortgagee of a unit may apply to the Tribunal for the resolution of a prescribed dispute with the corporation, another owner or an occupier or a mortgagee of a unit."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 1.42 (1)",
+          "quote": "the Tribunal has exclusive jurisdiction to exercise the powers conferred on it under this Act and to determine all questions of fact or law that arise in any proceeding before it."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 1.36 (6)",
+          "quote": "Subject to any other provision of this Act, an application must be made within two years after the dispute to which the application relates arose."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/170179_e.doc",
+          "pinpoint": "s. 1 (1) (c.1)",
+          "quote": "subject to subsection (3), a dispute with respect to subsection 117 (2) of the Act or section 26 of Ontario Regulation 48/01 (General)"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/170179_e.doc",
+          "pinpoint": "s. 1 (1) (d) (iii.2)",
+          "quote": "Provisions that prohibit, restrict or otherwise govern any other nuisance, annoyance or disruption to an individual in a unit, the common elements or the assets, if any, of the corporation."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/condominium-act-1998.txt, docs/sources/corpus/condominium-authority-tribunal.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-noise-and-nuisance|proceduralNote|sc-claim-noise-and-nuisance#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "43e976f3442977ada7b48f17c89349d49e306ed2f5fd4e260acf7a5cc66aea56",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "s. 129",
+          "quote": "Without limiting sections 9, 10 and 11, a local municipality may, (a) prohibit and regulate with respect to noise, vibration, odour, dust and outdoor illumination, including indoor lighting that can be seen outdoors;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "s. 128 (1)",
+          "quote": "Without limiting sections 9, 10 and 11, a local municipality may prohibit and regulate with respect to public nuisances, including matters that, in the opinion of council, are or could become or cause public nuisances."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "s. 425(1)",
+          "quote": "A municipality may pass by-laws providing that a person who contravenes a by-law of the municipality passed under this Act is guilty of an offence."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/municipal-act-2001.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-noise-and-nuisance|proceduralNote|sc-claim-noise-and-nuisance#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-smoke-odours-or-cannabis|plaintiffElement|substantial-interference-so",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "968627cfa3b87aa21ef85b9eaba97f08844f789c560b05f71b790ba01707b3b9",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 18",
+          "quote": "The Court of Appeal concluded that a nuisance consists of an interference with the claimant’s use or enjoyment of land that is both substantial and unreasonable: paras. 79-80. In my view, this conclusion is correct."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 19",
+          "quote": "A substantial interference with property is one that is non-trivial."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 22",
+          "quote": "a substantial injury to the complainant’s property interest is one that amounts to more than a slight annoyance or trifling interference."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 23",
+          "quote": "Nuisance may take a variety of forms and may include not only actual physical damage to land but also interference with the health, comfort or convenience of the owner or occupier"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 24",
+          "quote": "I therefore find that a private nuisance cannot be established where the interference with property interests is not, at least, substantial."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 22",
+          "quote": "actionable nuisances include “only those inconveniences that materially interfere with ordinary comfort as defined according to the standards held by those of plain and sober tastes”"
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-smoke-odours-or-cannabis|plaintiffElement|unreasonable-interference-so",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f7e69c0573e7ab710c4cba3b37bbf27832e45df35fb8170053d75cd6fcf5aa17",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 19",
+          "quote": "Where this threshold is met, the inquiry proceeds to the reasonableness analysis, which is concerned with whether the non-trivial interference was also unreasonable in all of the circumstances."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "In the traditional law of private nuisance, the courts assess, in broad terms, whether the interference is unreasonable by balancing the gravity of the harm against the utility of the defendant’s conduct in all of the circumstances"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "In relation to the gravity of the harm, the courts have considered factors such as the severity of the interference, the character of the neighbourhood and the sensitivity of the plaintiff"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "The frequency and duration of an interference may also be relevant in some cases"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "The point for now is that these factors are not a checklist"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 29",
+          "quote": "Where the conduct is either malicious or careless, that will be a significant factor in the reasonableness analysis"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 51",
+          "quote": "I therefore conclude that reasonableness is to be assessed in all cases where private nuisance is alleged."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-smoke-odours-or-cannabis|plaintiffElement|amount-so",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2c776733383ed87eddfd1a814077dfa662257926211ff9e96941128e82237214",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-smoke-odours-or-cannabis|defendantConsideration|dispute-so",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "822cb26d713a5d0c69a7446250b40098b0e54d9db1bd535f29853528a0c04e73",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/oreg-258-98-small-claims-rules.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-smoke-odours-or-cannabis|defendantConsideration|reasonable-conduct-so",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7b15bd166c7b72da82a5dbd77afc9339e803b23efc380b0c1a67bd68797b686a",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 29",
+          "quote": "Moreover, where the defendant can establish that his or her conduct was reasonable, that can be a relevant consideration, particularly in cases where a claim is brought against a public authority. A finding of reasonable conduct will not, however, necessarily preclude a finding of liability."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-smoke-odours-or-cannabis|proceduralNote|sc-claim-smoke-odours-or-cannabis#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3ca6dd6a522971a388c1ff0c5ff45593b8719c3d8bcb7073643e24dae5022c4d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 117 (2)",
+          "quote": "No person shall carry on an activity or permit an activity to be carried on in a unit, the common elements or the assets, if any, of the corporation if the activity results in the creation of or continuation of, (a) any unreasonable noise that is a nuisance, annoyance or disruption to an individual in a unit, the common elements or the assets, if any, of the corporation; or (b) any other prescribed nuisance, annoyance or disruption to an individual in a unit, the common elements or the assets, if any, of the corporation."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 1.36 (2)",
+          "quote": "an owner or a mortgagee of a unit may apply to the Tribunal for the resolution of a prescribed dispute with the corporation, another owner or an occupier or a mortgagee of a unit."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 1.42 (1)",
+          "quote": "the Tribunal has exclusive jurisdiction to exercise the powers conferred on it under this Act and to determine all questions of fact or law that arise in any proceeding before it."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 1.36 (6)",
+          "quote": "Subject to any other provision of this Act, an application must be made within two years after the dispute to which the application relates arose."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/170179_e.doc",
+          "pinpoint": "s. 1 (1) (c.1)",
+          "quote": "subject to subsection (3), a dispute with respect to subsection 117 (2) of the Act or section 26 of Ontario Regulation 48/01 (General)"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/170179_e.doc",
+          "pinpoint": "s. 1 (1) (d) (iii.2)",
+          "quote": "Provisions that prohibit, restrict or otherwise govern any other nuisance, annoyance or disruption to an individual in a unit, the common elements or the assets, if any, of the corporation."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/condominium-act-1998.txt, docs/sources/corpus/condominium-authority-tribunal.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-smoke-odours-or-cannabis|proceduralNote|sc-claim-smoke-odours-or-cannabis#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "984ccc55c5e6748369facfbd5c525633a5e84fd9c5c864e3fc5f4778a3abb930",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "s. 129",
+          "quote": "Without limiting sections 9, 10 and 11, a local municipality may, (a) prohibit and regulate with respect to noise, vibration, odour, dust and outdoor illumination, including indoor lighting that can be seen outdoors;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "s. 425(1)",
+          "quote": "A municipality may pass by-laws providing that a person who contravenes a by-law of the municipality passed under this Act is guilty of an offence."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/municipal-act-2001.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-smoke-odours-or-cannabis|proceduralNote|sc-claim-smoke-odours-or-cannabis#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-overhanging-branches|plaintiffElement|substantial-interference-ob",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0bb22103ae4d98c946af8a21d94aed9268f61e7ec36e8deb96df6e183c35d3d9",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 18",
+          "quote": "The Court of Appeal concluded that a nuisance consists of an interference with the claimant’s use or enjoyment of land that is both substantial and unreasonable: paras. 79-80. In my view, this conclusion is correct."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 19",
+          "quote": "A substantial interference with property is one that is non-trivial."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 22",
+          "quote": "a substantial injury to the complainant’s property interest is one that amounts to more than a slight annoyance or trifling interference."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 23",
+          "quote": "Nuisance may take a variety of forms and may include not only actual physical damage to land but also interference with the health, comfort or convenience of the owner or occupier"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 24",
+          "quote": "I therefore find that a private nuisance cannot be established where the interference with property interests is not, at least, substantial."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-overhanging-branches|plaintiffElement|unreasonable-interference-ob",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4479331ec28981bb8af0c2908497690b951c45881c040a6609de013cd540c9e5",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 19",
+          "quote": "Where this threshold is met, the inquiry proceeds to the reasonableness analysis, which is concerned with whether the non-trivial interference was also unreasonable in all of the circumstances."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "In the traditional law of private nuisance, the courts assess, in broad terms, whether the interference is unreasonable by balancing the gravity of the harm against the utility of the defendant’s conduct in all of the circumstances"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "In relation to the gravity of the harm, the courts have considered factors such as the severity of the interference, the character of the neighbourhood and the sensitivity of the plaintiff"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "The frequency and duration of an interference may also be relevant in some cases"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 26",
+          "quote": "The point for now is that these factors are not a checklist"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 29",
+          "quote": "Where the conduct is either malicious or careless, that will be a significant factor in the reasonableness analysis"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 51",
+          "quote": "I therefore conclude that reasonableness is to be assessed in all cases where private nuisance is alleged."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-overhanging-branches|plaintiffElement|amount-ob",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a7472cd10e1eae2a2dc7dec05976563de9cb9ef864ded97aa3b1d7d9d10d7fb8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-overhanging-branches|defendantConsideration|boundary-tree-ob",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3b458487becf2f30440fae79bcc91bba27decba258132a0589935f4f0ad54051",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f26_e.doc",
+          "pinpoint": "s. 10(2)",
+          "quote": "Every tree whose trunk is growing on the boundary between adjoining lands is the common property of the owners of the adjoining lands."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f26_e.doc",
+          "pinpoint": "s. 10(3)",
+          "quote": "Every person who injures or destroys a tree growing on the boundary between adjoining lands without the consent of the land owners is guilty of an offence under this Act."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/forestry-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-overhanging-branches|defendantConsideration|dispute-ob",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9027da17d57d20943ac0c32c3f4b8a61e641646a0d3bb7343411731e76104cf9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/oreg-258-98-small-claims-rules.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-overhanging-branches|defendantConsideration|reasonable-conduct-ob",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2b7cd4d9f5733745a0961323a7e1a27c32d64ccefd26d2e706f1531806b68513",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt",
+          "pinpoint": "para. 29",
+          "quote": "Moreover, where the defendant can establish that his or her conduct was reasonable, that can be a relevant consideration, particularly in cases where a claim is brought against a public authority. A finding of reasonable conduct will not, however, necessarily preclude a finding of liability."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-overhanging-branches|proceduralNote|sc-claim-overhanging-branches#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-overhanging-branches|proceduralNote|sc-claim-overhanging-branches#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-harassment-by-a-neighbour|plaintiffElement|flagrant-and-outrageous-conduct-hn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "012524d05bad67b97b731615fd6402bbf1d599c8bab512dba76ca5687cd1a304",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "para. 1",
+          "quote": "This appeal relates to claims of harassment and bullying by Royal Canadian Mounted Police (RCMP) managerial members of the respondent Peter Merrifield"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "para. 105",
+          "quote": "judge erred in concluding that the tort of harassment exists in Ontario and we are not"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "para. 53",
+          "quote": "while we do not foreclose the development of a properly conceived tort of harassment that might apply in appropriate contexts"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "para. 42",
+          "quote": "In this case, there are legal remedies available to redress conduct that is alleged to constitute harassment. The tort of IIMS is one of these remedies"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "para. 45",
+          "quote": "this court held that the test for IIMS is met where the plaintiff establishes conduct that is (1) flagrant and outrageous, (2) calculated to produce harm, and which (3) results in visible and provable illness."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-harassment-by-a-neighbour|plaintiffElement|calculated-to-harm-hn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ffbe9de6193f31734f2d8abbd4e38ac3be241383c5f5b9abd18ac2b5abef7d85",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "para. 47",
+          "quote": "IIMS is an intentional tort, requiring an intention to cause the kind of harm that occurred or knowledge that it was almost certain to occur. This is a purely subjective test"
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-harassment-by-a-neighbour|plaintiffElement|visible-and-provable-illness-hn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ff83128ad81bd6399ef1bfa821370af97555296a84a2d230e3fcb58a4f71a409",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "para. 47",
+          "quote": "IIMS requires conduct that is the proximate cause of a visible and provable illness"
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-harassment-by-a-neighbour|plaintiffElement|amount-hn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f9bf1be5ae89af8f2ada2783ce9c5aed254ee0f417eef2abee70cc0cb59a2b43",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-harassment-by-a-neighbour|defendantConsideration|dispute-hn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8e7f68d3f0710f1183a884f61399110cbb7c5a8f25dd9937bba357aa7353fdcb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/oreg-258-98-small-claims-rules.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-harassment-by-a-neighbour|proceduralNote|sc-claim-harassment-by-a-neighbour#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-harassment-by-a-neighbour|proceduralNote|sc-claim-harassment-by-a-neighbour#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d70c9feaaacf69c11462b1b3dd774781e7b3674d3f05f78f8e4492fcad27dcfe",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90t21_e.doc",
+          "pinpoint": "s. 3(1)",
+          "quote": "Entry on premises may be prohibited by notice to that effect"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90t21_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A notice under this Act may be given, (a) orally or in writing; (b) by means of signs posted so that a sign is clearly visible in daylight under normal conditions from the approach to each ordinary point of access to the premises to which it applies; or (c) by means of the marking system set out in section 7."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90t21_e.doc",
+          "pinpoint": "s. 2(1)",
+          "quote": "Every person who is not acting under a right or authority conferred by law and who, (a) without the express permission of the occupier, the proof of which rests on the defendant, (i) enters on premises when entry is prohibited under this Act, ... (b) does not leave the premises immediately after he or she is directed to do so by the occupier of the premises or a person authorized by the occupier, is guilty of an offence and on conviction is liable to a fine of not more than $10,000."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/trespass-to-property-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-harassment-by-a-neighbour|proceduralNote|sc-claim-harassment-by-a-neighbour#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    }
+  ],
+  "unverifiable": []
+}

@@ -1,0 +1,522 @@
+{
+  "records": [
+    {
+      "key": "sc-claim-minor-assault-or-battery|plaintiffElement|direct-contact-batt",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fe35ef962321067a15c3e45e89154004069f3a29a4afd5b7f53e159b24b9c7",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (McLachlin J., for four judges), para. 15",
+          "quote": "The tort of battery is aimed at protecting the personal autonomy of the individual. Its purpose is to recognize the right of each person to control his or her body and who touches it, and to permit damages where this right is violated."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (McLachlin J., for four judges), para. 7",
+          "quote": "the settled rule that requires the plaintiff in a battery case to show only contact through a direct, intentional act of the defendant"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (McLachlin J., for four judges), para. 8",
+          "quote": "the plaintiff in an action for trespass to the person (which includes battery) succeeds if she can prove direct interference with her person. Interference is direct if it is the immediate consequence of a force set in motion by an act of the defendant"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (McLachlin J., for four judges), para. 15",
+          "quote": "But it is not up to the plaintiff to prove that, in addition to directly interfering with her body, the defendant was also at fault."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (Iacobucci J., for three judges), para. 96",
+          "quote": "La Forest J. defined assault and battery as “causing another person to apprehend the infliction of immediate harmful or offensive force on her person coupled with the actual infliction of that harmful or offensive force”"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-minor-assault-or-battery|plaintiffElement|beyond-ordinary-contact-batt",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "42909cb49ec39da9e3206ba6bd282a087e811476be64dccab1e230331ca68a1e",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (McLachlin J., for four judges), para. 16",
+          "quote": "are different ways of expressing the idea that not every physical contact constitutes a battery. In other words, the tort requires contact “plus” something else. One view, as I discuss in the next section, is that the “plus” refers merely to non-trivial contact. The caselaw to date tends to support this view, and generally does not require actual physical or psychological injury"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (McLachlin J., for four judges), para. 19",
+          "quote": "it has also held that not every trivial contact suffices to establish battery. The classic example is being jostled in a crowd."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (McLachlin J., for four judges), para. 21",
+          "quote": "The sort of conduct the cases envision is the inevitable contact that goes with ordinary human activity, like brushing someone’s hand in the course of exchanging a gift, a gratuitous handshake, or being jostled in a crowd."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (Iacobucci J., for three judges), para. 101",
+          "quote": "Punching, shooting, stabbing, or otherwise attempting to injure another person is clearly offensive, and we would not expect someone to consent to it."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-minor-assault-or-battery|plaintiffElement|harm-and-loss-batt",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "70bbe398ff5d6bd4e800d82fe660d1aebcb6332bd23b2b5f937b2ccf7f4f72d0",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (McLachlin J., for four judges), para. 16",
+          "quote": "The caselaw to date tends to support this view, and generally does not require actual physical or psychological injury"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (McLachlin J., for four judges), para. 6, quoting Reibl v. Hughes",
+          "quote": "The tort [of battery] is an intentional one, consisting of an unprivileged and unconsented to invasion of one’s bodily security. True enough, it has some advantages for a plaintiff over an action of negligence since it does not require proof of causation"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (Iacobucci J., for three judges), para. 99",
+          "quote": "if a tort is intended, it will not matter that the result was more harmful than the actor should, or even could have foreseen."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-minor-assault-or-battery|defendantConsideration|consent-or-excuse-batt",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0c6ff055a13f699daa027fa04000e9df6370b2072e2b4788df4f96b1fd99dcc2",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (McLachlin J., for four judges), para. 8",
+          "quote": "The burden is then on the defendant to allege and prove his defence. Consent is one such defence."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (McLachlin J., for four judges), para. 7",
+          "quote": "places the onus on the defendant of showing consent or lawful excuse"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (McLachlin J., for four judges), para. 10",
+          "quote": "a defendant who violates this right can nevertheless exonerate himself by proving a lack of intention or negligence"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (McLachlin J., for four judges), para. 15",
+          "quote": "If he can show that he acted with consent, the prima facie violation is negated"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (Iacobucci J., for three judges), para. 104",
+          "quote": "A more obvious example is certain sports, where physical contact is expected and even encouraged. What these examples show is that, in all cases, one must look to the context to understand the role of consent."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-minor-assault-or-battery|defendantConsideration|everyday-contact-batt",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "160f05cf22dbfc16ff0e88518fdc2a16739563de389606f38af32bb44a90f11a",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (McLachlin J., for four judges), para. 19",
+          "quote": "The classic example is being jostled in a crowd. ... The first is implied consent ... The second sees these cases as “a general exception embracing all physical contact which is generally acceptable in the ordinary conduct of everyday life”"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Scalera, 2000 SCC 24 (McLachlin J., for four judges), para. 20",
+          "quote": "both refer to the sort of everyday physical contact which one must be expected to tolerate, even if one does not actually consent to it."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-minor-assault-or-battery|proceduralNote|sc-claim-minor-assault-or-battery#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e723b34e6cf9fb2046f94bf7abacba5f0825e6a64311a7274b7f79644e53a077",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/page/connect-supports-survivors-violence",
+          "pinpoint": "Connect with supports for survivors of violence -- Talk to someone",
+          "quote": "If you are in danger, call 911 or your local police immediately. If there is no immediate danger, you can connect with free and confidential helplines 24 hours a day."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/connect-supports-survivors-violence",
+          "pinpoint": "Helplines -- Victim Support Line",
+          "quote": "Get 24/7 access to information and referrals for victims of crime across Ontario"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/connect-supports-survivors-violence",
+          "pinpoint": "Legal advice -- Independent Legal Advice",
+          "quote": "If you are a victim of sexual assault living in Ontario and would like to speak to a lawyer, you may be eligible for up to 4 hours of free legal advice by phone or video ... This service is confidential"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-connect-supports-survivors-violence.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-minor-assault-or-battery|proceduralNote|sc-claim-minor-assault-or-battery#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "14ba15e13a1407356c79feff3ce42d8c8ad31ed170daa9b02bc531977f9887f9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- What Small Claims Court office you should file your claim in",
+          "quote": "the court in the territorial division where the cause of action arose ( i.e. where the event took place or problem occurred) ... the court in the territorial division in which the defendant lives or carries on business (if there are several defendants, then it can be the court in the territorial division in which any one of them lives or carries on business) ... at the court's place of sitting that is nearest to the place where the defendant lives or carries on business"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- filing online",
+          "quote": "You can fill out your claim, pay the fee and file it online using the Small Claims Court Submissions Online portal"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Small claims court: suing someone -- What you can sue for",
+          "quote": "You can sue for claims for damages, such as: property damage clothes damaged by a dry cleaner personal injuries"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt; Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; Vendored corpus file docs/sources/corpus/ontario-suing-someone-small-claims.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-minor-assault-or-battery|proceduralNote|sc-claim-minor-assault-or-battery#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f3f8988ad5404915ee56e8c66fc452ad64eb29b43f6e5e1c61660505fca3a54d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 1 (definition of \"assault\")",
+          "quote": "includes a battery; (\"voies de fait\")"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 16(1)(h)",
+          "quote": "There is no limitation period in respect of, ... (h) a proceeding based on a sexual assault;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 16(1)(h.2)",
+          "quote": "(h.2) a proceeding based on an assault if, at the time of the assault, the person with the claim was a minor or any of the following applied with respect to the relationship between the person with the claim and the person who committed the assault: (i) they had an intimate relationship, (ii) the person with the claim was financially, emotionally, physically or otherwise dependent on the other person;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 16(1.1)",
+          "quote": "Clauses (1) (h), (h.1), (h.2) and (l) apply to a proceeding whenever the act on which the claim is based occurred or the proceeding was commenced, and regardless of the expiry of any previously applicable limitation period."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-harassment-or-cyberbullying|plaintiffElement|recognized-claim-har",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "aa2eda40e4db1b749b12f8765e8272382b47063ff9e014bc53d53d5278a885bb",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "Merrifield, 2019 ONCA 205, para. 19",
+          "quote": "decision under appeal is the first case in which a Canadian appellate court has been required to determine whether a common law tort of harassment exists."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "Merrifield, para. 105",
+          "quote": "judge erred in concluding that the tort of harassment exists in Ontario and we are not persuaded that the tort should be recognized."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "Merrifield, para. 53",
+          "quote": "summary, while we do not foreclose the development of a properly conceived tort of harassment that might apply in appropriate contexts, we conclude that Merrifield has presented no compelling reason to recognize a new tort of harassment in this case."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "Merrifield, para. 42",
+          "quote": "there are legal remedies available to redress conduct that is alleged to constitute harassment. The tort of IIMS is one of these remedies"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-harassment-or-cyberbullying|plaintiffElement|mental-suffering-har",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bca10591e67a542fe56f569d7b3b931033cf4552c14bdd297ce903320e6e46f5",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "Merrifield, para. 44",
+          "quote": "tort of IIMS is well established in Ontario and may be asserted as a basis for claiming damages for mental suffering in the employment context."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "Merrifield, para. 45",
+          "quote": "this court held that the test for IIMS is met where the plaintiff establishes conduct that is (1) flagrant and outrageous, (2) calculated to produce harm, and which (3) results in visible and provable illness."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "Merrifield, para. 47",
+          "quote": "IIMS is an intentional tort, requiring an intention to cause the kind of harm that occurred or knowledge that it was almost certain to occur. This is a purely subjective test"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-harassment-or-cyberbullying|plaintiffElement|intrusion-har",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c0072ee224f062c15d940378919bfe757bcb793b51dd660e61c9a96764d0dc5f",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "Jones v. Tsige, 2012 ONCA 32, para. 71",
+          "quote": "The key features of this cause of action are, first, that the defendant‟s conduct must be intentional, within which I would include reckless; second that the defendant must have invaded, without lawful justification, the plaintiff‟s private affairs or concerns; and third, that a reasonable person would regard the invasion as highly offensive causing distress, humiliation or anguish. However, proof of harm to a recognized economic interest is not an element of the cause of action."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "Jones v. Tsige, para. 72",
+          "quote": "it is only intrusions into matters such as one‟s financial or health records, sexual practices and orientation, employment, diary or private correspondence that, viewed objectively on the reasonable person standard, can be described as highly offensive."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "Jones v. Tsige, para. 87",
+          "quote": "In my view, damages for intrusion upon seclusion in cases where the plaintiff has suffered no pecuniary loss should be modest but sufficient to mark the wrong that has been done. I would fix the range at up to $20,000."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-harassment-or-cyberbullying|plaintiffElement|untrue-posts-har",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7e5e6ca0455c41743cc45657a47a74925ec0caab28e6696463564998dec0aa73",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "Grant v. Torstar, 2009 SCC 61, para. 28",
+          "quote": "A plaintiff in a defamation action is required to prove three things to obtain judgment and an award of damages: (1) that the impugned words were defamatory, in the sense that they would tend to lower the plaintiff’s reputation in the eyes of a reasonable person; (2) that the words in fact referred to the plaintiff; and (3) that the words were published, meaning that they were communicated to at least one person other than the plaintiff. If these elements are established on a balance of probabilities, falsity and damage are presumed"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-harassment-or-cyberbullying|defendantConsideration|no-intent-har",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03469126a20829e69e86931b64caefd040353be4a71dad39e84c9f4e00a57795",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "Merrifield, para. 45",
+          "quote": "this court held that the test for IIMS is met where the plaintiff establishes conduct that is (1) flagrant and outrageous, (2) calculated to produce harm, and which (3) results in visible and provable illness."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt",
+          "pinpoint": "Merrifield, para. 47",
+          "quote": "IIMS is an intentional tort, requiring an intention to cause the kind of harm that occurred or knowledge that it was almost certain to occur. This is a purely subjective test"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/merrifield-v-canada-2019-ONCA-205.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-harassment-or-cyberbullying|defendantConsideration|truth-har",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6349da7f4e3b29bf6e12f89705bb5e721f370cfe34d471ef75e0d9fffbb9bdf5",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "Grant v. Torstar, para. 29",
+          "quote": "If the plaintiff proves the required elements, the onus then shifts to the defendant to advance a defence in order to escape liability."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "Grant v. Torstar, para. 32",
+          "quote": "Where statements of fact are at issue, usually only two defences are available: the defence that the statement was substantially true (justification); and the defence that the statement was made in a protected context (privilege)."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "Grant v. Torstar, para. 33",
+          "quote": "To succeed on the defence of justification, a defendant must adduce evidence showing that the statement was substantially true."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-harassment-or-cyberbullying|defendantConsideration|public-interest-motion-har",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1a8fce7b11225a1d602156d60cff5322a9a4d68946a23cc00b71120592896f78",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 137.1(3)",
+          "quote": "(3) On motion by a person against whom a proceeding is brought, a judge shall, subject to subsection (4), dismiss the proceeding against the person if the person satisfies the judge that the proceeding arises from an expression made by the person that relates to a matter of public interest."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 137.1(4)",
+          "quote": "(4) A judge shall not dismiss a proceeding under subsection (3) if the responding party satisfies the judge that, ... (a) there are grounds to believe that, ... (i) the proceeding has substantial merit, and ... (ii) the moving party has no valid defence in the proceeding; and ... (b) the harm likely to be or have been suffered by the responding party as a result of the moving party's expression is sufficiently serious that the public interest in permitting the proceeding to continue outweighs the public interest in protecting that expression."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 137.1(7)",
+          "quote": "(7) If a judge dismisses a proceeding under this section, the moving party is entitled to costs on the motion and in the proceeding on a full indemnity basis, unless the judge determines that such an award is not appropriate in the circumstances."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-harassment-or-cyberbullying|proceduralNote|sc-claim-harassment-or-cyberbullying#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "56fd5efd142f0d4666c4ce14ad6ad860e5a3c1802f63e220fe7777c8e7a6f165",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 10(1) (definition of \"harassment\")",
+          "quote": "means engaging in a course of vexatious comment or conduct that is known or ought reasonably to be known to be unwelcome;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 2(2)",
+          "quote": "(2) Every person who occupies accommodation has a right to freedom from harassment by the landlord or agent of the landlord or by an occupant of the same building because of race, ancestry, place of origin, colour, ethnic origin, citizenship, creed, sexual orientation, gender identity, gender expression, age, marital status, family status, disability or the receipt of public assistance."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 5(2)",
+          "quote": "(2) Every person who is an employee has a right to freedom from harassment in the workplace by the employer or agent of the employer or by another employee because of race, ancestry, place of origin, colour, ethnic origin, citizenship, creed, sexual orientation, gender identity, gender expression, age, record of offences, marital status, family status or disability."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 7(1)",
+          "quote": "7 (1) Every person who occupies accommodation has a right to freedom from harassment because of sex, sexual orientation, gender identity or gender expression by the landlord or agent of the landlord or by an occupant of the same building."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 7(2)",
+          "quote": "(2) Every person who is an employee has a right to freedom from harassment in the workplace because of sex, sexual orientation, gender identity or gender expression by his or her employer or agent of the employer or by another employee."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 34(1)",
+          "quote": "34 (1) If a person believes that any of his or her rights under Part I have been infringed, the person may apply to the Tribunal for an order under section 45.2, (a) within one year after the incident to which the application relates; or (b) if there was a series of incidents, within one year after the last incident in the series."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 34(2)",
+          "quote": "(2) A person may apply under subsection (1) after the expiry of the time limit under that subsection if the Tribunal is satisfied that the delay was incurred in good faith and no substantial prejudice will result to any person affected by the delay."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 46.1(1)",
+          "quote": "46.1 (1) If, in a civil proceeding in a court, the court finds that a party to the proceeding has infringed a right under Part I of another party to the proceeding, the court may make either of the following orders, or both: 1. An order directing the party who infringed the right to pay monetary compensation to the party whose right was infringed for loss arising out of the infringement, including compensation for injury to dignity, feelings and self-respect."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 46.1(2)",
+          "quote": "(2) Subsection (1) does not permit a person to commence an action based solely on an infringement of a right under Part I."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/human-rights-code.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-harassment-or-cyberbullying|proceduralNote|sc-claim-harassment-or-cyberbullying#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7c6de21a1f30b8137d393e4768ad3256fb95eb9eecd1048e213d25617ed19657",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- What Small Claims Court office you should file your claim in",
+          "quote": "the court in the territorial division where the cause of action arose ( i.e. where the event took place or problem occurred) ... the court in the territorial division in which the defendant lives or carries on business (if there are several defendants, then it can be the court in the territorial division in which any one of them lives or carries on business) ... at the court's place of sitting that is nearest to the place where the defendant lives or carries on business"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- filing online",
+          "quote": "You can fill out your claim, pay the fee and file it online using the Small Claims Court Submissions Online portal"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt; Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-harassment-or-cyberbullying|proceduralNote|sc-claim-harassment-or-cyberbullying#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "16d132d72694817a9e3bd1f463ca98b7cece788d83946fce5db6a49c3fe0d2a0",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    }
+  ],
+  "unverifiable": []
+}

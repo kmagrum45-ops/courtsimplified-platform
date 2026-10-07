@@ -124,11 +124,6 @@
         "sensitive": false
       },
       {
-        "id": "sc-claim-new-home-defects",
-        "name": "Defects in a newly built home",
-        "sensitive": false
-      },
-      {
         "id": "sc-claim-home-inspector-missed-defects",
         "name": "A home inspector who missed something",
         "sensitive": false
@@ -151,11 +146,6 @@
     "family": "goods-and-services",
     "types": [
       {
-        "id": "sc-claim-real-estate-agent-conduct",
-        "name": "A real estate agent's commission or conduct",
-        "sensitive": false
-      },
-      {
         "id": "sc-claim-moving-company-damage-or-loss",
         "name": "A moving company that damaged or lost things",
         "sensitive": false
@@ -168,11 +158,6 @@
       {
         "id": "sc-claim-wedding-or-event-vendor-failure",
         "name": "A wedding or event supplier who let you down",
-        "sensitive": false
-      },
-      {
-        "id": "sc-claim-travel-agent-or-tour-operator",
-        "name": "A travel agent or tour operator",
         "sensitive": false
       },
       {
@@ -215,11 +200,6 @@
       {
         "id": "sc-claim-private-career-college-refund",
         "name": "A private career college refund",
-        "sensitive": false
-      },
-      {
-        "id": "sc-claim-college-or-university-fee-dispute",
-        "name": "A college or university fee dispute",
         "sensitive": false
       },
       {
@@ -295,16 +275,6 @@
         "sensitive": false
       },
       {
-        "id": "sc-claim-funeral-or-cemetery-dispute",
-        "name": "A funeral home or cemetery dispute",
-        "sensitive": false
-      },
-      {
-        "id": "sc-claim-ticket-resale-or-cancelled-event",
-        "name": "A resold ticket or a cancelled event",
-        "sensitive": false
-      },
-      {
         "id": "sc-claim-gift-card-refused",
         "name": "A gift card or prepaid card refused",
         "sensitive": false
@@ -371,11 +341,6 @@
       {
         "id": "sc-claim-neighbours-tree-fell",
         "name": "A neighbour's tree or branch came down",
-        "sensitive": false
-      },
-      {
-        "id": "sc-claim-tree-roots-damage",
-        "name": "Tree roots damaging foundation, pipes or driveway",
         "sensitive": false
       },
       {
@@ -540,11 +505,6 @@
         "sensitive": false
       },
       {
-        "id": "sc-claim-minor-assault-or-battery",
-        "name": "Being hit or attacked by someone",
-        "sensitive": true
-      },
-      {
         "id": "sc-claim-injury-from-a-cosmetic-procedure",
         "name": "An injury from a salon, spa or cosmetic procedure",
         "sensitive": false
@@ -562,23 +522,8 @@
     "family": "neighbours",
     "types": [
       {
-        "id": "sc-claim-noise-and-nuisance",
-        "name": "Noise or a persistent nuisance",
-        "sensitive": false
-      },
-      {
-        "id": "sc-claim-smoke-odours-or-cannabis",
-        "name": "Smoke, smells or cannabis drifting over",
-        "sensitive": false
-      },
-      {
         "id": "sc-claim-cameras-or-lights-aimed-at-you",
         "name": "Cameras or lights pointed at your property",
-        "sensitive": false
-      },
-      {
-        "id": "sc-claim-trespass-by-people-or-pets",
-        "name": "People, pets or children coming onto your land",
         "sensitive": false
       },
       {
@@ -599,11 +544,6 @@
     "family": "neighbours",
     "types": [
       {
-        "id": "sc-claim-overhanging-branches",
-        "name": "Overhanging branches and roots",
-        "sensitive": false
-      },
-      {
         "id": "sc-claim-snow-or-leaves-dumped",
         "name": "Snow or leaves dumped on your property",
         "sensitive": false
@@ -622,11 +562,6 @@
         "id": "sc-claim-construction-noise-and-debris",
         "name": "Construction noise and debris",
         "sensitive": false
-      },
-      {
-        "id": "sc-claim-harassment-by-a-neighbour",
-        "name": "A neighbour who is harassing you",
-        "sensitive": true
       }
     ]
   },
@@ -836,11 +771,6 @@
       {
         "id": "sc-claim-intimate-image-abuse",
         "name": "Intimate images shared without consent",
-        "sensitive": true
-      },
-      {
-        "id": "sc-claim-harassment-or-cyberbullying",
-        "name": "Harassment or cyberbullying",
         "sensitive": true
       }
     ]
@@ -1079,11 +1009,6 @@
         "sensitive": false
       },
       {
-        "id": "civil-claim-assault-and-battery",
-        "name": "Someone hurt you on purpose (assault and battery, civil claim)",
-        "sensitive": false
-      },
-      {
         "id": "civil-claim-privacy-intrusion",
         "name": "Your privacy was invaded",
         "sensitive": false
@@ -1267,6 +1192,109 @@
       {
         "id": "family-matter-unequal-division",
         "name": "Asking for an unequal division of property",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "gaps-1",
+    "court": "small-claims",
+    "family": "goods-and-services",
+    "types": [
+      {
+        "id": "sc-claim-new-home-defects",
+        "name": "Defects in a newly built home",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-real-estate-agent-conduct",
+        "name": "A real estate agent's commission or conduct",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-travel-agent-or-tour-operator",
+        "name": "A travel agent or tour operator",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-funeral-or-cemetery-dispute",
+        "name": "A funeral home or cemetery dispute",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-ticket-resale-or-cancelled-event",
+        "name": "A resold ticket or a cancelled event",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-college-or-university-fee-dispute",
+        "name": "A college or university fee dispute",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "gaps-2",
+    "court": "small-claims",
+    "family": "property-damage",
+    "types": [
+      {
+        "id": "sc-claim-tree-roots-damage",
+        "name": "Tree roots damaging foundation, pipes or driveway",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-noise-and-nuisance",
+        "name": "Noise or a persistent nuisance",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-smoke-odours-or-cannabis",
+        "name": "Smoke, smells or cannabis drifting over",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-overhanging-branches",
+        "name": "Overhanging branches and roots",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-trespass-by-people-or-pets",
+        "name": "People, pets or children coming onto your land",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-harassment-by-a-neighbour",
+        "name": "A neighbour who is harassing you",
+        "sensitive": true
+      }
+    ]
+  },
+  {
+    "batch": "gaps-3",
+    "court": "small-claims",
+    "family": "injury",
+    "types": [
+      {
+        "id": "sc-claim-minor-assault-or-battery",
+        "name": "Being hit or attacked by someone",
+        "sensitive": true
+      },
+      {
+        "id": "sc-claim-harassment-or-cyberbullying",
+        "name": "Harassment or cyberbullying",
+        "sensitive": true
+      }
+    ]
+  },
+  {
+    "batch": "gaps-4",
+    "court": "civil",
+    "family": "civil",
+    "types": [
+      {
+        "id": "civil-claim-assault-and-battery",
+        "name": "Someone hurt you on purpose (assault and battery, civil claim)",
         "sensitive": false
       }
     ]

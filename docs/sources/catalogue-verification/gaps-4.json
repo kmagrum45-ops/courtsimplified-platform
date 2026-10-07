@@ -1,0 +1,237 @@
+{
+  "records": [
+    {
+      "key": "civil-claim-assault-and-battery|plaintiffElement|direct-contact-civbat",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "aa50cc519e3b6b94cdf6cc1b08c698e05a0a8c515ee46287f1fb598794d82553",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, headnote (majority on battery)",
+          "quote": "Per L’Heureux-Dubé, Gonthier, McLachlin and Binnie JJ.: The plaintiff’s claims could not trigger coverage under the policy."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 7",
+          "quote": "The question, then, is whether we should in this case depart from the settled rule that requires the plaintiff in a battery case to show only contact through a direct, intentional act of the defendant and places the onus on the defendant of showing consent or lawful excuse, including actual or constructive consent."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 8",
+          "quote": "The traditional rule, as noted, is that the plaintiff in an action for trespass to the person (which includes battery) succeeds if she can prove direct interference with her person. Interference is direct if it is the immediate consequence of a force set in motion by an act of the defendant"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 8",
+          "quote": "The burden is then on the defendant to allege and prove his defence."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 10",
+          "quote": "Basing the law of battery on protecting the plaintiff’s physical autonomy helps explain why the plaintiff in an action for battery need prove only a direct interference, at which point the onus shifts to the person who is alleged to have violated the right to justify the intrusion, excuse it or raise some other defence."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-assault-and-battery|plaintiffElement|beyond-ordinary-contact-civbat",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "58f865e24d26e243f53287bbb0e3b4f67e35c43b876dc1347939cea5e1bb2601",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 18",
+          "quote": "Nor do I dispute that contact must be “harmful or offensive” to constitute battery."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 18",
+          "quote": "If one accepts that the foundation of the tort of battery is a violation of personal autonomy, it follows that all contact outside the exceptional category of contact that is generally accepted or expected in the course of ordinary life, is prima facie offensive."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 19",
+          "quote": "it has also held that not every trivial contact suffices to establish battery. The classic example is being jostled in a crowd. A person who enters a crowd cannot sue for being jostled; such contact is not “offensive”."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 21",
+          "quote": "The sort of conduct the cases envision is the inevitable contact that goes with ordinary human activity, like brushing someone’s hand in the course of exchanging a gift, a gratuitous handshake, or being jostled in a crowd. Sexual contact does not fall into this category."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 16",
+          "quote": "The caselaw to date tends to support this view, and generally does not require actual physical or psychological injury"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 23",
+          "quote": "medical interventions may incidentally produce physical and psychological harm which may go to damages"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-assault-and-battery|plaintiffElement|burden-of-proof-civbat",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "41c5159b8b7df01798ae734d399163341d28aa76728e5adcb5bcccb6edab445d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps in a civil case -- Burden of proof",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-assault-and-battery|defendantConsideration|consent-civbat",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "42f3396147ce775a243bd3ad253f6dea56690ea4d539cd7cc91a8a8b6d680fb3",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, heading before para. 3",
+          "quote": "The Canadian Law of Battery Places the Onus of Proving Consent on the Defendant"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 4",
+          "quote": "This Court has long affirmed this proposition."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 6",
+          "quote": "“[a] battery is the intentional infliction of unlawful force on another person. Consent, express or implied, is a defence to battery.”"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 2",
+          "quote": "If the defendant does not dispute that the contact took place, he bears the burden of proving that the plaintiff consented or that a reasonable person in his position would have thought that she consented."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 18",
+          "quote": "Hence the plaintiff may establish an action for sexual battery without negativing actual or constructive consent."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 15",
+          "quote": "If he can show that he acted with consent, the prima facie violation is negated and the plaintiff’s claim will fail."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-assault-and-battery|defendantConsideration|no-intent-or-negligence-civbat",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1f7b1ddefa3d8c05cea749ad4f7ce9dfbf80a9e3da48c22b5473f6697221e848",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 10",
+          "quote": "This right is not absolute, because a defendant who violates this right can nevertheless exonerate himself by proving a lack of intention or negligence"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt",
+          "pinpoint": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24, para. 5",
+          "quote": "In an action for damages in trespass where the plaintiff proves that he has been injured by the direct act of the defendant, the onus falls upon the defendant to prove that his act was both unintentional and without negligence on his part, in order for him to be entitled to a dismissal of the action."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-assault-and-battery|proceduralNote|civil-claim-assault-and-battery#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3cf5aea744ed27e99d6fefd322ba402e2f45a3c1383d01a0634e7225eedb4d5f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1.1)",
+          "quote": "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1.2)",
+          "quote": "Subsection (1.1) does not apply with respect to a counterclaim, crossclaim or third or subsequent party claim, where the main action was commenced in the Superior Court of Justice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-assault-and-battery|proceduralNote|civil-claim-assault-and-battery#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fd03c8cf644873804696b7208e4a976254bab3750b34113b129b4a2c2842d8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-assault-and-battery|proceduralNote|civil-claim-assault-and-battery#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "72160a714dd43c99688bb3084b8319572bc807c1b0e5891a896e158553b2bbee",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 1",
+          "quote": "\"assault\" includes a battery;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 16(1)(h)",
+          "quote": "There is no limitation period in respect of, ... (h) a proceeding based on a sexual assault;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 16(1)(h.2)",
+          "quote": "(h.2) a proceeding based on an assault if, at the time of the assault, the person with the claim was a minor or any of the following applied with respect to the relationship between the person with the claim and the person who committed the assault: (i) they had an intimate relationship, (ii) the person with the claim was financially, emotionally, physically or otherwise dependent on the other person;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 16(1.1)",
+          "quote": "Clauses (1) (h), (h.1), (h.2) and (l) apply to a proceeding whenever the act on which the claim is based occurred or the proceeding was commenced, and regardless of the expiry of any previously applicable limitation period."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 16(1.2)",
+          "quote": "Subsection (1.1) does not apply in the case of a proceeding that, (a) has been dismissed by a court and no further appeal is available; or (b) has been settled by the parties and the settlement is legally binding."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    }
+  ],
+  "unverifiable": []
+}
