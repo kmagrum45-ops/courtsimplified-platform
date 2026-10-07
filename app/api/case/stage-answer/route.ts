@@ -28,6 +28,7 @@ import { NextResponse } from "next/server";
 import { renderStageAnswerOrRefuse, renderStageRulesOnly } from "../../../../src/lib/content-library/stageAnswerView";
 import { findStage, isSpecialStage } from "../../../../src/lib/case-system/stage-map/stageMap";
 import { caseDatesFrom } from "../../../../src/lib/case-system/deadlines/deadlineEvents";
+import { computedDeadlinesFor } from "../../../../src/lib/content-library/computedDeadline";
 import { dateQuestionsForStep, isDateQuestionId } from "../../../../src/lib/case-system/casePosition";
 import {
   STAGE_ANSWER_UNAVAILABLE_MESSAGE,
@@ -89,6 +90,7 @@ export async function POST(request: Request) {
       outcome: "rendered",
       answer: outcome.answer,
       dateQuestions: dateQuestionsForStep(stageId),
+      nextStep: nextStepSummary(stageId, dates),
     });
   }
 
@@ -111,7 +113,12 @@ export async function POST(request: Request) {
   if (outcome.refusal.reason === "not-published") {
     const rulesOnly = renderStageRulesOnly(stageId, dates);
     if (rulesOnly) {
-      return NextResponse.json({ outcome: "rendered", answer: rulesOnly, dateQuestions: dateQuestionsForStep(stageId) });
+      return NextResponse.json({
+        outcome: "rendered",
+        answer: rulesOnly,
+        dateQuestions: dateQuestionsForStep(stageId),
+        nextStep: nextStepSummary(stageId, dates),
+      });
     }
   }
 
@@ -122,4 +129,34 @@ export async function POST(request: Request) {
         ? STAGE_SCOPE_UNCONFIRMED_MESSAGE
         : STAGE_ANSWER_UNAVAILABLE_MESSAGE,
   });
+}
+
+/**
+ * The step's deadlines in structured form, for the "Your next step" card at
+ * the top of the panel (master plan Phase 2): each counted date with its
+ * reviewed statement, or, where no date is known yet, the period and what it
+ * is counted from. Nothing here is new wording: `what`, `countFrom` and the
+ * statement come from the stage map and the reviewed deadline templates,
+ * the same sources the full answer below the card uses.
+ */
+function nextStepSummary(stageId: string, dates: ReturnType<typeof caseDatesFrom>) {
+  const stage = findStage(stageId);
+  if (!stage) return null;
+  const counted = computedDeadlinesFor(stage.deadlines, dates, "nextStepCard");
+  return {
+    title: stage.title,
+    deadlines: counted.map((deadline) => ({
+      what: stage.deadlines.find((item) => item.id === deadline.deadlineId)?.what ?? "",
+      date: deadline.date,
+      statement: deadline.statement,
+    })),
+    periods: stage.deadlines
+      .filter((deadline) => deadline.length.count > 0 && !counted.some((item) => item.deadlineId === deadline.id))
+      .map((deadline) => ({
+        what: deadline.what,
+        count: deadline.length.count,
+        unit: deadline.length.unit,
+        countFrom: deadline.countFrom,
+      })),
+  };
 }

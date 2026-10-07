@@ -33,8 +33,14 @@ type RenderedAnswer = {
   release: { runId: string; promotedAt: string };
 };
 
+type NextStepSummary = {
+  title: string;
+  deadlines: { what: string; date: string; statement: string }[];
+  periods: { what: string; count: number; unit: string; countFrom: string }[];
+};
+
 type Response =
-  | { outcome: "rendered"; answer: RenderedAnswer; dateQuestions?: DateQuestion[] }
+  | { outcome: "rendered"; answer: RenderedAnswer; dateQuestions?: DateQuestion[]; nextStep?: NextStepSummary | null }
   | { outcome: "needs-a-fact"; question: string; answer: RenderedAnswer | null }
   | { outcome: "unavailable"; message: string };
 
@@ -82,6 +88,76 @@ export function orderGroupsForReader<T extends { side: string; label: string }>(
       .filter((group) => !own.includes(group.side) && group.side !== "both")
       .map((group) => ({ ...group, label: `Other situations — ${group.label}` })),
   ];
+}
+
+function todayIso(): string {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+}
+
+/**
+ * "Your next step", first (master plan Phase 2). The step, its deadline
+ * counted from the person's dates (or the period and what it runs from), what
+ * to do, and the forms -- the answer a lawyer gives first -- with the full
+ * reviewed answer and every rule folded underneath. Every sentence here is
+ * from the stage map, the reviewed deadline templates or the published answer;
+ * the card only chooses what goes first.
+ */
+function NextStepCard({
+  summary,
+  answer,
+  court,
+  userWords,
+  askedForDates,
+}: {
+  summary: NextStepSummary;
+  answer: RenderedAnswer;
+  court: string;
+  userWords: string;
+  askedForDates: boolean;
+}) {
+  const today = todayIso();
+  const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
+  const firstParagraph = toDo.split(/\n\s*\n/)[0]?.trim() ?? "";
+  const unit = (count: number, word: string) => `${count} ${count === 1 ? word.replace(/s$/, "") : word}`;
+  return (
+    <div data-testid="next-step-card" className="mt-4 rounded-2xl border-2 border-[#2f7d67] bg-[#f2fbf7] p-4">
+      <p className="text-xs font-semibold uppercase tracking-wide text-[#2f7d67]">Your next step</p>
+      <p className="mt-1 text-sm text-[#4d675f]">Where you are: {summary.title}</p>
+      {summary.deadlines.length > 0 || summary.periods.length > 0 ? (
+        <ul className="mt-3 space-y-2 text-sm leading-6 text-[#16302b]">
+          {summary.deadlines.map((deadline) => (
+            <li key={`${deadline.what}-${deadline.date}`} data-testid="next-step-deadline">
+              <span className="font-semibold">{deadline.what}.</span> {deadline.statement}
+              {deadline.date < today ? <span className="font-semibold text-[#8a1c1c]"> That date has already passed.</span> : null}
+            </li>
+          ))}
+          {summary.periods.map((period) => (
+            <li key={period.what} data-testid="next-step-period">
+              <span className="font-semibold">{period.what}.</span> {unit(period.count, period.unit)} after {period.countFrom}.
+              {askedForDates ? " Give the date below and we will count the last day for you." : ""}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      {firstParagraph ? <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{firstParagraph}</p> : null}
+      {toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
+      {answer.sources.length > 0 ? (
+        <p className="mt-3 text-xs leading-5 text-[#4d675f]">
+          {answer.sources.slice(0, 4).map((source, index) => (
+            <span key={`${source.name}-${source.pinpoint}`}>
+              {index > 0 ? "; " : "Sources: "}
+              <a href={source.url} target="_blank" rel="noreferrer" className="underline">
+                {source.name}
+              </a>
+              {source.pinpoint ? `, ${source.pinpoint}` : ""}
+            </span>
+          ))}
+          {answer.sources.length > 4 ? " — all sources are in the full answer below." : ""}
+        </p>
+      ) : null}
+    </div>
+  );
 }
 
 function AnswerView({ answer, court, userWords = "" }: { answer: RenderedAnswer; court: string; userWords?: string }) {
@@ -369,6 +445,16 @@ export default function StageAnswerPanel({
         </p>
       )}
 
+      {result?.outcome === "rendered" && result.nextStep ? (
+        <NextStepCard
+          summary={result.nextStep}
+          answer={result.answer}
+          court={courtPath}
+          userWords={userWords}
+          askedForDates={(result.dateQuestions?.length ?? 0) > 0}
+        />
+      ) : null}
+
       {result?.outcome === "rendered" && (result.dateQuestions?.length ?? 0) > 0 && (
         <div id="work-out-your-dates" data-testid="stage-answer-dates" className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
           <p className="text-sm font-semibold text-[#16302b]">Work out your dates</p>
@@ -466,7 +552,16 @@ export default function StageAnswerPanel({
         </div>
       ) : null}
 
-      {result?.outcome === "rendered" && <AnswerView answer={result.answer} court={courtPath} userWords={userWords} />}
+      {result?.outcome === "rendered" && result.nextStep ? (
+        <details data-testid="stage-answer-full" className="mt-5 rounded-2xl border border-[#d8e6df] p-4">
+          <summary className="cursor-pointer text-sm font-semibold text-[#2f7d67]">
+            The full answer for this step, with every rule and source
+          </summary>
+          <AnswerView answer={result.answer} court={courtPath} userWords={userWords} />
+        </details>
+      ) : result?.outcome === "rendered" ? (
+        <AnswerView answer={result.answer} court={courtPath} userWords={userWords} />
+      ) : null}
 
       {result?.outcome === "needs-a-fact" && (
         <div className="mt-4">

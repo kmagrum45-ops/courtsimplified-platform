@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-122 documented, 28 without a header.
+123 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -70,6 +70,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:lso-demo-cases` | **The demo test cases from docs/lso-ai-audit.md section 13, as a suite.**<br>WHY. That table was written as a list of things to try by hand, and five of its twenty rows were marked "expected to fail today" — cases 3, 4, 12, 13 and 19, the honest edges of the demo. Those five are the point of the LSO rewrite, so they cannot stay as a li |
 | `npm run test:mount-conditions` | **Surfaces that mount independently of the analysis pipeline are not gated on**<br>it. |
 | `npm run test:mutations` | **Every family §3 / §2 check is proven able to fail.**<br>COSTS NOTHING. Local file edits plus suite runs. Slower than the suites themselves (it runs each one once per mutation), so it is not wired into the per-change loop — run it when a check is added or changed. |
+| `npm run test:next-step` | **"Your next step" comes first: the step, its deadline counted from the**<br>person's dates (or the period and what it runs from), what to do and the forms, with the full answer folded underneath. Master plan Phase 2 (docs/MASTER_PLAN.md). |
 | `npm run test:no-filenames` | **No file name reaches a model. Asserted three ways, because one way is not**<br>enough for a property this easy to reintroduce. |
 | `npm run test:no-model-prose` | **No model-written prose reaches a document, an export, or a court form.**<br>COSTS NOTHING. Calls the real engine with a real input, with external cognition disabled, and inspects what comes out. No network, no AI. |
 | `npm run test:no-model-text-to-users` | **With the switch off, no sentence the model wrote reaches a user.**<br>WHAT IT PROTECTS. The LSO A2I AI policy forbids AI-generated legal content reaching a user without human review, and the A2I answers (2026-09-28) commit to it. Until 2026-09-29 the analysis carried the model's own wording into what users read: risk titles and  |
