@@ -95,7 +95,14 @@ export type AiCallType =
    * a legal term. The user accepts or keeps their own. See
    * intake/tidyWording.ts.
    */
-  | "tidy-wording";
+  | "tidy-wording"
+  /**
+   * 2026-10-07. Plain-language help with a court decision the person uploaded
+   * to their own case, on their click only, behind the document-analysis
+   * (ZDR) switch. Every quote is checked against the uploaded text. See
+   * case-workspace/courtDecision.ts.
+   */
+  | "decision-help";
 
 export type AiValidationResult = "valid" | "invalid" | "error" | "timeout";
 

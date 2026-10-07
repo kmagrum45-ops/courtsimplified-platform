@@ -1,6 +1,7 @@
 import type { ResearchFindingView } from "@/src/lib/case-system/intelligence/intelligenceTypes";
 import { publicSourceUrl } from "@/src/lib/content-library/publicSourceUrl";
 
+import CanliiCaseInfo from "./CanliiCaseInfo";
 import ExplainProvision from "./ExplainProvision";
 
 /**
@@ -71,6 +72,8 @@ export default function ResearchPanel({ findings: all }: { findings: readonly Re
                           decisions that may have changed it.
                         </p>
                       ) : null}
+                      {/* CanLII's API confirms the case and links it, when the key is set (2026-10-07). */}
+                      {provision.kind === "decision" && provision.citation ? <CanliiCaseInfo citation={provision.citation} /> : null}
                       <details className="mt-1 text-xs">
                         <summary className="cursor-pointer font-semibold text-[#2f7d67]">
                           {provision.kind === "decision" ? "Read more of the decision" : "Read more of the provision"}

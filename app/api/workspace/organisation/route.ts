@@ -30,6 +30,7 @@
  * NO MODEL IS CALLED HERE.
  */
 
+import { COURT_DECISION_TYPE, decisionDetailsFor } from "@/src/lib/case-workspace/courtDecisionStore";
 import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
 import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
 import { NextRequest, NextResponse } from "next/server";
@@ -225,6 +226,8 @@ export async function GET(req: NextRequest) {
       }
 
       const byId = new Map(documents.map((row) => [row.id, row]));
+      // A court decision's case name and citation, for its "Source: CanLII" line.
+      const decisions = await decisionDetailsFor(supabase, documents);
 
       const shape = (id: string) => {
         const row = byId.get(id);
@@ -248,6 +251,7 @@ export async function GET(req: NextRequest) {
           amount: row.amount,
           notes: row.notes,
           ambiguity: ambiguityPrompt(row, textById.get(row.id) ?? null),
+          decision: row.user_type === COURT_DECISION_TYPE ? (decisions.get(row.id) ?? {}) : null,
         };
       };
 

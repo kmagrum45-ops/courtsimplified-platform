@@ -36,6 +36,7 @@
  * name leaves the server here.
  */
 
+import { decisionUpdate } from "@/src/lib/case-workspace/courtDecisionStore";
 import { NextRequest, NextResponse } from "next/server";
 
 import { createClient } from "@supabase/supabase-js";
@@ -344,6 +345,10 @@ export async function PATCH(req: NextRequest) {
       parties?: unknown;
       amount?: unknown;
       notes?: string | null;
+      decisionCaseName?: string | null;
+      decisionCitation?: string | null;
+      decisionCourt?: string | null;
+      decisionDate?: string | null;
     };
 
     const documentId = String(body.documentId || "").trim();
@@ -422,6 +427,25 @@ export async function PATCH(req: NextRequest) {
         if (!Number.isFinite(amount)) return refuse(422, "That amount is not a number.");
         update.amount = amount;
       }
+    }
+
+    // A court decision's details (case name, citation, court, date). Written
+    // apart from the rest because their columns come with migration
+    // 20261007090000; before it is applied, this says so instead of failing
+    // the whole save (courtDecisionStore.ts).
+    const decision = decisionUpdate(body as Record<string, unknown>);
+    if (decision) {
+      const { error: decisionError } = await supabaseAdminFor()
+        .from("workspace_documents")
+        .update(decision)
+        .eq("id", documentId)
+        .eq("user_id", user.id)
+        .is("deleted_at", null);
+      if (decisionError) {
+        console.error("workspace patch decision error:", decisionError.message);
+        return refuse(503, "Court decision details cannot be saved yet. The site's database needs its update first.");
+      }
+      if (Object.keys(update).length === 0) return NextResponse.json({ success: true });
     }
 
     if (Object.keys(update).length === 0) {
