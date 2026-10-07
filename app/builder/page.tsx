@@ -911,6 +911,29 @@ function BuilderPageContent() {
   ]);
 
   /*
+   * Family questions answered AFTER the case was saved were never saved: the
+   * save above runs on the analysis, not on these answers (master plan
+   * Phase 1, 2026-10-07). Only `familyStatus` is written, read fresh so
+   * nothing else on the case is touched.
+   */
+  useEffect(() => {
+    if (courtPath !== "family" || !canonicalIntakeSaved) return;
+    const id = savedCaseId();
+    if (!id) return;
+    const timer = setTimeout(() => {
+      void (async () => {
+        const { data } = await supabase.from("cases").select("master_result").eq("id", id).maybeSingle();
+        if (!data) return;
+        const stored = asRecord(data.master_result);
+        if (JSON.stringify(stored.familyStatus) === JSON.stringify(triageState)) return;
+        await supabase.from("cases").update({ master_result: { ...stored, familyStatus: triageState } }).eq("id", id);
+      })();
+    }, 800);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [triageState, canonicalIntakeSaved, courtPath]);
+
+  /*
    * Session 29: reshapes guided intake's result into
    * SmallClaimsIntelligenceInput (guidedIntakeToSmallClaimsInput.ts),
    * calls the exact same requestSmallClaimsAnalysis() the form path uses,
@@ -1693,7 +1716,7 @@ function BuilderPageContent() {
               />
             ) : null}
             {confirmedStage && (
-              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
+              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} />
             )}
             {confirmedStage ? <EvidenceUploadCard caseId={savedCaseId()} /> : null}
             {confirmedStage ? <CaseReviewPanel caseId={savedCaseId()} /> : null}

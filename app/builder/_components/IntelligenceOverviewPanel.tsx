@@ -31,7 +31,16 @@ import {
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { userStory } from "@/src/lib/case-system/userStory";
 
-type Props = { analysis: AnalysisResult; intake: StoredCaseData | null };
+type Props = {
+  analysis: AnalysisResult;
+  intake: StoredCaseData | null;
+  /**
+   * The stage the person confirmed. Wins over the analysis's guess (master
+   * plan Phase 1: the overview showed the first analysis's stage beside the
+   * one the person had confirmed).
+   */
+  confirmedStage?: string | null;
+};
 
 function listField(intake: StoredCaseData | null, field: string): string[] {
   const value = intake?.extra?.[field];
@@ -109,7 +118,8 @@ function SourcedList({ items }: { items: SourcedListItem[] }) {
 
 const GENERIC_CONFIRM_QUESTION = "What important fact should be confirmed next?";
 
-export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
+export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null }: Props) {
+  const caseStage = (confirmedStage || analysis.caseStage) as typeof analysis.caseStage;
   const role = textField(intake, "yourRole");
   // Only selections that record an actual filing. The Small Claims intake
   // defaults filedDocuments to ["nothing"], which used to satisfy the length
@@ -206,7 +216,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
   // and the deadline question by the dates on the step (page review,
   // 2026-10-06: a mother who answered "Nothing filed yet" was asked "Has
   // anything already been filed?" on every page).
-  const stageKnown = analysis.caseStage === "starting-case" || analysis.caseStage === "responding";
+  const stageKnown = caseStage === "starting-case" || caseStage === "responding";
   const STAGE_ANSWERS =
     /^(Has anything already been (filed|served)\?|Are there court dates, limitation dates, or urgent deadlines\?)$/;
   const stillToConfirm = stageKnown
@@ -289,7 +299,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
   const showStartingSteps =
     analysis.courtPath === "small-claims" &&
     /plaintiff/i.test(role) &&
-    analysis.caseStage === "starting-case" &&
+    caseStage === "starting-case" &&
     !documents.includes("plaintiffs-claim");
 
   /*
@@ -334,7 +344,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
     ...(confirmedClaimTypeName ? ([["Kind of claim you confirmed", confirmedClaimTypeName]] as Array<[string, string]>) : []),
     ...(parties ? ([["Parties recorded", parties]] as Array<[string, string]>) : []),
     ...(displayRole(role) ? ([["Your role", displayRole(role)]] as Array<[string, string]>) : []),
-    ["Current stage", displayStage(analysis.caseStage)],
+    ["Current stage", displayStage(caseStage)],
     ...(timeline ? ([["When (your words)", timeline]] as Array<[string, string]>) : []),
     ...(amount ? ([["Amount", formatRecordedAmount(amount)]] as Array<[string, string]>) : []),
     ...(outcome ? ([["What you want (your words)", outcome]] as Array<[string, string]>) : []),
@@ -368,7 +378,9 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
       </Card>
       {/* 2026-09-30: the generic "Possible issue to review: property-damage. The saved facts and supporting information should be reviewed." list said nothing the user did not already know (owner's walk-through). The card now shows only when it has something specific to say. */}
       {(hasDefamationSignal || hasAdoptionSignal || issueTypeUndetermined) && <Card title="Issues to review">{hasDefamationSignal ? <><p className="font-semibold">Possible defamation or reputational-harm issue to review</p><p className="mt-2">The saved story describes an allegation said to have been communicated to other people and described as false. The court will need the full facts, context, evidence, and procedure reviewed.</p></> : hasAdoptionSignal ? <><p className="font-semibold">Possible adult step-parent adoption process to review</p><p className="mt-2">The saved facts describe an adult who may wish to be adopted by a long-term step-parent. Ontario has an adoption application process, but the required documents, notice/consent issues, and court requirements must be confirmed for the specific circumstances.</p></> : issueTypeUndetermined ? <p>We couldn’t determine a specific issue type from what you’ve described yet. Adding more detail about what happened, and what you want the court to do, will help narrow it.</p> : <ul className="list-disc space-y-1 pl-5">{issueSignals.map((issue) => <li key={issue}>Possible issue to review: {issue}. The saved facts and supporting information should be reviewed.</li>)}</ul>}</Card>}
-      <Card title="Where your case is now"><p>{hasClaimAndService ? "Claim already filed and served." : `Recorded stage: ${displayStage(analysis.caseStage)}.`}</p></Card>
+      {/* The stage is in the snapshot above; this card said it a second time
+          (page review round 4). It stays only for what the snapshot does not say. */}
+      {hasClaimAndService ? <Card title="Where your case is now"><p>Claim already filed and served.</p></Card> : null}
       {/* 2026-09-30: hidden when the only candidate is the generic fallback "What important fact should be confirmed next?" -- a card with no actual question in it. */}
       {(hasAdoptionSignal || confirmQuestion !== GENERIC_CONFIRM_QUESTION) && <Card title="What to confirm next"><p className="font-semibold">{hasAdoptionSignal ? "Does the adult person freely agree to the proposed adoption?" : confirmQuestion}</p><p className="mt-2">{hasClaimAndService ? "This helps identify the next Small Claims step. Confirm it from the court record or documents you received." : hasAdoptionSignal ? "This helps organize the saved facts for review of the proposed adoption process." : "This helps keep the next review based on the facts already entered."}</p></Card>}
       {/* 2026-09-30: shown only when there are filed or served court documents to list. */}

@@ -19,6 +19,8 @@
  * app/api/cases/drafts.
  */
 
+import { userStory } from "../userStory";
+
 export const MAX_DRAFTS = 30;
 export const MAX_SECTIONS = 60;
 export const MAX_TITLE_LENGTH = 200;
@@ -238,7 +240,7 @@ export function yourStoryDraft(intake: IntakeStory, now: Date): CaseDraft {
     .filter(Boolean)
     .join("\n");
   if (people) parts.push(section("Who is involved", people));
-  parts.push(section("What happened", intake.facts?.trim() || ""));
+  parts.push(section("What happened", userStory(intake)));
   if (intake.timeline?.trim()) parts.push(section("When things happened", intake.timeline.trim()));
   if (intake.evidence?.trim()) parts.push(section("What you have to show it", intake.evidence.trim()));
   parts.push(section("What you want", intake.goal?.trim() || ""));
