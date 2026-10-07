@@ -893,9 +893,12 @@ export const QUESTION_BANK: IntakeQuestion[] = [
   {
     id: "sc-safety-check",
     courtArea: "small-claims",
+    // Reworded 2026-10-06 (page review): asked of a person hurt on store ice,
+    // the old wording read as a question about how safe the entrance was.
+    // Still asked of everyone: it is a screen, not a legal question.
     text:
-      "Is there anything about your safety, or the other party's behaviour toward you, that we " +
-      "should know before continuing?",
+      "Has the other party threatened you, or done anything that makes you feel unsafe? If not, you " +
+      "can just say no.",
     answerType: "short-text",
     allowUnknown: true,
     sensitive: true,
