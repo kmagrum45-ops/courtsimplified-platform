@@ -226,4 +226,264 @@ export const PERSONAS: Persona[] = [
       "Information should be about responding (Defence and its timing), not about starting a claim.",
     ],
   },
+  // ---- 2026-10-07: from 8 to 20 (master plan finish line: all three courts,
+  // both sides, starting, responding, mid-case and enforcement). ----------
+  {
+    id: "small-claims-plaintiff-judgment-unpaid",
+    path: "small-claims",
+    summary: "A plaintiff who won a $6,500 Small Claims judgment that has not been paid.",
+    city: "Ottawa",
+    story:
+      "i won my small claims case against my old roommate in may, the judge said he owes me 6500 plus costs. its been months and he hasnt paid anything. he works at a car dealership in kanata i think",
+    role: "Plaintiff / claimant",
+    stage: "enforcement",
+    fields: { amountClaimed: "$6,500" },
+    confirmStage: "enforcement",
+    expect: [
+      "The user is the PLAINTIFF holding an unpaid Small Claims judgment for $6,500 made in May 2026.",
+      "Information should be about enforcing the judgment (for example garnishment and its forms), not about starting or defending a claim.",
+      "Nothing should say whether he will be able to collect.",
+    ],
+  },
+  {
+    id: "small-claims-defendant-default",
+    path: "small-claims",
+    summary: "A defendant who missed the deadline to defend and has been noted in default.",
+    city: "Mississauga",
+    story:
+      "i got small claims papers in august from a company saying i owe 3200 for a gym contract. i didnt do anything because i thought it was a scam. now i got a letter saying im noted in default. what can i do i never agreed to that amount",
+    role: "Defendant / responding party",
+    stage: "already-started",
+    fields: { amountClaimed: "$3,200" },
+    confirmStage: "already-started",
+    expect: [
+      "The user is the DEFENDANT, served in August 2026, who did not file a Defence and has been noted in default.",
+      "Information should be about what a defendant noted in default can do (setting aside the noting, and its timing), not about filing a normal Defence on time or starting a claim.",
+      "Nothing should say whether a motion would succeed.",
+    ],
+  },
+  {
+    id: "small-claims-settlement-conference",
+    path: "small-claims",
+    summary: "A former tenant suing for a $2,000 deposit, with a settlement conference coming up.",
+    city: "Kingston",
+    story:
+      "i sued my old landlord for my 2000 last month rent deposit he never gave back. he filed a defence saying i damaged the carpet. now the court sent a notice for a settlement conference on november 12. what do i need to do before it",
+    role: "Plaintiff / claimant",
+    stage: "conference",
+    fields: { amountClaimed: "$2,000" },
+    confirmStage: "conference",
+    expect: [
+      "The user is the PLAINTIFF; a Defence was filed and a settlement conference is set for November 12, 2026.",
+      "Information should be about preparing for the settlement conference (what to serve and file, and by when, counted from the conference date), not about starting a claim.",
+      "Nothing should push her to settle or say how the conference will go.",
+    ],
+  },
+  {
+    id: "small-claims-guided-loan-plaintiff",
+    path: "small-claims",
+    mode: "guided",
+    summary: "A person who lent a friend $3,000 and was never paid back.",
+    city: "Hamilton",
+    story:
+      "i lent my friend 3000 in march 2025 to fix his truck, he said he would pay me back by summer. he paid 500 in july and nothing since and now he wont answer my texts",
+    backstory:
+      "You live in Hamilton. On March 10, 2025 you e-transferred your friend Kyle Benn $3,000 to fix his truck. " +
+      "He texted that he would pay you back by the end of the summer. He sent $500 on July 15, 2025 and nothing " +
+      "after. Your last text asking for the money was in August 2026; he did not reply. You have the e-transfer " +
+      "records and the texts. Nothing was signed. You have not sent a formal demand letter and have not started " +
+      "any court case. You want the $2,500 back. You know his home address in Stoney Creek.",
+    role: "Plaintiff / claimant",
+    stage: "starting-case",
+    confirmStage: "starting-case",
+    expect: [
+      "The user is the PLAINTIFF, owed $2,500 on a personal loan of $3,000 made March 10, 2025, with $500 repaid July 15, 2025.",
+      "The two-year limitation should be pointed out with the date worked out where the rules allow, and how the part payment may matter, from the sources.",
+      "Questions should not re-ask what the story already said (amount, dates, part payment).",
+      "The site must not say whether he has a good case.",
+    ],
+  },
+  {
+    id: "small-claims-guided-tenant-defendant",
+    path: "small-claims",
+    mode: "guided",
+    summary: "A former tenant sued by a landlord for $4,000 of damage, served in person.",
+    city: "Windsor",
+    story:
+      "my old landlord is suing me for 4000 saying i damaged the walls and floors when i moved out. the damage was there before i moved in. someone handed me the plaintiffs claim at my door on october 1",
+    backstory:
+      "You rented an apartment in Windsor from September 2023 to June 30, 2026. Your landlord, Maria Costa, " +
+      "kept your last month's rent deposit and now claims $4,000 for wall and floor damage. You have move-in " +
+      "photos from September 2023 that show scuffed floors and marked walls, and texts where you reported them " +
+      "then. A process server handed you the Plaintiff's Claim at your door on October 1, 2026. You have not " +
+      "filed anything. You want to dispute the claim and you think she owes you the deposit back.",
+    role: "Defendant / responding party",
+    stage: "responding",
+    confirmStage: "responding",
+    expect: [
+      "The user is the DEFENDANT, personally served with a Plaintiff's Claim on October 1, 2026. The Defence deadline must be pointed out directly, counted from service.",
+      "Claiming the deposit back should be presented as an option (a Defendant's Claim) with its form, not as advice about the merits.",
+      "The landlord's claim is the other side's; nothing should treat the user as the one suing.",
+      "The site must not say whether she has a good defence.",
+    ],
+  },
+  {
+    id: "civil-plaintiff-municipal-slip",
+    path: "civil",
+    summary: "A person who broke a wrist on an icy city sidewalk in Toronto; claim over the Small Claims limit.",
+    city: "Toronto",
+    story:
+      "i slipped on ice on the sidewalk on queen street in toronto on september 30 and broke my wrist. i needed surgery and cant work for months. the sidewalk wasnt salted at all. i want to sue the city",
+    role: "plaintiff",
+    stage: "starting-case",
+    issues: ["Negligence / harm / damages"],
+    documents: ["Nothing filed yet"],
+    fields: {
+      "Amount claimed or disputed": "$90,000",
+      Timeline: "september 30 2026 fell, october 1 surgery",
+      "Evidence you have": "hospital records, photos of the sidewalk, a witness",
+    },
+    confirmStage: "starting-case",
+    expect: [
+      "The user is the PLAINTIFF, injured September 30, 2026 on a City of Toronto sidewalk, nothing filed.",
+      "The written notice to the City (with its short time limit counted from the fall) must be pointed out directly, with the date worked out, before anything about filing.",
+      "Nothing should say whether she will win or what the claim is worth.",
+    ],
+  },
+  {
+    id: "civil-defendant-noted-default",
+    path: "civil",
+    summary: "A person served with a Statement of Claim two months ago who did nothing and was noted in default.",
+    city: "Ottawa",
+    story:
+      "i got a statement of claim in august from a supplier saying my business owes them 68000. i didnt respond because i was dealing with family stuff. now their lawyer sent a letter saying i was noted in default. i dont owe that much",
+    role: "defendant",
+    stage: "already-started",
+    issues: ["Debt / money owed"],
+    documents: ["Statement of Claim already filed / served"],
+    fields: {
+      "Amount claimed or disputed": "$68,000",
+      "Evidence you have": "invoices, my payment records, emails with the supplier",
+    },
+    confirmStage: "already-started",
+    expect: [
+      "The user is the DEFENDANT in a Superior Court action, served in August 2026, and has been noted in default.",
+      "Information should be about what a defendant noted in default can do (including moving to set the noting aside), not about delivering a defence on time.",
+      "If the business is a corporation, the rule on representation should be pointed out from the sources, not assumed.",
+      "Nothing should say whether a motion would succeed.",
+    ],
+  },
+  {
+    id: "civil-plaintiff-motion-documents",
+    path: "civil",
+    summary: "A plaintiff mid-case whose defendant will not produce documents; considering a motion.",
+    city: "London",
+    story:
+      "im suing my former business partner for 120000 for money he took from the company. we exchanged pleadings in the spring. he still hasnt given his affidavit of documents even after i asked twice. can i make him",
+    role: "plaintiff",
+    stage: "motion",
+    issues: ["Contract / agreement dispute", "Motion in an existing case"],
+    documents: ["Statement of Claim already filed / served", "Statement of Defence already filed / received"],
+    fields: {
+      "Amount claimed or disputed": "$120,000",
+      "Evidence you have": "company bank statements, my two letters asking for his documents",
+    },
+    confirmStage: "motion",
+    expect: [
+      "The user is the PLAINTIFF in a Superior Court action; pleadings closed; the defendant has not served an affidavit of documents.",
+      "Information should be about the documentary discovery obligations and bringing a motion (its form and service time), from the sources.",
+      "The simplified procedure question may arise from the $120,000 amount; it should be stated conditionally, not assumed.",
+      "Nothing should say whether a motion would succeed.",
+    ],
+  },
+  {
+    id: "family-applicant-divorce-property",
+    path: "family",
+    summary: "A married woman separated in January 2025 who wants a divorce, equalization and the house.",
+    city: "Toronto",
+    story:
+      "me and my husband got married in 2012 and separated in january 2025. we own a house together in scarborough. i want a divorce and my fair share, and i want to stay in the house with the kids for now. he makes alot more than me",
+    role: "applicant",
+    stage: "starting-case",
+    issues: ["property-division", "matrimonial-home", "spousal-support"],
+    documents: ["Nothing filed yet"],
+    fields: {
+      "Current living situation": "he moved out in january, i live in the house with our two kids",
+      "Evidence you have": "the deed, mortgage statements, his pay stubs from before",
+    },
+    confirmStage: "starting-case",
+    expect: [
+      "The user is the APPLICANT, married in 2012, separated January 2025, nothing filed, in Toronto.",
+      "Issues are divorce, property (equalization), the matrimonial home and spousal support. Child issues were not chosen and should not drive the guidance.",
+      "Information should name the right court for a divorce with property claims and the starting forms, from the sources.",
+      "Time limits for an equalization claim should be pointed out where the sources state them.",
+    ],
+  },
+  {
+    id: "family-motion-to-change-support",
+    path: "family",
+    summary: "A father paying child support under a 2022 order who lost his job and wants it lowered.",
+    city: "Sudbury",
+    story:
+      "i pay 900 a month child support from a court order in 2022. i lost my job in july and now im on EI making way less. i cant keep paying 900. how do i get it lowered",
+    role: "applicant",
+    stage: "motion",
+    issues: ["child-support"],
+    documents: ["Existing court order or agreement"],
+    fields: {
+      "Children / parenting details": "two kids, 9 and 11, they live with their mom",
+      "Evidence you have": "my termination letter, EI statements, the 2022 order",
+    },
+    confirmStage: "motion",
+    expect: [
+      "The user is the PAYOR under a 2022 child support order who wants to change it after losing his job in July 2026.",
+      "Information should be about a motion to change a final order (its form and what goes with it), not about starting a new application.",
+      "Nothing should say whether the change will be granted or what the new amount will be.",
+    ],
+  },
+  {
+    id: "family-applicant-safety-urgent",
+    path: "family",
+    summary: "A mother who feels unsafe after separation and wants an urgent parenting and home order.",
+    city: "Brampton",
+    story:
+      "my husband moved out 2 weeks ago but he keeps showing up at the house and sending me threatening texts. i dont feel safe and im scared he will take the kids. i need something from the court fast",
+    role: "applicant",
+    stage: "urgent",
+    issues: ["safety-concerns", "decision-making-responsibility", "matrimonial-home"],
+    documents: ["Nothing filed yet"],
+    fields: {
+      "Children / parenting details": "a 4 year old and a 7 year old, they live with me",
+      "Safety or urgent concerns": "threatening texts, showing up at the house uninvited",
+      "Evidence you have": "screenshots of the texts",
+    },
+    confirmStage: "urgent",
+    expect: [
+      "The user is the APPLICANT facing threats after separation; she wants an urgent order about the children and the home.",
+      "Safety resources and the urgent route should come first, before routine steps.",
+      "Information about urgent motions should come from the sources; nothing should say whether an order will be granted.",
+    ],
+  },
+  {
+    id: "family-respondent-case-conference",
+    path: "family",
+    summary: "A respondent in a child-support case with a case conference coming up.",
+    city: "Hamilton",
+    story:
+      "my ex started a case for child support in june and i filed my answer. now there is a case conference on november 20. i dont know what i need to bring or file before it",
+    role: "respondent",
+    stage: "conference",
+    issues: ["child-support"],
+    documents: ["Application filed (by either person)", "Answer / response already filed"],
+    fields: {
+      "Children / parenting details": "one daughter, 6, lives with her mom",
+      "Upcoming court date or deadline": "case conference november 20 2026",
+    },
+    confirmStage: "conference",
+    expect: [
+      "The user is the RESPONDENT; the application and his answer are filed; a case conference is set for November 20, 2026.",
+      "Information should be about preparing for the case conference (the brief and financial disclosure, and when they are due counted from the conference date).",
+      "Nothing should push settlement or say how the conference will go.",
+    ],
+  },
 ];
