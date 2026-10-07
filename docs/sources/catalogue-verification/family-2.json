@@ -1,4 +1,1294 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "family-matter-section-7-expenses|plaintiffElement|listed-expense-section7",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "631097127caab0c9df1c60af48d56bd50a2b56cca6956bfe28c4cbaae7993d9f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 7(1)",
+          "quote": "7. (1) In an order for the support of a child, the court may, on the request of either parent or spouse or of an applicant under section 33 of the Act, provide for an amount to cover all or any portion of the following expenses, which expenses may be estimated, taking into account the necessity of the expense in relation to the child's best interests and the reasonableness of the expense in relation to the means of the parents or spouses and those of the child and to the spending pattern of the parents or spouses in respect of the child during cohabitation: (a) child care expenses incurred as a result of the employment, illness, disability or education or training for employment of the parent or spouse who has the majority of parenting time; (b) that portion of the medical and dental insurance premiums attributable to the child; (c) health-related expenses that exceed insurance reimbursement by at least $100 annually, including orthodontic treatment, professional counselling provided by a psychologist, social worker, psychiatrist or any other person, physiotherapy, occupational therapy, speech therapy, prescription drugs, hearing aids, glasses and contact lenses; (d) extraordinary expenses for primary or secondary school education or for any other educational programs that meet the child's particular needs; (e) expenses for post-secondary education; and (f) extraordinary expenses for extracurricular activities."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-section-7-expenses|plaintiffElement|necessary-and-reasonable-section7",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "892026c084e6263054a778c766b4bab113ebc0ecc720081a90bbaafeaccd33e7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 7(1)",
+          "quote": "7. (1) In an order for the support of a child, the court may, on the request of either parent or spouse or of an applicant under section 33 of the Act, provide for an amount to cover all or any portion of the following expenses, which expenses may be estimated, taking into account the necessity of the expense in relation to the child's best interests and the reasonableness of the expense in relation to the means of the parents or spouses and those of the child and to the spending pattern of the parents or spouses in respect of the child during cohabitation: (a) child care expenses incurred as a result of the employment, illness, disability or education or training for employment of the parent or spouse who has the majority of parenting time; (b) that portion of the medical and dental insurance premiums attributable to the child; (c) health-related expenses that exceed insurance reimbursement by at least $100 annually, including orthodontic treatment, professional counselling provided by a psychologist, social worker, psychiatrist or any other person, physiotherapy, occupational therapy, speech therapy, prescription drugs, hearing aids, glasses and contact lenses; (d) extraordinary expenses for primary or secondary school education or for any other educational programs that meet the child's particular needs; (e) expenses for post-secondary education; and (f) extraordinary expenses for extracurricular activities."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 7(1.1)",
+          "quote": "(1.1) For the purposes of clauses (1) (d) and (f), \"extraordinary expenses\" means (a) expenses that exceed those that the parent or spouse requesting an amount for the extraordinary expenses can reasonably cover, taking into account that parent's or spouse's income and the amount that the parent or spouse would receive under the applicable table or, where the court has determined that the table amount is inappropriate, the amount that the court has otherwise determined is appropriate, or (b) where clause (a) is not applicable, expenses that the court considers are extraordinary taking into account, (i) the amount of the expense in relation to the income of the parent or spouse requesting the amount, including the amount that the parent or spouse would receive under the applicable table or, where the court has determined that the table amount is inappropriate, the amount that the court has otherwise determined is appropriate, (ii) the nature and number of the educational programs and extracurricular activities, (iii) any special needs and talents of the child, (iv) the overall cost of the programs and activities, and (v) any other similar factors that the court considers relevant."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-section-7-expenses|plaintiffElement|shared-by-income-section7",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "951920deda20b074c1e757a899d9b987ed6c1296dc76d856a74af82b38c398f6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 7(2)",
+          "quote": "The guiding principle in determining the amount of an expense referred to in subsection (1) is that the expense is shared by the parents or spouses in proportion to their respective incomes after deducting from the expense, the contribution, if any, from the child."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 7(3)",
+          "quote": "Subject to subsection (4), in determining the amount of an expense referred to in subsection (1), the court must take into account any subsidies, benefits or income tax deductions or credits relating to the expense, and any eligibility to claim a subsidy, benefit or income tax deduction or credit relating to the expense."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-section-7-expenses|defendantConsideration|recipient-income-documents-section7",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4456564820003548f4d8282799c4a2dd04650e013fa5355c98e6923251714590",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 21(3)",
+          "quote": "Where, in the course of proceedings in respect of an application for an order for the support of a child, a parent or spouse requests an amount to cover expenses referred to in subsection 7 (1) or pleads undue hardship, the parent or spouse who would be receiving the amount of child support must, within 30 days after the amount is sought or undue hardship is pleaded if the parent or spouse resides in Canada or the United States or within 60 days if the parent or spouse resides elsewhere, or such other time limit as the court specifies, provide the court and the other parent or spouse with the documents referred to in subsection (1)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-section-7-expenses|defendantConsideration|yearly-update-section7",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9290e0d837321c80dbb7a009cd7766919ec72ab29b2e286d11689a870d37936b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 24.1(1)",
+          "quote": "Every person whose income or other financial information is used to determine the amount of an order for the support of a child shall, no later than 30 days after the anniversary of the date on which the order was made in every year in which the child is a child within the meaning of this Regulation, provide every party to the order with the following, unless the parties have agreed otherwise: ... For the most recent taxation year, a copy of the person's, i. personal income tax return, including any materials that were filed with the return, and ii. notice of assessment and, if any, notice of reassessment. ... As applicable, any current information in writing about, i. the status and amount of any expenses included in the order pursuant to subsection 7 (1), and"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-section-7-expenses|proceduralNote|family-matter-section-7-expenses#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "abee9cf54d956d328792225c1eb561d27964ffcd7483aafed7ab78e359691547",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 13(3.1)",
+          "quote": "(3.1) A party who is required under subrules (1) to (3) to serve and file a financial statement in relation to a claim for support shall serve the following information in accordance with subrule (3.2), unless the court orders otherwise: ... The income and financial information referred to in subsection 21 (1) of the child support guidelines. ... In the case of a claim for the support of a child, proof of the amount of any special or extraordinary expenses, within the meaning of section 7 of the child support guidelines."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-rules.txt"
+    },
+    {
+      "key": "family-matter-section-7-expenses|proceduralNote|family-matter-section-7-expenses#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d5fb3a3dcf1bee9ff79aa02d6905ed3abd4f4f01e861be0d51e86a9988d61f33",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 8(1)",
+          "quote": "To start a case, a person shall file an application (Form 8, 8A, 8B, 8B.1, 8B.2, 8C, 8D, 8D.1, 33D.1, 34L or 34N)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 8(2)",
+          "quote": "a party who wants to ask the court to change a final order or an agreement for support filed under section 35 of the Family Law Act, or a family arbitration award filed under section 59.9 of that Act, may do so only by a motion under rule 15 (if permitted to do so by that rule)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 33(11)",
+          "quote": "A court making an order for the support of a child shall do so in accordance with the child support guidelines."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-rules.txt, docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-undue-hardship|plaintiffElement|undue-hardship-test-hardship",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8de62fd080a4d894e42a3fc72a40dd3cee1cebed71c1a70e6b43774680cfb703",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 10(1)",
+          "quote": "On the application of either spouse or an applicant under section 33 of the Act, a court may award an amount of child support that is different from the amount determined under any of sections 3 to 5, 8 or 9 if the court finds that the parent or spouse making the request, or a child in respect of whom the request is made, would otherwise suffer undue hardship."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-undue-hardship|plaintiffElement|listed-circumstances-hardship",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8f28d48e97e92e948b49426a3695a53a6fe40a7dd46e1ae19460fb268329c32e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 10(2)",
+          "quote": "Circumstances that may cause a parent, spouse or child to suffer undue hardship include, (a) the parent or spouse has responsibility for an unusually high level of debts reasonably incurred to support the parents or spouses and their children during cohabitation or to earn a living; (b) the parent or spouse has unusually high expenses in relation to exercising parenting time with respect to a child; (c) the parent or spouse has a legal duty under a judgment, order or written separation agreement to support any person; (d) the spouse has a legal duty to support a child, other than a child of the marriage, who is, (i) under the age of majority, or (ii) the age of majority or over but is unable, by reason of illness, disability or other cause, to obtain the necessaries of life; (e) the parent has a legal duty to support a child, other than the child who is the subject of this application, who is under the age of majority or who is enrolled in a full time course of education; (f) the parent or spouse has a legal duty to support any person who is unable to obtain the necessaries of life due to an illness or disability."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-undue-hardship|plaintiffElement|standard-of-living-hardship",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4b372d1df3f8c1d16456c55bd7dc4b16cca96cdb854a628d99553d9aaddca169",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 10(3)",
+          "quote": "Despite a determination of undue hardship under subsection (1), an application under that subsection must be denied by the court if it is of the opinion that the household of the parent or spouse who claims undue hardship would, after determining the amount of child support under any of sections 3 to 5, 8 or 9, have a higher standard of living than the household of the other parent or spouse."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 10(4)",
+          "quote": "In comparing standards of living for the purpose of subsection (3), the court may use the comparison of household standards of living test set out in Schedule II."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-undue-hardship|defendantConsideration|time-and-reasons-hardship",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "82b9f29b72bc3a1b6cc6c75c2edba8051f56d3da5c1509c204f0d152299bce1e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 10(5)",
+          "quote": "Where the court awards a different amount of child support under subsection (1), it may specify, in the order for child support, a reasonable time for the satisfaction of any obligation arising from circumstances that cause undue hardship and the amount payable at the end of that time."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 10(6)",
+          "quote": "Where the court makes an order for the support of a child in a different amount under this section, it must record its reasons for doing so."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-undue-hardship|defendantConsideration|recipient-documents-hardship",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "60a5a87180ce6c5a4361404272c36a4e158a798ddaaf438edbde81c19ffd56dc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 21(3)",
+          "quote": "Where, in the course of proceedings in respect of an application for an order for the support of a child, a parent or spouse requests an amount to cover expenses referred to in subsection 7 (1) or pleads undue hardship, the parent or spouse who would be receiving the amount of child support must, within 30 days after the amount is sought or undue hardship is pleaded if the parent or spouse resides in Canada or the United States or within 60 days if the parent or spouse resides elsewhere, or such other time limit as the court specifies, provide the court and the other parent or spouse with the documents referred to in subsection (1)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-undue-hardship|proceduralNote|family-matter-undue-hardship#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "67093fb553581b50cc562c7478f3552fd10051d6ac702a4dd1b87e94b76d1dcb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 13(1)",
+          "quote": "13. (1) If an application, answer or motion contains a claim for support, a property claim, or a claim for exclusive possession of the matrimonial home and its contents, (a) the party making the claim shall serve and file a financial statement (Form 13 or 13.1) with the document that contains the claim; and (b) the party against whom the claim is made shall serve and file a financial statement within the time for serving and filing an answer, reply or affidavit or other document responding to the motion, whether the party is serving an answer, reply or affidavit or other document responding to the motion or not."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 13(1.3)",
+          "quote": "If the only claim for support contained in the application, answer or motion is a claim for child support in the amount specified in the table of the applicable child support guidelines, the party making the claim is not required to file a financial statement, unless the application, answer or motion also contains a property claim or a claim for exclusive possession of the matrimonial home and its contents."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-rules.txt"
+    },
+    {
+      "key": "family-matter-undue-hardship|proceduralNote|family-matter-undue-hardship#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ced2eca6d17f6e4e5ccc1fa87e253c57510261e942e9da215b4670358236642b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 33(11)",
+          "quote": "A court making an order for the support of a child shall do so in accordance with the child support guidelines."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 10(1)",
+          "quote": "On the application of either spouse or an applicant under section 33 of the Act, a court may award an amount of child support that is different from the amount determined under any of sections 3 to 5, 8 or 9 if the court finds that the parent or spouse making the request, or a child in respect of whom the request is made, would otherwise suffer undue hardship."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt, docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-imputing-income|plaintiffElement|how-income-is-set-imputing",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "46be0ef9471600cd7196a899b6f021b985d45dfdba4a73b5f81ba003b1fcf203",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 15(1)",
+          "quote": "Subject to subsection (2), a parent's or spouse's annual income is determined by the court in accordance with sections 16 to 20."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 16",
+          "quote": "Subject to sections 17 to 20, a parent's or spouse's annual income is determined using the sources of income set out under the heading \"Total income\" in the T1 General form issued by the Canada Revenue Agency and is adjusted in accordance with Schedule III."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 17(1)",
+          "quote": "If the court is of the opinion that the determination of a parent's or spouse's annual income under section 16 would not be the fairest determination of that income, the court may have regard to the parent's or spouse's income over the last three years and determine an amount that is fair and reasonable in light of any pattern of income, fluctuation in income or receipt of a non-recurring amount during those years."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-imputing-income|plaintiffElement|imputing-circumstances-imputing",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e64ac481c52ecd5d9db84711c507bbf39a773efd45443942dc0d1d60be9e0634",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 19(1)",
+          "quote": "The court may impute such amount of income to a parent or spouse as it considers appropriate in the circumstances, which circumstances include, (a) the parent or spouse is intentionally under-employed or unemployed, other than where the under-employment or unemployment is required by the needs of any child or by the reasonable educational or health needs of the parent or spouse; (b) the parent or spouse is exempt from paying federal or provincial income tax; (c) the parent or spouse lives in a country that has effective rates of income tax that are significantly lower than those in Canada; (d) it appears that income has been diverted which would affect the level of child support to be determined under these guidelines; (e) the parent's or spouse's property is not reasonably utilized to generate income; (f) the parent or spouse has failed to provide income information when under a legal obligation to do so; (g) the parent or spouse unreasonably deducts expenses from income; (h) the parent or spouse derives a significant portion of income from dividends, capital gains or other sources that are taxed at a lower rate than employment or business income or that are exempt from tax; and (i) the parent or spouse is a beneficiary under a trust and is or will be in receipt of income or other benefits from the trust."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-imputing-income|plaintiffElement|failure-to-disclose-imputing",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c2b0ec31776254404864e0f4afddc230dbe59db04a70ff910b28380090885304",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 21(2)",
+          "quote": "A parent or spouse who is served with an application for an order for the support of a child and whose income information is necessary to determine the amount of the order, must, within 30 days after the application is served if the parent or spouse resides in Canada or the United States or within 60 days if the parent or spouse resides elsewhere, or such other time limit as the court specifies, provide the court, as well as the other spouse, an applicant under section 33 of the Act or the order assignee with the documents referred to in subsection (1)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 22(1)",
+          "quote": "Where a parent or spouse fails to comply with section 21, the other spouse, an applicant under section 33 of the Act or an order assignee may apply, (a) to have the application for an order for the support of a child set down for a hearing, or move for judgment; or (b) for an order requiring the parent or spouse who failed to comply to provide the court, as well as the other parent or spouse or order assignee, as the case may be, with the required documents."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 23",
+          "quote": "Where the court proceeds to a hearing on the basis of an application under clause 22 (1) (a), the court may draw an adverse inference against the parent or spouse who failed to comply and impute income to that parent or spouse in such amount as it considers appropriate."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-imputing-income|defendantConsideration|needs-exception-imputing",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ea28f502aec03cf54f85249e5771f9e955180b168176c3c77656b0c5d67a9a8a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 19(1)(a)",
+          "quote": "(a) the parent or spouse is intentionally under-employed or unemployed, other than where the under-employment or unemployment is required by the needs of any child or by the reasonable educational or health needs of the parent or spouse;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 19(2)",
+          "quote": "For the purpose of clause (1) (g), the reasonableness of an expense deduction is not solely governed by whether the deduction is permitted under the Income Tax Act (Canada)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-imputing-income|defendantConsideration|agreed-income-imputing",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6eda6a492e4462f049e82c5438cdaba3b7a603df63f369b2a1bbbc772acb86dd",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 15(2)",
+          "quote": "Where both parents or spouses agree in writing on the annual income of a parent or spouse, the court may consider that amount to be the parent's or spouse's income for the purposes of these guidelines if the court thinks that the amount is reasonable having regard to the income information provided under section 21."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-imputing-income|proceduralNote|family-matter-imputing-income#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ac16439269929aba928585810281cba58045de5600e3ce787c6eccf28512dc0d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 13(1)",
+          "quote": "13. (1) If an application, answer or motion contains a claim for support, a property claim, or a claim for exclusive possession of the matrimonial home and its contents, (a) the party making the claim shall serve and file a financial statement (Form 13 or 13.1) with the document that contains the claim; and (b) the party against whom the claim is made shall serve and file a financial statement within the time for serving and filing an answer, reply or affidavit or other document responding to the motion, whether the party is serving an answer, reply or affidavit or other document responding to the motion or not."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 13(3.1)",
+          "quote": "(3.1) A party who is required under subrules (1) to (3) to serve and file a financial statement in relation to a claim for support shall serve the following information in accordance with subrule (3.2), unless the court orders otherwise: ... The income and financial information referred to in subsection 21 (1) of the child support guidelines. ... If the party became unemployed within the last three years, i. a complete copy of the party's Record of Employment, or other evidence of termination, and"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-rules.txt"
+    },
+    {
+      "key": "family-matter-imputing-income|proceduralNote|family-matter-imputing-income#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ffd6aa7f3ea430df8572b9a78c56eed3451e3f67d3613e7f27533186aa793122",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 24",
+          "quote": "Where a parent or spouse fails to comply with an order issued on the basis of an application under clause 22 (1) (b), the court may, (a) strike out any of the parent's or spouse's pleadings; (b) make a contempt order against the parent or spouse; (c) proceed to a hearing,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 22(2)",
+          "quote": "Where a court makes an order under clause (1) (a) or (b), the court may award costs in favour of the other spouse, the applicant under section 33 of the Act or an order assignee up to an amount that fully compensates the other spouse, the applicant or order assignee for all costs incurred in the proceedings."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-retroactive-support|plaintiffElement|power-to-order-past-period-retroactive",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ecd0b2d3a4647f027145d6ed1b8a4f324285826f8a244f336ac2e282a6e90e7b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 33(1)",
+          "quote": "A court may, on application, order a person to provide support for his or her dependants and determine the amount of support."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 34(1)(f)",
+          "quote": "In an application under section 33, the court may make an interim or final order, ... (f) requiring that support be paid in respect of any period before the date of the order;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-retroactive-support|plaintiffElement|underlying-obligation-retroactive",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "04048bcf017536f099fcc62213c7f4cb20889eb00fdd0bfc666732f9d65e2563",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 31(1)",
+          "quote": "Every parent has an obligation to provide support, to the extent that the parent is capable of doing so, for his or her unmarried child who, (a) is a minor; (b) is enrolled in a full-time program of education; or (c) is unable by reason of illness, disability or other cause to withdraw from the charge of his or her parents."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 30",
+          "quote": "Every spouse has an obligation to provide support for himself or herself and for the other spouse, in accordance with need, to the extent that he or she is capable of doing so."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 33(11)",
+          "quote": "A court making an order for the support of a child shall do so in accordance with the child support guidelines."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-retroactive-support|plaintiffElement|changing-existing-order-retroactive",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a2ce74a0aebb2a5d2907b8de3359a58a5adb29287456998939a90ef4d06b2a2f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 37(2.1)",
+          "quote": "In the case of an order for support of a child, if the court is satisfied that there has been a change in circumstances within the meaning of the child support guidelines or that evidence not available on the previous hearing has become available, the court may, (a) discharge, vary or suspend a term of the order, prospectively or retroactively; (b) relieve the respondent from the payment of part or all of the arrears or any interest due on them; and (c) make any other order for the support of a child that the court could make on an application under section 33."
+        },
+        {
+          "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/D-3.4/FullText.html",
+          "pinpoint": "s. 17(1)(a)",
+          "quote": "A court of competent jurisdiction may make an order varying, rescinding or suspending, retroactively or prospectively, (a) a support order or any provision of one, on application by either or both former spouses;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt, docs/sources/corpus/divorce-act.txt"
+    },
+    {
+      "key": "family-matter-retroactive-support|defendantConsideration|past-income-documents-retroactive",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "db93f1c582badf2fa11de7a6fe035a39961bb9882ce3e1aced803001fe1f3ed0",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 21(1)(a)-(b)",
+          "quote": "A parent or spouse who is applying for an order for the support of a child and whose income information is necessary to determine the amount of the order must include with the application, ... (a) a copy of every personal income tax return filed by the parent or spouse including any materials that were filed with the return for each of the three most recent taxation years; ... (b) a copy of every notice of assessment and reassessment issued to the parent or spouse for each of the three most recent taxation years;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/970391_e.doc",
+          "pinpoint": "s. 25(1)(a)",
+          "quote": "Every parent or spouse against whom an order for the support of a child has been made must, on the written request of the other spouse or the person or agency entitled to payment under the order not more than once a year after the making of the order and as long as the child is a child within the meaning of this Regulation, provide that other spouse, or the person or agency entitled to payment under the order, with, ... (a) the documents referred to in subsection 21 (1) for any of the three most recent taxation years for which the parent or spouse has not previously provided the documents;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "key": "family-matter-retroactive-support|defendantConsideration|relief-from-arrears-retroactive",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9d4d6e8fc54def6537f9b6af679bce5062f806dcd20292f942308e993e29f4e6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 37(2)",
+          "quote": "In the case of an order for support of a spouse or parent, if the court is satisfied that there has been a material change in the dependant's or respondent's circumstances or that evidence not available on the previous hearing has become available, the court may, (a) discharge, vary or suspend a term of the order, prospectively or retroactively; (b) relieve the respondent from the payment of part or all of the arrears or any interest due on them; and (c) make any other order under section 34 that the court considers appropriate in the circumstances referred to in section 33."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 37(2.1)",
+          "quote": "In the case of an order for support of a child, if the court is satisfied that there has been a change in circumstances within the meaning of the child support guidelines or that evidence not available on the previous hearing has become available, the court may, (a) discharge, vary or suspend a term of the order, prospectively or retroactively; (b) relieve the respondent from the payment of part or all of the arrears or any interest due on them; and (c) make any other order for the support of a child that the court could make on an application under section 33."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-retroactive-support|proceduralNote|family-matter-retroactive-support#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "335f213a17f5dabd8f457f8decaf888693c8645ea2b5c013204e8a3e735e43c7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 16(1)(c)",
+          "quote": "There is no limitation period in respect of, ... (c) a proceeding to obtain support under the Family Law Act or to enforce a provision for support or maintenance contained in a contract or agreement that could be filed under section 35 of that Act;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "family-matter-retroactive-support|proceduralNote|family-matter-retroactive-support#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9150e36af1f74745f433a0a10bf6418f0fc73c15073eacf7e512c43f82195c1a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 8(1)",
+          "quote": "To start a case, a person shall file an application (Form 8, 8A, 8B, 8B.1, 8B.2, 8C, 8D, 8D.1, 33D.1, 34L or 34N)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 8(2)",
+          "quote": "a party who wants to ask the court to change a final order or an agreement for support filed under section 35 of the Family Law Act, or a family arbitration award filed under section 59.9 of that Act, may do so only by a motion under rule 15 (if permitted to do so by that rule)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 13(1)",
+          "quote": "13. (1) If an application, answer or motion contains a claim for support, a property claim, or a claim for exclusive possession of the matrimonial home and its contents, (a) the party making the claim shall serve and file a financial statement (Form 13 or 13.1) with the document that contains the claim; and (b) the party against whom the claim is made shall serve and file a financial statement within the time for serving and filing an answer, reply or affidavit or other document responding to the motion, whether the party is serving an answer, reply or affidavit or other document responding to the motion or not."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-rules.txt"
+    },
+    {
+      "key": "family-matter-parenting-plan-change|plaintiffElement|material-change-parentingchange",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "13fec72e8dc6979cc0b359a1730a44031ef03519e799d4df554190bcff93b06e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 29(1)",
+          "quote": "A court shall not make an order under this Part that varies a parenting order or contact order unless there has been a material change in circumstances that affects or is likely to affect the best interests of the child who is the subject of the order."
+        },
+        {
+          "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/D-3.4/FullText.html",
+          "pinpoint": "s. 17(5)",
+          "quote": "Before the court makes a variation order in respect of a parenting order or contact order, the court shall satisfy itself that there has been a change in the circumstances of the child since the making of the order or the last variation order made in respect of the order, or of an order made under subsection 16.5(9)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/childrens-law-reform-act.txt, docs/sources/corpus/divorce-act.txt"
+    },
+    {
+      "key": "family-matter-parenting-plan-change|plaintiffElement|best-interests-parentingchange",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "57e58d3c88fd8291e60c7818d2493135f6c5d5cf319a08d58a7243983cb208b8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 24(1)",
+          "quote": "In making a parenting order or contact order with respect to a child, the court shall only take into account the best interests of the child in accordance with this section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 24(2)",
+          "quote": "In determining the best interests of a child, the court shall consider all factors related to the circumstances of the child, and, in doing so, shall give primary consideration to the child's physical, emotional and psychological safety, security and well-being."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 24(3)",
+          "quote": "Factors related to the circumstances of a child include, (a) the child's needs, given the child's age and stage of development, such as the child's need for stability; (b) the nature and strength of the child's relationship with each parent, each of the child's siblings and grandparents and any other person who plays an important role in the child's life; (c) each parent's willingness to support the development and maintenance of the child's relationship with the other parent; (d) the history of care of the child; (e) the child's views and preferences, giving due weight to the child's age and maturity, unless they cannot be ascertained; (f) the child's cultural, linguistic, religious and spiritual upbringing and heritage, including Indigenous upbringing and heritage; (g) any plans for the child's care; (h) the ability and willingness of each person in respect of whom the order would apply to care for and meet the needs of the child; (i) the ability and willingness of each person in respect of whom the order would apply to communicate and co-operate, in particular with one another, on matters affecting the child; (j) any family violence and its impact on, among other things, (i) the ability and willingness of any person who engaged in the family violence to care for and meet the needs of the child, and (ii) the appropriateness of making an order that would require persons in respect of whom the order would apply to co-operate on issues affecting the child; and (k) any civil or criminal proceeding, order, condition or measure that is relevant to the safety, security and well-being of the child."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/childrens-law-reform-act.txt"
+    },
+    {
+      "key": "family-matter-parenting-plan-change|plaintiffElement|who-can-apply-parentingchange",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8c378156148f90296e7a13c095ee343ef4e107d7f32b1a283c7de25ad5b46beb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 21(1)",
+          "quote": "A parent of a child may apply to a court for a parenting order respecting, (a) decision-making responsibility with respect to the child; and (b) parenting time with respect to the child."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 21(3)",
+          "quote": "Any person other than the parent of a child, including a grandparent, may apply to a court for a contact order with respect to the child."
+        },
+        {
+          "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/D-3.4/FullText.html",
+          "pinpoint": "s. 17(1)(b)",
+          "quote": "(b) a parenting order or any provision of one, on application by (i) either or both former spouses, or (ii) a person, other than a former spouse, who is a parent of the child, stands in the place of a parent or intends to stand in the place of a parent; or"
+        },
+        {
+          "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/D-3.4/FullText.html",
+          "pinpoint": "s. 17(2)",
+          "quote": "A person to whom the parenting order in question does not relate may make an application under subparagraph (1)(b)(ii) only with leave of the court."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/childrens-law-reform-act.txt, docs/sources/corpus/divorce-act.txt"
+    },
+    {
+      "key": "family-matter-parenting-plan-change|defendantConsideration|past-conduct-parentingchange",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b9d548bd00643d6892b418149bf839d9c076622ce0f42b4bc8a4f6f1ad304387",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 24(5)",
+          "quote": "In determining what is in the best interests of the child, the court shall not take into consideration the past conduct of any person, unless the conduct is relevant to the exercise of the person's decision-making responsibility, parenting time or contact with respect to the child."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/childrens-law-reform-act.txt"
+    },
+    {
+      "key": "family-matter-parenting-plan-change|defendantConsideration|as-much-time-parentingchange",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f4ff75134e10c6305323d4845593a421e89ce1921afc0fce3e5cd5af13fae61b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 24(6)",
+          "quote": "In allocating parenting time, the court shall give effect to the principle that a child should have as much time with each parent as is consistent with the best interests of the child."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/childrens-law-reform-act.txt"
+    },
+    {
+      "key": "family-matter-parenting-plan-change|proceduralNote|family-matter-parenting-plan-change#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ae591f0d256a30557549f768703531d527ef2754bb2ce40adab778296ff8a1de",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 15(2)",
+          "quote": "Subject to subrule (3), this rule only applies to a motion to change, (a) a final order; (b) an agreement for support filed under section 35 of the Family Law Act; or (c) a family arbitration award filed under section 59.9 of the Family Law Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 15(5)",
+          "quote": "Subject to subrules (17) and (18), a party who wants to ask the court to change a final order or agreement shall serve and file a motion to change (Form 15), with all required attachments."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 15(7)",
+          "quote": "The documents referred to in subrules (5), (5.1) and (6) shall be served by special service (subrule 6 (3)), and not by regular service."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-rules.txt"
+    },
+    {
+      "key": "family-matter-denied-parenting-time|plaintiffElement|duty-to-comply-deniedtime",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1d4c20f15b197e778418fc3e26e0dd25e4c4d4295619be06f94e1d9dac37c012",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 33.1(5)",
+          "quote": "For greater certainty, a person who is subject to an order made under this Part shall comply with the order until it is no longer in effect."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 33.1(1)",
+          "quote": "A person to whom decision-making responsibility, parenting time or contact has been granted with respect to a child under a parenting order or contact order shall exercise the decision-making responsibility, parenting time or contact in a manner that is consistent with the best interests of the child within the meaning of section 24."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/childrens-law-reform-act.txt"
+    },
+    {
+      "key": "family-matter-denied-parenting-time|plaintiffElement|failure-to-obey-deniedtime",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "95dd8b8402ec6e2ac73b09b18b6163e5a88d195cad5d0ca0e7100d862128b866",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 1(8)",
+          "quote": "(8) If a person fails to obey an order in a case or a related case, the court may deal with the failure by making any order that it considers necessary for a just determination of the matter, including, (a) an order for costs; (a.1) an order to pay an amount to a party or into court as a penalty or fine; (b) an order dismissing a claim; (c) an order striking out any application, answer, notice of motion, motion to change, response to motion to change, financial statement, affidavit, or any other document filed by a party; (d) an order that all or part of a document that was required to be provided but was not, may not be used in the case; (e) if the failure to obey was by a party, an order that the party is not entitled to any further order from the court unless the court orders otherwise; (f) an order postponing the trial or any other step in the case;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-rules.txt"
+    },
+    {
+      "key": "family-matter-denied-parenting-time|plaintiffElement|contempt-deniedtime",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c0faeb81a2accf2dc9526488373d785c95ae7dc4a1f1e37c3cd8d63619625a7a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 31(1)",
+          "quote": "An order, other than a payment order, may be enforced by a contempt motion made in the case in which the order was made, even if another penalty is available."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 31(5)",
+          "quote": "If the court finds a person in contempt of the court, it may order that the person, (a) be imprisoned for any period and on any conditions that are just; (b) pay a fine in any amount that is appropriate; (c) pay an amount to a party as a penalty; (d) do anything else that the court decides is appropriate; (e) not do what the court forbids; (f) pay costs in an amount decided by the court; and (g) obey any other order."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 38(1)",
+          "quote": "In addition to its powers in respect of contempt, the Ontario Court of Justice may punish by fine or imprisonment, or both, any wilful contempt of or resistance to its process or orders under this Act, other than orders under section 35, but the fine shall not in any case exceed $5,000 nor shall the imprisonment exceed ninety days."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 31(2)",
+          "quote": "The notice of contempt motion (Form 31) shall be served together with a supporting affidavit, by special service in accordance with subrule 6 (4), unless the court orders otherwise."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-rules.txt, docs/sources/corpus/childrens-law-reform-act.txt"
+    },
+    {
+      "key": "family-matter-denied-parenting-time|plaintiffElement|child-withheld-deniedtime",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d18ecd7a5195759937c8d8ed33d87ff45a7589ef93cf1dce795647912ab55f0f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 36(1)",
+          "quote": "Where a court is satisfied upon application by a person in whose favour a parenting order or contact order has been made with respect to a child that there are reasonable and probable grounds for believing that any person is unlawfully withholding the child from the applicant, the court by order may authorize the applicant or someone on his or her behalf to apprehend the child for the purpose of giving effect to the rights of the applicant to decision-making responsibility, parenting time or contact, as the case may be."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 36(2)",
+          "quote": "Where a court is satisfied upon application that there are reasonable and probable grounds for believing, (a) that any person is unlawfully withholding a child from a person entitled to decision-making responsibility, parenting time or contact with respect to the child; ... the court by order may direct a police service, having jurisdiction in any area where it appears to the court that the child may be, to locate, apprehend and deliver the child to the person named in the order."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 36(3)",
+          "quote": "An order may be made under subsection (2) upon an application without notice where the court is satisfied that it is necessary that action be taken without delay."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/childrens-law-reform-act.txt"
+    },
+    {
+      "key": "family-matter-denied-parenting-time|defendantConsideration|supervision-deniedtime",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0db683d81a53f1b507b23108c322d1be05acb4aba4fbfa231b1a6e6dd9f84b14",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 34(1)",
+          "quote": "A court may give such directions as it considers appropriate for the supervision, by a person, a children's aid society or other body, of decision-making responsibility, parenting time or contact with respect to a child under a parenting order or contact order."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 34(2)",
+          "quote": "A court shall not direct a person, a children's aid society or other body to supervise the exercise of decision-making responsibility, parenting time or contact under subsection (1) unless the person, society or body has consented to act as supervisor."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/childrens-law-reform-act.txt"
+    },
+    {
+      "key": "family-matter-denied-parenting-time|defendantConsideration|protect-from-conflict-deniedtime",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "05c14380f389690a704afc6fa887a9b06b4dedc6fbf56349f19ca677162d74ef",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 33.1(2)",
+          "quote": "A party to a proceeding under this Part shall, to the best of the party's ability, protect any child from conflict arising from the proceeding."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 33.1(3)",
+          "quote": "To the extent that it is appropriate to do so, the parties to a proceeding shall try to resolve the matters that may be the subject of an order under this Part through an alternative dispute resolution process, such as negotiation, mediation or collaborative law."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/childrens-law-reform-act.txt"
+    },
+    {
+      "key": "family-matter-denied-parenting-time|proceduralNote|family-matter-denied-parenting-time#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f59e9243e25eb7d89acc9f5a3fe096e54f51547a2056e5ddc2ffba75d8022cee",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 31(2)",
+          "quote": "The notice of contempt motion (Form 31) shall be served together with a supporting affidavit, by special service in accordance with subrule 6 (4), unless the court orders otherwise."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-rules.txt"
+    },
+    {
+      "key": "family-matter-denied-parenting-time|proceduralNote|family-matter-denied-parenting-time#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "477ae05709b6e4dabd8394a915a4a9226770dca3d4c871d4818f03f0c22c6800",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+          "pinpoint": "s. 29(1)",
+          "quote": "A court shall not make an order under this Part that varies a parenting order or contact order unless there has been a material change in circumstances that affects or is likely to affect the best interests of the child who is the subject of the order."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 15(5)",
+          "quote": "Subject to subrules (17) and (18), a party who wants to ask the court to change a final order or agreement shall serve and file a motion to change (Form 15), with all required attachments."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/childrens-law-reform-act.txt, docs/sources/corpus/family-law-rules.txt"
+    },
+    {
+      "key": "family-matter-annulment-or-validity-of-marriage|plaintiffElement|marriage-act-requirements-validity",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "28aee32db77389cf5d65480246f0093e0bd41d7d8363e3bcb21399750542b73a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m03_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "No marriage may be solemnized except under the authority of a licence issued in accordance with this Act or the publication of banns."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m03_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "Any person who is of the age of majority may obtain a licence or be married under the authority of the publication of banns, provided no lawful cause exists to hinder the solemnization."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m03_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "No person shall issue a licence to a minor, or solemnize the marriage of a minor under the authority of the publication of banns, except where the minor is of the age of sixteen years or more and has the consent in writing of both parents in the form prescribed by the regulations."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m03_e.doc",
+          "pinpoint": "s. 7",
+          "quote": "No person shall issue a licence to or solemnize the marriage of any person who, based on what he or she knows or has reasonable grounds to believe, lacks mental capacity to marry by reason of being under the influence of intoxicating liquor or drugs or for any other reason."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m03_e.doc",
+          "pinpoint": "s. 8(1)",
+          "quote": "An applicant for a licence who has been previously married is entitled to be issued a licence if such marriage has been dissolved or annulled and such dissolution or annulment is recognized under the law of Ontario and the applicant otherwise complies with the requirements of this Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/marriage-act.txt"
+    },
+    {
+      "key": "family-matter-annulment-or-validity-of-marriage|plaintiffElement|good-faith-marriage-validity",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7bb4bd083afa64974f527e941d6d7cc83670cfdf1c6413eab86a849cd8c0033b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m03_e.doc",
+          "pinpoint": "s. 31",
+          "quote": "If the parties to a marriage solemnized in good faith and intended to be in compliance with this Act are not under a legal disqualification to contract such marriage and after such solemnization have lived together and cohabited as a married couple, such marriage shall be deemed a valid marriage, although the person who solemnized the marriage was not authorized to solemnize marriage, and despite the absence of or any irregularity or insufficiency in the publication of banns or the issue of the licence."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/marriage-act.txt"
+    },
+    {
+      "key": "family-matter-annulment-or-validity-of-marriage|plaintiffElement|rights-if-void-validity",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ae8d35295b21d42370c4c3ca2ccb62240fdcdc1beb4f791fd26baf4c85c83ec3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 1(1) (\"spouse\")",
+          "quote": "\"spouse\" means either of two persons who, (a) are married to each other, or (b) have together entered into a marriage that is voidable or void, in good faith on the part of a person relying on this clause to assert any right."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "When a divorce is granted or a marriage is declared a nullity, or when the spouses are separated and there is no reasonable prospect that they will resume cohabitation, the spouse whose net family property is the lesser of the two net family properties is entitled to one-half the difference between them."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-annulment-or-validity-of-marriage|defendantConsideration|nullity-time-limit-validity",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "68297c295483527036dbfee26a84ef91cf86d2c3d3fbb9b6a94a09ea2b597aa9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 7(3)",
+          "quote": "An application based on subsection 5 (1) or (2) shall not be brought after the earliest of, (a) two years after the day the marriage is terminated by divorce or judgment of nullity; (b) six years after the day the spouses separate and there is no reasonable prospect that they will resume cohabitation; (c) six months after the first spouse's death."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 2(8)",
+          "quote": "The court may, on motion, extend a time prescribed by this Act if it is satisfied that, (a) there are apparent grounds for relief; (b) relief is unavailable because of delay that has been incurred in good faith; and (c) no person will suffer substantial prejudice by reason of the delay."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-annulment-or-validity-of-marriage|proceduralNote|family-matter-annulment-or-validity-of-marriage#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c09b45f980c859503b77ef1e390fa3264f71c5bc60214fd4788c70feb838f978",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 1(2)(d)",
+          "quote": "These rules apply to all family law cases in the Family Court of the Superior Court of Justice, in the Superior Court of Justice and in the Ontario Court of Justice, ... (d) for annulment of a marriage or a declaration of validity or invalidity of a marriage;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 21.8(1)",
+          "quote": "In the parts of Ontario where the Family Court has jurisdiction, proceedings referred to in the Schedule to this section, except appeals and prosecutions, shall be commenced, heard and determined in the Family Court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 21.8, Schedule, item 4",
+          "quote": "Proceedings for annulment of a marriage or for a declaration of validity or invalidity of a marriage."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-rules.txt, docs/sources/corpus/cja-courts-of-justice-act.txt"
+    },
+    {
+      "key": "family-matter-marriage-contract|plaintiffElement|what-it-can-cover-marriagecontract",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ced81d149e2cc54d2758dfb7c3822be977e2ee7a6d1eb3f7916e072d7d0f8a0a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 52(1)",
+          "quote": "Two persons who are married to each other or intend to marry may enter into an agreement in which they agree on their respective rights and obligations under the marriage or on separation, on the annulment or dissolution of the marriage or on death, including, (a) ownership in or division of property; (b) support obligations; (c) the right to direct the education and moral training of their children, but not the right to decision-making responsibility or parenting time with respect to their children; and (d) any other matter in the settlement of their affairs."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 53(1)",
+          "quote": "Two persons who are cohabiting or intend to cohabit and who are not married to each other may enter into an agreement in which they agree on their respective rights and obligations during cohabitation, or on ceasing to cohabit or on death, including, (a) ownership in or division of property; (b) support obligations; (c) the right to direct the education and moral training of their children, but not the right to decision-making responsibility or parenting time with respect to their children; and (d) any other matter in the settlement of their affairs."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 53(2)",
+          "quote": "If the parties to a cohabitation agreement marry each other, the agreement shall be deemed to be a marriage contract."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-marriage-contract|plaintiffElement|form-marriagecontract",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "47ed193a4606e84868c62ae2456c35da4e3e1cbbbd3e7f7f135b0b850ce46e47",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 55(1)",
+          "quote": "A domestic contract and an agreement to amend or rescind a domestic contract are unenforceable unless made in writing, signed by the parties and witnessed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 55(2)",
+          "quote": "A minor has capacity to enter into a domestic contract, subject to the approval of the court, which may be given before or after the minor enters into the contract."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-marriage-contract|plaintiffElement|setting-aside-marriagecontract",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4130cef293a7dc2739f0a29cfc494ea2451e7934b54810aa5906b038edabf192",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 56(4)",
+          "quote": "A court may, on application, set aside a domestic contract or a provision in it, (a) if a party failed to disclose to the other significant assets, or significant debts or other liabilities, existing when the domestic contract was made; (b) if a party did not understand the nature or consequences of the domestic contract; or (c) otherwise in accordance with the law of contract."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 56(7)",
+          "quote": "Subsections (4), (5) and (6) apply despite any agreement to the contrary."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 33(4)",
+          "quote": "The court may set aside a provision for support or a waiver of the right to support in a domestic contract and may determine and order support in an application under subsection (1) although the contract contains an express provision excluding the application of this section, (a) if the provision for support or the waiver of the right to support results in unconscionable circumstances; (b) if the provision for support is in favour of or the waiver is by or on behalf of a dependant who qualifies for an allowance for support out of public money; or (c) if there is default in the payment of support under the contract at the time the application is made."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-marriage-contract|defendantConsideration|limits-marriagecontract",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1ae788d718f70589ee8525f430f9cba3c9105dc6d8b14b3ae4dbdcfa13b887a6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 52(2)",
+          "quote": "A provision in a marriage contract purporting to limit a spouse's rights under Part II (Matrimonial Home) is unenforceable."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 56(1)",
+          "quote": "In the determination of a matter respecting the education, moral training or decision-making responsibility or parenting time with respect to a child, the court may disregard any provision of a domestic contract pertaining to the matter where, in the opinion of the court, to do so is in the best interests of the child."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 56(1.1)",
+          "quote": "In the determination of a matter respecting the support of a child, the court may disregard any provision of a domestic contract pertaining to the matter where the provision is unreasonable having regard to the child support guidelines, as well as to any other provision relating to support of the child in the contract."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-marriage-contract|proceduralNote|family-matter-marriage-contract#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3b631a927749572f3f777b45c15803edbee440da471fed9a88203a5ee74540ba",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 21.8(1)",
+          "quote": "In the parts of Ontario where the Family Court has jurisdiction, proceedings referred to in the Schedule to this section, except appeals and prosecutions, shall be commenced, heard and determined in the Family Court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 21.8, Schedule, item 2",
+          "quote": "Proceedings for the interpretation, enforcement or variation of a marriage contract, cohabitation agreement, separation agreement, paternity agreement, family arbitration agreement or family arbitration award."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 1(2)(b)",
+          "quote": "(b) for the interpretation, enforcement or variation of a marriage contract, cohabitation agreement, separation agreement, paternity agreement, family arbitration agreement or family arbitration award;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/family-law-rules.txt"
+    },
+    {
+      "key": "family-matter-marriage-contract|proceduralNote|family-matter-marriage-contract#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "20c3f95f14e0910ef9f6eaeb22cd4941305b431b84c5e4d16bb37071d3fb4dab",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 35(1)",
+          "quote": "A person who is a party to a domestic contract may file the contract with the clerk of the Ontario Court of Justice or of the Family Court of the Superior Court of Justice together with the person's affidavit stating that the contract is in effect and has not been set aside or varied by a court or agreement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 35(2)",
+          "quote": "A provision for support or maintenance contained in a contract that is filed in this manner, (a) may be enforced; (b) may be varied under section 37; (c) except in the case of a provision for the support of a child, may be increased under section 38; and (d) in the case of a provision for the support of a child, may be recalculated under section 39.1, as if it were an order of the court where it is filed."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-child-protection|plaintiffElement|need-of-protection-protection",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b52db34c416011d2c86114850dafdb80d3ba922e3fb45343bce9fdd40a10062f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17c14_e.doc",
+          "pinpoint": "s. 81(1)",
+          "quote": "A society may apply to the court to determine whether a child is in need of protection."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17c14_e.doc",
+          "pinpoint": "s. 90(1)",
+          "quote": "Where an application is made under subsection 81 (1) or a matter is brought before the court to determine whether the child is in need of protection, the court shall hold a hearing to determine the issue and make an order under section 101."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17c14_e.doc",
+          "pinpoint": "s. 74(2)",
+          "quote": "(2) A child is in need of protection where, (a) the child has suffered physical harm, inflicted by the person having charge of the child or caused by or resulting from that person's, (i) failure to adequately care for, provide for, supervise or protect the child, or (ii) pattern of neglect in caring for, providing for, supervising or protecting the child; ... (b) there is a risk that the child is likely to suffer physical harm inflicted by the person having charge of the child ... (c) the child has been sexually abused or sexually exploited, by the person having charge of the child or by another person where the person having charge of the child knows or should know of the possibility of sexual abuse or sexual exploitation and fails to protect the child; ... (e) the child requires treatment to cure, prevent or alleviate physical harm or suffering and the child's parent or the person having charge of the child does not provide the treatment or access to the treatment ... (f) the child has suffered emotional harm, demonstrated by serious, (i) anxiety, (ii) depression, (iii) withdrawal, (iv) self-destructive or aggressive behaviour, or (v) delayed development, and there are reasonable grounds to believe that the emotional harm suffered by the child results from the actions, failure to act or pattern of neglect on the part of the child's parent or the person having charge of the child; ... (h) there is a risk that the child is likely to suffer emotional harm of the kind described in subclause (f) (i), (ii), (iii), (iv) or (v) resulting from the actions, failure to act or pattern of neglect on the part of the child's parent or the person having charge of the child;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/child-youth-and-family-services-act-2017.txt"
+    },
+    {
+      "key": "family-matter-child-protection|plaintiffElement|orders-court-can-make-protection",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bea1ab2dda761527ffc647894b60d237d92f300ea9068f193e62abb71f520b50",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17c14_e.doc",
+          "pinpoint": "s. 101(1)",
+          "quote": "Where the court finds that a child is in need of protection and is satisfied that intervention through a court order is necessary to protect the child in the future, the court shall make one of the following orders or an order under section 102, in the child's best interests: Supervision order 1. That the child be placed in the care and custody of a parent or another person, subject to the supervision of the society, for a specified period of at least three months and not more than 12 months. Interim society care 2. That the child be placed in interim society care and custody for a specified period not exceeding 12 months. Extended society care 3. That the child be placed in extended society care until the order is terminated under section 116 or expires under section 123. Consecutive orders of interim society care and supervision 4. That the child be placed in interim society care and custody under paragraph 2 for a specified period and then be returned to a parent or another person under paragraph 1, for a period or periods not exceeding a total of 12 months."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17c14_e.doc",
+          "pinpoint": "s. 101(2)",
+          "quote": "In determining which order to make under subsection (1) or section 102, the court shall ask the parties what efforts the society or another person or entity has made to assist the child before intervention under this Part."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/child-youth-and-family-services-act-2017.txt"
+    },
+    {
+      "key": "family-matter-child-protection|plaintiffElement|temporary-care-protection",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "26e19807a3b82744aec49cad6edd6c09dec4e1e27858fd3d5fb3fd9784192a73",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17c14_e.doc",
+          "pinpoint": "s. 94(2)",
+          "quote": "Where a hearing is adjourned, the court shall make a temporary order for care and custody providing that the child, (a) remain in or be returned to the care and custody of the person who had charge of the child immediately before intervention under this Part; (b) remain in or be returned to the care and custody of the person referred to in clause (a), subject to the society's supervision and on such reasonable terms and conditions as the court considers appropriate; (c) be placed in the care and custody of a person other than the person referred to in clause (a), with the consent of that other person, subject to the society's supervision and on such reasonable terms and conditions as the court considers appropriate; or (d) remain or be placed in the care and custody of the society, but not be placed in a place of temporary detention, of open or of secure custody."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17c14_e.doc",
+          "pinpoint": "s. 94(1)",
+          "quote": "The court shall not adjourn a hearing for more than 30 days, (a) unless all the parties present and the person who will be caring for the child during the adjournment consent; or (b) if the court is aware that a party who is not present at the hearing objects to the longer adjournment."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/child-youth-and-family-services-act-2017.txt"
+    },
+    {
+      "key": "family-matter-child-protection|defendantConsideration|five-days-protection",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "641869f67a5b7b944835616b9799fd0b7bff6ed7f8d5f172929194a6c97a4dae",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17c14_e.doc",
+          "pinpoint": "s. 88",
+          "quote": "As soon as practicable, but in any event within five days after a child is brought to a place of safety under section 81, subclause 83 (1) (a) (ii) or subsection 136 (5), (a) the matter shall be brought before a court for a hearing under subsection 90 (1) (child protection hearing); (b) the child shall be returned to the person who last had charge of the child or, where there is an order for the child's custody that is enforceable in Ontario, to the person entitled to custody under the order; (c) if the child is the subject of an extra-provincial child protection order, the child shall be returned to the child welfare authority or other person named in the order; (d) a temporary care agreement shall be made under subsection 75 (1); or (e) an agreement shall be made under section 77 (agreements with 16 and 17 year olds)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17c14_e.doc",
+          "pinpoint": "s. 81(7)",
+          "quote": "A child protection worker who believes on reasonable and probable grounds that, (a) a child is in need of protection; (b) the child is younger than 16; and (c) there would be a substantial risk to the child's health or safety during the time necessary to bring the matter on for a hearing under subsection 90 (1) or obtain a warrant under subsection (2), may without a warrant bring the child to a place of safety."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/child-youth-and-family-services-act-2017.txt"
+    },
+    {
+      "key": "family-matter-child-protection|defendantConsideration|parties-and-child-lawyer-protection",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a63b044d808c15fca6b0277b213155cc408ffb6115cce8ece685e5d756832036",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17c14_e.doc",
+          "pinpoint": "s. 79(1)",
+          "quote": "The following are parties to a proceeding under this Part: 1. The applicant. 2. The society having jurisdiction in the matter. 3. The child's parent. 4. In the case of a First Nations, Inuk or Métis child, the persons described in paragraphs 1, 2 and 3 and a representative chosen by each of the child's bands and First Nations, Inuit or Métis communities."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17c14_e.doc",
+          "pinpoint": "s. 79(3)",
+          "quote": "Any person, including a foster parent, who has cared for the child continuously during the six months immediately before the hearing, (a) is entitled to the same notice of the proceeding as a party; (b) may be present at the hearing; (c) may be represented by a lawyer; and (d) may make submissions to the court,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17c14_e.doc",
+          "pinpoint": "s. 78(1)",
+          "quote": "A child may have legal representation at any stage in a proceeding under this Part."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/child-youth-and-family-services-act-2017.txt"
+    },
+    {
+      "key": "family-matter-child-protection|proceduralNote|family-matter-child-protection#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bbee73a2977ae87ed7d0ba05c3b62972012ff46ff9f85f1a486005b949769f6e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 33(1)",
+          "quote": "Every child protection case, including a status review application, is governed by the following timetable: ... |First hearing, if child has been |5 days | ... |Service and filing of answers and |30 days | ... |Temporary care and custody hearing |35 days | ... |Settlement conference |80 days | ... |Hearing |120 days |"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 33(3)",
+          "quote": "The court may lengthen a time shown in the timetable only if the best interests of the child require it."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 33(4)",
+          "quote": "The parties may not lengthen a time shown in the timetable by consent under subrule 3 (6)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-rules.txt"
+    },
+    {
+      "key": "family-matter-child-protection|proceduralNote|family-matter-child-protection#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "835b84df90d5fa15ea57ab65d64839d915eb611ee7632039de237e19b4878edf",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 33(5)",
+          "quote": "A party who wants the court to consider a plan of care or supervision shall serve it on the other parties and file it not later than seven days before a conference, even if that is sooner than the timetable would require."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 33(7)(c.1)",
+          "quote": "(c.1) a respondent's answer and plan of care for a child shall be, (i) if the respondent is not a children's aid society, in Form 33B.1,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 33(6)",
+          "quote": "The evidence at a temporary care and custody hearing shall be given by affidavit, unless the court orders otherwise."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-rules.txt"
+    },
+    {
+      "key": "family-matter-unequal-division|plaintiffElement|baseline-equalization-unequal",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a523816b773638c1f1e38486aaf1e284df75872ff28b01d793559c7400b36194",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "When a divorce is granted or a marriage is declared a nullity, or when the spouses are separated and there is no reasonable prospect that they will resume cohabitation, the spouse whose net family property is the lesser of the two net family properties is entitled to one-half the difference between them."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 5(7)",
+          "quote": "The purpose of this section is to recognize that child care, household management and financial provision are the joint responsibilities of the spouses and that inherent in the marital relationship there is equal contribution, whether financial or otherwise, by the spouses to the assumption of these responsibilities, entitling each spouse to the equalization of the net family properties, subject only to the equitable considerations set out in subsection (6)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-unequal-division|plaintiffElement|unconscionable-unequal",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f8ff86c6003a91389e61572da1537218bcb7505e2a3f4806ec1d3a0a69ecc151",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 5(6)",
+          "quote": "The court may award a spouse an amount that is more or less than half the difference between the net family properties if the court is of the opinion that equalizing the net family properties would be unconscionable, having regard to, (a) a spouse's failure to disclose to the other spouse debts or other liabilities existing at the date of the marriage; (b) the fact that debts or other liabilities claimed in reduction of a spouse's net family property were incurred recklessly or in bad faith; (c) the part of a spouse's net family property that consists of gifts made by the other spouse; (d) a spouse's intentional or reckless depletion of his or her net family property; (e) the fact that the amount a spouse would otherwise receive under subsection (1), (2) or (3) is disproportionately large in relation to a period of cohabitation that is less than five years; (f) the fact that one spouse has incurred a disproportionately larger amount of debts or other liabilities than the other spouse for the support of the family; (g) a written agreement between the spouses that is not a domestic contract; or (h) any other circumstance relating to the acquisition, disposition, preservation, maintenance or improvement of property."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-unequal-division|defendantConsideration|time-limit-unequal",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3cd64269b58f37a1c43d33d3d4f2cef41bdef79b7694dc5a4ad5870f6f8f814d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 7(3)",
+          "quote": "An application based on subsection 5 (1) or (2) shall not be brought after the earliest of, (a) two years after the day the marriage is terminated by divorce or judgment of nullity; (b) six years after the day the spouses separate and there is no reasonable prospect that they will resume cohabitation; (c) six months after the first spouse's death."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 2(8)",
+          "quote": "The court may, on motion, extend a time prescribed by this Act if it is satisfied that, (a) there are apparent grounds for relief; (b) relief is unavailable because of delay that has been incurred in good faith; and (c) no person will suffer substantial prejudice by reason of the delay."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-unequal-division|defendantConsideration|statement-of-property-unequal",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "eb58e764b424aaa53b6ee1bcac591255fd2bbc3dce4204796eed2df340b92a82",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 8",
+          "quote": "In an application under section 7, each party shall serve on the other and file with the court, in the manner and form prescribed by the rules of the court, a statement verified by oath or statutory declaration disclosing particulars of, (a) the party's property and debts and other liabilities, (i) as of the date of the marriage, (ii) as of the valuation date, and (iii) as of the date of the statement; (b) the deductions that the party claims under the definition of \"net family property\"; (c) the exclusions that the party claims under subsection 4 (2); and (d) all property that the party disposed of during the two years immediately preceding the making of the statement, or during the marriage, whichever period is shorter."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-unequal-division|proceduralNote|family-matter-unequal-division#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a10f6e4b3d440de435544b3549fc8cbf7def2a86c14cf9d37e305c76299d7573",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 7(1)",
+          "quote": "The court may, on the application of a spouse, former spouse or deceased spouse's personal representative, determine any matter respecting the spouses' entitlement under section 5."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "family-matter-unequal-division|proceduralNote|family-matter-unequal-division#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bce12d5e95d9bcedbae0c6dbad0cb1ff9c1757994e22022a5bf8e44532afd4a6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 13(1)",
+          "quote": "13. (1) If an application, answer or motion contains a claim for support, a property claim, or a claim for exclusive possession of the matrimonial home and its contents, (a) the party making the claim shall serve and file a financial statement (Form 13 or 13.1) with the document that contains the claim; and (b) the party against whom the claim is made shall serve and file a financial statement within the time for serving and filing an answer, reply or affidavit or other document responding to the motion, whether the party is serving an answer, reply or affidavit or other document responding to the motion or not."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 13(1.2)",
+          "quote": "If the application, answer or motion contains a property claim or a claim for exclusive possession of the matrimonial home and its contents, the financial statement used by the parties under these rules shall be in Form 13.1, whether a claim for support is also included or not."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+          "pinpoint": "r. 13(14)",
+          "quote": "Before a settlement conference or trial, each party to a property claim under Part I of the Family Law Act shall, no later than the time specified in subrule (14.0.1), serve and file, (a) a net family property statement (Form 13B); or (b) if the party has already served a net family property statement and the information in that statement has not changed, an affidavit saying that the information in the statement has not changed and is still true."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-rules.txt"
+    }
+  ],
   "unverifiable": []
 }

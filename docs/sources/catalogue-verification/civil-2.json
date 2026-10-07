@@ -1,4 +1,1291 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "civil-claim-mortgage-enforcement|plaintiffElement|default-and-timing-civmort",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9df08d647c2a6d6afebe53d2764dfce37afcf21a2969f557b4ddc26b0d695ae7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 32",
+          "quote": "Where a mortgage by its terms confers a power of sale upon a certain default, notice of exercising the power of sale shall not be given until the default has continued for at least fifteen days, and the sale shall not be made for at least thirty-five days after the notice has been given."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 24",
+          "quote": "Where any principal money is secured by mortgage of land, the mortgagee, at any time after the expiration of three months from the time of default in the payment of any money due under the mortgage or after any omission to pay any premium of insurance that by the terms of the mortgage ought to be paid by the mortgagor, has the following powers to the like extent as if they had been in terms conferred by the mortgage:"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 26(1)",
+          "quote": "No sale under the power conferred by section 24 shall be made until after forty-five days notice in writing in the form prescribed by the regulations made under this Act has been given to the persons and in the manner provided by Part III."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 26(2)",
+          "quote": "The notice may be given at any time after fifteen days default in making any payment provided for by the mortgage."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 30",
+          "quote": "So much of this Part as confers a power to sell does not apply in the case of a mortgage that contains a power of sale"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 38",
+          "quote": "Despite any agreement to the contrary or any provision contained in any mortgage or any provision of this or any other Act, sections 31, 32, 33, 34, 35 and 36 apply to any power of sale in a mortgage, and sections 31, 33, 34, 35 and 36 apply to the power of sale conferred by section 24."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/mortgages-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-mortgage-enforcement|plaintiffElement|notice-of-sale-civmort",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "61e30fc1f9a4ec137fda9d5cd3ee5fe063f5ab9821ab38583ef39ebf9771af52",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 31(1)",
+          "quote": "A mortgagee shall not exercise a power of sale unless a notice of exercising the power of sale in the form prescribed by the regulations made under this Act has been given by the mortgagee to the following persons, other than the persons having an interest in the mortgaged property prior to that of the mortgagee and any other persons subject to whose rights the mortgagee proposes to sell the mortgaged property: 1. Where the mortgaged property is registered under the Land Titles Act, to every person appearing by the parcel register and by the index of executions to have an interest in the mortgaged property."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 31(1), para. 4",
+          "quote": "Where the mortgagee has actual notice in writing of any other interest in the mortgaged property and where such notice has been received prior to the giving of notice exercising the power of sale, to the person having such interest."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 33(1)",
+          "quote": "A notice of exercising a power of sale shall be given by personal service or by registered mail addressed to the person to whom it is to be given at the person's usual or last known place of address, or, where the last known place of address is that shown on the registered instrument under which the person acquired an interest, to such address, or by leaving it at one of such places of address, or, where the mortgage provides for personal service only, by personal service, or, where the mortgage provides a specific address, to such address."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/mortgages-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-mortgage-enforcement|defendantConsideration|pay-arrears-relief-civmort",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e5a4b8d192706e9843daa291f927bfafc28a5339e51726a563127c7eb8b4a5ea",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 22(1)",
+          "quote": "Despite any agreement to the contrary, where default has occurred in making any payment of principal or interest due under a mortgage or in the observance of any covenant in a mortgage and under the terms of the mortgage, by reason of such default, the whole principal and interest secured thereby has become due and payable, (a) at any time before sale under the mortgage; or (b) before the commencement of an action for the enforcement of the rights of the mortgagee or of any person claiming through or under the mortgagee, the mortgagor may perform such covenant or pay the amount due under the mortgage, exclusive of the money not payable by reason merely of lapse of time, and pay any expenses necessarily incurred by the mortgagee, and thereupon the mortgagor is relieved from the consequences of such default."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 22(2)",
+          "quote": "The mortgagor may, by a notice in writing, require the mortgagee to furnish the mortgagor with a statement in writing, (a) of the amount of the principal or interest with respect to which the mortgagor is in default; or (b) of the nature of the default or the non-observance of the covenant, and of the amount of any expenses necessarily incurred by the mortgagee."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 22(3)",
+          "quote": "The mortgagee shall answer a notice given under subsection (2) within fifteen days after receiving it, and, if without reasonable excuse the mortgagee fails so to do or if the answer is incomplete or incorrect, any rights that the mortgagee may have to enforce the mortgage shall be suspended until the mortgagee has complied with subsection (2)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 43(1)",
+          "quote": "Where such demand or notice requires payment of all money secured by or under a mortgage, the person making such demand or giving such notice is bound to accept and receive payment of the same if made as required by the terms of such demand or notice."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/mortgages-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-mortgage-enforcement|defendantConsideration|relief-after-action-civmort",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8828b10f7c26c5c8227f7f3bde7b4522cd3f2ae76b9ce4c6e9288d6a217bff2e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 23(1)",
+          "quote": "in an action for enforcement of the rights of the mortgagee or of any person claiming through or under the mortgagee, the mortgagor, upon payment into court of the sum of $100 to the credit of the action as security for costs, may apply to the court and, conditional upon performance of such covenant or upon payment of the money due under the mortgage, exclusive of the money not payable by reason merely of lapse of time, and upon payment of the costs of the action, the court, (a) shall dismiss the action if judgment has not been recovered; or (b) may stay proceedings in the action, if judgment has been recovered and if no sale or recovery of possession of the land or final foreclosure of the equity of redemption has taken place."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 23(3)",
+          "quote": "Where proceedings have been stayed under clause (1) (b) or under subsection (2) and default again occurs under the mortgage, the court upon application may remove the stay."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/mortgages-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-mortgage-enforcement|proceduralNote|civil-claim-mortgage-enforcement#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dde9230c373919b9244d7269366b1f720d8e7cbf60fc59f80eea06b953c2edd5",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 42(1)",
+          "quote": "Where, pursuant to any condition or proviso contained in a mortgage, there has been made or given a demand or notice either requiring payment of the money secured by the mortgage, or any part thereof, or declaring an intention to proceed under and exercise the power of sale therein contained, no further proceeding and no action either to enforce the mortgage, or with respect to any clause, covenant or provision therein contained, or to the mortgaged property or any part thereof, shall, until after the lapse of the time at or after which, according to such demand or notice, payment of the money is to be made or the power of sale is to be exercised or proceeded under, be commenced or taken until an order permitting the same has been obtained from a judge of the Superior Court of Justice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+          "pinpoint": "Mortgages Act, s. 42(3)",
+          "quote": "This section does not apply to proceedings to stay waste or other injury to the mortgaged property."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/mortgages-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-mortgage-enforcement|proceduralNote|civil-claim-mortgage-enforcement#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7050f317ee6d41c280b9a4a76bf07d8a77cd66b02b0573383129cffba3794d74",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l15_e.doc",
+          "pinpoint": "Real Property Limitations Act, s. 43(1)",
+          "quote": "No action upon a covenant contained in an indenture of mortgage or any other instrument made on or after July 1, 1894 to repay the whole or part of any money secured by a mortgage shall be commenced after the later of, (a) the expiry of 10 years after the day on which the cause of action arose; and (b) the expiry of 10 years after the day on which the interest of the person liable on the covenant in the mortgaged lands was conveyed or transferred."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l15_e.doc",
+          "pinpoint": "Real Property Limitations Act, s. 4",
+          "quote": "No person shall make an entry or distress, or bring an action to recover any land or rent, but within ten years next after the time at which the right to make such entry or distress, or to bring such action, first accrued to some person through whom the person making or bringing it claims, or if the right did not accrue to any person through whom that person claims, then within ten years next after the time at which the right to make such entry or distress, or to bring such action, first accrued to the person making or bringing it."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/real-property-limitations-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-partition-or-sale-of-property|plaintiffElement|interest-in-land-civpart",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "72f82bf8f683bc3391dc619d669ddc2e10cc683ec804be97c11534a4ae86eb01",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+          "pinpoint": "Partition Act, s. 3(1)",
+          "quote": "Any person interested in land in Ontario, or the guardian of a minor entitled to the immediate possession of an estate therein, may bring an action or make an application for the partition of such land or for the sale thereof under the directions of the court if such sale is considered by the court to be more advantageous to the parties interested."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+          "pinpoint": "Partition Act, s. 2",
+          "quote": "All joint tenants, tenants in common, and coparceners, all doweresses, and parties entitled to dower, tenants by the curtesy, mortgagees or other creditors having liens on, and all parties interested in, to or out of, any land in Ontario, may be compelled to make or suffer partition or sale of the land, or any part thereof, whether the estate is legal and equitable or equitable only."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+          "pinpoint": "Partition Act, s. 1",
+          "quote": "\"court\" means the Superior Court of Justice;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/partition-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-partition-or-sale-of-property|plaintiffElement|partition-or-sale-civpart",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1a28f2e23b7a97f1517b4bd2a5b7fa2508046df0c4b490dfafbc7d689028586f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+          "pinpoint": "Partition Act, s. 3(1)",
+          "quote": "may bring an action or make an application for the partition of such land or for the sale thereof under the directions of the court if such sale is considered by the court to be more advantageous to the parties interested."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+          "pinpoint": "Partition Act, s. 6",
+          "quote": "A partition or sale made by the court is as effectual for the apportioning or conveying away of the estate or interest of a party to the proceedings by which the sale or partition is made or declared who is a minor or is incapable as defined in the Substitute Decisions Act, 1992, as of a party who is competent to act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/partition-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-partition-or-sale-of-property|defendantConsideration|inherited-land-wait-civpart",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3c92ce94854b474199d9933de7beae26de7e537debb457dad054754f24035479",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+          "pinpoint": "Partition Act, s. 3(2)",
+          "quote": "Where the land is held in joint tenancy or tenancy in common or coparcenary by reason of a devise or an intestacy, no proceeding shall be taken until one year after the decease of the testator or person dying intestate in whom the land was vested."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/partition-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-partition-or-sale-of-property|defendantConsideration|missing-co-owner-civpart",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b8cc1c73ae96155a12d33e5eaf6832f73a74978fcbe6cce90fd251050d3f3a20",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+          "pinpoint": "Partition Act, s. 4(1)",
+          "quote": "Where a person interested in the land has not been heard of for three years or upwards and it is uncertain whether such person is living or dead, the court upon the application of any one interested in the land may appoint a guardian to take charge of the interest of such person and of those who, in the event of his or her being dead, are entitled to his or her share or interest in the land."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+          "pinpoint": "Partition Act, s. 4(2)",
+          "quote": "The guardian shall, in the proceeding, represent the absent person and those who, if he or she is dead, are entitled to his or her share or interest in the land,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/partition-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-partition-or-sale-of-property|proceduralNote|civil-claim-partition-or-sale-of-property#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6b51ea70b736c3e0ec8c16bd1e32a5e755fab0992e137b57cfa8d4809e4befff",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+          "pinpoint": "Partition Act, s. 1",
+          "quote": "\"court\" means the Superior Court of Justice;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+          "pinpoint": "Partition Act, s. 3(1)",
+          "quote": "Any person interested in land in Ontario, or the guardian of a minor entitled to the immediate possession of an estate therein, may bring an action or make an application"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+          "pinpoint": "Partition Act, s. 7",
+          "quote": "An appeal lies to the Divisional Court from any order made under this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 14.05(2)",
+          "quote": "A proceeding may be commenced by an application to the Superior Court of Justice or to a judge of that court, if a statute so authorizes."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/partition-act.txt; Vendored corpus file docs/sources/corpus/rules-of-civil-procedure.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-partition-or-sale-of-property|proceduralNote|civil-claim-partition-or-sale-of-property#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9496eaadd36f8fd8a911a8aa6400cc538856f09708b395099f281ce02119b2a2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "Family Law Act, s. 10(1)",
+          "quote": "A person may apply to the court for the determination of a question between that person and his or her spouse or former spouse as to the ownership or right to possession of particular property, other than a question arising out of an equalization of net family properties under section 5, and the court may, (a) declare the ownership or right to possession; (b) if the property has been disposed of, order payment in compensation for the interest of either party; (c) order that the property be partitioned or sold for the purpose of realizing the interests in it;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-adverse-possession-or-boundary|plaintiffElement|ten-year-limit-civland",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "35b2298e478eb82164a105d85bc81425c811f8dcab5286d940d440f30660f8d6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l15_e.doc",
+          "pinpoint": "Real Property Limitations Act, s. 4",
+          "quote": "No person shall make an entry or distress, or bring an action to recover any land or rent, but within ten years next after the time at which the right to make such entry or distress, or to bring such action, first accrued to some person through whom the person making or bringing it claims, or if the right did not accrue to any person through whom that person claims, then within ten years next after the time at which the right to make such entry or distress, or to bring such action, first accrued to the person making or bringing it."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l15_e.doc",
+          "pinpoint": "Real Property Limitations Act, s. 5(1)",
+          "quote": "Where the person claiming such land or rent, or some person through whom that person claims, has, in respect of the estate or interest claimed, been in possession or in receipt of the profits of the land, or in receipt of the rent, and has, while entitled thereto, been dispossessed, or has discontinued such possession or receipt, the right to make an entry or distress or bring an action to recover the land or rent shall be deemed to have first accrued at the time of the dispossession or discontinuance of possession, or at the last time at which any such profits or rent were so received."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l15_e.doc",
+          "pinpoint": "Real Property Limitations Act, s. 15",
+          "quote": "At the determination of the period limited by this Act to any person for making an entry or distress or bringing any action, the right and title of such person to the land or rent, for the recovery whereof such entry, distress or action, respectively, might have been made or brought within such period, is extinguished."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/real-property-limitations-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-adverse-possession-or-boundary|plaintiffElement|where-the-boundary-is-civland",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1797fccb98b6abd75615292a3255c17ea8acfa73e9fdc17ecd79a839eefde547",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l05_e.doc",
+          "pinpoint": "Land Titles Act, s. 140(2)",
+          "quote": "The description of registered land is not conclusive as to the boundaries or extent of the land."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 14.05(3)(e)",
+          "quote": "A proceeding may be brought by application where these rules authorize the commencement of a proceeding by application or where the relief claimed is,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 14.05(3)(e)",
+          "quote": "(e) the declaration of an interest in or charge on land, including the nature and extent of the interest or charge or the boundaries of the land, or the settling of the priority of interests or charges;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/land-titles-act.txt; Vendored corpus file docs/sources/corpus/rules-of-civil-procedure.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-adverse-possession-or-boundary|defendantConsideration|land-titles-no-possession-civland",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4bd6e4b5d18d869e27ce28221a5caceb5334cc174efde8c23fca31f3076803f2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l05_e.doc",
+          "pinpoint": "Land Titles Act, s. 51(1)",
+          "quote": "Despite any provision of this Act, the Real Property Limitations Act or any other Act, no title to and no right or interest in land registered under this Act that is adverse to or in derogation of the title of the registered owner shall be acquired hereafter or be deemed to have been acquired heretofore by any length of possession or by prescription."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l05_e.doc",
+          "pinpoint": "Land Titles Act, s. 51(2)",
+          "quote": "This section does not prejudice, as against any person registered as first owner of land with a possessory title only, any adverse claim in respect of length of possession of any other person who was in possession of the land at the time when the registration of the first owner took place."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/land-titles-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-adverse-possession-or-boundary|proceduralNote|civil-claim-adverse-possession-or-boundary#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "29df8b9eaa7a269412be30a66e677fbb9b97e4c72fdcfb42b8f2ad996b2bd04d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 103(1)",
+          "quote": "The commencement of a proceeding in which an interest in land is in question is not notice of the proceeding to a person who is not a party until a certificate of pending litigation is issued by the court and the certificate is registered in the proper land registry office under subsection (2)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-adverse-possession-or-boundary|proceduralNote|civil-claim-adverse-possession-or-boundary#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7f3860b559153cfff430f3547c6fdfc10eb3a5396f75df63ebdc28825adf69e0",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 2(1)(a)",
+          "quote": "This Act applies to claims pursued in court proceedings other than, (a) proceedings to which the Real Property Limitations Act applies;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l15_e.doc",
+          "pinpoint": "Real Property Limitations Act, s. 4",
+          "quote": "No person shall make an entry or distress, or bring an action to recover any land or rent, but within ten years next after the time at which the right to make such entry or distress, or to bring such action, first accrued to some person through whom the person making or bringing it claims, or if the right did not accrue to any person through whom that person claims, then within ten years next after the time at which the right to make such entry or distress, or to bring such action, first accrued to the person making or bringing it."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; Vendored corpus file docs/sources/corpus/real-property-limitations-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-estate-dispute-will-challenge|plaintiffElement|financial-interest-civwill",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8f9698adf0841ea6cb45b579f7e92d313f90fb643de3c98ed726efd4e1977c84",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 75.03(1)",
+          "quote": "At any time before a certificate of appointment of estate trustee has been issued, any person who appears to have a financial interest in the estate may give notice of an objection by filing with the court a notice of objection (Form 75.1), signed by the person or the person's lawyer, stating the nature of the interest and of the objection."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 75.01",
+          "quote": "An estate trustee or any person appearing to have a financial interest in an estate may make an application under rule 75.06 to have a testamentary instrument that is being put forward as the last will of the deceased proved in such manner as the court directs."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/rules-of-civil-procedure.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-estate-dispute-will-challenge|plaintiffElement|will-formalities-civwill",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "82c38851eb83389da843c6e2c34bb46dfc7c6d21a80c151b38349d121c7d4da3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 3",
+          "quote": "A will is valid only when it is in writing."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 4(2)",
+          "quote": "Subject to subsection (3) and to sections 5 and 6, a will is not valid unless, (a) at its end it is signed by the testator or by some other person in his or her presence and by his or her direction; (b) the testator makes or acknowledges the signature in the presence of two or more attesting witnesses present at the same time; and (c) two or more of the attesting witnesses subscribe the will in the presence of the testator."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 6",
+          "quote": "A testator may make a valid will wholly by his or her own handwriting and signature, without formality, and without the presence, attestation or signature of a witness."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 7(1)",
+          "quote": "In so far as the position of the signature is concerned, a will, whether holograph or not, is valid if the signature of the testator made either by him or her or the person signing for him or her is placed at, after, following, under or beside or opposite to the end of the will so that it is apparent on the face of the will that the testator intended to give effect by the signature to the writing signed as his or her will."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/succession-law-reform-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-estate-dispute-will-challenge|plaintiffElement|estate-trustee-conduct-civwill",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bddba7fde7fc41d5736c1d72dd5218b0eb92919bba9d0b9da6b489c68aa3fdaa",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 74.15(1)",
+          "quote": "any person who appears to have a financial interest in an estate may move,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 74.15(1)(d)",
+          "quote": "(d) for an order requiring an estate trustee to file with the court a statement of the nature and value, at the date of death, of each of the assets of the estate to be administered by the estate trustee;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 74.15(1)(h)",
+          "quote": "(h) for an order requiring an estate trustee to pass accounts;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90t23_e.doc",
+          "pinpoint": "Trustee Act, s. 37(1)",
+          "quote": "The Superior Court of Justice may remove a personal representative upon any ground upon which the court may remove any other trustee, and may appoint some other proper person or persons to act in the place of the executor or administrator so removed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90t23_e.doc",
+          "pinpoint": "Trustee Act, s. 37(3)",
+          "quote": "The order may be made upon the application of any executor or administrator desiring to be relieved from the duties of the office, or of any executor or administrator complaining of the conduct of a co-executor or co-administrator, or of any person interested in the estate"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/rules-of-civil-procedure.txt; Vendored corpus file docs/sources/corpus/trustee-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-estate-dispute-will-challenge|defendantConsideration|court-ordered-validity-civwill",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "61262c2020f6e2377d93b3ec2e5090180740f6cdbd9f7625c7bab85e6bfd6846",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 21.1(1)",
+          "quote": "If the Superior Court of Justice is satisfied that a document or writing that was not properly executed or made under this Act sets out the testamentary intentions of a deceased or an intention of a deceased to revoke, alter or revive a will of the deceased, the Court may, on application, order that the document or writing is as valid and fully effective as the will of the deceased, or as the revocation, alteration or revival of the will of the deceased, as if it had been properly executed or made."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 21.1(2)",
+          "quote": "Subsection (1) is subject to section 31 of the Electronic Commerce Act, 2000."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 21.1(3)",
+          "quote": "Subsection (1) applies if the deceased died on or after the day section 5 of Schedule 9 to the Accelerating Access to Justice Act, 2021 came into force."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/succession-law-reform-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-estate-dispute-will-challenge|proceduralNote|civil-claim-estate-dispute-will-challenge#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "978b8bd3cb5a5cbc7fa5f3ce9197f6e9d3c1532a10d7f82ab3028c08038a55b6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 75.06(1)",
+          "quote": "Any person who appears to have a financial interest in an estate may apply for directions, or move for directions in another proceeding under this rule, as to the procedure for bringing any matter before the court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 75.06(2)",
+          "quote": "An application for directions (Form 75.5) or motion for directions (Form 75.6) shall be served on all persons appearing to have a financial interest in the estate, or as the court directs, at least 10 days before the hearing of the application or motion."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 75.06(3)",
+          "quote": "On an application or motion for directions, the court may direct, (a) the issues to be decided; (b) who are parties, who is plaintiff and defendant and who is submitting rights to the court;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 75.03(2)",
+          "quote": "A notice of objection expires three years after it is filed"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/rules-of-civil-procedure.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-estate-dispute-will-challenge|proceduralNote|civil-claim-estate-dispute-will-challenge#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3272446bae5c70d5f451a52840b656d91fd4689d322333d1b49eeedbe03c53bf",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 75.1.02(1)",
+          "quote": "This Rule applies to proceedings, (a) that are commenced in, (i) the City of Toronto on or after September 1, 1999, (ii) Revoked: O. Reg. 193/15, s. 14 (1). (iii) the City of Ottawa on or after January 1, 2001, or (iv) the County of Essex on or after January 1, 2005; and (b) to which any of the following applies, (i) rule 74.18 (application to pass accounts), if the application is contested, (ii) rule 75.01 (formal proof of testamentary instrument), 75.03 (objection to issuing certificate of appointment), 75.05 (return of certificate) or 75.08 (claims against an estate), (iii) Part V of the Succession Law Reform Act, (iv) the Substitute Decisions Act, 1992, (v) the Absentees Act, the Charities Accounting Act, the Estates Act, the Trustee Act or the Variation of Trusts Act, (vi) subrule 14.05 (3), if the matters at issue relate to an estate or trust, or (vii) subsection 5 (2) of the Family Law Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/rules-of-civil-procedure.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-estate-dispute-will-challenge|proceduralNote|civil-claim-estate-dispute-will-challenge#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "13c0672bf3d222f6fa84a1d3062bc9c5f07801f4da36105822427a0ea43803b0",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90e21_e.doc",
+          "pinpoint": "Estates Act, s. 9(1)",
+          "quote": "Whether a suit or other proceeding is or is not pending in the court with respect to a probate or administration, the Superior Court of Justice may, on motion or otherwise in a summary way, order any person to produce and bring before the registrar, or otherwise as the court may direct, any paper or writing being or purporting to be testamentary that is shown to be in the possession or under the control of such person."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/estates-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-dependant-support-from-estate|plaintiffElement|is-a-dependant-civdep",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6b3ba968210ba41782c9836c3b3cdd3eec4593c58de600cdea97deda9c90405b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 57(1), \"dependant\"",
+          "quote": "\"dependant\" means, (a) the spouse of the deceased, (b) a parent of the deceased, (c) a child of the deceased, or (d) a brother or sister of the deceased, to whom the deceased was providing support or was under a legal obligation to provide support immediately before his or her death;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 57(1), \"child\"",
+          "quote": "\"child\" means a child as defined in subsection 1 (1) and includes a grandchild and a person whom the deceased has demonstrated a settled intention to treat as a child of his or her family, except under an arrangement where the child is placed for valuable consideration in a foster home by a person having lawful custody;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 57(1), \"spouse\"",
+          "quote": "\"spouse\" has the same meaning as in section 29 of the Family Law Act and in addition includes either of two persons who were married to each other by a marriage that was terminated by divorce."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 58(2)",
+          "quote": "An application for an order for the support of a dependant may be made by the dependant or the dependant's parent."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/succession-law-reform-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-dependant-support-from-estate|plaintiffElement|no-adequate-provision-civdep",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "330bd7dbfb0d0cb8834c8845e1eb462ca9ec9fd23d69ebd7ca29f55871b83ab7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 58(1)",
+          "quote": "Where a deceased, whether testate or intestate, has not made adequate provision for the proper support of his dependants or any of them, the court, on application, may order that such provision as it considers adequate be made out of the estate of the deceased for the proper support of the dependants or any of them."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 58(4)",
+          "quote": "The adequacy of provision for support under subsection (1) shall be determined as of the date of the hearing of the application."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 72(1)",
+          "quote": "Subject to section 71, for the purpose of this Part, the capital value of the following transactions effected by a deceased before his or her death, whether benefitting his or her dependant or any other person, shall be included as testamentary dispositions as of the date of the death of the deceased and shall be deemed to be part of his or her net estate for purposes of ascertaining the value of his or her estate, and being available to be charged for payment by an order under clause 63 (2) (f),"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 72(1)(c)-(d)",
+          "quote": "(c) money deposited, together with interest thereon, in an account in the name of the deceased and another person or persons and payable on death under the terms of the deposit or by operation of law to the survivor or survivors of those persons with any bank, savings office, credit union or trust corporation, and remaining on deposit at the date of the death of the deceased; (d) any disposition of property made by a deceased whereby property is held at the date of his or her death by the deceased and another as joint tenants;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 72(1)(f)",
+          "quote": "(f) any amount payable under a policy of insurance effected on the life of the deceased and owned by him or her;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 72(1)(g)",
+          "quote": "(g) any amount payable under a designation of beneficiary under Part III."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/succession-law-reform-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-dependant-support-from-estate|defendantConsideration|amount-factors-civdep",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "024db4e403710aed94df6196a55be8d2c5be82b4bfa61fb471b81dc17f69ed50",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 62(1)",
+          "quote": "In determining the amount and duration, if any, of support, the court shall consider all the circumstances of the application, including, (a) the dependant's current assets and means;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 62(1)(c)-(e)",
+          "quote": "(c) the dependant's capacity to contribute to his or her own support; (d) the dependant's age and physical and mental health; (e) the dependant's needs, in determining which the court shall have regard to the dependant's accustomed standard of living;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 62(1)(g)",
+          "quote": "(g) the proximity and duration of the dependant's relationship with the deceased;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 62(1)(l)-(m)",
+          "quote": "(l) the circumstances of the deceased at the time of death; (m) any agreement between the deceased and the dependant;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 62(1)(o)",
+          "quote": "(o) the claims that any other person may have as a dependant;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/succession-law-reform-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-dependant-support-from-estate|proceduralNote|civil-claim-dependant-support-from-estate#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a5c4eb76f696b0918003e6a1bde2136d00c9ed70631dab09049e687783b2d4fb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 61(1)",
+          "quote": "Subject to subsection (2), no application for an order under section 58 may be made after six months from the grant of letters probate of the will or of letters of administration."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 61(2)",
+          "quote": "The court, if it considers it proper, may allow an application to be made at any time as to any portion of the estate remaining undistributed at the date of the application."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/succession-law-reform-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-dependant-support-from-estate|proceduralNote|civil-claim-dependant-support-from-estate#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45ea14fee884c4bc61bac2089becdc050e8506fefc214d1e8a9d1da2a0e42eec",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 60(1)",
+          "quote": "An application under this Part may be made to the court by notice of application in accordance with the practice of the court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 57(1), \"court\"",
+          "quote": "\"court\" means the Superior Court of Justice;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+          "pinpoint": "Succession Law Reform Act, s. 59(1)",
+          "quote": "On an application by or on behalf of the dependants or any of them, the court may make an order suspending in whole or in part the administration of the deceased's estate, for such time and to such extent as the court may decide."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/succession-law-reform-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-power-of-attorney-accounting|plaintiffElement|who-may-apply-civpoa",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c847622fea6c68827aa41a9a560516fba11883c7b67958c8a0249fa48ea2bf61",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "Substitute Decisions Act, 1992, s. 42(1)",
+          "quote": "The court may, on application, order that all or a specified part of the accounts of an attorney or guardian of property be passed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "Substitute Decisions Act, 1992, s. 42(2)",
+          "quote": "An attorney, the grantor or any of the persons listed in subsection (4) may apply to pass the attorney's accounts."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "Substitute Decisions Act, 1992, s. 42(3)",
+          "quote": "A guardian of property, the incapable person or any of the persons listed in subsection (4) may apply to pass the accounts of the guardian of property."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "Substitute Decisions Act, 1992, s. 42(4)",
+          "quote": "The following persons may also apply: 1. The grantor's or incapable person's guardian of the person or attorney for personal care. 2. A dependant of the grantor or incapable person. 3. The Public Guardian and Trustee. 4. The Children's Lawyer. 5. A judgment creditor of the grantor or incapable person. 6. Any other person, with leave of the court."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/substitute-decisions-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-power-of-attorney-accounting|plaintiffElement|duties-and-accounts-civpoa",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8f30404a05ff79bd97ce7c4107f39dcf71ce1972b26bc8ff0da0652a866b2205",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "Substitute Decisions Act, 1992, s. 32(1)",
+          "quote": "A guardian of property is a fiduciary whose powers and duties shall be exercised and performed diligently, with honesty and integrity and in good faith, for the incapable person's benefit."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "Substitute Decisions Act, 1992, s. 32(6)",
+          "quote": "A guardian shall, in accordance with the regulations, keep accounts of all transactions involving the property."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "Substitute Decisions Act, 1992, s. 38(1)",
+          "quote": "Section 32, except subsections (10) and (11), and sections 33, 33.1, 33.2, 34, 35.1, 36 and 37 also apply, with necessary modifications, to an attorney acting under a continuing power of attorney if the grantor is incapable of managing property or the attorney has reasonable grounds to believe that the grantor is incapable of managing property."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "Substitute Decisions Act, 1992, s. 33(1)",
+          "quote": "A guardian of property is liable for damages resulting from a breach of the guardian's duty."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/substitute-decisions-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-power-of-attorney-accounting|defendantConsideration|relief-if-honest-civpoa",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8e816cee3b2c3db455fdfbabbe46f8b60208ebe57724ad70c8582d7e654882b7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "Substitute Decisions Act, 1992, s. 33(2)",
+          "quote": "If the court is satisfied that a guardian of property who has committed a breach of duty has nevertheless acted honestly, reasonably and diligently, it may relieve the guardian from all or part of the liability."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "Substitute Decisions Act, 1992, s. 38(1)",
+          "quote": "Section 32, except subsections (10) and (11), and sections 33, 33.1, 33.2, 34, 35.1, 36 and 37 also apply, with necessary modifications, to an attorney acting under a continuing power of attorney if the grantor is incapable of managing property or the attorney has reasonable grounds to believe that the grantor is incapable of managing property."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "Substitute Decisions Act, 1992, s. 32(7)",
+          "quote": "A guardian who does not receive compensation for managing the property shall exercise the degree of care, diligence and skill that a person of ordinary prudence would exercise in the conduct of his or her own affairs."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "Substitute Decisions Act, 1992, s. 32(8)",
+          "quote": "A guardian who receives compensation for managing the property shall exercise the degree of care, diligence and skill that a person in the business of managing the property of others is required to exercise."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/substitute-decisions-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-power-of-attorney-accounting|proceduralNote|civil-claim-power-of-attorney-accounting#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c8a14d1242203a037fdfdba3c80a70fc4dcf0956175e8410c61fb91ca77c35b9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "Substitute Decisions Act, 1992, s. 42(6)",
+          "quote": "The accounts shall be filed in the court office and the procedure in the passing of the accounts is the same and has the same effect as in the passing of executors' and administrators' accounts."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "Substitute Decisions Act, 1992, s. 42(7)",
+          "quote": "In an application for the passing of an attorney's accounts the court may, on motion or on its own initiative, (a) direct the Public Guardian and Trustee to bring an application for guardianship of property; (b) suspend the power of attorney pending the determination of the application; (c) appoint the Public Guardian and Trustee or another person to act as guardian of property pending the determination of the application; (d) order an assessment of the grantor of the power of attorney under section 79 to determine his or her capacity; or (e) order that the power of attorney be terminated."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/substitute-decisions-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-power-of-attorney-accounting|proceduralNote|civil-claim-power-of-attorney-accounting#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "13162dbf7eaa5abeb6b0f82ec14dd0bd6366d5423da52613a7b1c6ab53dafe1b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 75.1.02(1)",
+          "quote": "This Rule applies to proceedings, (a) that are commenced in, (i) the City of Toronto on or after September 1, 1999, (ii) Revoked: O. Reg. 193/15, s. 14 (1). (iii) the City of Ottawa on or after January 1, 2001, or (iv) the County of Essex on or after January 1, 2005; and (b) to which any of the following applies, (i) rule 74.18 (application to pass accounts), if the application is contested, (ii) rule 75.01 (formal proof of testamentary instrument), 75.03 (objection to issuing certificate of appointment), 75.05 (return of certificate) or 75.08 (claims against an estate), (iii) Part V of the Succession Law Reform Act, (iv) the Substitute Decisions Act, 1992, (v) the Absentees Act, the Charities Accounting Act, the Estates Act, the Trustee Act or the Variation of Trusts Act, (vi) subrule 14.05 (3), if the matters at issue relate to an estate or trust, or (vii) subsection 5 (2) of the Family Law Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/rules-of-civil-procedure.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-fraudulent-conveyance|plaintiffElement|a-conveyance-civfc",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "289d644cb3cf4449c683363e426459a929fb3f7b7965ff9f960db8e43d65c8fc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90f29_e.doc",
+          "pinpoint": "Fraudulent Conveyances Act, s. 1, \"conveyance\"",
+          "quote": "\"conveyance\" includes gift, grant, alienation, bargain, charge, encumbrance, limitation of use or uses of, in, to or out of real property or personal property by writing or otherwise;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90f29_e.doc",
+          "pinpoint": "Fraudulent Conveyances Act, s. 1, \"personal property\"",
+          "quote": "\"personal property\" includes goods, chattels, effects, bills, bonds, notes and securities, and shares, dividends, premiums and bonuses in a bank, company or corporation, and any interest therein;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/fraudulent-conveyances-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-fraudulent-conveyance|plaintiffElement|intent-to-defeat-creditors-civfc",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "73d78764c7bfe03e1edbca98780887d3291269fa925832b173776ba5157ed7be",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90f29_e.doc",
+          "pinpoint": "Fraudulent Conveyances Act, s. 2",
+          "quote": "Every conveyance of real property or personal property and every bond, suit, judgment and execution heretofore or hereafter made with intent to defeat, hinder, delay or defraud creditors or others of their just and lawful actions, suits, debts, accounts, damages, penalties or forfeitures are void as against such persons and their assigns."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90f29_e.doc",
+          "pinpoint": "Fraudulent Conveyances Act, s. 4",
+          "quote": "Section 2 applies to every conveyance executed with the intent set forth in that section despite the fact that it was executed upon a valuable consideration and with the intention, as between the parties to it, of actually transferring to and for the benefit of the transferee the interest expressed to be thereby transferred, unless it is protected under section 3 by reason of good faith and want of notice or knowledge on the part of the purchaser."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/fraudulent-conveyances-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-fraudulent-conveyance|defendantConsideration|good-faith-purchaser-civfc",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ecddbb2f2560846835d7753753f54013b4f5b1c684c7c710d0afe911e02fd2ed",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90f29_e.doc",
+          "pinpoint": "Fraudulent Conveyances Act, s. 3",
+          "quote": "Section 2 does not apply to an estate or interest in real property or personal property conveyed upon good consideration and in good faith to a person not having at the time of the conveyance to the person notice or knowledge of the intent set forth in that section."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/fraudulent-conveyances-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-fraudulent-conveyance|proceduralNote|civil-claim-fraudulent-conveyance#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "82bfb2da9137286ca4943d859e5d6ecd5aab6b19f5c6fc23419462a134b8a5e2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 103(1)",
+          "quote": "The commencement of a proceeding in which an interest in land is in question is not notice of the proceeding to a person who is not a party until a certificate of pending litigation is issued by the court and the certificate is registered in the proper land registry office under subsection (2)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-fraudulent-conveyance|proceduralNote|civil-claim-fraudulent-conveyance#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "94cdbe747b3ced7b13f98bd44f65e19fad4fff21d2580aae565045321d49c440",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 60.18(2)",
+          "quote": "A creditor may examine the debtor in relation to, (a) the reason for nonpayment or nonperformance of the order; (b) the debtor's income and property; (c) the debts owed to and by the debtor; (d) the disposal the debtor has made of any property either before or after the making of the order; (e) the debtor's present, past and future means to satisfy the order;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/rules-of-civil-procedure.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-fraudulent-conveyance|proceduralNote|civil-claim-fraudulent-conveyance#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fd03c8cf644873804696b7208e4a976254bab3750b34113b129b4a2c2842d8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-oppression-shareholder|plaintiffElement|is-a-complainant-civopp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b76336dd4f66d770665f04e310e559d14a6b23e88af4f805815aabc384de0a1d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90b16_e.doc",
+          "pinpoint": "Business Corporations Act, s. 248(1)",
+          "quote": "A complainant and, in the case of an offering corporation, the Commission may apply to the court for an order under this section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90b16_e.doc",
+          "pinpoint": "Business Corporations Act, s. 245, \"complainant\"",
+          "quote": "\"complainant\" means, (a) a registered holder or beneficial owner, and a former registered holder or beneficial owner, of a security of a corporation or any of its affiliates, (b) a director or an officer or a former director or officer of a corporation or of any of its affiliates, (c) any other person who, in the discretion of the court, is a proper person to make an application under this Part."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90b16_e.doc",
+          "pinpoint": "Business Corporations Act, s. 1(1), \"corporation\"",
+          "quote": "\"corporation\" means a body corporate with share capital to which this Act applies;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90b16_e.doc",
+          "pinpoint": "Business Corporations Act, s. 1(1), \"court\"",
+          "quote": "\"court\" means the Superior Court of Justice;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/business-corporations-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-oppression-shareholder|plaintiffElement|oppressive-conduct-civopp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fd3f6d100830faca0fed7540ed3485349e0d85fbaa5da193dfcf7218dec2c41c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90b16_e.doc",
+          "pinpoint": "Business Corporations Act, s. 248(2)",
+          "quote": "Where, upon an application under subsection (1), the court is satisfied that in respect of a corporation or any of its affiliates, (a) any act or omission of the corporation or any of its affiliates effects or threatens to effect a result; (b) the business or affairs of the corporation or any of its affiliates are, have been or are threatened to be carried on or conducted in a manner; or (c) the powers of the directors of the corporation or any of its affiliates are, have been or are threatened to be exercised in a manner, that is oppressive or unfairly prejudicial to or that unfairly disregards the interests of any security holder, creditor, director or officer of the corporation, the court may make an order to rectify the matters complained of."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90b16_e.doc",
+          "pinpoint": "Business Corporations Act, s. 248(3)",
+          "quote": "In connection with an application under this section, the court may make any interim or final order it thinks fit including, without limiting the generality of the foregoing, (a) an order restraining the conduct complained of; (b) an order appointing a receiver or receiver-manager; (c) an order to regulate a corporation's affairs by amending the articles or by-laws or creating or amending a unanimous shareholder agreement; (d) an order directing an issue or exchange of securities; (e) an order appointing directors in place of or in addition to all or any of the directors then in office; (f) an order directing a corporation, subject to subsection (6), or any other person, to purchase securities of a security holder; (g) an order directing a corporation, subject to subsection (6), or any other person, to pay to a security holder any part of the money paid by the security holder for securities; (h) an order varying or setting aside a transaction or contract to which a corporation is a party and compensating the corporation or any other party to the transaction or contract; (i) an order requiring a corporation, within a time specified by the court, to produce to the court or an interested person financial statements in the form required by section 154 or an accounting in such other form as the court may determine; (j) an order compensating an aggrieved person; (k) an order directing rectification of the registers or other records of a corporation under section 250; (l) an order winding up the corporation under section 207; (m) an order directing an investigation under Part XIII be made; and (n) an order requiring the trial of any issue."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/business-corporations-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-oppression-shareholder|defendantConsideration|harm-to-corporation-civopp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "59c84b1ab16ef88cff29fb9194c3cd7ce0b0fdd3d2699e8b2cb4cb6635899112",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90b16_e.doc",
+          "pinpoint": "Business Corporations Act, s. 246(1)",
+          "quote": "Subject to subsection (2), a complainant may apply to the court for leave to bring an action in the name and on behalf of a corporation or any of its subsidiaries, or intervene in an action to which any such body corporate is a party, for the purpose of prosecuting, defending or discontinuing the action on behalf of the body corporate."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90b16_e.doc",
+          "pinpoint": "Business Corporations Act, s. 246(2)",
+          "quote": "No action may be brought and no intervention in an action may be made under subsection (1) unless the complainant has given fourteen days' notice to the directors of the corporation or its subsidiary of the complainant's intention to apply to the court under subsection (1) and the court is satisfied that, (a) the directors of the corporation or its subsidiary will not bring, diligently prosecute or defend or discontinue the action; (b) the complainant is acting in good faith; and (c) it appears to be in the interests of the corporation or its subsidiary that the action be brought, prosecuted, defended or discontinued."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90b16_e.doc",
+          "pinpoint": "Business Corporations Act, s. 246(2.1)",
+          "quote": "A complainant is not required to give the notice referred to in subsection (2) if all of the directors of the corporation or its subsidiary are defendants in the action."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/business-corporations-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-oppression-shareholder|proceduralNote|civil-claim-oppression-shareholder#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a6af891603ca60cc1ada6ccd71332f1c58daea600ebba3096bc6da5b009f0237",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90b16_e.doc",
+          "pinpoint": "Business Corporations Act, s. 1(1), \"court\"",
+          "quote": "\"court\" means the Superior Court of Justice;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90b16_e.doc",
+          "pinpoint": "Business Corporations Act, s. 248(1)",
+          "quote": "A complainant and, in the case of an offering corporation, the Commission may apply to the court for an order under this section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 14.05(2)",
+          "quote": "A proceeding may be commenced by an application to the Superior Court of Justice or to a judge of that court, if a statute so authorizes."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/business-corporations-act.txt; Vendored corpus file docs/sources/corpus/rules-of-civil-procedure.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-oppression-shareholder|proceduralNote|civil-claim-oppression-shareholder#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fd03c8cf644873804696b7208e4a976254bab3750b34113b129b4a2c2842d8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-employment-human-rights-damages|plaintiffElement|code-right-infringed-civhr",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "91d1adc46f7d98cdc8daf9c109fcdd84c90873d109126e8dfd2abddc6ed44acb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 5(1)",
+          "quote": "Every person has a right to equal treatment with respect to employment without discrimination because of race, ancestry, place of origin, colour, ethnic origin, citizenship, creed, sex, sexual orientation, gender identity, gender expression, age, record of offences, marital status, family status or disability."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 5(2)",
+          "quote": "Every person who is an employee has a right to freedom from harassment in the workplace by the employer or agent of the employer or by another employee because of race, ancestry, place of origin, colour, ethnic origin, citizenship, creed, sexual orientation, gender identity, gender expression, age, record of offences, marital status, family status or disability."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/human-rights-code.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-employment-human-rights-damages|plaintiffElement|another-cause-of-action-civhr",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "21c132ad60e601a2af2a5290a52afbc841ea61d44a3de19ff01edebce063c134",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 46.1(2)",
+          "quote": "Subsection (1) does not permit a person to commence an action based solely on an infringement of a right under Part I."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt",
+          "pinpoint": "Machtinger v. HOJ Industries Ltd., [1992] 1 S.C.R. 986, Part B (Iacobucci J.)",
+          "quote": "In Canada, it has been established since at least 1936 that employment contracts for an indefinite period require the employer, absent express contractual language to the contrary, to give reasonable notice of an intention to terminate the contract if the dismissal is without cause"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/human-rights-code.txt; Saved decision docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-employment-human-rights-damages|plaintiffElement|orders-court-can-make-civhr",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6619a5807ae37980292752913b5715476fbca2f33d5f46d983cb23a4d11cb22b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 46.1(1)",
+          "quote": "If, in a civil proceeding in a court, the court finds that a party to the proceeding has infringed a right under Part I of another party to the proceeding, the court may make either of the following orders, or both: 1. An order directing the party who infringed the right to pay monetary compensation to the party whose right was infringed for loss arising out of the infringement, including compensation for injury to dignity, feelings and self-respect."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 46.1(1), para. 2",
+          "quote": "An order directing the party who infringed the right to make restitution to the party whose right was infringed, other than through monetary compensation, for loss arising out of the infringement, including restitution for injury to dignity, feelings and self-respect."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/human-rights-code.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-employment-human-rights-damages|defendantConsideration|contract-notice-term-civhr",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "de3ca4156e33df9c6fb7966feb0504d2f09bc05dc251e75d392187df5b7596a3",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt",
+          "pinpoint": "Machtinger v. HOJ Industries Ltd., [1992] 1 S.C.R. 986, p. 998 (Iacobucci J.)",
+          "quote": "I would characterize the common law principle of termination only on reasonable notice as a presumption, rebuttable if the contract of employment clearly specifies some other period of notice, whether expressly or impliedly."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-employment-human-rights-damages|proceduralNote|civil-claim-employment-human-rights-damages#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "49168234c0d47f9ad386b83c97e4cd10b2f6070c132150f20cbf1bd072194d39",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 34(1)",
+          "quote": "If a person believes that any of his or her rights under Part I have been infringed, the person may apply to the Tribunal for an order under section 45.2, (a) within one year after the incident to which the application relates; or (b) if there was a series of incidents, within one year after the last incident in the series."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h19_e.doc",
+          "pinpoint": "Human Rights Code, s. 34(11)",
+          "quote": "A person who believes that one of his or her rights under Part I has been infringed may not make an application under subsection (1) with respect to that right if, (a) a civil proceeding has been commenced in a court in which the person is seeking an order under section 46.1 with respect to the alleged infringement and the proceeding has not been finally determined or withdrawn; or (b) a court has finally determined the issue of whether the right has been infringed or the matter has been settled."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/human-rights-code.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-employment-human-rights-damages|proceduralNote|civil-claim-employment-human-rights-damages#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "be90396b4a9dbba33b1829c5a0fa34053ad3099607a646f5118b2ec3dca1b0b1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1.1)",
+          "quote": "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-employment-human-rights-damages|proceduralNote|civil-claim-employment-human-rights-damages#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fd03c8cf644873804696b7208e4a976254bab3750b34113b129b4a2c2842d8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-enforcing-a-judgment|plaintiffElement|order-for-money-civenf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e579b773acbf6cea40be1de7e7f47ede9304ea7c56e2c6338d31f320a0f61653",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 60.02(1)",
+          "quote": "In addition to any other method of enforcement provided by law, an order for the payment or recovery of money may be enforced by, (a) a writ of seizure and sale (Form 60A) under rule 60.07; (b) garnishment under rule 60.08; (c) a writ of sequestration (Form 60B) under rule 60.09; and (d) the appointment of a receiver."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/rules-of-civil-procedure.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-enforcing-a-judgment|plaintiffElement|writ-of-seizure-and-sale-civenf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c83b035f25b093c2aa5a90123b81992650a883bea6f7ce484f38362b1c98d4d9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 60.07(1)",
+          "quote": "Where an order may be enforced by a writ of seizure and sale, the creditor is entitled to the issue of one or more writs of seizure and sale (Form 60A), on filing with the registrar where the proceeding was commenced a requisition setting out, (a) the date and amount of any payment received since the order was made; and (b) the amount owing and the rate of postjudgment interest, together with a copy of the order as entered and any other evidence necessary to establish the amount awarded and the creditor's entitlement."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/rules-of-civil-procedure.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-enforcing-a-judgment|plaintiffElement|garnishment-civenf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e762138eb9b1428d0d36a1497295829ba85126a5866c33eeffde975d85bfb61d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 60.08(1)",
+          "quote": "A creditor under an order for the payment or recovery of money may enforce it by garnishment of debts payable to the debtor by other persons."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 60.08(1.1)",
+          "quote": "Where a debt is payable to the debtor and to one or more co- owners, one-half of the indebtedness or a greater or lesser amount specified in an order made under subrule (16) may be garnished."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/rules-of-civil-procedure.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-enforcing-a-judgment|defendantConsideration|six-years-leave-civenf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "168b44862372f447b0b6abd63b16b7ff1649137f22931586e51ef9c8a191feaa",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 60.07(2)",
+          "quote": "If six years or more have elapsed since the date of the order, or if its enforcement is subject to a condition, a writ of seizure and sale shall not be issued unless leave of the court is first obtained."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 60.07(3)",
+          "quote": "An order granting leave to issue a writ of seizure and sale ceases to have effect if the writ is not issued within one year after the date of the order granting leave, but the court may grant leave again on a subsequent motion."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 60.08(2)",
+          "quote": "If six years or more have elapsed since the date of the order, or if its enforcement is subject to a condition, a notice of garnishment shall not be issued unless leave of the court is first obtained."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 60.08(3)",
+          "quote": "An order granting leave to issue a notice of garnishment ceases to have effect if the notice is not issued within one year after the date of the order granting leave, but the court may grant leave again on a subsequent motion."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/rules-of-civil-procedure.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-enforcing-a-judgment|defendantConsideration|examination-limits-civenf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e1e77fc4b357052144211d75208e9b994af5a801e7ec342f9ebf3f4b028c53f9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 60.18(2)",
+          "quote": "A creditor may examine the debtor in relation to, (a) the reason for nonpayment or nonperformance of the order; (b) the debtor's income and property; (c) the debts owed to and by the debtor; (d) the disposal the debtor has made of any property either before or after the making of the order; (e) the debtor's present, past and future means to satisfy the order; (f) whether the debtor intends to obey the order or has any reason for not doing so;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 60.18(4)",
+          "quote": "Only one examination under subrule (2) or (3) may be held in a twelve month period in respect of a debtor in the same proceeding, unless the court orders otherwise."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 60.18(7)",
+          "quote": "a party who is to be examined in aid of execution shall be served with a notice of examination personally or by an alternative to personal service."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/rules-of-civil-procedure.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-enforcing-a-judgment|proceduralNote|civil-claim-enforcing-a-judgment#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "aa8be02e504cf2c2528b27ad5ad57a05c2168a6d83b789bfc9be238294acd0d3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 16(1)(b)",
+          "quote": "There is no limitation period in respect of, (a) a proceeding for a declaration if no consequential relief is sought; (b) a proceeding to enforce an order of a court, or any other order that may be enforced in the same way as an order of a court;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-enforcing-a-judgment|proceduralNote|civil-claim-enforcing-a-judgment#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5c01054a4827d9c632bbbe724071d4be004462e81f729117f7fee2b339a46fc3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 129(1)",
+          "quote": "Money owing under an order, including costs to be assessed or costs fixed by the court, bears interest at the postjudgment interest rate, calculated from the date of the order."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    }
+  ],
   "unverifiable": []
 }
