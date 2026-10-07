@@ -1,5 +1,6 @@
 "use client";
 
+import type { CaseRecord as FactRecord } from "@/src/lib/case-system/caseRecord";
 import { createContext, useContext } from "react";
 
 import type { CasePosition } from "@/src/lib/case-system/casePosition";
@@ -24,6 +25,13 @@ export type CaseHome = {
   courtPath: "small-claims" | "civil" | "family" | null;
   /** Whether the user is on the responding side, from their own answers. */
   responding: boolean;
+  /**
+   * Everything the person has told us, read once (caseRecord.ts, master plan
+   * Phase 1). Pages read facts from here rather than from master_result.
+   */
+  record: FactRecord;
+  /** The step the person chose, or the one their confirmed stage points to; "" when neither. */
+  stepId: string;
   reload: () => Promise<void>;
 };
 

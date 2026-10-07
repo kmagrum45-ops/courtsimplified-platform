@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 
 import FormsNamedHere from "../../../_components/FormsNamedHere";
 import FormsWorkspace from "../../../forms/FormsWorkspace";
-import { suggestedStageFor } from "../../../builder/_components/StageAnswerPanel";
 import { isPlaceholder, nextStepBlockFor } from "@/src/lib/content-library/nextSteps";
 import { officialFormsNamedIn, relevantToFamilyCase, userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { useCaseHome } from "../../_components/CaseHomeContext";
@@ -16,11 +15,8 @@ import { useCaseHome } from "../../_components/CaseHomeContext";
  * of every form), then the full forms tool for this case's court.
  */
 export default function CaseFormsSection() {
-  const { caseRecord, courtPath, position, responding } = useCaseHome();
-  // The step the user picked, or the one the overview suggests for their stage.
-  const stepId =
-    position.stepId ||
-    (courtPath && position.confirmedStage ? suggestedStageFor(courtPath, position.confirmedStage, responding) : "");
+  // The step the user picked, or the one the overview suggests for their stage (CaseHome.stepId).
+  const { caseRecord, courtPath, position, stepId } = useCaseHome();
   const [stepTexts, setStepTexts] = useState<string[] | null>(null);
   const userWords = userWordsOf((caseRecord.master_result ?? {}).intakeData);
 

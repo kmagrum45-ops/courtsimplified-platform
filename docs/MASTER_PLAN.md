@@ -1,6 +1,6 @@
 # CourtSimplified Master Plan
 
-Adopted 2026-10-06, pending the site owner's review. The living copy is the
+Adopted 2026-10-06 by the site owner, who handed the build to Claude. The living copy is the
 "CourtSimplified Master Plan" doc in the owner's Claude artifacts; this file is
 the repository copy, so every session reads the same plan. **Change it only
 through the decision log at the end, with a date and a reason.** A new review
@@ -68,6 +68,9 @@ responding, mid-case and enforcement, including 3 or 4 real stories:
 - Every legal statement sourced and dated; every decision retrieved and read.
 - Nothing judges the case, predicts an outcome or pushes settlement.
 - A case the site cannot fully handle says so and points to help.
+- The guided conversation acknowledges what the person said, asks one question
+  at a time, says why a question matters when that is not obvious, and answers
+  their questions in plain words from the library.
 
 Excluded on purpose: licensed lawyer review (owner's choice, later); polish
 that does not change what the person does next (after-beta list).
@@ -85,4 +88,5 @@ referral routes. Each new claim type gets at least one test case.
 
 | Date | Decision | Why |
 |---|---|---|
-| 2026-10-06 | Plan adopted, pending owner review | One plan and one fixed finish line, so "done" is measured, not re-argued |
+| 2026-10-06 | Plan adopted | One plan and one fixed finish line, so "done" is measured, not re-argued |
+| 2026-10-06 | Added the conversation check to the finish line; owner approved the plan and handed the build to Claude | Correct answers are not enough; the person must also be guided well in conversation |
