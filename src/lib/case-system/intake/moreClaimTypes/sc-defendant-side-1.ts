@@ -26,10 +26,13 @@
  *     rule as written.
  *   - Rule 9.03(3) says the plaintiff "may dispute" the proposal; that phrase
  *     trips the check, so it is put as "a plaintiff who disputes the proposal".
- *   - The Wages Act, the Execution Act and the federal garnishment statutes are
- *     not in the corpus. The wage limit and the exemptions are stated only as
- *     the rules and the ontario.ca After Judgment guide state them, with no
- *     percentages or dollar amounts.
+ *   - The Wages Act and the Execution Act are in the corpus. The garnishment
+ *     type states the wage limits and the motions to change them from section 7
+ *     of the Wages Act; the writ type states the exemptions from sections 2, 3,
+ *     5 and 8 of the Execution Act. The Execution Act leaves each exemption's
+ *     dollar amount to a regulation under its section 35, which is not saved,
+ *     so no dollar amounts are given. The federal garnishment statutes are not
+ *     in the corpus.
  *   - Steps to Justice pages on default judgment and garnishment are in the
  *     corpus but are not an official domain the checks accept, so they are not
  *     cited.
@@ -46,6 +49,10 @@ const CJA_CONSOLIDATION = "2025-12-11";
 const MONETARY = "https://www.ontario.ca/laws/docs/000626_e.doc";
 const LIMITATIONS = "https://www.ontario.ca/laws/docs/02l24_e.doc";
 const LIMITATIONS_CONSOLIDATION = "2024-12-04";
+const WAGES_ACT = "https://www.ontario.ca/laws/docs/90w01_e.doc";
+const WAGES_ACT_CONSOLIDATION = "2022-03-01";
+const EXECUTION_ACT = "https://www.ontario.ca/laws/docs/90e24_e.doc";
+const EXECUTION_ACT_CONSOLIDATION = "2026-08-17";
 const REPLY_GUIDE = "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim";
 const AFTER_GUIDE = "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment";
 const MOTIONS_GUIDE = "https://www.ontario.ca/document/guide-procedures-small-claims-court/motions-and-clerks-orders";
@@ -122,6 +129,18 @@ const ENFORCEMENT_CITATION = {
   officialUrl: SC_RULES,
   verifiedAt: VERIFIED,
   pinpoint: "Rule 20: enforcement of orders",
+};
+const WAGES_CITATION = {
+  sourceName: "Wages Act, R.S.O. 1990, c. W.1",
+  officialUrl: WAGES_ACT,
+  verifiedAt: VERIFIED,
+  pinpoint: "s. 7: net wages subject to garnishment",
+};
+const EXECUTION_CITATION = {
+  sourceName: "Execution Act, R.S.O. 1990, c. E.24",
+  officialUrl: EXECUTION_ACT,
+  verifiedAt: VERIFIED,
+  pinpoint: "ss. 2, 3, 5 and 8: exemptions from seizure",
 };
 
 export const TYPES_SC_DEFENDANT_SIDE_1: ClaimType[] = [
@@ -1029,21 +1048,64 @@ export const TYPES_SC_DEFENDANT_SIDE_1: ClaimType[] = [
         id: "what-cannot-be-taken-garnish",
         name: "Limits on what can be garnished",
         plainExplanation:
-          "Under rule 20.08(9), the amounts paid into court by a garnishee cannot exceed the portion of the " +
-          "debtor's wages that are subject to seizure or garnishment under section 7 of the Wages Act. " +
-          "Ontario's After Judgment guide says section 7 of the Wages Act restricts the amount of wages " +
-          "that can be garnished, and that employment insurance, social assistance and pension payments " +
-          "cannot be garnished, even if the funds have been deposited into an account at a financial " +
-          "institution. This part of the checklist is about where the money being taken comes from.",
-        sourceUrl: SC_RULES,
+          "Under section 7(2) of the Wages Act, subject to section 7(3), 80 per cent of a person's wages are " +
+          "exempt from seizure or garnishment. Under section 7(3), 50 per cent of a person's wages are " +
+          "exempt from seizure or garnishment in the enforcement of an order for support or maintenance " +
+          "enforceable in Ontario. Under section 7(1), \"wages\" in that section does not include an amount " +
+          "that an employer is required by law to deduct from wages, and under section 7(1.1), payments " +
+          "from an insurance or indemnity scheme that are intended to replace income lost because of " +
+          "disability are deemed to be wages. Under rule 20.08(9) of the Rules of the Small Claims Court, " +
+          "the amounts paid into court by a garnishee cannot exceed the portion of the debtor's wages that " +
+          "are subject to seizure or garnishment under section 7 of the Wages Act. Ontario's After Judgment " +
+          "guide says employment insurance, social assistance and pension payments cannot be garnished, " +
+          "even if the funds have been deposited into an account at a financial institution. This part of " +
+          "the checklist is about where the money being taken comes from, and how much of each pay is taken.",
+        sourceUrl: WAGES_ACT,
         verifiedAt: VERIFIED,
-        consolidationPeriod: SC_RULES_CONSOLIDATION,
-        alsoCites: [{ sourceUrl: AFTER_GUIDE, pinpoint: "Notice of Garnishment" }],
+        consolidationPeriod: WAGES_ACT_CONSOLIDATION,
+        alsoCites: [
+          { sourceUrl: SC_RULES, pinpoint: "r. 20.08(9)" },
+          { sourceUrl: AFTER_GUIDE, pinpoint: "Notice of Garnishment" },
+        ],
         evidenceCategories: [
           {
             name: "Where the money in the account came from",
             why: "Shows whether deposits were wages or payments the guide says cannot be garnished.",
             examples: ["Employment insurance or social assistance statements", "Pension deposit records", "Bank statements showing each deposit"],
+          },
+          {
+            name: "How much of each pay is being taken",
+            why: "Shows the wages after the deductions the employer must make by law, and the amount garnished from them.",
+            examples: ["Pay stubs showing gross pay, required deductions and the garnishment", "Your employer's record of amounts sent to the court"],
+          },
+        ],
+      },
+      {
+        id: "change-wage-exemption-garnish",
+        name: "Asking the court to change how much of your wages is protected",
+        plainExplanation:
+          "Under section 7(5) of the Wages Act, a judge of the court in which the notice of garnishment or " +
+          "writ of execution against a person's wages is issued may, on motion by the person on notice to " +
+          "the creditor, order that the exemption be increased, if the judge is satisfied that it is just to " +
+          "do so, having regard to the person's financial circumstances and any other matter the judge " +
+          "considers relevant. Under section 7(4), the creditor may bring a motion, on notice to the person, " +
+          "to have the exemption decreased; there the judge also has regard to the nature of the debt owed " +
+          "to the creditor. Under section 7(6), an employer that receives notice of either motion may pay " +
+          "into court the part of the wages that is not exempt, and the judge on the hearing of the motion " +
+          "may make such order for payment out of court as is just.",
+        sourceUrl: WAGES_ACT,
+        verifiedAt: VERIFIED,
+        consolidationPeriod: WAGES_ACT_CONSOLIDATION,
+        evidenceCategories: [
+          {
+            name: "Your financial circumstances",
+            why: "Section 7(5) has the judge consider the person's financial circumstances.",
+            examples: ["A list of monthly income and expenses", "Rent or mortgage statements", "Bills, and proof of people who depend on you"],
+          },
+          {
+            name: "The garnishment and any motion",
+            why: "Shows which court issued the notice or writ, and what the creditor has asked for.",
+            examples: ["The notice of garnishment", "Any motion served on you by the creditor"],
           },
         ],
       },
@@ -1151,9 +1213,10 @@ export const TYPES_SC_DEFENDANT_SIDE_1: ClaimType[] = [
       "money taken off my paycheque",
       "garnished my joint account",
       "they took my ei payment",
+      "they are taking too much of my pay",
     ],
     typicalDefendantProfile: "individual",
-    citations: [ENFORCEMENT_CITATION, AFTER_CITATION],
+    citations: [ENFORCEMENT_CITATION, WAGES_CITATION, AFTER_CITATION],
     reviewedAt: null,
     status: "draft",
   },
@@ -1177,12 +1240,19 @@ export const TYPES_SC_DEFENDANT_SIDE_1: ClaimType[] = [
           "(Form 20D) to the sheriff the creditor names. Ontario's After Judgment guide says the writ " +
           "would encumber any land the debtor owns now, or may buy later, in the county or district where " +
           "it is filed, and that it will be difficult for the debtor to sell or mortgage the land until " +
-          "the debt is paid. This part of the checklist is about where the writ was filed and what land is " +
-          "affected.",
+          "the debt is paid. Under section 2(2) of the Execution Act, the principal residence of a debtor is " +
+          "exempt from forced seizure or sale if the value of the debtor's equity in it does not exceed the " +
+          "prescribed amount, and under section 2(3), if the equity exceeds the prescribed amount, the " +
+          "principal residence is subject to seizure and sale. The Act says the prescribed amount is the " +
+          "amount prescribed by the regulations made under its section 35. This part of the checklist is " +
+          "about where the writ was filed, what land is affected, and whether it is the debtor's home.",
         sourceUrl: SC_RULES,
         verifiedAt: VERIFIED,
         consolidationPeriod: SC_RULES_CONSOLIDATION,
-        alsoCites: [{ sourceUrl: AFTER_GUIDE, pinpoint: "Writ of Seizure and Sale of Land" }],
+        alsoCites: [
+          { sourceUrl: AFTER_GUIDE, pinpoint: "Writ of Seizure and Sale of Land" },
+          { sourceUrl: EXECUTION_ACT, pinpoint: "s. 1 \"prescribed amount\"; s. 2(2), (3)" },
+        ],
         evidenceCategories: [
           {
             name: "The writ and the judgment",
@@ -1193,6 +1263,11 @@ export const TYPES_SC_DEFENDANT_SIDE_1: ClaimType[] = [
             name: "What has been paid",
             why: "Shows how much is still owing under the judgment.",
             examples: ["Receipts or bank records of payments to the creditor"],
+          },
+          {
+            name: "Whether it is your home, and your equity in it",
+            why: "Section 2(2) of the Execution Act turns on the principal residence and the debtor's equity in it.",
+            examples: ["Proof you live there, such as a driver's licence or utility bills", "Mortgage statement showing the balance owing", "A recent valuation of the property"],
           },
         ],
       },
@@ -1229,23 +1304,59 @@ export const TYPES_SC_DEFENDANT_SIDE_1: ClaimType[] = [
         plainExplanation:
           "Under rule 20.06(1), if there is default under an order for the payment of money, the clerk, at " +
           "the creditor's request, issues a writ of seizure and sale of personal property (Form 20C) to a " +
-          "bailiff. Ontario's After Judgment guide says that under the Execution Act a debtor is entitled " +
-          "to certain exemptions from seizure of personal property, such as clothing, household furniture " +
-          "and tools used in the debtor's business (each up to a certain amount) and one motor vehicle " +
-          "worth less than the specified amount, and that the debtor has a right to choose the goods that " +
-          "make up the exemptions. Under rule 20.06(5), the bailiff delivers an inventory of property " +
-          "seized within a reasonable time after the debtor asks, and under rule 20.06(6), seized property " +
-          "is not sold unless notice of the time and place of sale has been mailed to the debtor at least " +
-          "10 days before.",
+          "bailiff. Under rule 20.06(5), the bailiff delivers an inventory of property seized within a " +
+          "reasonable time after the debtor asks, and under rule 20.06(6), seized property is not sold " +
+          "unless notice of the time and place of sale has been mailed to the debtor at least 10 days before.",
         sourceUrl: SC_RULES,
         verifiedAt: VERIFIED,
         consolidationPeriod: SC_RULES_CONSOLIDATION,
-        alsoCites: [{ sourceUrl: AFTER_GUIDE, pinpoint: "Debtor's goods exempt from seizure by the creditor" }],
         evidenceCategories: [
           {
             name: "What was seized or listed",
             why: "Shows which belongings are affected.",
             examples: ["The bailiff's inventory", "Photos of the items", "Receipts showing the value of items"],
+          },
+        ],
+      },
+      {
+        id: "exempt-belongings-writ",
+        name: "Belongings the law protects from seizure",
+        plainExplanation:
+          "Under section 2(1) of the Execution Act, the following personal property of a debtor that is not " +
+          "a corporation is, at the option of the debtor, exempt from forced seizure or sale: necessary " +
+          "clothing of the debtor and the debtor's dependants; household furnishings and appliances of a " +
+          "value not exceeding the prescribed amount; tools and other personal property, not exceeding the " +
+          "prescribed amount in value, used by the debtor to earn income from the debtor's occupation; one " +
+          "motor vehicle of a value not exceeding the prescribed amount; and personal property prescribed " +
+          "by the regulations of a value not exceeding the prescribed amount. The Act says the prescribed " +
+          "amount is the amount prescribed by the regulations made under its section 35. Under section " +
+          "2(1.1), if the value of furnishings, tools, the vehicle or prescribed property exceeds the " +
+          "prescribed amount, the property is subject to seizure and sale. Under section 3(2), if a motor " +
+          "vehicle claimed as exempt has a sale value above the prescribed amount and the costs of the sale, " +
+          "it is subject to seizure and sale and the prescribed amount is paid to the debtor out of the " +
+          "proceeds. Under section 2(4), aids and devices the debtor or the debtor's dependants require to " +
+          "assist with a disability or a medical or dental condition are exempt. Under section 5(1), the " +
+          "debtor is entitled to select the personal property they claim as exempt, and under section " +
+          "5(4), the onus of proof that the requirements of section 5 are satisfied is on the person " +
+          "claiming the exemption.",
+        sourceUrl: EXECUTION_ACT,
+        verifiedAt: VERIFIED,
+        consolidationPeriod: EXECUTION_ACT_CONSOLIDATION,
+        evidenceCategories: [
+          {
+            name: "What each item is worth",
+            why: "Most exemptions in section 2(1) depend on the value of the property.",
+            examples: ["Receipts or appraisals", "Prices of similar used items for sale", "Vehicle ownership and a valuation"],
+          },
+          {
+            name: "Items used to earn a living",
+            why: "Section 2(1) protects tools and other property used to earn income from the debtor's occupation.",
+            examples: ["Proof of your job or trade", "Receipts for tools or equipment"],
+          },
+          {
+            name: "Medical aids and devices",
+            why: "Section 2(4) protects aids and devices needed for a disability or a medical or dental condition.",
+            examples: ["A note or prescription from a health professional", "Receipts for the device"],
           },
         ],
       },
@@ -1272,6 +1383,21 @@ export const TYPES_SC_DEFENDANT_SIDE_1: ClaimType[] = [
         sourceUrl: SC_RULES,
         verifiedAt: VERIFIED,
         consolidationPeriod: SC_RULES_CONSOLIDATION,
+      },
+      {
+        id: "dispute-over-exemption-writ",
+        name: "A disagreement over whether belongings are protected",
+        plainExplanation:
+          "Under section 8(1) of the Execution Act, where a dispute arises as to whether a chattel is " +
+          "eligible for exemption from seizure under sections 2 to 7, or whether " +
+          "chattels claimed to be exempt exceed the value of the exemption prescribed by section 2, the " +
+          "debtor or creditor may apply to the Superior Court of Justice for the determination of the " +
+          "question, and the court determines it after a hearing upon such notice to such persons as the " +
+          "court directs.",
+        whenThisComesUp: "When the debtor and the creditor disagree about whether belongings are protected, or what they are worth.",
+        sourceUrl: EXECUTION_ACT,
+        verifiedAt: VERIFIED,
+        consolidationPeriod: EXECUTION_ACT_CONSOLIDATION,
       },
     ],
     applicableDefenceConceptIds: [],
@@ -1309,9 +1435,10 @@ export const TYPES_SC_DEFENDANT_SIDE_1: ClaimType[] = [
       "bailiff seized my things",
       "bailiff took my car",
       "writ is still on title",
+      "can they seize my tools",
     ],
     typicalDefendantProfile: "either",
-    citations: [ENFORCEMENT_CITATION, AFTER_CITATION],
+    citations: [ENFORCEMENT_CITATION, EXECUTION_CITATION, AFTER_CITATION],
     reviewedAt: null,
     status: "draft",
   },

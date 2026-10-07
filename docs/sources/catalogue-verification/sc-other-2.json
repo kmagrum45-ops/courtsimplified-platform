@@ -1112,8 +1112,13 @@
       "key": "sc-claim-franchise-dispute|plaintiffElement|performance-franchise",
       "verifiedAt": "2026-10-07",
       "outcome": "authored",
-      "fingerprint": "d152c74342238debddcd8e1024f486140ed44335774bf6fd6d6de3f79fe299f4",
+      "fingerprint": "e5281ea4b891f100a0543ade6248a58d9e8c18f59c979ebbc15fa220cd8d4728",
       "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 3(1)-(3)",
+          "quote": "Every franchise agreement imposes on each party a duty of fair dealing in its performance and enforcement. ... A party to a franchise agreement has a right of action for damages against another party to the franchise agreement who breaches the duty of fair dealing in the performance or enforcement of the franchise agreement. ... For the purpose of this section, the duty of fair dealing includes the duty to act in good faith and in accordance with reasonable commercial standards."
+        },
         {
           "sourceUrl": "docs/sources/decisions/bhasin-v-hrynew-2014-SCC-71.english.txt",
           "pinpoint": "Bhasin v. Hrynew, 2014 SCC 71, para. 93",
@@ -1125,7 +1130,51 @@
           "quote": "This means simply that parties must not lie or otherwise knowingly mislead each other about matters directly linked to the performance of the contract. This does not impose a duty of loyalty or of disclosure or require a party to forego advantages flowing from the contract;"
         }
       ],
-      "howRead": "Saved decision docs/sources/decisions/bhasin-v-hrynew-2014-SCC-71.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+      "howRead": "Vendored corpus file docs/sources/corpus/arthur-wishart-act-franchise.txt; Saved decision docs/sources/decisions/bhasin-v-hrynew-2014-SCC-71.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-franchise-dispute|plaintiffElement|disclosure-franchise",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d1921db90e80b0cfb60634e04397e2c90edbd624347efd2800be1e3a0d399f7c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A franchisor shall provide a prospective franchisee with a disclosure document and the prospective franchisee shall receive the disclosure document not less than 14 days before the earlier of, (a) the signing by the prospective franchisee of the franchise agreement or any other agreement relating to the franchise, other than an agreement described in subsection (1.1); and (b) the payment of any consideration by or on behalf of the prospective franchisee to the franchisor or franchisor's associate relating to the franchise, excluding the payment of a deposit if it,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 5(3)",
+          "quote": "A disclosure document must be one document, delivered as required under subsections (1) and (2) as one document at one time."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 5(4)",
+          "quote": "The disclosure document shall contain, (a) all material facts, including material facts as prescribed; (b) financial statements as prescribed; (c) copies of all proposed franchise agreements and other agreements relating to the franchise to be signed by the prospective franchisee;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 5(5)",
+          "quote": "The franchisor shall provide the prospective franchisee with a written statement of any material change,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 7(1)",
+          "quote": "If a franchisee suffers a loss because of a misrepresentation contained in the disclosure document or in a statement of a material change or as a result of the franchisor's failure to comply in any way with section 5, the franchisee has a right of action for damages against, (a) the franchisor; ... (e) every person who signed the disclosure document or statement of material change."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 7(2)",
+          "quote": "If a disclosure document or statement of material change contains a misrepresentation, a franchisee who acquired a franchise to which the disclosure document or statement of material change relates shall be deemed to have relied on the misrepresentation."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 7(4)",
+          "quote": "A person is not liable in an action under this section for misrepresentation if the person proves that the franchisee acquired the franchise with knowledge of the misrepresentation or of the material change, as the case may be."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/arthur-wishart-act-franchise.txt; read 2026-10-07, each quote cut verbatim from the saved text"
     },
     {
       "key": "sc-claim-franchise-dispute|plaintiffElement|amount-franchise",
@@ -1175,6 +1224,40 @@
       "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
     },
     {
+      "key": "sc-claim-franchise-dispute|defendantConsideration|act-scope-franchise",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cba43ab5f8d1f20b85cb618be6288c14f4a82903231709bdd3faef0d13288059",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 2(1)",
+          "quote": "This Act applies with respect to a franchise agreement entered into on or after the coming into force of this section, with respect to a renewal or extension of a franchise agreement entered into before or after the coming into force of this section and with respect to a business operated under such an agreement, renewal or extension if the business operated by the franchisee under the franchise agreement or its renewal or extension is to be operated partly or wholly in Ontario."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 2(3), paras. 1, 2, 7",
+          "quote": "This Act does not apply to the following continuing commercial relationships or arrangements: 1. Employer-employee relationship. 2. Partnership. ... 7. A relationship or arrangement arising out of an oral agreement where there is no writing which evidences any material term or aspect of the relationship or arrangement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 12",
+          "quote": "In any proceeding under this Act, the burden of proving an exemption or an exclusion from a requirement or provision is on the person claiming it."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 11",
+          "quote": "Any purported waiver or release by a franchisee of a right given under this Act or of an obligation or requirement imposed on a franchisor or franchisor's associate by or under this Act is void."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 10",
+          "quote": "Any provision in a franchise agreement purporting to restrict the application of the law of Ontario or to restrict jurisdiction or venue to a forum outside Ontario is void with respect to a claim otherwise enforceable under this Act in Ontario."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/arthur-wishart-act-franchise.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
       "key": "sc-claim-franchise-dispute|proceduralNote|sc-claim-franchise-dispute#note0",
       "verifiedAt": "2026-10-07",
       "outcome": "authored",
@@ -1197,15 +1280,30 @@
       "key": "sc-claim-franchise-dispute|proceduralNote|sc-claim-franchise-dispute#note1",
       "verifiedAt": "2026-10-07",
       "outcome": "authored",
-      "fingerprint": "cb73cd0e6d88e79597951e19c38165055277a45c33eb0545a2ef1ca2db80ab6f",
+      "fingerprint": "b659420d4dc9a304540285be7cb3bcbf168e63fdd8deabbba5818a57dc3993f7",
       "sources": [
         {
-          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
-          "pinpoint": "Making a claim > Information to include about the defendant",
-          "quote": "If the name you use on your claim is not exactly right, you may win your case but then be unable to take steps to enforce your judgment. ... If you are suing an incorporated company (it usually has Limited, Ltd ., Corporation, Corp., Incorporated or Inc. after its name), make sure you have the correct corporate name, address and postal code. ... If the business you are suing is not incorporated (for example, a sole proprietorship or partnership), you will need the correct name of the business and the address for service. You may also wish to name the proprietor(s) or partner(s) as parties if you wish to obtain a judgment against them as well."
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 6(1)",
+          "quote": "A franchisee may rescind the franchise agreement, without penalty or obligation, no later than 60 days after receiving the disclosure document, if the franchisor failed to provide the disclosure document or a statement of material change within the time required by section 5 or if the contents of the disclosure document did not meet the requirements of section 5."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 6(2)",
+          "quote": "A franchisee may rescind the franchise agreement, without penalty or obligation, no later than two years after entering into the franchise agreement if the franchisor never provided the disclosure document."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 6(3)",
+          "quote": "Notice of rescission shall be in writing and shall be delivered to the franchisor, personally, by registered mail, by fax or by any other prescribed method, at the franchisor's address for service or to any other person designated for that purpose in the franchise agreement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+          "pinpoint": "s. 6(6)",
+          "quote": "The franchisor, or franchisor's associate, as the case may be, shall, within 60 days of the effective date of the rescission, (a) refund to the franchisee any money received from or on behalf of the franchisee, other than money for inventory, supplies or equipment; (b) purchase from the franchisee any inventory that the franchisee had purchased pursuant to the franchise agreement and remaining at the effective date of rescission, at a price equal to the purchase price paid by the franchisee; (c) purchase from the franchisee any supplies and equipment that the franchisee had purchased pursuant to the franchise agreement, at a price equal to the purchase price paid by the franchisee; and (d) compensate the franchisee for any losses that the franchisee incurred in acquiring, setting up and operating the franchise, less the amounts set out in clauses (a) to (c)."
         }
       ],
-      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+      "howRead": "Vendored corpus file docs/sources/corpus/arthur-wishart-act-franchise.txt; read 2026-10-07, each quote cut verbatim from the saved text"
     },
     {
       "key": "sc-claim-franchise-dispute|proceduralNote|sc-claim-franchise-dispute#note2",
@@ -1251,6 +1349,74 @@
       "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; Saved decision docs/sources/decisions/sattva-capital-corp-v-creston-moly-corp-2014-SCC-53.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
     },
     {
+      "key": "sc-claim-partnership-or-joint-venture-breakup|plaintiffElement|partnership-existed-partner",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "75163bdbd2097f6ea520a910162965f7feb1950cab704ab3e0cf1e5eeda0ca8e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+          "pinpoint": "s. 2",
+          "quote": "Partnership is the relation that subsists between persons carrying on a business in common with a view to profit, but the relation between the members of a company or association that is incorporated by or under the authority of any special or general Act in force in Ontario or elsewhere, or registered as a corporation under any such Act, is not a partnership within the meaning of this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+          "pinpoint": "s. 3, rule 3",
+          "quote": "The receipt by a person of a share of the profits of a business is proof, in the absence of evidence to the contrary, that the person is a partner in the business,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+          "pinpoint": "s. 24, rule 1",
+          "quote": "The interests of partners in the partnership property and their rights and duties in relation to the partnership shall be determined, subject to any agreement express or implied between the partners, by the following rules: 1. All the partners are entitled to share equally in the capital and profits of the business, and must contribute equally towards the losses, whether of capital or otherwise, sustained by the firm, but a partner shall not be liable to contribute toward losses arising from a liability for which the partner is not liable under subsection 10 (2)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+          "pinpoint": "s. 20",
+          "quote": "The mutual rights and duties of partners, whether ascertained by agreement or defined by this Act, may be varied by the consent of all the partners, and such consent may be either expressed or inferred from a course of dealing."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/partnerships-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-partnership-or-joint-venture-breakup|plaintiffElement|duties-partner",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "71d4dc3e981c357b1cc1ad17aca65a9befeca9651d2bb04fadb4153d7a37cc0f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+          "pinpoint": "s. 21(1)",
+          "quote": "must be held and applied by the partners exclusively for the purposes of the partnership and in accordance with the partnership agreement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+          "pinpoint": "s. 22",
+          "quote": "Unless the contrary intention appears, property bought with money belonging to the firm shall be deemed to have been bought on the account of the firm."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+          "pinpoint": "s. 28",
+          "quote": "Partners are bound to render true accounts and full information of all things affecting the partnership to any partner or the partner's legal representatives."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+          "pinpoint": "s. 29(1)",
+          "quote": "Every partner must account to the firm for any benefit derived by the partner without the consent of the other partners from any transaction concerning the partnership or from any use by the partner of the partnership property, name or business connection."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+          "pinpoint": "s. 30",
+          "quote": "If a partner, without the consent of the other partners, carries on a business of the same nature as and competing with that of the firm, the partner must account for and pay over to the firm all profits made by the partner in that business."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+          "pinpoint": "s. 24, rule 9",
+          "quote": "subject to any agreement express or implied between the partners, ... 9. The partnership books are to be kept at the place of business of the partnership, or the principal place, if there is more than one, and every partner may, when he or she thinks fit, have access to and inspect and copy any of them."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/partnerships-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
       "key": "sc-claim-partnership-or-joint-venture-breakup|plaintiffElement|money-kept-partner",
       "verifiedAt": "2026-10-07",
       "outcome": "authored",
@@ -1273,25 +1439,6 @@
         }
       ],
       "howRead": "Saved decision docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
-    },
-    {
-      "key": "sc-claim-partnership-or-joint-venture-breakup|plaintiffElement|amount-partner",
-      "verifiedAt": "2026-10-07",
-      "outcome": "authored",
-      "fingerprint": "049924dbf5c1fcb4c0eda000f71ab87b3902b431bee074bfae4de71bffbd8bec",
-      "sources": [
-        {
-          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
-          "pinpoint": "Making a claim > Reasons for claim and details",
-          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
-        },
-        {
-          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
-          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
-          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
-        }
-      ],
-      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
     },
     {
       "key": "sc-claim-partnership-or-joint-venture-breakup|defendantConsideration|corporation-partner",
@@ -1320,6 +1467,40 @@
         }
       ],
       "howRead": "Saved decision docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-partnership-or-joint-venture-breakup|defendantConsideration|dissolution-partner",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "48ec10f26e084e6b376baee8c45f33fe8182c805541d53497219380880471d4d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+          "pinpoint": "s. 32",
+          "quote": "Subject to any agreement between the partners, a partnership is dissolved, (a) if entered into for a fixed term, by the expiration of that term; (b) if entered into for a single adventure or undertaking, by the termination of that adventure or undertaking; or (c) if entered into for an undefined time, by a partner giving notice to the other or others of his or her intention to dissolve the partnership, in which case the partnership is dissolved as from the date mentioned in the notice as the date of dissolution, or, if no date is so mentioned, as from the date of the communication of the notice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+          "pinpoint": "s. 35(1)",
+          "quote": "On application by a partner, the court may order a dissolution of the partnership,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+          "pinpoint": "s. 39",
+          "quote": "On the dissolution of a partnership every partner is entitled, as against the other partners in the firm and all persons claiming through them in respect of their interests as partners, to have the property of the partnership applied in payment of the debts and liabilities of the firm and to have the surplus assets after such payment applied in payment of what may be due to the partners respectively after deducting what may be due from them as partners to the firm,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+          "pinpoint": "s. 44, rule 2",
+          "quote": "In settling accounts between the partners after a dissolution of partnership, the following rules shall, subject to any agreement, be observed: ... 2. The assets of the firm, including the sums, if any, contributed by the partners to make up losses or deficiencies of capital, are to be applied in the following manner and order, (a) in paying the debts and liabilities of the firm to persons who are not partners therein; (b) in paying to each partner rateably what is due from the firm to him or her for advances as distinguished from capital; (c) in paying to each partner rateably what is due from the firm to him or her in respect of capital."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+          "pinpoint": "s. 43",
+          "quote": "Subject to any agreement between the partners, the amount due from surviving or continuing partners to an outgoing partner or the representatives of a deceased partner in respect of the outgoing or deceased partner's share, is a debt accruing at the date of the dissolution or death."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/partnerships-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
     },
     {
       "key": "sc-claim-partnership-or-joint-venture-breakup|proceduralNote|sc-claim-partnership-or-joint-venture-breakup#note0",

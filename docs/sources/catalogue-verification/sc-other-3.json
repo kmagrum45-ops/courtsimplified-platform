@@ -200,15 +200,30 @@
       "key": "sc-claim-charity-or-fundraising-dispute|plaintiffElement|purpose-promised-charity",
       "verifiedAt": "2026-10-07",
       "outcome": "authored",
-      "fingerprint": "6ce573644c012f368ed7bc39f63d9cdeb11442ce53baff7ff32db57b736230f4",
+      "fingerprint": "ec9b7986aadd24bdc59ed6cb653931fed16ffb9e573244a0d011c93fa35b2f3e",
       "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c10_e.doc",
+          "pinpoint": "s. 8",
+          "quote": "A person who holds an interest in real or personal property for a charitable purpose shall use the property for the charitable purpose."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c10_e.doc",
+          "pinpoint": "s. 7",
+          "quote": "\"charitable purpose\" means, (a) the relief of poverty, (b) education, (c) the advancement of religion, and (d) any purpose beneficial to the community, not falling under clause (a), (b) or (c)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c10_e.doc",
+          "pinpoint": "s. 12",
+          "quote": "This Act does not apply to or affect or in any way interfere with any right or remedy that any person may have under any other Act or in equity or at common law or otherwise."
+        },
         {
           "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
           "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
           "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
         }
       ],
-      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+      "howRead": "Vendored corpus files docs/sources/corpus/charities-accounting-act.txt and scj-steps-to-a-civil-case.txt; read 2026-10-07"
     },
     {
       "key": "sc-claim-charity-or-fundraising-dispute|plaintiffElement|no-reason-to-keep-charity",
@@ -328,6 +343,25 @@
         }
       ],
       "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-charity-or-fundraising-dispute|proceduralNote|sc-claim-charity-or-fundraising-dispute#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3ae7c8d87ea6e8b62dc9782eecae4574b0fbfa9c2a164314dd0cdf06f832a7ca",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c10_e.doc",
+          "pinpoint": "s. 6(1)-(3), (8)",
+          "quote": "Any person may complain as to the manner in which a person or organization has solicited or procured funds by way of contribution or gift from the public for any purpose, or as to the manner in which any such funds have been dealt with or disposed of. ... Every such complaint shall be in writing and delivered by the complainant to a judge of the Superior Court of Justice. ... Wherever the judge is of opinion that the public interest can be served by an investigation of the matter complained of, he or she may make an order directing the Public Guardian and Trustee to make such investigation as the Public Guardian and Trustee considers proper in the circumstances. ... Nothing in this section applies to any religious or fraternal organization or to any person who solicited or procured any funds of any religious or fraternal organization."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c10_e.doc",
+          "pinpoint": "s. 10(1)-(2)",
+          "quote": "Where any two or more persons allege a breach of a trust created for a charitable purpose or seek the direction of the court for the administration of a trust for a charitable purpose, they may apply to the Superior Court of Justice ... An application under subsection (1) shall be upon notice to the Public Guardian and Trustee"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/charities-accounting-act.txt; read 2026-10-07"
     },
     {
       "key": "sc-claim-elder-financial-abuse|plaintiffElement|transfer-without-payment-elder",

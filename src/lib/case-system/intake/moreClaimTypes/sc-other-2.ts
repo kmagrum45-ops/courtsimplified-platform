@@ -25,13 +25,17 @@
  *   - The Solicitors Act (assessment of a lawyer's bill) and Law Society of
  *     Ontario complaint materials are not saved on an official site, so the
  *     lawyer type says nothing about fee assessments or Law Society complaints.
- *   - The Arthur Wishart Act (Franchise Disclosure), 2000 is not saved, so the
- *     franchise type says nothing about disclosure documents or rescission; it
- *     rests on the general law of contract (Sattva, Bhasin).
- *   - The Partnerships Act is not saved, so the partnership type says nothing
- *     about what a partnership is or how one is dissolved; it rests on
- *     contract, unjust enrichment (Kerr v. Baranow) and the Business
- *     Corporations Act.
+ *   - The franchise type rests on the Arthur Wishart Act (Franchise
+ *     Disclosure), 2000 (saved 2026-10-07: fair dealing, disclosure,
+ *     rescission and its time limits, damages, waiver and scope) alongside
+ *     the general law of contract (Sattva, Bhasin). The Act's regulation
+ *     (prescribed contents, deposit amounts, exemptions) is not saved, so
+ *     nothing is said about what is prescribed.
+ *   - The partnership type rests on the Partnerships Act (saved 2026-10-07:
+ *     when a partnership exists, partners' duties, dissolution and settling
+ *     accounts) alongside contract, unjust enrichment (Kerr v. Baranow) for a
+ *     joint venture that is not a partnership, and the Business Corporations
+ *     Act. Limited liability partnerships are not covered.
  */
 
 import type { ClaimType } from "../claimTypes";
@@ -59,6 +63,10 @@ const PHIPA = "https://www.ontario.ca/laws/docs/04p03_e.doc";
 const PHIPA_CP = "2026-01-01";
 const OBCA = "https://www.ontario.ca/laws/docs/90b16_e.doc";
 const OBCA_CP = "2025-10-01";
+const WISHART = "https://www.ontario.ca/laws/docs/00a03_e.doc";
+const WISHART_CP = "2020-09-01";
+const PARTNERSHIPS = "https://www.ontario.ca/laws/docs/90p05_e.doc";
+const PARTNERSHIPS_CP = "2023-10-01";
 const SC_GUIDE = "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim";
 const SUING = "https://www.ontario.ca/page/suing-someone-small-claims-court";
 const SCJ_STEPS =
@@ -1221,17 +1229,24 @@ export const TYPES_SC_OTHER_2: ClaimType[] = [
       },
       {
         id: "performance-franchise",
-        name: "The other side did not perform, or was not honest about performing",
+        name: "The other side did not deal fairly or honestly",
         plainExplanation:
-          "In Bhasin v. Hrynew, 2014 SCC 71, the Supreme Court of Canada recognized a general duty of " +
+          "Under s. 3(1) of the Arthur Wishart Act (Franchise Disclosure), 2000, every franchise " +
+          "agreement imposes on each party a duty of fair dealing in its performance and enforcement. " +
+          "Under s. 3(3), that duty includes the duty to act in good faith and in accordance with " +
+          "reasonable commercial standards. Under s. 3(2), a party to a franchise agreement has a right " +
+          "of action for damages against another party to it who breaches the duty of fair dealing. " +
+          "Separately, in Bhasin v. Hrynew, 2014 SCC 71, the Supreme Court of Canada recognized a general duty of " +
           "honest performance, which requires the parties to be honest with each other in relation to " +
           "the performance of their contractual obligations (para. 93). This means simply that parties " +
           "must not lie or otherwise knowingly mislead each other about matters directly linked to the " +
           "performance of the contract; it does not impose a duty of loyalty or of disclosure, or " +
           "require a party to forego advantages flowing from the contract (para. 73). This part of the " +
           "checklist is about what each side did, and what was said about it.",
-        sourceUrl: BHASIN,
+        sourceUrl: WISHART,
         verifiedAt: V,
+        consolidationPeriod: WISHART_CP,
+        alsoCites: [{ sourceUrl: BHASIN, pinpoint: "Bhasin v. Hrynew, 2014 SCC 71, paras. 73, 93" }],
         evidenceCategories: [
           {
             name: "What each side did",
@@ -1239,6 +1254,44 @@ export const TYPES_SC_OTHER_2: ClaimType[] = [
             examples: ["Invoices, royalty reports and payment records", "Notices of default or termination", "Emails and letters between the franchisor and franchisee"],
           },
           TIMELINE,
+        ],
+      },
+      {
+        id: "disclosure-franchise",
+        name: "The franchisor did not give proper disclosure",
+        plainExplanation:
+          "Under s. 5(1) of the Arthur Wishart Act (Franchise Disclosure), 2000, a franchisor shall " +
+          "provide a prospective franchisee with a disclosure document, and the prospective franchisee " +
+          "shall receive it not less than 14 days before the earlier of signing the franchise agreement " +
+          "or any other agreement relating to the franchise (other than an agreement described in " +
+          "s. 5(1.1)), and paying any consideration relating to the franchise (other than a deposit that " +
+          "meets the conditions in s. 5(1)(b)). Under s. 5(3), it must be one document, delivered at one " +
+          "time. Under s. 5(4), it shall contain all material facts, financial statements as prescribed, " +
+          "and copies of all proposed franchise agreements and other agreements to be signed, among other " +
+          "things, and under s. 5(5) the franchisor shall provide a written statement of any material " +
+          "change. Under s. 7(1), if a franchisee suffers a loss because of a misrepresentation in the " +
+          "disclosure document or a statement of material change, or as a result of the franchisor's " +
+          "failure to comply in any way with s. 5, the franchisee has a right of action for damages " +
+          "against the franchisor and the others the subsection lists, including every person who signed " +
+          "the disclosure document. Under s. 7(2), a franchisee who acquired the franchise is deemed to " +
+          "have relied on a misrepresentation in the disclosure document. Under s. 7(4), a person is not " +
+          "liable for misrepresentation if the person proves that the franchisee acquired the franchise " +
+          "with knowledge of the misrepresentation. This part of the checklist is about what was given, " +
+          "when, and what it said.",
+        sourceUrl: WISHART,
+        verifiedAt: V,
+        consolidationPeriod: WISHART_CP,
+        evidenceCategories: [
+          {
+            name: "What was disclosed, and when",
+            why: "Shows whether a disclosure document was given, and how long before signing or paying.",
+            examples: ["The disclosure document and any statement of material change", "Registered mail or delivery receipts showing the date it arrived", "The dated franchise agreement and the record of the first payment"],
+          },
+          {
+            name: "What turned out to be different",
+            why: "Shows which statements in the disclosure were untrue or left out.",
+            examples: ["The pages of the disclosure document relied on", "Records showing the true facts, such as sales or costs", "Emails or notes of what was said before signing"],
+          },
         ],
       },
       {
@@ -1280,10 +1333,55 @@ export const TYPES_SC_OTHER_2: ClaimType[] = [
         verifiedAt: V,
         consolidationPeriod: CJA_CP,
       },
+      {
+        id: "act-scope-franchise",
+        name: "Whether the franchise law applies, and whether rights were given up",
+        plainExplanation:
+          "Under s. 2(1) of the Arthur Wishart Act (Franchise Disclosure), 2000, the Act applies to a " +
+          "franchise agreement, its renewal or extension, and the business operated under it, if the " +
+          "business is to be operated partly or wholly in Ontario. Under s. 2(3), the Act does not apply " +
+          "to certain relationships, including an employer-employee relationship, a partnership, and a " +
+          "relationship arising out of an oral agreement where there is no writing which evidences any " +
+          "material term. Under s. 12, the burden of proving an exemption or an exclusion is on the " +
+          "person claiming it. Under s. 11, any purported waiver or release by a franchisee of a right " +
+          "given under the Act is void. Under s. 10, a provision in a franchise agreement restricting the " +
+          "application of the law of Ontario, or restricting jurisdiction or venue to a forum outside " +
+          "Ontario, is void with respect to a claim otherwise enforceable under the Act in Ontario.",
+        whenThisComesUp:
+          "When the Defence says the deal was not a franchise or falls under an exception, points to a " +
+          "release the franchisee signed, or relies on a clause naming another province's law or courts.",
+        sourceUrl: WISHART,
+        verifiedAt: V,
+        consolidationPeriod: WISHART_CP,
+      },
     ],
     applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-no-agreement-existed", "defence-set-off-or-counterclaim"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-outside-jurisdiction", "sc-remedy-interest-and-costs"],
-    proceduralNotes: [EQUITABLE, NAMING_BUSINESS, LIMITATION],
+    proceduralNotes: [
+      EQUITABLE,
+      {
+        note:
+          "Under s. 6(1) of the Arthur Wishart Act (Franchise Disclosure), 2000, a franchisee may " +
+          "rescind the franchise agreement, without penalty or obligation, no later than 60 days after " +
+          "receiving the disclosure document, if the franchisor failed to provide the disclosure document " +
+          "or a statement of material change within the time required by s. 5, or if the contents of the " +
+          "disclosure document did not meet the requirements of s. 5. Under s. 6(2), if the franchisor " +
+          "never provided the disclosure document, the franchisee may rescind no later than two years " +
+          "after entering into the franchise agreement. Under s. 6(3), notice of rescission shall be in " +
+          "writing and delivered to the franchisor personally, by registered mail, by fax or by any other " +
+          "prescribed method, at the franchisor's address for service or to any other person designated " +
+          "for that purpose in the franchise agreement. Under s. 6(6), within 60 days of the effective " +
+          "date of the rescission, the franchisor shall refund any money received from the franchisee " +
+          "(other than money for inventory, supplies or equipment), purchase the remaining inventory and " +
+          "the supplies and equipment the franchisee bought under the agreement at the price the " +
+          "franchisee paid, and compensate the franchisee for losses incurred in acquiring, setting up " +
+          "and operating the franchise, less those amounts.",
+        sourceUrl: WISHART,
+        verifiedAt: V,
+        consolidationPeriod: WISHART_CP,
+      },
+      LIMITATION,
+    ],
     signals: [
       "franchise agreement",
       "my franchisor",
@@ -1293,9 +1391,19 @@ export const TYPES_SC_OTHER_2: ClaimType[] = [
       "franchise was terminated",
       "franchisor lied about the business",
       "unpaid franchise royalties",
+      "never got a disclosure document",
+      "I want to rescind my franchise",
+      "franchisor did not act in good faith",
+      "franchise disclosure was wrong",
     ],
     typicalDefendantProfile: "business",
     citations: [
+      {
+        sourceName: "Arthur Wishart Act (Franchise Disclosure), 2000, S.O. 2000, c. 3",
+        officialUrl: WISHART,
+        verifiedAt: V,
+        pinpoint: "ss. 2(1), (3), 3, 5(1), (3)-(5), 6(1)-(3), (6), 7(1), (2), (4), 10-12",
+      },
       { sourceName: "Sattva Capital Corp. v. Creston Moly Corp., 2014 SCC 53", officialUrl: SATTVA, verifiedAt: V, pinpoint: "para. 47" },
       { sourceName: "Bhasin v. Hrynew, 2014 SCC 71", officialUrl: BHASIN, verifiedAt: V, pinpoint: "paras. 73, 93" },
       { sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43", officialUrl: CJA, verifiedAt: V, pinpoint: "ss. 96(3), 111" },
@@ -1335,6 +1443,70 @@ export const TYPES_SC_OTHER_2: ClaimType[] = [
         ],
       },
       {
+        id: "partnership-existed-partner",
+        name: "There was a partnership, and each partner's share",
+        plainExplanation:
+          "Under s. 2 of the Partnerships Act, partnership is the relation that subsists between persons " +
+          "carrying on a business in common with a view to profit; the relation between the members of " +
+          "an incorporated company is not a partnership within the meaning of the Act. Under s. 3, rule 3, " +
+          "the receipt by a person of a share of the profits of a business is proof, in the absence of " +
+          "evidence to the contrary, that the person is a partner in the business. Under s. 24, rule 1, " +
+          "subject to any agreement express or implied between the partners, all the partners are " +
+          "entitled to share equally in the capital and profits of the business and must contribute " +
+          "equally towards the losses, with an exception the rule sets out. Under s. 20, the partners' " +
+          "mutual rights and duties may be varied by the consent of all the partners, and that consent " +
+          "may be expressed or inferred from a course of dealing. This part of the checklist is about how " +
+          "the business was carried on together, and how profits and losses were shared.",
+        sourceUrl: PARTNERSHIPS,
+        verifiedAt: V,
+        consolidationPeriod: PARTNERSHIPS_CP,
+        evidenceCategories: [
+          {
+            name: "How the business was carried on together",
+            why: "Shows two or more people running a business in common to make a profit.",
+            examples: ["Business name registration listing the partners", "A shared business bank account", "Invoices, ads or a website naming the business"],
+          },
+          {
+            name: "How profits and losses were shared",
+            why: "Shows the share each person took, or was promised.",
+            examples: ["Records of profit splits or draws", "Messages about how money would be divided", "Year-end statements or accounts"],
+          },
+        ],
+      },
+      {
+        id: "duties-partner",
+        name: "Partnership money or property was not accounted for",
+        plainExplanation:
+          "Under s. 21(1) of the Partnerships Act, partnership property must be held and applied by the " +
+          "partners exclusively for the purposes of the partnership and in accordance with the " +
+          "partnership agreement, and under s. 22, unless the contrary intention appears, property bought " +
+          "with money belonging to the firm is deemed bought on the firm's account. Under s. 28, partners " +
+          "are bound to render true accounts and full information of all things affecting the " +
+          "partnership to any partner. Under s. 29(1), every partner must account to the firm for any " +
+          "benefit derived without the consent of the other partners from any transaction concerning the " +
+          "partnership or from any use of the partnership property, name or business connection. Under " +
+          "s. 30, a partner who, without the consent of the other partners, carries on a business of the " +
+          "same nature as and competing with the firm must account for and pay over to the firm all " +
+          "profits made in that business. Under s. 24, rule 9, subject to any agreement, every partner " +
+          "may have access to and inspect and copy the partnership books. This part of the checklist is " +
+          "about partnership money and property, and who used it.",
+        sourceUrl: PARTNERSHIPS,
+        verifiedAt: V,
+        consolidationPeriod: PARTNERSHIPS_CP,
+        evidenceCategories: [
+          {
+            name: "The partnership's books",
+            why: "Shows what came in, what went out, and to whom.",
+            examples: ["Business bank statements", "Sales and expense records", "Requests to see the books, and the replies"],
+          },
+          {
+            name: "Use of partnership property or connections",
+            why: "Shows a partner taking a benefit or running a competing business without consent.",
+            examples: ["Records of a competing business", "Messages with partnership customers or suppliers", "A list of partnership equipment and where it is now"],
+          },
+        ],
+      },
+      {
         id: "money-kept-partner",
         name: "Money or work put in and kept by the other side",
         plainExplanation:
@@ -1360,15 +1532,8 @@ export const TYPES_SC_OTHER_2: ClaimType[] = [
             why: "Shows who kept the money, stock or equipment after the end.",
             examples: ["Business bank statements", "Messages about closing the business", "A list of assets and who has them"],
           },
+          CALCULATION,
         ],
-      },
-      {
-        id: "amount-partner",
-        name: "The amount claimed",
-        plainExplanation: AMOUNT + "This part of the checklist is about each amount and how it was worked out.",
-        sourceUrl: SC_GUIDE,
-        verifiedAt: V,
-        evidenceCategories: [CALCULATION],
       },
     ],
     defendantConsiderations: [
@@ -1396,6 +1561,30 @@ export const TYPES_SC_OTHER_2: ClaimType[] = [
         sourceUrl: KERR,
         verifiedAt: V,
       },
+      {
+        id: "dissolution-partner",
+        name: "When the partnership ended, and how accounts are settled",
+        plainExplanation:
+          "Under s. 32 of the Partnerships Act, subject to any agreement between the partners, a " +
+          "partnership is dissolved: if entered into for a fixed term, by the expiration of that term; if " +
+          "entered into for a single adventure or undertaking, by its termination; or if entered into for " +
+          "an undefined time, by a partner giving notice to the others of the intention to dissolve it, " +
+          "as from the date in the notice or, if no date is given, the date the notice was communicated. " +
+          "Under s. 35(1), on application by a partner, the court may order a dissolution in the cases " +
+          "the subsection lists. Under s. 39, on dissolution every partner is entitled to have the " +
+          "partnership property applied in payment of the firm's debts and liabilities, and the surplus " +
+          "applied in payment of what may be due to the partners after deducting what may be due from " +
+          "them to the firm. Under s. 44, rule 2, subject to any agreement, the firm's assets are applied " +
+          "first to the debts of people who are not partners, then to each partner's advances, then to " +
+          "each partner's capital. Under s. 43, subject to any agreement, the amount due to an outgoing " +
+          "partner for that partner's share is a debt accruing at the date of the dissolution.",
+        whenThisComesUp:
+          "When the two sides disagree about whether or when the partnership ended, or about what must " +
+          "be paid out of the business before each partner's share.",
+        sourceUrl: PARTNERSHIPS,
+        verifiedAt: V,
+        consolidationPeriod: PARTNERSHIPS_CP,
+      },
     ],
     applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-no-agreement-existed", "defence-set-off-or-counterclaim"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-return-of-property", "sc-remedy-outside-jurisdiction", "sc-remedy-interest-and-costs"],
@@ -1409,9 +1598,19 @@ export const TYPES_SC_OTHER_2: ClaimType[] = [
       "business partner took the profits",
       "partner won't pay back my investment",
       "we closed the business and he kept the equipment",
+      "my partner won't show me the books",
+      "partner started a competing business",
+      "dissolve the partnership",
+      "my share of the profits",
     ],
     typicalDefendantProfile: "either",
     citations: [
+      {
+        sourceName: "Partnerships Act, R.S.O. 1990, c. P.5",
+        officialUrl: PARTNERSHIPS,
+        verifiedAt: V,
+        pinpoint: "ss. 2, 3, 20-22, 24, 28-30, 32, 35(1), 39, 43, 44",
+      },
       { sourceName: "Sattva Capital Corp. v. Creston Moly Corp., 2014 SCC 53", officialUrl: SATTVA, verifiedAt: V, pinpoint: "para. 47" },
       { sourceName: "Kerr v. Baranow, 2011 SCC 10", officialUrl: KERR, verifiedAt: V, pinpoint: "paras. 32, 38, 40-41" },
       { sourceName: "Business Corporations Act, R.S.O. 1990, c. B.16", officialUrl: OBCA, verifiedAt: V, pinpoint: "ss. 15, 92(1)" },
