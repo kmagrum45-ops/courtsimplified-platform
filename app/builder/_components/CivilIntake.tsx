@@ -71,6 +71,8 @@ type Props = {
   caseId?: string | null;
   location: { province: "Ontario"; city: string };
   initialStory: string;
+  /** The case's stored entries, when the person comes back to update it (caseRecord.storedIntakeValues). */
+  storedValues?: Record<string, string | string[]>;
 };
 
 type CivilIssue =
@@ -553,15 +555,18 @@ const CIVIL_TEXT_FIELDS: [keyof CivilInput, string, string][] = [
 /** Fields worth a spelling check: free prose, not file numbers or amounts. */
 const CIVIL_TIDY_SKIP = new Set<string>(["courtLocation", "courtFileNumber", "amountClaimed"]);
 
-export default function CivilIntake({ onComplete, caseId, location, initialStory }: Props) {
+export default function CivilIntake({ onComplete, caseId, location, initialStory, storedValues }: Props) {
   const [editingStory, setEditingStory] = useState(false);
   const [initialPrefill] = useState<NarrativePrefill | null>(() =>
     consumeNarrativePrefill({ courtPath: "civil", caseId }),
   );
   const [input, setInput] = useState<CivilInput>(() => {
-    const values = initialPrefill
-      ? directPrefillValues(initialPrefill)
-      : {};
+    // What the case already holds, under anything newly read from a story
+    // (master plan Phase 1: "Update your story" opened a blank form).
+    const values: Record<string, unknown> = {
+      ...(storedValues ?? {}),
+      ...(initialPrefill ? directPrefillValues(initialPrefill) : {}),
+    };
     return {
       ...defaultInput,
       province: location.province,

@@ -28,7 +28,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { documentsOf, readCaseRecord, recordedDateAnswers } from "../../src/lib/case-system/caseRecord";
+import { documentsOf, readCaseRecord, recordedDateAnswers, storedIntakeValues } from "../../src/lib/case-system/caseRecord";
 import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
 
 let failures = 0;
@@ -97,6 +97,21 @@ check(
   suggestApplicability([{ field_path: "formApplicability.smallClaims.respondingToPlaintiffsClaim", choices: [{ value: "yes" }] }], defendant, {}).length === 0,
 );
 
+// ---- coming back to update the intake ---------------------------------------
+const stored = storedIntakeValues({
+  position: { confirmedStage: "responding" },
+  intakeData: {
+    courtPath: "civil",
+    facts: "Court path: Civil\nUser role: defendant\nMain story: I was served.",
+    caseStage: "starting-case",
+    extra: { yourRole: "defendant", amountClaimed: "$75,000", documents: ["Statement of Claim already filed / served"], civilInput: { yourName: "Sam" } },
+  },
+});
+check("the form reopens with the person's role, amount and documents", stored.yourRole === "defendant" && stored.amountClaimed === "$75,000" && Array.isArray(stored.documentStatus));
+check("the form reopens with their story, not the labelled record", stored.facts === "I was served.");
+check("the confirmed stage wins over the intake's", stored.caseStage === "responding");
+check("nothing entered, nothing filled", Object.keys(storedIntakeValues({})).length === 0);
+
 // ---- the pages read the record ------------------------------------------------
 const root = path.resolve(__dirname, "../..");
 const read = (file: string) => readFileSync(path.join(root, file), "utf8");
@@ -112,6 +127,7 @@ check(
   /confirmedStage=\{/.test(read("app/cases/[id]/page.tsx")) && /confirmedStage=\{/.test(builder) && /confirmedStage \|\| analysis\.caseStage/.test(read("app/builder/_components/IntelligenceOverviewPanel.tsx")),
 );
 check("family answers given after the save are saved", /familyStatus: triageState \} \}\)/.test(builder));
+check("both form intakes reopen with what the case holds", (builder.match(/storedValues=\{queryCaseId \? storedIntakeValues\(/g) ?? []).length === 2);
 for (const file of ["caseDrafts.ts", "respondingDocumentDraft.ts", "startingDocumentDraft.ts"]) {
   const source = read(`src/lib/case-system/drafts/${file}`);
   check(`${file} drafts from the person's own story, not the labelled record`, /userStory\(intake\)/.test(source) && !/intake\.facts\?\.trim\(\)|\[intake\.facts \|\||text\(intake\.facts\)/.test(source));
