@@ -1,4 +1,1283 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "sc-claim-unpaid-tips|plaintiffElement|money-was-a-tip-tips",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3fb50d8911df14df3a9c0ddb7aa6ee9043e117c4ea62742436385bff911b788e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 1(1), \"tip or other gratuity\"",
+          "quote": "\"tip or other gratuity\" means, ... a payment voluntarily made to or left for an employee by a customer of the employee's employer in such circumstances that a reasonable person would be likely to infer that the customer intended or assumed that the payment would be kept by the employee or shared by the employee with other employees, ... a payment voluntarily made to an employer by a customer in such circumstances that a reasonable person would be likely to infer that the customer intended or assumed that the payment would be redistributed to an employee or employees, ... a payment of a service charge or similar charge imposed by an employer on a customer in such circumstances that a reasonable person would be likely to infer that the customer intended or assumed that the payment would be redistributed to an employee or employees, and"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 1(1), \"employee\"",
+          "quote": "\"employee\" includes, ... a person, including an officer of a corporation, who performs work for an employer for wages, ... a person who supplies services to an employer for wages, ... and includes a person who was an employee;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 1(1), \"wages\"",
+          "quote": "\"wages\" means, ... monetary remuneration payable by an employer to an employee under the terms of an employment contract, oral or written, express or implied,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-tips|plaintiffElement|tips-withheld-tips",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d24fc57d750097c19c52167ff6867c83e2f64f49cf3e3ba24175ae0fd32e3394",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 14.2(1)-(2)",
+          "quote": "14.2 (1) An employer shall not withhold tips or other gratuities from an employee, make a deduction from an employee's tips or other gratuities or cause the employee to return or give his or her tips or other gratuities to the employer unless authorized to do so under this Part. ... If an employer contravenes subsection (1), the amount withheld, deducted, returned or given is a debt owing to the employee and is enforceable under this Act as if it were wages owing to the employee."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 14.1(1)",
+          "quote": "14.1 (1) An employer shall pay an employee's tips or other gratuities, ... by cash; ... by cheque payable only to the employee; ... by direct deposit in accordance with subsection (3); or ... by any other prescribed method of payment."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-tips|plaintiffElement|amount-tips",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1a1b2b97c5d25f4d0bda56b3428c9c22d1acbee0351bd23c905a124081e52180",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-tips|defendantConsideration|tip-pool-tips",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6b8bd47b8eb1c561020bca5c404564274bc26e4f4f273d71a4bea16aec99f780",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 14.4(1), (3)-(5)",
+          "quote": "14.4 (1) An employer may withhold or make a deduction from an employee's tips or other gratuities or cause the employee to return or give them to the employer if the employer collects and redistributes tips or other gratuities among some or all of the employer's employees. ... Subject to subsections (4) and (5), an employer or a director or shareholder of an employer may not share in tips or other gratuities redistributed under subsection (1). ... An employer who is a sole proprietor or a partner in a partnership may share in tips or other gratuities redistributed under subsection (1) if he or she regularly performs to a substantial degree the same work performed by, ... some or all of the employees who share in the redistribution; or ... employees of other employers in the same industry who commonly receive or share tips or other gratuities. ... A director or shareholder of an employer may share in tips or other gratuities redistributed under subsection (1) if he or she regularly performs to a substantial degree the same work performed by,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 14.3(1)",
+          "quote": "14.3 (1) An employer may withhold or make a deduction from an employee's tips or other gratuities or cause the employee to return or give them to the employer if a statute of Ontario or Canada or a court order authorizes it."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-tips|proceduralNote|sc-claim-unpaid-tips#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "eb2a709f0736aecda81587d2f9bc3bba414085322f83c1c8a0f000dd4180cce2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "ss. 97(1), 97(4) and 98(1)",
+          "quote": "97 (1) An employee who files a complaint under this Act with respect to an alleged failure to pay wages or comply with Part XIII (Benefit Plans) may not commence a civil proceeding with respect to the same matter. ... Despite subsections (1) and (2), an employee who has filed a complaint may commence a civil proceeding with respect to a matter described in those subsections if he or she withdraws the complaint within two weeks after it is filed. ... 98 (1) An employee who commences a civil proceeding with respect to an alleged failure to pay wages or to comply with Part XIII (Benefit Plans) may not file a complaint with respect to the same matter or have such a complaint investigated."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-tips|proceduralNote|sc-claim-unpaid-tips#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "61e44577150a7be1e0d3a6fc8df53375a05a37333214859a771e32bcd9ebe7ca",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 8(2)",
+          "quote": "Where an employee commences a civil proceeding against his or her employer under this Act, notice of the proceeding shall be served on the Director on a form approved by the Director on or before the date the civil proceeding is set down for trial."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-tips|proceduralNote|sc-claim-unpaid-tips#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-severance|plaintiffElement|employment-ended-severance",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "af068e8a86c17cd9ac88220f493ebf9c54ade706d9fbc3b899498c22042451bd",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 56(1)",
+          "quote": "56 (1) An employer terminates the employment of an employee for purposes of section 54 if, ... the employer dismisses the employee or otherwise refuses or is unable to continue employing him or her; ... the employer constructively dismisses the employee and the employee resigns from his or her employment in response to that within a reasonable period; or ... the employer lays the employee off for a period longer than the period of a temporary lay-off."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/your-guide-employment-standards-act-0/termination-employment",
+          "pinpoint": "Constructive dismissal",
+          "quote": "A constructive dismissal may occur when an employer makes a significant change to a fundamental term or condition of an employee's employment without the employee's actual or implied consent."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; Vendored corpus file docs/sources/corpus/esa-guide-termination.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-severance|plaintiffElement|notice-or-pay-owed-severance",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "73b264b717f2b937d2361babf914c1c77924329932892bb1e251291db7ee6fee",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 54",
+          "quote": "54 No employer shall terminate the employment of an employee who has been continuously employed for three months or more unless the employer, ... has given to the employee written notice of termination in accordance with section 57 or 58 and the notice has expired; or ... has complied with section 61."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 57",
+          "quote": "at least one week before the termination, if the employee's period of employment is less than one year; ... at least eight weeks before the termination, if the employee's period of employment is eight years or more."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 61(1)",
+          "quote": "61 (1) An employer may terminate the employment of an employee without notice or with less notice than is required under section 57 or 58 if the employer, ... pays to the employee termination pay in a lump sum equal to the amount the employee would have been entitled to receive under section 60 had notice been given in accordance with that section; and ... continues to make whatever benefit plan contributions would be required to be made"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 64(1)",
+          "quote": "64 (1) An employer who severs an employment relationship with an employee shall pay severance pay to the employee if the employee was employed by the employer for five years or more and, ... the severance occurred because of a permanent discontinuance of all or part of the employer's business at an establishment and the employee is one of 50 or more employees who have their employment relationship severed within a six-month period as a result; or ... the employer has a payroll of $2.5 million or more."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 65(1)",
+          "quote": "65 (1) Severance pay under this section shall be calculated by multiplying the employee's regular wages for a regular work week by the sum of, ... the number of years of employment the employee has completed; and ... the number of months of employment not included in clause (a) that the employee has completed, divided by 12."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-severance|plaintiffElement|reasonable-notice-severance",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a3d20ceb237f3e9fa55508110fa3527be9fd2bb99f6b85466b4dca0842d7c25c",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt",
+          "pinpoint": "Reasons of Iacobucci J., B. Reasonable Notice at Common Law",
+          "quote": "In Canada, it has been established since at least 1936 that employment contracts for an indefinite period require the employer, absent express contractual language to the contrary, to give reasonable notice of an intention to terminate the contract if the dismissal is without cause ... For the purposes of this appeal, I would characterize the common law principle of termination only on reasonable notice as a presumption, rebuttable if the contract of employment clearly specifies some other period of notice, whether expressly or impliedly."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt",
+          "pinpoint": "Reasons of Iacobucci J., C. The Employment Standards Act",
+          "quote": "It is also clear from ss. 4 and 6 of the Act that the minimum notice periods set out in the Act do not operate to displace the presumption at common law of reasonable notice. ... if a term is null and void, then it is null and void for all purposes, and cannot be used as evidence of the parties' intention."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/honda-canada-v-keays-2008-SCC-39.english.txt",
+          "pinpoint": "paras. 28-29",
+          "quote": "In determining what constitutes reasonable notice of termination, the courts have generally applied the principles articulated by McRuer C.J.H.C. in Bardal ... having regard to the character of the employment, the length of service of the servant, the age of the servant and the availability of similar employment, having regard to the experience, training and qualifications of the servant. ... These four factors were adopted by this Court in Machtinger v. HOJ Industries Ltd."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt; Saved decision, read from docs/sources/decisions/honda-canada-v-keays-2008-SCC-39.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-severance|plaintiffElement|amount-severance",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "28823a8ff3bad815ab6b8069731baa7497bb5df8dff5704c34b16f218f6dab7a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-severance|defendantConsideration|exempt-from-notice-severance",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8def242f1ed4f0bd39e41a31ae6d9086b654540407eea879e5ca1ae500819a36",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/your-guide-employment-standards-act-0/termination-employment",
+          "pinpoint": "Exemptions to notice of termination or termination pay",
+          "quote": "The notice of termination and termination pay requirements of the ESA do not apply to an employee who: ... is guilty of wilful misconduct, disobedience or wilful neglect of duty that is not trivial and has not been condoned by the employer. ... Poor work conduct that is accidental or unintentional is generally not considered wilful; ... is employed in construction. ... has refused an offer of reasonable alternative employment with the employer; ... is on a temporary lay-off;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 54",
+          "quote": "54 No employer shall terminate the employment of an employee who has been continuously employed for three months or more unless the employer, ... has given to the employee written notice of termination in accordance with section 57 or 58 and the notice has expired; or ... has complied with section 61."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-guide-termination.txt; Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-severance|defendantConsideration|contract-clause-severance",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a0e20c10caa483c28d87c4da2cf7c3fbaf4ba82214801df2046b2914d6e0f318",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) Subject to subsection (2), no employer or agent of an employer and no employee or agent of an employee shall contract out of or waive an employment standard and any such contracting out or waiver is void."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt",
+          "pinpoint": "Reasons of Iacobucci J., B. Reasonable Notice at Common Law",
+          "quote": "In Canada, it has been established since at least 1936 that employment contracts for an indefinite period require the employer, absent express contractual language to the contrary, to give reasonable notice of an intention to terminate the contract if the dismissal is without cause ... For the purposes of this appeal, I would characterize the common law principle of termination only on reasonable notice as a presumption, rebuttable if the contract of employment clearly specifies some other period of notice, whether expressly or impliedly."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt",
+          "pinpoint": "Reasons of Iacobucci J., C. The Employment Standards Act",
+          "quote": "It is also clear from ss. 4 and 6 of the Act that the minimum notice periods set out in the Act do not operate to displace the presumption at common law of reasonable notice. ... if a term is null and void, then it is null and void for all purposes, and cannot be used as evidence of the parties' intention."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; Saved decision, read from docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-severance|proceduralNote|sc-claim-unpaid-severance#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4351657f867838d26cfc19794175208043b51082d2ae3a3bd416228f1113a418",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/your-guide-employment-standards-act-0/termination-employment",
+          "pinpoint": "Wrongful dismissal",
+          "quote": "The rules under the ESA about termination and severance of employment are minimum requirements. Some employees may have rights under the common law that are greater than the rights to notice of termination (or termination pay) and severance pay under the ESA . An employee may want to sue their former employer in court for \"wrongful dismissal\". Employees should be aware that they cannot sue an employer for wrongful dismissal and file a claim for termination pay or severance pay with the ministry for the same termination or severance of employment. An employee must choose one or the other."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-guide-termination.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-severance|proceduralNote|sc-claim-unpaid-severance#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "61e44577150a7be1e0d3a6fc8df53375a05a37333214859a771e32bcd9ebe7ca",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 8(2)",
+          "quote": "Where an employee commences a civil proceeding against his or her employer under this Act, notice of the proceeding shall be served on the Director on a form approved by the Director on or before the date the civil proceeding is set down for trial."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-severance|proceduralNote|sc-claim-unpaid-severance#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-bonus-after-termination|plaintiffElement|earned-under-terms-bonus",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8f3e47a710023ff1a1dea91b6eeaceaa7f9eb2467ecd412303d9b16312f03590",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 1(1), \"wages\"",
+          "quote": "\"wages\" means, ... monetary remuneration payable by an employer to an employee under the terms of an employment contract, oral or written, express or implied, ... any payment required to be made by an employer to an employee under this Act, and ... but does not include, ... any sums paid as gifts or bonuses that are dependent on the discretion of the employer and that are not related to hours, production or efficiency,"
+        },
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-bonus-after-termination|plaintiffElement|unpaid-at-end-bonus",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9181725ed6d72a279dbfa03f042f2825b1b9ccd29636a2488dcc5b1994a47a8a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 11(5)",
+          "quote": "If an employee's employment ends, the employer shall pay any wages to which the employee is entitled to the employee not later than the later of, ... seven days after the employment ends; and ... the day that would have been the employee's next pay day."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) Subject to subsection (2), no employer or agent of an employer and no employee or agent of an employee shall contract out of or waive an employment standard and any such contracting out or waiver is void."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-bonus-after-termination|plaintiffElement|amount-bonus",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6b7a70ec72bd9a44c06aff644a070dbcac9db22cbb6f644bf05a115944c77a2e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-bonus-after-termination|defendantConsideration|discretionary-or-conditions-bonus",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cda25ed914c82953e1ee1209849e5982aaa0fec0cdeaee0940ea06e53664943c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "9.01 A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, ... serve on every other party a defence (Form 9A); and ... file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 1(1), \"wages\"",
+          "quote": "\"wages\" means, ... monetary remuneration payable by an employer to an employee under the terms of an employment contract, oral or written, express or implied, ... any payment required to be made by an employer to an employee under this Act, and ... but does not include, ... any sums paid as gifts or bonuses that are dependent on the discretion of the employer and that are not related to hours, production or efficiency,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-bonus-after-termination|proceduralNote|sc-claim-unpaid-bonus-after-termination#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "eb2a709f0736aecda81587d2f9bc3bba414085322f83c1c8a0f000dd4180cce2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "ss. 97(1), 97(4) and 98(1)",
+          "quote": "97 (1) An employee who files a complaint under this Act with respect to an alleged failure to pay wages or comply with Part XIII (Benefit Plans) may not commence a civil proceeding with respect to the same matter. ... Despite subsections (1) and (2), an employee who has filed a complaint may commence a civil proceeding with respect to a matter described in those subsections if he or she withdraws the complaint within two weeks after it is filed. ... 98 (1) An employee who commences a civil proceeding with respect to an alleged failure to pay wages or to comply with Part XIII (Benefit Plans) may not file a complaint with respect to the same matter or have such a complaint investigated."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-bonus-after-termination|proceduralNote|sc-claim-unpaid-bonus-after-termination#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "61e44577150a7be1e0d3a6fc8df53375a05a37333214859a771e32bcd9ebe7ca",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 8(2)",
+          "quote": "Where an employee commences a civil proceeding against his or her employer under this Act, notice of the proceeding shall be served on the Director on a form approved by the Director on or before the date the civil proceeding is set down for trial."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-bonus-after-termination|proceduralNote|sc-claim-unpaid-bonus-after-termination#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-contractor-misclassification|plaintiffElement|was-an-employee-misclass",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "587887fec7fb6136e1d647746d0dc74be2bf6052e39e7741cc7e220d1e41add1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 1(1), \"employee\"",
+          "quote": "\"employee\" includes, ... a person, including an officer of a corporation, who performs work for an employer for wages, ... a person who supplies services to an employer for wages, ... and includes a person who was an employee;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 1(1), \"wages\"",
+          "quote": "\"wages\" means, ... monetary remuneration payable by an employer to an employee under the terms of an employment contract, oral or written, express or implied,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 1(1), \"employer\"",
+          "quote": "\"employer\" includes, ... an owner, proprietor, manager, superintendent, overseer, receiver or trustee of an activity, business, work, trade, occupation, profession, project or undertaking who has control or direction of, or is directly or indirectly responsible for, the employment of a person in it, and"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 5.1(1)",
+          "quote": "5.1 (1) An employer shall not treat, for the purposes of this Act, a person who is an employee of the employer as if the person were not an employee under this Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-contractor-misclassification|plaintiffElement|standard-not-given-misclass",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5cd0fd0869ac771d3288ce94a4ebb0097dac012d4163785c2a90985f56ad53e2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) Subject to subsection (2), no employer or agent of an employer and no employee or agent of an employee shall contract out of or waive an employment standard and any such contracting out or waiver is void."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 1(1), \"employment standard\"",
+          "quote": "\"employment standard\" means a requirement or prohibition under this Act that applies to an employer for the benefit of an employee;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 23(1)",
+          "quote": "23 (1) An employer shall pay employees at least the minimum wage."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 11(1)",
+          "quote": "11 (1) An employer shall establish a recurring pay period and a recurring pay day and shall pay all wages earned during each pay period, other than accruing vacation pay, no later than the pay day for that period."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 54",
+          "quote": "54 No employer shall terminate the employment of an employee who has been continuously employed for three months or more unless the employer, ... has given to the employee written notice of termination in accordance with section 57 or 58 and the notice has expired; or ... has complied with section 61."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-contractor-misclassification|plaintiffElement|amount-misclass",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a4bb0809317cc1362c148b1274d22a8b4ef9a0ff3b416e72c09c2b2e8d4aae14",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-contractor-misclassification|defendantConsideration|says-contractor-misclass",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c759ec250ce36404b67d5594900e414788462804a23edcfdbd318d418436d363",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "9.01 A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, ... serve on every other party a defence (Form 9A); and ... file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 5.1(1)",
+          "quote": "5.1 (1) An employer shall not treat, for the purposes of this Act, a person who is an employee of the employer as if the person were not an employee under this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) Subject to subsection (2), no employer or agent of an employer and no employee or agent of an employee shall contract out of or waive an employment standard and any such contracting out or waiver is void."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-contractor-misclassification|proceduralNote|sc-claim-contractor-misclassification#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "eb2a709f0736aecda81587d2f9bc3bba414085322f83c1c8a0f000dd4180cce2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "ss. 97(1), 97(4) and 98(1)",
+          "quote": "97 (1) An employee who files a complaint under this Act with respect to an alleged failure to pay wages or comply with Part XIII (Benefit Plans) may not commence a civil proceeding with respect to the same matter. ... Despite subsections (1) and (2), an employee who has filed a complaint may commence a civil proceeding with respect to a matter described in those subsections if he or she withdraws the complaint within two weeks after it is filed. ... 98 (1) An employee who commences a civil proceeding with respect to an alleged failure to pay wages or to comply with Part XIII (Benefit Plans) may not file a complaint with respect to the same matter or have such a complaint investigated."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-contractor-misclassification|proceduralNote|sc-claim-contractor-misclassification#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "61e44577150a7be1e0d3a6fc8df53375a05a37333214859a771e32bcd9ebe7ca",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 8(2)",
+          "quote": "Where an employee commences a civil proceeding against his or her employer under this Act, notice of the proceeding shall be served on the Director on a form approved by the Director on or before the date the civil proceeding is set down for trial."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-contractor-misclassification|proceduralNote|sc-claim-contractor-misclassification#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gig-platform-payment|plaintiffElement|platform-terms-gig",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e9fc827d2f52f7195a661a2169852f9500fbeb03944b1a32aa969e79bfca66ee",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gig-platform-payment|plaintiffElement|work-done-unpaid-gig",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fd3c237820221c6dee6cd0bf25d13354dfdbc4585387b4761c528cbaaabb02ff",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gig-platform-payment|plaintiffElement|employee-status-gig",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f225ea9b6c202945a7575b73c4c46ea4edf94f45f85bf095c769bfcb13c2f5c6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 1(1), \"employee\"",
+          "quote": "\"employee\" includes, ... a person, including an officer of a corporation, who performs work for an employer for wages, ... a person who supplies services to an employer for wages, ... and includes a person who was an employee;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 1(1), \"wages\"",
+          "quote": "\"wages\" means, ... monetary remuneration payable by an employer to an employee under the terms of an employment contract, oral or written, express or implied,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 5.1(1)",
+          "quote": "5.1 (1) An employer shall not treat, for the purposes of this Act, a person who is an employee of the employer as if the person were not an employee under this Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gig-platform-payment|defendantConsideration|arbitration-clause-gig",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f734368e7368e8fdda8a781aa22f4724b8f4f0eaae739fcd0a16e0faad091476",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/uber-technologies-inc-v-heller-2020-SCC-16.english.txt",
+          "pinpoint": "para. 2",
+          "quote": "To become a driver for Uber, Mr. Heller had to accept, without negotiation, the terms of Uber’s standard form services agreement. Under the terms of the agreement, Mr. Heller was required to resolve any dispute with Uber through mediation and arbitration in the Netherlands. The mediation and arbitration process requires up-front administrative and filing fees of US$14,500"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/uber-technologies-inc-v-heller-2020-SCC-16.english.txt",
+          "pinpoint": "para. 4",
+          "quote": "We agree with the Court of Appeal. This is an arbitration agreement that makes it impossible for one party to arbitrate. It is a classic case of unconscionability."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/uber-technologies-inc-v-heller-2020-SCC-16.english.txt",
+          "pinpoint": "para. 65",
+          "quote": "That approach requires both an inequality of bargaining power and a resulting improvident bargain."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/uber-technologies-inc-v-heller-2020-SCC-16.english.txt",
+          "pinpoint": "para. 66",
+          "quote": "An inequality of bargaining power exists when one party cannot adequately protect their interests in the contracting process"
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/uber-technologies-inc-v-heller-2020-SCC-16.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gig-platform-payment|proceduralNote|sc-claim-gig-platform-payment#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "010d47f3c8c4c16fd08fe6a629dc5e047b7a9892639d52a2fcceb1d3f8cc7a86",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Naming the defendant",
+          "quote": "If your claim is against more than one individual, be sure to include each defendant's full name."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gig-platform-payment|proceduralNote|sc-claim-gig-platform-payment#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-caregiver-or-domestic-worker-unpaid|plaintiffElement|hired-by-household-caregiver",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9e4188f39ed0a2e738200af84d85d4da7b62911e05eca515c9b6b1d33c876c18",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 1(1), \"employee\"",
+          "quote": "\"employee\" includes, ... a person, including an officer of a corporation, who performs work for an employer for wages, ... a person who supplies services to an employer for wages, ... and includes a person who was an employee;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 1(1), \"wages\"",
+          "quote": "\"wages\" means, ... monetary remuneration payable by an employer to an employee under the terms of an employment contract, oral or written, express or implied,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-caregiver-or-domestic-worker-unpaid|plaintiffElement|wages-not-paid-caregiver",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "260bd6b2c68955ac17c7595dd7bd48fae066ccc7e79bc2905d679360b33dcd92",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 11(1)",
+          "quote": "11 (1) An employer shall establish a recurring pay period and a recurring pay day and shall pay all wages earned during each pay period, other than accruing vacation pay, no later than the pay day for that period."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 23(1)-(2)",
+          "quote": "23 (1) An employer shall pay employees at least the minimum wage. ... If an employer provides room or board to an employee, the prescribed amount with respect to room or board shall be deemed to have been paid by the employer to the employee as wages."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 13(1)",
+          "quote": "13 (1) An employer shall not withhold wages payable to an employee, make a deduction from an employee's wages or cause the employee to return his or her wages to the employer unless authorized to do so under this section."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-caregiver-or-domestic-worker-unpaid|plaintiffElement|hours-and-amount-caregiver",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f943dc6afeeb6d46668c53767f08e172af86b9377ac64fca9c798730cf96b809",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 15(1)",
+          "quote": "15 (1) An employer shall record the following information with respect to each employee, including an employee who is a homeworker: ... The dates and times that the employee worked."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-caregiver-or-domestic-worker-unpaid|defendantConsideration|room-and-board-caregiver",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a42422705e380eae7e62b8a7d2b46e0f9c7cf08825fd1ae7eea6e98358c420d3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "9.01 A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, ... serve on every other party a defence (Form 9A); and ... file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 23(1)-(2)",
+          "quote": "23 (1) An employer shall pay employees at least the minimum wage. ... If an employer provides room or board to an employee, the prescribed amount with respect to room or board shall be deemed to have been paid by the employer to the employee as wages."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 13(1)",
+          "quote": "13 (1) An employer shall not withhold wages payable to an employee, make a deduction from an employee's wages or cause the employee to return his or her wages to the employer unless authorized to do so under this section."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-caregiver-or-domestic-worker-unpaid|proceduralNote|sc-claim-caregiver-or-domestic-worker-unpaid#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "eb2a709f0736aecda81587d2f9bc3bba414085322f83c1c8a0f000dd4180cce2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "ss. 97(1), 97(4) and 98(1)",
+          "quote": "97 (1) An employee who files a complaint under this Act with respect to an alleged failure to pay wages or comply with Part XIII (Benefit Plans) may not commence a civil proceeding with respect to the same matter. ... Despite subsections (1) and (2), an employee who has filed a complaint may commence a civil proceeding with respect to a matter described in those subsections if he or she withdraws the complaint within two weeks after it is filed. ... 98 (1) An employee who commences a civil proceeding with respect to an alleged failure to pay wages or to comply with Part XIII (Benefit Plans) may not file a complaint with respect to the same matter or have such a complaint investigated."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-caregiver-or-domestic-worker-unpaid|proceduralNote|sc-claim-caregiver-or-domestic-worker-unpaid#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "61e44577150a7be1e0d3a6fc8df53375a05a37333214859a771e32bcd9ebe7ca",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 8(2)",
+          "quote": "Where an employee commences a civil proceeding against his or her employer under this Act, notice of the proceeding shall be served on the Director on a form approved by the Director on or before the date the civil proceeding is set down for trial."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-caregiver-or-domestic-worker-unpaid|proceduralNote|sc-claim-caregiver-or-domestic-worker-unpaid#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-employer-suing-former-employee|plaintiffElement|what-was-agreed-employer",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6cc7edfb68c1f144694e3258320a8996f03009e190e8b1519243bf08c2ad711f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-employer-suing-former-employee|plaintiffElement|overpayment-kept-employer",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62472eb41dd799b837366b39b8125e0baf7000dad3b4ee5cd86272f79f670243",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 32",
+          "quote": "It permits recovery whenever the plaintiff can establish three elements: an enrichment of or benefit to the defendant, a corresponding deprivation of the plaintiff, and the absence of a juristic reason for the enrichment"
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 38",
+          "quote": "For the first requirement — enrichment — the plaintiff must show that he or she gave something to the defendant which the defendant received and retained. The benefit need not be retained permanently, but there must be a benefit which has enriched the defendant and which can be restored to the plaintiff in specie or by money. Moreover, the benefit must be tangible."
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 40",
+          "quote": "To put it simply, this means that there is no reason in law or justice for the defendant’s retention of the benefit conferred by the plaintiff, making its retention “unjust” in the circumstances of the case"
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-employer-suing-former-employee|plaintiffElement|money-or-property-employer",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bf5ececc9b84de99c1e2e1a57d5ed3a184c9288ce95c30427b67c6b2fdbff13a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees. This includes the value of all goods that the plaintiff is asking for in total, no matter how many defendants there are."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-employer-suing-former-employee|defendantConsideration|deductions-and-defendants-claim-employer",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b525adaa5ade7890c9c51849d27d5be849e2ee3325c6751d43e9725b759ab1f8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 13(1)",
+          "quote": "13 (1) An employer shall not withhold wages payable to an employee, make a deduction from an employee's wages or cause the employee to return his or her wages to the employer unless authorized to do so under this section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 13(3) and (5)",
+          "quote": "An employer may withhold or make a deduction from an employee's wages or cause the employee to return them with the employee's written authorization. ... Subsection (3) does not apply if, ... the employee's authorization does not refer to a specific amount or provide a formula from which a specific amount may be calculated; ... the employee's wages were withheld, deducted or required to be returned, ... because of faulty work, ... because the employer had a cash shortage, lost property or had property stolen and a person other than the employee had access to the cash or property, or"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 10.01(1)-(2)",
+          "quote": "10.01 (1) A defendant may make a claim, ... against the plaintiff; ... The defendant's claim shall be in Form 10A and may be issued,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-employer-suing-former-employee|proceduralNote|sc-claim-employer-suing-former-employee#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "010d47f3c8c4c16fd08fe6a629dc5e047b7a9892639d52a2fcceb1d3f8cc7a86",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Naming the defendant",
+          "quote": "If your claim is against more than one individual, be sure to include each defendant's full name."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-employer-suing-former-employee|proceduralNote|sc-claim-employer-suing-former-employee#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-bad-reference-or-employer-defamation|plaintiffElement|words-defamatory-def",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "baf04083a63b21642f583d6cd19cf66c732d30d6ba91fe75b8ab7aa1ed0fbcf8",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "para. 28",
+          "quote": "A plaintiff in a defamation action is required to prove three things to obtain judgment and an award of damages: (1) that the impugned words were defamatory, in the sense that they would tend to lower the plaintiff’s reputation in the eyes of a reasonable person; (2) that the words in fact referred to the plaintiff; and (3) that the words were published, meaning that they were communicated to at least one person other than the plaintiff. If these elements are established on a balance of probabilities, falsity and damage are presumed"
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-bad-reference-or-employer-defamation|plaintiffElement|about-and-published-def",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bd55785cc2a44c2a2aa80133b8a1765d74716822cc131aa662ea93f55793b84d",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "para. 28",
+          "quote": "A plaintiff in a defamation action is required to prove three things to obtain judgment and an award of damages: (1) that the impugned words were defamatory, in the sense that they would tend to lower the plaintiff’s reputation in the eyes of a reasonable person; (2) that the words in fact referred to the plaintiff; and (3) that the words were published, meaning that they were communicated to at least one person other than the plaintiff. If these elements are established on a balance of probabilities, falsity and damage are presumed"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "para. 28",
+          "quote": "The plaintiff is not required to show that the defendant intended to do harm, or even that the defendant was careless."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-bad-reference-or-employer-defamation|plaintiffElement|spoken-words-business-def",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "94576a063f8349ed56f990409c1ccf2f33875945b58283867e7a69ba2f551d6d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l12_e.doc",
+          "pinpoint": "s. 16",
+          "quote": "16 In an action for slander for words calculated to disparage the plaintiff in any office, profession, calling, trade or business held or carried on by the plaintiff at the time of the publication thereof, it is not necessary to allege or prove special damage,"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "para. 28",
+          "quote": "(The only exception is that slander requires proof of special damages, unless the impugned words were slanderous per se"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/libel-and-slander-act.txt; Saved decision, read from docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-bad-reference-or-employer-defamation|defendantConsideration|truth-def",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bf55e732e62c5361dda56765d7b4ca94283d41fc2f4d58254664c614258f93c8",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "para. 29",
+          "quote": "If the plaintiff proves the required elements, the onus then shifts to the defendant to advance a defence in order to escape liability."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "para. 32",
+          "quote": "Where statements of fact are at issue, usually only two defences are available: the defence that the statement was substantially true (justification); and the defence that the statement was made in a protected context (privilege)."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "para. 33",
+          "quote": "To succeed on the defence of justification, a defendant must adduce evidence showing that the statement was substantially true."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-bad-reference-or-employer-defamation|defendantConsideration|reference-privilege-def",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a98fd92389f9d853378ccf61a1109b60cc1c591a7c121c3cf7f3628ae6d322fb",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "para. 30",
+          "quote": "Others, like reference letters or credit reports, enjoy “qualified” privilege, meaning that the privilege can be defeated by proof that the defendant acted with malice"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/hill-v-church-of-scientology-1995-2-SCR-1130.html.txt",
+          "pinpoint": "Reasons of Cory J. (qualified privilege)",
+          "quote": "a privileged occasion is . . . an occasion where the person who makes a communication has an interest or a duty, legal, social, or moral, to make it to the person to whom it is made, and the person to whom it is so made has a corresponding interest or duty to receive it. ... However, the privilege is not absolute and can be defeated if the dominant motive for publishing the statement is actual or express malice."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt; Saved decision, read from docs/sources/decisions/hill-v-church-of-scientology-1995-2-SCR-1130.html.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-bad-reference-or-employer-defamation|proceduralNote|sc-claim-bad-reference-or-employer-defamation#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "010d47f3c8c4c16fd08fe6a629dc5e047b7a9892639d52a2fcceb1d3f8cc7a86",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Naming the defendant",
+          "quote": "If your claim is against more than one individual, be sure to include each defendant's full name."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-bad-reference-or-employer-defamation|proceduralNote|sc-claim-bad-reference-or-employer-defamation#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-non-compete-or-non-solicit|plaintiffElement|the-clause-noncompete",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3d526ff16b9e3568cb5b4e455068cea32e93479a6740dd2e7bb4a2af9fd6dd07",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-non-compete-or-non-solicit|plaintiffElement|esa-non-compete-rule-noncompete",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "640484018ac310ca7cfe3864499937f48ec184a32a99c322d2caad875b952dbc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 67.1, \"non-compete agreement\"",
+          "quote": "\"non-compete agreement\" means an agreement, or any part of an agreement, between an employer and an employee that prohibits the employee from engaging in any business, work, occupation, profession, project or other activity that is in competition with the employer's business after the employment relationship between the employee and the employer ends."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 67.2(1)-(5)",
+          "quote": "67.2 (1) No employer shall enter into an employment contract or other agreement with an employee that is, or that includes, a non-compete agreement. ... For greater certainty, subsection 5 (1) applies and if an employer contravenes subsection (1), the non-compete agreement is void. ... If there is a sale of a business or a part of a business and, as a part of the sale, the purchaser and seller enter into an agreement that prohibits the seller from engaging in any business, work, occupation, profession, project or other activity that is in competition with the purchaser's business after the sale and, immediately following the sale, the seller becomes an employee of the purchaser, subsection (1) does not apply with respect to that agreement. ... Subsection (1) does not apply with respect to an employee who is an executive. ... \"executive\" means any person who holds the office of chief executive officer, president, ... \"sale\" includes a lease."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-non-compete-or-non-solicit|plaintiffElement|money-lost-noncompete",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "081ee224046c72a765fb80398601dfdfedd50229d12378e65185cd048cbc956f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-non-compete-or-non-solicit|defendantConsideration|clause-void-noncompete",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "598ba22a1efb225f676a7c5d5a8d494ad802c32c2966d9a73af8083f7de75af1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "9.01 A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, ... serve on every other party a defence (Form 9A); and ... file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 67.2(1)-(2)",
+          "quote": "67.2 (1) No employer shall enter into an employment contract or other agreement with an employee that is, or that includes, a non-compete agreement. ... For greater certainty, subsection 5 (1) applies and if an employer contravenes subsection (1), the non-compete agreement is void."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) Subject to subsection (2), no employer or agent of an employer and no employee or agent of an employee shall contract out of or waive an employment standard and any such contracting out or waiver is void."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-non-compete-or-non-solicit|proceduralNote|sc-claim-non-compete-or-non-solicit#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5489d40bb4e375cd1ef576dc98dd2266c0c9c29a5797df8c71f9464692984573",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-non-compete-or-non-solicit|proceduralNote|sc-claim-non-compete-or-non-solicit#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    }
+  ],
   "unverifiable": []
 }

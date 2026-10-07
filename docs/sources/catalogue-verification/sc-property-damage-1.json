@@ -1,4 +1,1600 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "sc-claim-neighbours-tree-fell|plaintiffElement|reasonable-care-with-the-tree-tf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "51673a251896acc70aa437c78bcae98d17a8eab63b680e4be05c3570e4a4a442",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt, docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-neighbours-tree-fell|plaintiffElement|fall-caused-the-damage-tf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b3fecb69c4d1ffd87960739dde5a7a69877df0a9a7c87d2533789855381f9bb8",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 8",
+          "quote": "The test for showing causation is the “but for” test. The plaintiff must show on a balance of probabilities that “but for” the defendant's negligent act, the injury would not have occurred."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 8",
+          "quote": "This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 9",
+          "quote": "The “but for” causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant's negligence made to the injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 55 (LeBel J., dissenting)",
+          "quote": "I agree with the substance of her analysis of the law of causation and the nature of the “but for” test."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-neighbours-tree-fell|plaintiffElement|amount-tf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "837d4909a61db4d751674c5bba288983a9da49994eea6dac68e347572f12c69d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-neighbours-tree-fell|defendantConsideration|dispute-tf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "023186fcfa4cbf399ae8d122a6453dae72790206df015453e7506c5eb340033e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/oreg-258-98-small-claims-rules.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-neighbours-tree-fell|defendantConsideration|boundary-tree-tf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "281f7ceaadd8c3111a1b18a271919233b8e1e06b79426199a2635a94750cedbb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f26_e.doc",
+          "pinpoint": "s. 10(2)",
+          "quote": "Every tree whose trunk is growing on the boundary between adjoining lands is the common property of the owners of the adjoining lands."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f26_e.doc",
+          "pinpoint": "s. 10(3)",
+          "quote": "Every person who injures or destroys a tree growing on the boundary between adjoining lands without the consent of the land owners is guilty of an offence under this Act."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/forestry-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-neighbours-tree-fell|defendantConsideration|shared-fault-tf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b14d02f06fd1e1ca2c01973363b3f861863acb4120d6cf387cb87baf6966c4ef",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 1",
+          "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons are found at fault or negligent, they are jointly and severally liable to the person suffering loss or damage for such fault or negligence"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 5",
+          "quote": "Wherever it appears that a person not already a party to an action is or may be wholly or partly responsible for the damages claimed, such person may be added as a party defendant to the action upon such terms as are considered just or may be made a third party to the action in the manner prescribed by the rules of court for adding third parties."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/negligence-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-neighbours-tree-fell|proceduralNote|sc-claim-neighbours-tree-fell#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-neighbours-tree-fell|proceduralNote|sc-claim-neighbours-tree-fell#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b421e1d507ab0b52feee411f9ff75cc56d49ccc8a41100054a00774f4e2bd269",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 22(1)",
+          "quote": "If any tree is thrown down by accident or otherwise so as to cause damage to a line fence, the owner or occupant of the land on which the tree stood shall immediately remove the tree and repair the fence."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 22(2)",
+          "quote": "On the neglect or refusal of the owner or occupant of the land on which the tree stood so to do for forty-eight hours after notice in writing to remove the tree, the adjoining land-owner may remove it in the most convenient and inexpensive manner, and may make good the fence so damaged, and may retain the tree to remunerate the adjoining land-owner for such removal."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 22(3)",
+          "quote": "A person who repairs a fence under subsection (2) may recover the costs of the work in the same manner as an owner under subsection 11 (3) may recover the value of work done by that owner."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 22(5)",
+          "quote": "All questions arising under this section shall be adjusted by three fence-viewers of the municipality, the decision of any two of whom is binding upon the parties."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 26",
+          "quote": "This Act, except section 20, does not apply to land in an area that is subject to a by-law passed under subsection 98 (1) of the Municipal Act, 2001 or subsection 109 (1) of the City of Toronto Act, 2006, as the case may be."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/line-fences-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-neighbours-tree-fell|proceduralNote|sc-claim-neighbours-tree-fell#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-water-from-neighbouring-property|plaintiffElement|reasonable-care-with-the-water-wn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ac6f699138db873691c681b826e8daab4ec25f616d94e70530c20eba1dd7297d",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt, docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-water-from-neighbouring-property|plaintiffElement|water-caused-the-damage-wn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ee40d5a68c36518430c680de747a94ab950a1f862f7f4ca5a5edaf694fe49bd5",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 8",
+          "quote": "The test for showing causation is the “but for” test. The plaintiff must show on a balance of probabilities that “but for” the defendant's negligent act, the injury would not have occurred."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 8",
+          "quote": "This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 9",
+          "quote": "The “but for” causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant's negligence made to the injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 55 (LeBel J., dissenting)",
+          "quote": "I agree with the substance of her analysis of the law of causation and the nature of the “but for” test."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-water-from-neighbouring-property|plaintiffElement|amount-wn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5de1dff406e62783a045323089d01576b4990d804390d2d9aad0570b552f1076",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-water-from-neighbouring-property|defendantConsideration|dispute-wn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7fb3e0f748640f9e6458ddaa01b398d84cdf3fe9dcc99981dd2ad5056cf916df",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/oreg-258-98-small-claims-rules.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-water-from-neighbouring-property|defendantConsideration|shared-fault-wn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9b81cae2ac4566c05ccd61ea1c628de703308c40e38a6c9b14689b8847b53267",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 1",
+          "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons are found at fault or negligent, they are jointly and severally liable to the person suffering loss or damage for such fault or negligence"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 5",
+          "quote": "Wherever it appears that a person not already a party to an action is or may be wholly or partly responsible for the damages claimed, such person may be added as a party defendant to the action upon such terms as are considered just or may be made a third party to the action in the manner prescribed by the rules of court for adding third parties."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/negligence-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-water-from-neighbouring-property|proceduralNote|sc-claim-water-from-neighbouring-property#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-water-from-neighbouring-property|proceduralNote|sc-claim-water-from-neighbouring-property#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-fence-dispute|plaintiffElement|award-or-agreement-fd",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "83583d160fd71b2649cc936d1dc651baa1f23d750e50bd9e374d6c1b4834b150",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 4(1)",
+          "quote": "If the owner of any land wishes to have a fence that marks the boundary between their land and the land of an adjoining owner constructed, repaired or reconstructed, the owner of the land may, using the prescribed form, notify the clerk of the local municipality in which the land is situated that the owner wishes fence-viewers to view and arbitrate what portion of the fence each owner shall construct, reconstruct or repair and maintain and keep up."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 8(1)",
+          "quote": "The fence-viewers shall make an award in the prescribed form, signed by any two of them, respecting the matters in dispute"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 8(1)(b)",
+          "quote": "(i) each adjoining owner shall construct, reconstruct or repair, as the case may be, and maintain and keep up a designated one-half of the fence, or (ii) the adjoining owner designated shall construct, reconstruct or repair, as the case may be, and maintain and keep up the fence, and that the other adjoining owner shall, upon being notified by the designated adjoining owner of the costs of the work incurred from time to time, pay to the designated adjoining owner one-half of the costs incurred, unless the fence-viewers, in the circumstances of the case, consider an award in the terms of subclause (i) or (ii) to be unjust, in which case the fence-viewers may make such award in respect of the construction, reconstruction, repair or maintenance of the fence as they consider appropriate;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 16",
+          "quote": "Any agreement in writing in the prescribed form between owners respecting a line fence may be registered and enforced as if it were an award of fence-viewers."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/line-fences-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-fence-dispute|plaintiffElement|neighbour-did-not-obey-fd",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e2631b250445e86768edf997022a28f79b8d220e3ab6643dcc4cb8eba806cfad",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 11(1)",
+          "quote": "Where the award specifies that a portion or all of the fence shall be repaired, constructed, reconstructed, maintained or kept up by one adjoining owner and that adjoining owner fails to obey the award, the other adjoining owner may by notice served on the first adjoining owner and the occupant of the land of the first adjoining owner, require the first adjoining owner to obey the award."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 11(3)",
+          "quote": "If the notice is not obeyed within two weeks after it has been served, the owner desiring to enforce the award may do or complete the work that the award directs and may immediately institute proceedings to recover the value of the work done or completed and the costs of the proceedings from the owner of the adjoining land."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 11(6)",
+          "quote": "If the award specifies that one adjoining owner shall pay to the designated adjoining owner a portion of the costs of the work under subclause 8 (1) (b) (ii), the designated adjoining owner shall serve notice of the amount owing in accordance with the award on the other adjoining owner and the occupant of that owner's land, and if the amount is not paid within 28 days following the day on which the service is deemed to be made, the designated adjoining owner may institute proceedings to recover the amount and the costs of the proceedings from the other adjoining owner."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 11(7)",
+          "quote": "An owner desiring to institute proceedings under subsection (3) or (6) shall notify the clerk of the local municipality in which the land is situated that the owner desires the three fence-viewers who made the award to reattend at the premises and certify, (a) the default of the adjoining owner; and (b) the value of the work done by the owner which according to the award ought to have been done by the adjoining owner or the portion of the costs of the work done which ought to have been paid by the adjoining owner, as the case may be."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/line-fences-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-fence-dispute|defendantConsideration|appeal-of-award-fd",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2933125c638085965059804a2e1b2a381abbeb6cb63323acc680894ad7d15395",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 10(1)",
+          "quote": "An owner dissatisfied with the award may appeal to the referee by serving on the owner and occupant of the adjoining land, within fifteen days of receiving a copy of the award made under section 8, a notice of appeal in the prescribed form and by filing a copy of the notice together with an affidavit of service of the notice in the prescribed form with, and by paying the prescribed fees to, the clerk of the local municipality in which the land is situated within that period."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 10(6)",
+          "quote": "The decision of the referee is final and the award, as altered or affirmed, shall be dealt with in all respects as it would have been if it had not been appealed from."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/line-fences-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-fence-dispute|defendantConsideration|dispute-fd",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2a7c078ef0721367e8c910ba3398e4a80330b74db4786ba2e4c498a402e28e6b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/oreg-258-98-small-claims-rules.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-fence-dispute|proceduralNote|sc-claim-fence-dispute#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "86a40f30fd663c8a2af485cf97fe9b3c32dbdff5c858c2162fe18d06e44f211f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 4(1)",
+          "quote": "If the owner of any land wishes to have a fence that marks the boundary between their land and the land of an adjoining owner constructed, repaired or reconstructed, the owner of the land may, using the prescribed form, notify the clerk of the local municipality in which the land is situated that the owner wishes fence-viewers to view and arbitrate what portion of the fence each owner shall construct, reconstruct or repair and maintain and keep up."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 4(3), para. 1",
+          "quote": "The day of the arbitration which shall be not more than 30 days after the day the clerk is deemed to have received notice under subsection (1) and at least one week after the notice is deemed to be served under subsection (2)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 26",
+          "quote": "This Act, except section 20, does not apply to land in an area that is subject to a by-law passed under subsection 98 (1) of the Municipal Act, 2001 or subsection 109 (1) of the City of Toronto Act, 2006, as the case may be."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/line-fences-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-fence-dispute|proceduralNote|sc-claim-fence-dispute#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ffcb074d7be8ca639cc3ccd731d1fc10bf2c2e1a9d2a85e45924b56ef0d267f2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l17_e.doc",
+          "pinpoint": "s. 12(9)",
+          "quote": "the owner entitled to receive the amount may file a copy of the certificate and of the award in respect of which the certificate was made, certified by the clerk in accordance with this Act, with the clerk of the Small Claims Court of the territorial division in which any part of the land affected by the award is situated, and upon being so filed, the amount may be levied against the goods and chattels and land of the adjoining owner in the same manner as the amount of a judgment of the Small Claims Court may be levied."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/line-fences-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-retaining-wall-failure|plaintiffElement|reasonable-care-with-the-wall-rw",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "27fdac47673b14adaa3f24591b7b4e80f4efb5afc0c026fe5ed72f9d8eb62483",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt, docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-retaining-wall-failure|plaintiffElement|failure-caused-the-damage-rw",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "32815ab1fdf7343b39a28c14db3274df5ad3183d1a00998e6ba35432ed15b0c8",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 8",
+          "quote": "The test for showing causation is the “but for” test. The plaintiff must show on a balance of probabilities that “but for” the defendant's negligent act, the injury would not have occurred."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 8",
+          "quote": "This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 9",
+          "quote": "The “but for” causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant's negligence made to the injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 55 (LeBel J., dissenting)",
+          "quote": "I agree with the substance of her analysis of the law of causation and the nature of the “but for” test."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-retaining-wall-failure|plaintiffElement|amount-rw",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dbf1c48defa2d1c8227d632e562de4baff82a29e24e232f3afc23ad0b436068e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-retaining-wall-failure|defendantConsideration|dispute-rw",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6a8b0eb73057c08dd9257d888478775d8ea7a9f7d069a648665b1a3014914dbb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/oreg-258-98-small-claims-rules.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-retaining-wall-failure|defendantConsideration|shared-fault-rw",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6eae4e302642328d23a6add18610115255a7ddb66c534bf7010c937f9b5c2e0f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 1",
+          "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons are found at fault or negligent, they are jointly and severally liable to the person suffering loss or damage for such fault or negligence"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 5",
+          "quote": "Wherever it appears that a person not already a party to an action is or may be wholly or partly responsible for the damages claimed, such person may be added as a party defendant to the action upon such terms as are considered just or may be made a third party to the action in the manner prescribed by the rules of court for adding third parties."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/negligence-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-retaining-wall-failure|proceduralNote|sc-claim-retaining-wall-failure#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-retaining-wall-failure|proceduralNote|sc-claim-retaining-wall-failure#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-caused-by-a-dog|plaintiffElement|attack-on-a-domestic-animal-dg",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "346c0967c782ec43333632a1a7b1794b0780c76042e1bbfc97f5245095215425",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "s. 2(1)",
+          "quote": "The owner of a dog is liable for damages resulting from a bite or attack by the dog on another person or domestic animal."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "s. 1(1), \"owner\"",
+          "quote": "\"owner\", when used in relation to a dog, includes a person who possesses or harbours the dog and, where the owner is a minor, the person responsible for the custody of the minor;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "s. 2(2)",
+          "quote": "Where there is more than one owner of a dog, they are jointly and severally liable under this section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "s. 2(3)",
+          "quote": "The liability of the owner does not depend upon knowledge of the propensity of the dog or fault or negligence on the part of the owner"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/dog-owners-liability-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-caused-by-a-dog|plaintiffElement|other-damage-by-a-dog-at-large-dg",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1711e4f55a53cae7bfc95c59afd76ed5fc7d5e41a87e88984691a95088d94eae",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p17_e.doc",
+          "pinpoint": "s. 2",
+          "quote": "The owner or occupant of any land is responsible for any damage caused by any animal under the person's charge and keeping as though such animal were the person's own property, and the owner of any animal not permitted to run at large by the by-laws of the municipality is liable for any damage done by such animal, although the fence enclosing the premises of the complainant was not of the height required by such by-laws."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p17_e.doc",
+          "pinpoint": "s. 1",
+          "quote": "This Act is in force in every local municipality but the local municipality may by by-law passed under the Municipal Act, 2001 or the City of Toronto Act, 2006, as the case may be, vary its application."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/pounds-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-caused-by-a-dog|plaintiffElement|amount-dg",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3ff484f30cef1e04819868ac934aa3983fa110037c6208ed46b36bc9de73f985",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-caused-by-a-dog|defendantConsideration|claimant-fault-or-others-dg",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dcafc10466d6972e50659dd2cb7b05851edee50933776a474749f7297b46fe66",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "s. 2(3)",
+          "quote": "but the court shall reduce the damages awarded in proportion to the degree, if any, to which the fault or negligence of the plaintiff caused or contributed to the damages."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "s. 2(4)",
+          "quote": "An owner who is liable to pay damages under this section is entitled to recover contribution and indemnity from any other person in proportion to the degree to which the other person's fault or negligence caused or contributed to the damages."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/dog-owners-liability-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-caused-by-a-dog|defendantConsideration|on-the-owners-premises-dg",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6ede3590fafd207d86f2edf6b59ee31a063a9f45c2d70d4416eb18b9e59e145c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "s. 3(1)",
+          "quote": "Where damage is caused by being bitten or attacked by a dog on the premises of the owner, the liability of the owner is determined under this Act and not under the Occupiers' Liability Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "s. 3(2)",
+          "quote": "Where a person is on premises with the intention of committing, or in the commission of, a criminal act on the premises and incurs damage caused by being bitten or attacked by a dog, the owner is not liable under section 2 unless the keeping of the dog on the premises was unreasonable for the purpose of the protection of persons or property."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/dog-owners-liability-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-caused-by-a-dog|defendantConsideration|dispute-dg",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "475dd7f057a9520c2ee688b6a9f603c0111a45fc82a5f1564128d972fd502db6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/oreg-258-98-small-claims-rules.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-caused-by-a-dog|proceduralNote|sc-claim-damage-caused-by-a-dog#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-caused-by-a-dog|proceduralNote|sc-claim-damage-caused-by-a-dog#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4209324083ccf9a752d0395f94fd5d4f12897944c7fa5a8328f501109ffb7ca4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "s. 4(1)",
+          "quote": "A proceeding may be commenced in the Ontario Court of Justice against an owner of a dog if it is alleged that, (a) the dog has bitten or attacked a person or domestic animal; (b) the dog has behaved in a manner that poses a menace to the safety of persons or domestic animals; or (c) the owner did not exercise reasonable precautions to prevent the dog from,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "s. 4(1.2)",
+          "quote": "Part IX of the Provincial Offences Act applies to a proceeding under this section."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/dog-owners-liability-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-caused-by-a-dog|proceduralNote|sc-claim-damage-caused-by-a-dog#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-livestock-or-animals-at-large|plaintiffElement|animal-at-large-did-damage-la",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1621fcb354b9e7ef2dd165eac680702a5cd54565e02f338c1abd8cb9c40af7b0",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p17_e.doc",
+          "pinpoint": "s. 2",
+          "quote": "The owner or occupant of any land is responsible for any damage caused by any animal under the person's charge and keeping as though such animal were the person's own property, and the owner of any animal not permitted to run at large by the by-laws of the municipality is liable for any damage done by such animal, although the fence enclosing the premises of the complainant was not of the height required by such by-laws."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p17_e.doc",
+          "pinpoint": "s. 1",
+          "quote": "This Act is in force in every local municipality but the local municipality may by by-law passed under the Municipal Act, 2001 or the City of Toronto Act, 2006, as the case may be, vary its application."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/pounds-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-livestock-or-animals-at-large|plaintiffElement|outside-a-municipality-la",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "82d530a084be5cfd30770f5aa76deb476d103c90d45f32d71735a94993ab0ae3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p17_e.doc",
+          "pinpoint": "s. 3",
+          "quote": "No cattle, goat, horse, sheep or swine shall be allowed to run at large in any part of a territorial district not included in an organized municipality."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p17_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "The owner of any cattle, goat, horse, sheep or swine running at large contrary to section 3 is liable in damages for all injuries committed by such animal or animals, and also is guilty of an offence"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/pounds-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-livestock-or-animals-at-large|plaintiffElement|amount-la",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c39e8956e9d3ce27e079bf4a5c44801197a3a522a851152066dd1d7c1740fce3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-livestock-or-animals-at-large|defendantConsideration|dispute-la",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8957e34bbc6a04fbace6e840d729813779eac04f1d9b21b92736dca44bc7c209",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/oreg-258-98-small-claims-rules.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-livestock-or-animals-at-large|proceduralNote|sc-claim-livestock-or-animals-at-large#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-livestock-or-animals-at-large|proceduralNote|sc-claim-livestock-or-animals-at-large#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bd3d5b125886e61b800f351b9aff48100deb187eceb118267399432d0ae1fb2c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p17_e.doc",
+          "pinpoint": "s. 9(1)",
+          "quote": "If the animal distrained is a horse, bull, ox, cow, sheep, goat, pig or other cattle, and if it is distrained by a resident of the municipality for straying in the resident's premises, instead of delivering the animal to the poundkeeper, the resident may retain the animal in the resident's own possession, if the resident makes no claim for damages done by the animal and duly gives the notices hereinafter required."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p17_e.doc",
+          "pinpoint": "s. 9(2)",
+          "quote": "If the owner is known, the person distraining shall forthwith give the owner notice in writing of having distrained the animal."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p17_e.doc",
+          "pinpoint": "s. 9(3)",
+          "quote": "If the owner is unknown, the person distraining shall, within forty- ... eight hours, deliver to the clerk of the municipality a notice in writing of having distrained the animal containing a description of its colour, age and natural and artificial marks, as nearly as may be."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p17_e.doc",
+          "pinpoint": "s. 8(1)",
+          "quote": "The person distraining and impounding the animal shall, at the time of the impounding, deposit poundage fees, if demanded, and within twenty- ... four hours thereafter deliver to the poundkeeper duplicate statements in writing of the person's demands against the owner for damages, if any, not exceeding $20, done by such animal, exclusive of poundage fees"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/pounds-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-livestock-or-animals-at-large|proceduralNote|sc-claim-livestock-or-animals-at-large#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-to-a-parked-vehicle|plaintiffElement|occupier-duty-pv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5b859ca162923714fd16059a7778035ec90ff116c8cbb1f48f9e55bee0350b41",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "s. 3(1)",
+          "quote": "An occupier of premises owes a duty to take such care as in all the circumstances of the case is reasonable to see that persons entering on the premises, and the property brought on the premises by those persons are reasonably safe while on the premises."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "s. 3(2)",
+          "quote": "The duty of care provided for in subsection (1) applies whether the danger is caused by the condition of the premises or by an activity carried on on the premises."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "s. 1, \"occupier\"",
+          "quote": "\"occupier\" includes, (a) a person who is in physical possession of premises, or (b) a person who has responsibility for and control over the condition of premises or the activities there carried on, or control over persons allowed to enter the premises, despite the fact that there is more than one occupier of the same premises;"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/occupiers-liability-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-to-a-parked-vehicle|plaintiffElement|valet-or-business-care-pv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d3fab487953d2594a25d0672c566c95a1ffe671b208d460f18f56ea6a7fe653a",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt, docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-to-a-parked-vehicle|plaintiffElement|caused-the-damage-pv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "14cdffa3f30fc26c869fd107dc4a7aa96966149badded28430eb959af4a27717",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 8",
+          "quote": "The test for showing causation is the “but for” test. The plaintiff must show on a balance of probabilities that “but for” the defendant's negligent act, the injury would not have occurred."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 8",
+          "quote": "This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 9",
+          "quote": "The “but for” causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant's negligence made to the injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 55 (LeBel J., dissenting)",
+          "quote": "I agree with the substance of her analysis of the law of causation and the nature of the “but for” test."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-to-a-parked-vehicle|plaintiffElement|amount-pv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0308d644e784c2ee166c4b78f139850833c3e43270eeb7fe0f4ad180c38cd2e7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-to-a-parked-vehicle|defendantConsideration|not-responsible-sign-pv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4d45cfc8a941394cf11458e0e73b31a17ac6e9bfd096a066e69b5d91f81404c8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "s. 3(3)",
+          "quote": "The duty of care provided for in subsection (1) applies except in so far as the occupier of premises is free to and does restrict, modify or exclude the occupier's duty."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "s. 5(3)",
+          "quote": "Where an occupier is free to restrict, modify or exclude the occupier's duty of care or the occupier's liability for breach thereof, the occupier shall take reasonable steps to bring such restriction, modification or exclusion to the attention of the person to whom the duty is owed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "The duty of an occupier under this Act, or the occupier's liability for breach thereof, shall not be restricted or excluded by any contract to which the person to whom the duty is owed is not a party"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/occupiers-liability-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-to-a-parked-vehicle|defendantConsideration|independent-contractor-pv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b6c21c7d2ddf90c62aee5162d39f55827481d22aa7af1b2dfa3296e0aca73156",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "s. 6(1)",
+          "quote": "Where damage to any person or his or her property is caused by the negligence of an independent contractor employed by the occupier, the occupier is not on that account liable if in all the circumstances the occupier had acted reasonably in entrusting the work to the independent contractor, if the occupier had taken such steps, if any, as the occupier reasonably ought in order to be satisfied that the contractor was competent and that the work had been properly done, and if it was reasonable that the work performed by the independent contractor should have been undertaken."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/occupiers-liability-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-to-a-parked-vehicle|defendantConsideration|dispute-pv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ab1cb164766e78911912a489fe6918116a526c1185e748c1b1499189edd959e4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/oreg-258-98-small-claims-rules.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-to-a-parked-vehicle|proceduralNote|sc-claim-damage-to-a-parked-vehicle#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-to-a-parked-vehicle|proceduralNote|sc-claim-damage-to-a-parked-vehicle#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-by-tenant-guest-or-roommate|plaintiffElement|tenant-responsible-for-guests-tg",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0a4b2903acbeab40e5348f6266ff8c6abe40578122b57187b2455c18a51fea87",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 34",
+          "quote": "The tenant is responsible for the repair of undue damage to the rental unit or residential complex caused by the wilful or negligent conduct of the tenant, another occupant of the rental unit or a person permitted in the residential complex by the tenant."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 3(1)",
+          "quote": "This Act, except Part V.1, applies with respect to rental units in residential complexes, despite any other Act and despite any agreement or waiver to the contrary."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-by-tenant-guest-or-roommate|plaintiffElement|wilful-or-negligent-damage-tg",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d0d3c0615534ba8068951dc87b65e796e38d527b1f672da6fc58684b12910813",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt, docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-by-tenant-guest-or-roommate|plaintiffElement|amount-tg",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c64c7b70c8b3b05e9b8295db8d35a009d25e280cc64a00d939dc157fe68b786e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-by-tenant-guest-or-roommate|defendantConsideration|shared-with-owner-tg",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "37802947134ba1d7229c3e2e5a963924d3c40a081e4a50e3a8f7ac7702b29f5f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 5(i)",
+          "quote": "This Act does not apply with respect to, ... living accommodation whose occupant or occupants are required to share a bathroom or kitchen facility with the owner, the owner's spouse, child or parent or the spouse's child or parent, and where the owner, spouse, child or parent lives in the building in which the living accommodation is located;"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-by-tenant-guest-or-roommate|defendantConsideration|shared-fault-tg",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8067712f3ce9d922e49824f222a4fa1289f2bb9db9645a7e8429fe93f31ef048",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 1",
+          "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons are found at fault or negligent, they are jointly and severally liable to the person suffering loss or damage for such fault or negligence"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 5",
+          "quote": "Wherever it appears that a person not already a party to an action is or may be wholly or partly responsible for the damages claimed, such person may be added as a party defendant to the action upon such terms as are considered just or may be made a third party to the action in the manner prescribed by the rules of court for adding third parties."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/negligence-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-by-tenant-guest-or-roommate|defendantConsideration|dispute-tg",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7533bd6a438c14cbb89dd3de4813393f328163fdd4019f5a0509ccd3f4720554",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/oreg-258-98-small-claims-rules.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-by-tenant-guest-or-roommate|proceduralNote|sc-claim-damage-by-tenant-guest-or-roommate#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "78f1af5304ca44bcdd7af0b27c532c82304855f2b1facf2921736ea917467417",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 89(1)",
+          "quote": "A landlord may apply to the Board for an order requiring a tenant or former tenant to pay reasonable costs that the landlord has incurred or will incur for the repair of or, where repairing is not reasonable, the replacement of damaged property if, (a) while the tenant or former tenant is or was in possession of the rental unit, the tenant or former tenant, another occupant of the rental unit or a person permitted in the residential complex by the tenant or former tenant wilfully or negligently causes or caused undue damage to the rental unit or the residential complex; and (b) in the case of a tenant or former tenant no longer in possession of the rental unit, the tenant or former tenant ceased to be in possession on or after the day"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 168(2)",
+          "quote": "The Board has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 207(1)",
+          "quote": "The Board may, where it otherwise has the jurisdiction, order the payment to any given person of an amount of money up to the greater of $10,000 and the monetary jurisdiction of the Small Claims Court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 207(2)",
+          "quote": "A person entitled to apply under this Act but whose claim exceeds the Board's monetary jurisdiction may commence a proceeding in any court of competent jurisdiction for an order requiring the payment of that sum"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-by-tenant-guest-or-roommate|proceduralNote|sc-claim-damage-by-tenant-guest-or-roommate#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-damage-by-tenant-guest-or-roommate|proceduralNote|sc-claim-damage-by-tenant-guest-or-roommate#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-construction-or-excavation-next-door|plaintiffElement|reasonable-care-in-the-work-cn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3ad80b6dfff25f9b1f1b5f065d5ae8800bd8ab4b7c2b78f3694c920fd1fca9f5",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt, docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-construction-or-excavation-next-door|plaintiffElement|work-caused-the-damage-cn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5b3aa6ba299510ebd0bbb69396968ad41c05f5306a27eaaa2311e95172d1d818",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 8",
+          "quote": "The test for showing causation is the “but for” test. The plaintiff must show on a balance of probabilities that “but for” the defendant's negligent act, the injury would not have occurred."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 8",
+          "quote": "This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 9",
+          "quote": "The “but for” causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant's negligence made to the injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 55 (LeBel J., dissenting)",
+          "quote": "I agree with the substance of her analysis of the law of causation and the nature of the “but for” test."
+        }
+      ],
+      "howRead": "saved decision text docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-construction-or-excavation-next-door|plaintiffElement|amount-cn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6abb517e981a75f81d99063e402e6b38335feaf1ce3ce763e9067b101fe211c2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-construction-or-excavation-next-door|defendantConsideration|shared-fault-cn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1724751eb98ba4ab735602c2a6d6ce7daa6ecec2c2a35bbcec3a671be7e6d7bb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 1",
+          "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons are found at fault or negligent, they are jointly and severally liable to the person suffering loss or damage for such fault or negligence"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 5",
+          "quote": "Wherever it appears that a person not already a party to an action is or may be wholly or partly responsible for the damages claimed, such person may be added as a party defendant to the action upon such terms as are considered just or may be made a third party to the action in the manner prescribed by the rules of court for adding third parties."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/negligence-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-construction-or-excavation-next-door|defendantConsideration|dispute-cn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "60aa1d0b94c0ae5c347203e383bdee72d19da05a3505ee13e9115662e5c3abdb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/oreg-258-98-small-claims-rules.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-construction-or-excavation-next-door|proceduralNote|sc-claim-construction-or-excavation-next-door#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-construction-or-excavation-next-door|proceduralNote|sc-claim-construction-or-excavation-next-door#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    }
+  ],
   "unverifiable": []
 }
