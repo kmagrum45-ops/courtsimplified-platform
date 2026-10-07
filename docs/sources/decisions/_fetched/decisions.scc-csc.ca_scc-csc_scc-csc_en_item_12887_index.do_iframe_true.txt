@@ -1,0 +1,351 @@
+ Antrim Truck Centre Ltd. v. Ontario (Transportation) - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Antrim Truck Centre Ltd. v. Ontario (Transportation)
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Antrim Truck Centre Ltd. v. Ontario (Transportation)
+ /scc-csc/scc-csc/fr/item/12887/index.do?alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Supreme Court Judgments
+Decision Information
+ Antrim Truck Centre Ltd. v. Ontario (Transportation)
+ Collection
+ Supreme Court Judgments
+ Date
+ 2013-03-07
+ Neutral citation
+ 2013 SCC 13
+ Report
+ [2013] 1 SCR 594
+ Case number
+ 34413
+ Judges
+ McLachlin, Beverley; LeBel, Louis; Fish, Morris J.; Abella, Rosalie Silberman; Rothstein, Marshall; Cromwell, Thomas Albert; Moldaver, Michael J.; Karakatsanis, Andromache; Wagner, Richard
+ On appeal from
+ Ontario
+ Subjects
+ Expropriation
+ Notes
+ SCC Case Information: [LINK https://www.scc-csc.ca/cases-dossiers/search-recherche/34413/] 34413
+ [LINK /scc-csc/scc-csc/en/12887/1/document.do] 
+Decision Content
+ SUPREME COURT OF CANADA 
+ Citation: Antrim Truck Centre Ltd. v. Ontario (Transportation), 2013 SCC 13, [2013] 1 S.C.R. 594 
+ Date: 20130307 Docket: 34413 
+ Between: 
+ Antrim Truck Centre Ltd. 
+ Appellant 
+ and 
+ Her Majesty The Queen in Right of the Province of Ontario, 
+ as represented by the Minister of Transportation 
+ Respondent 
+ - and - 
+ Attorney General of British Columbia, 
+ City of Toronto and Metrolinx 
+ Interveners 
+ Coram: McLachlin C.J. and LeBel, Fish, Abella, Rothstein, Cromwell, Moldaver, Karakatsanis and Wagner JJ. 
+ <table class="TableGrid1" border="0" cellspacing="0" cellpadding="0" style="border-collapse:
+ collapse;border:none"> 
+ Reasons for Judgment: (paras. 1 to 57) 
+ Cromwell J. (McLachlin C.J. and LeBel, Fish, Abella, Rothstein, Moldaver, Karakatsanis and Wagner JJ. concurring) 
+ <span style="font-size:12.0pt;font-family:"Times New Roman","serif";font-variant:
+small-caps"> 
+ Antrim Truck Centre Ltd. v. Ontario (Transportation), 2013 SCC 13, [2013] 1 S.C.R. 594 
+ Antrim Truck Centre Ltd. Appellant 
+ v. 
+ Her Majesty The Queen in Right of the Province of Ontario, 
+ as represented by the Minister of Transportation Respondent 
+ and 
+ Attorney General of British Columbia, 
+ City of Toronto and 
+ Metrolinx Interveners 
+ Indexed as: Antrim Truck Centre Ltd. v. Ontario (Transportation) 
+ 2013 SCC 13 
+ File No.: 34413. 
+ 2012: November 14; 2013: March 7. 
+ Present: McLachlin C.J. and LeBel, Fish, Abella, Rothstein, Cromwell, Moldaver, Karakatsanis and Wagner JJ. 
+ on appeal from the court of appeal for ontario 
+ Expropriation — Injurious affection — Nuisance — Compensation — Construction of new highway diverting traffic away from appellant’s truck stop business — Ontario Municipal Board awarding appellant compensation for injurious affection for business loss and loss of market value of property — Court of Appeal dismissing claim on basis that Board failed to balance competing rights adequately — Whether interference with private enjoyment of land was unreasonable when resulting from construction serving important public purpose — Whether Court of Appeal erred in finding that Board’s application of law of nuisance was unreasonable — Expropriation Act, R.S.O. 1990, c. E.26. 
+ From 1978 until 2004, the appellant owned property on Highway 17 near the hamlet of Antrim where it operated a truck stop complex that included a restaurant and gas bar and enjoyed the patronage of drivers travelling along the highway. In September 2004, the respondent opened a new section of Highway 417 running parallel to Highway 17 near the appellant’s property. Highway 17 was significantly altered by the construction of Highway 417 and access to the appellant’s land was severely restricted. Motorists travelling on the new highway did not have direct access to the appellant’s truck stop and so it was effectively put out of business at that location. The appellant brought a claim for damages for injurious affection before the Ontario Municipal Board under the Expropriations Act and was awarded $58,000 for business loss and $335,000 for loss in market value of the land. This decision was upheld on appeal to the Divisional Court. The Court of Appeal set aside the Board’s decision, however, finding that its application of the law of private nuisance to the facts was unreasonable because it had failed to consider two factors in its reasonableness analysis and because it had failed to recognize the elevated importance of the utility of the respondent’s conduct where the interference was the product of an essential public service. 
+ Held: The appeal should be allowed. 
+ The main question is how to decide whether an interference with the private use and enjoyment of land is unreasonable when it results from construction which serves an important public purpose. The reasonableness of the interference must be determined by balancing the competing interests, as it is in all other cases of private nuisance. The balance is appropriately struck by answering the question of whether, in all of the circumstances, the individual claimant has shouldered a greater share of the burden of construction than it would be reasonable to expect individuals to bear without compensation. Here, the interference with the appellant’s land caused by the construction of the new highway inflicted significant and permanent loss. 
+ The Expropriations Act provides a right to compensation for injurious affection, which occurs when the defendant’s activities interfere with the claimant’s occupation or enjoyment of land, if the claimant can meet three requirements: (i) the damage must result from action taken under statutory authority; (ii) the action would give rise to liability but for that statutory authority; and (iii) the damage must result from the construction and not the use of the works. In this case, the only unresolved question is whether, if the highway construction had not been done under statutory authority, the appellant could have successfully sued for damages caused by the construction under the law of private nuisance. 
+ Nuisance consists of an interference with the claimant’s occupation or enjoyment of land that is both substantial and unreasonable. A substantial interference is one that is non‑trivial, amounting to more than a slight annoyance or trifling interference. This threshold screens out weak claims and once met, the next inquiry is whether the non‑trivial interference was also unreasonable in all of the circumstances to justify compensation. 
+ When assessing unreasonableness where the activity causing the interference is carried out by a public authority for the greater public good, courts and tribunals are not limited by any specific list of factors. Rather, the focus of the balancing exercise is on whether the interference is such that it would be unreasonable in all of the circumstances to require the claimant to suffer it without compensation. Generally, the focus in nuisance is on whether the interference suffered by the claimant is unreasonable, not on whether the nature of the defendant’s conduct is unreasonable. The nature of the defendant’s conduct is not, however, an irrelevant consideration. Generally speaking, the acts of a public authority will be of significant utility. If simply put in the balance with the private interest, public utility will generally outweigh even very significant interferences with the claimant’s land, undercutting the purpose of providing compensation for injurious affection. The distinction is thus between interferences that constitute the “give and take” expected of everyone and interferences that impose a disproportionate burden on individuals. The reasonableness analysis should favour the public authority where the harm to property interests, considered in light of its severity, the nature of the neighbourhood, its duration, the sensitivity of the plaintiff and other relevant factors, is such that the harm cannot reasonably be viewed as more than the claimant’s fair share of the costs associated with providing a public benefit. 
+ Further, the reasonableness inquiry should not be short‑circuited on the basis that the interference is physical or material as opposed to a loss of amenities or is self‑evidently unreasonable. Once a claimant passes the threshold test of showing harm that is substantial in the sense that it is non‑trivial, there ought to be an inquiry into whether the interference is unreasonable, regardless of the type of harm involved. 
+ The Court of Appeal erred in finding that the Board’s application of the law of nuisance to the facts was unreasonable. Provided that the Board reasonably carried out the analysis in substance, it was not required to specifically enumerate and refer by name to every factor mentioned in the case law. It did not fail to take account of the utility of the respondent’s activity or fail to engage in the required balancing as the Court of Appeal concluded it had. It was reasonable for the Board to conclude that in all of the circumstances, the appellant should not be expected to endure permanent interference with the use of its land that caused a significant diminution of its market value in order to serve the greater public good. 
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:.5in;line-height:normal;
+page-break-after:avoid">Cases Cited 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Applied: St. Lawrence Cement Inc. v. Barrette, 2008 SCC 64, [2008] 3 S.C.R. 392; St. Pierre v. Ontario (Minister of Transportation and Communications), [1987] 1 S.C.R. 906; Royal Anne Hotel Co. v. Village of Ashcroft (1979), 95 D.L.R. (3d) 756; Tock v. St. John’s Metropolitan Area Board, [1989] 2 S.C.R. 1181; Jesperson’s Brake & Muffler Ltd. v. Chilliwack (District) (1994), 88 B.C.L.R. (2d) 230; Mandrake Management Consultants Ltd. v. Toronto Transit Commission (1993), 62 O.A.C. 202; Schenck v. The Queen (1981), 34 O.R. (2d) 595; considered: Andreae v. Selfridge & Co., [1938] 1 Ch. 1; referred to: Susan Heyes Inc. v. Vancouver (City), 2011 BCCA 77, 329 D.L.R. (4th) 92, leave to appeal refused, [2011] 3 S.C.R. xi; City of Campbellton v. Gray’s Velvet Ice Cream Ltd. (1981), 127 D.L.R. (3d) 436; The Queen v. Loiselle, [1962] S.C.R. 624; Newfoundland (Minister of Works, Services and Transportation) v. Airport Realty Ltd., 2001 NFCA 45, 205 Nfld. & P.E.I.R. 95; Wildtree Hotels Ltd. v. Harrow London Borough Council, [2001] 2 A.C. 1; Allen v. Gulf Oil Refining Ltd., [1981] A.C. 1001; St. Helen’s Smelting Co. v. Tipping (1865), 11 H.L.C. 642, 11 E.R. 1483; Walker v. McKinnon Industries Ltd., [1949] 4 D.L.R. 739, varied by [1950] 3 D.L.R. 159, aff’d [1951] 3 D.L.R. 577; Smith v. Inco Ltd., 2011 ONCA 628, 107 O.R. (3d) 321. 
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:.5in;line-height:normal;
+page-break-after:avoid">Statutes and Regulations Cited 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Expropriations Act, R.S.O. 1990, c. E.26, ss. 1(1), 21. 
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:.5in;line-height:normal;
+page-break-after:avoid">Authors Cited 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Fleming, John G. Fleming’s The Law of Torts, 10th ed., by Carolyn Sappideen and Prue Vines, eds. Pyrmont, N.S.W.: Lawbook Co., 2011. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Klar, Lewis N. Tort Law, 5th ed. Toronto: Carswell, 2012. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Linden, Allen M., and Bruce Feldthusen. Canadian Tort Law, 9th ed. Markham, Ont.: LexisNexis, 2011. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">McLaren, John P. S. “Nuisance in Canada”, in Allen M. Linden, ed., Studies In Canadian Tort Law. Toronto: Butterworths, 1968, 320. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Murphy, John, and Christian Witting. Street on Torts, 13th ed. Oxford: Oxford University Press, 2012. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Senzilet, Michael William. “Compensation for Injurious Affection Where No Land Is Taken”, unpublished LL.M. thesis, University of Ottawa, 1987. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Todd, Eric C. E. The Law of Expropriation and Compensation in Canada, 2nd ed. Scarborough, Ont.: Carswell, 1992. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> APPEAL from a judgment of the Ontario Court of Appeal (Doherty, Watt and Epstein JJ.A.), 2011 ONCA 419, 106 O.R. (3d) 81, 281 O.A.C. 150, 332 D.L.R. (4th) 641, 6 R.P.R. (5th) 1, 104 L.C.R. 1, 85 C.C.L.T. (3d) 51, [2011] O.J. No. 2451 (QL), 2011 CarswellOnt 4064, setting aside a decision of Wilson, Hill and Lax JJ., 2010 ONSC 304, 100 O.R. (3d) 425, 258 O.A.C. 1, 318 D.L.R. (4th) 229, 91 R.P.R. (4th) 41, 100 L.C.R. 32, [2010] O.J. No. 156 (QL), 2010 CarswellOnt 162, affirming a decision of the Ontario Municipal Board (2009), 96 L.C.R. 100, [2009] O.M.B.D. No. 1 (QL), 2009 CarswellOnt 290. Appeal allowed. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Shane Rayman and Greg Temelini, for the appellant. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Leonard F. Marsello, Malliha Wilson, Shona L. Compton and William R. MacLarkey, for the respondent. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Matthew Taylor and Jonathan Eades, for the intervener the Attorney General of British Columbia. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Graham J. Rempe and Matthew G. Longo, for the intervener the City of Toronto. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Kathryn I. Chalmers and Patrick G. Duffy, for the intervener Metrolinx. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> The judgment of the Court was delivered by 
+ Cromwell J. — 
+ I. Introduction 
+ [1] Highway construction by the Province of Ontario significantly and permanently interfered with access to the appellant’s land. The appellant claimed that this interference was unreasonable and sought an order for compensation before the Ontario Municipal Board. The Board awarded the appellant $393,000 as compensation for business loss and decline in market value of the land resulting from the highway construction. The Board’s award, however, was set aside by the Court of Appeal; it concluded that the interference with the appellant’s land had not been unreasonable given the important public purposes served by the highway’s construction. In effect, the Court of Appeal found that it was reasonable for the appellant to suffer permanent interference with the use of its land that caused significant diminution of its market value in order to serve the greater public good. The appellant asks this Court to reinstate the Board’s award. 
+ [2] The main question on appeal is this: How should we decide whether an interference with the private use and enjoyment of land is unreasonable when it results from construction which serves an important public purpose? The answer, as I see it, is that the reasonableness of the interference must be determined by balancing the competing interests, as it is in all other cases of private nuisance. The balance is appropriately struck by answering the question whether, in all of the circumstances, the individual claimant has shouldered a greater share of the burden of construction than it would be reasonable to expect individuals to bear without compensation. Here, the interference with the appellant’s land caused by the construction of the new highway inflicted significant and permanent loss on the appellant; in the circumstances of this case, it was not unreasonable for the Board to conclude that an individual should not be expected to bear such a loss for the greater public good without compensation. 
+ [3] I would allow the appeal and restore the order of the Ontario Municipal Board. 
+ II. Legal Context and Issues 
+ [4] The legal framework for the appeal is found in the law concerning injurious affection. Injurious affection occurs when the defendant’s activities interfere with the claimant’s use or enjoyment of land. Such interference may occur where a portion of an owner’s land is expropriated with negative effects on the value of the remaining property. Alternatively, it may arise where, although no land is expropriated, the lawful activities of a statutory authority on one piece of land interfere with the use or enjoyment of another property: E. C. E. Todd, The Law of Expropriation and Compensation in Canada (2nd ed. 1992), at pp. 331-33. In this case, the appellant claimed compensation for injurious affection where no land is taken because the highway construction had significantly impeded access to its land. 
+ [5] The Ontario Expropriations Act, R.S.O. 1990, c. E.26, provides a right to compensation for injurious affection on certain conditions: s. 21. Where none of the claimant’s land is expropriated, the Act provides a right to compensation for “such reduction in the market value of the land of the owner, and . . . such personal and business damages, resulting from the construction and not the use of the works by the statutory authority, as the statutory authority would be liable for if the construction were not under the authority of a statute”: s. 1(1). Thus, in order to recover under the Act, the claimant has to meet these three statutory requirements, which are often referred to as the requirements of “statutory authority”, “actionability” and “construction and not the use”. These requirements mean that (i) the damage must result from action taken under statutory authority; (ii) the action would give rise to liability but for that statutory authority; and (iii) the damage must result from the construction and not the use of the works. Where these conditions are present, the Act requires that the complainant be compensated for the amount by which the affected land’s market value was reduced because of the interference, and for personal and business damages: ss. 1(1) and 21. 
+ [6] The appellant satisfied the first and third requirements. As for the first, there was never any dispute that the construction of the new section of highway was carried out under statutory authority. With respect to the third, the “construction and not the use” requirement was contested in the earlier proceedings, but it is no longer in issue in this Court. What remains is the question of whether the second requirement is met. That is, whether, if the highway construction had not been done under statutory authority, the appellant could have successfully sued for damages caused by the construction. 
+ [7] The appellant’s primary position, which the Board accepted, is that it meets this second requirement because it would be entitled to damages for private nuisance. The Court of Appeal disagreed. While finding no fault in the Board’s articulation of the law about private nuisance, the Court of Appeal nonetheless found that the Board had not reasonably applied that law to the facts before it: 2011 ONCA 419, 106 O.R. (3d) 81. Thus, the reviewable error found by the Court of Appeal concerns the application of the legal test for nuisance to the facts. 
+ [8] In this Court, the parties engaged in a wide-ranging debate about how to define the elements of private nuisance and how to assess the reasonableness of the interference. I will address the questions that arose in that debate in the hope of providing further clarity concerning the relevant legal principles. But the core issue on which the appeal turns is whether, as the Court of Appeal decided, the Board was unreasonable in its application of the law of private nuisance to the facts. 
+ [9] The issues I will address are these: 
+ <p class="ParaNoNdepar-AltN" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:0in;margin-left:27.0pt;margin-bottom:.0001pt;text-indent:-27.0pt">1. What are the elements of private nuisance? 
+ <p class="ParaNoNdepar-AltN" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:0in;margin-left:27.0pt;margin-bottom:.0001pt;text-indent:-27.0pt">2. How is reasonableness assessed in the context of interference caused by projects that further the public good? 
+ <p class="ParaNoNdepar-AltN" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:0in;margin-left:27.0pt;margin-bottom:.0001pt;text-indent:-27.0pt">3. Does the unreasonableness of an interference need to be considered when that interference is physical or material? 
+ <p class="ParaNoNdepar-AltN" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:0in;margin-left:27.0pt;margin-bottom:.0001pt;text-indent:-27.0pt">4. Did the Court of Appeal err in finding that the Board’s application of the law of nuisance to the facts was unreasonable? 
+ [10] Before turning to these issues, I will set out a brief summary of the facts and proceedings and address the applicable standard of judicial review. 
+ III. Facts, Proceedings and Standard of Review 
+ A. Overview of the Facts and Proceedings 
+ [11] From 1978 until 2004, the appellant owned property on Highway 17 near the hamlet of Antrim. On that property, the appellant operated a truck stop that included a restaurant, bakery, gift shop, gas and diesel bar, offices and a truck sales, leasing and service centre. The business enjoyed the patronage of drivers travelling both east and west along the highway, which formed part of the Trans-Canada Highway system. 
+ [12] In September 2004, the respondent opened a new section of Highway 417 that runs parallel to Highway 17 at the point of the appellant’s property. Highway 17 was significantly altered to allow for the extension of Highway 417. Because of these changes, Highway 17 now effectively turns into a dirt road just two kilometres east of the appellant’s truck stop. Motorists heading east from the truck stop have to take a circuitous route including a dirt road and two other side roads before they reach Highway 417. Moreover, motorists travelling on the new stretch of Highway 417 do not have direct access to the appellant’s truck stop; they have to turn onto a regional road west of the property and drive about two kilometres to reach it. According to the appellant, the construction of the new segment of Highway 417 resulted in the closure of Highway 17, effectively putting its truck stop out of business at that location. It brought a claim before the Ontario Municipal Board for compensation for injurious affection under the Expropriations Act. The parties accept the Board’s assessment of compensation; only its finding that the injurious affection claim was made out is in issue before this Court. 
+ [13] Having heard the claim, the Ontario Municipal Board awarded the appellant $58,000 for business loss and $335,000 for loss in market value of the land. The Board rejected the Province’s position that construction of the new highway had not impeded or altered access to the truck stop: (2009), 96 L.C.R. 100, at p. 114. According to the Board, the change in access resulting from the construction constituted a “serious impairment in nuisance”: p. 115. The Board found that the construction of the new highway had changed Highway 17 in a manner that severely restricted access to the appellant’s land; it had turned Highway 17 into a “shadow of what it was before Highway 417”: p. 115. In all of the circumstances, this interference was unreasonable and arose from the construction and not the use of the highway. 
+ [14] The Board’s decision was upheld on appeal to the Divisional Court of the Ontario Superior Court of Justice: 2010 ONSC 304, 100 O.R. (3d) 425. The court found that the Board had correctly articulated the law of private nuisance and had applied it reasonably. Specifically, the Divisional Court found that the Board had balanced the public utility of the highway construction against the appellant’s interests in deciding that the interference caused by the Province was unreasonable. 
+ [15] On the Province’s further appeal to the Court of Appeal, the Board’s decision was set aside and the appellant’s claim dismissed. The Court of Appeal found that the Board’s application of the law of private nuisance to the facts was unreasonable. In particular, the Court of Appeal concluded that the Board had failed to balance the competing rights of the Province and the appellant adequately in two respects. First, the Board failed to consider two of the three factors it was “obliged to take into account in assessing the reasonableness of the interference” with the appellant’s use and enjoyment of its land, namely the character of the neighbourhood and the sensitivity of the complainant. Second, the Board “failed to recognize the elevated importance of the utility of the defendant’s conduct where the interference is the product of ‘an essential public service’”: para. 129. 
+ B. Standard of Review 
+ [16] As I explained above, the Court of Appeal set aside the Board’s decision because it unreasonably applied the law of private nuisance to the facts before it. The focus of the case is, therefore, on whether the Board appropriately carried out the balancing inherent in the law of private nuisance. As the Court of Appeal put it, “Whether there has been an unreasonable interference with the use and enjoyment of the plaintiff’s land is a question of judgment based on all of the circumstances”: para. 83. I agree with the Court of Appeal that the Board’s decision on this point should be reviewed for reasonableness. 
+ [17] Before turning to the primary issue in this case, however, I will address three broader questions relating to the law of private nuisance. 
+ C. First Question: What Are the Elements of Private Nuisance? 
+ [18] The Court of Appeal concluded that a nuisance consists of an interference with the claimant’s use or enjoyment of land that is both substantial and unreasonable: paras. 79-80. In my view, this conclusion is correct. 
+ [19] The elements of a claim in private nuisance have often been expressed in terms of a two-part test of this nature: to support a claim in private nuisance the interference with the owner’s use or enjoyment of land must be both substantial and unreasonable. A substantial interference with property is one that is non-trivial. Where this threshold is met, the inquiry proceeds to the reasonableness analysis, which is concerned with whether the non-trivial interference was also unreasonable in all of the circumstances. This two-part approach found favour with this Court in its most recent discussion of private nuisance and was adopted by the Court of Appeal in this case, at para. 80: St. Lawrence Cement Inc. v. Barrette, 2008 SCC 64, [2008] 3 S.C.R. 392, at para. 77; see also St. Pierre v. Ontario (Minister of Transportation and Communications), [1987] 1 S.C.R. 906, at pp. 914-15, quoting with approval H. Street, The Law of Torts (6th ed. 1976), at p. 219; Susan Heyes Inc. v. Vancouver (City), 2011 BCCA 77, 329 D.L.R. (4th) 92, at para. 75, leave to appeal refused [2011] 3 S.C.R. xi; City of Campbellton v. Gray’s Velvet Ice Cream Ltd. (1981), 127 D.L.R. (3d) 436 (N.B.C.A.), at p. 441; Royal Anne Hotel Co. v. Village of Ashcroft (1979), 95 D.L.R. (3d) 756 (B.C.C.A.), at p. 760; Fleming’s The Law of Torts (10th ed. 2011), at s. 21.80; J. Murphy and C. Witting, Street on Torts (13th ed. 2012), at p. 443; L. N. Klar, Tort Law (5th ed. 2012), at p. 759. 
+ [20] The two-part approach, it must be conceded, is open to criticism. It may sometimes introduce unnecessary complexity and duplication into the analysis. When it is applied, the gravity of the harm is, in a sense, considered twice: once in order to apply the substantial interference threshold and again in deciding whether the interference was unreasonable in all of the circumstances. 
+ [21] On balance, however, my view is that we ought to retain the two-part approach with its threshold of a certain seriousness of the interference. The two-part approach is consistent with the authorities from this Court (as I noted above). It is also, in my view, analytically sound. Retaining a substantial interference threshold underlines the important point that not every interference, no matter how minor or transitory, is an actionable nuisance; some interferences must be accepted as part of the normal give and take of life. Finally, the threshold requirement of the two-part approach has a practical advantage: it provides a means of screening out weak claims before having to confront the more complex analysis of reasonableness. 
+ [22] What does this threshold require? In St. Lawrence Cement, the Court noted that the requirement of substantial harm “means that compensation will not be awarded for trivial annoyances”: para. 77. In St. Pierre, while the Court was careful to say that the categories of nuisance are not closed, it also noted that only interferences that “substantially alte[r] the nature of the claimant’s property itself” or interfere “to a significant extent with the actual use being made of the property” are sufficient to ground a claim in nuisance: p. 915 (emphasis added). One can ascertain from these authorities that a substantial injury to the complainant’s property interest is one that amounts to more than a slight annoyance or trifling interference. As La Forest J. put it in Tock v. St. John’s Metropolitan Area Board, [1989] 2 S.C.R. 1181, actionable nuisances include “only those inconveniences that materially interfere with ordinary comfort as defined according to the standards held by those of plain and sober tastes”, and not claims based “on the prompting of excessive ‘delicacy and fastidiousness’”: p. 1191. Claims that are clearly of this latter nature do not engage the reasonableness analysis. 
+ [23] In referring to these statements I do not mean to suggest that there are firm categories of types of interference which determine whether an interference is or is not actionable, a point I will discuss in more detail later. Nuisance may take a variety of forms and may include not only actual physical damage to land but also interference with the health, comfort or convenience of the owner or occupier: Tock, at pp. 1190-91. The point is not that there is a typology of actionable interferences; the point is rather that there is a threshold of seriousness that must be met before an interference is actionable. 
+ [24] I therefore find that a private nuisance cannot be established where the interference with property interests is not, at least, substantial. To justify compensation, however, the interference must also be unreasonable. This second part of the private nuisance test is the focus of the next two issues to which I now turn. 
+ <p class="ParaNoNdepar-AltN" style="margin-left:27.0pt;text-indent:-27.0pt;
+line-height:normal">D. Second Question: How Is Reasonableness Assessed in the Context of Interference Caused by Projects That Further the Public Good? 
+ [25] The main question here is how reasonableness should be assessed when the activity causing the interference is carried out by a public authority for the greater public good. As in other private nuisance cases, the reasonableness of the interference must be assessed in light of all of the relevant circumstances. The focus of that balancing exercise, however, is on whether the interference is such that it would be unreasonable in all of the circumstances to require the claimant to suffer it without compensation. 
+ [26] In the traditional law of private nuisance, the courts assess, in broad terms, whether the interference is unreasonable by balancing the gravity of the harm against the utility of the defendant’s conduct in all of the circumstances: see, e.g., A. M. Linden and B. Feldthusen, Canadian Tort Law (9th ed. 2011), at p. 580. The Divisional Court and the Court of Appeal identified several factors that have often been referred to in assessing whether a substantial interference is also unreasonable. In relation to the gravity of the harm, the courts have considered factors such as the severity of the interference, the character of the neighbourhood and the sensitivity of the plaintiff: see, e.g., Tock, at p. 1191. The frequency and duration of an interference may also be relevant in some cases: Royal Anne Hotel, at pp. 760-61. A number of other factors, which I will turn to shortly, are relevant to consideration of the utility of the defendant’s conduct. The point for now is that these factors are not a checklist; they are simply “[a]mong the criteria employed by the courts in delimiting the ambit of the tort of nuisance”: Tock, at p. 1191; J. P. S. McLaren, “Nuisance in Canada”, in A. M. Linden, ed., Studies In Canadian Tort Law (1968), 320, at pp. 346-47. Courts and tribunals are not bound to, or limited by, any specific list of factors. Rather, they should consider the substance of the balancing exercise in light of the factors relevant in the particular case. 
+ [27] The way in which the utility of the defendant’s conduct should be taken into account in the reasonableness analysis is particularly important in this case and would benefit from some explanation. 
+ [28] The first point is that there is a distinction between the utility of the conduct, which focuses on its purpose, such as construction of a highway, and the nature of the defendant’s conduct, which focuses on how that purpose is carried out. Generally, the focus in nuisance is on whether the interference suffered by the claimant is unreasonable, not on whether the nature of the defendant’s conduct is unreasonable. This point was made by the court in Jesperson’s Brake & Muffler Ltd. v. Chilliwack (District) (1994), 88 B.C.L.R. (2d) 230 (C.A.). In that case, the construction of an overpass resulted in a 40 percent drop in the market value of the claimant’s lands. The statutory authority argued that the claimant had to establish (and had failed to do so) that the statutory authority had used its land unreasonably. The Court of Appeal correctly rejected that contention. The focus of the reasonableness analysis in private nuisance is on the character and extent of the interference with the claimant’s land; the burden on the claimant is to show that the interference is substantial and unreasonable, not to show that the defendant’s use of its own land is unreasonable. 
+ [29] The nature of the defendant’s conduct is not, however, an irrelevant consideration. Where the conduct is either malicious or careless, that will be a significant factor in the reasonableness analysis: see, e.g., Linden and Feldthusen, at pp. 590-91; Fleming, at s. 21.110; Murphy and Witting, at p. 439. Moreover, where the defendant can establish that his or her conduct was reasonable, that can be a relevant consideration, particularly in cases where a claim is brought against a public authority. A finding of reasonable conduct will not, however, necessarily preclude a finding of liability. The editors of Fleming’s The Law of Torts put this point well at s. 21.120: 
+ . . . unreasonableness in nuisance relates primarily to the character and extent of the harm caused rather than that threatened. . . . [T]he “duty” not to expose one’s neighbours to a nuisance is not necessarily discharged by exercising reasonable care or even all possible care. In that sense, therefore, liability is strict. At the same time, evidence that the defendant has taken all possible precaution to avoid harm is not immaterial, because it has a bearing on whether he subjected the plaintiff to an unreasonable interference, and is decisive in those cases where the offensive activity is carried on under statutory authority. . . . [I]n nuisance it is up to the defendant to exculpate himself, once a prima facie infringement has been established, for example, by proving that his own use was “natural” and not unreasonable. [Emphasis added.] 
+ [30] The second point is that the utility of the defendant’s conduct is especially significant in claims against public authorities. Even where a public authority is involved, however, the utility of its conduct is always considered in light of the other relevant factors in the reasonableness analysis; it is not, by itself, an answer to the reasonableness inquiry. Moreover, in the reasonableness analysis, the severity of the harm and the public utility of the impugned activity are not equally weighted considerations. If they were, an important public purpose would always override even very significant harm caused by carrying it out. As the editors of Fleming’s The Law of Torts put it, the utility consideration “must not be pushed too far. . . . [A] defendant cannot simply justify his infliction of great harm upon the plaintiff by urging that a greater benefit to the public at large has accrued from his conduct”: s. 21.110. The words of McIntyre J.A. in Royal Anne Hotel are apposite: 
+ There is no reason why a disproportionate share of the cost of such a beneficial service should be visited upon one member of the community by leaving him uncompensated for damage caused by the existence of that which benefits the community at large. [p. 761] 
+ [31] The Queen v. Loiselle, [1962] S.C.R. 624, demonstrates that even a very important public purpose does not simply outweigh the individual harm to the claimant. Mr. Loiselle operated a garage and service station on the main Montréal-Valleyfield highway. His business ended up on a dead-end highway as a result of the construction of the St. Lawrence Seaway. This Court upheld an award of compensation for injurious affection, noting that the “statutory authority given to construct the works in question was . . . expressly made subject to the obligation to pay compensation for damage to lands injuriously affected”: p. 627. In other words, the landowner was entitled to compensation even though construction of the Seaway served an important public objective. 
+ [32] Other Canadian appellate authority has also recognized this point. 
+ [33] In Newfoundland (Minister of Works, Services and Transportation) v. Airport Realty Ltd., 2001 NFCA 45, 205 Nfld. & P.E.I.R. 95, the Court of Appeal considered an award of $300,000 for compensation for damage flowing from the reconstruction of the access road to the St. John’s airport. The court correctly rejected the position that the utility of a public work can simply be balanced against the severity of the harm as if they were equal considerations: para. 39. If, as was argued before the Court of Appeal, the two factors were simply compared, one against the other, a high degree of public utility would always trump even very extensive interference. Such an approach, as I will explain, defeats the purpose of legislation that provides compensation for injurious affection. 
+ [34] Mandrake Management Consultants Ltd. v. Toronto Transit Commission (1993), 62 O.A.C. 202, concerned a claim in nuisance on the basis that subway lines caused noise and vibrations affecting the plaintiffs’ enjoyment of their property. In allowing the appeal from an award of damages, the Court of Appeal noted that “where an essential public service is involved the factor of the utility of the defendant’s conduct must not be disregarded. Indeed, I think it must be given substantial weight”: para. 46. The court noted, however, that “private rights cannot be trampled upon in the name of the public good”: para. 46. It also underlined this point by quoting, at para. 19, the following passage with approval: “Liability for damages is imposed in those cases in which the harm or risk to one is greater than he ought to be required to bear under the circumstances, at least without compensation”: Schenck v. The Queen (1981), 34 O.R. (2d) 595 (H.C.J.), per Robins J. (as he then was), at p. 603, citing Restatement of the Law, Second: Torts 2d (1979), vol. 4, at §822 (emphasis added). In other words, the question is not simply whether the broader public good outweighs the individual interference when the two are assigned equal weight. Rather, the question is whether the interference is greater than the individual should be expected to bear in the public interest without compensation. 
+ [35] The court’s statement in Mandrake that the utility of the defendant’s conduct should be given “substantial weight” must be viewed in the context of this point. The court, in conducting its analysis, did not simply conclude that the public benefit outweighed the individual harm. Instead, it considered all of the circumstances, including: the essentially commercial nature of the area, in which people operating businesses are required to put up with a considerably greater intrusion on their sensibilities than do people living in residential areas; the fact that the presence of the subway had no negative effect on the profitability of the plaintiffs’ business; the absence of material damage to the building; and the fact that the noise and vibrations of which the claimants complained were the inevitable result of the operation of the subway. 
+ [36] Mandrake, therefore, does not support a simple trumping of the private interest by the public utility of the defendant’s conduct, but rather a careful weighing of interests taking into account all of the circumstances. The question asked and answered by the court was not simply whether the public benefit outweighed the private interference, but whether that interference, in light of all of the circumstances, was more than the plaintiffs could reasonably be expected to bear without compensation. 
+ [37] Similarly, the concluding comments in McIntyre J.’s judgment in St. Pierre must be read in context. The case concerned a claim for injurious affection arising out of highway construction. The Court unanimously upheld the dismissal of the claim, agreeing with the Court of Appeal that the claimants complained only of loss of amenities — primarily view and privacy — resulting from the construction. In the context of a claim of that nature, McIntyre J. noted: 
+ Highways are necessary: they cause disruption. In the balancing process inherent in the law of nuisance, their utility for the public good far outweighs the disruption and injury which is visited upon some adjoining lands. [p. 916] 
+ These comments must be understood in relation to the nature of the alleged injury in that case which, as noted, was a simple loss of amenities. It is clear that these comments do not stand for the broader proposition that great public good out-balances even very significant interference. McIntyre J. quoted with approval the Court’s earlier decision in Loiselle which I referred to earlier. In that case, the significant public good resulting from the seaway construction did not outweigh the significant interference with access to Mr. Loiselle’s property. Loiselle and St. Pierre would obviously be in conflict if St. Pierre were thought to stand for the broad proposition that great public good outweighs even significant interference. Yet McIntyre J. saw no such inconsistency. Moreover, such a broad reading of St. Pierre would undermine the statutory purpose of providing a right of compensation for injurious affection. 
+ [38] Generally speaking, the acts of a public authority will be of significant utility. If simply put in the balance with the private interest, public utility will generally outweigh even very significant interferences with the claimant’s land. That sort of simple balancing of public utility against private harm undercuts the purpose of providing compensation for injurious affection. That purpose is to ensure that individual members of the public do not have to bear a disproportionate share of the cost of procuring the public benefit. This purpose is fulfilled, however, if the focus of the reasonableness analysis is kept on whether it is reasonable for the individual to bear the interference without compensation, not on whether it was reasonable for the statutory authority to undertake the work. In short, the question is whether the damage flowing from the interference should be properly viewed as a cost of “running the system” and therefore borne by the public generally, or as the type of interference that should properly be accepted by an individual as part of the cost of living in organized society: Tock, at p. 1200. 
+ [39] The point was well put by Robins J. in Schenck, a decision approved by La Forest J. in Tock. In allowing the plaintiffs’ action for nuisance resulting from damage to their orchards from salt applied to a nearby highway, Robins J. said: 
+ . . . their injury is a cost of highway maintenance and the harm suffered by them is greater than they should be required to bear in the circumstances, at least without compensation. Fairness between the citizen and the state demands that the burden imposed be borne by the public generally and not by the plaintiff fruit farmers alone. [Emphasis added; pp. 604-5.] 
+ The distinction is thus between, on one hand, interferences that constitute the “give and take” expected of everyone and, on the other, interferences that impose a disproportionate burden on individuals. That in my view is at the heart of the balancing exercise involved in assessing the reasonableness of an interference in light of the utility of the public authority’s conduct. 
+ [40] Of course, not every substantial interference arising from a public work will be unreasonable. The reasonableness analysis should favour the public authority where the harm to property interests, considered in light of its severity, the nature of the neighbourhood, its duration, the sensitivity of the plaintiff and other relevant factors, is such that the harm cannot reasonably be viewed as more than the claimant’s fair share of the costs associated with providing a public benefit. This outcome is particularly appropriate where the public authority has made all reasonable efforts to reduce the impact of its works on neighbouring properties. 
+ [41] It is clear, for example, that everyone must put up with a certain amount of temporary disruption caused by essential construction. Although not a case involving a public authority, the judgment of Sir Wilfrid Greene M.R. in Andreae v. Selfridge & Co., [1938] 1 Ch. 1, is instructive: 
+ . . . when one is dealing with temporary operations, such as demolition and re-building, everybody has to put up with a certain amount of discomfort, because operations of that kind cannot be carried on at all without a certain amount of noise and a certain amount of dust. Therefore, the rule with regard to interference must be read subject to this qualification . . . that in respect of operations of this character, such as demolition and building, if they are reasonably carried on and all proper and reasonable steps are taken to ensure that no undue inconvenience is caused to the neighbours, whether from noise, dust, or other reasons, the neighbours must put up with it. [pp. 5-6] 
+ [42] There are several important ideas in this quotation. One is that the duration of the interference is a relevant consideration. Admittedly, duration was not a relevant factor in this case because the injury was permanent. In cases where it is relevant however, it is helpful to consider that some sorts of temporary inconvenience are more obviously part of the normal “give and take” than are more prolonged interferences. While temporary interferences may certainly support a claim in nuisance in some circumstances, interferences that persist for a prolonged period of time will be more likely to attract a remedy: see, in the context of public nuisance, Wildtree Hotels Ltd. v. Harrow London Borough Council, [2001] 2 A.C. 1 (H.L.). 
+ [43] Another important idea is that the traditional consideration relating to the character of the neighbourhood may be highly relevant in the overall balancing. This point is particularly relevant in cases where a claim is brought against a public authority. As Michael Senzilet has written, 
+ With the urban environments of today, people live much closer together and much closer to public corridors than they did 100 years ago . . . . In today’s urban fabric, buildings are closer together, closer to roads, building lots are smaller, and there are far more public projects that are both possible and required. Surely, the choice of living in the urban core, in a suburb, or in the countryside exposes one to differences and one’s choice must be made taking into account those differences. 
+ (“Compensation for Injurious Affection Where No Land Is Taken”, unpublished LL.M. thesis, University of Ottawa (1987), at p. 73) 
+ [44] A final point emerging from the Andreae case, which I alluded to above, relates to the manner in which the work is carried out. While nuisance focuses mainly on the harm and not on the blameworthiness of the defendant’s conduct, the fact that a public work is carried out with “all reasonable regard and care” for the affected citizens is properly part of the reasonableness analysis: see, e.g., Allen v. Gulf Oil Refining Ltd., [1981] A.C. 1001, per Lord Wilberforce, at p. 1011. 
+ [45] To sum up on this point, my view is that in considering the reasonableness of an interference that arises from an activity that furthers the public good, the question is whether, in light of all of the circumstances, it is unreasonable to expect the claimant to bear the interference without compensation. 
+ E. Third Question: Does the Unreasonableness of an Interference Need to Be Considered When That Interference Is Physical or Material? 
+ [46] The appellant submits that reasonableness does not need to be considered when the interference constitutes “material” or “physical” damage to the land. Reasonableness only needs to be addressed, the submission goes, with respect to other types of interference such as loss of amenities. In this case, the appellant maintains that the damage to its land was “material” and that therefore no reasonableness analysis was necessary. I respectfully disagree and conclude that the Court of Appeal was correct to hold that the question of reasonableness should be considered in all cases. 
+ [47] The distinction between material or physical harms on the one hand and interferences such as loss of amenities on the other has a long history and deep roots, going back at least to the House of Lords decision in St. Helen’s Smelting Co. v. Tipping (1865), 11 H.L.C. 642, 11 E.R. 1483. In that case, the Lord Chancellor distinguished between nuisance causing “material injury” to property and nuisance “productive of sensible personal discomfort”, finding that only the latter category required an assessment of whether an interference is reasonable taking into account all of the surrounding circumstances: p. 650. This approach has since been adopted in many Canadian decisions (see, e.g., Walker v. McKinnon Industries Ltd., [1949] 4 D.L.R. 739 (Ont. H.C.), at p. 763, injunction order varied by [1950] 3 D.L.R. 159 (Ont. C.A.), aff’d [1951] 3 D.L.R. 577 (P.C.)) including a few more recent cases, such as, for example, Jesperson’s and Airport Realty. A good deal of the jurisprudence is helpfully reviewed in Smith v. Inco Ltd., 2011 ONCA 628, 107 O.R. (3d) 321, at paras. 45-50. At the same time, there is appellate authority affirming the need to consider the reasonableness of the interference in every case: Susan Heyes Inc. 
+ [48] My view is that the reasonableness inquiry should not be short-circuited on the basis of certain categories of interference that are considered self-evidently unreasonable. To the extent that cases such as Jesperson’s and Airport Realty suggest that balancing can simply be dispensed with in the face of material or physical interference, I respectfully disagree. The sort of balancing inherent in the reasonableness analysis is at the heart of the tort of private nuisance. As La Forest J. put it in Tock, the law only intervenes “to shield persons from interferences to their enjoyment of property that were unreasonable in the light of all the circumstances”: p. 1191. The legal analysis in a nuisance case is more likely to yield sound results if this essential balancing exercise is carried out explicitly and transparently rather than implicitly by applying a murky distinction. 
+ [49] There are obvious difficulties in making the analysis turn on classifying interferences as constituting material or physical damage. It will not always, or even generally, be a simple matter to distinguish between damage that is “material or physical” and damage that is a simple “loss of amenity”. The distinction proposed by the appellant is particularly difficult to apply in cases like this one, where the nuisance is an interference with access to land. The damage to the appellant here could be considered material in the sense that it caused significant financial loss, but it could perhaps also be considered in some sense to be a loss of amenity because there was no harm to the property itself. The property declined in value, but that is also the case in some loss of amenity situations. 
+ [50] While I am not convinced of the usefulness of the distinction between material injury and loss of amenity, I acknowledge that where there is significant and permanent harm caused by an interference, the reasonableness analysis may be very brief. As the British Columbia Court of Appeal noted in Royal Anne Hotel, 
+ Where . . . actual physical damage occurs it is not difficult to decide that the interference is in fact unreasonable. Greater difficulty will be found where the interference results in lesser or no physical injury but may give offence by reason of smells, noise, vibration or other intangible causes. [p. 760] 
+ Thus, even though the reasonableness of the interference should be assessed in every case, the court will sometimes quite readily conclude that some types of interferences are unreasonable without having to engage in a lengthy balancing analysis. Jesperson’s, for example, was a case in which the construction of the overpass reduced the market value of the land by 40 percent. It is not surprising that the Court of Appeal gave short shrift to the suggestion that it was reasonable to impose a burden of that magnitude on the claimant. Similarly, in Airport Realty, the damage flowing from the interference was assessed at $300,000 thus making the assessment of unreasonableness straightforward: see also on this point Schenck. 
+ [51] I therefore conclude that reasonableness is to be assessed in all cases where private nuisance is alleged. Once a claimant passes the threshold test of showing harm that is substantial in the sense that it is non-trivial, there ought to be an inquiry into whether the interference is unreasonable, regardless of the type of harm involved. 
+ F. Fourth Question: Did the Court of Appeal Err in Finding That the Board’s Application of the Law of Nuisance to the Facts Was Unreasonable? 
+ [52] I respectfully disagree with the Court of Appeal’s approach to the balancing exercise to determine whether the interference was unreasonable. As I see it, there were two errors in its approach. 
+ [53] Having identified the factors noted earlier that are often referred to in carrying out the balancing exercise (i.e. the severity of the interference, the character of the neighbourhood, the utility of the defendant’s conduct and the sensitivity of the plaintiff), the Court of Appeal treated them as a mandatory checklist for courts or tribunals considering this issue. It faulted the Board for failing to consider two of the factors that “it was obliged to take into account in assessing the reasonableness of the interference”: para. 129. In my respectful view, the Court of Appeal erred in intervening on this ground. 
+ [54] Provided that the Board reasonably carried out the analysis in substance, it was not required to specifically enumerate and refer by name to every factor mentioned in the case law. As La Forest J. made clear in Tock, the factors he enumerated are simply examples of the sorts of criteria that the courts have articulated as being potentially of assistance in weighing the gravity of the harm with the utility of the defendant’s conduct. They do not make up either an exhaustive or an essential list of matters that must be expressly considered in every case. Failure to expressly mention one or more of these factors is not, on its own, a reviewable error. 
+ [55] The Board’s task was to determine whether, having regard to all of the circumstances, it was unreasonable to require the appellant to suffer the interference without compensation. The Board considered the evidence and the leading cases. Although it did not refer to them by name, the Board took into account the relevant factors in this case. In particular, it considered the extent of the changes to Highway 17, the fact that those changes were considered necessary for public safety, the appellant’s knowledge of — and involvement in — the plans to make changes to the highway, and the extent to which the appellant’s concerns about the new highway were taken into account by the respondent in its decision making. The Board concluded that the interference resulting from the construction of the highway was serious and would constitute nuisance but for the fact that the work was constructed pursuant to statutory authority: pp. 110-15. There was no reviewable error in this approach. 
+ [56] Similarly in my view, the Board did not fail to take account of the utility of the respondent’s activity or fail to engage in the required balancing as the Court of Appeal concluded it had. As we have seen, the Board adverted to the importance of the highway construction. It did not, however, allow that concern to swamp consideration of whether it was reasonable to require the appellant to bear without compensation the burden inflicted on it by the construction. The Board properly understood that the purpose of the statutory compensation scheme for injurious affection was to ensure that individuals do not have to bear a disproportionate burden of damage flowing from interference with the use and enjoyment of land caused by the construction of a public work. It was reasonable for the Board to conclude that in all of the circumstances, the appellant should not be expected to endure permanent interference with the use of its land that caused a significant diminution of its market value in order to serve the greater public good. 
+ IV. Disposition 
+ [57] I would allow the appeal, set aside the order of the Court of Appeal and restore the order of the Ontario Municipal Board. I would not disturb the orders for costs made by the Board or by the Divisional Court. (We were advised that the costs before the Board have been fixed and paid by the respondent.) I would award the appellant costs of the appeal in the Court of Appeal in the agreed upon amount of $20,000 inclusive of disbursements and I would not disturb the Court of Appeal’s disposition of the costs of the cross-appeal before that court. In this matter arising under the Expropriations Act, I would exercise discretion and award the appellant its costs in this Court, including the application for leave to appeal, on a solicitor and client basis. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Appeal allowed with costs. 
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitors for the appellant: Rueter Scargall Bennett, Toronto. 
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitor for the respondent: Attorney General of Ontario, Toronto. 
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitor for the intervener the Attorney General of British Columbia: Attorney General of British Columbia, Vancouver. 
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitor for the intervener the City of Toronto: City of Toronto, Toronto. 
+ Solicitors for the intervener Metrolinx: Stikeman Elliott, Toronto. 
+ You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.
+ Continue 
+ Do not display this message anymore
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.modalClose = "Close";
