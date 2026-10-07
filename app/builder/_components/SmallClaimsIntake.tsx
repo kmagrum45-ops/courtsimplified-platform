@@ -50,6 +50,8 @@ type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
   location: { province: "Ontario"; city: string };
   initialStory: string;
+  /** The case's stored entries, when the person comes back to update it (caseRecord.storedIntakeValues). */
+  storedValues?: Record<string, string | string[]>;
 };
 
 export type SmallClaimsAnalysisResponse = {
@@ -533,7 +535,7 @@ export async function requestSmallClaimsAnalysis(
   return data;
 }
 
-export default function SmallClaimsIntake({ onComplete, location, initialStory }: Props) {
+export default function SmallClaimsIntake({ onComplete, location, initialStory, storedValues }: Props) {
   const [initialPrefill] = useState<NarrativePrefill | null>(() =>
     consumeNarrativePrefill({
       courtPath: "small-claims",
@@ -541,9 +543,12 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
     }),
   );
   const [input, setInput] = useState<SmallClaimsIntelligenceInput>(() => {
-    const values = initialPrefill
-      ? directPrefillValues(initialPrefill)
-      : {};
+    // What the case already holds, under anything newly read from a story
+    // (master plan Phase 1: "Update your story" opened a blank form).
+    const values: Record<string, unknown> = {
+      ...(storedValues ?? {}),
+      ...(initialPrefill ? directPrefillValues(initialPrefill) : {}),
+    };
     return {
       ...defaultInput,
       yourProvince: location.province,

@@ -139,3 +139,38 @@ function isAnswer(value: unknown): value is Answer {
 export function recordedDateAnswers(record: CaseRecord): Record<string, string> {
   return Object.fromEntries(Object.entries(record.dates).map(([id, fact]) => [id, fact.value]));
 }
+
+/**
+ * What the person already entered, as starting values for the intake form
+ * when they come back to update it (Phase 1 inventory, 2026-10-07: "Update
+ * your story" opened a blank form -- role, names, amount and documents all
+ * gone though the case held them). Keys are the intake forms' own prefill
+ * keys. Only the person's own entries; nothing a model wrote.
+ */
+export function storedIntakeValues(masterResult: unknown): Record<string, string | string[]> {
+  const master = asRecord(masterResult);
+  const intake = asRecord(master.intakeData);
+  const extra = asRecord(intake.extra);
+  const civil = asRecord(extra.civilInput);
+  const position = readCasePosition(master, text(intake.courtPath) || null);
+  const pick = (...values: unknown[]) => values.map(text).find(Boolean) ?? "";
+  const out: Record<string, string | string[]> = {
+    facts: userStory(intake),
+    yourName: pick(intake.yourName, extra.yourName, civil.yourName),
+    otherParty: pick(intake.otherParty, extra.otherParty, civil.otherParty),
+    yourRole: pick(extra.yourRole, civil.yourRole),
+    caseStage: pick(position.confirmedStage, intake.caseStage, civil.caseStage),
+    amountClaimed: pick(extra.amountClaimed, civil.amountClaimed),
+    damagesBreakdown: pick(extra.damagesBreakdown, civil.damagesBreakdown),
+    timeline: pick(intake.timeline, civil.timeline),
+    evidence: pick(intake.evidence, civil.evidence),
+    goal: pick(intake.goal, extra.goal),
+    legalRemedy: pick(extra.legalRemedy, civil.legalRemedy),
+    serviceDetails: pick(extra.serviceDetails, civil.serviceDetails),
+    settlementEfforts: pick(extra.settlementEfforts, civil.settlementEfforts),
+    urgent: pick(intake.urgent, extra.urgent, civil.urgent),
+  };
+  const documents = documentsOf(intake).map(String);
+  if (documents.length) out.documentStatus = documents;
+  return Object.fromEntries(Object.entries(out).filter(([, value]) => (Array.isArray(value) ? value.length : value)));
+}

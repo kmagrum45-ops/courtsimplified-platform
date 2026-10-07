@@ -1,7 +1,7 @@
 "use client";
 
 import { recordedAmountOf } from "@/src/lib/case-system/amountNotes";
-import { documentsOf } from "@/src/lib/case-system/caseRecord";
+import { documentsOf, storedIntakeValues } from "@/src/lib/case-system/caseRecord";
 import Link from "next/link";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -1546,7 +1546,12 @@ function BuilderPageContent() {
 
             {courtPath === "small-claims" && startedModes.form && (
               <div hidden={visibleMode !== "form"}>
-                <SmallClaimsIntake onComplete={handleComplete} location={confirmedLocation} initialStory={homeStory} />
+                <SmallClaimsIntake
+                  onComplete={handleComplete}
+                  location={confirmedLocation}
+                  initialStory={homeStory}
+                  storedValues={queryCaseId ? storedIntakeValues(existingMasterResult) : undefined}
+                />
               </div>
             )}
 
@@ -1576,6 +1581,7 @@ function BuilderPageContent() {
                 caseId={queryCaseId || masterCaseId}
                 location={confirmedLocation}
                 initialStory={homeStory}
+                storedValues={queryCaseId ? storedIntakeValues(existingMasterResult) : undefined}
               />
             )}
           </section>
