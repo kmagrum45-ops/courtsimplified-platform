@@ -8,14 +8,18 @@ name: CourtSimplified Law Exam
 #
 # MANUAL ONLY. It spends the site's OpenAI balance (about 2 to 3 model calls a
 # question). Start it from the Actions tab, or ask Claude; a small run first
-# (limit 20) shows the cost before a full one.
+# (limit 18, two questions from each area) shows the cost before a full one.
 on:
   workflow_dispatch:
     inputs:
       limit:
-        description: "How many questions (0 = all)"
+        description: "How many questions, spread across all areas (0 = all)"
         required: false
-        default: "20"
+        default: "18"
+      mode:
+        description: "answer (what people see now: checked answers) or research (the older passages-only reply)"
+        required: false
+        default: "answer"
       area:
         description: "Only this area (blank = all), e.g. small-claims, family, civil-procedure"
         required: false
@@ -51,9 +55,10 @@ jobs:
         env:
           LIMIT: ${{ inputs.limit }}
           AREA: ${{ inputs.area }}
+          MODE: ${{ inputs.mode }}
         run: |
           set -o pipefail
-          args=(--confirm --limit "${LIMIT:-20}")
+          args=(--confirm --limit "${LIMIT:-18}" --mode "${MODE:-answer}")
           if [ -n "${AREA}" ]; then args+=(--area "${AREA}"); fi
           npm run eval:law-exam -- "${args[@]}" 2>&1 | tee law-exam.log
           tail -1 law-exam.log | sed 's/^/::notice title=Law exam::/'
