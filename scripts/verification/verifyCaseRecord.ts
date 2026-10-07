@@ -17,7 +17,8 @@
  *   - a guided date lost, or beating a date confirmed on the case page;
  *   - a Forms suggestion that the question does not offer, or one made
  *     without a recorded fact behind it;
- *   - a page or route going back to its own reading of these facts.
+ *   - a page or route going back to its own reading of these facts: the
+ *     overview's stage, the drafts' story, family answers given after a save.
  *
  * COSTS NOTHING: pure functions and source reads.
  *
@@ -106,6 +107,15 @@ check("the Deadlines view falls back to the step the confirmed stage points to",
 check("the case pages carry the record", /readCaseRecord\(/.test(read("app/cases/[id]/layout.tsx")));
 check("the Forms route offers answers from the record", /suggestApplicability\(/.test(read("app/api/cases/form-applicability/route.ts")));
 check("the Forms page uses the case's step, not its own", !/suggestedStageFor/.test(read("app/cases/[id]/forms/page.tsx")));
+check(
+  "the overview shows the stage the person confirmed",
+  /confirmedStage=\{/.test(read("app/cases/[id]/page.tsx")) && /confirmedStage=\{/.test(builder) && /confirmedStage \|\| analysis\.caseStage/.test(read("app/builder/_components/IntelligenceOverviewPanel.tsx")),
+);
+check("family answers given after the save are saved", /familyStatus: triageState \} \}\)/.test(builder));
+for (const file of ["caseDrafts.ts", "respondingDocumentDraft.ts", "startingDocumentDraft.ts"]) {
+  const source = read(`src/lib/case-system/drafts/${file}`);
+  check(`${file} drafts from the person's own story, not the labelled record`, /userStory\(intake\)/.test(source) && !/intake\.facts\?\.trim\(\)|\[intake\.facts \|\||text\(intake\.facts\)/.test(source));
+}
 
 if (failures > 0) {
   console.log(`\n${failures} check(s) failed.`);

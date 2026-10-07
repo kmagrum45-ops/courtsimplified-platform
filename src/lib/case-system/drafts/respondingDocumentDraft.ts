@@ -19,6 +19,7 @@
  * Asserted by `npm run test:responding-draft`.
  */
 
+import { userStory } from "../userStory";
 import { newId, type CaseDraft, type DraftSection } from "./caseDrafts";
 
 export type RespondingDocumentIntake = {
@@ -69,7 +70,7 @@ export function respondingDocumentDraft(
     sections: [
       part("Parties", [`${spec.side} (you): ${text(intake.yourName) || "Not entered"}`, `${spec.other}: ${text(intake.otherParty) || "Not entered"}`]),
       part(spec.responseHeading, [response || "Not entered yet. Go through the other side's document paragraph by paragraph and note each point you agree with, disagree with, or do not know about."]),
-      part("Your account of what happened", [text(intake.facts) || "Not entered yet."]),
+      part("Your account of what happened", [userStory(intake) || "Not entered yet."]),
       part("Dates", [text(intake.timeline) || "No dates entered yet."]),
       part("What you are asking the court to do", [text(intake.goal) || "Not entered yet."]),
       part("Evidence to review", [text(intake.evidence) || "No evidence description entered yet."]),

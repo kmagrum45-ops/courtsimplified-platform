@@ -14,6 +14,7 @@
  * what they have not given yet.
  */
 
+import { userStory } from "../userStory";
 import { draftSmallClaimsPlaintiffClaim, type ClaimDraftInput } from "../claimDraftEngine";
 import { newId, type CaseDraft, type DraftSection } from "./caseDrafts";
 
@@ -75,7 +76,7 @@ export function startingDocumentDraft(
     updatedAt: stamp,
     sections: [
       part("Parties", [`Applicant/Plaintiff: ${intake.yourName || "Not entered"}`, `Other party: ${intake.otherParty || "Not entered"}`]),
-      part(spec.factsHeading, [intake.facts || "No facts entered yet."]),
+      part(spec.factsHeading, [userStory(intake) || "No facts entered yet."]),
       part("Requested outcome", [intake.goal || "No requested outcome entered yet."]),
       part("Amount and timeline", [amount ? `Amount entered: ${amount}` : "No amount entered.", intake.timeline || "No timeline entered yet."]),
       part("Evidence to review", [intake.evidence || "No evidence description entered yet."]),
