@@ -245,6 +245,12 @@ Any behaviour change it produces must be explained, not absorbed silently: updat
 isn't. Never quietly let `.actual.md` drift out of sync with what `*.expected.md` says should
 happen.
 
+**OpenAI spending (2026-10-07).** The walkthrough, story review (which runs
+`test:fixtures`), nightly AI, corpus index and retrieval eval workflows are
+manual-only (`workflow_dispatch`), because they spend the site's OpenAI
+balance and it ran low. Start one deliberately when a run is worth its cost;
+CI on pull requests still runs its one billed suite (safety regression).
+
 ## 7a. The master plan
 
 `docs/MASTER_PLAN.md` is the plan and the fixed beta finish line (adopted

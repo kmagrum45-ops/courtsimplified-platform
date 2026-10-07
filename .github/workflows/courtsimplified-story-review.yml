@@ -11,25 +11,10 @@ name: CourtSimplified Story Review
 # and whenever the battery, the intake or the case review changes on main. It is not run on
 # every push: about 800 gpt-4o-mini calls a run (well under a dollar).
 
+# 2026-10-07: manual only. It spends the site's OpenAI balance, which ran
+# low; start it from the Actions tab (or ask Claude) when a run is wanted.
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - scripts/verification/storyReview/**
-      - src/lib/case-system/intake/**
-      - src/lib/case-system/caseReview/**
-      - src/lib/case-system/intelligence/**
-      - src/lib/content-library/phaseScope.ts
-      - src/lib/case-system/stage-map/**
-      - src/lib/case-system/retrieval/**
-      - docs/sources/retrieval/**
-      - scripts/eval/retrievalProbe.ts
-      - scripts/eval/retrievalRecallSet.ts
-      - scripts/eval/runRetrievalRecall.ts
-      - scripts/eval/**
-      - .github/workflows/courtsimplified-story-review.yml
 
 permissions:
   contents: write

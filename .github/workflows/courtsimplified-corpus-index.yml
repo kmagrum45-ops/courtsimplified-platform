@@ -17,17 +17,10 @@ name: CourtSimplified Corpus Index
 # root vercel.json disables "corpus-index-*". Bring in only
 # docs/sources/retrieval/ from it.
 
+# 2026-10-07: manual only. It spends the site's OpenAI balance, which ran
+# low; start it from the Actions tab (or ask Claude) when a run is wanted.
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "docs/sources/corpus/**"
-      - "src/lib/case-system/retrieval/corpusChunker.ts"
-      - "src/lib/case-system/retrieval/decisionChunker.ts"
-      - "docs/sources/decisions/**"
-      - "src/lib/case-system/retrieval/corpusIndex.ts"
-      - "scripts/retrieval/**"
 
 permissions:
   contents: write

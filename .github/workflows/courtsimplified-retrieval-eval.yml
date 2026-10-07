@@ -9,6 +9,8 @@ name: CourtSimplified Retrieval Eval
 # Runs on demand -- on any branch, so a retrieval change can be measured
 # before it is merged -- and on a push to main that changes retrieval.
 
+# 2026-10-07: manual only. It spends the site's OpenAI balance, which ran
+# low; start it from the Actions tab (or ask Claude) when a run is wanted.
 on:
   workflow_dispatch:
     inputs:
@@ -24,18 +26,6 @@ on:
         description: "Run only the Court Assistant law probe"
         type: boolean
         default: false
-  push:
-    branches: [main]
-    paths:
-      - "src/lib/case-system/retrieval/**"
-      - "docs/sources/retrieval/**"
-      - "scripts/eval/retrievalRecallSet.ts"
-      - "scripts/eval/runRetrievalRecall.ts"
-      - "scripts/eval/retrievalProbe.ts"
-      - "scripts/eval/explainProbe.ts"
-      - "scripts/eval/researchProbe.ts"
-      - "scripts/eval/sourcedQuestionsProbe.ts"
-      - "scripts/eval/assistantLawProbe.ts"
 
 permissions:
   contents: write
