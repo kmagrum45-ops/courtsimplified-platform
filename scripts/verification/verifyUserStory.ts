@@ -20,7 +20,10 @@
  *   - plain user text altered;
  *   - a month-and-day date not offered, offered in the future, or offered
  *     without saying the year was assumed;
- *   - a page that shows the user's words going back to reading `facts` raw.
+ *   - a page that shows the user's words going back to reading `facts` raw;
+ *   - the family triage asking "were you married?" with no sign of the story
+ *     that already says so (2026-10-07), or quoting a sentence that does not
+ *     bear on the question.
  *
  * COSTS NOTHING: pure functions and source reads.
  *
@@ -33,6 +36,7 @@ import path from "node:path";
 import { sentenceFromRecord, storyFromRecord, userStory } from "../../src/lib/case-system/userStory";
 import { candidatesFromTimeline } from "../../src/lib/case-system/events/caseEventCandidates";
 import { storyHintsForDates } from "../../src/lib/case-system/casePosition";
+import { storyQuoteFor } from "../../src/lib/case-system/family/triageStoryQuote";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -104,6 +108,18 @@ const lastYear = storyHintsForDates("The papers came on December 3.", now)["sc-d
 check("a date later in the year is last year's", lastYear?.value === "2025-12-03", JSON.stringify(lastYear));
 const withYear = storyHintsForDates("I was served on September 20, 2026.", now)["sc-date-claim-served"];
 check("a date with its year is not marked assumed", withYear?.value === "2026-09-20" && !withYear.yearAssumed, JSON.stringify(withYear));
+
+// The family triage quotes what the story already says, beside the question.
+const familyStory =
+  "me and my sons father split up 2 years ago, we were never married. he hasnt paid any child suport since march";
+check(
+  "the married question quotes the story that answers it",
+  (storyQuoteFor("married-to-other-party", familyStory) ?? "").includes("never married"),
+  String(storyQuoteFor("married-to-other-party", familyStory)),
+);
+check("the child question quotes it too", storyQuoteFor("child-together", familyStory) !== null);
+check("no quote when the story says nothing on it", storyQuoteFor("married-to-other-party", "he stopped paying in march.") === null);
+check("no quote for a question with no cue", storyQuoteFor("municipality", familyStory) === null);
 
 // The pages read the user's words through userStory.
 const root = path.resolve(__dirname, "../..");

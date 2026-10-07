@@ -1383,7 +1383,12 @@ function BuilderPageContent() {
           of the analysis pipeline reaches it.
         */}
         {courtPath === "family" && confirmedLocation && !loadingExistingCase && !caseLoadError && (
-          <FamilyStatusTriage state={triageState} onChange={setTriageState} />
+          <FamilyStatusTriage
+            state={triageState}
+            onChange={setTriageState}
+            homeCity={confirmedLocation.city}
+            story={homeStory || userStory(caseData)}
+          />
         )}
 
         {!loadingExistingCase && !caseLoadError && confirmedLocation && (

@@ -42,6 +42,7 @@ import {
   type FamilyStatusRecord,
   type TriageQuestion,
 } from "../../../src/lib/case-system/family/statusTriage";
+import { storyQuoteFor } from "../../../src/lib/case-system/family/triageStoryQuote";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 
 export type FamilyTriageState = {
@@ -71,7 +72,16 @@ export function triageStateFromStored(value: unknown): FamilyTriageState {
 type Props = {
   state: FamilyTriageState;
   onChange: (next: FamilyTriageState) => void;
+  /**
+   * The city the user confirmed on Home, offered in "Where you live" so they
+   * are not asked it twice (page review, 2026-10-07). Still recorded only
+   * when they press Record.
+   */
+  homeCity?: string;
+  /** The user's own story, quoted beside a question it answers. Never applied. */
+  story?: string;
 };
+
 
 function Citations({ items }: { items: { label: string; sourceUrl: string }[] }) {
   if (items.length === 0) return null;
@@ -93,11 +103,11 @@ function Citations({ items }: { items: { label: string; sourceUrl: string }[] })
   );
 }
 
-export default function FamilyStatusTriage({ state, onChange }: Props) {
+export default function FamilyStatusTriage({ state, onChange, homeCity = "", story = "" }: Props) {
   const [showWhy, setShowWhy] = useState(false);
   const [dateStart, setDateStart] = useState("");
   const [dateEnd, setDateEnd] = useState("");
-  const [userMunicipality, setUserMunicipality] = useState("");
+  const [userMunicipality, setUserMunicipality] = useState(homeCity);
   const [otherMunicipality, setOtherMunicipality] = useState("");
 
   const { record, dismissed } = state;
@@ -317,6 +327,16 @@ export default function FamilyStatusTriage({ state, onChange }: Props) {
             {showWhy ? "Hide why this is asked" : "Why is this asked?"}
           </button>
           {showWhy ? <p className="mt-2 text-sm text-[#4f685f]">{question.whyAsked}</p> : null}
+          {storyQuoteFor(question.id, story) ? (
+            <p data-testid="triage-story-quote" className="mt-2 text-sm text-[#4f685f]">
+              You wrote: &ldquo;{storyQuoteFor(question.id, story)}&rdquo;
+            </p>
+          ) : null}
+          {question.kind !== "yes-no" && question.kind !== "yes-no-unsure" && question.kind !== "date-range" && homeCity && userMunicipality === homeCity ? (
+            <p data-testid="triage-home-city" className="mt-2 text-sm text-[#4f685f]">
+              &ldquo;Where you live&rdquo; is filled in from the location you gave on Home. Change it if it is not right.
+            </p>
+          ) : null}
           {answers(question)}
         </div>
       ) : (
@@ -384,10 +404,12 @@ export default function FamilyStatusTriage({ state, onChange }: Props) {
         All 24 rows, always. See the header note: filtering to the user's own
         match would state a conclusion by omission.
       */}
-      <div className="mt-6">
-        <h3 className="text-sm font-bold uppercase tracking-wide text-[#2f7d67]">
+      {/* Folded, not filtered: every row stays on the page (page review,
+          2026-10-07: 24 rows were the longest thing on a phone screen). */}
+      <details className="mt-6">
+        <summary className="cursor-pointer text-sm font-bold uppercase tracking-wide text-[#2f7d67]">
           Municipalities named in the Courts of Justice Act
-        </h3>
+        </summary>
         <ul
           data-testid="triage-municipality-list"
           data-row-count={outcome.municipalities.length}
@@ -406,7 +428,7 @@ export default function FamilyStatusTriage({ state, onChange }: Props) {
           ))}
         </ul>
         <Citations items={[outcome.municipalitiesCitation]} />
-      </div>
+      </details>
     </section>
   );
 }
