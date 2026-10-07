@@ -22,8 +22,9 @@
  */
 
 import type { ClaimType } from "./claimTypes";
+import { MORE_CIVIL_TYPES } from "./moreClaimTypes";
 
-export const CIVIL_CLAIM_TYPES: ClaimType[] = [
+const CORE_CIVIL_CLAIM_TYPES: ClaimType[] = [
   {
     id: "civil-claim-breach-of-contract",
     name: "Breach of contract (Superior Court)",
@@ -2501,3 +2502,10 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
     status: "reviewed",
   },
 ];
+
+/**
+ * The first library above, then every batch written after it
+ * (moreClaimTypes/, 2026-10-07: the owner's direction to cover hundreds of
+ * case types, each sourced and checked by test:catalogue-verified).
+ */
+export const CIVIL_CLAIM_TYPES: ClaimType[] = [...CORE_CIVIL_CLAIM_TYPES, ...MORE_CIVIL_TYPES];

@@ -1,0 +1,1014 @@
+{
+  "records": [
+    {
+      "key": "sc-claim-guarantor-or-cosigner-pursued|plaintiffElement|arrangement-with-borrower-cosign",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "41e3f3af923377d26c3599d6477dee34bfc5535d1e7a13a71825dbfadb01f34a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-guarantor-or-cosigner-pursued|plaintiffElement|payment-spared-borrower-cosign",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a71254c97ccf6672a1758b9e1b809ec5a486c2f7eca1ad216a712be435e822f8",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 32",
+          "quote": "It permits recovery whenever the plaintiff can establish three elements: an enrichment of or benefit to the defendant, a corresponding deprivation of the plaintiff, and the absence of a juristic reason for the enrichment"
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 38",
+          "quote": "For the first requirement — enrichment — the plaintiff must show that he or she gave something to the defendant which the defendant received and retained. The benefit need not be retained permanently, but there must be a benefit which has enriched the defendant and which can be restored to the plaintiff in specie or by money. Moreover, the benefit must be tangible. It may be positive or negative, the latter in the sense that the benefit conferred on the defendant spares him or her an expense he or she would have had to undertake"
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 39",
+          "quote": "the plaintiff’s loss is material only if the defendant has gained a benefit or been enriched ... That is why the second requirement obligates the plaintiff to establish not simply that the defendant has been enriched, but also that the enrichment corresponds to a deprivation which the plaintiff has suffered"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-guarantor-or-cosigner-pursued|plaintiffElement|no-reason-to-keep-cosign",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "46c27702c6f78b49832e5dcb6c08e6d7dd0c017d72662dbe0350586c1d73132e",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 40",
+          "quote": "To put it simply, this means that there is no reason in law or justice for the defendant’s retention of the benefit conferred by the plaintiff, making its retention “unjust” in the circumstances of the case"
+        },
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "para. 44",
+          "quote": "First, the plaintiff must show that no juristic reason from an established category exists to deny recovery. ... The established categories that can constitute juristic reasons include a contract (Pettkus, supra), a disposition of law (Pettkus, supra), a donative intent (Peter, supra), and other valid common law, equitable or statutory obligations (Peter, supra). If there is no juristic reason from an established category, then the plaintiff has made out a prima facie case under the juristic reason component of the analysis."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); Saved decision docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf, read from docs/sources/decisions/garland-v-consumers-gas-2004-SCC-25.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-guarantor-or-cosigner-pursued|plaintiffElement|amount-paid-unpaid-cosign",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3dea103771182e972c84fcb25aab779b006f47f3e2fc08dab83500796cd5bf46",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-guarantor-or-cosigner-pursued|defendantConsideration|borrower-says-gift-or-other-agreement-cosign",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e0f7dec01279a3cca3bad5bf0c8961de228a0ecc595023c687c6eed0580a8b70",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 41",
+          "quote": "Juristic reasons to deny recovery may be the intention to make a gift (referred to as a “donative intent”), a contract, or a disposition of law"
+        },
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "para. 45",
+          "quote": "The prima facie case is rebuttable, however, where the defendant can show that there is another reason to deny recovery. As a result, there is a de facto burden of proof placed on the defendant to show the reason why the enrichment should be retained."
+        },
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "para. 46",
+          "quote": "As part of the defendant’s attempt to rebut, courts should have regard to two factors: the reasonable expectations of the parties, and public policy considerations."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); Saved decision docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf, read from docs/sources/decisions/garland-v-consumers-gas-2004-SCC-25.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-guarantor-or-cosigner-pursued|proceduralNote|sc-claim-guarantor-or-cosigner-pursued#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "010d47f3c8c4c16fd08fe6a629dc5e047b7a9892639d52a2fcceb1d3f8cc7a86",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Naming the defendant",
+          "quote": "If your claim is against more than one individual, be sure to include each defendant's full name."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-guarantor-or-cosigner-pursued|proceduralNote|sc-claim-guarantor-or-cosigner-pursued#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-etransfer-sent-in-error|plaintiffElement|money-received-etransfer",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "40f2bdb1ca2d8d8fff066460b1bee8fe2d7c607b88fb79c27ce1402a89280ec4",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 32",
+          "quote": "It permits recovery whenever the plaintiff can establish three elements: an enrichment of or benefit to the defendant, a corresponding deprivation of the plaintiff, and the absence of a juristic reason for the enrichment"
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 38",
+          "quote": "For the first requirement — enrichment — the plaintiff must show that he or she gave something to the defendant which the defendant received and retained. The benefit need not be retained permanently, but there must be a benefit which has enriched the defendant and which can be restored to the plaintiff in specie or by money. Moreover, the benefit must be tangible. It may be positive or negative, the latter in the sense that the benefit conferred on the defendant spares him or her an expense he or she would have had to undertake"
+        },
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "para. 31",
+          "quote": "In Peel, supra, at p. 790, McLachlin J. (as she then was) noted that the word “enrichment” connotes a tangible benefit which has been conferred on the defendant. This benefit, she writes, can be either a positive benefit, such as the payment of money, or a negative benefit"
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 31 (Cromwell J. for the Court)",
+          "quote": "A series of categories developed in which retention of a conferred benefit was considered unjust. These included, for example: benefits conferred under mistakes of fact or law; under compulsion; out of necessity; as a result of ineffective transactions; or at the defendant’s request"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); Saved decision docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf, read from docs/sources/decisions/garland-v-consumers-gas-2004-SCC-25.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-etransfer-sent-in-error|plaintiffElement|sender-lost-the-money-etransfer",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8d582f1f5013117c9be1d02362d45c543e5f3dbf2422d8d8dca135ff54faf8ac",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 39",
+          "quote": "the plaintiff’s loss is material only if the defendant has gained a benefit or been enriched ... That is why the second requirement obligates the plaintiff to establish not simply that the defendant has been enriched, but also that the enrichment corresponds to a deprivation which the plaintiff has suffered"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-etransfer-sent-in-error|plaintiffElement|no-reason-to-keep-etransfer",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3d1daa97236c351871d307835e7f90163ec771c4e469098a35a1676c3a818788",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 40",
+          "quote": "To put it simply, this means that there is no reason in law or justice for the defendant’s retention of the benefit conferred by the plaintiff, making its retention “unjust” in the circumstances of the case"
+        },
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "para. 44",
+          "quote": "First, the plaintiff must show that no juristic reason from an established category exists to deny recovery. ... The established categories that can constitute juristic reasons include a contract (Pettkus, supra), a disposition of law (Pettkus, supra), a donative intent (Peter, supra), and other valid common law, equitable or statutory obligations (Peter, supra). If there is no juristic reason from an established category, then the plaintiff has made out a prima facie case under the juristic reason component of the analysis."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); Saved decision docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf, read from docs/sources/decisions/garland-v-consumers-gas-2004-SCC-25.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-etransfer-sent-in-error|defendantConsideration|change-of-position-etransfer",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9309fc2961937b815431319cb408021784ceea0f510a5ea9c09468fc5c455f3a",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "paras. 63, 65 and 66",
+          "quote": "the remedy of restitution will be denied where an innocent defendant demonstrates that it has materially changed its position as a result of an enrichment such that it would be inequitable to require the benefit to be returned ... Where a defendant has obtained the enrichment through some wrongdoing of his own, he cannot then assert that it would be unjust to return the enrichment to the plaintiff. ... It is not necessary, as a result, to discuss change of position in a comprehensive manner and I leave a fuller development of the other elements of this defence to future cases."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf, read from docs/sources/decisions/garland-v-consumers-gas-2004-SCC-25.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-etransfer-sent-in-error|defendantConsideration|residual-reason-etransfer",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "aa7d844fed2e1fb3e5c896e78715ed0acc49c53c050fbacbd9351c28842b84dc",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "para. 45",
+          "quote": "The prima facie case is rebuttable, however, where the defendant can show that there is another reason to deny recovery. As a result, there is a de facto burden of proof placed on the defendant to show the reason why the enrichment should be retained."
+        },
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "para. 46",
+          "quote": "As part of the defendant’s attempt to rebut, courts should have regard to two factors: the reasonable expectations of the parties, and public policy considerations."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf, read from docs/sources/decisions/garland-v-consumers-gas-2004-SCC-25.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-etransfer-sent-in-error|proceduralNote|sc-claim-etransfer-sent-in-error#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "010d47f3c8c4c16fd08fe6a629dc5e047b7a9892639d52a2fcceb1d3f8cc7a86",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Naming the defendant",
+          "quote": "If your claim is against more than one individual, be sure to include each defendant's full name."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-etransfer-sent-in-error|proceduralNote|sc-claim-etransfer-sent-in-error#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-deposit-not-returned|plaintiffElement|deposit-paid-and-terms-deposit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dac63ddb3c553c2a5e16ff0955434cd8989f1f3d48d3cb226861b246f33bf051",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-deposit-not-returned|plaintiffElement|deposit-amount-unpaid-deposit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8f8989d9ca568b5fe53308b76ce50121506ae29e9517700643641b21001b962f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-deposit-not-returned|defendantConsideration|kept-for-expenses-deposit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9cc0805e0b31bed8ccc7880ec9bda362f5272aa0d473606c5c22b3ece3cf598f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "9.01 A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, ... serve on every other party a defence (Form 9A); and ... file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f34_e.doc",
+          "pinpoint": "s. 3(2)",
+          "quote": "If, before the parties were discharged, the party to whom the sums were paid or payable incurred expenses in connection with the performance of the contract, the court, if it considers it just to do so having regard to all the circumstances, may allow the party to retain or to recover, as the case may be, the whole or any part of the sums paid or payable not exceeding the amount of the expenses,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/frustrated-contracts-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-deposit-not-returned|proceduralNote|sc-claim-deposit-not-returned#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c483bfe6a59c2696eaac0f8ba837d86aea4745f96117a6c8ff9919c4e32bb0e5",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "ss. 105(1), 135(1) and 168(2)",
+          "quote": "105 (1) The only security deposit that a landlord may collect is a rent deposit collected in accordance with section 106. ... 135 (1) A tenant or former tenant of a rental unit may apply to the Board for an order that the landlord, superintendent or agent of the landlord pay to the tenant any money the person collected or retained in contravention of this Act or the Tenant Protection Act, 1997. ... The Board has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/residential-tenancies-act-2006.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-deposit-not-returned|proceduralNote|sc-claim-deposit-not-returned#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5c8d7bd9fa88308ad0da348196b387596380d0cdf62c5c480e8c1efb46201e5e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f34_e.doc",
+          "pinpoint": "ss. 2(1) and 3(1)",
+          "quote": "This Act applies to any contract that is governed by the law of Ontario and that has become impossible of performance or been otherwise frustrated and to the parties which for that reason have been discharged. ... The sums paid or payable to a party in pursuance of a contract before the parties were discharged, ... in the case of sums paid, are recoverable from the party as money received for the use of the party by whom the sums were paid; and"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/frustrated-contracts-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-deposit-not-returned|proceduralNote|sc-claim-deposit-not-returned#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-overpayment-not-refunded|plaintiffElement|extra-money-received-overpay",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ec341237b82e50b7683dededfac0b18433807576ff2d9fcaa05409131ddc24cd",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 32",
+          "quote": "It permits recovery whenever the plaintiff can establish three elements: an enrichment of or benefit to the defendant, a corresponding deprivation of the plaintiff, and the absence of a juristic reason for the enrichment"
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 38",
+          "quote": "For the first requirement — enrichment — the plaintiff must show that he or she gave something to the defendant which the defendant received and retained. The benefit need not be retained permanently, but there must be a benefit which has enriched the defendant and which can be restored to the plaintiff in specie or by money. Moreover, the benefit must be tangible. It may be positive or negative, the latter in the sense that the benefit conferred on the defendant spares him or her an expense he or she would have had to undertake"
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 31 (Cromwell J. for the Court)",
+          "quote": "A series of categories developed in which retention of a conferred benefit was considered unjust. These included, for example: benefits conferred under mistakes of fact or law; under compulsion; out of necessity; as a result of ineffective transactions; or at the defendant’s request"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-overpayment-not-refunded|plaintiffElement|payer-lost-extra-overpay",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7634ef9f8a27efdad77100d9f1df27d3f5f9fe30c6ae9d2953d5635f775e0b9a",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 39",
+          "quote": "the plaintiff’s loss is material only if the defendant has gained a benefit or been enriched ... That is why the second requirement obligates the plaintiff to establish not simply that the defendant has been enriched, but also that the enrichment corresponds to a deprivation which the plaintiff has suffered"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-overpayment-not-refunded|plaintiffElement|no-reason-to-keep-overpay",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4ecbd5b39aa001cea63ef3965e6183ee2477f7d7f1b82f7d2018fb9bba8ccb07",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 40",
+          "quote": "To put it simply, this means that there is no reason in law or justice for the defendant’s retention of the benefit conferred by the plaintiff, making its retention “unjust” in the circumstances of the case"
+        },
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "para. 44",
+          "quote": "First, the plaintiff must show that no juristic reason from an established category exists to deny recovery. ... The established categories that can constitute juristic reasons include a contract (Pettkus, supra), a disposition of law (Pettkus, supra), a donative intent (Peter, supra), and other valid common law, equitable or statutory obligations (Peter, supra). If there is no juristic reason from an established category, then the plaintiff has made out a prima facie case under the juristic reason component of the analysis."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); Saved decision docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf, read from docs/sources/decisions/garland-v-consumers-gas-2004-SCC-25.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-overpayment-not-refunded|defendantConsideration|says-money-was-owed-overpay",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "805bf71e3fdc7ff9f41a8bb43267e0b332c8e7e5e81704789583e299da83a751",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 41",
+          "quote": "Juristic reasons to deny recovery may be the intention to make a gift (referred to as a “donative intent”), a contract, or a disposition of law"
+        },
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "para. 45",
+          "quote": "The prima facie case is rebuttable, however, where the defendant can show that there is another reason to deny recovery. As a result, there is a de facto burden of proof placed on the defendant to show the reason why the enrichment should be retained."
+        },
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "para. 46",
+          "quote": "As part of the defendant’s attempt to rebut, courts should have regard to two factors: the reasonable expectations of the parties, and public policy considerations."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); Saved decision docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf, read from docs/sources/decisions/garland-v-consumers-gas-2004-SCC-25.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-overpayment-not-refunded|defendantConsideration|change-of-position-overpay",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "34d8ac3471c6bd3f8f5d528766afde402995464d132122291937d5382a621dd8",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "paras. 63, 65 and 66",
+          "quote": "the remedy of restitution will be denied where an innocent defendant demonstrates that it has materially changed its position as a result of an enrichment such that it would be inequitable to require the benefit to be returned ... Where a defendant has obtained the enrichment through some wrongdoing of his own, he cannot then assert that it would be unjust to return the enrichment to the plaintiff. ... It is not necessary, as a result, to discuss change of position in a comprehensive manner and I leave a fuller development of the other elements of this defence to future cases."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf, read from docs/sources/decisions/garland-v-consumers-gas-2004-SCC-25.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-overpayment-not-refunded|proceduralNote|sc-claim-overpayment-not-refunded#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "010d47f3c8c4c16fd08fe6a629dc5e047b7a9892639d52a2fcceb1d3f8cc7a86",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Naming the defendant",
+          "quote": "If your claim is against more than one individual, be sure to include each defendant's full name."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-overpayment-not-refunded|proceduralNote|sc-claim-overpayment-not-refunded#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-commission-or-expenses|plaintiffElement|payment-owed-under-agreement-commission",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "737357b6ac0fc2321c9e190c73af133d421fe82cc8afdeb8da7b75a8cb529322",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 1(1), \"wages\"",
+          "quote": "\"wages\" means, ... monetary remuneration payable by an employer to an employee under the terms of an employment contract, oral or written, express or implied, ... any payment required to be made by an employer to an employee under this Act, and ... but does not include, ... any sums paid as gifts or bonuses that are dependent on the discretion of the employer and that are not related to hours, production or efficiency, ... expenses and travelling allowances, or"
+        },
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-commission-or-expenses|plaintiffElement|amount-unpaid-commission",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6f4a3774368abbb3950d9183415265554903eb50d69b89f0869598df790ae684",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 11(5)",
+          "quote": "If an employee's employment ends, the employer shall pay any wages to which the employee is entitled to the employee not later than the later of, ... seven days after the employment ends; and ... the day that would have been the employee's next pay day."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-commission-or-expenses|defendantConsideration|discretionary-bonus-commission",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "13ad0b3a87268a1d2aa0672e636ffb259c67545cc330fe8e31aaa57a9c04d2e6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "9.01 A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, ... serve on every other party a defence (Form 9A); and ... file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 1(1), \"wages\"",
+          "quote": "\"wages\" means, ... monetary remuneration payable by an employer to an employee under the terms of an employment contract, oral or written, express or implied, ... any payment required to be made by an employer to an employee under this Act, and ... but does not include, ... any sums paid as gifts or bonuses that are dependent on the discretion of the employer and that are not related to hours, production or efficiency, ... expenses and travelling allowances, or"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-commission-or-expenses|proceduralNote|sc-claim-unpaid-commission-or-expenses#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "eb2a709f0736aecda81587d2f9bc3bba414085322f83c1c8a0f000dd4180cce2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "ss. 97(1), 97(4) and 98(1)",
+          "quote": "97 (1) An employee who files a complaint under this Act with respect to an alleged failure to pay wages or comply with Part XIII (Benefit Plans) may not commence a civil proceeding with respect to the same matter. ... Despite subsections (1) and (2), an employee who has filed a complaint may commence a civil proceeding with respect to a matter described in those subsections if he or she withdraws the complaint within two weeks after it is filed. ... 98 (1) An employee who commences a civil proceeding with respect to an alleged failure to pay wages or to comply with Part XIII (Benefit Plans) may not file a complaint with respect to the same matter or have such a complaint investigated."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-commission-or-expenses|proceduralNote|sc-claim-unpaid-commission-or-expenses#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "61e44577150a7be1e0d3a6fc8df53375a05a37333214859a771e32bcd9ebe7ca",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+          "pinpoint": "s. 8(2)",
+          "quote": "Where an employee commences a civil proceeding against his or her employer under this Act, notice of the proceeding shall be served on the Director on a form approved by the Director on or before the date the civil proceeding is set down for trial."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/esa-2000-ontario.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-unpaid-commission-or-expenses|proceduralNote|sc-claim-unpaid-commission-or-expenses#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-settlement-agreement-unpaid|plaintiffElement|agreement-reached-settlement",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7fd7f06a1fee5e97ed7f561e76e66dd8926edc1ccf480b6001e5977f1d88b8f0",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 14.01.1(1) and (3)",
+          "quote": "An offer to settle, an acceptance of an offer to settle and a notice of withdrawal of an offer to settle shall be in writing. ... The terms of an accepted offer to settle may be set out in terms of settlement (Form 14D)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-settlement-agreement-unpaid|plaintiffElement|payments-missed-settlement",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a01f57aacffb1de928e0e83a432603a07456f610b2cd4ccadb3f9b55e73e39dc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-settlement-agreement-unpaid|defendantConsideration|disputes-terms-or-payment-settlement",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "82733225060988c226e706d349ed18097b76dfa65b60fc4df804dc9431a48544",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "9.01 A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, ... serve on every other party a defence (Form 9A); and ... file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-settlement-agreement-unpaid|proceduralNote|sc-claim-settlement-agreement-unpaid#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "155fe41b35fd53cb1d9ff1ca6dcde2917652936ef00b46d13ef6da0bbc1d7402",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 14.06",
+          "quote": "If a party to an accepted offer to settle fails to comply with the terms of the offer, the other party may, ... make a motion to the court for judgment in the terms of the accepted offer; or ... continue the proceeding as if there had been no offer to settle."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-settlement-agreement-unpaid|proceduralNote|sc-claim-settlement-agreement-unpaid#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9eb11f857fca8fef859231371bca3975e43884863ea1f491ffafdb2fb1afe4dc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.03(1)-(2)",
+          "quote": "A defendant who admits liability for all or part of the plaintiff's claim but wishes to arrange terms of payment may in the defence admit liability and propose terms of payment. ... If the plaintiff does not dispute the proposal within the 20-day period referred to in subrule (3), ... the defendant shall make payment in accordance with the proposal as if it were a court order; ... the plaintiff may serve a notice of default of payment (Form 20L) on the defendant if the defendant fails to make payment in accordance with the proposal; and ... the clerk shall sign judgment for the unpaid balance of the undisputed amount on the filing of an affidavit of default of payment (Form 20M) by the plaintiff swearing, ... that the defendant failed to make payment in accordance with the proposal, ... to the amount paid by the defendant and the unpaid balance, and ... that 15 days have passed since the defendant was served with a notice of default of payment."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.03(3)",
+          "quote": "The plaintiff may dispute the proposal within 20 days after service of the defence"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-settlement-agreement-unpaid|proceduralNote|sc-claim-settlement-agreement-unpaid#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4878c018a1032a0cb1835c8459079d267d0f0b9a268c8c07d3a1096542ad2ec6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 13(1), (9)-(11)",
+          "quote": "13 (1) If a person acknowledges liability in respect of a claim for payment of a liquidated sum, ... the act or omission on which the claim is based shall be deemed to have taken place on the day on which the acknowledgment was made. ... This section does not apply unless the acknowledgment is made to the person with the claim, the person's agent or an official receiver or trustee acting under the Bankruptcy and Insolvency Act (Canada) before the expiry of the limitation period applicable to the claim. ... Subsections (1), (2), (3), (6) and (7) do not apply unless the acknowledgment is in writing and signed by the person making it or the person's agent. ... In the case of a claim for payment of a liquidated sum, part payment of the sum by the person against whom the claim is made or by the person's agent has the same effect as the acknowledgment referred to in subsection (10)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-promissory-note-unpaid|plaintiffElement|signed-note-promnote",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "64f79528b43fadee51e1c2d2b18876181a008e358235adbb9eb3f05c1c796d11",
+      "sources": [
+        {
+          "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/B-4/FullText.html",
+          "pinpoint": "s. 176(1)",
+          "quote": "A promissory note is an unconditional promise in writing made by one person to another person, signed by the maker, engaging to pay, on demand or at a fixed or determinable future time, a sum certain in money to, or to the order of, a specified person or to bearer."
+        },
+        {
+          "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/B-4/FullText.html",
+          "pinpoint": "s. 185(a)",
+          "quote": "The maker of a note, by making it, ... engages that he will pay it according to its tenor; and"
+        },
+        {
+          "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/B-4/FullText.html",
+          "pinpoint": "s. 179(2)",
+          "quote": "Where a note bears the words \"I promise to pay\" and is signed by two or more persons, it is deemed to be their joint and several note."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/bills-of-exchange-act.txt; Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-promissory-note-unpaid|plaintiffElement|payment-due-promnote",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "07f948edc840a5d17be52bdaed3aeb2095460555c5433a1dddc0b708755a6b14",
+      "sources": [
+        {
+          "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/B-4/FullText.html",
+          "pinpoint": "s. 176(1)",
+          "quote": "A promissory note is an unconditional promise in writing made by one person to another person, signed by the maker, engaging to pay, on demand or at a fixed or determinable future time, a sum certain in money to, or to the order of, a specified person or to bearer."
+        },
+        {
+          "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/B-4/FullText.html",
+          "pinpoint": "s. 183(3)",
+          "quote": "When no place of payment is specified in the body of the note, presentment for payment is not necessary in order to render the maker liable."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(3)-(4)",
+          "quote": "For the purposes of subclause (1) (a) (i), the day on which injury, loss or damage occurs in relation to a demand obligation is the first day on which there is a failure to perform the obligation, once a demand for the performance is made. ... Subsection (3) applies in respect of every demand obligation created on or after January 1, 2004."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/bills-of-exchange-act.txt; Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-promissory-note-unpaid|plaintiffElement|amount-unpaid-promnote",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3ac21a9c299f9e66b81f9b5c0841876686dc297da9ca0062568b71605852f217",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-promissory-note-unpaid|defendantConsideration|endorser-not-maker-promnote",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d61fd1a96bec2b1dbc55044c59813017cd84bbe66fc451c4d7c64e8b519511c9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "9.01 A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, ... serve on every other party a defence (Form 9A); and ... file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        },
+        {
+          "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/B-4/FullText.html",
+          "pinpoint": "s. 184(1)-(2)",
+          "quote": "Presentment for payment is necessary in order to render the endorser of a note liable. ... Where a note is, in the body of it, made payable at a particular place, presentment at that place is necessary in order to render an endorser liable."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/bills-of-exchange-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-promissory-note-unpaid|proceduralNote|sc-claim-promissory-note-unpaid#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "010d47f3c8c4c16fd08fe6a629dc5e047b7a9892639d52a2fcceb1d3f8cc7a86",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Naming the defendant",
+          "quote": "If your claim is against more than one individual, be sure to include each defendant's full name."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-promissory-note-unpaid|proceduralNote|sc-claim-promissory-note-unpaid#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4878c018a1032a0cb1835c8459079d267d0f0b9a268c8c07d3a1096542ad2ec6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 13(1), (9)-(11)",
+          "quote": "13 (1) If a person acknowledges liability in respect of a claim for payment of a liquidated sum, ... the act or omission on which the claim is based shall be deemed to have taken place on the day on which the acknowledgment was made. ... This section does not apply unless the acknowledgment is made to the person with the claim, the person's agent or an official receiver or trustee acting under the Bankruptcy and Insolvency Act (Canada) before the expiry of the limitation period applicable to the claim. ... Subsections (1), (2), (3), (6) and (7) do not apply unless the acknowledgment is in writing and signed by the person making it or the person's agent. ... In the case of a claim for payment of a liquidated sum, part payment of the sum by the person against whom the claim is made or by the person's agent has the same effect as the acknowledgment referred to in subsection (10)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-joint-expense-share|plaintiffElement|agreed-to-share-jointexp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "231e886039ab1521272f177e8a20c2c0d17eb92848f09a113ebb9952a7af72af",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-joint-expense-share|plaintiffElement|paid-their-share-jointexp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f64c67e755fb661ca8d0e2387393a5191fd351099b6ff99e26bf6c71730708d1",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 32",
+          "quote": "It permits recovery whenever the plaintiff can establish three elements: an enrichment of or benefit to the defendant, a corresponding deprivation of the plaintiff, and the absence of a juristic reason for the enrichment"
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 38",
+          "quote": "For the first requirement — enrichment — the plaintiff must show that he or she gave something to the defendant which the defendant received and retained. The benefit need not be retained permanently, but there must be a benefit which has enriched the defendant and which can be restored to the plaintiff in specie or by money. Moreover, the benefit must be tangible. It may be positive or negative, the latter in the sense that the benefit conferred on the defendant spares him or her an expense he or she would have had to undertake"
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 40",
+          "quote": "To put it simply, this means that there is no reason in law or justice for the defendant’s retention of the benefit conferred by the plaintiff, making its retention “unjust” in the circumstances of the case"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-joint-expense-share|plaintiffElement|amount-of-share-jointexp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d19a40138fcc4139bfc1c2df889ef572184b92b8c6ac4e53f34a4601e198f390",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-joint-expense-share|defendantConsideration|disputes-share-jointexp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "152537b2072b4dbb234bd6e1dcc2509d524477f956b14786f63e7d11a91fa374",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "9.01 A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, ... serve on every other party a defence (Form 9A); and ... file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 41",
+          "quote": "Juristic reasons to deny recovery may be the intention to make a gift (referred to as a “donative intent”), a contract, or a disposition of law"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-joint-expense-share|proceduralNote|sc-claim-joint-expense-share#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "010d47f3c8c4c16fd08fe6a629dc5e047b7a9892639d52a2fcceb1d3f8cc7a86",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Naming the defendant",
+          "quote": "If your claim is against more than one individual, be sure to include each defendant's full name."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-joint-expense-share|proceduralNote|sc-claim-joint-expense-share#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    }
+  ],
+  "unverifiable": []
+}

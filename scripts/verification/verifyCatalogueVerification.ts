@@ -48,6 +48,7 @@ import path from "node:path";
 
 import {
   catalogueEntries,
+  loadVerificationLog,
   entryFingerprint,
   normalizeForQuote,
   stripWrappingQuotes,
@@ -68,7 +69,7 @@ function check(label: string, ok: boolean, detail = "") {
   if (!ok) failures += 1;
 }
 
-const log = JSON.parse(readFileSync(path.join(ROOT, "docs/sources/catalogue-verification.json"), "utf8")) as VerificationLog;
+const log = loadVerificationLog(ROOT);
 const manifest = JSON.parse(readFileSync(path.join(CORPUS, "manifest.json"), "utf8")) as {
   entries: { url: string; file: string; consolidation?: string }[];
 };
@@ -190,6 +191,24 @@ check("every entry's links resolve to an official page or a saved decision", bad
 // ---- 8. Next steps. Every Civil and Family block, and every block with a
 // record, holds against its record the same way: text unchanged since it was
 // verified, and every vendored passage really in the source.
+// Case types written after 2026-10-07 (moreClaimTypes/) must rest on text
+// saved in this repository -- a vendored statute, regulation or official page,
+// or a saved decision -- so every quote in their records is checked above.
+// A live page's quote cannot be checked, so a new entry may not rely on one.
+const laterTypeIds = new Set(
+  (JSON.parse(readFileSync(path.join(ROOT, "src/lib/case-system/intake/moreClaimTypes/plan.json"), "utf8")) as { types: { id: string }[] }[]).flatMap((batch) =>
+    batch.types.map((type) => type.id),
+  ),
+);
+const unsavedSources = entries
+  .filter((entry) => laterTypeIds.has(entry.claimTypeId))
+  .flatMap((entry) => [entry.sourceUrl, ...(entry.alsoCites ?? []).map((also) => also.sourceUrl)].map((url) => ({ key: entry.key, url })))
+  .filter(({ url }) => vendored(url) === null && !/docs\/sources\//.test(url) && !/decisions\.scc-csc\.ca|coadecisions\.ontariocourts\.ca/.test(url))
+  .map(({ key, url }) => `${key}: ${url}`);
+check("every case type written after 2026-10-07 rests on saved text whose quotes are checked", unsavedSources.length === 0, unsavedSources.slice(0, 20).join("\n      "));
+const undatedLater = entries.filter((entry) => laterTypeIds.has(entry.claimTypeId) && !entry.verifiedAt).map((entry) => entry.key);
+check("every entry of a case type written after 2026-10-07 is dated and recorded", undatedLater.length === 0, undatedLater.slice(0, 20).join("\n      "));
+
 const nextStepRecords = new Map((log.nextSteps ?? []).map((record) => [record.id, record]));
 const nextStepProblems: string[] = [];
 for (const block of NEXT_STEP_BLOCKS) {

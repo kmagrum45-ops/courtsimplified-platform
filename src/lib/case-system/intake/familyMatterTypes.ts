@@ -26,8 +26,9 @@
  */
 
 import type { ClaimType } from "./claimTypes";
+import { MORE_FAMILY_TYPES } from "./moreClaimTypes";
 
-export const FAMILY_MATTER_TYPES: ClaimType[] = [
+const CORE_FAMILY_MATTER_TYPES: ClaimType[] = [
   {
     id: "family-matter-child-support",
     name: "Child support (asking for it, or being asked to pay it)",
@@ -2562,3 +2563,10 @@ export const FAMILY_MATTER_TYPES: ClaimType[] = [
     status: "reviewed",
   },
 ];
+
+/**
+ * The first library above, then every batch written after it
+ * (moreClaimTypes/, 2026-10-07: the owner's direction to cover hundreds of
+ * case types, each sourced and checked by test:catalogue-verified).
+ */
+export const FAMILY_MATTER_TYPES: ClaimType[] = [...CORE_FAMILY_MATTER_TYPES, ...MORE_FAMILY_TYPES];

@@ -1,0 +1,1274 @@
+[
+  {
+    "batch": "sc-money-owed-1",
+    "court": "small-claims",
+    "family": "money-owed",
+    "types": [
+      {
+        "id": "sc-claim-guarantor-or-cosigner-pursued",
+        "name": "Being chased for a loan you co-signed",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-etransfer-sent-in-error",
+        "name": "An e-transfer sent to the wrong person",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-deposit-not-returned",
+        "name": "A deposit nobody gave back",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-overpayment-not-refunded",
+        "name": "An overpayment or duplicate payment not refunded",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-unpaid-commission-or-expenses",
+        "name": "Unpaid commission, bonus or expenses",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-settlement-agreement-unpaid",
+        "name": "Money owed under a settlement or repayment agreement",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-promissory-note-unpaid",
+        "name": "An unpaid promissory note",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-joint-expense-share",
+        "name": "Someone's share of a shared cost",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-money-owed-2",
+    "court": "small-claims",
+    "family": "money-owed",
+    "types": [
+      {
+        "id": "sc-claim-group-prize-dispute",
+        "name": "A lottery pool or group prize dispute",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-unpaid-lesson-or-childcare-fees",
+        "name": "Unpaid lesson, tutoring or child-care fees",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-unpaid-clinic-invoice",
+        "name": "An unpaid clinic, dental or vet invoice",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-business-to-business-invoice",
+        "name": "One business owed money by another",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-investment-in-a-friends-business",
+        "name": "Money put into a friend's business and not returned",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-unpaid-commercial-rent",
+        "name": "Unpaid commercial rent",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-club-or-association-dues",
+        "name": "Unpaid club, league or association dues",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-goods-and-services-1",
+    "court": "small-claims",
+    "family": "goods-and-services",
+    "types": [
+      {
+        "id": "sc-claim-contractor-poor-or-incomplete-work",
+        "name": "A contractor did poor or unfinished work",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-contractor-took-deposit-and-left",
+        "name": "A contractor took a deposit and disappeared",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-homeowner-wont-pay-contractor",
+        "name": "A homeowner will not pay the contractor",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-defective-product",
+        "name": "Something bought that does not work",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-used-vehicle-private-sale",
+        "name": "A used car bought privately",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-new-vehicle-defects",
+        "name": "Defects in a new vehicle",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-new-home-defects",
+        "name": "Defects in a newly built home",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-home-inspector-missed-defects",
+        "name": "A home inspector who missed something",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-undisclosed-defects-after-purchase",
+        "name": "Problems found after buying a house",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-real-estate-deposit-dispute",
+        "name": "A real estate deposit in dispute",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-goods-and-services-2",
+    "court": "small-claims",
+    "family": "goods-and-services",
+    "types": [
+      {
+        "id": "sc-claim-real-estate-agent-conduct",
+        "name": "A real estate agent's commission or conduct",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-moving-company-damage-or-loss",
+        "name": "A moving company that damaged or lost things",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-storage-company-dispute",
+        "name": "A dispute with a storage company",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-wedding-or-event-vendor-failure",
+        "name": "A wedding or event supplier who let you down",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-travel-agent-or-tour-operator",
+        "name": "A travel agent or tour operator",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-airline-delay-or-cancellation",
+        "name": "A flight delayed, cancelled, or boarding denied",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-airline-baggage-lost-or-damaged",
+        "name": "Baggage lost or damaged by an airline",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-gym-or-personal-development-contract",
+        "name": "Cancelling a gym or class membership",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-subscription-cancellation",
+        "name": "A subscription that will not cancel",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-marketplace-private-sale",
+        "name": "A Marketplace or Kijiji sale that went wrong",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-goods-and-services-3",
+    "court": "small-claims",
+    "family": "goods-and-services",
+    "types": [
+      {
+        "id": "sc-claim-warranty-refused",
+        "name": "A warranty the seller will not honour",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-private-career-college-refund",
+        "name": "A private career college refund",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-college-or-university-fee-dispute",
+        "name": "A college or university fee dispute",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-driving-school",
+        "name": "A driving school or lessons",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-item-damaged-by-a-service",
+        "name": "Something damaged by a cleaner, tailor or repairer",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-courier-lost-or-damaged-parcel",
+        "name": "A parcel lost or damaged by a courier",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-phone-internet-or-tv-billing",
+        "name": "A phone, internet or TV bill",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-electricity-or-gas-billing",
+        "name": "An electricity or gas bill",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-water-heater-or-hvac-rental",
+        "name": "A water heater or furnace rental contract",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-solar-or-energy-efficiency-contract",
+        "name": "A solar or energy-efficiency contract",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-goods-and-services-4",
+    "court": "small-claims",
+    "family": "goods-and-services",
+    "types": [
+      {
+        "id": "sc-claim-door-to-door-sale",
+        "name": "Something bought at the door",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-furniture-or-appliance-delivery",
+        "name": "Furniture or an appliance damaged or never delivered",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-home-services-not-performed",
+        "name": "Cleaning, lawn, snow or pool work not done",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-salon-spa-or-tattoo-result",
+        "name": "A salon, spa or tattoo that went wrong",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-pet-grooming-or-boarding",
+        "name": "A pet hurt or lost at grooming or boarding",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-daycare-or-camp-fees",
+        "name": "A daycare or camp fee dispute",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-funeral-or-cemetery-dispute",
+        "name": "A funeral home or cemetery dispute",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-ticket-resale-or-cancelled-event",
+        "name": "A resold ticket or a cancelled event",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-gift-card-refused",
+        "name": "A gift card or prepaid card refused",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-timeshare-or-vacation-club",
+        "name": "A timeshare or vacation club",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-goods-and-services-5",
+    "court": "small-claims",
+    "family": "goods-and-services",
+    "types": [
+      {
+        "id": "sc-claim-website-app-or-software-build",
+        "name": "A website, app or software not delivered",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-hosting-or-saas-billing",
+        "name": "Domain, hosting or software billing",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-influencer-or-brand-deal-unpaid",
+        "name": "An unpaid brand or influencer deal",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-immigration-consultant-or-paralegal-fee",
+        "name": "An immigration consultant or paralegal fee",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-financial-advisor-or-mortgage-broker",
+        "name": "A financial advisor or mortgage broker",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-insurance-claim-denied",
+        "name": "An insurance claim refused",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-bank-error-or-unauthorized-transaction",
+        "name": "A bank error or a transaction you did not make",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-credit-report-error",
+        "name": "A mistake on your credit report",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-property-damage-1",
+    "court": "small-claims",
+    "family": "property-damage",
+    "types": [
+      {
+        "id": "sc-claim-neighbours-tree-fell",
+        "name": "A neighbour's tree or branch came down",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-tree-roots-damage",
+        "name": "Tree roots damaging foundation, pipes or driveway",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-water-from-neighbouring-property",
+        "name": "Water or flooding from next door or upstairs",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-fence-dispute",
+        "name": "A fence on the boundary",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-retaining-wall-failure",
+        "name": "A retaining wall that failed",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-damage-caused-by-a-dog",
+        "name": "Damage done by a dog",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-livestock-or-animals-at-large",
+        "name": "Livestock or animals loose on your land",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-damage-to-a-parked-vehicle",
+        "name": "A parked car damaged in a lot, by a valet or at a garage",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-damage-by-tenant-guest-or-roommate",
+        "name": "Damage by a tenant's guest or a roommate",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-construction-or-excavation-next-door",
+        "name": "Damage from building work next door",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-property-damage-2",
+    "court": "small-claims",
+    "family": "property-damage",
+    "types": [
+      {
+        "id": "sc-claim-vandalism-known-person",
+        "name": "Vandalism where you know who did it",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-borrowed-item-not-returned",
+        "name": "Something lent and not returned, or returned broken",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-landlord-disposed-of-belongings",
+        "name": "A landlord who got rid of your things",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-towing-damage",
+        "name": "Damage done by a tow truck",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-snow-plow-or-municipal-works-damage",
+        "name": "Damage by a plough or municipal works",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-utility-work-damage",
+        "name": "Damage by utility or hydro work",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-fire-or-smoke-from-next-door",
+        "name": "Fire or smoke spreading from next door",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-drone-ball-or-sports-equipment",
+        "name": "Damage by a drone, ball or sports equipment",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-short-term-rental-guest-damage",
+        "name": "Damage by a short-term rental guest",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-injury-1",
+    "court": "small-claims",
+    "family": "injury",
+    "types": [
+      {
+        "id": "sc-claim-fall-in-a-parking-lot-or-plaza",
+        "name": "A fall in a parking lot or plaza",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-fall-at-a-rental-property",
+        "name": "A fall where you rent",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-fall-at-a-municipal-facility",
+        "name": "A fall at an arena, pool or park",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-injury-at-a-business-or-event",
+        "name": "An injury at a shop, restaurant or event",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-food-poisoning",
+        "name": "Food poisoning",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-injury-at-a-gym-or-sport",
+        "name": "An injury at a gym or playing sport",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-injury-from-a-defective-product",
+        "name": "An injury caused by a product",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-injury-2",
+    "court": "small-claims",
+    "family": "injury",
+    "types": [
+      {
+        "id": "sc-claim-injury-from-a-falling-object",
+        "name": "An injury from a falling object or a building site",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-injury-at-school-or-daycare",
+        "name": "An injury at school or daycare",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-injury-on-public-transit",
+        "name": "An injury on public transit",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-escooter-bicycle-or-pedestrian-collision",
+        "name": "An e-scooter, bicycle or pedestrian collision",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-minor-assault-or-battery",
+        "name": "Being hit or attacked by someone",
+        "sensitive": true
+      },
+      {
+        "id": "sc-claim-injury-from-a-cosmetic-procedure",
+        "name": "An injury from a salon, spa or cosmetic procedure",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-professional-negligence-medical-or-dental",
+        "name": "Harm from medical, dental or other professional care",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-neighbours-1",
+    "court": "small-claims",
+    "family": "neighbours",
+    "types": [
+      {
+        "id": "sc-claim-noise-and-nuisance",
+        "name": "Noise or a persistent nuisance",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-smoke-odours-or-cannabis",
+        "name": "Smoke, smells or cannabis drifting over",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-cameras-or-lights-aimed-at-you",
+        "name": "Cameras or lights pointed at your property",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-trespass-by-people-or-pets",
+        "name": "People, pets or children coming onto your land",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-shared-driveway-or-right-of-way",
+        "name": "A shared driveway or right of way",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-encroachment-or-boundary",
+        "name": "An encroachment or a boundary in dispute",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-neighbours-2",
+    "court": "small-claims",
+    "family": "neighbours",
+    "types": [
+      {
+        "id": "sc-claim-overhanging-branches",
+        "name": "Overhanging branches and roots",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-snow-or-leaves-dumped",
+        "name": "Snow or leaves dumped on your property",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-drainage-and-grading",
+        "name": "Drainage and grading between properties",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-shared-well-or-septic",
+        "name": "A shared well, septic or rural service",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-construction-noise-and-debris",
+        "name": "Construction noise and debris",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-harassment-by-a-neighbour",
+        "name": "A neighbour who is harassing you",
+        "sensitive": true
+      }
+    ]
+  },
+  {
+    "batch": "sc-work-1",
+    "court": "small-claims",
+    "family": "work",
+    "types": [
+      {
+        "id": "sc-claim-unpaid-tips",
+        "name": "Unpaid tips",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-unpaid-severance",
+        "name": "Unpaid severance or termination pay",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-unpaid-bonus-after-termination",
+        "name": "A bonus or commission unpaid after leaving",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-contractor-misclassification",
+        "name": "Being treated as a contractor when you were not",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-gig-platform-payment",
+        "name": "A gig platform that will not pay",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-caregiver-or-domestic-worker-unpaid",
+        "name": "A nanny, caregiver or domestic worker unpaid",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-employer-suing-former-employee",
+        "name": "An employer suing a former employee",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-bad-reference-or-employer-defamation",
+        "name": "Something untrue said by an employer",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-non-compete-or-non-solicit",
+        "name": "A non-compete or non-solicit clause",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-housing-1",
+    "court": "small-claims",
+    "family": "housing",
+    "types": [
+      {
+        "id": "sc-claim-landlord-against-former-tenant",
+        "name": "A landlord claiming against a former tenant",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-tenant-against-former-landlord",
+        "name": "A tenant claiming against a former landlord",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-roommate-or-shared-house",
+        "name": "A roommate or shared-house dispute",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-subletter-not-paying",
+        "name": "A subletter or roommate not paying their share",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-condo-owner-against-corporation",
+        "name": "A condo owner against the condo corporation",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-condo-water-or-noise-damage",
+        "name": "Water or noise damage between condo units",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-co-owner-dispute",
+        "name": "A dispute between co-owners",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-housing-2",
+    "court": "small-claims",
+    "family": "housing",
+    "types": [
+      {
+        "id": "sc-claim-short-term-rental-dispute",
+        "name": "A short-term rental dispute",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-rooming-or-boarding-house",
+        "name": "A rooming or boarding house",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-student-residence",
+        "name": "A student residence",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-mobile-home-park",
+        "name": "A mobile home park",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-home-purchase-closing-dispute",
+        "name": "A home purchase deposit or closing dispute",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-contractor-lien-on-a-home",
+        "name": "A contractor's lien registered against a home",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-family-adjacent-1",
+    "court": "small-claims",
+    "family": "family-adjacent",
+    "types": [
+      {
+        "id": "sc-claim-gift-or-loan-between-former-partners",
+        "name": "Money between former partners: a gift or a loan",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-engagement-ring-and-wedding-gifts",
+        "name": "An engagement ring or wedding gifts",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-pet-ownership-on-breakup",
+        "name": "Who keeps the pet after a breakup",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-return-of-belongings-after-breakup",
+        "name": "Getting belongings back after a breakup",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-jointly-bought-items-on-breakup",
+        "name": "Things bought together during a relationship",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-other-1",
+    "court": "small-claims",
+    "family": "other",
+    "types": [
+      {
+        "id": "sc-claim-sick-or-misrepresented-pet",
+        "name": "A sick pet from a breeder or seller",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-vet-negligence",
+        "name": "Harm caused by veterinary care",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-scam-or-fraud-recovery",
+        "name": "Money lost to a scam or fraud",
+        "sensitive": true
+      },
+      {
+        "id": "sc-claim-romance-or-investment-scam",
+        "name": "A romance or investment scam",
+        "sensitive": true
+      },
+      {
+        "id": "sc-claim-cryptocurrency-or-exchange-loss",
+        "name": "Cryptocurrency or an online exchange loss",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-defamation-online-or-in-print",
+        "name": "Something untrue posted about you online",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-privacy-breach-or-intrusion",
+        "name": "A privacy breach",
+        "sensitive": true
+      },
+      {
+        "id": "sc-claim-intimate-image-abuse",
+        "name": "Intimate images shared without consent",
+        "sensitive": true
+      },
+      {
+        "id": "sc-claim-harassment-or-cyberbullying",
+        "name": "Harassment or cyberbullying",
+        "sensitive": true
+      }
+    ]
+  },
+  {
+    "batch": "sc-other-2",
+    "court": "small-claims",
+    "family": "other",
+    "types": [
+      {
+        "id": "sc-claim-against-a-school-board",
+        "name": "A claim against a school board",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-against-a-municipality-other",
+        "name": "A claim against a municipality, other than roads and sidewalks",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-against-police",
+        "name": "A claim about police conduct",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-against-a-lawyer-or-paralegal",
+        "name": "A claim about a lawyer or paralegal",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-against-another-professional",
+        "name": "A claim about an accountant, advisor or other professional",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-against-a-hospital-or-clinic",
+        "name": "A claim against a hospital or clinic",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-over-the-monetary-limit",
+        "name": "A claim worth more than this court can award",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-franchise-dispute",
+        "name": "A franchise dispute",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-partnership-or-joint-venture-breakup",
+        "name": "A small partnership or joint venture breaking up",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-other-3",
+    "court": "small-claims",
+    "family": "other",
+    "types": [
+      {
+        "id": "sc-claim-sports-league-or-camp-fees",
+        "name": "Sports league, club or camp fees",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-charity-or-fundraising-dispute",
+        "name": "A charity or fundraising dispute",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-elder-financial-abuse",
+        "name": "Money taken from an older person",
+        "sensitive": true
+      },
+      {
+        "id": "sc-claim-parking-traffic-or-bylaw-charge",
+        "name": "A parking ticket, traffic or by-law charge",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-government-benefits-dispute",
+        "name": "A CRA, EI, CPP or social assistance decision",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-copyright-or-intellectual-property",
+        "name": "Copyright or intellectual property",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-hit-and-run-or-uninsured-driver",
+        "name": "A hit and run, or a driver with no insurance",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-defendant-side-1",
+    "court": "small-claims",
+    "family": "defendant-side",
+    "types": [
+      {
+        "id": "sc-defence-served-and-confused",
+        "name": "Being served and not understanding the papers",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-sued-for-something-you-did-not-do",
+        "name": "Being sued for something you did not do",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-sued-for-more-than-owed",
+        "name": "Being sued for more than you owe",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-want-to-claim-back",
+        "name": "Wanting to claim back against the person suing you",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-sued-in-the-wrong-place",
+        "name": "Being sued in the wrong court or place",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-default-judgment-against-you",
+        "name": "A judgment made without you there",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-wages-or-bank-account-garnished",
+        "name": "Wages or a bank account being taken",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-writ-against-property",
+        "name": "A writ registered against your property",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-examination-hearing-summons",
+        "name": "A summons to an examination hearing",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "sc-defendant-side-2",
+    "court": "small-claims",
+    "family": "defendant-side",
+    "types": [
+      {
+        "id": "sc-defence-sued-by-a-collection-agency",
+        "name": "Being sued by a collection agency or debt buyer",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-sued-by-a-bank-or-lender",
+        "name": "Being sued by a bank or lender",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-debt-already-paid-or-not-yours",
+        "name": "Being sued for a debt paid, or not yours",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-sued-as-guarantor",
+        "name": "Being sued as a guarantor or co-signer",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-sued-by-an-insurer",
+        "name": "Being sued by an insurance company",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-sued-as-parent-owner-or-employer",
+        "name": "Being sued as a parent, dog owner, occupier or employer",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-sued-by-a-contractor",
+        "name": "Being sued by a contractor over work you dispute",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-sued-by-a-former-partner",
+        "name": "Being sued by a former partner over money or property",
+        "sensitive": false
+      },
+      {
+        "id": "sc-defence-money-you-say-was-a-gift",
+        "name": "Being sued over money you say was a gift",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "civil-1",
+    "court": "civil",
+    "family": "civil",
+    "types": [
+      {
+        "id": "civil-claim-car-accident-injury",
+        "name": "Injury in a car accident (suing the at-fault driver)",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-occupier-injury",
+        "name": "Injured on someone else's property (Superior Court)",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-medical-or-professional-negligence",
+        "name": "Harm from a professional's careless work (Superior Court)",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-claim-against-government",
+        "name": "Suing the Ontario government or a Crown agency",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-claim-against-municipality",
+        "name": "Suing a city or town (road, sidewalk or service)",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-dog-bite-injury",
+        "name": "Injured by a dog (Superior Court)",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-assault-and-battery",
+        "name": "Someone hurt you on purpose (assault and battery, civil claim)",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-privacy-intrusion",
+        "name": "Your privacy was invaded",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-insurance-claim-denied",
+        "name": "Your insurer refused a claim",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-construction-lien",
+        "name": "Enforcing or fighting a construction lien",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "civil-2",
+    "court": "civil",
+    "family": "civil",
+    "types": [
+      {
+        "id": "civil-claim-mortgage-enforcement",
+        "name": "A lender enforcing a mortgage (power of sale)",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-partition-or-sale-of-property",
+        "name": "Co-owners who cannot agree: partition or sale of property",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-adverse-possession-or-boundary",
+        "name": "A boundary or land dispute",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-estate-dispute-will-challenge",
+        "name": "Challenging a will or how an estate is handled",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-dependant-support-from-estate",
+        "name": "Support from the estate of someone who supported you",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-power-of-attorney-accounting",
+        "name": "An attorney or guardian who must account for money they managed",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-fraudulent-conveyance",
+        "name": "A debtor moved property to avoid paying",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-oppression-shareholder",
+        "name": "A company's owners or managers treating a shareholder unfairly",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-employment-human-rights-damages",
+        "name": "Discrimination at work (court claim with another cause of action)",
+        "sensitive": false
+      },
+      {
+        "id": "civil-claim-enforcing-a-judgment",
+        "name": "Collecting on a Superior Court judgment",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "family-1",
+    "court": "family",
+    "family": "family",
+    "types": [
+      {
+        "id": "family-matter-child-support-variation",
+        "name": "Changing a child support order or agreement",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-spousal-support-variation",
+        "name": "Changing a spousal support order or agreement",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-support-enforcement-fro",
+        "name": "Getting unpaid support enforced (Family Responsibility Office)",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-relocation",
+        "name": "Moving with a child, or stopping a move",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-separation-agreement",
+        "name": "A separation agreement: making one, or setting one aside",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-matrimonial-home-possession",
+        "name": "Who stays in the family home after separation",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-common-law-property",
+        "name": "Property when a common-law relationship ends",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-grandparent-contact",
+        "name": "A grandparent or other relative seeking contact with a child",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-urgent-motion-before-conference",
+        "name": "Something urgent before the case conference",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-financial-disclosure",
+        "name": "Getting the other side's financial information",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "family-2",
+    "court": "family",
+    "family": "family",
+    "types": [
+      {
+        "id": "family-matter-section-7-expenses",
+        "name": "Sharing special child expenses (section 7)",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-undue-hardship",
+        "name": "Asking for different child support because of undue hardship",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-imputing-income",
+        "name": "When a parent's income is not what they say",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-retroactive-support",
+        "name": "Support owed for the past (retroactive support)",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-parenting-plan-change",
+        "name": "Changing a parenting order",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-denied-parenting-time",
+        "name": "Parenting time not being followed",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-annulment-or-validity-of-marriage",
+        "name": "Whether a marriage is valid",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-marriage-contract",
+        "name": "A marriage contract or cohabitation agreement",
+        "sensitive": false
+      },
+      {
+        "id": "family-matter-child-protection",
+        "name": "A children's aid society is involved with your child",
+        "sensitive": true
+      },
+      {
+        "id": "family-matter-unequal-division",
+        "name": "Asking for an unequal division of property",
+        "sensitive": false
+      }
+    ]
+  }
+]
