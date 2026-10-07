@@ -1,4 +1,791 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "sc-claim-group-prize-dispute|plaintiffElement|group-agreement-to-share",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bf026b0110c5adc19a1fbf7eda1c4a7639dc25d3378f55910c4cf0eb38f9ebe7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt"
+    },
+    {
+      "key": "sc-claim-group-prize-dispute|plaintiffElement|share-of-prize-unpaid",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f96e4df52e3c3a447ed242ba35d3b5b7b7e07aecd3d979d18a325e9ed0cab034",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > How to fill out the claim form",
+          "quote": "Fill in the reasons for your claim and details. Give a full explanation of what happened, including the dates and places and nature of the occurrences involved. Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 7.01 (2) para. 2",
+          "quote": "If the plaintiff's claim is based in whole or in part on a document, a copy of the document shall be attached to each copy of the claim, unless it is unavailable, in which case the claim shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-group-prize-dispute|plaintiffElement|unjust-enrichment-alternative-prize",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e57e123aaab5fada1fbe344bc6dd95cd14f044d8bc4e449c347e832bb0ef506d",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "Garland v. Consumers' Gas Co., 2004 SCC 25, para. 30 (Iacobucci J., for the Court)",
+          "quote": "The judgment of the Court was delivered by ... the test for unjust enrichment is well established in Canada. The cause of action has three elements: (1) an enrichment of the defendant; (2) a corresponding deprivation of the plaintiff; and (3) an absence of juristic reason for the enrichment"
+        },
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "Garland, para. 44",
+          "quote": "The established categories that can constitute juristic reasons include a contract (Pettkus, supra), a disposition of law (Pettkus, supra), a donative intent (Peter, supra), and other valid common law, equitable or statutory obligations (Peter, supra)."
+        }
+      ],
+      "howRead": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf, read through its English text docs/sources/decisions/garland-v-consumers-gas-2004-SCC-25.english.txt"
+    },
+    {
+      "key": "sc-claim-group-prize-dispute|defendantConsideration|defence-says-not-in-pool-for-that-draw",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0e458a4bdd4c861fc3021c6671ab792f1c65cb3f679824d3b33d2f41f1a2e685",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02 (1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-group-prize-dispute|proceduralNote|sc-claim-group-prize-dispute#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "08bf0dee7bf537a182b79e9c3db57d997f62a64fd82cf579c33f66f54191a32a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Small claims court: suing someone -- Overview",
+          "quote": "For anything over $50,000, you need to go to the Superior Court of Justice . ... If what you are owed is more than $50,000, you can still file in Small Claims Court if you are willing to waive the amount over $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-suing-someone-small-claims.txt"
+    },
+    {
+      "key": "sc-claim-group-prize-dispute|proceduralNote|sc-claim-group-prize-dispute#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "39c20a9b5f97af07594faaba16f150d7fdec34a58a40767817c7bc8bace8c7da",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > More than one plaintiff or defendant",
+          "quote": "Together you and one or more other plaintiffs can sue one or more defendants. List the name and contact information for one plaintiff on the Plaintiff's Claim [Form 7A] and check the box that indicates \"Additional parties listed on attached Form 1A.\" List the rest of the plaintiffs and their contact information on the Additional Parties [Form 1A] and attach it to the claim as the second page."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-group-prize-dispute|proceduralNote|sc-claim-group-prize-dispute#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6f9a2271352bd4d417fe7a80d82a830ac48bd090afc1c129dc05a809f6dbbf94",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5 (1)-(2)",
+          "quote": "A claim is discovered on the earlier of, ... A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-lesson-or-childcare-fees|plaintiffElement|agreement-for-lessons-or-care",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "99bbad49ec6f4fa76ded8072223020c69b27acde046af7f4752056058a73fc57",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-lesson-or-childcare-fees|plaintiffElement|lessons-or-care-given-and-amount-owing",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2aea74e12da158d0d131b789b7a3609c1cd14d7e7b3f7908a4b0a5a17e6cc9d7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > How to fill out the claim form",
+          "quote": "Fill in the reasons for your claim and details. Give a full explanation of what happened, including the dates and places and nature of the occurrences involved. Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Liquidated claim",
+          "quote": "A \"liquidated\" claim is a claim for a set amount owing under a written contract or verbal agreement, such as an unpaid invoice, bounced cheque and/or unpaid loan."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Asking for interest on the money claimed",
+          "quote": "If you want to ask for interest on the money you are claiming you must ask for interest in your claim form. If the rate of interest has been agreed to by the parties (e.g. in a written contract signed by the parties), indicate that interest rate in your claim."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-lesson-or-childcare-fees|defendantConsideration|personal-development-services-agreement-rules",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6869682ea3428381f87660a70c2f137c58f183eb79752b8d033bbcf2b512cb7f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, definition of \"personal development services\"",
+          "quote": "\"personal development services\" means, (a) services provided for, (i) health, fitness, diet or matters of a similar nature, ... (iii) martial arts, sports, dance or similar activities, and (iv) other matters as may be prescribed, and (b) facilities provided for or instruction on the services referred to in clause (a)"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 29 (1)-(2)",
+          "quote": "Sections 30 to 36 apply in respect of personal development services or proposed personal development services for which, (a) payment in advance is required; and (b) the consumer's total potential payment obligation, excluding cost of borrowing, exceeds a prescribed amount. ... Sections 30 to 36 do not apply to personal development services that are provided, (a) on a non-profit or co-operative basis; (b) by a private club primarily owned by its members;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 30 (1)-(2)",
+          "quote": "Every personal development services agreement shall be in writing, shall be delivered to the consumer and shall be made in accordance with the prescribed requirements. ... No supplier shall require or accept payment for personal development services from a consumer with whom the supplier does not have an agreement that meets the requirements established under subsection (1)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 93 (1)-(2)",
+          "quote": "A consumer agreement is not binding on the consumer unless the agreement is made in accordance with this Act and the regulations. ... a court may order that a consumer is bound by all or a portion or portions of a consumer agreement, even if the agreement has not been made in accordance with this Act or the regulations, if the court determines that it would be inequitable in the circumstances for the consumer not to be bound."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 27",
+          "quote": "The prescribed amount for the purpose of clause 29 (1) (b) of the Act is $50."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt; Vendored corpus file docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-lesson-or-childcare-fees|defendantConsideration|defence-disputes-sessions-or-fees",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "adbc455907e17ce9866eae77e7715944aebc945449f851ca618e635bf0e241bb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02 (1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-lesson-or-childcare-fees|proceduralNote|sc-claim-unpaid-lesson-or-childcare-fees#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e19e47445cba80c1b3dc8fd822d81b4167c64325b7db3173aabae87435dcf385",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim; Types of claims",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action. ... The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-lesson-or-childcare-fees|proceduralNote|sc-claim-unpaid-lesson-or-childcare-fees#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6f9a2271352bd4d417fe7a80d82a830ac48bd090afc1c129dc05a809f6dbbf94",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5 (1)-(2)",
+          "quote": "A claim is discovered on the earlier of, ... A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-clinic-invoice|plaintiffElement|treatment-agreed-to",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "21d02fae495d9ba03bad376c9f9633b6d433c95aaaeec8110b468f077f8a116c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-clinic-invoice|plaintiffElement|invoice-unpaid-amount",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "26ab9172fef864dd1f835082951baab1591a74d32b6f168e7596279c01281eb7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Liquidated claim",
+          "quote": "A \"liquidated\" claim is a claim for a set amount owing under a written contract or verbal agreement, such as an unpaid invoice, bounced cheque and/or unpaid loan."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > How to fill out the claim form",
+          "quote": "Fill in the reasons for your claim and details. Give a full explanation of what happened, including the dates and places and nature of the occurrences involved. Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Asking for interest on the money claimed",
+          "quote": "If you want to ask for interest on the money you are claiming you must ask for interest in your claim form. If the rate of interest has been agreed to by the parties (e.g. in a written contract signed by the parties), indicate that interest rate in your claim."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-clinic-invoice|defendantConsideration|consumer-protection-act-exemption-health-and-vet",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1e1a2cdd53a71e1ad9cec826dc54ed3fc6e08e27416c8be0313215773d981e62",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 1",
+          "quote": "A professional service provided by a person governed by, or subject to, any of the following Acts is exempt from the application of the Consumer Protection Act, 2002: ... The Regulated Health Professions Act, 1991 and any Act named in Schedule 1 to the Regulated Health Professions Act, 1991. ... The Veterinarians Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 2 (2) (e)",
+          "quote": "This Act does not apply in respect of, ... (e) prescribed professional services that are regulated under a statute of Ontario;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-17-05-consumer-protection-general.txt; Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-clinic-invoice|defendantConsideration|defence-disputes-treatment-or-bill",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "37a2f0e005705b7aaec1a6656400b7721e6d788888036442d148a7b07ab2e3bd",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02 (1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-clinic-invoice|proceduralNote|sc-claim-unpaid-clinic-invoice#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "89391738a9818258fd4f5394f30e850c659ad26c9140099b3c205f61a7090c5a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/04p03_e.doc",
+          "pinpoint": "s. 41 (1) (a)",
+          "quote": "A health information custodian may disclose personal health information about an individual, (a) subject to the requirements and restrictions, if any, that are prescribed, for the purpose of a proceeding or contemplated proceeding in which the custodian or the agent or former agent of the custodian is, or is expected to be, a party or witness, if the information relates to or is a matter in issue in the proceeding or contemplated proceeding;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/04p03_e.doc",
+          "pinpoint": "s. 3 (1) para. 1",
+          "quote": "\"health information custodian\", subject to subsections (3) to (11), means a person or organization described in one of the following paragraphs who has custody or control of personal health information ... 1. A health care practitioner or a person who operates a group practice of health care practitioners."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/personal-health-information-protection-act.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-clinic-invoice|proceduralNote|sc-claim-unpaid-clinic-invoice#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b772377517cb6582d8d5fd0c31f31f3ca9059ee29a2250106220b2570b430c31",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 13 (1), (10), (11)",
+          "quote": "If a person acknowledges liability in respect of a claim for payment of a liquidated sum, ... the act or omission on which the claim is based shall be deemed to have taken place on the day on which the acknowledgment was made. ... Subsections (1), (2), (3), (6) and (7) do not apply unless the acknowledgment is in writing and signed by the person making it or the person's agent. ... In the case of a claim for payment of a liquidated sum, part payment of the sum by the person against whom the claim is made or by the person's agent has the same effect as the acknowledgment referred to in subsection (10)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-business-to-business-invoice|plaintiffElement|b2b-agreement-and-terms",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "de3b93711d8e40e14d4b9f44f821a7f848c29fb40bb97e9126da7a2049eee100",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt"
+    },
+    {
+      "key": "sc-claim-business-to-business-invoice|plaintiffElement|b2b-goods-delivered-price-unpaid",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ddfe0ffc69d9a8dde0ba5469b757def4f8e0409b06e11725abe3edbd3913d7d0",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
+          "pinpoint": "s. 47 (1)",
+          "quote": "Where, under a contract of sale, the property in the goods has passed to the buyer and the buyer wrongfully neglects or refuses to pay for the goods according to the terms of the contract, the seller may maintain an action against the buyer for the price of the goods."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/sale-of-goods-act.txt"
+    },
+    {
+      "key": "sc-claim-business-to-business-invoice|plaintiffElement|b2b-amount-and-interest",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "27737209964efe5b914b5d1c80f96637c3861ffeb66b4f3bfb2fafd82dce063e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > How to fill out the claim form",
+          "quote": "Fill in the reasons for your claim and details. Give a full explanation of what happened, including the dates and places and nature of the occurrences involved. Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Asking for interest on the money claimed",
+          "quote": "If you want to ask for interest on the money you are claiming you must ask for interest in your claim form. If the rate of interest has been agreed to by the parties (e.g. in a written contract signed by the parties), indicate that interest rate in your claim."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Liquidated claim",
+          "quote": "A \"liquidated\" claim is a claim for a set amount owing under a written contract or verbal agreement, such as an unpaid invoice, bounced cheque and/or unpaid loan."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-business-to-business-invoice|defendantConsideration|b2b-defence-and-defendants-claim",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "39e3546d9f62c127c6fc5de1966d7f8d66e829b9bdeb098a7b34e9e13c1c4859",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02 (1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 10.01 (1)-(2)",
+          "quote": "A defendant may make a claim, (a) against the plaintiff; ... The defendant's claim shall be in Form 10A and may be issued, (a) within 20 days after the day on which the defence is filed; or (b) after the time described in clause (a) but before trial or default judgment, with leave of the court."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-business-to-business-invoice|proceduralNote|sc-claim-business-to-business-invoice#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ca6e0307544e027f03adc490b93bd947e81c7894786637ab43a9dd95dfacecbe",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Information to include about the defendant",
+          "quote": "If the name you use on your claim is not exactly right, you may win your case but then be unable to take steps to enforce your judgment. ... If you are suing an incorporated company (it usually has Limited, Ltd ., Corporation, Corp., Incorporated or Inc. after its name), make sure you have the correct corporate name, address and postal code. ... If the business you are suing is not incorporated (for example, a sole proprietorship or partnership), you will need the correct name of the business and the address for service. You may also wish to name the proprietor(s) or partner(s) as parties if you wish to obtain a judgment against them as well."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Example 3",
+          "quote": "Zoro signs the guarantee and, by doing so, is agreeing to pay the debt personally if ZC Roofing Ltd . does not. If the roofing supply company decides to sue, the defendants in the action could be: ZC Roofing Ltd . on the claim form; and Zoro Carey on the additional parties form."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-business-to-business-invoice|proceduralNote|sc-claim-business-to-business-invoice#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e5107acc670a7218845c68ad3d2c37a542251593d7ec746929e68a6456fcc006",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 22 (1), (5), (6)",
+          "quote": "A limitation period under this Act applies despite any agreement to vary or exclude it, subject only to the exceptions in subsections (2) to (6). ... The following exceptions apply only in respect of business agreements: 1. A limitation period under this Act, other than one established by section 15, may be varied or excluded by an agreement made on or after October 19, 2006. ... \"business agreement\" means an agreement made by parties none of whom is a consumer as defined in the Consumer Protection Act, 2002;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-investment-in-a-friends-business|plaintiffElement|what-was-agreed-about-the-money",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2f625bd07d7166afe43d635e8175a9eb0dbe2127a7e552639bfecb049616de07",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt"
+    },
+    {
+      "key": "sc-claim-investment-in-a-friends-business|plaintiffElement|amount-outstanding-investment",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a1f150f96aa6314080641e51414baf99890bd030b54c8bceb5560ee4f67feb63",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > How to fill out the claim form",
+          "quote": "Fill in the reasons for your claim and details. Give a full explanation of what happened, including the dates and places and nature of the occurrences involved. Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-investment-in-a-friends-business|plaintiffElement|unjust-enrichment-if-no-repayment-term",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3533e65e79e9da6f96e81cb7278b1615a1e853b70174337aca2c30de784f25b3",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "Garland v. Consumers' Gas Co., 2004 SCC 25, para. 30 (Iacobucci J., for the Court)",
+          "quote": "The judgment of the Court was delivered by ... the test for unjust enrichment is well established in Canada. The cause of action has three elements: (1) an enrichment of the defendant; (2) a corresponding deprivation of the plaintiff; and (3) an absence of juristic reason for the enrichment"
+        },
+        {
+          "sourceUrl": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf",
+          "pinpoint": "Garland, para. 44",
+          "quote": "The established categories that can constitute juristic reasons include a contract (Pettkus, supra), a disposition of law (Pettkus, supra), a donative intent (Peter, supra), and other valid common law, equitable or statutory obligations (Peter, supra)."
+        }
+      ],
+      "howRead": "docs/sources/garland-v-consumers-gas-2004-SCC-25.pdf, read through its English text docs/sources/decisions/garland-v-consumers-gas-2004-SCC-25.english.txt"
+    },
+    {
+      "key": "sc-claim-investment-in-a-friends-business|defendantConsideration|defence-says-investment-or-gift",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d47bb97531501135cd0a562e7f85089c99cf0c7ba04e1b5c291cbc429ef66ba3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02 (1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-investment-in-a-friends-business|proceduralNote|sc-claim-investment-in-a-friends-business#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c8a3a2f2b7453f0ac46ca6f2a82c118d33b8de64627dc1d0bdbef2ea39bcb735",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Information to include about the defendant",
+          "quote": "If the name you use on your claim is not exactly right, you may win your case but then be unable to take steps to enforce your judgment. ... If you are suing an incorporated company (it usually has Limited, Ltd ., Corporation, Corp., Incorporated or Inc. after its name), make sure you have the correct corporate name, address and postal code. ... If the business you are suing is not incorporated (for example, a sole proprietorship or partnership), you will need the correct name of the business and the address for service. You may also wish to name the proprietor(s) or partner(s) as parties if you wish to obtain a judgment against them as well."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 5.01",
+          "quote": "A proceeding by or against two or more persons as partners may be commenced using the firm name of the partnership."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-investment-in-a-friends-business|proceduralNote|sc-claim-investment-in-a-friends-business#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6f9a2271352bd4d417fe7a80d82a830ac48bd090afc1c129dc05a809f6dbbf94",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5 (1)-(2)",
+          "quote": "A claim is discovered on the earlier of, ... A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-commercial-rent|plaintiffElement|premises-are-commercial",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "777b42271addfd7245a75d788750bb6eba0e204a663da15f0ea9b0048e3880f4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l07_e.doc",
+          "pinpoint": "s. 2",
+          "quote": "This Act does not apply to tenancies and tenancy agreements to which the Residential Tenancies Act, 2006 applies."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/renting-commercial-property-ontario",
+          "pinpoint": "Renting commercial property in Ontario -- Resolving conflicts",
+          "quote": "If there is a question about whether the tenancy is residential or commercial, a landlord or tenant can apply to the Landlord and Tenant Board (LTB) for a determination about whether the Residential Tenancies Act applies to their situation."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/commercial-tenancies-act.txt; Vendored corpus file docs/sources/corpus/ontario-renting-commercial-property.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-commercial-rent|plaintiffElement|lease-rent-terms",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f53d730f84cad2e3cab23f1c8aa13094a4706b405637c8051fb0685a742fc8e5",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/page/renting-commercial-property-ontario",
+          "pinpoint": "Renting commercial property in Ontario -- Background; Commercial lease agreements; Fixed-term lease",
+          "quote": "You should be aware that a signed commercial lease agreement with your landlord or tenant may take precedence over the CTA . ... the rent amount, including rules for rent increases and notice requirements ... If a tenant wants to terminate their fixed-term lease early, they must pay the rent for the remaining term of the lease agreement unless there is a clause in the lease allowing the tenant to end the lease early."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-renting-commercial-property.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-commercial-rent|plaintiffElement|rent-arrears-amount",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d60f7517b2a8f102b08ad677bfcc084b135982c8a27d85c51ce31e33a721ea17",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Small claims court: suing someone -- What you can sue for",
+          "quote": "You can sue for claims for money owed under an agreement, such as: goods or services sold and delivered that weren't paid for unpaid loans unpaid rent"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > How to fill out the claim form",
+          "quote": "Fill in the reasons for your claim and details. Give a full explanation of what happened, including the dates and places and nature of the occurrences involved. Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-suing-someone-small-claims.txt; Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-commercial-rent|defendantConsideration|tenant-set-off-against-rent",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6883ddc4fe62c954e7a30bcfe5b36f6bbd39181a6277f6b2b29533493dc5d92c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l07_e.doc",
+          "pinpoint": "s. 35 (1)-(3)",
+          "quote": "A tenant may set off against the rent due a debt due to the tenant by the landlord. ... Notice of the claim of set off (Form 2) may be given before or after the seizure. ... When the notice is given, the landlord is entitled to distrain, or to proceed with the distress, only for the balance of the rent after deducting any debt justly due by the landlord to the tenant that is mentioned in the notice."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/commercial-tenancies-act.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-commercial-rent|defendantConsideration|landlord-already-used-cta-remedy",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "053845449032a1966468d2c4bf90e405df4edb478cfce4345e514b2556b6a8c4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/page/renting-commercial-property-ontario",
+          "pinpoint": "Renting commercial property in Ontario -- Late or unpaid rent; Option 2",
+          "quote": "When a tenant has failed to pay the rent on time, the landlord has two options available under the CTA . A landlord can change the locks and end the tenancy or seize and sell the tenant's property to cover unpaid rent. They can't do both. ... The proceeds from the sale of a tenant's property must be applied to the rent arrears and the costs of the distress. Any amount left over must be paid to the tenant."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-renting-commercial-property.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-commercial-rent|proceduralNote|sc-claim-unpaid-commercial-rent#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "463c4b3d8780604c68c0ea6e1d1f4816e7c423bb97be04cdb19d996b61dc887b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/page/renting-commercial-property-ontario",
+          "pinpoint": "Renting commercial property in Ontario -- Resolving conflicts",
+          "quote": "Legal disputes between commercial landlords and tenants about money or personal property under $50,000 can be brought before Small Claims Court . Otherwise, a claim must be brought before the Superior Court of Justice ."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-renting-commercial-property.txt"
+    },
+    {
+      "key": "sc-claim-unpaid-commercial-rent|proceduralNote|sc-claim-unpaid-commercial-rent#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6f9a2271352bd4d417fe7a80d82a830ac48bd090afc1c129dc05a809f6dbbf94",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5 (1)-(2)",
+          "quote": "A claim is discovered on the earlier of, ... A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-club-or-association-dues|plaintiffElement|membership-and-dues-agreed",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ed43f0f2769e490d9e3ad99827816765cf0d95dd030166dcdc9aae091602087e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt"
+    },
+    {
+      "key": "sc-claim-club-or-association-dues|plaintiffElement|dues-unpaid-amount",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e095d8fd67db21c7c6abc315ae0df1978a1e3209284fceadcfb8d51ae8504e93",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Liquidated claim",
+          "quote": "A \"liquidated\" claim is a claim for a set amount owing under a written contract or verbal agreement, such as an unpaid invoice, bounced cheque and/or unpaid loan."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > How to fill out the claim form",
+          "quote": "Fill in the reasons for your claim and details. Give a full explanation of what happened, including the dates and places and nature of the occurrences involved. Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-club-or-association-dues|defendantConsideration|personal-development-services-and-member-clubs",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "35e6f6270184dab6008c2f9dfe5abd0a6f2c3addbc2752ce725b7c72282cb787",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, definition of \"personal development services\"",
+          "quote": "\"personal development services\" means, (a) services provided for, (i) health, fitness, diet or matters of a similar nature, ... (iii) martial arts, sports, dance or similar activities, and (iv) other matters as may be prescribed, and (b) facilities provided for or instruction on the services referred to in clause (a)"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 29 (1)-(2)",
+          "quote": "Sections 30 to 36 apply in respect of personal development services or proposed personal development services for which, (a) payment in advance is required; and (b) the consumer's total potential payment obligation, excluding cost of borrowing, exceeds a prescribed amount. ... Sections 30 to 36 do not apply to personal development services that are provided, (a) on a non-profit or co-operative basis; (b) by a private club primarily owned by its members;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 30 (1)-(2)",
+          "quote": "Every personal development services agreement shall be in writing, shall be delivered to the consumer and shall be made in accordance with the prescribed requirements. ... No supplier shall require or accept payment for personal development services from a consumer with whom the supplier does not have an agreement that meets the requirements established under subsection (1)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-club-or-association-dues|defendantConsideration|defence-says-membership-ended",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a900ea4c223507b0042db466ae3664b2e86052f45d65330b199c8e1e57118bf4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02 (1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-club-or-association-dues|proceduralNote|sc-claim-club-or-association-dues#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e039a53ebab9384bfcc18fa94853e032e8cf822c389b7415cf94c7167ded742a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 7.01 (1)-(2)",
+          "quote": "An action shall be commenced by filing a plaintiff's claim (Form 7A) with the clerk, ... It shall contain the following information, in concise and non- technical language: i. The full names of the parties to the proceeding and, if relevant, the capacity in which they sue or are sued. ii. The nature of the claim, with reasonable certainty and detail, including the date, place and nature of the occurrences on which the claim is based."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-club-or-association-dues|proceduralNote|sc-claim-club-or-association-dues#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b772377517cb6582d8d5fd0c31f31f3ca9059ee29a2250106220b2570b430c31",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 13 (1), (10), (11)",
+          "quote": "If a person acknowledges liability in respect of a claim for payment of a liquidated sum, ... the act or omission on which the claim is based shall be deemed to have taken place on the day on which the acknowledgment was made. ... Subsections (1), (2), (3), (6) and (7) do not apply unless the acknowledgment is in writing and signed by the person making it or the person's agent. ... In the case of a claim for payment of a liquidated sum, part payment of the sum by the person against whom the claim is made or by the person's agent has the same effect as the acknowledgment referred to in subsection (10)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    }
+  ],
   "unverifiable": []
 }

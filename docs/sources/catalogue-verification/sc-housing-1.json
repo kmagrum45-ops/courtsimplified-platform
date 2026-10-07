@@ -1,4 +1,1025 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "sc-claim-landlord-against-former-tenant|plaintiffElement|rent-lawfully-required-not-paid",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "34bbe3f1ce3b5ea6c4874b71ca7f8e60c5c46887481c82f8017c85c768a7f739",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 87 (1)",
+          "quote": "A landlord may apply to the Board for an order requiring a tenant or former tenant to pay arrears of rent if, (a) the tenant or former tenant did not pay rent lawfully required under the tenancy agreement; and (b) in the case of a tenant or former tenant no longer in possession of the rental unit, the tenant or former tenant ceased to be in possession on or after the day subsection 18 (1) of Schedule 4 to the Protecting Tenants and Strengthening Community Housing Act, 2020 comes into force."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 87, amendment table",
+          "quote": "2020, c. 16, Sched. 4, s. 18 (1-4) - 01/09/2021"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-landlord-against-former-tenant|plaintiffElement|undue-damage-wilful-or-negligent",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "30e6c0ca64a046d4f6d8b005949620f6f8af228cf3b50e51beb9d42502449809",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 34",
+          "quote": "The tenant is responsible for the repair of undue damage to the rental unit or residential complex caused by the wilful or negligent conduct of the tenant, another occupant of the rental unit or a person permitted in the residential complex by the tenant."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 89 (1)",
+          "quote": "A landlord may apply to the Board for an order requiring a tenant or former tenant to pay reasonable costs that the landlord has incurred or will incur for the repair of or, where repairing is not reasonable, the replacement of damaged property if,"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-landlord-against-former-tenant|defendantConsideration|landlord-duty-to-minimize-losses",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0bb317923f0374c760fd685018de126b163e91dea9151820baa30229f8e76e4d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 16",
+          "quote": "When a landlord or a tenant becomes liable to pay any amount as a result of a breach of a tenancy agreement, the person entitled to claim the amount has a duty to take reasonable steps to minimize the person's losses."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 88 (4)",
+          "quote": "In determining the amount of arrears of rent owing under subsections (1), (2) and (3), consideration shall be given to whether or not the landlord has taken reasonable steps to minimize losses in accordance with section 16."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 88 (1)",
+          "quote": "If a tenant abandons or vacates a rental unit without giving notice of termination in accordance with this Act"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-landlord-against-former-tenant|defendantConsideration|rent-deposit-applied-to-last-period",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62eaa1694829920236cb83bff730a975c6877639da02bb0cc52bbfa722421b33",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 105 (1)",
+          "quote": "The only security deposit that a landlord may collect is a rent deposit collected in accordance with section 106."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 106 (10)",
+          "quote": "A landlord shall apply a rent deposit that a tenant has paid to the landlord or to a former landlord in payment of the rent for the last rent period before the tenancy terminates."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-landlord-against-former-tenant|proceduralNote|sc-claim-landlord-against-former-tenant#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dfa7037ceb25ef7084d9f5c24b8f2f4ee33527b3573a29cdcee89e73bd6a4303",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 168 (2)",
+          "quote": "The Board has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 87 (1.1)",
+          "quote": "An application under subsection (1) may be made, (a) while the tenant is in possession of the rental unit; or (b) no later than one year after the tenant or former tenant ceased to be in possession of the rental unit."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 89 (1.1)",
+          "quote": "An application under subsection (1) may be made, (a) while the tenant is in possession of the rental unit; or (b) no later than one year after the tenant or former tenant ceased to be in possession of the rental unit."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-landlord-against-former-tenant|proceduralNote|sc-claim-landlord-against-former-tenant#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2c90a17b5553e48ae1c0ce247b8a0a9d2b5d520cba7eb64a4d390295b5bb6783",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 207 (1)",
+          "quote": "The Board may, where it otherwise has the jurisdiction, order the payment to any given person of an amount of money up to the greater of $10,000 and the monetary jurisdiction of the Small Claims Court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 207 (2)",
+          "quote": "A person entitled to apply under this Act but whose claim exceeds the Board's monetary jurisdiction may commence a proceeding in any court of competent jurisdiction for an order requiring the payment of that sum"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 207 (3)",
+          "quote": "If a party makes a claim in an application for payment of a sum equal to or less than the Board's monetary jurisdiction, all rights of the party in excess of the Board's monetary jurisdiction are extinguished once the Board issues its order."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-landlord-against-former-tenant|proceduralNote|sc-claim-landlord-against-former-tenant#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "161765a0e63a87bb8e32b91ad08f1d4217a788baeceb0f061a42e07e134fbbe1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 5 (i)",
+          "quote": "This Act does not apply with respect to, ... living accommodation whose occupant or occupants are required to share a bathroom or kitchen facility with the owner, the owner's spouse, child or parent or the spouse's child or parent, and where the owner, spouse, child or parent lives in the building in which the living accommodation is located;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1 (1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt, docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-tenant-against-former-landlord|plaintiffElement|landlord-conduct-listed-in-s29",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8970365434c03edf7f5fe15cb8bb0ab09fc0bf4a34637ad049b331bac92d52fe",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 29 (1)",
+          "quote": "A tenant or former tenant of a rental unit may apply to the Board for any of the following orders: 1. An order determining that the landlord has breached an obligation under subsection 20 (1) or section 161. 2. An order determining that the landlord, superintendent or agent of the landlord has withheld the reasonable supply of any vital service, care service or food that it is the landlord's obligation to supply under the tenancy agreement or deliberately interfered with the reasonable supply of any vital service, care service or food. 3. An order determining that the landlord, superintendent or agent of the landlord has substantially interfered with the reasonable enjoyment of the rental unit or residential complex for all usual purposes by the tenant or a member of his or her household. 4. An order determining that the landlord, superintendent or agent of the landlord has harassed, obstructed, coerced, threatened or interfered with the tenant during the tenant's occupancy of the rental unit. 5. An order determining that the landlord, superintendent or agent of the landlord has altered the locking system on a door giving entry to the rental unit or the residential complex or caused the locking system to be altered during the tenant's occupancy of the rental unit without giving the tenant replacement keys. 6. An order determining that the landlord, superintendent or agent of the landlord has illegally entered the rental unit."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 20 (1)",
+          "quote": "A landlord is responsible for providing and maintaining a residential complex, including the rental units in it, in a good state of repair and fit for habitation"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-tenant-against-former-landlord|plaintiffElement|money-collected-or-retained-against-the-act",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4d9b4aba017f5bda75ffff6bbaf2e55e69b156cf52b1a475592a4239f7a54639",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 135 (1)",
+          "quote": "A tenant or former tenant of a rental unit may apply to the Board for an order that the landlord, superintendent or agent of the landlord pay to the tenant any money the person collected or retained in contravention of this Act or the Tenant Protection Act, 1997."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 105 (1)",
+          "quote": "The only security deposit that a landlord may collect is a rent deposit collected in accordance with section 106."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 106 (2)",
+          "quote": "The amount of a rent deposit shall not be more than the lesser of the amount of rent for one rent period and the amount of rent for one month."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 107 (1)",
+          "quote": "A landlord shall repay the amount received as a rent deposit in respect of a rental unit if vacant possession of the rental unit is not given to the prospective tenant."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-tenant-against-former-landlord|plaintiffElement|notice-given-in-bad-faith",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8dd7db03ba9b45fe1aef74828d2fc5f4b7d8e1bf5ac95bd45e53aa31b0ae72b1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 57 (1)",
+          "quote": "The Board may make an order described in subsection (3) if, on application by a former tenant of a rental unit, the Board determines that, (a) the landlord gave a notice of termination under section 48 in bad faith, the former tenant vacated the rental unit as a result of the notice or as a result of an application to or order made by the Board based on the notice, and no person referred to in clause 48 (1) (a), (b), (c) or (d) occupied the rental unit within a reasonable time after the former tenant vacated the rental unit;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 57 (1) (c)",
+          "quote": "the landlord gave a notice of termination under section 50 in bad faith, the former tenant vacated the rental unit as a result of the notice or as a result of an application to or order made by the Board based on the notice, and the landlord did not demolish, convert or repair or renovate the rental unit within a reasonable time after the former tenant vacated the rental unit."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 57 (3), paras. 1, 1.1, 1.2",
+          "quote": "An order that the landlord pay a specified sum to the former tenant for all or any portion of any increased rent that the former tenant has incurred or will incur for a one-year period after vacating the rental unit. ... An order that the landlord pay a specified sum to the former tenant as general compensation in an amount not exceeding the equivalent of 12 months of the last rent charged to the former tenant. ... An order that the landlord pay a specified sum to the former tenant for reasonable out-of-pocket moving, storage and other like expenses that the former tenant has incurred or will incur."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-tenant-against-former-landlord|defendantConsideration|tenant-duty-to-minimize-losses",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5f3c0462f61826bf23468d17d3a0929ce8195b1362413cba70d28261a2528153",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 16",
+          "quote": "When a landlord or a tenant becomes liable to pay any amount as a result of a breach of a tenancy agreement, the person entitled to claim the amount has a duty to take reasonable steps to minimize the person's losses."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-tenant-against-former-landlord|proceduralNote|sc-claim-tenant-against-former-landlord#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0010ed367d3a7f37ef9d86cb5a5003176f26bd270a94c4fc8fca6a4f10fdaa0f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 168 (2)",
+          "quote": "The Board has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 29 (1)",
+          "quote": "A tenant or former tenant of a rental unit may apply to the Board for any of the following orders:"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 135 (1)",
+          "quote": "A tenant or former tenant of a rental unit may apply to the Board for an order that the landlord, superintendent or agent of the landlord pay to the tenant any money the person collected or retained in contravention of this Act"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 57 (1)",
+          "quote": "The Board may make an order described in subsection (3) if, on application by a former tenant of a rental unit,"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-tenant-against-former-landlord|proceduralNote|sc-claim-tenant-against-former-landlord#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1f6d5763b05059a4d696a869488cea1e2c0787a9829f72c5f145d059f192a3a9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 29 (2)",
+          "quote": "No application may be made under subsection (1) more than one year after the day the alleged conduct giving rise to the application occurred."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 57 (2)",
+          "quote": "No application may be made under subsection (1) more than one year after the former tenant vacated the rental unit."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 135 (4)",
+          "quote": "No order shall be made under this section with respect to an application filed more than one year after the person collected or retained money in contravention of this Act or the Tenant Protection Act, 1997."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-tenant-against-former-landlord|proceduralNote|sc-claim-tenant-against-former-landlord#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3d1ad404d1128b262ba926d4ef09f460be605d139027bbdfd29a813b396817b3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 207 (1)",
+          "quote": "The Board may, where it otherwise has the jurisdiction, order the payment to any given person of an amount of money up to the greater of $10,000 and the monetary jurisdiction of the Small Claims Court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 207 (2)",
+          "quote": "A person entitled to apply under this Act but whose claim exceeds the Board's monetary jurisdiction may commence a proceeding in any court of competent jurisdiction for an order requiring the payment of that sum"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 5",
+          "quote": "This Act does not apply with respect to,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1 (1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt, docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-roommate-or-shared-house|plaintiffElement|who-the-arrangement-was-with",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6a0c2e46b3a044c94743b7f7f6ca00b3ddc329fb3206e2c878f9e9048d0240b7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 2 (1) \"landlord\"",
+          "quote": "\"landlord\" includes, (a) the owner of a rental unit or any other person who permits occupancy of a rental unit, other than a tenant who occupies a rental unit in a residential complex and who permits another person to also occupy the unit or any part of the unit,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 5 (i)",
+          "quote": "This Act does not apply with respect to, ... living accommodation whose occupant or occupants are required to share a bathroom or kitchen facility with the owner, the owner's spouse, child or parent or the spouse's child or parent, and where the owner, spouse, child or parent lives in the building in which the living accommodation is located;"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-roommate-or-shared-house|plaintiffElement|money-owed-or-property-kept",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0c2856555ccb1837981f423cec1059ea6fb7f075d0e8e864d4168c00fa14c60a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1 (1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-roommate-or-shared-house|plaintiffElement|burden-of-proof-roommate",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f10e73a5bc928f54ba0572fb1df9727ef6d0c421f04be8baa57b96c2d5210426",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Burden of proof",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/scj-steps-to-a-civil-case.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-roommate-or-shared-house|defendantConsideration|roommate-set-off",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b2fb70dcf77b5ee0b353e646d9c24fca27c3419758f487432736c1372bc829cc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 111 (1)",
+          "quote": "In an action for payment of a debt, the defendant may, by way of defence, claim the right to set off against the plaintiff's claim a debt owed by the plaintiff to the defendant."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 111 (2)",
+          "quote": "Mutual debts may be set off against each other even if they are of a different nature."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-roommate-or-shared-house|proceduralNote|sc-claim-roommate-or-shared-house#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b88fbb17391379b8367d0df01512c33462501011f29edc82db328ae227dec219",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 168 (2)",
+          "quote": "The Board has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 2 (1) \"landlord\"",
+          "quote": "\"landlord\" includes, (a) the owner of a rental unit or any other person who permits occupancy of a rental unit, other than a tenant who occupies a rental unit in a residential complex and who permits another person to also occupy the unit or any part of the unit,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 5 (i)",
+          "quote": "This Act does not apply with respect to, ... living accommodation whose occupant or occupants are required to share a bathroom or kitchen facility with the owner, the owner's spouse, child or parent or the spouse's child or parent, and where the owner, spouse, child or parent lives in the building in which the living accommodation is located;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 29 (1)",
+          "quote": "A tenant or former tenant of a rental unit may apply to the Board for any of the following orders:"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 135 (1)",
+          "quote": "A tenant or former tenant of a rental unit may apply to the Board for an order that the landlord, superintendent or agent of the landlord pay to the tenant any money the person collected or retained in contravention of this Act"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-roommate-or-shared-house|proceduralNote|sc-claim-roommate-or-shared-house#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "faabe8cafb7c9750735d8a94c7fa11a275a9b1a4fb7e4905d0b113612fdebaab",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-subletter-not-paying|plaintiffElement|was-it-a-sublet",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "87652235ede873833db07fbaa797dceb48e22bb04805c812d8e0ed241207e62c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 2 (2)",
+          "quote": "For the purposes of this Act, a reference to subletting a rental unit refers to the situation in which, (a) the tenant vacates the rental unit; (b) the tenant gives one or more other persons the right to occupy the rental unit for a term ending on a specified date before the end of the tenant's term or period; and (c) the tenant has the right to resume occupancy of the rental unit after that specified date."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 97 (1)",
+          "quote": "A tenant may sublet a rental unit to another person with the consent of the landlord."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-subletter-not-paying|plaintiffElement|subtenant-liable-to-tenant",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "544916dedcaf933e6074ae96d88a620bb3dd29683960c6a676fdd205a5bdc4f0",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 97 (4) (b)",
+          "quote": "the subtenant is entitled to the benefits, and is liable to the tenant for the breaches, of the subtenant's obligations under the subletting agreement or this Act during the subtenancy."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 99",
+          "quote": "The following provisions apply, with necessary modifications, with respect to a tenant who has sublet a rental unit, as if the tenant were the landlord and the subtenant were the tenant: 1. Sections 59 to 69, 87, 89 and 148. 2. The provisions of this Act that relate to applications to the Board under sections 69, 87, 89 and 148."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-subletter-not-paying|plaintiffElement|share-of-costs-not-a-sublet",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "745e065368cfb64e138014320e91b3d33e9ee306872c20cf8a11d052c0f72fa7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 2 (1) \"landlord\"",
+          "quote": "\"landlord\" includes, (a) the owner of a rental unit or any other person who permits occupancy of a rental unit, other than a tenant who occupies a rental unit in a residential complex and who permits another person to also occupy the unit or any part of the unit,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1 (1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt, docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-subletter-not-paying|defendantConsideration|subletter-set-off",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ae6431dfe71402ac6c9a60b165da264ea288da6d31bcc22aa5e7d8baa6bb9feb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 111 (1)",
+          "quote": "In an action for payment of a debt, the defendant may, by way of defence, claim the right to set off against the plaintiff's claim a debt owed by the plaintiff to the defendant."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-subletter-not-paying|proceduralNote|sc-claim-subletter-not-paying#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3c476fffe4da8a87d520c6386a8aef90ef65dcd757416319c25334ccb0352c62",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 99",
+          "quote": "The following provisions apply, with necessary modifications, with respect to a tenant who has sublet a rental unit, as if the tenant were the landlord and the subtenant were the tenant: 1. Sections 59 to 69, 87, 89 and 148. 2. The provisions of this Act that relate to applications to the Board under sections 69, 87, 89 and 148."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 168 (2)",
+          "quote": "The Board has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-subletter-not-paying|proceduralNote|sc-claim-subletter-not-paying#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f8214f0366e1d26747fad7e95058d2e7ddaa4ecbe4820b754dad40c17c13c59e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 97 (5)",
+          "quote": "A subtenant has no right to occupy the rental unit after the end of the subtenancy."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 101 (1)",
+          "quote": "If a subtenant continues to occupy a rental unit after the end of the subtenancy, the landlord or the tenant may apply to the Board for an order evicting the subtenant."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 101 (2)",
+          "quote": "An application under this section must be made within 60 days after the end of the subtenancy."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 102",
+          "quote": "A tenant may apply to the Board for an order for compensation for use and occupation by an overholding subtenant after the end of the subtenancy if the overholding subtenant is in possession of the rental unit at the time of the application."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-condo-owner-against-corporation|plaintiffElement|corporation-duty-under-the-act",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3ff750064816c7b8335146511a0715721f174efa66d40bc669df7be9c29428ad",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 17 (2)",
+          "quote": "The corporation has a duty to control, manage and administer the common elements and the assets of the corporation."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 90 (1)",
+          "quote": "Subject to section 91, the corporation shall maintain the common elements and each owner shall maintain the owner's unit."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 89 (1)",
+          "quote": "Subject to sections 91 and 123, the corporation shall repair the units and common elements after damage."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 91",
+          "quote": "The declaration may alter the obligation to maintain or to repair after damage as set out in this Act by providing that,"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/condominium-act-1998.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-condo-owner-against-corporation|plaintiffElement|loss-from-failure-to-perform-duty",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7d5280474070c391ec5ef1e3378508ba537db20584b1aa07ec95191a2205a77d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 136",
+          "quote": "Unless this Act specifically provides the contrary, nothing in this Act restricts the remedies otherwise available to a person for the failure of another to perform a duty imposed by this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1 (1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/condominium-act-1998.txt, docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-condo-owner-against-corporation|defendantConsideration|declaration-or-improvement-shifts-the-duty",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "87f638692f5a6d1af162fb7f62e7a70551e48d72cc5142ef0ce08428e56d682e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 91 (a)",
+          "quote": "The declaration may alter the obligation to maintain or to repair after damage as set out in this Act by providing that, (a) subject to section 123, each owner shall repair the owner's unit after damage;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 89 (2)",
+          "quote": "The obligation to repair after damage includes the obligation to repair and replace after damage or failure but, subject to subsection (5), does not include the obligation to repair after damage improvements made to a unit."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 89 (3)",
+          "quote": "For the purpose of this section, the question of what constitutes an improvement to a unit shall be determined by reference to a standard unit for the class of unit to which the unit belongs."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/condominium-act-1998.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-condo-owner-against-corporation|proceduralNote|sc-claim-condo-owner-against-corporation#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8e400a21c0b332c1c6f503bfc2cee30344783525cd84b4222e2bbefb506c1361",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 1.36 (2)",
+          "quote": "an owner or a mortgagee of a unit may apply to the Tribunal for the resolution of a prescribed dispute with the corporation, another owner or an occupier or a mortgagee of a unit."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 1.42 (1)",
+          "quote": "the Tribunal has exclusive jurisdiction to exercise the powers conferred on it under this Act and to determine all questions of fact or law that arise in any proceeding before it."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 1.36 (6)",
+          "quote": "Subject to any other provision of this Act, an application must be made within two years after the dispute to which the application relates arose."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/170179_e.doc",
+          "pinpoint": "s. 1 (1) (a)",
+          "quote": "The prescribed disputes for the purposes of subsections 1.36 (1) and (2) of the Act are, (a) a dispute with respect to subsection 55 (1), (2), (2.1), (3), (4), (5), (6) or (8) of the Act;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/170179_e.doc",
+          "pinpoint": "s. 1 (1) (c.1)",
+          "quote": "subject to subsection (3), a dispute with respect to subsection 117 (2) of the Act or section 26 of Ontario Regulation 48/01 (General)"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/170179_e.doc",
+          "pinpoint": "s. 1 (1) (d)",
+          "quote": "a dispute with respect to any of the following provisions of the declaration, by-laws or rules of a corporation: (i) Provisions that prohibit, restrict or otherwise govern pets or other animals in a unit, the common elements or the assets, if any, of the corporation."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/170179_e.doc",
+          "pinpoint": "s. 1 (1) (d) (ii), (iii), (iii.2)",
+          "quote": "Provisions that prohibit, restrict or otherwise govern an automobile, motorcycle, van, truck, trailer, bus, mobile home, ... Provisions that prohibit, restrict or otherwise govern the parking or storage of items in a unit, ... Provisions that prohibit, restrict or otherwise govern any other nuisance, annoyance or disruption to an individual in a unit,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 117 (2) (a)",
+          "quote": "any unreasonable noise that is a nuisance, annoyance or disruption to an individual in a unit, the common elements or the assets, if any, of the corporation; or"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 55 (1)",
+          "quote": "The corporation shall keep adequate records,"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/condominium-act-1998.txt, docs/sources/corpus/condominium-authority-tribunal.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-condo-owner-against-corporation|proceduralNote|sc-claim-condo-owner-against-corporation#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "705f7319dab0c8639463995b0eccc214f1266aa39fb3993309daa2185cc43993",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 134 (1)",
+          "quote": "an owner, an occupier of a proposed unit, a corporation, a declarant, a lessor of a leasehold condominium corporation or a mortgagee of a unit may make an application to the Superior Court of Justice for an order enforcing compliance with any provision of this Act, the declaration, the by-laws, the rules"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 134 (2)",
+          "quote": "If the mediation and arbitration processes described in section 132 are required, a person is not entitled to apply for an order under subsection (1) until the person has failed to obtain compliance through using those processes."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 135 (1)",
+          "quote": "An owner, a corporation, a declarant or a mortgagee of a unit may make an application to the Superior Court of Justice for an order under this section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 135 (2)",
+          "quote": "if the court determines that the conduct of an owner, a corporation, a declarant or a mortgagee of a unit is or threatens to be oppressive or unfairly prejudicial to the applicant or unfairly disregards the interests of the applicant, it may make an order to rectify the matter."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 135 (3) (b)",
+          "quote": "an order requiring the payment of compensation."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/condominium-act-1998.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-condo-owner-against-corporation|proceduralNote|sc-claim-condo-owner-against-corporation#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "83dc2050ce2f74aa3a0b052ce224551a1ac001da14de114af56077f7abaef4c9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-condo-water-or-noise-damage|plaintiffElement|condition-likely-to-damage-property",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d72287649162638eabd1c6f4d5255a0246b040a25aa7110b1d00bba5bda675a9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 117 (1)",
+          "quote": "No person shall, through an act or omission, cause a condition to exist or an activity to take place in a unit, the common elements or the assets, if any, of the corporation if the condition or the activity, as the case may be, is likely to damage the property or the assets or to cause an injury or an illness to an individual."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 119 (1)",
+          "quote": "an owner, an occupier of a unit and a person having an encumbrance against a unit and its appurtenant common interest shall comply with this Act, the declaration, the by-laws and the rules."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 119 (2)",
+          "quote": "An owner shall take all reasonable steps to ensure that an occupier of the owner's unit and all invitees, agents and employees of the owner or occupier comply with this Act, the declaration, the by-laws and the rules."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/condominium-act-1998.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-condo-water-or-noise-damage|plaintiffElement|negligence-elements-water-damage",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "850d62eea27145a073060e65e0ea5c70c9bce669efa5ac150ebe8cbc0d8af838",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 136",
+          "quote": "Unless this Act specifically provides the contrary, nothing in this Act restricts the remedies otherwise available to a person for the failure of another to perform a duty imposed by this Act."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/condominium-act-1998.txt, docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-condo-water-or-noise-damage|plaintiffElement|unreasonable-noise-nuisance",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6039f7f17a563b08d8722cf9cde34f78cc23affc054c44697fb2c4b277ef1fcc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 117 (2) (a)",
+          "quote": "No person shall carry on an activity or permit an activity to be carried on in a unit, the common elements or the assets, if any, of the corporation if the activity results in the creation of or continuation of, (a) any unreasonable noise that is a nuisance, annoyance or disruption to an individual in a unit, the common elements or the assets, if any, of the corporation; or"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/condominium-act-1998.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-condo-water-or-noise-damage|defendantConsideration|corporation-repairs-and-deductible",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "74388652ab2a9211236e68b7ee0af0508fd183e4a7928b3d9afd33fce7287211",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 89 (1)",
+          "quote": "Subject to sections 91 and 123, the corporation shall repair the units and common elements after damage."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 105 (2)",
+          "quote": "If an owner, a lessee of an owner or a person residing in the owner's unit with the permission or knowledge of the owner through an act or omission causes damage to the owner's unit, the amount that is the lesser of the cost of repairing the damage and the deductible limit of the insurance policy obtained by the corporation shall be added to the common expenses payable for the owner's unit."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 105 (3)",
+          "quote": "The corporation may pass a by-law to extend the circumstances in subsection (2) under which an amount shall be added to the common expenses payable for an owner's unit"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/condominium-act-1998.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-condo-water-or-noise-damage|proceduralNote|sc-claim-condo-water-or-noise-damage#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "600555a86ffa839079b38ae9bd605a683901e83dc8494960947c151fc1653f7c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 1.36 (2)",
+          "quote": "an owner or a mortgagee of a unit may apply to the Tribunal for the resolution of a prescribed dispute with the corporation, another owner or an occupier or a mortgagee of a unit."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 1.36 (6)",
+          "quote": "Subject to any other provision of this Act, an application must be made within two years after the dispute to which the application relates arose."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/170179_e.doc",
+          "pinpoint": "s. 1 (1) (c.1)",
+          "quote": "subject to subsection (3), a dispute with respect to subsection 117 (2) of the Act or section 26 of Ontario Regulation 48/01 (General)"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 1.44 (1), para. 3",
+          "quote": "An order directing a party to the proceeding to pay compensation for damages incurred by another party to the proceeding as a result of an act of non-compliance up to the greater of $25,000 or the amount, if any, that is prescribed."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/condominium-act-1998.txt, docs/sources/corpus/condominium-authority-tribunal.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-condo-water-or-noise-damage|proceduralNote|sc-claim-condo-water-or-noise-damage#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cafec4024a6d1c1d5e63ccb0a051940266ab54f43482ee89403d70fb56233479",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+          "pinpoint": "s. 1.36 (4) (a)",
+          "quote": "An application may not be made to the Tribunal under this section with respect to, (a) a dispute with respect to Part III, section 20, 26, 82.1, 82.2, 85 or 86, subsection 117 (1) or Part VII or VIII;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/170179_e.doc",
+          "pinpoint": "s. 1 (3)",
+          "quote": "Clauses (1) (c.1) and (d) do not apply to a dispute that is also with respect to subsection 117 (1) of the Act,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1 (1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/condominium-act-1998.txt, docs/sources/corpus/condominium-authority-tribunal.txt, docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-condo-water-or-noise-damage|proceduralNote|sc-claim-condo-water-or-noise-damage#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "83dc2050ce2f74aa3a0b052ce224551a1ac001da14de114af56077f7abaef4c9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-co-owner-dispute|plaintiffElement|what-was-agreed-between-co-owners",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "74d957996c4a141eea79962dd5c72a9129968d5a02b63b9f84efdbd3fc278f01",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Burden of proof",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/scj-steps-to-a-civil-case.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-co-owner-dispute|plaintiffElement|co-owner-amount-within-limit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dff694077de7ab9a7793cd730c4d76a704b8e23dc8ac2a0f4c78e6aace251514",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1 (1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-co-owner-dispute|defendantConsideration|co-owner-set-off",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "183448d0e368c4575f91c0851fafdfe15a0282787b8ad3b126de092ca55ec9bb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 111 (1)",
+          "quote": "In an action for payment of a debt, the defendant may, by way of defence, claim the right to set off against the plaintiff's claim a debt owed by the plaintiff to the defendant."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 111 (3)",
+          "quote": "Where, on a defence of set off, a larger sum is found to be due from the plaintiff to the defendant than is found to be due from the defendant to the plaintiff, the defendant is entitled to judgment for the balance."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-co-owner-dispute|proceduralNote|sc-claim-co-owner-dispute#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7a439178141b8ff81ace2b5cde3175b4b483f9a4bd7641ae0fe77f82161b4e41",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+          "pinpoint": "s. 3 (1)",
+          "quote": "Any person interested in land in Ontario, or the guardian of a minor entitled to the immediate possession of an estate therein, may bring an action or make an application for the partition of such land or for the sale thereof under the directions of the court"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+          "pinpoint": "s. 2",
+          "quote": "All joint tenants, tenants in common, and coparceners, ... may be compelled to make or suffer partition or sale of the land, or any part thereof,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+          "pinpoint": "s. 1",
+          "quote": "\"court\" means the Superior Court of Justice;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+          "pinpoint": "s. 3 (2)",
+          "quote": "Where the land is held in joint tenancy or tenancy in common or coparcenary by reason of a devise or an intestacy, no proceeding shall be taken until one year after the decease of the testator or person dying intestate in whom the land was vested."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/partition-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-co-owner-dispute|proceduralNote|sc-claim-co-owner-dispute#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ae73943d857c6c5cbe3634951333dd80a3cec3923fa19cdb889489e733908e6e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 2 (1) \"tenant\"",
+          "quote": "but \"tenant\" does not include a person who has the right to occupy a rental unit by virtue of being, (a) a co-owner of the residential complex in which the rental unit is located,"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-co-owner-dispute|proceduralNote|sc-claim-co-owner-dispute#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "77fc1d9d2f9070c26d87ed2a5365a292f65b7abb5773c6d57a74d214984c5b37",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    }
+  ],
   "unverifiable": []
 }

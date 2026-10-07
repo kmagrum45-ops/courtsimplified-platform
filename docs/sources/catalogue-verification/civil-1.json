@@ -1,4 +1,1735 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "civil-claim-car-accident-injury|plaintiffElement|driver-negligence-civcar",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b7106a2f81cc81189bba6aa9ea4620117c6d7659fba9e71e3fe7c34f55fec182",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "Highway Traffic Act, s. 192(1)",
+          "quote": "The driver of a motor vehicle or street car is liable for loss or damage sustained by any person by reason of negligence in the operation of the motor vehicle or street car on a highway."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "Highway Traffic Act, s. 192(2)",
+          "quote": "The owner of a motor vehicle or street car is liable for loss or damage sustained by any person by reason of negligence in the operation of the motor vehicle or street car on a highway, unless the motor vehicle or street car was without the owner's consent in the possession of some person other than the owner or the owner's chauffeur."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "Highway Traffic Act, s. 192(6)",
+          "quote": "The driver, owner, lessee and operator that are liable under this section are jointly and severally liable."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant 's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/highway-traffic-act.txt; Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-car-accident-injury|plaintiffElement|injury-threshold-civcar",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5e9bf3af3910aa3f4d307da9179344f8667e79697cd7f0d45f6bcce34592d0c9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 267.5(5)",
+          "quote": "Despite any other Act and subject to subsections (6) and (6.1), the owner of an automobile, the occupants of an automobile and any person present at the incident are not liable in an action in Ontario for damages for non-pecuniary loss, including damages for non-pecuniary loss under clause 61 (2) (e) of the Family Law Act, from bodily injury or death arising directly or indirectly from the use or operation of the automobile, unless as a result of the use or operation of the automobile the injured person has died or has sustained, (a) permanent serious disfigurement; or (b) permanent serious impairment of an important physical, mental or psychological function."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 267.5(3)",
+          "quote": "Despite any other Act and subject to subsections (6) and (6.1), the owner of an automobile, the occupants of an automobile and any person present at the incident are not liable in an action in Ontario for damages for expenses that have been incurred or will be incurred for health care resulting from bodily injury arising directly or indirectly from the use or operation of the automobile unless, as a result of the use or operation of the automobile, the injured person has died or has sustained, (a) permanent serious disfigurement; or (b) permanent serious impairment of an important physical, mental or psychological function."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 267.5(7)",
+          "quote": "Subject to subsections (5), (12), (13) and (15), in an action for loss or damage from bodily injury or death arising directly or indirectly from the use or operation of an automobile, the court shall determine the amount of damages for non-pecuniary loss to be awarded against a protected defendant in accordance with the following rules:"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 267.5(7), para. 2",
+          "quote": "The determination under paragraph 1 shall be made in the same manner as a determination of the amount of damages for non-pecuniary loss in an action to which this section does not apply"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 267.5(7), para. 3",
+          "quote": "Subject to subsections (8), (8.1) and (8.1.1), the amount of damages for non-pecuniary loss to be awarded against the protected defendant shall be determined by"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 267.5(7), para. 1",
+          "quote": "The court shall first determine the amount of damages for non- pecuniary loss for which the protected defendant would be liable without regard to this Part."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 267.5(7), para. 3 i",
+          "quote": "reducing the amount determined under paragraph 1 by, i. in the case of damages for non-pecuniary loss other than damages for non-pecuniary loss under clause 61 (2) (e) of the Family Law Act, the greater of, A. $15,000, and B. the amount prescribed by the regulations,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 267.4(1)",
+          "quote": "Sections 267.5 to 267.11 apply only to proceedings for loss or damage from bodily injury or death arising from the use or operation, after November 1, 1996, of an automobile in Canada, the United States of America or a jurisdiction designated in the Statutory Accident Benefits Schedule."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/insurance-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-car-accident-injury|plaintiffElement|income-loss-limits-civcar",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2c446f5d8ef79299be69c3cb4e3a3057de04be2b634ddb418900e0e586980ba5",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 267.5(1)",
+          "quote": "Despite any other Act and subject to subsections (6) and (6.1), the owner of an automobile, the occupants of an automobile and any person present at the incident are not liable in an action in Ontario for the following damages for income loss and loss of earning capacity from bodily injury or death arising directly or indirectly from the use or operation of the automobile: 1. Damages for income loss suffered in the seven days after the incident. 2. Damages for income loss suffered more than seven days after the incident and before the trial of the action in excess of 70 per cent of the amount of gross income that is lost during that period, as determined in accordance with the regulations. 3. Damages for loss of earning capacity suffered after the incident and before the trial of the action in excess of 70 per cent of the loss of earning capacity during that period, as determined in accordance with the regulations."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 267.5(6)",
+          "quote": "Subsections (1), (3) and (5) do not protect a person from liability if the person is defended in the action by an insurer that is not licensed to undertake automobile insurance in Ontario unless the insurer has filed an undertaking under section 226.1."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 267.5(6.1)",
+          "quote": "subsections (1), (3) and (5) do not protect the owner or driver of a public transit vehicle if it did not collide with another automobile or any other object in the incident."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/insurance-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-car-accident-injury|plaintiffElement|causation-civcar",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "706df197fda976d8c92483b9bbfac19553a31b2c5d929ef52627e4d52739cd48",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements v. Clements, 2012 SCC 32, para. 8",
+          "quote": "The test for showing causation is the \"but for\" test. The plaintiff must show on a balance of probabilities that \"but for\" the defendant's negligent act, the injury would not have occurred. Inherent in the phrase \"but for\" is the requirement that the defendant 's negligence was necessary to bring about the injury — in other words that the injury would not have occurred without the defendant's negligence. This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements, para. 9",
+          "quote": "causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant's negligence made to the injury."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-car-accident-injury|defendantConsideration|contributory-negligence-civcar",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1ebbdf056751de62e0a9b2efed6a4e2a993a9fc9e9227b18a9aab3dec79eee4f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 1",
+          "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons are found at fault or negligent, they are jointly and severally liable to the person suffering loss or damage for such fault or negligence, but as between themselves, in the absence of any contract express or implied, each is liable to make contribution and indemnify each other in the degree in which they are respectively found to be at fault or negligent."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 267.5(7), para. 4",
+          "quote": "If fault or negligence on the part of the person entitled to damages for non-pecuniary loss contributed to those damages, the award for damages shall be reduced under paragraph 3 before the damages are apportioned under section 3 of the Negligence Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt; Vendored corpus file docs/sources/corpus/insurance-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-car-accident-injury|defendantConsideration|onus-on-driver-civcar",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b70365a4bc414d82c49bbe3874a321a02c4b625b2cd6e8f2bd54e95934607b20",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "Highway Traffic Act, s. 193(1)",
+          "quote": "When loss or damage is sustained by any person by reason of a motor vehicle on a highway, the onus of proof that the loss or damage did not arise through the negligence or improper conduct of the owner, driver, lessee or operator of the motor vehicle is upon the owner, driver, lessee or operator of the motor vehicle."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "Highway Traffic Act, s. 193(2)",
+          "quote": "This section does not apply in cases of a collision between motor vehicles or to an action brought by a passenger in a motor vehicle in respect of any injuries sustained while a passenger."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/highway-traffic-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-car-accident-injury|proceduralNote|civil-claim-car-accident-injury#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1705adc77239a203c9744a70f0cb8b19dec6007d749bc054900be2e8eefb956e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 258.3(1)",
+          "quote": "An action for loss or damage from bodily injury or death arising directly or indirectly from the use or operation of an automobile shall not be commenced unless, (a) the plaintiff has applied for statutory accident benefits; (b) the plaintiff served written notice of the intention to commence the action on the defendant within 120 days after the incident or within such longer period as a court in which the action may be commenced may authorize, on motion made before or after the expiry of the 120-day period; (c) the plaintiff provided the defendant with the information prescribed by the regulations within the time period prescribed by the regulations; (d) the plaintiff has, at the defendant's expense, undergone examinations by one or more persons selected by the defendant who are members of Colleges as defined in the Regulated Health Professions Act, 1991, if the defendant requests the examinations within 90 days after receiving the notice under clause (b); (e) the plaintiff has provided the defendant with a statutory declaration describing the circumstances surrounding the incident and the nature of the claim being made, if the statutory declaration is requested by the defendant; and (f) the plaintiff has provided the defendant with evidence of the plaintiff's identity, if evidence of the plaintiff's identity is requested by the defendant."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 258.3(2)",
+          "quote": "An insured who receives a notice under clause (1) (b) shall give a copy of the notice to the insurer within seven days of receiving the notice."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/insurance-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-car-accident-injury|proceduralNote|civil-claim-car-accident-injury#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6b67128fdbdc17c162d9d83bbbd45081c813998c92d3790e68112b3f4369dcab",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 280(1)",
+          "quote": "This section applies with respect to the resolution of disputes in respect of an insured person's entitlement to statutory accident benefits or in respect of the amount of statutory accident benefits to which an insured person is entitled."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 280(2)",
+          "quote": "The insured person or the insurer may apply to the Licence Appeal Tribunal to resolve a dispute described in subsection (1)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 280(3)",
+          "quote": "No person may bring a proceeding in any court with respect to a dispute described in subsection (1), other than an appeal from a decision of the Licence Appeal Tribunal or an application for judicial review."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/insurance-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-car-accident-injury|proceduralNote|civil-claim-car-accident-injury#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fd03c8cf644873804696b7208e4a976254bab3750b34113b129b4a2c2842d8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-occupier-injury|plaintiffElement|who-is-occupier-civocc",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "47e746f054a9df26b29d514fbb10ff2695d5627a66f4234d54176853cc20a819",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 1 (\"occupier\", \"premises\")",
+          "quote": "\"occupier\" includes, (a) a person who is in physical possession of premises, or (b) a person who has responsibility for and control over the condition of premises or the activities there carried on, or control over persons allowed to enter the premises, despite the fact that there is more than one occupier of the same premises; (\"occupant\") \"premises\" means lands and structures, or either of them, and includes, (a) water, (b) ships and vessels, (c) trailers and portable structures designed or used for residence, business or shelter, (d) trains, railway cars, vehicles and aircraft, except while in operation."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 2",
+          "quote": "Subject to section 9, this Act applies in place of the rules of the common law that determine the care that the occupier of premises at common law is required to show for the purpose of determining the occupier's liability in law in respect of dangers to persons entering on the premises or the property brought on the premises by those persons."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-occupier-injury|plaintiffElement|reasonable-care-civocc",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "99282c432eba95baecd9d1b49795a5bed1525a80d1ac56e182ebc09dba91c20f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 3(1)",
+          "quote": "An occupier of premises owes a duty to take such care as in all the circumstances of the case is reasonable to see that persons entering on the premises, and the property brought on the premises by those persons are reasonably safe while on the premises."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 3(2)",
+          "quote": "The duty of care provided for in subsection (1) applies whether the danger is caused by the condition of the premises or by an activity carried on on the premises."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/waldick-v-malcolm-1991-2-SCR-456.html.txt",
+          "pinpoint": "Waldick v. Malcolm, [1991] 2 S.C.R. 456 (reasons of Iacobucci J. for the Court)",
+          "quote": "That duty is to take reasonable care in the circumstances to make the premises safe. That duty does not change but the factors which are relevant to an assessment of what constitutes reasonable care will necessarily be very specific to each fact situation"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/waldick-v-malcolm-1991-2-SCR-456.html.txt",
+          "pinpoint": "Waldick v. Malcolm (reasons of Iacobucci J. for the Court)",
+          "quote": "the existence of customary practices which are unreasonable in themselves, or which are not otherwise acceptable to courts, in no way ousts the duty of care owed by occupiers under s. 3(1) of the Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt; Saved decision docs/sources/decisions/waldick-v-malcolm-1991-2-SCR-456.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-occupier-injury|plaintiffElement|damage-and-cause-civocc",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dc8c5aa149600cccf1d078113935ea954af6a418d8f534ed4c6ee8602495e9d0",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 8",
+          "quote": "Generally, a plaintiff who suffers personal injury will be found to have suffered damage. Damage for purposes of this inquiry includes psychological injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 9",
+          "quote": "This said, psychological disturbance that rises to the level of personal injury must be distinguished from psychological upset. Personal injury at law connotes serious trauma or illness: see Hinz v. Berry, [1970] 2 Q.B. 40 (C.A.), at p. 42; Page v. Smith, at p. 189; Linden and Feldthusen, at pp. 425- 27. The law does not recognize upset, disgust, anxiety, agitation or other mental states that fall short of injury. I would not purport to define compensable injury exhaustively, except to say that it must be serious and prolonged and rise above the ordinary annoyances, anxieties and fears that people living in society routinely, if sometimes reluctantly, accept."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements v. Clements, 2012 SCC 32, para. 8",
+          "quote": "The test for showing causation is the \"but for\" test. The plaintiff must show on a balance of probabilities that \"but for\" the defendant's negligent act, the injury would not have occurred. Inherent in the phrase \"but for\" is the requirement that the defendant 's negligence was necessary to bring about the injury — in other words that the injury would not have occurred without the defendant's negligence. This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements, para. 9",
+          "quote": "causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant's negligence made to the injury."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-occupier-injury|defendantConsideration|willing-assumption-civocc",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "265af5fbb6899e99bc3cca38ae8d5c099998658217680fc580267d07eeee3a36",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 4(1)",
+          "quote": "The duty of care provided for in subsection 3 (1) does not apply in respect of risks willingly assumed by the person who enters on the premises, but in that case the occupier owes a duty to the person to not create a danger with the deliberate intent of doing harm or damage to the person or his or her property and to not act with reckless disregard of the presence of the person or his or her property."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 4(2)",
+          "quote": "A person who is on premises with the intention of committing, or in the commission of, a criminal act shall be deemed to have willingly assumed all risks"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 3(3)",
+          "quote": "The duty of care provided for in subsection (1) applies except in so far as the occupier of premises is free to and does restrict, modify or exclude the occupier's duty."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 5(3)",
+          "quote": "Where an occupier is free to restrict, modify or exclude the occupier's duty of care or the occupier's liability for breach thereof, the occupier shall take reasonable steps to bring such restriction, modification or exclusion to the attention of the person to whom the duty is owed."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-occupier-injury|defendantConsideration|contributory-negligence-civocc",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "86b14a32ea8290f37026480fe45f99ecee176d0d11232e28dd59eb6e337e10b6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 9(3)",
+          "quote": "The Negligence Act applies with respect to causes of action to which this Act applies."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt; Vendored corpus file docs/sources/corpus/negligence-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-occupier-injury|defendantConsideration|public-road-civocc",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "93a123f62bd2664ed49df69a6c7604dc233fec35193855c996ae60271b8010be",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 10(2)",
+          "quote": "This Act does not apply to the Crown or to any municipal corporation, where the Crown or the municipal corporation is an occupier of a public highway or a public road."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 10(1)",
+          "quote": "This Act binds the Crown, subject to the Crown Liability and Proceedings Act, 2019."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-occupier-injury|proceduralNote|civil-claim-occupier-injury#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4360c59f9d452eeedfd7c68610371282ed61c20b886b82ef71ae935f6dc74536",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 6.1(1)",
+          "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim, including the date, time and location of the occurrence, has been personally served on or sent by registered mail to at least one person listed in subsection (2)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 6.1(2)",
+          "quote": "The persons referred to in subsection (1) are the following: 1. An occupier. 2. An independent contractor employed by the occupier to remove snow or ice on the premises during the relevant period in which the injury occurred."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 6.1(5)",
+          "quote": "Failure to give notice in accordance with subsection (1) is not a bar to the action in the case of the death of the injured person as a result of the injury."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 6.1(6)",
+          "quote": "Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-occupier-injury|proceduralNote|civil-claim-occupier-injury#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3cf5aea744ed27e99d6fefd322ba402e2f45a3c1383d01a0634e7225eedb4d5f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1.1)",
+          "quote": "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1.2)",
+          "quote": "Subsection (1.1) does not apply with respect to a counterclaim, crossclaim or third or subsequent party claim, where the main action was commenced in the Superior Court of Justice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-occupier-injury|proceduralNote|civil-claim-occupier-injury#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fd03c8cf644873804696b7208e4a976254bab3750b34113b129b4a2c2842d8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-medical-or-professional-negligence|plaintiffElement|duty-and-standard-civprof",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "538bf998428c5434775e36f31d9f1d691d67fb6deb9eb4feea689fd88e8489ff",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan v. Victoria (City), [1999] 1 S.C.R. 201, para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances. The 222 measure of what is reasonable depends on the facts of each case, including the likelihood of a known or foreseeable harm, the gravity of that harm, and the burden or cost which would be incurred to prevent the injury. In addition, one may look to exter- nal indicators of reasonable conduct, such as cus- tom, industry practice, and statutory or regulatory standards."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant 's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt; Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-medical-or-professional-negligence|plaintiffElement|damage-civprof",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7664db496f1816016b08ef3054a43a3aa7b71c1592ba75e0ac1bc8c231cf2225",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 8",
+          "quote": "Generally, a plaintiff who suffers personal injury will be found to have suffered damage. Damage for purposes of this inquiry includes psychological injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 9",
+          "quote": "This said, psychological disturbance that rises to the level of personal injury must be distinguished from psychological upset. Personal injury at law connotes serious trauma or illness: see Hinz v. Berry, [1970] 2 Q.B. 40 (C.A.), at p. 42; Page v. Smith, at p. 189; Linden and Feldthusen, at pp. 425- 27. The law does not recognize upset, disgust, anxiety, agitation or other mental states that fall short of injury. I would not purport to define compensable injury exhaustively, except to say that it must be serious and prolonged and rise above the ordinary annoyances, anxieties and fears that people living in society routinely, if sometimes reluctantly, accept."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-medical-or-professional-negligence|plaintiffElement|causation-civprof",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "91261cfd2f9771b29efe8a44efdc7d691b3ee0c5e78ace11863b2e07e8075d6a",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/snell-v-farrell-1990-2-SCR-311.html.txt",
+          "pinpoint": "Snell v. Farrell, [1990] 2 S.C.R. 311 (reasons of Sopinka J. for the Court)",
+          "quote": "Causation need not be determined by scientific precision."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/snell-v-farrell-1990-2-SCR-311.html.txt",
+          "pinpoint": "Snell v. Farrell",
+          "quote": "In many malpractice cases, the facts lie particularly within the knowledge of the defendant. In these circumstances, very little affirmative evidence on the part of the plaintiff will justify the drawing of an inference of causation in the absence of evidence to the contrary."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/snell-v-farrell-1990-2-SCR-311.html.txt",
+          "pinpoint": "Snell v. Farrell",
+          "quote": "The legal or ultimate burden remains with the plaintiff, but in the absence of evidence to the contrary adduced by the defendant an inference of causation may be drawn although positive or scientific proof of causation has not been adduced."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/snell-v-farrell-1990-2-SCR-311.html.txt",
+          "pinpoint": "Snell v. Farrell",
+          "quote": "it is not essential to have a positive medical opinion to support a finding of causation."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements v. Clements, 2012 SCC 32, para. 8",
+          "quote": "The test for showing causation is the \"but for\" test. The plaintiff must show on a balance of probabilities that \"but for\" the defendant's negligent act, the injury would not have occurred."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/snell-v-farrell-1990-2-SCR-311.html.txt; Saved decision docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-medical-or-professional-negligence|defendantConsideration|others-at-fault-civprof",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ea04a96b9555b67728108dd33f70517675e66b431cafa331f4c09efcbc49fd34",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 1",
+          "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons are found at fault or negligent, they are jointly and severally liable to the person suffering loss or damage for such fault or negligence, but as between themselves, in the absence of any contract express or implied, each is liable to make contribution and indemnify each other in the degree in which they are respectively found to be at fault or negligent."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 5",
+          "quote": "Wherever it appears that a person not already a party to an action is or may be wholly or partly responsible for the damages claimed, such person may be added as a party defendant to the action upon such terms as are considered just or may be made a third party to the action in the manner prescribed by the rules of court for adding third parties."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-medical-or-professional-negligence|defendantConsideration|harm-found-later-civprof",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "35670608969caacda6d23f47d107cabf27effdb16ffd21f0eb51bd6f6079a71a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/grant-thornton-v-new-brunswick-2021-SCC-31.english.txt",
+          "pinpoint": "Grant Thornton LLP v. New Brunswick, 2021 SCC 31, para. 42",
+          "quote": "I propose the following approach instead: a claim is discovered when a plaintiff has knowledge, actual or constructive, of the material facts upon which a plausible inference of liability on the defendant's part can be drawn."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; Saved decision docs/sources/decisions/grant-thornton-v-new-brunswick-2021-SCC-31.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-medical-or-professional-negligence|proceduralNote|civil-claim-medical-or-professional-negligence#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3a261eab61ca90f8a9fe3594e53d58003e51ff36f99d1bb902d06b5d5ea7dc80",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 53.03(1)",
+          "quote": "A party who intends to call an expert witness at trial shall, not less than 90 days before the pre-trial conference scheduled under subrule 50.02 (1) or (2), serve on every other party to the action a report, signed by the expert, containing the information listed in subrule (2.1)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",
+          "pinpoint": "Rules of Civil Procedure, r. 53.03(2)",
+          "quote": "A party who intends to call an expert witness at trial to respond to the expert witness of another party shall, not less than 60 days before the pre-trial conference, serve on every other party to the action a report, signed by the expert, containing the information listed in subrule (2.1)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/rules-of-civil-procedure.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-medical-or-professional-negligence|proceduralNote|civil-claim-medical-or-professional-negligence#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fd03c8cf644873804696b7208e4a976254bab3750b34113b129b4a2c2842d8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-medical-or-professional-negligence|proceduralNote|civil-claim-medical-or-professional-negligence#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3cf5aea744ed27e99d6fefd322ba402e2f45a3c1383d01a0634e7225eedb4d5f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1.1)",
+          "quote": "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1.2)",
+          "quote": "Subsection (1.1) does not apply with respect to a counterclaim, crossclaim or third or subsequent party claim, where the main action was commenced in the Superior Court of Justice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-government|plaintiffElement|crown-tort-civcrown",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1e281763ba8854f257a550818d269e332017510625ab453cd649fbb41c93cea8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "Crown Liability and Proceedings Act, 2019, s. 8(1)",
+          "quote": "Except as otherwise provided under this Act or any other Act, the Crown is subject to all the liabilities in tort to which it would be liable if it were a person, (a) in respect of a tort committed by an officer, employee or agent of the Crown; (b) in respect of a breach of duty attaching to the ownership, occupation, possession or control of property; (c) in respect of a breach of an employment-related obligation owed to an officer or employee of the Crown; and (d) under any Act, or under any regulation or by-law made or passed under any Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 8(2)",
+          "quote": "For greater certainty, nothing in clause (1) (a) subjects the Crown to liability for a tort that is not attributable to the acts or omissions of an officer, employee or agent of the Crown."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 1(1) (\"Crown\")",
+          "quote": "\"Crown\" means the Crown in right of Ontario;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-government|plaintiffElement|tort-elements-civcrown",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d37fa6038cdefe4959d49ee8c1a7dfcdd45a1bd5cce15f08579bcd29740c6838",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant 's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-government|defendantConsideration|agencies-and-funded-bodies-civcrown",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b2130c1d07bb5ea682bc1abeaa3e5dd631b62b95b9fbbb3bbdb4c6f45479aad7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 9(1)",
+          "quote": "The Crown is not liable for torts committed by, (a) Crown agencies; (b) Crown corporations; (c) transfer payment recipients; or (d) independent contractors providing services to the Crown for any purpose."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 1(1) (\"transfer payment recipient\")",
+          "quote": "\"transfer payment recipient\" means a person or other entity that directly or indirectly receives a grant, transfer payment or other funding or financial assistance from the Crown to support, in whole or in part, the delivery of services to members of the public, including, (a) a municipality, (b) a hospital within the meaning of the Public Hospitals Act, (c) a private hospital within the meaning of the Private Hospitals Act, (d) a board within the meaning of the Education Act, (e) a university, college of applied arts and technology or other post-secondary institution, (f) a children's aid society within the meaning of the Child, Youth and Family Services Act, 2017, (g) a long-term care home within the meaning of the Fixing Long- Term Care Act, 2021,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 1(1) (\"Crown agency\")",
+          "quote": "\"Crown agency\" means, (a) a corporation that is expressly stated by or under an Act to be an agent of the Crown,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-government|defendantConsideration|policy-and-regulatory-decisions-civcrown",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cdbb2fb08435262023e70049f2a585a7aa46401f432c9e4ff0eba880ce09cd4f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 11(1)",
+          "quote": "No cause of action arises against the Crown or an officer, employee or agent of the Crown in respect of any negligence or failure to take reasonable care while exercising or intending to exercise powers or performing or intending to perform duties or functions of a legislative nature, including the development or introduction of a bill, the enactment of an Act or the making of a regulation."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 11(2)",
+          "quote": "No cause of action arises against the Crown or an officer, employee or agent of the Crown in respect of a regulatory decision made in good faith, where, (a) a person suffers any form of harm or loss as a result of an act or omission of a person who is the subject of the regulatory decision; and (b) the person who suffered the harm or loss claims that the harm or loss resulted from any negligence or failure to take reasonable care in the making of the regulatory decision."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 11(4)",
+          "quote": "No cause of action arises against the Crown or an officer, employee or agent of the Crown in respect of any negligence or failure to take reasonable care in the making of a decision in good faith respecting a policy matter, or any negligence in a purported failure to make a decision respecting a policy matter."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 11(5)",
+          "quote": "For the purposes of subsection (4), a policy matter includes, (a) the creation, design, establishment, redesign or modification of a program, project or other initiative, including, (i) the terms, scope or features of the program, project or other initiative, (ii) the eligibility or exclusion of any person or entity or class of persons or entities to participate in the program, project or other initiative, or the requirements or limits of such participation, or (iii) limits on the duration of the program, project or other initiative, including any discretionary right to terminate or amend the operation of the program, project or other initiative; (b) the funding of a program, project or other initiative,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-government|defendantConsideration|misfeasance-leave-civcrown",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9efbe5627b8083dd58f7d24aaf64a4341732be05d2d8e68a6c435627015067b1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 17(1)",
+          "quote": "This section applies to proceedings brought against the Crown or an officer or employee of the Crown that include a claim in respect of a tort of misfeasance in public office or a tort based on bad faith respecting anything done in the exercise or intended exercise of the officer or employee's powers or the performance or intended performance of the officer or employee's duties or functions."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 17(2)",
+          "quote": "may proceed only with leave of the court and, unless and until leave is granted, is deemed to have been stayed in respect of all claims in that proceeding from the time that it is brought."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 17(3)",
+          "quote": "On a motion for leave under subsection (2), the claimant shall, in accordance with section 15 if applicable, serve on the defendant and file with the court, (a) an affidavit, or such other document as may be prescribed, setting out a concise statement of the material facts on which the claimant intends to rely; and (b) an affidavit of documents, or such other document as may be prescribed, disclosing, to the full extent of the claimant's knowledge, information and belief, all documents relevant to any matter in issue in the proceeding that are or have been in the claimant's possession, control or power."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-government|proceduralNote|civil-claim-claim-against-government#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "64bf351c5c2d7b3079b51d2a7e6233700e4aad548d492555adee6b7700e5bb2e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 18(1)",
+          "quote": "No proceeding that includes a claim for damages may be brought against the Crown unless, at least 60 days before the commencement of the proceeding, the claimant serves on the Crown, in accordance with section 15, notice of the claim containing sufficient particulars to identify the occasion out of which the claim arose."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 15",
+          "quote": "A document to be served personally on the Crown in a proceeding to which it is a party shall be served by leaving a copy of the document with an employee of the Crown at the Crown Law Office (Civil Law) of the Ministry of the Attorney General."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 18(6)",
+          "quote": "For greater certainty, failure to give notice of a claim as required by this section renders a proceeding brought without such notice a nullity in respect of the claim, from the time the proceeding is brought."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 18(3)",
+          "quote": "If a notice of claim is served under subsection (1) before the expiry of a limitation period applicable with respect to the claim but the 60-day period referred to in that subsection ends after the expiry of the limitation period, the limitation period is extended to the last instant of the seventh day following the end of the 60-day period."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 18(4)",
+          "quote": "Despite subsection (1), no proceeding that includes a claim for damages may be brought against the Crown under clause 8 (1) (b) unless the notice required by subsection (1) is served on the Crown in accordance with section 15 no later than 10 days after the occurrence of the event out of which the claim arises."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-government|proceduralNote|civil-claim-claim-against-government#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "aa49d4684f10adeebfd182520ac7e5a0008056469c61552bfafb53b16f675cbb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 14",
+          "quote": "In a proceeding to which the Crown is a party, the Crown shall be designated \"His Majesty the King in right of Ontario\""
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 20",
+          "quote": "In a proceeding against the Crown or an officer or employee of the Crown, trial shall be without a jury."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 22(1)",
+          "quote": "If relief is sought in a proceeding against the Crown that might, in a proceeding between persons, be granted by way of injunction or specific performance, the court shall not, as against the Crown, grant an injunction or make an order for specific performance."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 22(3)",
+          "quote": "Subject to subsection (4), the court may, in lieu of making an order referred to in subsection (1) or (2), make an order declaratory of the rights of the parties."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-government|proceduralNote|civil-claim-claim-against-government#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ba735c53cc32cb257281b98e025b5e8211962e6a63da066df61fa33302f28975",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 16(3)",
+          "quote": "For greater certainty, a proceeding referred to in subsection (1) is subject to any bar in law to bringing the proceeding, or any defence, that is based on the passage of time."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt; Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-municipality|plaintiffElement|road-not-in-repair-civmuni",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7d940a989d109c3b74ca888ed7b4a6c6a0ff5f7f03297b49c7ffe13243e3e0f1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(1)",
+          "quote": "The municipality that has jurisdiction over a highway or bridge shall keep it in a state of repair that is reasonable in the circumstances, including the character and location of the highway or bridge."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(2)",
+          "quote": "A municipality that defaults in complying with subsection (1) is, subject to the Negligence Act, liable for all damages any person sustains because of the default."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/municipal-act-2001.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-municipality|plaintiffElement|particular-loss-civmuni",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "75e934a5e2029862018c9cfcaf6a920a8124fe56543285b214114f0add030cfa",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(15)",
+          "quote": "A municipality is not liable for damages under this section unless the person claiming the damages has suffered a particular loss or damage beyond what is suffered by that person in common with all other persons affected by the lack of repair."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/municipal-act-2001.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-municipality|plaintiffElement|service-negligence-civmuni",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "71da878e94790450f0116d3f973716ea650011fe052d3702deb7ba850e742f49",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/nelson-city-v-marchi-2021-SCC-41.html.txt",
+          "pinpoint": "Nelson (City) v. Marchi, 2021 SCC 41, para. 52",
+          "quote": "Activities falling outside this protected sphere of core policy — that is, activities that open up a public authority to liability for negligence — have been defined as \"the practical implementation of the formulated policies\" or \"the performance or carrying out of a policy\""
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/nelson-city-v-marchi-2021-SCC-41.html.txt",
+          "pinpoint": "Nelson, para. 91",
+          "quote": "To avoid liability, a defendant must \"exercise the standard of care expected that would be of an ordinary, reasonable and prudent person in the same circumstances\""
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/nelson-city-v-marchi-2021-SCC-41.html.txt",
+          "pinpoint": "Nelson, para. 92",
+          "quote": "The reasonableness standard applies regardless of whether the defendant is a government or a private actor"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/nelson-city-v-marchi-2021-SCC-41.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-municipality|defendantConsideration|statutory-defences-civmuni",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "29e1af30ab4ec78cfea3c7ce316add1ff3605a80c2b72f9fdd70157eaa4ef014",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(3)",
+          "quote": "Despite subsection (2), a municipality is not liable for failing to keep a highway or bridge in a reasonable state of repair if, (a) it did not know and could not reasonably have been expected to have known about the state of repair of the highway or bridge; (b) it took reasonable steps to prevent the default from arising; or (c) at the time the cause of action arose, minimum standards established under subsection (4) applied to the highway or bridge and to the alleged default and those standards have been met."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/municipal-act-2001.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-municipality|defendantConsideration|sidewalk-ice-and-roadside-civmuni",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9ec99c4d52ec0ca651b52c5e172912a02bc25be8652edf8290ac0ffdad75c3e4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(9)",
+          "quote": "Except in case of gross negligence, a municipality is not liable for a personal injury caused by snow or ice on a sidewalk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(8)",
+          "quote": "No action shall be brought against a municipality for damages caused by, (a) the presence, absence or insufficiency of any wall, fence, rail or barrier along or on any highway; or (b) any construction, obstruction or erection, or any siting or arrangement of any earth, rock, tree or other material or object adjacent to or on any untravelled portion of a highway, whether or not an obstruction is created due to the construction, siting or arrangement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 45(1)",
+          "quote": "No proceeding shall be commenced against a member of council or an officer or employee of the municipality for damages based on the default of the municipality in keeping a highway or bridge in a state of repair that is reasonable in light of all of the circumstances, including the character and location of the highway or bridge."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 45(2)",
+          "quote": "Subsection (1) does not apply to a contractor with the municipality, including any officer or employee who is acting as a contractor, whose act or omission caused the damages."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/municipal-act-2001.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-municipality|defendantConsideration|core-policy-civmuni",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dd07142a8e605d3b615973b0a08444fb9d5f1fc9a6f2ed0b28e6d858c24decb0",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/nelson-city-v-marchi-2021-SCC-41.html.txt",
+          "pinpoint": "Nelson, para. 3",
+          "quote": "Core policy decisions are immune from negligence liability because the legislative and executive branches have core institutional roles and competencies that must be protected from interference by the judiciary's private law oversight. A court must consider the extent to which a government decision was based on public policy considerations and the extent to which the considerations impact the rationale for core policy immunity. In addition, four factors emerge that help in assessing the nature of a government's decision: (1) the level and responsibilities of the decision-maker; (2) the process by which the decision was made; (3) the nature and extent of budgetary considerations;"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/nelson-city-v-marchi-2021-SCC-41.html.txt",
+          "pinpoint": "Nelson, para. 86",
+          "quote": "Therefore, the City has not met its burden of proving that Ms. Marchi seeks to challenge a core policy decision immune from negligence liability."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/nelson-city-v-marchi-2021-SCC-41.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-municipality|proceduralNote|civil-claim-claim-against-municipality#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5e6cf89386b1d0a4ac36d28ac90e7ca806e8d45ea6d4a62b84fe94d130581d3d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(10)",
+          "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality; or (b) if the claim is against two or more municipalities jointly responsible for the repair of the highway or bridge, the clerk of each of the municipalities."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(11)",
+          "quote": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(12)",
+          "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/municipal-act-2001.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-municipality|proceduralNote|civil-claim-claim-against-municipality#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1e14ca45053d68bf4ff550a71ffd670dad76c9ceef2f14d258c11df0d1600141",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 10(2)",
+          "quote": "This Act does not apply to the Crown or to any municipal corporation, where the Crown or the municipal corporation is an occupier of a public highway or a public road."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-claim-against-municipality|proceduralNote|civil-claim-claim-against-municipality#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fd03c8cf644873804696b7208e4a976254bab3750b34113b129b4a2c2842d8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-dog-bite-injury|plaintiffElement|owner-civdog",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f29693b5e63a6d4714756befc6c2b4dee0c93a6a19d140616c09ee3e9df087eb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "Dog Owners' Liability Act, s. 1(1) (\"owner\")",
+          "quote": "\"owner\", when used in relation to a dog, includes a person who possesses or harbours the dog and, where the owner is a minor, the person responsible for the custody of the minor;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "Dog Owners' Liability Act, s. 2(2)",
+          "quote": "Where there is more than one owner of a dog, they are jointly and severally liable under this section."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/dog-owners-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-dog-bite-injury|plaintiffElement|bite-or-attack-civdog",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2a9597038d26e8ac87ec24e21751a0370cb0ffc4e5e831f30f506d46fdd78c47",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "Dog Owners' Liability Act, s. 2(1)",
+          "quote": "The owner of a dog is liable for damages resulting from a bite or attack by the dog on another person or domestic animal."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "Dog Owners' Liability Act, s. 2(3)",
+          "quote": "The liability of the owner does not depend upon knowledge of the propensity of the dog or fault or negligence on the part of the owner,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/dog-owners-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-dog-bite-injury|plaintiffElement|burden-of-proof-civdog",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "41c5159b8b7df01798ae734d399163341d28aa76728e5adcb5bcccb6edab445d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps in a civil case -- Burden of proof",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-dog-bite-injury|defendantConsideration|plaintiff-fault-civdog",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8ced40d047931b2da0fc3be4260eb2061d27d41caf56fe63027c3f9cd2d0c444",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "Dog Owners' Liability Act, s. 2(3)",
+          "quote": "but the court shall reduce the damages awarded in proportion to the degree, if any, to which the fault or negligence of the plaintiff caused or contributed to the damages."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "Dog Owners' Liability Act, s. 2(4)",
+          "quote": "An owner who is liable to pay damages under this section is entitled to recover contribution and indemnity from any other person in proportion to the degree to which the other person's fault or negligence caused or contributed to the damages."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/dog-owners-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-dog-bite-injury|defendantConsideration|on-owners-premises-civdog",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dbc141c019b67a857570666f37daff746aa690be45fec207f634292498a4fff2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "Dog Owners' Liability Act, s. 3(1)",
+          "quote": "Where damage is caused by being bitten or attacked by a dog on the premises of the owner, the liability of the owner is determined under this Act and not under the Occupiers' Liability Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "Dog Owners' Liability Act, s. 3(2)",
+          "quote": "Where a person is on premises with the intention of committing, or in the commission of, a criminal act on the premises and incurs damage caused by being bitten or attacked by a dog, the owner is not liable under section 2 unless the keeping of the dog on the premises was unreasonable for the purpose of the protection of persons or property."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/dog-owners-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-dog-bite-injury|proceduralNote|civil-claim-dog-bite-injury#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3eb268c432ddea79a2814e88b06cac81e8e1b8b9f950068d6e43ba06d9c64cb2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "Dog Owners' Liability Act, s. 4(1)",
+          "quote": "A proceeding may be commenced in the Ontario Court of Justice against an owner of a dog if it is alleged that, (a) the dog has bitten or attacked a person or domestic animal; (b) the dog has behaved in a manner that poses a menace to the safety of persons or domestic animals; or (c) the owner did not exercise reasonable precautions to prevent the dog from, (i) biting or attacking a person or domestic animal, or (ii) behaving in a manner that poses a menace to the safety of persons or domestic animals."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "Dog Owners' Liability Act, s. 4(1.2)",
+          "quote": "Part IX of the Provincial Offences Act applies to a proceeding under this section."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/dog-owners-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-dog-bite-injury|proceduralNote|civil-claim-dog-bite-injury#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3cf5aea744ed27e99d6fefd322ba402e2f45a3c1383d01a0634e7225eedb4d5f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1.1)",
+          "quote": "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1.2)",
+          "quote": "Subsection (1.1) does not apply with respect to a counterclaim, crossclaim or third or subsequent party claim, where the main action was commenced in the Superior Court of Justice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-dog-bite-injury|proceduralNote|civil-claim-dog-bite-injury#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fd03c8cf644873804696b7208e4a976254bab3750b34113b129b4a2c2842d8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-privacy-intrusion|plaintiffElement|intentional-intrusion-civpriv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "61175ff6dffbeb1ede9321b34cacc62a25120baa3dad0723de26c32b83533d82",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "Jones v. Tsige, 2012 ONCA 32, para. 70",
+          "quote": "I would essentially adopt as the elements of the action for intrusion upon seclusion the Restatement (Second) of Torts (2010) formulation which, for the sake of convenience, I repeat here: One who intentionally intrudes, physically or otherwise, upon the seclusion of another or his private affairs or concerns, is subject to liability to the other for invasion of his privacy, if the invasion would be highly offensive to a reasonable person."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "Jones v. Tsige, para. 71",
+          "quote": "The key features of this cause of action are, first, that the defendant‟s conduct must be intentional, within which I would include reckless;"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-privacy-intrusion|plaintiffElement|private-matters-civpriv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "412519b45bce955680e6264c6656af50fb9f056853d8685204798f72c65da543",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "Jones v. Tsige, para. 71",
+          "quote": "second that the defendant must have invaded, without lawful justification, the plaintiff‟s private affairs or concerns;"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "Jones v. Tsige, para. 72",
+          "quote": "it is only intrusions into matters such as one‟s financial or health records, sexual practices and orientation, employment, diary or private correspondence that, viewed objectively on the reasonable person standard, can be described as highly offensive."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-privacy-intrusion|plaintiffElement|highly-offensive-civpriv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6540002275a1d5b606983b631a6111e01f67c51d6041d1a4c40f654c5517e6a8",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "Jones v. Tsige, para. 71",
+          "quote": "and third, that a reasonable person would regard the invasion as highly offensive causing distress, humiliation or anguish. However, proof of harm to a recognized economic interest is not an element of the cause of action."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "Jones v. Tsige, para. 72",
+          "quote": "A claim for intrusion upon seclusion will arise only for deliberate and significant invasions of personal privacy. Claims from individuals who are sensitive or unusually concerned about their privacy are excluded:"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-privacy-intrusion|defendantConsideration|damages-range-civpriv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a347e23dad075bf6ba9d529d043d8ed362f4564701d2ffd87125cfea08145eb8",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "Jones v. Tsige, para. 87",
+          "quote": "In my view, damages for intrusion upon seclusion in cases where the plaintiff has suffered no pecuniary loss should be modest but sufficient to mark the wrong that has been done. I would fix the range at up to $20,000. The factors identified in the Manitoba Privacy Act, which, for convenience, I summarize again here, have also emerged from Page: 35 the decided cases and provide a useful guide to assist in determining where in the range the case falls: 1. the nature, incidence and occasion of the defendant‟s wrongful act; 2. the effect of the wrong on the plaintiff‟s health, welfare, social, business or financial position; 3. any relationship, whether domestic or otherwise, between the parties; 4. any distress, annoyance or embarrassment suffered by the plaintiff arising from the wrong; and 5. the conduct of the parties, both before and after the wrong, including any apology or offer of amends made by the defendant."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "Jones v. Tsige, para. 88",
+          "quote": "I would neither exclude nor encourage awards of aggravated and punitive damages."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-privacy-intrusion|defendantConsideration|competing-interests-civpriv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4f9f6bf063e6e1f2d6ccb1a2ae9924a93579b09d6b3984b11953cd5ab6b06b7e",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "Jones v. Tsige, para. 73",
+          "quote": "Finally, claims for the protection of privacy may give rise to competing claims. Foremost are claims for the protection of freedom of expression and freedom of the press. As we are not confronted with such a competing claim here, I need not consider the issue in detail. Suffice it to say, no right to privacy can be absolute and many claims for the Page: 29 protection of privacy will have to be reconciled with, and even yield to, such competing claims."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-privacy-intrusion|defendantConsideration|health-information-civpriv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5414c9a4363909b0845adb4696992aa6439e3a46fb66f3f9a3c804dcf5636ad2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/04p03_e.doc",
+          "pinpoint": "Personal Health Information Protection Act, 2004, s. 65(1)",
+          "quote": "If the Commissioner has made an order under this Act that has become final as the result of there being no further right of appeal, a person affected by the order may commence a proceeding in the Superior Court of Justice for damages for actual harm that the person has suffered as a result of a contravention of this Act or its regulations."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/04p03_e.doc",
+          "pinpoint": "PHIPA, s. 65(2)",
+          "quote": "If a person has been convicted of an offence under this Act and the conviction has become final as a result of there being no further right of appeal, a person affected by the conduct that gave rise to the offence may commence a proceeding in the Superior Court of Justice for damages for actual harm that the person has suffered as a result of the conduct."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/04p03_e.doc",
+          "pinpoint": "PHIPA, s. 65(3)",
+          "quote": "If, in a proceeding described in subsection (1) or (2), the Superior Court of Justice determines that the harm suffered by the plaintiff was caused by a contravention or offence, as the case may be, that the defendants engaged in wilfully or recklessly, the court may include in its award of damages an award, not exceeding $10,000, for mental anguish."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/personal-health-information-protection-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-privacy-intrusion|proceduralNote|civil-claim-privacy-intrusion#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3cf5aea744ed27e99d6fefd322ba402e2f45a3c1383d01a0634e7225eedb4d5f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1.1)",
+          "quote": "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1.2)",
+          "quote": "Subsection (1.1) does not apply with respect to a counterclaim, crossclaim or third or subsequent party claim, where the main action was commenced in the Superior Court of Justice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-privacy-intrusion|proceduralNote|civil-claim-privacy-intrusion#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fd03c8cf644873804696b7208e4a976254bab3750b34113b129b4a2c2842d8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-insurance-claim-denied|plaintiffElement|policy-covers-loss-civins",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2250c40d3c56de9a2771c8d0ab3f1fe92d76d04083ddfdbcc118aae5c4555295",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/sattva-capital-corp-v-creston-moly-corp-2014-SCC-53.english.txt",
+          "pinpoint": "Sattva Capital Corp. v. Creston Moly Corp., 2014 SCC 53, para. 47",
+          "quote": "The overriding concern is to determine \"the intent of the parties and the scope of their understanding\" (Jesuit Fathers of Upper Canada v. Guardian Insurance Co. of Canada, 2006 SCC 21, [2006] 1 S.C.R. 744, at para. 27, per LeBel J.; see also Tercon Contractors Ltd. v. British Columbia (Transportation and Highways), 2010 SCC 4, [2010] 1 S.C.R. 69, at paras. 64-65, per Cromwell J.). To do so, a decision-maker must read the contract as a whole, giving the words used their ordinary and grammatical meaning, consistent with the surrounding circumstances known to the parties at the time of formation of the contract."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/sattva-capital-corp-v-creston-moly-corp-2014-SCC-53.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-insurance-claim-denied|plaintiffElement|notice-and-proof-of-loss-civins",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "33bc94d1484f61ab5868c28ed261c997dbc9f60e085ff79627c2be660ffae11b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 143(1)",
+          "quote": "This Part applies to insurance against loss of or damage to property arising from the peril of fire in any contract made in Ontario except,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 148(1)",
+          "quote": "The conditions set forth in this section shall be deemed to be part of every contract in force in Ontario and shall be printed in English or French in every policy with the heading \"Statutory Conditions\" or \"Conditions l�gales\", as may be appropriate, and no variation or omission of or addition to any statutory condition is binding on the insured."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 148, statutory condition 6(1)",
+          "quote": "Upon the occurrence of any loss of or damage to the insured property, the insured shall, if the loss or damage is covered by the contract, in addition to observing the requirements of conditions 9, 10 and 11, (a) forthwith give notice thereof in writing to the insurer; (b) deliver as soon as practicable to the insurer a proof of loss verified by a statutory declaration, (i) giving a complete inventory of the destroyed and damaged property and showing in detail quantities, costs, actual cash value and particulars of amount of loss claimed, (ii) stating when and how the loss occurred, and if caused by fire or explosion due to ignition, how the fire or explosion originated, so far as the insured knows or believes,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 148, statutory condition 12",
+          "quote": "The loss is payable within sixty days after completion of the proof of loss, unless the contract provides for a shorter period."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/insurance-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-insurance-claim-denied|plaintiffElement|good-faith-civins",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "56d7613557971642da9a2a0abb90b8e027ae4be01e1344a95acc17eba8e5c1f2",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/fidler-v-sun-life-assurance-co-2006-SCC-30.english.txt",
+          "pinpoint": "Fidler v. Sun Life Assurance Co. of Canada, 2006 SCC 30, para. 63",
+          "quote": "the independent contractual obligation to deal with the respondent's claim in good faith."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/fidler-v-sun-life-assurance-co-2006-SCC-30.english.txt",
+          "pinpoint": "Fidler, para. 63 (quoting 702535 Ontario Inc. v. Lloyd's London, Non-Marine Underwriters (Ont. C.A.), para. 29)",
+          "quote": "The duty of good faith also requires an insurer to deal with its insured's claim fairly. The duty to act fairly applies both to the manner in which the insurer investigates and assesses the claim and to the decision whether or not to pay the claim. In making a decision whether to refuse payment of a claim from its insured, an insurer must assess the merits of the claim in a bal- anced and reasonable manner. It must not deny coverage or delay payment in order to take advantage of the insured's economic vulnerability or to gain bargaining leverage in negotiating a settlement. A decision by an insurer to refuse payment should be based on a reasonable interpretation of its obligations under the policy. This duty of fairness, however, does not require that an insurer necessarily be correct in making a decision to dispute its obligation to pay a claim. Mere denial of a claim that ultimately succeeds is not, in itself, an act of bad faith."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/fidler-v-sun-life-assurance-co-2006-SCC-30.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-insurance-claim-denied|defendantConsideration|relief-from-forfeiture-civins",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "449c930dc795796889c6619487fa2e469028bd7e194a313a91088b079f6c8b2e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 129",
+          "quote": "Where there has been imperfect compliance with a statutory condition as to the proof of loss to be given by the insured or other matter or thing required to be done or omitted by the insured with respect to the loss and a consequent forfeiture or avoidance of the insurance in whole or in part and the court considers it inequitable that the insurance should be forfeited or avoided on that ground, the court may relieve against the forfeiture or avoidance on such terms as it considers just."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 131(1)",
+          "quote": "The obligation of an insured to comply with a requirement under a contract is excused to the extent that, (a) the insurer has given notice in writing that the insured's compliance with the requirement is excused in whole or in part, subject to the terms specified in the notice, if any; or (b) the insurer's conduct reasonably causes the insured to believe that the insured's compliance with the requirement is excused in whole or in part, and the insured acts on that belief to the insured's detriment."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/insurance-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-insurance-claim-denied|defendantConsideration|appraisal-civins",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "709d1668a9379b16be367cfd7bbb309771aa7e0273fc41b4ddba89f4b27c781b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 128(1)",
+          "quote": "This section applies to a contract containing a condition, statutory or otherwise, providing for an appraisal to determine specified matters in the event of a disagreement between the insured and the insurer."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 128(2)",
+          "quote": "The insured and the insurer shall each appoint an appraiser, and the two appraisers so appointed shall appoint an umpire."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 128(3)",
+          "quote": "The appraisers shall determine the matters in disagreement and, if they fail to agree, they shall submit their differences to the umpire, and the finding in writing of any two determines the matters."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 128(4)",
+          "quote": "Each party to the appraisal shall pay the appraiser appointed by the party and shall bear equally the expense of the appraisal and the umpire."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 148, statutory condition 11",
+          "quote": "In the event of disagreement as to the value of the property insured, the property saved or the amount of the loss, those questions shall be determined by appraisal as provided under the Insurance Act before there can be any recovery under this contract whether the right to recover on the contract is disputed or not, and independently of all other questions. There shall be no right to an appraisal until a specific demand therefor is made in writing and until after proof of loss has been delivered."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/insurance-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-insurance-claim-denied|proceduralNote|civil-claim-insurance-claim-denied#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "08ee2dd47cbdd22c42f3b98a3eb19cb5fe1db89a36617590f1d303541eb98f65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 148, statutory condition 14",
+          "quote": "Every action or proceeding against the insurer for the recovery of a claim under or by virtue of this contract is absolutely barred unless commenced within one year next after the loss or damage occurs."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 259.1",
+          "quote": "A proceeding against an insurer under a contract in respect of loss or damage to an automobile or its contents shall be commenced within one year after the happening of the loss or damage."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 19(1)",
+          "quote": "A limitation period set out in or under another Act that applies to a claim to which this Act applies is of no effect unless, (a) the provision establishing it is listed in the Schedule to this Act; or"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, Schedule",
+          "quote": "|INSURANCE ACT |SECTION 148, STATUTORY CONDITION 14| | |AND SECTION 259.1 |"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/insurance-act.txt; Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-insurance-claim-denied|proceduralNote|civil-claim-insurance-claim-denied#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "58b5c68d136148121a362701bcf2306a3b303ffd53d2a63a45f0b9e19251be18",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 280(2)",
+          "quote": "The insured person or the insurer may apply to the Licence Appeal Tribunal to resolve a dispute described in subsection (1)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "Insurance Act, s. 280(3)",
+          "quote": "No person may bring a proceeding in any court with respect to a dispute described in subsection (1), other than an appeal from a decision of the Licence Appeal Tribunal or an application for judicial review."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/insurance-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-insurance-claim-denied|proceduralNote|civil-claim-insurance-claim-denied#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3cf5aea744ed27e99d6fefd322ba402e2f45a3c1383d01a0634e7225eedb4d5f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1.1)",
+          "quote": "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1.2)",
+          "quote": "Subsection (1.1) does not apply with respect to a counterclaim, crossclaim or third or subsequent party claim, where the main action was commenced in the Superior Court of Justice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-construction-lien|plaintiffElement|lien-arises-civlien",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5d88e1d6f1a78f5205a563724c387bf566f7ba8335fd585f80186dd9b96ba7d4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 14(1)",
+          "quote": "A person who supplies services or materials to an improvement for an owner, contractor or subcontractor, has a lien upon the interest of the owner in the premises improved for the price of those services or materials."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 14(2)",
+          "quote": "No person is entitled to a lien for any interest on the amount owed to the person in respect of the services or materials that have been supplied by the person, but nothing in this subsection affects any right that the person may otherwise have to recover that interest."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 1(1) (\"improvement\")",
+          "quote": "\"improvement\" means, in respect of any land, (a) any alteration, addition or capital repair to the land, (b) any construction, erection or installation on the land,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 1(1) (\"owner\")",
+          "quote": "\"owner\" means any person, including the Crown, having an interest in a premises at whose request and, (a) upon whose credit, or (b) on whose behalf, or (c) with whose privity or consent, or (d) for whose direct benefit, an improvement is made to the premises but does not include a home buyer;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/construction-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-construction-lien|plaintiffElement|lien-preserved-civlien",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b0cf451a40fa900f56f3cb2bcb8a0f13ec420606d1f87a93e888a4a1756838ba",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 31(1)",
+          "quote": "Unless preserved under section 34, the liens arising from the supply of services or materials to an improvement expire as provided in this section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 31(2)",
+          "quote": "Subject to subsection (4), the lien of a contractor, (a) for services or materials supplied to an improvement on or before the date certified or declared to be the date of the substantial performance of the contract, expires at the conclusion of the 60-day period next following the occurrence of the earlier of, (i) the date on which a copy of the certificate or declaration of the substantial performance of the contract is published as provided in section 32, and (ii) the date the contract is completed, abandoned or terminated; and (b) for services or materials supplied to the improvement where there is no certification or declaration of the substantial performance of the contract, or for services or materials supplied to the improvement after the date certified or declared to be the date of substantial performance, expires at the conclusion of the 60-day period next following the occurrence of the earlier of, (i) the date the contract is completed, and (ii) the date the contract is abandoned or terminated."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 31(2)(b)",
+          "quote": "for services or materials supplied to the improvement where there is no certification or declaration of the substantial performance of the contract, or for services or materials supplied to the improvement after the date certified or declared to be the date of substantial performance, expires at the conclusion of the 60-day period next following the occurrence of the earlier of, (i) the date the contract is completed, and (ii) the date the contract is abandoned or terminated."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 31(3)(a)(ii)",
+          "quote": "the date on which the person last supplies services or materials to the improvement,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 34(1)",
+          "quote": "A lien may be preserved during the supplying of services or materials or at any time before it expires, (a) where the lien attaches to the premises, by the registration in the proper land registry office of a claim for lien on the title of the premises in accordance with this Part; and (b) where the lien does not attach to the premises, by giving to the owner a copy of the claim for lien."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/construction-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-construction-lien|plaintiffElement|lien-perfected-civlien",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e1511ca99197d811a82187707cb7d784936070ee9cbc3e5fe425541709666fc2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 36(1)",
+          "quote": "A lien may not be perfected unless it is preserved."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 36(2)",
+          "quote": "A lien that has been preserved expires unless it is perfected prior to the end of the 90-day period next following the last day, under section 31, on which the lien could have been preserved."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 36(3)",
+          "quote": "A lien claimant perfects the lien claimant's preserved lien, (a) where the lien attaches to the premises, when the lien claimant commences an action to enforce the lien and, except where an order to vacate the registration of the lien is made, the lien claimant registers a certificate of action in the prescribed form on the title of the premises; or (b) where the lien does not attach to the premises, when the lien claimant commences an action to enforce the lien."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/construction-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-construction-lien|defendantConsideration|vacate-by-security-civlien",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "15ea7c86677ee40fe2c5ffc8c8cbdf1e1b42fe2ee5d4f904033de000db35e56c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 44(1)",
+          "quote": "Upon the motion of any person, without notice to any other person, the court shall make an order vacating, (a) where the lien attaches to the premises, the registration of a claim for lien and any certificate of action in respect of that lien; or (b) where the lien does not attach to the premises, the claim for lien, where the person bringing the motion pays into court, or posts security in an amount equal to, the total of, (c) the full amount claimed as owing in the claim for lien; and (d) the lesser of $250,000 or 25 per cent of the amount described in clause (c), as security for costs."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 44(2)",
+          "quote": "Upon the motion of any person, the court may make an order vacating the registration of a claim for lien, and any certificate of action in respect of that lien, upon the payment into court or the posting of security of an amount that the court determines to be reasonable in the circumstances to satisfy the lien."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/construction-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-construction-lien|defendantConsideration|discharge-or-exaggerated-civlien",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "54bc67c9db377d4ef5c0264b8f5ddb4bed471431ab683c8255c7f0960adec688",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 47(1)",
+          "quote": "The court may, on motion, order the discharge of a lien, (a) on the basis that the claim for the lien is frivolous, vexatious or an abuse of process; or (b) on any other proper ground."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 47(1.1)",
+          "quote": "The court may, on motion, make any of the following orders, on any proper ground: 1. An order that the registration of a claim for lien, a certificate of action or both be vacated. 2. If written notice of a lien has been given, a declaration that the lien has expired or that the written notice of the lien shall no longer bind the person to whom it was given. 3. An order dismissing an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 35(1)",
+          "quote": "In addition to any other ground on which the person may be liable, any person who preserves a claim for lien or who gives written notice of a lien in the following circumstances is liable to any person who suffers damages as a result: 1. The person knows or ought to know that the amount of the lien has been wilfully exaggerated. 2. The person knows or ought to know that he or she does not have a lien."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/construction-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-construction-lien|defendantConsideration|older-contracts-civlien",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6f7714ba91921753efbe4ae52d7fb460ddb0ce8095a2938043850bfb1d5f983d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 87.3(1)",
+          "quote": "This Act and the regulations, as they read on June 29, 2018, continue to apply with respect to an improvement if, (a) a contract for the improvement was entered into before July 1, 2018; (b) a procurement process for the improvement was commenced before July 1, 2018 by the owner of the premises;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/construction-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-construction-lien|proceduralNote|civil-claim-construction-lien#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "870476cc9d9f28533df9406d1bf2516287c63f145d5312b41bc33a572104e499",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 50(1)",
+          "quote": "A lien claim is enforceable in an action in the Superior Court of Justice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 50(2)",
+          "quote": "Except to the extent that they are inconsistent with this Act and the procedures prescribed for the purposes of this Part, the Courts of Justice Act and the rules of court apply to actions under this Part."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 50(3)",
+          "quote": "The procedure in an action shall be as far as possible of a summary character, having regard to the amount and nature of the liens in question."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/construction-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "civil-claim-construction-lien|proceduralNote|civil-claim-construction-lien#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "992cc7953ac7031ac166533eb8a3aea966eaca53c03ed26758f92e6151dcbe3d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 37(1)",
+          "quote": "A perfected lien expires immediately after the second anniversary of the commencement of the action that perfected the lien, unless one of the following occurs on or before that anniversary: 1. An order is made for the trial of an action in which the lien may be enforced. 2. An action in which the lien may be enforced is set down for trial."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "Construction Act, s. 38",
+          "quote": "The expiration of a lien under this Act shall not affect any other legal or equitable right or remedy otherwise available to the person whose lien has expired."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/construction-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    }
+  ],
   "unverifiable": []
 }

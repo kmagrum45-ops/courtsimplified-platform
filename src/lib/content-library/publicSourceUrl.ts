@@ -58,7 +58,22 @@ const DECISION_PAGES: Record<string, string> = {
   "garland-v-consumers-gas-2004-SCC-25.pdf": "https://www.canlii.org/en/ca/scc/doc/2004/2004scc25/2004scc25.html",
   "mustapha-v-culligan-2008-SCC-27.pdf": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
   // moore-v-sweet-2018-SCC-52.pdf: no verified public address on record, so no link.
+  // Saved as text or HTML only; addresses from docs/sources/README.md ("Retrieved from").
+  "nelson-city-v-marchi-2021-SCC-41.pdf": SCC(19036),
+  "snell-v-farrell-1990-2-SCR-311.pdf": SCC(634),
+  "jones-v-tsige-2012-ONCA-32.pdf": "https://coadecisions.ontariocourts.ca/coa/coa/en/10962/1/document.do",
+  "jesan-real-estate-v-doyle-2020-ONCA-714.pdf": "https://coadecisions.ontariocourts.ca/coa/coa/en/19170/1/document.do",
 };
+
+/**
+ * A decision's text derived from its PDF (`<name>.english.txt`,
+ * `<name>.html.txt`, `<name>.txt`) is the same decision, so it opens the same
+ * official page as `<name>.pdf`.
+ */
+function decisionPage(file: string): string | undefined {
+  const base = file.replace(/\.(?:english\.txt|html\.txt|txt|pdf)$/, "");
+  return DECISION_PAGES[`${base}.pdf`];
+}
 
 const ELAWS_DOC = /^https:\/\/www\.ontario\.ca\/laws\/docs\/(?:elaws_(?:statutes|regs)_)?([a-z0-9]+)_e\.doc$/;
 
@@ -74,6 +89,6 @@ export function publicSourceUrl(url: string | undefined | null): string | undefi
       : `https://www.ontario.ca/laws/statute/${code}`;
   }
   const local = /^(?:\.\/)?docs\/sources\/(?:decisions\/)?([^/]+)$/.exec(url);
-  if (local) return DECISION_PAGES[local[1]];
+  if (local) return decisionPage(local[1]);
   return /^https?:\/\//.test(url) ? url : undefined;
 }
