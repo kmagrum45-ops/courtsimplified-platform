@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-120 documented, 28 without a header.
+121 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -15,6 +15,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:ai-models` | **Every model call in the app takes its model from aiModels.ts, and the**<br>parameters sent match what that kind of model accepts. |
 | `npm run test:amendment-trails` | **Every vendored source's recent amendments, and whether anyone traced them.**<br>COSTS NOTHING. Reads docs/sources/ off disk. No network. |
 | `npm run test:amount-consistency` | **The amount claimed and the amount asked for must agree, or the user is told.**<br>Found 2026-09-27: a case-review story claimed $6,200 and asked the court to order $5,000, and the output never said so. amountConsistency.ts now warns. |
+| `npm run test:amount-notes` | **The amount the user recorded is set against the court's money limits at**<br>the step where they start their claim -- correctly on each side of each limit, conditionally, and with its provisions. |
 | `npm run test:anon-grants` | **No migration grants anon write access, and no policy applies to PUBLIC.**<br>COSTS NOTHING. Reads supabase/migrations/*.sql off disk. No database connection, no network. |
 | `npm run test:assistant-blocks` | **The guided assistant can only say catalogued things.**<br>COSTS NOTHING. Reads source off disk and calls pure functions. |
 | `npm run test:assistant-law` | **"The law on your question" in the Court Assistant**<br>(src/lib/case-system/retrieval/researchQuestion.ts, /api/assistant/law). |

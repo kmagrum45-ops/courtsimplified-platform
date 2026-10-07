@@ -1,5 +1,6 @@
 "use client";
 
+import { recordedAmountOf } from "@/src/lib/case-system/amountNotes";
 import Link from "next/link";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -1623,6 +1624,7 @@ function BuilderPageContent() {
                 storyHints={storyHintsForDates([userStory(caseData), caseData?.timeline].filter(Boolean).join("\n"))}
                 suggestedDates={guidedDates}
                 userWords={userWordsOf(caseData)}
+                recordedAmount={recordedAmountOf(caseData)}
                 noticeStepId={suggestedNoticeStep({
                   claimTypeId:
                     draftClaimTypeId ||

@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
 import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-system/casePosition";
 import FormsNamedHere from "../../_components/FormsNamedHere";
+import { amountNoteFor } from "@/src/lib/case-system/amountNotes";
+import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
 
 /**
  * "Where exactly is your case?" — the reviewed answer for the position the
@@ -238,6 +240,7 @@ export default function StageAnswerPanel({
   storyHints = {},
   noticeStepId = null,
   userWords = "",
+  recordedAmount = "",
 }: {
   courtPath: StagePathway;
   confirmedStage?: string | null;
@@ -263,6 +266,8 @@ export default function StageAnswerPanel({
   noticeStepId?: string | null;
   /** The user's own words, so a family step lists only the forms for their kind of case. */
   userWords?: string;
+  /** The amount the user recorded, set against the court's limits at the starting step (amountNotes.ts). */
+  recordedAmount?: string;
 }) {
   const options = stagesForPathway(courtPath).map((stage) => ({
     id: stage.id,
@@ -286,6 +291,7 @@ export default function StageAnswerPanel({
   const [dateAnswers, setDateAnswers] = useState<Record<string, string>>(initialDateAnswers);
   const [dateDraft, setDateDraft] = useState<Record<string, string>>(initialDateAnswers);
   const [dateStatus, setDateStatus] = useState<"" | "saving" | "saved" | "not-saved">("");
+  const amountNote = amountNoteFor({ courtPath, stepId: stageId, recordedAmount });
 
   // Show the saved (or suggested) step's answer straight away; the user can change it.
   useEffect(() => {
@@ -466,6 +472,24 @@ export default function StageAnswerPanel({
           </div>
         </div>
       )}
+
+      {result?.outcome === "rendered" && amountNote ? (
+        <div data-testid="stage-answer-amount" className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
+          <p className="text-sm font-semibold text-[#16302b]">Your amount</p>
+          <p className="mt-1 text-sm leading-6 text-[#2b4640]">{amountNote.text}</p>
+          <p className="mt-2 text-xs leading-5 text-[#4d675f]">
+            {amountNote.sources.map((source, index) => (
+              <span key={`${source.sourceId}-${source.pinpoint}`}>
+                {index > 0 ? "; " : "Source: "}
+                <a href={officialUrl(source)} target="_blank" rel="noreferrer" className="underline">
+                  {sourceName(source)}
+                </a>
+                , {source.pinpoint}
+              </span>
+            ))}
+          </p>
+        </div>
+      ) : null}
 
       {result?.outcome === "rendered" && <AnswerView answer={result.answer} court={courtPath} userWords={userWords} />}
 
