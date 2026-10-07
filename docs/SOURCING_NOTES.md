@@ -1617,3 +1617,42 @@ vendored texts were read (family-law-rules.txt ~line 7647,
 rules-of-civil-procedure.txt ~line 14555). The published answers do not state
 the 30 days; do not add it back from r. 38 (2) alone. Found by an independent
 reviewer of run-18.
+
+## Case types the saved text cannot yet support (2026-10-07)
+
+Written while adding the case-type plan (`src/lib/case-system/intake/moreClaimTypes/plan.json`,
+brief `scripts/content/MORE_CASE_TYPES_BRIEF.md`). Each author left a type out when no saved
+text states the law it rests on. To add one, save the source first (corpus or
+`docs/sources/decisions/` with a README entry), then write the type.
+
+- **Not saved, so the type was left out:** Real Estate and Business Brokers Act (real estate
+  agent), Travel Industry Act, 2002 (travel agent), federal air passenger rules (airline delay,
+  baggage), Funeral, Burial and Cremation Services Act, 2002, Ticket Sales Act, 2017, courier
+  liability, telecom (CCTS) and utility rules, the law on immigration consultants and paralegal
+  fees, investment and mortgage-broker Acts, copyright and other IP statutes, CRA/EI/CPP and
+  social-assistance appeal law.
+- **No saved statement of the common-law wrong:** private nuisance (noise, smoke, tree roots,
+  overhanging branches), trespass to land (encroachment, shared driveway, people or pets
+  crossing), assault and battery, harassment, sharing intimate images, ownership of a pet after
+  a breakup.
+- **Saved but only partly:** Arthur Wishart Act (franchise), Partnerships Act, Education Act,
+  Wages Act and Execution Act (garnishment limits), Ontario New Home Warranties Plan Act,
+  Digital Platform Workers' Rights Act — the types that touch these rest on general contract or
+  negligence law and say so.
+- **Sites the catalogue check does not accept as sources:** stepstojustice.ca (CLEO),
+  tribunalsontario.ca, tarion.com. Several authors had usable saved pages from these; adding
+  a domain to `OFFICIAL` in `verifyCatalogueVerification.ts` is a decision for the site owner.
+
+Two things this cost time on:
+
+- Decision quotes were not checked by code until this date: a record citing a saved decision
+  was taken on trust. `verifyCatalogueVerification` now reads `docs/sources/**/*.txt` and
+  compares decision quotes on letters and digits only, because PDF text splits words and
+  apostrophes across lines ("defendant\n’s"). A one-word change is still caught (negative
+  control). Cite the `.txt` file, not the `.pdf`, so the quote is checked.
+- Thirty saved decisions had no public link, so authors could not cite them (Vout v. Hay, BCE,
+  D.B.S., Matthews, Jaffer ...). `publicSourceUrl.ts` now maps every saved decision to the
+  "Retrieved from" address in `docs/sources/README.md`, and a derived `.txt`/`.html.txt` opens
+  the same page as its PDF.
+- Authors running at the same time must not share helper-script names in the scratchpad: one
+  author's `gen.py` overwrote another's and blanked a batch's fingerprints once.

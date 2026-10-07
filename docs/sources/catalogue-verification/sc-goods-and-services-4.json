@@ -1,4 +1,1762 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "sc-claim-door-to-door-sale|plaintiffElement|direct-agreement-d2d",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3cc739e3d3495cb849aebb48dfcc13fde830d5f07cedabf8ca1e5a05d770f475",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 20(1), \"direct agreement\"",
+          "quote": "\"direct agreement\" means a consumer agreement that is negotiated or concluded in person at a place other than, (a) at the supplier's place of business, or (b) at a market place, an auction, trade fair, agricultural fair or exhibition"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 41(1)",
+          "quote": "Sections 42 and 43 apply to direct agreements if the consumer's total potential payment obligations under the agreement, excluding the cost of borrowing, exceeds a prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 34",
+          "quote": "The prescribed amount for the purpose of subsection 41 (1) of the Act is $50."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 42(1)",
+          "quote": "Every direct agreement shall be in writing, shall be delivered to the consumer and shall be made in accordance with the prescribed requirements."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/consumer-protection-act-2002.txt, docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-door-to-door-sale|plaintiffElement|cancelled-in-time-d2d",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "14bb3551681e74d92a72334ed59ff76c332005c81f52c9f5bcaad05bd146b304",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 43(1)",
+          "quote": "A consumer may, without any reason, cancel a direct agreement at any time from the date of entering into the agreement until 10 days after the consumer has received the written copy of the agreement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 43(2)",
+          "quote": "In addition to the right under subsection (1), a consumer may cancel a direct agreement within one year after the date of entering into the agreement if the consumer does not receive a copy of the agreement that meets the requirements under section 42."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 94(1)-(2)",
+          "quote": "If a consumer has a right to cancel a consumer agreement under this Act, the consumer may cancel the agreement by giving notice in accordance with section 92. ... The cancellation takes effect when the consumer gives notice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 92(2)-(3)",
+          "quote": "The notice may be expressed in any way, as long as it indicates the intention of the consumer to seek the remedy being requested and complies with any requirements that may be prescribed. ... Unless the regulations require otherwise, the notice may be oral or in writing and may be given by any means."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-door-to-door-sale|plaintiffElement|prohibited-at-the-door-d2d",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6b12cb01d3f48b2e556461bf6eaa3d39558347083bd1084fef76c2b027938d49",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 43.1(1)",
+          "quote": "No supplier shall, while at a consumer's dwelling or at any other prescribed place, solicit the consumer to enter into a direct agreement for the supply of prescribed goods or services or enter into such an agreement unless the consumer has initiated contact with the supplier and has specifically requested that the supplier attend at the consumer's dwelling or the other prescribed place for the purpose of entering into such an agreement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 35.1(1)",
+          "quote": "For the purpose of subsection 43.1 (1) of the Act, the following goods and services are prescribed: 1. Furnaces. 2. Air conditioners. 3. Air cleaners. 4. Air purifiers. 5. Water heaters. 6. Water treatment devices. 7. Water purifiers. 8. Water filters. 9. Water softeners. 10. Duct cleaning services. 11. Any goods or services that are a combination of or that perform the functions of the goods or services listed in any of paragraphs 1 to 10."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 43.1(3)",
+          "quote": "A direct agreement that the parties enter into in contravention of subsection (1) is void."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 43.1(4)",
+          "quote": "Any agreement, including the following, that is related to the consumer's obligations under the direct agreement is void: ... 3. A credit agreement within the meaning of Part VII that the consumer enters into as a borrower in respect of money that the consumer is required to pay under the direct agreement"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 43.1(5)",
+          "quote": "If a supplier supplies goods or services to a consumer under a direct agreement that is void, the goods or services are deemed to be unsolicited and subsections 13 (1), (2), (3), (6), (7) and (8) apply to them."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 43.1(6)",
+          "quote": "If a supplier supplies goods or services to a consumer under a direct agreement that is void and the consumer incurs charges from a third party that are related to the agreement, including, but not limited to, charges in respect of the removal or return of any goods that the consumer is liable to return to the third party, the supplier is liable to reimburse the consumer for the amount of all those charges."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 43.1(7)",
+          "quote": "The consumer may commence an action, in accordance with section 100, to recover the amount described in subsection (6)"
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/consumer-protection-act-2002.txt, docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-door-to-door-sale|plaintiffElement|refund-after-cancelling-d2d",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d3144e1ae4dc28abc01cfa53529ee93fd6acaaaa29c8997fdeae5c2c9980055b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 96(1)(a)",
+          "quote": "If a consumer cancels a consumer agreement, the supplier shall, in accordance with the prescribed requirements, (a) refund to the consumer any payment made under the agreement or any related agreement"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 79(1)",
+          "quote": "A supplier who is required to comply with subsection 96 (1) of the Act shall do so within 15 days after the day the consumer gives notice to the supplier in accordance with section 92 of the Act that the consumer is cancelling the consumer agreement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 96(6)",
+          "quote": "If a consumer has cancelled a consumer agreement and the supplier has not met the supplier's obligations under subsection (1), the consumer may commence an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 99(1)",
+          "quote": "A consumer who has charged to a credit card account all or any part of a payment described in subsection (2) may request the credit card issuer to cancel or reverse the credit card charge and any associated interest or other charges."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 99(2)(a)",
+          "quote": "a payment in respect of a consumer agreement that has been cancelled under this Act or in respect of any related agreement"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 99(3)",
+          "quote": "A consumer may make a request under subsection (1) if the consumer has cancelled a consumer agreement or demanded a refund in accordance with this Act, and the supplier has not refunded all of the payment within the required period."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 99(4)",
+          "quote": "A request under subsection (1) shall be in writing"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 85(1)",
+          "quote": "a request by a consumer under subsection 99 (1) of the Act shall be given to the credit card issuer within 60 days after the end of the period within which the supplier was required under the Act to refund the payment."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/consumer-protection-act-2002.txt, docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-door-to-door-sale|defendantConsideration|bound-anyway-d2d",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "df9930146e3c2814aed87c29f33051297169cf884febb52c5f7b0f9c2505ea53",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 93(1)",
+          "quote": "A consumer agreement is not binding on the consumer unless the agreement is made in accordance with this Act and the regulations."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 93(2)",
+          "quote": "Despite subsection (1), a court may order that a consumer is bound by all or a portion or portions of a consumer agreement, even if the agreement has not been made in accordance with this Act or the regulations, if the court determines that it would be inequitable in the circumstances for the consumer not to be bound."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-door-to-door-sale|defendantConsideration|dispute-d2d",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0d6859cf4a701ba60ce4f344824e8385cc51476f0a060ad797e37375080a59ee",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-door-to-door-sale|proceduralNote|sc-claim-door-to-door-sale#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4e132f59705911d00491f309938c2c6cec431adf9d25ef16cea57f957d6f0edb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 100(1)",
+          "quote": "If a consumer has a right to commence an action under this Act, the consumer may commence the action in the Superior Court of Justice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 100(3)",
+          "quote": "In addition to an order under subsection (2), the court may order exemplary or punitive damages or such other relief as the court considers proper."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 22(1)",
+          "quote": "The Small Claims Court is continued as a branch of the Superior Court of Justice under the name Small Claims Court in English"
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/consumer-protection-act-2002.txt, docs/sources/corpus/cja-courts-of-justice-act.txt"
+    },
+    {
+      "key": "sc-claim-door-to-door-sale|proceduralNote|sc-claim-door-to-door-sale#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-door-to-door-sale|proceduralNote|sc-claim-door-to-door-sale#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-furniture-or-appliance-delivery|plaintiffElement|purchase-fad",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "20a1d087d529825001580299cf34ab7a68c1938cf38156037c424ae93c5f1dc1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim."
+        },
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt"
+    },
+    {
+      "key": "sc-claim-furniture-or-appliance-delivery|plaintiffElement|never-delivered-fad",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "60889748e96bc789d34c7227d4a4d18b0614531f2531b1e842e9e53585849fac",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"future performance agreement\"",
+          "quote": "\"future performance agreement\" means a consumer agreement in respect of which delivery, performance or payment in full is not made when the parties enter the agreement"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 21(1)",
+          "quote": "Sections 22 to 26 apply to future performance agreements if the consumer's total potential payment obligation under the agreement, excluding the cost of borrowing, exceeds a prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 23.1",
+          "quote": "The prescribed amount for the purpose of subsection 21 (1) of the Act is $50 if the future performance agreement mentioned in that subsection is not a gift card agreement to which sections 25.2 to 25.5 apply."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 26(1)(a)",
+          "quote": "A consumer may cancel a future performance agreement at any time before delivery under the agreement or the commencement of performance under the agreement if the supplier, (a) does not make delivery within 30 days after the delivery date specified in the agreement or an amended delivery date agreed to by the consumer in writing"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 26(2)",
+          "quote": "If the delivery date or commencement date is not specified in the future performance agreement, a consumer may cancel the agreement at any time before delivery or commencement if the supplier does not deliver or commence performance within 30 days after the date the agreement is entered into."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 26(3)",
+          "quote": "If, after the period in subsection (1) or (2) has expired, the consumer agrees to accept delivery or authorize commencement, the consumer may not cancel the agreement under this section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 94(1)-(2)",
+          "quote": "If a consumer has a right to cancel a consumer agreement under this Act, the consumer may cancel the agreement by giving notice in accordance with section 92. ... The cancellation takes effect when the consumer gives notice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 92(2)-(3)",
+          "quote": "The notice may be expressed in any way, as long as it indicates the intention of the consumer to seek the remedy being requested and complies with any requirements that may be prescribed. ... Unless the regulations require otherwise, the notice may be oral or in writing and may be given by any means."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
+          "pinpoint": "Sale of Goods Act, s. 49(1)",
+          "quote": "Where the seller wrongfully neglects or refuses to deliver the goods to the buyer, the buyer may maintain an action against the seller for damages for non-delivery."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/consumer-protection-act-2002.txt, docs/sources/corpus/oreg-17-05-consumer-protection-general.txt, docs/sources/corpus/sale-of-goods-act.txt"
+    },
+    {
+      "key": "sc-claim-furniture-or-appliance-delivery|plaintiffElement|damaged-or-defective-fad",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "07b327d0f9c852b832f4c7e1942365406384a18f1ffa0db52c50bdeab1249133",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 9(2)",
+          "quote": "The implied conditions and warranties applying to the sale of goods by virtue of the Sale of Goods Act are deemed to apply with necessary modifications to goods that are leased or traded or otherwise supplied under a consumer agreement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
+          "pinpoint": "Sale of Goods Act, s. 15, para. 2",
+          "quote": "Where goods are bought by description from a seller who deals in goods of that description (whether the seller is the manufacturer or not), there is an implied condition that the goods will be of merchantable quality, but if the buyer has examined the goods, there is no implied condition as regards defects that such examination ought to have revealed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 9(3)",
+          "quote": "Any term or acknowledgement, whether part of the consumer agreement or not, that purports to negate or vary any implied condition or warranty under the Sale of Goods Act or any deemed condition or warranty under this Act is void."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/consumer-protection-act-2002.txt, docs/sources/corpus/sale-of-goods-act.txt"
+    },
+    {
+      "key": "sc-claim-furniture-or-appliance-delivery|plaintiffElement|amount-fad",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5ddd44657932781b64505af1449f3733cbc2b10f24be73ce7820e892df0d09b2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-furniture-or-appliance-delivery|defendantConsideration|refund-or-damages-measure-fad",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bcf6ae0fd696e08ff01308e7a1e09590be3d80b8bd21e8356bf24468d1aa3bdf",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
+          "pinpoint": "s. 34",
+          "quote": "The buyer shall be deemed to have accepted the goods when the buyer, (a) intimates to the seller that the goods have been accepted; (b) after delivery, does any act in relation to them that is inconsistent with the ownership of the seller; or (c) after the lapse of a reasonable period of time, retains the goods without intimating to the seller that they have been rejected."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
+          "pinpoint": "s. 51(1)",
+          "quote": "Where there is a breach of warranty by the seller, or where the buyer elects, or is compelled, to treat a breach of a condition on the part of the seller as a breach of warranty, the buyer is not by reason only of such breach of warranty entitled to reject the goods, but may, (a) set up against the seller the breach of warranty in diminution or extinction of the price; or (b) maintain an action against the seller for damages for the breach of warranty."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
+          "pinpoint": "s. 51(3)",
+          "quote": "In the case of breach of warranty of quality, such loss is, in the absence of evidence to the contrary, the difference between the value of the goods at the time of delivery to the buyer and the value they would have had if they had answered to the warranty."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/sale-of-goods-act.txt"
+    },
+    {
+      "key": "sc-claim-furniture-or-appliance-delivery|defendantConsideration|dispute-fad",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b93fecb3c8f0768b975487bd8d32fa92a9e7cb8262efd0ae374b35c3dca02890",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-furniture-or-appliance-delivery|proceduralNote|sc-claim-furniture-or-appliance-delivery#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-furniture-or-appliance-delivery|proceduralNote|sc-claim-furniture-or-appliance-delivery#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b72ea37827d4951fd8b9aeeb0c51238be99d2b576a70ecf472f2b99e12670a29",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 96(1)(a)",
+          "quote": "If a consumer cancels a consumer agreement, the supplier shall, in accordance with the prescribed requirements, (a) refund to the consumer any payment made under the agreement or any related agreement"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 79(1)",
+          "quote": "A supplier who is required to comply with subsection 96 (1) of the Act shall do so within 15 days after the day the consumer gives notice to the supplier in accordance with section 92 of the Act that the consumer is cancelling the consumer agreement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 96(6)",
+          "quote": "If a consumer has cancelled a consumer agreement and the supplier has not met the supplier's obligations under subsection (1), the consumer may commence an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 99(1)",
+          "quote": "A consumer who has charged to a credit card account all or any part of a payment described in subsection (2) may request the credit card issuer to cancel or reverse the credit card charge and any associated interest or other charges."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 99(2)(a)",
+          "quote": "a payment in respect of a consumer agreement that has been cancelled under this Act or in respect of any related agreement"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 99(3)",
+          "quote": "A consumer may make a request under subsection (1) if the consumer has cancelled a consumer agreement or demanded a refund in accordance with this Act, and the supplier has not refunded all of the payment within the required period."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 99(4)",
+          "quote": "A request under subsection (1) shall be in writing"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 85(1)",
+          "quote": "a request by a consumer under subsection 99 (1) of the Act shall be given to the credit card issuer within 60 days after the end of the period within which the supplier was required under the Act to refund the payment."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/consumer-protection-act-2002.txt, docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-furniture-or-appliance-delivery|proceduralNote|sc-claim-furniture-or-appliance-delivery#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-home-services-not-performed|plaintiffElement|service-agreement-hsn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b0dca8f027f25bb15071681f8598a2d98e78b798da72ab757d3762ad43e56a26",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim."
+        },
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt"
+    },
+    {
+      "key": "sc-claim-home-services-not-performed|plaintiffElement|service-quality-hsn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1c98bd3f952255797e466f7ef3af796102a7b2d80ab6645395fde3cc89798d3e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 9(1)",
+          "quote": "The supplier is deemed to warrant that the services supplied under a consumer agreement are of a reasonably acceptable quality."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"consumer\"",
+          "quote": "\"consumer\" means an individual acting for personal, family or household purposes and does not include a person who is acting for business purposes"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"consumer agreement\"",
+          "quote": "\"consumer agreement\" means an agreement between a supplier and a consumer in which, (a) the supplier agrees to supply goods or services for payment"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"supplier\"",
+          "quote": "\"supplier\" means a person who is in the business of selling, leasing or trading in goods or services or is otherwise in the business of supplying goods or services"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 2(1)",
+          "quote": "Subject to this section, this Act applies in respect of all consumer transactions if the consumer or the person engaging in the transaction with the consumer is located in Ontario when the transaction takes place."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 9(3)",
+          "quote": "Any term or acknowledgement, whether part of the consumer agreement or not, that purports to negate or vary any implied condition or warranty under the Sale of Goods Act or any deemed condition or warranty under this Act is void."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-home-services-not-performed|plaintiffElement|never-started-hsn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "502c3117d9e438c158bd772fa48d808f8d43bc31d26ba92c8773f1f68f713a73",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"future performance agreement\"",
+          "quote": "\"future performance agreement\" means a consumer agreement in respect of which delivery, performance or payment in full is not made when the parties enter the agreement"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 21(1)",
+          "quote": "Sections 22 to 26 apply to future performance agreements if the consumer's total potential payment obligation under the agreement, excluding the cost of borrowing, exceeds a prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 23.1",
+          "quote": "The prescribed amount for the purpose of subsection 21 (1) of the Act is $50 if the future performance agreement mentioned in that subsection is not a gift card agreement to which sections 25.2 to 25.5 apply."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 26(1)(b)",
+          "quote": "A consumer may cancel a future performance agreement at any time before delivery under the agreement or the commencement of performance under the agreement if the supplier, ... (b) does not begin performance of his, her or its obligations within 30 days after the commencement date specified in the agreement or an amended commencement date agreed to by the consumer in writing."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 26(2)",
+          "quote": "If the delivery date or commencement date is not specified in the future performance agreement, a consumer may cancel the agreement at any time before delivery or commencement if the supplier does not deliver or commence performance within 30 days after the date the agreement is entered into."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 26(3)",
+          "quote": "If, after the period in subsection (1) or (2) has expired, the consumer agrees to accept delivery or authorize commencement, the consumer may not cancel the agreement under this section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 94(1)-(2)",
+          "quote": "If a consumer has a right to cancel a consumer agreement under this Act, the consumer may cancel the agreement by giving notice in accordance with section 92. ... The cancellation takes effect when the consumer gives notice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 92(2)-(3)",
+          "quote": "The notice may be expressed in any way, as long as it indicates the intention of the consumer to seek the remedy being requested and complies with any requirements that may be prescribed. ... Unless the regulations require otherwise, the notice may be oral or in writing and may be given by any means."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 96(1)(a)",
+          "quote": "If a consumer cancels a consumer agreement, the supplier shall, in accordance with the prescribed requirements, (a) refund to the consumer any payment made under the agreement or any related agreement"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 79(1)",
+          "quote": "A supplier who is required to comply with subsection 96 (1) of the Act shall do so within 15 days after the day the consumer gives notice to the supplier in accordance with section 92 of the Act that the consumer is cancelling the consumer agreement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 96(6)",
+          "quote": "If a consumer has cancelled a consumer agreement and the supplier has not met the supplier's obligations under subsection (1), the consumer may commence an action."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/consumer-protection-act-2002.txt, docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-home-services-not-performed|plaintiffElement|amount-hsn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7e56c43886f1fa47c27f9e5cb53083e30ad3ff5ff5ddbcc33e6490f40048ba50",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-home-services-not-performed|defendantConsideration|dispute-hsn",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "25d444aad555e64a8a65c1b35e221e1e7fb996638e63560d994599ebad95defa",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-home-services-not-performed|proceduralNote|sc-claim-home-services-not-performed#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-home-services-not-performed|proceduralNote|sc-claim-home-services-not-performed#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "02aede142e2527e0a1bbc7881555a8b488e52b100739b06afd68f826034f6aba",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 10(1)",
+          "quote": "If a consumer agreement includes an estimate, the supplier shall not charge the consumer an amount that exceeds the estimate by more than 10 per cent."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 10(2)",
+          "quote": "If a supplier charges an amount that exceeds the estimate by more than 10 per cent, the consumer may require that the supplier provide the goods or services at the estimated price."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 10(3)",
+          "quote": "Nothing in this section prevents a consumer and a supplier from agreeing to amend the estimate or price in a consumer agreement, if the consumer requires additional or different goods or services."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-home-services-not-performed|proceduralNote|sc-claim-home-services-not-performed#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-salon-spa-or-tattoo-result|plaintiffElement|service-booked-sst",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1786d68538f3ea65e63499632204e43007f6de69d1945e40249ae8adc0afad6c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim."
+        },
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt"
+    },
+    {
+      "key": "sc-claim-salon-spa-or-tattoo-result|plaintiffElement|service-quality-sst",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4fafcd82e6e5d2e6f5f027c6f9f3eea64d416c348a85c99da24d94468bd2e956",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 9(1)",
+          "quote": "The supplier is deemed to warrant that the services supplied under a consumer agreement are of a reasonably acceptable quality."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"consumer\"",
+          "quote": "\"consumer\" means an individual acting for personal, family or household purposes and does not include a person who is acting for business purposes"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"consumer agreement\"",
+          "quote": "\"consumer agreement\" means an agreement between a supplier and a consumer in which, (a) the supplier agrees to supply goods or services for payment"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"supplier\"",
+          "quote": "\"supplier\" means a person who is in the business of selling, leasing or trading in goods or services or is otherwise in the business of supplying goods or services"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 2(1)",
+          "quote": "Subject to this section, this Act applies in respect of all consumer transactions if the consumer or the person engaging in the transaction with the consumer is located in Ontario when the transaction takes place."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 9(3)",
+          "quote": "Any term or acknowledgement, whether part of the consumer agreement or not, that purports to negate or vary any implied condition or warranty under the Sale of Goods Act or any deemed condition or warranty under this Act is void."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-salon-spa-or-tattoo-result|plaintiffElement|amount-sst",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d6be6b19f162d29969dbe1074915d615bb78309d7ab48f1f6bc0e3339a86c8ea",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-salon-spa-or-tattoo-result|defendantConsideration|aftercare-sst",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9b398c586b81a9d24b3e719f2c697d4adb1ff1af9d596b3a99197d46ddc8389d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt"
+    },
+    {
+      "key": "sc-claim-salon-spa-or-tattoo-result|defendantConsideration|dispute-sst",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a9101ea2f067366dddcf8a6942c6a587193df079036c1b7560156e90dc59e87d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-salon-spa-or-tattoo-result|proceduralNote|sc-claim-salon-spa-or-tattoo-result#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-salon-spa-or-tattoo-result|proceduralNote|sc-claim-salon-spa-or-tattoo-result#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-pet-grooming-or-boarding|plaintiffElement|care-agreement-pgb",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e54e9a19a2c77398418285aa19836f8b66a5ab1202866bec394b97546f6f33cc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim."
+        },
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt"
+    },
+    {
+      "key": "sc-claim-pet-grooming-or-boarding|plaintiffElement|service-quality-pgb",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "822ecb9d6593704cad06ccf6b9f73ac298e04d014b12e5ec1ec7915a365bb4c8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 9(1)",
+          "quote": "The supplier is deemed to warrant that the services supplied under a consumer agreement are of a reasonably acceptable quality."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"consumer\"",
+          "quote": "\"consumer\" means an individual acting for personal, family or household purposes and does not include a person who is acting for business purposes"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"consumer agreement\"",
+          "quote": "\"consumer agreement\" means an agreement between a supplier and a consumer in which, (a) the supplier agrees to supply goods or services for payment"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"supplier\"",
+          "quote": "\"supplier\" means a person who is in the business of selling, leasing or trading in goods or services or is otherwise in the business of supplying goods or services"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 2(1)",
+          "quote": "Subject to this section, this Act applies in respect of all consumer transactions if the consumer or the person engaging in the transaction with the consumer is located in Ontario when the transaction takes place."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 9(3)",
+          "quote": "Any term or acknowledgement, whether part of the consumer agreement or not, that purports to negate or vary any implied condition or warranty under the Sale of Goods Act or any deemed condition or warranty under this Act is void."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-pet-grooming-or-boarding|plaintiffElement|amount-pgb",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c47ad72579da5275065d7d73153e14615d6935ff66f4423ae59e3ca693004738",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-pet-grooming-or-boarding|defendantConsideration|dispute-pgb",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6deaa2323889b64eb03cbe776d653997eeb359ba8931b00723175a24d2f64f47",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 9(3)",
+          "quote": "Any term or acknowledgement, whether part of the consumer agreement or not, that purports to negate or vary any implied condition or warranty under the Sale of Goods Act or any deemed condition or warranty under this Act is void."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/oreg-258-98-small-claims-rules.txt, docs/sources/corpus/consumer-protection-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-pet-grooming-or-boarding|proceduralNote|sc-claim-pet-grooming-or-boarding#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-pet-grooming-or-boarding|proceduralNote|sc-claim-pet-grooming-or-boarding#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-daycare-or-camp-fees|plaintiffElement|enrolment-agreement-dcf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dbb0815a791cc2c1fcaa799fe4d438b7d1179b6902ca59785555d20dd5b8f504",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim."
+        },
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/14c11_e.doc",
+          "pinpoint": "Child Care and Early Years Act, 2014, s. 15",
+          "quote": "Upon request, any licensee or child care provider shall provide a receipt for payment to a person who pays the licensee or child care provider for child care, and the receipt shall be provided free of charge and in accordance with the regulations."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/scj-steps-to-a-civil-case.txt, docs/sources/corpus/child-care-and-early-years-act-2014.txt"
+    },
+    {
+      "key": "sc-claim-daycare-or-camp-fees|plaintiffElement|written-agreement-dcf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "86989a022eeb86c832ed0cc157cb835015f860fb047eafbb303c71c55412281d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"future performance agreement\"",
+          "quote": "\"future performance agreement\" means a consumer agreement in respect of which delivery, performance or payment in full is not made when the parties enter the agreement"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 21(1)",
+          "quote": "Sections 22 to 26 apply to future performance agreements if the consumer's total potential payment obligation under the agreement, excluding the cost of borrowing, exceeds a prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 23.1",
+          "quote": "The prescribed amount for the purpose of subsection 21 (1) of the Act is $50 if the future performance agreement mentioned in that subsection is not a gift card agreement to which sections 25.2 to 25.5 apply."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 22",
+          "quote": "Every future performance agreement shall be in writing, shall be delivered to the consumer and shall be made in accordance with the prescribed requirements."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 24",
+          "quote": "For the purpose of section 22 of the Act, a future performance agreement that is not a gift card agreement to which sections 25.2 to 25.5 apply shall set out the following information: ... 4. A fair and accurate description of the goods and services to be supplied to the consumer ... 5. An itemized list of the prices at which the goods and services are to be supplied to the consumer ... 8. The terms and methods of payment. ... 12. The rights, if any, that the supplier agrees the consumer will have in addition to the rights under the Act and the obligations, if any, by which the supplier agrees to be bound in addition to the obligations under the Act, in relation to cancellations, returns, exchanges and refunds."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 23",
+          "quote": "A consumer may cancel a future performance agreement within one year after the date of entering into the agreement if the consumer does not receive a copy of the agreement that meets the requirements required by section 22."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 94(1)-(2)",
+          "quote": "If a consumer has a right to cancel a consumer agreement under this Act, the consumer may cancel the agreement by giving notice in accordance with section 92. ... The cancellation takes effect when the consumer gives notice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 92(2)-(3)",
+          "quote": "The notice may be expressed in any way, as long as it indicates the intention of the consumer to seek the remedy being requested and complies with any requirements that may be prescribed. ... Unless the regulations require otherwise, the notice may be oral or in writing and may be given by any means."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/consumer-protection-act-2002.txt, docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-daycare-or-camp-fees|plaintiffElement|never-started-or-refund-dcf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0e10dade542fe0f31f5afb409010f1376f8d451e583c6cc01fb11da05bd78ccc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"future performance agreement\"",
+          "quote": "\"future performance agreement\" means a consumer agreement in respect of which delivery, performance or payment in full is not made when the parties enter the agreement"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 21(1)",
+          "quote": "Sections 22 to 26 apply to future performance agreements if the consumer's total potential payment obligation under the agreement, excluding the cost of borrowing, exceeds a prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 23.1",
+          "quote": "The prescribed amount for the purpose of subsection 21 (1) of the Act is $50 if the future performance agreement mentioned in that subsection is not a gift card agreement to which sections 25.2 to 25.5 apply."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 26(1)(b)",
+          "quote": "A consumer may cancel a future performance agreement at any time before delivery under the agreement or the commencement of performance under the agreement if the supplier, ... (b) does not begin performance of his, her or its obligations within 30 days after the commencement date specified in the agreement or an amended commencement date agreed to by the consumer in writing."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 26(2)",
+          "quote": "If the delivery date or commencement date is not specified in the future performance agreement, a consumer may cancel the agreement at any time before delivery or commencement if the supplier does not deliver or commence performance within 30 days after the date the agreement is entered into."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 26(3)",
+          "quote": "If, after the period in subsection (1) or (2) has expired, the consumer agrees to accept delivery or authorize commencement, the consumer may not cancel the agreement under this section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 96(1)(a)",
+          "quote": "If a consumer cancels a consumer agreement, the supplier shall, in accordance with the prescribed requirements, (a) refund to the consumer any payment made under the agreement or any related agreement"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 79(1)",
+          "quote": "A supplier who is required to comply with subsection 96 (1) of the Act shall do so within 15 days after the day the consumer gives notice to the supplier in accordance with section 92 of the Act that the consumer is cancelling the consumer agreement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 96(6)",
+          "quote": "If a consumer has cancelled a consumer agreement and the supplier has not met the supplier's obligations under subsection (1), the consumer may commence an action."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/consumer-protection-act-2002.txt, docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-daycare-or-camp-fees|plaintiffElement|amount-dcf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "573dcbf40bd5e0df3a9bcfe37a0192ecaed599d9efcb5fa5634e5f29a44a1525",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-daycare-or-camp-fees|defendantConsideration|dispute-dcf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e01d355396ad978050d5b3343c14da3d4c7208065f4a5ca2b1f514641c5c1e31",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-daycare-or-camp-fees|proceduralNote|sc-claim-daycare-or-camp-fees#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-daycare-or-camp-fees|proceduralNote|sc-claim-daycare-or-camp-fees#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-gift-card-refused|plaintiffElement|gift-card-covered-gcr",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b243443d6d3ada05c9fe48136288f11174c1767758422cb7c4b437969e5cdd2b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 23, \"gift card\"",
+          "quote": "\"gift card\" means a voucher in any form, including an electronic credit or written certificate, that is issued by a supplier under a gift card agreement and that the holder is entitled to apply towards purchasing goods or services covered by the voucher"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 25.1(1)",
+          "quote": "Sections 25.2 to 25.5 apply to every gift card agreement entered into on or after the day this section comes into force and to every gift card issued under that agreement, but do not apply to, (a) a gift card that a supplier issues for a charitable purpose; (b) a gift card that covers only one specific good or service; (c) a gift card issued by a financial institution; or (d) the gift card agreement under which a gift card described in clause (a), (b) or (c) is issued."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 25.1(3)",
+          "quote": "For greater certainty, subject to subsection (1), sections 25.2 to 25.5 apply to a gift card agreement and a gift card issued under it if the holder of the card purchased it for themselves or received it from another person."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-gift-card-refused|plaintiffElement|no-expiry-or-fees-gcr",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c2d6e05f8efa192f8d71564bbf09ed4ab6cd91887c5097f69c8747a9113f8485",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 25.3(1)",
+          "quote": "No supplier shall enter into a gift card agreement that has an expiry date on the future performance of the agreement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 25.3(2)",
+          "quote": "A gift card agreement with an expiry date on its future performance shall be effective as if it had no expiry date if the agreement is otherwise valid."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 25.4(1)(b)",
+          "quote": "No supplier under a gift card agreement that is not an open loop gift card agreement shall, ... (b) charge a fee to the holder of a gift card for anything in relation to the card, other than a fee for replacing a lost or stolen gift card or a fee to customize a gift card."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 23, \"open loop gift card agreement\"",
+          "quote": "\"open loop gift card agreement\" means a gift card agreement that entitles the holder of a gift card to apply it towards purchasing goods or services from multiple unaffiliated sellers."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 25.4(2)(b)",
+          "quote": "No supplier under an open loop gift card agreement shall, ... (b) charge a fee to the holder of a gift card for anything in relation to the card, other than a fee for replacing a lost or stolen gift card, a fee to customize a gift card or a dormancy fee in accordance with subsection (2.1)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 25.4(2.1)(b)",
+          "quote": "The supplier under an open loop gift card agreement may charge a dormancy fee to the holder of the gift card if, ... (b) the fee does not exceed $2.50 per month"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 25.4(3)",
+          "quote": "If a supplier or a seller has charged a fee or an amount in contravention of subsection (2), the consumer or the holder of a gift card who paid the fee or the amount may demand a refund by giving notice to the supplier in accordance with section 92 of the Act within one year after making the payment."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 25.4(4)",
+          "quote": "A supplier who receives a notice demanding a refund under subsection (3) shall provide the refund within 15 days of receiving the notice."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-gift-card-refused|plaintiffElement|amount-gcr",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bd5542c4815fde662a5d650b1ca5364a052aca54328c3f8a37f7ea1d028a81f5",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-gift-card-refused|defendantConsideration|excluded-card-gcr",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3584d4d846a47848163efc415da9f07cffeea6b935399927889edd743e443a60",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 25.1(1)",
+          "quote": "Sections 25.2 to 25.5 apply to every gift card agreement entered into on or after the day this section comes into force and to every gift card issued under that agreement, but do not apply to, (a) a gift card that a supplier issues for a charitable purpose; (b) a gift card that covers only one specific good or service; (c) a gift card issued by a financial institution; or (d) the gift card agreement under which a gift card described in clause (a), (b) or (c) is issued."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-gift-card-refused|defendantConsideration|dispute-gcr",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2f96b95b89743453639a8f6cf17ca881cd37e431fe2b78e15fa64e198404ff05",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-gift-card-refused|proceduralNote|sc-claim-gift-card-refused#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4e132f59705911d00491f309938c2c6cec431adf9d25ef16cea57f957d6f0edb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 100(1)",
+          "quote": "If a consumer has a right to commence an action under this Act, the consumer may commence the action in the Superior Court of Justice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 100(3)",
+          "quote": "In addition to an order under subsection (2), the court may order exemplary or punitive damages or such other relief as the court considers proper."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 22(1)",
+          "quote": "The Small Claims Court is continued as a branch of the Superior Court of Justice under the name Small Claims Court in English"
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/consumer-protection-act-2002.txt, docs/sources/corpus/cja-courts-of-justice-act.txt"
+    },
+    {
+      "key": "sc-claim-gift-card-refused|proceduralNote|sc-claim-gift-card-refused#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-gift-card-refused|proceduralNote|sc-claim-gift-card-refused#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-timeshare-or-vacation-club|plaintiffElement|time-share-agreement-tsv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "87704497541c4be30d6471714267a5619556161f88f1c347a5d8e677b763c308",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 20(1), \"time share agreement\"",
+          "quote": "\"time share agreement\" means a consumer agreement by which a consumer, (a) acquires the right to use property as part of a plan that provides for the use of the property to circulate periodically among persons participating in the plan, whether or not the property is located in Ontario, or (b) is provided with access to discounts or benefits for the future provision of transportation, accommodation or other goods or services related to travel."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 2(2)(f)",
+          "quote": "This Act does not apply in respect of, ... (f) consumer transactions for the purchase, sale or lease of real property, except transactions with respect to time share agreements as defined in section 20"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 27",
+          "quote": "Every time share agreement shall be in writing, shall be delivered to the consumer and shall be made in accordance with the prescribed requirements."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 26(1)",
+          "quote": "For the purpose of section 27 of the Act, a time share agreement shall be signed by the consumer and the supplier and shall set out the following information:"
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/consumer-protection-act-2002.txt, docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-timeshare-or-vacation-club|plaintiffElement|cancelled-in-time-tsv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3d54cd31dc269febda03f8189fdb9a652a42efe96127fe19f35b15f6aeb7f4e7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 28(1)",
+          "quote": "A consumer may, without any reason, cancel a time share agreement at any time from the date of entering into the agreement until 10 days after receiving the written copy of the agreement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 28(2)",
+          "quote": "In addition to the right under subsection (1), a consumer may cancel a time share agreement within one year after the date of entering into the agreement if the consumer does not receive a copy of the agreement that meets the requirements under section 27."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 94(1)-(2)",
+          "quote": "If a consumer has a right to cancel a consumer agreement under this Act, the consumer may cancel the agreement by giving notice in accordance with section 92. ... The cancellation takes effect when the consumer gives notice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 92(2)-(3)",
+          "quote": "The notice may be expressed in any way, as long as it indicates the intention of the consumer to seek the remedy being requested and complies with any requirements that may be prescribed. ... Unless the regulations require otherwise, the notice may be oral or in writing and may be given by any means."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-timeshare-or-vacation-club|plaintiffElement|sales-pitch-tsv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2e88caf19f562d1fba171803df60de5f010bf6452e8e104fb77d53388181327a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 14(1)",
+          "quote": "It is an unfair practice for a person to make a false, misleading or deceptive representation."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 14(2), para. 1",
+          "quote": "A representation that the goods or services have sponsorship, approval, performance characteristics, accessories, uses, ingredients, benefits or qualities they do not have."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 14(2), para. 11",
+          "quote": "A representation that a specific price advantage exists, if it does not."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 17(2)",
+          "quote": "A person who performs one act referred to in section 14, 15 or 16 shall be deemed to be engaging in an unfair practice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 18(1)",
+          "quote": "Any agreement, whether written, oral or implied, entered into by a consumer after or while a person has engaged in an unfair practice may be rescinded by the consumer and the consumer is entitled to any remedy that is available in law, including damages."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 18(3)",
+          "quote": "A consumer must give notice within one year after entering into the agreement if, (a) the consumer seeks to rescind an agreement under subsection (1); or (b) the consumer seeks recovery under subsection (2), if rescission is not possible."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 18(4)",
+          "quote": "The consumer may express notice in any way as long as it indicates the intention of the consumer to rescind the agreement or to seek recovery where rescission is not possible and the reasons for so doing"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-timeshare-or-vacation-club|plaintiffElement|refund-tsv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d3144e1ae4dc28abc01cfa53529ee93fd6acaaaa29c8997fdeae5c2c9980055b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 96(1)(a)",
+          "quote": "If a consumer cancels a consumer agreement, the supplier shall, in accordance with the prescribed requirements, (a) refund to the consumer any payment made under the agreement or any related agreement"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 79(1)",
+          "quote": "A supplier who is required to comply with subsection 96 (1) of the Act shall do so within 15 days after the day the consumer gives notice to the supplier in accordance with section 92 of the Act that the consumer is cancelling the consumer agreement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 96(6)",
+          "quote": "If a consumer has cancelled a consumer agreement and the supplier has not met the supplier's obligations under subsection (1), the consumer may commence an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 99(1)",
+          "quote": "A consumer who has charged to a credit card account all or any part of a payment described in subsection (2) may request the credit card issuer to cancel or reverse the credit card charge and any associated interest or other charges."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 99(2)(a)",
+          "quote": "a payment in respect of a consumer agreement that has been cancelled under this Act or in respect of any related agreement"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 99(3)",
+          "quote": "A consumer may make a request under subsection (1) if the consumer has cancelled a consumer agreement or demanded a refund in accordance with this Act, and the supplier has not refunded all of the payment within the required period."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 99(4)",
+          "quote": "A request under subsection (1) shall be in writing"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 85(1)",
+          "quote": "a request by a consumer under subsection 99 (1) of the Act shall be given to the credit card issuer within 60 days after the end of the period within which the supplier was required under the Act to refund the payment."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/consumer-protection-act-2002.txt, docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-timeshare-or-vacation-club|defendantConsideration|bound-anyway-tsv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2dc221caee628833dc9f1fcb0c43f003d3f85159c25b777b5f8b67257d0d3dc3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 93(1)",
+          "quote": "A consumer agreement is not binding on the consumer unless the agreement is made in accordance with this Act and the regulations."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 93(2)",
+          "quote": "Despite subsection (1), a court may order that a consumer is bound by all or a portion or portions of a consumer agreement, even if the agreement has not been made in accordance with this Act or the regulations, if the court determines that it would be inequitable in the circumstances for the consumer not to be bound."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-timeshare-or-vacation-club|defendantConsideration|dispute-tsv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5102dedb2b8ce0f9b59a60c09ceb8853a90f6041e0c87d244ebe88cc830a8e62",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-timeshare-or-vacation-club|proceduralNote|sc-claim-timeshare-or-vacation-club#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4e132f59705911d00491f309938c2c6cec431adf9d25ef16cea57f957d6f0edb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 100(1)",
+          "quote": "If a consumer has a right to commence an action under this Act, the consumer may commence the action in the Superior Court of Justice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 100(3)",
+          "quote": "In addition to an order under subsection (2), the court may order exemplary or punitive damages or such other relief as the court considers proper."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 22(1)",
+          "quote": "The Small Claims Court is continued as a branch of the Superior Court of Justice under the name Small Claims Court in English"
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/consumer-protection-act-2002.txt, docs/sources/corpus/cja-courts-of-justice-act.txt"
+    },
+    {
+      "key": "sc-claim-timeshare-or-vacation-club|proceduralNote|sc-claim-timeshare-or-vacation-club#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-timeshare-or-vacation-club|proceduralNote|sc-claim-timeshare-or-vacation-club#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    }
+  ],
   "unverifiable": []
 }

@@ -1,4 +1,644 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "sc-claim-gift-or-loan-between-former-partners|plaintiffElement|money-went-to-partner-loan",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "14f8b7885fd373b66ed206eebd565cda7980dc7c456ef6a97462c69d5ec536d9",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 17",
+          "quote": "Resulting trusts arising from gratuitous transfers are the ones relevant to domestic situations. The traditional view was they arose in two types of situations: the gratuitous transfer of property from one partner to the other, and the joint contribution by two partners to the acquisition of property, title to which is in the name of only one of them. In either case, the transfer is gratuitous, in ... the first case because there was no consideration for the transfer of the property, and in the second case because there was no consideration for the contribution to the acquisition of the property."
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 19",
+          "quote": "a presumption of a resulting trust is the general rule that applies to gratuitous transfers. When such a transfer is made, the onus will be on the person receiving the transfer to demonstrate that a gift was intended. Otherwise, the transferee holds that property in trust for the transferor. This presumption rests on the principle that equity presumes bargains and not gifts (Pecore, at para. 24)."
+        },
+        {
+          "sourceUrl": "docs/sources/pecore-v-pecore-2007-SCC-17.pdf",
+          "pinpoint": "para. 24",
+          "quote": "The presumption of resulting trust is a rebuttable presumption of law and general rule that applies to gratuitous transfers. When a transfer is challenged, the presumption allocates the legal burden of proof. Thus, where a transfer is made for no consideration, the onus is placed on the transferee to demonstrate that a gift was intended ... This is so because equity presumes bargains, not gifts."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); Saved decision docs/sources/pecore-v-pecore-2007-SCC-17.pdf, read from docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gift-or-loan-between-former-partners|plaintiffElement|what-was-meant-loan",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3bc8d30647970200dfa4a690f263034cc55d5939eb18320b30a73c7fce1a4965",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        },
+        {
+          "sourceUrl": "docs/sources/pecore-v-pecore-2007-SCC-17.pdf",
+          "pinpoint": "para. 43",
+          "quote": "The evidence required to rebut both presumptions, therefore, is evidence of the transferor’s contrary intention on the balance of probabilities."
+        },
+        {
+          "sourceUrl": "docs/sources/pecore-v-pecore-2007-SCC-17.pdf",
+          "pinpoint": "para. 44",
+          "quote": "As in other civil cases, regardless of the legal burden, both sides to the dispute will normally bring evidence to support their position. The trial judge will commence his or her inquiry with the applicable presumption and will weigh all of the evidence in an attempt to ascertain, on a balance of probabilities, the transferor’s actual intention."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; Saved decision docs/sources/pecore-v-pecore-2007-SCC-17.pdf, read from docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gift-or-loan-between-former-partners|plaintiffElement|amount-owing-loan",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f619d4508f861ce1696553893b3d5022cacf77021a281fb0c1847d0483acecf4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gift-or-loan-between-former-partners|defendantConsideration|partner-says-gift-loan",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1effc28aee5524cc4f40ad2ecf522d4ed4847283514bd8646646e2ffa302115c",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/pecore-v-pecore-2007-SCC-17.pdf",
+          "pinpoint": "para. 24",
+          "quote": "The presumption of resulting trust is a rebuttable presumption of law and general rule that applies to gratuitous transfers. When a transfer is challenged, the presumption allocates the legal burden of proof. Thus, where a transfer is made for no consideration, the onus is placed on the transferee to demonstrate that a gift was intended ... This is so because equity presumes bargains, not gifts."
+        },
+        {
+          "sourceUrl": "docs/sources/pecore-v-pecore-2007-SCC-17.pdf",
+          "pinpoint": "para. 25",
+          "quote": "The presumption of resulting trust therefore alters the general practice that a plaintiff (who ... would be the party challenging the transfer in these cases) bears the legal burden in a civil case. Rather, the onus is on the transferee to rebut the presumption of a resulting trust."
+        },
+        {
+          "sourceUrl": "docs/sources/pecore-v-pecore-2007-SCC-17.pdf",
+          "pinpoint": "para. 43",
+          "quote": "The evidence required to rebut both presumptions, therefore, is evidence of the transferor’s contrary intention on the balance of probabilities."
+        },
+        {
+          "sourceUrl": "docs/sources/pecore-v-pecore-2007-SCC-17.pdf",
+          "pinpoint": "para. 44",
+          "quote": "As in other civil cases, regardless of the legal burden, both sides to the dispute will normally bring evidence to support their position. The trial judge will commence his or her inquiry with the applicable presumption and will weigh all of the evidence in an attempt to ascertain, on a balance of probabilities, the transferor’s actual intention."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/pecore-v-pecore-2007-SCC-17.pdf, read from docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gift-or-loan-between-former-partners|defendantConsideration|partners-were-married-loan",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ce6aa93468fbc8228cfc5eb01dfa3059afa698c419aa531ef48aaa673015a78a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 14",
+          "quote": "14 The rule of law applying a presumption of a resulting trust shall be applied in questions of the ownership of property between spouses, as if they were not married, except that, (a) the fact that property is held in the name of spouses as joint tenants is proof, in the absence of evidence to the contrary, that the spouses are intended to own the property as joint tenants; and (b) money on deposit in the name of both spouses shall be deemed to be in the name of the spouses as joint tenants for the purposes of clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 1(1) \"spouse\"",
+          "quote": "“spouse” means either of two persons who, (a) are married to each other, or (b) have together entered into a marriage that is voidable or void, in good faith on the part of a person relying on this clause to assert any right."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gift-or-loan-between-former-partners|proceduralNote|sc-claim-gift-or-loan-between-former-partners#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "529803e3971c9890be1958ea4ad54207b101fe6b0604bc44811bf6e14e202183",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 21.8(1)",
+          "quote": "21.8 (1) In the parts of Ontario where the Family Court has jurisdiction, proceedings referred to in the Schedule to this section, except appeals and prosecutions, shall be commenced, heard and determined in the Family Court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Schedule to s. 21.8, items 1-3",
+          "quote": "Family Law Act, except Part V ... 2. Proceedings for the interpretation, enforcement or variation of a marriage contract, cohabitation agreement, separation agreement, paternity agreement, family arbitration agreement or family arbitration award. 3. Proceedings for relief by way of constructive or resulting trust or a monetary award as compensation for unjust enrichment between persons who have cohabited."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gift-or-loan-between-former-partners|proceduralNote|sc-claim-gift-or-loan-between-former-partners#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dd6536e0e537edc482595a83baa51cea811559136f41549c275edfc5b4b36344",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23(1)",
+          "quote": "23 (1) The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1(1)",
+          "quote": "1. (1) The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gift-or-loan-between-former-partners|proceduralNote|sc-claim-gift-or-loan-between-former-partners#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-engagement-ring-and-wedding-gifts|plaintiffElement|gift-made-for-the-marriage-ring",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bf448990567df7f3291ef6ac2bf91f259f82bf584257e0e85a0c4375703d3b95",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m03_e.doc",
+          "pinpoint": "s. 33",
+          "quote": "33 Where one person makes a gift to another in contemplation of or conditional upon their marriage to each other and the marriage fails to take place or is abandoned, the question of whether or not the failure or abandonment was caused by or was the fault of the donor shall not be considered in determining the right of the donor to recover the gift."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/marriage-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-engagement-ring-and-wedding-gifts|plaintiffElement|marriage-called-off-ring",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6999840bceafa5bce08e49c2cd18e1784bb15383499b3ceb996c6c3d9f84315b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m03_e.doc",
+          "pinpoint": "s. 33",
+          "quote": "33 Where one person makes a gift to another in contemplation of or conditional upon their marriage to each other and the marriage fails to take place or is abandoned, the question of whether or not the failure or abandonment was caused by or was the fault of the donor shall not be considered in determining the right of the donor to recover the gift."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/marriage-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-engagement-ring-and-wedding-gifts|plaintiffElement|gift-value-ring",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "de4e50816de364fe644baa0bf3b14073e548afb206aecf7e798796444748dba7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Types of claims that are dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees. This includes the value of all goods that the plaintiff is asking for in total, no matter how many defendants there are."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-engagement-ring-and-wedding-gifts|defendantConsideration|not-given-for-marriage-ring",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3315d18a2ec8cea0a1ffef2899ea73eee290ad403a747b78706a74e3927ae025",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m03_e.doc",
+          "pinpoint": "s. 33",
+          "quote": "33 Where one person makes a gift to another in contemplation of or conditional upon their marriage to each other and the marriage fails to take place or is abandoned, the question of whether or not the failure or abandonment was caused by or was the fault of the donor shall not be considered in determining the right of the donor to recover the gift."
+        },
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/marriage-act.txt; Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-engagement-ring-and-wedding-gifts|proceduralNote|sc-claim-engagement-ring-and-wedding-gifts#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "716b10eea9e7e9f0689eb5da35591017325365df7895b6981b5f57522203c3d9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m03_e.doc",
+          "pinpoint": "s. 32(1)",
+          "quote": "32 (1) No action shall be brought for a breach of a promise to marry or for any damages resulting therefrom."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90m03_e.doc",
+          "pinpoint": "s. 33",
+          "quote": "33 Where one person makes a gift to another in contemplation of or conditional upon their marriage to each other and the marriage fails to take place or is abandoned, the question of whether or not the failure or abandonment was caused by or was the fault of the donor shall not be considered in determining the right of the donor to recover the gift."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/marriage-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-engagement-ring-and-wedding-gifts|proceduralNote|sc-claim-engagement-ring-and-wedding-gifts#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dd6536e0e537edc482595a83baa51cea811559136f41549c275edfc5b4b36344",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23(1)",
+          "quote": "23 (1) The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1(1)",
+          "quote": "1. (1) The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-engagement-ring-and-wedding-gifts|proceduralNote|sc-claim-engagement-ring-and-wedding-gifts#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-return-of-belongings-after-breakup|plaintiffElement|items-belong-to-claimant-belongings",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ba0921d174e43c6571ebad178b02720422209e95ff8bac021ce427ddbfbd4100",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
+          "pinpoint": "After judgment > Writ of delivery",
+          "quote": "When a person or business has personal property that does not belong to him or her and refuses to return it to the rightful owner, the owner can request a court order for a writ of delivery."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
+          "pinpoint": "After judgment > What information property owner needs to get started",
+          "quote": "You must provide the court with a full description of the personal property, i.e. serial numbers, make, model, photographs (if available), the exact location where the items can be found and proof of ownership, where applicable."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-return-of-belongings-after-breakup|plaintiffElement|partner-has-and-refuses-belongings",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2bc95dcb638eec666d5318bbe9333705dad4585fff68dd4945dcd082dec66a8e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.05(1)",
+          "quote": "20.05 (1) An order for the delivery of personal property may be enforced by a writ of delivery (Form 20B) issued by the clerk to a bailiff, on the request of the person in whose favour the order was made, supported by an affidavit of that person or someone acting on that person's authority stating that the property has not been delivered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
+          "pinpoint": "After judgment > How the owner begins the writ of delivery process",
+          "quote": "exact details of the specific personal property you want returned to you and where it can be located;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-return-of-belongings-after-breakup|plaintiffElement|value-of-items-belongings",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bc1bb014e03dd889553e27e6775c729df1638514d2740a5c3f7f7b173c957824",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Types of claims that are dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees. This includes the value of all goods that the plaintiff is asking for in total, no matter how many defendants there are."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-return-of-belongings-after-breakup|defendantConsideration|partner-says-gift-belongings",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9b416c43f36d107127aa2d897366552df27d951d4622cc83e39493037b1f87bb",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 19",
+          "quote": "a presumption of a resulting trust is the general rule that applies to gratuitous transfers. When such a transfer is made, the onus will be on the person receiving the transfer to demonstrate that a gift was intended. Otherwise, the transferee holds that property in trust for the transferor. This presumption rests on the principle that equity presumes bargains and not gifts (Pecore, at para. 24)."
+        },
+        {
+          "sourceUrl": "docs/sources/pecore-v-pecore-2007-SCC-17.pdf",
+          "pinpoint": "para. 24",
+          "quote": "The presumption of resulting trust is a rebuttable presumption of law and general rule that applies to gratuitous transfers. When a transfer is challenged, the presumption allocates the legal burden of proof. Thus, where a transfer is made for no consideration, the onus is placed on the transferee to demonstrate that a gift was intended ... This is so because equity presumes bargains, not gifts."
+        },
+        {
+          "sourceUrl": "docs/sources/pecore-v-pecore-2007-SCC-17.pdf",
+          "pinpoint": "para. 43",
+          "quote": "The evidence required to rebut both presumptions, therefore, is evidence of the transferor’s contrary intention on the balance of probabilities."
+        },
+        {
+          "sourceUrl": "docs/sources/pecore-v-pecore-2007-SCC-17.pdf",
+          "pinpoint": "para. 44",
+          "quote": "As in other civil cases, regardless of the legal burden, both sides to the dispute will normally bring evidence to support their position. The trial judge will commence his or her inquiry with the applicable presumption and will weigh all of the evidence in an attempt to ascertain, on a balance of probabilities, the transferor’s actual intention."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); Saved decision docs/sources/pecore-v-pecore-2007-SCC-17.pdf, read from docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-return-of-belongings-after-breakup|defendantConsideration|partners-were-married-belongings",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6a909393a2c975b15120e1ffe35de065f2d528dba6939bd411f10815318ecefc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 10(1)",
+          "quote": "10 (1) A person may apply to the court for the determination of a question between that person and his or her spouse or former spouse as to the ownership or right to possession of particular property, other than a question arising out of an equalization of net family properties under section 5, and the court may, (a) declare the ownership or right to possession;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 1(1) \"court\"",
+          "quote": "“court” means the Ontario Court of Justice, the Family Court of the Superior Court of Justice or the Superior Court of Justice;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 1(1) \"spouse\"",
+          "quote": "“spouse” means either of two persons who, (a) are married to each other, or (b) have together entered into a marriage that is voidable or void, in good faith on the part of a person relying on this clause to assert any right."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-return-of-belongings-after-breakup|proceduralNote|sc-claim-return-of-belongings-after-breakup#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dd6536e0e537edc482595a83baa51cea811559136f41549c275edfc5b4b36344",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23(1)",
+          "quote": "23 (1) The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1(1)",
+          "quote": "1. (1) The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-return-of-belongings-after-breakup|proceduralNote|sc-claim-return-of-belongings-after-breakup#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "529803e3971c9890be1958ea4ad54207b101fe6b0604bc44811bf6e14e202183",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 21.8(1)",
+          "quote": "21.8 (1) In the parts of Ontario where the Family Court has jurisdiction, proceedings referred to in the Schedule to this section, except appeals and prosecutions, shall be commenced, heard and determined in the Family Court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Schedule to s. 21.8, items 1-3",
+          "quote": "Family Law Act, except Part V ... 2. Proceedings for the interpretation, enforcement or variation of a marriage contract, cohabitation agreement, separation agreement, paternity agreement, family arbitration agreement or family arbitration award. 3. Proceedings for relief by way of constructive or resulting trust or a monetary award as compensation for unjust enrichment between persons who have cohabited."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-return-of-belongings-after-breakup|proceduralNote|sc-claim-return-of-belongings-after-breakup#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-jointly-bought-items-on-breakup|plaintiffElement|contributed-to-purchase-joint",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3a2f3bd40a5cfd779614a274682ce00c83756c379e430117e94fb6d686121bc7",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 17",
+          "quote": "Resulting trusts arising from gratuitous transfers are the ones relevant to domestic situations. The traditional view was they arose in two types of situations: the gratuitous transfer of property from one partner to the other, and the joint contribution by two partners to the acquisition of property, title to which is in the name of only one of them. In either case, the transfer is gratuitous, in ... the first case because there was no consideration for the transfer of the property, and in the second case because there was no consideration for the contribution to the acquisition of the property."
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 19",
+          "quote": "a presumption of a resulting trust is the general rule that applies to gratuitous transfers. When such a transfer is made, the onus will be on the person receiving the transfer to demonstrate that a gift was intended. Otherwise, the transferee holds that property in trust for the transferor. This presumption rests on the principle that equity presumes bargains and not gifts (Pecore, at para. 24)."
+        },
+        {
+          "sourceUrl": "docs/sources/pecore-v-pecore-2007-SCC-17.pdf",
+          "pinpoint": "para. 24",
+          "quote": "The presumption of resulting trust is a rebuttable presumption of law and general rule that applies to gratuitous transfers. When a transfer is challenged, the presumption allocates the legal burden of proof. Thus, where a transfer is made for no consideration, the onus is placed on the transferee to demonstrate that a gift was intended ... This is so because equity presumes bargains, not gifts."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); Saved decision docs/sources/pecore-v-pecore-2007-SCC-17.pdf, read from docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-jointly-bought-items-on-breakup|plaintiffElement|partner-enriched-joint",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7ace1b6a311ec9796d38f449ca352c79048f382c7c1829165d69d39a3866658d",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 32",
+          "quote": "It permits recovery whenever the plaintiff can establish three elements: an enrichment of or benefit to the defendant, a corresponding deprivation of the plaintiff, and the absence of a juristic reason for the enrichment"
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 38",
+          "quote": "there must be a benefit which has enriched the defendant and which can be restored to the plaintiff in specie or by money. Moreover, the benefit must be tangible."
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 39",
+          "quote": "That is why the second requirement obligates the plaintiff to ... establish not simply that the defendant has been enriched, but also that the enrichment corresponds to a deprivation which the plaintiff has suffered"
+        },
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 40",
+          "quote": "To put it simply, this means that there is no reason in law or justice for the defendant’s retention of the benefit conferred by the plaintiff"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-jointly-bought-items-on-breakup|plaintiffElement|share-claimed-joint",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7436456468833a30da92459aabbc1a774ff88a4f9aae736af219d59425a162b7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Types of claims that are dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees. This includes the value of all goods that the plaintiff is asking for in total, no matter how many defendants there are."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-jointly-bought-items-on-breakup|defendantConsideration|partner-says-gift-joint",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0bb5a5eb0eb86f908c70cc182ff05689f775818ff7dd9be37d04e0760a2cc508",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/kerr-v-baranow-2011-SCC-10.pdf",
+          "pinpoint": "para. 41",
+          "quote": "Juristic reasons to deny recovery may be the intention to make a gift (referred to as a “donative intent”), a contract, or a disposition of law"
+        },
+        {
+          "sourceUrl": "docs/sources/pecore-v-pecore-2007-SCC-17.pdf",
+          "pinpoint": "para. 43",
+          "quote": "The evidence required to rebut both presumptions, therefore, is evidence of the transferor’s contrary intention on the balance of probabilities."
+        },
+        {
+          "sourceUrl": "docs/sources/pecore-v-pecore-2007-SCC-17.pdf",
+          "pinpoint": "para. 44",
+          "quote": "As in other civil cases, regardless of the legal burden, both sides to the dispute will normally bring evidence to support their position. The trial judge will commence his or her inquiry with the applicable presumption and will weigh all of the evidence in an attempt to ascertain, on a balance of probabilities, the transferor’s actual intention."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/kerr-v-baranow-2011-SCC-10.pdf, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt (English text of the saved PDF); Saved decision docs/sources/pecore-v-pecore-2007-SCC-17.pdf, read from docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt (English text of the saved PDF); read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-jointly-bought-items-on-breakup|defendantConsideration|partners-were-married-joint",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e37fdb66babdafa88c96bb16a32f1449a0934b30b946eac0893de234fa13c8fd",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 14",
+          "quote": "14 The rule of law applying a presumption of a resulting trust shall be applied in questions of the ownership of property between spouses, as if they were not married, except that, (a) the fact that property is held in the name of spouses as joint tenants is proof, in the absence of evidence to the contrary, that the spouses are intended to own the property as joint tenants; and (b) money on deposit in the name of both spouses shall be deemed to be in the name of the spouses as joint tenants for the purposes of clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "s. 1(1) \"spouse\"",
+          "quote": "“spouse” means either of two persons who, (a) are married to each other, or (b) have together entered into a marriage that is voidable or void, in good faith on the part of a person relying on this clause to assert any right."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-jointly-bought-items-on-breakup|proceduralNote|sc-claim-jointly-bought-items-on-breakup#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "529803e3971c9890be1958ea4ad54207b101fe6b0604bc44811bf6e14e202183",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 21.8(1)",
+          "quote": "21.8 (1) In the parts of Ontario where the Family Court has jurisdiction, proceedings referred to in the Schedule to this section, except appeals and prosecutions, shall be commenced, heard and determined in the Family Court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Schedule to s. 21.8, items 1-3",
+          "quote": "Family Law Act, except Part V ... 2. Proceedings for the interpretation, enforcement or variation of a marriage contract, cohabitation agreement, separation agreement, paternity agreement, family arbitration agreement or family arbitration award. 3. Proceedings for relief by way of constructive or resulting trust or a monetary award as compensation for unjust enrichment between persons who have cohabited."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-jointly-bought-items-on-breakup|proceduralNote|sc-claim-jointly-bought-items-on-breakup#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dd6536e0e537edc482595a83baa51cea811559136f41549c275edfc5b4b36344",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23(1)",
+          "quote": "23 (1) The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1(1)",
+          "quote": "1. (1) The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-jointly-bought-items-on-breakup|proceduralNote|sc-claim-jointly-bought-items-on-breakup#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    }
+  ],
   "unverifiable": []
 }

@@ -1,4 +1,890 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "sc-claim-sports-league-or-camp-fees|plaintiffElement|fees-paid-camp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a535863e5ed70eef5355a9c89cd0778150bb5729acd07f30d2619caf2c0841a6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-sports-league-or-camp-fees|plaintiffElement|program-cancelled-camp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "90c6b7aaba86caa749e31943ef16a26ca85b2c5f4e166ee721fd5ced44f7a013",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f34_e.doc",
+          "pinpoint": "s. 2(1)",
+          "quote": "2 (1) This Act applies to any contract that is governed by the law of Ontario and that has become impossible of performance or been otherwise frustrated and to the parties which for that reason have been discharged."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f34_e.doc",
+          "pinpoint": "s. 1, \"discharged\"",
+          "quote": "\"discharged\" means relieved from further performance of the contract."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f34_e.doc",
+          "pinpoint": "s. 3(1)",
+          "quote": "3 (1) The sums paid or payable to a party in pursuance of a contract before the parties were discharged, (a) in the case of sums paid, are recoverable from the party as money received for the use of the party by whom the sums were paid; and (b) in the case of sums payable, cease to be payable."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/frustrated-contracts-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-sports-league-or-camp-fees|plaintiffElement|consumer-protection-camp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c9d85d20d65084265886e9fd4f52050bf8fc1f62396ba66c566e59b862254396",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 20(1), \"personal development services\", cl. (a)(iii)-(b)",
+          "quote": "(iii) martial arts, sports, dance or similar activities, and (iv) other matters as may be prescribed, and (b) facilities provided for or instruction on the services referred to in clause (a)"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 20(1), \"personal development services\"",
+          "quote": "\"personal development services\" means, (a) services provided for,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 29(1)",
+          "quote": "Sections 30 to 36 apply in respect of personal development services or proposed personal development services for which, (a) payment in advance is required; and (b) the consumer's total potential payment obligation, excluding cost of borrowing, exceeds a prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 27",
+          "quote": "The prescribed amount for the purpose of clause 29 (1) (b) of the Act is $50."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 29(2)",
+          "quote": "Sections 30 to 36 do not apply to personal development services that are provided, (a) on a non-profit or co-operative basis; (b) by a private club primarily owned by its members; (c) as an incidental part of the goods or services that are being supplied to the consumer; (d) by a supplier funded or run by a charitable or municipal organization or by the Province of Ontario or any of its agencies; or (e) by a golf club."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 35(1)",
+          "quote": "A consumer may, without any reason, cancel a personal development services agreement at any time within 10 days after the later of receiving the written copy of the agreement and the day all the services are available."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 35(2)",
+          "quote": "In addition to the right under subsection (1), a consumer may cancel a personal development services agreement within one year after the date of entering into the agreement if the consumer does not receive a copy of the agreement that meets the requirements under section 30."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt; Vendored corpus file docs/sources/corpus/oreg-17-05-consumer-protection-general.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-sports-league-or-camp-fees|plaintiffElement|amount-camp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7d31b8e516ebfab54286b36aa82ce6c06d6ea261c68f36409c6b5511713c9ab8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-sports-league-or-camp-fees|defendantConsideration|expenses-kept-camp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e96f0636b0bb31f041d053dd9dab17a972b6df24fc2cf54b7f99488bb05ecef6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f34_e.doc",
+          "pinpoint": "s. 3(2)",
+          "quote": "If, before the parties were discharged, the party to whom the sums were paid or payable incurred expenses in connection with the performance of the contract, the court, if it considers it just to do so having regard to all the circumstances, may allow the party to retain or to recover, as the case may be, the whole or any part of the sums paid or payable not exceeding the amount of the expenses, and, without restricting the generality of the foregoing, the court, in estimating the amount of the expenses, may include such sum as appears to be reasonable in respect of overhead expenses and in respect of any work or services performed personally by the party incurring the expenses."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/frustrated-contracts-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-sports-league-or-camp-fees|defendantConsideration|refund-terms-camp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "521b281f1b983159fd0e136ec1eb4b0d94c9afaedd8b91592741f1974aea9a59",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f34_e.doc",
+          "pinpoint": "s. 3(6)",
+          "quote": "Where the contract contains a provision that upon the true construction of the contract is intended to have effect in the event of circumstances that operate, or but for the provision would operate, to frustrate the contract, or is intended to have effect whether such circumstances arise or not, the court shall give effect to the provision and shall give effect to this section only to such extent, if any, as appears to the court to be consistent with the provision."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/frustrated-contracts-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-sports-league-or-camp-fees|proceduralNote|sc-claim-sports-league-or-camp-fees#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7afe8ad2f496f37125f1ba0b661697a064a9080e7c198ae51a6d30a84ebe3527",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Information to include about the defendant",
+          "quote": "If the name you use on your claim is not exactly right, you may win your case but then be unable to take steps to enforce your judgment. ... If you are suing an incorporated company (it usually has Limited, Ltd ., Corporation, Corp., Incorporated or Inc. after its name), make sure you have the correct corporate name, address and postal code. ... If the business you are suing is not incorporated (for example, a sole proprietorship or partnership), you will need the correct name of the business and the address for service. You may also wish to name the proprietor(s) or partner(s) as parties if you wish to obtain a judgment against them as well."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-sports-league-or-camp-fees|proceduralNote|sc-claim-sports-league-or-camp-fees#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-charity-or-fundraising-dispute|plaintiffElement|money-given-charity",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4aed0d8411f9bf1c4a8294661b5b37f8fa61071dfa783f6b7a0ad9d166fa90e2",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 32",
+          "quote": "It permits recovery whenever the plaintiff can establish three elements: an enrichment of or benefit to the defendant, a corresponding deprivation of the plaintiff, and the absence of a juristic reason for the enrichment"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 38",
+          "quote": "For the first requirement — enrichment — the plaintiff must show that he or she gave something to the defendant which the defendant received and retained. The benefit need not be retained permanently, but there must be a benefit which has enriched the defendant and which can be restored to the plaintiff in specie or by money. Moreover, the benefit must be tangible."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 39",
+          "quote": "the second requirement obligates the plaintiff to ... establish not simply that the defendant has been enriched, but also that the enrichment corresponds to a deprivation which the plaintiff has suffered"
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-charity-or-fundraising-dispute|plaintiffElement|purpose-promised-charity",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6ce573644c012f368ed7bc39f63d9cdeb11442ce53baff7ff32db57b736230f4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-charity-or-fundraising-dispute|plaintiffElement|no-reason-to-keep-charity",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "57ee2e00ddc6dd9ac4d798f50954fb5a07a0b9c419071119ee39d4ad751115f8",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 40",
+          "quote": "The third element of an unjust enrichment claim is that the benefit and corresponding detriment must have occurred without a juristic reason. To put it simply, this means that there is no reason in law or justice for the defendant's retention of the benefit conferred by the plaintiff"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 43 (quoting Garland, paras. 44-46)",
+          "quote": "First, the plaintiff must show that no juristic reason from an established category exists to deny recovery. ... The established categories that can constitute juristic reasons include a contract (Pettkus, supra), a disposition of law (Pettkus, supra), a donative intent (Peter, supra), and other valid common law, equitable or statutory ... obligations (Peter, supra)."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-charity-or-fundraising-dispute|plaintiffElement|amount-charity",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4741dd4653d5ab87cf53be5a370fb128d983ce0edfbf3d7e69812ab7b5da69c8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-charity-or-fundraising-dispute|defendantConsideration|was-a-gift-charity",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c5740ef8fa997ea85ce1ab505a6183237de47bd732449f4d2c15918b692c67c5",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 41",
+          "quote": "Juristic reasons to deny recovery may be the intention to make a gift (referred to as a \"donative intent\"), a contract, or a disposition of law"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 43 (quoting Garland, paras. 44-46)",
+          "quote": "The prima facie case is rebuttable, however, where the defendant can show that there is another reason to ... deny recovery. As a result, there is a de facto burden of proof placed on the defendant to show the reason why the enrichment should be retained. ... As part of the defendant's attempt to rebut, courts should have regard to two factors: the reasonable expectations of the parties, and public policy considerations."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-charity-or-fundraising-dispute|defendantConsideration|dispute-charity",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "71e5f41f6b2115425b85d58e4a0b7923c276781247dda19a065e6f02b653dd17",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "9.01 A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, ... serve on every other party a defence (Form 9A); and ... file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-charity-or-fundraising-dispute|proceduralNote|sc-claim-charity-or-fundraising-dispute#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7afe8ad2f496f37125f1ba0b661697a064a9080e7c198ae51a6d30a84ebe3527",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Information to include about the defendant",
+          "quote": "If the name you use on your claim is not exactly right, you may win your case but then be unable to take steps to enforce your judgment. ... If you are suing an incorporated company (it usually has Limited, Ltd ., Corporation, Corp., Incorporated or Inc. after its name), make sure you have the correct corporate name, address and postal code. ... If the business you are suing is not incorporated (for example, a sole proprietorship or partnership), you will need the correct name of the business and the address for service. You may also wish to name the proprietor(s) or partner(s) as parties if you wish to obtain a judgment against them as well."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-charity-or-fundraising-dispute|proceduralNote|sc-claim-charity-or-fundraising-dispute#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-elder-financial-abuse|plaintiffElement|transfer-without-payment-elder",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9433ab5bc05184a42347cd7d97f9f62e9da8141d45643a5840e299c00164aa6c",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+          "pinpoint": "para. 24",
+          "quote": "The presumption of resulting trust is a rebuttable presumption of law and general rule that applies to gratuitous transfers. When a transfer is challenged, the presumption allocates the legal burden of proof. Thus, where a transfer is made for no consideration, the onus is placed on the transferee to demonstrate that a gift was intended ... This is so because equity presumes bargains, not gifts."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+          "pinpoint": "para. 36",
+          "quote": "it is common nowadays for ageing parents to transfer their assets ... into joint accounts with their adult children in order to have that child assist them in managing their financial affairs. There should therefore be a rebuttable presumption that the adult child is holding the property in trust for the ageing parent to facilitate the free and efficient management of that parent's affairs."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-elder-financial-abuse|plaintiffElement|attorney-duties-elder",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "89757cf31cf342387c367fcbedee1175c76fdcd17b2a7bade84540a21b114a96",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "s. 38(1)",
+          "quote": "Section 32, except subsections (10) and (11), and sections 33, 33.1, 33.2, 34, 35.1, 36 and 37 also apply, with necessary modifications, to an attorney acting under a continuing power of attorney if the grantor is incapable of managing property or the attorney has reasonable grounds to believe that the grantor is incapable of managing property."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "s. 32(1)",
+          "quote": "32 (1) A guardian of property is a fiduciary whose powers and duties shall be exercised and performed diligently, with honesty and integrity and in good faith, for the incapable person's benefit."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "s. 33(1)",
+          "quote": "33 (1) A guardian of property is liable for damages resulting from a breach of the guardian's duty."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/substitute-decisions-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-elder-financial-abuse|plaintiffElement|unjust-enrichment-elder",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "401670a42feab684a154be0c7fd65adf17b80290d261fcaa0f33dc07f1dda459",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 32",
+          "quote": "It permits recovery whenever the plaintiff can establish three elements: an enrichment of or benefit to the defendant, a corresponding deprivation of the plaintiff, and the absence of a juristic reason for the enrichment"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 38",
+          "quote": "For the first requirement — enrichment — the plaintiff must show that he or she gave something to the defendant which the defendant received and retained. The benefit need not be retained permanently, but there must be a benefit which has enriched the defendant and which can be restored to the plaintiff in specie or by money. Moreover, the benefit must be tangible."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 39",
+          "quote": "the second requirement obligates the plaintiff to ... establish not simply that the defendant has been enriched, but also that the enrichment corresponds to a deprivation which the plaintiff has suffered"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 40",
+          "quote": "The third element of an unjust enrichment claim is that the benefit and corresponding detriment must have occurred without a juristic reason. To put it simply, this means that there is no reason in law or justice for the defendant's retention of the benefit conferred by the plaintiff"
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-elder-financial-abuse|plaintiffElement|amount-elder",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "40c6b73ef494fd265fa82e1036cfd85a4d64eddc071fab5ddcaa3b5d340d035c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-elder-financial-abuse|defendantConsideration|was-a-gift-elder",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3d66234b7759c0f376795919cbfc14b7b1a1b50afc0b94daaea01a430ea392b6",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 41",
+          "quote": "Juristic reasons to deny recovery may be the intention to make a gift (referred to as a \"donative intent\"), a contract, or a disposition of law"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 43 (quoting Garland, paras. 44-46)",
+          "quote": "The prima facie case is rebuttable, however, where the defendant can show that there is another reason to ... deny recovery. As a result, there is a de facto burden of proof placed on the defendant to show the reason why the enrichment should be retained. ... As part of the defendant's attempt to rebut, courts should have regard to two factors: the reasonable expectations of the parties, and public policy considerations."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+          "pinpoint": "para. 24",
+          "quote": "The presumption of resulting trust is a rebuttable presumption of law and general rule that applies to gratuitous transfers. When a transfer is challenged, the presumption allocates the legal burden of proof. Thus, where a transfer is made for no consideration, the onus is placed on the transferee to demonstrate that a gift was intended ... This is so because equity presumes bargains, not gifts."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt; Saved decision, read from docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-elder-financial-abuse|defendantConsideration|acted-honestly-elder",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "42b0e4a685ad6832e522ecc441196cd931a926fa283daaf60a56bff99efe4320",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "s. 33(2)",
+          "quote": "If the court is satisfied that a guardian of property who has committed a breach of duty has nevertheless acted honestly, reasonably and diligently, it may relieve the guardian from all or part of the liability."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "s. 38(1)",
+          "quote": "Section 32, except subsections (10) and (11), and sections 33, 33.1, 33.2, 34, 35.1, 36 and 37 also apply, with necessary modifications, to an attorney acting under a continuing power of attorney if the grantor is incapable of managing property or the attorney has reasonable grounds to believe that the grantor is incapable of managing property."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/substitute-decisions-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-elder-financial-abuse|proceduralNote|sc-claim-elder-financial-abuse#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e691bddbcc2e0a6f890f0166efcc5c00c893150d12324037a2053f27693a1166",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 4.01(1)",
+          "quote": "4.01 (1) An action by a person under disability shall be commenced or continued by a litigation guardian, subject to subrule (2)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 4.01(3)",
+          "quote": "A plaintiff's litigation guardian shall, at the time of filing a claim or as soon as possible afterwards, file with the clerk a consent (Form 4A) in which the litigation guardian, (a) states the nature of the disability; ... (c) sets out his or her relationship, if any, to the person under disability; (d) states that he or she has no interest in the proceeding contrary to that of the person under disability; (e) acknowledges that he or she is aware of his or her liability to pay personally any costs awarded against him or her or against the person under disability; and"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-elder-financial-abuse|proceduralNote|sc-claim-elder-financial-abuse#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "442e30256762b43a4f710f1606cddcbe7c914891de68e07410d8f2a90145a487",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "s. 42(1)",
+          "quote": "42 (1) The court may, on application, order that all or a specified part of the accounts of an attorney or guardian of property be passed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "s. 42(2)",
+          "quote": "An attorney, the grantor or any of the persons listed in subsection (4) may apply to pass the attorney's accounts."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+          "pinpoint": "s. 1(1), \"court\"",
+          "quote": "\"court\" means the Superior Court of Justice;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/substitute-decisions-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-elder-financial-abuse|proceduralNote|sc-claim-elder-financial-abuse#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4c54ab7f428552554867f0339ba84d2b27727ce4055a1b5bc3c03668886f2400",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 7(1)",
+          "quote": "7 (1) The limitation period established by section 4 does not run during any time in which the person with the claim, (a) is incapable of commencing a proceeding in respect of the claim because of his or her physical, mental or psychological condition; and (b) is not represented by a litigation guardian in relation to the claim."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 7(2)",
+          "quote": "A person shall be presumed to have been capable of commencing a proceeding in respect of a claim at all times unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-parking-traffic-or-bylaw-charge|plaintiffElement|kind-of-ticket-parking",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "01c494d6acb0df513dff18242477dc228a913ecd6e6983662d31718fd0e9a5d7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 3(2)",
+          "quote": "A provincial offences officer who believes that one or more persons have committed an offence may issue, by completing and signing in the form prescribed under section 13, (a) a certificate of offence certifying that an offence has been committed; and (b) either an offence notice indicating the set fine for the offence or a summons."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 3(3)",
+          "quote": "The offence notice or summons shall be served personally upon the person charged within thirty days after the alleged offence occurred."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 15(1)",
+          "quote": "15 (1) A provincial offences officer who believes from his or her personal knowledge that one or more persons have committed a parking infraction may issue, (a) a certificate of parking infraction certifying that a parking infraction has been committed; and (b) a parking infraction notice indicating the set fine for the infraction."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 15(4)",
+          "quote": "The issuing provincial offences officer may serve the parking infraction notice on the owner of the vehicle identified in the notice, (a) by affixing it to the vehicle in a conspicuous place at the time of the alleged infraction; or"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/provincial-offences-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-parking-traffic-or-bylaw-charge|plaintiffElement|ask-for-trial-parking",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2d75623b7799a8be46e4723ccd4579c71c23cf154e0639d7b460c1cfa90013f6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 1(1), \"court\"",
+          "quote": "\"court\" means the Ontario Court of Justice;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A defendant who is served with an offence notice may give notice of their intention to appear in court for the purpose of entering a plea and having a trial of the matter by,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 5.1(1)-(2)",
+          "quote": "This section applies if the offence notice indicates that an option of a meeting with the prosecutor to discuss the resolution of the offence is available. ... A defendant may, instead of giving notice of intention to appear under section 5, request a meeting with the prosecutor to discuss the resolution of the offence if, within 15 days after being served with the offence notice, the defendant,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 9(1)(a)",
+          "quote": "9 (1) A defendant is deemed to not wish to dispute the charge if, (a) at least 15 days have elapsed after the defendant was served with the offence notice and the defendant did not give notice of intention to appear under section 5, did not request a meeting with the prosecutor in accordance with section 5.1 and did not plead guilty under section 7 or 8;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 9(2)",
+          "quote": "If a defendant is deemed to not wish to dispute the charge in accordance with clause (1) (a) or (b), the clerk of the court shall examine the certificate of offence and, (a) if it is not defective, as determined by the regulations, enter a conviction in the defendant's absence and without a hearing and impose the set fine for the offence; or"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/provincial-offences-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-parking-traffic-or-bylaw-charge|plaintiffElement|parking-infraction-parking",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "950019691e629bab01fa6b883e725e3240df47ba471b8f81284e752711014c8b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 17(1)",
+          "quote": "17 (1) A defendant who is served with a parking infraction notice may give notice of intention to appear in court for the purpose of entering a plea and having a trial of the matter by so indicating on the parking infraction notice and delivering the notice to the place specified in it."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 17(2)",
+          "quote": "If a defendant gives notice of an intention to appear, a proceeding may be commenced in respect of the charge if it is done within seventy-five days after the day on which the alleged infraction occurred."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 16",
+          "quote": "16 A defendant who does not wish to dispute the charge may deliver the notice and amount of the set fine to the place shown on the notice."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/provincial-offences-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-parking-traffic-or-bylaw-charge|plaintiffElement|administrative-penalty-parking",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e9e1dbb09fcd0b913409102e3f7a12b31b514ff698f547d85dbe057e42a3ff77",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "s. 434.1(1)",
+          "quote": "434.1 (1) Without limiting sections 9, 10 and 11, a municipality may require a person, subject to such conditions as the municipality considers appropriate, to pay an administrative penalty if the municipality is satisfied that the person has failed to comply with a by-law of the municipality passed under this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "s. 434.1(3)",
+          "quote": "The amount of an administrative penalty established by a municipality, (a) shall not be punitive in nature; and (b) shall not exceed the amount reasonably required to promote compliance with a by-law of the municipality."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "s. 434.1(4)",
+          "quote": "If a person is required by a municipality to pay an administrative penalty under subsection (1) in respect of a contravention, the person shall not be charged with an offence in respect of the same contravention."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "s. 102.1(1)",
+          "quote": "102.1 (1) Without limiting sections 9, 10 and 11, a municipality may require a person to pay an administrative penalty if the municipality is satisfied that the person has failed to comply with any by-laws respecting the parking, standing or stopping of vehicles."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/municipal-act-2001.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-parking-traffic-or-bylaw-charge|defendantConsideration|convicted-without-hearing-parking",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fe15c25533ac379918b83133881d685d0e345563ddb238bad4dacef22aa06960",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 9(3)",
+          "quote": "A defendant who is convicted under subsection (2) may, within 15 days after becoming aware of the conviction, make an application to a justice in the prescribed form to strike out the conviction."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 9(4)",
+          "quote": "On application under subsection (3), the justice shall strike out the conviction if satisfied that the certificate of offence is defective, as determined by the regulations, or is otherwise not complete and regular on its face."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 11(1)",
+          "quote": "11 (1) A defendant who was convicted without a hearing may, within 15 days after becoming aware of the conviction, make an application to have the conviction struck out by completing the prescribed form and filing it in the office of the court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 11(2)",
+          "quote": "On application under subsection (1), the clerk of the court shall strike out the conviction if satisfied by affidavit of the defendant or on other evidence or information that, through no fault of the defendant, the defendant, (a) was unable to attend a meeting under section 5.1; (b) was unable to appear for a hearing; or (c) did not receive delivery of a notice or document relating to the offence."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/provincial-offences-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-parking-traffic-or-bylaw-charge|proceduralNote|sc-claim-parking-traffic-or-bylaw-charge#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e7c055e8962fbbd70e4ec00c05fe8d52e2f2a6f75051b503935587c9bf7da4ae",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 1(1), \"court\"",
+          "quote": "\"court\" means the Ontario Court of Justice;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A defendant who is served with an offence notice may give notice of their intention to appear in court for the purpose of entering a plea and having a trial of the matter by,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 17(1)",
+          "quote": "17 (1) A defendant who is served with a parking infraction notice may give notice of intention to appear in court for the purpose of entering a plea and having a trial of the matter by so indicating on the parking infraction notice and delivering the notice to the place specified in it."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/provincial-offences-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-parking-traffic-or-bylaw-charge|proceduralNote|sc-claim-parking-traffic-or-bylaw-charge#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "675338318390ae0ef7fa3540b942c17ad60b59822138b921c3036f1447904c7c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 18(1)",
+          "quote": "18 (1) The person designated by the regulations may give the defendant a notice of impending conviction if, (a) at least fifteen days and no more than thirty-five days have elapsed since the alleged infraction occurred; (b) the defendant has not paid the fine; and (c) a notice of intention to appear has not been received."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 18(3)",
+          "quote": "The notice shall, (a) indicate the set fine for the infraction; and (b) indicate that a conviction will be registered against the defendant unless the defendant pays the set fine or gives notice of an intention to appear in court for the purpose of entering a plea and having a trial of the matter."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90p33_e.doc",
+          "pinpoint": "s. 18.1(1)",
+          "quote": "18.1 (1) A defendant who receives a notice of impending conviction may give notice of intention to appear in court for the purpose of entering a plea and having a trial of the matter by so indicating on the notice of impending conviction and delivering the notice to the place specified in it."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/provincial-offences-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-hit-and-run-or-uninsured-driver|plaintiffElement|driver-negligence-hitrun",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5574e1beb3d38715a4790e0a0d95f816be020d4c6fba43d70d7321b1071e98a9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "s. 192(1)",
+          "quote": "The driver of a motor vehicle or street car is liable for loss or damage sustained by any person by reason of negligence in the operation of the motor vehicle or street car on a highway."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "s. 192(2)",
+          "quote": "The owner of a motor vehicle or street car is liable for loss or damage sustained by any person by reason of negligence in the operation of the motor vehicle or street car on a highway, unless the motor vehicle or street car was without the owner's consent in the possession of some person other than the owner or the owner's chauffeur."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "s. 192(6)",
+          "quote": "The driver, owner, lessee and operator that are liable under this section are jointly and severally liable."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/highway-traffic-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-hit-and-run-or-uninsured-driver|plaintiffElement|identify-driver-hitrun",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "10c11e38e574bdf2d2e3ceda33c6449777efd6ba1fee9625fd5f2eda389743b8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "s. 200(1)",
+          "quote": "200 (1) Where an accident occurs on a highway, every person in charge of a vehicle or street car that is directly or indirectly involved in the accident shall, (a) remain at or immediately return to the scene of the accident; (b) render all possible assistance; and (c) upon request, give in writing to anyone sustaining loss or injury or to any police officer or to any witness his or her name, address, driver's licence number and jurisdiction of issuance, motor vehicle liability insurance policy insurer and policy number, name and address of the registered owner of the vehicle and the vehicle permit number."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/highway-traffic-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-hit-and-run-or-uninsured-driver|plaintiffElement|amount-hitrun",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0757377717f6c1e1eb46e3335e23d8d0c3651b95e131f583988932ac5703fb6b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-hit-and-run-or-uninsured-driver|defendantConsideration|contributory-negligence-hitrun",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "65597519a326e0ae0ef01ea3f676e574f361ac8d9b634e376d28ba03e9f0db01",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 1",
+          "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons are found at fault or negligent, they are jointly and severally liable to the person suffering loss or damage for such fault or negligence"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-hit-and-run-or-uninsured-driver|defendantConsideration|plaintiff-uninsured-hitrun",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ec59d18c1df00a2d192595b51ff8a157b66d3818fffc253ad4b8a706a649461e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "s. 265(7)",
+          "quote": "No person has a right of action against any other person in respect of damage to an uninsured automobile or its contents arising directly or indirectly from the use or operation of an automobile if at the time of the damage the uninsured automobile was required by any Act to be insured under a contract evidenced by a motor vehicle liability policy."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/insurance-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-hit-and-run-or-uninsured-driver|proceduralNote|sc-claim-hit-and-run-or-uninsured-driver#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "570d8ad65a9648063eacfb644964fdacc28379400c8687a24f3e08293caea81f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "s. 265(1)",
+          "quote": "265 (1) Every contract evidenced by a motor vehicle liability policy shall provide for payment of all sums that, (a) a person insured under the contract is legally entitled to recover from the owner or driver of an uninsured automobile or unidentified automobile as damages for bodily injuries resulting from an accident involving an automobile; ... (c) a person insured under the contract is legally entitled to recover from the identified owner or driver of an uninsured automobile as damages for accidental damage to the insured automobile or its contents, or to both the insured automobile and its contents, resulting from an accident involving an automobile, subject to the terms, conditions, provisions, exclusions and limits as are prescribed by the regulations."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "s. 265(2), \"unidentified automobile\"",
+          "quote": "\"unidentified automobile\" means an automobile with respect to which the identity of either the owner or driver cannot be ascertained;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "s. 265(6)",
+          "quote": "Where an amount is paid under subsection (1), the insurer is subrogated to the rights of the person to whom such amount is paid and the insurer may maintain an action in its name or in the name of such person against any other person or persons responsible for the use or operation of the uninsured or unidentified automobile."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/insurance-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-hit-and-run-or-uninsured-driver|proceduralNote|sc-claim-hit-and-run-or-uninsured-driver#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3e9adaa080a7c4d664a87b4c2056f68f4c17dd0b5aa46a0d76297d64061dff35",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "s. 258.3(1)",
+          "quote": "An action for loss or damage from bodily injury or death arising directly or indirectly from the use or operation of an automobile shall not be commenced unless, (a) the plaintiff has applied for statutory accident benefits; (b) the plaintiff served written notice of the intention to commence the action on the defendant within 120 days after the incident or within such longer period as a court in which the action may be commenced may authorize, on motion made before or after the expiry of the 120-day period;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/insurance-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-hit-and-run-or-uninsured-driver|proceduralNote|sc-claim-hit-and-run-or-uninsured-driver#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    }
+  ],
   "unverifiable": []
 }

@@ -1,4 +1,1199 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "sc-defence-served-and-confused|plaintiffElement|what-the-papers-are-confused",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a86c218621c6b9b922f1a95c2682ae7d5848b6a346a4f082ce09d35a235b3e9f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 7.01(2)",
+          "quote": "The full names of the parties to the proceeding and, if relevant, the capacity in which they sue or are sued. ... The nature of the claim, with reasonable certainty and detail, including the date, place and nature of the occurrences on which the claim is based. ... The amount of the claim and the relief requested. ... If the plaintiff's claim is based in whole or in part on a document, a copy of the document shall be attached to each copy of the claim, unless it is unavailable, in which case the claim shall state the reason why the document is not attached."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "Overview",
+          "quote": "If someone starts an action against you in Small Claims Court, you will receive either: a Plaintiff’s Claim [Form 7A] ; or a Defendant’s Claim [Form 10A]"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-served-and-confused|plaintiffElement|when-service-counted-confused",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "78e82b94a7a2191b72912666670ff8391e636749dae5c6130aade8b9e9487a26",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 8.01(1)",
+          "quote": "A plaintiff's claim or defendant's claim (Form 7A or 10A) shall be served personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 8.03(2)",
+          "quote": "leaving a copy in a sealed envelope addressed to the individual at the place of residence with anyone who appears to be an adult member of the same household; and ... on the same day or the following day, mailing or sending by courier another copy of the document to the individual at the place of residence."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 8.03(4)",
+          "quote": "Service made under subrule (2) or (3) is effective on the fifth day after the document is mailed or verified by courier that it was delivered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 8.03(7)-(8)",
+          "quote": "Service of a plaintiff's claim or defendant's claim on an individual against whom the claim is made may be made by sending a copy of the claim by registered mail or by courier to the individual's place of residence ... Service under subrule (7) is effective on the date on which receipt of the copy of the claim is verified by signature, as shown in a delivery confirmation provided by or obtained from Canada Post or the commercial courier"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-served-and-confused|plaintiffElement|time-to-respond-confused",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7d2fb86402e9daa60dee7baf4d3d208a339f10008289bc0a920025029dbd7ccd",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "What happens if you ignore the claim; How much time you have to file a defence",
+          "quote": "If you ignore the claim it will be assumed that you admit to the truth of what is claimed against you. The plaintiff can then get a judgment against you, with no further notice to you, just as if there had been a trial. The judgment can then be enforced against you. ... After the 20 days have passed, you may still try to file your defence. Your defence will be accepted for filing as long as the plaintiff has not filed a request to note you in default."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-served-and-confused|defendantConsideration|agree-and-want-to-pay-confused",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "49e79a6fbfa8a16472b0c4d558d3ee8126924d4a4a963316fa8e503d2607aa5a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.03(1)",
+          "quote": "A defendant who admits liability for all or part of the plaintiff's claim but wishes to arrange terms of payment may in the defence admit liability and propose terms of payment."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.03(2)(a)",
+          "quote": "If the plaintiff does not dispute the proposal within the 20-day period referred to in subrule (3), (a) the defendant shall make payment in accordance with the proposal as if it were a court order;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "If you agree you owe the money",
+          "quote": "You must make your payments directly to the plaintiff. You should keep proof of your payments"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-served-and-confused|defendantConsideration|papers-never-reached-you-confused",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "82e4ffc4c63ec9cd860f1a2f953b3e7ec85e4651b9fbd2a68fb2c48da956754b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 8.10",
+          "quote": "A person who has been served or who is deemed to have been served with a document in accordance with these rules is nevertheless entitled to show, on a motion to set aside the consequences of default, on a motion for an extension of time or in support of a motion or request for an adjournment, that the document, (a) did not come to the person's notice; or (b) came to the person's notice only at some time later than when it was served or is deemed to have been served."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-served-and-confused|proceduralNote|sc-defence-served-and-confused#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "450bb79dece0f48c99f3a988d349e5b68673f2f9ac13b6f101412a76b0c7c45e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+          "pinpoint": "How to respond to a case",
+          "quote": "You must file the Defence with proof with the Court within 20 calendar days from the date you were served with the Claim. ... IMPORTANT: If you do not serve and file your defence by the deadline, then you may be noted in default and the Court may order judgment against you without your participation."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-how-to-respond.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-served-and-confused|proceduralNote|sc-defence-served-and-confused#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bd6a45a168e64eb08bca048826d7be9c7b0a7d9866460688e1c7aa82af1e5f0a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-for-something-you-did-not-do|plaintiffElement|plaintiff-must-prove-denied",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c8ef697b5c879fc2cd982017e00aaf02f3123ce12e6e563b0ccd83b0ce93d5e6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-for-something-you-did-not-do|plaintiffElement|defence-reasons-denied",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8907f78ff124447022105f445ef80b138bd3b1c0ca96f38991d778e502c63773",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "How to fill in the defence",
+          "quote": "In your defence, give clear, detailed reasons why you dispute the claim. It is often helpful to use separately numbered paragraphs. If the claim has numbered paragraphs, you can write your reply to each paragraph using the same numbers used in the claim."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-for-something-you-did-not-do|plaintiffElement|someone-else-responsible-denied",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "193c3d4b2f355b14200ff58a479a9f167288ee0c8928f4c5a247062a572c1ed6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 10.01(1)",
+          "quote": "A defendant may make a claim, (a) against the plaintiff; (b) against any other person, (i) arising out of the transaction or occurrence relied upon by the plaintiff, or (ii) related to the plaintiff's claim; or (c) against the plaintiff and against another person in accordance with clause (b)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "If you think someone else is responsible for the plaintiff's loss",
+          "quote": "You may believe that you have a claim to make against someone else who, in your opinion, should be responsible for paying the claim. If you wish to make a claim against another party, indicate that in your defence form and complete and file a Defendant’s Claim [Form 10A]"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-for-something-you-did-not-do|defendantConsideration|wrong-name-on-claim-denied",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0ad34f6f36bfff2abfa6bbfc6e58f25b09482d73d51b2dfeeda81ded0dd82c16",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "How to fill in the defence",
+          "quote": "Write or type your name on your defence form as it appears in the claim ... If your legal name is different from the name used on the claim, indicate the error and state your full legal name in your defence. If your address is listed incorrectly on the claim, put your correct address on the defence."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-for-something-you-did-not-do|defendantConsideration|claim-shows-no-cause-denied",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bfb9b50f81e7d08e59456b099d162fecbcc85bec4905c623d8a4de9e8d459a84",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 12.02(1)-(2)",
+          "quote": "The court may, on motion, strike out or amend all or part of any document that, (a) discloses no reasonable cause of action or defence; (b) may delay or make it difficult to have a fair trial; or (c) is inflammatory, a waste of time, a nuisance or an abuse of the court's process. ... In the case of a claim, order that the action be stayed or dismissed."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-for-something-you-did-not-do|proceduralNote|sc-defence-sued-for-something-you-did-not-do#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "450bb79dece0f48c99f3a988d349e5b68673f2f9ac13b6f101412a76b0c7c45e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+          "pinpoint": "How to respond to a case",
+          "quote": "You must file the Defence with proof with the Court within 20 calendar days from the date you were served with the Claim. ... IMPORTANT: If you do not serve and file your defence by the deadline, then you may be noted in default and the Court may order judgment against you without your participation."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-how-to-respond.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-for-something-you-did-not-do|proceduralNote|sc-defence-sued-for-something-you-did-not-do#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fb70be34c176d889ef3d99d31c59b4b76fc097947b41975ec878b251ec43cbe4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "Next steps",
+          "quote": "If you disputed all or part of the claim you will have to attend a settlement conference. The settlement conference should take place within 90 days after the first defence in the case is filed. It is helpful if you advise the court in writing when you file your defence if there are particular days when you cannot attend court during that 90-day period."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-for-something-you-did-not-do|proceduralNote|sc-defence-sued-for-something-you-did-not-do#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-for-more-than-owed|plaintiffElement|plaintiff-must-prove-amount-more",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "01eef8141d6cfed09d28db552f6e05bcb5ce73ed8a4a436d45ede03c3ac382e4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 7.01(2), para. 1 iii",
+          "quote": "The amount of the claim and the relief requested."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-for-more-than-owed|plaintiffElement|admit-part-propose-terms-more",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dfebe95440a2d6f793c13f0af00cd30c844c2b2208b18f1d580620ef8921ea1c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.03(1)",
+          "quote": "A defendant who admits liability for all or part of the plaintiff's claim but wishes to arrange terms of payment may in the defence admit liability and propose terms of payment."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "If you only agree you owe part of what is claimed",
+          "quote": "You can also make a proposal for terms of payment for only part of the amount claimed. You would then make payments as proposed and go to a settlement conference and, if necessary, a trial regarding the amount that you do not admit to owing."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-for-more-than-owed|plaintiffElement|reasons-for-the-rest-more",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5339f0b1c8eb136b913608b2dbbf62ab8878ebf56c13bf2aa81a7370a2a2433f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-for-more-than-owed|defendantConsideration|plaintiff-disputes-proposal-more",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6ebeb97f79f5a0dde58397c4e6f41b18699b1482a9d59e962637b425106aaf22",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.03(3)",
+          "quote": "The plaintiff may dispute the proposal within 20 days after service of the defence by filing with the clerk and serving on the defendant a request to clerk (Form 9B) for a terms of payment hearing before a referee or other person appointed by the court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.03(4.2)-(4.3)",
+          "quote": "The clerk shall serve a financial information form (Form 20I) on the defendant, together with the notice of hearing, if the defendant is an individual. ... he or she shall complete it and serve it on the creditor before the hearing, but shall not file it with the court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.03(5)-(6)",
+          "quote": "On the hearing, the referee or other person may make an order as to terms of payment by the defendant. ... If the defendant does not appear at the hearing, the clerk may sign default judgment against the defendant for the part of the claim that has been admitted"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-for-more-than-owed|defendantConsideration|missed-proposal-payment-more",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e5634a9632c3335c86ae5d40bb733287c77a5a5069712e51baecfdc8619a3ef5",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.03(2)",
+          "quote": "If the plaintiff does not dispute the proposal within the 20-day period referred to in subrule (3), (a) the defendant shall make payment in accordance with the proposal as if it were a court order; (b) the plaintiff may serve a notice of default of payment (Form 20L) on the defendant if the defendant fails to make payment in accordance with the proposal; and (c) the clerk shall sign judgment for the unpaid balance of the undisputed amount on the filing of an affidavit of default of payment (Form 20M) by the plaintiff swearing, ... (iii) that 15 days have passed since the defendant was served with a notice of default of payment."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-for-more-than-owed|proceduralNote|sc-defence-sued-for-more-than-owed#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "450bb79dece0f48c99f3a988d349e5b68673f2f9ac13b6f101412a76b0c7c45e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+          "pinpoint": "How to respond to a case",
+          "quote": "You must file the Defence with proof with the Court within 20 calendar days from the date you were served with the Claim. ... IMPORTANT: If you do not serve and file your defence by the deadline, then you may be noted in default and the Court may order judgment against you without your participation."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-how-to-respond.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-for-more-than-owed|proceduralNote|sc-defence-sued-for-more-than-owed#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fb70be34c176d889ef3d99d31c59b4b76fc097947b41975ec878b251ec43cbe4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "Next steps",
+          "quote": "If you disputed all or part of the claim you will have to attend a settlement conference. The settlement conference should take place within 90 days after the first defence in the case is filed. It is helpful if you advise the court in writing when you file your defence if there are particular days when you cannot attend court during that 90-day period."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-want-to-claim-back|plaintiffElement|who-you-can-claim-against-back",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "410f29049566ef482b9685c4bf3b3b60c8f9c58b3d13a886ee981381949510cb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 10.01(1)",
+          "quote": "A defendant may make a claim, (a) against the plaintiff; (b) against any other person, (i) arising out of the transaction or occurrence relied upon by the plaintiff, or (ii) related to the plaintiff's claim; or (c) against the plaintiff and against another person in accordance with clause (b)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "If you think the plaintiff should pay; if you think someone else is responsible",
+          "quote": "If you believe that you have a claim to make against the plaintiff indicate that in the defence form and file a Defendant’s Claim [Form 10A] ... This is referred to as being “a plaintiff by defendant’s claim.”"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-want-to-claim-back|plaintiffElement|proving-your-own-claim-back",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c75f906f205b87aceae72f77cab4d02a1b5474308f2d5a880f97cedc27c17e5d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 10.05(1)",
+          "quote": "These rules apply, with necessary modifications, to a defendant's claim as if it were a plaintiff's claim, and to a defence to a defendant's claim as if it were a defence to a plaintiff's claim."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-want-to-claim-back|plaintiffElement|what-the-claim-contains-back",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "73d89ba86dbe2b8875d82e38383c794735e68fda212dcbf8326bd5e012490992",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 10.01(4)",
+          "quote": "The full names of the parties to the defendant's claim and, if relevant, the capacity in which they sue or are sued. ... The nature of the claim, expressed in concise non-technical language with a reasonable amount of detail, including the date, place and nature of the occurrences on which the claim is based. ... The amount of the claim and the relief requested. ... The address where the defendant believes each person against whom the claim is made may be served. ... The court file number assigned to the plaintiff's claim. ... If the defendant's claim is based in whole or in part on a document, a copy of the document shall be attached to each copy of the claim, unless it is unavailable, in which case the claim shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-want-to-claim-back|defendantConsideration|tried-together-or-separately-back",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "51f69659c3607fc45225124f329026d39516c9ec7046269831ea1b549932fc1c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 10.04(1)-(2)",
+          "quote": "A defendant's claim shall be tried and disposed of at the trial of the action, unless the court orders otherwise. ... If it appears that a defendant's claim may unduly complicate or delay the trial of the action or cause undue prejudice to a party, the court may order separate trials or direct that the defendant's claim proceed as a separate action."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-want-to-claim-back|defendantConsideration|claim-back-over-limit-back",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "beecc307815cdbcc0cc8838ee74615424249e273cb3b805b8b143dd35fb35f92",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23(1)",
+          "quote": "23 (1) The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 6.02",
+          "quote": "A cause of action shall not be divided into two or more actions for the purpose of bringing it within the court's jurisdiction."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt; Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-want-to-claim-back|proceduralNote|sc-defence-want-to-claim-back#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "513be2ef4456325423c9ae6e49f1729451bd872a4f38452a04bc343017f78478",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 10.01(2); r. 10.02",
+          "quote": "The defendant's claim shall be in Form 10A and may be issued, (a) within 20 days after the day on which the defence is filed; or (b) after the time described in clause (a) but before trial or default judgment, with leave of the court. ... A defendant's claim shall be served by the defendant on every person against whom it is made, in accordance with subrules 8.01 (1) and (2)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-want-to-claim-back|proceduralNote|sc-defence-want-to-claim-back#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "781f7fad6a8ec8f4dd4015fd14f30e6bc051ad849ff776c121d5f60703dc5386",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 10.03",
+          "quote": "A party who wishes to dispute the defendant's claim or a third party who wishes to dispute the plaintiff's claim shall, within 20 days after service of the defendant's claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-want-to-claim-back|proceduralNote|sc-defence-want-to-claim-back#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-in-the-wrong-place|plaintiffElement|where-a-claim-is-started-place",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3da408ee5df1fd5ebffd499308bf68970216e53edfaa03ffc2d9f079e5c2f65d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 6.01(1)",
+          "quote": "An action shall be commenced, (a) in the territorial division, (i) in which the cause of action arose, or (ii) in which the defendant or, if there are several defendants, in which any one of them resides or carries on business; or (b) at the court's place of sitting that is nearest to the place where the defendant or, if there are several defendants, where any one of them resides or carries on business."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-in-the-wrong-place|plaintiffElement|moving-the-trial-place",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8cb54efe9868c854bde3a39f444ee7e10bc616d1dc4f51a9269eed2717a779ee",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 6.01(2)-(3)",
+          "quote": "An action shall be tried in the place where it is commenced, but if the court is satisfied that the balance of convenience substantially favours holding the trial at another place than those described in subrule (1), the court may order that the action be tried at that other place. ... If, when an action is called for trial, settlement conference or trial management conference, the judge finds that the place where the action was commenced is not the proper place of trial, the court may order that the action be tried in any other place where it could have been commenced under this rule."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 17.01(3)",
+          "quote": "In the case described in clause (2) (b), if an issue as to the proper place of trial under subrule 6.01 (1) is raised in the defence, the trial judge shall consider it and make a finding."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-in-the-wrong-place|plaintiffElement|amount-over-limit-place",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bd799854cc939b394930ce7e5d3ca1b1810c2e157d8e21f25137e187b1e49140",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23(1)",
+          "quote": "23 (1) The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-in-the-wrong-place|defendantConsideration|served-outside-the-area-place",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "04eb0de3a26d71b9716186dc988922ddc37004086beb5e1ee10c8daa23b3c7db",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 11.01(3)",
+          "quote": "If all the defendants have been served outside the court's territorial division, the clerk shall not note any defendant in default until it is proved by an affidavit for jurisdiction (Form 11A) filed with the clerk, or by evidence presented before a judge, that the action was properly brought in that territorial division."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-in-the-wrong-place|defendantConsideration|split-claims-place",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "af6ef350c9fe822ca3f204218480c80a389d589e44e4fefc689a5cf2764e6bf8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 6.02",
+          "quote": "A cause of action shall not be divided into two or more actions for the purpose of bringing it within the court's jurisdiction."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-in-the-wrong-place|proceduralNote|sc-defence-sued-in-the-wrong-place#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e396a8e5e1d25cfaa74e4d0e0ba486641a2b81576bd7dfa0fc5791d98a832252",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-sued-in-the-wrong-place|proceduralNote|sc-defence-sued-in-the-wrong-place#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "296dda6fe73ea86e66b7bc9abf62b540bdddada887f04260e1c60b24728b5163",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23(1.1), (2)",
+          "quote": "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court. ... An action in the Superior Court of Justice may be transferred to the Small Claims Court by the local registrar of the Superior Court of Justice on requisition with the consent of all parties filed before the trial commences if, (a) the only claim is for the payment of money or the recovery of possession of personal property; and (b) the claim is within the jurisdiction of the Small Claims Court."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-default-judgment-against-you|plaintiffElement|what-default-means-default",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "72c2e8bf076c9045894e4a38c7938426cb4331d2ddcd2a5f4d07f221382a093c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 11.01(1)",
+          "quote": "If a defendant to a plaintiff's claim or a defendant's claim fails to file a defence to all or part of the claim with the clerk within the prescribed time, the clerk may note the defendant in default"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 11.02(1)",
+          "quote": "If a defendant has been noted in default, the clerk may sign default judgment (Form 11B) in respect of the claim or any part of the claim to which the default applies that is for a debt or liquidated demand in money, including interest if claimed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 11.05(1)",
+          "quote": "A defendant who has been noted in default shall not file a defence or take any other step in the proceeding, except making a motion under rule 11.06, without leave of the court or the plaintiff's consent."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "What happens if you are noted in default",
+          "quote": "If you have been noted in default because you did not file a defence within 20 days of being served with the claim, the plaintiff can obtain default judgment against you without further notice to you."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-default-judgment-against-you|plaintiffElement|setting-aside-test-default",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7f1b1936cf7764496edd5b98d92d53be0e83008bbd3416d20432081259c62387",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 11.06",
+          "quote": "The court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside and the court is satisfied that, (a) the party has a meritorious defence and a reasonable explanation for the default; and (b) the motion is made as soon as is reasonably possible in all the circumstances."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "How to ask for the noting in default or a default judgment to be set aside",
+          "quote": "In your materials you should explain what your defence is and why you failed to file your defence in time."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-default-judgment-against-you|plaintiffElement|papers-did-not-reach-you-default",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4a1a382f06057af1dd6bff3a9f01ac0e430db25567436281870cb57affee9d64",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 8.10",
+          "quote": "A person who has been served or who is deemed to have been served with a document in accordance with these rules is nevertheless entitled to show, on a motion to set aside the consequences of default, on a motion for an extension of time or in support of a motion or request for an adjournment, that the document, (a) did not come to the person's notice; or (b) came to the person's notice only at some time later than when it was served or is deemed to have been served."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-default-judgment-against-you|defendantConsideration|plaintiff-consents-default",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "029c43593c9c0801e37c21707c01f96f62e1037c376c29af09cbfb0a5738a4c8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 11.2.01(1)",
+          "quote": "The clerk shall, on the filing of a request for clerk's order on consent (Form 11.2A), make an order granting the relief sought, including costs, if the following conditions are satisfied: ... setting aside the noting in default or default judgment against a party and any specified step to enforce the judgment that has not yet been completed, ... The request is signed by all parties"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/motions-and-clerks-orders",
+          "pinpoint": "Request for clerk's order on consent",
+          "quote": "If all parties do not consent, the clerk cannot make the order requested."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-motions-and-clerks-orders.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-default-judgment-against-you|defendantConsideration|missed-the-trial-default",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3267ede36a0e50b2d9e8684061bb06dde84d63cd3a8fe4ffc83ade056854a69b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 17.01(2)",
+          "quote": "If an action is called for trial and a party fails to attend, the trial judge may, (a) proceed with the trial in the party's absence; (b) if the plaintiff attends and the defendant fails to do so, strike out the defence and dismiss the defendant's claim, if any, and allow the plaintiff to prove the plaintiff's claim"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 17.01(4)-(5)",
+          "quote": "The court may set aside or vary, on such terms as are just, a judgment obtained against a party who failed to attend at the trial. ... The court may make an order under subrule (4) only if, (a) the party who failed to attend makes a motion for the order within 30 days after becoming aware of the judgment; or (b) the party who failed to attend makes a motion for an extension of the 30-day period mentioned in clause (a) and the court is satisfied that there are special circumstances that justify the extension."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-default-judgment-against-you|proceduralNote|sc-defence-default-judgment-against-you#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b0ae669ada095569c2adefdf40fb3f2a8fb66c712d4cd64bfefc83021c9d62dc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/motions-and-clerks-orders",
+          "pinpoint": "What to do when you've completed a notice of motion and supporting affidavit",
+          "quote": "you must serve a copy of it on each party to the action except for any defendant who has been noted in default. The notice of motion and supporting affidavit must be served at least 7 days before the motion hearing and filed with at the court at least 3 days before the motion hearing. ... An Affidavit of Service [Form 8A] must be completed for each party served and filed with the court at least 3 days before the motion hearing."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-motions-and-clerks-orders.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-default-judgment-against-you|proceduralNote|sc-defence-default-judgment-against-you#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e8dfa9d35cffc91377ece8cff4230f290bd28705583a86b3bd2c2d395178401c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.08(20)",
+          "quote": "When proof is filed that the notice of garnishment was served on the debtor, the clerk shall distribute a payment received under a notice of garnishment to a creditor in accordance with subrule (20.1), unless, (a) a hearing has been requested under subrule (15); (b) a notice of motion and supporting affidavit (Form 15A) has been filed under rule 8.10, 11.06 or 17.04;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-wages-or-bank-account-garnished|plaintiffElement|how-garnishment-works-garnish",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f7919590f193a650de9113226545bcd4123e974cd70294a05fd900a860ec7c35",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.08(1)",
+          "quote": "A creditor may enforce an order for the payment or recovery of money by garnishment of debts payable to the debtor by other persons."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.08(6.1)",
+          "quote": "The creditor shall serve the notice of garnishment on the debtor within five days of serving it on the garnishee."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.08(7)",
+          "quote": "The garnishee is liable to pay to the clerk any debt of the garnishee to the debtor, up to the amount shown in the notice of garnishment, within 10 days after service of the notice on the garnishee or 10 days after the debt becomes payable, whichever is later."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-wages-or-bank-account-garnished|plaintiffElement|what-cannot-be-taken-garnish",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "785927677d40c0fee4fdb761640780bab41585b749ed8cddf93bc7762f5f5242",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.08(9)",
+          "quote": "the amounts paid into court shall not exceed the portion of the debtor's wages that are subject to seizure or garnishment under section 7 of the Wages Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
+          "pinpoint": "Notice of Garnishment",
+          "quote": "Section 7 of the Wages Act restricts the amount of wages that can be garnished. In addition, there are some exemptions from garnishment. For example, employment insurance, social assistance and pension payments cannot be garnished, even if the funds have been deposited into an account at a financial institution."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-wages-or-bank-account-garnished|plaintiffElement|joint-account-garnish",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5d28868b1fd610c31def1a5404ec8a43e2e345263c3fb59c79f62f85d04b3606",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.08(2)",
+          "quote": "If a debt is payable to the debtor and to one or more co-owners, one-half of the indebtedness or a greater or lesser amount specified in an order made under subrule (15) may be garnished."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.08(16)",
+          "quote": "A person who has been served with a notice to co-owner of debt is not entitled to dispute the enforcement of the creditor's order for the payment or recovery of money or a payment made by the clerk unless the person requests a garnishment hearing within 30 days after the notice is sent."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-wages-or-bank-account-garnished|defendantConsideration|garnishment-hearing-garnish",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2b43703c35f04beb8a6aba611a8427ff359630ff0030ac7f6c6f6492bf98e476",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.08(15)",
+          "quote": "At the request of a creditor, debtor, garnishee, co-owner of the debt or any other interested person, the clerk shall schedule a garnishment hearing."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.08(15.2)",
+          "quote": "At the garnishment hearing, the court may, ... (b) determine the rights and liabilities of the garnishee, any co- owner of the debt, the debtor and any assignee or encumbrancer; (c) vary or suspend periodic payments under a notice of garnishment; or (d) determine any other matter in relation to a notice of garnishment."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
+          "pinpoint": "What the debtor can do if money is being garnished",
+          "quote": "If you are the debtor and you do not agree with a notice of garnishment that has been served on you, you can request a garnishment hearing. You can also request a garnishment hearing if the garnishment means a real financial hardship for you. At the hearing you can ask a judge for an order to increase the amount of wages that is exempt from garnishment under the Wages Act"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-wages-or-bank-account-garnished|defendantConsideration|more-than-one-judgment-garnish",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e6fffdde7b4d7b9f2431c3939c783001f600c63ab2f96f79456bfdc956e0bb66",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.09(1)",
+          "quote": "A debtor against whom there are two or more unsatisfied orders for the payment of money may make a motion to the court for a consolidation order."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.09(2)",
+          "quote": "(a) the names and addresses of the creditors who have obtained an order for the payment of money against the debtor; (b) the amount owed to each creditor; (c) the amount of the debtor's income from all sources, identifying them; and (d) the debtor's current financial obligations and any other relevant facts."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.09(9)",
+          "quote": "While the consolidation order is in force, no step to enforce the judgment may be taken or continued against the debtor by a creditor named in the order, except issuing a writ of seizure and sale of land and filing it with the sheriff."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.09(10)",
+          "quote": "A consolidation order terminates immediately if the debtor is in default under it for 21 days."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-wages-or-bank-account-garnished|defendantConsideration|paid-in-full-garnish",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "52105f334b05aabf57e7ed0e0ef40974229783b462a551867931624a49c83d71",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.08(20.2)",
+          "quote": "Once the amount owing under an order that is enforced by garnishment is paid, the creditor shall immediately serve a notice of termination of garnishment (Form 20R) on the garnishee and on the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.12",
+          "quote": "If payment is made in full satisfaction of an order, (a) where all parties consent, a party may file a request for clerk's order on consent (Form 11.2A) indicating that payment has been made in full satisfaction of the order or terms of settlement; or (b) the debtor may make a motion for an order confirming that payment has been made in full satisfaction of the order or terms of settlement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
+          "pinpoint": "When the debt has been paid in full but the notice of garnishment hasn't expired",
+          "quote": "If the creditor is unavailable or unwilling to complete the notice of termination of garnishment form or sign the request for clerk's order on consent form, you can make a motion to the court for an order stating that payment has been made in full satisfaction of the debt. There is a fee for this process."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-wages-or-bank-account-garnished|proceduralNote|sc-defence-wages-or-bank-account-garnished#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9364abb6a67bd45a8e00f1bd43e7f96cb1317b340a9147ebd8690814d91a3c19",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
+          "pinpoint": "Scheduling a garnishment hearing",
+          "quote": "Call the court office to get a hearing date to put on the form. Complete the form and serve a copy of it on the creditor, debtor, garnishee (for example, the bank or employer), co-owner of debt, if any (for example, person who has a joint bank account with the debtor), and any other interested person that you know of ... File the original notice of garnishment hearing with the court ... before the hearing date. There is no fee to file this notice."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-wages-or-bank-account-garnished|proceduralNote|sc-defence-wages-or-bank-account-garnished#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b36da5cad12214b40355cbac98ede004e80d8d8937cbff036af48eefdd542839",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.08(20.1); r. 20.08(5.1)",
+          "quote": "The clerk shall distribute the payment, (a) in the case of the first payment under the notice of garnishment, 30 days after the date it is received; and (b) in the case of every subsequent payment under the notice of garnishment, as they are received. ... A notice of garnishment remains in force for six years from the date of its issue and for a further six years from each renewal."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-writ-against-property|plaintiffElement|writ-against-land-writ",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f6f702020f6c17aa50beb7c5964ed9511ff1480d883ab8176b8893c30afa10fe",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.07(1)",
+          "quote": "If an order for the payment or recovery of money is unsatisfied, the clerk shall at the creditor's request, supported by an affidavit for enforcement request (Form 20P) stating the amount still owing, issue to the sheriff specified by the creditor a writ of seizure and sale of land (Form 20D)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
+          "pinpoint": "Writ of Seizure and Sale of Land",
+          "quote": "The writ would encumber any land presently owned or land which may be purchased in the future by the debtor in the county(ies) or district(s) where the writ is filed. ... The writ of seizure and sale of land can be very effective in the long run since it will be difficult for the debtor to sell or mortgage the land until the debt is paid."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-writ-against-property|plaintiffElement|how-long-a-writ-lasts-writ",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c1d255d4cacbafa8035bc8aa386594281b71201ea4b9e5d41de38aa3f9c3e868",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.07(3)",
+          "quote": "A writ of seizure and sale of land expires on the sixth anniversary of the date of its issue or, if it is renewed under subrule (4), on the sixth anniversary of the date on which it would have expired had it not been renewed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
+          "pinpoint": "When the land can be sold",
+          "quote": "Four months after filing the writ with the enforcement office you can direct the enforcement office (sheriff) to seize and sell the land, but the actual sale cannot proceed until the writ has been on file for six months. ... The enforcement office can only sell the portion of the land that the debtor actually owns."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-writ-against-property|plaintiffElement|writ-against-belongings-writ",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "da48f3328d846978bfbafa994938a7a4fcfd24f1e27ba7bb39ed206b0ab01a30",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.06(1)",
+          "quote": "If there is default under an order for the payment or recovery of money, the clerk shall, at the creditor's request, supported by an affidavit for enforcement request (Form 20P) stating the amount still owing, issue to a bailiff a writ of seizure and sale of personal property (Form 20C)"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.06(5)",
+          "quote": "Within a reasonable time after a request is made by the debtor or someone acting on the debtor's authority, the bailiff shall deliver an inventory of personal property seized under a writ of seizure and sale of personal property."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.06(6)",
+          "quote": "Personal property seized under a writ of seizure and sale of personal property shall not be sold by the bailiff unless notice of the time and place of sale has been, (a) mailed, at least 10 days before the sale, ... (ii) to the debtor at the debtor's last known address"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
+          "pinpoint": "Debtor's goods exempt from seizure by the creditor",
+          "quote": "Under the Execution Act , a debtor is entitled to certain exemptions from seizure of personal property such as: clothing (up to a certain amount) household furniture, utensils, equipment, food and fuel (up to a certain amount) tools and instruments used in the debtor's business ... one motor vehicle worth less than the specified amount The debtor has a right to choose the goods that make up the exemptions."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-writ-against-property|defendantConsideration|paid-in-full-writ",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c11f037b2164681903d457f3b3fbf5c7ee5445c1cebd3fbfa505ebad01b482a5",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.12",
+          "quote": "If payment is made in full satisfaction of an order, (a) where all parties consent, a party may file a request for clerk's order on consent (Form 11.2A) indicating that payment has been made in full satisfaction of the order or terms of settlement; or (b) the debtor may make a motion for an order confirming that payment has been made in full satisfaction of the order or terms of settlement."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
+          "pinpoint": "What the parties should do if the judgment has been paid in full",
+          "quote": "If the creditor is unavailable or unwilling to complete the notice of termination of garnishment form or sign the Request for Clerk's Order on Consent [Form 11.2A] , you can make a motion to the court for an order stating that payment has been made in full satisfaction of the debt. There is a fee for this process."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-writ-against-property|defendantConsideration|ask-court-to-stay-or-vary-writ",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fe1375eef3af439f69927b24f04258052685202bc40bf0a98e68e2807ef857c9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.02(1)",
+          "quote": "The court may, (a) stay the enforcement of an order of the court, for such time and on such terms as are just; and (b) vary the times and proportions in which money payable under an order of the court shall be paid, if it is satisfied that the debtor's circumstances have changed."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-writ-against-property|proceduralNote|sc-defence-writ-against-property#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0c371252a9e8e77b9e37c6ea8164274c0e78ed69f033f03e05783050729d40ce",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.02(2)",
+          "quote": "While an order for periodic payment is in force, no step to enforce the judgment may be taken or continued against the debtor by a creditor named in the order, except issuing a writ of seizure and sale of land and filing it with the sheriff."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.09(9)",
+          "quote": "While the consolidation order is in force, no step to enforce the judgment may be taken or continued against the debtor by a creditor named in the order, except issuing a writ of seizure and sale of land and filing it with the sheriff."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.10(8)",
+          "quote": "While an order as to payment is in force, no step to enforce the judgment may be taken or continued against the debtor by a creditor named in the order, except issuing a writ of seizure and sale of land and filing it with the sheriff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-writ-against-property|proceduralNote|sc-defence-writ-against-property#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bebdeae779608939e0d5c082ed2aea7cfef55e832e854152ecccaa2da3958561",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.07(1.1), (4), (5)",
+          "quote": "If more than six years have passed since the order was made, a writ of seizure and sale of land may be issued only with leave of the court. ... Instead of being renewed under the Rules of Civil Procedure in accordance with subrule (2), a writ of seizure and sale of land that is filed with the sheriff may be renewed before its expiration by filing a request to renew a writ of seizure and sale (Form 20N) with the sheriff. ... A request to renew under subrule (4) may only be filed during the six year period preceding the expiration to which the request relates."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-examination-hearing-summons|plaintiffElement|why-you-are-examined-exam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2129807f2dd1d2d469079ed28fe51d67f21332aee0623aa4052744d5c6590519",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.10(1)",
+          "quote": "If there is default under an order for the payment or recovery of money, the clerk of a court in the territorial division in which the debtor or other person to be examined resides or carries on business shall, at the creditor's request, issue a notice of examination (Form 20H) directed to the debtor or other person."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.10(4)",
+          "quote": "(a) the reason for nonpayment; (b) the debtor's income and property; (c) the debts owed to and by the debtor; (d) the disposal the debtor has made of any property either before or after the order was made; (e) the debtor's present, past and future means to satisfy the order; (f) whether the debtor intends to obey the order or has any reason for not doing so; and (g) any other matter pertinent to the enforcement of the order."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.10(5)",
+          "quote": "An officer or director of a corporate debtor, or, in the case of a debtor that is a partnership or sole proprietorship, the sole proprietor or any partner, may be examined on the debtor's behalf in relation to the matters set out in subrule (4)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-examination-hearing-summons|plaintiffElement|financial-form-exam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cb2a9d738007f1d942db3910caf64f29d71186b87165de7ee348862ea770841d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.10(4.1)-(4.2)",
+          "quote": "A person who is served with a notice of examination shall, (a) inform himself or herself about the matters mentioned in subrule (4) and be prepared to answer questions about them; and (b) in the case of an examination of a debtor who is an individual, complete a financial information form (Form 20I) and, (i) serve it on the creditor requesting the examination, but not file it with the court, and (ii) provide a copy of it to the judge presiding at the examination hearing. ... A debtor required under clause (4.1) (b) to complete a financial information form (Form 20I) shall bring such documents to the examination hearing as are necessary to support the information that he or she provides in the financial information form."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
+          "pinpoint": "What happens to the Financial Information Form",
+          "quote": "You should ask the courtroom clerk to return these documents to you after the hearing has finished"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-examination-hearing-summons|plaintiffElement|notice-served-in-time-exam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0089d4c5be5f7faabae5d6c6b7420de99745ba298a20787de6b2fd09c139e97f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 8.01(10)-(12)",
+          "quote": "A notice of examination (Form 20H) shall be served by the creditor on the debtor or person to be examined personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03. ... If the person to be examined is the debtor and the debtor is an individual, the creditor shall serve the notice of examination on the debtor together with a blank financial information form (Form 20I). ... (a) shall be served, together with the financial information form if applicable, at least 30 days before the date fixed for the examination; and (b) shall be filed, with proof of service, at least three days before the date fixed for the examination."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-examination-hearing-summons|defendantConsideration|not-attending-contempt-exam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a177853b5b7f569a4931deca51d2602ef03eb4d951fecdd27b080efe02bbe432",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 30(1)-(2)",
+          "quote": "The Small Claims Court may, in accordance with the rules of court, order a debtor or other person who is required to and fails to attend an examination respecting a default by the debtor under an order of the court for the payment or recovery of money, to attend before the court for a contempt hearing. ... The Small Claims Court may find a person to be in contempt of court at a hearing referred to in subsection (1), if the court is satisfied that, (a) the person was required to attend the examination; (b) the person was served, in accordance with the rules of court, with a notice to attend the examination; (c) the person failed to attend the examination; and (d) the failure to attend was wilful."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.11(1), (7)",
+          "quote": "If a person on whom a notice of examination has been served under rule 20.10 attends the examination but refuses to answer questions or to produce records or documents, the court may order the person to attend before it for a contempt hearing. ... At a contempt hearing, the court may order that the person, (a) attend an examination under rule 20.10; (b) be jailed for a period of not more than five days; (c) attend an additional contempt hearing under subrule (1) or subsection 30 (1) of the Courts of Justice Act, as the case may be; or (d) comply with any other order that the judge considers necessary or just."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-examination-hearing-summons|defendantConsideration|set-aside-contempt-order-exam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9b42c3d0b01b02e322f8914e3142728dc502dbddee201d79100327054e817e9d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.11(4)",
+          "quote": "A person who has been ordered to attend a contempt hearing under subsection 30 (1) of the Courts of Justice Act may make a motion to set aside the order, before or after receiving the notice of contempt hearing but before the date of the hearing and, on the motion, the court may set aside the order and order that the person attend another examination under rule 20.10."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
+          "pinpoint": "Asking the court to cancel a contempt hearing ordered for failure to attend the examination hearing; Paying the whole amount of my debt",
+          "quote": "Explain the reasons why you failed to attend the examination hearing and that you are willing to attend a rescheduled examination hearing. If the motion cannot be heard before the date of the contempt hearing, or if the motions judge refuses to grant your request, you must attend the contempt hearing. ... Paying the debt does not expunge (remove) the contempt."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-examination-hearing-summons|proceduralNote|sc-defence-examination-hearing-summons#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9eaa8c65caa345b3c26939dc5ddd6c478a83cd030b2ab4dc1b4a4d11bb91c2de",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.10(6)-(8)",
+          "quote": "The examination shall be, (a) held in the absence of the public, unless the court orders otherwise; (b) conducted under oath; and (c) recorded. ... After the examination or if the debtor's consent is filed, the court may make an order as to payment. ... While an order as to payment is in force, no step to enforce the judgment may be taken or continued against the debtor by a creditor named in the order, except issuing a writ of seizure and sale of land and filing it with the sheriff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-examination-hearing-summons|proceduralNote|sc-defence-examination-hearing-summons#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b452958387b829acce1b44290d38cb843cbeb882814a78022714b61fea2000d0",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 20.11(3)",
+          "quote": "If the court makes an order for a contempt hearing, (a) the clerk shall provide the creditor with a notice of contempt hearing setting out the time, date and place of the hearing; and (b) the creditor shall serve the notice of contempt hearing on the debtor or other person in accordance with subrule 8.01 (13) and file proof of service at least seven days before the hearing."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 8.01(13)",
+          "quote": "A notice of a contempt hearing shall be served by the creditor on the debtor or person to be examined personally as provided in rule 8.02."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    }
+  ],
   "unverifiable": []
 }

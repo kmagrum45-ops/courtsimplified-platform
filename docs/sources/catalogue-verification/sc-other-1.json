@@ -1,4 +1,1139 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "sc-claim-sick-or-misrepresented-pet|plaintiffElement|matched-description-pet",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7ca0f742aa0233da49d88eb8a02f7a707f9fdb5c33723670ee36075e703563f2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
+          "pinpoint": "s. 14",
+          "quote": "14 Where there is a contract for the sale of goods by description, there is an implied condition that the goods will correspond with the description,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
+          "pinpoint": "s. 1(1), \"goods\"",
+          "quote": "\"goods\" means all chattels personal, other than things in action and money,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/sale-of-goods-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-sick-or-misrepresented-pet|plaintiffElement|quality-and-fitness-pet",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ac06b1c8c9a911a5e0108c9f287e50afb98f8083eba1281f573529bad107b310",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
+          "pinpoint": "s. 15",
+          "quote": "15 Subject to this Act and any statute in that behalf, there is no implied warranty or condition as to the quality or fitness for any particular purpose of goods supplied under a contract of sale, except as follows:"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
+          "pinpoint": "s. 15, para. 1",
+          "quote": "Where the buyer, expressly or by implication, makes known to the seller the particular purpose for which the goods are required so as to show that the buyer relies on the seller's skill or judgment, and the goods are of a description that it is in the course of the seller's business to supply (whether the seller is the manufacturer or not), there is an implied condition that the goods will be reasonably fit for such purpose,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
+          "pinpoint": "s. 15, para. 2",
+          "quote": "Where goods are bought by description from a seller who deals in goods of that description (whether the seller is the manufacturer or not), there is an implied condition that the goods will be of merchantable quality, but if the buyer has examined the goods, there is no implied condition as regards defects that such examination ought to have revealed."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/sale-of-goods-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-sick-or-misrepresented-pet|plaintiffElement|false-representation-pet",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bc641c09462e4da7f777adb1e27b582651efe197b8e4efbc5f7a2b71df0687b2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"consumer\"",
+          "quote": "\"consumer\" means an individual acting for personal, family or household purposes and does not include a person who is acting for business purposes;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"supplier\"",
+          "quote": "\"supplier\" means a person who is in the business of selling, leasing or trading in goods or services"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 14(1)",
+          "quote": "14 (1) It is an unfair practice for a person to make a false, misleading or deceptive representation."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 14(2), paras. 1 and 3",
+          "quote": "1. A representation that the goods or services have sponsorship, approval, performance characteristics, accessories, uses, ingredients, benefits or qualities they do not have. ... 3. A representation that the goods or services are of a particular standard, quality, grade, style or model, if they are not."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 18(1)",
+          "quote": "18 (1) Any agreement, whether written, oral or implied, entered into by a consumer after or while a person has engaged in an unfair practice may be rescinded by the consumer and the consumer is entitled to any remedy that is available in law, including damages."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 9(2)",
+          "quote": "(2) The implied conditions and warranties applying to the sale of goods by virtue of the Sale of Goods Act are deemed to apply with necessary modifications to goods that are leased or traded or otherwise supplied under a consumer agreement."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-sick-or-misrepresented-pet|plaintiffElement|amount-pet",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "79072b5af3d160c56da13eccac5292f2d1f496d97c00af18fd124af098bac81f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-sick-or-misrepresented-pet|defendantConsideration|not-in-business-pet",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7f3a417fe3d9a9eae5ea7f732285f8822cc193f28d8b677df8acde032f51b0ee",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
+          "pinpoint": "s. 15, para. 1",
+          "quote": "Where the buyer, expressly or by implication, makes known to the seller the particular purpose for which the goods are required so as to show that the buyer relies on the seller's skill or judgment, and the goods are of a description that it is in the course of the seller's business to supply (whether the seller is the manufacturer or not), there is an implied condition that the goods will be reasonably fit for such purpose,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
+          "pinpoint": "s. 15, para. 2",
+          "quote": "Where goods are bought by description from a seller who deals in goods of that description (whether the seller is the manufacturer or not), there is an implied condition that the goods will be of merchantable quality, but if the buyer has examined the goods, there is no implied condition as regards defects that such examination ought to have revealed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"supplier\"",
+          "quote": "\"supplier\" means a person who is in the business of selling, leasing or trading in goods or services"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 1, \"consumer agreement\"",
+          "quote": "\"consumer agreement\" means an agreement between a supplier and a consumer in which,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/sale-of-goods-act.txt; Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-sick-or-misrepresented-pet|defendantConsideration|sold-as-is-pet",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "30baff391cf3d0dc3700b876571ba3a6960bb1fb0c4fe20c612c6e742f64fc34",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
+          "pinpoint": "s. 53",
+          "quote": "53 Where any right, duty or liability would arise under a contract of sale by implication of law, it may be negatived or varied by express agreement or by the course of dealing between the parties, or by usage, if the usage is such as to bind both parties to the contract."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 9(3)",
+          "quote": "(3) Any term or acknowledgement, whether part of the consumer agreement or not, that purports to negate or vary any implied condition or warranty under the Sale of Goods Act or any deemed condition or warranty under this Act is void."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/sale-of-goods-act.txt; Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-sick-or-misrepresented-pet|proceduralNote|sc-claim-sick-or-misrepresented-pet#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "04f3403430da97a40d4149e7c7fc1a7448d7cfb55b01b553bfdcdf2d1f4239fa",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 18(3)",
+          "quote": "(3) A consumer must give notice within one year after entering into the agreement if, ... (a) the consumer seeks to rescind an agreement under subsection (1); or ... (b) the consumer seeks recovery under subsection (2), if rescission is not possible."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 18(4)-(5)",
+          "quote": "(4) The consumer may express notice in any way as long as it indicates the intention of the consumer to rescind the agreement or to seek recovery where rescission is not possible and the reasons for so doing and the notice meets any requirements that may be prescribed. ... (5) Notice may be delivered by any means."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-sick-or-misrepresented-pet|proceduralNote|sc-claim-sick-or-misrepresented-pet#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "010d47f3c8c4c16fd08fe6a629dc5e047b7a9892639d52a2fcceb1d3f8cc7a86",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Naming the defendant",
+          "quote": "If your claim is against more than one individual, be sure to include each defendant's full name."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-sick-or-misrepresented-pet|proceduralNote|sc-claim-sick-or-misrepresented-pet#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-vet-negligence|plaintiffElement|duty-and-standard-vet",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fc6a0f57672c7906c0b146f92462c678f927a89ea27b70b5b963df9b45fb6549",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances. The 222 measure of what is reasonable depends on the facts of each case, including the likelihood of a known or foreseeable harm, the gravity of that harm, and the burden or cost which would be incurred to prevent the injury. In addition, one may look to exter- nal indicators of reasonable conduct, such as cus- tom, industry practice, and statutory or regulatory standards."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant 's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt; Saved decision, read from docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-vet-negligence|plaintiffElement|harm-caused-vet",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ebaf3fabd1c7f055a73dab04fa74c5761517ac812de6cb3d6b8619b89f27c54e",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "para. 8",
+          "quote": "The test for showing causation is the \"but for\" test. The plaintiff must show on a balance of probabilities that \"but for\" the defendant's negligent act, the injury would not have occurred. ... This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant 's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt; Saved decision, read from docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-vet-negligence|plaintiffElement|amount-vet",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7facbbe09d04bde4a65c67803991e0fc25e0b52d97398e564cd3c855fba2830c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-vet-negligence|defendantConsideration|owner-contributed-vet",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4f7a023e0a7e8a7ce683193c103464f313042f143df90fc11db5ae789ff2f176",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "s. 3",
+          "quote": "3. In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-vet-negligence|proceduralNote|sc-claim-vet-negligence#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "470d36912a1901551a3ad3b7ce9626d94c719e646dcd9f649fc6ec65168a83d6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90v03_e.doc",
+          "pinpoint": "s. 24(1)",
+          "quote": "24 (1) The Complaints Committee shall consider and investigate complaints made by members of the public or members of the College regarding the conduct of a member or former member of the College, but no action shall be taken by the Committee under subsection (2) unless, ... (a) a written complaint has been filed with the Registrar and the member or former member whose conduct is being investigated has been notified of the complaint and given at least two weeks in which to submit in writing to the Committee any explanations or representations the member or former member may wish to make concerning the matter; and"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90v03_e.doc",
+          "pinpoint": "s. 24(2)",
+          "quote": "(2) The Complaints Committee in accordance with the information it receives may, ... (a) direct that the matter be referred, in whole or in part, to the Discipline Committee ... (b) direct that the matter not be referred to the Discipline Committee ... (c) take such action as it considers appropriate in the circumstances and that is not inconsistent with this Act or the regulations or by-laws."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90v03_e.doc",
+          "pinpoint": "s. 1(1), \"College\"",
+          "quote": "means the College of Veterinarians of Ontario;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/veterinarians-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-vet-negligence|proceduralNote|sc-claim-vet-negligence#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "010d47f3c8c4c16fd08fe6a629dc5e047b7a9892639d52a2fcceb1d3f8cc7a86",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Naming the defendant",
+          "quote": "If your claim is against more than one individual, be sure to include each defendant's full name."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-vet-negligence|proceduralNote|sc-claim-vet-negligence#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-scam-or-fraud-recovery|plaintiffElement|false-representation-scam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b36d09ea125220f30c8b18148539003de8b2b46a1015443fed7f87873224a251",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt",
+          "pinpoint": "para. 87",
+          "quote": "the tort of civil fraud has four elements, which must be proven on a balance of probabilities: (1) a false representation by the defendant; (2) some level of knowledge of the falsehood of the representation on the part of the defendant (whether knowledge or recklessness); (3) the false representation caused the plaintiff to act; (4) the plaintiff’s actions resulted in a loss."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-scam-or-fraud-recovery|plaintiffElement|acted-and-lost-scam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b7c381eaa2d16a658a4eb1aa3f5f4cb721873661c3db1b660f1cb94cad57c376",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt",
+          "pinpoint": "para. 87",
+          "quote": "the tort of civil fraud has four elements, which must be proven on a balance of probabilities: (1) a false representation by the defendant; (2) some level of knowledge of the falsehood of the representation on the part of the defendant (whether knowledge or recklessness); (3) the false representation caused the plaintiff to act; (4) the plaintiff’s actions resulted in a loss."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-scam-or-fraud-recovery|plaintiffElement|received-and-kept-scam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9ee2ef1a428065b7aee34ef8b0a68bc776e08ec1356778fc1095949574c8654b",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 31",
+          "quote": "For recovery, something must have been given by the plaintiff and received and retained by the defendant without juristic reason. A series of categories developed in which retention of a conferred benefit was considered unjust. These included, for example: benefits conferred under mistakes of fact or law;"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 32",
+          "quote": "It permits recovery whenever the plaintiff can establish three elements: an enrichment of or benefit to the defendant, a corresponding deprivation of the plaintiff, and the absence of a juristic reason for the enrichment"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 40",
+          "quote": "To put it simply, this means that there is no reason in law or justice for the defendant’s retention of the benefit conferred by the plaintiff"
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-scam-or-fraud-recovery|plaintiffElement|amount-scam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ef6603bbc443b24a9607d55cc730cafcfd539aa1b1dd821dfdc50cd673cb06e2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-scam-or-fraud-recovery|defendantConsideration|did-not-know-scam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e7d2acd1e315312da6b6ff0cfd1402d12b74ec0c69986489f70689fa19d35cf3",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt",
+          "pinpoint": "para. 87",
+          "quote": "the tort of civil fraud has four elements, which must be proven on a balance of probabilities: (1) a false representation by the defendant; (2) some level of knowledge of the falsehood of the representation on the part of the defendant (whether knowledge or recklessness); (3) the false representation caused the plaintiff to act; (4) the plaintiff’s actions resulted in a loss."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "para. 41",
+          "quote": "Juristic reasons to deny recovery may be the intention to make a gift (referred to as a “donative intent”), a contract, or a disposition of law"
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt; Saved decision, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-scam-or-fraud-recovery|proceduralNote|sc-claim-scam-or-fraud-recovery#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c1546d29553c41150aa1d8a29828df1b489122141ee146e48071ad26019882b7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/page/identify-scam-or-fraud",
+          "pinpoint": "Report a scam",
+          "quote": "If you think you may be a victim of a fraud or scam, there are immediate steps you can take to limit the damage, protect yourself from further loss and report the scammer."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/identify-scam-or-fraud",
+          "pinpoint": "Report a scam > Steps 1-2",
+          "quote": "Stop all communication with the scammer right away ... Notify banks and other companies where you have an account that may have been affected"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/identify-scam-or-fraud",
+          "pinpoint": "Report a scam > Step 3",
+          "quote": "Report the scam or fraud to your local police and the Canadian Anti-Fraud Centre ... Gather all records you have of the fraud or scam, such as: correspondence with the scammer (for example, letters, emails, text messages) ... financial statements ... receipts ... contracts ... contact information the scammer used to contact you ... websites and social media accounts used for the scam ... Document your actions in a log and include when you first started noticing the fraud"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cpo-identify-scam-or-fraud.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-scam-or-fraud-recovery|proceduralNote|sc-claim-scam-or-fraud-recovery#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "010d47f3c8c4c16fd08fe6a629dc5e047b7a9892639d52a2fcceb1d3f8cc7a86",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Naming the defendant",
+          "quote": "If your claim is against more than one individual, be sure to include each defendant's full name."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-scam-or-fraud-recovery|proceduralNote|sc-claim-scam-or-fraud-recovery#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-romance-or-investment-scam|plaintiffElement|false-story-romance",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c21a5c36b44bf1022f1706486698dbc15d7a3da180826ca3b9167c9bf471da4f",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt",
+          "pinpoint": "para. 87",
+          "quote": "the tort of civil fraud has four elements, which must be proven on a balance of probabilities: (1) a false representation by the defendant; (2) some level of knowledge of the falsehood of the representation on the part of the defendant (whether knowledge or recklessness); (3) the false representation caused the plaintiff to act; (4) the plaintiff’s actions resulted in a loss."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-romance-or-investment-scam|plaintiffElement|sent-and-lost-romance",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "37a59c4031176d80d1acc4cd15db1eb6c9ed7941883b0cc253a15e75ddd65f92",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt",
+          "pinpoint": "para. 87",
+          "quote": "the tort of civil fraud has four elements, which must be proven on a balance of probabilities: (1) a false representation by the defendant; (2) some level of knowledge of the falsehood of the representation on the part of the defendant (whether knowledge or recklessness); (3) the false representation caused the plaintiff to act; (4) the plaintiff’s actions resulted in a loss."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-romance-or-investment-scam|plaintiffElement|not-a-gift-romance",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6a166bf2d1cc1e31ea57795806f7220e3215ef9049ca2c7972cdf66d53094bde",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+          "pinpoint": "para. 24",
+          "quote": "The presumption of resulting trust is a rebuttable presumption of law and general rule that applies to gratuitous transfers. When a transfer is challenged, the presumption allocates the legal burden of proof. Thus, where a transfer is made for no consideration, the onus is placed on the transferee to demonstrate that a gift was intended ... This is so because equity presumes bargains, not gifts."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+          "pinpoint": "para. 27",
+          "quote": "However, depending on the nature of the relationship between the transferor and transferee, the presumption of a resulting trust will not arise and there will be a presumption of advancement instead ... If the presumption of advancement applies, it will fall on the party challenging the transfer to rebut the presumption of a gift."
+        },
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt; Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-romance-or-investment-scam|plaintiffElement|amount-romance",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a238857e6b4ee3ae97d84d0df25e0fb85c07b68ff6d86716962f1bf134557c5a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-romance-or-investment-scam|defendantConsideration|gift-romance",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "953c19339b02d9beb48fc97da6f9fbe06999992cd8c08e3d6492b6689b6043c4",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+          "pinpoint": "para. 24",
+          "quote": "The presumption of resulting trust is a rebuttable presumption of law and general rule that applies to gratuitous transfers. When a transfer is challenged, the presumption allocates the legal burden of proof. Thus, where a transfer is made for no consideration, the onus is placed on the transferee to demonstrate that a gift was intended ... This is so because equity presumes bargains, not gifts."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+          "pinpoint": "para. 25",
+          "quote": "The presumption of resulting trust therefore alters the general practice that a plaintiff (who ... would be the party challenging the transfer in these cases) bears the legal burden in a civil case."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-romance-or-investment-scam|defendantConsideration|real-investment-romance",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ec36f39396d1a089f047c7a3d6b8e67a8e6088ae583519e4a76760f68dc11ac4",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt",
+          "pinpoint": "para. 87",
+          "quote": "the tort of civil fraud has four elements, which must be proven on a balance of probabilities: (1) a false representation by the defendant; (2) some level of knowledge of the falsehood of the representation on the part of the defendant (whether knowledge or recklessness); (3) the false representation caused the plaintiff to act; (4) the plaintiff’s actions resulted in a loss."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-romance-or-investment-scam|proceduralNote|sc-claim-romance-or-investment-scam#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c1546d29553c41150aa1d8a29828df1b489122141ee146e48071ad26019882b7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/page/identify-scam-or-fraud",
+          "pinpoint": "Report a scam",
+          "quote": "If you think you may be a victim of a fraud or scam, there are immediate steps you can take to limit the damage, protect yourself from further loss and report the scammer."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/identify-scam-or-fraud",
+          "pinpoint": "Report a scam > Steps 1-2",
+          "quote": "Stop all communication with the scammer right away ... Notify banks and other companies where you have an account that may have been affected"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/identify-scam-or-fraud",
+          "pinpoint": "Report a scam > Step 3",
+          "quote": "Report the scam or fraud to your local police and the Canadian Anti-Fraud Centre ... Gather all records you have of the fraud or scam, such as: correspondence with the scammer (for example, letters, emails, text messages) ... financial statements ... receipts ... contracts ... contact information the scammer used to contact you ... websites and social media accounts used for the scam ... Document your actions in a log and include when you first started noticing the fraud"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cpo-identify-scam-or-fraud.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-romance-or-investment-scam|proceduralNote|sc-claim-romance-or-investment-scam#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e8254e17d8a9cbb52e35250126d686ac69562db61bebdcd39ef9c38b97b13bcc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 2(2)(a), (b), (d)",
+          "quote": "This Act does not apply in respect of, ... (a) consumer transactions regulated under the Securities Act; ... (b) financial services related to investment products or income securities; ... (d) consumer transactions regulated under the Commodity Futures Act;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-romance-or-investment-scam|proceduralNote|sc-claim-romance-or-investment-scam#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-cryptocurrency-or-exchange-loss|plaintiffElement|agreement-terms-crypto",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "eeac0c73de10b30b32bb792c697cbd6d33f58dede88245a76d9dc032278a987b",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/sattva-capital-corp-v-creston-moly-corp-2014-SCC-53.english.txt",
+          "pinpoint": "para. 47",
+          "quote": "The overriding concern is to determine “the intent of the parties and the scope of their understanding” ... To do so, a decision-maker must read the contract as a whole, giving the words used their ordinary and grammatical meaning, consistent with the surrounding circumstances known to the parties at the time of formation of the contract."
+        },
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/sattva-capital-corp-v-creston-moly-corp-2014-SCC-53.english.txt; Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-cryptocurrency-or-exchange-loss|plaintiffElement|promise-not-kept-crypto",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cff76666b61edd1c1207d39fb402edcd2930e3d106d7b111192a5e588676068d",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/fidler-v-sun-life-assurance-co-2006-SCC-30.english.txt",
+          "pinpoint": "para. 44",
+          "quote": "The court should ask “what did the contract promise?” and provide compensation for those promises. The aim of compensatory damages is to restore the wronged party to the position he or she would have been in had the contract not been broken."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/bhasin-v-hrynew-2014-SCC-71.english.txt",
+          "pinpoint": "para. 73",
+          "quote": "parties must not lie or otherwise knowingly mislead each other about matters directly linked to the performance of the contract."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/fidler-v-sun-life-assurance-co-2006-SCC-30.english.txt; Saved decision, read from docs/sources/decisions/bhasin-v-hrynew-2014-SCC-71.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-cryptocurrency-or-exchange-loss|plaintiffElement|deception-crypto",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b608945bdd5294ddddcebcaeb318847a8884f6791685b528c8457383e723309a",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt",
+          "pinpoint": "para. 87",
+          "quote": "the tort of civil fraud has four elements, which must be proven on a balance of probabilities: (1) a false representation by the defendant; (2) some level of knowledge of the falsehood of the representation on the part of the defendant (whether knowledge or recklessness); (3) the false representation caused the plaintiff to act; (4) the plaintiff’s actions resulted in a loss."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-cryptocurrency-or-exchange-loss|plaintiffElement|amount-crypto",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "06b740479db20360d42624ddd3f44eb521d802eeb3481edf6d19f05ebe54feb4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-cryptocurrency-or-exchange-loss|defendantConsideration|terms-limit-liability-crypto",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "12a02d04dcc64305074d6f1c236a7a6081fae57a4abe365d09c67695e7d263d5",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/tercon-contractors-ltd-v-british-columbia-2010-SCC-4.english.txt",
+          "pinpoint": "para. 62",
+          "quote": "I agree with the analytical approach that should be followed when tackling an issue relating to the applicability of an exclusion clause set out by my colleague Binnie J."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/tercon-contractors-ltd-v-british-columbia-2010-SCC-4.english.txt",
+          "pinpoint": "paras. 122-123",
+          "quote": "The first issue, of course, is whether as a matter of interpretation the exclusion clause even applies to the circumstances established in evidence. This will depend on the Court’s assessment of the intention of the parties as expressed in the contract. ... If the exclusion clause applies, the second issue is whether the exclusion clause was unconscionable at the time the contract was made, “as might arise from situations of unequal bargaining power between the parties” ... If the exclusion clause is held to be valid and applicable, the Court may undertake a third enquiry, namely whether the Court should nevertheless refuse to enforce the valid exclusion clause because of the existence of an overriding public policy, proof of which lies on the party seeking to avoid enforcement of the clause, that outweighs the very strong public interest in the enforcement of contracts."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/tercon-contractors-ltd-v-british-columbia-2010-SCC-4.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-cryptocurrency-or-exchange-loss|proceduralNote|sc-claim-cryptocurrency-or-exchange-loss#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4bf04bce7f031a757268304412939520140b4fcdd0c4d26aceca35f896703629",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 2(1)",
+          "quote": "2 (1) Subject to this section, this Act applies in respect of all consumer transactions if the consumer or the person engaging in the transaction with the consumer is located in Ontario when the transaction takes place."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 2(2)(a), (b), (d)",
+          "quote": "This Act does not apply in respect of, ... (a) consumer transactions regulated under the Securities Act; ... (b) financial services related to investment products or income securities; ... (d) consumer transactions regulated under the Commodity Futures Act;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-cryptocurrency-or-exchange-loss|proceduralNote|sc-claim-cryptocurrency-or-exchange-loss#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "010d47f3c8c4c16fd08fe6a629dc5e047b7a9892639d52a2fcceb1d3f8cc7a86",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Naming the defendant",
+          "quote": "If your claim is against more than one individual, be sure to include each defendant's full name."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-cryptocurrency-or-exchange-loss|proceduralNote|sc-claim-cryptocurrency-or-exchange-loss#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-defamation-online-or-in-print|plaintiffElement|words-defamatory-defo",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e7f037b8a2bcb8680a7a5c2ce54068878ae3737c986949b719c8d95a68546e40",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "para. 28",
+          "quote": "A plaintiff in a defamation action is required to prove three things to obtain judgment and an award of damages: (1) that the impugned words were defamatory, in the sense that they would tend to lower the plaintiff’s reputation in the eyes of a reasonable person; (2) that the words in fact referred to the plaintiff; and (3) that the words were published, meaning that they were communicated to at least one person other than the plaintiff. If these elements are established on a balance of probabilities, falsity and damage are presumed"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l12_e.doc",
+          "pinpoint": "s. 1(2)",
+          "quote": "(2) Any reference to words in this Act shall be construed as including a reference to pictures, visual images, gestures and other methods of signifying meaning."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt; Vendored corpus file docs/sources/corpus/libel-and-slander-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-defamation-online-or-in-print|plaintiffElement|about-and-published-defo",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "64b8d23faab88f38e4b4814bad78d6fbf6440b1ff2f5d59192adc70e82a074e3",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "para. 28",
+          "quote": "A plaintiff in a defamation action is required to prove three things to obtain judgment and an award of damages: (1) that the impugned words were defamatory, in the sense that they would tend to lower the plaintiff’s reputation in the eyes of a reasonable person; (2) that the words in fact referred to the plaintiff; and (3) that the words were published, meaning that they were communicated to at least one person other than the plaintiff. If these elements are established on a balance of probabilities, falsity and damage are presumed"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "para. 28",
+          "quote": "The plaintiff is not required to show that the defendant intended to do harm, or even that the defendant was careless."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-defamation-online-or-in-print|defendantConsideration|truth-or-privilege-defo",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cc92d3edfcd5551ce75a4007fb43b17fc1ea7d8bedc3e01ccd809f3271306fc6",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "para. 29",
+          "quote": "If the plaintiff proves the required elements, the onus then shifts to the defendant to advance a defence in order to escape liability."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "para. 32",
+          "quote": "Where statements of fact are at issue, usually only two defences are available: the defence that the statement was substantially true (justification); and the defence that the statement was made in a protected context (privilege)."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt",
+          "pinpoint": "para. 33",
+          "quote": "To succeed on the defence of justification, a defendant must adduce evidence showing that the statement was substantially true."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/hill-v-church-of-scientology-1995-2-SCR-1130.html.txt",
+          "pinpoint": "Reasons of Cory J. (qualified privilege)",
+          "quote": "However, the privilege is not absolute and can be defeated if the dominant motive for publishing the statement is actual or express malice."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt; Saved decision, read from docs/sources/decisions/hill-v-church-of-scientology-1995-2-SCR-1130.html.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-defamation-online-or-in-print|defendantConsideration|fair-comment-defo",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e1a950d159401b97e5c528d159b912b5c0278149940c0388b7e3e46f8a66de37",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/wic-radio-v-simpson-2008-SCC-40.html.txt",
+          "pinpoint": "para. 28",
+          "quote": "I repeat and endorse the formulation of the test for the fair comment defence set out by Dickson J., dissenting, in Cherneskey as follows: (a) the comment must be on a matter of public interest; (b) the comment must be based on fact; (c) the comment, though it can include inferences of fact, must be recognisable as comment; (d) the comment must satisfy the following objective test: could any [person] honestly express that opinion on the proved facts? (e) even though the comment satisfies the objective test the defence can be defeated if the plaintiff proves that the defendant was [subjectively] actuated by express malice."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/wic-radio-v-simpson-2008-SCC-40.html.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-defamation-online-or-in-print|defendantConsideration|public-interest-motion-defo",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9c72dfda387e46b0c9e2dfb57f53874be354e4c2450db8b61f888916a966d844",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 137.1(3)",
+          "quote": "(3) On motion by a person against whom a proceeding is brought, a judge shall, subject to subsection (4), dismiss the proceeding against the person if the person satisfies the judge that the proceeding arises from an expression made by the person that relates to a matter of public interest."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 137.1(4)",
+          "quote": "(4) A judge shall not dismiss a proceeding under subsection (3) if the responding party satisfies the judge that, ... (a) there are grounds to believe that, ... (i) the proceeding has substantial merit, and ... (ii) the moving party has no valid defence in the proceeding; and ... (b) the harm likely to be or have been suffered by the responding party as a result of the moving party's expression is sufficiently serious that the public interest in permitting the proceeding to continue outweighs the public interest in protecting that expression."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 137.1(7)",
+          "quote": "(7) If a judge dismisses a proceeding under this section, the moving party is entitled to costs on the motion and in the proceeding on a full indemnity basis, unless the judge determines that such an award is not appropriate in the circumstances."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-defamation-online-or-in-print|proceduralNote|sc-claim-defamation-online-or-in-print#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "29cbe95b1e14f498e2ff8b62fcb00c85d5dfbc4ac2d2228b9047b1446b6a2c14",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l12_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) No action for libel in a newspaper or in a broadcast lies unless the plaintiff has, within six weeks after the alleged libel has come to the plaintiff's knowledge, given to the defendant notice in writing, specifying the matter complained of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l12_e.doc",
+          "pinpoint": "s. 7",
+          "quote": "7 Subsection 5 (1) and section 6 apply only to newspapers printed and published in Ontario and to broadcasts from a station in Ontario."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l12_e.doc",
+          "pinpoint": "s. 1(1), \"newspaper\"",
+          "quote": "\"newspaper\" means a paper containing public news, intelligence, or occurrences, or remarks or observations thereon, or containing only, or principally, advertisements, printed for distribution to the public and published periodically, or in parts or numbers, at least twelve times a year."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/libel-and-slander-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-defamation-online-or-in-print|proceduralNote|sc-claim-defamation-online-or-in-print#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b21169698c39c9d4ea65109e4c8ff60d43dbcf5069814d1bf7bc9864ac78a440",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l12_e.doc",
+          "pinpoint": "s. 6",
+          "quote": "6 An action for a libel in a newspaper or in a broadcast shall be commenced within three months after the libel has come to the knowledge of the person defamed,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/libel-and-slander-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-defamation-online-or-in-print|proceduralNote|sc-claim-defamation-online-or-in-print#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-privacy-breach-or-intrusion|plaintiffElement|intentional-intrusion-priv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "adbeac1dab2b90aafc26ff930d70fd71b3237c6d5a8265f6d25406038b2b51e9",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 70",
+          "quote": "I would essentially adopt as the elements of the action for intrusion upon seclusion the Restatement (Second) of Torts (2010) formulation which, for the sake of convenience, I repeat here: One who intentionally intrudes, physically or otherwise, upon the seclusion of another or his private affairs or concerns, is subject to liability to the other for invasion of his privacy, if the invasion would be highly offensive to a reasonable person."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 71",
+          "quote": "The key features of this cause of action are, first, that the defendant‟s conduct must be intentional, within which I would include reckless; second that the defendant must have invaded, without lawful justification, the plaintiff‟s private affairs or concerns; and third, that a reasonable person would regard the invasion as highly offensive causing distress, humiliation or anguish. However, proof of harm to a recognized economic interest is not an element of the cause of action."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-privacy-breach-or-intrusion|plaintiffElement|highly-offensive-priv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1102458c8b6d2f82d815ffadd9707af3ec2385b797be17b9c699be8558366cc0",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 71",
+          "quote": "The key features of this cause of action are, first, that the defendant‟s conduct must be intentional, within which I would include reckless; second that the defendant must have invaded, without lawful justification, the plaintiff‟s private affairs or concerns; and third, that a reasonable person would regard the invasion as highly offensive causing distress, humiliation or anguish. However, proof of harm to a recognized economic interest is not an element of the cause of action."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 72",
+          "quote": "A claim for intrusion upon seclusion will arise only for deliberate and significant invasions of personal privacy. ... it is only intrusions into matters such as one‟s financial or health records, sexual practices and orientation, employment, diary or private correspondence that, viewed objectively on the reasonable person standard, can be described as highly offensive."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-privacy-breach-or-intrusion|plaintiffElement|damages-priv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6e5b926a788c1b25f4cd9db003f4b72819ce1fb89e323aaf012acbcd985499f6",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 71",
+          "quote": "The key features of this cause of action are, first, that the defendant‟s conduct must be intentional, within which I would include reckless; second that the defendant must have invaded, without lawful justification, the plaintiff‟s private affairs or concerns; and third, that a reasonable person would regard the invasion as highly offensive causing distress, humiliation or anguish. However, proof of harm to a recognized economic interest is not an element of the cause of action."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 87",
+          "quote": "In my view, damages for intrusion upon seclusion in cases where the plaintiff has suffered no pecuniary loss should be modest but sufficient to mark the wrong that has been done. I would fix the range at up to $20,000. ... 1. the nature, incidence and occasion of the defendant‟s wrongful act; 2. the effect of the wrong on the plaintiff‟s health, welfare, social, business or financial position; 3. any relationship, whether domestic or otherwise, between the parties; 4. any distress, annoyance or embarrassment suffered by the plaintiff arising from the wrong; and 5. the conduct of the parties, both before and after the wrong, including any apology or offer of amends made by the defendant."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-privacy-breach-or-intrusion|defendantConsideration|lawful-reason-priv",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "685b7689eb074f7d0b86d1b3252fa59857ed0adab74ca0b38c5481841694a99a",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 71",
+          "quote": "The key features of this cause of action are, first, that the defendant‟s conduct must be intentional, within which I would include reckless; second that the defendant must have invaded, without lawful justification, the plaintiff‟s private affairs or concerns; and third, that a reasonable person would regard the invasion as highly offensive causing distress, humiliation or anguish. However, proof of harm to a recognized economic interest is not an element of the cause of action."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 73",
+          "quote": "Finally, claims for the protection of privacy may give rise to competing claims. Foremost are claims for the protection of freedom of expression and freedom of the press. ... no right to privacy can be absolute and many claims for the ... protection of privacy will have to be reconciled with, and even yield to, such competing claims."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-privacy-breach-or-intrusion|proceduralNote|sc-claim-privacy-breach-or-intrusion#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "aa707269e370a281ab55392ec298bf2e769d0ab1d51be316e0d2b6c5a84d871d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/04p03_e.doc",
+          "pinpoint": "s. 56(1)",
+          "quote": "56 (1) A person who has reasonable grounds to believe that another person has contravened or is about to contravene a provision of this Act or its regulations may make a complaint to the Commissioner."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/04p03_e.doc",
+          "pinpoint": "s. 56(2)",
+          "quote": "(2) A complaint that a person makes under subsection (1) must be in writing and must be filed within, ... (a) one year after the subject-matter of the complaint first came to the attention of the complainant or should reasonably have come to the attention of the complainant, whichever is the shorter; or ... (b) whatever longer period of time that the Commissioner permits if the Commissioner is satisfied that it does not result in any prejudice to any person."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/04p03_e.doc",
+          "pinpoint": "s. 65(1)",
+          "quote": "65 (1) If the Commissioner has made an order under this Act that has become final as the result of there being no further right of appeal, a person affected by the order may commence a proceeding in the Superior Court of Justice for damages for actual harm that the person has suffered as a result of a contravention of this Act or its regulations."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/personal-health-information-protection-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-privacy-breach-or-intrusion|proceduralNote|sc-claim-privacy-breach-or-intrusion#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "010d47f3c8c4c16fd08fe6a629dc5e047b7a9892639d52a2fcceb1d3f8cc7a86",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Naming the defendant",
+          "quote": "If your claim is against more than one individual, be sure to include each defendant's full name."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-privacy-breach-or-intrusion|proceduralNote|sc-claim-privacy-breach-or-intrusion#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "4 Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "5 (1) A claim is discovered on the earlier of,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    }
+  ],
   "unverifiable": []
 }

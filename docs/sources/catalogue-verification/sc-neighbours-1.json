@@ -1,4 +1,211 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "sc-claim-cameras-or-lights-aimed-at-you|plaintiffElement|intentional-intrusion-cam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "af82aaae5c6181cf63588430c834e301ba5bf3258b7ca62aade0429edd0d1869",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 70",
+          "quote": "One who intentionally intrudes, physically or otherwise, upon the seclusion of another or his private affairs or concerns, is subject to liability to the other for invasion of his privacy, if the invasion would be highly offensive to a reasonable person."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 71",
+          "quote": "The key features of this cause of action are, first, that the defendant's conduct must be intentional, within which I would include reckless"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) / saved decision text docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-cameras-or-lights-aimed-at-you|plaintiffElement|private-matters-cam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5295c702b9f59047b26756e3fa50b7107be7bbae4876e68423daf2f7ca548df5",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 71",
+          "quote": "second that the defendant must have invaded, without lawful justification, the plaintiff's private affairs or concerns"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 72",
+          "quote": "A claim for intrusion upon seclusion will arise only for deliberate and significant invasions of personal privacy."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 72",
+          "quote": "it is only intrusions into matters such as one's financial or health records, sexual practices and orientation, employment, diary or private correspondence that, viewed objectively on the reasonable person standard, can be described as highly offensive."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) / saved decision text docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-cameras-or-lights-aimed-at-you|plaintiffElement|highly-offensive-cam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "66c020b903ac8b25efc895b7774be1eb48fea8c88b205932eab1f39b4aa08fc1",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 71",
+          "quote": "third, that a reasonable person would regard the invasion as highly offensive causing distress, humiliation or anguish. However, proof of harm to a recognized economic interest is not an element of the cause of action."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 72",
+          "quote": "Claims from individuals who are sensitive or unusually concerned about their privacy are excluded"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) / saved decision text docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-cameras-or-lights-aimed-at-you|plaintiffElement|amount-cam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d40a2119c5c4a247d5676d4e45799407fc02837cb44d192ac0e92c4dc3472a55",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 87",
+          "quote": "damages for intrusion upon seclusion in cases where the plaintiff has suffered no pecuniary loss should be modest but sufficient to mark the wrong that has been done. I would fix the range at up to $20,000."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 87",
+          "quote": "1. the nature, incidence and occasion of the defendant's wrongful act; 2. the effect of the wrong on the plaintiff's health, welfare, social, business or financial position; 3. any relationship, whether domestic or otherwise, between the parties; 4. any distress, annoyance or embarrassment suffered by the plaintiff arising from the wrong; and 5. the conduct of the parties, both before and after the wrong, including any apology or offer of amends made by the defendant."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) / saved decision text docs/sources/corpus/guide-making-a-claim.txt, docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-cameras-or-lights-aimed-at-you|defendantConsideration|dispute-cam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "26a3a7334311a4459b43a70207d0c9347bab8a74ed249495583f099376d50101",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/oreg-258-98-small-claims-rules.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-cameras-or-lights-aimed-at-you|defendantConsideration|justification-cam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c25ce4e49f1ff31d218215f0ef0a32f530db7e066ac7d711c4e9428ab810b754",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 71",
+          "quote": "second that the defendant must have invaded, without lawful justification, the plaintiff's private affairs or concerns"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt",
+          "pinpoint": "para. 73",
+          "quote": "no right to privacy can be absolute and many claims for the ... protection of privacy will have to be reconciled with, and even yield to, such competing claims."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) / saved decision text docs/sources/decisions/jones-v-tsige-2012-ONCA-32.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-cameras-or-lights-aimed-at-you|proceduralNote|sc-claim-cameras-or-lights-aimed-at-you#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/guide-making-a-claim.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-cameras-or-lights-aimed-at-you|proceduralNote|sc-claim-cameras-or-lights-aimed-at-you#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e1588c435cc5e7a68f3274e29d98bb5753ed201feeb63131a26080aab738511c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 96(3)",
+          "quote": "Only the Court of Appeal and the Superior Court of Justice, exclusive of the Small Claims Court, may grant equitable relief, unless otherwise provided."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 97",
+          "quote": "The Court of Appeal and the Superior Court of Justice, exclusive of the Small Claims Court, may make binding declarations of right, whether or not any consequential relief is or could be claimed."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-cameras-or-lights-aimed-at-you|proceduralNote|sc-claim-cameras-or-lights-aimed-at-you#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    }
+  ],
   "unverifiable": []
 }
