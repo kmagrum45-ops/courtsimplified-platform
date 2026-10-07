@@ -2951,7 +2951,73 @@
       "characters": 5383,
       "lines": 104,
       "file": "fraudulent-conveyances-act.txt"
+    },
+    {
+      "id": "oreg-516-06-rta-general",
+      "title": "General regulation under the Residential Tenancies Act, 2006",
+      "citation": "O. Reg. 516/06",
+      "url": "https://www.ontario.ca/laws/docs/060516_e.doc",
+      "retrievedAt": "2026-10-07T18:20:34.410Z",
+      "sha256": "fa8e46189b464d3a579b65b8a84ce99fc462f494ce0be53a07059df79c54cdce",
+      "consolidation": "CONSOLIDATION PERIOD: FROM SEPTEMBER 21, 2026 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 163749,
+      "lines": 2613,
+      "file": "oreg-516-06-rta-general.txt"
+    },
+    {
+      "id": "oreg-285-01-esa-exemptions",
+      "title": "Exemptions, Special Rules and Establishment of Minimum Wage",
+      "citation": "O. Reg. 285/01",
+      "url": "https://www.ontario.ca/laws/docs/010285_e.doc",
+      "retrievedAt": "2026-10-07T18:20:34.703Z",
+      "sha256": "f76a8259d90d752e3238043ec83166bfde3f549b3c73ced02e39d5e7a64ba7ab",
+      "consolidation": "CONSOLIDATION PERIOD: FROM JULY 1, 2025 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 52960,
+      "lines": 990,
+      "file": "oreg-285-01-esa-exemptions.txt"
+    },
+    {
+      "id": "oreg-54-95-preferential-share",
+      "title": "Preferential Share regulation under the Succession Law Reform Act",
+      "citation": "O. Reg. 54/95",
+      "url": "https://www.ontario.ca/laws/docs/950054_e.doc",
+      "retrievedAt": "2026-10-07T18:20:34.846Z",
+      "sha256": "cfdd628f9e7c18b92d8abec202aad52e300dedef2c1fc9908f66b646496da93a",
+      "consolidation": "CONSOLIDATION PERIOD: FROM FEBRUARY 16, 2021 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 983,
+      "lines": 34,
+      "file": "oreg-54-95-preferential-share.txt"
+    },
+    {
+      "id": "oreg-461-96-auto-court-proceedings",
+      "title": "Court Proceedings for Automobile Accidents that Occur on or after November 1, 1996",
+      "citation": "O. Reg. 461/96",
+      "url": "https://www.ontario.ca/laws/docs/960461_e.doc",
+      "retrievedAt": "2026-10-07T18:20:34.946Z",
+      "sha256": "0fa67a906a00283132530d610b7242840bdf40dee159c037e6af200e54b8e5e1",
+      "consolidation": "CONSOLIDATION PERIOD: FROM JANUARY 1, 2020 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 20383,
+      "lines": 343,
+      "file": "oreg-461-96-auto-court-proceedings.txt"
+    },
+    {
+      "id": "statutory-powers-procedure-act",
+      "title": "Statutory Powers Procedure Act",
+      "citation": "R.S.O. 1990, c. S.22",
+      "url": "https://www.ontario.ca/laws/docs/90s22_e.doc",
+      "retrievedAt": "2026-10-07T18:20:35.096Z",
+      "sha256": "fe075dca8e306989d4f5dfa754764d54764ff6bc1f79359547689166357f2ef8",
+      "consolidation": "CONSOLIDATION PERIOD: FROM JULY 1, 2025 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 67210,
+      "lines": 1357,
+      "file": "statutory-powers-procedure-act.txt"
     }
   ],
-  "failures": []
+  "failures": [
+    {
+      "id": "oreg-74-95-collection-general",
+      "url": "https://www.ontario.ca/laws/docs/950074_e.doc",
+      "reason": "HTTP 403"
+    }
+  ]
 }

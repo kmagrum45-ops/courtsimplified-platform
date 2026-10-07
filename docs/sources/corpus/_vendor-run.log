@@ -1,0 +1,20 @@
+oreg-516-06-rta-general                ok    163749 chars  fa8e46189b46
+                                       CONSOLIDATION PERIOD: FROM SEPTEMBER 21, 2026 TO THE E-LAWS CURRENCY DATE.
+oreg-74-95-collection-general          FAILED  HTTP 403
+oreg-285-01-esa-exemptions             ok     52960 chars  f76a8259d90d
+                                       CONSOLIDATION PERIOD: FROM JULY 1, 2025 TO THE E-LAWS CURRENCY DATE.
+oreg-54-95-preferential-share          ok       983 chars  cfdd628f9e7c
+                                       CONSOLIDATION PERIOD: FROM FEBRUARY 16, 2021 TO THE E-LAWS CURRENCY DATE.
+oreg-461-96-auto-court-proceedings     ok     20383 chars  0fa67a906a00
+                                       CONSOLIDATION PERIOD: FROM JANUARY 1, 2020 TO THE E-LAWS CURRENCY DATE.
+statutory-powers-procedure-act         ok     67210 chars  fe075dca8e30
+                                       CONSOLIDATION PERIOD: FROM JULY 1, 2025 TO THE E-LAWS CURRENCY DATE.
+
+238 vendored, 1 failed.
+Manifest: docs/sources/corpus/manifest.json
+
+SOURCES MISSING FROM THE CORPUS:
+  oreg-74-95-collection-general — HTTP 403
+
+Nothing may be written from memory to fill these. Record them in the
+report and leave the content that would have cited them unwritten.
