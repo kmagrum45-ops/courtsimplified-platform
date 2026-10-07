@@ -221,7 +221,7 @@ export function dateQuestionsForStep(stepId: string | null | undefined): DateQue
  * starting point. Each mapping is the same moment named twice, never an
  * inference: being served is being served.
  */
-const EVENT_TO_DATE_QUESTION: Record<string, string> = {
+export const EVENT_TO_DATE_QUESTION: Record<string, string> = {
   "claim-served": "sc-date-claim-served",
   "defence-filed": "sc-date-defence-filed",
 };

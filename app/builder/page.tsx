@@ -1664,7 +1664,7 @@ function BuilderPageContent() {
         {/* Small Claims only: the event vocabulary and table are Small Claims (see CaseTimeline canRecord). */}
         {savedCaseId() && courtPath === "small-claims" && !loadingExistingCase && !caseLoadError ? (
           <div className="mt-8">
-            <EventCandidateSurface caseId={savedCaseId() as string} />
+            <EventCandidateSurface caseId={savedCaseId() as string} recordedDates={savedPosition.dateAnswers} />
           </div>
         ) : null}
 

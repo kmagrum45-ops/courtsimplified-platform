@@ -6,6 +6,7 @@ import EventCandidateSurface from "../../../builder/_components/EventCandidateSu
 import CaseTimeline from "../../_components/CaseTimeline";
 import CaseWorkspace from "../../_components/CaseWorkspace";
 import { readCasePosition } from "@/src/lib/case-system/casePosition";
+import { recordedDateAnswers } from "@/src/lib/case-system/caseRecord";
 import { builderHref, useCaseHome } from "../../_components/CaseHomeContext";
 
 /**
@@ -19,14 +20,18 @@ import { builderHref, useCaseHome } from "../../_components/CaseHomeContext";
  * (page walkthrough). Each is recorded only when the user confirms it.
  */
 export default function CaseTimelineSection() {
-  const { caseRecord, courtPath } = useCaseHome();
+  const { caseRecord, courtPath, record } = useCaseHome();
   // Steps can be recorded only for Small Claims (see CaseTimeline's canRecord).
   const canRecord = courtPath === "small-claims";
   const [refresh, setRefresh] = useState(0);
   return (
     <div className="space-y-8">
       {canRecord ? (
-        <EventCandidateSurface caseId={caseRecord.id} onRecorded={() => setRefresh((value) => value + 1)} />
+        <EventCandidateSurface
+          caseId={caseRecord.id}
+          onRecorded={() => setRefresh((value) => value + 1)}
+          recordedDates={recordedDateAnswers(record)}
+        />
       ) : null}
       <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
         <CaseTimeline

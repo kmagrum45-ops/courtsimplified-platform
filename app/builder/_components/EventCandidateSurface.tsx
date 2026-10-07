@@ -25,6 +25,7 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
+import { EVENT_TO_DATE_QUESTION } from "@/src/lib/case-system/casePosition";
 
 import { supabase } from "../../../src/lib/supabase/client";
 import {
@@ -75,8 +76,16 @@ async function authHeaders(): Promise<Record<string, string> | null> {
 export default function EventCandidateSurface({
   caseId,
   onRecorded,
+  recordedDates = {},
 }: {
   caseId: string;
+  /**
+   * Dates the case already holds, by date-question id. Choosing a step type
+   * whose date is recorded fills it in (master plan Phase 1: the timeline
+   * asked again for a service date the case page had already counted from).
+   * Recorded only when the person confirms the step.
+   */
+  recordedDates?: Record<string, string>;
   /** Called after the user confirms an event, so a timeline beside this can refresh. */
   onRecorded?: () => void;
 }) {
@@ -308,9 +317,16 @@ export default function EventCandidateSurface({
                   <select
                     data-testid="event-candidate-type"
                     value={draft.eventType}
-                    onChange={(event) =>
-                      setDraft(candidate, { eventType: event.target.value as CaseEventType })
-                    }
+                    onChange={(event) => {
+                      const eventType = event.target.value as CaseEventType;
+                      const known = recordedDates[EVENT_TO_DATE_QUESTION[eventType] ?? ""];
+                      setDraft(
+                        candidate,
+                        known && !draft.occurredAtNormalized
+                          ? { eventType, occurredAtRaw: known, occurredAtNormalized: known, dateCertainty: "exact" }
+                          : { eventType },
+                      );
+                    }}
                     className="mt-1 w-full rounded-xl border border-[#d8e6df] bg-white p-2"
                   >
                     <option value="">Choose…</option>
