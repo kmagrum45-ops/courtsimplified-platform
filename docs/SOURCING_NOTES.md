@@ -536,6 +536,24 @@ regulation-as-a-whole level (`docs/PROCEDURAL_RULES_INVENTORY.md` §5), but a
 been located and used by any citation in this codebase yet — don't assume the
 same `<id>_e.doc` pattern works there without checking.
 
+### Five regulations added after the law exam; one refused (2026-10-07)
+
+The first law exam run named laws the library lacked. Fetched through the
+Vendor Sources workflow (run 37665975777) from ontario.ca e-Laws `.doc` files:
+O. Reg. 516/06 (RTA general), O. Reg. 285/01 (ESA exemptions and special
+rules), O. Reg. 54/95 (SLRA preferential share: $350,000 for deaths on or after
+March 1, 2021), O. Reg. 461/96 (court proceedings for car accidents: the
+"permanent serious impairment" definition), and the Statutory Powers Procedure
+Act. e-Laws regulation files follow `docs/<YY><NNNN>_e.doc`, e.g. O. Reg.
+516/06 is `060516_e.doc`.
+
+**Refused: O. Reg. 74/95** (the Collection and Debt Settlement Services Act
+general regulation) at `950074_e.doc` returned HTTP 403 from the runner, where
+the other five worked. Not yet known whether the number or the URL is wrong.
+Until it is fetched, nothing about collection agencies' contact limits may be
+stated from the regulation; the Consumer Protection Ontario guide is the only
+saved source.
+
 ### CanLII: the Terms of Use, the API key, and decisions people upload — the rules (2026-10-07)
 
 **Read this before touching anything that names CanLII.** CanLII approved the

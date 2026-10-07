@@ -325,18 +325,6 @@
     "why": "Law exam, 2026-10-07: the RTA's exceptions (fees a landlord may charge, rent rules) are prescribed here; the Act alone cannot answer them."
   },
   {
-    "id": "oreg-74-95-collection-general",
-    "title": "General regulation under the Collection and Debt Settlement Services Act",
-    "citation": "O. Reg. 74/95",
-    "url": "https://www.ontario.ca/laws/docs/950074_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Collection"
-    ],
-    "why": "Law exam, 2026-10-07: the limits on how and when a collection agency may contact a debtor are in this regulation, not the Act."
-  },
-  {
     "id": "oreg-285-01-esa-exemptions",
     "title": "Exemptions, Special Rules and Establishment of Minimum Wage",
     "citation": "O. Reg. 285/01",
