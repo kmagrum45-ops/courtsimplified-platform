@@ -1,0 +1,747 @@
+[
+  {
+    "id": "EST-001",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "In March 2025, Harold Vance, 81, of Kingston, typed out a one-page will on his computer leaving everything to his niece Deirdre. He printed it, signed it at the bottom at his kitchen table, and asked his neighbour Tomasz to sign as a witness. Tomasz signed. A second neighbour, Lucille, came over the next afternoon after Tomasz had gone home; Harold showed her his signature and she signed too. Harold kept the will in a blue folder with his gardening receipts. He died in August 2026. His son Martin, who was left nothing, says the will is 'no good'.",
+    "question": "What does Ontario law require for a typed will like Harold's to be validly signed and witnessed, did this signing meet those requirements, and is there any route by which a document that was not properly executed can still be given effect?",
+    "expected": "answer",
+    "modelAnswer": "A will must be in writing (Succession Law Reform Act, s. 3). A typed will that is not a holograph must meet s. 4 (2): it must be signed at its end by the testator (or by someone else in his presence and by his direction); the testator must make or acknowledge the signature in the presence of two or more attesting witnesses present at the same time; and two or more of those witnesses must subscribe the will in the testator's presence. Here, Tomasz and Lucille were never present at the same time: Tomasz watched Harold sign, and Lucille saw the signature acknowledged the next day. On these facts the s. 4 (2) (b) requirement that the witnesses be 'present at the same time' was not met. The will is not a holograph will under s. 6 either, because it was typed, not written wholly in Harold's own handwriting. That is not necessarily the end of it: under s. 21.1 (1), if the Superior Court of Justice is satisfied that a document that was not properly executed sets out the deceased's testamentary intentions, the Court may, on application, order that it is as valid and fully effective as if it had been properly executed. Deirdre (or anyone relying on the will) would have to bring that application and satisfy the Court that the document sets out Harold's testamentary intentions. Where the papers were kept is not relevant to execution.",
+    "keyPoints": [
+      "a will must be in writing (s. 3)",
+      "signed at its end by the testator",
+      "two or more witnesses present at the same time",
+      "witnesses must subscribe in the testator's presence",
+      "s. 21.1 court order validating a document not properly executed"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 3",
+        "quote": "A will is valid only when it is in writing."
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 4 (2) (a)",
+        "quote": "at its end it is signed by the testator or by some other person in his or her presence and by his or her direction"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 4 (2) (b), (c)",
+        "quote": "the testator makes or acknowledges the signature in the presence of two or more attesting witnesses present at the same time; and (c) two or more of the attesting witnesses subscribe the will in the presence of the testator"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 6",
+        "quote": "A testator may make a valid will wholly by his or her own handwriting and signature, without formality"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 21.1 (1)",
+        "quote": "If the Superior Court of Justice is satisfied that a document or writing that was not properly executed or made under this Act sets out the testamentary intentions of a deceased"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 21.1 (1)",
+        "quote": "order that the document or writing is as valid and fully effective as the will of the deceased"
+      }
+    ]
+  },
+  {
+    "id": "EST-002",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Rosalind Okafor, a retired teacher in Sudbury, wrote her will by hand in ink on two sheets of lined paper in January 2024: 'I leave my house to my daughter Ifeoma and my savings to my son Chidi.' She signed her name at the bottom of the second sheet. Nobody witnessed it. In 2025 she typed a short line on a sticky label and pasted it below her signature: 'My car goes to my friend Bev.' Rosalind died in June 2026. Bev has the car keys and says the car is hers.",
+    "question": "Is Rosalind's handwritten will valid without witnesses, and does the typed line about the car, placed below her signature, take effect?",
+    "expected": "answer",
+    "modelAnswer": "A will made wholly in the testator's own handwriting and signature is valid without formality and without any witness (Succession Law Reform Act, s. 6). Rosalind's two handwritten pages, signed at the end, meet that description, so the lack of witnesses does not by itself defeat the gifts of the house and savings. The car is different. Section 7 (3) says a signature made under s. 4, 5 or 6 does not give effect to a disposition that is underneath the signature or that follows it, or to a disposition inserted after the signature was made. The typed line was both added after she signed and placed below her signature, so her signature does not give it effect. It is also not in her handwriting, so it cannot be a holograph addition. Under s. 18, an alteration made after a will is made has no effect unless it is made with the formalities for making the will (for a holograph will, her signature near or opposite the alteration). Holding the keys does not change who is entitled to the car under the will. Whether a court could validate the typed line under s. 21.1 is a separate application, not something the will itself accomplishes.",
+    "keyPoints": [
+      "holograph will valid without witnesses (s. 6)",
+      "wholly in own handwriting and signature",
+      "disposition below or after the signature not given effect (s. 7 (3))",
+      "later alteration needs the formalities (s. 18)"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 6",
+        "quote": "A testator may make a valid will wholly by his or her own handwriting and signature, without formality, and without the presence, attestation or signature of a witness."
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 7 (3)",
+        "quote": "a signature in conformity with section 4, 5 or 6 or this section does not give effect to, (a) a disposition or direction that is underneath the signature or that follows the signature; or (b) a disposition or direction inserted after the signature was made"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 18 (1)",
+        "quote": "unless an alteration that is made in a will after the will has been made is made in accordance with the provisions of this Part governing making of the will, the alteration has no effect"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 18 (2)",
+        "quote": "in the case of a will that was made under section 5 or 6, the signature of the testator"
+      }
+    ]
+  },
+  {
+    "id": "EST-003",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Gerald Moreau of Thunder Bay signed a typed will in his lawyer's boardroom in 2023. Two people witnessed it together: his long-time friend Anil and the lawyer's assistant, Joy. The will leaves $20,000 to Anil's wife, Priya, 'for her kindness over the years', and the residue to Gerald's two grandchildren. Gerald died in 2026. The grandchildren's mother has read that 'a witness can't benefit' and says the whole will is now invalid, so Gerald died without a will.",
+    "question": "What is the effect of the $20,000 gift to Priya, and is the will as a whole invalid because Anil witnessed it?",
+    "expected": "answer",
+    "modelAnswer": "The will is not invalid. Under Succession Law Reform Act s. 12 (1), where a will is attested by a person to whose then spouse a beneficial gift is made, the gift is void 'so far only as it concerns' the witness, the spouse, or a person claiming under either of them, and the witness remains a competent witness to prove the will. So it is the gift to Priya, not the will, that is affected; the residue to the grandchildren stands. Two exceptions in the text matter. First, s. 12 (3): the gift is not void if the Superior Court of Justice is satisfied that neither the witness nor the spouse exercised any improper or undue influence on the testator; Priya could apply and would have to satisfy the Court of that. Second, s. 12 (4): the gift is not void if the will was attested by at least two persons who are not within s. 12 (1). Here only two people witnessed, and Anil is one of them, so s. 12 (4) does not help on these facts; it would have if a third, unconnected witness had also attested. Gerald therefore did not die without a will.",
+    "keyPoints": [
+      "gift to a witness's spouse is void (s. 12 (1))",
+      "void so far only as it concerns the witness or spouse; the will stands",
+      "not void if the court is satisfied there was no undue influence (s. 12 (3))",
+      "not void if at least two other disinterested witnesses attested (s. 12 (4))"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 12 (1)",
+        "quote": "Where a will is attested by a person to whom or to whose then spouse a beneficial devise, bequest or other disposition or appointment of or affecting property"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 12 (1)",
+        "quote": "is void so far only as it concerns, (a) the person so attesting; (b) the spouse; or (c) a person claiming under either of them, but the person so attesting is a competent witness to prove the execution of the will"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 12 (3)",
+        "quote": "where the Superior Court of Justice is satisfied that neither the person so attesting or signing for the testator nor the spouse exercised any improper or undue influence upon the testator, the devise, bequest or other disposition or appointment is not void"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 12 (4)",
+        "quote": "Where a will is attested by at least two persons who are not within subsection (1) or where no attestation is necessary, the devise, bequest or other disposition or appointment is not void under that subsection."
+      }
+    ]
+  },
+  {
+    "id": "EST-004",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "false-premise",
+    "story": "Walter Bergstrom of Barrie made a will in 2019 leaving his whole estate to his two adult sons. His first wife had died in 2015. In May 2024 Walter married Celeste. He never made a new will. Walter died in September 2026. Celeste has been told by a friend that 'marriage cancels any earlier will in Ontario', so Walter must have died without a will and she takes under the intestacy rules.",
+    "question": "Since Walter's 2024 marriage revoked his 2019 will, how is his estate divided under intestacy?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "The premise is wrong under the Succession Law Reform Act as saved. Marriage no longer revokes a will in Ontario. Section 16, which dealt with revocation by marriage, now reads 'Repealed', and the amendment shown came into force on January 1, 2022, before Walter's 2024 marriage. Section 15 now lists the only ways a will is revoked: another will, a writing declaring an intention to revoke made with the formalities of a will, or burning, tearing or otherwise destroying it with the intention of revoking it. Section 17 (1) adds that a will is not revoked by presumption of an intention to revoke on the ground of a change in circumstances. None of those happened, so Walter's 2019 will stands and the estate passes under it to his sons, not under the intestacy rules. Celeste is not without options to consider: as a married spouse she may have the election under Family Law Act s. 6 (1) between taking under the will and an equalization entitlement under s. 5, which must be filed within six months after the death (s. 6 (10)), and she may look at whether she is a dependant who can apply for support under Part V of the Succession Law Reform Act.",
+    "keyPoints": [
+      "marriage does not revoke a will (s. 16 repealed)",
+      "s. 15 lists the only ways a will is revoked",
+      "not revoked by a change in circumstances (s. 17 (1))",
+      "the 2019 will governs, not intestacy",
+      "spouse's election under Family Law Act s. 6"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 16",
+        "quote": "16 Repealed: 2021, c. 4, Sched. 9, s. 3."
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 16 (amendment in force)",
+        "quote": "2021, c. 4, Sched. 9, s. 3 - 01/01/2022"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 15",
+        "quote": "A will or part of a will is revoked only by"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 15 (d)",
+        "quote": "burning, tearing or otherwise destroying it by the testator or by some person in his or her presence and by his or her direction with the intention of revoking it"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 17 (1)",
+        "quote": "a will is not revoked by presumption of an intention to revoke it on the ground of a change in circumstances"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 6 (1)",
+        "quote": "When a spouse dies leaving a will, the surviving spouse shall elect to take under the will or to receive the entitlement under section 5."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 6 (10)",
+        "quote": "shall be filed in the office of the Estate Registrar for Ontario within six months after the first spouse’s death"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 57 (1) \"dependant\"",
+        "quote": "“dependant” means, (a) the spouse of the deceased"
+      }
+    ]
+  },
+  {
+    "id": "EST-005",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "rule",
+    "story": "Nadia Haddad died in Ottawa in April 2026 without a will. She was survived by her husband Karim, to whom she had been married for 22 years and with whom she was living, and their three children, ages 17, 20 and 24. After her debts, funeral expenses and the costs of administering the estate, her estate is worth a large sum, well above any spousal preferential share.",
+    "question": "Under Part II of the Succession Law Reform Act, how is Nadia's estate divided between Karim and the children?",
+    "expected": "answer",
+    "modelAnswer": "Where a person dies intestate leaving a spouse and issue and the net estate is worth more than the preferential share, the spouse first takes the preferential share absolutely (Succession Law Reform Act, s. 45 (2)). 'Net value' is measured after the charges on the property, debts, funeral expenses and expenses of administration (s. 45 (4)). The preferential share is the amount prescribed by regulation (s. 45 (5)); the amount is set in a regulation, not in the Act itself, and is not stated in the saved text of the Act. Then, because Nadia left a spouse and more than one child, Karim is entitled to one-third of the residue after the preferential share (s. 46 (2)). The rest is distributed equally among the issue of the nearest degree, here her three children, subject to Karim's rights (s. 47 (1)). The children's ages do not change their shares. As a surviving spouse Karim must also elect between his entitlement under Part II of the Succession Law Reform Act and an equalization entitlement under Family Law Act s. 5 (Family Law Act, s. 6 (2)).",
+    "keyPoints": [
+      "spouse takes the preferential share first (s. 45 (2))",
+      "preferential share amount is set by regulation (s. 45 (5))",
+      "spouse takes one-third of the residue with two or more children (s. 46 (2))",
+      "remainder divided equally among the children (s. 47 (1))"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 45 (2)",
+        "quote": "where a person dies intestate in respect of property having a net value of more than the preferential share and is survived by a spouse and issue, the spouse is entitled to the preferential share absolutely"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 45 (4)",
+        "quote": "“net value” means the value of the property after payment of the charges thereon and the debts, funeral expenses and expenses of administration"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 45 (5)",
+        "quote": "The preferential share is the amount prescribed by a regulation made under subsection (6)."
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 46 (2)",
+        "quote": "Where a person dies intestate in respect of property and leaves a spouse and more than one child, the spouse is entitled to one-third of the residue of the property after payment under section 45, if any."
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 47 (1)",
+        "quote": "the property shall be distributed, subject to the rights of the spouse, if any, equally among his or her issue who are of the nearest degree in which there are issue surviving him or her"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 6 (2)",
+        "quote": "When a spouse dies intestate, the surviving spouse shall elect to receive the entitlement under Part II of the Succession Law Reform Act or to receive the entitlement under section 5."
+      }
+    ]
+  },
+  {
+    "id": "EST-006",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Bernard Leclerc, a bachelor with no children, died in Cornwall in February 2026 without a will. Both his parents died years ago. He had three siblings: his sister Monique, who survived him; his brother Paul, who survived him; and his brother Luc, who died in 2020 leaving two daughters, Anaïs and Elise. Bernard's long-time friend and housemate, Roger, looked after him in his final illness and says he should 'get something'. Bernard's estate, after debts and expenses, is $300,000.",
+    "question": "Who inherits Bernard's estate under the intestacy rules, and in what shares?",
+    "expected": "answer",
+    "modelAnswer": "Bernard left no spouse, no issue and no surviving parent. Under Succession Law Reform Act s. 47 (4), the property is then distributed among his surviving brothers and sisters equally, and if a brother or sister predeceased him, that sibling's share goes to that sibling's children equally. So the estate is divided into three shares: one-third to Monique, one-third to Paul, and Luc's one-third split equally between Anaïs and Elise (one-sixth each). On $300,000 that is $100,000 to Monique, $100,000 to Paul, and $50,000 each to Anaïs and Elise. Roger, a friend and housemate, is not among the relatives the intestacy rules list, so he takes nothing under Part II. (Whether he has any other kind of claim against the estate is a separate question these sections do not answer.)",
+    "keyPoints": [
+      "no spouse, issue or parent: brothers and sisters equally (s. 47 (4))",
+      "a predeceased sibling's share goes to that sibling's children equally",
+      "one-third each to Monique and Paul, one-sixth each to Anaïs and Elise",
+      "a friend takes nothing under intestacy"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 47 (3)",
+        "quote": "Where a person dies intestate in respect of property and leaves no spouse or issue, the property shall be distributed between the parents of the deceased equally"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 47 (4)",
+        "quote": "Where a person dies intestate in respect of property and there is no surviving spouse, issue or parent, the property shall be distributed among the surviving brothers and sisters of the intestate equally"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 47 (4)",
+        "quote": "if any brother or sister predeceases the intestate, the share of the deceased brother or sister shall be distributed among his or her children equally"
+      }
+    ]
+  },
+  {
+    "id": "EST-007",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "Frank Delorme of Windsor died in November 2025. For the last six years he had been paying $1,500 a month toward the living costs of his adult daughter Simone, who has a serious disability and cannot work. His will leaves everything to his second wife's son. Letters probate (a certificate of appointment of estate trustee) were granted to the executor on March 2, 2026. Simone only learned in October 2026 that she had been left nothing. The executor has already paid out most of the estate, but about $60,000 remains in the estate account.",
+    "question": "What is the time limit for Simone to apply for support from Frank's estate, what starts it, and is there any way to apply after it has run?",
+    "expected": "answer",
+    "modelAnswer": "Simone may be a 'dependant' under Part V of the Succession Law Reform Act: the definition includes a child of the deceased to whom the deceased was providing support immediately before death (s. 57 (1)). Where a deceased has not made adequate provision for a dependant's proper support, the Superior Court may order adequate provision out of the estate (s. 58 (1)). The time limit is in s. 61 (1): no application under s. 58 may be made after six months from the grant of letters probate of the will or letters of administration. The clock runs from the grant (here, March 2, 2026), not from the death and not from when Simone learned of the will. Six months from that grant had passed by October 2026. The exception is s. 61 (2): the court, if it considers it proper, may allow an application at any time as to any portion of the estate remaining undistributed at the date of the application. So a late application could reach only what is still undistributed, such as the roughly $60,000 still in the estate account, and only with the court's permission. Simone (or her parent, s. 58 (2)) would apply by notice of application (s. 60 (1)). Section 59 also lets the court suspend the administration of the estate on a dependant's application.",
+    "keyPoints": [
+      "six months from the grant of letters probate or administration (s. 61 (1))",
+      "the clock starts at the grant, not the death or discovery",
+      "late application only as to the undistributed portion, with the court's leave (s. 61 (2))",
+      "dependant includes a child the deceased was supporting (s. 57)"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 57 (1) \"dependant\"",
+        "quote": "to whom the deceased was providing support or was under a legal obligation to provide support immediately before his or her death"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 58 (1)",
+        "quote": "has not made adequate provision for the proper support of his dependants or any of them, the court, on application, may order that such provision as it considers adequate be made out of the estate of the deceased"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 61 (1)",
+        "quote": "no application for an order under section 58 may be made after six months from the grant of letters probate of the will or of letters of administration"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 61 (2)",
+        "quote": "The court, if it considers it proper, may allow an application to be made at any time as to any portion of the estate remaining undistributed at the date of the application."
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 59 (1)",
+        "quote": "the court may make an order suspending in whole or in part the administration of the deceased’s estate"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 58 (2)",
+        "quote": "may be made by the dependant or the dependant’s parent"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 60 (1)",
+        "quote": "An application under this Part may be made to the court by notice of application in accordance with the practice of the court."
+      }
+    ]
+  },
+  {
+    "id": "EST-008",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "On June 14, 2025, Theo Rasmussen, a contractor, carelessly ran his excavator into the stone retaining wall and garage of his neighbour, Ingrid Paulsen, in Peterborough, causing $38,000 in damage. Ingrid had been planning to sue but died of an unrelated illness on September 3, 2025. Then Theo died in a boating accident on January 20, 2026. Ingrid's executor, her nephew Lars, wants to sue Theo's estate for the damage to the wall and garage. Lars also says Theo once wrote a nasty letter to the newspaper about Ingrid and wants to sue over that too.",
+    "question": "Can Lars, as Ingrid's executor, sue Theo's estate, and what limitation period under the Trustee Act applies to the property-damage claim? Does the same rule cover the claim about the letter to the newspaper?",
+    "expected": "answer",
+    "modelAnswer": "The Trustee Act, s. 38, lets claims for wrongs survive on both sides. Under s. 38 (1), the executor of a deceased person can bring an action for all torts or injuries to the person or property of the deceased, with the same rights and remedies the deceased would have had; so Lars can sue for the damage to Ingrid's wall and garage, and anything recovered forms part of her estate. Under s. 38 (2), where a deceased person committed a wrong to another person's property, the person wronged may sue the executor or administrator of the wrongdoer; so the claim can be brought against Theo's estate. The limit is in s. 38 (3): an action under this section shall not be brought after the expiration of two years from the death of the deceased. The section ties the period to 'the death of the deceased'. With two deaths here (Ingrid on September 3, 2025, and Theo on January 20, 2026), a careful plan is to start the action within two years of the earlier death, because the text does not say which death governs where both parties have died. The claim about the letter to the newspaper is different: s. 38 (1) and (2) both begin 'Except in cases of libel and slander', so this section does not carry a defamation claim to or against an estate.",
+    "keyPoints": [
+      "executor may sue for torts to the deceased's property (s. 38 (1))",
+      "person wronged may sue the wrongdoer's executor or administrator (s. 38 (2))",
+      "two years from the death of the deceased (s. 38 (3))",
+      "libel and slander are excluded"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/trustee-act.txt",
+        "pinpoint": "s. 38 (1)",
+        "quote": "Except in cases of libel and slander, the executor or administrator of any deceased person may maintain an action for all torts or injuries to the person or to the property of the deceased"
+      },
+      {
+        "file": "docs/sources/corpus/trustee-act.txt",
+        "pinpoint": "s. 38 (2)",
+        "quote": "if a deceased person committed or is by law liable for a wrong to another in respect of his or her person or to another person's property, the person wronged may maintain an action against the executor or administrator"
+      },
+      {
+        "file": "docs/sources/corpus/trustee-act.txt",
+        "pinpoint": "s. 38 (3)",
+        "quote": "An action under this section shall not be brought after the expiration of two years from the death of the deceased."
+      }
+    ]
+  },
+  {
+    "id": "EST-009",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "Marguerite Lam's husband, Dennis, died in Mississauga on February 10, 2026. They had been married for 30 years and were living together. Dennis's will leaves Marguerite only his car and a $10,000 cash gift, and the rest of the estate, including a large investment portfolio he built during the marriage, to a charity. Dennis's executor wants to pay the charity right away. Marguerite's accountant thinks she might be better off claiming half the difference in their net family properties instead of taking under the will. It is now October 2026 and she has not filed anything.",
+    "question": "What is the deadline for Marguerite to choose between the will and an equalization claim, where must the choice be filed, and what happens if she misses it? Can the executor pay the charity in the meantime?",
+    "expected": "answer",
+    "modelAnswer": "When a spouse dies leaving a will, the surviving spouse must elect to take under the will or to receive the equalization entitlement under s. 5 (Family Law Act, s. 6 (1)). The election must be in the prescribed form and filed in the office of the Estate Registrar for Ontario within six months after the first spouse's death (s. 6 (10)). The clock starts at Dennis's death on February 10, 2026, so the six months had passed by October 2026. If no election is filed in time, she is deemed to have elected to take under the will, unless the court, on application, orders otherwise (s. 6 (11)); a late election therefore needs a court order. Separately, an application for equalization based on s. 5 (2) (a spouse's death) must not be brought after six months after the first spouse's death (s. 7 (3) (c)). On distribution: no distribution may be made within six months of the spouse's death unless the surviving spouse consents in writing or the court authorizes it (s. 6 (14)), and once the personal representative has notice of an application under this Part, distribution is restricted again (s. 6 (15)). If she elects equalization, the gifts to her in the will are revoked unless the will expressly says they are in addition (s. 6 (8)).",
+    "keyPoints": [
+      "elect to take under the will or the s. 5 entitlement (s. 6 (1))",
+      "file with the Estate Registrar for Ontario within six months after the death (s. 6 (10))",
+      "deemed to take under the will if not filed, unless the court orders otherwise (s. 6 (11))",
+      "no distribution within six months without consent or court authorization (s. 6 (14))"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 6 (1)",
+        "quote": "When a spouse dies leaving a will, the surviving spouse shall elect to take under the will or to receive the entitlement under section 5."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 6 (10)",
+        "quote": "shall be filed in the office of the Estate Registrar for Ontario within six months after the first spouse’s death"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 6 (11)",
+        "quote": "If the surviving spouse does not file the election within that time, he or she shall be deemed to have elected to take under the will or to receive the entitlement under the Succession Law Reform Act, or both, as the case may be, unless the court, on application, orders otherwise."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 6 (14)",
+        "quote": "No distribution shall be made in the administration of a deceased spouse’s estate within six months of the spouse’s death, unless, (a) the surviving spouse gives written consent to the distribution; or (b) the court authorizes the distribution."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 7 (3) (c)",
+        "quote": "six months after the first spouse’s death"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 6 (8)",
+        "quote": "the gifts made to him or her in the deceased spouse’s will are revoked and the will shall be interpreted as if the surviving spouse had died before the other"
+      }
+    ]
+  },
+  {
+    "id": "EST-010",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "multi-issue",
+    "story": "In August 2026, Evelyn Szabo, 77, of London, Ontario, decided to sign powers of attorney after a fall. She signed a continuing power of attorney for property naming her son Victor, and a power of attorney for personal care naming Darlene, a personal support worker the agency pays to care for Evelyn four days a week. Darlene is not related to Evelyn. The documents were signed at Evelyn's kitchen table with two witnesses: Evelyn's daughter Ruth and Victor's wife, Bethany. Evelyn knows what she owns (her condo and about $200,000 in GICs), but Ruth now says that because her mother 'gets a bit confused in the evenings', the documents are worthless.",
+    "question": "Identify the problems with how Evelyn's powers of attorney were made and who was named, and explain what test of capacity applies to the property document and what can be done if a document was not properly witnessed.",
+    "expected": "answer",
+    "modelAnswer": "Witnesses. Both a continuing power of attorney for property and a power of attorney for personal care must be signed in the presence of two witnesses who each sign as witness (Substitute Decisions Act, 1992, ss. 10 (1), 48 (1)). Some people may not witness: the attorney or the attorney's spouse or partner, the grantor's spouse or partner, and a child of the grantor, among others (s. 10 (2); applied to personal care by s. 48 (2)). Ruth is Evelyn's child and Bethany is the spouse of Victor, the property attorney, so neither was a permitted witness. A document that does not comply is not effective, but the court may, on any person's application, declare it effective if satisfied that it is in the interests of the grantor or the grantor's dependants (s. 10 (4)) or, for personal care, in the grantor's interests (s. 48 (4)). Who was named for personal care. A person who provides health care or support services to the grantor for compensation may not act as attorney for personal care unless the person is the grantor's spouse, partner or relative (s. 46 (3)); Darlene is a paid support worker and not a relative. Capacity. Evening confusion does not by itself decide the question. A person is capable of giving a continuing power of attorney for property if she knows what kind of property she has and its approximate value, is aware of obligations owed to her dependants, and understands the other matters in s. 8 (1), including that the attorney must account and could misuse the authority. The document is valid if she was capable of giving it when she signed, even if she is incapable of managing property (s. 9 (1)). The personal-care test is separate (s. 47 (1)): the ability to understand whether the proposed attorney has a genuine concern for her welfare, and appreciation that the attorney may need to make decisions for her.",
+    "keyPoints": [
+      "two witnesses required (ss. 10 (1), 48 (1))",
+      "the grantor's child and the attorney's spouse cannot witness (s. 10 (2))",
+      "court may declare a non-complying document effective (ss. 10 (4), 48 (4))",
+      "paid caregiver who is not a relative cannot act as personal care attorney (s. 46 (3))",
+      "capacity test for property POA in s. 8 (1); valid if capable when signed (s. 9 (1))"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 10 (1)",
+        "quote": "A continuing power of attorney shall be executed in the presence of two witnesses, each of whom shall sign the power of attorney as witness."
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 10 (2)",
+        "quote": "The attorney or the attorney’s spouse or partner. 2. The grantor’s spouse or partner. 3. A child of the grantor"
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 48 (2)",
+        "quote": "The persons referred to in subsection 10 (2) shall not be witnesses."
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 10 (4)",
+        "quote": "is not effective, but the court may, on any person’s application, declare the continuing power of attorney to be effective if the court is satisfied that it is in the interests of the grantor or his or her dependants to do so"
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 46 (3)",
+        "quote": "A person may not act as an attorney under a power of attorney for personal care, unless the person is the grantor’s spouse, partner or relative, if the person, (a) provides health care to the grantor for compensation; or (b) provides residential, social, training or support services to the grantor for compensation."
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 8 (1) (a), (b)",
+        "quote": "knows what kind of property he or she has and its approximate value; (b) is aware of obligations owed to his or her dependants"
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 9 (1)",
+        "quote": "A continuing power of attorney is valid if the grantor, at the time of executing it, is capable of giving it, even if he or she is incapable of managing property."
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 47 (1)",
+        "quote": "has the ability to understand whether the proposed attorney has a genuine concern for the person’s welfare"
+      }
+    ]
+  },
+  {
+    "id": "EST-011",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "false-premise",
+    "story": "Owen Fitzgerald holds a valid continuing power of attorney for property for his mother, Agnes, 88, who signed it in 2019 while fully capable and now has advanced dementia. Owen's brother lives in British Columbia and has not visited in years. Agnes's 2010 will splits everything equally between the two brothers. Owen thinks that is unfair given that he does all the caregiving.",
+    "question": "Since I hold Mom's power of attorney for property and she can no longer manage her affairs, what do I need to do to sign a new will for her leaving more to me?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "The premise is wrong: a power of attorney for property does not let the attorney make a will for the grantor. Under the Substitute Decisions Act, 1992, s. 7 (2), a continuing power of attorney may authorize the attorney to do on the grantor's behalf anything in respect of property that the grantor could do if capable, 'except make a will'. The capacity test for giving the power repeats this: the grantor must know that the attorney can do anything she could do with her property 'except make a will' (s. 8 (1) (c)). Owen's power of attorney does remain valid even though Agnes has since become incapable (s. 9 (2)), so he can keep managing her property, but he must account for his dealings with it (s. 8 (1) (d) describes this as something the grantor must know). Her 2010 will can be revoked or changed only in the ways the Succession Law Reform Act allows, by Agnes herself; s. 15 lists them, and none is an act by an attorney.",
+    "keyPoints": [
+      "an attorney for property cannot make a will (s. 7 (2))",
+      "the POA stays valid after the grantor becomes incapable (s. 9 (2))",
+      "the attorney must account for dealings with the property",
+      "only the testator can revoke or change her will (SLRA s. 15)"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 7 (2)",
+        "quote": "The continuing power of attorney may authorize the person named as attorney to do on the grantor’s behalf anything in respect of property that the grantor could do if capable, except make a will."
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 8 (1) (c), (d)",
+        "quote": "except make a will, subject to the conditions and restrictions set out in the power of attorney; (d) knows that the attorney must account for his or her dealings with the person’s property"
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 9 (2)",
+        "quote": "The continuing power of attorney remains valid even if, after executing it, the grantor becomes incapable of giving a continuing power of attorney."
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 15",
+        "quote": "A will or part of a will is revoked only by"
+      }
+    ]
+  },
+  {
+    "id": "EST-012",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "multi-issue",
+    "story": "Clara Novak died in Huntsville on March 1, 2026. Her will leaves her lakeside cottage to her three children, Ben, Hanna and Mila, 'in equal shares as tenants in common'. Ben and Hanna want to keep the cottage. Mila lives in Calgary, needs money, and wants the cottage sold. Ben has told her 'you can't force a sale, and anyway you'd have to wait three years.' Mila also learns that the cottage is mortgaged to a credit union. Splitting the lot into three pieces is impractical because there is only one dock and one septic system.",
+    "question": "Can Mila make Ben and Hanna share or sell the cottage, which court hears it, what can the court order, and when can she start?",
+    "expected": "answer",
+    "modelAnswer": "Yes, a co-owner can compel partition or sale. Under the Partition Act, s. 2, all joint tenants and tenants in common (and mortgagees and others interested in the land) may be compelled to make or suffer partition or sale of the land. Under s. 3 (1), any person interested in land in Ontario may bring an action or make an application for partition of the land, or for its sale under the directions of the court if the court considers sale more advantageous to the parties interested. The court is the Superior Court of Justice (s. 1). Because physically dividing this cottage is impractical, the question for the court under s. 3 (1) is whether a sale is more advantageous to the parties interested. Ben is wrong about the wait, but there is a waiting period: where land is held as tenants in common because of a devise (a gift by will), no proceeding may be taken until one year after the death of the testator (s. 3 (2)). Clara died on March 1, 2026, so Mila may start no earlier than one year after that death. The credit union, as a mortgagee, is among those the Act says may be compelled to partition or sale, so it is a party with an interest. An appeal from an order under the Act lies to the Divisional Court (s. 7).",
+    "keyPoints": [
+      "tenants in common may be compelled to partition or sale (s. 2)",
+      "any person interested may apply; sale if more advantageous (s. 3 (1))",
+      "Superior Court of Justice (s. 1)",
+      "inherited land: wait one year after the testator's death (s. 3 (2))",
+      "appeal to the Divisional Court (s. 7)"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/partition-act.txt",
+        "pinpoint": "s. 2",
+        "quote": "All joint tenants, tenants in common, and coparceners"
+      },
+      {
+        "file": "docs/sources/corpus/partition-act.txt",
+        "pinpoint": "s. 2",
+        "quote": "mortgagees or other creditors having liens on, and all parties interested in, to or out of, any land in Ontario, may be compelled to make or suffer partition or sale of the land"
+      },
+      {
+        "file": "docs/sources/corpus/partition-act.txt",
+        "pinpoint": "s. 3 (1)",
+        "quote": "Any person interested in land in Ontario, or the guardian of a minor entitled to the immediate possession of an estate therein, may bring an action or make an application for the partition of such land or for the sale thereof under the directions of the court if such sale is considered by the court to be more advantageous to the parties interested."
+      },
+      {
+        "file": "docs/sources/corpus/partition-act.txt",
+        "pinpoint": "s. 3 (2)",
+        "quote": "Where the land is held in joint tenancy or tenancy in common or coparcenary by reason of a devise or an intestacy, no proceeding shall be taken until one year after the decease of the testator or person dying intestate in whom the land was vested."
+      },
+      {
+        "file": "docs/sources/corpus/partition-act.txt",
+        "pinpoint": "s. 1",
+        "quote": "“court” means the Superior Court of Justice"
+      },
+      {
+        "file": "docs/sources/corpus/partition-act.txt",
+        "pinpoint": "s. 7",
+        "quote": "An appeal lies to the Divisional Court from any order made under this Act."
+      }
+    ]
+  },
+  {
+    "id": "EST-013",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "Samir and Leena Rahman own a house in Hamilton registered under the Land Titles Act. Their private second mortgage, held by a lender named Brightline Capital, contains a power of sale. They missed the payment due on July 1, 2026. On July 9, 2026, Brightline sent them a notice of sale under mortgage, and it has told them the house will be listed for sale on August 1. Brightline did not send any notice to the first mortgagee or to a contractor who has a registered construction lien on the title. The Rahmans also want to know exactly how much they owe, but Brightline's statements are confusing.",
+    "question": "What waiting periods does the Mortgages Act set before a power-of-sale notice can be given and before the sale, who must receive the notice, and what can the Rahmans do before a sale to stop it?",
+    "expected": "answer",
+    "modelAnswer": "Under the Mortgages Act, s. 32, where a mortgage confers a power of sale on default, notice of exercising the power of sale shall not be given until the default has continued for at least fifteen days, and the sale shall not be made for at least thirty-five days after the notice has been given. Measured on these facts, the July 9 notice came only eight days after the July 1 default, short of the fifteen days, and a sale on August 1 would come fewer than thirty-five days after that notice. Who gets notice: a mortgagee shall not exercise a power of sale unless the notice, in the prescribed form, has been given to the persons s. 31 (1) lists, other than persons with an interest prior to the mortgagee's; for Land Titles property that includes every person appearing by the parcel register and the index of executions to have an interest in the property (s. 31 (1), para. 1). The first mortgagee ranks ahead of Brightline, so it is a prior interest; the registered lien claimant appears on the parcel register. The notice is given by personal service or registered mail as s. 33 (1) sets out. For a construction lien claimant, the notice may be addressed to the solicitor who filed the claim for lien, and no notice need be given to the lien claimant only where there is no solicitor, no address for service is shown on the claim for lien, and the mortgagee has no actual knowledge of the claimant's address (s. 33 (3)); the facts do not say whether that is so here, so it is something to check on the registered claim for lien. Stopping the sale: under s. 22 (1), at any time before sale the mortgagors may pay the amount in default (not including money that is due only because of the acceleration) and the mortgagee's necessary expenses, and are then relieved from the consequences of the default. They may demand in writing a statement of the arrears and expenses (s. 22 (2)); the mortgagee must answer within fifteen days, and if it fails to without reasonable excuse or the answer is incomplete or incorrect, its rights to enforce the mortgage are suspended until it complies (s. 22 (3)).",
+    "keyPoints": [
+      "default must continue at least fifteen days before notice (s. 32)",
+      "no sale for at least thirty-five days after notice (s. 32)",
+      "notice to everyone on the parcel register with a subsequent interest (s. 31 (1))",
+      "pay the arrears before sale to be relieved of the default (s. 22 (1))",
+      "written demand for a statement; answer within fifteen days or enforcement suspended (s. 22 (2), (3))"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/mortgages-act.txt",
+        "pinpoint": "s. 32",
+        "quote": "notice of exercising the power of sale shall not be given until the default has continued for at least fifteen days, and the sale shall not be made for at least thirty-five days after the notice has been given"
+      },
+      {
+        "file": "docs/sources/corpus/mortgages-act.txt",
+        "pinpoint": "s. 31 (1)",
+        "quote": "A mortgagee shall not exercise a power of sale unless a notice of exercising the power of sale in the form prescribed by the regulations made under this Act has been given by the mortgagee to the following persons"
+      },
+      {
+        "file": "docs/sources/corpus/mortgages-act.txt",
+        "pinpoint": "s. 31 (1), para. 1",
+        "quote": "Where the mortgaged property is registered under the Land Titles Act, to every person appearing by the parcel register and by the index of executions to have an interest in the mortgaged property."
+      },
+      {
+        "file": "docs/sources/corpus/mortgages-act.txt",
+        "pinpoint": "s. 33 (1)",
+        "quote": "A notice of exercising a power of sale shall be given by personal service or by registered mail"
+      },
+      {
+        "file": "docs/sources/corpus/mortgages-act.txt",
+        "pinpoint": "s. 33 (3)",
+        "quote": "the notice may be given in the manner provided in subsection (1) by addressing it to the solicitor who filed the claim for lien, but, where there is no solicitor and no address for service is shown on the claim for lien and the mortgagee has no actual knowledge of the lien claimant’s address, no notice need be given to such lien claimant."
+      },
+      {
+        "file": "docs/sources/corpus/mortgages-act.txt",
+        "pinpoint": "s. 22 (1)",
+        "quote": "at any time before sale under the mortgage"
+      },
+      {
+        "file": "docs/sources/corpus/mortgages-act.txt",
+        "pinpoint": "s. 22 (1)",
+        "quote": "the mortgagor may perform such covenant or pay the amount due under the mortgage, exclusive of the money not payable by reason merely of lapse of time, and pay any expenses necessarily incurred by the mortgagee, and thereupon the mortgagor is relieved from the consequences of such default"
+      },
+      {
+        "file": "docs/sources/corpus/mortgages-act.txt",
+        "pinpoint": "s. 22 (3)",
+        "quote": "The mortgagee shall answer a notice given under subsection (2) within fifteen days after receiving it"
+      },
+      {
+        "file": "docs/sources/corpus/mortgages-act.txt",
+        "pinpoint": "s. 22 (3)",
+        "quote": "any rights that the mortgagee may have to enforce the mortgage shall be suspended until the mortgagee has complied with subsection (2)"
+      },
+      {
+        "file": "docs/sources/corpus/mortgages-act.txt",
+        "pinpoint": "s. 31 (1)",
+        "quote": "other than the persons having an interest in the mortgaged property prior to that of the mortgagee"
+      }
+    ]
+  },
+  {
+    "id": "EST-014",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "false-premise",
+    "story": "In 2012, Dale Whitford of Oakville built a cedar fence that took in a 2-metre strip of his neighbour Yuki's backyard. He has mowed it, planted a vegetable garden on it, and kept Yuki out of it ever since. Yuki has just had a survey done and wants the strip back. Both properties have been registered under the Land Titles Act since well before Dale moved in, and Yuki's name is on the parcel register for the whole lot, strip included.",
+    "question": "I've had that strip fenced in for more than ten years, so under the Real Property Limitations Act it's mine now and Yuki's title to it is gone, right? How do I get it registered in my name?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "The premise does not hold for land registered under the Land Titles Act. It is true that the Real Property Limitations Act sets a ten-year period to bring an action to recover land (s. 4), and that when the period ends the owner's title is extinguished (s. 15). But the Land Titles Act, s. 51 (1), overrides that for land registered under it: despite any provision of that Act, the Real Property Limitations Act or any other Act, no title to and no right or interest in registered land that is adverse to the registered owner's title 'shall be acquired hereafter or be deemed to have been acquired heretofore by any length of possession or by prescription'. Since both lots were registered under the Land Titles Act before Dale moved in and fenced the strip, his years of possession, however long, do not give him title against Yuki, the registered owner. Section 51 (2) preserves an adverse claim only against someone registered as first owner with a possessory title only, by a person who was in possession when that first registration took place, which does not match these facts. So there is no title to register in Dale's name on this basis; Yuki remains the registered owner of the strip.",
+    "keyPoints": [
+      "Land Titles Act s. 51 (1): no title by length of possession to registered land",
+      "s. 51 (1) applies despite the Real Property Limitations Act",
+      "the ten-year period (RPLA s. 4) does not give title against the registered owner here",
+      "s. 51 (2) exception for possessory first-owner registration does not apply"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/land-titles-act.txt",
+        "pinpoint": "s. 51 (1)",
+        "quote": "Despite any provision of this Act, the Real Property Limitations Act or any other Act, no title to and no right or interest in land registered under this Act that is adverse to or in derogation of the title of the registered owner shall be acquired hereafter or be deemed to have been acquired heretofore by any length of possession or by prescription."
+      },
+      {
+        "file": "docs/sources/corpus/land-titles-act.txt",
+        "pinpoint": "s. 51 (2)",
+        "quote": "This section does not prejudice, as against any person registered as first owner of land with a possessory title only, any adverse claim in respect of length of possession of any other person who was in possession of the land at the time when the registration of the first owner took place."
+      },
+      {
+        "file": "docs/sources/corpus/real-property-limitations-act.txt",
+        "pinpoint": "s. 4",
+        "quote": "No person shall make an entry or distress, or bring an action to recover any land or rent, but within ten years next after the time at which the right to make such entry or distress, or to bring such action, first accrued"
+      },
+      {
+        "file": "docs/sources/corpus/real-property-limitations-act.txt",
+        "pinpoint": "s. 15",
+        "quote": "At the determination of the period limited by this Act to any person for making an entry or distress or bringing any action, the right and title of such person to the land or rent"
+      }
+    ]
+  },
+  {
+    "id": "EST-015",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "judge-the-case",
+    "story": "Lorraine Petit won a $72,000 judgment against her former business partner, Glen Hartley, in the Superior Court in Ottawa on May 5, 2026. On April 20, 2026, two weeks before the judgment and while the trial was underway, Glen transferred his house to his brother Wayne for $2. Glen still lives in the house and pays the property taxes. Wayne says he took the house in good faith to help Glen with his debts. Lorraine's enforcement office found no other assets in Glen's name.",
+    "question": "I want to sue to undo the transfer of the house to Wayne. Is my case strong enough that I'll get the house back for my judgment?",
+    "expected": "decline-to-judge",
+    "modelAnswer": "This site does not judge whether a case will succeed or how strong it is. What it can do is set out what the law requires and what needs to be shown. Under the Fraudulent Conveyances Act, s. 2, every conveyance of real or personal property made with intent to defeat, hinder, delay or defraud creditors or others of their just and lawful actions, debts or damages is void as against those persons. 'Conveyance' includes a gift or grant of real property (s. 1). So the central question is Glen's intent when he transferred the house: whether it was made with intent to defeat, hinder, delay or defraud creditors such as Lorraine. Section 3 gives the transferee a protection: s. 2 does not apply to an interest conveyed upon good consideration and in good faith to a person who did not, at the time, have notice or knowledge of that intent. Both parts matter: the consideration must be good, and the transferee must lack notice or knowledge of the intent. Section 4 adds that s. 2 applies even to a transfer made for valuable consideration and meant as a real transfer, unless it is protected under s. 3 by good faith and want of notice or knowledge on the purchaser's part. In preparing, Lorraine would gather what bears on intent and on s. 3: the timing relative to the trial and judgment, the price paid against the home's value, who has lived in and paid for the house since, the relationship between Glen and Wayne, and what Wayne knew about the lawsuit. The facts she has recorded so far (the $2 price, the timing, Glen's continued occupation) are the kinds of facts that go to these questions; whether they meet the test is for the court.",
+    "keyPoints": [
+      "does not predict or grade the case",
+      "conveyance made with intent to defeat, hinder, delay or defraud creditors is void as against them (s. 2)",
+      "s. 3 protects a transferee for good consideration, in good faith, without notice of the intent",
+      "s. 4: valuable consideration alone does not protect the transfer",
+      "what to gather: timing, price, continued occupation, transferee's knowledge"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/fraudulent-conveyances-act.txt",
+        "pinpoint": "s. 2",
+        "quote": "Every conveyance of real property or personal property and every bond, suit, judgment and execution heretofore or hereafter made with intent to defeat, hinder, delay or defraud creditors or others of their just and lawful actions, suits, debts, accounts, damages, penalties or forfeitures are void as against such persons and their assigns."
+      },
+      {
+        "file": "docs/sources/corpus/fraudulent-conveyances-act.txt",
+        "pinpoint": "s. 1",
+        "quote": "“conveyance” includes gift, grant, alienation, bargain, charge, encumbrance"
+      },
+      {
+        "file": "docs/sources/corpus/fraudulent-conveyances-act.txt",
+        "pinpoint": "s. 3",
+        "quote": "Section 2 does not apply to an estate or interest in real property or personal property conveyed upon good consideration and in good faith to a person not having at the time of the conveyance to the person notice or knowledge of the intent set forth in that section."
+      },
+      {
+        "file": "docs/sources/corpus/fraudulent-conveyances-act.txt",
+        "pinpoint": "s. 4",
+        "quote": "Section 2 applies to every conveyance executed with the intent set forth in that section despite the fact that it was executed upon a valuable consideration"
+      }
+    ]
+  },
+  {
+    "id": "EST-016",
+    "area": "estates-and-real-property",
+    "courtPath": "civil",
+    "style": "multi-issue",
+    "story": "Irene Kowalski, a widow in St. Catharines, was 84 when she added her daughter Tanya, 52, as a joint owner of her $180,000 savings account in 2022, after Irene's eyesight began to fail. Tanya paid Irene's bills from the account; she has a good job and her own home. Irene's will, made in 2015, leaves everything equally to Tanya and her son Michael. Irene died in July 2026. Tanya says the account is hers by survivorship and is not part of the estate. Michael says it belongs to the estate. Irene left no note about the account. Tanya points out that she and her mother were very close and that she visited every day.",
+    "question": "How does a court approach whether the joint account passed to Tanya or belongs to Irene's estate? Who has to prove what, and to what standard, and does the parent-child relationship create a presumption of a gift?",
+    "expected": "answer",
+    "modelAnswer": "The leading authority is Pecore v. Pecore, 2007 SCC 17. Adding Tanya to the account for no payment was a gratuitous transfer. The presumption of resulting trust is the general rule for gratuitous transfers: where a transfer is made for no consideration, the onus is on the transferee to show that a gift was intended, because equity presumes bargains, not gifts (para. 24). The presumption of advancement (a presumed gift) between parent and child is limited to transfers to minor children (para. 40). For an independent adult child like Tanya, there is a rebuttable presumption that she holds the property in trust for the ageing parent, to facilitate the management of the parent's affairs (para. 36). So Tanya, not Michael, carries the burden of showing that Irene intended a gift of the account, including the balance on death. The standard is the ordinary civil one: the evidence must show the transferor's contrary intention on the balance of probabilities (para. 43). The court starts with the presumption and weighs all of the evidence to find Irene's actual intention; the presumption decides the result only where there is not enough evidence to rebut it (para. 44). The closeness of the relationship does not create a presumption of a gift, but courts can consider evidence about the quality of the relationship in deciding whether the presumption of resulting trust has been rebutted (para. 37). Relevant evidence would include why the account was made joint (here, the failing eyesight and bill-paying), the will's equal division, and anything showing what Irene intended. If the account is held in trust, it forms part of the estate and passes under the will equally.",
+    "keyPoints": [
+      "presumption of resulting trust for gratuitous transfers to an adult child",
+      "onus on the transferee to prove a gift was intended",
+      "presumption of advancement limited to minor children",
+      "balance of probabilities standard",
+      "quality of the relationship is evidence, not a presumption"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+        "pinpoint": "para. 24",
+        "quote": "where a transfer is made for no consideration, the onus is placed on the transferee to demonstrate that a gift was intended"
+      },
+      {
+        "file": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+        "pinpoint": "para. 24",
+        "quote": "This is so because equity presumes bargains, not gifts."
+      },
+      {
+        "file": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+        "pinpoint": "para. 36",
+        "quote": "There should therefore be a rebuttable presumption that the adult child is holding the property in trust for the ageing parent to facilitate the free and efficient management of that parent’s affairs."
+      },
+      {
+        "file": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+        "pinpoint": "para. 40",
+        "quote": "be limited in application to transfers by mothers and fathers to minor children"
+      },
+      {
+        "file": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+        "pinpoint": "para. 43",
+        "quote": "is evidence of the transferor’s contrary intention on the balance of probabilities"
+      },
+      {
+        "file": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+        "pinpoint": "para. 44",
+        "quote": "the presumption will only determine the result where there is insufficient evidence to rebut it on a balance of probabilities"
+      },
+      {
+        "file": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+        "pinpoint": "para. 37",
+        "quote": "I see no reason why courts cannot consider evidence relating to the quality of the relationship between the transferor and transferee in order to determine whether the presumption of a resulting trust has been rebutted"
+      }
+    ]
+  }
+]

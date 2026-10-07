@@ -1,0 +1,431 @@
+[
+  {
+    "id": "BUS-001",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "deadline",
+    "story": "On a Tuesday evening in March 2026, a salesperson for Brightline Windows Ltd. sat at Nadia Okafor's kitchen table in Sudbury and took her signature on a $6,800 agreement for six replacement windows. Nadia had met the company at a booth at a home show the weekend before and asked it to send someone to measure. The salesperson left without giving her a copy; the written copy of the agreement arrived by courier two days later. A week after that, Nadia's sister found the same windows for much less. Nadia has not paid anything and installation has not started.",
+    "question": "Can Nadia cancel, how long does she have, what starts the clock, and how does she give notice?",
+    "expected": "answer",
+    "modelAnswer": "The agreement was negotiated and concluded in person at Nadia's home, not at the supplier's place of business or at the home show itself, so it is a direct agreement (Consumer Protection Act, 2002, s. 20 (1)), and the cooling-off rules apply because the price is above the prescribed $50 (s. 41 (1); O. Reg. 17/05, s. 34). Meeting the company at a home show does not change where the agreement was made. Nadia may cancel without giving any reason at any time from the day she entered into the agreement until 10 days after she received the written copy (s. 43 (1)). The clock runs from the day the courier delivered the written copy, not from the day she signed. There is an exception: if the copy she received does not meet the requirements of s. 42 (a direct agreement must be in writing, delivered to her and made in accordance with the prescribed requirements), she may cancel within one year after the date of entering into the agreement (s. 43 (2)). She cancels by giving notice under s. 92 (s. 94 (1)); the notice may be expressed in any way that shows she intends to cancel, may be oral or written and given by any means, and written notice given other than by personal service is deemed given when sent (s. 92 (2)-(4)). Cancellation takes effect when she gives notice (s. 94 (2)). Keeping a dated written copy of her notice gives her a record.",
+    "keyPoints": [
+      "direct agreement made at her home",
+      "10 days after receiving the written copy",
+      "no reason needed",
+      "one year if the copy does not meet s. 42 requirements",
+      "notice by any means, deemed given when sent"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 20 (1)", "quote": "\"direct  agreement\"  means  a  consumer  agreement  that  is  negotiated  or concluded in person at a place other than, (a) at the supplier's place of business, or (b) at a market place, an auction, trade fair, agricultural fair or exhibition" },
+      { "file": "docs/sources/corpus/oreg-17-05-consumer-protection-general.txt", "pinpoint": "s. 34", "quote": "The prescribed amount for the purpose of subsection 41 (1) of the Act is $50." },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 43 (1)", "quote": "A consumer may, without any reason, cancel a direct agreement at any time from the date of entering into the agreement until 10 days after the consumer has received the written copy of the agreement." },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 43 (2)", "quote": "a consumer may cancel a direct agreement within one year after the date of entering into the agreement if the consumer does not receive a copy of the agreement that meets the requirements under section 42" },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 92 (3)-(4)", "quote": "the notice may be oral or in writing and may be given by any means" },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 94 (2)", "quote": "The cancellation takes effect when the consumer gives notice." }
+    ]
+  },
+  {
+    "id": "BUS-002",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "multi-issue",
+    "story": "Arjun and Mei Lin own a semi-detached house in Brampton. In October 2025 a man in a company jacket knocked on their door unannounced, said he was doing 'safety inspections in the neighbourhood', and within an hour had them sign a 10-year rental agreement for a new furnace from Comfortpro Home Services Inc., plus a separate financing agreement for an 'installation fee' of $1,900. They paid $400 that day. The furnace was installed. Their old furnace, which they owned outright, was taken away. Three weeks later their neighbour, a retired HVAC technician, told them their old furnace had been fine. Comfortpro now says they owe monthly rent and that they will pay a $2,600 'removal charge' if they want out. A plumbing contractor they hired to check the gas line after installation charged them $180.",
+    "question": "What does the Consumer Protection Act say about this agreement, the financing agreement, the furnace in their basement and the charges they have paid or incurred?",
+    "expected": "answer",
+    "modelAnswer": "Furnaces are prescribed goods for s. 43.1 (O. Reg. 17/05, s. 35.1 (1), para. 1). A supplier may not, while at a consumer's dwelling, solicit the consumer to enter into a direct agreement for prescribed goods, or enter into one, unless the consumer initiated contact and specifically asked the supplier to attend for that purpose (Consumer Protection Act, 2002, s. 43.1 (1)). On these facts the salesperson arrived unannounced, so what has to be established is that Arjun and Mei did not initiate contact or request the visit. If the agreement was made in contravention of s. 43.1 (1), it is void (s. 43.1 (3)), and so is any related agreement, including a credit agreement for money they were required to pay under it (s. 43.1 (4)), which covers the 'installation fee' financing. Goods supplied under a void direct agreement are deemed unsolicited and s. 13 applies (s. 43.1 (5)): a recipient of unsolicited goods has no legal obligation in respect of their use or disposal (s. 13 (1)), and no supplier may demand payment for them (s. 13 (2)). They may demand a refund of the $400 within one year after making the payment, using a s. 92 notice (s. 13 (6)), and may sue to recover it (s. 13 (8)). If they incurred charges from a third party related to the void agreement, the supplier is liable to reimburse them (s. 43.1 (6)); whether the $180 plumbing charge is 'related to the agreement' is a fact they would need to show. Separately, the 'safety inspection' story is a representation that could be examined as an unfair practice under s. 14, with the s. 18 remedies, but the s. 43.1 route does not depend on it.",
+    "keyPoints": [
+      "furnaces are prescribed for s. 43.1",
+      "agreement void unless the consumer initiated contact and requested the visit",
+      "related financing agreement also void",
+      "furnace deemed unsolicited goods, no obligation for use or disposal",
+      "third-party charges reimbursed by supplier"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-17-05-consumer-protection-general.txt", "pinpoint": "s. 35.1 (1)", "quote": "For the purpose of subsection 43.1 (1) of the Act, the following goods and services are prescribed: 1. Furnaces." },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 43.1 (1)", "quote": "unless the consumer has initiated contact with the supplier and has specifically requested that the supplier attend at the consumer's dwelling or the other prescribed place for the purpose of entering into such an agreement" },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 43.1 (3)", "quote": "A direct agreement that the parties enter into in contravention of subsection (1) is void." },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 43.1 (4)", "quote": "A credit agreement within the meaning of Part VII that the consumer enters into as a borrower in respect of money that the consumer is required to pay under the direct agreement" },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 13 (1)", "quote": "a recipient of unsolicited goods or services has no legal obligation in respect of their use or disposal" },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 43.1 (6)", "quote": "the supplier is liable to reimburse the consumer for the amount of all those charges" }
+    ]
+  },
+  {
+    "id": "BUS-003",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "false-premise",
+    "story": "Rosa Delgado went into a furniture showroom in Kingston on a Saturday, chose a $2,300 sectional sofa, signed the sales agreement at the counter and paid a $500 deposit. On Monday she decided the sofa was too big for her apartment. The sofa is in perfect condition and has not been delivered.",
+    "question": "Rosa has heard that Ontario law gives everyone a 10-day cooling-off period. Since she is still within 10 days, she can cancel and get her deposit back, can't she?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "No. The Consumer Protection Act, 2002 does not give a general 10-day right to change one's mind about every purchase. The 10-day cooling-off right in s. 43 (1) applies to a direct agreement, and a direct agreement is one negotiated or concluded in person at a place other than the supplier's place of business (or a market, auction, fair or exhibition) (s. 20 (1)). Rosa chose the sofa and signed in the store's showroom, which is the supplier's place of business, so s. 43 does not give her a right to cancel. Whether she can cancel and recover the deposit depends on the terms of her agreement with the store (for example a return or cancellation policy) or on some other legal ground, such as the agreement having been entered into after an unfair practice (s. 18 (1)); nothing in the facts given suggests one. Other agreements have their own cooling-off periods in the Act (for example time share agreements, s. 28 (1)), but a store purchase like this is not one of them.",
+    "keyPoints": [
+      "no general cooling-off right",
+      "10-day right is for direct agreements",
+      "direct agreement excludes the supplier's place of business",
+      "depends on store policy or another legal ground"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 20 (1)", "quote": "\"direct  agreement\"  means  a  consumer  agreement  that  is  negotiated  or concluded in person at a place other than, (a) at the supplier's place of business" },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 43 (1)", "quote": "A consumer may, without any reason, cancel a direct agreement at any time from the date of entering into the agreement until 10 days after the consumer has received the written copy of the agreement." },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 18 (1)", "quote": "Any agreement, whether written, oral or implied, entered into by a consumer after or while a person has engaged in an unfair practice may be rescinded by the consumer" }
+    ]
+  },
+  {
+    "id": "BUS-004",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "deadline",
+    "story": "On February 12, 2025, Gord and Elaine Tremblay of Barrie signed a $21,000 agreement with Northshore Decks & Fences Ltd. to build a backyard deck. The owner, Kyle, told them the company's design was 'engineered and approved by the City' and that the company was 'fully insured'. The deck was finished in May 2025. In January 2026 a city inspector told them no permit or approval had ever been sought, and they learned the company had no insurance. The deck has to be partly rebuilt. The Tremblays also say Kyle was rude to them during the job.",
+    "question": "What remedy does the Consumer Protection Act give for this kind of misrepresentation, by when must the Tremblays act, and what happens if they miss that date?",
+    "expected": "answer",
+    "modelAnswer": "A false, misleading or deceptive representation is an unfair practice (Consumer Protection Act, 2002, s. 14 (1)), and the examples include a representation that the goods or services have approval they do not have, or that the supplier has an approval or status it does not have (s. 14 (2), paras. 1 and 2). One such act is enough (s. 17 (2)). An agreement entered into after or while a person engaged in an unfair practice may be rescinded by the consumer, who is also entitled to any remedy available in law, including damages (s. 18 (1)). Where rescission is not possible because return or restitution of the goods or services is no longer possible, which may be so for a built deck, the consumer may recover the amount by which the payment exceeds the value of what they received, or damages, or both (s. 18 (2)). The deadline: the consumer must give notice within one year after entering into the agreement (s. 18 (3)). The clock starts on the day the agreement was entered into (February 12, 2025), not on the day the problem was discovered or the work was finished. The notice can be expressed in any way that shows the intention to rescind or seek recovery and the reasons, may be delivered by any means, and is deemed given when sent if not personally served (s. 18 (4)-(6)). If the consumer has not received a satisfactory response within the prescribed period, they may sue (s. 18 (8)), and the court may award exemplary or punitive damages as well (s. 18 (11)). If the one-year date has passed, the Act lets a court disregard a notice requirement if it is in the interest of justice to do so (s. 101). Kyle's rudeness is not itself an unfair practice under these sections.",
+    "keyPoints": [
+      "false representation of approval is an unfair practice",
+      "rescind and any remedy in law including damages",
+      "recovery if rescission not possible",
+      "notice within one year after entering into the agreement",
+      "court may disregard notice requirement in the interest of justice"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 14 (2), para. 1", "quote": "A representation that the goods or services have sponsorship, approval, performance characteristics, accessories, uses, ingredients, benefits or qualities they do not have." },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 18 (1)", "quote": "may be rescinded by the consumer and the consumer is entitled to any remedy that is available in law, including damages" },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 18 (3)", "quote": "A consumer must give notice within one year after entering into the agreement if," },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 18 (11)", "quote": "A court may award exemplary or punitive damages in addition to any other remedy in an action commenced under this section." },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 101", "quote": "a court may disregard the requirement to give the notice or any requirement relating to the notice if it is in the interest of justice to do so" }
+    ]
+  },
+  {
+    "id": "BUS-005",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "multi-issue",
+    "story": "Samira Haddad took her 2017 hatchback to Lakeview Auto Service in Oshawa for a grinding noise. The service writer gave her a written estimate of $1,200 for front brakes and rotors, which she signed. When she came back, the invoice was $1,560. The shop said the 'extra was for shop supplies and labour that ran long'; nobody had called her about more work. When she refused to pay more than $1,200, the manager said the car would stay in the lot until she paid in full, and suggested she could 'make it easy' by signing up for the shop's $49 monthly maintenance plan instead. Samira needs the car to get to work.",
+    "question": "What does the law say about the $1,560 bill, the shop keeping her car, and how Samira can get the car back while the amount is in dispute?",
+    "expected": "answer",
+    "modelAnswer": "A repairer may not charge, for work for which an estimate was given, an amount that exceeds the estimate by more than 10 per cent (Consumer Protection Act, 2002, s. 58 (2)); the general rule for consumer agreements is the same (s. 10 (1)). Ten per cent of $1,200 is $120, so the most the shop could charge on this estimate is $1,320; $1,560 is more than that. Where a supplier charges more than 10 per cent over the estimate, the consumer may require the supplier to provide the services at the estimated price (s. 10 (2)). A repairer also cannot charge for work the consumer did not authorize (s. 58 (1)). On keeping the car: a repairer has a lien and may retain possession until the amount is paid, but the lien is for the amount the person who requested the repair agreed to pay (Repair and Storage Liens Act, s. 3 (1), para. 1). Using custody of a consumer's goods to pressure the consumer into renegotiating the terms of a transaction is itself an unfair practice (CPA, s. 16), which bears on the push to sign up for the maintenance plan. To get the car back while the amount is disputed, the owner may apply to the court under s. 24 of the Repair and Storage Liens Act where there is a dispute about the amount of the lien or the work authorized (s. 24 (1), (1.2)). The applicant pays into court, or deposits security for, the full amount claimed (or the amount offered in settlement plus security for the balance) (s. 24 (4)), receives a certificate, and gives it to the repairer to obtain release of the car (s. 24 (5)-(6)). Any overcharge she has already paid can be demanded back by notice within one year after paying it (CPA, s. 98 (1)).",
+    "keyPoints": [
+      "no more than 10 per cent over the estimate",
+      "consumer may require the estimated price",
+      "repairer's lien for the amount agreed",
+      "pressure using custody of goods is an unfair practice",
+      "RSLA s. 24 application with payment into court to release the car"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 58 (2)", "quote": "No repairer shall charge, for work or repairs for which an estimate was given, an amount that exceeds the estimate by more than 10 per cent." },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 10 (2)", "quote": "the consumer may require that the supplier provide the goods or services at the estimated price" },
+      { "file": "docs/sources/corpus/repair-and-storage-liens-act.txt", "pinpoint": "s. 3 (1)", "quote": "the repairer may retain possession of the article until the amount is paid: 1. The amount that the person who requested the repair agreed to pay." },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 16", "quote": "It is an unfair practice for a person to use his, her or its custody or control of a consumer's goods to pressure the consumer into renegotiating the terms of a consumer transaction." },
+      { "file": "docs/sources/corpus/repair-and-storage-liens-act.txt", "pinpoint": "s. 24 (4)", "quote": "The applicant shall pay into court, or deposit security with the court in the amount of, the full amount claimed by the respondent" }
+    ]
+  },
+  {
+    "id": "BUS-006",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "fact-pattern",
+    "story": "Jean-Paul Bisson had a new alternator installed at Riverside Garage in Cornwall on June 2, 2026, for $780. Six weeks and about 3,100 kilometres later, while visiting his daughter in Thunder Bay, the car died on the highway because the new alternator failed. The tow truck took the car to the nearest shop, which replaced the alternator for $810 and charged $240 for the tow. Riverside says its parts come with a 30-day warranty only, as printed on its invoice.",
+    "question": "Is Riverside's 30-day limit the end of the matter, and what can Jean-Paul recover from Riverside?",
+    "expected": "answer",
+    "modelAnswer": "No. On the repair of a vehicle, every repairer is deemed to warrant all new or reconditioned parts installed, and the labour to install them, for at least 90 days or 5,000 kilometres, whichever comes first (Consumer Protection Act, 2002, s. 63 (1)). The failure came at about six weeks and 3,100 km, inside both limits. A term on an invoice cannot cut down this deemed warranty: rights under the Act apply despite any agreement or waiver to the contrary (s. 7 (1)), and a term that purports to negate or vary a deemed condition or warranty under the Act is void (s. 9 (3)). Where a vehicle becomes inoperable or unsafe because work under this warranty failed, and it is not reasonable to return it to the original repairer, the person in charge of the vehicle may have it repaired at the closest facility available (s. 63 (3)), and is then entitled to recover from the original repairer the original cost of the work or repairs and reasonable towing charges (s. 63 (4)). On those words, what Jean-Paul can recover under s. 63 (4) is measured by Riverside's original cost ($780) plus reasonable towing charges, not necessarily the $810 the second shop charged. What he would need to show: the alternator Riverside installed failed within the warranty limits, the car became inoperable, and returning it to Cornwall was not reasonable.",
+    "keyPoints": [
+      "deemed warranty of 90 days or 5,000 km",
+      "invoice term cannot reduce it",
+      "repair at closest facility when return is not reasonable",
+      "recover original cost plus reasonable towing"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 63 (1)", "quote": "every repairer shall be deemed to warrant all new or reconditioned parts installed and the labour required to install them for a minimum of 90 days or 5,000 kilometres, whichever comes first" },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 63 (3)", "quote": "when it is not reasonable to return the vehicle to the original repairer, have the failure or inadequacy repaired at the closest facility available for the work or repairs" },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 63 (4)", "quote": "is entitled to recover from the original repairer the original cost of the work or repairs and reasonable towing charges" },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 7 (1)", "quote": "The substantive and procedural rights given under this Act apply despite any agreement or waiver to the contrary." }
+    ]
+  },
+  {
+    "id": "BUS-007",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "fact-pattern",
+    "story": "Farid Rahimi has a cottage near Bancroft with a drilled well about 40 metres deep. He went to Bancroft Building Supply, told the clerk the depth of his well and that he needed a pump that could handle it, and asked what to buy. The clerk walked him to a shelf and handed him a $1,150 submersible pump, saying 'this'll do it'. Farid did not ask for any particular brand. Within a week of installation the pump burned out; a well technician says it is rated for a maximum of 25 metres. The store says Farid chose the pump himself and that the box listed the rating.",
+    "question": "What implied term of the sale is engaged, what does Farid have to show, and does the Consumer Protection Act add anything?",
+    "expected": "answer",
+    "modelAnswer": "The Sale of Goods Act implies a condition that goods are reasonably fit for a particular purpose where the buyer, expressly or by implication, makes known to the seller the particular purpose for which the goods are required so as to show that the buyer relies on the seller's skill or judgment, and the goods are of a description that it is in the course of the seller's business to supply (Sale of Goods Act, s. 15, para. 1). What Farid has to show: he told the store the purpose (a pump for a 40-metre well), the circumstances show he relied on the store's skill or judgment (he asked what to buy and took what the clerk handed him), the store is in the business of selling pumps, and the pump was not reasonably fit for that purpose. The exception for a specified article sold under its patent or trade name (s. 15, para. 1) is aimed at a buyer who orders by brand; the facts say Farid asked for no particular brand. Whether the rating printed on the box changes the reliance picture is a question of fact about what happened at the counter. Because Farid bought for personal use from a business, the purchase is a consumer agreement, and the implied conditions and warranties of the Sale of Goods Act are deemed to apply to it (Consumer Protection Act, 2002, s. 9 (2)); any term that purports to negate or vary them is void (s. 9 (3)). The amount is within the Small Claims Court's $50,000 limit (O. Reg. 626/00, s. 1 (1)).",
+    "keyPoints": [
+      "implied condition of fitness for a particular purpose",
+      "buyer made the purpose known and relied on seller's skill or judgment",
+      "seller deals in goods of that description",
+      "trade-name exception",
+      "CPA s. 9 applies SGA conditions to consumer agreements"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/sale-of-goods-act.txt", "pinpoint": "s. 15, para. 1", "quote": "Where the buyer, expressly or by implication, makes known to the seller the particular purpose for which the goods are required so as to show that the buyer relies on the seller's skill or judgment" },
+      { "file": "docs/sources/corpus/sale-of-goods-act.txt", "pinpoint": "s. 15, para. 1", "quote": "there is an implied condition that the goods will be reasonably fit for such purpose, but in the case of a contract for the sale of a specified article under its patent or other trade name there is no implied condition as to its fitness for any particular purpose" },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 9 (2)", "quote": "The implied conditions and warranties applying to the sale of goods by virtue of the Sale of Goods Act are deemed to apply with necessary modifications to goods that are leased or traded or otherwise supplied under a consumer agreement." },
+      { "file": "docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt", "pinpoint": "s. 1 (1)", "quote": "The maximum amount of a claim in the Small Claims Court is $50,000." }
+    ]
+  },
+  {
+    "id": "BUS-008",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "false-premise",
+    "story": "Tanisha Brown bought a used chest freezer for $650 from Second Chance Appliances, a store in Hamilton that refurbishes and sells appliances. Her receipt is stamped 'SOLD AS IS - NO WARRANTIES EXPRESS OR IMPLIED' and she initialled beside the stamp. The freezer stopped keeping food frozen after nine days, and she lost about $300 of meat.",
+    "question": "Because Tanisha initialled the 'as is, no warranties' stamp, she has given up any right to complain about the freezer's quality. Isn't that right?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "No. Tanisha bought the freezer for household use from a business that sells appliances, so this is a consumer agreement under the Consumer Protection Act, 2002. The implied conditions and warranties of the Sale of Goods Act are deemed to apply to goods supplied under a consumer agreement (s. 9 (2)), and any term or acknowledgement, whether part of the agreement or not, that purports to negate or vary any implied condition or warranty under the Sale of Goods Act is void (s. 9 (3)). Such a term is severable and is not evidence of an intent that the implied condition does not apply (s. 9 (4)). The Act's rights also apply despite any agreement or waiver to the contrary (s. 7 (1)). So her initials beside the stamp do not remove those protections. The implied condition that matters most here is merchantable quality, which arises where goods are bought by description from a seller who deals in goods of that description; if the buyer examined the goods, there is no implied condition as regards defects that the examination ought to have revealed (Sale of Goods Act, s. 15, para. 2). What she would need to show is that the freezer was not of merchantable quality and that the defect was not one an examination at the store ought to have revealed. Outside a consumer agreement (for example a sale between two private individuals), the Sale of Goods Act lets implied terms be negatived or varied by express agreement (s. 53), which is why it matters that the seller here is a business and she is a consumer.",
+    "keyPoints": [
+      "consumer agreement",
+      "term negating SGA implied conditions is void",
+      "rights apply despite waiver",
+      "merchantable quality and the examination exception",
+      "SGA s. 53 exclusion outside consumer agreements"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 9 (3)", "quote": "Any term or acknowledgement, whether part of the consumer agreement or not, that purports to negate or vary any implied condition or warranty under the Sale of Goods Act or any deemed condition or warranty under this Act is void." },
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 9 (4)", "quote": "it is severable from the agreement and shall not be evidence of circumstances showing an intent that the deemed or implied warranty or condition does not apply" },
+      { "file": "docs/sources/corpus/sale-of-goods-act.txt", "pinpoint": "s. 15, para. 2", "quote": "there is an implied condition that the goods will be of merchantable quality, but if the buyer has examined the goods, there is no implied condition as regards defects that such examination ought to have revealed" },
+      { "file": "docs/sources/corpus/sale-of-goods-act.txt", "pinpoint": "s. 53", "quote": "it may be negatived or varied by express agreement or by the course of dealing between the parties" }
+    ]
+  },
+  {
+    "id": "BUS-009",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "multi-issue",
+    "story": "Crumb & Co. Bakery Ltd. in Guelph ordered a 'commercial double-deck convection oven, model DX-40, refurbished' for $14,000 from Restaurant Equipment Depot, which sells used kitchen equipment. When it arrived, the bakery's owner, Ines Moreau, looked it over, noticed a dented side panel, said nothing, signed for it and started baking with it. Two months later the main heating element failed; a technician says the element had been cracked inside the housing since before the sale, which nobody could have seen without taking the oven apart. The sales agreement has no clause excluding warranties. Ines wants to send the oven back and get the full price refunded, and also wants something for the dent.",
+    "question": "Does the Consumer Protection Act apply? What implied condition is engaged, how do the dent and the hidden crack differ, and can the bakery still reject the oven?",
+    "expected": "answer",
+    "modelAnswer": "The Consumer Protection Act, 2002 protects a 'consumer', defined as an individual acting for personal, family or household purposes, not a person acting for business purposes (s. 1). A corporation buying an oven for its bakery is acting for business purposes, so the Sale of Goods Act governs on its own terms. Where goods are bought by description from a seller who deals in goods of that description, there is an implied condition that the goods will be of merchantable quality, but if the buyer has examined the goods, there is no implied condition as regards defects that such examination ought to have revealed (Sale of Goods Act, s. 15, para. 2). Ines looked the oven over, so the visible dent is the kind of defect her examination ought to have revealed; the cracked element hidden inside the housing is not. Implied terms can be negatived by express agreement (s. 53), but this agreement has no such clause. On rejection: where the buyer has accepted the goods, a breach of a condition by the seller can only be treated as a breach of warranty and not as a ground for rejecting the goods and treating the contract as repudiated, unless the contract provides otherwise (s. 12 (3)). A breach of warranty gives a claim for damages but not a right to reject (s. 12 (2)). Whether the bakery 'accepted' the oven by signing for it and using it for two months is the question that decides whether the remedy is rejection or damages. The $14,000 claim is within the Small Claims Court's limit (O. Reg. 626/00, s. 1 (1)).",
+    "keyPoints": [
+      "CPA does not apply to business purchases",
+      "implied condition of merchantable quality for goods bought by description",
+      "examination exception covers the dent, not the hidden crack",
+      "after acceptance, breach of condition treated as breach of warranty",
+      "damages rather than rejection"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/consumer-protection-act-2002.txt", "pinpoint": "s. 1, \"consumer\"", "quote": "\"consumer\" means an individual acting for personal, family or household purposes and does not include a person who is acting for business purposes" },
+      { "file": "docs/sources/corpus/sale-of-goods-act.txt", "pinpoint": "s. 15, para. 2", "quote": "Where goods are bought by description from a seller who deals in goods of that description (whether the seller is the manufacturer or not), there is an implied condition that the goods will be of merchantable quality" },
+      { "file": "docs/sources/corpus/sale-of-goods-act.txt", "pinpoint": "s. 15, para. 2", "quote": "if the buyer has examined the goods, there is no implied condition as regards defects that such examination ought to have revealed" },
+      { "file": "docs/sources/corpus/sale-of-goods-act.txt", "pinpoint": "s. 12 (3)", "quote": "the breach of any condition to be fulfilled by the seller can only be treated as a breach of warranty and not as a ground for rejecting the goods and treating the contract as repudiated" },
+      { "file": "docs/sources/corpus/sale-of-goods-act.txt", "pinpoint": "s. 12 (2)", "quote": "a warranty the breach of which may give rise to a claim for damages but not to a right to reject the goods and treat the contract as repudiated" }
+    ]
+  },
+  {
+    "id": "BUS-010",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "multi-issue",
+    "story": "Lena Kowalczyk worked as a bookkeeper for 2471139 Ontario Inc., which ran two coffee shops in Windsor under the name 'Daily Grind'. The corporation stopped paying her in February 2026 and closed in May 2026, owing her about three and a half months' wages, roughly $13,500, plus vacation pay. Marco Ferri was the corporation's only director and shareholder throughout. Marco drives a new truck and recently bought a cottage. Lena's friend says she should just sue Marco because 'it was his company'.",
+    "question": "Who is liable to Lena, and on what conditions can she recover the wages from Marco personally?",
+    "expected": "answer",
+    "modelAnswer": "The corporation is the employer and the party primarily liable. A corporation has the capacity and the rights, powers and privileges of a natural person (Business Corporations Act, s. 15), and shareholders are not, as shareholders, liable for any act, default, obligation or liability of the corporation, apart from listed exceptions (s. 92 (1)). Marco's personal wealth does not by itself make him liable for the corporation's debts. The Act does make directors personally liable for wages in a limited way: the directors are jointly and severally liable to the corporation's employees for all debts not exceeding six months' wages that become payable while they are directors for services performed for the corporation, and for vacation pay accrued while they are directors for not more than twelve months under the Employment Standards Act (s. 131 (1)). Lena's roughly three and a half months of unpaid wages, earned while Marco was the director, fall within that limit. But a director is liable only if (a) the corporation is sued in the action against the director and execution against the corporation is returned unsatisfied in whole or in part, or (b) before or after the action is started, the corporation goes into liquidation, is ordered wound up, or makes an authorized assignment in bankruptcy or a receiving order is made against it, and in any such case the claim for the debt has been proved (s. 131 (2)). In practical terms: she names the corporation in the action, and either execution against it comes back unsatisfied or one of the insolvency events occurs and her claim is proved. Where execution has issued, what she can recover from Marco is the amount left unsatisfied after execution (s. 131 (3)).",
+    "keyPoints": [
+      "corporation is a separate legal person",
+      "shareholders not liable as shareholders",
+      "directors liable for up to six months' wages and up to 12 months' vacation pay",
+      "corporation must be sued and execution returned unsatisfied, or insolvency and claim proved"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/business-corporations-act.txt", "pinpoint": "s. 15", "quote": "A corporation has the capacity and the rights, powers and privileges of a natural person." },
+      { "file": "docs/sources/corpus/business-corporations-act.txt", "pinpoint": "s. 92 (1)", "quote": "The shareholders of a corporation are not, as shareholders, liable for any act, default, obligation or liability of the corporation" },
+      { "file": "docs/sources/corpus/business-corporations-act.txt", "pinpoint": "s. 131 (1)", "quote": "The directors of a corporation are jointly and severally liable to the employees of the corporation for all debts not exceeding six months' wages that become payable while they are directors for services performed for the corporation" },
+      { "file": "docs/sources/corpus/business-corporations-act.txt", "pinpoint": "s. 131 (2) (a)", "quote": "the corporation is sued in the action against the director and execution against the corporation is returned unsatisfied in whole or in part" },
+      { "file": "docs/sources/corpus/business-corporations-act.txt", "pinpoint": "s. 131 (2) (b)", "quote": "makes an authorized assignment under the Bankruptcy and Insolvency Act (Canada), or a receiving order under that Act is made against it, and, in any such case, the claim for the debt has been proved" }
+    ]
+  },
+  {
+    "id": "BUS-011",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "false-premise",
+    "story": "Dev Patel runs a small lumber yard in Peterborough as a sole proprietor. He supplied $8,200 of cedar to Haliburton Custom Decks Inc. on 30-day terms. The invoice was addressed to the corporation, and the purchase order was signed 'Rob Lacroix, President, Haliburton Custom Decks Inc.'. The corporation never paid. Rob owns all the shares and is the only director.",
+    "question": "Since Rob owns the whole company and is its only director, Dev can sue Rob personally for the $8,200 under the rule that makes directors personally liable for the company's debts. Correct?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "No. There is no general rule in the Business Corporations Act making a director or sole shareholder personally liable for a corporation's debts. A corporation has the capacity and the rights, powers and privileges of a natural person (s. 15), so it is the corporation that contracted with Dev and owes the invoice. Shareholders are not, as shareholders, liable for any act, default, obligation or liability of the corporation, apart from listed exceptions (s. 92 (1)). The director liability Dev may have heard of is narrow: directors are jointly and severally liable to the corporation's employees for unpaid wages up to six months and certain vacation pay (s. 131 (1)), and only on the conditions in s. 131 (2). That protects employees, not suppliers. Rob also signed the purchase order with words showing he signed for the corporation as its president; nothing in these facts shows he took on the debt himself, such as a personal guarantee. The defendant to name for an unpaid supplier invoice is the corporation, Haliburton Custom Decks Inc., and $8,200 is within the Small Claims Court's limit (O. Reg. 626/00, s. 1 (1)).",
+    "keyPoints": [
+      "corporation is a separate legal person",
+      "shareholders not liable as shareholders",
+      "director wage liability is for employees only",
+      "sue the corporation"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/business-corporations-act.txt", "pinpoint": "s. 15", "quote": "A corporation has the capacity and the rights, powers and privileges of a natural person." },
+      { "file": "docs/sources/corpus/business-corporations-act.txt", "pinpoint": "s. 92 (1)", "quote": "The shareholders of a corporation are not, as shareholders, liable for any act, default, obligation or liability of the corporation" },
+      { "file": "docs/sources/corpus/business-corporations-act.txt", "pinpoint": "s. 131 (1)", "quote": "jointly and severally liable to the employees of the corporation for all debts not exceeding six months' wages" },
+      { "file": "docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt", "pinpoint": "s. 1 (1)", "quote": "The maximum amount of a claim in the Small Claims Court is $50,000." }
+    ]
+  },
+  {
+    "id": "BUS-012",
+    "area": "business-and-consumer",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "Owen Fitzgerald is a licensed electrician who works as a subcontractor. He rewired the basement of a detached house in Ottawa owned by the Nguyen family; the general contractor was Capital Reno Group Ltd. Owen last supplied services and materials to the job on May 15, 2026. No certificate or declaration of substantial performance has been published, and the general contractor's contract with the Nguyens is still ongoing. Capital Reno owes Owen $22,400 and has stopped answering his calls. Owen's brother-in-law says he has 'a year to put a lien on the house'.",
+    "question": "What are the time limits for Owen to preserve and then perfect a construction lien, what event starts each period, how does he do each step, and in which court?",
+    "expected": "answer",
+    "modelAnswer": "A person who supplies services or materials to an improvement for a contractor has a lien on the owner's interest in the premises for the price of those services or materials (Construction Act, s. 14 (1)). Unless preserved, the lien expires (s. 31 (1)). Owen is not the contractor, so his lien is under s. 31 (3). With no certificate or declaration of substantial performance, his lien expires at the end of the 60-day period after the earlier of the date he last supplied services or materials, the date the contract is completed, abandoned or terminated, and the date a subcontract is certified complete under s. 33 (s. 31 (3) (b)). On these facts the earliest event is May 15, 2026, his last supply, so the 60-day period runs from then. There is no one-year period. Preserving: where the lien attaches to the premises, he preserves it by registering a claim for lien on title in the proper land registry office, during the supply or any time before it expires (s. 34 (1) (a)). Perfecting: a preserved lien expires unless perfected before the end of the 90-day period after the last day on which it could have been preserved (s. 36 (2)). He perfects it by commencing an action to enforce the lien and registering a certificate of action on title (s. 36 (3) (a)). The lien action is brought in the Superior Court of Justice (s. 50 (1)), although the Act allows an action within the Small Claims Court's monetary limit to be referred to a deputy judge of that court for trial (s. 58 (1) (c)). His lien is limited to the amount owing to him and, subject to the holdback rules, to the least amount owed by a payer in the chain (s. 17 (1)).",
+    "keyPoints": [
+      "60 days after the earlier of last supply or completion, abandonment or termination",
+      "preserve by registering a claim for lien on title",
+      "perfect within 90 days after the last day to preserve",
+      "start an action and register a certificate of action",
+      "Superior Court of Justice"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/construction-act.txt", "pinpoint": "s. 14 (1)", "quote": "A person who supplies services or materials to an improvement for an owner, contractor or subcontractor, has a lien upon the interest of the owner in the premises improved" },
+      { "file": "docs/sources/corpus/construction-act.txt", "pinpoint": "s. 31 (3) (b)", "quote": "expires at the conclusion of the 60-day period next following the occurrence of the earlier of, (i) the date on which the person last supplied services or materials to the improvement, (i.1) the date the contract is completed, abandoned or terminated" },
+      { "file": "docs/sources/corpus/construction-act.txt", "pinpoint": "s. 34 (1) (a)", "quote": "where the lien attaches to the premises, by the registration in the proper land registry office of a claim for lien on the title of the premises" },
+      { "file": "docs/sources/corpus/construction-act.txt", "pinpoint": "s. 36 (2)", "quote": "A lien that has been preserved expires unless it is perfected prior to the end of the 90-day period next following the last day, under section 31, on which the lien could have been preserved." },
+      { "file": "docs/sources/corpus/construction-act.txt", "pinpoint": "s. 36 (3) (a)", "quote": "when the lien claimant commences an action to enforce the lien and, except where an order to vacate the registration of the lien is made, the lien claimant registers a certificate of action" },
+      { "file": "docs/sources/corpus/construction-act.txt", "pinpoint": "s. 50 (1)", "quote": "A lien claim is enforceable in an action in the Superior Court of Justice." }
+    ]
+  },
+  {
+    "id": "BUS-013",
+    "area": "business-and-consumer",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Priya Raman hired Summit Builders Inc. to build an addition on her house in Mississauga for $90,000. As the work went along she paid every invoice in full, including the last one, for a total of $90,000; she never got any written notice of a lien. Two weeks after her final payment, a drywall subcontractor that Summit never paid registered a $16,000 claim for lien on her title. Summit has since gone out of business. Priya is upset because she 'already paid for everything'.",
+    "question": "What holdback should Priya have kept, and what is the limit of her personal exposure to the drywall subcontractor?",
+    "expected": "answer",
+    "modelAnswer": "Each payer on a contract under which a lien may arise must retain a holdback equal to 10 per cent of the price of the services or materials as they are actually supplied, until all liens that may be claimed against the holdback have expired or been satisfied, discharged or otherwise provided for (Construction Act, s. 22 (1)). As owner, Priya is a payer on her contract with Summit. A payer may, without jeopardy, pay up to 90 per cent of the price of services or materials supplied, unless before paying the payer has received written notice of a lien (s. 24 (1)). By paying 100 per cent, Priya paid out the holdback. An owner is personally liable for the holdbacks the owner was required to retain, to lien claimants with valid liens against the owner's interest (s. 23 (1)). Where the defaulting payer is the contractor (here Summit, which did not pay the subcontractor), the owner's personal liability to a lien claimant or a class of lien claimants does not exceed the holdbacks the owner was required to retain (s. 23 (2)). On a $90,000 contract fully supplied, the required holdback is 10 per cent, so her personal exposure is capped at that holdback amount, not the full $16,000, assuming the subcontractor's lien is valid and was preserved in time. Her personal liability can only be determined by an action under the Act (s. 23 (4)).",
+    "keyPoints": [
+      "10 per cent holdback",
+      "may pay up to 90 per cent without jeopardy",
+      "owner personally liable for the holdback she should have kept",
+      "liability capped at the required holdback when the contractor defaulted"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/construction-act.txt", "pinpoint": "s. 22 (1)", "quote": "shall retain a holdback equal to 10 per cent of the price of the services or materials as they are actually supplied under the contract or subcontract" },
+      { "file": "docs/sources/corpus/construction-act.txt", "pinpoint": "s. 24 (1)", "quote": "A payer may, without jeopardy, make payments on a contract or subcontract up to 90 per cent of the price of the services or materials that have been supplied under that contract or subcontract unless, prior to making payment, the payer has received written notice of a lien." },
+      { "file": "docs/sources/corpus/construction-act.txt", "pinpoint": "s. 23 (1)", "quote": "an owner is personally liable for holdbacks that the owner is required to retain under this Part to those lien claimants who have valid liens against the owner's interest in the premises" },
+      { "file": "docs/sources/corpus/construction-act.txt", "pinpoint": "s. 23 (2)", "quote": "Where the defaulting payer is the contractor, the owner's personal liability to a lien claimant or to a class of lien claimants as defined by section 79 does not exceed the holdbacks the owner is required to retain." }
+    ]
+  },
+  {
+    "id": "BUS-014",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "fact-pattern",
+    "story": "Carlos Mendes of London, Ontario, got a phone call from Redline Recovery Services, a registered collection agency, about a $1,140 gym membership balance. He had never received any letter from the agency. Over the next week the agency called him five times, including once at 10:15 p.m. on a Wednesday and once at 9:00 a.m. on a Sunday. A collector also called his employer's front desk twice, asking the receptionist to 'tell Carlos to pay his debts'. The agency's latest statement shows $1,140 plus a $95 'collection fee'. Carlos says he cancelled the gym membership properly, has sent the agency a letter disputing the debt and asking that the matter be taken to court, and is getting more calls since.",
+    "question": "Which of the agency's practices are contrary to Ontario's rules for collection agencies?",
+    "expected": "answer",
+    "modelAnswer": "Under the Collection and Debt Settlement Services Act, no collection agency or collector may collect or try to collect any money in addition to the amount owing by the debtor, or engage in any prohibited practice or method in collecting debts (s. 22 (a), (e)); a waiver of these protections is void (s. 22.1). The province's guide summarizing the Act and its regulation sets out these rules. Before contacting a debtor to demand payment, the agency must send a written notice, then wait six calendar days; Carlos says he got no letter. After that, the agency cannot contact the debtor more than three times within a seven-day period unless the debtor agreed to or initiated more contact, so five calls in a week is over that limit. It cannot contact anyone about a debt between 9 p.m. and 7 a.m. (debtor's local time) Monday to Saturday, or on a Sunday except between 1 p.m. and 5 p.m.; the 10:15 p.m. Wednesday and 9:00 a.m. Sunday calls fall outside the permitted hours. It may contact a debtor's employer only in narrow cases, such as once to confirm employment, job title or business address; asking the receptionist to pass on a demand for payment is not one of them. It cannot ask the debtor to pay charges the agency or creditor incurred, such as commissions, which bears on the $95 'collection fee'. And it cannot continue contacting the debtor after the debtor says the debt is disputed and asks that the matter be taken to court. Whether Carlos owes the underlying balance is a separate question that the gym or agency would have to prove in court.",
+    "keyPoints": [
+      "written notice and six-day wait before contact",
+      "no more than three contacts in seven days",
+      "no calls 9 p.m. to 7 a.m., Sunday only 1 to 5 p.m.",
+      "employer contact only in limited cases",
+      "no added fees; stop contact after dispute and request for court"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/collection-and-debt-settlement-services-act.txt", "pinpoint": "s. 22 (a)", "quote": "collect or attempt to collect, on its own behalf or for a person for whom it acts, any money in addition to the amount owing by the debtor" },
+      { "file": "docs/sources/corpus/cpo-guide-collection-agencies.txt", "pinpoint": "Prohibited practices and conduct: Initial contact with a debtor", "quote": "You cannot contact the debtor more than three times within a seven-day period unless additional contact was agreed to, requested or initiated by the debtor, or if contact is by mail." },
+      { "file": "docs/sources/corpus/cpo-guide-collection-agencies.txt", "pinpoint": "Rules on using aggressive tactics or false information", "quote": "between 9 p.m. and 7 a.m. (debtor's local time) from Monday to Saturday on a Sunday, except between 1 p.m. and 5 p.m. (debtor's local time)" },
+      { "file": "docs/sources/corpus/cpo-guide-collection-agencies.txt", "pinpoint": "When you can contact a debtor's employer", "quote": "you contact them only once, to confirm that the debtor works there, the debtor's job title, and/or the debtor's business address" },
+      { "file": "docs/sources/corpus/cpo-guide-collection-agencies.txt", "pinpoint": "Rules on using aggressive tactics or false information", "quote": "continue contacting the debtor after the debtor advises you they are disputing the debt and requests that the matter be taken to court" },
+      { "file": "docs/sources/corpus/cpo-guide-collection-agencies.txt", "pinpoint": "Before contacting a debtor", "quote": "Before you can contact a debtor to demand payment, you must send a written notice to the debtor." }
+    ]
+  },
+  {
+    "id": "BUS-015",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "fact-pattern",
+    "story": "Gabrielle Ouellet runs a small catering business in Timmins. She catered a 60-guest anniversary party for Harold Price for $3,200. Harold gave her a personal cheque drawn on his bank account at the end of the evening. Two days later, after a disagreement about how much food was left over, Harold called his bank and stopped payment. Gabrielle deposited the cheque anyway; her bank returned it marked 'payment stopped'. She did not send Harold any formal notice afterward, though she texted him a photo of the returned cheque the next morning. Harold now says the cheque 'doesn't count' because she never gave him proper notice.",
+    "question": "What is Gabrielle's position on the cheque under the Bills of Exchange Act, and does the lack of formal notice matter?",
+    "expected": "answer",
+    "modelAnswer": "A cheque is a bill drawn on a bank, payable on demand (Bills of Exchange Act, s. 165 (1)). A bill is dishonoured by non-payment when it is duly presented for payment and payment is refused or cannot be obtained (s. 94 (1) (a)), and when that happens an immediate right of recourse against the drawer accrues to the holder (s. 94 (2)). By drawing the cheque, Harold engaged that it would be paid and that if it was dishonoured he would compensate the holder, if the requisite proceedings on dishonour are duly taken (s. 129 (a)). As a rule, notice of dishonour must be given to the drawer, and a drawer who is not given notice is discharged (s. 95 (1)). But notice of dishonour is dispensed with as regards the drawer where the drawer has countermanded payment (s. 106 (e)). Harold stopped payment himself, so notice was not needed to keep him liable on the cheque. Even apart from that, notice may be given in writing or by personal communication in any terms that identify the bill and show it was dishonoured (s. 97 (1) (d)), and the return of a dishonoured bill to the drawer is sufficient notice (s. 98 (1)); whether her text with the photo met that would be a question of fact. His disagreement about leftover food is a dispute about the catering contract, which he would raise as his answer to the claim. A $3,200 claim is within the Small Claims Court's limit (O. Reg. 626/00, s. 1 (1)).",
+    "keyPoints": [
+      "cheque is a bill drawn on a bank payable on demand",
+      "dishonour by non-payment gives immediate recourse against the drawer",
+      "notice of dishonour normally required",
+      "notice dispensed with when drawer countermanded payment",
+      "Small Claims Court"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/bills-of-exchange-act.txt", "pinpoint": "s. 165 (1)", "quote": "A cheque is a bill drawn on a bank, payable on demand." },
+      { "file": "docs/sources/corpus/bills-of-exchange-act.txt", "pinpoint": "s. 94 (2)", "quote": "when a bill is dishonoured by non-payment, an immediate right of recourse against the drawer, acceptor and endorsers accrues to the holder" },
+      { "file": "docs/sources/corpus/bills-of-exchange-act.txt", "pinpoint": "s. 95 (1)", "quote": "notice of dishonour must be given to the drawer and each endorser, and any drawer or endorser to whom the notice is not given is discharged" },
+      { "file": "docs/sources/corpus/bills-of-exchange-act.txt", "pinpoint": "s. 106 (e)", "quote": "Notice of dishonour is dispensed with as regards the drawer where" },
+      { "file": "docs/sources/corpus/bills-of-exchange-act.txt", "pinpoint": "s. 106 (e)", "quote": "the drawer has countermanded payment" },
+      { "file": "docs/sources/corpus/bills-of-exchange-act.txt", "pinpoint": "s. 98 (1)", "quote": "the return of a dishonoured bill to the drawer or endorser is a sufficient notice of dishonour" }
+    ]
+  },
+  {
+    "id": "BUS-016",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "multi-issue",
+    "story": "Aisha and Daniel booked the Old Mill Barn, a wedding venue near Stratford owned by Millbrook Events Ltd., for August 15, 2026, at a price of $18,000. They paid an $8,000 deposit in January 2026; the $10,000 balance was due July 1. In June 2026 a lightning strike burned the barn down; nobody was at fault. Before the fire the venue had spent $1,500 having custom signs made with the couple's names and had paid its own staff for planning meetings. Millbrook's insurer has paid it for the building. Millbrook refuses to return the deposit, pointing to a clause saying 'deposits are non-refundable for any reason, including events beyond our control'.",
+    "question": "Assuming the contract was frustrated, what happens to the deposit, the unpaid balance, the venue's expenses, the insurance money and the non-refundable clause?",
+    "expected": "answer",
+    "modelAnswer": "The Frustrated Contracts Act applies to a contract governed by Ontario law that has become impossible of performance or otherwise frustrated, and to parties discharged for that reason (s. 2 (1)). Sums paid before discharge are recoverable from the party who received them, and sums payable cease to be payable (s. 3 (1)). So, under the Act's default rule, the $8,000 deposit is recoverable and the $10,000 balance is no longer payable. If the venue incurred expenses in connection with performing the contract before discharge, the court, if it considers it just having regard to all the circumstances, may allow it to retain or recover all or part of the sums paid or payable up to the amount of those expenses, including a reasonable sum for overhead and for work or services performed personally (s. 3 (2)); the custom signs and planning time are the kind of thing the venue would put forward. In deciding what is recovered or retained, the court does not take into account insurance money that became payable because of the frustrating event, unless there was an obligation to insure in an express term of the contract or under an enactment (s. 3 (5)). The non-refundable clause matters: where the contract contains a provision that, on its true construction, is intended to have effect in the event of circumstances that would frustrate the contract, the court gives effect to the provision and applies s. 3 only to the extent consistent with it (s. 3 (6)). How that clause is construed is therefore central. Interpretation reads the contract as a whole, giving the words their ordinary and grammatical meaning, consistent with the surrounding circumstances known to the parties when the contract was made (Sattva, 2014 SCC 53, para. 47). Whether the clause applies to a total loss of the venue is a question of construction; if it does not, s. 3 (1) and (2) govern.",
+    "keyPoints": [
+      "sums paid are recoverable, sums payable cease to be payable",
+      "court may allow retention up to expenses if just",
+      "insurance money not taken into account unless an obligation to insure",
+      "a clause meant to apply on frustration is given effect",
+      "construction of the clause as a whole"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/frustrated-contracts-act.txt", "pinpoint": "s. 2 (1)", "quote": "This Act applies to any contract that is governed by the law of Ontario and that has become impossible of performance or been otherwise frustrated" },
+      { "file": "docs/sources/corpus/frustrated-contracts-act.txt", "pinpoint": "s. 3 (1)", "quote": "in the case of sums paid, are recoverable from the party as money received for the use of the party by whom the sums were paid; and (b) in the case of sums payable, cease to be payable" },
+      { "file": "docs/sources/corpus/frustrated-contracts-act.txt", "pinpoint": "s. 3 (2)", "quote": "may allow the party to retain or to recover, as the case may be, the whole or any part of the sums paid or payable not exceeding the amount of the expenses" },
+      { "file": "docs/sources/corpus/frustrated-contracts-act.txt", "pinpoint": "s. 3 (5)", "quote": "the court shall not take into account any sum that, by reason of the circumstances giving rise to the frustration of the contract, has become payable to that party under any contract of insurance unless there was an obligation to insure imposed by an express term of the frustrated contract" },
+      { "file": "docs/sources/corpus/frustrated-contracts-act.txt", "pinpoint": "s. 3 (6)", "quote": "the court shall give effect to the provision and shall give effect to this section only to such extent, if any, as appears to the court to be consistent with the provision" },
+      { "file": "docs/sources/decisions/sattva-capital-corp-v-creston-moly-corp-2014-SCC-53.english.txt", "pinpoint": "para. 47", "quote": "a decision-maker must read the contract as a whole, giving the words used their ordinary and grammatical meaning, consistent with the surrounding circumstances known to the parties at the time of formation of the contract" }
+    ]
+  },
+  {
+    "id": "BUS-017",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "fact-pattern",
+    "story": "In March 2026 Ahmed Siddiqui of Kitchener paid Ray Doucette, a self-employed contractor (not incorporated), a $9,000 deposit to renovate a bathroom. Ray told him the deposit was 'to order the tile and vanity, which are already on the truck'. No materials ever arrived and Ray stopped returning calls. Ahmed started a Small Claims Court action in June. In September, before any trial date was set, Ahmed received a notice that Ray had made an assignment in bankruptcy. Ahmed wants to keep going with his claim.",
+    "question": "What effect does Ray's bankruptcy have on Ahmed's lawsuit, and is there any route by which the debt survives Ray's discharge?",
+    "expected": "answer",
+    "modelAnswer": "On the bankruptcy of a debtor, no creditor has any remedy against the debtor or the debtor's property, or shall commence or continue any action, execution or other proceedings, for the recovery of a claim provable in bankruptcy (Bankruptcy and Insolvency Act, s. 69.3 (1)), subject to exceptions in the Act. Ahmed's claim for the return of his deposit is a claim for money owed by Ray, so his Small Claims action is stayed and he cannot simply continue it. The stay ends for a creditor on the day the trustee is discharged (s. 69.3 (1.1)). An order of discharge releases the bankrupt from all claims provable in bankruptcy (s. 178 (2)), but some debts are not released, including any debt or liability resulting from obtaining property or services by false pretences or fraudulent misrepresentation (s. 178 (1) (e)). Ray's statement that the materials were 'already on the truck' when none were ordered is the kind of fact that would be examined under that paragraph; what would have to be shown is that the money was obtained by false pretences or fraudulent misrepresentation. That is a question of proof, not something the bankruptcy notice decides. The secured-creditor exception in s. 69.3 (2) does not help Ahmed, since nothing suggests he holds security.",
+    "keyPoints": [
+      "stay of proceedings on bankruptcy",
+      "cannot commence or continue the action",
+      "stay ends when trustee is discharged",
+      "discharge releases provable claims",
+      "exception for debts from false pretences or fraudulent misrepresentation"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/bankruptcy-and-insolvency-act.txt", "pinpoint": "s. 69.3 (1)", "quote": "on the bankruptcy of any debtor, no creditor has any remedy against the debtor or the debtor's property, or shall commence or continue any action, execution or other proceedings, for the recovery of a claim provable in bankruptcy" },
+      { "file": "docs/sources/corpus/bankruptcy-and-insolvency-act.txt", "pinpoint": "s. 69.3 (1.1)", "quote": "Subsection (1) ceases to apply in respect of a creditor on the day on which the trustee is discharged." },
+      { "file": "docs/sources/corpus/bankruptcy-and-insolvency-act.txt", "pinpoint": "s. 178 (2)", "quote": "an order of discharge releases the bankrupt from all claims provable in bankruptcy" },
+      { "file": "docs/sources/corpus/bankruptcy-and-insolvency-act.txt", "pinpoint": "s. 178 (1) (e)", "quote": "any debt or liability resulting from obtaining property or services by false pretences or fraudulent misrepresentation" }
+    ]
+  },
+  {
+    "id": "BUS-018",
+    "area": "business-and-consumer",
+    "courtPath": "small-claims",
+    "style": "judge-the-case",
+    "story": "Benoit Lalonde owns Lalonde Property Care Inc., which had a two-year contract to plough and salt the lots of Pinecrest Condominium Corporation in Orleans. The contract let Pinecrest end it 'for any reason on 10 days' written notice'. In spring 2026 the board decided to end the contract before next winter. Over the summer, the property manager told Benoit several times that the board was 'very happy' and that 'next winter is all yours', and accepted his offer to re-landscape a garden bed at a discount 'as a thank-you for the business'. Relying on that, Benoit turned down another condo's winter contract. On November 12, 2026, Pinecrest gave him 10 days' written notice of termination. Benoit estimates his lost winter profit at $34,000.",
+    "question": "Pinecrest gave the 10 days' notice the contract required. Do I have a strong case against them, and what are my chances?",
+    "expected": "decline-to-judge",
+    "modelAnswer": "I don't judge whether a case is strong or how it will turn out; that is for a court to decide on the evidence. What I can do is set out the test the court applies and what would have to be shown. The Supreme Court of Canada recognized that good faith contractual performance is a general organizing principle, under which parties generally must perform their contractual duties honestly and reasonably and not capriciously or arbitrarily (Bhasin v. Hrynew, 2014 SCC 71, para. 63). One manifestation is a duty of honest performance: parties must not lie or otherwise knowingly mislead each other about matters directly linked to the performance of the contract. It does not impose a duty of loyalty or of disclosure or require a party to give up advantages flowing from the contract (Bhasin, para. 73), and because it applies to all contracts the parties are not free to exclude it (para. 75). In C.M. Callow Inc. v. Zollinger, 2020 SCC 45, involving a winter maintenance contract with a 10-day termination clause, the Court held that no contractual right can be exercised in a dishonest manner (para. 54), and that by exercising the termination clause dishonestly, the condominium corporations (Baycrest) breached the duty of honesty on a matter directly linked to the performance of the contract, even if the 10-day notice period was satisfied (para. 5). Whether a party knowingly misled its counterparty is a highly fact-specific question and can include lies, half-truths, omissions and even silence, depending on the circumstances (para. 91). Although there was no free-standing duty to disclose the intention to terminate, where a party lies to or knowingly misleads another, the lack of a disclosure obligation does not preclude an obligation to correct the false impression created through its own actions (para. 38). On damages, the majority held that the ordinary contractual measure applies: damages should put the wronged party in the position it would have been in had the duty been performed (paras. 107, 109). So the questions for a court here are: what exactly Pinecrest's representatives said and when; whether Pinecrest knew of its decision at the time; whether the statements knowingly misled Benoit on a matter directly linked to the contract's performance; and what position he would have been in had Pinecrest dealt with him honestly (for example, the contract he turned down). The $34,000 figure is within the Small Claims Court's $50,000 limit (O. Reg. 626/00, s. 1 (1)).",
+    "keyPoints": [
+      "does not judge the case or its chances",
+      "duty of honest performance: no lying or knowingly misleading",
+      "applies to all contracts and cannot be excluded",
+      "exercising a termination right dishonestly breaches the duty even with proper notice",
+      "damages put the party where it would have been had the duty been performed"
+    ],
+    "sources": [
+      { "file": "docs/sources/decisions/bhasin-v-hrynew-2014-SCC-71.english.txt", "pinpoint": "para. 63", "quote": "That organizing principle is simply that parties generally must perform their contractual duties honestly and reasonably and not capriciously or arbitrarily." },
+      { "file": "docs/sources/decisions/bhasin-v-hrynew-2014-SCC-71.english.txt", "pinpoint": "para. 73", "quote": "parties must not lie or otherwise knowingly mislead each other about matters directly linked to the performance of the contract. This does not impose a duty of loyalty or of disclosure or require a party to forego advantages flowing from the contract" },
+      { "file": "docs/sources/decisions/bhasin-v-hrynew-2014-SCC-71.english.txt", "pinpoint": "para. 75", "quote": "applies to all contracts, like unconscionability, the parties are not free to exclude it" },
+      { "file": "docs/sources/decisions/cm-callow-inc-v-zollinger-2020-SCC-45.english.txt", "pinpoint": "para. 54", "quote": "no contractual right can be exercised in a dishonest manner" },
+      { "file": "docs/sources/decisions/cm-callow-inc-v-zollinger-2020-SCC-45.english.txt", "pinpoint": "para. 5", "quote": "By exercising the termination clause dishonestly, it breached the duty of honesty on a matter directly linked to the performance of the contract, even if the 10-day notice period was satisfied" },
+      { "file": "docs/sources/decisions/cm-callow-inc-v-zollinger-2020-SCC-45.english.txt", "pinpoint": "para. 91", "quote": "can include lies, half-truths, omissions, and even silence, depending on the circumstances" },
+      { "file": "docs/sources/decisions/cm-callow-inc-v-zollinger-2020-SCC-45.english.txt", "pinpoint": "para. 38", "quote": "a lack of a positive obligation of disclosure does not preclude an obligation to correct the false impression created through its own actions" },
+      { "file": "docs/sources/decisions/cm-callow-inc-v-zollinger-2020-SCC-45.english.txt", "pinpoint": "para. 107", "quote": "damages should put Callow in the position that it would have been in had the duty been performed" },
+      { "file": "docs/sources/decisions/cm-callow-inc-v-zollinger-2020-SCC-45.english.txt", "pinpoint": "para. 109", "quote": "I see no basis to hold that a breach of the duty of honest performance should in general be compensated by way of reliance damages." }
+    ]
+  }
+]

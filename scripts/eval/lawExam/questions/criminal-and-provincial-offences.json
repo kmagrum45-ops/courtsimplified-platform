@@ -1,0 +1,775 @@
+[
+  {
+    "id": "CRIM-001",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Sasha Petrenko cycles to the Bayshore library in Ottawa every Saturday on a grey hybrid bike she bought for $640. On March 14, 2026 she came out, saw a grey hybrid of the same model at the rack, unlocked nothing (it had no lock on it), and rode it home. Her own bike, it turned out, was locked two racks over. The owner of the bike she took, Mr. Adeyemi, reported it stolen, and police later found it in Sasha's shed. Sasha had planned to repaint her bike that week, but had not started. Mr. Adeyemi says she must have known it was not hers.",
+    "question": "What does the Criminal Code require for a person to commit theft, and at what point is a theft complete? What would need to be shown about Sasha's state of mind?",
+    "expected": "answer",
+    "modelAnswer": "Theft is defined in s. 322(1) of the Criminal Code: a person commits theft who fraudulently and without colour of right takes or converts anything, with one of the listed intents, the first being an intent to deprive the owner of it, temporarily or absolutely (s. 322(1)(a)). So taking the property is not enough on its own: the taking must be fraudulent and without colour of right, and must be done with the required intent. Whether Sasha honestly believed the bike was hers goes to exactly those elements, so the question is what she believed and intended when she rode it away, not only that she took it. As to timing, s. 322(2) says theft is committed when, with intent to steal, a person moves the thing or causes it to move. Section 322(3) adds that a taking can be fraudulent even if done openly, so the fact that she did not hide it does not by itself settle anything. The punishment depends on value: where the value is not more than $5,000, theft may be prosecuted as an indictable offence (up to two years) or on summary conviction (s. 334(b)). The site does not judge whether the charge would be proved.",
+    "keyPoints": [
+      "fraudulently and without colour of right",
+      "intent to deprive the owner, temporarily or absolutely",
+      "theft complete when the thing is moved with intent to steal",
+      "an open taking can still be fraudulent",
+      "value of $5,000 or less: indictable or summary conviction"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 322(1)",
+        "quote": "Every one commits theft who fraudulently and without colour of right takes, or fraudulently and without colour of right converts to his use or to the use of another person, anything, whether animate or inanimate, with intent"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 322(1)(a)",
+        "quote": "to deprive, temporarily or absolutely, the owner of it, or a person who has a special property or interest in it, of the thing or of his property or interest in it"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 322(2)",
+        "quote": "A person commits theft when, with intent to steal anything, he moves it or causes it to move or to be moved, or begins to cause it to become movable."
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 322(3)",
+        "quote": "A taking or conversion of anything may be fraudulent notwithstanding that it is effected without secrecy or attempt at concealment."
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 334(b)",
+        "quote": "if the value of what is stolen is not more than $5,000, is guilty"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 334(b)(i)",
+        "quote": "of an indictable offence and is liable to imprisonment for a term not exceeding two years"
+      }
+    ]
+  },
+  {
+    "id": "CRIM-002",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Gordon Lam and his neighbour Wendell Price in Peterborough have argued for two years over a shared laneway. Since August 2026, Wendell has parked his boat trailer across the mouth of Gordon's driveway most mornings, so Gordon cannot get his car out to go to work. Gordon has asked him in writing to stop. Wendell says the laneway is half his and he can park where he likes. Nothing has been damaged. Gordon's homeowner's insurer has told him this is not something it covers.",
+    "question": "Gordon has heard the word 'mischief' but thinks it only covers breaking or damaging things. What does the Criminal Code say mischief covers, and what mental element does it require?",
+    "expected": "answer",
+    "modelAnswer": "Mischief under s. 430(1) of the Criminal Code is not limited to damage. A person commits mischief who wilfully destroys or damages property (para. (a)), renders property dangerous, useless, inoperative or ineffective (para. (b)), obstructs, interrupts or interferes with the lawful use, enjoyment or operation of property (para. (c)), or obstructs, interrupts or interferes with any person in the lawful use, enjoyment or operation of property (para. (d)). Blocking someone from using their driveway is the kind of conduct paragraphs (c) and (d) describe. The mental element is that the act be done wilfully. Whether Wendell's parking was lawful use of a shared laneway, and whether Gordon's use was lawful, are questions of fact and property rights that the charge would turn on; the site does not judge them. Where the property is not worth more than $5,000 and no danger to life is involved, mischief may be prosecuted as an indictable offence (up to two years) or on summary conviction (s. 430(4)). A police decision to charge is separate from Gordon's own civil options.",
+    "keyPoints": [
+      "mischief is done wilfully",
+      "includes obstructing or interfering with lawful use or enjoyment of property",
+      "includes interfering with a person in the lawful use of property",
+      "damage is not required",
+      "indictable or summary conviction under s. 430(4)"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 430(1)",
+        "quote": "Every one commits mischief who wilfully (a) destroys or damages property;"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 430(1)(c)",
+        "quote": "obstructs, interrupts or interferes with the lawful use, enjoyment or operation of property"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 430(1)(d)",
+        "quote": "obstructs, interrupts or interferes with any person in the lawful use, enjoyment or operation of property"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 430(4)",
+        "quote": "Every one who commits mischief in relation to property, other than property described in subsection (3), (a) is guilty of an indictable offence and liable to imprisonment for a term not exceeding two years; or (b) is guilty of an offence punishable on summary conviction."
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 430(3)",
+        "quote": "Every one who commits mischief in relation to property that is a testamentary instrument or the value of which exceeds five thousand dollars"
+      }
+    ]
+  },
+  {
+    "id": "CRIM-003",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "rule",
+    "question": "Under the Criminal Code, in what ways can a person commit an assault? Does there have to be physical contact, and does consent matter?",
+    "expected": "answer",
+    "modelAnswer": "Section 265(1) of the Criminal Code sets out three ways to commit an assault. First, applying force intentionally to another person, directly or indirectly, without that person's consent (s. 265(1)(a)). Second, attempting or threatening, by an act or a gesture, to apply force to another person, if the person has, or causes the other to believe on reasonable grounds that he has, present ability to carry it out (s. 265(1)(b)) — so physical contact is not always required. Third, accosting or impeding another person, or begging, while openly wearing or carrying a weapon or an imitation of one (s. 265(1)(c)). Consent matters to the first route, but s. 265(3) says no consent is obtained where the person submits or does not resist because of force, threats or fear of force, fraud, or the exercise of authority. Assault itself may be prosecuted as an indictable offence (up to five years) or on summary conviction (s. 266).",
+    "keyPoints": [
+      "intentional application of force without consent, directly or indirectly",
+      "attempt or threat by act or gesture with present ability",
+      "openly carrying a weapon or imitation while accosting or impeding",
+      "no consent where submission is due to force, threats, fraud or authority",
+      "contact not always required"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 265(1)(a)",
+        "quote": "without the consent of another person, he applies force intentionally to that other person, directly or indirectly"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 265(1)(b)",
+        "quote": "he attempts or threatens, by an act or a gesture, to apply force to another person, if he has, or causes that other person to believe on reasonable grounds that he has, present ability to effect his purpose"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 265(1)(c)",
+        "quote": "while openly wearing or carrying a weapon or an imitation thereof, he accosts or impedes another person or begs"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 265(3)",
+        "quote": "no consent is obtained where the complainant submits or does not resist by reason of"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 266",
+        "quote": "Every one who commits an assault is guilty of"
+      }
+    ]
+  },
+  {
+    "id": "CRIM-004",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Bianca Moreau moved out of a shared apartment in Kingston in June 2026 after a falling-out with her former roommate, Corey Vance, over $300 in unpaid hydro. Since then Corey has sent her 40 to 60 messages a day across three apps, created new accounts when she blocked him, messaged her sister to ask where Bianca now lives, and twice sat in his car across from the café where she works until her shift ended. He has never threatened to hurt her. Bianca says she cannot sleep and checks her mirrors constantly. Corey says he only wants the hydro money back.",
+    "question": "What does the Criminal Code require for criminal harassment, and which kinds of conduct in Bianca's account does the section describe?",
+    "expected": "answer",
+    "modelAnswer": "Criminal harassment is in s. 264 of the Criminal Code. Under s. 264(1), the person must engage, without lawful authority, in conduct listed in s. 264(2), either with intent to harass the other person or knowing that, or being reckless as to whether, they would be harassing them, and the conduct must be such that, in all the circumstances, it could reasonably be expected to cause the other person to believe that their safety, or the safety of anyone known to them, is threatened. The listed conduct includes repeatedly communicating with the person or anyone known to them, directly or indirectly (s. 264(2)(b)) — which describes the volume of messages, the new accounts and the contact with her sister — and besetting or watching the place where the person works (s. 264(2)(c)), which describes the waits outside the café. The conduct can be in person or by telecommunication (s. 264(2)). An explicit threat is not required, and s. 264(6) says that a person's safety includes their psychological safety. A wish to collect a debt does not appear in the section as an exception; what matters is the elements above. The offence may be prosecuted as an indictable offence (up to 10 years) or on summary conviction (s. 264(3)). The site does not judge whether the elements would be proved.",
+    "keyPoints": [
+      "intent to harass, or knowing or reckless as to harassing",
+      "repeatedly communicating directly or indirectly",
+      "besetting or watching where the person works",
+      "could reasonably be expected to cause fear for safety",
+      "safety includes psychological safety"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 264(1)",
+        "quote": "with intent to harass another person or knowing that, or being reckless as to whether, they would be harassing another person, engages without lawful authority in conduct referred to in subsection (2) if, in all the circumstances, the conduct could reasonably be expected to cause that other person to believe that the other person’s safety, or the safety of anyone known to the other person, is threatened"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 264(2)(b)",
+        "quote": "repeatedly communicating with, either directly or indirectly, the other person or anyone known to them"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 264(2)(c)",
+        "quote": "besetting or watching the dwelling-house, or place where the other person, or anyone known to them, resides, works, carries on business or happens to be"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 264(6)",
+        "quote": "For the purposes of this section, and for greater certainty, a person’s safety includes their psychological safety."
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 264(3)(a)",
+        "quote": "guilty of an indictable offence and liable to imprisonment for a term of not more than 10 years"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 264(2)",
+        "quote": "The conduct mentioned in subsection (1) consists of doing any of the following in person, by a means of telecommunication or by any other means"
+      }
+    ]
+  },
+  {
+    "id": "CRIM-005",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "false-premise",
+    "story": "Trevor Okafor hired a contractor, Dale Lindqvist, to reshingle his garage in Sudbury and withheld the last $1,200 because the work leaked. Dale then texted Trevor at 2 a.m.: \"Pay up by Friday or that garage burns, and the dog with it.\" Trevor's brother-in-law told him that uttering threats only covers a threat to physically hurt a person, made face to face, so a text about a garage is not a crime.",
+    "question": "Since Dale only threatened a building and a dog, and only by text message, it cannot be uttering threats — correct?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "No, the premise is wrong on both counts. Section 264.1(1) of the Criminal Code makes it an offence for anyone who, in any manner, knowingly utters, conveys or causes any person to receive a threat — so a text message is covered; the threat does not have to be face to face. And the threat does not have to be to hurt a person. The section covers three kinds of threat: to cause death or bodily harm to any person (para. (a)); to burn, destroy or damage real or personal property (para. (b)); and to kill, poison or injure an animal or bird that is the property of any person (para. (c)). A threat to burn a garage falls within paragraph (b), and a threat to a pet dog within paragraph (c). The required mental element is that the threat be made knowingly. A threat under paragraph (b) or (c) may be prosecuted as an indictable offence (up to two years) or on summary conviction (s. 264.1(3)). The unpaid $1,200 is a separate civil matter. Whether the elements would be proved is not something the site judges.",
+    "keyPoints": [
+      "in any manner, so a text counts",
+      "threat to burn, destroy or damage property is covered",
+      "threat to injure an animal is covered",
+      "made knowingly",
+      "indictable or summary for property and animal threats"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 264.1(1)",
+        "quote": "Every one commits an offence who, in any manner, knowingly utters, conveys or causes any person to receive a threat"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 264.1(1)(b)",
+        "quote": "to burn, destroy or damage real or personal property"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 264.1(1)(c)",
+        "quote": "to kill, poison or injure an animal or bird that is the property of any person"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 264.1(3)",
+        "quote": "Every one who commits an offence under paragraph (1)(b) or (c) (a) is guilty of an indictable offence and liable to imprisonment for a term not exceeding two years"
+      }
+    ]
+  },
+  {
+    "id": "CRIM-006",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "In early August 2025 someone kicked in three panels of Nadia Haddad's backyard fence in Barrie, about $900 of damage. A neighbour's doorbell camera caught a man she recognises from the next street. Nadia did not go to police at the time because she was moving her mother into long-term care. She has now, in October 2026, decided to ask police to lay a mischief charge, and wants to know if any time limit applies.",
+    "question": "Is there a time limit for a summary conviction proceeding under the Criminal Code, what starts it, and is there any exception?",
+    "expected": "answer",
+    "modelAnswer": "Yes. Under s. 786(2) of the Criminal Code, which applies to summary conviction proceedings under that Part (s. 786(1)), no proceedings shall be instituted more than 12 months after the time when the subject matter of the proceedings arose. The clock runs from when the subject matter arose — here, when the fence was damaged in August 2025 — not from when Nadia decided to report it. The one exception the section gives is agreement: the 12-month bar does not apply if the prosecutor and the defendant so agree. Mischief to property worth not more than $5,000 can be prosecuted either as an indictable offence or on summary conviction (s. 430(4)); the 12-month limit in s. 786(2) is the limit for the summary conviction route. Whether a charge is laid, and by which route, is a decision for police and the prosecutor.",
+    "keyPoints": [
+      "12 months",
+      "from when the subject matter of the proceedings arose",
+      "exception: prosecutor and defendant agree",
+      "applies to summary conviction proceedings",
+      "mischief is a dual (indictable or summary) offence"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 786(2)",
+        "quote": "No proceedings shall be instituted more than 12 months after the time when the subject matter of the proceedings arose, unless the prosecutor and the defendant so agree."
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 786(1)",
+        "quote": "Except where otherwise provided by law, this Part applies to proceedings as defined in this Part."
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 430(4)",
+        "quote": "is guilty of an indictable offence and liable to imprisonment for a term not exceeding two years; or (b) is guilty of an offence punishable on summary conviction"
+      }
+    ]
+  },
+  {
+    "id": "CRIM-007",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "multi-issue",
+    "story": "At dusk on September 2, 2026, Teodora Silva looked out her front window in Hamilton and saw a stranger wheeling her daughter's bicycle off their front porch. She ran out, grabbed the handlebars and yanked the bike back. The stranger lost his footing and fell onto the lawn, scraping his elbow. He got up, shouted that the bike was his because he had bought it the day before from 'a guy on Marketplace', and raised a fist toward her. Teodora pushed him away and he left. He later went to police, and Teodora has been charged with assault. Teodora's daughter has the original receipt for the bike. The man has no receipt.",
+    "question": "What does the Criminal Code say about (a) using force to protect property, (b) using force to defend yourself, and (c) what a court considers in deciding whether an act in self-defence was reasonable?",
+    "expected": "answer",
+    "modelAnswer": "(a) Defence of property, s. 35(1): a person is not guilty of an offence if (a) they believe on reasonable grounds that they are in peaceable possession of property; (b) they believe on reasonable grounds that another person is about to take the property, is doing so or has just done so; (c) the act is committed for the purpose of preventing the taking or retaking the property from that person; and (d) the act is reasonable in the circumstances. The defence does not apply if the person in possession has no claim of right to it and the other person is entitled to it by law (s. 35(2)) — which is why who actually owns the bike matters, and the receipt goes to that. (b) Defence of the person, s. 34(1): a person is not guilty if they believe on reasonable grounds that force or a threat of force is being used against them or another person, the act is committed to defend or protect against it, and the act is reasonable in the circumstances. The raised fist and the push fall to be assessed under this section. (c) For s. 34, s. 34(2) requires the court to consider the relevant circumstances, including the nature of the force or threat, whether it was imminent and whether there were other means to respond, the person's role in the incident, the size, age, gender and physical capabilities of the parties, and the nature and proportionality of the response. These are the elements the court applies; the site does not judge whether Teodora's acts meet them.",
+    "keyPoints": [
+      "reasonable belief in peaceable possession and that the other is taking the property",
+      "act done to prevent the taking or retake the property",
+      "act reasonable in the circumstances",
+      "no defence of property if no claim of right and the other is entitled by law",
+      "self-defence factors include imminence, other means, role, and proportionality"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 35(1)(a)",
+        "quote": "they either believe on reasonable grounds that they are in peaceable possession of property"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 35(1)(b)(ii), (c)(ii)",
+        "quote": "is about to take the property, is doing so or has just done so"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 35(1)(c)(ii), (d)",
+        "quote": "preventing the other person from taking, damaging or destroying the property or from making it inoperative, or retaking the property from that person; and (d) the act committed is reasonable in the circumstances"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 35(2)",
+        "quote": "does not have a claim of right to it and the other person is entitled to its possession by law"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 34(1)",
+        "quote": "they believe on reasonable grounds that force is being used against them or another person or that a threat of force is being made against them or another person"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 34(2)(b), (g)",
+        "quote": "the extent to which the use of force was imminent and whether there were other means available to respond to the potential use of force"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 34(2)(g)",
+        "quote": "the nature and proportionality of the person’s response to the use or threat of force"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 34(1)(b)-(c)",
+        "quote": "the act that constitutes the offence is committed for the purpose of defending or protecting themselves or the other person from that use or threat of force; and (c) the act committed is reasonable in the circumstances"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 34(2)(c), (e)",
+        "quote": "the person’s role in the incident"
+      }
+    ]
+  },
+  {
+    "id": "CRIM-008",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "On a Thursday in September 2026, an OPP officer stopped Marcus Bélanger on Highway 17 near Pembroke and personally handed him an offence notice for speeding with a set fine. The back of the notice lists the options, including a meeting with the prosecutor. Marcus thinks the radar reading was wrong but also has a job interview in Toronto next week and has put the ticket in his glove box. His friend told him he has 'a few months' to deal with it.",
+    "question": "What can Marcus do with the offence notice, how long does he have, and what happens if he does nothing?",
+    "expected": "answer",
+    "modelAnswer": "The Provincial Offences Act gives a defendant served with an offence notice these choices. He can pay the set fine and applicable costs and surcharges (s. 8(1)) — but acceptance of payment is a plea of guilty and a conviction (s. 8(2)). If the notice offers it, he can request a meeting with the prosecutor to discuss resolving the offence, and that request must be made within 15 days after being served (s. 5.1(2)). Or he can give notice of his intention to appear in court to enter a plea and have a trial (s. 5(1)); the notice is valid only if received by the court office specified on the offence notice (s. 5(4)). The time is not 'a few months': under s. 9(1)(a), if at least 15 days have elapsed after he was served and he has not given notice of intention to appear, requested a meeting, or pleaded guilty, he is deemed not to wish to dispute the charge. The clerk then examines the certificate of offence and, if it is not defective, enters a conviction in his absence and without a hearing and imposes the set fine (s. 9(2)(a)). The 15 days run from service of the notice.",
+    "keyPoints": [
+      "15 days after being served",
+      "pay the set fine, which is a guilty plea and conviction",
+      "request a meeting with the prosecutor if offered",
+      "give notice of intention to appear for a trial",
+      "doing nothing: deemed not to dispute, conviction without a hearing"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 5(1)",
+        "quote": "A defendant who is served with an offence notice may give notice of their intention to appear in court for the purpose of entering a plea and having a trial of the matter"
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 5(4)",
+        "quote": "A notice of intention to appear is not valid unless it is received by the court office specified on the offence notice."
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 5.1(2)",
+        "quote": "request a meeting with the prosecutor to discuss the resolution of the offence if, within 15 days after being served with the offence notice"
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 8(1)",
+        "quote": "pay the set fine and all applicable costs and surcharges fixed by the regulations"
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 9(1)(a)",
+        "quote": "at least 15 days have elapsed after the defendant was served with the offence notice and the defendant did not give notice of intention to appear under section 5, did not request a meeting with the prosecutor in accordance with section 5.1 and did not plead guilty under section 7 or 8"
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 9(2)(a)",
+        "quote": "enter a conviction in the defendant's absence and without a hearing and impose the set fine for the offence"
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 8(2)",
+        "quote": "Acceptance by the court office of payment under subsection (1) constitutes, (a) a plea of guilty by the defendant; (b) conviction of the defendant for the offence"
+      }
+    ]
+  },
+  {
+    "id": "CRIM-009",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "false-premise",
+    "story": "Aisha Rahman, a delivery driver in Mississauga, got an offence notice for an HTA offence in July 2026. A co-worker told her: \"Just pay it online. Paying isn't pleading guilty — it's like a parking fee. There's no conviction if you pay.\" Aisha is worried about her driving record because her job depends on it.",
+    "question": "Paying the ticket online is not a conviction, so it cannot affect anything — right?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "No. Under s. 8(2) of the Provincial Offences Act, acceptance by the court office of payment of the set fine constitutes a plea of guilty by the defendant, conviction of the defendant for the offence, and imposition of a fine in the amount of the set fine. So paying is pleading guilty and being convicted. What is true is that a provincial offence is not a crime under criminal law and does not give a criminal record (CLEO, Steps to Justice). A person who does not wish to dispute the charge but wants to speak to penalty, or who wants a trial, has other options under the Act — for example, giving notice of intention to appear for a trial (s. 5(1)). Aisha would want to decide before paying.",
+    "keyPoints": [
+      "payment is a plea of guilty",
+      "payment is a conviction for the offence",
+      "fine imposed in the amount of the set fine",
+      "no criminal record for a provincial offence",
+      "trial option available instead"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 8(2)",
+        "quote": "Acceptance by the court office of payment under subsection (1) constitutes, (a) a plea of guilty by the defendant; (b) conviction of the defendant for the offence; and (c) imposition of a fine in the amount of the set fine for the offence."
+      },
+      {
+        "file": "docs/sources/corpus/cleo-provincial-offences-i-got-a-parking-or-traffic-ticket-what-are-my-options.txt",
+        "pinpoint": "Question and answer",
+        "quote": "You will not get a criminal record for a provincial offence."
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 5(1)",
+        "quote": "may give notice of their intention to appear in court for the purpose of entering a plea and having a trial of the matter"
+      }
+    ]
+  },
+  {
+    "id": "CRIM-010",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "Jun Park filed a notice of intention to appear for a red-light ticket in Brampton in January 2026. In March he moved to Guelph and updated his licence address with the province, but the court office mailed the notice of trial to his old apartment. He never received it, did not attend, and was convicted in his absence. On October 1, 2026 he learned of the conviction when his insurer raised his premium. He is also annoyed that the officer misspelled his street name on the ticket.",
+    "question": "What can Jun do about a conviction entered without a hearing, by when, and what has to be shown?",
+    "expected": "answer",
+    "modelAnswer": "Under s. 11(1) of the Provincial Offences Act, a defendant convicted without a hearing may apply to have the conviction struck out by completing the prescribed form and filing it in the court office, within 15 days after becoming aware of the conviction. For Jun the 15 days run from when he became aware — on his account, October 1, 2026 — not from the date of the conviction. Under s. 11(2), the clerk shall strike out the conviction if satisfied, by the defendant's affidavit or other evidence, that through no fault of the defendant he was unable to appear for a hearing or did not receive delivery of a notice or document relating to the offence. Jun's evidence of the move and the misdirected notice goes to that. If the clerk does not strike it out, the clerk forwards the application to a justice for review (s. 11(3)). If the conviction is struck out, the clerk gives notice of the time and place of the trial (s. 11(4)(c)). The misspelled street name is a separate point about the certificate, not a requirement of s. 11.",
+    "keyPoints": [
+      "15 days after becoming aware of the conviction",
+      "file the prescribed form in the court office",
+      "through no fault of the defendant",
+      "did not receive a notice or was unable to appear",
+      "clerk strikes out, or forwards to a justice for review"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 11(1)",
+        "quote": "A defendant who was convicted without a hearing may, within 15 days after becoming aware of the conviction, make an application to have the conviction struck out by completing the prescribed form and filing it in the office of the court."
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 11(2)",
+        "quote": "the clerk of the court shall strike out the conviction if satisfied by affidavit of the defendant or on other evidence or information that, through no fault of the defendant, the defendant"
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 11(2)(b), (c)",
+        "quote": "was unable to appear for a hearing; or (c) did not receive delivery of a notice or document relating to the offence"
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 11(3)",
+        "quote": "If the clerk of the court does not strike out the conviction, the clerk shall forward the application to a justice for review"
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 11(4)(c)",
+        "quote": "to the defendant and the prosecutor of the time and place of the trial"
+      }
+    ]
+  },
+  {
+    "id": "CRIM-011",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Eleanor Whitfield was charged with careless driving under the Highway Traffic Act after a fender-bender in a snowstorm in Thunder Bay; the proceeding was started by a certificate of offence under Part I of the Provincial Offences Act. After a trial before a justice of the peace on September 28, 2026, she was convicted and fined $600. She thinks the justice of the peace misunderstood her dashcam video. Her son says she should 'file a new lawsuit in Superior Court' to get the decision changed.",
+    "question": "Where does Eleanor's appeal go, how long does she have, how is the appeal started, and how is it conducted?",
+    "expected": "answer",
+    "modelAnswer": "For a proceeding commenced by certificate under Part I or II, s. 135(1) of the Provincial Offences Act gives a defendant the right to appeal a conviction or sentence, and the appeal is to the Ontario Court of Justice presided over by a provincial judge — not a new lawsuit in the Superior Court. Under s. 135(2), the notice of appeal must be in the prescribed form, state the reasons why the appeal is taken, and be filed with the clerk of the court within 30 days after the making of the decision appealed from. The notice may be filed at the same time as an application under s. 85 to extend the time (s. 135(2.1)). The appeal is conducted by means of a review (s. 136(2)). CLEO's guide adds that no leave is needed to start this appeal and that the appellant must show the trial court made an error. Whether there was such an error is for the appeal court; the site does not judge it.",
+    "keyPoints": [
+      "Ontario Court of Justice, provincial judge",
+      "within 30 days after the decision",
+      "prescribed form stating reasons, filed with the clerk",
+      "appeal is by way of review",
+      "extension application under s. 85 can accompany the notice"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 135(1)",
+        "quote": "A defendant or the prosecutor or the Attorney General by way of intervention is entitled to appeal an acquittal, conviction or sentence in a proceeding commenced by certificate under Part I or II and the appeal shall be to the Ontario Court of Justice presided over by a provincial judge."
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 135(2)",
+        "quote": "A notice of appeal shall be in the prescribed form and shall state the reasons why the appeal is taken and shall be filed with the clerk of the court within 30 days after the making of the decision appealed from"
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 135(2.1)",
+        "quote": "the notice of appeal may be filed at the same time as an application under section 85 to extend the time to give notice of appeal"
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 136(2)",
+        "quote": "An appeal shall be conducted by means of a review."
+      },
+      {
+        "file": "docs/sources/corpus/cleo-provincial-offences-i-dont-agree-with-my-provincial-offences-trial-can-i-appeal.txt",
+        "pinpoint": "Question and answer",
+        "quote": "You do not need to get permission to appeal, sometimes called leave, before starting your appeal."
+      }
+    ]
+  },
+  {
+    "id": "CRIM-012",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "multi-issue",
+    "story": "Henrik Dahl parked his SUV on Bank Street in Ottawa on a Saturday afternoon in August 2026 and flung his driver's door open without checking his mirror. A cyclist, Priya Nair, hit the door and went over her handlebars, scraping her knee and bending her front wheel. Henrik apologised, saw she was standing, and — late for his daughter's recital — drove off without giving her any details. Priya photographed his licence plate. Henrik's view is that he was parked, so he was not 'in an accident', and that the scrape was too minor to report.",
+    "question": "Was Henrik 'involved in an accident' for the Highway Traffic Act's purposes, what did section 200 require of him at the scene, did he have a duty to report to police, and what is the penalty for breaching section 200?",
+    "expected": "answer",
+    "modelAnswer": "Involvement: s. 200(1.1) of the Highway Traffic Act deems a motor vehicle to be involved in an accident if any door that is open or opening comes into contact with a cyclist, a bicycle or a moving vehicle, even if the vehicle is stationary, stopped or parked. So being parked does not take Henrik outside the section. Duties at the scene: where an accident occurs on a highway, every person in charge of a vehicle directly or indirectly involved must remain at or immediately return to the scene, render all possible assistance, and, on request, give in writing to anyone sustaining loss or injury (or any police officer or witness) his name, address, driver's licence number and jurisdiction, insurer and policy number, the registered owner's name and address, and the vehicle permit number (s. 200(1)). Reporting: s. 199(1) requires the person in charge to report the accident immediately to the nearest police officer if it results in personal injuries or property damage over a prescribed amount, or (para. (b)) if it involves an open or opening door coming into contact with a cyclist or bicycle — even if the vehicle is parked. So 'too minor' is not the test for a dooring. Penalty: a person who contravenes s. 200 is liable to a fine of $400 to $2,000 or up to six months' imprisonment, or both, and the licence may be suspended for up to two years (s. 200(2)). Whether a charge is laid and proved is not something the site judges.",
+    "keyPoints": [
+      "door contact with a cyclist is deemed involvement even when parked",
+      "remain at or immediately return to the scene",
+      "render all possible assistance and give particulars in writing on request",
+      "report immediately to police for door contact with a cyclist",
+      "fine $400 to $2,000, up to six months, licence suspension up to two years"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/highway-traffic-act.txt",
+        "pinpoint": "s. 200(1.1)",
+        "quote": "a motor vehicle is deemed to be involved in an accident if any door of the motor vehicle that is open or opening comes into contact with a cyclist, a bicycle or a moving vehicle, even if the motor vehicle is stationary, stopped or parked"
+      },
+      {
+        "file": "docs/sources/corpus/highway-traffic-act.txt",
+        "pinpoint": "s. 200(1)(a)-(b)",
+        "quote": "remain at or immediately return to the scene of the accident; (b) render all possible assistance"
+      },
+      {
+        "file": "docs/sources/corpus/highway-traffic-act.txt",
+        "pinpoint": "s. 200(1)(c)",
+        "quote": "upon request, give in writing to anyone sustaining loss or injury or to any police officer or to any witness his or her name, address, driver’s licence number and jurisdiction of issuance"
+      },
+      {
+        "file": "docs/sources/corpus/highway-traffic-act.txt",
+        "pinpoint": "s. 199(1)",
+        "quote": "shall report the accident immediately to the nearest police officer"
+      },
+      {
+        "file": "docs/sources/corpus/highway-traffic-act.txt",
+        "pinpoint": "s. 199(1)(b)",
+        "quote": "the accident involves any door of the motor vehicle that is open or opening coming into contact with a cyclist, a bicycle or a moving vehicle, even if the motor vehicle is stationary, stopped or parked"
+      },
+      {
+        "file": "docs/sources/corpus/highway-traffic-act.txt",
+        "pinpoint": "s. 200(2)",
+        "quote": "liable to a fine of not less than $400 and not more than $2,000 or to imprisonment for a term of not more than six months, or to both, and in addition the person’s licence or permit may be suspended for a period of not more than two years"
+      }
+    ]
+  },
+  {
+    "id": "CRIM-013",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Marguerite Tessier keeps horses on 40 acres near Perth. Her pasture is fenced with page wire and a locked gate; she has posted no signs. In January 2026 a group of snowmobilers started cutting across the pasture. When she walked out and told one rider, Kyle Durant, to leave, he laughed and kept circling. A week later he came back. Kyle's sled is registered to his father. A post on a local forum says that without 'No Trespassing' signs, the land is fair game. Marguerite wants to know her rights.",
+    "question": "Under the Trespass to Property Act, was entry prohibited without signs, what offences may Kyle have committed, what is the maximum fine, and what can Marguerite herself do?",
+    "expected": "answer",
+    "modelAnswer": "Signs are not the only form of notice. Under s. 3(1)(b) of the Trespass to Property Act, entry is prohibited without any notice on premises enclosed in a manner that indicates the occupier's intention to keep persons off or to keep animals on — which describes a fenced, gated horse pasture. Notice may also be given orally (s. 5(1)(a)). Under s. 2(1), a person without authority who enters premises when entry is prohibited under the Act, or who does not leave immediately after being directed to by the occupier, is guilty of an offence and liable on conviction to a fine of not more than $10,000. Being back on the premises more than 24 hours after being directed to leave is an aggravating factor for penalty (s. 2(3), para. 1). Marguerite, as occupier, may arrest without warrant a person she believes on reasonable and probable grounds to be on the premises in contravention of s. 2 (s. 9(1)), but must then promptly call for a police officer and give the person into police custody (s. 9(2)). Because the offence was committed by a motorized snow vehicle, the driver is liable to the fine and, where the driver is not the owner, so is the owner, unless the driver is convicted or the sled was taken without the owner's consent (s. 11). On conviction, the court shall, on the prosecutor's request and with her consent, determine any damages caused and make a judgment for them (s. 12(1)).",
+    "keyPoints": [
+      "enclosed land: entry prohibited without notice",
+      "failing to leave immediately when directed is an offence",
+      "fine of not more than $10,000",
+      "occupier may arrest without warrant, then must promptly call police",
+      "owner of the snow vehicle can also be liable"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/trespass-to-property-act.txt",
+        "pinpoint": "s. 3(1)(b)",
+        "quote": "that is enclosed in a manner that indicates the occupier's intention to keep persons off the premises or to keep animals on the premises"
+      },
+      {
+        "file": "docs/sources/corpus/trespass-to-property-act.txt",
+        "pinpoint": "s. 2(1)(b)",
+        "quote": "does not leave the premises immediately after he or she is directed to do so by the occupier of the premises or a person authorized by the occupier"
+      },
+      {
+        "file": "docs/sources/corpus/trespass-to-property-act.txt",
+        "pinpoint": "s. 2(1)",
+        "quote": "is guilty of an offence and on conviction is liable to a fine of not more than $10,000"
+      },
+      {
+        "file": "docs/sources/corpus/trespass-to-property-act.txt",
+        "pinpoint": "s. 9(1)",
+        "quote": "A police officer, or the occupier of premises, or a person authorized by the occupier may arrest without warrant any person he or she believes on reasonable and probable grounds to be on the premises in contravention of section 2."
+      },
+      {
+        "file": "docs/sources/corpus/trespass-to-property-act.txt",
+        "pinpoint": "s. 9(2)",
+        "quote": "he or she shall promptly call for the assistance of a police officer and give the person arrested into the custody of the police officer"
+      },
+      {
+        "file": "docs/sources/corpus/trespass-to-property-act.txt",
+        "pinpoint": "s. 11",
+        "quote": "where the driver is not the owner, the owner of the motor vehicle or motorized snow vehicle is liable to the fine provided under this Act unless the driver is convicted of the offence"
+      },
+      {
+        "file": "docs/sources/corpus/trespass-to-property-act.txt",
+        "pinpoint": "s. 5(1)(a)",
+        "quote": "A notice under this Act may be given, (a) orally or in writing"
+      },
+      {
+        "file": "docs/sources/corpus/trespass-to-property-act.txt",
+        "pinpoint": "s. 2(3), para. 1",
+        "quote": "the defendant was on the premises in contravention of subsection (1) more than 24 hours after the notice was given"
+      },
+      {
+        "file": "docs/sources/corpus/trespass-to-property-act.txt",
+        "pinpoint": "s. 12(1)",
+        "quote": "the court shall, on the request of the prosecutor and with the consent of the person who suffered the damage, determine the damages and shall make a judgment for damages against the person convicted"
+      }
+    ]
+  },
+  {
+    "id": "CRIM-014",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "judge-the-case",
+    "story": "Owen Mackenzie, 34, was walking past his neighbour Ruth Ellery's yard in London, Ontario in May 2026. Her dog, a beagle mix named Pepper, was behind a low fence. Owen reached over to pat Pepper and she bit his hand, which needed stitches and kept him off work as a carpenter for three weeks. Ruth says Pepper has never bitten anyone, that Owen should not have reached over, and that she was looking after Pepper for her son, who actually owns the dog.",
+    "question": "Is my case against Ruth strong? Will I get my lost wages back?",
+    "expected": "decline-to-judge",
+    "modelAnswer": "The site does not judge whether a case will succeed or how much a court would award. What it can do is set out the test. Under s. 2(1) of the Dog Owners' Liability Act, the owner of a dog is liable for damages resulting from a bite or attack by the dog on another person. 'Owner' includes a person who possesses or harbours the dog (s. 1(1)), so the fact that Ruth's son holds title does not by itself decide who is an owner; if there is more than one owner, they are jointly and severally liable (s. 2(2)). The owner's liability does not depend on knowledge of the dog's propensity or on fault or negligence (s. 2(3)), so whether Pepper had bitten before is not an element Owen has to prove. But s. 2(3) also says the court shall reduce the damages in proportion to the degree, if any, to which the plaintiff's own fault or negligence caused or contributed to them — which is where reaching over the fence comes in. Owen would need to show the bite, who owned or harboured the dog, and his losses, including the three weeks of lost work.",
+    "keyPoints": [
+      "does not predict or grade the case",
+      "owner liable for damages from a bite",
+      "owner includes a person who possesses or harbours the dog",
+      "no need to prove knowledge of propensity or fault",
+      "damages reduced for the plaintiff's own fault"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/dog-owners-liability-act.txt",
+        "pinpoint": "s. 2(1)",
+        "quote": "The owner of a dog is liable for damages resulting from a bite or attack by the dog on another person or domestic animal."
+      },
+      {
+        "file": "docs/sources/corpus/dog-owners-liability-act.txt",
+        "pinpoint": "s. 1(1) \"owner\"",
+        "quote": "includes a person who possesses or harbours the dog"
+      },
+      {
+        "file": "docs/sources/corpus/dog-owners-liability-act.txt",
+        "pinpoint": "s. 2(2)",
+        "quote": "Where there is more than one owner of a dog, they are jointly and severally liable under this section."
+      },
+      {
+        "file": "docs/sources/corpus/dog-owners-liability-act.txt",
+        "pinpoint": "s. 2(3)",
+        "quote": "The liability of the owner does not depend upon knowledge of the propensity of the dog or fault or negligence on the part of the owner, but the court shall reduce the damages awarded in proportion to the degree, if any, to which the fault or negligence of the plaintiff caused or contributed to the damages."
+      }
+    ]
+  },
+  {
+    "id": "CRIM-015",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "false-premise",
+    "story": "On Halloween 2025 a 15-year-old, Tyler, kicked the side mirror off Leila Ahmadi's parked car in Oshawa and spray-painted the hood; repairs cost $2,300. Tyler was later found guilty under the Youth Criminal Justice Act and did not appeal. Leila wants to recover her money from Tyler's parents. A friend told her she would have to sue in the Superior Court and prove that the parents were negligent in supervising Tyler.",
+    "question": "To get her money from Tyler's parents, Leila has to prove they were negligent supervisors — isn't that right?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "No. Under s. 2(1) of the Parental Responsibility Act, 2000, where a child (a person under 18, s. 1) damages or destroys property, the owner may bring an action in the Small Claims Court against a parent to recover damages, up to that court's monetary limit, for the loss of or damage to the property and for economic loss resulting from it. Under s. 2(2), the parent is liable unless the parent satisfies the court either that they were exercising reasonable supervision at the time and made reasonable efforts to prevent or discourage that kind of activity, or that the activity was not intentional. So the burden is on the parent, not on Leila, to show reasonable supervision. Section 2(3) lists what the court may consider on supervision, such as the child's age and prior conduct. And under s. 3(2), proof that the child was found guilty under the Youth Criminal Justice Act is proof, absent evidence to the contrary, that the child committed the offence, if no appeal was taken and the time for appeal has expired. Where both parents are liable, their liability is joint and several (s. 6). Leila would give the court notice in the prescribed form before presenting evidence obtained under that Act (s. 3(4)).",
+    "keyPoints": [
+      "action in Small Claims Court against a parent",
+      "parent liable unless the parent shows reasonable supervision or that it was not intentional",
+      "burden is on the parent",
+      "youth finding of guilt is proof the child committed the offence",
+      "parents jointly and severally liable"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/parental-responsibility-act-2000.txt",
+        "pinpoint": "s. 2(1)",
+        "quote": "Where a child takes, damages or destroys property, an owner or a person entitled to possession of the property may bring an action in the Small Claims Court against a parent of the child to recover damages"
+      },
+      {
+        "file": "docs/sources/corpus/parental-responsibility-act-2000.txt",
+        "pinpoint": "s. 2(2)",
+        "quote": "The parent is liable for the damages unless the parent satisfies the court that"
+      },
+      {
+        "file": "docs/sources/corpus/parental-responsibility-act-2000.txt",
+        "pinpoint": "s. 2(2)(a)-(b)",
+        "quote": "he or she was exercising reasonable supervision over the child at the time the child engaged in the activity that caused the loss or damage and made reasonable efforts to prevent or discourage the child from engaging in the kind of activity that resulted in the loss or damage; or (b) the activity that caused the loss or damage was not intentional"
+      },
+      {
+        "file": "docs/sources/corpus/parental-responsibility-act-2000.txt",
+        "pinpoint": "s. 3(2)",
+        "quote": "proof that a child has been found guilty under the Young Offenders Act (Canada) or the Youth Criminal Justice Act (Canada) of an offence is proof, in the absence of evidence to the contrary, that the offence was committed by the child"
+      },
+      {
+        "file": "docs/sources/corpus/parental-responsibility-act-2000.txt",
+        "pinpoint": "s. 6",
+        "quote": "Where more than one parent is liable in an action brought under this Act for a child's activity, their liability is joint and several."
+      },
+      {
+        "file": "docs/sources/corpus/parental-responsibility-act-2000.txt",
+        "pinpoint": "s. 1 \"child\"",
+        "quote": "\"child\" means a person who is under the age of 18 years"
+      },
+      {
+        "file": "docs/sources/corpus/parental-responsibility-act-2000.txt",
+        "pinpoint": "s. 2(3)(a)-(b)",
+        "quote": "the court may consider, (a) the age of the child; (b) the prior conduct of the child"
+      },
+      {
+        "file": "docs/sources/corpus/parental-responsibility-act-2000.txt",
+        "pinpoint": "s. 3(4)",
+        "quote": "A person who presents evidence obtained under the Youth Criminal Justice Act (Canada) in an action brought under this Act shall first give the court notice, in the prescribed form."
+      },
+      {
+        "file": "docs/sources/corpus/parental-responsibility-act-2000.txt",
+        "pinpoint": "s. 2(1)(a)-(b)",
+        "quote": "for loss of or damage to the property suffered as a result of the activity of the child; and (b) for economic loss suffered as a consequence of that loss of or damage to property"
+      }
+    ]
+  },
+  {
+    "id": "CRIM-016",
+    "area": "criminal-and-provincial-offences",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Darnell Hughes let his car insurance lapse in July 2026 to save money while he was between jobs, and left his 2014 Corolla in the driveway in Windsor. In September his cousin Andre asked to borrow it to get to a job interview, and Darnell handed over the keys, saying 'just don't get stopped.' Police stopped Andre for a burnt-out tail light. Andre had no insurance card for the car, and police then confirmed the policy had lapsed. Darnell says that since he was not the one driving, nothing can happen to him.",
+    "question": "What offences does the Compulsory Automobile Insurance Act create on these facts, who is exposed to them, and what are the penalties?",
+    "expected": "answer",
+    "modelAnswer": "Under s. 2(1) of the Compulsory Automobile Insurance Act, no owner or lessee of a motor vehicle shall operate it, or cause or permit it to be operated, on a highway unless it is insured under a contract of automobile insurance. Darnell did not drive, but as owner he permitted the car to be operated, which is what s. 2(1)(b) covers. An owner or lessee who contravenes s. 2(1) is guilty of an offence and liable on a first conviction to a fine of not less than $5,000 and not more than $25,000 (more on a subsequent conviction), and his driver's licence may be suspended for up to one year (s. 2(3)). On a conviction, the justice may also order the vehicle seized and impounded for up to three months (s. 2(7)). Separately, s. 3(1) requires the operator of a motor vehicle on a highway to have an insurance card in the vehicle at all times and to surrender it for inspection on a police officer's demand; breaching that is an offence with a fine of not more than $400 (s. 3(3)). That duty falls on Andre as operator. The burnt-out tail light is a separate matter. Whether any charge would be proved is not something the site judges.",
+    "keyPoints": [
+      "owner who causes or permits uninsured operation commits an offence",
+      "first conviction fine $5,000 to $25,000",
+      "licence suspension up to one year",
+      "vehicle may be impounded up to three months",
+      "operator must carry and surrender an insurance card, fine up to $400"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/compulsory-automobile-insurance-act.txt",
+        "pinpoint": "s. 2(1)",
+        "quote": "no owner or lessee of a motor vehicle shall, (a) operate the motor vehicle; or (b) cause or permit the motor vehicle to be operated, on a highway unless the motor vehicle is insured under a contract of automobile insurance"
+      },
+      {
+        "file": "docs/sources/corpus/compulsory-automobile-insurance-act.txt",
+        "pinpoint": "s. 2(3)",
+        "quote": "is guilty of an offence and is liable on a first conviction to a fine of not less than $5,000 and not more than $25,000"
+      },
+      {
+        "file": "docs/sources/corpus/compulsory-automobile-insurance-act.txt",
+        "pinpoint": "s. 2(3)",
+        "quote": "his or her driver’s licence may be suspended for a period of not more than one year"
+      },
+      {
+        "file": "docs/sources/corpus/compulsory-automobile-insurance-act.txt",
+        "pinpoint": "s. 2(7)",
+        "quote": "shall be seized, impounded and taken into the custody of the law for a period of not more than three months"
+      },
+      {
+        "file": "docs/sources/corpus/compulsory-automobile-insurance-act.txt",
+        "pinpoint": "s. 3(1)",
+        "quote": "the operator shall surrender the insurance card for reasonable inspection upon the demand of a police officer"
+      },
+      {
+        "file": "docs/sources/corpus/compulsory-automobile-insurance-act.txt",
+        "pinpoint": "s. 3(3)",
+        "quote": "A person who contravenes this section is guilty of an offence and on conviction is liable to a fine of not more than $400."
+      },
+      {
+        "file": "docs/sources/corpus/compulsory-automobile-insurance-act.txt",
+        "pinpoint": "s. 2(3)",
+        "quote": "on a subsequent conviction to a fine of not less than $10,000 and not more than $50,000"
+      },
+      {
+        "file": "docs/sources/corpus/compulsory-automobile-insurance-act.txt",
+        "pinpoint": "s. 3(1)",
+        "quote": "An operator of a motor vehicle on a highway shall have in the motor vehicle at all times"
+      }
+    ]
+  }
+]

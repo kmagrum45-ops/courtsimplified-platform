@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-124 documented, 28 without a header.
+125 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -66,6 +66,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:inventory-coverage` | **Every body of live, user-facing legal content is in the review packet.**<br>COSTS NOTHING. Calls the inventory and reads source off disk. |
 | `npm run test:journey-battery` | **Journey regression battery runner — tranche 1.**<br>Categories A–D from docs/TEST_BATTERY_DESIGN.md §2: the four paths with ZERO prior coverage. |
 | `npm run test:journey-invariants` | **Self-test for the static arm of journeyInvariants.ts.**<br>WHY THIS EXISTS. The first version of the static arm scored ZERO violations against the known-defective historical code -- readinessTone(), the highRiskPenalty subtraction, and the "Document readiness impact" ordinal union. All three had been fixed in the live |
+| `npm run test:law-exam` | **The law exam's answer keys rest on the law, word for word.**<br>WHAT THIS CATCHES: an answer key written from memory. Every question in scripts/eval/lawExam/questions/ cites the official text saved in this repository, and every quote must appear in that text -- the same check the site's own quotes pass (quoteMatch.ts). A k |
 | `npm run test:library-chat` | **The chat can only say what has already been verified.**<br>COSTS NOTHING. No model call. Every check drives `validateSelection` and `assembleChatAnswer` with payloads a model might return — including the ones it must never return — because those are the two functions every answer passes through, whatever the model sai |
 | `npm run test:live-stories` | **Eight live stories through the full Small Claims pipeline: general intake ->**<br>claim-type confirmation -> depth phase -> readiness gate. |
 | `npm run test:lso-demo-cases` | **The demo test cases from docs/lso-ai-audit.md section 13, as a suite.**<br>WHY. That table was written as a list of things to try by hand, and five of its twenty rows were marked "expected to fail today" — cases 3, 4, 12, 13 and 19, the honest edges of the demo. Those five are the point of the LSO rewrite, so they cannot stay as a li |
