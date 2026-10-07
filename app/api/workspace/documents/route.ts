@@ -38,6 +38,8 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
+import { COURT_DECISION_TYPE, decisionUpdate } from "@/src/lib/case-workspace/courtDecisionStore";
+
 import { createClient } from "@supabase/supabase-js";
 import { createHash } from "node:crypto";
 
@@ -344,6 +346,10 @@ export async function PATCH(req: NextRequest) {
       parties?: unknown;
       amount?: unknown;
       notes?: string | null;
+      decisionCaseName?: string | null;
+      decisionCitation?: string | null;
+      decisionCourt?: string | null;
+      decisionDate?: string | null;
     };
 
     const documentId = String(body.documentId || "").trim();
@@ -424,6 +430,32 @@ export async function PATCH(req: NextRequest) {
       }
     }
 
+    /*
+     * A court decision's details (case name, citation, court, date), entered or
+     * confirmed by the person for its "Source: CanLII" line. Written apart from
+     * everything else because their columns arrive with migration
+     * 20261007090000: before it is applied, this says so instead of failing the
+     * whole save (courtDecisionStore.ts).
+     */
+    const decision = decisionUpdate(body as Record<string, unknown>);
+    if (decision) {
+      const { error: decisionError } = await supabaseAdminFor()
+        .from("workspace_documents")
+        .update(decision)
+        .eq("id", documentId)
+        .eq("user_id", user.id)
+        .is("deleted_at", null);
+      if (decisionError) {
+        console.error("workspace patch decision error:", decisionError.code ?? "", decisionError.message);
+        return refuse(
+          503,
+          "The decision's details cannot be saved yet.",
+          "The site's database needs an update first. The decision itself is saved with your case.",
+        );
+      }
+      if (Object.keys(update).length === 0) return NextResponse.json({ success: true });
+    }
+
     if (Object.keys(update).length === 0) {
       return refuse(400, "Nothing to change.");
     }
@@ -457,6 +489,15 @@ export async function PATCH(req: NextRequest) {
 
     if (error) {
       console.error("workspace patch error:", error.message);
+      // 23514 is a CHECK violation: "court-decision" before migration
+      // 20261007090000 adds it to the type catalogue.
+      if (error.code === "23514" && update.user_type === COURT_DECISION_TYPE) {
+        return refuse(
+          503,
+          "Court decisions cannot be marked yet.",
+          "The site's database needs an update first. Your file is saved with your case.",
+        );
+      }
       return refuse(500, "CourtSimplified could not save this change.");
     }
 

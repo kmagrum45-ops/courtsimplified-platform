@@ -154,6 +154,12 @@ jobs:
       - name: Catalogue verification log holds against the catalogue
         run: npm run test:catalogue-verified
 
+      - name: Court decisions from CanLII follow CanLII's terms (attribution, isolation, no scraping, rate limit, works with no key)
+        run: npm run test:canlii
+
+      - name: Document types in code match the database's catalogue
+        run: npm run test:workspace-catalogue
+
       - name: AI analysis cannot show an unsourced legal statement
         run: npm run test:grounded-analysis
 

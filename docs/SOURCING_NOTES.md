@@ -536,6 +536,70 @@ regulation-as-a-whole level (`docs/PROCEDURAL_RULES_INVENTORY.md` §5), but a
 been located and used by any citation in this codebase yet — don't assume the
 same `<id>_e.doc` pattern works there without checking.
 
+### CanLII: the Terms of Use, the API key, and decisions people upload — the rules (2026-10-07)
+
+**Read this before touching anything that names CanLII.** CanLII approved the
+site for an API key (metadata only) in October 2026. Its Terms of Use (2026
+version) set the rules below. The clauses are recorded as the site owner read
+them to us on 2026-10-07; they were **not** re-fetched here, because the site
+never fetches canlii.org, by any means — not even its terms page. Re-read the
+Terms in a browser before relying on any wording here.
+
+| Terms | What it says (as recorded) | What the code does |
+|---|---|---|
+| s. 4.2 | Decisions may be copied, printed and used free of charge, **provided CanLII is identified as the source** | Every display of an uploaded decision renders `DecisionAttribution`, which always begins "Source: CanLII" with the case name and citation the person entered or confirmed (`courtDecision.ts`). The source is written by code, not stored, so it cannot be blanked |
+| s. 5.1 | Prohibited: masking the source; **systematic downloading**, including by programs or by people hired to download by hand; storing, reproducing or using decisions for purposes other than the user's own legal research | The site never fetches decision text. A person downloads a decision themselves and uploads it to their own case, one file at a time. It never enters the shared library, the corpus index, the research step, source requests, evals, fixtures, logs, or anyone else's case. Nothing asks or nudges anyone to download in bulk or for others. The API's per-court **list** endpoint is not allowed |
+| s. 4.3 | Courts may add their own conditions (publication bans, anonymised names) | AI help never fills in initials, guesses a redacted name, or connects a decision to real people (`namesNotInDecision`) |
+| Preamble | Privacy concerns about third parties indexing decisions | Uploaded decisions are private to their case and never indexed |
+
+**The CanLII API (metadata only).** Read from CanLII's own documentation,
+`github.com/canlii/API_documentation`, file `EN.md`, cloned with `git` on
+2026-10-07 (WebFetch was blocked for that page in an earlier session; the git
+clone works). Base `https://api.canlii.org/v1/`, HTTPS only, answers over 10MB
+refused. The three endpoints the site uses, and only these
+(`isAllowedApiPath` in `src/lib/canlii/canliiCore.ts`):
+
+- `caseBrowse/{lang}/?api_key=` → `{ caseDatabases: [{ databaseId, jurisdiction, name }] }` — the courts and their ids;
+- `caseBrowse/{lang}/{databaseId}/{caseId}/?api_key=` → `{ databaseId, caseId, url, title, citation, language, docketNumber, decisionDate, keywords, concatenatedId }`. The `url` comes back as `http://canlii.ca/t/...`; it is rewritten to `https`. It is a link for a person to click, never fetched;
+- `caseCitator/en/{databaseId}/{caseId}/citingCases?api_key=` → `{ citingCases: [{ databaseId, caseId: { en }, title, citation }] }`. The citator is English only. Also documented: `citedCases`, `citedLegislations` (not used).
+
+Documented ids: `2008scc9` in `csc-scc`, `2014onca925` in `onca`,
+`1999canlii1527`. A neutral citation maps to `{year}{court}{number}`; the SCC's
+database is `csc-scc`. A report citation (`[1999] 1 S.C.R. 201`) has no CanLII
+id to look up. Also documented but **deliberately not used**: the per-court list
+`caseBrowse/{lang}/{databaseId}/?offset=&resultCount=` (up to 10,000 at a time)
+— that is bulk listing.
+
+**Limits.** The documentation gives no rate limit, so ours, in code: one
+request at a time, at least 500 ms between starts (two a second), and a daily
+cap of 4,000 — well short of the 5,000 our key allows. Enforced in each server
+process and across all of them by one database lease (`canlii_acquire`,
+migration `20261007090000`), because Vercel runs several copies. Every answer
+is cached in `canlii_cache` (metadata 30 days, citator 7, "not found" 1).
+Answers already in the cache are served free; a lookup that would reach CanLII
+first counts against the person's own allowance (30 a day,
+`canlii_user_allow`), so no single account can spend the day's cap or use our
+key to collect metadata in bulk. A person's own decision is looked up from its
+saved citation, not while they type. The lease functions are run (not just
+read) by `test:rls-matrix`. With
+no `CANLII_API_KEY`, or the API down or out of quota, every lookup answers
+nothing at once and the site works as before.
+
+**Being cited is not being upheld.** The citator says which later decisions
+cite a case. That is a pointer to read them, never a statement that the case
+is still good law; the screen says so.
+
+**Checking our own library's citations.** `npm run canlii:check-citations`
+(manual; needs the key and the migration) looks up every decision in
+`scripts/retrieval/decisionSources.ts` and reports any citation CanLII does not
+know or titles differently.
+
+**Every URL fetcher refuses CanLII.** `refuseCanliiContent(url)` is called
+before any script fetches a URL taken from data (`fetchCorpus.ts`,
+`checkCorpus.ts`, `fetchOfficialFormLinks.ts`, `probeOfficialForms.ts`);
+`fetchDecisionPages.sh` refuses any URL containing `canlii`. `test:canlii`
+fails if a new fetcher does neither.
+
 ### CanLII (and Ontario court decisions) block automated fetching — the `docs/sources/` manual-download route
 
 **Correction (Session 40):** this section originally said the Supreme Court

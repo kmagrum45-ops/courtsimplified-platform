@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-123 documented, 28 without a header.
+124 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -19,6 +19,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:anon-grants` | **No migration grants anon write access, and no policy applies to PUBLIC.**<br>COSTS NOTHING. Reads supabase/migrations/*.sql off disk. No database connection, no network. |
 | `npm run test:assistant-blocks` | **The guided assistant can only say catalogued things.**<br>COSTS NOTHING. Reads source off disk and calls pure functions. |
 | `npm run test:assistant-law` | **"The law on your question" in the Court Assistant**<br>(src/lib/case-system/retrieval/researchQuestion.ts, /api/assistant/law). |
+| `npm run test:canlii` | **Court decisions from CanLII: the rules CanLII's Terms of Use (2026) set for**<br>this feature hold in code (docs/SOURCING_NOTES.md, "CanLII"). |
 | `npm run test:case-drafts` | **Drafts are saved on the user's own case, hold only what the user gave us,**<br>and never cross from one case to another. |
 | `npm run test:case-events` | **The case-event vocabulary stays sourced, and the untyped option stays**<br>first-class. |
 | `npm run test:case-file-summary` | **Deterministic self-test for composeCaseFileSummary().**<br>WHY THIS EXISTS. Fix 1 and Fix 2 (Session 48) removed the free-text summary slot and replaced it with two model-supplied arrays assembled by composeCaseFileSummary(). The intended evidence for that change was a five-runs-either-side interception measurement, w |

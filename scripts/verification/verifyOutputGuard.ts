@@ -212,6 +212,11 @@ function main(): void {
     // Assistant. JSON output; only code-verified quotes from the provisions
     // are shown (verifyAssistantLaw).
     "src/lib/case-system/retrieval/researchQuestion.ts",
+    // Added 2026-10-07: plain-language help with a court decision the person
+    // uploaded from CanLII, on their click, behind the document-analysis (ZDR)
+    // switch. JSON output; shown only after checkedDecisionHelp passes it
+    // (quotes word for word in the upload, no judging, no names; test:canlii).
+    "src/lib/case-workspace/decisionHelp.ts",
   ];
 
   for (const file of callSites) {

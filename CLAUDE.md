@@ -29,6 +29,16 @@ CanLII blocks automated scraping. Do not attempt to scrape it. Cite decisions re
 
 CanLII and the Supreme Court of Canada's own site both block automated fetching, which is why a primary source manually downloaded and saved under `docs/sources/` is a first-class citation route: reading it from disk satisfies the "retrieved and read" requirement the same way a live fetch does, provided `docs/sources/README.md` records what it is, its neutral citation, the URL it came from, and the date it was downloaded.
 
+**CanLII's Terms of Use bind every CanLII feature (2026-10-07).** Full record in `docs/SOURCING_NOTES.md`, "CanLII: the Terms of Use, the API key, and decisions people upload". In short:
+
+- **Never fetch decision text, or any page, from canlii.org or canlii.ca, by any means** — no scraping, no WebFetch, no curl, no browser, no workflow. Any script that fetches URLs from data calls `refuseCanliiContent(url)` first. Links for people to click are fine.
+- **The API is metadata only** (`src/lib/canlii/canliiCore.ts`): the court list, one case's metadata, its citing cases. Never the per-court list endpoint (bulk). One request at a time, two a second, a daily cap of 4,000 (CanLII allows 5,000), through the shared lease; cache every answer. The key comes from `CANLII_API_KEY`, server side only, never logged. With no key, or CanLII down, the site works as before.
+- **A decision a person uploads to their own case** is shown everywhere with "Source: CanLII" (`DecisionAttribution`), stays in that case only — never in the shared library, the corpus index, the research step, source requests, evals, fixtures, logs or anyone else's analysis — and never in their timeline or exhibit book. AI help with it runs only on their click, behind the document-analysis (ZDR) switch; every quote is checked against the uploaded text; it never predicts or grades their case, and never fills in an anonymised name.
+- **Never ask or nudge anyone to download decisions in bulk or for someone else.** Telling a person how to search CanLII for their own case is fine.
+- **Being cited by a later decision is not being upheld.** Say so wherever the citator count shows.
+
+`npm run test:canlii` checks all of this in CI.
+
 Every card, claim, or assertion must carry its source URL (or, where the source is a neutral citation rather than a URL, the citation) and the date it was verified.
 
 Before starting any sourcing work, read `docs/SOURCING_NOTES.md` — techniques that already work (e.g. the e-Laws `.doc` fallback), dead ends already ruled out, and things already confirmed not to exist, so they don't get rediscovered at the cost of fresh tool calls. When a sourcing session establishes a new technique, a new dead end, or confirms something doesn't exist, add it there in the same session.

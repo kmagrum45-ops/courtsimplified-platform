@@ -20,7 +20,7 @@
  * Run: node --import tsx scripts/verification/verifyWorkspaceCatalogue.ts
  */
 
-import { readFileSync, existsSync } from "node:fs";
+import { readdirSync, readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 
 import {
@@ -31,11 +31,16 @@ import {
 } from "../../src/lib/case-workspace/documentTypes";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
+// The LATEST migration that defines the constraint is the one in force
+// (2026-10-07: court-decision was added by redefining it).
+const MIGRATIONS_DIR = path.join(ROOT, "supabase", "migrations");
 const MIGRATION = path.join(
-  ROOT,
-  "supabase",
-  "migrations",
-  "20260927090000_case_workspace_documents.sql",
+  MIGRATIONS_DIR,
+  readdirSync(MIGRATIONS_DIR)
+    .filter((file) => file.endsWith(".sql"))
+    .sort()
+    .filter((file) => /"workspace_documents_type_in_catalogue"\s+CHECK\s*\(/.test(readFileSync(path.join(MIGRATIONS_DIR, file), "utf8")))
+    .at(-1) ?? "20260927090000_case_workspace_documents.sql",
 );
 
 let failures = 0;

@@ -182,6 +182,8 @@
     "test:claim-types": "node --import tsx scripts/verification/verifyClaimTypeCatalogue.ts",
     "test:workspace-dates": "node --import tsx scripts/verification/verifyWorkspaceDates.ts",
     "test:workspace-catalogue": "node --import tsx scripts/verification/verifyWorkspaceCatalogue.ts",
+    "test:canlii": "node --import tsx scripts/verification/verifyCanlii.ts",
+    "canlii:check-citations": "node --import tsx --env-file=.env.local scripts/sources/checkDecisionCitations.ts",
     "test:reasoning-text-gate": "node --import tsx scripts/verification/verifyReasoningTextGate.ts",
     "test:workspace-upload": "node --import tsx scripts/verification/verifyWorkspaceUpload.ts",
     "test:workspace-extraction": "node --import tsx scripts/verification/verifyWorkspaceExtraction.ts",

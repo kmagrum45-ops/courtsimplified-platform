@@ -36,6 +36,7 @@ export type DocumentTypeId =
   | "witness-statement"
   | "estimate-quote"
   | "insurance-document"
+  | "court-decision"
   | "other";
 
 export type DocumentType = {
@@ -110,6 +111,14 @@ export const DOCUMENT_TYPES: readonly DocumentType[] = [
     id: "insurance-document",
     label: "Insurance document",
     hint: "A policy, a claim, or a letter from an insurer.",
+  },
+  {
+    // 2026-10-07. A decision the person downloaded from CanLII for their own
+    // research. Shown everywhere with "Source: CanLII" (courtDecision.ts),
+    // as CanLII's Terms of Use s. 4.2 require.
+    id: "court-decision",
+    label: "Court decision (from CanLII)",
+    hint: "A judge's decision you downloaded from CanLII to read for your own case.",
   },
   {
     id: "other",

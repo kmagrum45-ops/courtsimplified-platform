@@ -95,7 +95,14 @@ export type AiCallType =
    * a legal term. The user accepts or keeps their own. See
    * intake/tidyWording.ts.
    */
-  | "tidy-wording";
+  | "tidy-wording"
+  /**
+   * 2026-10-07. Plain-language help with a court decision the person uploaded
+   * to their own case, on their click only, behind the document-analysis
+   * (ZDR) switch. Every quote is checked against the uploaded text. See
+   * case-workspace/courtDecision.ts.
+   */
+  | "decision-help";
 
 export type AiValidationResult = "valid" | "invalid" | "error" | "timeout";
 
@@ -412,6 +419,12 @@ const PROSE_FIELDS = new Set([
   // 2026-10-05: the legal search phrases written from the user's story
   // (retrieval/storyRetrieval.ts). Derived from the narrative, so not stored.
   "queries",
+  // 2026-10-07: help with a court decision a person uploaded to their own
+  // case (case-workspace/decisionHelp.ts). A quote is the decision's own words
+  // and "why" ties it to the person's situation; CanLII's Terms s. 5.1 keep a
+  // decision out of logs, so neither is stored, however short.
+  "quote",
+  "why",
 ]);
 
 /**

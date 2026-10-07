@@ -38,6 +38,8 @@ import path from "node:path";
 import { extract } from "./extractText";
 
 import { CORPUS_SOURCES, sourceTier } from "./corpusSources";
+
+import { refuseCanliiContent } from "../../src/lib/canlii/canliiCore";
 import { sha256, consolidationLine, readManifest } from "./fetchCorpus";
 import { NEXT_STEP_BLOCKS } from "../../src/lib/content-library/nextSteps";
 import { ASSISTANT_BLOCKS } from "../../src/lib/content-library/assistantBlocks";
@@ -350,6 +352,8 @@ async function main(): Promise<void> {
 
     let fresh: string;
     try {
+      // CanLII content is never fetched (CanLII Terms s. 5.1; test:canlii).
+      refuseCanliiContent(source.url);
       const response = await fetch(source.url, {
         headers: { "User-Agent": "CourtSimplified-rules-corpus (change watch)" },
       });
