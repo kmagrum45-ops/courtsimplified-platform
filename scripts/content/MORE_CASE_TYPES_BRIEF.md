@@ -31,7 +31,9 @@ guides are in `docs/sources/corpus/` (their `url` is in
 `docs/sources/decisions/`. Use the manifest `url` as the entry's `sourceUrl`,
 so the check can find the text and test every quote. Never write law from
 memory, never use the web, never touch canlii.org or canlii.ca. If the saved
-text does not support a point, leave the point out. If a case type cannot be
+text does not support a point, leave the point out. Quotes from saved
+decisions are checked too (on their letters and digits, since PDF text splits
+words across lines), and every saved decision now opens its court's own page. If a case type cannot be
 supported at all from the saved text, write nothing for it and say so in your
 reply.
 

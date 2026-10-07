@@ -22,7 +22,9 @@
  *      so.
  *   3. Every quoted passage from a vendored source (docs/sources/corpus) is
  *      really in that source, verbatim apart from whitespace (" ... " marks
- *      skipped material; each run is checked on its own).
+ *      skipped material; each run is checked on its own). A quote from a
+ *      decision saved as text under docs/sources/ is checked too, on its
+ *      letters and digits, since PDF text splits words across lines.
  *   4. The entry's own sourceUrl is among the sources its record quotes, and
  *      so is every alsoCites source -- the link a user follows is one that
  *      was actually read for this entry.
@@ -86,6 +88,11 @@ for (const entry of manifest.entries) {
   }
 }
 function vendored(url: string): string | null {
+  // A decision saved as text under docs/sources/ is checked like the corpus
+  // (2026-10-07: until then its quotes were taken on trust).
+  if (!vendoredText.has(url) && /^docs\/sources\/.+\.txt$/.test(url) && existsSync(path.join(ROOT, url))) {
+    vendoredText.set(url, lettersOnly(readFileSync(path.join(ROOT, url), "utf8")));
+  }
   if (!vendoredText.has(url)) return null;
   if (!vendoredText.get(url)) {
     const file = manifest.entries.find((entry) => entry.url === url)!.file;
@@ -93,6 +100,17 @@ function vendored(url: string): string | null {
   }
   return vendoredText.get(url)!;
 }
+
+/**
+ * Decision text is extracted from PDFs and HTML, which splits words and
+ * apostrophes across lines ("defendant\n’s", "forty-\neight"), so a decision
+ * quote is compared on its letters and digits alone: every word, in order,
+ * with nothing added or left out.
+ */
+function lettersOnly(text: string): string {
+  return text.normalize("NFKC").toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+const isSavedDecision = (url: string) => /^docs\/sources\/.+\.txt$/.test(url);
 
 /** Problems with one record against one entry; empty means it holds. */
 function problems(entry: CatalogueEntry, record: VerificationRecord): string[] {
@@ -106,7 +124,9 @@ function problems(entry: CatalogueEntry, record: VerificationRecord): string[] {
     const text = vendored(source.sourceUrl);
     // As in stage-map/citations.ts: " ... " marks skipped material, and each
     // run on either side must be in the source on its own.
-    const runs = normalizeForQuote(source.quote).split(" ... ").map(stripWrappingQuotes);
+    const runs = isSavedDecision(source.sourceUrl)
+      ? source.quote.split(/\s*(?:\.\.\.|…)\s*/).map(lettersOnly).filter(Boolean)
+      : normalizeForQuote(source.quote).split(" ... ").map(stripWrappingQuotes);
     if (text !== null && !runs.every((run) => text.includes(run))) {
       out.push(`quote not found in the vendored source (${source.pinpoint}): "${source.quote.slice(0, 80)}"`);
     }
@@ -256,6 +276,15 @@ const tamperedQuote: VerificationRecord = {
   ),
 };
 check("control: a quote the source does not contain is caught", problems(sample, tamperedQuote).some((p) => p.includes("quote not found")));
+const decisionSample = entries.find((entry) => byKey.get(entry.key)?.sources.some((source) => isSavedDecision(source.sourceUrl)));
+if (decisionSample) {
+  const record = byKey.get(decisionSample.key)!;
+  const changedWord: VerificationRecord = {
+    ...record,
+    sources: record.sources.map((source) => (isSavedDecision(source.sourceUrl) ? { ...source, quote: `${source.quote.replace(/\b(the|a|and)\b/, "not")}` } : source)),
+  };
+  check("control: a decision quote with one word changed is caught", problems(decisionSample, changedWord).some((p) => p.includes("quote not found")));
+}
 check(
   "control: an entry edited after verification is caught",
   problems({ ...sample, text: `${sample.text} You will win.` }, sampleRecord).some((p) => p.includes("text changed")),
