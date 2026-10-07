@@ -256,6 +256,8 @@ const tableOverrides = {
   court_forms: () => ({ category: lit("family"), province: lit("ontario") }),
   ai_call_log: () => ({ call_type: lit("safety-pass"), validation_result: lit("valid") }),
   site_operators: () => ({ user_id: lit(OPERATOR) }),
+  // One row, id 1 (CHECK "id" = 1).
+  canlii_api_state: () => ({ id: "1" }),
 };
 
 /** Builds an INSERT for `table`. Every NOT NULL column without a default gets a value. */

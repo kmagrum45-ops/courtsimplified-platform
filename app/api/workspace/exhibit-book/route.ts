@@ -32,6 +32,7 @@ import { createClient } from "@supabase/supabase-js";
 
 import { getAuthenticatedUser, getAuthenticatedOwnedCase } from "@/src/lib/supabase/serverAuth";
 import { DOCUMENT_BUCKET, isUuid } from "@/src/lib/case-workspace/storagePaths";
+import { COURT_DECISION_TYPE } from "@/src/lib/case-workspace/courtDecision";
 import {
   proposeNumbering,
   proposeRenumberFromOne,
@@ -123,7 +124,9 @@ export async function GET(req: NextRequest) {
       return refuse(500, "CourtSimplified could not load this case's exhibits.");
     }
 
-    const rows = (data ?? []) as unknown as Row[];
+    // A court decision from CanLII is kept with the case for the person's own
+    // research; it is not their evidence and never goes in the book (2026-10-07).
+    const rows = ((data ?? []) as unknown as Row[]).filter((row) => row.user_type !== COURT_DECISION_TYPE);
 
     if (rows.length === 0) {
       return refuse(
@@ -252,7 +255,10 @@ export async function POST(req: NextRequest) {
       return refuse(500, "CourtSimplified could not load this case's documents.");
     }
 
-    const numberable = ((data ?? []) as unknown as Row[]).map(toNumberable);
+    // Court decisions are not exhibits (see the GET above).
+    const numberable = ((data ?? []) as unknown as Row[])
+      .filter((row) => row.user_type !== COURT_DECISION_TYPE)
+      .map(toNumberable);
 
     const mode = body.mode === "renumber-from-one" ? "renumber-from-one" : "add-new";
     const proposal =

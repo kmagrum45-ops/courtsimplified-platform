@@ -95,7 +95,12 @@ export const catalogue = {
   small_claims_form_lookup: { anonRead: false, authenticatedRead: false },
 };
 
-export const serverOnly = ["ai_call_log", "site_operators"];
+/*
+ * canlii_cache and canlii_api_state (2026-10-07, 20261007090000): the CanLII
+ * API's cached metadata answers and its one-row rate-limit lease. Read and
+ * written only by the server (src/lib/canlii/canliiServer.ts).
+ */
+export const serverOnly = ["ai_call_log", "site_operators", "canlii_cache", "canlii_api_state"];
 
 export const views = {
   court_form_master_view: { readers: ["anon", "authenticated"] },

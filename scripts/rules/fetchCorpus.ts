@@ -35,6 +35,8 @@ import { extract, keepSection } from "./extractText";
 
 import { CORPUS_SOURCES, type CorpusSource } from "./corpusSources";
 
+import { refuseCanliiContent } from "../../src/lib/canlii/canliiCore";
+
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const CORPUS_DIR = path.join(ROOT, "docs", "sources", "corpus");
 const MANIFEST = path.join(CORPUS_DIR, "manifest.json");
@@ -134,6 +136,8 @@ async function fetchOne(
   } else {
 
   try {
+    // CanLII content is never fetched (CanLII Terms s. 5.1; test:canlii).
+    refuseCanliiContent(source.url);
     const response = await fetch(source.url, {
       headers: {
         // e-Laws and ontariocourtforms both serve a plain agent fine; this is

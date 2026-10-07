@@ -29,6 +29,8 @@ import path from "node:path";
 
 import { PDFDocument, PDFName } from "pdf-lib";
 
+import { refuseCanliiContent } from "../../src/lib/canlii/canliiCore";
+
 type Official = { court: string; number: string; title: string; date: string; pdf: string | null; docx: string | null };
 
 type PdfProbe = {
@@ -57,6 +59,8 @@ const LINKS = path.join(ROOT, "src", "lib", "content-library", "forms", "officia
 const UA = { "User-Agent": "CourtSimplified form probe (contact@courtsimplified.com)" };
 
 async function download(url: string): Promise<Buffer> {
+  // CanLII content is never fetched (CanLII Terms s. 5.1; test:canlii).
+  refuseCanliiContent(url);
   const response = await fetch(url, { headers: UA });
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   return Buffer.from(await response.arrayBuffer());

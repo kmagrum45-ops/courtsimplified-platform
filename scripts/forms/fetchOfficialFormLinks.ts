@@ -25,6 +25,8 @@ import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
+import { refuseCanliiContent } from "../../src/lib/canlii/canliiCore";
+
 type Court = "small-claims" | "civil" | "family";
 
 const PAGES: { court: Court; url: string }[] = [
@@ -96,6 +98,8 @@ async function main(): Promise<void> {
 
   for (const { court, url } of PAGES) {
     try {
+      // CanLII content is never fetched (CanLII Terms s. 5.1; test:canlii).
+      refuseCanliiContent(url);
       const response = await fetch(url, { headers: { "User-Agent": "CourtSimplified form check (contact@courtsimplified.com)" } });
       if (!response.ok) {
         problems.push(`${url}: HTTP ${response.status}`);

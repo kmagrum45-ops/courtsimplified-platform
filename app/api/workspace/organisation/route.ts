@@ -31,6 +31,8 @@
  */
 
 import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
+import { decisionAttribution } from "@/src/lib/case-workspace/courtDecision";
+import { COURT_DECISION_TYPE, decisionDetailsFor } from "@/src/lib/case-workspace/courtDecisionStore";
 import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -197,7 +199,17 @@ export async function GET(req: NextRequest) {
       return refuse(500, "CourtSimplified could not load this case.");
     }
 
-    const documents = (documentRows ?? []) as unknown as DocumentRow[];
+    const allDocuments = (documentRows ?? []) as unknown as DocumentRow[];
+
+    /*
+     * Court decisions the person downloaded from CanLII (2026-10-07) are kept
+     * with the case but are not part of its story: a decision's date is not an
+     * event in the person's chronology, and a decision is not their evidence to
+     * number as an exhibit. So they are listed on their own, with "Source:
+     * CanLII" (courtDecision.ts), and left out of every other view.
+     */
+    const decisionRows = allDocuments.filter((row) => row.user_type === COURT_DECISION_TYPE);
+    const documents = allDocuments.filter((row) => row.user_type !== COURT_DECISION_TYPE);
 
     // ---- documents: the table, with its "Date needed" group ----
 
@@ -251,10 +263,38 @@ export async function GET(req: NextRequest) {
         };
       };
 
+      // Read apart from the main select; empty until migration 20261007090000
+      // is applied, and the decisions still list with "Source: CanLII".
+      const details = await decisionDetailsFor(supabase, user.id, decisionRows);
+      const decisions = decisionRows.map((row) => {
+        const decision = details.get(row.id) ?? {};
+        return {
+          id: row.id,
+          exhibitNumber: null,
+          exhibitSuffix: null,
+          originalName: row.original_name,
+          label: row.user_label,
+          type: row.user_type,
+          date: null,
+          datePrecision: "day" as const,
+          displayDate: null,
+          dateConfirmedByUser: false,
+          extractionStatus: row.extraction_status,
+          extractionNotice: row.extraction_notice,
+          parties: [],
+          amount: null,
+          notes: row.notes,
+          ambiguity: null,
+          decision,
+          attribution: decisionAttribution(decision),
+        };
+      });
+
       return NextResponse.json({
         success: true,
         view,
         documentTypes: DOCUMENT_TYPES,
+        decisions,
         dated: dated.map((entry) => shape(entry.id)).filter(Boolean),
         /*
          * A named group rather than a null date sorted to the bottom. A document with
@@ -263,7 +303,8 @@ export async function GET(req: NextRequest) {
          */
         dateNeeded: undated.map((entry) => shape(entry.id)).filter(Boolean),
         counts: {
-          total: documents.length,
+          total: allDocuments.length,
+          decisions: decisions.length,
           dated: dated.length,
           dateNeeded: undated.length,
         },

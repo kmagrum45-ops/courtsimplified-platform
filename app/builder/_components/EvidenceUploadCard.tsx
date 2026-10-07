@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 
 import { supabase } from "../../../src/lib/supabase/client";
+import { COURT_DECISION_TYPE, DECISION_CAUTION, DECISION_SEARCH_HELP } from "../../../src/lib/case-workspace/courtDecision";
 
 /**
  * "Add your documents and photos" on the case summary.
@@ -47,7 +48,8 @@ async function headBase64(file: File): Promise<string> {
   return btoa(binary);
 }
 
-async function uploadOne(caseId: string, file: File): Promise<void> {
+/** Uploads one file to the case. Returns the new document's id. */
+async function uploadOne(caseId: string, file: File): Promise<string> {
   const headers = { "Content-Type": "application/json", ...(await authHeader()) };
 
   const start = await fetch("/api/workspace/documents/upload-url", {
@@ -87,6 +89,24 @@ async function uploadOne(caseId: string, file: File): Promise<void> {
   if (!register.ok || registered.success === false) {
     throw new Error(registered.detail || registered.error || "That file could not be saved.");
   }
+  return String(started.documentId);
+}
+
+/**
+ * Marks an uploaded file as a court decision from CanLII (2026-10-07), through
+ * the same PATCH every document type goes through. Before the database update
+ * that adds the type, the file stays saved as an ordinary document and the
+ * person is told so.
+ */
+async function markAsDecision(documentId: string): Promise<string | null> {
+  const response = await fetch("/api/workspace/documents", {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json", ...(await authHeader()) },
+    body: JSON.stringify({ documentId, userType: COURT_DECISION_TYPE }),
+  }).catch(() => null);
+  if (response?.ok) return null;
+  const body = response ? await response.json().catch(() => ({})) : {};
+  return [body.error, body.detail].filter(Boolean).join(" ") || "It was saved, but could not be marked as a court decision.";
 }
 
 export default function EvidenceUploadCard({
@@ -101,8 +121,38 @@ export default function EvidenceUploadCard({
   showDocumentsLink?: boolean;
 }) {
   const input = useRef<HTMLInputElement>(null);
+  const decisionInput = useRef<HTMLInputElement>(null);
   const [rows, setRows] = useState<UploadRow[]>([]);
   const [busy, setBusy] = useState(false);
+
+  /** One decision at a time, from a file the person downloaded for their own case. */
+  async function handleDecision(files: FileList | null) {
+    const file = files?.[0];
+    if (!caseId || !file) return;
+    setBusy(true);
+    setRows((current) => [{ name: file.name, state: "uploading" as const }, ...current]);
+    try {
+      const documentId = await uploadOne(caseId, file);
+      const problem = await markAsDecision(documentId);
+      setRows((current) =>
+        current.map((row) =>
+          row.name === file.name && row.state === "uploading"
+            ? problem
+              ? { ...row, state: "failed", message: problem }
+              : { ...row, state: "done", message: "added as a court decision" }
+            : row,
+        ),
+      );
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "That file could not be uploaded.";
+      setRows((current) =>
+        current.map((row) => (row.name === file.name && row.state === "uploading" ? { ...row, state: "failed", message } : row)),
+      );
+    }
+    setBusy(false);
+    if (decisionInput.current) decisionInput.current.value = "";
+    onUploaded?.();
+  }
 
   async function handleFiles(files: FileList | null) {
     if (!caseId || !files || files.length === 0) return;
@@ -163,12 +213,41 @@ export default function EvidenceUploadCard({
                 <li key={`${row.name}-${index}`} className="rounded-xl border border-[#d8e6df] px-3 py-2">
                   <span className="font-semibold text-[#16302b]">{row.name}</span>{" "}
                   <span className={row.state === "failed" ? "text-[#a63b3b]" : "text-[#4d675f]"}>
-                    {row.state === "uploading" ? "uploading…" : row.state === "done" ? "added" : row.message}
+                    {row.state === "uploading" ? "uploading…" : row.state === "done" ? row.message || "added" : row.message}
                   </span>
                 </li>
               ))}
             </ul>
           ) : null}
+          {/*
+            A court decision the person downloaded from CanLII for their own
+            case (2026-10-07). One file at a time, never a batch: CanLII's Terms
+            (s. 5.1) forbid systematic downloading, and nothing here invites it.
+          */}
+          <div className="mt-5 border-t border-[#e8efec] pt-4">
+            <h3 className="text-sm font-semibold text-[#10231f]">Add a court decision from CanLII</h3>
+            <p className="mt-1 text-sm text-[#4d675f]">
+              If you found a decision on CanLII that you want to read for your case, download it there and add it
+              here. It stays private in this case and is always shown with &ldquo;Source: CanLII&rdquo;.
+            </p>
+            <p className="mt-1 text-xs leading-5 text-[#6b8078]">{DECISION_SEARCH_HELP}</p>
+            <p className="mt-1 text-xs leading-5 text-[#7a5418]">{DECISION_CAUTION}</p>
+            <input
+              ref={decisionInput}
+              type="file"
+              accept=".pdf,.doc,.docx,.rtf,.txt,application/pdf,text/plain"
+              className="hidden"
+              onChange={(event) => void handleDecision(event.target.files)}
+            />
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => decisionInput.current?.click()}
+              className="mt-3 rounded-xl border border-[#2f7d67] px-4 py-2 text-sm font-semibold text-[#2f7d67] disabled:opacity-50"
+            >
+              Choose a court decision
+            </button>
+          </div>
           {showDocumentsLink ? (
             <a
               href={`/cases/${encodeURIComponent(caseId)}/documents`}

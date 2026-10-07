@@ -38,6 +38,7 @@
  */
 
 import { CLAIM_TYPES, DEFENCE_CONCEPTS, type ClaimType } from "../intake/claimTypes";
+import { MIN_QUOTE_CHARS, normalizeQuoteText, quoteAppearsIn } from "./quoteMatch";
 import { CIVIL_CLAIM_TYPES } from "../intake/civilClaimTypes";
 import { FAMILY_MATTER_TYPES } from "../intake/familyMatterTypes";
 import { renderableProfiles } from "../claim-types/catalogue";
@@ -366,13 +367,8 @@ export function hasLegalContent(text: string): boolean {
   return LEGAL_SIGNAL.test(text);
 }
 
-function normalize(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[‘’“”"'`]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
+// The quote check is shared with uploaded court decisions (quoteMatch.ts).
+const normalize = normalizeQuoteText;
 
 export type GroundedItem = { sourceIds?: unknown; quote?: unknown; kind?: unknown };
 
@@ -393,9 +389,9 @@ export function checkCitation(
   if (ids.length === 0) return { reason: "no source cited" };
   const known = ids.map((id) => pack.byId.get(id)).filter((source): source is SourceItem => Boolean(source));
   if (known.length === 0) return { reason: `cited source not in the verified pack (${ids.join(", ")})` };
-  const quote = typeof item.quote === "string" ? normalize(item.quote) : "";
-  if (quote.length < 15) return { reason: "no quote from the cited source" };
-  const match = known.find((source) => normalize(source.text).includes(quote));
+  const quote = typeof item.quote === "string" ? item.quote : "";
+  if (normalize(quote).length < MIN_QUOTE_CHARS) return { reason: "no quote from the cited source" };
+  const match = known.find((source) => quoteAppearsIn(quote, source.text));
   if (!match) return { reason: "quote does not appear in the cited source" };
   return { source: match };
 }

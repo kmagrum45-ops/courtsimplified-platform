@@ -1,6 +1,7 @@
 import type { AppliedLawItem } from "@/src/lib/case-system/intelligence/intelligenceTypes";
 import { publicSourceUrl } from "@/src/lib/content-library/publicSourceUrl";
 
+import CanliiCaseInfo from "./CanliiCaseInfo";
 import ExplainProvision from "./ExplainProvision";
 
 /**
@@ -40,6 +41,7 @@ export default function AppliedLawPanel({ items }: { items: readonly AppliedLawI
                   that may have changed it.
                 </p>
               ) : null}
+              {item.kind === "decision" && item.citation ? <CanliiCaseInfo citation={item.citation} /> : null}
               {item.text.length > 320 ? (
                 <details className="mt-1 text-sm text-[#24463d]">
                   <summary className="cursor-pointer">

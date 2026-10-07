@@ -44,6 +44,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { supabase } from "../../../src/lib/supabase/client";
 import { VerifiedServingPanel } from "../../../src/components/case-workspace/VerifiedServingPanel";
 import { DOCUMENT_TYPES } from "../../../src/lib/case-workspace/documentTypes";
+import { COURT_DECISION_TYPE, type DecisionDetails } from "../../../src/lib/case-workspace/courtDecision";
+import CourtDecisionPanel, { DecisionAttribution } from "./CourtDecisionPanel";
 
 // ---------------------------------------------------------------------------
 // The left nav. Order follows the work: gather, order, produce.
@@ -81,6 +83,8 @@ type DocumentView = {
   amount: string | null;
   notes: string | null;
   ambiguity: Ambiguity | null;
+  /** Only on a court decision from CanLII (2026-10-07): the details for its "Source: CanLII" line. */
+  decision?: DecisionDetails | null;
 };
 
 type TimelineItem = {
@@ -144,6 +148,7 @@ export default function CaseWorkspace({
 
   const [dated, setDated] = useState<DocumentView[]>([]);
   const [dateNeeded, setDateNeeded] = useState<DocumentView[]>([]);
+  const [decisions, setDecisions] = useState<DocumentView[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const [timeline, setTimeline] = useState<TimelineItem[]>([]);
@@ -177,6 +182,7 @@ export default function CaseWorkspace({
         if (view === "documents") {
           setDated(payload.dated ?? []);
           setDateNeeded(payload.dateNeeded ?? []);
+          setDecisions(payload.decisions ?? []);
         } else if (view === "timeline") {
           setTimeline(payload.items ?? []);
         } else if (view === "communications") {
@@ -198,23 +204,31 @@ export default function CaseWorkspace({
     void load(view);
   }, [section, load, refreshKey]);
 
-  const allDocuments = useMemo(() => [...dated, ...dateNeeded], [dated, dateNeeded]);
+  const allDocuments = useMemo(() => [...dated, ...dateNeeded, ...decisions], [dated, dateNeeded, decisions]);
   const selected = useMemo(
     () => allDocuments.find((document) => document.id === selectedId) ?? null,
     [allDocuments, selectedId],
   );
 
-  /** Confirms a change. The only path that writes what a document is. */
+  /**
+   * Confirms a change. The only path that writes what a document is. Returns
+   * what went wrong, in words the person can read, or null when it saved.
+   */
   const save = useCallback(
-    async (documentId: string, change: Record<string, unknown>) => {
+    async (documentId: string, change: Record<string, unknown>): Promise<string | null> => {
       const headers = await authHeaders();
-      if (!headers) return;
+      if (!headers) return "Please sign in again.";
       const response = await fetch("/api/workspace/documents", {
         method: "PATCH",
         headers,
         body: JSON.stringify({ documentId, ...change }),
-      });
-      if (response.ok) await load("documents");
+      }).catch(() => null);
+      if (response?.ok) {
+        await load("documents");
+        return null;
+      }
+      const payload = response ? await response.json().catch(() => null) : null;
+      return [payload?.error, payload?.detail].filter(Boolean).join(" ") || "That was not saved. Please try again.";
     },
     [load],
   );
@@ -262,6 +276,7 @@ export default function CaseWorkspace({
             <DocumentsTable
               dated={dated}
               dateNeeded={dateNeeded}
+              decisions={decisions}
               selectedId={selectedId}
               onSelect={setSelectedId}
               onConfirmDate={(id, iso) => void save(id, { userDate: iso, userDatePrecision: "day" })}
@@ -420,12 +435,14 @@ function DocumentRow({
 function DocumentsTable({
   dated,
   dateNeeded,
+  decisions,
   selectedId,
   onSelect,
   onConfirmDate,
 }: {
   dated: DocumentView[];
   dateNeeded: DocumentView[];
+  decisions: DocumentView[];
   selectedId: string | null;
   onSelect: (id: string) => void;
   onConfirmDate: (id: string, iso: string) => void;
@@ -498,10 +515,43 @@ function DocumentsTable({
         </tbody>
       </table>
 
-      {dated.length === 0 && dateNeeded.length === 0 ? (
+      {dated.length === 0 && dateNeeded.length === 0 && decisions.length === 0 ? (
         <p className="mt-4 text-sm text-[#6b8078]">
           No documents yet. Anything you upload will appear here.
         </p>
+      ) : null}
+
+      {/*
+        Court decisions the person saved from CanLII for their own research
+        (2026-10-07). Listed apart from the evidence: a decision is not part of
+        what happened in their case, so it has no exhibit number and no place in
+        the timeline. Each shows "Source: CanLII" (CanLII Terms s. 4.2).
+      */}
+      {decisions.length > 0 ? (
+        <div data-testid="court-decisions" className="mt-6">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-[#4c615b]">
+            Court decisions you saved for your research
+          </h3>
+          <ul className="mt-2 space-y-2">
+            {decisions.map((document) => (
+              <li key={document.id}>
+                <button
+                  type="button"
+                  onClick={() => onSelect(document.id)}
+                  aria-current={document.id === selectedId ? "true" : undefined}
+                  className={`w-full rounded-2xl border px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2FB8AC] ${
+                    document.id === selectedId ? "border-[#2f7d67] bg-[#f1f8f6]" : "border-[#e8efec] hover:bg-[#fafcfb]"
+                  }`}
+                >
+                  <span className="block font-semibold">
+                    {document.decision?.caseName?.trim() || document.label?.trim() || document.originalName}
+                  </span>
+                  <DecisionAttribution details={document.decision} />
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : null}
     </section>
   );
@@ -527,7 +577,7 @@ function DetailPanel({
   onSave,
 }: {
   document: DocumentView | null;
-  onSave: (id: string, change: Record<string, unknown>) => Promise<void>;
+  onSave: (id: string, change: Record<string, unknown>) => Promise<string | null>;
 }) {
   const [editing, setEditing] = useState(false);
   const [draftDate, setDraftDate] = useState("");
@@ -550,6 +600,30 @@ function DetailPanel({
         <p className="text-sm text-[#6b8078]">
           Choose a document to see what CourtSimplified read from it.
         </p>
+      </aside>
+    );
+  }
+
+  if (document.type === COURT_DECISION_TYPE) {
+    return (
+      <aside
+        aria-label={`Details for ${document.decision?.caseName?.trim() || document.label?.trim() || document.originalName}`}
+        className="w-full shrink-0 rounded-3xl border border-[#d8e6df] bg-white p-5 shadow-sm lg:w-80"
+      >
+        <h2 className="font-semibold text-[#10231f]">
+          {document.decision?.caseName?.trim() || document.label?.trim() || document.originalName}
+        </h2>
+        <p className="mt-1 text-xs text-[#6b8078]">
+          A court decision you saved from CanLII. Only you can see it, in this case.
+        </p>
+        <CourtDecisionPanel documentId={document.id} details={document.decision} onSave={onSave} />
+        <button
+          type="button"
+          onClick={() => void onSave(document.id, { userType: null })}
+          className="mt-3 text-xs text-[#4c615b] underline hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2FB8AC]"
+        >
+          This is not a court decision
+        </button>
       </aside>
     );
   }

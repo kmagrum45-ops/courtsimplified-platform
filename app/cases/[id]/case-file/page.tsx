@@ -16,6 +16,8 @@
  */
 
 import { useEffect, useState } from "react";
+import { DecisionAttribution, DecisionCaution } from "@/app/cases/_components/CourtDecisionPanel";
+import type { DecisionDetails } from "@/src/lib/case-workspace/courtDecision";
 
 import { getStageLabel } from "../../../builder/_components/builderTypes";
 import { readCaseDrafts } from "@/src/lib/case-system/drafts/caseDrafts";
@@ -42,6 +44,14 @@ type DocumentRow = {
   dateConfirmedByUser: boolean;
 };
 
+/** A court decision saved from CanLII (2026-10-07): listed apart, with "Source: CanLII". */
+type DecisionRow = {
+  id: string;
+  originalName: string;
+  label: string | null;
+  decision: DecisionDetails | null;
+};
+
 type TimelineItem = {
   displayDate: string;
   title: string;
@@ -64,6 +74,7 @@ export default function CaseFileSection() {
 
   const [events, setEvents] = useState<EventRow[] | null>(null);
   const [documents, setDocuments] = useState<DocumentRow[] | null>(null);
+  const [decisions, setDecisions] = useState<DecisionRow[]>([]);
   const [deadlines, setDeadlines] = useState<TimelineItem[] | null>(null);
   // Civil and family: the step's deadline section counted from the dates the
   // user gave on the Overview (page review, 2026-10-06: the printed file said
@@ -102,6 +113,7 @@ export default function CaseFileSection() {
       ]);
       setEvents((eventsBody?.events ?? []) as EventRow[]);
       setDocuments([...((documentsBody?.dated ?? []) as DocumentRow[]), ...((documentsBody?.dateNeeded ?? []) as DocumentRow[])]);
+      setDecisions((documentsBody?.decisions ?? []) as DecisionRow[]);
       setDeadlines(((timelineBody?.items ?? []) as TimelineItem[]).filter((item) => item.source.kind === "computed"));
     })();
   }, [caseRecord.id]);
@@ -213,6 +225,20 @@ export default function CaseFileSection() {
             <p>No documents saved yet.</p>
           )}
         </FileSection>
+
+        {decisions.length ? (
+          <FileSection title="Court decisions you saved for your research">
+            <ul className="space-y-2">
+              {decisions.map((item) => (
+                <li key={item.id}>
+                  <span className="block">{item.decision?.caseName?.trim() || item.label?.trim() || item.originalName}</span>
+                  <DecisionAttribution details={item.decision} />
+                </li>
+              ))}
+            </ul>
+            <DecisionCaution />
+          </FileSection>
+        ) : null}
 
         <FileSection title="Your drafts">
           {drafts.length ? (
