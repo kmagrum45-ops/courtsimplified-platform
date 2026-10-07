@@ -1,4 +1,789 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "sc-claim-short-term-rental-dispute|plaintiffElement|stay-was-vacation-or-temporary-accommodation",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c22d642c0f12b9fafeeaa5f6061b7c47e35b711bad5a1fe2634243738510e1fe",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 5 (a)",
+          "quote": "This Act does not apply with respect to, (a) living accommodation intended to be provided to the travelling or vacationing public or occupied for a seasonal or temporary period in a hotel, motel or motor hotel, resort, lodge, tourist camp, cottage or cabin establishment, inn, campground, trailer park, tourist home, bed and breakfast vacation establishment or vacation home;"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-short-term-rental-dispute|plaintiffElement|short-stay-money-owed",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d13249f02188157ef838a980c36ef66410a6ddf2c931e7ca0fa5be72ad96b444",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1 (1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-short-term-rental-dispute|plaintiffElement|burden-of-proof-short-stay",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "802c71791cec34bc862268d3c151afa27bbd294284ba5f0a6adc54a96bf681c1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Burden of proof",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/scj-steps-to-a-civil-case.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-short-term-rental-dispute|defendantConsideration|short-stay-set-off",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7abc479afd0934d48883c9cd229e48de28bff5e12ab721ac19d85615858fc49f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 111 (1)",
+          "quote": "In an action for payment of a debt, the defendant may, by way of defence, claim the right to set off against the plaintiff's claim a debt owed by the plaintiff to the defendant."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-short-term-rental-dispute|proceduralNote|sc-claim-short-term-rental-dispute#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "db01e566abd6bc9af035364d5673a3879285356f5e2e3b3ad68efae890083ed1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 168 (2)",
+          "quote": "The Board has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 5 (a)",
+          "quote": "This Act does not apply with respect to, (a) living accommodation intended to be provided to the travelling or vacationing public or occupied for a seasonal or temporary period in a hotel, motel or motor hotel, resort, lodge, tourist camp, cottage or cabin establishment, inn, campground, trailer park, tourist home, bed and breakfast vacation establishment or vacation home;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1 (1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt, docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-short-term-rental-dispute|proceduralNote|sc-claim-short-term-rental-dispute#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "faabe8cafb7c9750735d8a94c7fa11a275a9b1a4fb7e4905d0b113612fdebaab",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-rooming-or-boarding-house|plaintiffElement|room-is-a-rental-unit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45d5dd14f595a06bf3dc4c5c8cfe1524c1543b9ccf046e5918f46028e70d8666",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 2 (1) \"rental unit\"",
+          "quote": "\"rental unit\" means any living accommodation used or intended for use as rented residential premises, and \"rental unit\" includes, (a) a site for a mobile home or site on which there is a land lease home used or intended for use as rented residential premises, and (b) a room in a boarding house, rooming house or lodging house and a unit in a care home;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 5 (i)",
+          "quote": "This Act does not apply with respect to, ... living accommodation whose occupant or occupants are required to share a bathroom or kitchen facility with the owner, the owner's spouse, child or parent or the spouse's child or parent, and where the owner, spouse, child or parent lives in the building in which the living accommodation is located;"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-rooming-or-boarding-house|plaintiffElement|rooming-house-landlord-obligations",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8fcabee5101b8516dd142dd1b3e4a96bf9102fb8504acf2cc5be5647e9bf0032",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 20 (1)",
+          "quote": "A landlord is responsible for providing and maintaining a residential complex, including the rental units in it, in a good state of repair and fit for habitation"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 29 (1)",
+          "quote": "A tenant or former tenant of a rental unit may apply to the Board for any of the following orders: 1. An order determining that the landlord has breached an obligation under subsection 20 (1) or section 161. 2. An order determining that the landlord, superintendent or agent of the landlord has withheld the reasonable supply of any vital service, care service or food that it is the landlord's obligation to supply under the tenancy agreement or deliberately interfered with the reasonable supply of any vital service, care service or food. 3. An order determining that the landlord, superintendent or agent of the landlord has substantially interfered with the reasonable enjoyment of the rental unit or residential complex for all usual purposes by the tenant or a member of his or her household. 4. An order determining that the landlord, superintendent or agent of the landlord has harassed, obstructed, coerced, threatened or interfered with the tenant during the tenant's occupancy of the rental unit. 5. An order determining that the landlord, superintendent or agent of the landlord has altered the locking system on a door giving entry to the rental unit or the residential complex or caused the locking system to be altered during the tenant's occupancy of the rental unit without giving the tenant replacement keys. 6. An order determining that the landlord, superintendent or agent of the landlord has illegally entered the rental unit."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-rooming-or-boarding-house|plaintiffElement|rooming-house-money-collected",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f9f003052651b64b98feabad20831b1f561c2e2a87c0591a744d02755c0e3c2e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 135 (1)",
+          "quote": "A tenant or former tenant of a rental unit may apply to the Board for an order that the landlord, superintendent or agent of the landlord pay to the tenant any money the person collected or retained in contravention of this Act or the Tenant Protection Act, 1997."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 105 (1)",
+          "quote": "The only security deposit that a landlord may collect is a rent deposit collected in accordance with section 106."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 106 (2)",
+          "quote": "The amount of a rent deposit shall not be more than the lesser of the amount of rent for one rent period and the amount of rent for one month."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-rooming-or-boarding-house|defendantConsideration|rooming-house-duty-to-minimize-losses",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bc28db721fdbf4462fff9f8f672fbf5ac7342e8e2472a2b200b470a8085b4279",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 16",
+          "quote": "When a landlord or a tenant becomes liable to pay any amount as a result of a breach of a tenancy agreement, the person entitled to claim the amount has a duty to take reasonable steps to minimize the person's losses."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-rooming-or-boarding-house|defendantConsideration|rooming-house-set-off",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6627fcc4d655dfcece2c9a4d189435adb75a92c83c7de799f37036b086a42acc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 111 (1)",
+          "quote": "In an action for payment of a debt, the defendant may, by way of defence, claim the right to set off against the plaintiff's claim a debt owed by the plaintiff to the defendant."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-rooming-or-boarding-house|proceduralNote|sc-claim-rooming-or-boarding-house#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "be9db09cf3695c976152d0f602c5da69ae1fd28a2c9f023b67d8126a9c342c85",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 168 (2)",
+          "quote": "The Board has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 207 (1)",
+          "quote": "The Board may, where it otherwise has the jurisdiction, order the payment to any given person of an amount of money up to the greater of $10,000 and the monetary jurisdiction of the Small Claims Court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 5 (i)",
+          "quote": "This Act does not apply with respect to, ... living accommodation whose occupant or occupants are required to share a bathroom or kitchen facility with the owner, the owner's spouse, child or parent or the spouse's child or parent, and where the owner, spouse, child or parent lives in the building in which the living accommodation is located;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1 (1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt, docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-rooming-or-boarding-house|proceduralNote|sc-claim-rooming-or-boarding-house#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d879814474109ae2acef68adece36f69650524942bb9a70c18bc67018be56d32",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 29 (2)",
+          "quote": "No application may be made under subsection (1) more than one year after the day the alleged conduct giving rise to the application occurred."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 135 (4)",
+          "quote": "No order shall be made under this section with respect to an application filed more than one year after the person collected or retained money in contravention of this Act or the Tenant Protection Act, 1997."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-rooming-or-boarding-house|proceduralNote|sc-claim-rooming-or-boarding-house#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "83dc2050ce2f74aa3a0b052ce224551a1ac001da14de114af56077f7abaef4c9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-student-residence|plaintiffElement|residence-exempt-or-covered",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "15117bc31dc95f3ba2064b80ebeea0648f616aa3c3b20b0834cf52d70e0146a6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 5 (g)",
+          "quote": "(g) living accommodation provided by an educational institution to its students or staff where, (i) the living accommodation is provided primarily to persons under the age of majority, or all major questions related to the living accommodation are decided after consultation with a council or association representing the residents, and (ii) the living accommodation does not have its own self-contained bathroom and kitchen facilities or is not intended for year-round occupancy by full-time students or staff and members of their households;"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-student-residence|plaintiffElement|student-housing-money-owed",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "24231091e203309d6d5c2afb8af266d9fdc464cd227f1136da56868d4a4cec3c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1 (1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-student-residence|plaintiffElement|student-housing-covered-by-act",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "597e3dfa4b25c810efcde730368585aa2a8f94d90e2041474edadad351d17953",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 29 (1)",
+          "quote": "A tenant or former tenant of a rental unit may apply to the Board for any of the following orders: 1. An order determining that the landlord has breached an obligation under subsection 20 (1) or section 161. 2. An order determining that the landlord, superintendent or agent of the landlord has withheld the reasonable supply of any vital service, care service or food that it is the landlord's obligation to supply under the tenancy agreement or deliberately interfered with the reasonable supply of any vital service, care service or food. 3. An order determining that the landlord, superintendent or agent of the landlord has substantially interfered with the reasonable enjoyment of the rental unit or residential complex for all usual purposes by the tenant or a member of his or her household. 4. An order determining that the landlord, superintendent or agent of the landlord has harassed, obstructed, coerced, threatened or interfered with the tenant during the tenant's occupancy of the rental unit. 5. An order determining that the landlord, superintendent or agent of the landlord has altered the locking system on a door giving entry to the rental unit or the residential complex or caused the locking system to be altered during the tenant's occupancy of the rental unit without giving the tenant replacement keys. 6. An order determining that the landlord, superintendent or agent of the landlord has illegally entered the rental unit."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 20 (1)",
+          "quote": "A landlord is responsible for providing and maintaining a residential complex, including the rental units in it, in a good state of repair and fit for habitation"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 135 (1)",
+          "quote": "A tenant or former tenant of a rental unit may apply to the Board for an order that the landlord, superintendent or agent of the landlord pay to the tenant any money the person collected or retained in contravention of this Act or the Tenant Protection Act, 1997."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-student-residence|defendantConsideration|student-housing-set-off",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "850ea5f5525bbeb25153841101d0947474a6ffa05f4c07a3d29bd15d234c3adc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 111 (1)",
+          "quote": "In an action for payment of a debt, the defendant may, by way of defence, claim the right to set off against the plaintiff's claim a debt owed by the plaintiff to the defendant."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-student-residence|proceduralNote|sc-claim-student-residence#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "938cb4d74125fef74af880436b7026e1ba09356bd6a1d7523ea692e960a1ce10",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 168 (2)",
+          "quote": "The Board has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 5 (g)",
+          "quote": "(g) living accommodation provided by an educational institution to its students or staff where, (i) the living accommodation is provided primarily to persons under the age of majority, or all major questions related to the living accommodation are decided after consultation with a council or association representing the residents, and (ii) the living accommodation does not have its own self-contained bathroom and kitchen facilities or is not intended for year-round occupancy by full-time students or staff and members of their households;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-student-residence|proceduralNote|sc-claim-student-residence#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ead7a599358be31b7d3c98ab632b618fb0f7d722256677e46de403b1e663effc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 29 (2)",
+          "quote": "No application may be made under subsection (1) more than one year after the day the alleged conduct giving rise to the application occurred."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 135 (4)",
+          "quote": "No order shall be made under this section with respect to an application filed more than one year after the person collected or retained money in contravention of this Act or the Tenant Protection Act, 1997."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt, docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-mobile-home-park|plaintiffElement|rented-site-is-a-rental-unit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6e26b0aaa9aca4c1bfba81959425182ee63689cc147014118b2dd34b7430da9e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 2 (4)",
+          "quote": "A rented site for a mobile home or a land lease home is a rental unit for the purposes of this Act even if the mobile home or the land lease home on the site is owned by the tenant of the site."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 152",
+          "quote": "This Part applies with respect to tenancies in mobile home parks. ... This Part applies with necessary modifications with respect to tenancies in land lease communities, as if the tenancies were in mobile home parks."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 3 (3)",
+          "quote": "In interpreting a provision of this Act with regard to a mobile home park or a land lease community, if a provision in Part X conflicts with a provision in another Part of this Act, the provision in Part X applies."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-mobile-home-park|plaintiffElement|park-landlord-responsibilities",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1c6b1f7cb2051eb53bd5405cee0c092d75475d0ed10354446352c730c2d50ca7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 161",
+          "quote": "In addition to a landlord's obligations under section 20, a landlord is responsible for, (a) removing or disposing of garbage or ensuring the availability of a means for removing or disposing of garbage in the mobile home park at reasonable intervals; (b) maintaining mobile home park roads in a good state of repair; (c) removing snow from mobile home park roads; (d) maintaining the water supply, sewage disposal, fuel, drainage and electrical systems in the mobile home park in a good state of repair; (e) maintaining the mobile home park grounds and all buildings, structures, enclosures and equipment intended for the common use of tenants in a good state of repair; and (f) repairing damage to a tenant's property, if the damage is caused by the wilful or negligent conduct of the landlord."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 29 (1), para. 1",
+          "quote": "A tenant or former tenant of a rental unit may apply to the Board for any of the following orders: 1. An order determining that the landlord has breached an obligation under subsection 20 (1) or section 161."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-mobile-home-park|plaintiffElement|park-charges-limited",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a08026a8a9240e7e92da75a0f28fd5ecda5286f47137ac33d98fa29442c9c7cd",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 166",
+          "quote": "A landlord shall not charge for any of the following matters, except to the extent of the landlord's reasonable out-of-pocket expenses incurred with regard to those matters: 1. The entry of a mobile home into a mobile home park. 2. The exit of a mobile home from a mobile home park. 3. The installation of a mobile home in a mobile home park. 4. The removal of a mobile home from a mobile home park. 5. The testing of water or sewage in a mobile home park."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 135 (1)",
+          "quote": "A tenant or former tenant of a rental unit may apply to the Board for an order that the landlord, superintendent or agent of the landlord pay to the tenant any money the person collected or retained in contravention of this Act or the Tenant Protection Act, 1997."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-mobile-home-park|defendantConsideration|park-equipment-standards",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "92f9a21bbcba3046398870665654146f6b57b0abd317dc26fc03dedbeb3fcbd8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 160",
+          "quote": "A landlord shall not restrict the right of a tenant to purchase goods or services from the person of his or her choice, except as provided in subsection (2). ... A landlord may set reasonable standards for mobile home equipment."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-mobile-home-park|defendantConsideration|park-duty-to-minimize-losses",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8dce3b2890814dd5b61fcb2e8ad9d59fef195f0b4beae431d8a5ff7a60751d48",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 16",
+          "quote": "When a landlord or a tenant becomes liable to pay any amount as a result of a breach of a tenancy agreement, the person entitled to claim the amount has a duty to take reasonable steps to minimize the person's losses."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-mobile-home-park|proceduralNote|sc-claim-mobile-home-park#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "94445c72db7c1878cca609115c0c14acb87db9ad7d8af62d4d1ff2d63f99897e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 168 (2)",
+          "quote": "The Board has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 207 (1)",
+          "quote": "The Board may, where it otherwise has the jurisdiction, order the payment to any given person of an amount of money up to the greater of $10,000 and the monetary jurisdiction of the Small Claims Court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 207 (2)",
+          "quote": "A person entitled to apply under this Act but whose claim exceeds the Board's monetary jurisdiction may commence a proceeding in any court of competent jurisdiction for an order requiring the payment of that sum"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-mobile-home-park|proceduralNote|sc-claim-mobile-home-park#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d879814474109ae2acef68adece36f69650524942bb9a70c18bc67018be56d32",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 29 (2)",
+          "quote": "No application may be made under subsection (1) more than one year after the day the alleged conduct giving rise to the application occurred."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 135 (4)",
+          "quote": "No order shall be made under this section with respect to an application filed more than one year after the person collected or retained money in contravention of this Act or the Tenant Protection Act, 1997."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-mobile-home-park|proceduralNote|sc-claim-mobile-home-park#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "eb659a415f9524389e1804d814c63b6a7030d12755eee00d2f8281aba3979929",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06r17_e.doc",
+          "pinpoint": "s. 162 (2), (4)",
+          "quote": "The landlord shall not dispose of a mobile home without first notifying the tenant of the landlord's intention to do so, (a) by registered mail, sent to the tenant's last known mailing address; and (b) by causing a notice to be published in a newspaper having general circulation in the locality in which the mobile home park is located. ... If, within six months after the day the notices have been given under subsection (2), the tenant makes a claim for a mobile home which the landlord has already sold, the landlord shall pay to the tenant the amount by which the proceeds of sale exceed the sum of, (a) the landlord's reasonable out-of-pocket expenses incurred with respect to the mobile home; and (b) any arrears of rent of the tenant."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/residential-tenancies-act-2006.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-home-purchase-closing-dispute|plaintiffElement|the-agreement-and-who-did-not-close",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7497a36861ed86aa2bd370b0ed27b465bf71b9f8d8866b8f4cded66198bc4dfb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Burden of proof",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/scj-steps-to-a-civil-case.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-home-purchase-closing-dispute|plaintiffElement|deposit-retained-on-failure-to-close",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "407293fa79fe3547565f9f1f1541d62c4233cb36ae2e7f05f4fec9b848bba651",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jesan-real-estate-v-doyle-2020-ONCA-714.txt",
+          "pinpoint": "para. 54",
+          "quote": "When a purchaser fails to close an agreement of purchase and sale, the vendor is entitled to retain the deposit regardless of whether he or she suffers a loss, subject to the court's ability to grant relief from forfeiture ... Section 98 of the Courts of Justice Act, R.S.O. 1990, c. C.43, provides that: ... court may grant relief against penalties and forfeitures, on such terms as to compensation or otherwise as are considered just. ... 1) whether the forfeited deposit was out of all proportion to the damages suffered; and 2) whether it would be unconscionable for the seller to retain the deposit"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 98",
+          "quote": "A court may grant relief against penalties and forfeitures, on such terms as to compensation or otherwise as are considered just."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/decisions/jesan-real-estate-v-doyle-2020-ONCA-714.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-home-purchase-closing-dispute|plaintiffElement|home-purchase-amount-within-limit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "509b58e201d7d260257a2a2fa9965561a55e311f5f8ce83232f18fef520c6828",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1 (1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-home-purchase-closing-dispute|defendantConsideration|home-purchase-mitigation",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "71a7822207a3d8aac1f87587a3efeb18134acf857dfb2cc0136284dec5d851dc",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/southcott-estates-v-toronto-catholic-district-school-board-2012-SCC-51.english.txt",
+          "pinpoint": "para. 24",
+          "quote": "As a general rule, a plaintiff will not be able to recover for those losses which he could have avoided by taking reasonable steps. Where it is alleged that the plaintiff has failed to mitigate, the burden of proof is on the defendant, who needs to prove both that the plaintiff has failed to make reasonable efforts to mitigate and that mitigation was possible"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/decisions/southcott-estates-v-toronto-catholic-district-school-board-2012-SCC-51.english.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-home-purchase-closing-dispute|proceduralNote|sc-claim-home-purchase-closing-dispute#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b921fa43611437b42ce23a1993688e1f992eacec02b3e546d7b845a9e1228d55",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 96 (3)",
+          "quote": "Only the Court of Appeal and the Superior Court of Justice, exclusive of the Small Claims Court, may grant equitable relief, unless otherwise provided."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 97",
+          "quote": "The Court of Appeal and the Superior Court of Justice, exclusive of the Small Claims Court, may make binding declarations of right, whether or not any consequential relief is or could be claimed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1 (1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-home-purchase-closing-dispute|proceduralNote|sc-claim-home-purchase-closing-dispute#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "faabe8cafb7c9750735d8a94c7fa11a275a9b1a4fb7e4905d0b113612fdebaab",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-contractor-lien-on-a-home|plaintiffElement|lien-for-services-or-materials-to-improvement",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "96f08ec1cc0c3f0d851d5de35185269ba84d8c3cee7bb3fc56296efbe2544de8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "s. 14 (1), (2)",
+          "quote": "A person who supplies services or materials to an improvement for an owner, contractor or subcontractor, has a lien upon the interest of the owner in the premises improved for the price of those services or materials. ... No person is entitled to a lien for any interest on the amount owed to the person in respect of the services or materials that have been supplied by the person"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "s. 1 (1) \"improvement\"",
+          "quote": "\"improvement\" means, in respect of any land, (a) any alteration, addition or capital repair to the land,"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/construction-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-contractor-lien-on-a-home|plaintiffElement|lien-preserved-and-perfected-in-time",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "71ebdef96eb312f35efbdddce9ed5f40053d6ab9e60eb0a36a91ccaf36f39709",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "s. 31 (2)",
+          "quote": "the lien of a contractor, (a) for services or materials supplied to an improvement on or before the date certified or declared to be the date of the substantial performance of the contract, expires at the conclusion of the 60-day period next following the occurrence of the earlier of, (i) the date on which a copy of the certificate or declaration of the substantial performance of the contract is published as provided in section 32, and (ii) the date the contract is completed, abandoned or terminated; and (b) for services or materials supplied to the improvement where there is no certification or declaration of the substantial performance of the contract, or for services or materials supplied to the improvement after the date certified or declared to be the date of substantial performance, expires at the conclusion of the 60-day period next following the occurrence of the earlier of, (i) the date the contract is completed, and (ii) the date the contract is abandoned or terminated."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "s. 34 (1) (a)",
+          "quote": "A lien may be preserved during the supplying of services or materials or at any time before it expires, (a) where the lien attaches to the premises, by the registration in the proper land registry office of a claim for lien on the title of the premises in accordance with this Part;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "s. 36 (2), (3) (a)",
+          "quote": "A lien that has been preserved expires unless it is perfected prior to the end of the 90-day period next following the last day, under section 31, on which the lien could have been preserved. ... A lien claimant perfects the lien claimant's preserved lien, (a) where the lien attaches to the premises, when the lien claimant commences an action to enforce the lien and, except where an order to vacate the registration of the lien is made, the lien claimant registers a certificate of action in the prescribed form on the title of the premises;"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/construction-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-contractor-lien-on-a-home|plaintiffElement|unpaid-price-as-money-claim",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b77aeb17e7bf189692b93c8a0ce04e163110b1435dfd2ee5ae92bfb0311bbfb8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 23 (1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "s. 1 (1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/cja-courts-of-justice-act.txt, docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-contractor-lien-on-a-home|defendantConsideration|exaggerated-or-false-lien",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fc98119f95f4147036f2e414c6f7b2c64c9364a170094a7170ff9aceed9407a3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "s. 35 (1)",
+          "quote": "any person who preserves a claim for lien or who gives written notice of a lien in the following circumstances is liable to any person who suffers damages as a result: 1. The person knows or ought to know that the amount of the lien has been wilfully exaggerated. 2. The person knows or ought to know that he or she does not have a lien."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "s. 47 (1)",
+          "quote": "The court may, on motion, order the discharge of a lien, (a) on the basis that the claim for the lien is frivolous, vexatious or an abuse of process; or (b) on any other proper ground."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/construction-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-contractor-lien-on-a-home|defendantConsideration|holdback-and-vacating-by-payment",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1fc8cddaddf754329d76a3e7e296a5dabd77b70cf5951a35bc24246623c3fe46",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "s. 22 (1)",
+          "quote": "Each payer upon a contract or subcontract under which a lien may arise shall retain a holdback equal to 10 per cent of the price of the services or materials as they are actually supplied under the contract or subcontract until all liens that may be claimed against the holdback in respect of the supplied services or materials have expired or been satisfied, discharged or otherwise provided for under this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "s. 44 (1)",
+          "quote": "Upon the motion of any person, without notice to any other person, the court shall make an order vacating, (a) where the lien attaches to the premises, the registration of a claim for lien and any certificate of action in respect of that lien; ... where the person bringing the motion pays into court, or posts security in an amount equal to, the total of, (c) the full amount claimed as owing in the claim for lien; and (d) the lesser of $250,000 or 25 per cent of the amount described in clause (c), as security for costs."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/construction-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-contractor-lien-on-a-home|proceduralNote|sc-claim-contractor-lien-on-a-home#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "297b836f8b1c81e29512a35c5247a4fbffb58f6ac9730b2f582842cdf30260df",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "s. 50 (1)",
+          "quote": "A lien claim is enforceable in an action in the Superior Court of Justice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "s. 1 (1) \"court\"",
+          "quote": "\"court\" means the Superior Court of Justice;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "s. 58 (1) (c)",
+          "quote": "if the action is for an amount that is within the monetary jurisdiction of the Small Claims Court, as set out under section 23 of the Courts of Justice Act, to a deputy judge of that Court or to the Small Claims Court Administrative Judge."
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/construction-act.txt read 2026-10-07."
+    },
+    {
+      "key": "sc-claim-contractor-lien-on-a-home|proceduralNote|sc-claim-contractor-lien-on-a-home#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7a0d79db0f7f63e9b8592703011652d42dc99c9312c2cb47de677eea66b3320e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "s. 31 (2)",
+          "quote": "the lien of a contractor, (a) for services or materials supplied to an improvement on or before the date certified or declared to be the date of the substantial performance of the contract, expires at the conclusion of the 60-day period next following the occurrence of the earlier of, (i) the date on which a copy of the certificate or declaration of the substantial performance of the contract is published as provided in section 32, and (ii) the date the contract is completed, abandoned or terminated; and (b) for services or materials supplied to the improvement where there is no certification or declaration of the substantial performance of the contract, or for services or materials supplied to the improvement after the date certified or declared to be the date of substantial performance, expires at the conclusion of the 60-day period next following the occurrence of the earlier of, (i) the date the contract is completed, and (ii) the date the contract is abandoned or terminated."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "s. 36 (2), (3) (a)",
+          "quote": "A lien that has been preserved expires unless it is perfected prior to the end of the 90-day period next following the last day, under section 31, on which the lien could have been preserved. ... A lien claimant perfects the lien claimant's preserved lien, (a) where the lien attaches to the premises, when the lien claimant commences an action to enforce the lien and, except where an order to vacate the registration of the lien is made, the lien claimant registers a certificate of action in the prescribed form on the title of the premises;"
+        }
+      ],
+      "howRead": "Vendored corpus file(s) docs/sources/corpus/construction-act.txt, docs/sources/corpus/limitations-act-2002.txt read 2026-10-07."
+    }
+  ],
   "unverifiable": []
 }

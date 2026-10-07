@@ -1,4 +1,1383 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "sc-claim-against-a-school-board|plaintiffElement|supervision-scboard",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "55875135d9d22fd2bba37c2daa1006f8ff80577ea6ab29e3f59037a24be5c71c",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/myers-v-peel-county-board-of-education-1981-2-SCR-21.html.txt",
+          "pinpoint": "Myers v. Peel County Board of Education, [1981] 2 S.C.R. 21, pp. 31-32 (McIntyre J. for the Court)",
+          "quote": "The standard of care to be exercised by school authorities in providing for the supervision and protection of students for whom they are responsible is that of the careful or prudent parent ... It is not, however, a standard which can be applied in the same manner and to the same extent in every case. Its application will vary from case to case and will depend upon the number of students being supervised at any given time, the nature of the exercise or activity in progress, the age and the degree of skill and training which the students may have received in connection with such activity, the nature and condition of the equipment in use at the time, the competency and capacity of the students involved, and a host of other matters"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/myers-v-peel-county-board-of-education-1981-2-SCR-21.html.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-school-board|plaintiffElement|premises-scboard",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "24023ddeef826f32d93a8ff9991ab5be45a7d3ed145cb1d02e5d01df74e66095",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 3(1)-(2)",
+          "quote": "An occupier of premises owes a duty to take such care as in all the circumstances of the case is reasonable to see that persons entering on the premises, and the property brought on the premises by those persons are reasonably safe while on the premises. ... The duty of care provided for in subsection (1) applies whether the danger is caused by the condition of the premises or by an activity carried on on the premises."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 1, \"occupier\"",
+          "quote": "\"occupier\" includes, (a) a person who is in physical possession of premises, or (b) a person who has responsibility for and control over the condition of premises or the activities there carried on, or control over persons allowed to enter the premises,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-school-board|plaintiffElement|harm-and-cause-scboard",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6e97a9ebd1c51825029a37b752633f05d3ae0d5ee11a3636e5b974a6bb4c39ba",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements v. Clements, 2012 SCC 32, para. 8",
+          "quote": "The test for showing causation is the \"but for\" test. The plaintiff must show on a balance of probabilities that \"but for\" the defendant's negligent act, the injury would not have occurred. ... This is a factual inquiry."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-school-board|defendantConsideration|shared-fault-scboard",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ad0d0c0fcabfbc59b8d7d7fd381e4f8549e64a29cc3f400422b40c0124c27b23",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 1",
+          "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons are found at fault or negligent, they are jointly and severally liable to the person suffering loss or damage for such fault or negligence"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 5",
+          "quote": "Wherever it appears that a person not already a party to an action is or may be wholly or partly responsible for the damages claimed, such person may be added as a party defendant to the action upon such terms as are considered just or may be made a third party to the action in the manner prescribed by the rules of court for adding third parties."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-school-board|proceduralNote|sc-claim-against-a-school-board#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "40cc077a86bc5b46b04275bbdaee45d0cce1f4aab14091bf997da1c463f3e2bc",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 1.02, \"disability\"",
+          "quote": "\"disability\", where used in respect of a person or party, means that the person or party is, (a) a minor,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 4.01(1)-(2)",
+          "quote": "An action by a person under disability shall be commenced or continued by a litigation guardian, subject to subrule (2). ... A minor may sue for any sum not exceeding $500 as if he or she were of full age."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-school-board|proceduralNote|sc-claim-against-a-school-board#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6ab9bce78db0c9aa662c914c1bcb38a6ac14b314b5aa7e9f4b4d0d5a4b9715f4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 9(1)",
+          "quote": "The Crown is not liable for torts committed by, (a) Crown agencies; (b) Crown corporations; (c) transfer payment recipients; or (d) independent contractors providing services to the Crown for any purpose."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 1(1) (\"transfer payment recipient\")",
+          "quote": "\"transfer payment recipient\" means a person or other entity that directly or indirectly receives a grant, transfer payment or other funding or financial assistance from the Crown to support, in whole or in part, the delivery of services to members of the public, including, (a) a municipality, (b) a hospital within the meaning of the Public Hospitals Act, (c) a private hospital within the meaning of the Private Hospitals Act, (d) a board within the meaning of the Education Act,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-school-board|proceduralNote|sc-claim-against-a-school-board#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62ec0fbf25440d27c3cd740a324b8c83232711b5478d307962a78714a779b6ca",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 6",
+          "quote": "The limitation period established by section 4 does not run during any time in which the person with the claim, (a) is a minor; and (b) is not represented by a litigation guardian in relation to the claim."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-municipality-other|plaintiffElement|staff-tort-munother",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7bdccabfefc43356c28ce591ec74a4feab9170589c93ca0f93d27414b0694b29",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 448(1)-(2)",
+          "quote": "No proceeding for damages or otherwise shall be commenced against a member of council or an officer, employee or agent of a municipality or a person acting under the instructions of the officer, employee or agent for any act done in good faith in the performance or intended performance of a duty or authority under this Act or a by-law passed under it or for any alleged neglect or default in the performance in good faith of the duty or authority. ... Subsection (1) does not relieve a municipality of liability to which it would otherwise be subject in respect of a tort committed by a member of council or an officer, employee or agent of the municipality or a person acting under the instructions of the officer, employee or agent."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/municipal-act-2001.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-municipality-other|plaintiffElement|service-negligence-munother",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "248cd0ecff5a9fe11fe1ca09d419a67ccae85514016baf80f080af77244e2087",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/nelson-city-v-marchi-2021-SCC-41.html.txt",
+          "pinpoint": "Nelson (City) v. Marchi, 2021 SCC 41, para. 52",
+          "quote": "Activities falling outside this protected sphere of core policy — that is, activities that open up a public authority to liability for negligence — have been defined as \"the practical implementation of the formulated policies\" or \"the performance or carrying out of a policy\""
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/nelson-city-v-marchi-2021-SCC-41.html.txt",
+          "pinpoint": "Nelson, para. 91",
+          "quote": "To avoid liability, a defendant must \"exercise the standard of care expected that would be of an ordinary, reasonable and prudent person in the same circumstances\""
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/nelson-city-v-marchi-2021-SCC-41.html.txt",
+          "pinpoint": "Nelson, para. 92",
+          "quote": "The reasonableness standard applies regardless of whether the defendant is a government or a private actor"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/nelson-city-v-marchi-2021-SCC-41.html.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-municipality-other|plaintiffElement|municipal-premises-munother",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9db567213ed7d7e6dd59a2746cf4660d3d24b8daf749e9bca0a6576ed9c65323",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 3(1)",
+          "quote": "An occupier of premises owes a duty to take such care as in all the circumstances of the case is reasonable to see that persons entering on the premises, and the property brought on the premises by those persons are reasonably safe while on the premises."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 10(2)",
+          "quote": "This Act does not apply to the Crown or to any municipal corporation, where the Crown or the municipal corporation is an occupier of a public highway or a public road."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-municipality-other|defendantConsideration|policy-decision-munother",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5c035f0dafc7a11ce9c2c8ba0c80d47134e7b7806e810f137d994b7849c91887",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 450",
+          "quote": "No proceeding based on negligence in connection with the exercise or non-exercise of a discretionary power or the performance or non-performance of a discretionary function, if the action or inaction results from a policy decision of a municipality or local board made in a good faith exercise of the discretion, shall be commenced against, (a) a municipality or local board;"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/nelson-city-v-marchi-2021-SCC-41.html.txt",
+          "pinpoint": "Nelson, para. 3",
+          "quote": "Core policy decisions are immune from negligence liability ... In addition, four factors emerge that help in assessing the nature of a government's decision: (1) the level and responsibilities of the decision-maker; (2) the process by which the decision was made; (3) the nature and extent of budgetary considerations;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/municipal-act-2001.txt; Saved decision docs/sources/decisions/nelson-city-v-marchi-2021-SCC-41.html.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-municipality-other|defendantConsideration|water-sewage-munother",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5e6e7d31f6dc6d847990a099b315207c4ed38e2e695e89eb54dcc83843990f45",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 449(1), (3)",
+          "quote": "No proceeding based on nuisance, in connection with the escape of water or sewage from sewage works or water works, shall be commenced against, (a) a municipality or local board; (b) a member of a municipal council or of a local board; or (c) an officer, employee or agent of a municipality or local board. ... Subsection (1) does not exempt a municipality or local board from liability arising from a cause of action that is created by a statute or from an obligation to pay compensation that is created by a statute."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/municipal-act-2001.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-municipality-other|proceduralNote|sc-claim-against-a-municipality-other#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6deed8dfb52cc08fd1dede1473336d3828baeef89dacec225c5f5d5ddeb7d53a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(10)",
+          "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(11)",
+          "quote": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(12)",
+          "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/municipal-act-2001.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-municipality-other|proceduralNote|sc-claim-against-a-municipality-other#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cfe1796bf9f62bf38b0422f43e16626cf35dd21a35b762039ed49590d64ab5ce",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-municipality-other|proceduralNote|sc-claim-against-a-municipality-other#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-police|plaintiffElement|who-answers-police",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7e0f0da6111afd233aa93b17602c7da95bb3d5cfeba03a11fa67589c872c2dd8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c01_e.doc",
+          "pinpoint": "Community Safety and Policing Act, 2019, s. 47(1), (4)",
+          "quote": "A police service board is liable for the acts or omissions of members of its police service committed in the course of their employment. ... The municipality is responsible for the liabilities incurred by the police service board under subsections (1), (2) and (3)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c01_e.doc",
+          "pinpoint": "Community Safety and Policing Act, 2019, s. 63(1)",
+          "quote": "The Crown in right of Ontario is liable for the acts or omissions of members of the Ontario Provincial Police committed in the course of their employment."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c01_e.doc",
+          "pinpoint": "Community Safety and Policing Act, 2019, s. 49(1)",
+          "quote": "A police service board may contract, sue and be sued in its own name."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/community-safety-and-policing-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-police|plaintiffElement|negligence-police",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bcb0c16c4522be44d18d95e64d702dd7370e6d58ed5088673936a01afc6c60e0",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan v. Victoria (City), [1999] 1 S.C.R. 201, para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances. ... measure of what is reasonable depends on the facts of each case, including the likelihood of a known or foreseeable harm, the gravity of that harm, and the burden or cost which would be incurred to prevent the injury. In addition, one may look to external indicators of reasonable conduct, such as custom, industry practice, and statutory or regulatory standards."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-police|plaintiffElement|malicious-prosecution-police",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "15433b0b085279ebddb918593dc1e4ead1314988eb49fa3652faae381ea89e83",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/miazga-v-kvello-estate-2009-SCC-51.html.txt",
+          "pinpoint": "Miazga v. Kvello Estate, 2009 SCC 51, para. 3",
+          "quote": "To succeed in an action for malicious prosecution, a plaintiff must prove that the prosecution was: (1) initiated by the defendant; (2) terminated in favour of the plaintiff; (3) undertaken without reasonable and probable cause; and (4) motivated by malice or a primary purpose other than that of carrying the law into effect."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/miazga-v-kvello-estate-2009-SCC-51.html.txt",
+          "pinpoint": "Miazga, para. 53",
+          "quote": "This element identifies the proper target of the suit, as it is only those who were \"actively instrumental\" in setting the law in motion that may be held accountable for any damage that results"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/miazga-v-kvello-estate-2009-SCC-51.html.txt",
+          "pinpoint": "Miazga, para. 54",
+          "quote": "The favourable termination requirement may be satisfied no matter the route by which the proceedings conclude in the plaintiff's favour, whether it be an acquittal, a discharge at a preliminary hearing, a withdrawal, or a stay."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/miazga-v-kvello-estate-2009-SCC-51.html.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-police|defendantConsideration|malice-and-ending-police",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e440ebef74013a3805ae0e1fc5861d7eb6b76d3a197d6eac11dee91648513108",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/miazga-v-kvello-estate-2009-SCC-51.html.txt",
+          "pinpoint": "Miazga, para. 81",
+          "quote": "By requiring proof of an improper purpose, the malice element of the tort of malicious prosecution ensures that liability will not be imposed in cases where a prosecutor proceeds, absent reasonable and probable grounds, by reason of incompetence, inexperience, poor judgment, lack of professionalism, laziness, recklessness, honest mistake, negligence, or even gross negligence."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/miazga-v-kvello-estate-2009-SCC-51.html.txt",
+          "pinpoint": "Miazga, para. 54",
+          "quote": "However, where the termination does not result from an adjudication on the merits, for example, in the case of a settlement or plea bargain, a live issue may arise whether the termination of the proceedings was \"in favour\" of the plaintiff"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/miazga-v-kvello-estate-2009-SCC-51.html.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-police|defendantConsideration|shared-fault-police",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d4c06e11c3ea7282dcf869d606850945a74e83302497bc6f18ce78802cc995b7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 1",
+          "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons are found at fault or negligent, they are jointly and severally liable to the person suffering loss or damage for such fault or negligence"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 5",
+          "quote": "Wherever it appears that a person not already a party to an action is or may be wholly or partly responsible for the damages claimed, such person may be added as a party defendant to the action upon such terms as are considered just or may be made a third party to the action in the manner prescribed by the rules of court for adding third parties."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-police|proceduralNote|sc-claim-against-police#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a74006c88f2d5cffab5df0fee5420ef679caf0c4391ce26ee389340a3699d721",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c01_e.doc",
+          "pinpoint": "Community Safety and Policing Act, 2019, s. 63(1)",
+          "quote": "The Crown in right of Ontario is liable for the acts or omissions of members of the Ontario Provincial Police committed in the course of their employment."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 18(1)",
+          "quote": "No proceeding that includes a claim for damages may be brought against the Crown unless, at least 60 days before the commencement of the proceeding, the claimant serves on the Crown, in accordance with section 15, notice of the claim containing sufficient particulars to identify the occasion out of which the claim arose."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 18(6)",
+          "quote": "For greater certainty, failure to give notice of a claim as required by this section renders a proceeding brought without such notice a nullity in respect of the claim, from the time the proceeding is brought."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/community-safety-and-policing-act.txt; Vendored corpus file docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-police|proceduralNote|sc-claim-against-police#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "0411b428ae40c63adae346fa27e3073fb064e32a6c97d9d8869308a24af60c85",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c01_e.doc",
+          "pinpoint": "Community Safety and Policing Act, 2019, ss. 152, 154(1), 158(1)(a)",
+          "quote": "This Part applies with respect to the conduct of the following persons: 1. Police officers. ... Any person may make a complaint to the Complaints Director about the conduct of a person referred to in section 152, subject to subsection (2). ... The Complaints Director may refuse to cause a complaint to be investigated if, (a) the facts on which the complaint is based occurred more than six months before the complaint is made;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/community-safety-and-policing-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-police|proceduralNote|sc-claim-against-police#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-lawyer-or-paralegal|plaintiffElement|retainer-lawyer",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "876854008fb039ef5ade57838ea412739015173afefdc3cf90160cd5c256687c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/sattva-capital-corp-v-creston-moly-corp-2014-SCC-53.english.txt",
+          "pinpoint": "Sattva Capital Corp. v. Creston Moly Corp., 2014 SCC 53, para. 47",
+          "quote": "The overriding concern is to determine \"the intent of the parties and the scope of their understanding\" ... To do so, a decision-maker must read the contract as a whole, giving the words used their ordinary and grammatical meaning, consistent with the surrounding circumstances known to the parties at the time of formation of the contract."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; Saved decision docs/sources/decisions/sattva-capital-corp-v-creston-moly-corp-2014-SCC-53.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-lawyer-or-paralegal|plaintiffElement|standard-lawyer",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f60e6d0343d0596ec31c753c8bbc14f6a092c040b01cef7cc63efd3d39c8e9eb",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan v. Victoria (City), [1999] 1 S.C.R. 201, para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances. ... measure of what is reasonable depends on the facts of each case, including the likelihood of a known or foreseeable harm, the gravity of that harm, and the burden or cost which would be incurred to prevent the injury. In addition, one may look to external indicators of reasonable conduct, such as custom, industry practice, and statutory or regulatory standards."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-lawyer-or-paralegal|plaintiffElement|loss-caused-lawyer",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ed67e300a7150062db50515e1492920019fce621b85671064c148d9079ff12cc",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements v. Clements, 2012 SCC 32, para. 8",
+          "quote": "The test for showing causation is the \"but for\" test. The plaintiff must show on a balance of probabilities that \"but for\" the defendant's negligent act, the injury would not have occurred. ... This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements v. Clements, 2012 SCC 32, para. 9",
+          "quote": "causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant's negligence made to the injury."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-lawyer-or-paralegal|plaintiffElement|amount-lawyer",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "94f3d1fdbf8ff28cc2a0b8b56d9fca4cdb2f4ee67949cc9b1365a2e4007a1260",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-lawyer-or-paralegal|defendantConsideration|found-later-lawyer",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f91c787f22e77d35faf74b41496dc220ef650d25282107bded56f7d7cb6139a9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/grant-thornton-v-new-brunswick-2021-SCC-31.english.txt",
+          "pinpoint": "Grant Thornton LLP v. New Brunswick, 2021 SCC 31, para. 42",
+          "quote": "a claim is discovered when a plaintiff has knowledge, actual or constructive, of the material facts upon which a plausible inference of liability on the defendant's part can be drawn."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; Saved decision docs/sources/decisions/grant-thornton-v-new-brunswick-2021-SCC-31.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-lawyer-or-paralegal|defendantConsideration|fees-claim-lawyer",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8fe1de94718e017b0d2588cd0669701256601c2c1571b46f4edd2216419247a3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 10.01(1)-(2)",
+          "quote": "A defendant may make a claim, (a) against the plaintiff; (b) against any other person, (i) arising out of the transaction or occurrence relied upon by the plaintiff, or (ii) related to the plaintiff's claim; or ... The defendant's claim shall be in Form 10A and may be issued, (a) within 20 days after the day on which the defence is filed; or (b) after the time described in clause (a) but before trial or default judgment, with leave of the court."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-lawyer-or-paralegal|proceduralNote|sc-claim-against-a-lawyer-or-paralegal#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cb73cd0e6d88e79597951e19c38165055277a45c33eb0545a2ef1ca2db80ab6f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Information to include about the defendant",
+          "quote": "If the name you use on your claim is not exactly right, you may win your case but then be unable to take steps to enforce your judgment. ... If you are suing an incorporated company (it usually has Limited, Ltd ., Corporation, Corp., Incorporated or Inc. after its name), make sure you have the correct corporate name, address and postal code. ... If the business you are suing is not incorporated (for example, a sole proprietorship or partnership), you will need the correct name of the business and the address for service. You may also wish to name the proprietor(s) or partner(s) as parties if you wish to obtain a judgment against them as well."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-lawyer-or-paralegal|proceduralNote|sc-claim-against-a-lawyer-or-paralegal#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cfe1796bf9f62bf38b0422f43e16626cf35dd21a35b762039ed49590d64ab5ce",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-lawyer-or-paralegal|proceduralNote|sc-claim-against-a-lawyer-or-paralegal#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-another-professional|plaintiffElement|engagement-prof",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fab3c99842099e62fbcdba4d1d969d8114c60938786f2582df43bd1f25752124",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/sattva-capital-corp-v-creston-moly-corp-2014-SCC-53.english.txt",
+          "pinpoint": "Sattva Capital Corp. v. Creston Moly Corp., 2014 SCC 53, para. 47",
+          "quote": "The overriding concern is to determine \"the intent of the parties and the scope of their understanding\" ... To do so, a decision-maker must read the contract as a whole, giving the words used their ordinary and grammatical meaning, consistent with the surrounding circumstances known to the parties at the time of formation of the contract."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; Saved decision docs/sources/decisions/sattva-capital-corp-v-creston-moly-corp-2014-SCC-53.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-another-professional|plaintiffElement|standard-prof",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b3df07a6c5472c4928b1cb197ac8bc5be4ae69b3db648facfbd2adeef0f7b361",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan v. Victoria (City), [1999] 1 S.C.R. 201, para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances. ... measure of what is reasonable depends on the facts of each case, including the likelihood of a known or foreseeable harm, the gravity of that harm, and the burden or cost which would be incurred to prevent the injury. In addition, one may look to external indicators of reasonable conduct, such as custom, industry practice, and statutory or regulatory standards."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-another-professional|plaintiffElement|loss-caused-prof",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7e71f1f6f34607bb99ed83c9a6c997a61799c55dceec4963a10a51e16b63f811",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements v. Clements, 2012 SCC 32, para. 8",
+          "quote": "The test for showing causation is the \"but for\" test. The plaintiff must show on a balance of probabilities that \"but for\" the defendant's negligent act, the injury would not have occurred. ... This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements v. Clements, 2012 SCC 32, para. 9",
+          "quote": "causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant's negligence made to the injury."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-another-professional|plaintiffElement|amount-prof",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "94f3d1fdbf8ff28cc2a0b8b56d9fca4cdb2f4ee67949cc9b1365a2e4007a1260",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-another-professional|defendantConsideration|found-later-prof",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "99d4d2a7e6f190b71926099447e9e97fc2af120dee707b10010eef022c620b3c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/grant-thornton-v-new-brunswick-2021-SCC-31.english.txt",
+          "pinpoint": "Grant Thornton LLP v. New Brunswick, 2021 SCC 31, para. 42",
+          "quote": "a claim is discovered when a plaintiff has knowledge, actual or constructive, of the material facts upon which a plausible inference of liability on the defendant's part can be drawn."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; Saved decision docs/sources/decisions/grant-thornton-v-new-brunswick-2021-SCC-31.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-another-professional|defendantConsideration|shared-fault-prof",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7cc52027cf3c33c7f32c0c68d92cfd07b6c62d0712cc3450d6f86d1a5a79fefa",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 1",
+          "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons are found at fault or negligent, they are jointly and severally liable to the person suffering loss or damage for such fault or negligence"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 5",
+          "quote": "Wherever it appears that a person not already a party to an action is or may be wholly or partly responsible for the damages claimed, such person may be added as a party defendant to the action upon such terms as are considered just or may be made a third party to the action in the manner prescribed by the rules of court for adding third parties."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-another-professional|proceduralNote|sc-claim-against-another-professional#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cb73cd0e6d88e79597951e19c38165055277a45c33eb0545a2ef1ca2db80ab6f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Information to include about the defendant",
+          "quote": "If the name you use on your claim is not exactly right, you may win your case but then be unable to take steps to enforce your judgment. ... If you are suing an incorporated company (it usually has Limited, Ltd ., Corporation, Corp., Incorporated or Inc. after its name), make sure you have the correct corporate name, address and postal code. ... If the business you are suing is not incorporated (for example, a sole proprietorship or partnership), you will need the correct name of the business and the address for service. You may also wish to name the proprietor(s) or partner(s) as parties if you wish to obtain a judgment against them as well."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-another-professional|proceduralNote|sc-claim-against-another-professional#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cfe1796bf9f62bf38b0422f43e16626cf35dd21a35b762039ed49590d64ab5ce",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-another-professional|proceduralNote|sc-claim-against-another-professional#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-hospital-or-clinic|plaintiffElement|standard-hosp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ce4b580cbbf7feb50d384dc9979d6bd068d8e87bd161cf0c4b9ca4d5ce7c409f",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan v. Victoria (City), [1999] 1 S.C.R. 201, para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances. ... measure of what is reasonable depends on the facts of each case, including the likelihood of a known or foreseeable harm, the gravity of that harm, and the burden or cost which would be incurred to prevent the injury. In addition, one may look to external indicators of reasonable conduct, such as custom, industry practice, and statutory or regulatory standards."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-hospital-or-clinic|plaintiffElement|damage-hosp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2820394b0fa53964581518e75f8c745598864b49334a8d55f1b339d495387430",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 8",
+          "quote": "Generally, a plaintiff who suffers personal injury will be found to have suffered damage. Damage for purposes of this inquiry includes psychological injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 9",
+          "quote": "This said, psychological disturbance that rises to the level of personal injury must be distinguished from psychological upset. ... The law does not recognize upset, disgust, anxiety, agitation or other mental states that fall short of injury. I would not purport to define compensable injury exhaustively, except to say that it must be serious and prolonged and rise above the ordinary annoyances, anxieties and fears that people living in society routinely, if sometimes reluctantly, accept."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-hospital-or-clinic|plaintiffElement|causation-hosp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "58ffc88347c1f669b46bd97ad5ac2aa1631829b7047284d7542a420a9697f93f",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/snell-v-farrell-1990-2-SCR-311.html.txt",
+          "pinpoint": "Snell v. Farrell, [1990] 2 S.C.R. 311 (reasons of Sopinka J. for the Court)",
+          "quote": "Causation need not be determined by scientific precision."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/snell-v-farrell-1990-2-SCR-311.html.txt",
+          "pinpoint": "Snell v. Farrell, [1990] 2 S.C.R. 311",
+          "quote": "In many malpractice cases, the facts lie particularly within the knowledge of the defendant. In these circumstances, very little affirmative evidence on the part of the plaintiff will justify the drawing of an inference of causation in the absence of evidence to the contrary."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements v. Clements, 2012 SCC 32, para. 8",
+          "quote": "The test for showing causation is the \"but for\" test. The plaintiff must show on a balance of probabilities that \"but for\" the defendant's negligent act, the injury would not have occurred. ... This is a factual inquiry."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/snell-v-farrell-1990-2-SCR-311.html.txt; Saved decision docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-hospital-or-clinic|defendantConsideration|shared-fault-hosp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "df41200e9cfa873c0ab240f930f0306bd57fffb80ee22cd8e1e8278d63712e53",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 1",
+          "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons are found at fault or negligent, they are jointly and severally liable to the person suffering loss or damage for such fault or negligence"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 5",
+          "quote": "Wherever it appears that a person not already a party to an action is or may be wholly or partly responsible for the damages claimed, such person may be added as a party defendant to the action upon such terms as are considered just or may be made a third party to the action in the manner prescribed by the rules of court for adding third parties."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-hospital-or-clinic|defendantConsideration|found-later-hosp",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "313103bd3a1b82b44d81bbe28003ee51e0d4f816d7cde25e8aab5e4982737b80",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/grant-thornton-v-new-brunswick-2021-SCC-31.english.txt",
+          "pinpoint": "Grant Thornton LLP v. New Brunswick, 2021 SCC 31, para. 42",
+          "quote": "a claim is discovered when a plaintiff has knowledge, actual or constructive, of the material facts upon which a plausible inference of liability on the defendant's part can be drawn."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; Saved decision docs/sources/decisions/grant-thornton-v-new-brunswick-2021-SCC-31.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-hospital-or-clinic|proceduralNote|sc-claim-against-a-hospital-or-clinic#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "933e2f7667ea2903bc61dae587cbfaba19ef89478b570085d0fc59282a8ae998",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/04p03_e.doc",
+          "pinpoint": "PHIPA, ss. 52(1), 53(1), 54(1)(a)",
+          "quote": "Subject to this Part, an individual has a right of access to a record of personal health information about the individual that is in the custody or under the control of a health information custodian unless, ... An individual may exercise a right of access to a record of personal health information by making a written request for access to the health information custodian that has custody or control of the information. ... A health information custodian that receives a request from an individual for access to a record of personal health information shall, (a) make the record available to the individual for examination and, at the request of the individual, provide a copy of the record to the individual"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/personal-health-information-protection-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-hospital-or-clinic|proceduralNote|sc-claim-against-a-hospital-or-clinic#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bfd7f22eb3e6996de7514e0affa4ba8bb5016e3548a4bf1c064b81caf34f3ff2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 9(1)",
+          "quote": "The Crown is not liable for torts committed by, (a) Crown agencies; (b) Crown corporations; (c) transfer payment recipients; or (d) independent contractors providing services to the Crown for any purpose."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/19c07c_e.doc",
+          "pinpoint": "CLPA 2019, s. 1(1) (\"transfer payment recipient\")",
+          "quote": "\"transfer payment recipient\" means a person or other entity that directly or indirectly receives a grant, transfer payment or other funding or financial assistance from the Crown to support, in whole or in part, the delivery of services to members of the public, including, (a) a municipality, (b) a hospital within the meaning of the Public Hospitals Act, (c) a private hospital within the meaning of the Private Hospitals Act, (d) a board within the meaning of the Education Act,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-against-a-hospital-or-clinic|proceduralNote|sc-claim-against-a-hospital-or-clinic#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-over-the-monetary-limit|plaintiffElement|money-or-property-overlimit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "70cd1b8fab411e63362a1063aff0d62ee4b38f9c2a0e5c006fd691307a93b9ea",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-over-the-monetary-limit|plaintiffElement|waive-overlimit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "375c8d075c21f9a7e756e3f56df5afb7b6401e81c4e5e4b66379d257af915437",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Suing someone in Small Claims Court -- Overview",
+          "quote": "For anything over $50,000, you need to go to the Superior Court of Justice . ... If what you are owed is more than $50,000, you can still file in Small Claims Court if you are willing to waive the amount over $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-suing-someone-small-claims.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-over-the-monetary-limit|plaintiffElement|amount-overlimit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a43e080e216a9803182948ba7d5d43e657be754c86175a96541feec74e3071c8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-over-the-monetary-limit|defendantConsideration|claim-divided-overlimit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d277ad20c2aeed4d80bc03de823914cbcc67fe704aade45d2ef1ade8e1442af8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 6.02",
+          "quote": "A cause of action shall not be divided into two or more actions for the purpose of bringing it within the court's jurisdiction."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-over-the-monetary-limit|proceduralNote|sc-claim-over-the-monetary-limit#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7d2df67e6a6074e9096b21a67efc76fa36f0fc56ada92cb578212c09b1974447",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1.1)",
+          "quote": "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(2)",
+          "quote": "An action in the Superior Court of Justice may be transferred to the Small Claims Court by the local registrar of the Superior Court of Justice on requisition with the consent of all parties filed before the trial commences if, (a) the only claim is for the payment of money or the recovery of possession of personal property; and (b) the claim is within the jurisdiction of the Small Claims Court."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-over-the-monetary-limit|proceduralNote|sc-claim-over-the-monetary-limit#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ce1d213e8a677305e8b419cc3a359828692d14a30d903abb3e87a3f77d20d023",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 96(3)",
+          "quote": "Only the Court of Appeal and the Superior Court of Justice, exclusive of the Small Claims Court, may grant equitable relief, unless otherwise provided."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-over-the-monetary-limit|proceduralNote|sc-claim-over-the-monetary-limit#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-franchise-dispute|plaintiffElement|agreement-terms-franchise",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d244cd3317983ea99f188d78aff783d395d55559ebdc807303b621f42b3bb795",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/sattva-capital-corp-v-creston-moly-corp-2014-SCC-53.english.txt",
+          "pinpoint": "Sattva Capital Corp. v. Creston Moly Corp., 2014 SCC 53, para. 47",
+          "quote": "The overriding concern is to determine \"the intent of the parties and the scope of their understanding\" ... To do so, a decision-maker must read the contract as a whole, giving the words used their ordinary and grammatical meaning, consistent with the surrounding circumstances known to the parties at the time of formation of the contract."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; Saved decision docs/sources/decisions/sattva-capital-corp-v-creston-moly-corp-2014-SCC-53.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-franchise-dispute|plaintiffElement|performance-franchise",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d152c74342238debddcd8e1024f486140ed44335774bf6fd6d6de3f79fe299f4",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/bhasin-v-hrynew-2014-SCC-71.english.txt",
+          "pinpoint": "Bhasin v. Hrynew, 2014 SCC 71, para. 93",
+          "quote": "a duty of honest performance, which requires the parties to be honest with each other in relation to the performance of their contractual obligations."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/bhasin-v-hrynew-2014-SCC-71.english.txt",
+          "pinpoint": "Bhasin v. Hrynew, 2014 SCC 71, para. 73",
+          "quote": "This means simply that parties must not lie or otherwise knowingly mislead each other about matters directly linked to the performance of the contract. This does not impose a duty of loyalty or of disclosure or require a party to forego advantages flowing from the contract;"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/bhasin-v-hrynew-2014-SCC-71.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-franchise-dispute|plaintiffElement|amount-franchise",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4a51ab1561f970350cc85a177da9b82bcde4b17da665b2039af7916a06095883",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-franchise-dispute|defendantConsideration|time-limit-agreed-franchise",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "07156fef43ca959ca5fe804b49088f5d013f20fe2fa4bc0990104a370f7bb01f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 22(1), (5), (6)",
+          "quote": "A limitation period under this Act applies despite any agreement to vary or exclude it, subject only to the exceptions in subsections (2) to (6). ... The following exceptions apply only in respect of business agreements: 1. A limitation period under this Act, other than one established by section 15, may be varied or excluded by an agreement made on or after October 19, 2006. ... \"business agreement\" means an agreement made by parties none of whom is a consumer as defined in the Consumer Protection Act, 2002;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-franchise-dispute|defendantConsideration|set-off-franchise",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ce67a9d18ec42bcaf29cd68a42f684c04085165e861cf2698c8c806e5a132ee4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 111(1)-(3)",
+          "quote": "In an action for payment of a debt, the defendant may, by way of defence, claim the right to set off against the plaintiff's claim a debt owed by the plaintiff to the defendant. ... Mutual debts may be set off against each other even if they are of a different nature. ... Where, on a defence of set off, a larger sum is found to be due from the plaintiff to the defendant than is found to be due from the defendant to the plaintiff, the defendant is entitled to judgment for the balance."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-franchise-dispute|proceduralNote|sc-claim-franchise-dispute#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ce1d213e8a677305e8b419cc3a359828692d14a30d903abb3e87a3f77d20d023",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 96(3)",
+          "quote": "Only the Court of Appeal and the Superior Court of Justice, exclusive of the Small Claims Court, may grant equitable relief, unless otherwise provided."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-franchise-dispute|proceduralNote|sc-claim-franchise-dispute#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cb73cd0e6d88e79597951e19c38165055277a45c33eb0545a2ef1ca2db80ab6f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Information to include about the defendant",
+          "quote": "If the name you use on your claim is not exactly right, you may win your case but then be unable to take steps to enforce your judgment. ... If you are suing an incorporated company (it usually has Limited, Ltd ., Corporation, Corp., Incorporated or Inc. after its name), make sure you have the correct corporate name, address and postal code. ... If the business you are suing is not incorporated (for example, a sole proprietorship or partnership), you will need the correct name of the business and the address for service. You may also wish to name the proprietor(s) or partner(s) as parties if you wish to obtain a judgment against them as well."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-franchise-dispute|proceduralNote|sc-claim-franchise-dispute#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-partnership-or-joint-venture-breakup|plaintiffElement|agreement-partner",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a4b85656b052953e966bfdd371c8f85e7a2f2a6879b45e272ee1f46c644d6d83",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/sattva-capital-corp-v-creston-moly-corp-2014-SCC-53.english.txt",
+          "pinpoint": "Sattva Capital Corp. v. Creston Moly Corp., 2014 SCC 53, para. 47",
+          "quote": "The overriding concern is to determine \"the intent of the parties and the scope of their understanding\" ... To do so, a decision-maker must read the contract as a whole, giving the words used their ordinary and grammatical meaning, consistent with the surrounding circumstances known to the parties at the time of formation of the contract."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; Saved decision docs/sources/decisions/sattva-capital-corp-v-creston-moly-corp-2014-SCC-53.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-partnership-or-joint-venture-breakup|plaintiffElement|money-kept-partner",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7ddba5d863ca5d26b79ddb092cbd405e400dba16e20493118581c104099ca2b0",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "Kerr v. Baranow, 2011 SCC 10, para. 32",
+          "quote": "It permits recovery whenever the plaintiff can establish three elements: an enrichment of or benefit to the defendant, a corresponding deprivation of the plaintiff, and the absence of a juristic reason for the enrichment"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "Kerr v. Baranow, 2011 SCC 10, para. 38",
+          "quote": "For the first requirement — enrichment — the plaintiff must show that he or she gave something to the defendant which the defendant received and retained. The benefit need not be retained permanently, but there must be a benefit which has enriched the defendant and which can be restored to the plaintiff in specie or by money. Moreover, the benefit must be tangible."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "Kerr v. Baranow, 2011 SCC 10, para. 40",
+          "quote": "To put it simply, this means that there is no reason in law or justice for the defendant's retention of the benefit conferred by the plaintiff"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-partnership-or-joint-venture-breakup|plaintiffElement|amount-partner",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "049924dbf5c1fcb4c0eda000f71ab87b3902b431bee074bfae4de71bffbd8bec",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Reasons for claim and details",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-partnership-or-joint-venture-breakup|defendantConsideration|corporation-partner",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6af164276a80a810ae49c7aba6e5b25e90a1cbbfd2e5e3b03996d5ae54c9baf8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90b16_e.doc",
+          "pinpoint": "Business Corporations Act, ss. 15, 92(1)",
+          "quote": "A corporation has the capacity and the rights, powers and privileges of a natural person. ... The shareholders of a corporation are not, as shareholders, liable for any act, default, obligation or liability of the corporation except under subsections 34 (5), 108 (5) and 130 (5) and section 243."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/business-corporations-act.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-partnership-or-joint-venture-breakup|defendantConsideration|gift-or-contract-partner",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1e7c0d6269a5ae108a16b14d4e35a24adf037813c7a78e06e515b9e0e7bf3d12",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "Kerr v. Baranow, 2011 SCC 10, para. 41",
+          "quote": "Juristic reasons to deny recovery may be the intention to make a gift (referred to as a \"donative intent\"), a contract, or a disposition of law"
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-partnership-or-joint-venture-breakup|proceduralNote|sc-claim-partnership-or-joint-venture-breakup#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cb73cd0e6d88e79597951e19c38165055277a45c33eb0545a2ef1ca2db80ab6f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Information to include about the defendant",
+          "quote": "If the name you use on your claim is not exactly right, you may win your case but then be unable to take steps to enforce your judgment. ... If you are suing an incorporated company (it usually has Limited, Ltd ., Corporation, Corp., Incorporated or Inc. after its name), make sure you have the correct corporate name, address and postal code. ... If the business you are suing is not incorporated (for example, a sole proprietorship or partnership), you will need the correct name of the business and the address for service. You may also wish to name the proprietor(s) or partner(s) as parties if you wish to obtain a judgment against them as well."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-partnership-or-joint-venture-breakup|proceduralNote|sc-claim-partnership-or-joint-venture-breakup#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ce1d213e8a677305e8b419cc3a359828692d14a30d903abb3e87a3f77d20d023",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 96(3)",
+          "quote": "Only the Court of Appeal and the Superior Court of Justice, exclusive of the Small Claims Court, may grant equitable relief, unless otherwise provided."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Small Claims Court jurisdiction",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    },
+    {
+      "key": "sc-claim-partnership-or-joint-venture-breakup|proceduralNote|sc-claim-partnership-or-joint-venture-breakup#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03b676d71a3b611b354ac79637492b5687e25948a02e6e82e47c0a5e92cccd65",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07, each quote cut verbatim from the saved text"
+    }
+  ],
   "unverifiable": []
 }

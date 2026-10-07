@@ -1,4 +1,1036 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "sc-defence-sued-by-a-collection-agency|plaintiffElement|agency-has-to-prove-the-debt",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "07c702bc6e8344dfb81d0ce1b70fc4c305591531d20838ff75dac9efe8267e23",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 7.01 (1)-(2)",
+          "quote": "An action shall be commenced by filing a plaintiff's claim (Form 7A) with the clerk, ... It shall contain the following information, in concise and non- technical language: i. The full names of the parties to the proceeding and, if relevant, the capacity in which they sue or are sued. ii. The nature of the claim, with reasonable certainty and detail, including the date, place and nature of the occurrences on which the claim is based. ... If the plaintiff's claim is based in whole or in part on a document, a copy of the document shall be attached to each copy of the claim, unless it is unavailable, in which case the claim shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-collection-agency|plaintiffElement|who-the-agency-is",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7e540e7caf04d933d065e273a4ac4f2b81d3cbe63f42ddcda8a960f7f6dba6f4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/page/guide-collection-agencies",
+          "pinpoint": "Guide for collection agencies > Definitions",
+          "quote": "Collection agency A person, other than a collector, who: obtains or arranges for payment of money owing to another person ... purchases debts that are in arrears and collects them (with some exceptions)"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/guide-collection-agencies",
+          "pinpoint": "Guide for collection agencies > Before contacting a debtor",
+          "quote": "Before you can contact a debtor to demand payment, you must send a written notice to the debtor. You can send the notice by regular mail or email. The notice must include: the name of the creditor details about the debt, including the balance owing and product type (for example, line of credit or credit card) the name of the collection agency and collector demanding payment the agency's authority to demand payment of the debt"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cpo-guide-collection-agencies.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-collection-agency|defendantConsideration|collection-agency-conduct-rules",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7c573a8ef0358d5f5d224b6f59cc4c53e78ad913d41107c7f19d74e0f4fee1cd",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/page/guide-collection-agencies",
+          "pinpoint": "Guide for collection agencies > Rules on using aggressive tactics or false information; What to do before taking legal action; Charges not part of debt",
+          "quote": "threaten legal action without the creditor's written authority to commence legal proceedings continue contacting the debtor after the debtor advises you they are disputing the debt and requests that the matter be taken to court ... Before you recommend that a creditor starts a legal proceeding to collect a debt, you must notify the debtor that you intend to make the recommendation. ... You cannot ask the debtor to pay for charges incurred by your agency or the creditor (for example, commissions)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cpo-guide-collection-agencies.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-collection-agency|defendantConsideration|defence-to-agency-claim",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5e4766f46ddd459e2d8abf4702fee063b522285187a56ed5b09d06ad89c73e02",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02 (1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-collection-agency|proceduralNote|sc-defence-sued-by-a-collection-agency#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5fd0749a9b3d8fb7d7fe965f955f9dda138faf724b8229111fcb1b75a4db53ec",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "Replying to a claim > What happens if you ignore the claim; How much time you have to file a defence",
+          "quote": "If you ignore the claim it will be assumed that you admit to the truth of what is claimed against you. The plaintiff can then get a judgment against you, with no further notice to you, just as if there had been a trial. ... You have 20 calendar days from the date you were served with the claim to file your defence. After 20 days, the plaintiff can have you noted in default."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-collection-agency|proceduralNote|sc-defence-sued-by-a-collection-agency#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6f9a2271352bd4d417fe7a80d82a830ac48bd090afc1c129dc05a809f6dbbf94",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5 (1)-(2)",
+          "quote": "A claim is discovered on the earlier of, ... A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-collection-agency|proceduralNote|sc-defence-sued-by-a-collection-agency#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b772377517cb6582d8d5fd0c31f31f3ca9059ee29a2250106220b2570b430c31",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 13 (1), (10), (11)",
+          "quote": "If a person acknowledges liability in respect of a claim for payment of a liquidated sum, ... the act or omission on which the claim is based shall be deemed to have taken place on the day on which the acknowledgment was made. ... Subsections (1), (2), (3), (6) and (7) do not apply unless the acknowledgment is in writing and signed by the person making it or the person's agent. ... In the case of a claim for payment of a liquidated sum, part payment of the sum by the person against whom the claim is made or by the person's agent has the same effect as the acknowledgment referred to in subsection (10)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-bank-or-lender|plaintiffElement|lender-has-to-prove-loan-and-balance",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "40ce76ee4e7f3dc3d4c9a57ffa347cd434152b2d5155a761b1228aff7818139c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 7.01 (1)-(2)",
+          "quote": "An action shall be commenced by filing a plaintiff's claim (Form 7A) with the clerk, ... It shall contain the following information, in concise and non- technical language: i. The full names of the parties to the proceeding and, if relevant, the capacity in which they sue or are sued. ii. The nature of the claim, with reasonable certainty and detail, including the date, place and nature of the occurrences on which the claim is based. ... If the plaintiff's claim is based in whole or in part on a document, a copy of the document shall be attached to each copy of the claim, unless it is unavailable, in which case the claim shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-bank-or-lender|plaintiffElement|interest-the-lender-claims",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a89275bbc00362578c1973c4b00b31e90aa58b69572b7bb41cec655d095e9e17",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Asking for interest on the money claimed",
+          "quote": "If you want to ask for interest on the money you are claiming you must ask for interest in your claim form. If the rate of interest has been agreed to by the parties ( e.g. in a written contract signed by the parties), indicate that interest rate in your claim. ... Interest must be expressed as an annual rate ( e.g. 24% per annum and not 2% per month). The Interest Act (Canada) provides that where a contract does not provide for an annualized rate of interest equivalent to the monthly, weekly or daily rate of interest charged, no interest exceeding the rate of 5% per annum shall be chargeable."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-bank-or-lender|defendantConsideration|admit-part-and-propose-payments",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cb0ed12d0482aecf78f925df53410439ebd9e220015755639e4a4ef126f22ee0",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.03 (1)-(3)",
+          "quote": "A defendant who admits liability for all or part of the plaintiff's claim but wishes to arrange terms of payment may in the defence admit liability and propose terms of payment. ... If the plaintiff does not dispute the proposal within the 20-day period referred to in subrule (3), (a) the defendant shall make payment in accordance with the proposal as if it were a court order; ... The plaintiff may dispute the proposal within 20 days after service of the defence by filing with the clerk and serving on the defendant a request to clerk (Form 9B) for a terms of payment hearing"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-bank-or-lender|defendantConsideration|defence-to-lender-claim",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b660bd08a282f0525a8baf030879f94fe4a1a6e3ae18ef054bd1cb4b71fe1cbd",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02 (1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-bank-or-lender|proceduralNote|sc-defence-sued-by-a-bank-or-lender#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5fd0749a9b3d8fb7d7fe965f955f9dda138faf724b8229111fcb1b75a4db53ec",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "Replying to a claim > What happens if you ignore the claim; How much time you have to file a defence",
+          "quote": "If you ignore the claim it will be assumed that you admit to the truth of what is claimed against you. The plaintiff can then get a judgment against you, with no further notice to you, just as if there had been a trial. ... You have 20 calendar days from the date you were served with the claim to file your defence. After 20 days, the plaintiff can have you noted in default."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-bank-or-lender|proceduralNote|sc-defence-sued-by-a-bank-or-lender#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2049a09ad98841764365b1be248334d13bde6e9c7702e0f68441e2f72f741779",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5 (1)-(2)",
+          "quote": "A claim is discovered on the earlier of, ... A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5 (3)-(4)",
+          "quote": "For the purposes of subclause (1) (a) (i), the day on which injury, loss or damage occurs in relation to a demand obligation is the first day on which there is a failure to perform the obligation, once a demand for the performance is made. ... Subsection (3) applies in respect of every demand obligation created on or after January 1, 2004."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-bank-or-lender|proceduralNote|sc-defence-sued-by-a-bank-or-lender#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b772377517cb6582d8d5fd0c31f31f3ca9059ee29a2250106220b2570b430c31",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 13 (1), (10), (11)",
+          "quote": "If a person acknowledges liability in respect of a claim for payment of a liquidated sum, ... the act or omission on which the claim is based shall be deemed to have taken place on the day on which the acknowledgment was made. ... Subsections (1), (2), (3), (6) and (7) do not apply unless the acknowledgment is in writing and signed by the person making it or the person's agent. ... In the case of a claim for payment of a liquidated sum, part payment of the sum by the person against whom the claim is made or by the person's agent has the same effect as the acknowledgment referred to in subsection (10)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-defence-debt-already-paid-or-not-yours|plaintiffElement|plaintiff-has-to-prove-you-owe-it",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "96416be1daddeb64f64a0fed21a9c51b5924e33c4cf3bc76b73f299ca8e16bd4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt"
+    },
+    {
+      "key": "sc-defence-debt-already-paid-or-not-yours|plaintiffElement|amount-after-payments",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "aae7af925091ea30791d11fc86d3aaac16a2ac01a6d54a874207e92db6089799",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > How to fill out the claim form",
+          "quote": "Fill in the reasons for your claim and details. Give a full explanation of what happened, including the dates and places and nature of the occurrences involved. Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-debt-already-paid-or-not-yours|defendantConsideration|defence-with-proof",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5a216e1acc5cadcc20ecff6bedfdf0fb42ac607aa0de762b97ebac79f7171e3c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "Replying to a claim > Definition of a defence; How to fill in the defence",
+          "quote": "A Defence [Form 9A] is your answer to the claim. It is the form you will use to explain: what you disagree with in the claim, and why what, if anything, you agree with ... If your legal name is different from the name used on the claim, indicate the error and state your full legal name in your defence. ... If your defence is based in whole, or in part, on a document, attach a copy of the document to your defence ( e.g. a contract or invoice). If you no longer have the document, or cannot find it, state in your defence the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-debt-already-paid-or-not-yours|defendantConsideration|collector-and-the-wrong-person",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "be696b6e262e604eaca51b4fd6753292081f7a23c23bd61c5a622432c1bd454f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/page/guide-collection-agencies",
+          "pinpoint": "Guide for collection agencies > Trying to collect from the wrong person",
+          "quote": "You cannot contact or attempt to contact someone if: you know or reasonably should know they are not responsible for the debt they have told you that you have the wrong person unless you have taken reasonable steps to confirm you do have the right person"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cpo-guide-collection-agencies.txt"
+    },
+    {
+      "key": "sc-defence-debt-already-paid-or-not-yours|proceduralNote|sc-defence-debt-already-paid-or-not-yours#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5fd0749a9b3d8fb7d7fe965f955f9dda138faf724b8229111fcb1b75a4db53ec",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "Replying to a claim > What happens if you ignore the claim; How much time you have to file a defence",
+          "quote": "If you ignore the claim it will be assumed that you admit to the truth of what is claimed against you. The plaintiff can then get a judgment against you, with no further notice to you, just as if there had been a trial. ... You have 20 calendar days from the date you were served with the claim to file your defence. After 20 days, the plaintiff can have you noted in default."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-debt-already-paid-or-not-yours|proceduralNote|sc-defence-debt-already-paid-or-not-yours#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8c313b530bd85d35d9cb462a975b2c70cb34ddb074be17fe09faea4da0e4b9fd",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "Replying to a claim > Next steps",
+          "quote": "If you disputed all or part of the claim you will have to attend a settlement conference. The settlement conference should take place within 90 days after the first defence in the case is filed."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-debt-already-paid-or-not-yours|proceduralNote|sc-defence-debt-already-paid-or-not-yours#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6f9a2271352bd4d417fe7a80d82a830ac48bd090afc1c129dc05a809f6dbbf94",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5 (1)-(2)",
+          "quote": "A claim is discovered on the earlier of, ... A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-defence-sued-as-guarantor|plaintiffElement|guarantee-was-signed",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "87e15b8428f6afcf4772ade68acff4160aacb85ee4e22f34820ba77b9c1a1953",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > Example 3",
+          "quote": "Zoro signs the guarantee and, by doing so, is agreeing to pay the debt personally if ZC Roofing Ltd . does not. If the roofing supply company decides to sue, the defendants in the action could be: ZC Roofing Ltd . on the claim form; and Zoro Carey on the additional parties form."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-sued-as-guarantor|plaintiffElement|amount-the-borrower-did-not-pay",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6d5666b76b8dfb72144516c64f4496a701bc41051bad628fb257becb96fadbf4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > How to fill out the claim form",
+          "quote": "Fill in the reasons for your claim and details. Give a full explanation of what happened, including the dates and places and nature of the occurrences involved. Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-sued-as-guarantor|defendantConsideration|defence-as-guarantor",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "41f68b97da325ee4e5e6daf82b1893a3cee0beed4612be73a609f596f04fb934",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02 (1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-defence-sued-as-guarantor|defendantConsideration|claim-against-the-borrower",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "68cc637c8fe1e05ea2e86a0f18c6b8708b233deca883730061d551893ffa892a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 10.01 (1)-(2)",
+          "quote": "A defendant may make a claim, (a) against the plaintiff; (b) against any other person, (i) arising out of the transaction or occurrence relied upon by the plaintiff, or (ii) related to the plaintiff's claim; ... The defendant's claim shall be in Form 10A and may be issued, (a) within 20 days after the day on which the defence is filed; or (b) after the time described in clause (a) but before trial or default judgment, with leave of the court."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-defence-sued-as-guarantor|proceduralNote|sc-defence-sued-as-guarantor#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5fd0749a9b3d8fb7d7fe965f955f9dda138faf724b8229111fcb1b75a4db53ec",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "Replying to a claim > What happens if you ignore the claim; How much time you have to file a defence",
+          "quote": "If you ignore the claim it will be assumed that you admit to the truth of what is claimed against you. The plaintiff can then get a judgment against you, with no further notice to you, just as if there had been a trial. ... You have 20 calendar days from the date you were served with the claim to file your defence. After 20 days, the plaintiff can have you noted in default."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-sued-as-guarantor|proceduralNote|sc-defence-sued-as-guarantor#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a057907a7379afdacb654ad65393c1cbd2eeada8308e48f2659c0e9645bdf6e6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/page/guide-collection-agencies",
+          "pinpoint": "Guide for collection agencies > When you can contact other people about a debtor",
+          "quote": "You can contact a debtor's spouse, family member, someone in the debtor's household, or a relative, neighbour, friend or acquaintance of the debtor only if: that person has guaranteed to pay the debt and the contact is regarding that guarantee"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cpo-guide-collection-agencies.txt"
+    },
+    {
+      "key": "sc-defence-sued-as-guarantor|proceduralNote|sc-defence-sued-as-guarantor#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6f9a2271352bd4d417fe7a80d82a830ac48bd090afc1c129dc05a809f6dbbf94",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5 (1)-(2)",
+          "quote": "A claim is discovered on the earlier of, ... A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-an-insurer|plaintiffElement|insurer-right-to-sue-after-paying",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "eae7e5fb1d103d1814b28966c8d1e6f7031ec578c0ed53a0070be19701acdf85",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "s. 278 (1)",
+          "quote": "An insurer who makes any payment or assumes liability therefor under a contract is subrogated to all rights of recovery of the insured against any person and may bring action in the name of the insured to enforce those rights."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "s. 152 (1); s. 143 (1)",
+          "quote": "The insurer, upon making a payment or assuming liability therefor under a contract to which this Part applies, is subrogated to all rights of recovery of the insured against any person, and may bring action in the name of the insured to enforce such rights. ... This Part applies to insurance against loss of or damage to property arising from the peril of fire in any contract made in Ontario except,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/insurance-act.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-an-insurer|plaintiffElement|fault-and-the-loss",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6592276fd3519f3974729f13ea79ec36db6fb90c14f822bd2fa5fca2a51aa779",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 1",
+          "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; Vendored corpus file docs/sources/corpus/negligence-act.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-an-insurer|defendantConsideration|direct-compensation-car-damage",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "24fdebc01103c248c2a0b50d4ab854db748b1ef3142fadf958701f96fb58b559",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+          "pinpoint": "s. 263 (1), (5)",
+          "quote": "This section applies if, (a) an automobile or its contents, or both, suffers damage arising directly or indirectly from the use or operation in Ontario of one or more other automobiles; ... If this section applies, (a) an insured has no right of action against any person involved in the incident other than the insured's insurer for damages to the insured's automobile or its contents or for loss of use; ... (b) an insurer, except as permitted by the regulations, has no right of indemnification from or subrogation against any person for payments made to its insured under this section."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/insurance-act.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-an-insurer|defendantConsideration|defence-to-insurer-claim",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "618f042ee323169f5b3bf7dc4b9c0cec6e6fcfb7af27100fbd1c578e99f0651e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02 (1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-an-insurer|proceduralNote|sc-defence-sued-by-an-insurer#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5fd0749a9b3d8fb7d7fe965f955f9dda138faf724b8229111fcb1b75a4db53ec",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "Replying to a claim > What happens if you ignore the claim; How much time you have to file a defence",
+          "quote": "If you ignore the claim it will be assumed that you admit to the truth of what is claimed against you. The plaintiff can then get a judgment against you, with no further notice to you, just as if there had been a trial. ... You have 20 calendar days from the date you were served with the claim to file your defence. After 20 days, the plaintiff can have you noted in default."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-an-insurer|proceduralNote|sc-defence-sued-by-an-insurer#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "cb40d2dcc03dcebd728391d7a621fbe059cea9ec82b2fafa3b215255199b45d6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 10.01 (1)-(2)",
+          "quote": "A defendant may make a claim, (a) against the plaintiff; (b) against any other person, (i) arising out of the transaction or occurrence relied upon by the plaintiff, or (ii) related to the plaintiff's claim; ... The defendant's claim shall be in Form 10A and may be issued, (a) within 20 days after the day on which the defence is filed; or (b) after the time described in clause (a) but before trial or default judgment, with leave of the court."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-an-insurer|proceduralNote|sc-defence-sued-by-an-insurer#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6f9a2271352bd4d417fe7a80d82a830ac48bd090afc1c129dc05a809f6dbbf94",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5 (1)-(2)",
+          "quote": "A claim is discovered on the earlier of, ... A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-defence-sued-as-parent-owner-or-employer|plaintiffElement|parent-child-took-or-damaged-property",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e2c0f7378109858a41874b05efcb3249fe6d3d0aa53ddef8d5a2a7f0fa4ada4e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+          "pinpoint": "ss. 1, 2 (1)-(3)",
+          "quote": "\"child\" means a person who is under the age of 18 years; ... Where a child takes, damages or destroys property, an owner or a person entitled to possession of the property may bring an action in the Small Claims Court against a parent of the child to recover damages, not in excess of the monetary jurisdiction of the Small Claims Court, (a) for loss of or damage to the property suffered as a result of the activity of the child; and (b) for economic loss suffered as a consequence of that loss of or damage to property. ... The parent is liable for the damages unless the parent satisfies the court that, (a) he or she was exercising reasonable supervision over the child at the time the child engaged in the activity that caused the loss or damage and made reasonable efforts to prevent or discourage the child from engaging in the kind of activity that resulted in the loss or damage; or (b) the activity that caused the loss or damage was not intentional. ... the court may consider, (a) the age of the child; (b) the prior conduct of the child; ... (f) whether the child was under the direct supervision of the parent at the time when the child was engaged in the activity; ... (j) any other matter that the court considers relevant."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/parental-responsibility-act-2000.txt"
+    },
+    {
+      "key": "sc-defence-sued-as-parent-owner-or-employer|plaintiffElement|dog-owner-bite-or-attack",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fe22a2fa5f795aacff080b14f3494a75a6f2b35cf2cc3ad370170fa3054722b1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+          "pinpoint": "ss. 1 (1), 2 (1), (3), (4)",
+          "quote": "\"owner\", when used in relation to a dog, includes a person who possesses or harbours the dog ... The owner of a dog is liable for damages resulting from a bite or attack by the dog on another person or domestic animal. ... The liability of the owner does not depend upon knowledge of the propensity of the dog or fault or negligence on the part of the owner, but the court shall reduce the damages awarded in proportion to the degree, if any, to which the fault or negligence of the plaintiff caused or contributed to the damages. ... An owner who is liable to pay damages under this section is entitled to recover contribution and indemnity from any other person in proportion to the degree to which the other person's fault or negligence caused or contributed to the damages."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/dog-owners-liability-act.txt"
+    },
+    {
+      "key": "sc-defence-sued-as-parent-owner-or-employer|plaintiffElement|occupier-duty-of-care",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f871016388ed2c08d081497704cef6324dcf7c17b6c209f6006c4e34fcfb2c90",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "ss. 3 (1), 4 (1)",
+          "quote": "An occupier of premises owes a duty to take such care as in all the circumstances of the case is reasonable to see that persons entering on the premises, and the property brought on the premises by those persons are reasonably safe while on the premises. ... The duty of care provided for in subsection 3 (1) does not apply in respect of risks willingly assumed by the person who enters on the premises, but in that case the occupier owes a duty to the person to not create a danger with the deliberate intent of doing harm or damage to the person or his or her property and to not act with reckless disregard of the presence of the person or his or her property."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt"
+    },
+    {
+      "key": "sc-defence-sued-as-parent-owner-or-employer|defendantConsideration|work-done-by-an-independent-contractor",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1c91e6400199deb7a85e7129f13aa9e2cd09083a5bdbfd1be62af2a58fa5d829",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "s. 6 (1)",
+          "quote": "Where damage to any person or his or her property is caused by the negligence of an independent contractor employed by the occupier, the occupier is not on that account liable if in all the circumstances the occupier had acted reasonably in entrusting the work to the independent contractor, if the occupier had taken such steps, if any, as the occupier reasonably ought in order to be satisfied that the contractor was competent and that the work had been properly done, and if it was reasonable that the work performed by the independent contractor should have been undertaken."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt"
+    },
+    {
+      "key": "sc-defence-sued-as-parent-owner-or-employer|defendantConsideration|plaintiffs-own-fault",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a0a44b58c3bc24f3755a65520e02ba9d09d4fed8d88f2728f673ea94c52d5015",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt"
+    },
+    {
+      "key": "sc-defence-sued-as-parent-owner-or-employer|proceduralNote|sc-defence-sued-as-parent-owner-or-employer#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5fd0749a9b3d8fb7d7fe965f955f9dda138faf724b8229111fcb1b75a4db53ec",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "Replying to a claim > What happens if you ignore the claim; How much time you have to file a defence",
+          "quote": "If you ignore the claim it will be assumed that you admit to the truth of what is claimed against you. The plaintiff can then get a judgment against you, with no further notice to you, just as if there had been a trial. ... You have 20 calendar days from the date you were served with the claim to file your defence. After 20 days, the plaintiff can have you noted in default."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-sued-as-parent-owner-or-employer|proceduralNote|sc-defence-sued-as-parent-owner-or-employer#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7d4ef258ee81a4232f040429d22bd6b32140e656a68b78c4ce67dc1e16535c93",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "s. 6.1 (1), (2), (6)",
+          "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim, including the date, time and location of the occurrence, has been personally served on or sent by registered mail to at least one person listed in subsection (2). ... 1. An occupier. 2. An independent contractor employed by the occupier to remove snow or ice on the premises during the relevant period in which the injury occurred. ... Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt"
+    },
+    {
+      "key": "sc-defence-sued-as-parent-owner-or-employer|proceduralNote|sc-defence-sued-as-parent-owner-or-employer#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6f9a2271352bd4d417fe7a80d82a830ac48bd090afc1c129dc05a809f6dbbf94",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5 (1)-(2)",
+          "quote": "A claim is discovered on the earlier of, ... A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-contractor|plaintiffElement|contractor-has-to-prove-agreement-and-work",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3b271e6b888040e7a74f5c55024056734641522b138295e23253643184af9642",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 7.01 (1)-(2)",
+          "quote": "An action shall be commenced by filing a plaintiff's claim (Form 7A) with the clerk, ... It shall contain the following information, in concise and non- technical language: i. The full names of the parties to the proceeding and, if relevant, the capacity in which they sue or are sued. ii. The nature of the claim, with reasonable certainty and detail, including the date, place and nature of the occurrences on which the claim is based. ... If the plaintiff's claim is based in whole or in part on a document, a copy of the document shall be attached to each copy of the claim, unless it is unavailable, in which case the claim shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-contractor|plaintiffElement|amount-claimed-for-the-work",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "986ad994ba1a32b1ea605f45c1e0584d4431a51b1bfd7359e94e47119dfb0768",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim > How to fill out the claim form",
+          "quote": "Fill in the reasons for your claim and details. Give a full explanation of what happened, including the dates and places and nature of the occurrences involved. Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-contractor|defendantConsideration|estimate-ten-per-cent-rule",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e8421b0abd382ced3f2c676c5b6ad24c00d493a6c517bfa98101154c2ef047b2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "ss. 1 (\"consumer\"), 10 (1)-(3)",
+          "quote": "\"consumer\" means an individual acting for personal, family or household purposes and does not include a person who is acting for business purposes ... If a consumer agreement includes an estimate, the supplier shall not charge the consumer an amount that exceeds the estimate by more than 10 per cent. ... If a supplier charges an amount that exceeds the estimate by more than 10 per cent, the consumer may require that the supplier provide the goods or services at the estimated price. ... Nothing in this section prevents a consumer and a supplier from agreeing to amend the estimate or price in a consumer agreement, if the consumer requires additional or different goods or services."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-contractor|defendantConsideration|quality-of-the-work-and-claim-back",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "98f9d1ccefb35e74bdf2c26a455764ca634bef093c396c14f17b682b33081d33",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "s. 9 (1)",
+          "quote": "The supplier is deemed to warrant that the services supplied under a consumer agreement are of a reasonably acceptable quality."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 10.01 (1)-(2)",
+          "quote": "A defendant may make a claim, (a) against the plaintiff; (b) against any other person, (i) arising out of the transaction or occurrence relied upon by the plaintiff, or (ii) related to the plaintiff's claim; ... The defendant's claim shall be in Form 10A and may be issued, (a) within 20 days after the day on which the defence is filed; or (b) after the time described in clause (a) but before trial or default judgment, with leave of the court."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt; Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-contractor|proceduralNote|sc-defence-sued-by-a-contractor#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5fd0749a9b3d8fb7d7fe965f955f9dda138faf724b8229111fcb1b75a4db53ec",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "Replying to a claim > What happens if you ignore the claim; How much time you have to file a defence",
+          "quote": "If you ignore the claim it will be assumed that you admit to the truth of what is claimed against you. The plaintiff can then get a judgment against you, with no further notice to you, just as if there had been a trial. ... You have 20 calendar days from the date you were served with the claim to file your defence. After 20 days, the plaintiff can have you noted in default."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-contractor|proceduralNote|sc-defence-sued-by-a-contractor#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bae4234ece425e44ea14ef17afe1cb3faf8b3a9fb932c974f41f170d9d8364c1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c30_e.doc",
+          "pinpoint": "ss. 14 (1), 50 (1)",
+          "quote": "A person who supplies services or materials to an improvement for an owner, contractor or subcontractor, has a lien upon the interest of the owner in the premises improved for the price of those services or materials. ... A lien claim is enforceable in an action in the Superior Court of Justice."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/construction-act.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-contractor|proceduralNote|sc-defence-sued-by-a-contractor#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6f9a2271352bd4d417fe7a80d82a830ac48bd090afc1c129dc05a809f6dbbf94",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5 (1)-(2)",
+          "quote": "A claim is discovered on the earlier of, ... A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-former-partner|plaintiffElement|former-partner-has-to-prove-claim",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d385d7a35f3c9b1f76aaf3699f24c78f7b5bc78ab50a7a771e5c7db9c2427de3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-former-partner|plaintiffElement|unjust-enrichment-after-a-relationship",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e7f1c7461341e2805a4abd440a17b79206d84fb5f8bbbb69be5104c42564f991",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+          "pinpoint": "Kerr v. Baranow, 2011 SCC 10, paras. 30, 32, 41, 48 (Cromwell J., for the Court)",
+          "quote": "The judgment of the Court was delivered by Cromwell J. ... The law of unjust enrichment has been the primary vehicle to address claims of inequitable distribution of assets on the breakdown of a domes- tic relationship. ... It permits recovery whenever the plaintiff can establish three elements: an enrichment of or benefit to the defend- ant, a corresponding deprivation of the plaintiff, and the absence of a juristic reason for the enrich- ment ... Juristic reasons to deny recovery may be the intention to make a gift (referred to as a \"donative intent\"), a contract, or a disposition of law ... many domestic claims of unjust enrichment arise out of relationships in which there has been a mutual conferral of ben- efits ... it is unjust to pay attention only to the contributions of one party in assessing an appropri- ate remedy."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-former-partner|defendantConsideration|married-spouses-property-presumption",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d07f31b978055cc04b7503e3acfb72df3865fcff801a3cd1185aee14b50e3da9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "ss. 1 (1) (\"spouse\"), 14",
+          "quote": "\"spouse\" means either of two persons who, (a) are married to each other, or (b) have together entered into a marriage that is voidable or void, in good faith on the part of a person relying on this clause to assert any right. ... The rule of law applying a presumption of a resulting trust shall be applied in questions of the ownership of property between spouses, as if they were not married, except that, (a) the fact that property is held in the name of spouses as joint tenants is proof, in the absence of evidence to the contrary, that the spouses are intended to own the property as joint tenants; and (b) money on deposit in the name of both spouses shall be deemed to be in the name of the spouses as joint tenants for the purposes of clause (a)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-former-partner|defendantConsideration|defence-and-claim-back-against-former-partner",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4daa75a8c9b7b58870282950717ef9c24e1dd9d6173d4ef16bc82e3703e24e88",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02 (1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 10.01 (1)-(2)",
+          "quote": "A defendant may make a claim, (a) against the plaintiff; (b) against any other person, (i) arising out of the transaction or occurrence relied upon by the plaintiff, or (ii) related to the plaintiff's claim; ... The defendant's claim shall be in Form 10A and may be issued, (a) within 20 days after the day on which the defence is filed; or (b) after the time described in clause (a) but before trial or default judgment, with leave of the court."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-former-partner|proceduralNote|sc-defence-sued-by-a-former-partner#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5fd0749a9b3d8fb7d7fe965f955f9dda138faf724b8229111fcb1b75a4db53ec",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "Replying to a claim > What happens if you ignore the claim; How much time you have to file a defence",
+          "quote": "If you ignore the claim it will be assumed that you admit to the truth of what is claimed against you. The plaintiff can then get a judgment against you, with no further notice to you, just as if there had been a trial. ... You have 20 calendar days from the date you were served with the claim to file your defence. After 20 days, the plaintiff can have you noted in default."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-former-partner|proceduralNote|sc-defence-sued-by-a-former-partner#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ed4f74c1ef2faf24e2f333a95de406fbdbaedb4bfc3d82a05b6aa8e8629e015f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+          "pinpoint": "ss. 1 (1) (\"court\"), 10 (1)",
+          "quote": "\"court\" means the Ontario Court of Justice, the Family Court of the Superior Court of Justice or the Superior Court of Justice; ... A person may apply to the court for the determination of a question between that person and his or her spouse or former spouse as to the ownership or right to possession of particular property,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/family-law-act.txt"
+    },
+    {
+      "key": "sc-defence-sued-by-a-former-partner|proceduralNote|sc-defence-sued-by-a-former-partner#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6f9a2271352bd4d417fe7a80d82a830ac48bd090afc1c129dc05a809f6dbbf94",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5 (1)-(2)",
+          "quote": "A claim is discovered on the earlier of, ... A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-defence-money-you-say-was-a-gift|plaintiffElement|money-given-and-said-to-be-a-loan",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a160b69b83c2962202d7ddc0508a79a3905ffedc99953f89d9e284b8119d76c6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
+          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt"
+    },
+    {
+      "key": "sc-defence-money-you-say-was-a-gift|plaintiffElement|unjust-enrichment-and-gifts",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "de864e35951005b80b04428aa39ebbf5e721bcdeedfd6f9019b2e8cc9ab5a7c7",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/garland-v-consumers-gas-2004-SCC-25.english.txt",
+          "pinpoint": "Garland v. Consumers' Gas Co., 2004 SCC 25, paras. 30, 44 (Iacobucci J., for the Court)",
+          "quote": "The judgment of the Court was delivered by ... the test for unjust enrichment is well established in Canada. The cause of action has three elements: (1) an enrichment of the defendant; (2) a corresponding deprivation of the plaintiff; and (3) an absence of juristic reason for the enrichment ... The established categories that can constitute juristic reasons include a contract (Pettkus, supra), a disposition of law (Pettkus, supra), a donative intent (Peter, supra), and other valid common law, equitable or statutory obligations (Peter, supra)."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/garland-v-consumers-gas-2004-SCC-25.english.txt"
+    },
+    {
+      "key": "sc-defence-money-you-say-was-a-gift|defendantConsideration|who-has-to-show-it-was-a-gift",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bd659381798fa91d511a5636c3a74a2d0e1e47d7cf78def0782a9f714735616",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+          "pinpoint": "Pecore v. Pecore, 2007 SCC 17, paras. 24, 25, 27, 36, 43, 44 (Rothstein J., for the majority)",
+          "quote": "Rothstein JJ. was delivered by ... Rothstein J. ... The presumption of resulting trust is a rebuttable presumption of law and general rule that applies to gratuitous transfers. When a transfer is challenged, the presumption allocates the legal burden of proof. Thus, where a transfer is made for no consideration, the onus is placed on the transferee to demonstrate that a gift was intended ... The presumption of resulting trust therefore alters the general practice that a plaintiff (who ... would be the party challenging the transfer in these cases) bears the legal burden in a civil case. ... The presumption of resulting trust is the general rule for gratuitous transfers. However, depending on the nature of the relationship between the transferor and transferee, the presumption of a resulting trust will not arise and there will be a presumption of advancement instead ... If the presumption of advancement applies, it will fall on the party challenging the transfer to rebut the presumption of a gift. ... the presumption should not apply in respect of independent adult children. ... The evidence required to rebut both presumptions, therefore, is evidence of the transferor's contrary intention on the balance of probabilities. ... The trial judge will commence his or her inquiry with the applicable presumption and will weigh all of the evidence in an attempt to ascertain, on a balance of probabilities, the transferor's actual intention."
+        }
+      ],
+      "howRead": "Saved decision, read from docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt"
+    },
+    {
+      "key": "sc-defence-money-you-say-was-a-gift|defendantConsideration|defence-that-it-was-a-gift",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7e1462c6417c75817be4c6c66b70c9d202f52e9aa5c58e9cacd0d1ecb201fc9a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02 (1)",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-defence-money-you-say-was-a-gift|proceduralNote|sc-defence-money-you-say-was-a-gift#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5fd0749a9b3d8fb7d7fe965f955f9dda138faf724b8229111fcb1b75a4db53ec",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "Replying to a claim > What happens if you ignore the claim; How much time you have to file a defence",
+          "quote": "If you ignore the claim it will be assumed that you admit to the truth of what is claimed against you. The plaintiff can then get a judgment against you, with no further notice to you, just as if there had been a trial. ... You have 20 calendar days from the date you were served with the claim to file your defence. After 20 days, the plaintiff can have you noted in default."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-money-you-say-was-a-gift|proceduralNote|sc-defence-money-you-say-was-a-gift#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8c313b530bd85d35d9cb462a975b2c70cb34ddb074be17fe09faea4da0e4b9fd",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+          "pinpoint": "Replying to a claim > Next steps",
+          "quote": "If you disputed all or part of the claim you will have to attend a settlement conference. The settlement conference should take place within 90 days after the first defence in the case is filed."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-replying-to-a-claim.txt"
+    },
+    {
+      "key": "sc-defence-money-you-say-was-a-gift|proceduralNote|sc-defence-money-you-say-was-a-gift#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "2049a09ad98841764365b1be248334d13bde6e9c7702e0f68441e2f72f741779",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5 (1)-(2)",
+          "quote": "A claim is discovered on the earlier of, ... A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5 (3)-(4)",
+          "quote": "For the purposes of subclause (1) (a) (i), the day on which injury, loss or damage occurs in relation to a demand obligation is the first day on which there is a failure to perform the obligation, once a demand for the performance is made. ... Subsection (3) applies in respect of every demand obligation created on or after January 1, 2004."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    }
+  ],
   "unverifiable": []
 }

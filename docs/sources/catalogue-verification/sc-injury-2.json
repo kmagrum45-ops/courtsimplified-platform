@@ -1,4 +1,1356 @@
 {
-  "records": [],
+  "records": [
+    {
+      "key": "sc-claim-injury-from-a-falling-object|plaintiffElement|who-is-occupier-scobj",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ea6ba63746aa7f255e89ad800a72d599fe442fdd10d245ddac27b787b16d5c17",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 1 (\"occupier\", \"premises\")",
+          "quote": "\"occupier\" includes, (a) a person who is in physical possession of premises, or (b) a person who has responsibility for and control over the condition of premises or the activities there carried on, or control over persons allowed to enter the premises, despite the fact that there is more than one occupier of the same premises; ... \"premises\" means lands and structures, or either of them"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 2",
+          "quote": "Subject to section 9, this Act applies in place of the rules of the common law that determine the care that the occupier of premises at common law is required to show for the purpose of determining the occupier's liability in law in respect of dangers to persons entering on the premises or the property brought on the premises by those persons."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-falling-object|plaintiffElement|reasonable-care-scobj",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7f301ad4b903035b418501b2a93dc08d531a5ad4af1106aa59afaa23b13c24a5",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 3(1)",
+          "quote": "An occupier of premises owes a duty to take such care as in all the circumstances of the case is reasonable to see that persons entering on the premises, and the property brought on the premises by those persons are reasonably safe while on the premises."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 3(2)",
+          "quote": "The duty of care provided for in subsection (1) applies whether the danger is caused by the condition of the premises or by an activity carried on on the premises."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/waldick-v-malcolm-1991-2-SCR-456.html.txt",
+          "pinpoint": "Waldick v. Malcolm, [1991] 2 S.C.R. 456 (reasons of Iacobucci J. for the Court)",
+          "quote": "That duty is to take reasonable care in the circumstances to make the premises safe. That duty does not change but the factors which are relevant to an assessment of what constitutes reasonable care will necessarily be very specific to each fact situation"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/waldick-v-malcolm-1991-2-SCR-456.html.txt",
+          "pinpoint": "Waldick v. Malcolm (reasons of Iacobucci J. for the Court)",
+          "quote": "the existence of customary practices which are unreasonable in themselves, or which are not otherwise acceptable to courts, in no way ousts the duty of care owed by occupiers under s. 3(1) of the Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt; Saved decision docs/sources/decisions/waldick-v-malcolm-1991-2-SCR-456.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-falling-object|plaintiffElement|negligence-scobj",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "856f87a14da1c4801f6b71fd4aabc81c0848b41e4fcab4d4dba6a04ab6d52a75",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant 's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan v. Victoria (City), [1999] 1 S.C.R. 201, para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances. The 222 measure of what is reasonable depends on the facts of each case, including the likelihood of a known or foreseeable harm, the gravity of that harm, and the burden or cost which would be incurred to prevent the injury. In addition, one may look to exter- nal indicators of reasonable conduct, such as cus- tom, industry practice, and statutory or regulatory standards."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan v. Victoria (City), [1999] 1 S.C.R. 201, para. 29",
+          "quote": "Legislative standards are relevant to the common law standard of care, but the two are not necessarily co-extensive."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan, para. 29",
+          "quote": "Thus, a statutory breach does not automatically give rise to civil liability; it is merely some evidence of negligence."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan, para. 29",
+          "quote": "By the same token, mere compliance with a statute does not, in and of itself, preclude a finding of civil liability."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-falling-object|plaintiffElement|damage-and-cause-scobj",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "892b5eccb611c949352b0556410ba3160c748363091a5dab055055a4b490a6f3",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 8",
+          "quote": "Generally, a plaintiff who suffers personal injury will be found to have suffered damage. Damage for purposes of this inquiry includes psychological injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 9",
+          "quote": "The law does not recognize upset, disgust, anxiety, agitation or other mental states that fall short of injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements v. Clements, 2012 SCC 32, para. 8",
+          "quote": "The test for showing causation is the \"but for\" test. The plaintiff must show on a balance of probabilities that \"but for\" the defendant's negligent act, the injury would not have occurred."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements, para. 8",
+          "quote": "This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements, para. 9",
+          "quote": "causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant's negligence made to the injury."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-falling-object|defendantConsideration|independent-contractor-scobj",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c978a37521b65cbe7f41076c134ba5f3208e0ecb87cfcb09668ce674692810e6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 6(1)",
+          "quote": "Where damage to any person or his or her property is caused by the negligence of an independent contractor employed by the occupier, the occupier is not on that account liable if in all the circumstances the occupier had acted reasonably in entrusting the work to the independent contractor, if the occupier had taken such steps, if any, as the occupier reasonably ought in order to be satisfied that the contractor was competent and that the work had been properly done, and if it was reasonable that the work performed by the independent contractor should have been undertaken."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 6(3)",
+          "quote": "Nothing in this section affects any duty of the occupier that is non- delegable at common law"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-falling-object|defendantConsideration|more-than-one-at-fault-scobj",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "10ae4609b9e2c8762c05abec1293f2813b123eea9784e7a8783315ae2bae31aa",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 1",
+          "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons are found at fault or negligent, they are jointly and severally liable to the person suffering loss or damage for such fault or negligence, but as between themselves, in the absence of any contract express or implied, each is liable to make contribution and indemnify each other in the degree in which they are respectively found to be at fault or negligent."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 4",
+          "quote": "If it is not practicable to determine the respective degree of fault or negligence as between any parties to an action, such parties shall be deemed to be equally at fault or negligent."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 5",
+          "quote": "Wherever it appears that a person not already a party to an action is or may be wholly or partly responsible for the damages claimed, such person may be added as a party defendant to the action upon such terms as are considered just or may be made a third party to the action in the manner prescribed by the rules of court for adding third parties."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-falling-object|defendantConsideration|contributory-negligence-scobj",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b00e8fb499cc582067c8efd031457bd7032b0ed5120108524ff94576857b83e0",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 9(3)",
+          "quote": "The Negligence Act applies with respect to causes of action to which this Act applies."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt; Vendored corpus file docs/sources/corpus/negligence-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-falling-object|proceduralNote|sc-claim-injury-from-a-falling-object#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4360c59f9d452eeedfd7c68610371282ed61c20b886b82ef71ae935f6dc74536",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 6.1(1)",
+          "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim, including the date, time and location of the occurrence, has been personally served on or sent by registered mail to at least one person listed in subsection (2)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 6.1(2)",
+          "quote": "The persons referred to in subsection (1) are the following: 1. An occupier. 2. An independent contractor employed by the occupier to remove snow or ice on the premises during the relevant period in which the injury occurred."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 6.1(5)",
+          "quote": "Failure to give notice in accordance with subsection (1) is not a bar to the action in the case of the death of the injured person as a result of the injury."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 6.1(6)",
+          "quote": "Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-falling-object|proceduralNote|sc-claim-injury-from-a-falling-object#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "34ff71cef1f9f3b33fa9350b5b799eef6adf3e09b3aa0e26eec56a559cb05907",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Small claims court: suing someone -- What you can sue for",
+          "quote": "You can sue for claims for damages, such as: property damage clothes damaged by a dry cleaner personal injuries"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Small claims court: suing someone -- Overview",
+          "quote": "If what you are owed is more than $50,000, you can still file in Small Claims Court if you are willing to waive the amount over $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt; Vendored corpus file docs/sources/corpus/ontario-suing-someone-small-claims.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-falling-object|proceduralNote|sc-claim-injury-from-a-falling-object#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fd03c8cf644873804696b7208e4a976254bab3750b34113b129b4a2c2842d8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-at-school-or-daycare|plaintiffElement|supervision-standard-scschool",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "014eaa6dc44b87d93e3fa84072f5ee02f95a3bd06eb32f24b6a01e9708be52c4",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/myers-v-peel-county-board-of-education-1981-2-SCR-21.html.txt",
+          "pinpoint": "Myers v. Peel County Board of Education, [1981] 2 S.C.R. 21 (reasons of McIntyre J. for the Court)",
+          "quote": "The standard of care to be exercised by school authorities in providing for the supervision and protection of students for whom they are responsible is that of the careful or prudent parent"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/myers-v-peel-county-board-of-education-1981-2-SCR-21.html.txt",
+          "pinpoint": "Myers v. Peel County Board of Education (reasons of McIntyre J. for the Court)",
+          "quote": "It is not, however, a standard which can be applied in the same manner and to the same extent in every case. Its application will vary from case to case and will depend upon the number of students being supervised at any given time, the nature of the exercise or activity in progress, the age and the degree of skill and training which the students may have received in connection with such activity, the nature and condition of the equipment in use at the time, the competency and capacity of the students involved, and a host of other matters"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan v. Victoria (City), [1999] 1 S.C.R. 201, para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances. The 222 measure of what is reasonable depends on the facts of each case, including the likelihood of a known or foreseeable harm, the gravity of that harm, and the burden or cost which would be incurred to prevent the injury. In addition, one may look to exter- nal indicators of reasonable conduct, such as cus- tom, industry practice, and statutory or regulatory standards."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/myers-v-peel-county-board-of-education-1981-2-SCR-21.html.txt; Saved decision docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-at-school-or-daycare|plaintiffElement|premises-care-scschool",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fd55fa72ca37866c24371056cacb8f8aa55f4d3529c17115d8d556add0ae52ed",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 1 (\"occupier\", \"premises\")",
+          "quote": "\"occupier\" includes, (a) a person who is in physical possession of premises, or (b) a person who has responsibility for and control over the condition of premises or the activities there carried on, or control over persons allowed to enter the premises, despite the fact that there is more than one occupier of the same premises; ... \"premises\" means lands and structures, or either of them"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 2",
+          "quote": "Subject to section 9, this Act applies in place of the rules of the common law that determine the care that the occupier of premises at common law is required to show for the purpose of determining the occupier's liability in law in respect of dangers to persons entering on the premises or the property brought on the premises by those persons."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 3(1)",
+          "quote": "An occupier of premises owes a duty to take such care as in all the circumstances of the case is reasonable to see that persons entering on the premises, and the property brought on the premises by those persons are reasonably safe while on the premises."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 3(2)",
+          "quote": "The duty of care provided for in subsection (1) applies whether the danger is caused by the condition of the premises or by an activity carried on on the premises."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/waldick-v-malcolm-1991-2-SCR-456.html.txt",
+          "pinpoint": "Waldick v. Malcolm, [1991] 2 S.C.R. 456 (reasons of Iacobucci J. for the Court)",
+          "quote": "That duty is to take reasonable care in the circumstances to make the premises safe. That duty does not change but the factors which are relevant to an assessment of what constitutes reasonable care will necessarily be very specific to each fact situation"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/waldick-v-malcolm-1991-2-SCR-456.html.txt",
+          "pinpoint": "Waldick v. Malcolm (reasons of Iacobucci J. for the Court)",
+          "quote": "the existence of customary practices which are unreasonable in themselves, or which are not otherwise acceptable to courts, in no way ousts the duty of care owed by occupiers under s. 3(1) of the Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt; Saved decision docs/sources/decisions/waldick-v-malcolm-1991-2-SCR-456.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-at-school-or-daycare|plaintiffElement|damage-and-cause-scschool",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fa7ead4dd0d8c34eae8b594df5cb52281403582c5a191a5b14411f2331a061fe",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 8",
+          "quote": "Generally, a plaintiff who suffers personal injury will be found to have suffered damage. Damage for purposes of this inquiry includes psychological injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 9",
+          "quote": "The law does not recognize upset, disgust, anxiety, agitation or other mental states that fall short of injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements v. Clements, 2012 SCC 32, para. 8",
+          "quote": "The test for showing causation is the \"but for\" test. The plaintiff must show on a balance of probabilities that \"but for\" the defendant's negligent act, the injury would not have occurred."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements, para. 8",
+          "quote": "This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements, para. 9",
+          "quote": "causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant's negligence made to the injury."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-at-school-or-daycare|defendantConsideration|contributory-negligence-scschool",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b0df1acbeae03e6efd164e4914d9c04f7754de014af5d59103720e87bb953ab0",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/myers-v-peel-county-board-of-education-1981-2-SCR-21.html.txt",
+          "pinpoint": "Myers v. Peel County Board of Education (reasons of McIntyre J. for the Court)",
+          "quote": "restore the judgment at trial, leaving intact the finding of contributory negligence against the appellant"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt; Saved decision docs/sources/decisions/myers-v-peel-county-board-of-education-1981-2-SCR-21.html.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-at-school-or-daycare|defendantConsideration|willing-assumption-scschool",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "05d83c73b46a94ab9125673e90f4f228330f9f0d11c17f0a694990ea37e2ab22",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 4(1)",
+          "quote": "The duty of care provided for in subsection 3 (1) does not apply in respect of risks willingly assumed by the person who enters on the premises, but in that case the occupier owes a duty to the person to not create a danger with the deliberate intent of doing harm or damage to the person or his or her property and to not act with reckless disregard of the presence of the person or his or her property."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 3(3)",
+          "quote": "The duty of care provided for in subsection (1) applies except in so far as the occupier of premises is free to and does restrict, modify or exclude the occupier's duty."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 5(3)",
+          "quote": "Where an occupier is free to restrict, modify or exclude the occupier's duty of care or the occupier's liability for breach thereof, the occupier shall take reasonable steps to bring such restriction, modification or exclusion to the attention of the person to whom the duty is owed."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-at-school-or-daycare|proceduralNote|sc-claim-injury-at-school-or-daycare#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "578afa44b31ef5791c03a23ab19f1d07627d51a5b1ebd002749462088ebf8dca",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "Rules of the Small Claims Court, r. 1.02(1) (\"disability\")",
+          "quote": "\"disability\", where used in respect of a person or party, means that the person or party is, (a) a minor,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "Rules of the Small Claims Court, r. 4.01(1)",
+          "quote": "An action by a person under disability shall be commenced or continued by a litigation guardian, subject to subrule (2)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "Rules of the Small Claims Court, r. 4.01(2)",
+          "quote": "A minor may sue for any sum not exceeding $500 as if he or she were of full age."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "Rules of the Small Claims Court, r. 4.01(3)",
+          "quote": "A plaintiff's litigation guardian shall, at the time of filing a claim or as soon as possible afterwards, file with the clerk a consent (Form 4A)"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "Rules of the Small Claims Court, r. 4.03(2)(a)",
+          "quote": "is a minor, in a proceeding to which subrule 4.01 (2) does not apply, (i) the parent or person with lawful custody or another suitable person shall be the litigation guardian"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "Rules of the Small Claims Court, r. 4.07",
+          "quote": "No settlement of a claim made by or against a person under disability is binding on the person without the approval of the court."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "Rules of the Small Claims Court, r. 4.08(1)",
+          "quote": "Any money payable to a person under disability under an order or a settlement shall be paid into court, unless the court orders otherwise,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-at-school-or-daycare|proceduralNote|sc-claim-injury-at-school-or-daycare#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "34ff71cef1f9f3b33fa9350b5b799eef6adf3e09b3aa0e26eec56a559cb05907",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Small claims court: suing someone -- What you can sue for",
+          "quote": "You can sue for claims for damages, such as: property damage clothes damaged by a dry cleaner personal injuries"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Small claims court: suing someone -- Overview",
+          "quote": "If what you are owed is more than $50,000, you can still file in Small Claims Court if you are willing to waive the amount over $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt; Vendored corpus file docs/sources/corpus/ontario-suing-someone-small-claims.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-at-school-or-daycare|proceduralNote|sc-claim-injury-at-school-or-daycare#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1d07cb7f318b8e84eba7cd0d69e478098fe40b12b202cdd91a45e1fd73267140",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 6",
+          "quote": "The limitation period established by section 4 does not run during any time in which the person with the claim, (a) is a minor; and (b) is not represented by a litigation guardian in relation to the claim."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 8",
+          "quote": "If a person is represented by a litigation guardian in relation to the claim, section 5 applies as if the litigation guardian were the person with the claim."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-on-public-transit|plaintiffElement|station-or-vehicle-occupier-sctransit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "46a6b1363c0ade02c623ff0c64bdfe5571904581859911e674afa6ee7f583cc9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 1 (\"occupier\")",
+          "quote": "\"occupier\" includes, (a) a person who is in physical possession of premises, or (b) a person who has responsibility for and control over the condition of premises or the activities there carried on"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 1 (\"premises\")",
+          "quote": "\"premises\" means lands and structures, or either of them, and includes, (a) water, (b) ships and vessels, (c) trailers and portable structures designed or used for residence, business or shelter, (d) trains, railway cars, vehicles and aircraft, except while in operation."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 3(1)",
+          "quote": "An occupier of premises owes a duty to take such care as in all the circumstances of the case is reasonable to see that persons entering on the premises, and the property brought on the premises by those persons are reasonably safe while on the premises."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 3(2)",
+          "quote": "The duty of care provided for in subsection (1) applies whether the danger is caused by the condition of the premises or by an activity carried on on the premises."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 9(1)",
+          "quote": "Nothing in this Act relieves an occupier of premises in any particular case from any higher liability or any duty to show a higher standard of care that in that case is incumbent on the occupier by virtue of any enactment or rule of law imposing special liability or standards of care on particular classes of persons including, but without restricting the generality of the foregoing, the obligations of, (a) innkeepers, subject to the Innkeepers Act; (b) common carriers;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-on-public-transit|plaintiffElement|negligence-sctransit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c9f17d5202c475af72d950c5a4673dd67bfa0e106ab988132d3a9c6c37c17ada",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant 's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan v. Victoria (City), [1999] 1 S.C.R. 201, para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances. The 222 measure of what is reasonable depends on the facts of each case, including the likelihood of a known or foreseeable harm, the gravity of that harm, and the burden or cost which would be incurred to prevent the injury. In addition, one may look to exter- nal indicators of reasonable conduct, such as cus- tom, industry practice, and statutory or regulatory standards."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-on-public-transit|plaintiffElement|damage-and-cause-sctransit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "892b5eccb611c949352b0556410ba3160c748363091a5dab055055a4b490a6f3",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 8",
+          "quote": "Generally, a plaintiff who suffers personal injury will be found to have suffered damage. Damage for purposes of this inquiry includes psychological injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 9",
+          "quote": "The law does not recognize upset, disgust, anxiety, agitation or other mental states that fall short of injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements v. Clements, 2012 SCC 32, para. 8",
+          "quote": "The test for showing causation is the \"but for\" test. The plaintiff must show on a balance of probabilities that \"but for\" the defendant's negligent act, the injury would not have occurred."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements, para. 8",
+          "quote": "This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements, para. 9",
+          "quote": "causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant's negligence made to the injury."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-on-public-transit|defendantConsideration|highway-driver-onus-sctransit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "83ba0f63f559fbf3dd164c5a698d4dd3510c44e41bbce2fa3e1ca7f038ebfd8f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "Highway Traffic Act, s. 192(1)",
+          "quote": "The driver of a motor vehicle or street car is liable for loss or damage sustained by any person by reason of negligence in the operation of the motor vehicle or street car on a highway."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "Highway Traffic Act, s. 192(2)",
+          "quote": "The owner of a motor vehicle or street car is liable for loss or damage sustained by any person by reason of negligence in the operation of the motor vehicle or street car on a highway, unless the motor vehicle or street car was without the owner’s consent in the possession of some person other than the owner or the owner’s chauffeur."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "Highway Traffic Act, s. 193(1)",
+          "quote": "When loss or damage is sustained by any person by reason of a motor vehicle on a highway, the onus of proof that the loss or damage did not arise through the negligence or improper conduct of the owner, driver, lessee or operator of the motor vehicle is upon the owner, driver, lessee or operator of the motor vehicle."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "Highway Traffic Act, s. 193(2)",
+          "quote": "This section does not apply in cases of a collision between motor vehicles or to an action brought by a passenger in a motor vehicle in respect of any injuries sustained while a passenger."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "Highway Traffic Act, s. 193(5)",
+          "quote": "In this section, “motor vehicle” includes a street car."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/highway-traffic-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-on-public-transit|defendantConsideration|sidewalk-or-road-sctransit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d845bab80658221beaeb9a670f9765cae82ba78ae1424e1c6ae612a96e22a7e5",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 10(2)",
+          "quote": "This Act does not apply to the Crown or to any municipal corporation, where the Crown or the municipal corporation is an occupier of a public highway or a public road."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(1)",
+          "quote": "The municipality that has jurisdiction over a highway or bridge shall keep it in a state of repair that is reasonable in the circumstances, including the character and location of the highway or bridge."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(2)",
+          "quote": "A municipality that defaults in complying with subsection (1) is, subject to the Negligence Act, liable for all damages any person sustains because of the default."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(9)",
+          "quote": "Except in case of gross negligence, a municipality is not liable for a personal injury caused by snow or ice on a sidewalk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/01m25_e.doc",
+          "pinpoint": "Municipal Act, 2001, s. 44(10)",
+          "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt; Vendored corpus file docs/sources/corpus/municipal-act-2001.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-on-public-transit|defendantConsideration|contributory-negligence-sctransit",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5a943f0e2674216307a7dbf3f387303c71b1b1bfbf19e457d44f4bf44b8f2d97",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-on-public-transit|proceduralNote|sc-claim-injury-on-public-transit#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4360c59f9d452eeedfd7c68610371282ed61c20b886b82ef71ae935f6dc74536",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 6.1(1)",
+          "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim, including the date, time and location of the occurrence, has been personally served on or sent by registered mail to at least one person listed in subsection (2)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 6.1(2)",
+          "quote": "The persons referred to in subsection (1) are the following: 1. An occupier. 2. An independent contractor employed by the occupier to remove snow or ice on the premises during the relevant period in which the injury occurred."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 6.1(5)",
+          "quote": "Failure to give notice in accordance with subsection (1) is not a bar to the action in the case of the death of the injured person as a result of the injury."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "pinpoint": "Occupiers' Liability Act, s. 6.1(6)",
+          "quote": "Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/occupiers-liability-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-on-public-transit|proceduralNote|sc-claim-injury-on-public-transit#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "34ff71cef1f9f3b33fa9350b5b799eef6adf3e09b3aa0e26eec56a559cb05907",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Small claims court: suing someone -- What you can sue for",
+          "quote": "You can sue for claims for damages, such as: property damage clothes damaged by a dry cleaner personal injuries"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Small claims court: suing someone -- Overview",
+          "quote": "If what you are owed is more than $50,000, you can still file in Small Claims Court if you are willing to waive the amount over $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt; Vendored corpus file docs/sources/corpus/ontario-suing-someone-small-claims.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-on-public-transit|proceduralNote|sc-claim-injury-on-public-transit#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fd03c8cf644873804696b7208e4a976254bab3750b34113b129b4a2c2842d8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-escooter-bicycle-or-pedestrian-collision|plaintiffElement|negligence-sccoll",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c40e90c982c9e1cf91bc1b184a8c160e6f6608ab71ffe97825077e3222d068f2",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant 's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan v. Victoria (City), [1999] 1 S.C.R. 201, para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances. The 222 measure of what is reasonable depends on the facts of each case, including the likelihood of a known or foreseeable harm, the gravity of that harm, and the burden or cost which would be incurred to prevent the injury. In addition, one may look to exter- nal indicators of reasonable conduct, such as cus- tom, industry practice, and statutory or regulatory standards."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan v. Victoria (City), [1999] 1 S.C.R. 201, para. 29",
+          "quote": "Legislative standards are relevant to the common law standard of care, but the two are not necessarily co-extensive."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan, para. 29",
+          "quote": "Thus, a statutory breach does not automatically give rise to civil liability; it is merely some evidence of negligence."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan, para. 29",
+          "quote": "By the same token, mere compliance with a statute does not, in and of itself, preclude a finding of civil liability."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-escooter-bicycle-or-pedestrian-collision|plaintiffElement|motor-vehicle-sccoll",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3f3edba616cc9187e79a3d3a35cba22536bfdc30479876a9528003506d71e0ec",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "Highway Traffic Act, s. 192(1)",
+          "quote": "The driver of a motor vehicle or street car is liable for loss or damage sustained by any person by reason of negligence in the operation of the motor vehicle or street car on a highway."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "Highway Traffic Act, s. 192(2)",
+          "quote": "The owner of a motor vehicle or street car is liable for loss or damage sustained by any person by reason of negligence in the operation of the motor vehicle or street car on a highway, unless the motor vehicle or street car was without the owner’s consent in the possession of some person other than the owner or the owner’s chauffeur."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "Highway Traffic Act, s. 193(1)",
+          "quote": "When loss or damage is sustained by any person by reason of a motor vehicle on a highway, the onus of proof that the loss or damage did not arise through the negligence or improper conduct of the owner, driver, lessee or operator of the motor vehicle is upon the owner, driver, lessee or operator of the motor vehicle."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90h08_e.doc",
+          "pinpoint": "Highway Traffic Act, s. 193(2)",
+          "quote": "This section does not apply in cases of a collision between motor vehicles or to an action brought by a passenger in a motor vehicle in respect of any injuries sustained while a passenger."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/highway-traffic-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-escooter-bicycle-or-pedestrian-collision|plaintiffElement|damage-and-cause-sccoll",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "892b5eccb611c949352b0556410ba3160c748363091a5dab055055a4b490a6f3",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 8",
+          "quote": "Generally, a plaintiff who suffers personal injury will be found to have suffered damage. Damage for purposes of this inquiry includes psychological injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 9",
+          "quote": "The law does not recognize upset, disgust, anxiety, agitation or other mental states that fall short of injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements v. Clements, 2012 SCC 32, para. 8",
+          "quote": "The test for showing causation is the \"but for\" test. The plaintiff must show on a balance of probabilities that \"but for\" the defendant's negligent act, the injury would not have occurred."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements, para. 8",
+          "quote": "This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements, para. 9",
+          "quote": "causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant's negligence made to the injury."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-escooter-bicycle-or-pedestrian-collision|defendantConsideration|contributory-negligence-sccoll",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "67ccbaf09e466cab5274b7bf578e0ea0905a3d921a83ce05767e0830e639a3e5",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-escooter-bicycle-or-pedestrian-collision|defendantConsideration|more-than-one-at-fault-sccoll",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "296567a1e256de5d6392e65b12021ccedbe2c330cd8b303de13377ddff3b5204",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 1",
+          "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons are found at fault or negligent, they are jointly and severally liable to the person suffering loss or damage for such fault or negligence, but as between themselves, in the absence of any contract express or implied, each is liable to make contribution and indemnify each other in the degree in which they are respectively found to be at fault or negligent."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 4",
+          "quote": "If it is not practicable to determine the respective degree of fault or negligence as between any parties to an action, such parties shall be deemed to be equally at fault or negligent."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 5",
+          "quote": "Wherever it appears that a person not already a party to an action is or may be wholly or partly responsible for the damages claimed, such person may be added as a party defendant to the action upon such terms as are considered just or may be made a third party to the action in the manner prescribed by the rules of court for adding third parties."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-escooter-bicycle-or-pedestrian-collision|proceduralNote|sc-claim-escooter-bicycle-or-pedestrian-collision#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "34ff71cef1f9f3b33fa9350b5b799eef6adf3e09b3aa0e26eec56a559cb05907",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Small claims court: suing someone -- What you can sue for",
+          "quote": "You can sue for claims for damages, such as: property damage clothes damaged by a dry cleaner personal injuries"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Small claims court: suing someone -- Overview",
+          "quote": "If what you are owed is more than $50,000, you can still file in Small Claims Court if you are willing to waive the amount over $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt; Vendored corpus file docs/sources/corpus/ontario-suing-someone-small-claims.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-escooter-bicycle-or-pedestrian-collision|proceduralNote|sc-claim-escooter-bicycle-or-pedestrian-collision#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fd03c8cf644873804696b7208e4a976254bab3750b34113b129b4a2c2842d8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-cosmetic-procedure|plaintiffElement|negligence-sccos",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d7fa164991396565c70fdd7c7e22221331dd46b03c39d40f647895bf51a6c0e3",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant 's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan v. Victoria (City), [1999] 1 S.C.R. 201, para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances. The 222 measure of what is reasonable depends on the facts of each case, including the likelihood of a known or foreseeable harm, the gravity of that harm, and the burden or cost which would be incurred to prevent the injury. In addition, one may look to exter- nal indicators of reasonable conduct, such as cus- tom, industry practice, and statutory or regulatory standards."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-cosmetic-procedure|plaintiffElement|services-quality-sccos",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4a158bd23be815d92eaeb7e4bbf3e01a495e14b4e6d60326abe2223fcd457205",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "Consumer Protection Act, 2002, s. 9(1)",
+          "quote": "The supplier is deemed to warrant that the services supplied under a consumer agreement are of a reasonably acceptable quality."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "Consumer Protection Act, 2002, s. 1 (\"consumer\")",
+          "quote": "\"consumer\" means an individual acting for personal, family or household purposes and does not include a person who is acting for business purposes;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "Consumer Protection Act, 2002, s. 1 (\"consumer agreement\")",
+          "quote": "\"consumer agreement\" means an agreement between a supplier and a consumer in which, (a) the supplier agrees to supply goods or services for payment,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "Consumer Protection Act, 2002, s. 1 (\"services\")",
+          "quote": "\"services\" means anything other than goods, including any service, right, entitlement or benefit;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "Consumer Protection Act, 2002, s. 9(3)",
+          "quote": "Any term or acknowledgement, whether part of the consumer agreement or not, that purports to negate or vary any implied condition or warranty under the Sale of Goods Act or any deemed condition or warranty under this Act is void."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-cosmetic-procedure|plaintiffElement|damage-and-cause-sccos",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "892b5eccb611c949352b0556410ba3160c748363091a5dab055055a4b490a6f3",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 8",
+          "quote": "Generally, a plaintiff who suffers personal injury will be found to have suffered damage. Damage for purposes of this inquiry includes psychological injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 9",
+          "quote": "The law does not recognize upset, disgust, anxiety, agitation or other mental states that fall short of injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements v. Clements, 2012 SCC 32, para. 8",
+          "quote": "The test for showing causation is the \"but for\" test. The plaintiff must show on a balance of probabilities that \"but for\" the defendant's negligent act, the injury would not have occurred."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements, para. 8",
+          "quote": "This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements, para. 9",
+          "quote": "causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant's negligence made to the injury."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-cosmetic-procedure|defendantConsideration|regulated-professional-sccos",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a041ef24599b5ad6b30a500f9e0fbaed95382ad119afb853832fd12b355d9379",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "Consumer Protection Act, 2002, s. 2(2)(e)",
+          "quote": "This Act does not apply in respect of, ... (e) prescribed professional services that are regulated under a statute of Ontario;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 1",
+          "quote": "A professional service provided by a person governed by, or subject to, any of the following Acts is exempt from the application of the Consumer Protection Act, 2002:"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 1, para. 11",
+          "quote": "The Regulated Health Professions Act, 1991 and any Act named in Schedule 1 to the Regulated Health Professions Act, 1991."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 1, para. 15",
+          "quote": "The Veterinarians Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 2",
+          "quote": "A professional service provided at any of the following facilities is exempt from the application of the Consumer Protection Act, 2002: ... 2. A hospital under the Public Hospitals Act. 3. A pharmacy under Part VI of the Drug and Pharmacies Regulation Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt; Vendored corpus file docs/sources/corpus/oreg-17-05-consumer-protection-general.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-cosmetic-procedure|defendantConsideration|signed-form-sccos",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fd3fb6c9a992f275eac5ded0b3706b386f6ed99ec865d815adb0dcea8ffbeddb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "Consumer Protection Act, 2002, s. 9(3)",
+          "quote": "Any term or acknowledgement, whether part of the consumer agreement or not, that purports to negate or vary any implied condition or warranty under the Sale of Goods Act or any deemed condition or warranty under this Act is void."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "Consumer Protection Act, 2002, s. 9(4)",
+          "quote": "If a term or acknowledgement referenced in subsection (3) is a term of the agreement, it is severable from the agreement and shall not be evidence of circumstances showing an intent that the deemed or implied warranty or condition does not apply."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-cosmetic-procedure|defendantConsideration|contributory-negligence-sccos",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4d7f48eeb0574d6ead071daa48a79889d1fae98eef6e5f974c33f8f33fd674e9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-cosmetic-procedure|proceduralNote|sc-claim-injury-from-a-cosmetic-procedure#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "34ff71cef1f9f3b33fa9350b5b799eef6adf3e09b3aa0e26eec56a559cb05907",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Small claims court: suing someone -- What you can sue for",
+          "quote": "You can sue for claims for damages, such as: property damage clothes damaged by a dry cleaner personal injuries"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Small claims court: suing someone -- Overview",
+          "quote": "If what you are owed is more than $50,000, you can still file in Small Claims Court if you are willing to waive the amount over $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt; Vendored corpus file docs/sources/corpus/ontario-suing-someone-small-claims.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-injury-from-a-cosmetic-procedure|proceduralNote|sc-claim-injury-from-a-cosmetic-procedure#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fd03c8cf644873804696b7208e4a976254bab3750b34113b129b4a2c2842d8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-professional-negligence-medical-or-dental|plaintiffElement|negligence-scmed",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "63d6904c9ee6294a3c016dcb0737c36c621546149b6e55469ae8115354b298bd",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para. 3",
+          "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care; (2) that the defendant 's behaviour breached the standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and in law, by the defendant's breach."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt",
+          "pinpoint": "Ryan v. Victoria (City), [1999] 1 S.C.R. 201, para. 28",
+          "quote": "Conduct is negligent if it creates an objectively unreasonable risk of harm. To avoid liability, a person must exercise the standard of care that would be expected of an ordinary, reasonable and prudent person in the same circumstances. The 222 measure of what is reasonable depends on the facts of each case, including the likelihood of a known or foreseeable harm, the gravity of that harm, and the burden or cost which would be incurred to prevent the injury. In addition, one may look to exter- nal indicators of reasonable conduct, such as cus- tom, industry practice, and statutory or regulatory standards."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/ryan-v-victoria-city-1999-1-SCR-201.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-professional-negligence-medical-or-dental|plaintiffElement|harm-and-cause-scmed",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "94c2be568925b0ffb6e58648d3ddb356c51e319708265514cf6fba06098801cf",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/snell-v-farrell-1990-2-SCR-311.html.txt",
+          "pinpoint": "Snell v. Farrell, [1990] 2 S.C.R. 311 (reasons of Sopinka J. for the Court)",
+          "quote": "In many malpractice cases, the facts lie particularly within the knowledge of the defendant. In these circumstances, very little affirmative evidence on the part of the plaintiff will justify the drawing of an inference of causation in the absence of evidence to the contrary."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/snell-v-farrell-1990-2-SCR-311.html.txt",
+          "pinpoint": "Snell v. Farrell (reasons of Sopinka J. for the Court)",
+          "quote": "The legal or ultimate burden remains with the plaintiff, but in the absence of evidence to the contrary adduced by the defendant, an inference of causation may be drawn although positive or scientific proof of causation has not been adduced."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/snell-v-farrell-1990-2-SCR-311.html.txt",
+          "pinpoint": "Snell v. Farrell (reasons of Sopinka J. for the Court)",
+          "quote": "it is not essential to have a positive medical opinion to support a finding of causation."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 8",
+          "quote": "Generally, a plaintiff who suffers personal injury will be found to have suffered damage. Damage for purposes of this inquiry includes psychological injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt",
+          "pinpoint": "Mustapha, para. 9",
+          "quote": "The law does not recognize upset, disgust, anxiety, agitation or other mental states that fall short of injury."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements v. Clements, 2012 SCC 32, para. 8",
+          "quote": "The test for showing causation is the \"but for\" test. The plaintiff must show on a balance of probabilities that \"but for\" the defendant's negligent act, the injury would not have occurred."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements, para. 8",
+          "quote": "This is a factual inquiry."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt",
+          "pinpoint": "Clements, para. 9",
+          "quote": "causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant's negligence made to the injury."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/snell-v-farrell-1990-2-SCR-311.html.txt; Saved decision docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt; Saved decision docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-professional-negligence-medical-or-dental|defendantConsideration|cpa-does-not-apply-scmed",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "53e61d89bb8d44ef7814c6f8647e3af77d05fcc1ea7ea63865a8441263954cdd",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+          "pinpoint": "Consumer Protection Act, 2002, s. 2(2)(e)",
+          "quote": "This Act does not apply in respect of, ... (e) prescribed professional services that are regulated under a statute of Ontario;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 1",
+          "quote": "A professional service provided by a person governed by, or subject to, any of the following Acts is exempt from the application of the Consumer Protection Act, 2002:"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 1, para. 11",
+          "quote": "The Regulated Health Professions Act, 1991 and any Act named in Schedule 1 to the Regulated Health Professions Act, 1991."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 1, para. 15",
+          "quote": "The Veterinarians Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 2",
+          "quote": "A professional service provided at any of the following facilities is exempt from the application of the Consumer Protection Act, 2002: ... 2. A hospital under the Public Hospitals Act. 3. A pharmacy under Part VI of the Drug and Pharmacies Regulation Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/consumer-protection-act-2002.txt; Vendored corpus file docs/sources/corpus/oreg-17-05-consumer-protection-general.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-professional-negligence-medical-or-dental|defendantConsideration|contributory-negligence-scmed",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "72154c9db3244b569b0a905c80f20a6f2c0a61818b43dba8f6321581ec273bd3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+          "pinpoint": "Negligence Act, s. 3",
+          "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/negligence-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-professional-negligence-medical-or-dental|proceduralNote|sc-claim-professional-negligence-medical-or-dental#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1505ce6db688931902223e2e0e1f22df264a3e9442a2fa3783d732b833876491",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/04p03_e.doc",
+          "pinpoint": "Personal Health Information Protection Act, 2004, s. 52(1)",
+          "quote": "Subject to this Part, an individual has a right of access to a record of personal health information about the individual that is in the custody or under the control of a health information custodian unless,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/04p03_e.doc",
+          "pinpoint": "Personal Health Information Protection Act, 2004, s. 53(1)",
+          "quote": "An individual may exercise a right of access to a record of personal health information by making a written request for access to the health information custodian that has custody or control of the information."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/04p03_e.doc",
+          "pinpoint": "Personal Health Information Protection Act, 2004, s. 53(2)",
+          "quote": "The request must contain sufficient detail to enable the health information custodian to identify and locate the record with reasonable efforts."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/04p03_e.doc",
+          "pinpoint": "Personal Health Information Protection Act, 2004, Part V (heading preceding s. 52)",
+          "quote": "PART V"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/personal-health-information-protection-act.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-professional-negligence-medical-or-dental|proceduralNote|sc-claim-professional-negligence-medical-or-dental#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "34ff71cef1f9f3b33fa9350b5b799eef6adf3e09b3aa0e26eec56a559cb05907",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "Courts of Justice Act, s. 23(1)",
+          "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+          "pinpoint": "O. Reg. 626/00, s. 1(1)",
+          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Small claims court: suing someone -- What you can sue for",
+          "quote": "You can sue for claims for damages, such as: property damage clothes damaged by a dry cleaner personal injuries"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+          "pinpoint": "Small claims court: suing someone -- Overview",
+          "quote": "If what you are owed is more than $50,000, you can still file in Small Claims Court if you are willing to waive the amount over $50,000."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; Vendored corpus file docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt; Vendored corpus file docs/sources/corpus/ontario-suing-someone-small-claims.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    },
+    {
+      "key": "sc-claim-professional-negligence-medical-or-dental|proceduralNote|sc-claim-professional-negligence-medical-or-dental#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "62fd03c8cf644873804696b7208e4a976254bab3750b34113b129b4a2c2842d8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "Limitations Act, 2002, s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt. Read in full for this entry on 2026-10-07; each quote cut verbatim from the saved text."
+    }
+  ],
   "unverifiable": []
 }
