@@ -7,10 +7,9 @@ name: CourtSimplified Nightly Real-AI Integration
 # The script self-skips unless RUN_REAL_AI_INTEGRATION=1, so without that flag
 # this job is a no-op rather than a silent pass.
 
+# 2026-10-07: manual only. It spends the site's OpenAI balance, which ran
+# low; start it from the Actions tab (or ask Claude) when a run is wanted.
 on:
-  schedule:
-    # 07:00 UTC daily (about 03:00 America/Toronto).
-    - cron: "0 7 * * *"
   workflow_dispatch:
 
 jobs:
