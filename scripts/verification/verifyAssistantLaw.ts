@@ -121,6 +121,8 @@ async function routeAndWiring(stubResult: ResearchResult | null) {
       authenticate: (async () => (signedIn ? { id: "u" } : null)) as never,
       enabled: () => enabled,
       hasAi: () => true,
+      // The checked answer has its own suite (test:checked-answer).
+      answerEnabled: () => false,
       research: async () => {
         calls.push("research");
         return { ...research, sourceRequests: ["Some Missing Act"] };
@@ -142,6 +144,41 @@ async function routeAndWiring(stubResult: ResearchResult | null) {
   check("a question too long is refused", (await post({ question: "x".repeat(1001), courtPath: "civil" })).status === 400);
   check("an unknown court is refused", (await post({ question: QUESTION, courtPath: "criminal" })).status === 400);
 
+  // 2026-10-07: the checked answer comes first; the research step is the fallback.
+  const answerCalls: string[] = [];
+  const answerRoute = (status: "answered" | "not-confirmed" | "unavailable") =>
+    createAssistantLawPost({
+      authenticate: (async () => ({ id: "u" })) as never,
+      enabled: () => true,
+      hasAi: () => true,
+      answerEnabled: () => true,
+      answer: (async () => {
+        answerCalls.push(status);
+        return {
+          status,
+          statements: status === "answered" ? [{ text: "A checked statement.", sources: [{ passageId: "corpus:x:1", citation: "Some Act, s. 1", sourceUrl: "", quote: "a quote of the law here", kind: "legislation" }] }] : [],
+          notConfirmed: [],
+          declinedToJudge: false,
+          missingLaw: ["Another Missing Act"],
+        };
+      }) as never,
+      research: async () => {
+        answerCalls.push("research");
+        return research;
+      },
+      fileRequests: (async (names: string[]) => {
+        filed.push(names);
+        return { filed: names, skipped: [] };
+      }) as never,
+    });
+  const answeredReply = await (await answerRoute("answered")(new NextRequest("http://localhost/api/assistant/law", { method: "POST", body: JSON.stringify({ question: QUESTION, courtPath: "small-claims" }) }))).json();
+  check("a checked answer is the reply, and the research step is not run", answeredReply.answer?.statements?.length === 1 && !answerCalls.includes("research"));
+  check("the reply never carries the internal list of missing laws", answeredReply.answer && !("missingLaw" in answeredReply.answer));
+  check("laws the answer named that the library lacks are filed", filed.flat().includes("Another Missing Act"));
+  answerCalls.length = 0;
+  const fallback = await (await answerRoute("unavailable")(new NextRequest("http://localhost/api/assistant/law", { method: "POST", body: JSON.stringify({ question: QUESTION, courtPath: "small-claims" }) }))).json();
+  check("when no checked answer is possible, the research step runs as before", answerCalls.join() === "unavailable,research" && Array.isArray(fallback.findings) && !fallback.answer);
+
   console.log("\n4. Switches and wiring");
   check("on by default", assistantLawEnabled({}));
   check("ASSISTANT_LAW=off turns it off", !assistantLawEnabled({ ASSISTANT_LAW: "off" }));
@@ -154,6 +191,7 @@ async function routeAndWiring(stubResult: ResearchResult | null) {
   const chat = read("app/builder/_components/CourtAssistantChat.tsx");
   check("the Court Assistant asks for the law on each question", chat.includes('fetch("/api/assistant/law"'));
   check("and shows it in the provisions' own words", chat.includes("<ResearchPanel findings={answered} />"));
+  check("and shows a checked answer first when there is one", chat.includes("<CheckedAnswerPanel answer={entry.answer} />"));
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;

@@ -217,6 +217,10 @@ function main(): void {
     // switch. JSON output; shown only after checkedDecisionHelp passes it
     // (quotes word for word in the upload, no judging, no names; test:canlii).
     "src/lib/case-workspace/decisionHelp.ts",
+    // Added 2026-10-07: the checked answer -- the site answers a question or
+    // a story, then code shows a statement only with official words from the
+    // library that support it (test:checked-answer). JSON output.
+    "src/lib/case-system/retrieval/checkedAnswer.ts",
   ];
 
   for (const file of callSites) {

@@ -185,6 +185,7 @@
     "test:workspace-catalogue": "node --import tsx scripts/verification/verifyWorkspaceCatalogue.ts",
     "test:canlii": "node --import tsx scripts/verification/verifyCanlii.ts",
     "test:law-exam": "node --import tsx scripts/verification/verifyLawExam.ts",
+    "test:checked-answer": "node --import tsx scripts/verification/verifyCheckedAnswer.ts",
     "canlii:check-citations": "node --import tsx --env-file=.env.local scripts/sources/checkDecisionCitations.ts",
     "test:reasoning-text-gate": "node --import tsx scripts/verification/verifyReasoningTextGate.ts",
     "test:workspace-upload": "node --import tsx scripts/verification/verifyWorkspaceUpload.ts",

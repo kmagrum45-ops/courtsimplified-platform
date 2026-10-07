@@ -18,8 +18,9 @@ import {
   extractNarrativePrefill,
   persistNarrativePrefill,
 } from "../../../src/lib/case-system/intelligence/narrativePrefill";
-import type { ResearchFindingView } from "../../../src/lib/case-system/intelligence/intelligenceTypes";
+import type { CheckedAnswerView, ResearchFindingView } from "../../../src/lib/case-system/intelligence/intelligenceTypes";
 import { supabase } from "../../../src/lib/supabase/client";
+import CheckedAnswerPanel from "../../_components/CheckedAnswerPanel";
 import ResearchPanel from "../../_components/ResearchPanel";
 
 /**
@@ -29,7 +30,7 @@ import ResearchPanel from "../../_components/ResearchPanel";
  * before it, so a slow search never holds the conversation up. Keyed by the
  * index of the person's message it answers.
  */
-type LawState = { state: "loading" } | { state: "done"; findings: ResearchFindingView[] };
+type LawState = { state: "loading" } | { state: "done"; findings: ResearchFindingView[]; answer?: CheckedAnswerView };
 
 type ChatMessage = {
   role: "user" | "assistant";
@@ -902,9 +903,10 @@ function CourtAssistantChatInner({
               ...(side ? { side } : {}),
             }),
           });
-          const data = (await response.json()) as { findings?: ResearchFindingView[] };
+          const data = (await response.json()) as { findings?: ResearchFindingView[]; answer?: CheckedAnswerView };
           const findings = Array.isArray(data.findings) ? data.findings : [];
-          setLaw((current) => ({ ...current, [turn]: { state: "done", findings } }));
+          const answer = data.answer && data.answer.status !== "unavailable" ? data.answer : undefined;
+          setLaw((current) => ({ ...current, [turn]: { state: "done", findings, ...(answer ? { answer } : {}) } }));
         } catch {
           setLaw((current) => ({ ...current, [turn]: { state: "done", findings: [] } }));
         }
@@ -1364,7 +1366,17 @@ function CourtAssistantChatInner({
             ) : null}
             {message.role === "assistant" && law[index - 1]?.state === "done"
               ? (() => {
-                  const entry = law[index - 1] as { state: "done"; findings: ResearchFindingView[] };
+                  const entry = law[index - 1] as { state: "done"; findings: ResearchFindingView[]; answer?: CheckedAnswerView };
+                  // 2026-10-07: a checked answer, when there is one, is the
+                  // answer: plain statements, each with its official words.
+                  if (entry.answer) {
+                    return (
+                      <div data-testid="assistant-law" className="mt-4 border-t border-[#d8e6df] pt-3">
+                        <p className="mb-2 text-sm font-semibold text-[#16302b]">The law on your question</p>
+                        <CheckedAnswerPanel answer={entry.answer} />
+                      </div>
+                    );
+                  }
                   const answered = entry.findings.filter((finding) => finding.provisions.length > 0 || finding.missingSource);
                   return answered.length > 0 ? (
                     <div data-testid="assistant-law" className="mt-4 border-t border-[#d8e6df] pt-3">
