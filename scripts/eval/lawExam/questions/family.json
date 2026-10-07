@@ -1,0 +1,1167 @@
+[
+  {
+    "id": "FAM-001",
+    "area": "family",
+    "courtPath": "family",
+    "style": "fact-pattern",
+    "story": "Amira and Daniel married in Kingston in 2014 and separated in March 2025 with no prospect of getting back together. During the marriage Amira's aunt left her $90,000 in her will. Amira used $60,000 of it to pay down the mortgage on the house the couple lived in, which is in both names, and kept the other $30,000 in a separate savings account that still holds it. In 2021 Amira also received a $40,000 settlement for damages for her personal injuries after a car accident. Daniel owns a 2019 pickup truck he bought during the marriage, and he keeps the family dog.",
+    "question": "In working out Amira's net family property for equalization, which of these amounts are left out, and does it matter that part of the inheritance went into the house?",
+    "expected": "answer",
+    "modelAnswer": "Under the Family Law Act, Part I, some property a spouse owns on the valuation date does not form part of net family property (s. 4 (2)). Property acquired by gift or inheritance from a third person after the date of the marriage is excluded, but only if it is not a matrimonial home (s. 4 (2), para. 1). Property into which excluded property can be traced is also excluded, again other than a matrimonial home (para. 5). So the $30,000 still held in the separate account can be excluded as traced inheritance, but the $60,000 put into the matrimonial home does not keep its excluded status: the home is the exception the Act names. Damages for personal injuries, or the part of a settlement that represents those damages, are excluded (para. 3), so the accident settlement, to the extent it represents those damages, is left out. The person claiming an exclusion has to prove it (s. 4 (3)), so Amira needs records tracing the inheritance and showing what the settlement was for. Daniel's truck and the dog are not exclusions; they are simply part of whatever property each spouse owns on the valuation date.",
+    "keyPoints": [
+      "inheritance after marriage is excluded",
+      "but not if it is a matrimonial home",
+      "traced property is excluded except a matrimonial home",
+      "personal injury damages are excluded",
+      "onus on the person claiming the exclusion"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 4 (2), para. 1",
+        "quote": "Property, other than a matrimonial home, that was acquired by gift or inheritance from a third person after the date of the marriage."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 4 (2), para. 3",
+        "quote": "Damages or a right to damages for personal injuries, nervous shock, mental distress or loss of guidance, care and companionship, or the part of a settlement that represents those damages."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 4 (2), para. 5",
+        "quote": "Property, other than a matrimonial home, into which property referred to in paragraphs 1 to 4 can be traced."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 4 (3)",
+        "quote": "The onus of proving a deduction under the definition of “net family property” or an exclusion under subsection (2) is on the person claiming it."
+      }
+    ]
+  },
+  {
+    "id": "FAM-002",
+    "area": "family",
+    "courtPath": "family",
+    "style": "deadline",
+    "story": "Grace and Tomas separated in June 2019 in Sudbury, with no reasonable prospect of reconciling. They never divorced. Grace moved to Thunder Bay, started a new job and put off dealing with the property because talks with Tomas kept stalling. In 2026 she learns that Tomas's pension and RRSPs grew a great deal during the marriage and wants to claim an equalization payment.",
+    "question": "What time limit applies to Grace's equalization claim, what starts it running, and does the Act give any way to bring the claim late?",
+    "expected": "answer",
+    "modelAnswer": "An application for equalization under s. 5 (1) of the Family Law Act cannot be brought after the earliest of: two years after the day the marriage is terminated by divorce or judgment of nullity; six years after the day the spouses separate and there is no reasonable prospect that they will resume cohabitation; or six months after the first spouse's death (s. 7 (3)). Grace and Tomas are not divorced and both are alive, so the period that applies is six years from the June 2019 separation. If that period has run out, the Act lets the court, on motion, extend a time it prescribes if it is satisfied that there are apparent grounds for relief, that relief is unavailable because of delay incurred in good faith, and that no person will suffer substantial prejudice because of the delay (s. 2 (8)). Grace would have to show all three. If a divorce were later granted, the two-year period after the divorce would also have to be watched, since the earliest date governs.",
+    "keyPoints": [
+      "earliest of the listed dates",
+      "six years after separation with no reasonable prospect of resuming cohabitation",
+      "two years after divorce",
+      "six months after a spouse's death",
+      "court may extend: apparent grounds, good-faith delay, no substantial prejudice"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 7 (3)",
+        "quote": "An application based on subsection 5 (1) or (2) shall not be brought after the earliest of,"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 7 (3) (a)",
+        "quote": "two years after the day the marriage is terminated by divorce or judgment of nullity;"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 7 (3) (b), (c)",
+        "quote": "six years after the day the spouses separate and there is no reasonable prospect that they will resume cohabitation; (c) six months after the first spouse’s death."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 2 (8)",
+        "quote": "The court may, on motion, extend a time prescribed by this Act if it is satisfied that, (a) there are apparent grounds for relief; (b) relief is unavailable because of delay that has been incurred in good faith; and (c) no person will suffer substantial prejudice by reason of the delay."
+      }
+    ]
+  },
+  {
+    "id": "FAM-003",
+    "area": "family",
+    "courtPath": "family",
+    "style": "rule",
+    "question": "Under Ontario's Family Law Act, what is the 'valuation date' used to calculate net family property, and at what time of day on that date are values fixed?",
+    "expected": "answer",
+    "modelAnswer": "The valuation date is the earliest of five dates (Family Law Act, s. 4 (1)): (1) the date the spouses separate and there is no reasonable prospect that they will resume cohabitation; (2) the date a divorce is granted; (3) the date the marriage is declared a nullity; (4) the date one spouse starts an application based on s. 5 (3) (improvident depletion) that is later granted; and (5) the date before the date on which one spouse dies leaving the other surviving. When a value must be calculated as of a given date, it is calculated as of close of business on that date (s. 4 (4)).",
+    "keyPoints": [
+      "the earliest of the listed dates",
+      "separation with no reasonable prospect of resuming cohabitation",
+      "divorce, nullity, improvident depletion application, day before death",
+      "close of business"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 4 (1), “valuation date”",
+        "quote": "“valuation date” means the earliest of the following dates: 1. The date the spouses separate and there is no reasonable prospect that they will resume cohabitation. 2. The date a divorce is granted. 3. The date the marriage is declared a nullity."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 4 (1), “valuation date”, paras. 4-5",
+        "quote": "The date one of the spouses commences an application based on subsection 5 (3) (improvident depletion) that is subsequently granted. 5. The date before the date on which one of the spouses dies leaving the other spouse surviving."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 4 (4)",
+        "quote": "When this section requires that a value be calculated as of a given date, it shall be calculated as of close of business on that date."
+      }
+    ]
+  },
+  {
+    "id": "FAM-004",
+    "area": "family",
+    "courtPath": "family",
+    "style": "false-premise",
+    "story": "Raj bought a townhouse in Mississauga in his own name two years before he married Leena. They lived there together as a family for eight years. Last month they separated and Leena is staying in the townhouse with their son while Raj sleeps at his brother's. Raj has had an offer from a buyer and has also asked a locksmith about changing the locks.",
+    "question": "Since the townhouse is only in Raj's name, he can sell it or lock Leena out whenever he likes, right? What does he need to know?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "No. Ownership is not the test. Under the Family Law Act, property in which a person has an interest and that was ordinarily occupied by the spouses as their family residence at the time of separation is their matrimonial home (s. 18 (1)), whoever holds title. Both spouses have an equal right to possession of a matrimonial home (s. 19 (1)); where only one spouse has an interest, the other's right is personal against that spouse and ends when they cease to be spouses unless a separation agreement or court order provides otherwise (s. 19 (2)). Raj cannot sell or mortgage his interest in the matrimonial home unless Leena joins in or consents, she has released her rights by a separation agreement, a court order authorizes it, or a registered designation of another property applies (s. 21 (1)). A sale made in breach of that can be set aside, except against someone who acquired the interest for value, in good faith and without notice that it was a matrimonial home (s. 21 (2)). Either spouse can apply for an order about possession, including exclusive possession (s. 24 (1)). Note also that the home's value is not deducted as pre-marriage property: the deduction for property owned on the date of marriage is for property 'other than a matrimonial home' (s. 4 (1)).",
+    "keyPoints": [
+      "matrimonial home regardless of title",
+      "both spouses have an equal right to possession",
+      "cannot dispose of or encumber without the other's consent, release or court order",
+      "transaction can be set aside",
+      "pre-marriage deduction does not apply to a matrimonial home"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 18 (1)",
+        "quote": "Every property in which a person has an interest and that is or, if the spouses have separated, was at the time of separation ordinarily occupied by the person and his or her spouse as their family residence is their matrimonial home."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 19 (1)",
+        "quote": "Both spouses have an equal right to possession of a matrimonial home."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 21 (1)",
+        "quote": "No spouse shall dispose of or encumber an interest in a matrimonial home unless, (a) the other spouse joins in the instrument or consents to the transaction;"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 21 (2)",
+        "quote": "the transaction may be set aside on an application under section 23, unless the person holding the interest or encumbrance at the time of the application acquired it for value, in good faith and without notice"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 4 (1), “net family property” (b)",
+        "quote": "the value of property, other than a matrimonial home, that the spouse owned on the date of the marriage"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 19 (2)",
+        "quote": "ends when they cease to be spouses, unless a separation agreement or court order provides otherwise."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 24 (1) (b)",
+        "quote": "direct that one spouse be given exclusive possession of the matrimonial home or part of it"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 21 (1) (b), (c)",
+        "quote": "(b) the other spouse has released all rights under this Part by a separation agreement; (c) a court order has authorized the transaction or has released the property from the application of this Part;"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 21 (1) (d)",
+        "quote": "the property is not designated by both spouses as a matrimonial home and a designation of another property as a matrimonial home, made by both spouses, is registered and not cancelled"
+      }
+    ]
+  },
+  {
+    "id": "FAM-005",
+    "area": "family",
+    "courtPath": "family",
+    "style": "fact-pattern",
+    "story": "Joanne and Pierre are married. Since separating in August, they have kept living under the same roof in their Ottawa house with their two children, ages 6 and 9. Pierre has twice thrown dishes during arguments and Joanne and the children are frightened. Joanne earns less than Pierre and says rents near the children's school are beyond her means. Pierre says he paid the whole down payment and the house is really his. Joanne wants an order that she and the children can stay in the house and Pierre must leave while the case goes on.",
+    "question": "What order can Joanne ask for, can she get it before the case is finished, and what must the court consider in deciding it? What document must accompany her claim?",
+    "expected": "answer",
+    "modelAnswer": "Regardless of who owns the matrimonial home, the court may on application direct that one spouse be given exclusive possession of the matrimonial home or part of it for the period the court directs (Family Law Act, s. 24 (1) (b)), so Pierre's down payment does not answer the question. The court may make a temporary or interim order of this kind on motion (s. 24 (2)). In deciding whether to order exclusive possession, the court must consider the best interests of the children affected; any existing orders under Part I (Family Property) and any existing support orders or other enforceable support obligations; the financial position of both spouses; any written agreement; the availability of other suitable and affordable accommodation; and any violence committed by a spouse against the other spouse or the children (s. 24 (3)). For the children's best interests the court considers the possible disruptive effects of a move and the children's views and preferences if they can reasonably be ascertained (s. 24 (4)). Under the Family Law Rules, a claim for exclusive possession of the matrimonial home must be served and filed with a financial statement (r. 13 (1)), in Form 13.1 (r. 13 (1.2)). Contravening an exclusive possession order is an offence (s. 24 (5)). Because Joanne and Pierre are married, they are spouses under the Act (s. 1 (1)); note that for Part II (Matrimonial Home) 'court' does not include the Ontario Court of Justice (s. 17), so the claim is brought in the Superior Court of Justice (including its Family Court).",
+    "keyPoints": [
+      "exclusive possession regardless of ownership",
+      "temporary or interim order on motion",
+      "s. 24 (3) criteria including violence and other accommodation",
+      "children's best interests: disruption and views",
+      "financial statement Form 13.1; Superior Court, not the Ontario Court of Justice"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 24 (1) (b)",
+        "quote": "direct that one spouse be given exclusive possession of the matrimonial home or part of it for the period that the court directs"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 24 (2)",
+        "quote": "The court may, on motion, make a temporary or interim order under clause (1) (a), (b), (c), (d) or (e)."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 24 (3)",
+        "quote": "(c) the financial position of both spouses; (d) any written agreement between the parties; (e) the availability of other suitable and affordable accommodation; and (f) any violence committed by a spouse against the other spouse or the children."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 24 (4)",
+        "quote": "(a) the possible disruptive effects on the child of a move to other accommodation; and (b) the child’s views and preferences, if they can reasonably be ascertained."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-rules.txt",
+        "pinpoint": "r. 13 (1.2)",
+        "quote": "If the application, answer or motion contains a property claim or a claim for exclusive possession of the matrimonial home and its contents, the financial statement used by the parties under these rules shall be in Form 13.1"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 24 (1)",
+        "quote": "Regardless of the ownership of a matrimonial home and its contents, and despite section 19 (spouse’s right of possession), the court may on application, by order,"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 24 (3) (a), (b)",
+        "quote": "(a) the best interests of the children affected; (b) any existing orders under Part I (Family Property) and any existing support orders or other enforceable support obligations;"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-rules.txt",
+        "pinpoint": "r. 13 (1) (a)",
+        "quote": "the party making the claim shall serve and file a financial statement (Form 13 or 13.1) with the document that contains the claim"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 24 (5)",
+        "quote": "A person who contravenes an order for exclusive possession is guilty of an offence"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 17, “court”",
+        "quote": "“court” means a court as defined in subsection 1 (1) but does not include the Ontario Court of Justice"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 1 (1), “spouse”",
+        "quote": "“spouse” means either of two persons who, (a) are married to each other"
+      }
+    ]
+  },
+  {
+    "id": "FAM-006",
+    "area": "family",
+    "courtPath": "family",
+    "style": "fact-pattern",
+    "story": "Nadia and Owen never married. They lived together in Hamilton for two years and four months and have a 14-month-old daughter, Ivy. Nadia left her job at a bank to care for Ivy. When they split up, Owen told her: 'We weren't married and it wasn't even three years, so you have no right to support from me.' Nadia's friend Carla, who lived with her own partner for four years with no children, wonders whether she would be in the same position.",
+    "question": "Is Nadia a 'spouse' who can claim spousal support under Ontario's Family Law Act? Would Carla be?",
+    "expected": "answer",
+    "modelAnswer": "For support, Part III of the Family Law Act uses a wider definition of spouse than the property part. A spouse includes married persons and, in addition, two persons who are not married to each other and have cohabited either continuously for a period of not less than three years, or in a relationship of some permanence if they are the parents of a child as set out in s. 4 of the Children's Law Reform Act (s. 29). Owen is mistaken that three years is the only route: Nadia and Owen are Ivy's parents, so the question is whether theirs was a relationship of some permanence. Carla, with no child, would come within the definition through continuous cohabitation of not less than three years. Being a spouse is the threshold; every spouse has an obligation to provide support for himself or herself and for the other spouse, in accordance with need, to the extent he or she is capable (s. 30), and the amount and duration are decided on the factors in s. 33 (9).",
+    "keyPoints": [
+      "s. 29 extended definition for support",
+      "three years of continuous cohabitation",
+      "relationship of some permanence if parents of a child",
+      "Carla qualifies through three years",
+      "obligation in accordance with need and capacity"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 29, “spouse”",
+        "quote": "includes either of two persons who are not married to each other and have cohabited, (a) continuously for a period of not less than three years, or (b) in a relationship of some permanence, if they are the parents of a child as set out in section 4 of the Children’s Law Reform Act."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 30",
+        "quote": "Every spouse has an obligation to provide support for himself or herself and for the other spouse, in accordance with need, to the extent that he or she is capable of doing so."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (9)",
+        "quote": "In determining the amount and duration, if any, of support for a spouse or parent in relation to need, the court shall consider all the circumstances of the parties"
+      }
+    ]
+  },
+  {
+    "id": "FAM-007",
+    "area": "family",
+    "courtPath": "family",
+    "style": "multi-issue",
+    "story": "Helen and Marcus were married for 22 years and live in London, Ontario. Helen stayed home to raise their three children and run the household while Marcus built a career as an engineer; she has not worked outside the home since 2004. Their youngest is now 19, has a disability and still lives with Helen. Marcus left the marriage for a new partner. They are separated, and neither has started a divorce proceeding. Helen has applied for support under the Family Law Act; she is hurt and angry and wants the court to 'punish' him through support. Marcus says Helen should just get a job, since she is only 51.",
+    "question": "On what bases can Helen claim spousal support, what does the court look at in setting the amount and duration under the Family Law Act, and does Marcus leaving for someone else count?",
+    "expected": "answer",
+    "modelAnswer": "The Supreme Court in Bracklow v. Bracklow held that the law recognizes three conceptual grounds for entitlement to spousal support: compensatory, contractual and non-compensatory (para. 15). Under the Family Law Act, an order for spousal support should recognize the spouse's contribution to the relationship and its economic consequences for the spouse, share the economic burden of child support equitably, make fair provision to assist the spouse to become able to contribute to her own support, and relieve financial hardship, if this has not been done by orders under Parts I (Family Property) and II (Matrimonial Home) (s. 33 (8)). In setting amount and duration, the court considers all the circumstances, including the parties' assets and means now and in the future, the dependant's capacity to contribute to her own support, the respondent's capacity to pay, age and health, needs measured against the accustomed standard of living, the measures available for her to become self-supporting and their time and cost, and, for a spouse, the length of cohabitation, the effect on earning capacity of responsibilities assumed during cohabitation, whether she has undertaken the care of a child 18 or over who is unable because of disability to withdraw from parental charge, housekeeping and child care performed for the family, and the effect of caring for a child on her earnings and career (s. 33 (9)). Marcus's point about Helen working goes to her capacity and the measures available to become self-supporting; it is a factor, not the whole test. As for his leaving: the obligation exists without regard to the conduct of either spouse, and the court may have regard only to a course of conduct so unconscionable as to constitute an obvious and gross repudiation of the relationship (s. 33 (10)). Support is not a means of punishment. Because they are separated but not divorced, the claim proceeds under the Family Law Act; if a divorce proceeding were started under the Divorce Act, an unadjudicated support application under this Part would be stayed unless the court orders otherwise (s. 36 (1)).",
+    "keyPoints": [
+      "compensatory, contractual and non-compensatory bases",
+      "s. 33 (8) purposes",
+      "s. 33 (9) factors including length of cohabitation and career effects",
+      "care of an adult child with a disability is a factor",
+      "conduct is not considered unless an obvious and gross repudiation"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/decisions/bracklow-v-bracklow-1999-1-SCR-420.html.txt",
+        "pinpoint": "para. 15",
+        "quote": "the law recognizes three conceptual grounds for entitlement to spousal support: (1) compensatory; (2) contractual; and (3) non-compensatory."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (8) (a), (b)",
+        "quote": "(a) recognize the spouse’s contribution to the relationship and the economic consequences of the relationship for the spouse; (b) share the economic burden of child support equitably;"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (8) (c), (d)",
+        "quote": "(c) make fair provision to assist the spouse to become able to contribute to his or her own support; and (d) relieve financial hardship, if this has not been done by orders under Parts I (Family Property) and II (Matrimonial Home)."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (9) (l)",
+        "quote": "(i) the length of time the dependant and respondent cohabited, (ii) the effect on the spouse’s earning capacity of the responsibilities assumed during cohabitation, (iii) whether the spouse has undertaken the care of a child who is of the age of eighteen years or over and unable by reason of illness, disability or other cause to withdraw from the charge of his or her parents,"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (9) (g)",
+        "quote": "the measures available for the dependant to become able to provide for his or her own support and the length of time and cost involved to enable the dependant to take those measures;"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (10)",
+        "quote": "The obligation to provide support for a spouse exists without regard to the conduct of either spouse, but the court may in determining the amount of support have regard to a course of conduct that is so unconscionable as to constitute an obvious and gross repudiation of the relationship."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (9) (f)",
+        "quote": "the dependant’s needs, in determining which the court shall have regard to the accustomed standard of living while the parties resided together;"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (9) (a), (b)",
+        "quote": "(a) the dependant’s and respondent’s current assets and means; (b) the assets and means that the dependant and respondent are likely to have in the future;"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (9) (c)-(e)",
+        "quote": "(c) the dependant’s capacity to contribute to his or her own support; (d) the respondent’s capacity to provide support; (e) the dependant’s and respondent’s age and physical and mental health;"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (9) (l) (v)",
+        "quote": "any housekeeping, child care or other domestic service performed by the spouse for the family"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (9) (l) (vi)",
+        "quote": "the effect on the spouse’s earnings and career development of the responsibility of caring for a child"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 36 (1)",
+        "quote": "When a divorce proceeding is commenced under the Divorce Act (Canada), an application for support under this Part that has not been adjudicated is stayed, unless the court orders otherwise."
+      }
+    ]
+  },
+  {
+    "id": "FAM-008",
+    "area": "family",
+    "courtPath": "family",
+    "style": "rule",
+    "question": "Under the Ontario Child Support Guidelines, what is the presumptive amount of child support for children under the age of majority, and what does it depend on?",
+    "expected": "answer",
+    "modelAnswer": "A court making a child support order under the Family Law Act must do so in accordance with the child support guidelines (s. 33 (11)). Unless the guidelines provide otherwise, the amount for children under the age of majority is (a) the amount set out in the applicable table, according to the number of children under the age of majority to whom the order relates and the income of the parent against whom the order is sought, and (b) the amount, if any, determined under s. 7 for special or extraordinary expenses (Ontario Child Support Guidelines, s. 3 (1)). Where the paying parent's income is over $150,000, the court may depart from the table for the income above $150,000 if it considers the table amount inappropriate (s. 4). Other exceptions include shared parenting time of at least 40 per cent (s. 9) and undue hardship (s. 10).",
+    "keyPoints": [
+      "table amount",
+      "number of children and payor's income",
+      "plus section 7 expenses",
+      "court must follow the guidelines"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (11)",
+        "quote": "A court making an order for the support of a child shall do so in accordance with the child support guidelines."
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 3 (1)",
+        "quote": "(a) the amount set out in the applicable table, according to the number of children under the age of majority to whom the order relates and the income of the parent or spouse against whom the order is sought; and (b) the amount, if any, determined under section 7."
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 4",
+        "quote": "Where the income of the parent or spouse against whom an order for the support of a child is sought is over $150,000"
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 9",
+        "quote": "Where each parent or spouse exercises parenting time with respect to a child for not less than 40 per cent of the time over the course of a year"
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 10 (1)",
+        "quote": "if the court finds that the parent or spouse making the request, or a child in respect of whom the request is made, would otherwise suffer undue hardship."
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 4 (b)",
+        "quote": "if the court considers that amount to be inappropriate, (i) in respect of the first $150,000 of the parent’s or spouse’s income, the amount set out in the table"
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 4 (b) (ii)",
+        "quote": "in respect of the balance of the parent’s or spouse’s income, the amount that the court considers appropriate"
+      }
+    ]
+  },
+  {
+    "id": "FAM-009",
+    "area": "family",
+    "courtPath": "family",
+    "style": "fact-pattern",
+    "story": "Simone and Kwame never married. Simone has the majority of parenting time with her two children in Barrie. She earns $48,000 a year and their father, Kwame, earns $96,000 and pays table child support. This year their 13-year-old needs braces costing $6,200, of which Simone's workplace insurance covers $1,500. Their 10-year-old plays competitive rep hockey costing $5,800 a season, much more than the house league she played in while the parents lived together. Simone works full time and pays $9,000 a year for after-school care. Kwame says table support 'covers everything'.",
+    "question": "Can Simone ask for help with these costs on top of table support, and how would any amount be shared?",
+    "expected": "answer",
+    "modelAnswer": "Yes, she can ask. Section 7 of the Ontario Child Support Guidelines lets the court, on the request of either parent, provide an amount to cover all or part of listed expenses, taking into account the necessity of the expense in relation to the child's best interests and its reasonableness in relation to the parents' and child's means and the family's spending pattern during cohabitation (s. 7 (1)). The listed expenses include child care costs incurred because of the employment of the parent with the majority of parenting time (s. 7 (1) (a)) — the after-school care; health-related expenses that exceed insurance reimbursement by at least $100 annually, including orthodontic treatment (s. 7 (1) (c)) — the braces, net of the $1,500 coverage; and extraordinary expenses for extracurricular activities (s. 7 (1) (f)) — the rep hockey, which must meet the definition of 'extraordinary expenses' in s. 7 (1.1): expenses that exceed what Simone can reasonably cover, taking into account her income and the table amount she receives (s. 7 (1.1) (a)), or, where that clause is not applicable, expenses the court considers extraordinary taking into account the amount relative to her income including table support, the nature and number of activities, any special needs and talents of the child, and the overall cost (s. 7 (1.1) (b)). The guiding principle is that the expense is shared in proportion to the parents' respective incomes, after deducting any contribution from the child (s. 7 (2)). With incomes of $48,000 and $96,000, that is one third to Simone and two thirds to Kwame. The court must also take into account any subsidies, benefits or tax deductions or credits relating to the expense (s. 7 (3)).",
+    "keyPoints": [
+      "section 7 special or extraordinary expenses are added to table support",
+      "necessity and reasonableness",
+      "child care, orthodontics over $100 net of insurance, extraordinary extracurriculars",
+      "shared in proportion to incomes",
+      "account for subsidies, tax deductions and credits"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 7 (1)",
+        "quote": "taking into account the necessity of the expense in relation to the child’s best interests and the reasonableness of the expense in relation to the means of the parents or spouses and those of the child and to the spending pattern of the parents or spouses in respect of the child during cohabitation:"
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 7 (1) (c)",
+        "quote": "health-related expenses that exceed insurance reimbursement by at least $100 annually, including orthodontic treatment"
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 7 (1) (a)",
+        "quote": "child care expenses incurred as a result of the employment, illness, disability or education or training for employment of the parent or spouse who has the majority of parenting time;"
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 7 (2)",
+        "quote": "The guiding principle in determining the amount of an expense referred to in subsection (1) is that the expense is shared by the parents or spouses in proportion to their respective incomes after deducting from the expense, the contribution, if any, from the child."
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 7 (3)",
+        "quote": "the court must take into account any subsidies, benefits or income tax deductions or credits relating to the expense"
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 7 (1) (f)",
+        "quote": "extraordinary expenses for extracurricular activities"
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 7 (1.1) (a)",
+        "quote": "expenses that exceed those that the parent or spouse requesting an amount for the extraordinary expenses can reasonably cover, taking into account that parent’s or spouse’s income and the amount that the parent or spouse would receive under the applicable table"
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 7 (1.1) (b)",
+        "quote": "(iii) any special needs and talents of the child, (iv) the overall cost of the programs and activities"
+      }
+    ]
+  },
+  {
+    "id": "FAM-010",
+    "area": "family",
+    "courtPath": "family",
+    "style": "judge-the-case",
+    "story": "Dmitri pays table child support for his two children with his former partner in Windsor; they were never married. He has since remarried and has a baby with his new wife, and he is still paying off a large line of credit the couple ran up to cover family expenses before they separated. His former partner lives in a modest apartment; Dmitri and his new wife own a house. He is preparing a claim to pay less than the table amount because of undue hardship.",
+    "question": "I'm under so much financial pressure. Is my undue hardship claim strong enough that the court will lower my support?",
+    "expected": "decline-to-judge",
+    "modelAnswer": "The site does not judge whether a claim will work or how a court will decide it; it can set out what the Guidelines require so you can prepare. Under s. 10 (1) of the Ontario Child Support Guidelines, the court may award an amount different from the table amount if it finds that the parent making the request, or a child, would otherwise suffer undue hardship. Circumstances that may cause undue hardship include an unusually high level of debts reasonably incurred to support the family during cohabitation or to earn a living, and a legal duty to support a child other than the child who is the subject of the application who is under the age of majority (s. 10 (2) (a), (e)) — both match facts you describe. There is a second step: even if undue hardship is found, the application must be denied if the household of the parent claiming it would, after child support is set, have a higher standard of living than the other parent's household (s. 10 (3)). The court may use the household standard of living comparison test in Schedule II (s. 10 (4)). So what has to be shown is the hardship circumstance itself, that it amounts to undue hardship, and a comparison of the two households' standards of living; that means gathering evidence of the debt and its purpose, your new household's income (including your spouse's), and expenses. Next step: prepare your financial statement and the standard of living comparison.",
+    "keyPoints": [
+      "does not judge or predict the outcome",
+      "court must find undue hardship",
+      "listed circumstances: high family debts, duty to support another child",
+      "denied if claimant's household has a higher standard of living",
+      "Schedule II comparison test"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 10 (1)",
+        "quote": "a court may award an amount of child support that is different from the amount determined under any of sections 3 to 5, 8 or 9 if the court finds that the parent or spouse making the request, or a child in respect of whom the request is made, would otherwise suffer undue hardship."
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 10 (2) (a)",
+        "quote": "the parent or spouse has responsibility for an unusually high level of debts reasonably incurred to support the parents or spouses and their children during cohabitation or to earn a living;"
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 10 (2) (e)",
+        "quote": "the parent has a legal duty to support a child, other than the child who is the subject of this application, who is under the age of majority"
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 10 (3)",
+        "quote": "an application under that subsection must be denied by the court if it is of the opinion that the household of the parent or spouse who claims undue hardship would, after determining the amount of child support under any of sections 3 to 5, 8 or 9, have a higher standard of living than the household of the other parent or spouse."
+      },
+      {
+        "file": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
+        "pinpoint": "s. 10 (4)",
+        "quote": "the court may use the comparison of household standards of living test set out in Schedule II."
+      }
+    ]
+  },
+  {
+    "id": "FAM-011",
+    "area": "family",
+    "courtPath": "family",
+    "style": "deadline",
+    "story": "Lucia and Ben, who never married, separated in 2018, and Ben agreed to pay $500 a month for their son. In February 2021 Lucia texted Ben: 'You got promoted — we need to talk about raising support.' Ben did not answer and nothing changed. Lucia served Ben with an application to increase support in September 2026. It turns out Ben's income had already doubled in 2019 and he never told Lucia, despite their agreement requiring yearly income disclosure.",
+    "question": "How far back can a retroactive increase in child support reach, what starts the period, and does Ben's failure to disclose change the starting point?",
+    "expected": "answer",
+    "modelAnswer": "The Family Law Act lets a support order require support for a period before the date of the order (s. 34 (1) (f)). The Supreme Court in D.B.S. v. S.R.G. adopted the date of effective notice as the general starting point: 'effective notice' means any indication by the recipient parent that support should be paid or that the current amount needs to be renegotiated; it does not require legal action, only that the topic be broached (para. 121). Lucia's February 2021 text is that kind of indication. The Court added that it will usually be inappropriate to make an award retroactive to a date more than three years before formal notice was given to the payor (para. 123); here formal notice was September 2026. But where the payor engages in blameworthy conduct, including not disclosing a material increase in income, the presumptive date moves back to when circumstances changed materially (para. 124). In Colucci v. Colucci the Court restated its holding in Michel that the date of effective notice is not relevant when a payor has engaged in blameworthy conduct, including failure to disclose material information (para. 42). So Ben's non-disclosure of his 2019 increase bears directly on the start date; the court still looks at all the relevant circumstances, including whether the recipient has a reasonable excuse for delay, the payor's conduct, the child's circumstances and any hardship (D.B.S., para. 133).",
+    "keyPoints": [
+      "date of effective notice as the general rule",
+      "effective notice only requires broaching the topic",
+      "usually no more than three years before formal notice",
+      "blameworthy conduct moves the date to the material change",
+      "non-disclosure of an income increase is blameworthy conduct"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 34 (1) (f)",
+        "quote": "requiring that support be paid in respect of any period before the date of the order;"
+      },
+      {
+        "file": "docs/sources/decisions/dbs-v-srg-2006-SCC-37.html.txt",
+        "pinpoint": "para. 121",
+        "quote": "effective notice does not require the recipient parent to take any legal action; all that is required is that the topic be broached."
+      },
+      {
+        "file": "docs/sources/decisions/dbs-v-srg-2006-SCC-37.html.txt",
+        "pinpoint": "para. 123",
+        "quote": "it will usually be inappropriate to make a support award retroactive to a date more than three years before formal notice was given to the payor parent."
+      },
+      {
+        "file": "docs/sources/decisions/dbs-v-srg-2006-SCC-37.html.txt",
+        "pinpoint": "para. 124",
+        "quote": "Not disclosing a material change in circumstances — including an increase in income that one would expect to alter the amount of child support payable — is itself blameworthy conduct. The presence of such blameworthy conduct will move the presumptive date of retroactivity back to the time when circumstances changed materially."
+      },
+      {
+        "file": "docs/sources/decisions/colucci-v-colucci-2021-SCC-24.html.txt",
+        "pinpoint": "para. 42",
+        "quote": "the date of effective notice is not relevant when a payor parent has engaged in blameworthy conduct (irrespective of the degree of blameworthiness)"
+      },
+      {
+        "file": "docs/sources/decisions/dbs-v-srg-2006-SCC-37.html.txt",
+        "pinpoint": "para. 133",
+        "quote": "a court should consider whether the recipient parent has supplied a reasonable excuse for his/her delay, the conduct of the payor parent, the circumstances of the child, and the hardship the retroactive award might entail"
+      }
+    ]
+  },
+  {
+    "id": "FAM-012",
+    "area": "family",
+    "courtPath": "family",
+    "style": "multi-issue",
+    "story": "Aisha and Kevin, who were never married, are separating in Brampton. Their children are 4 and 11. Kevin has been the one who drives the children to school and coaches the 11-year-old's soccer team; Aisha handled medical appointments and homework. Over the last year Kevin has checked Aisha's phone, controlled all the money and told her she could not see her friends; the 11-year-old has overheard many of these arguments. Kevin points out that Aisha had an affair years ago and says that should count against her. The 11-year-old has told a teacher she wants to live with both parents. Both want decision-making responsibility.",
+    "question": "What does the court consider in deciding decision-making responsibility and parenting time, how does Kevin's controlling behaviour fit in, and is Aisha's past affair relevant?",
+    "expected": "answer",
+    "modelAnswer": "Because the parents were not married, the Children's Law Reform Act applies. In making a parenting order the court takes into account only the best interests of the child, and it must give primary consideration to the child's physical, emotional and psychological safety, security and well-being (s. 24 (1), (2)). The factors include the children's needs given their age and stage of development, their relationships with each parent and others, each parent's willingness to support the children's relationship with the other parent, the history of care, the child's views and preferences given due weight to age and maturity, plans for care, each person's ability to care for the children and to communicate and co-operate, and any family violence and its impact (s. 24 (3)). 'Family violence' includes conduct that constitutes a pattern of coercive and controlling behaviour and, for a child, direct or indirect exposure to such conduct (s. 18 (1)). In weighing family violence the court takes into account its nature, seriousness and frequency, whether there is a pattern of coercive and controlling behaviour, whether the child is directly or indirectly exposed, and any steps taken by the person to prevent further violence (s. 24 (4)). Past conduct is not considered unless it is relevant to the exercise of the person's decision-making responsibility, parenting time or contact (s. 24 (5)), so an affair years ago is not a factor unless it bears on parenting. The court allocates parenting time on the principle that a child should have as much time with each parent as is consistent with the child's best interests (s. 24 (6)).",
+    "keyPoints": [
+      "best interests only; primary consideration to safety, security and well-being",
+      "s. 24 (3) factors including history of care and child's views",
+      "coercive and controlling behaviour and a child's exposure are family violence",
+      "past conduct only if relevant to parenting",
+      "as much time with each parent as is consistent with best interests"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (2)",
+        "quote": "shall give primary consideration to the child’s physical, emotional and psychological safety, security and well-being."
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (3) (d), (e)",
+        "quote": "(d) the history of care of the child; (e) the child’s views and preferences, giving due weight to the child’s age and maturity, unless they cannot be ascertained;"
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 18 (1), “family violence”",
+        "quote": "that constitutes a pattern of coercive and controlling behaviour, or that causes the other family member to fear for their own safety or for that of another person, and, in the case of a child, includes direct or indirect exposure to such conduct;"
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (4) (b), (c)",
+        "quote": "(b) whether there is a pattern of coercive and controlling behaviour in relation to a family member; (c) whether the family violence is directed toward the child or whether the child is directly or indirectly exposed to the family violence;"
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (5)",
+        "quote": "shall not take into consideration the past conduct of any person, unless the conduct is relevant to the exercise of the person’s decision-making responsibility, parenting time or contact with respect to the child."
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (1)",
+        "quote": "In making a parenting order or contact order with respect to a child, the court shall only take into account the best interests of the child in accordance with this section."
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (6)",
+        "quote": "the court shall give effect to the principle that a child should have as much time with each parent as is consistent with the best interests of the child."
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (3) (a)-(c)",
+        "quote": "(a) the child’s needs, given the child’s age and stage of development, such as the child’s need for stability; (b) the nature and strength of the child’s relationship with each parent"
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (3) (c)",
+        "quote": "each parent’s willingness to support the development and maintenance of the child’s relationship with the other parent"
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (3) (g)-(i)",
+        "quote": "(g) any plans for the child’s care; (h) the ability and willingness of each person in respect of whom the order would apply to care for and meet the needs of the child; (i) the ability and willingness of each person in respect of whom the order would apply to communicate and co-operate"
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (3) (j)",
+        "quote": "any family violence and its impact on"
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (4) (a)",
+        "quote": "the nature, seriousness and frequency of the family violence and when it occurred"
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (4) (g)",
+        "quote": "any steps taken by the person engaging in the family violence to prevent further family violence from occurring"
+      }
+    ]
+  },
+  {
+    "id": "FAM-013",
+    "area": "family",
+    "courtPath": "family",
+    "style": "deadline",
+    "story": "Priya and Mateo, who never married, share parenting time for their 7-year-old son under a court order made in Toronto under the Children's Law Reform Act. Priya has been offered a nursing job in Kenora and wants to move there with their son, starting at the beginning of the next school term. Mateo has heard nothing about it yet.",
+    "question": "What notice must Priya give before relocating, how far ahead, what must it say, and how long does Mateo have to object? Is there any exception?",
+    "expected": "answer",
+    "modelAnswer": "The rules apply to a 'relocation': a change in residence likely to have a significant impact on the child's relationship with another person who has decision-making responsibility or parenting time (s. 18 (1)); a move from Toronto to Kenora by a parent sharing parenting time is the kind of move Priya would have to measure against that definition. A person with decision-making responsibility or parenting time who intends a relocation must, at least 60 days before the expected date of the proposed relocation, notify any other person who has decision-making responsibility, parenting time or contact under a contact order with respect to the child (Children's Law Reform Act, s. 39.3 (1)). The notice must be in the prescribed form or, if none is prescribed, in writing, and must set out the expected date of the relocation, the address of the new residence and contact information, a proposal as to how decision-making responsibility, parenting time or contact could be exercised, and any other prescribed information (s. 39.3 (2)). Mateo may object no later than 30 days after receiving the notice, either by notifying Priya of the objection or by making an application under s. 21 (s. 39.3 (5)); a written objection must state that he objects, his reasons, and his views on her proposal (s. 39.3 (6)). Priya may move as of the date in the notice only if a court authorizes it, or if no objection is made in accordance with s. 39.3 (5) and no order prohibits the relocation (s. 39.4 (2)). The exception: on application, which may be made without notice, the court may provide that the notice requirements do not apply or apply with changes, including if there is a risk of family violence (s. 39.3 (3), (4)).",
+    "keyPoints": [
+      "at least 60 days before the expected date",
+      "date, new address and contact information, proposal for parenting",
+      "30 days after receiving the notice to object",
+      "may relocate if authorized or no objection and no prohibiting order",
+      "court may waive or modify, including for risk of family violence"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 39.3 (1)",
+        "quote": "who intends a relocation shall, at least 60 days before the expected date of the proposed relocation, notify any other person who has decision-making responsibility, parenting time or contact under a contact order with respect to the child of the intention."
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 39.3 (2)",
+        "quote": "(a) the expected date of the proposed relocation; (b) the address of the new residence and contact information of the person or child, as the case may be; (c) a proposal as to how decision-making responsibility, parenting time or contact, as the case may be, could be exercised;"
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 39.3 (5)",
+        "quote": "may, no later than 30 days after receiving the notice, object to the relocation by, (a) notifying the person who gave the notice of proposed relocation of the objection to the relocation; or (b) making an application under section 21."
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 39.3 (3)",
+        "quote": "apply with any changes the court specifies, if the court is of the opinion that it is appropriate to do so, including if there is a risk of family violence."
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 39.4 (2) (b)",
+        "quote": "no objection to the relocation is made in accordance with subsection 39.3 (5) and there is no order prohibiting the relocation."
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 18 (1), “relocation”",
+        "quote": "“relocation” means a change in residence of a child, or of a person who has decision-making responsibility or parenting time with respect to the child or is an applicant for a parenting order in respect of the child, that is likely to have a significant impact on the child’s relationship with,"
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 39.3 (4)",
+        "quote": "An application under subsection (3) may be made without notice to any other party."
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 39.3 (6)",
+        "quote": "(a) a statement that the person objects to the relocation; (b) the reasons for the objection; (c) the person’s views on the proposal referred to in clause (2) (c);"
+      }
+    ]
+  },
+  {
+    "id": "FAM-014",
+    "area": "family",
+    "courtPath": "family",
+    "style": "fact-pattern",
+    "story": "Under their divorce order, Elena and Graham's twin daughters, age 10, spend alternate weeks with each parent in Guelph, and both parents have followed that schedule closely for three years. Elena has remarried and wants to move with the girls to Halifax, where her new husband has a job. She gave proper notice and Graham objected in time. Graham's lawyer plans to ask Elena in court whether she would stay in Guelph if the move were refused.",
+    "question": "Under the Divorce Act, who has to prove what on Elena's relocation request, what extra factors does the court weigh, and can it consider whether Elena would move without the girls?",
+    "expected": "answer",
+    "modelAnswer": "Where the parties substantially comply with an order providing that a child spend substantially equal time in the care of each party, the party who intends to relocate the child has the burden of proving that the relocation would be in the best interests of the child (Divorce Act, s. 16.93 (1)). The alternating-week schedule, followed for three years, fits that description, so the burden is on Elena. Besides the s. 16 best-interests factors, the court considers the reasons for the relocation, its impact on the child, the time each parent spends with the child and their involvement, compliance with notice requirements, any order specifying where the child is to live, the reasonableness of the proposal to vary parenting arrangements including travel expenses, and each person's compliance with their obligations (s. 16.92 (1)). The court shall not consider, if the relocation were prohibited, whether the person would relocate without the child or not relocate (s. 16.92 (2)), so the question Graham's lawyer plans to put is about a factor the Act excludes. The Supreme Court in Barendregt v. Grebliunas noted that the Divorce Act now instructs courts to consider the moving parent's reasons for relocation (para. 127).",
+    "keyPoints": [
+      "substantially equal time: burden on the relocating parent",
+      "s. 16.92 (1) additional factors",
+      "reasons for the move and travel expenses",
+      "court shall not consider whether the parent would move without the child"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 16.93 (1)",
+        "quote": "If the parties to the proceeding substantially comply with an order, arbitral award, or agreement that provides that a child of the marriage spend substantially equal time in the care of each party, the party who intends to relocate the child has the burden of proving that the relocation would be in the best interests of the child."
+      },
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 16.92 (1) (a), (b)",
+        "quote": "(a) the reasons for the relocation; (b) the impact of the relocation on the child;"
+      },
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 16.92 (1) (f)",
+        "quote": "the reasonableness of the proposal of the person who intends to relocate the child to vary the exercise of parenting time, decision-making responsibility or contact, taking into consideration, among other things, the location of the new place of residence and the travel expenses;"
+      },
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 16.92 (2)",
+        "quote": "the court shall not consider, if the child’s relocation was prohibited, whether the person who intends to relocate the child would relocate without the child or not relocate."
+      },
+      {
+        "file": "docs/sources/decisions/barendregt-v-grebliunas-2022-SCC-22.html.txt",
+        "pinpoint": "para. 127",
+        "quote": "Recent amendments to the Divorce Act now instruct courts to consider the moving parent’s reasons for relocation: s. 16.92(1)(a)."
+      },
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 16.92 (1) (c)",
+        "quote": "the amount of time spent with the child by each person who has parenting time or a pending application for a parenting order and the level of involvement in the child’s life of each of those persons"
+      },
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 16.92 (1) (d), (e)",
+        "quote": "(d) whether the person who intends to relocate the child complied with any applicable notice requirement under section 16.9, provincial family law legislation, an order, arbitral award, or agreement; (e) the existence of an order, arbitral award, or agreement that specifies the geographic area in which the child is to reside;"
+      },
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 16.92 (1) (g)",
+        "quote": "whether each person who has parenting time or decision-making responsibility or a pending application for a parenting order has complied with their obligations under family law legislation"
+      }
+    ]
+  },
+  {
+    "id": "FAM-015",
+    "area": "family",
+    "courtPath": "family",
+    "style": "false-premise",
+    "story": "Yusuf and Mariam, married ten years, agreed to separate in November 2025 but kept living in separate bedrooms of their Markham condo until Mariam moved out in February 2026. In April 2026 they tried living together again for six weeks to see if they could reconcile, but it did not work. Neither has done anything wrong; the marriage has simply broken down. Yusuf has read online that you need a three-year separation, or proof of fault, to divorce in Canada.",
+    "question": "Since nobody is at fault, does Yusuf have to wait three years before he can get a divorce? And did the six weeks back together restart the clock?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "No. The only ground for divorce is breakdown of the marriage (Divorce Act, s. 8 (1)), and breakdown is established if the spouses have lived separate and apart for at least one year immediately preceding the determination of the divorce proceeding and were living separate and apart when it was started (s. 8 (2) (a)). Fault is a different route — adultery or cruelty (s. 8 (2) (b)) — and is not needed. There is no three-year period. Spouses are deemed to have lived separate and apart for any period during which they lived apart and either had the intention to do so (s. 8 (3) (a)). A period of separation is not interrupted or ended by resuming cohabitation for a period, or periods totalling, not more than 90 days with reconciliation as its primary purpose (s. 8 (3) (b) (ii)), so the six-week attempt did not restart the clock. Yusuf can start the proceeding while separated; the one year must be complete by the time the court decides it.",
+    "keyPoints": [
+      "breakdown of marriage is the only ground",
+      "one year separate and apart, not three",
+      "fault is not required",
+      "reconciliation attempts up to 90 days do not interrupt the period",
+      "one year measured to the determination of the proceeding"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 8 (1)",
+        "quote": "grant a divorce to the spouse or spouses on the ground that there has been a breakdown of their marriage."
+      },
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 8 (2) (a)",
+        "quote": "the spouses have lived separate and apart for at least one year immediately preceding the determination of the divorce proceeding and were living separate and apart at the commencement of the proceeding;"
+      },
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 8 (3) (a)",
+        "quote": "spouses shall be deemed to have lived separate and apart for any period during which they lived apart and either of them had the intention to live separate and apart from the other;"
+      },
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 8 (3) (b) (ii)",
+        "quote": "by reason only that the spouses have resumed cohabitation during a period of, or periods totalling, not more than ninety days with reconciliation as its primary purpose."
+      }
+    ]
+  },
+  {
+    "id": "FAM-016",
+    "area": "family",
+    "courtPath": "family",
+    "style": "multi-issue",
+    "story": "Claire and Antoine separated in Ottawa in 2023 and have two children, 8 and 12. Antoine has applied for a simple divorce and is planning to remarry in a church ceremony next spring. Claire agrees the marriage is over but says Antoine has been paying only $200 a month for the children since 2023, well below what she understands the table amount would be at his income. Antoine says child support is 'a separate issue' that has nothing to do with the divorce. They also ask when a divorce actually takes effect, because Antoine wants to book his wedding date.",
+    "question": "Can the divorce be granted while child support is unresolved, and once a divorce judgment is made, when does it take effect?",
+    "expected": "answer",
+    "modelAnswer": "Child support is not separate from the divorce in the way Antoine thinks. In a divorce proceeding the court has a duty to satisfy itself that reasonable arrangements have been made for the support of any children of the marriage, having regard to the applicable guidelines, and if they have not, to stay the granting of the divorce until they are (Divorce Act, s. 11 (1) (b)). If both spouses consent to a child support order in an amount different from the guidelines, the court may make it only if satisfied that reasonable arrangements have been made for the child's support; in deciding that, it has regard to the guidelines but does not treat the arrangements as unreasonable solely because the amount differs from the guideline amount (s. 15.1 (7), (8)). So the court will look at whether $200 a month is a reasonable arrangement in light of the guidelines. The court must also be satisfied there has been no collusion (s. 11 (1) (a)). As for timing, a divorce generally takes effect on the thirty-first day after the day the judgment is rendered (s. 12 (1)); it can take effect earlier only if the court finds special circumstances and the spouses agree and undertake not to appeal (s. 12 (2)). Antoine should plan his wedding date with that in mind.",
+    "keyPoints": [
+      "duty to be satisfied reasonable child support arrangements exist",
+      "divorce stayed until arrangements are made",
+      "measured against the applicable guidelines",
+      "divorce takes effect on the 31st day after judgment",
+      "earlier only with special circumstances and no-appeal undertaking"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 11 (1) (b)",
+        "quote": "to satisfy itself that reasonable arrangements have been made for the support of any children of the marriage, having regard to the applicable guidelines, and, if such arrangements have not been made, to stay the granting of the divorce until such arrangements are made;"
+      },
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 15.1 (8)",
+        "quote": "the court shall not consider the arrangements to be unreasonable solely because the amount of support agreed to is not the same as the amount that would otherwise have been determined in accordance with the applicable guidelines."
+      },
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 12 (1)",
+        "quote": "a divorce takes effect on the thirty-first day after the day on which the judgment granting the divorce is rendered."
+      },
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 12 (2)",
+        "quote": "the spouses agree and undertake that no appeal from the judgment will be taken, or any appeal from the judgment that was taken has been abandoned,"
+      },
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 11 (1) (a)",
+        "quote": "to satisfy itself that there has been no collusion in relation to the application for a divorce"
+      },
+      {
+        "file": "docs/sources/corpus/divorce-act.txt",
+        "pinpoint": "s. 15.1 (7)",
+        "quote": "a court may award an amount that is different from the amount that would be determined in accordance with the applicable guidelines on the consent of both spouses if it is satisfied that reasonable arrangements have been made for the support of the child to whom the order relates"
+      }
+    ]
+  },
+  {
+    "id": "FAM-017",
+    "area": "family",
+    "courtPath": "family",
+    "style": "fact-pattern",
+    "story": "Rosa started a family case in the Superior Court of Justice in Oshawa three weeks ago, asking for parenting orders and child support. Her former husband Felix filed an answer. No conference has been held yet. Felix's employer has now transferred him and he has announced he will take the children to Alberta in ten days, though they have lived with Rosa since birth. Separately, Rosa would like an order requiring Felix to produce his tax returns.",
+    "question": "Can Rosa bring a motion now, before a case conference? What is the general rule and what exceptions apply?",
+    "expected": "answer",
+    "modelAnswer": "The general rule under the Family Law Rules is that no notice of motion or supporting evidence may be served and no motion may be heard before a conference dealing with the substantive issues in the case has been completed (r. 14 (4)). That rule does not apply if the court is of the opinion that there is a situation of urgency or hardship, or that a case conference is not required for some other reason in the interest of justice (r. 14 (4.2)). A threatened removal of the children to another province in ten days is the kind of situation for which Rosa would ask the court to find urgency. Rule 14 (6) also lists motions that are not caught, such as motions made without notice, on consent, unopposed or limited to procedural, uncomplicated or unopposed matters. The disclosure request is not urgent in the same way; ensuring disclosure of relevant evidence, including financial information needed to resolve a support issue, is one of the purposes of a case conference (r. 17 (4) (d)), so it would ordinarily be raised there.",
+    "keyPoints": [
+      "no motion before a case conference on substantive issues",
+      "exception for urgency or hardship",
+      "or a conference not required in the interest of justice",
+      "procedural, consent and unopposed motions excepted",
+      "disclosure is a purpose of the case conference"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/family-law-rules.txt",
+        "pinpoint": "r. 14 (4)",
+        "quote": "No notice of motion or supporting evidence may be served and no motion may be heard before a conference dealing with the substantive issues in the case has been completed."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-rules.txt",
+        "pinpoint": "r. 14 (4.2)",
+        "quote": "Subrule (4) does not apply if the court is of the opinion that there is a situation of urgency or hardship or that a case conference is not required for some other reason in the interest of justice."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-rules.txt",
+        "pinpoint": "r. 14 (6) (e.2)",
+        "quote": "made without notice, made on consent, that is unopposed or that is limited to procedural, uncomplicated or unopposed matters"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-rules.txt",
+        "pinpoint": "r. 17 (4) (d)",
+        "quote": "ensuring disclosure of the relevant evidence, including the disclosure of financial information required to resolve any support or property issue;"
+      }
+    ]
+  },
+  {
+    "id": "FAM-018",
+    "area": "family",
+    "courtPath": "family",
+    "style": "deadline",
+    "story": "On October 1, 2026, Harjit was personally served at his home in Brantford with his wife's family law application. It claims an equalization of net family property, spousal support and child support. Harjit disagrees with almost everything in it but is thinking of not responding at all, because he thinks that if he does not file an answer he will not have to disclose his finances either.",
+    "question": "How long does Harjit have to answer, and does not answering excuse him from filing a financial statement?",
+    "expected": "answer",
+    "modelAnswer": "A person against whom an application is made must serve an answer on every other party and file it within 30 days after being served with the application (Family Law Rules, r. 10 (1)); the period is 60 days only where the application is served outside Canada or the United States (r. 10 (2)), which is not Harjit's situation. Not answering does not avoid financial disclosure. Where an application contains a claim for support or a property claim, the party against whom the claim is made must serve and file a financial statement within the time for serving and filing an answer, whether the party is serving an answer or not (r. 13 (1) (b)). Because the application includes a property claim, the financial statement must be in Form 13.1 (r. 13 (1.2)). The Family Law Act also requires each party in an equalization application to serve and file a sworn statement of property, debts and exclusions (s. 8). The 30 days run from the day he was served; any calendar date should be checked against the Rules' provisions on counting time.",
+    "keyPoints": [
+      "30 days after being served",
+      "financial statement due within the time for the answer",
+      "required whether or not an answer is served",
+      "Form 13.1 for a property claim"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/family-law-rules.txt",
+        "pinpoint": "r. 10 (1)",
+        "quote": "A person against whom an application is made shall serve an answer (Form 10, 33B, 33B.1, 33B.2 or 33D.3) on every other party and file it within 30 days after being served with the application."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-rules.txt",
+        "pinpoint": "r. 13 (1) (b)",
+        "quote": "the party against whom the claim is made shall serve and file a financial statement within the time for serving and filing an answer, reply or affidavit or other document responding to the motion, whether the party is serving an answer, reply or affidavit or other document responding to the motion or not."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-rules.txt",
+        "pinpoint": "r. 13 (1.2)",
+        "quote": "If the application, answer or motion contains a property claim or a claim for exclusive possession of the matrimonial home and its contents, the financial statement used by the parties under these rules shall be in Form 13.1"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 8",
+        "quote": "In an application under section 7, each party shall serve on the other and file with the court, in the manner and form prescribed by the rules of the court, a statement verified by oath or statutory declaration disclosing particulars of,"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-rules.txt",
+        "pinpoint": "r. 10 (2)",
+        "quote": "If an application is served outside Canada or the United States of America, the time for serving and filing an answer is 60 days."
+      }
+    ]
+  },
+  {
+    "id": "FAM-019",
+    "area": "family",
+    "courtPath": "family",
+    "style": "multi-issue",
+    "story": "Before their wedding in Peterborough, Sofia and Liam typed up a two-page 'prenup' at the kitchen table. Both signed it, but no one else was present. It says: (1) the house Liam owns will be his alone and Sofia gives up any right to live in it if they separate; (2) any children will live with Liam if they separate; (3) neither will ever pay child support to the other. Liam did not mention a $150,000 investment account he held at the time. They have now separated with one child, age 3.",
+    "question": "Which parts of this agreement can be enforced under the Family Law Act, and on what grounds might it be set aside?",
+    "expected": "answer",
+    "modelAnswer": "Several problems arise. First, formalities: a domestic contract is unenforceable unless made in writing, signed by the parties and witnessed (Family Law Act, s. 55 (1)); a contract signed with no one else present fails the witnessing requirement. Even if that were met: (1) a marriage contract may deal with ownership in or division of property (s. 52 (1) (a)), so the clause about who owns the house is the kind of term the Act allows, but a provision in a marriage contract purporting to limit a spouse's rights under Part II (Matrimonial Home) is unenforceable (s. 52 (2)), so Sofia's possessory rights in the matrimonial home cannot be given up this way; (2) a marriage contract may deal with the right to direct the education and moral training of children, but not the right to decision-making responsibility or parenting time (s. 52 (1) (c)), and in any event the court may disregard a domestic contract provision on parenting where that is in the child's best interests (s. 56 (1)); (3) the court may disregard a child support provision that is unreasonable having regard to the child support guidelines (s. 56 (1.1)). Finally, a court may set aside a domestic contract or a provision in it if a party failed to disclose significant assets existing when the contract was made, if a party did not understand its nature or consequences, or otherwise under the law of contract (s. 56 (4)); Liam's undisclosed account is relevant to the first ground.",
+    "keyPoints": [
+      "writing, signed and witnessed",
+      "cannot limit matrimonial home rights",
+      "marriage contract cannot settle decision-making responsibility or parenting time",
+      "child support provision can be disregarded against the guidelines",
+      "set aside for failure to disclose significant assets"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 55 (1)",
+        "quote": "A domestic contract and an agreement to amend or rescind a domestic contract are unenforceable unless made in writing, signed by the parties and witnessed."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 52 (2)",
+        "quote": "A provision in a marriage contract purporting to limit a spouse’s rights under Part II (Matrimonial Home) is unenforceable."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 52 (1) (c)",
+        "quote": "the right to direct the education and moral training of their children, but not the right to decision-making responsibility or parenting time with respect to their children;"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 56 (1.1)",
+        "quote": "the court may disregard any provision of a domestic contract pertaining to the matter where the provision is unreasonable having regard to the child support guidelines"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 56 (4)",
+        "quote": "(a) if a party failed to disclose to the other significant assets, or significant debts or other liabilities, existing when the domestic contract was made; (b) if a party did not understand the nature or consequences of the domestic contract; or (c) otherwise in accordance with the law of contract."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 56 (1)",
+        "quote": "the court may disregard any provision of a domestic contract pertaining to the matter where, in the opinion of the court, to do so is in the best interests of the child."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 52 (1) (a)",
+        "quote": "enter into an agreement in which they agree on their respective rights and obligations under the marriage or on separation, on the annulment or dissolution of the marriage or on death, including, (a) ownership in or division of property;"
+      }
+    ]
+  },
+  {
+    "id": "FAM-020",
+    "area": "family",
+    "courtPath": "family",
+    "style": "judge-the-case",
+    "story": "Wei and his wife separated in Richmond Hill two years ago and signed a separation agreement. They are separated but not divorced, and neither has started a divorce proceeding. It was in writing, signed by both and witnessed. He waived spousal support in exchange for a larger share of the furniture. He did not get a lawyer. He has since lost his job because of a serious illness and now receives Ontario Disability Support Program income support. He wants the court to set aside the waiver and order spousal support.",
+    "question": "Do I have a good chance of getting the court to throw out my support waiver?",
+    "expected": "decline-to-judge",
+    "modelAnswer": "The site does not grade a claim or predict what a court will do; it can show you what the Family Law Act requires so you can prepare. Because you and your wife are separated but not divorced and no divorce proceeding has been started, a support claim is brought under Part III of the Family Law Act (if a divorce proceeding were started, an unadjudicated application under this Part would be stayed unless the court orders otherwise, s. 36 (1)). The court may set aside a provision for support or a waiver of the right to support in a domestic contract, and order support, even if the contract says the support section does not apply, in three situations: (a) the waiver results in unconscionable circumstances; (b) the waiver is by or on behalf of a dependant who qualifies for an allowance for support out of public money; or (c) there is default in payment of support under the contract when the application is made (s. 33 (4)). Your facts touch (a) and (b): you would need to show the circumstances the waiver now produces, and evidence that you qualify for income support from public money (ODSP). Separately, a court may set aside a domestic contract or a provision in it for failure to disclose significant assets or debts, failure to understand the nature or consequences of the contract, or under the general law of contract (s. 56 (4)). If a waiver is set aside, the amount and duration of support are decided on the factors in s. 33 (9), including your needs, capacity to contribute to your own support, and health. Next step: gather the agreement, proof of your ODSP eligibility, medical information and a financial statement.",
+    "keyPoints": [
+      "does not grade or predict the outcome; Family Law Act applies as they are not divorced",
+      "unconscionable circumstances",
+      "dependant qualifies for support out of public money",
+      "s. 56 (4) grounds to set aside"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (4)",
+        "quote": "The court may set aside a provision for support or a waiver of the right to support in a domestic contract and may determine and order support in an application under subsection (1) although the contract contains an express provision excluding the application of this section,"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (4) (a), (b)",
+        "quote": "(a) if the provision for support or the waiver of the right to support results in unconscionable circumstances; (b) if the provision for support is in favour of or the waiver is by or on behalf of a dependant who qualifies for an allowance for support out of public money; or"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (4) (c)",
+        "quote": "if there is default in the payment of support under the contract at the time the application is made."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 56 (4) (b)",
+        "quote": "if a party did not understand the nature or consequences of the domestic contract; or"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 56 (4) (a)",
+        "quote": "if a party failed to disclose to the other significant assets, or significant debts or other liabilities, existing when the domestic contract was made;"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 56 (4) (c)",
+        "quote": "otherwise in accordance with the law of contract."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (9) (c)-(e)",
+        "quote": "(c) the dependant’s capacity to contribute to his or her own support; (d) the respondent’s capacity to provide support; (e) the dependant’s and respondent’s age and physical and mental health;"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (9) (f)",
+        "quote": "the dependant’s needs, in determining which the court shall have regard to the accustomed standard of living while the parties resided together;"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 36 (1)",
+        "quote": "When a divorce proceeding is commenced under the Divorce Act (Canada), an application for support under this Part that has not been adjudicated is stayed, unless the court orders otherwise."
+      }
+    ]
+  },
+  {
+    "id": "FAM-021",
+    "area": "family",
+    "courtPath": "family",
+    "style": "fact-pattern",
+    "story": "Last year the Ontario Court of Justice in Belleville ordered Trevor to pay Kayla $640 a month in child support. Trevor paid for three months, then stopped, and he now owes about $5,800. He works full time at a local warehouse. Kayla has been texting him reminders and is thinking of starting a Small Claims Court action to collect.",
+    "question": "Who enforces a child support order like this one in Ontario, how is payment usually collected, and what can happen to Trevor's driver's licence?",
+    "expected": "answer",
+    "modelAnswer": "Under the Family Responsibility and Support Arrears Enforcement Act, 1996, it is the duty of the Director of the Family Responsibility Office to enforce support orders that are filed in the Director's office and to pay the amounts collected to the person to whom they are owed (s. 5 (1)). Every support order made by an Ontario court must state that, unless withdrawn from the Director's office, it is enforced by the Director and amounts owing are paid to the Director (s. 9 (1)). The clerk or registrar of the court that makes a support order must file it with the Director's office promptly after it is signed (s. 12 (1)). Once an order is filed there, no person other than the Director may enforce it (s. 6 (7)), so Kayla cannot sue to collect it herself in Small Claims Court. An Ontario court that makes a support order must also make a support deduction order (s. 10 (1)), which is how payments are usually collected: an income source, such as Trevor's employer, that receives notice of a support deduction order must deduct the support owed from the money it owes Trevor and pay it to the Director (s. 22 (1)). When a filed support order is in default, the Director may serve a first notice telling the payor that his driver's licence may be suspended unless, within 30 days after the notice is served, he makes a satisfactory arrangement for complying and paying arrears, obtains an order to refrain and files it, or pays all arrears (s. 34). So rather than a separate lawsuit, Kayla's first step is to confirm with the Director's office that the order and the support deduction order are filed and that it has Trevor's employer information.",
+    "keyPoints": [
+      "Director (Family Responsibility Office) enforces filed orders",
+      "no one other than the Director may enforce a filed order (s. 6 (7))",
+      "clerk files the order with the Director (s. 12 (1))",
+      "employer deducts and pays the Director under the support deduction order (s. 22 (1))",
+      "first notice: licence may be suspended unless action within 30 days"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/family-responsibility-support-arrears-enforcement-act.txt",
+        "pinpoint": "s. 5 (1)",
+        "quote": "It is the duty of the Director to enforce support orders where the support order and the related support deduction order, if any, are filed in the Director’s office and to pay the amounts collected to the person to whom they are owed."
+      },
+      {
+        "file": "docs/sources/corpus/family-responsibility-support-arrears-enforcement-act.txt",
+        "pinpoint": "s. 9 (1)",
+        "quote": "unless the order is withdrawn from the Director’s office, it shall be enforced by the Director and that amounts owing under the order shall be paid to the Director, who shall pay them to the person to whom they are owed."
+      },
+      {
+        "file": "docs/sources/corpus/family-responsibility-support-arrears-enforcement-act.txt",
+        "pinpoint": "s. 10 (1)",
+        "quote": "An Ontario court that makes a support order, as defined in subsection 1 (1), shall also make a support deduction order."
+      },
+      {
+        "file": "docs/sources/corpus/family-responsibility-support-arrears-enforcement-act.txt",
+        "pinpoint": "s. 34",
+        "quote": "When a support order that is filed in the Director’s office is in default, the Director may serve a first notice on the payor, informing the payor that his or her driver’s licence may be suspended unless, within 30 days after the day the first notice is served,"
+      },
+      {
+        "file": "docs/sources/corpus/family-responsibility-support-arrears-enforcement-act.txt",
+        "pinpoint": "s. 1 (1), “income source”",
+        "quote": "“income source” means an individual, corporation or other entity that owes or makes any payment, whether periodically or in a lump sum, to or on behalf of a payor of, (a) wages, wage supplements or salary"
+      },
+      {
+        "file": "docs/sources/corpus/family-responsibility-support-arrears-enforcement-act.txt",
+        "pinpoint": "s. 6 (7)",
+        "quote": "Subject to section 4, no person other than the Director shall enforce a support order that is filed in the Director’s office."
+      },
+      {
+        "file": "docs/sources/corpus/family-responsibility-support-arrears-enforcement-act.txt",
+        "pinpoint": "s. 22 (1)",
+        "quote": "An income source that receives notice of a support deduction order, whether or not the income source is named in the order, shall, subject to section 23, deduct from the money the income source owes to the payor the amount of the support owed by the payor"
+      },
+      {
+        "file": "docs/sources/corpus/family-responsibility-support-arrears-enforcement-act.txt",
+        "pinpoint": "s. 22 (1)",
+        "quote": "and shall pay that amount to the Director."
+      },
+      {
+        "file": "docs/sources/corpus/family-responsibility-support-arrears-enforcement-act.txt",
+        "pinpoint": "s. 12 (1)",
+        "quote": "The clerk or registrar of the court that makes a support order shall file it with the Director’s office promptly after it is signed."
+      }
+    ]
+  },
+  {
+    "id": "FAM-022",
+    "area": "family",
+    "courtPath": "family",
+    "style": "false-premise",
+    "story": "Bernadette and Louis lived together in Sault Ste. Marie for eleven years without marrying. The house they lived in is in Louis's name; Bernadette paid for groceries, renovations and much of the household's day-to-day costs while Louis paid the mortgage. They have no children. Now that they have separated, Bernadette says: 'We were common-law for over ten years, so under the Family Law Act I get an equalization payment of half the difference in our property, just like a married spouse.'",
+    "question": "Is Bernadette right that she can claim an equalization of net family property? What does the law provide for her instead?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "No. Equalization of net family property under Part I of the Family Law Act is between 'spouses', and the general definition of spouse means two persons who are married to each other, or who entered in good faith into a void or voidable marriage (s. 1 (1)). The wider definition that adds unmarried partners who cohabited continuously for not less than three years applies only 'in this Part', that is, Part III (Support Obligations) (s. 29). So Bernadette can claim spousal support as a spouse under Part III, decided on the s. 33 factors, but she has no statutory equalization claim. For property, the Supreme Court in Kerr v. Baranow explained that for unmarried persons in domestic relationships in most common law provinces, judge-made law was and remains the only option, and the main legal mechanisms are the resulting trust and the action in unjust enrichment. Her contributions to renovations and household costs are the kind of facts those claims look at.",
+    "keyPoints": [
+      "equalization applies to married spouses",
+      "three-year cohabitation definition applies to support only",
+      "she can claim spousal support",
+      "property claims for unmarried partners rest on resulting trust and unjust enrichment"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 1 (1), “spouse”",
+        "quote": "“spouse” means either of two persons who, (a) are married to each other, or (b) have together entered into a marriage that is voidable or void,"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 29",
+        "quote": "“spouse” means a spouse as defined in subsection 1 (1), and in addition includes either of two persons who are not married to each other and have cohabited, (a) continuously for a period of not less than three years,"
+      },
+      {
+        "file": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+        "pinpoint": "para. 1",
+        "quote": "But for unmarried persons in domestic relationships in most common law provinces, judge-made law was and remains the only option."
+      },
+      {
+        "file": "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+        "pinpoint": "para. 1",
+        "quote": "to parties and courts have been the resulting trust and the action in unjust enrichment."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 5 (1)",
+        "quote": "the spouse whose net family property is the lesser of the two net family properties is entitled to one-half the difference between them."
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 33 (9)",
+        "quote": "In determining the amount and duration, if any, of support for a spouse or parent in relation to need, the court shall consider all the circumstances of the parties"
+      }
+    ]
+  }
+]

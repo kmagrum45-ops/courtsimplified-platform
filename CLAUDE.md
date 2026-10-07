@@ -260,6 +260,9 @@ happen.
 manual-only (`workflow_dispatch`), because they spend the site's OpenAI
 balance and it ran low. Start one deliberately when a run is worth its cost;
 CI on pull requests still runs its one billed suite (safety regression).
+The law exam (`courtsimplified-law-exam.yml`, `npm run eval:law-exam`) is
+manual-only for the same reason and runs nothing without `--confirm`; its
+answer keys are checked for free in CI by `test:law-exam`.
 
 ## 7a. The master plan
 

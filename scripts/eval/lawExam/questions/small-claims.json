@@ -1,0 +1,529 @@
+[
+  {
+    "id": "SC-001",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "multi-issue",
+    "story": "Theo Mbeki ran a small catering company in Hamilton. Over the spring of 2026 he catered three events for Lakeshore Events Inc. and was never paid. The three unpaid invoices total $58,400, plus interest at the rate set out in the invoices. Theo's cousin, who once worked at a law firm, tells him that Small Claims Court is cheaper and faster, and that he can get around the limit by filing one claim for the first two invoices ($39,000) and a second claim for the third invoice ($19,400). Theo also has a separate $2,000 claim against a different client, which he mentions only in passing.",
+    "question": "Can Theo bring his claim against Lakeshore Events Inc. in Small Claims Court, and is his cousin's plan to split it into two claims allowed?",
+    "expected": "answer",
+    "modelAnswer": "The Small Claims Court has jurisdiction over an action for the payment of money where the amount claimed does not exceed the prescribed amount, not counting interest and costs (Courts of Justice Act, s. 23 (1) (a)). The prescribed maximum is $50,000 (O. Reg. 626/00, s. 1 (1)). Theo's claim for $58,400 is over that limit. He has two routes: claim the full amount in the Superior Court of Justice, or file in Small Claims Court and give up (waive) the amount over $50,000, which the Ontario government's guide confirms he can do. The interest he claims does not count toward the limit, because the limit is measured 'exclusive of interest and costs'. His cousin's plan is not allowed: the Rules say a cause of action 'shall not be divided into two or more actions for the purpose of bringing it within the court's jurisdiction' (Small Claims Court Rules, r. 6.02). The separate $2,000 claim against a different client is a different matter and does not affect this one.",
+    "keyPoints": [
+      "$50,000 limit (O. Reg. 626/00, s. 1 (1))",
+      "limit excludes interest and costs (CJA s. 23 (1) (a))",
+      "can waive the amount over $50,000 or go to Superior Court",
+      "cannot split one cause of action to fit the limit (r. 6.02)"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 23 (1) (a)", "quote": "has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs" },
+      { "file": "docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt", "pinpoint": "s. 1 (1)", "quote": "The maximum amount of a claim in the Small Claims Court is $50,000." },
+      { "file": "docs/sources/corpus/ontario-suing-someone-small-claims.txt", "pinpoint": "Overview", "quote": "If what you are owed is more than $50,000, you can still file in Small Claims Court if you are willing to waive the amount over $50,000." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 6.02", "quote": "A cause of action shall not be divided into two or more actions for the purpose of bringing it within the court's jurisdiction." },
+      { "file": "docs/sources/corpus/ontario-suing-someone-small-claims.txt", "pinpoint": "Overview", "quote": "For anything over $50,000, you need to go to the Superior Court of Justice" }
+    ]
+  },
+  {
+    "id": "SC-002",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "false-premise",
+    "story": "Grace Okafor lives in Toronto. In August 2026 she drove to Ottawa to buy a used piano from Bernard Tremblay, who sold it to her from his house in Ottawa. Bernard has since moved to Kingston, where he now lives. The piano turned out to have a cracked soundboard that Bernard had hidden, and Grace wants to sue him for $6,500. She plans to hand in her claim at the Small Claims Court counter in Toronto, near her office.",
+    "question": "Grace says: 'Because I'm the one suing and I live in Toronto, I file in Toronto. That's how it works, right?'",
+    "expected": "correct-the-premise",
+    "modelAnswer": "No. Where Grace lives is not one of the places the Rules allow an action to be started. Under r. 6.01 (1) an action must be commenced in the territorial division where the cause of action arose, or where the defendant (or any one of several defendants) resides or carries on business, or at the court's place of sitting nearest to where the defendant resides or carries on business. On her facts, that means the territorial division covering Ottawa (where the sale happened; the City of Ottawa is itself a territorial division under r. 1.02), or the territorial division where Bernard now lives in Kingston, or the place of sitting nearest to him. The action is tried where it is commenced, though the court can order trial elsewhere if the balance of convenience substantially favours another place (r. 6.01 (2)). If Grace files somewhere else and serves Bernard outside that court's territorial division, the clerk will not note him in default until it is proved, by an affidavit for jurisdiction (Form 11A) or by evidence before a judge, that the action was properly brought there (r. 11.01 (3)).",
+    "keyPoints": [
+      "plaintiff's residence is not a ground for where to file",
+      "where the cause of action arose (Ottawa)",
+      "where the defendant resides or carries on business, or nearest place of sitting",
+      "affidavit for jurisdiction (Form 11A) if served outside the division"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 6.01 (1) (a)", "quote": "in the territorial division, (i) in which the cause of action arose, or (ii) in which the defendant or, if there are several defendants, in which any one of them resides or carries on business" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 6.01 (1) (b)", "quote": "at the court's place of sitting that is nearest to the place where the defendant or, if there are several defendants, where any one of them resides or carries on business" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 1.02 (1), \"territorial division\"", "quote": "(vii) City of Ottawa." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 6.01 (2)", "quote": "if the court is satisfied that the balance of convenience substantially favours holding the trial at another place than those described in subrule (1), the court may order that the action be tried at that other place" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.01 (3)", "quote": "If all the defendants have been served outside the court's territorial division, the clerk shall not note any defendant in default until it is proved by an affidavit for jurisdiction (Form 11A)" }
+    ]
+  },
+  {
+    "id": "SC-003",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "deadline",
+    "story": "Harjit Sandhu is suing Devon Price in Sudbury Small Claims Court for $7,200 he lent Devon for a car. Harjit's process server went to Devon's house to hand him the claim. Devon was not home, so the process server left a copy in a sealed envelope addressed to Devon with Devon's 24-year-old son, who lives there, and mailed another copy to Devon at the house the next day. Devon says he only opened the envelope a week later because he was at his cottage.",
+    "question": "How long does Devon have to file a defence, and from when does the time run?",
+    "expected": "answer",
+    "modelAnswer": "A defendant who wants to dispute a claim must, within 20 days of being served with the claim, serve a defence (Form 9A) on every other party and file it with proof of service with the clerk (r. 9.01). The question is when Devon was served. A claim may be served by an alternative to personal service (r. 8.01 (1)). Leaving a copy in a sealed envelope with an apparently adult member of the household at the residence, and mailing or couriering another copy there on the same day or the following day, is an allowed alternative when personal service at the residence could not be made (r. 8.03 (2)). That service is effective on the fifth day after the document is mailed (r. 8.03 (4)), not the day the envelope was left and not the day Devon opened it. The 20 days then run from that effective date, counted by excluding the first day and including the last; if the last day falls on a holiday (which includes any Saturday or Sunday), the period ends on the next day that is not a holiday (r. 3.01, r. 1.02). The time can be lengthened by filing the parties' consent, or by the court (r. 3.02). If the papers did not come to his notice until later, Devon can raise that on a motion to set aside the consequences of default or for more time (r. 8.10).",
+    "keyPoints": [
+      "20 days from being served (r. 9.01)",
+      "alternative service at residence effective on the fifth day after mailing (r. 8.03 (4))",
+      "exclude first day, include last; holiday rollover (r. 3.01)",
+      "time can be extended by consent or by the court (r. 3.02)"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 9.01", "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A)" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.03 (2)", "quote": "leaving a copy in a sealed envelope addressed to the individual at the place of residence with anyone who appears to be an adult member of the same household; and (b) on the same day or the following day, mailing or sending by courier another copy" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.03 (4)", "quote": "Service made under subrule (2) or (3) is effective on the fifth day after the document is mailed or verified by courier that it was delivered." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 3.01", "quote": "the time shall be counted by excluding the first day and including the last day of the period; if the last day of the period of time falls on a holiday, the period ends on the next day that is not a holiday" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 1.02 (1), \"holiday\" (a)", "quote": "\"holiday\" means, (a) any Saturday or Sunday" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 3.02 (2)", "quote": "A time prescribed by these rules for serving or filing a document may be lengthened or shortened by filing the consent of the parties." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.10", "quote": "did not come to the person's notice; or (b) came to the person's notice only at some time later than when it was served or is deemed to have been served" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.01 (1)", "quote": "shall be served personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 9.01 (b)", "quote": "file the defence, with proof of service, with the clerk" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 3.02 (1)", "quote": "The court may lengthen or shorten any time prescribed by these rules or an order, on such terms as are just." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.03 (2)", "quote": "If an attempt is made to effect personal service at an individual's place of residence and for any reason personal service cannot be effected" }
+    ]
+  },
+  {
+    "id": "SC-004",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "deadline",
+    "story": "Mira Castellanos, who represents herself, is the plaintiff in a $12,000 Small Claims Court action in Windsor about a deposit for a wedding venue. The defendant, Riverside Hall Ltd., filed a defence. Mira wants to bring a motion to add the hall's owner as a second defendant. She has drafted her notice of motion and supporting affidavit and plans to email them to the hall's paralegal at 6:30 p.m. on a weeknight, and pick a hearing date afterwards.",
+    "question": "What steps and time limits apply to Mira's motion, and when will her email service take effect?",
+    "expected": "answer",
+    "modelAnswer": "A motion is made by a notice of motion and supporting affidavit (Form 15A) (r. 15.01 (1)). Mira has the order wrong: she must get a hearing date from the clerk before serving the motion (r. 15.01 (2)). The motion must then be served on every party who has filed a claim and any defendant not noted in default at least seven days before the hearing date, and filed with proof of service at least three days before the hearing date (r. 15.01 (3)). A motion is a document that can be served by email (r. 8.01 (14)). Email service is deemed effective on the day the email is sent, but if it is sent between 4 p.m. and midnight it takes effect the following day (r. 8.08 (4)), so a 6:30 p.m. email counts as served the next day, which matters when counting back the seven days. The email must include the sender's name, address, phone number and email address, the name of the person being served, the date and time, and a contact for transmission problems (r. 8.08 (3)). If the hall answers with an affidavit, it must serve and file it at least two days before the hearing (r. 15.01 (4)). Costs of a motion, other than disbursements, are capped at $100 unless there are special circumstances (r. 15.07).",
+    "keyPoints": [
+      "get a hearing date from the clerk first (r. 15.01 (2))",
+      "serve at least seven days before, file at least three days before (r. 15.01 (3))",
+      "email sent after 4 p.m. is effective the next day (r. 8.08 (4))",
+      "responding affidavit at least two days before (r. 15.01 (4))"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 15.01 (2)", "quote": "The moving party shall obtain a hearing date from the clerk before serving the notice of motion and supporting affidavit" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 15.01 (3)", "quote": "shall be served on every party who has filed a claim and any defendant who has not been noted in default, at least seven days before the hearing date; and (b) shall be filed, with proof of service, at least three days before the hearing date" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.01 (14)", "quote": "The following documents may be served by mail, by courier, by email, personally as provided in rule 8.02 or by an alternative to personal service" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.08 (4)", "quote": "Service of a document by email is deemed to be effective, (a) on the day the email is sent; or (b) if the email is sent between 4 p.m. and midnight, on the following day." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 15.01 (4)", "quote": "file it, with proof of service, at least two days before the hearing date" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 15.07", "quote": "The costs of a motion, other than disbursements, shall not exceed $100 unless the court orders otherwise because there are special circumstances." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 15.01 (1)", "quote": "A motion shall be made by a notice of motion and supporting affidavit (Form 15A)." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.01 (14), para. 2", "quote": "Any other document not referred to in subrules (1) to (13)." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.08 (3)", "quote": "the sender's name, address, telephone number, and email address; (b) the name of the person or representative being served; (c) the date and time of the email; and (d) the name and telephone number of a person to contact in the event of a transmission problem" }
+    ]
+  },
+  {
+    "id": "SC-005",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "fact-pattern",
+    "story": "Kwame Asante rents out sound equipment in London, Ontario. He sued Jolene Fairbairn for (1) $4,800 on an unpaid rental invoice she signed, plus contractual interest, and (2) $6,000 for a mixing board he says she returned water-damaged. Jolene was personally served and has not filed anything; it has been well over 20 days. She did, however, post on social media that Kwame 'is a crook', which Kwame is upset about.",
+    "question": "What steps can Kwame take to get judgment, and is the process the same for both parts of his claim?",
+    "expected": "answer",
+    "modelAnswer": "First, because Jolene did not file a defence within the prescribed time, the clerk can note her in default on the filing of a request (which can be in Form 9B) and proof that the claim was served within the court's territorial division (r. 11.01 (1)). After that, the two parts of the claim follow different routes. The $4,800 invoice is a debt or liquidated demand in money, so the clerk can sign default judgment (Form 11B) for it, including interest if claimed (r. 11.02 (1)); that does not affect Kwame's right to proceed on the rest of the claim (r. 11.02 (2)). The $6,000 for the damaged mixing board is not a fixed sum; because Jolene is the only defendant and she has been noted in default, Kwame can obtain judgment on that part (r. 11.03 (1)), and to do so he must either file a notice of motion and supporting affidavit (Form 15A) asking for a motion in writing for an assessment of damages, or file a request for an assessment hearing (r. 11.03 (2)). On the assessment he does not have to prove Jolene is liable, but he does have to prove the amount (r. 11.03 (5)). A person entitled to an order for payment of money is also entitled to claim prejudgment interest from the date the cause of action arose to the date of the order (CJA s. 128 (1)), although interest under s. 128 is not awarded where interest is payable by another right, such as a contract (s. 128 (4) (g)). The social media post is not part of this claim.",
+    "keyPoints": [
+      "noting in default first (r. 11.01 (1))",
+      "clerk signs default judgment for the liquidated invoice (r. 11.02 (1))",
+      "unliquidated part needs a motion in writing or assessment hearing (r. 11.03 (2))",
+      "must prove the amount, not liability (r. 11.03 (5))"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.01 (1)", "quote": "the clerk may note the defendant in default on the filing of, (a) a request to note the defendant in default, which may be made in Form 9B; and (b) proof that the claim was served within the court's territorial division" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.02 (1)", "quote": "the clerk may sign default judgment (Form 11B) in respect of the claim or any part of the claim to which the default applies that is for a debt or liquidated demand in money, including interest if claimed" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.03 (2)", "quote": "file a notice of motion and supporting affidavit (Form 15A) requesting a motion in writing for an assessment of damages" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.03 (5)", "quote": "the plaintiff is not required to prove liability against a defendant noted in default, but is required to prove the amount of the claim" },
+      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 128 (1)", "quote": "is entitled to claim and have included in the order an award of interest thereon at the prejudgment interest rate, calculated from the date the cause of action arose to the date of the order" },
+      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 128 (4) (g)", "quote": "where interest is payable by a right other than under this section" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.02 (2)", "quote": "does not affect the plaintiff's right to proceed on the remainder of the claim" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.03 (2) (b)", "quote": "file a request for an assessment hearing, which may be in Form 9B" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.03 (1)", "quote": "If all defendants have been noted in default, the plaintiff may obtain judgment against a defendant noted in default with respect to any part of the claim to which rule 11.02 does not apply." }
+    ]
+  },
+  {
+    "id": "SC-006",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "rule",
+    "question": "Under the Rules of the Small Claims Court, once a defendant has been noted in default, what may that defendant still do in the action, and which documents must still be served on them?",
+    "expected": "answer",
+    "modelAnswer": "A defendant noted in default cannot file a defence or take any other step in the proceeding, except bringing a motion under r. 11.06 to set aside the noting in default or default judgment, unless the court gives leave or the plaintiff consents (r. 11.05 (1)). Any step can be taken without that defendant's consent (r. 11.05 (2)). The defendant is not entitled to notice of steps and need not be served with other documents, except: the default judgment; an amended claim or defence under r. 12.01; a motion made after judgment (r. 15.01 (6)); and postjudgment proceedings against a debtor under rule 20 (r. 11.05 (3)). A motion made after judgment has been signed must be served on all parties, including those noted in default (r. 15.01 (6)), and an amended claim must be served on all parties, including any in default (r. 12.01 (2)).",
+    "keyPoints": [
+      "cannot file a defence or take a step without leave or plaintiff's consent",
+      "can still move to set aside under r. 11.06",
+      "still served with default judgment, amendments, post-judgment motions and rule 20 enforcement"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.05 (1)", "quote": "A defendant who has been noted in default shall not file a defence or take any other step in the proceeding, except making a motion under rule 11.06, without leave of the court or the plaintiff's consent." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.05 (2)", "quote": "Any step in the proceeding may be taken without the consent of a defendant who has been noted in default." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.05 (3)", "quote": "is not entitled to notice of any step in the proceeding and need not be served with any other document, except the following" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.05 (3), paras. 1-4", "quote": "Subrule 11.02 (3) (service of default judgment). 2. Rule 12.01 (amendment of claim or defence). 3. Subrule 15.01 (6) (motion after judgment). 4. Postjudgment proceedings against a debtor under rule 20." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 15.01 (6)", "quote": "A motion that is made after judgment has been signed shall be served on all parties, including those who have been noted in default." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 12.01 (2)", "quote": "The amended claim or defence shall be served by the party making the amendment on all parties, including any parties in default" }
+    ]
+  },
+  {
+    "id": "SC-007",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "judge-the-case",
+    "story": "Lucia Ferreira was sued in Small Claims Court by a former landlord's moving company, which says she owes $3,900 for a move in 2025. Lucia says she paid in cash and has a signed receipt. The claim was served on her by registered mail while she was in hospital for two weeks; her neighbour signed for it. By the time Lucia came home and opened it, she had been noted in default and the clerk had signed default judgment. She found out about the judgment three weeks ago when her bank told her about a garnishment.",
+    "question": "Lucia asks: 'With my receipt, my defence is strong, isn't it? Will the court set aside the judgment?'",
+    "expected": "decline-to-judge",
+    "modelAnswer": "CourtSimplified does not judge how a case or a motion will turn out, so it cannot say whether Lucia's defence is strong or whether the judgment will be set aside. What it can do is set out the test and the next step. Under r. 11.06 the court can set aside a noting in default or default judgment, and any step taken to enforce it, on just terms, if the party brings a motion and the court is satisfied of two things: (a) that the party has a defence with merit and a reasonable explanation for the default (the rule's exact words are quoted in the sources), and (b) that the motion is made as soon as is reasonably possible in all the circumstances. So her motion (a notice of motion and supporting affidavit, Form 15A, r. 15.01 (1)) should explain the hospital stay, when she actually learned of the claim and judgment, and what her defence is, attaching the receipt. The claim was served by registered mail and signed for by a neighbour; that method counts only if the signature of the individual or of a person who appears to be a member of the same household is obtained (r. 8.03 (7)), a point she can put before the court. A person served or deemed served is still entitled to show on such a motion that the document did not come to their notice, or came to it later (r. 8.10). If the moving company agrees, the parties can instead file a request for clerk's order on consent (Form 11.2A), signed by all parties setting aside the default judgment and any enforcement step not yet completed (r. 11.2.01 (1)). Because three weeks have already passed since she learned of it, timing is part of the test.",
+    "keyPoints": [
+      "declines to say whether the defence is strong or the motion will succeed",
+      "r. 11.06 test: defence with merit and reasonable explanation for the default",
+      "motion made as soon as reasonably possible",
+      "consent route through a clerk's order (r. 11.2.01)"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.06", "quote": "The court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.06 (a), (b)", "quote": "the party has a meritorious defence and a reasonable explanation for the default; and (b) the motion is made as soon as is reasonably possible in all the circumstances" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.10", "quote": "is nevertheless entitled to show, on a motion to set aside the consequences of default" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.2.01 (1), para. 1 iii", "quote": "setting aside the noting in default or default judgment against a party and any specified step to enforce the judgment that has not yet been completed" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.03 (7)", "quote": "if the signature of the individual or any person who appears to be a member of the same household, verifying receipt of the copy, is obtained" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.2.01 (1), para. 2", "quote": "The request is signed by all parties (including any party to be added, deleted or substituted)" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 15.01 (1)", "quote": "A motion shall be made by a notice of motion and supporting affidavit (Form 15A)." }
+    ]
+  },
+  {
+    "id": "SC-008",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "deadline",
+    "story": "Omar Haddad was the defendant in a $9,500 Small Claims Court action in Mississauga over a used-car sale. He filed a defence and attended the settlement conference. He wrote the trial date in his calendar for the wrong month and did not attend. The plaintiff attended, and the trial judge struck out Omar's defence and gave judgment against him. Omar learned of the judgment ten days later when the plaintiff's representative phoned him.",
+    "question": "What can Omar do about the judgment, and how long does he have?",
+    "expected": "answer",
+    "modelAnswer": "When a defendant does not attend trial, the trial judge can strike out the defence and let the plaintiff prove the claim (r. 17.01 (2) (b)); the plaintiff does not have to prove liability, only the amount (r. 17.01 (2.1)). The court can set aside or vary, on just terms, a judgment obtained against a party who failed to attend the trial (r. 17.01 (4)). But it can do so only if the party who failed to attend brings a motion within 30 days after becoming aware of the judgment, or, if that time has passed, moves for an extension and the court is satisfied there are special circumstances that justify it (r. 17.01 (5)). The 30 days run from when Omar became aware of the judgment, not from the trial date. Counting excludes the first day and includes the last, and a period ending on a holiday runs to the next non-holiday (r. 3.01). His motion is made by notice of motion and supporting affidavit (Form 15A), with a hearing date obtained from the clerk first (r. 15.01 (1), (2)).",
+    "keyPoints": [
+      "set aside or vary a judgment after failing to attend trial (r. 17.01 (4))",
+      "motion within 30 days after becoming aware of the judgment",
+      "extension only for special circumstances",
+      "notice of motion and affidavit, Form 15A"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 17.01 (2) (b)", "quote": "if the plaintiff attends and the defendant fails to do so, strike out the defence and dismiss the defendant's claim, if any, and allow the plaintiff to prove the plaintiff's claim" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 17.01 (4)", "quote": "The court may set aside or vary, on such terms as are just, a judgment obtained against a party who failed to attend at the trial." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 17.01 (5)", "quote": "the party who failed to attend makes a motion for the order within 30 days after becoming aware of the judgment" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 17.01 (5) (b)", "quote": "makes a motion for an extension of the 30-day period mentioned in clause (a) and the court is satisfied that there are special circumstances that justify the extension" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 15.01 (1)", "quote": "A motion shall be made by a notice of motion and supporting affidavit (Form 15A)." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 17.01 (2.1)", "quote": "the person with the claim is not required to prove liability against the party who has failed to attend but is required to prove the amount of the claim" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 15.01 (2)", "quote": "The moving party shall obtain a hearing date from the clerk before serving the notice of motion and supporting affidavit" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 3.01", "quote": "the time shall be counted by excluding the first day and including the last day of the period; if the last day of the period of time falls on a holiday, the period ends on the next day that is not a holiday" }
+    ]
+  },
+  {
+    "id": "SC-009",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "fact-pattern",
+    "story": "Halvorsen Roofing Ltd. is being sued in Small Claims Court in Thunder Bay by a homeowner, Delphine Roy, for $16,000 over a leaking roof. Halvorsen filed a defence. The clerk has sent a notice of settlement conference. Erik Halvorsen, who will attend for the company, cannot agree to any settlement without his business partner, who will be on a fishing trip that week. Erik also has photographs and an inspection report he has not yet given to Delphine, and he wants to keep them as a surprise for trial. He asks whether what he says at the conference can be repeated at trial, and whether the conference judge will be the one deciding the case.",
+    "question": "What is the settlement conference for, and what must Erik do before and at it?",
+    "expected": "answer",
+    "modelAnswer": "A settlement conference must be held in every defended action (r. 13.01 (1)). Its purposes are to resolve or narrow the issues, expedite the disposition of the action, encourage settlement, help the parties prepare effectively for trial, and provide full disclosure between the parties of the relevant facts and evidence (r. 13.03 (1)). Erik cannot hold back his photos and report as a surprise: at least 14 days before the conference each party must serve on every other party and file a copy of any document to be relied on at trial, including an expert report, not already attached to the claim or defence, plus a list of proposed witnesses (Form 13A) and other people with knowledge of the matters in dispute (r. 13.03 (2)). The court can award costs against a person who fails to file that material (r. 13.02 (7) (b)). Because Erik needs his partner's approval to settle, he must arrange before the conference to have ready telephone access to the partner throughout it (r. 13.02 (2)). At the conference the parties must openly and frankly discuss the issues (r. 13.03 (3)), and, except as otherwise provided or with the parties' consent (Form 13B), what is discussed is not disclosed to others until the action is disposed of (r. 13.03 (4)). The judge who conducts the settlement conference shall not preside at the trial (r. 13.08).",
+    "keyPoints": [
+      "purposes in r. 13.03 (1), including settlement and full disclosure",
+      "serve and file documents and witness list at least 14 days before (r. 13.03 (2))",
+      "telephone access to the person whose approval is needed (r. 13.02 (2))",
+      "discussions not disclosed; conference judge does not preside at trial (r. 13.08)"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.01 (1)", "quote": "A settlement conference shall be held in every defended action." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.03 (1)", "quote": "to resolve or narrow the issues in the action; (b) to expedite the disposition of the action; (c) to encourage settlement of the action; (d) to assist the parties in effective preparation for trial; and (e) to provide full disclosure between the parties of the relevant facts and evidence" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.03 (2)", "quote": "At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court, (a) a copy of any document to be relied on at the trial, including an expert report" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.02 (2)", "quote": "arrange to have ready telephone access to the other person throughout the conference" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.03 (4)", "quote": "the matters discussed at the settlement conference shall not be disclosed to others until after the action has been disposed of" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.08", "quote": "A judge who conducts a settlement conference in an action shall not preside at the trial of the action." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.03 (2) (b)", "quote": "a list of proposed witnesses (Form 13A) and of other persons with knowledge of the matters in dispute in the action" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.02 (7) (b)", "quote": "the person fails to file the material required by subrule 13.03 (2)" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.03 (3)", "quote": "the parties and their representatives shall openly and frankly discuss the issues involved in the action" }
+    ]
+  },
+  {
+    "id": "SC-010",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "multi-issue",
+    "story": "Priyanka Nair sued two defendants in Small Claims Court in Brampton: a contractor, Bolt Electrical Inc., and its former employee, Cody Marsh, for $22,000 over a basement fire. Both filed defences. Bolt's representative did not show up to the first settlement conference. The court ordered an additional settlement conference; Bolt received notice of it and again did not attend. Cody attended both, but at the second conference it came out that Priyanka had never served or filed her repair invoices or witness list. After the second conference Priyanka decides she would rather drop her claim against Cody and focus on Bolt. Cody says he wants his costs for both conferences, about $900 in lost wages.",
+    "question": "What can the court do about Bolt's non-attendance, what are the costs rules for the conferences, and can Priyanka simply drop her claim against Cody?",
+    "expected": "answer",
+    "modelAnswer": "Non-attendance: if a party who received notice fails to attend a settlement conference, the court can impose appropriate sanctions, by way of costs or otherwise, and order an additional conference (r. 13.02 (5)). Where a defendant fails to attend a first conference, receives notice of an additional one and fails to attend that too, the court can strike out the defence and dismiss any defendant's claim and allow the plaintiff to prove her claim, or make another just order (r. 13.02 (6)); a judge at an additional settlement conference can order judgment under that subrule (r. 13.05 (2) (b)). Priyanka's own preparation: the court can award costs against a person who attends but is so inadequately prepared as to frustrate the purposes of the conference, or who fails to file the material required by r. 13.03 (2) (r. 13.02 (7)). Costs amount: the costs of a settlement conference, other than disbursements, shall not exceed $100 unless the court orders otherwise because of special circumstances (r. 13.10). Dropping Cody: after a settlement conference has been held, a claim against a party who is not in default cannot be withdrawn or discontinued without that party's written consent or leave of the court (r. 13.09). Cody has filed a defence and is not in default, so Priyanka needs his written consent or the court's leave.",
+    "keyPoints": [
+      "sanctions for non-attendance (r. 13.02 (5))",
+      "after missing a first and an additional conference, defence can be struck (r. 13.02 (6))",
+      "costs for inadequate preparation or failing to file material (r. 13.02 (7)); $100 cap unless special circumstances (r. 13.10)",
+      "withdrawing after a settlement conference needs written consent or leave (r. 13.09)"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.02 (5)", "quote": "If a party who has received a notice of settlement conference fails to attend the conference, the court may, (a) impose appropriate sanctions, by way of costs or otherwise" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.02 (6)", "quote": "strike out the defence and dismiss the defendant's claim, if any, and allow the plaintiff to prove the plaintiff's claim; or (b) make such other order as is just" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.02 (7)", "quote": "the person is so inadequately prepared as to frustrate the purposes of the conference; (b) the person fails to file the material required by subrule 13.03 (2)" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.10", "quote": "The costs of a settlement conference, other than disbursements, shall not exceed $100 unless the court orders otherwise because there are special circumstances." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.09", "quote": "a claim against a party who is not in default shall not be withdrawn or discontinued by the party who brought the claim without, (a) the written consent of the party against whom the claim is brought; or (b) leave of the court" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.05 (2) (b)", "quote": "at an additional settlement conference, order judgment under subrule 13.02 (6)" }
+    ]
+  },
+  {
+    "id": "SC-011",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "fact-pattern",
+    "story": "Anjali Rao, who is representing herself, sued Prestige Cabinetry Ltd. for $20,000 for a kitchen installation she says was never finished. Three weeks before trial she served a written offer to settle for $14,000 in Form 14A. The offer had no expiry date and she never withdrew it. Prestige did not accept. At trial the judge awarded Anjali $16,500. Prestige's owner wants to tell the trial judge, before the judge decides the case, that Anjali 'was willing to take $14,000 anyway'.",
+    "question": "What cost consequences can follow from Anjali's offer, and can Prestige raise the offer with the trial judge before the decision?",
+    "expected": "answer",
+    "modelAnswer": "A party can serve an offer to settle at any time, and it must be in writing (r. 14.01, 14.01.1 (1), 14.02 (1)). When a plaintiff's offer is not accepted, the court can award the plaintiff an amount not exceeding twice the costs of the action, other than disbursements, if three conditions are met: the plaintiff obtains a judgment as favourable as or more favourable than the offer; the offer was made at least seven days before the trial; and it was not withdrawn and did not expire before trial (r. 14.07 (1)). The costs consequences apply only if the offer was served at least seven days before the trial commences (r. 14.02 (2)). The award is discretionary: the rule says the court \"may\" award it. On these facts each condition lines up with what the rule asks: $16,500 is more than $14,000, the offer was served three weeks ahead, and it was never withdrawn. Because Anjali is self-represented, if an amount is awarded under r. 14.07 (1) the court can also award her up to $1,500 as compensation for inconvenience and expense (r. 14.07 (3)). As for Prestige's owner: if an offer is not accepted, no communication about it or related negotiations can be made to the trial judge until all questions of liability and relief, other than costs, have been decided (r. 14.04). The offer can be raised only at the costs stage.",
+    "keyPoints": [
+      "up to twice the costs of the action, other than disbursements (r. 14.07 (1))",
+      "judgment as favourable or more; made at least seven days before trial; not withdrawn or expired",
+      "self-represented party: up to $1,500 for inconvenience and expense (r. 14.07 (3))",
+      "no disclosure to the trial judge until liability and relief decided (r. 14.04)"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.01.1 (1)", "quote": "An offer to settle, an acceptance of an offer to settle and a notice of withdrawal of an offer to settle shall be in writing." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.07 (1)", "quote": "the court may award the plaintiff an amount not exceeding twice the costs of the action, other than disbursements, if the following conditions are met: 1. The plaintiff obtains a judgment as favourable as or more favourable than the terms of the offer." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.07 (1), paras. 2-3", "quote": "The offer was made at least seven days before the trial. 3. The offer was not withdrawn and did not expire before the trial." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.07 (3)", "quote": "also award the party an amount not exceeding $1,500 as compensation for inconvenience and expense" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.04", "quote": "no communication about it or any related negotiations shall be made to the trial judge until all questions of liability and the relief to be granted, other than costs, have been determined" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.01", "quote": "A party may serve on any other party an offer to settle a claim on the terms specified in the offer." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.02 (1)", "quote": "An offer to settle may be made at any time." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.02 (2)", "quote": "The costs consequences referred to in rule 14.07 apply only if the offer to settle is served on the party to whom it is made at least seven days before the trial commences." }
+    ]
+  },
+  {
+    "id": "SC-012",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "false-premise",
+    "story": "Felix Dubois was sued in Small Claims Court by a tenant-turned-buyer of his used boat for $11,000. On the morning of trial, in the hallway outside the courtroom, Felix handed the plaintiff a written offer to settle for $8,000. The plaintiff refused. After trial the plaintiff was awarded $6,000.",
+    "question": "Felix says: 'Since the plaintiff got less than I offered, the court has to give me double my costs. That's automatic, right?'",
+    "expected": "correct-the-premise",
+    "modelAnswer": "No, on two counts. First, the costs consequences in r. 14.07 apply only if the offer was served on the party at least seven days before the trial commences (r. 14.02 (2)), and r. 14.07 (2) itself requires that the defendant's offer 'was made at least seven days before the trial'. An offer handed over on the morning of trial does not meet that condition, although it remained a valid offer that could have been accepted (r. 14.02 (1)). Second, even where the conditions are met, the award is not automatic: the rule says the court 'may' award the defendant an amount not exceeding twice the costs awardable to a successful party, other than disbursements, from the date the offer was served (r. 14.07 (2)). Ordinary costs rules still apply: a successful party is entitled to reasonable disbursements unless the court orders otherwise (r. 19.01 (1)), and costs other than disbursements are limited by s. 29 of the Courts of Justice Act (r. 19.07).",
+    "keyPoints": [
+      "offer must be served at least seven days before trial (r. 14.02 (2))",
+      "the award is discretionary ('may'), not automatic (r. 14.07 (2))",
+      "up to twice costs from the date the offer was served"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.02 (2)", "quote": "The costs consequences referred to in rule 14.07 apply only if the offer to settle is served on the party to whom it is made at least seven days before the trial commences." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.07 (2)", "quote": "When a defendant makes an offer to settle that is not accepted by the plaintiff, the court may award the defendant an amount not exceeding twice the costs awardable to a successful party, other than disbursements, from the date the offer was served" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.02 (1)", "quote": "An offer to settle may be made at any time." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 19.07", "quote": "Any power under this rule to award costs is subject to section 29 of the Courts of Justice Act, which limits the amount of costs that may be awarded." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 19.01 (1)", "quote": "A successful party is entitled to have the party's reasonable disbursements" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.07 (2), para. 2", "quote": "The offer was made at least seven days before the trial." }
+    ]
+  },
+  {
+    "id": "SC-013",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "fact-pattern",
+    "story": "Rosalind Beaumont hired a paralegal to sue a former business partner, Gord Lefebvre, in Small Claims Court for $12,000 owed under a buyout agreement. After a one-day trial she was awarded the full $12,000. Her paralegal's bill came to $5,000. She also paid a process server $95 to serve Gord, and the court filing fees. Gord behaved reasonably throughout the action. Rosalind wants the court to order Gord to pay her whole $5,000 bill.",
+    "question": "What costs can the court award Rosalind, and what limits apply?",
+    "expected": "answer",
+    "modelAnswer": "Costs in Small Claims Court are capped by statute: an award of costs, other than disbursements, shall not exceed 15 per cent of the amount claimed or the value of property sought to be recovered, unless the court considers it necessary in the interests of justice to penalize a party or representative for unreasonable behaviour (CJA s. 29). Fifteen per cent of the $12,000 claimed is $1,800, so the $5,000 paralegal bill cannot be recovered in full where, as here, nothing in the facts points to unreasonable behaviour. The costs powers in Rule 19 are expressly subject to that limit (r. 19.07). Within it, because she was represented by a paralegal, the court can award a reasonable representation fee at trial (r. 19.04). Disbursements sit outside the 15 per cent cap: a successful party is entitled to have reasonable disbursements, including amounts paid for effecting service or preparing a claim, paid by the unsuccessful party, unless the court orders otherwise (r. 19.01 (1)), and for greater certainty that includes fees associated with the electronic filing or issuance of documents under the rules (r. 19.01 (1.1)). The clerk assesses the disbursements, subject to review by the court (r. 19.01 (2)), and the amount for effecting service cannot exceed $60 per person served unless there are special circumstances (r. 19.01 (3)), so the $95 process server fee is capped at $60 absent special circumstances. The amount for preparing a claim or defence cannot exceed $200 (r. 19.01 (4)). The $500 compensation for inconvenience and expense in r. 19.05 is for self-represented parties, so it does not apply to her.",
+    "keyPoints": [
+      "costs other than disbursements capped at 15% of amount claimed (CJA s. 29)",
+      "reasonable representation fee (r. 19.04)",
+      "disbursements recoverable; service capped at $60 per person (r. 19.01 (3))",
+      "$500 inconvenience award only for self-represented parties (r. 19.05)"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 29", "quote": "An award of costs in the Small Claims Court, other than disbursements, shall not exceed 15 per cent of the amount claimed or the value of the property sought to be recovered unless the court considers it necessary in the interests of justice to penalize a party or a party's representative for unreasonable behaviour in the proceeding" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 19.04", "quote": "paralegal, the court may award the party a reasonable representation fee at trial or at an assessment hearing." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 19.01 (1)", "quote": "A successful party is entitled to have the party's reasonable disbursements, including any amounts paid for effecting service or preparing a plaintiff's or defendant's claim or a defence" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 19.01 (3)", "quote": "The amount of disbursements assessed for effecting service shall not exceed $60 for each person served unless the court is of the opinion that there are special circumstances" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 19.01 (4)", "quote": "The amount of disbursements assessed for preparing a plaintiff's or defendant's claim or a defence shall not exceed $200." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 19.01 (1.1)", "quote": "For greater certainty, subrule (1) includes fees associated with the electronic filing or issuance of documents under these rules." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 19.01 (2)", "quote": "The clerk shall assess the disbursements in accordance with the regulations made under the Administration of Justice Act and in accordance with subrules (3) and (4); the assessment is subject to review by the court." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 19.07", "quote": "Any power under this rule to award costs is subject to section 29 of the Courts of Justice Act, which limits the amount of costs that may be awarded." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 19.05", "quote": "to a successful party who is self-represented an amount not exceeding $500 as compensation for inconvenience and expense" }
+    ]
+  },
+  {
+    "id": "SC-014",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "multi-issue",
+    "story": "Beatriz Sousa got a $9,000 Small Claims Court judgment in Hamilton against Trevor Quinn for unpaid renovation work. Trevor has paid nothing. He has since moved to London, Ontario, where he works full time for Forest City Logistics Inc. Beatriz also believes Trevor has money in an account at a credit union branch in London. She wants to garnish both his wages and the account, ideally with one form, and wonders when money will actually reach her.",
+    "question": "How does Beatriz garnish Trevor's wages and bank account, where does she file, and what limits and timelines apply?",
+    "expected": "answer",
+    "modelAnswer": "A creditor can enforce an order for payment of money by garnishment of debts payable to the debtor by other persons (r. 20.08 (1)). Where: she files with the clerk of a court in the territorial division where Trevor resides or carries on business (London), with an affidavit for enforcement request (Form 20P) naming one debtor and one garnishee, and a certificate of judgment (Form 20A) because the order was made in another territorial division (r. 20.08 (3)). One form will not cover both: a notice of garnishment names only one debtor and only one garnishee (r. 20.08 (5)), so she needs one for the employer and one for the credit union. Service: the notice is served on the garnishee with a garnishee's statement (Form 20F), and on the debtor with the affidavit, by mail, courier, personally or by an alternative to personal service (r. 8.01 (8)); she must serve Trevor within five days of serving the garnishee (r. 20.08 (6.1)). For a financial institution, the notice is served at the branch where the debt is payable (r. 20.08 (6.2)). Payment: the garnishee must pay the clerk within 10 days after service or 10 days after the debt becomes payable, whichever is later (r. 20.08 (7)). Amounts paid from wages cannot exceed the portion subject to seizure or garnishment under s. 7 of the Wages Act (r. 20.08 (9)). The clerk distributes payments to her only once proof is filed that the notice was served on Trevor, and not while a garnishment hearing, a motion under r. 8.10, 11.06 or 17.04, or a consent request to set aside is pending (r. 20.08 (20)); the first payment is distributed 30 days after the clerk receives it, and later ones as received (r. 20.08 (20.1)). A notice of garnishment stays in force for six years and can be renewed (r. 20.08 (5.1)). If a garnishee neither pays nor files a garnishee's statement, she is entitled to an order against the garnishee for the amount in the notice, unless the court orders otherwise (r. 20.08 (17)).",
+    "keyPoints": [
+      "file where the debtor resides or carries on business, with a certificate of judgment (r. 20.08 (3))",
+      "one debtor and one garnishee per notice (r. 20.08 (5))",
+      "serve debtor within five days of serving garnishee; bank served at the branch",
+      "garnishee pays within 10 days; wages limited by Wages Act s. 7"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.08 (1)", "quote": "A creditor may enforce an order for the payment or recovery of money by garnishment of debts payable to the debtor by other persons." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.08 (3)", "quote": "shall file with the clerk of a court in the territorial division in which the debtor resides or carries on business" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.08 (3) (b)", "quote": "a certificate of judgment (Form 20A), if the order was made in another territorial division" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.08 (5)", "quote": "shall name only one debtor and only one garnishee" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.08 (6.1)", "quote": "The creditor shall serve the notice of garnishment on the debtor within five days of serving it on the garnishee." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.08 (6.2)", "quote": "If the garnishee is a financial institution, the notice of garnishment and all further notices required to be served under this rule shall be served at the branch at which the debt is payable." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.08 (7)", "quote": "within 10 days after service of the notice on the garnishee or 10 days after the debt becomes payable, whichever is later" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.08 (9)", "quote": "the amounts paid into court shall not exceed the portion of the debtor's wages that are subject to seizure or garnishment under section 7 of the Wages Act" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.08 (20.1)", "quote": "in the case of the first payment under the notice of garnishment, 30 days after the date it is received" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.01 (8) (a)", "quote": "together with a sworn affidavit for enforcement request (Form 20P), on the debtor, by mail, by courier, personally as provided in rule 8.02 or by an alternative to personal service" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.01 (8) (b)", "quote": "together with a garnishee's statement (Form 20F), on the garnishee" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.08 (5.1)", "quote": "A notice of garnishment remains in force for six years from the date of its issue and for a further six years from each renewal." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.08 (17)", "quote": "If the garnishee does not pay to the clerk the amount set out in the notice of garnishment and does not send a garnishee's statement, the creditor is entitled to an order against the garnishee for payment of the amount set out in the notice, unless the court orders otherwise." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.08 (20)", "quote": "When proof is filed that the notice of garnishment was served on the debtor, the clerk shall distribute a payment received under a notice of garnishment to a creditor in accordance with subrule (20.1)" }
+    ]
+  },
+  {
+    "id": "SC-015",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "deadline",
+    "story": "Yusuf Demir holds an unpaid $14,000 Small Claims Court judgment against Carla Benn, an individual who lives in Peterborough. He does not know where she works or banks. He wants to examine her under oath about her income and assets. He plans to mail her the notice of examination two weeks before the date and is worried she simply will not come.",
+    "question": "What are the service and filing deadlines for a notice of examination, and what can happen if Carla does not attend?",
+    "expected": "answer",
+    "modelAnswer": "If there is default under an order for the payment of money, the clerk of a court in the territorial division where the debtor resides or carries on business issues a notice of examination (Form 20H) at the creditor's request (r. 20.10 (1)). Service method: the notice must be served personally or by an alternative to personal service (r. 8.01 (10)); ordinary mail is not one of the listed methods. Because Carla is an individual, it must be served with a blank financial information form (Form 20I) (r. 8.01 (11)). Timing: it must be served at least 30 days before the examination date and filed with proof of service at least three days before that date (r. 8.01 (12)), so two weeks' notice is too short. Carla must inform herself about the matters listed, complete the financial information form, serve it on Yusuf without filing it, give a copy to the presiding judge (r. 20.10 (4.1)), and bring supporting documents (r. 20.10 (4.2)). If she fails to attend, the court can order her to attend a contempt hearing under s. 30 (1) of the Courts of Justice Act (r. 20.11 (2)). The notice of contempt hearing must be served personally and proof of service filed at least seven days before the hearing (r. 8.01 (13), r. 20.11 (3) (b)). A contempt finding requires that she was required to attend, was properly served, failed to attend, and that the failure was wilful (CJA s. 30 (2)). At a contempt hearing the court can, among other things, order that the person be jailed for not more than five days (r. 20.11 (7) (b)).",
+    "keyPoints": [
+      "served personally or by alternative to personal service, with Form 20I for an individual",
+      "served at least 30 days before; filed with proof at least three days before (r. 8.01 (12))",
+      "non-attendance can lead to a contempt hearing (r. 20.11 (2); CJA s. 30)",
+      "contempt requires wilful failure; jail up to five days"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.01 (10)", "quote": "A notice of examination (Form 20H) shall be served by the creditor on the debtor or person to be examined personally as provided in rule 8.02 or by an alternative to personal service" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.01 (12)", "quote": "shall be served, together with the financial information form if applicable, at least 30 days before the date fixed for the examination; and (b) shall be filed, with proof of service, at least three days before the date fixed for the examination" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.11 (2)", "quote": "fails to attend the examination, the court may order the person to attend before it for a contempt hearing under subsection 30 (1) of the Courts of Justice Act" },
+      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 30 (2) (d)", "quote": "the failure to attend was wilful" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.11 (7) (b)", "quote": "be jailed for a period of not more than five days" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.11 (3) (b)", "quote": "the creditor shall serve the notice of contempt hearing on the debtor or other person in accordance with subrule 8.01 (13) and file proof of service at least seven days before the hearing" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.01 (13)", "quote": "A notice of a contempt hearing shall be served by the creditor on the debtor or person to be examined personally as provided in rule 8.02." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.10 (1)", "quote": "If there is default under an order for the payment or recovery of money, the clerk of a court in the territorial division in which the debtor or other person to be examined resides or carries on business shall, at the creditor's request, issue a notice of examination (Form 20H)" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.01 (11)", "quote": "If the person to be examined is the debtor and the debtor is an individual, the creditor shall serve the notice of examination on the debtor together with a blank financial information form (Form 20I)." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.10 (4.1)", "quote": "inform himself or herself about the matters mentioned in subrule (4) and be prepared to answer questions about them; and (b) in the case of an examination of a debtor who is an individual, complete a financial information form (Form 20I)" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.10 (4.1) (b) (i)-(ii)", "quote": "serve it on the creditor requesting the examination, but not file it with the court, and (ii) provide a copy of it to the judge presiding at the examination hearing" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.10 (4.2)", "quote": "shall bring such documents to the examination hearing as are necessary to support the information that he or she provides in the financial information form" },
+      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 30 (2) (a)-(c)", "quote": "the person was required to attend the examination; (b) the person was served, in accordance with the rules of court, with a notice to attend the examination; (c) the person failed to attend the examination" }
+    ]
+  },
+  {
+    "id": "SC-016",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "rule",
+    "question": "Under the Rules of the Small Claims Court, how is a writ of seizure and sale of land obtained, how long does it last, how is it renewed, and when is the court's leave needed to issue one? Can it be issued while an order for periodic payment is in force? What interest does the judgment carry?",
+    "expected": "answer",
+    "modelAnswer": "If an order for the payment or recovery of money is unsatisfied, the clerk, at the creditor's request supported by an affidavit for enforcement request (Form 20P) stating the amount still owing, issues a writ of seizure and sale of land (Form 20D) to the sheriff the creditor specifies (r. 20.07 (1)). If more than six years have passed since the order was made, the writ can be issued only with leave of the court (r. 20.07 (1.1)). The writ expires on the sixth anniversary of its issue or, if renewed, on the sixth anniversary of the date it would otherwise have expired (r. 20.07 (3)). Instead of being renewed under the Rules of Civil Procedure, a writ filed with the sheriff can be renewed before it expires by filing a request to renew (Form 20N) with the sheriff (r. 20.07 (4)), but only during the six-year period before the expiry the request relates to (r. 20.07 (5)). Subject to the duration and renewal subrules, the Rules of Civil Procedure apply for all purposes instead of the Small Claims Court Rules to an issued writ of seizure and sale of land (r. 20.07 (2)). While an order for periodic payment is in force, no step to enforce the judgment can be taken by a creditor named in it, except issuing a writ of seizure and sale of land and filing it with the sheriff (r. 20.02 (2)), so the land writ remains available. Money owing under an order, including costs, bears postjudgment interest from the date of the order (CJA s. 129 (1)).",
+    "keyPoints": [
+      "clerk issues to sheriff on Form 20P affidavit (r. 20.07 (1))",
+      "expires on sixth anniversary; renewable with Form 20N (r. 20.07 (3), (4))",
+      "leave needed if more than six years since the order (r. 20.07 (1.1))",
+      "allowed even while a periodic payment order is in force (r. 20.02 (2))"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.07 (1)", "quote": "If an order for the payment or recovery of money is unsatisfied, the clerk shall at the creditor's request, supported by an affidavit for enforcement request (Form 20P) stating the amount still owing, issue to the sheriff specified by the creditor a writ of seizure and sale of land" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.07 (1.1)", "quote": "If more than six years have passed since the order was made, a writ of seizure and sale of land may be issued only with leave of the court." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.07 (3)", "quote": "A writ of seizure and sale of land expires on the sixth anniversary of the date of its issue" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.07 (4)", "quote": "may be renewed before its expiration by filing a request to renew a writ of seizure and sale (Form 20N) with the sheriff" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.07 (5)", "quote": "A request to renew under subrule (4) may only be filed during the six year period preceding the expiration to which the request relates." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.07 (2)", "quote": "Subject to subrules (3) and (4), the Rules of Civil Procedure apply for all purposes instead of these rules to an issued writ of seizure and sale of land, as if the writ were a writ of seizure and sale issued under rule 60.07 of those Rules." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.02 (2)", "quote": "While an order for periodic payment is in force, no step to enforce the judgment may be taken or continued against the debtor by a creditor named in the order, except issuing a writ of seizure and sale of land and filing it with the sheriff." },
+      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 129 (1)", "quote": "Money owing under an order, including costs to be assessed or costs fixed by the court, bears interest at the postjudgment interest rate, calculated from the date of the order." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 20.07 (4)", "quote": "Instead of being renewed under the Rules of Civil Procedure in accordance with subrule (2)" }
+    ]
+  },
+  {
+    "id": "SC-017",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "fact-pattern",
+    "story": "Fifteen-year-old Amara Diallo lent her $2,400 e-bike to Logan Pierce, a 17-year-old who lives with his mother in Guelph. Logan crashed it and refuses to pay. Amara's father, Moussa, wants to help her sue. Logan's mother has privately offered $1,800 to make it go away, and Moussa is inclined to accept on Amara's behalf.",
+    "question": "Who can bring and defend this claim, how must the claim be served on Logan, and what is needed for a settlement to be binding?",
+    "expected": "answer",
+    "modelAnswer": "Both young people are persons under disability, because 'disability' includes being a minor (r. 1.02 (1)). Plaintiff: an action by a person under disability must be commenced by a litigation guardian, except that a minor may sue for any sum not exceeding $500 as if of full age (r. 4.01 (1), (2)). Amara's claim is $2,400, so she needs a litigation guardian. For a minor, the parent or person with lawful custody or another suitable person is the litigation guardian (r. 4.03 (2) (a)), so Moussa can act, filing a consent (Form 4A) at the time of filing the claim or as soon as possible afterwards, which states, among other things, Amara's birth date and acknowledges his personal liability for any costs awarded (r. 4.01 (3)). Defendant: an action against a person under disability must be defended by a litigation guardian (r. 4.02 (1)). Personal service on a minor is made by leaving a copy with the minor and, if the minor lives with a parent, another copy with the parent (r. 8.02 (i)). Logan cannot be noted in default without the court's leave (r. 11.01 (2)). Settlement: no settlement of a claim by or against a person under disability is binding on the person without the court's approval (r. 4.07), and money payable to a person under disability under a settlement is paid into court unless the court orders otherwise (r. 4.08 (1)). Moussa cannot simply accept the $1,800 privately on Amara's behalf and have it bind her.",
+    "keyPoints": [
+      "minor may sue alone only for $500 or less (r. 4.01 (2))",
+      "parent as litigation guardian with Form 4A consent",
+      "serve the minor and the parent he lives with (r. 8.02 (i))",
+      "settlement needs court approval; money paid into court (r. 4.07, 4.08)"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 4.01 (2)", "quote": "A minor may sue for any sum not exceeding $500 as if he or she were of full age." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 4.01 (1)", "quote": "An action by a person under disability shall be commenced or continued by a litigation guardian" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 4.03 (2) (a) (i)", "quote": "the parent or person with lawful custody or another suitable person shall be the litigation guardian" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 4.02 (1)", "quote": "An action against a person under disability shall be defended by a litigation guardian." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.02 (i)", "quote": "on a minor, by leaving a copy of the document with the minor and, if the minor resides with a parent or other person having his or her care or lawful custody, by leaving another copy of the document with the parent or other person" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 11.01 (2)", "quote": "A person under disability may not be noted in default under subrule (1), except with leave of the court." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 4.07", "quote": "No settlement of a claim made by or against a person under disability is binding on the person without the approval of the court." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 4.08 (1)", "quote": "Any money payable to a person under disability under an order or a settlement shall be paid into court, unless the court orders otherwise" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 1.02 (1), \"disability\" (a)", "quote": "\"disability\", where used in respect of a person or party, means that the person or party is, (a) a minor" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 4.01 (3)", "quote": "A plaintiff's litigation guardian shall, at the time of filing a claim or as soon as possible afterwards, file with the clerk a consent (Form 4A)" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 4.01 (3) (b)", "quote": "in the case of a minor, states the minor's birth date" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 4.01 (3) (e)", "quote": "acknowledges that he or she is aware of his or her liability to pay personally any costs awarded against him or her or against the person under disability" }
+    ]
+  },
+  {
+    "id": "SC-018",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "fact-pattern",
+    "story": "Wendell Osei hired Rosa Martinelli, who runs a landscaping business, to build a stone patio in Barrie for $14,000. He paid $8,000. Rosa sued him in Small Claims Court for the $6,000 balance. Wendell filed his defence on time, saying the patio is sinking. He wants $9,000 from Rosa to have it rebuilt, and he believes the paving stones supplied by Granite Depot Inc. were defective, so he wants Granite Depot in the case too. It has now been five weeks since he filed his defence. Rosa's trial has not been scheduled.",
+    "question": "How can Wendell bring his own claim against Rosa and Granite Depot, and is he too late?",
+    "expected": "answer",
+    "modelAnswer": "A defendant can make a claim against the plaintiff, against any other person arising out of the transaction or occurrence the plaintiff relies on or related to the plaintiff's claim, or against both (r. 10.01 (1)). Wendell can therefore claim against Rosa and Granite Depot together. The defendant's claim is in Form 10A and may be issued within 20 days after the day the defence is filed, or after that but before trial or default judgment with leave of the court (r. 10.01 (2)). Five weeks have passed, so Wendell is outside the 20 days and needs the court's leave, which he must seek before trial or default judgment. He serves the defendant's claim on everyone it is made against, in the same way as a plaintiff's claim (r. 10.02, r. 8.01 (1), (2)). Those parties have 20 days after service to serve and file a defence (r. 10.03). A defendant's claim is tried with the main action unless the court orders otherwise, for example if it would unduly complicate or delay the trial or cause undue prejudice (r. 10.04 (1), (2)). If Wendell alleges that Granite Depot is liable to him for all or part of Rosa's claim, Granite Depot can contest Wendell's liability to Rosa at trial only if it has filed a defence (r. 10.04 (3)).",
+    "keyPoints": [
+      "claim against the plaintiff and a related third party (r. 10.01 (1))",
+      "Form 10A within 20 days after defence filed, otherwise leave before trial (r. 10.01 (2))",
+      "served like a plaintiff's claim; 20 days to defend (r. 10.02, 10.03)",
+      "tried with the main action unless ordered otherwise (r. 10.04)"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 10.01 (1)", "quote": "against any other person, (i) arising out of the transaction or occurrence relied upon by the plaintiff, or (ii) related to the plaintiff's claim; or (c) against the plaintiff and against another person in accordance with clause (b)" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 10.01 (2)", "quote": "within 20 days after the day on which the defence is filed; or (b) after the time described in clause (a) but before trial or default judgment, with leave of the court" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 10.02", "quote": "A defendant's claim shall be served by the defendant on every person against whom it is made, in accordance with subrules 8.01 (1) and (2)." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 10.03", "quote": "shall, within 20 days after service of the defendant's claim, (a) serve on every other party a defence (Form 9A)" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 10.04 (1)", "quote": "A defendant's claim shall be tried and disposed of at the trial of the action, unless the court orders otherwise." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 10.04 (3)", "quote": "the third party may at the trial contest the defendant's liability to the plaintiff, but only if the third party has filed a defence" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 10.04 (2)", "quote": "If it appears that a defendant's claim may unduly complicate or delay the trial of the action or cause undue prejudice to a party, the court may order separate trials or direct that the defendant's claim proceed as a separate action." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 10.03 (b)", "quote": "file the defence, with proof of service, with the clerk" }
+    ]
+  },
+  {
+    "id": "SC-019",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "false-premise",
+    "story": "After a half-day trial in Small Claims Court in Kitchener, Nadia Volkov was ordered to pay her former roommate $4,200 for unpaid shared expenses, plus $600 in costs. Two weeks later Nadia found bank records showing she had already paid $1,100 of the amount, records she had been unable to get from her old bank before the trial despite asking. She also thinks the judge added the figures wrong.",
+    "question": "Nadia says: 'I'm going to appeal this to the Divisional Court. Everyone has a right to appeal, don't they?'",
+    "expected": "correct-the-premise",
+    "modelAnswer": "No, not from this judgment. An appeal lies to the Divisional Court from a final order of the Small Claims Court only in an action for the payment of money in excess of the prescribed amount, excluding costs, or for recovery of personal property exceeding the prescribed amount in value (CJA s. 31). The prescribed amount is $5,000 (O. Reg. 626/00, s. 2 (1)). Nadia's judgment is $4,200; the $600 in costs is excluded, so it is not over $5,000 and there is no appeal. What the Rules do provide is a motion for a new trial, made within 30 days after a final order (r. 17.04 (1)). With it she must serve and file proof that a transcript of the reasons for judgment and any other relevant portion has been requested (r. 17.04 (2)). On that motion the court can grant a new trial, or give the judgment that ought to have been given, only if one of two conditions is shown: a purely arithmetical error in the determination of damages, or relevant evidence that was not available at the time of the original trial and could not reasonably have been expected to be available then (r. 17.04 (4), (5)). Her two concerns, the arithmetic and the bank records, are the kinds of things those two conditions describe, but whether they are made out is for the court.",
+    "keyPoints": [
+      "appeal only where over $5,000, excluding costs (CJA s. 31; O. Reg. 626/00, s. 2)",
+      "motion for a new trial within 30 days after the final order (r. 17.04 (1))",
+      "transcript request required (r. 17.04 (2))",
+      "only for arithmetical error or evidence not reasonably available (r. 17.04 (5))"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 31 (a)", "quote": "An appeal lies to the Divisional Court from a final order of the Small Claims Court in an action, (a) for the payment of money in excess of the prescribed amount, excluding costs" },
+      { "file": "docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt", "pinpoint": "s. 2 (1)", "quote": "For the purposes of clause 31 (a) of the Act, the prescribed amount is $5,000." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 17.04 (1)", "quote": "A party may make a motion for a new trial within 30 days after a final order is made." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 17.04 (2)", "quote": "the moving party shall serve and file proof that a request has been made for a transcript of, (a) the reasons for judgment" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 17.04 (5)", "quote": "There was a purely arithmetical error in the determination of the amount of damages awarded. 2. There is relevant evidence that was not available to the party at the time of the original trial and could not reasonably have been expected to be available at that time." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 17.04 (4)", "quote": "grant a new trial, or (ii) pronounce the judgment that ought to have been given at trial and order judgment accordingly" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 17.04 (4) (a)", "quote": "if the party demonstrates that a condition referred to in subrule (5) is satisfied" }
+    ]
+  },
+  {
+    "id": "SC-020",
+    "area": "small-claims",
+    "courtPath": "small-claims",
+    "style": "fact-pattern",
+    "story": "Ines Laurent's Small Claims Court trial against Northway Auto Ltd. over a botched transmission repair is set for five weeks from now in Oshawa. She has a written repair estimate and invoice from a second mechanic, Dmitri Volkov, who fixed the car afterward. Dmitri says he is too busy to come to court voluntarily. Ines also wants the trial pushed back a month because a friend who saw the car being picked up will be travelling, and Northway's representative has refused to agree to a new date.",
+    "question": "How can Ines get Dmitri's evidence before the court, and can she get the trial postponed without Northway's agreement?",
+    "expected": "answer",
+    "modelAnswer": "Documents: a document or written statement served at least 30 days before the trial date on all parties who were served with the notice of trial shall be received in evidence unless the trial judge orders otherwise (r. 18.02 (1)). This covers a signed written statement of a witness, including an expert's report, and other documents such as a receipt, a bill and a repair estimate (r. 18.02 (2)). Ines must include the name, telephone number and address for service of the author, and if he is giving expert evidence, a summary of his qualifications (r. 18.02 (3)). With five weeks to go, she can still meet the 30-day mark if she serves promptly. If Northway wants to cross-examine Dmitri, it can summon him (r. 18.02 (4)). Summons: a party who needs a person in Ontario as a witness can serve a summons to witness (Form 18A), which can also require the witness to bring documents (r. 18.03 (1), (2)). It must be served personally by the party or the party's representative at least 10 days before the trial date, with attendance money paid or tendered at the time of service (r. 8.01 (7)). Adjournment: a trial can be adjourned only by order of the court (r. 17.02 (1)), so Northway's refusal does not end the matter. Ines has to ask the court, which can adjourn on just terms, including payment of compensation for inconvenience and expense to the other party (r. 17.02 (2)).",
+    "keyPoints": [
+      "documents served at least 30 days before trial are received in evidence (r. 18.02 (1))",
+      "include author's contact details and qualifications if expert (r. 18.02 (3))",
+      "summons served personally at least 10 days before trial with attendance money (r. 8.01 (7))",
+      "trial adjourned only by court order, on just terms (r. 17.02)"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 18.02 (1)", "quote": "A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 18.02 (2), para. 2", "quote": "a financial record, a receipt, a bill, documentary evidence of loss of income or property damage, and a repair estimate" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 18.02 (3)", "quote": "the name, telephone number and address for service of the witness or author; and (b) if the witness or author is to give expert evidence, a summary of his or her qualifications" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 8.01 (7)", "quote": "shall be served personally by the party who requires the presence of the witness, or by the party's representative, at least 10 days before the trial date; at the time of service, attendance money" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 17.02 (1)", "quote": "A trial may be adjourned only by order of the court." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 17.02 (2)", "quote": "The court may adjourn a trial on such terms as are just, including the payment by one party to another of an amount as compensation for inconvenience and expense." },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 18.02 (2), para. 1", "quote": "The signed written statement of any witness, including the written report of an expert" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 18.02 (4)", "quote": "wishes to cross-examine the witness or author may summon him or her as a witness under subrule 18.03 (1)" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 18.03 (1)", "quote": "A party who requires the attendance of a person in Ontario as a witness at a trial may serve the person with a summons to witness (Form 18A)" },
+      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 18.03 (2)", "quote": "The summons may also require the witness to produce at the trial the documents or other things in his or her possession, control or power" }
+    ]
+  }
+]

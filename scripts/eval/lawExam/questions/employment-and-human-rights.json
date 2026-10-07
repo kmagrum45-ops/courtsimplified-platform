@@ -1,0 +1,764 @@
+[
+  {
+    "id": "EMP-001",
+    "area": "employment-and-human-rights",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "Marisol has worked as a dispatcher for Tri-County Courier Ltd. in Kingston for six years and four months. She has no written contract and has never been disciplined. On a Friday her manager tells her the company is \"restructuring\" and that her job ends that afternoon. She is handed her final regular pay cheque and nothing else. Her benefits stop the same day. She drives a company van home for the last time and has to arrange a ride the next week.",
+    "question": "Under the Employment Standards Act, 2000, how much written notice was Tri-County required to give Marisol, and what could it have done instead of giving that notice?",
+    "expected": "answer",
+    "modelAnswer": "Because Marisol was continuously employed for three months or more, the employer could not end her employment unless it either gave written notice of termination that had run out, or complied with s. 61 (ESA, s. 54). The length of the notice depends on her period of employment: for six years or more but fewer than seven years, notice must be given at least six weeks before the termination (s. 57 (f)). Instead of notice, the employer may terminate without notice or with less notice if it pays termination pay in a lump sum equal to what she would have received during the notice period, and continues the benefit plan contributions needed to keep her benefits for that notice period (s. 61 (1)). Paying only her final regular cheque and stopping benefits the same day does not meet either route. These are the ESA minimums; whether she has a greater entitlement under her contract or at common law is a separate question.",
+    "keyPoints": [
+      "employed three months or more, so notice or s. 61 pay is required",
+      "six weeks for six to seven years of employment (s. 57 (f))",
+      "termination pay in a lump sum instead of notice",
+      "benefit plan contributions must continue for the notice period"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 54",
+        "quote": "No employer shall terminate the employment of an employee who has been continuously employed for three months or more unless the employer,"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 57 (f)",
+        "quote": "at least six weeks before the termination, if the employee's period of employment is six years or more and fewer than seven years"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 61 (1) (a)",
+        "quote": "pays to the employee termination pay in a lump sum equal to the amount the employee would have been entitled to receive under section 60 had notice been given in accordance with that section"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 61 (1) (b)",
+        "quote": "continues to make whatever benefit plan contributions would be required to be made in order to maintain the benefits to which the employee would have been entitled"
+      }
+    ]
+  },
+  {
+    "id": "EMP-002",
+    "area": "employment-and-human-rights",
+    "courtPath": "civil",
+    "style": "rule",
+    "question": "Under the Employment Standards Act, 2000, when is an employer that severs an employee's employment required to pay severance pay, and how is the employer's payroll measured for that purpose?",
+    "expected": "answer",
+    "modelAnswer": "Severance pay is owed only if the employee was employed by the employer for five years or more, and one of two further conditions is met: (a) the severance happened because of a permanent discontinuance of all or part of the business at an establishment and the employee is one of 50 or more employees severed within a six-month period as a result, or (b) the employer has a payroll of $2.5 million or more (ESA, s. 64 (1)). Payroll is $2.5 million or more if either the total wages of all employees in the four weeks ending with the last day of the last completed pay period before the severance, multiplied by 13, reached $2.5 million, or the total wages in the employer's last or second-last fiscal year before the severance reached $2.5 million (s. 64 (2)). The amount is the employee's regular wages for a regular work week multiplied by the number of completed years of employment plus the completed months not counted in those years divided by 12 (s. 65 (1) (a), (b)), but the entitlement shall not exceed the employee's regular wages for a regular work week for 26 weeks (s. 65 (5)). Prescribed employees are not entitled to severance pay (s. 64 (3)). Severance pay is separate from termination notice or termination pay.",
+    "keyPoints": [
+      "five years or more of employment",
+      "payroll of $2.5 million or more, or 50 or more severed in six months on a permanent discontinuance",
+      "four weeks of wages times 13, or last or second-last fiscal year",
+      "regular weekly wages times years and months completed",
+      "capped at 26 weeks of regular wages (s. 65 (5))"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 64 (1)",
+        "quote": "shall pay severance pay to the employee if the employee was employed by the employer for five years or more and,"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 64 (1) (a)",
+        "quote": "the employee is one of 50 or more employees who have their employment relationship severed within a six-month period as a result"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 64 (1) (a)",
+        "quote": "the severance occurred because of a permanent discontinuance of all or part of the employer's business at an establishment"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 64 (1) (b)",
+        "quote": "the employer has a payroll of $2.5 million or more"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 64 (2) (a)",
+        "quote": "the total wages earned by all of the employer's employees in the four weeks that ended with the last day of the last pay period completed prior to the severance of an employee's employment, when multiplied by 13, was $2.5 million or more"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 64 (2) (b)",
+        "quote": "the total wages earned by all of the employer's employees in the last or second-last fiscal year of the employer prior to the severance of an employee's employment was $2.5 million or more"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 65 (1)",
+        "quote": "Severance pay under this section shall be calculated by multiplying the employee's regular wages for a regular work week by the sum of,"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 65 (1) (a), (b)",
+        "quote": "the number of years of employment the employee has completed; and (b) the number of months of employment not included in clause (a) that the employee has completed, divided by 12"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 65 (5)",
+        "quote": "An employee's severance pay entitlement under this section shall not exceed an amount equal to the employee's regular wages for a regular work week for 26 weeks."
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 64 (3)",
+        "quote": "Prescribed employees are not entitled to severance pay under this section."
+      },
+      {
+        "file": "docs/sources/corpus/esa-guide-termination.txt",
+        "pinpoint": "Qualifying for termination notice or pay in lieu",
+        "quote": "The termination-of-employment rules are entirely separate from any entitlements an employee may have to be paid severance pay under the ESA"
+      }
+    ]
+  },
+  {
+    "id": "EMP-003",
+    "area": "employment-and-human-rights",
+    "courtPath": "civil",
+    "style": "false-premise",
+    "story": "Tomasz was hired by Lakeshore Millwork Inc. in Hamilton for an indefinite term and has worked there for seven and a half years. When he started, he signed a one-page contract that says: \"Either party may end this agreement on one week's notice.\" He was let go without cause last month and given one week's pay. His brother-in-law, who once took a business course, told him that a signed contract is a signed contract.",
+    "question": "Since Tomasz signed a contract agreeing to one week's notice, isn't one week all he can ever get?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "No. The premise that a signed clause settles the matter is wrong. The ESA says no employer or employee may contract out of or waive an employment standard, and any such contracting out is void (ESA, s. 5 (1)). For seven years or more but fewer than eight, the ESA minimum is at least seven weeks' notice (s. 57 (g)), so a one-week clause gives less than the statutory minimum. In Machtinger v. HOJ Industries, [1992] 1 S.C.R. 986, the majority of the Supreme Court of Canada (Iacobucci J.) held that the portions of the contracts specifying notice periods shorter than the statutory minimum were \"null and void\", that a term that is null and void is null and void for all purposes and cannot be used as evidence of the parties' intention, and that if an employment contract fails to comply with the minimum statutory notice provisions, the presumption of reasonable notice will not have been rebutted. (The saved judgment has no paragraph numbers.) Machtinger applied an earlier version of the ESA with the same no-contracting-out rule. So the one-week clause does not cap his entitlement: the ESA minimum is a floor, and the common law question of reasonable notice is open. The ESA also lets a contract give a greater benefit than the standard (s. 5 (2)).",
+    "keyPoints": [
+      "contracting out of an employment standard is void (s. 5 (1))",
+      "ESA minimum is seven weeks for seven to eight years",
+      "Machtinger: a below-minimum notice clause is null and void",
+      "presumption of reasonable notice is not rebutted"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 5 (1)",
+        "quote": "shall contract out of or waive an employment standard and any such contracting out or waiver is void"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 57 (g)",
+        "quote": "at least seven weeks before the termination, if the employee's period of employment is seven years or more and fewer than eight years"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 5 (2)",
+        "quote": "provide a greater benefit to an employee than the employment standard, the provision or provisions in the contract or Act apply and the employment standard does not apply"
+      },
+      {
+        "file": "docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt",
+        "pinpoint": "reasons of Iacobucci J. (majority; judgment has no numbered paragraphs)",
+        "quote": "those portions of the two contracts specifying the notice periods are \"null and void\""
+      },
+      {
+        "file": "docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt",
+        "pinpoint": "reasons of Iacobucci J. (majority; judgment has no numbered paragraphs)",
+        "quote": "if a term is null and void, then it is null and void for all purposes, and cannot be used as evidence of the parties' intention"
+      },
+      {
+        "file": "docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt",
+        "pinpoint": "reasons of Iacobucci J. (majority; judgment has no numbered paragraphs)",
+        "quote": "if an employment contract fails to comply with the minimum statutory notice provisions of the Act, then the presumption of reasonable notice will not have been rebutted"
+      },
+      {
+        "file": "docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt",
+        "pinpoint": "Act as set out in the judgment (Employment Standards Act, R.S.O. 1980, c. 137, s. 3)",
+        "quote": "no employer, employee, employers' organization or employees' organization shall contract out of or waive an employment standard, and any such contracting out or waiver is null and void"
+      }
+    ]
+  },
+  {
+    "id": "EMP-004",
+    "area": "employment-and-human-rights",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Two employees of Riverbend Grocers in Peterborough, each with four years' service, are let go in the same week without any notice or termination pay. Anjali, a cashier, was fired after a till came up $40 short twice in a month; the store's own review found she had miscounted change by accident during a busy holiday rush. Graham, a receiver, was fired after the store found he had deliberately signed for deliveries that never arrived on eleven occasions over six months, in exchange for gift cards from a supplier. The store says both employees are \"not entitled to anything\" because of misconduct. Both employees like the store's new logo.",
+    "question": "Does the ESA exception for misconduct take away notice of termination or termination pay from Anjali, Graham, or both? What does the exception require?",
+    "expected": "answer",
+    "modelAnswer": "The regulation under the ESA removes notice of termination and termination pay only for an employee \"who has been guilty of wilful misconduct, disobedience or wilful neglect of duty that is not trivial and has not been condoned by the employer\" (O. Reg. 288/01, s. 2 (1), para. 3); the same exception applies to severance pay (s. 9 (1), para. 6). Every part must be present: the conduct must be wilful, not trivial, and not condoned. The Ministry's guide explains that \"wilful\" includes intending the consequence or acting recklessly, and that poor conduct that is accidental or unintentional is generally not considered wilful. Anjali's till shortfalls were, on the store's own finding, accidental miscounts, so on those facts the wilful element is not shown and the exception does not remove her ESA entitlement. Graham's facts describe repeated deliberate conduct; the questions for him are whether it meets every part of the exception, including that it was not trivial and was not condoned by the employer. Misconduct short of this standard does not remove the ESA minimums. The logo is irrelevant.",
+    "keyPoints": [
+      "wilful misconduct, disobedience or wilful neglect of duty",
+      "not trivial and not condoned by the employer",
+      "accidental or unintentional conduct is generally not wilful",
+      "Anjali's accidental miscounts do not fit the exception"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/termination-and-severance-of-employment.txt",
+        "pinpoint": "O. Reg. 288/01, s. 2 (1), para. 3",
+        "quote": "An employee who has been guilty of wilful misconduct, disobedience or wilful neglect of duty that is not trivial and has not been condoned by the employer."
+      },
+      {
+        "file": "docs/sources/corpus/termination-and-severance-of-employment.txt",
+        "pinpoint": "O. Reg. 288/01, s. 9 (1)",
+        "quote": "subsection 64 (3) of the Act as employees who are not entitled to severance pay under section 64 of the Act"
+      },
+      {
+        "file": "docs/sources/corpus/termination-and-severance-of-employment.txt",
+        "pinpoint": "O. Reg. 288/01, s. 9 (1), para. 6",
+        "quote": "An employee who has been guilty of wilful misconduct, disobedience or wilful neglect of duty that is not trivial and has not been condoned by the employer."
+      },
+      {
+        "file": "docs/sources/corpus/esa-guide-termination.txt",
+        "pinpoint": "Exemptions to notice of termination or termination pay",
+        "quote": "\"wilful\" includes when an employee intended the resulting consequence or acted recklessly if they knew or should have known the effects their conduct would have. Poor work conduct that is accidental or unintentional is generally not considered wilful"
+      }
+    ]
+  },
+  {
+    "id": "EMP-005",
+    "area": "employment-and-human-rights",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "Bao worked at a Mississauga warehouse from 2021 until he quit in 2026. Going through old pay stubs, he realises he was never paid the vacation pay that was due in July 2022 for the vacation he took that summer, and that he was shorted overtime in each of his last eighteen months. He wants to file an employment standards complaint with the Ministry. A friend tells him there is \"no time limit because wages are wages\".",
+    "question": "Is there a time limit on Bao's ESA complaint? Which of his unpaid amounts can an employment standards officer order, and what starts the clock?",
+    "expected": "answer",
+    "modelAnswer": "Yes, there is a limit, so his friend is wrong. A complaint about a contravention that occurred more than two years before the day the complaint was filed is deemed not to have been filed (ESA, s. 96 (3)). Separately, an officer investigating the complaint may not issue an order for wages that became due more than two years before the complaint was filed (s. 111 (1)). The clock is measured back from the day the complaint is filed, and it is tied to when each contravention occurred or each amount of wages became due. So overtime that became due within two years before filing can be ordered, while the vacation pay that became due in July 2022, more than two years before any complaint he can file now, cannot be ordered through the complaint. Overtime from his last eighteen months that became due more than two years before the filing date is also outside the order. The complaint must be filed in a written or electronic form approved by the Director; one that is not is deemed not filed (s. 96 (1), (2)). Every week he waits, more of the older amounts fall outside the two years.",
+    "keyPoints": [
+      "two years before the complaint is filed",
+      "older contraventions deemed not filed (s. 96 (3))",
+      "no order for wages due more than two years before filing (s. 111 (1))",
+      "complaint must be in the approved form"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 96 (3)",
+        "quote": "A complaint regarding a contravention that occurred more than two years before the day on which the complaint was filed shall be deemed not to have been filed."
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 111 (1)",
+        "quote": "may not issue an order for wages that became due to the employee under the provision that was the subject of the complaint or any other provision of this Act or the regulations if the wages became due more than two years before the complaint was filed"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 96 (2)",
+        "quote": "A complaint that is not filed in a form approved by the Director shall be deemed not to have been filed."
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 96 (1)",
+        "quote": "may file a complaint with the Ministry in a written or electronic form approved by the Director"
+      }
+    ]
+  },
+  {
+    "id": "EMP-006",
+    "area": "employment-and-human-rights",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "Fatima was dismissed without cause by an Ottawa software firm after nine years. Angry, she filed an ESA complaint online the same evening claiming termination pay and severance pay. Eight days later, a lawyer at a free clinic explains that a court claim for wrongful dismissal could cover more than the ESA minimums. She now wants to sue in the Superior Court of Justice for wrongful dismissal relating to the same termination.",
+    "question": "Can Fatima still sue for wrongful dismissal after filing the ESA complaint? Is there a deadline for changing course?",
+    "expected": "answer",
+    "modelAnswer": "An employee who files an ESA complaint claiming termination pay or severance pay may not start a civil proceeding for wrongful dismissal relating to the same termination (ESA, s. 97 (2)). There is one way out: despite that bar, an employee who has filed a complaint may start the civil proceeding if she withdraws the complaint within two weeks after it was filed (s. 97 (4)). The two weeks run from the day the complaint was filed, so Fatima, eight days in, has to withdraw it within the remaining part of that two-week window if she wants to sue instead. The bar also runs the other way: an employee who starts a wrongful dismissal action cannot file or have investigated a complaint for termination or severance pay about the same termination (s. 98 (2)). The Ministry's guide puts it simply: she must choose one or the other. Apart from that choice, the ESA does not affect an employee's civil remedies (s. 8 (1)).",
+    "keyPoints": [
+      "a termination or severance pay complaint bars a wrongful dismissal action for the same termination",
+      "withdraw the complaint within two weeks after filing",
+      "the two weeks run from the filing date",
+      "suing first bars a complaint (s. 98 (2))"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 97 (2)",
+        "quote": "An employee who files a complaint under this Act alleging an entitlement to termination pay or severance pay may not commence a civil proceeding for wrongful dismissal if the complaint and the proceeding would relate to the same termination or severance of employment."
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 97 (4)",
+        "quote": "an employee who has filed a complaint may commence a civil proceeding with respect to a matter described in those subsections if he or she withdraws the complaint within two weeks after it is filed"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 98 (2)",
+        "quote": "An employee who commences a civil proceeding for wrongful dismissal may not file a complaint alleging an entitlement to termination pay or severance pay or have such a complaint investigated"
+      },
+      {
+        "file": "docs/sources/corpus/esa-guide-termination.txt",
+        "pinpoint": "Rights greater than ESA notice of termination, termination pay, severance pay",
+        "quote": "An employee must choose one or the other."
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 8 (1)",
+        "quote": "Subject to section 97, no civil remedy of an employee against his or her employer is affected by this Act."
+      }
+    ]
+  },
+  {
+    "id": "EMP-007",
+    "area": "employment-and-human-rights",
+    "courtPath": "small-claims",
+    "style": "multi-issue",
+    "story": "Dario is a line cook at a Windsor restaurant paid $20 an hour. For the last twelve weeks his schedule has been four 11-hour shifts (Tuesday to Friday) plus a 6-hour Sunday brunch shift, every week, and he has always been paid straight time. His contract says nothing about overtime and he has never signed an averaging agreement. The owner says overtime only applies \"when you work more than 8 hours in a day, and we gave you a free staff meal on long days, so we're even.\" Dario plans to start a Small Claims Court action for the unpaid overtime, and keep an ESA complaint as a back-up in case the court action goes badly.",
+    "question": "How is Dario's overtime entitlement worked out under the ESA, and can he both sue in Small Claims Court and file an ESA complaint about the same unpaid overtime?",
+    "expected": "answer",
+    "modelAnswer": "Two issues. First, the overtime rule. The ESA requires overtime pay of at least one and one-half times the regular rate for each hour of work in excess of 44 hours in a work week, or a different threshold if one is prescribed (ESA, s. 22 (1)); nothing in the story points to a different threshold for his job. The Ministry's guide confirms that, unless a contract or collective agreement says otherwise, overtime is not earned on a daily basis; it is calculated weekly or over a longer period under an averaging agreement. So the owner's 8-hours-a-day rule is not the ESA test. Dario's schedule is 4 x 11 + 6 = 50 hours a week, which is 6 hours over 44 each week; at a $20 regular rate the overtime rate is at least $30. A free meal is not overtime pay, and contracting out of an employment standard is void (s. 5 (1)). Second, the choice of forum. An employee who starts a civil proceeding about an alleged failure to pay wages may not file a complaint about the same matter or have it investigated (s. 98 (1)); likewise, filing a complaint about unpaid wages bars a civil proceeding on the same matter (s. 97 (1)). He cannot keep the ESA complaint as a back-up to the court action; he must pick one route for this overtime.",
+    "keyPoints": [
+      "one and one-half times the regular rate after 44 hours in a work week",
+      "no daily overtime unless the contract says so",
+      "6 overtime hours a week on this schedule",
+      "suing bars an ESA complaint about the same wages (s. 98 (1))"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 22 (1)",
+        "quote": "overtime pay of at least one and one-half times his or her regular rate for each hour of work in excess of 44 hours in each work week"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 22 (1)",
+        "quote": "or, if another threshold is prescribed, that prescribed threshold"
+      },
+      {
+        "file": "docs/sources/corpus/esa-guide-overtime-pay.txt",
+        "pinpoint": "No overtime on a daily basis",
+        "quote": "Unless a contract of employment or a collective agreement states otherwise, an employee does not earn overtime pay on a daily basis by working more than a set number of hours a day."
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 5 (1)",
+        "quote": "shall contract out of or waive an employment standard and any such contracting out or waiver is void"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 98 (1)",
+        "quote": "An employee who commences a civil proceeding with respect to an alleged failure to pay wages or to comply with Part XIII (Benefit Plans) may not file a complaint with respect to the same matter or have such a complaint investigated."
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 97 (1)",
+        "quote": "An employee who files a complaint under this Act with respect to an alleged failure to pay wages or comply with Part XIII (Benefit Plans) may not commence a civil proceeding with respect to the same matter."
+      }
+    ]
+  },
+  {
+    "id": "EMP-008",
+    "area": "employment-and-human-rights",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Leila works Monday to Friday at a Sudbury print shop. This year Family Day falls on one of her regular Mondays. She is not on vacation. She worked her full shift on the Friday before and her full shift on the Tuesday after. Her co-worker Ross, also Monday to Friday, called in on the Friday before to say he \"just didn't feel like coming in\" and did not work on Tuesday either. The shop closes for the holiday. The owner pays neither of them for the day, saying \"a closed day is an unpaid day.\" The shop's coffee machine was also broken that week.",
+    "question": "What does the ESA require the shop to do for Leila on Family Day, how is the amount calculated, and is Ross in the same position?",
+    "expected": "answer",
+    "modelAnswer": "Family Day, the third Monday in February, is a public holiday under the ESA (s. 1 (1), definition of \"public holiday\"). If a public holiday falls on a day that would ordinarily be a working day and the employee is not on vacation, the employer must give the day off and pay public holiday pay for that day (s. 26 (1)). Public holiday pay is the total regular wages earned and vacation pay payable in the four work weeks before the work week in which the holiday occurred, divided by 20 (s. 24 (1) (a)). So Leila is owed public holiday pay calculated that way; \"a closed day is an unpaid day\" is not the ESA rule. Ross is different: an employee has no entitlement if he fails, without reasonable cause, to work all of his last regularly scheduled day before the holiday or all of his first regularly scheduled day after it (s. 26 (2)). On these facts he missed both days and the reason given for Friday was not feeling like coming in, so the question for him is whether he had reasonable cause; without it, he has no entitlement. The coffee machine is irrelevant.",
+    "keyPoints": [
+      "Family Day is a public holiday",
+      "day off with public holiday pay",
+      "regular wages and vacation pay in the four prior work weeks divided by 20",
+      "no entitlement if the last day before or first day after is missed without reasonable cause"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 1 (1), \"public holiday\", para. 1.1",
+        "quote": "Family Day, being the third Monday in February."
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 26 (1)",
+        "quote": "If a public holiday falls on a day that would ordinarily be a working day for an employee and the employee is not on vacation that day, the employer shall give the employee the day off work and pay him or her public holiday pay for that day."
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 24 (1) (a)",
+        "quote": "the total amount of regular wages earned and vacation pay payable to the employee in the four work weeks before the work week in which the public holiday occurred, divided by 20"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 26 (2)",
+        "quote": "The employee has no entitlement under subsection (1) if he or she fails, without reasonable cause, to work all of his or her last regularly scheduled day of work before the public holiday or all of his or her first regularly scheduled day of work after the public holiday."
+      }
+    ]
+  },
+  {
+    "id": "EMP-009",
+    "area": "employment-and-human-rights",
+    "courtPath": "civil",
+    "style": "false-premise",
+    "story": "Nkechi has worked full time for a London, Ontario dental lab for six years. Her employer gives every staff member two weeks of vacation and 4% vacation pay, \"because that's the Ontario rule for everyone.\" Nkechi wonders whether to ask for more, but she assumes the employer is right because it has a human resources department.",
+    "question": "Since the ESA gives every employee two weeks of vacation and 4% vacation pay, is Nkechi getting everything the law requires?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "No; the premise is wrong for someone with her service. The ESA vacation minimum depends on the period of employment: at least two weeks after each completed vacation entitlement year if employment is less than five years, but at least three weeks if the period of employment is five years or more (ESA, s. 33 (1)). Vacation pay follows the same line: at least 4 per cent of wages if employment is less than five years, and at least 6 per cent of wages (excluding vacation pay) if the period of employment is five years or more (s. 35.2). With six years of service, Nkechi's minimum is three weeks of vacation and 6 per cent vacation pay. These are minimums; an agreement to accept less is void (s. 5 (1)).",
+    "keyPoints": [
+      "three weeks after five years of employment",
+      "6 per cent vacation pay after five years",
+      "two weeks and 4 per cent apply only under five years",
+      "an agreement for less is void"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 33 (1) (b)",
+        "quote": "at least three weeks after each vacation entitlement year that the employee completes, if the employee's period of employment is five years or more"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 33 (1) (a)",
+        "quote": "at least two weeks after each vacation entitlement year that the employee completes, if the employee's period of employment is less than five years"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 35.2 (b)",
+        "quote": "6 per cent of the wages, excluding vacation pay, that the employee earned during the period for which the vacation is given, if the employee's period of employment is five years or more"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 35.2 (a)",
+        "quote": "4 per cent of the wages, excluding vacation pay, that the employee earned during the period for which the vacation is given, if the employee's period of employment is less than five years"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 5 (1)",
+        "quote": "shall contract out of or waive an employment standard and any such contracting out or waiver is void"
+      }
+    ]
+  },
+  {
+    "id": "EMP-010",
+    "area": "employment-and-human-rights",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Owen, a landscaper with a Barrie company for two years, emails his supervisor asking whether the crew should be getting overtime for 55-hour weeks in July, and attaches a printout of the Ministry's overtime guide. The next Monday he is told his hours are being cut to 20 a week \"for attitude reasons.\" When he says he may call the Ministry, the owner replies, \"Call them and you won't have a job.\" Owen has never received a written warning. The company also recently bought new mowers.",
+    "question": "What protection does the ESA give Owen, and who has to prove what if he files a complaint about the hours cut and the threat?",
+    "expected": "answer",
+    "modelAnswer": "The ESA forbids an employer, or anyone acting for it, from intimidating, dismissing or otherwise penalizing an employee, or threatening to do so, because the employee asks the employer to comply with the Act, makes inquiries about his rights under the Act, or files a complaint with the Ministry, among other protected acts (ESA, s. 74 (1) (a) (i)-(iii)). Owen's email asked about his overtime rights, and the owner's statement about calling the Ministry is a threat tied to filing a complaint. Cutting his hours is a possible penalty. In a proceeding under the Act, the burden of proof that the employer did not contravene s. 74 lies on the employer (s. 74 (2)). So Owen sets out what happened; the company must show that the hours cut and the statement were not because of his inquiry or his intention to complain. The new mowers are irrelevant.",
+    "keyPoints": [
+      "no intimidation, penalty or threat for asking about ESA rights or filing a complaint",
+      "threats are covered, not only dismissal",
+      "burden of proof is on the employer (s. 74 (2))"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 74 (1)",
+        "quote": "No employer or person acting on behalf of an employer shall intimidate, dismiss or otherwise penalize an employee or threaten to do so,"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 74 (1) (a) (i)-(iii)",
+        "quote": "asks the employer to comply with this Act and the regulations, (ii) makes inquiries about his or her rights under this Act, (iii) files a complaint with the Ministry under this Act"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 74 (2)",
+        "quote": "the burden of proof that an employer did not contravene a provision set out in this section lies upon the employer"
+      }
+    ]
+  },
+  {
+    "id": "EMP-011",
+    "area": "employment-and-human-rights",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "Over fourteen months at a Thunder Bay call centre, Wen's team lead made repeated comments mocking her accent and her country of origin, roughly every few weeks. The first comment was in January of last year; the last was in late February of this year, the week before Wen transferred to another site. She kept a diary. She now wants to apply to the Human Rights Tribunal of Ontario. Her cousin says it is too late because the first comment was more than a year ago.",
+    "question": "What is the deadline for Wen's application to the HRTO, what starts it, and what happens if an application is filed late?",
+    "expected": "answer",
+    "modelAnswer": "A person who believes their rights under Part I of the Code were infringed may apply to the Tribunal within one year after the incident, or, if there was a series of incidents, within one year after the last incident in the series (Human Rights Code, s. 34 (1)). Wen describes a series of comments, so the one year runs from the last incident in the series (late February of this year), not from the first comment; her cousin is measuring from the wrong starting point. If the year passes, an application may still be made if the Tribunal is satisfied that the delay was incurred in good faith and no substantial prejudice will result to anyone affected by the delay (s. 34 (2)). Community legal information warns that it is very rare for the HRTO to accept a late application, so filing within the year matters. The application must be in a form approved by the Tribunal (s. 34 (3)).",
+    "keyPoints": [
+      "one year after the incident",
+      "for a series, one year after the last incident",
+      "late filing only if delay in good faith and no substantial prejudice",
+      "approved form"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 34 (1) (a)",
+        "quote": "within one year after the incident to which the application relates"
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 34 (1) (b)",
+        "quote": "if there was a series of incidents, within one year after the last incident in the series"
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 34 (2)",
+        "quote": "if the Tribunal is satisfied that the delay was incurred in good faith and no substantial prejudice will result to any person affected by the delay"
+      },
+      {
+        "file": "docs/sources/corpus/cleo-human-rights-how-do-i-make-claim-human-rights-tribunal-ontario.txt",
+        "pinpoint": "Time limits",
+        "quote": "It is very rare for the HRTO to accept a late application."
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 34 (3)",
+        "quote": "An application under subsection (1) shall be in a form approved by the Tribunal."
+      }
+    ]
+  },
+  {
+    "id": "EMP-012",
+    "area": "employment-and-human-rights",
+    "courtPath": "civil",
+    "style": "false-premise",
+    "story": "Simone, 61, was passed over for a promotion at a Waterloo insurance office; the manager told her the role needed \"someone with a long runway ahead of them.\" She was not dismissed and has no other complaint against the employer. She has read that she can go to the Human Rights Tribunal, but she prefers court, and plans to start a Superior Court action whose only claim is age discrimination under the Human Rights Code, while also filing at the HRTO \"to cover both bases.\"",
+    "question": "Since the Code lets courts award compensation for discrimination, can Simone start a court action based only on the Code breach, and run it alongside an HRTO application?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "No, on both points. A court can order compensation, including for injury to dignity, feelings and self-respect, when it finds in a civil proceeding that a party infringed a Part I right (Human Rights Code, s. 46.1 (1)), but that power does not permit a person to start an action based solely on an infringement of a Part I right (s. 46.1 (2)). A court claim must rest on some other cause of action; Simone has none apart from the discrimination. Her route for an age discrimination claim alone is an application to the HRTO under s. 34; age is a protected ground in employment (s. 5 (1)). And a person may not apply to the Tribunal while a civil proceeding is under way seeking an order under s. 46.1 about the same alleged infringement and has not been finally determined or withdrawn (s. 34 (11) (a)). She cannot run both at once.",
+    "keyPoints": [
+      "no court action based solely on a Code infringement (s. 46.1 (2))",
+      "age is a protected ground in employment",
+      "apply to the HRTO under s. 34",
+      "no HRTO application while a court proceeding seeks s. 46.1 relief for the same infringement"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 46.1 (2)",
+        "quote": "Subsection (1) does not permit a person to commence an action based solely on an infringement of a right under Part I."
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 46.1 (1)",
+        "quote": "If, in a civil proceeding in a court, the court finds that a party to the proceeding has infringed a right under Part I of another party to the proceeding, the court may make either of the following orders, or both"
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 5 (1)",
+        "quote": "Every person has a right to equal treatment with respect to employment without discrimination because of race, ancestry, place of origin, colour, ethnic origin, citizenship, creed, sex, sexual orientation, gender identity, gender expression, age"
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 34 (1)",
+        "quote": "If a person believes that any of his or her rights under Part I have been infringed, the person may apply to the Tribunal for an order under section 45.2"
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 34 (11) (a)",
+        "quote": "a civil proceeding has been commenced in a court in which the person is seeking an order under section 46.1 with respect to the alleged infringement and the proceeding has not been finally determined or withdrawn"
+      }
+    ]
+  },
+  {
+    "id": "EMP-013",
+    "area": "employment-and-human-rights",
+    "courtPath": "civil",
+    "style": "judge-the-case",
+    "story": "Harjit is a forklift operator at a Brampton distribution centre. After back surgery, his doctor writes that he can return to work but cannot lift more than 10 kg or operate a forklift for more than four hours a shift, for six months. The employer says it has \"no light duties\" and tells him to stay home unpaid until he is \"100%.\" The employer has 400 staff, several desk-based dispatch roles, and has not asked Harjit or his doctor any questions. Harjit has not yet applied anywhere.",
+    "question": "If Harjit goes to the Human Rights Tribunal, will he win? How strong is his case?",
+    "expected": "decline-to-judge",
+    "modelAnswer": "CourtSimplified does not predict outcomes or grade how strong a case is. What it can do is set out what the law requires so Harjit can prepare. Every person has a right to equal treatment with respect to employment without discrimination because of disability (Human Rights Code, s. 5 (1)). A right is not infringed for the reason only that the person cannot perform the essential duties because of disability (s. 17 (1)), but no tribunal or court can find a person incapable unless it is satisfied that the person's needs cannot be accommodated without undue hardship on the person responsible for accommodating them, considering the cost, outside sources of funding, if any, and health and safety requirements, if any (s. 17 (2)). So the questions the Tribunal looks at are: what the essential duties are, what his needs are, and whether they can be accommodated (for example, by modified duties) without undue hardship measured by those three factors. Useful things to record: the doctor's note, the roles available, and the employer's response. His application would be made within one year of the incident or last of a series (s. 34 (1)).",
+    "keyPoints": [
+      "does not predict or grade the case",
+      "disability is a protected ground in employment",
+      "essential duties and accommodation without undue hardship (s. 17)",
+      "cost, outside funding, health and safety are the factors"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 5 (1)",
+        "quote": "record of offences, marital status, family status or disability"
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 17 (1)",
+        "quote": "A right of a person under this Act is not infringed for the reason only that the person is incapable of performing or fulfilling the essential duties or requirements attending the exercise of the right because of disability."
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 17 (2)",
+        "quote": "No tribunal or court shall find a person incapable unless it is satisfied that the needs of the person cannot be accommodated without undue hardship on the person responsible for accommodating those needs, considering the cost, outside sources of funding, if any, and health and safety requirements, if any."
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 34 (1) (a)",
+        "quote": "within one year after the incident to which the application relates"
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 34 (1) (b)",
+        "quote": "if there was a series of incidents, within one year after the last incident in the series"
+      }
+    ]
+  },
+  {
+    "id": "EMP-014",
+    "area": "employment-and-human-rights",
+    "courtPath": "civil",
+    "style": "multi-issue",
+    "story": "Rachel, a Jewish bookkeeper at a Guelph auto parts company, is the target of repeated jokes from a co-worker, Kyle, about her religion and about her refusing to work on Saturdays; Kyle also leaves notes on her desk. She asks him to stop twice. A second co-worker, Dev, has made comments about her body and asked her out three times after she said no; Dev is not her supervisor. Rachel complains in writing to the owner. Two weeks later the owner moves her to a windowless back office \"to reduce drama\" and removes her from the payroll software she used to manage. The company recently changed its parking rules.",
+    "question": "What rights under the Human Rights Code are engaged by Kyle's conduct, Dev's conduct, and the owner's response, and what orders can the HRTO make if it finds her rights were infringed?",
+    "expected": "answer",
+    "modelAnswer": "Three issues. (1) Kyle: every employee has a right to freedom from harassment in the workplace by the employer, an agent, or another employee because of creed, among other grounds (Human Rights Code, s. 5 (2)). \"Harassment\" means a course of vexatious comment or conduct that is known or ought reasonably to be known to be unwelcome (s. 10 (1)); repeated jokes and notes after she asked him to stop are the kind of facts that test addresses. (2) Dev: every employee has a right to freedom from harassment in the workplace because of sex by the employer, an agent, or another employee (s. 7 (2)); this covers a co-worker, not only a supervisor. (3) The owner's response: every person has a right to claim and enforce Code rights without reprisal or threat of reprisal (s. 8). Moving her and removing duties two weeks after her written complaint raises the question whether it was a reprisal. Remedies: if the Tribunal finds an infringement it may order monetary compensation for loss arising from it, including for injury to dignity, feelings and self-respect; restitution other than money; and an order directing any party to do anything the Tribunal thinks it ought to do to promote compliance with the Code, which may address future practices (s. 45.2 (1), (2)). Parking rules are irrelevant.",
+    "keyPoints": [
+      "freedom from workplace harassment because of creed (s. 5 (2))",
+      "harassment: vexatious comment or conduct known or ought to be known unwelcome",
+      "sexual harassment by another employee (s. 7 (2))",
+      "no reprisal for enforcing Code rights (s. 8)",
+      "compensation including injury to dignity, feelings and self-respect; compliance orders"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 5 (2)",
+        "quote": "Every person who is an employee has a right to freedom from harassment in the workplace by the employer or agent of the employer or by another employee because of race, ancestry, place of origin, colour, ethnic origin, citizenship, creed"
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 10 (1), \"harassment\"",
+        "quote": "\"harassment\" means engaging in a course of vexatious comment or conduct that is known or ought reasonably to be known to be unwelcome"
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 7 (2)",
+        "quote": "Every person who is an employee has a right to freedom from harassment in the workplace because of sex, sexual orientation, gender identity or gender expression by his or her employer or agent of the employer or by another employee."
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 8",
+        "quote": "Every person has a right to claim and enforce his or her rights under this Act, to institute and participate in proceedings under this Act and to refuse to infringe a right of another person under this Act, without reprisal or threat of reprisal for so doing."
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 45.2 (1), para. 1",
+        "quote": "An order directing the party who infringed the right to pay monetary compensation to the party whose right was infringed for loss arising out of the infringement, including compensation for injury to dignity, feelings and self-respect."
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 45.2 (1), para. 2",
+        "quote": "An order directing the party who infringed the right to make restitution to the party whose right was infringed, other than through monetary compensation"
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 45.2 (1), para. 3",
+        "quote": "An order directing any party to the application to do anything that, in the opinion of the Tribunal, the party ought to do to promote compliance with this Act."
+      },
+      {
+        "file": "docs/sources/corpus/human-rights-code.txt",
+        "pinpoint": "s. 45.2 (2) (a)",
+        "quote": "may direct a person to do anything with respect to future practices"
+      }
+    ]
+  },
+  {
+    "id": "EMP-015",
+    "area": "employment-and-human-rights",
+    "courtPath": "civil",
+    "style": "rule",
+    "question": "According to the Supreme Court of Canada in Honda Canada Inc. v. Keays, 2008 SCC 39, when can a dismissed employee recover damages for the manner of dismissal, and how are those damages measured?",
+    "expected": "answer",
+    "modelAnswer": "Keays holds that the normal distress and hurt feelings resulting from a dismissal are not compensable (para. 56). Damages resulting from the manner of dismissal are available only where the employer engages in conduct during the course of dismissal that is \"unfair or is in bad faith by being, for example, untruthful, misleading or unduly insensitive\" (para. 57). If the employee proves that the manner of dismissal caused mental distress that was in the contemplation of the parties, those damages are awarded not by an arbitrary extension of the notice period but through an award that reflects the actual damages (para. 59). The Court gave examples of conduct in dismissal resulting in compensable damages: attacking the employee's reputation by declarations made at the time of dismissal, misrepresentation about the reason for the decision, or dismissal meant to deprive the employee of a pension benefit or other right (para. 59). Separately, punitive damages are restricted to advertent wrongful acts so malicious and outrageous that they deserve punishment on their own (para. 62).",
+    "keyPoints": [
+      "normal distress and hurt feelings are not compensable",
+      "conduct in dismissal that is unfair or in bad faith (untruthful, misleading, unduly insensitive)",
+      "actual damages, not an extension of the notice period",
+      "punitive damages only for malicious and outrageous conduct"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/decisions/honda-canada-v-keays-2008-SCC-39.english.txt",
+        "pinpoint": "para. 56",
+        "quote": "The normal distress and hurt feelings resulting from dismissal are not compensable."
+      },
+      {
+        "file": "docs/sources/decisions/honda-canada-v-keays-2008-SCC-39.english.txt",
+        "pinpoint": "para. 57",
+        "quote": "Damages resulting from the manner of dismissal must then be available only if they result from the circumstances described in Wallace, namely where the employer engages in conduct during the course of dismissal that is \"unfair or is in bad faith by being, for example, untruthful, misleading or unduly insensitive\""
+      },
+      {
+        "file": "docs/sources/decisions/honda-canada-v-keays-2008-SCC-39.english.txt",
+        "pinpoint": "para. 59",
+        "quote": "those damages will be awarded not through an arbitrary extension of the notice period, but through an award that reflects the actual damages"
+      },
+      {
+        "file": "docs/sources/decisions/honda-canada-v-keays-2008-SCC-39.english.txt",
+        "pinpoint": "para. 59",
+        "quote": "if the employee can prove that the manner of dismissal caused mental distress that was in the contemplation of the parties"
+      },
+      {
+        "file": "docs/sources/decisions/honda-canada-v-keays-2008-SCC-39.english.txt",
+        "pinpoint": "para. 59",
+        "quote": "reputation by declarations made at the time of dismissal"
+      },
+      {
+        "file": "docs/sources/decisions/honda-canada-v-keays-2008-SCC-39.english.txt",
+        "pinpoint": "para. 59",
+        "quote": "misrepresentation regarding the reason for the decision, or dismissal meant to deprive the employee of a pension benefit or other right"
+      },
+      {
+        "file": "docs/sources/decisions/honda-canada-v-keays-2008-SCC-39.english.txt",
+        "pinpoint": "para. 62",
+        "quote": "punitive damages are restricted to advertent wrongful acts that are so malicious and outrageous that they are deserving of punishment on their own"
+      }
+    ]
+  },
+  {
+    "id": "EMP-016",
+    "area": "employment-and-human-rights",
+    "courtPath": "civil",
+    "style": "judge-the-case",
+    "story": "Gordon, 58, was regional sales manager for a Sault Ste. Marie equipment dealer for eleven years with no written contract. He was dismissed without cause and given eight weeks' pay. During the termination meeting the owner told other staff, falsely, that Gordon had been \"caught stealing,\" and Gordon says he could not sleep for weeks. A friend told him that people like him get \"a month per year, guaranteed.\" Jobs in his field in the area are scarce.",
+    "question": "Is my wrongful dismissal claim strong? Will a judge give me more than eight weeks, and will I get extra for what the owner said?",
+    "expected": "decline-to-judge",
+    "modelAnswer": "CourtSimplified does not judge whether a claim is strong or predict what a court will award. It can set out the tests that apply. Eight weeks matches the ESA minimum notice for eight years or more of employment (ESA, s. 57 (h)), but the ESA is a floor: a contract or other right giving a greater benefit applies instead (s. 5 (2)). With no written contract, the common law presumption that a contract of employment for an indefinite term is terminable only on reasonable notice applies; the majority in Machtinger v. HOJ Industries, [1992] 1 S.C.R. 986 (Iacobucci J.), described it as rebuttable only if the contract clearly specifies some other period of notice. There is no fixed \"month per year\" rule in that decision: the Court said reasonable notice will vary with the circumstances of the particular case, and cited the factors from Bardal: the character of the employment, the length of service, the age of the employee, and the availability of similar employment, having regard to experience, training and qualifications. (The saved judgment has no paragraph numbers.) Those are the facts to record: his role, eleven years, age 58, and the job market. On the owner's statement: under Honda Canada v. Keays, damages for the manner of dismissal are available where the employer's conduct in dismissal is unfair or in bad faith, for example untruthful, misleading or unduly insensitive; attacking the employee's reputation by declarations at the time of dismissal is one example the Court gave; and such damages reflect actual damages, not an extension of notice (paras. 57, 59). He would need to show the distress the conduct caused. Note that suing for wrongful dismissal and filing an ESA termination pay complaint for the same termination are alternatives (ESA, s. 98 (2)).",
+    "keyPoints": [
+      "does not judge or predict the claim",
+      "ESA minimum is a floor; greater common law right applies",
+      "reasonable notice factors: character of employment, length of service, age, availability of similar employment",
+      "manner-of-dismissal damages for unfair or bad-faith conduct, measured as actual damages"
+    ],
+    "sources": [
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 57 (h)",
+        "quote": "at least eight weeks before the termination, if the employee's period of employment is eight years or more"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 5 (2)",
+        "quote": "provide a greater benefit to an employee than the employment standard, the provision or provisions in the contract or Act apply and the employment standard does not apply"
+      },
+      {
+        "file": "docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt",
+        "pinpoint": "reasons of Iacobucci J. (majority; judgment has no numbered paragraphs)",
+        "quote": "The presumption at common law that a contract of employment for an indefinite term is terminable only on reasonable notice"
+      },
+      {
+        "file": "docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt",
+        "pinpoint": "reasons of Iacobucci J. (majority; judgment has no numbered paragraphs)",
+        "quote": "I would characterize the common law principle of termination only on reasonable notice as a presumption, rebuttable if the contract of employment clearly specifies some other period of notice, whether expressly or impliedly"
+      },
+      {
+        "file": "docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt",
+        "pinpoint": "reasons of Iacobucci J. (majority; judgment has no numbered paragraphs)",
+        "quote": "What constitutes reasonable notice will vary with the circumstances of any particular case."
+      },
+      {
+        "file": "docs/sources/decisions/machtinger-v-hoj-industries-1992-1-SCR-986.html.txt",
+        "pinpoint": "reasons of Iacobucci J. (majority; judgment has no numbered paragraphs), quoting Bardal",
+        "quote": "having regard to the character of the employment, the length of service of the servant, the age of the servant and the availability of similar employment, having regard to the experience, training and qualifications of the servant"
+      },
+      {
+        "file": "docs/sources/decisions/honda-canada-v-keays-2008-SCC-39.english.txt",
+        "pinpoint": "para. 57",
+        "quote": "where the employer engages in conduct during the course of dismissal that is \"unfair or is in bad faith by being, for example, untruthful, misleading or unduly insensitive\""
+      },
+      {
+        "file": "docs/sources/decisions/honda-canada-v-keays-2008-SCC-39.english.txt",
+        "pinpoint": "para. 59",
+        "quote": "Examples of conduct in dismissal resulting in compensable damages are attacking the employee"
+      },
+      {
+        "file": "docs/sources/decisions/honda-canada-v-keays-2008-SCC-39.english.txt",
+        "pinpoint": "para. 59",
+        "quote": "reputation by declarations made at the time of dismissal"
+      },
+      {
+        "file": "docs/sources/decisions/honda-canada-v-keays-2008-SCC-39.english.txt",
+        "pinpoint": "para. 59",
+        "quote": "if the employee can prove that the manner of dismissal caused mental distress that was in the contemplation of the parties"
+      },
+      {
+        "file": "docs/sources/decisions/honda-canada-v-keays-2008-SCC-39.english.txt",
+        "pinpoint": "para. 59",
+        "quote": "those damages will be awarded not through an arbitrary extension of the notice period, but through an award that reflects the actual damages"
+      },
+      {
+        "file": "docs/sources/corpus/esa-2000-ontario.txt",
+        "pinpoint": "s. 98 (2)",
+        "quote": "An employee who commences a civil proceeding for wrongful dismissal may not file a complaint alleging an entitlement to termination pay or severance pay or have such a complaint investigated"
+      }
+    ]
+  }
+]

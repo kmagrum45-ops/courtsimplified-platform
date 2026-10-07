@@ -1,0 +1,563 @@
+[
+  {
+    "id": "CIV-001",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "In March 2019 Rosalind lent her former business partner, Teodor, $62,000 so he could open a bakery in Peterborough. They signed a one-page note saying the money was 'repayable on demand'. For years Rosalind never asked for it back. The bakery closed in 2024. On August 12, 2025 Rosalind emailed Teodor demanding repayment in full. He replied the next day that he would not pay. Teodor says Rosalind waited too long because the loan is more than six years old.",
+    "question": "When did the limitation period for Rosalind's claim on the loan start to run, and how long is it?",
+    "expected": "answer",
+    "modelAnswer": "The age of the loan does not start the clock. For a demand obligation, the Limitations Act, 2002 treats the loss as occurring on the first day the borrower fails to perform after a demand for performance is made (s. 5 (3)), and that rule applies to every demand obligation created on or after January 1, 2004 (s. 5 (4)), which includes a 2019 loan. The basic limitation period is two years: a proceeding cannot be started after the second anniversary of the day the claim was discovered (s. 4). Here the demand was made on August 12, 2025, and the first failure to pay after that demand is what starts the analysis, so the two years run from discovery measured from that failure, not from 2019. Because the amount is over $50,000, the claim would be started in the Superior Court of Justice.",
+    "keyPoints": [
+      "demand obligation: loss occurs on first failure to perform after demand",
+      "applies to demand obligations created on or after January 1, 2004",
+      "basic period is two years from discovery",
+      "not measured from the date of the loan"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 5 (3)", "quote": "the day  on  which  injury, loss or damage occurs in relation to a demand obligation is  the  first  day on which there is a failure to perform the obligation,  once  a  demand  for the performance is made" },
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 5 (4)", "quote": "Subsection (3) applies in respect of every demand  obligation  created on or after January 1, 2004" },
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 4", "quote": "a proceeding shall  not  be  commenced in respect of a claim after the second anniversary of the day on  which  the claim was discovered" },
+      { "file": "docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt", "pinpoint": "s. 1 (1)", "quote": "The maximum amount of a claim in the Small Claims Court  is $50,000" }
+    ]
+  },
+  {
+    "id": "CIV-002",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "Nadia bought a century home in Kingston in May 2022 after a home inspection by Brightline Inspections Ltd. reported 'no evidence of moisture'. The inspector never opened the basement crawlspace hatch. In March 2025 a contractor renovating the basement opened the crawlspace and found extensive mould and a rotted sill plate that had clearly been there for years. Repairs are estimated at $85,000. Nadia's real estate agent, who has since retired to Portugal, tells her the deadline passed in May 2024 because that was two years after the inspection.",
+    "question": "From what day does Nadia's two-year limitation period against the inspector run, and what does the law presume about it?",
+    "expected": "answer",
+    "modelAnswer": "The two-year basic period runs from the day the claim was discovered, not automatically from the day of the inspection (Limitations Act, 2002, s. 4). A claim is discovered on the earlier of (a) the day Nadia first actually knew that the loss had occurred, that it was caused or contributed to by an act or omission, that the act or omission was the inspector's, and that a proceeding would be an appropriate way to seek a remedy, and (b) the day a reasonable person with her abilities and in her circumstances first ought to have known those things (s. 5 (1)). The law presumes she knew those matters on the day the act or omission took place (the inspection) unless the contrary is proved (s. 5 (2)), so Nadia bears the burden of proving that she did not actually know those matters on the inspection day. Even if she does, the earlier-of rule means the clock starts on any earlier day when a reasonable person with her abilities and in her circumstances first ought to have known them (s. 5 (1) (b)), so what she could reasonably have found out before March 2025 also matters. The agent's whereabouts are irrelevant.",
+    "keyPoints": [
+      "two years from the day the claim was discovered",
+      "discovery is the earlier of actual knowledge and when a reasonable person ought to have known",
+      "presumed to know on the day of the act or omission unless the contrary is proved",
+      "burden on Nadia to rebut the presumption"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 4", "quote": "a proceeding shall  not  be  commenced in respect of a claim after the second anniversary of the day on  which  the claim was discovered" },
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 5 (1) (a)", "quote": "the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred" },
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 5 (1) (a) (ii), (iii)", "quote": "(ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made" },
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 5 (1) (a) (iv)", "quote": "having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it" },
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 5 (1) (b)", "quote": "the day on which a reasonable person with the abilities  and  in the circumstances of the person with the  claim  first  ought  to  have known of the matters referred to in clause (a)" },
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 5 (2)", "quote": "A person with a claim shall be presumed to have known of  the  matters referred to in clause (1) (a) on the day the act or omission  on  which  the claim is based took place, unless the contrary  is  proved" }
+    ]
+  },
+  {
+    "id": "CIV-003",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "In June 2009 Harbourview Foundations Inc. waterproofed the foundation of Gustavo's house in Sudbury. Gustavo now says the crew skipped the membrane on the north wall, and that the owner of Harbourview personally told him in 2012, when he asked about a damp patch, that it was 'just condensation, nothing to do with our work', while knowing the membrane had been left out. Gustavo only learned the truth in September 2025 when the wall was excavated. Harbourview says any claim is dead because more than fifteen years have passed since 2009.",
+    "question": "What is the ultimate limitation period, can it be paused on these facts, and who has to prove that?",
+    "expected": "answer",
+    "modelAnswer": "Separate from the two-year basic period, the Limitations Act, 2002 sets an ultimate period: no proceeding may be started after the 15th anniversary of the day the act or omission on which the claim is based took place (s. 15 (2)), and this applies even if another limitation period under the Act has not expired (s. 15 (1)). The 15 years do not run during any time in which the person against whom the claim is made wilfully conceals from the claimant that the loss occurred, that it was caused by an act or omission, or that the act or omission was theirs, or wilfully misleads the claimant about whether a proceeding is an appropriate remedy (s. 15 (4) (c)). Gustavo bears the burden of proving that the pause applies (s. 15 (5)), so he would need evidence of the 2012 statement and that it was a wilful concealment. The two-year period from discovery (s. 4) must also still be met.",
+    "keyPoints": [
+      "15th anniversary of the act or omission",
+      "ultimate period applies even if the basic period has not expired",
+      "does not run during wilful concealment or wilful misleading",
+      "burden of proving the pause is on the claimant",
+      "two-year basic period still applies"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 15 (2)", "quote": "No proceeding shall be commenced in respect of  any  claim  after  the 15th anniversary of the day on which the act or omission on which the  claim is based took place" },
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 15 (1)", "quote": "Even if the limitation period established by any other  section  of this Act in respect of a claim has  not  expired,  no  proceeding  shall  be commenced in respect of the claim after the expiry of  a  limitation  period established by this section" },
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 15 (4) (c)", "quote": "the person against whom the claim is made, (i) wilfully conceals from the person with the claim the  fact  that injury, loss or damage has  occurred" },
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 15 (4) (c) (i)", "quote": "that it was caused by or contributed to by an act or omission or that the act or omission was that of the person against whom the claim is made" },
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 15 (4) (c) (ii)", "quote": "wilfully misleads the person with the claim as to the appropriateness of a proceeding as a means of remedying the injury, loss or damage" },
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 4", "quote": "a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered" },
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 15 (5)", "quote": "The burden of proving that subsection (4) applies  is  on  the  person with the claim" }
+    ]
+  },
+  {
+    "id": "CIV-004",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "multi-issue",
+    "story": "Leo, aged 10, broke his wrist at the Bounce Zone trampoline park in Barrie on April 5, 2025 when a padded cover slid off a spring frame. His parents separated last year and argue about most things, including which of them gets to decide about school. His mother, Imogen, wants to sue Bounce Zone now. His father says there is no hurry because 'kids get until they're 18', but also says Leo should just sign the claim himself since it is his injury.",
+    "question": "Who can start the lawsuit for Leo, and how does Leo's age affect the limitation periods?",
+    "expected": "answer",
+    "modelAnswer": "Leo is a minor, which makes him a person under 'disability' under the Rules of Civil Procedure (r. 1.03 (1)). Unless the court orders or a statute provides otherwise, a proceeding on behalf of a party under disability is commenced and continued by a litigation guardian (r. 7.01 (1)), so Leo cannot simply sign the claim himself; an adult such as Imogen would act as his litigation guardian. Where no one is specifically required to act, any other person who is not under disability may act as litigation guardian for a plaintiff without a court order, but only if acting from the start of the proceeding and meeting the rule's requirements, such as filing the required affidavit when the claim is issued (r. 7.02 (3), (4)). On the limitation period: the two-year basic period does not run while the claimant is a minor and is not represented by a litigation guardian in relation to the claim (Limitations Act, 2002, s. 6). Both conditions matter: once a litigation guardian is acting for Leo on the claim, the suspension no longer applies. The 15-year ultimate period is likewise paused only while he is a minor and not represented by a litigation guardian (s. 15 (4) (b)). The parents' disagreement about schooling is not relevant to these rules.",
+    "keyPoints": [
+      "a minor is under disability",
+      "proceeding brought by a litigation guardian",
+      "basic period does not run while a minor AND not represented by a litigation guardian",
+      "ultimate period paused on the same two conditions"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 1.03 (1) 'disability'", "quote": "\"disability\", where used in respect of a person, means that the person is, (a) a minor" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 7.01 (1)", "quote": "a proceeding shall be commenced, continued or defended on behalf  of  a  party under disability by a litigation guardian" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 7.02 (3)", "quote": "any other person who is not under disability may act as litigation guardian for a plaintiff or applicant under disability without a court order, but only if the person acts as litigation guardian from the commencement of the proceeding and meets the requirements of subrule (4)" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 7.02 (4), para. 1", "quote": "they shall file an affidavit that meets the requirements of subrule (6) when submitting the originating process for issuance" },
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 6", "quote": "The limitation period established by section 4 does  not  run  during  any time in which the person with the claim, (a) is a minor; and (b) is not represented by a litigation guardian in relation  to  the claim" },
+      { "file": "docs/sources/corpus/limitations-act-2002.txt", "pinpoint": "s. 15 (4) (b)", "quote": "the person with the claim is a minor and is not  represented  by a litigation guardian in relation to the claim" }
+    ]
+  },
+  {
+    "id": "CIV-005",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "Copperleaf Renovations Ltd. sued two defendants in the Superior Court of Justice over a $140,000 kitchen contract that went sideways. The first defendant, Marguerite, was personally served at her home in Hamilton. The second, her business partner Dale, has moved to Detroit, Michigan and was served there. Marguerite has a cousin who is a paralegal and who told her she has 'a month or so' to respond. Dale wants a few more days because he is still looking for a lawyer.",
+    "question": "How long does each defendant have to deliver a statement of defence, and is there a way to get more time?",
+    "expected": "answer",
+    "modelAnswer": "Under the Rules of Civil Procedure, a statement of defence is due within twenty days after service of the statement of claim where the defendant is served in Ontario (Marguerite), and within forty days where the defendant is served elsewhere in Canada or in the United States (Dale) (r. 18.01 (a), (b)). Either defendant who intends to defend may deliver a notice of intent to defend within that same time, which gives ten extra days to deliver the defence (r. 18.02 (1), (2)). The cousin's 'month or so' is not the Ontario rule for Marguerite. A defendant may also deliver a defence late at any time before being noted in default (r. 19.01 (5)), but waiting risks the plaintiff noting default once the time has passed (r. 19.01 (1)).",
+    "keyPoints": [
+      "20 days if served in Ontario",
+      "40 days if served elsewhere in Canada or the United States",
+      "notice of intent to defend adds ten days",
+      "defence can be delivered any time before noting in default"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 18.01 (a)", "quote": "within twenty days after service  of  the  statement  of  claim, where the defendant is served in Ontario" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 18.01 (b)", "quote": "within forty days after  service  of  the  statement  of  claim, where the defendant is served elsewhere in  Canada  or  in  the  United States of America" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 18.02 (1)", "quote": "A defendant who is served with a statement of claim and intends to defend the action may deliver a notice of intent to defend (Form 18B) within the time prescribed for delivery of a statement of defence" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 18.02 (2)", "quote": "A defendant who delivers a notice of intent to defend within the prescribed time is entitled to ten days, in addition to the time  prescribed by rule 18.01, within which to  deliver  a  statement  of  defence" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 19.01 (5)", "quote": "A defendant may deliver a  statement  of  defence  at  any  time before being noted in default under  this  rule" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 19.01 (1)", "quote": "Where a defendant fails to deliver a statement of defence within the prescribed time, the plaintiff may, on filing  proof  of  service of the statement of claim" }
+    ]
+  },
+  {
+    "id": "CIV-006",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "multi-issue",
+    "story": "On September 2, 2026 Bernadette, a retired teacher, went to a provincially owned ServiceOntario office building in Thunder Bay to renew her health card. A concrete step at the entrance had been cracked and loose for weeks, and it gave way under her. She fractured her ankle. Her daughter, who works for the City of Thunder Bay, thinks the city owns the building and that Bernadette can take her time because 'there's a two-year limit'. On October 7, 2026 Bernadette learns the building is owned and operated by the Ontario government.",
+    "question": "What notice must Bernadette give before suing the Crown, by when, and what happens if she does not?",
+    "expected": "answer",
+    "modelAnswer": "Under the Crown Liability and Proceedings Act, 2019, the Crown is subject to the liabilities in tort it would have if it were a person, on several routes, including (a) a tort committed by an officer, employee or agent of the Crown, and (b) a breach of duty attaching to the ownership, occupation, possession or control of property (s. 8 (1) (a), (b)); route (a) covers only a tort attributable to the acts or omissions of an officer, employee or agent (s. 8 (2)). For every damages claim, notice of the claim, with enough particulars to identify the occasion, must be served on the Crown at least 60 days before the proceeding is started (s. 18 (1)). Which route the claim relies on decides whether a 10-day rule also applies: for a claim under s. 8 (1) (b), the property-duty route that a loose step at a Crown-owned building fits, the notice must be served no later than 10 days after the event out of which the claim arises (s. 18 (4)), which here ran from the September 2 fall. A claim under s. 8 (1) (a), based on a tort by a Crown employee (for example, a staff member's failure to deal with the step), is not caught by s. 18 (4) and needs only the 60-day notice. If a notice is served before a limitation period expires but the 60 days end after it expires, the limitation period is extended to the last instant of the seventh day after the 60-day period ends (s. 18 (3)). Notice is served by leaving a copy with an employee at the Crown Law Office (Civil Law) of the Ministry of the Attorney General (s. 15). Failing to give notice as the section requires makes a proceeding brought without it a nullity in respect of the claim (s. 18 (6)). The two-year period in the Limitations Act, 2002 is a separate requirement, not a substitute for the notice. Bernadette's next step is to confirm whether any notice was served on the Crown, and when, and on which route the claim rests.",
+    "keyPoints": [
+      "60-day notice before starting any damages proceeding against the Crown (s. 18 (1))",
+      "10-day notice applies only to a property-duty claim under s. 8 (1) (b) (s. 18 (4))",
+      "a claim for a tort by a Crown employee under s. 8 (1) (a) needs only the 60-day notice",
+      "limitation period extended to seven days after the 60-day period (s. 18 (3))",
+      "no notice makes the proceeding a nullity"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt", "pinpoint": "s. 8 (1)", "quote": "the Crown is subject to all the liabilities in tort to which it would be liable if it were a person," },
+      { "file": "docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt", "pinpoint": "s. 8 (1) (a)", "quote": "in respect of a tort committed by an officer, employee or agent of the Crown" },
+      { "file": "docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt", "pinpoint": "s. 8 (1) (b)", "quote": "in respect of a breach  of  duty  attaching  to  the  ownership, occupation, possession or control of property" },
+      { "file": "docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt", "pinpoint": "s. 8 (2)", "quote": "nothing in clause (1) (a) subjects the Crown to liability for a tort that is not attributable to the acts or omissions of an officer, employee or agent of the Crown" },
+      { "file": "docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt", "pinpoint": "s. 18 (1)", "quote": "No proceeding that includes a claim  for  damages  may  be  brought against the Crown unless, at least 60 days before the  commencement  of  the proceeding, the claimant serves on the Crown" },
+      { "file": "docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt", "pinpoint": "s. 18 (1)", "quote": "notice of the claim containing sufficient particulars to identify the occasion out of which the claim arose" },
+      { "file": "docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt", "pinpoint": "s. 18 (3)", "quote": "If a notice of claim is served under subsection (1) before the expiry of a limitation period applicable with respect to the claim but the 60-day period referred to in that subsection ends after the expiry of the limitation period, the limitation period is extended to the last instant of the seventh day following the end of the 60-day period." },
+      { "file": "docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt", "pinpoint": "s. 18 (4)", "quote": "no proceeding  that  includes  a claim  for damages may be brought against the Crown under clause 8 (1) (b)  unless  the notice required by subsection (1) is served on the Crown in accordance  with section 15 no later than 10 days after the occurrence of the  event" },
+      { "file": "docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt", "pinpoint": "s. 15", "quote": "shall be served by leaving a copy of the document with an employee of the Crown at the Crown Law Office (Civil Law) of the Ministry of the Attorney General" },
+      { "file": "docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt", "pinpoint": "s. 18 (6)", "quote": "failure to give notice of a claim  as  required by this section renders a proceeding brought without such notice  a  nullity" }
+    ]
+  },
+  {
+    "id": "CIV-007",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "deadline",
+    "story": "The Lakeshore Weekly Courier, a local newspaper printed and published in Cobourg, Ontario, ran a story on February 3, 2026 saying that Henrietta, who runs a dog-grooming business, had been 'banned from the industry for animal cruelty'. That is untrue. Henrietta was on a cruise and only saw the article on February 24, 2026, when a client mailed her the clipping. She has been keeping a scrapbook of customer reviews to show her good reputation.",
+    "question": "What must Henrietta do, and by when, to keep a libel action against the newspaper open?",
+    "expected": "answer",
+    "modelAnswer": "For libel in a newspaper, the Libel and Slander Act sets two time limits that both run from when the libel came to the plaintiff's knowledge, here February 24, 2026, not the publication date. First, no action lies unless, within six weeks after the alleged libel came to her knowledge, she gives the defendant notice in writing specifying the matter complained of, served in the same manner as a statement of claim or by delivering it to a grown-up person at the defendant's chief office (s. 5 (1)). Second, the action itself must be commenced within three months after the libel came to her knowledge (s. 6). The Act also limits the plaintiff to actual damages if certain conditions, including a full and fair retraction published promptly after the notice, are shown at trial (s. 5 (2)). Two limits on these rules: s. 5 (1) and s. 6 apply only to newspapers printed and published in Ontario (s. 7), which this one is, and a newspaper defendant gets the benefit of ss. 5 and 6 only if the names of the proprietor and publisher and the address of publication are stated at the head of the editorials or on the front page (s. 8 (1)). The scrapbook is evidence for later; it does not affect these deadlines.",
+    "keyPoints": [
+      "written notice within six weeks after the libel came to her knowledge",
+      "notice specifies the matter complained of",
+      "action within three months after knowledge",
+      "both run from knowledge, not publication"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/libel-and-slander-act.txt", "pinpoint": "s. 5 (1)", "quote": "No action for libel in a newspaper or in a broadcast lies unless the plaintiff has, within six weeks after the alleged  libel  has  come  to  the plaintiff's knowledge, given to the defendant notice in writing,  specifying the matter complained of" },
+      { "file": "docs/sources/corpus/libel-and-slander-act.txt", "pinpoint": "s. 5 (1)", "quote": "which shall be served in  the  same  manner  as  a statement of claim or by delivering it to a grown-up  person  at  the  chief office of the defendant" },
+      { "file": "docs/sources/corpus/libel-and-slander-act.txt", "pinpoint": "s. 6", "quote": "An action for a libel in a newspaper or in a broadcast shall be  commenced within three months after the libel has come to the knowledge of the  person defamed" },
+      { "file": "docs/sources/corpus/libel-and-slander-act.txt", "pinpoint": "s. 7", "quote": "Subsection 5 (1) and section 6 apply only to newspapers printed and published in Ontario" },
+      { "file": "docs/sources/corpus/libel-and-slander-act.txt", "pinpoint": "s. 8 (1)", "quote": "No defendant in an action for a libel in a newspaper is entitled to the benefit of sections 5 and 6 unless the names of the proprietor and publisher and the address of publication are stated either at the head of the editorials or on the front page of the newspaper" },
+      { "file": "docs/sources/corpus/libel-and-slander-act.txt", "pinpoint": "s. 5 (2)", "quote": "The plaintiff shall recover only actual damages if it appears  on  the trial" },
+      { "file": "docs/sources/corpus/libel-and-slander-act.txt", "pinpoint": "s. 5 (2) (d) (i)", "quote": "that a full and fair retraction of any matter therein alleged to be erroneous, (i) was published either in the next regular issue of the newspaper or in any regular issue thereof published within three days after the receipt of the notice" }
+    ]
+  },
+  {
+    "id": "CIV-008",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "multi-issue",
+    "story": "On January 15, 2026 Priyanka slipped on an unsalted icy patch in the parking lot of the Greystone Plaza mall in Oshawa and tore a ligament in her knee. She admits she was reading a text message as she walked. The mall had hired FrostGuard Snow Services Inc. to clear and salt the lot. Priyanka spent two months in physiotherapy and did nothing about a claim until April 2026. The mall's manager says the mall cannot be responsible because FrostGuard was in charge of the ice.",
+    "question": "What notice was required, what does the mall's reliance on FrostGuard mean, and how does Priyanka's texting fit in?",
+    "expected": "answer",
+    "modelAnswer": "Notice: no action for personal injury caused by snow or ice may be brought against an occupier or its snow-removal contractor unless, within 60 days after the injury, written notice including the date, time and location was personally served or sent by registered mail to at least one of them (Occupiers' Liability Act, s. 6.1 (1), (2)). Missing or insufficient notice is not a bar if a judge finds a reasonable excuse and that the defendant is not prejudiced in its defence (s. 6.1 (6)), so Priyanka would need to show both. The contractor: an occupier owes a duty to take reasonable care in all the circumstances to see that people entering are reasonably safe (s. 3 (1)). An occupier is not liable for an independent contractor's negligence only if it acted reasonably in entrusting the work, took reasonable steps to be satisfied the contractor was competent and the work properly done, and it was reasonable for the work to be done that way (s. 6 (1)); that is a question of fact about what the mall did, not an automatic shield. Texting: if fault on her part contributed to the damages, the court apportions the damages in proportion to each party's degree of fault (Negligence Act, s. 3).",
+    "keyPoints": [
+      "written notice within 60 days to occupier or snow contractor",
+      "late notice not a bar if reasonable excuse and no prejudice",
+      "independent contractor defence has conditions",
+      "contributory negligence apportions damages by degree of fault"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 6.1 (1)", "quote": "No action shall be brought  for  the  recovery  of  damages  for personal injury caused by snow or ice against a person or persons listed  in subsection (2) unless, within 60 days after the occurrence  of  the  injury, written notice of the claim, including the date, time and  location  of  the occurrence" },
+      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 6.1 (1)", "quote": "has been personally served on or sent by registered mail to at least one person listed in subsection (2)" },
+      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 6.1 (2), para. 2", "quote": "An independent contractor employed by the occupier to remove snow or ice on the premises during the relevant period in which the injury occurred" },
+      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 6.1 (6)", "quote": "is not a bar to the action if a judge finds that there is reasonable excuse for the want or  the  insufficiency  of  the notice and that the defendant is not prejudiced in  its  defence" },
+      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 3 (1)", "quote": "An occupier of premises owes a duty to take such care as in all  the circumstances of the case is reasonable to see that persons entering on  the premises" },
+      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 6 (1)", "quote": "the occupier is not on that account liable  if  in  all  the  circumstances  the occupier had acted reasonably in entrusting  the  work  to  the  independent contractor" },
+      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 6 (1)", "quote": "if the occupier had taken such steps, if any, as the occupier reasonably ought in order to be satisfied that the contractor was competent and that the work had been properly done, and if it was reasonable that the work performed by the independent contractor should have been undertaken" },
+      { "file": "docs/sources/corpus/negligence-act.txt", "pinpoint": "s. 3", "quote": "if fault or negligence is found on the  part  of the plaintiff that contributed to the damages,  the  court  shall  apportion the damages in proportion  to  the  degree  of  fault  or  negligence  found against the parties respectively" }
+    ]
+  },
+  {
+    "id": "CIV-009",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "rule",
+    "question": "In an Ontario Superior Court action, when must the court grant summary judgment, and what fact-finding powers can a judge use on the motion?",
+    "expected": "answer",
+    "modelAnswer": "The court shall grant summary judgment if it is satisfied there is no genuine issue requiring a trial with respect to a claim or defence, or if the parties agree to have the claim decided that way and the court is satisfied it is appropriate (Rules of Civil Procedure, r. 20.04 (2)). In deciding whether there is a genuine issue requiring a trial, the court considers the evidence filed, and a judge has the powers to weigh the evidence, evaluate the credibility of a deponent, and draw reasonable inferences, unless it is in the interest of justice for those powers to be used only at trial (r. 20.04 (2.1)); a judge can also order oral evidence, a mini-trial (r. 20.04 (2.2)). The Supreme Court of Canada in Hryniak v. Mauldin, 2014 SCC 7, explained that there is no genuine issue requiring a trial when the judge is able to reach a fair and just determination on the merits, which is the case when the process allows the necessary findings of fact, allows the law to be applied to the facts, and is a proportionate, more expeditious and less expensive means to a just result (para. 49).",
+    "keyPoints": [
+      "no genuine issue requiring a trial",
+      "weigh evidence, evaluate credibility, draw reasonable inferences",
+      "unless in the interest of justice to use the powers only at trial",
+      "Hryniak: fair and just determination; proportionate, more expeditious, less expensive"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 20.04 (2) (a)", "quote": "The court shall grant summary judgment if, (a) the court is satisfied that there is no genuine issue  requiring a trial with respect to a claim or defence" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 20.04 (2) (b)", "quote": "the parties agree to have all or part of the claim determined by a summary judgment and the court is satisfied that it is appropriate to grant summary judgment" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 20.04 (2.1)", "quote": "1. Weighing the evidence. 2. Evaluating the credibility of a deponent. 3. Drawing any reasonable inference from  the  evidence." },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 20.04 (2.1)", "quote": "unless  it  is  in  the  interest  of justice for such powers to be exercised only at a trial" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 20.04 (2.2)", "quote": "order that oral evidence be presented  by  one  or more parties, with or without time limits  on  its  presentation" },
+      { "file": "docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt", "pinpoint": "para. 49", "quote": "There will be no genuine issue requiring a trial when the judge is able to reach a fair and just determination on the merits on a motion for summary judgment. This will be the case when the process (1) allows the judge to make the necessary findings of fact, (2) allows the judge to apply the law to the facts, and (3) is a proportionate, more expeditious and less expensive means to achieve a just result." }
+    ]
+  },
+  {
+    "id": "CIV-010",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Ostrander Steel Ltd. sued Felix, a general contractor, for $178,000 in unpaid invoices for structural steel delivered to a Guelph condo project. Felix's statement of defence says only 'The defendant denies that any amount is owing.' Ostrander has served a motion for summary judgment supported by an affidavit attaching the signed purchase orders, delivery slips signed by Felix's site supervisor, and eight unpaid invoices. Felix tells his brother-in-law that he plans to show up at the motion and 'tell the judge it's all in my defence'.",
+    "question": "What must Felix file in response to the summary judgment motion, and what can happen if he only relies on his defence?",
+    "expected": "answer",
+    "modelAnswer": "A responding party on a summary judgment motion may not rest solely on the allegations or denials in its pleadings; it must set out, in affidavit material or other evidence, specific facts showing that there is a genuine issue requiring a trial (Rules of Civil Procedure, r. 20.02 (2)). So Felix's plan to point to his one-line denial does not meet the rule; he needs sworn evidence of the specific facts he relies on (for example, that deliveries were short or defective). On the hearing, the court may draw an adverse inference from a party's failure to provide the evidence of a person with personal knowledge of contested facts (r. 20.02 (1)), which matters here because the site supervisor signed the delivery slips. The court shall grant summary judgment if satisfied there is no genuine issue requiring a trial (r. 20.04 (2) (a)), and if the only genuine issue is the amount owing, the court can order a trial of that issue or grant judgment with a reference to determine the amount (r. 20.04 (3)). Each party must also serve a factum (r. 20.03 (1)).",
+    "keyPoints": [
+      "cannot rest on allegations or denials in the pleadings",
+      "must set out specific facts by affidavit or other evidence",
+      "adverse inference from failing to provide evidence of a person with personal knowledge",
+      "if only the amount is in issue, trial of that issue or a reference"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 20.02 (2)", "quote": "a responding party may not rest solely  on  the allegations or denials in the  party's  pleadings,  but  must  set  out,  in affidavit material or other evidence, specific facts showing that  there  is a genuine issue requiring a trial" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 20.02 (1)", "quote": "draw  an  adverse inference from the failure of a party to provide the evidence of any  person having personal knowledge of contested facts" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 20.04 (2) (a)", "quote": "The court shall grant summary judgment if, (a) the court is satisfied that there is no genuine issue requiring a trial with respect to a claim or defence" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 20.04 (3)", "quote": "Where the court is satisfied that the only genuine issue is  the amount to which the moving party is entitled, the court may  order  a  trial of that issue or grant judgment with a reference to  determine  the  amount" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 20.03 (1)", "quote": "On a motion for summary judgment, each party shall serve on every other party to the motion a factum" }
+    ]
+  },
+  {
+    "id": "CIV-011",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "rule",
+    "question": "Under the Rules of Civil Procedure, what must a pleading contain, what happens to an allegation of fact a defendant does not deny, and on what ground can a pleading be struck before trial without evidence?",
+    "expected": "answer",
+    "modelAnswer": "Every pleading must contain a concise statement of the material facts the party relies on for the claim or defence, but not the evidence by which those facts are to be proved (r. 25.06 (1)). A party may raise a point of law, but conclusions of law may be pleaded only if the supporting material facts are pleaded (r. 25.06 (2)). In a defence, a party must admit every allegation of fact it does not dispute (r. 25.07 (1)), and allegations of fact not denied are deemed admitted unless the party pleads having no knowledge of the fact (r. 25.07 (2)). A party may move before a judge to strike out a pleading on the ground that it discloses no reasonable cause of action or defence (r. 21.01 (1) (b)), and no evidence is admissible on that motion (r. 21.01 (2) (b)).",
+    "keyPoints": [
+      "concise statement of material facts, not evidence",
+      "conclusions of law only with supporting material facts",
+      "facts not denied are deemed admitted unless no knowledge is pleaded",
+      "strike for no reasonable cause of action; no evidence on that motion"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 25.06 (1)", "quote": "Every pleading shall contain a concise statement of  the material facts on which the party relies for the claim or defence,  but  not the evidence by which those facts are to be proved" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 25.06 (2)", "quote": "A party may raise any point of law in a pleading, but conclusions of law may be pleaded only  if  the  material  facts  supporting them are pleaded" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 25.07 (1)", "quote": "In a defence, a party shall admit every allegation of fact in the opposite party's pleading that the party does not dispute" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 25.07 (2)", "quote": "all allegations of  fact  that  are  not denied in a party's defence shall be deemed to be admitted unless the  party pleads having no knowledge in respect of the fact" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 21.01 (1) (b)", "quote": "to strike out a pleading on the ground that it discloses  no reasonable cause of action or defence" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 21.01 (2) (b)", "quote": "No evidence is admissible on a motion, (a) under clause (1) (a),  except  with  leave  of  a  judge  or  on consent of the parties; (b) under clause (1) (b)" }
+    ]
+  },
+  {
+    "id": "CIV-012",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Wendell had his statement of claim issued by the Superior Court of Justice in London, Ontario on March 3, 2026, suing Pinecrest Moving Ltd. and its driver, Ambrose, for $95,000 after a moving truck crushed his vintage car. Wendell then started a new job and the claim sat in a drawer. In October 2026 he realises he never served it. A friend tells him he can just mail it to the company now.",
+    "question": "What was the time for serving the statement of claim, how is personal service made on Ambrose and on the company, and what can Wendell do now?",
+    "expected": "answer",
+    "modelAnswer": "A statement of claim must be served within six months after it is issued (Rules of Civil Procedure, r. 14.08 (1)); counted from March 3, 2026, that time has passed. The court may by order extend any time prescribed by the rules on such terms as are just (r. 3.02 (1)), and a motion to extend can be made before or after the time has expired (r. 3.02 (2)), so Wendell's next step is a motion to extend the time for service. Personal service on an individual such as Ambrose is made by leaving a copy of the document with him (r. 16.02 (1) (a)); on a corporation such as Pinecrest, it is made by leaving a copy with an officer, director or agent of the corporation, or with a person at any place of business of the corporation who appears to be in control or management of the place of business (r. 16.02 (1) (c)). As for the friend's idea, a statement of claim, as an originating process, must be served personally or by an alternative to personal service under r. 16.03 (r. 16.01 (1)); one alternative is mailing a copy with an acknowledgment of receipt card to the last known address, but that service is effective only when the sender receives the card back (r. 16.03 (4)).",
+    "keyPoints": [
+      "serve within six months after issue",
+      "court may extend time on just terms",
+      "motion to extend can be made after time expires",
+      "personal service on an individual by leaving a copy with them"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 14.08 (1)", "quote": "Where an action is commenced by a statement of claim, the statement of claim shall be served within six months  after  it  is  issued" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 3.02 (1)", "quote": "the court may by order extend  or abridge any time prescribed by these rules or an order,  on  such  terms  as are just" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 3.02 (2)", "quote": "A motion for an order extending time may be made before or after the expiration of the time prescribed" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 16.01 (1)", "quote": "An originating process shall be served personally as provided in rule 16.02 or by an alternative to personal service as provided in rule 16.03" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 16.03 (4)", "quote": "Service of a document may be made by sending a copy of the document together with an acknowledgment of receipt card (Form 16A) by mail to the last known address of the person to be served, but service by mail under this subrule is only effective as of the date the sender receives the card" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 16.02 (1) (a)", "quote": "on an individual, other  than  a  person  under  disability,  by leaving a copy of the document with the individual" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 16.02 (1) (c)", "quote": "on any other corporation, by leaving a copy of the document with an officer, director or agent of the corporation, or with a person at any place of business of the corporation who appears to be in control or management of the place of business" }
+    ]
+  },
+  {
+    "id": "CIV-013",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Juniper Lending Corp. sued Rhys in the Superior Court of Justice for $71,400, the balance of a written business loan plus contractual interest. Rhys was served in Ontario on June 1, 2026 but was dealing with a family move and did nothing. On July 10, 2026 Juniper had the registrar note him in default. Rhys now has a full defence drafted: he says he repaid $40,000 in cash and has receipts.",
+    "question": "What is the effect of being noted in default, can Juniper get judgment without a hearing, and what is Rhys's first step?",
+    "expected": "answer",
+    "modelAnswer": "A defendant who has been noted in default is deemed to admit the truth of all allegations of fact in the statement of claim, and cannot deliver a statement of defence or take any other step, other than a motion to set aside the noting of default or any default judgment, except with leave of the court or the plaintiff's consent (Rules of Civil Procedure, r. 19.02 (1)). He is also generally not entitled to notice of further steps (r. 19.02 (3)). Because the claim is for a debt or liquidated demand in money, the plaintiff may require the registrar to sign judgment (r. 19.04 (1) (a)). Rhys's first step is a motion to set aside the noting of default, which the court may do on such terms as are just (r. 19.03 (1)); his receipts would be part of the material for that motion. Had he delivered his defence before being noted, it would have been accepted late (r. 19.01 (5)).",
+    "keyPoints": [
+      "deemed to admit all allegations of fact",
+      "cannot defend except by motion to set aside, leave or consent",
+      "registrar may sign judgment for a debt or liquidated demand",
+      "motion to set aside noting of default on just terms"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 19.02 (1) (a)", "quote": "is deemed to admit the truth of all allegations of fact made  in the statement of claim" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 19.02 (1) (b)", "quote": "shall not deliver a statement of defence or take any other  step in the action, other than a motion to set aside the noting  of  default or any judgment obtained by reason of the default, except with leave of the court or the consent of the  plaintiff" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 19.04 (1) (a)", "quote": "a debt or liquidated demand  in  money,  including  interest  if claimed in the statement of claim" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 19.03 (1)", "quote": "The noting of default may be set aside by the  court  on such terms as are just" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 19.02 (3)", "quote": "a  defendant  who  has  been  noted  in default is not entitled to notice of any step in the action" }
+    ]
+  },
+  {
+    "id": "CIV-014",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "rule",
+    "question": "In an ordinary Superior Court action, what must each party disclose in its affidavit of documents, is a privileged document disclosed, how long can oral examinations for discovery last, and can a witness refuse a question because it asks for evidence?",
+    "expected": "answer",
+    "modelAnswer": "Every document relevant to any matter in issue that is or has been in a party's possession, control or power must be disclosed, whether or not privilege is claimed for it (Rules of Civil Procedure, r. 30.02 (1)); privilege affects production for inspection, not disclosure (r. 30.02 (2)). Each party serves an affidavit of documents disclosing to the full extent of its knowledge, information and belief all such relevant documents (r. 30.03 (1)). No party may exceed a total of seven hours of oral examination for discovery, regardless of the number of parties or persons examined, except with consent or leave of the court (r. 31.05.1 (1)). A person examined must answer any proper question relevant to a matter in issue, and a question cannot be objected to on the ground that the information sought is evidence (r. 31.06 (1) (a)).",
+    "keyPoints": [
+      "all relevant documents in possession, control or power",
+      "disclosed whether or not privilege is claimed",
+      "seven hours total for oral discovery unless consent or leave",
+      "no objection because the information is evidence"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 30.02 (1)", "quote": "Every document relevant to any matter  in  issue  in  an action that is or has been in the possession, control or power  of  a  party to the action shall be disclosed  as  provided  in  rules  30.03  to  30.10, whether or not privilege is claimed in  respect  of  the  document" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 30.02 (2)", "quote": "shall be produced for inspection if requested, as provided in rules 30.03 to 30.10, unless privilege is claimed in respect of the document" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 30.03 (1)", "quote": "A party to an action shall serve on every other party an affidavit of documents (Form 30A or 30B) disclosing to the  full  extent  of the party's knowledge, information and belief all documents relevant to  any matter in issue" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 31.05.1 (1)", "quote": "No party shall, in conducting  oral  examinations  for discovery, exceed a total of seven hours of examination, regardless  of  the number of parties or other persons to be examined, except with  the  consent of the parties or with leave of the court" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 31.06 (1) (a)", "quote": "no question may be  objected  to  on the ground that, (a) the information sought is evidence" }
+    ]
+  },
+  {
+    "id": "CIV-015",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "In 2024 Tobias sued his former landlord-turned-business-partner, Quinlan, for $120,000 for breach of a partnership agreement over a food truck. The action was brought, and stayed, under the simplified procedure in Rule 76 through the trial. Four months before trial Tobias served a written offer to settle for $60,000 plus costs, open until trial; Quinlan ignored it. Quinlan also refused to admit that he had signed the agreement until his signature was proven by a handwriting expert at trial. Tobias was awarded $68,000. Quinlan says each side should pay its own legal bills because Tobias only got about half of what he asked for.",
+    "question": "What rules govern the costs award here, and how does the offer to settle affect it?",
+    "expected": "answer",
+    "modelAnswer": "Costs are in the discretion of the court, which decides by whom and to what extent they are paid, subject to any Act or rules of court (Courts of Justice Act, s. 131 (1)). In exercising that discretion the court may consider, besides the result and any written offer to settle, factors including the amount claimed and recovered, the complexity of the proceeding, conduct that lengthened the proceeding unnecessarily, and a party's denial of or refusal to admit anything that should have been admitted (Rules of Civil Procedure, r. 57.01 (1) (a), (c), (e), (g)), so Quinlan's refusal to admit his signature is a listed factor. On the offer: where a plaintiff's offer is made at least seven days before the hearing, is not withdrawn and does not expire before it, is not accepted, and the plaintiff obtains a judgment as favourable as or more favourable than the offer, the plaintiff is entitled to partial indemnity costs to the date the offer was served and substantial indemnity costs from that date, unless the court orders otherwise (r. 49.10 (1)). The $68,000 judgment is more favourable than the $60,000 offer, so r. 49.10 (1) is the starting point. Because this is a simplified procedure action, two Rule 76 provisions also apply: a plaintiff who recovers $200,000 or less in money is barred from costs unless, among other things, the action was proceeding under Rule 76 when the trial began, which it was (r. 76.13 (2), (3) (a)); and no party may recover costs over $50,000 or disbursements over $25,000, exclusive of HST, except as r. 76.13 or an Act provides (r. 76.12.1 (1)).",
+    "keyPoints": [
+      "costs are in the court's discretion (CJA s. 131)",
+      "r. 57.01 factors include amount claimed and recovered and refusal to admit",
+      "plaintiff's offer: partial indemnity to the offer, substantial indemnity after",
+      "unless the court orders otherwise",
+      "Rule 76 limits: $50,000 costs and $25,000 disbursements"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 131 (1)", "quote": "the  costs of and incidental to a proceeding or a step  in  a  proceeding  are  in  the discretion of the court, and the court may  determine  by  whom  and  to  what extent the costs shall be paid" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 57.01 (1) (a)", "quote": "the amount claimed and the amount recovered in the proceeding" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 57.01 (1) (c)", "quote": "the complexity of the proceeding" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 57.01 (1) (e)", "quote": "the conduct of any party that tended to shorten or to lengthen unnecessarily the duration of the proceeding" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 57.01 (1) (g)", "quote": "a party's denial of or refusal to  admit  anything  that  should have been admitted" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 49.10 (1)", "quote": "the plaintiff obtains a judgment as favourable  as  or  more  favourable than the terms of the offer to settle, the plaintiff is entitled to  partial indemnity costs to the date the offer to settle was served  and  substantial indemnity costs from that date, unless the court orders  otherwise" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 49.10 (1) (a)", "quote": "is  made  by  a  plaintiff  at  least  seven  days  before  the commencement of the hearing of the proceeding" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 49.10 (1) (b), (c)", "quote": "(b) is not withdrawn and does not expire before the commencement of the hearing of the proceeding; and (c) is not accepted by the defendant," },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 76.13 (3) (a)", "quote": "The plaintiff shall not recover any costs unless, (a) the action was proceeding under this Rule at the commencement of the trial" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 76.12.1 (1)", "quote": "no party to an action under this Rule may recover costs exceeding $50,000 or disbursements exceeding $25,000, exclusive of harmonized sales tax (HST)" }
+    ]
+  },
+  {
+    "id": "CIV-016",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "false-premise",
+    "story": "Aurelia paid a landscaping company $42,000 for a backyard patio and retaining wall in Mississauga. The wall collapsed within a month and the company refuses to fix it or refund her. She has a quote of $42,000 to redo the work.",
+    "question": "Since $42,000 is too much for Small Claims Court, I have to start my case in the Superior Court of Justice. What do I file there?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "The premise is not right. The maximum amount of a claim in the Small Claims Court is $50,000 (O. Reg. 626/00, s. 1 (1)), and the Small Claims Court has jurisdiction in an action for the payment of money where the amount claimed does not exceed that prescribed amount, exclusive of interest and costs (Courts of Justice Act, s. 23 (1) (a)). A $42,000 money claim is within that limit. Further, an action within the Small Claims Court's jurisdiction cannot be commenced in the Superior Court of Justice except with leave of the Superior Court (s. 23 (1.1)), and the court can give that leave only if it is in the interest of justice (Rules of Civil Procedure, r. 14.01.1 (3)). So the usual starting point for Aurelia's claim is the Small Claims Court, not the Superior Court.",
+    "keyPoints": [
+      "Small Claims limit is $50,000",
+      "limit is exclusive of interest and costs",
+      "Superior Court needs leave for a claim within Small Claims jurisdiction",
+      "leave only if in the interest of justice"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt", "pinpoint": "s. 1 (1)", "quote": "The maximum amount of a claim in the Small Claims Court  is $50,000" },
+      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 23 (1) (a)", "quote": "has jurisdiction in any action for the payment  of  money  where the amount claimed does not exceed the prescribed amount  exclusive  of interest and costs" },
+      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 23 (1.1)", "quote": "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2),  be  commenced  in  the  Superior  Court  of Justice except with leave of the Superior Court of Justice" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 14.01.1 (3)", "quote": "The court may grant leave  under  subsection  23  (1.1)  of  the Courts of Justice Act only if it is in the  interest  of  justice" }
+    ]
+  },
+  {
+    "id": "CIV-017",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "false-premise",
+    "story": "Cyrus was cycling in the Town of Millbrook Falls when his front wheel dropped into a deep pothole the town had been told about twice. He broke his collarbone and is suing only the Town for $95,000 in damages. He watched a courtroom drama and is set on twelve jurors hearing his story.",
+    "question": "Everyone in Ontario has an automatic right to a jury in a civil case, so I'll just ask for one at the start of trial. How do I make sure I get a twelve-person jury?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "Several parts of that premise are wrong. A party in a Superior Court action may require a jury 'unless otherwise provided' (Courts of Justice Act, s. 108 (1)), but the Act requires a trial without a jury in listed cases, including a claim for relief against a municipality and an action proceeding under Rule 76, the simplified procedure (s. 108 (2)). Cyrus's claim is against a town, and a money-only claim of $200,000 or less must proceed under the simplified procedure (Rules of Civil Procedure, r. 76.02 (1)), which the Rules also say shall not be tried with a jury, apart from listed claims such as slander, libel, malicious prosecution and false imprisonment (r. 76.02.1 (1), (2)). Even where a jury is available, it is requested by delivering a jury notice before the close of pleadings, not at the start of trial (r. 47.01), and a civil jury is composed of six persons, not twelve (CJA, s. 108 (4)).",
+    "keyPoints": [
+      "no jury for relief against a municipality",
+      "no jury for a simplified procedure (Rule 76) action",
+      "claims of $200,000 or less for money proceed under Rule 76",
+      "jury notice before close of pleadings",
+      "civil jury is six persons"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 108 (1)", "quote": "a party may require that the issues of fact be tried  or the damages assessed,  or  both,  by  a  jury,  unless  otherwise  provided" },
+      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 108 (2) para. 1 xii", "quote": "xi. Other equitable relief. xii. Relief against a municipality." },
+      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 108 (2) para. 2", "quote": "The action is proceeding under Rule 76 of  the  Rules  of  Civil Procedure" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 76.02 (1)", "quote": "The  total  of  the  following  amounts  is  $200,000  or  less exclusive of interest and costs" },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 76.02.1 (1)", "quote": "An action that is proceeding under this Rule shall not be tried with a jury and, subject to subrule (2), no party to the action may deliver a jury notice under rule 47.01." },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 76.02.1 (2)", "quote": "may deliver a jury notice under rule 47.01 if the action involves a claim for relief arising from one of the following: 1. Slander. 2. Libel. 3. Malicious arrest. 4. Malicious prosecution. 5. False imprisonment." },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 76.02 (1), para. 1", "quote": "The plaintiff's claim is exclusively for one or more of the following: i. Money." },
+      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 47.01", "quote": "by  delivering  a  jury notice (Form 47A) at any time before the close of pleadings" },
+      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 108 (4)", "quote": "the jury shall be composed of six persons selected in  accordance  with  the  Juries  Act" }
+    ]
+  },
+  {
+    "id": "CIV-018",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "false-premise",
+    "story": "Marisol was a passenger in a car that was rear-ended at high speed on Highway 401 near Belleville in 2025. She had only bruises, but for a year since she has had nightmares, cannot drive, has stopped seeing friends and left her job. Her family describes her as a different person. Her family doctor has noted the changes but she has not seen a psychiatrist and has no diagnosis.",
+    "question": "The other driver's insurer says that without a psychiatrist diagnosing a recognized psychiatric illness, the law does not let me claim anything for mental injury. Since I don't have a diagnosis, what other claims can I make instead?",
+    "expected": "correct-the-premise",
+    "modelAnswer": "The insurer's premise does not match the law as the Supreme Court of Canada stated it in Saadati v. Moorhead, 2017 SCC 28: a finding of legally compensable mental injury need not rest on proof of a recognized psychiatric illness (para. 2). What has to be shown is that the disturbance is serious and prolonged and rises above the ordinary annoyances, anxieties and fears that come with living in civil society; expert evidence can help, but where a diagnosis is unavailable a trier of fact can find mental injury on other evidence, proved on a balance of probabilities (Saadati, paras. 37-38, drawing on Mustapha v. Culligan, 2008 SCC 27, para. 9). The usual elements of negligence still apply: duty, breach, damage, and causation in fact and in law (Saadati, para. 13), including whether mental harm in a person of ordinary fortitude was a reasonably foreseeable result (para. 20). Because this was a car accident in Ontario, the Insurance Act adds a statutory threshold. Its protections apply to proceedings for bodily injury arising from the use or operation of an automobile in Canada (s. 267.4 (1)). The owner and occupants of an automobile, and anyone present at the incident, are not liable in an Ontario action for non-pecuniary loss (s. 267.5 (5)) or for health care expenses (s. 267.5 (3)) unless the injured person has sustained permanent serious disfigurement or permanent serious impairment of an important physical, mental or psychological function; and damages for income loss are limited, for example nothing for the first seven days and no more than 70 per cent of lost gross income before trial (s. 267.5 (1)). A judge decides whether the threshold is met, on a motion before trial or at trial (s. 267.5 (12), (15)). The Act lets regulations define that impairment and set the evidence needed to prove it (s. 121 (1), paras. 23.1, 23.2); that regulation is not in the site's library, so check it before relying on the threshold. The evidence of her family and doctor about the changes goes to what must be shown.",
+    "keyPoints": [
+      "no recognized psychiatric illness required",
+      "serious and prolonged, above ordinary annoyances, anxieties and fears",
+      "can be proved on other evidence without a diagnosis",
+      "negligence elements still apply, including person of ordinary fortitude",
+      "Insurance Act s. 267.5 threshold: permanent serious impairment of an important mental or psychological function"
+    ],
+    "sources": [
+      { "file": "docs/sources/decisions/saadati-v-moorhead-2017-SCC-28.html.txt", "pinpoint": "para. 2", "quote": "I therefore conclude that a finding of legally compensable mental injury need not rest, in whole or in part, on the claimant proving a recognized psychiatric illness." },
+      { "file": "docs/sources/decisions/saadati-v-moorhead-2017-SCC-28.html.txt", "pinpoint": "para. 37", "quote": "Claimants must, therefore, show much more — that the disturbance suffered by the claimant is “serious and prolonged and rise[s] above the ordinary annoyances, anxieties and fears” that come with living in civil society" },
+      { "file": "docs/sources/decisions/saadati-v-moorhead-2017-SCC-28.html.txt", "pinpoint": "para. 38", "quote": "while relevant expert evidence will often be helpful in determining whether the claimant has proven a mental injury, it is not required as a matter of law" },
+      { "file": "docs/sources/decisions/saadati-v-moorhead-2017-SCC-28.html.txt", "pinpoint": "para. 38", "quote": "Where a psychiatric diagnosis is unavailable, it remains open to a trier of fact to find on other evidence adduced by the claimant that he or she has proven on a balance of probabilities the occurrence of mental injury" },
+      { "file": "docs/sources/decisions/mustapha-v-culligan-2008-SCC-27.english.txt", "pinpoint": "para. 9", "quote": "it must be serious and prolonged and rise above the ordinary annoyances, anxieties and fears that people living in society routinely, if sometimes reluctantly, accept" },
+      { "file": "docs/sources/corpus/insurance-act.txt", "pinpoint": "s. 267.4 (1)", "quote": "Sections 267.5 to 267.11 apply only to proceedings for loss or damage from bodily injury or death arising from the use or operation, after November 1, 1996, of an automobile in Canada" },
+      { "file": "docs/sources/corpus/insurance-act.txt", "pinpoint": "s. 267.5 (5)", "quote": "the owner of an automobile, the occupants of an automobile and any person present at the incident are not liable in an action in Ontario for damages for non-pecuniary loss" },
+      { "file": "docs/sources/corpus/insurance-act.txt", "pinpoint": "s. 267.5 (5) (a), (b)", "quote": "unless as a result of the use or operation of the automobile the injured person has died or has sustained, (a) permanent serious disfigurement; or (b) permanent serious impairment of an important physical, mental or psychological function" },
+      { "file": "docs/sources/corpus/insurance-act.txt", "pinpoint": "s. 267.5 (3)", "quote": "are not liable in an action in Ontario for damages for expenses that have been incurred or will be incurred for health care resulting from bodily injury arising directly or indirectly from the use or operation of the automobile unless" },
+      { "file": "docs/sources/corpus/insurance-act.txt", "pinpoint": "s. 267.5 (1), paras. 1, 2", "quote": "1. Damages for income loss suffered in the seven days after the incident. 2. Damages for income loss suffered more than seven days after the incident and before the trial of the action in excess of 70 per cent of the amount of gross income that is lost during that period" },
+      { "file": "docs/sources/corpus/insurance-act.txt", "pinpoint": "s. 267.5 (12)", "quote": "a judge shall, on motion made before trial with the consent of the parties or in accordance with an order of a judge who conducts a pre-trial conference, determine for the purpose of subsections (3) and (5) whether" },
+      { "file": "docs/sources/corpus/insurance-act.txt", "pinpoint": "s. 267.5 (15)", "quote": "If no motion is made under subsection (12), the trial judge shall determine for the purpose of subsections (3) and (5) whether" },
+      { "file": "docs/sources/corpus/insurance-act.txt", "pinpoint": "s. 121 (1), paras. 23.1, 23.2", "quote": "23.1 defining permanent serious impairment of an important physical, mental or psychological function for the purpose of section 267.5; 23.2 respecting the evidence that must be adduced to prove that a person has sustained permanent serious impairment" },
+      { "file": "docs/sources/decisions/saadati-v-moorhead-2017-SCC-28.html.txt", "pinpoint": "para. 13", "quote": "that such damage was caused, in fact and in law, by the defendant’s breach" },
+      { "file": "docs/sources/decisions/saadati-v-moorhead-2017-SCC-28.html.txt", "pinpoint": "para. 20", "quote": "whether the occurrence of mental harm in a person of ordinary fortitude was the reasonably foreseeable result of the defendant’s negligent conduct" }
+    ]
+  },
+  {
+    "id": "CIV-019",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "judge-the-case",
+    "story": "Farid hired Kettering Plumbing Inc. to replace a water heater in his Windsor bungalow. Three days later a fitting on the new heater let go and flooded the finished basement, causing $63,000 in damage. Kettering says the fitting was fine and that the flood came from an old cracked pipe nearby that was not part of its job. Farid has photos of water spraying from the new fitting, taken by his teenage son.",
+    "question": "With my son's photos, I'm going to win this, aren't I? How good are my odds against Kettering?",
+    "expected": "decline-to-judge",
+    "modelAnswer": "The site does not judge how a case will turn out or rate anyone's odds; it can help Farid prepare and show what the law requires him to prove. In negligence, a claimant must show (i) a duty of care, (ii) a breach of the standard of care, (iii) damage, and (iv) that the damage was caused, in fact and in law, by the breach (Saadati v. Moorhead, 2017 SCC 28, para. 13). The central dispute here is causation. The test is the 'but for' test: the plaintiff must show on a balance of probabilities that but for the defendant's negligent act the injury would not have occurred (Clements v. Clements, 2012 SCC 32, para. 8). It is applied in a robust common sense fashion, and there is no need for scientific evidence of the precise contribution the negligence made (para. 9). The next step is to gather and preserve the evidence on where the water came from, such as the photos, the failed fitting itself, and any plumber's report.",
+    "keyPoints": [
+      "does not predict or rate the outcome",
+      "negligence elements: duty, breach, damage, causation",
+      "but-for test on a balance of probabilities",
+      "robust common sense; no scientific precision required"
+    ],
+    "sources": [
+      { "file": "docs/sources/decisions/saadati-v-moorhead-2017-SCC-28.html.txt", "pinpoint": "para. 13", "quote": "Liability in negligence law is conditioned upon the claimant showing (i) that the defendant owed a duty of care to the claimant to avoid the kind of loss alleged; (ii) that the defendant breached that duty by failing to observe the applicable standard of care; (iii) that the claimant sustained damage; and (iv) that such damage was caused, in fact and in law, by the defendant’s breach" },
+      { "file": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt", "pinpoint": "para. 8", "quote": "The test for showing causation is the “but for” test." },
+      { "file": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt", "pinpoint": "para. 8", "quote": "the defendant’s negligent act, the injury would not have occurred" },
+      { "file": "docs/sources/decisions/clements-v-clements-2012-SCC-32.english.txt", "pinpoint": "para. 9", "quote": "The “but for” causation test must be applied in a robust common sense fashion. There is no need for scientific evidence of the precise contribution the defendant’s negligence made to the injury." }
+    ]
+  },
+  {
+    "id": "CIV-020",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "At a four-way stop in Brantford, a delivery van driven by Otto and a pickup driven by Selene both entered the intersection and collided, and the pickup was pushed into Ingrid's parked car while she was sitting in it, injuring her. Ingrid had her seatbelt off because she was reaching for a coffee in the back seat. Otto has no assets and his employer has gone out of business; Selene has insurance. Selene says she should only have to pay her 'share'.",
+    "question": "How is fault divided among Otto, Selene and Ingrid, and can Ingrid collect all her damages from Selene?",
+    "expected": "answer",
+    "modelAnswer": "Under the Negligence Act, where damages are caused or contributed to by the fault or neglect of two or more persons, the court determines the degree of each one's fault, and those found at fault are jointly and severally liable to the injured person; as between themselves, each must contribute and indemnify the other in proportion to their fault (s. 1). So, as against Ingrid, Selene's liability is not limited to her own share; her remedy is contribution from Otto. If fault on Ingrid's part contributed to her damages, the court apportions the damages in proportion to the degree of fault found against each party (s. 3). If it is not practicable to determine the respective degrees of fault, the parties are deemed equally at fault (s. 4). In a jury trial, the degree of fault is a question of fact for the jury (s. 6).",
+    "keyPoints": [
+      "court determines each person's degree of fault",
+      "defendants at fault are jointly and severally liable to the plaintiff",
+      "contribution between defendants in proportion to fault",
+      "plaintiff's own contributory fault reduces damages proportionally",
+      "deemed equal if not practicable to determine"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/negligence-act.txt", "pinpoint": "s. 1", "quote": "Where damages have been caused or contributed to by the fault or neglect of two or more persons, the court shall determine the degree in which each of such persons is at fault or negligent" },
+      { "file": "docs/sources/corpus/negligence-act.txt", "pinpoint": "s. 1", "quote": "where two or more persons are found at fault or negligent,  they  are  jointly  and  severally liable to the person suffering loss or damage for such fault or  negligence" },
+      { "file": "docs/sources/corpus/negligence-act.txt", "pinpoint": "s. 1", "quote": "each is liable to make contribution and  indemnify  each  other  in the degree  in  which  they  are  respectively  found  to  be  at  fault  or negligent" },
+      { "file": "docs/sources/corpus/negligence-act.txt", "pinpoint": "s. 3", "quote": "the  court  shall  apportion the damages in proportion  to  the  degree  of  fault  or  negligence  found against the parties respectively" },
+      { "file": "docs/sources/corpus/negligence-act.txt", "pinpoint": "s. 4", "quote": "If it is not practicable to determine the respective degree of fault or negligence as between any parties to an action, such parties  shall be deemed to be equally at fault or negligent" },
+      { "file": "docs/sources/corpus/negligence-act.txt", "pinpoint": "s. 6", "quote": "In any  action  tried  with  a  jury,  the  degree  of  fault  or negligence of the respective parties is a question of  fact  for  the  jury" }
+    ]
+  },
+  {
+    "id": "CIV-021",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "multi-issue",
+    "story": "Mireille bought an e-bike from VoltRide Canada Inc. in Ottawa in 2024. In 2025 its battery overheated and scorched her hallway floor. She has found an online forum with more than 300 Ontario buyers reporting the same battery problem. She wants to start a class action as the representative plaintiff. Her neighbour Arturo, another buyer, would rather sue on his own, and is worried that if he waits to see how the class action goes, his own two years will run out.",
+    "question": "What must the court find to certify Mireille's class action, what happens to the class members' limitation periods, and can Arturo leave the class?",
+    "expected": "answer",
+    "modelAnswer": "Under the Class Proceedings Act, 1992, one or more members of a class may start a proceeding on behalf of the class (s. 2 (1)). The court shall certify it if: the pleadings disclose a cause of action; there is an identifiable class of two or more persons; the claims raise common issues; a class proceeding would be the preferable procedure for the common issues; and there is a representative plaintiff who would fairly and adequately represent the class, has a workable litigation and notice plan, and has no conflicting interest on the common issues (s. 5 (1)). For a plaintiff's class action, a class proceeding is the preferable procedure only if, at a minimum, it is both (a) superior to all reasonably available means of determining the class members' entitlement to relief or addressing the defendant's conduct, and (b) the questions of fact or law common to the class members predominate over any questions affecting only individual class members (s. 5 (1.1)). Mireille must also register the proceeding and bring a certification motion asking to be appointed representative plaintiff (s. 2 (1.1), (2)). Any limitation period for a cause of action asserted in the class proceeding is suspended in favour of a class member when the proceeding is commenced, and resumes running on listed events, including if the court refuses to certify or the member opts out (s. 28 (1)). Arturo can opt out in the manner and within the time set in the certification order (s. 9), but his own limitation clock resumes once he does.",
+    "keyPoints": [
+      "cause of action, identifiable class, common issues, preferable procedure, suitable representative",
+      "preferable requires superiority to other reasonably available means and that common questions predominate over individual ones",
+      "limitation suspended on commencement for class members",
+      "resumes on refusal to certify or opting out",
+      "opt out as set in the certification order"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/class-proceedings-act.txt", "pinpoint": "s. 2 (1)", "quote": "One or more members of a class of persons may commence  a  proceeding in the court on behalf of the members of the class" },
+      { "file": "docs/sources/corpus/class-proceedings-act.txt", "pinpoint": "s. 5 (1)", "quote": "(a) the pleadings or the notice of application discloses a cause  of action; (b) there is an identifiable class  of  two  or  more  persons  that would be represented by the representative plaintiff or defendant; (c) the claims  or  defences  of  the  class  members  raise  common issues" },
+      { "file": "docs/sources/corpus/class-proceedings-act.txt", "pinpoint": "s. 5 (1) (d), (e)", "quote": "a class proceeding would be the  preferable  procedure  for  the resolution of the common issues; and (e) there is a representative plaintiff or defendant who, (i) would fairly and  adequately  represent  the  interests  of  the class" },
+      { "file": "docs/sources/corpus/class-proceedings-act.txt", "pinpoint": "s. 5 (1.1) (a)", "quote": "it is superior to all reasonably available means of  determining the entitlement of the  class  members  to  relief" },
+      { "file": "docs/sources/corpus/class-proceedings-act.txt", "pinpoint": "s. 5 (1.1)", "quote": "a class proceeding is the preferable procedure for the resolution of common issues under clause (1) (d) only if, at a minimum," },
+      { "file": "docs/sources/corpus/class-proceedings-act.txt", "pinpoint": "s. 5 (1.1) (b)", "quote": "the questions of fact or law common to the class members predominate over any questions affecting only individual class members" },
+      { "file": "docs/sources/corpus/class-proceedings-act.txt", "pinpoint": "s. 5 (1) (e) (ii), (iii)", "quote": "(ii) has produced a plan for the proceeding that sets out a workable method of advancing the proceeding on behalf of the class and of notifying class members of the proceeding, and (iii) does not have, on the common issues for the class, an interest in conflict with the interests of other class members" },
+      { "file": "docs/sources/corpus/class-proceedings-act.txt", "pinpoint": "s. 2 (1.1)", "quote": "A person who commences a proceeding under subsection (1) shall register the proceeding in accordance with the regulations." },
+      { "file": "docs/sources/corpus/class-proceedings-act.txt", "pinpoint": "s. 2 (2)", "quote": "shall make a motion to a judge of the court for an order certifying the proceeding as a class proceeding and appointing the person representative plaintiff" },
+      { "file": "docs/sources/corpus/class-proceedings-act.txt", "pinpoint": "s. 28 (1)", "quote": "Any limitation period applicable to a cause of action asserted in  a proceeding under this Act is suspended in favour of a class  member  on  the commencement of the proceeding" },
+      { "file": "docs/sources/corpus/class-proceedings-act.txt", "pinpoint": "s. 28 (1) (a)", "quote": "the  court  refuses  to  certify  the  proceeding  as  a  class proceeding" },
+      { "file": "docs/sources/corpus/class-proceedings-act.txt", "pinpoint": "s. 28 (1) (d)", "quote": "the member opts out of the class proceeding" },
+      { "file": "docs/sources/corpus/class-proceedings-act.txt", "pinpoint": "s. 9", "quote": "Any member of a class involved in a class proceeding may opt  out  of  the proceeding in the manner and within the time specified in the  certification order" }
+    ]
+  },
+  {
+    "id": "CIV-022",
+    "area": "civil-procedure",
+    "courtPath": "civil",
+    "style": "fact-pattern",
+    "story": "Beatrix rented a lakeside cottage near Bancroft for a week in August 2026 from its owner, Lorne. The wooden stairs from the deck to the dock had a rotten tread that Lorne had known about since spring; he left a can of paint on it instead of fixing it. Beatrix stepped on the tread, it gave way, and she broke her wrist. Lorne says nobody on the lake bothers fixing old dock stairs, that she 'used the stairs at her own risk', and that the cottage is his, not a business, so no special duty applies.",
+    "question": "What duty did Lorne owe Beatrix, and do his points about local practice and her using the stairs at her own risk change it?",
+    "expected": "answer",
+    "modelAnswer": "The Occupiers' Liability Act applies in place of the common law rules on an occupier's liability for dangers to people entering premises (s. 2). An occupier includes a person in physical possession of premises or with responsibility for and control over their condition (s. 1); there is no exception in those sections for private cottages. The occupier owes a duty to take such care as in all the circumstances is reasonable to see that people entering are reasonably safe, whether the danger arises from the condition of the premises or an activity there (s. 3 (1), (2)). In Waldick v. Malcolm, [1991] 2 S.C.R. 456, the Supreme Court of Canada (Iacobucci J.) said that custom can inform the court's assessment of what is reasonable in a given set of circumstances, but that the party who relies on a custom bears the onus of proving it is in effect, and that no amount of general community compliance will render negligent conduct \"reasonable ... in all the circumstances\". (The saved judgment has no paragraph numbers.) As for risk, the s. 3 (1) duty does not apply to risks willingly assumed by the person entering (s. 4 (1)), so the question is whether Beatrix in fact willingly assumed the risk of the rotten tread; Lorne's statement alone does not decide that. Nor does saying so after the fact restrict his duty: the duty applies except in so far as the occupier is free to and does restrict, modify or exclude it (s. 3 (3)), and an occupier who is free to do so must take reasonable steps to bring the restriction to the attention of the person to whom the duty is owed (s. 5 (3)). Even for risks willingly assumed, the occupier still owes a duty not to create a danger with deliberate intent to do harm and not to act with reckless disregard of the person's presence (s. 4 (1)).",
+    "keyPoints": [
+      "Act replaces common law occupier rules",
+      "duty to take reasonable care in all the circumstances that entrants are reasonably safe",
+      "applies to condition of premises",
+      "local custom is relevant but does not make negligent conduct reasonable (Waldick)",
+      "no duty for risks willingly assumed"
+    ],
+    "sources": [
+      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 2", "quote": "this Act applies  in  place  of  the  rules  of  the common law that determine the care that the occupier of premises  at  common law is required to show" },
+      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 1 'occupier'", "quote": "a person  who  has  responsibility  for  and  control  over  the condition of premises" },
+      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 3 (1)", "quote": "An occupier of premises owes a duty to take such care as in all  the circumstances of the case is reasonable to see that persons entering on  the premises, and the property brought on the  premises  by  those  persons  are reasonably safe while on the premises" },
+      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 3 (2)", "quote": "applies whether the danger is caused by the condition of the premises or by an activity  carried on on the premises" },
+      { "file": "docs/sources/decisions/waldick-v-malcolm-1991-2-SCR-456.html.txt", "pinpoint": "reasons of Iacobucci J. (judgment has no numbered paragraphs)", "quote": "no amount of general community compliance will render negligent conduct \"reasonable ... in all the circumstances\"" },
+      { "file": "docs/sources/decisions/waldick-v-malcolm-1991-2-SCR-456.html.txt", "pinpoint": "reasons of Iacobucci J. (judgment has no numbered paragraphs)", "quote": "Acknowledging that custom can inform the courts' assessment of what is reasonable in any given set of circumstances" },
+      { "file": "docs/sources/decisions/waldick-v-malcolm-1991-2-SCR-456.html.txt", "pinpoint": "reasons of Iacobucci J. (judgment has no numbered paragraphs)", "quote": "party who relies on either his own compliance with custom or the other person's departure from general practice bears the onus of proof that the custom is in effect" },
+      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 4 (1)", "quote": "The duty of care provided for in subsection 3 (1) does not apply in respect of  risks  willingly  assumed  by  the  person  who  enters  on  the premises" },
+      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 4 (1)", "quote": "the occupier owes a duty to the person to not create a danger with the deliberate intent of doing harm or damage to the person or his or her property and to not act with reckless disregard of the presence of the person" },
+      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 3 (3)", "quote": "applies except in so far as the occupier of premises is free to and does restrict, modify or exclude the occupier's duty" },
+      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 5 (3)", "quote": "the occupier shall take reasonable steps to bring such restriction, modification or exclusion to the attention of the person to whom the duty is owed" }
+    ]
+  }
+]

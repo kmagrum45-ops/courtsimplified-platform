@@ -199,3 +199,8 @@ scripts/verification/storyReview/results*.json
 /forms-check-report.md
 /forms-probe.json
 /forms-probe-report.md
+
+# Law exam run output (published to the law-exam-reports branch by its workflow).
+/law-exam-report.md
+/law-exam-report.json
+/law-exam.log

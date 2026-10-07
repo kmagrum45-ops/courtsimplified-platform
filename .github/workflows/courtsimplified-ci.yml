@@ -157,6 +157,9 @@ jobs:
       - name: Court decisions from CanLII follow CanLII's terms (attribution, isolation, no scraping, rate limit, works with no key)
         run: npm run test:canlii
 
+      - name: Law exam answer keys quote the law word for word
+        run: npm run test:law-exam
+
       - name: Document types in code match the database's catalogue
         run: npm run test:workspace-catalogue
 

@@ -1,0 +1,77 @@
+name: CourtSimplified Law Exam
+
+# Puts the law exam (scripts/eval/lawExam/questions/, 160+ open-answer
+# questions in the style of a licensing exam) to the site's research step and
+# scores what it shows against answer keys quoted from the law
+# (scripts/eval/runLawExam.ts). Publishes the report to the
+# `law-exam-reports` branch, which Vercel never builds.
+#
+# MANUAL ONLY. It spends the site's OpenAI balance (about 2 to 3 model calls a
+# question). Start it from the Actions tab, or ask Claude; a small run first
+# (limit 20) shows the cost before a full one.
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "How many questions (0 = all)"
+        required: false
+        default: "20"
+      area:
+        description: "Only this area (blank = all), e.g. small-claims, family, civil-procedure"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: law-exam
+  cancel-in-progress: false
+
+jobs:
+  exam:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      AI_CALL_LOG: file
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Run the exam
+        id: exam
+        continue-on-error: true
+        env:
+          LIMIT: ${{ inputs.limit }}
+          AREA: ${{ inputs.area }}
+        run: |
+          set -o pipefail
+          args=(--confirm --limit "${LIMIT:-20}")
+          if [ -n "${AREA}" ]; then args+=(--area "${AREA}"); fi
+          npm run eval:law-exam -- "${args[@]}" 2>&1 | tee law-exam.log
+          tail -1 law-exam.log | sed 's/^/::notice title=Law exam::/'
+
+      - name: Publish to law-exam-reports
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          out="$(mktemp -d)"
+          cp law-exam-report.md law-exam-report.json law-exam.log "$out/" 2>/dev/null || true
+          printf 'branch: %s\ncommit: %s\nexam: %s\n' "${GITHUB_REF_NAME}" "${GITHUB_SHA}" "${{ steps.exam.outcome }}" > "$out/OUTCOME.txt"
+          printf '{\n  "git": { "deploymentEnabled": false }\n}\n' > "$out/vercel.json"
+          cd "$out"
+          git init -q
+          git config user.name "law-exam-bot"
+          git config user.email "law-exam-bot@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Law exam for ${GITHUB_SHA::7} on ${GITHUB_REF_NAME} (run ${GITHUB_RUN_ID})"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/law-exam-reports
+          head -16 law-exam-report.md >> "$GITHUB_STEP_SUMMARY" || true
