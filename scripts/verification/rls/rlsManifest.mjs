@@ -96,11 +96,12 @@ export const catalogue = {
 };
 
 /*
- * canlii_cache and canlii_api_state (2026-10-07, 20261007090000): the CanLII
- * API's cached metadata answers and its one-row rate-limit lease. Read and
- * written only by the server (src/lib/canlii/canliiServer.ts).
+ * canlii_cache, canlii_api_state and canlii_user_usage (2026-10-07,
+ * 20261007090000): the CanLII API's cached metadata answers, its one-row
+ * rate-limit lease, and each person's daily lookup allowance. Read and written
+ * only by the server (src/lib/canlii/canliiServer.ts).
  */
-export const serverOnly = ["ai_call_log", "site_operators", "canlii_cache", "canlii_api_state"];
+export const serverOnly = ["ai_call_log", "site_operators", "canlii_cache", "canlii_api_state", "canlii_user_usage"];
 
 export const views = {
   court_form_master_view: { readers: ["anon", "authenticated"] },

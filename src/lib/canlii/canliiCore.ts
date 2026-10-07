@@ -236,6 +236,14 @@ export type CitingCases = { count: number; cases: CitingCase[] };
 type Answer = { kind: "ok"; body: unknown } | { kind: "not-found" } | null;
 type Cached<T> = { found: true; value: T } | { found: false };
 
+/**
+ * `cacheOnly`: answer from the cache alone and never call CanLII; `missed` is
+ * set when the cache did not have the answer. Lets a route serve what is
+ * already known for free and count only the lookups that would spend calls
+ * against the person's own daily allowance (app/api/canlii/case).
+ */
+export type LookupOptions = { cacheOnly?: boolean; missed?: boolean };
+
 export function createCanliiClient(deps: CanliiDeps) {
   const log = deps.log ?? ((message: string) => console.error(message));
   const memory = new Map<string, { payload: unknown; fetchedAt: number }>();
@@ -282,7 +290,13 @@ export function createCanliiClient(deps: CanliiDeps) {
    * Memory, then the shared cache table, then CanLII. A "not found" answer is
    * remembered for a day so a mistyped citation does not cost a call each time.
    */
-  async function cached<T>(key: string, maxAge: number, load: () => Promise<Answer>, read: (body: unknown) => T | null): Promise<Cached<T> | null> {
+  async function cached<T>(
+    key: string,
+    maxAge: number,
+    load: () => Promise<Answer>,
+    read: (body: unknown) => T | null,
+    options: LookupOptions = {},
+  ): Promise<Cached<T> | null> {
     const fresh = (entry: { payload: unknown; fetchedAt: number }) => {
       const isMiss = (entry.payload as { notFound?: unknown } | null)?.notFound === true;
       return deps.now() - entry.fetchedAt < (isMiss ? CACHE_MS.notFound : maxAge);
@@ -301,6 +315,10 @@ export function createCanliiClient(deps: CanliiDeps) {
       return settle(stored.payload);
     }
 
+    if (options.cacheOnly) {
+      options.missed = true;
+      return null;
+    }
     const answer = await load();
     if (!answer) return null;
     const payload = answer.kind === "not-found" ? { notFound: true } : answer.body;
@@ -313,7 +331,7 @@ export function createCanliiClient(deps: CanliiDeps) {
     return settled;
   }
 
-  async function courtNames(): Promise<Map<string, string> | null> {
+  async function courtNames(options: LookupOptions = {}): Promise<Map<string, string> | null> {
     const result = await cached(
       "databases:en",
       CACHE_MS.databases,
@@ -326,16 +344,17 @@ export function createCanliiClient(deps: CanliiDeps) {
           .map((item) => ({ databaseId: item.databaseId as string, name: typeof item.name === "string" ? item.name : "" }));
         return rows.length ? { caseDatabases: rows } : null;
       },
+      options,
     );
     if (!result?.found) return null;
     return new Map(result.value.caseDatabases.map((row) => [row.databaseId, row.name]));
   }
 
   /** Metadata for a case identified by database and id. Null when unknown, off, or CanLII does not answer. */
-  async function caseMetadata(ref: CaseRef): Promise<CaseMetadata | null> {
+  async function caseMetadata(ref: CaseRef, options: LookupOptions = {}): Promise<CaseMetadata | null> {
     if (!canliiEnabled(deps.env)) return null;
     if (!/^[a-z0-9-]+$/.test(ref.databaseId) || !/^[a-z0-9-]+$/.test(ref.caseId)) return null;
-    const courts = await courtNames();
+    const courts = await courtNames(options);
     if (!courts?.has(ref.databaseId)) return null;
     const result = await cached(
       `case:${ref.databaseId}:${ref.caseId}`,
@@ -355,20 +374,21 @@ export function createCanliiClient(deps: CanliiDeps) {
           decisionDate: typeof record.decisionDate === "string" ? record.decisionDate : null,
         };
       },
+      options,
     );
     if (!result?.found) return null;
     return { ...result.value, url: result.value.url.replace(/^http:\/\//i, "https://"), court: courts.get(ref.databaseId) || null };
   }
 
   /** Confirms a citation exists on CanLII and returns its proper title, citation, court, date and link. */
-  async function lookupCase(citation: string): Promise<CaseMetadata | null> {
+  async function lookupCase(citation: string, options: LookupOptions = {}): Promise<CaseMetadata | null> {
     if (!canliiEnabled(deps.env)) return null;
     const ref = caseRefFromCitation(citation);
-    return ref ? caseMetadata(ref) : null;
+    return ref ? caseMetadata(ref, options) : null;
   }
 
   /** Later decisions that cite this one. A pointer only: being cited is not being followed or upheld. */
-  async function citingCases(ref: CaseRef): Promise<CitingCases | null> {
+  async function citingCases(ref: CaseRef, options: LookupOptions = {}): Promise<CitingCases | null> {
     if (!canliiEnabled(deps.env)) return null;
     if (!/^[a-z0-9-]+$/.test(ref.databaseId) || !/^[a-z0-9-]+$/.test(ref.caseId)) return null;
     const result = await cached(
@@ -393,13 +413,31 @@ export function createCanliiClient(deps: CanliiDeps) {
           .filter((item) => item.title && item.citation && item.databaseId && item.caseId);
         return { citingCases: cases };
       },
+      options,
     );
     if (!result?.found) return null;
     const cases = (result.value as { citingCases: CitingCase[] }).citingCases;
     return { count: cases.length, cases };
   }
 
-  return { lookupCase, caseMetadata, citingCases, apiGet };
+  /**
+   * Everything the site shows about one case: CanLII's own title, citation,
+   * court, date and link, and the later decisions that cite it, with links to
+   * the first few. At most 2 + `linked` calls when nothing is cached.
+   */
+  async function caseSummary(citation: string, options: LookupOptions = {}, linked = 3) {
+    const found = await lookupCase(citation, options);
+    if (!found) return null;
+    const citing = await citingCases({ databaseId: found.databaseId, caseId: found.caseId }, options);
+    const examples: { title: string; citation: string; url: string | null }[] = [];
+    for (const item of citing?.cases.slice(0, linked) ?? []) {
+      const meta = await caseMetadata({ databaseId: item.databaseId, caseId: item.caseId }, options);
+      examples.push({ title: item.title, citation: item.citation, url: meta?.url ?? null });
+    }
+    return { case: found, citing: citing ? { count: citing.count, examples } : null };
+  }
+
+  return { lookupCase, caseMetadata, citingCases, caseSummary, apiGet };
 }
 
 export type CanliiClient = ReturnType<typeof createCanliiClient>;

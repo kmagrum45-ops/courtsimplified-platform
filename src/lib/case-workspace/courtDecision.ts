@@ -95,23 +95,37 @@ export function judgesTheCase(text: string): boolean {
 const wordsOf = (text: string) => new Set(text.toLowerCase().match(/[a-z]+/g) ?? []);
 
 /**
- * Name-like pairs ("Jane Smith") in AI wording where neither word appears
- * anywhere in the decision. That is what filling in an anonymised party, or
- * connecting the decision to a real person, looks like (Terms s. 4.3); the
- * decision's own names (and ordinary words) are in its text and pass.
+ * Names in AI wording that the decision does not itself use. That is what
+ * filling in an anonymised party, or connecting the decision to a real person,
+ * looks like (Terms s. 4.3). Flagged:
+ *   - a name-like pair ("Jane Kowalski") that is not in the decision as a
+ *     phrase and has a word the decision never uses;
+ *   - a titled name ("Ms. Kowalski", "Mr Patel") whose surname the decision
+ *     never uses.
+ * The decision's own names, and ordinary words, are in its text and pass.
  */
 export function namesNotInDecision(text: string, decisionText: string): string[] {
   const known = wordsOf(decisionText);
+  const flat = decisionText.replace(/\s+/g, " ").toLowerCase();
   const pairs = (text.match(/\b[A-Z][a-z]+(?:\s+[A-Z]\.)?\s+[A-Z][a-z]+\b/g) ?? []).filter((pair) => {
+    if (flat.includes(pair.replace(/\s+/g, " ").toLowerCase())) return false;
     const words = pair.split(/\s+/).filter((word) => !/^[A-Z]\.$/.test(word)).map((word) => word.toLowerCase());
-    return words.every((word) => !known.has(word));
+    return words.some((word) => !known.has(word));
   });
-  // "Mr. Patel", "Ms Lee": a titled surname the decision never uses.
   const titled = (text.match(/\b(?:Mr|Mrs|Ms|Miss|Dr)\.?\s+[A-Z][a-z]+\b/g) ?? []).filter((match) => {
     const surname = match.split(/\s+/).pop()?.toLowerCase() ?? "";
     return !known.has(surname);
   });
   return [...pairs, ...titled];
+}
+
+/**
+ * Words the AI puts in quotation marks inside its own explanation are checked
+ * too: anything quoted and long enough to be a quote must be in the decision.
+ */
+export function unverifiedQuotesIn(text: string, decisionText: string): string[] {
+  const quoted = [...text.matchAll(/["“]([^"”]{15,})["”]/g)].map((match) => match[1]);
+  return quoted.filter((quote) => !quoteAppearsIn(quote, decisionText));
 }
 
 /**
@@ -127,13 +141,19 @@ export function checkedDecisionHelp(raw: unknown, decisionText: string): Decisio
   if (!explanation || explanation.length > 4000) return null;
   if (predictsTheirOutcome(explanation)) return null;
   if (namesNotInDecision(explanation, decisionText).length) return null;
+  if (unverifiedQuotesIn(explanation, decisionText).length) return null;
   const passages = (Array.isArray(record.passages) ? record.passages : [])
     .filter((item): item is DecisionPassage => {
       const value = item as Record<string, unknown> | null;
       return typeof value?.quote === "string" && typeof value?.why === "string";
     })
     .map((passage) => ({ quote: passage.quote.trim(), why: passage.why.trim() }))
-    .filter((passage) => !judgesTheCase(passage.why) && namesNotInDecision(passage.why, decisionText).length === 0)
+    .filter(
+      (passage) =>
+        !judgesTheCase(passage.why) &&
+        namesNotInDecision(passage.why, decisionText).length === 0 &&
+        unverifiedQuotesIn(passage.why, decisionText).length === 0,
+    )
     .slice(0, 5);
   return { explanation, passages: verifiedPassages(passages, decisionText) };
 }

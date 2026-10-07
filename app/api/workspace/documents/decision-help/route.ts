@@ -71,12 +71,14 @@ export async function POST(req: NextRequest) {
   }
 
   const since = new Date(Date.now() - 86_400_000).toISOString();
-  const { count } = await db
+  const { count, error: countError } = await db
     .from("ai_call_log")
     .select("id", { count: "exact", head: true })
     .eq("user_id", user.id)
     .eq("call_type", "decision-help")
     .gte("created_at", since);
+  // Fails closed: if today's use cannot be counted, no model call is made.
+  if (countError) return NextResponse.json({ error: "Not available right now. Please try again later." }, { status: 503 });
   if ((count ?? 0) >= MAX_PER_DAY) {
     return NextResponse.json({ error: `Help with decisions is limited to ${MAX_PER_DAY} a day. Please try again tomorrow.` }, { status: 429 });
   }

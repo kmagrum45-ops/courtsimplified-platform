@@ -94,10 +94,21 @@ async function uploadOne(caseId: string, file: File): Promise<string> {
 
 /**
  * Marks an uploaded file as a court decision from CanLII (2026-10-07), through
- * the same PATCH every document type goes through. Before the database update
- * that adds the type, the file stays saved as an ordinary document and the
- * person is told so.
+ * the same PATCH every document type goes through.
+ *
+ * If it cannot be marked (before the database update that adds the type), the
+ * file is removed again rather than left behind as ordinary evidence, where it
+ * would show without "Source: CanLII" and could reach the timeline or the
+ * exhibit book (CanLII Terms s. 4.2).
  */
+async function removeUpload(documentId: string): Promise<boolean> {
+  const response = await fetch(`/api/workspace/documents?documentId=${encodeURIComponent(documentId)}`, {
+    method: "DELETE",
+    headers: await authHeader(),
+  }).catch(() => null);
+  return Boolean(response?.ok);
+}
+
 async function markAsDecision(documentId: string): Promise<string | null> {
   const response = await fetch("/api/workspace/documents", {
     method: "PATCH",
@@ -105,8 +116,10 @@ async function markAsDecision(documentId: string): Promise<string | null> {
     body: JSON.stringify({ documentId, userType: COURT_DECISION_TYPE }),
   }).catch(() => null);
   if (response?.ok) return null;
-  const body = response ? await response.json().catch(() => ({})) : {};
-  return [body.error, body.detail].filter(Boolean).join(" ") || "It was saved, but could not be marked as a court decision.";
+  const removed = await removeUpload(documentId);
+  return removed
+    ? "Court decisions cannot be added just yet, so this file was not kept. Please try again later."
+    : "This file could not be marked as a court decision. Please delete it from your documents and try again later.";
 }
 
 export default function EvidenceUploadCard({

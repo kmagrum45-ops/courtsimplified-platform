@@ -419,6 +419,12 @@ const PROSE_FIELDS = new Set([
   // 2026-10-05: the legal search phrases written from the user's story
   // (retrieval/storyRetrieval.ts). Derived from the narrative, so not stored.
   "queries",
+  // 2026-10-07: help with a court decision a person uploaded to their own
+  // case (case-workspace/decisionHelp.ts). A quote is the decision's own words
+  // and "why" ties it to the person's situation; CanLII's Terms s. 5.1 keep a
+  // decision out of logs, so neither is stored, however short.
+  "quote",
+  "why",
 ]);
 
 /**

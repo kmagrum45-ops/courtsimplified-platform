@@ -315,7 +315,9 @@ if (rogueConstructions.length === 0) {
     // input would satisfy every check above.
     const proseFields = auditSource.match(/const PROSE_FIELDS = new Set\(\[([\s\S]*?)\]\)/);
     const named = Array.from(proseFields?.[1]?.matchAll(/"([^"]+)"/g) ?? [], (m) => m[1]);
-    const mustCover = ["reason", "reasoning", "caseFileRecorded", "caseFileNotRecorded"];
+    // "explanation", "quote" and "why": help with an uploaded court decision
+    // (decisionHelp.ts), which CanLII's Terms keep out of logs (2026-10-07).
+    const mustCover = ["reason", "reasoning", "caseFileRecorded", "caseFileNotRecorded", "explanation", "quote", "why"];
     const missing = mustCover.filter((field) => !named.includes(field));
 
     if (missing.length === 0) {

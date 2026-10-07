@@ -575,7 +575,13 @@ request at a time, at least 500 ms between starts (two a second), and a daily
 cap of 4,000 — well short of the 5,000 our key allows. Enforced in each server
 process and across all of them by one database lease (`canlii_acquire`,
 migration `20261007090000`), because Vercel runs several copies. Every answer
-is cached in `canlii_cache` (metadata 30 days, citator 7, "not found" 1). With
+is cached in `canlii_cache` (metadata 30 days, citator 7, "not found" 1).
+Answers already in the cache are served free; a lookup that would reach CanLII
+first counts against the person's own allowance (30 a day,
+`canlii_user_allow`), so no single account can spend the day's cap or use our
+key to collect metadata in bulk. A person's own decision is looked up from its
+saved citation, not while they type. The lease functions are run (not just
+read) by `test:rls-matrix`. With
 no `CANLII_API_KEY`, or the API down or out of quota, every lookup answers
 nothing at once and the site works as before.
 

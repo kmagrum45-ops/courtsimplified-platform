@@ -166,7 +166,11 @@ export default function CourtDecisionPanel({
         ) : null}
       </form>
 
-      {citation.trim() ? <CanliiCaseInfo citation={citation} onUseDetails={fillFromCanlii} /> : null}
+      {/*
+        Looked up from the SAVED citation, not while it is typed: each partial
+        citation ("2023 ONSC 12", "…123") would otherwise spend a CanLII call.
+      */}
+      {details?.citation?.trim() ? <CanliiCaseInfo citation={details.citation} onUseDetails={fillFromCanlii} /> : null}
 
       <div className="mt-3">
         {helpState === "off" ? (

@@ -3,21 +3,23 @@
  * its proper title, citation, court, date and link, and how many later
  * decisions cite it, with links to a few (src/lib/canlii/canliiCore.ts).
  *
- * Metadata only. Signed-in users only, so the daily allowance is spent on our
- * own users' reading. With no CANLII_API_KEY it answers { enabled: false } at
- * once; with CanLII down or out of quota, { enabled: true, case: null }.
- * Callers render nothing in either case.
+ * Metadata only. Signed-in users only. With no CANLII_API_KEY it answers
+ * { enabled: false } at once; with CanLII down or out of quota,
+ * { enabled: true, case: null }. Callers render nothing in either case.
+ *
+ * WHAT IS ALREADY KNOWN IS FREE; WHAT IS NEW IS COUNTED. The answer is first
+ * sought in the cache alone. Only when that misses does the lookup count
+ * against the person's own daily allowance (canlii_user_allow), so no one
+ * account can spend the whole day's cap, or use our key to step through
+ * citations and collect metadata in bulk (CanLII Terms s. 5.1).
  */
 
 import { NextResponse } from "next/server";
 
-import { canlii, canliiEnabled, caseRefFromCitation } from "@/src/lib/canlii/canliiServer";
+import { allowPersonLookup, canlii, canliiEnabled, caseRefFromCitation } from "@/src/lib/canlii/canliiServer";
 import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 
 export const runtime = "nodejs";
-
-/** How many citing decisions are given their own link (one metadata call each, cached). */
-const LINKED_CITING = 3;
 
 export async function GET(request: Request) {
   if (!canliiEnabled()) return NextResponse.json({ enabled: false });
@@ -29,20 +31,14 @@ export async function GET(request: Request) {
 
   try {
     const api = canlii();
-    const found = await api.lookupCase(citation);
-    if (!found) return NextResponse.json({ enabled: true, case: null });
-
-    const citing = await api.citingCases({ databaseId: found.databaseId, caseId: found.caseId });
-    const examples = [];
-    for (const item of citing?.cases.slice(0, LINKED_CITING) ?? []) {
-      const meta = await api.caseMetadata({ databaseId: item.databaseId, caseId: item.caseId });
-      examples.push({ title: item.title, citation: item.citation, url: meta?.url ?? null });
+    const peek = { cacheOnly: true, missed: false };
+    let summary = await api.caseSummary(citation, peek);
+    if (peek.missed) {
+      if (!(await allowPersonLookup(user.id))) return NextResponse.json({ enabled: true, case: null });
+      summary = await api.caseSummary(citation);
     }
-    return NextResponse.json({
-      enabled: true,
-      case: found,
-      citing: citing ? { count: citing.count, examples } : null,
-    });
+    if (!summary) return NextResponse.json({ enabled: true, case: null });
+    return NextResponse.json({ enabled: true, case: summary.case, citing: summary.citing });
   } catch {
     return NextResponse.json({ enabled: true, case: null });
   }

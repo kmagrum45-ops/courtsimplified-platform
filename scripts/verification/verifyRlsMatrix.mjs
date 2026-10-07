@@ -712,6 +712,52 @@ function catalogueMatrix() {
 }
 
 // ---------------------------------------------------------------------------
+// 3b. The CanLII lease and allowance behave (20261007090000, 2026-10-07)
+// ---------------------------------------------------------------------------
+
+/**
+ * Not access control, but the database is already here: the functions that
+ * enforce CanLII's rate limit across every server are RUN, as the service role,
+ * so a regression in them fails CI rather than a pattern match (test:canlii
+ * checks the code that calls them). Each step raises if it misbehaves.
+ */
+function canliiLeaseBehaviour() {
+  const r = as("service_role", null, `DO $canlii$
+DECLARE t1 uuid; t2 uuid; person uuid := gen_random_uuid();
+BEGIN
+  DELETE FROM public.canlii_api_state;
+  t1 := public.canlii_acquire(3, 300, 10000);
+  IF t1 IS NULL THEN RAISE EXCEPTION 'canlii: the first acquire was refused'; END IF;
+  IF public.canlii_acquire(3, 0, 10000) IS NOT NULL THEN RAISE EXCEPTION 'canlii: a second call got the lease while it was held'; END IF;
+  PERFORM public.canlii_release(gen_random_uuid());
+  IF public.canlii_acquire(3, 0, 10000) IS NOT NULL THEN RAISE EXCEPTION 'canlii: a release with the wrong token freed the lease'; END IF;
+  PERFORM public.canlii_release(t1);
+  IF public.canlii_acquire(3, 300, 10000) IS NOT NULL THEN RAISE EXCEPTION 'canlii: the gap between calls was not enforced'; END IF;
+  PERFORM pg_sleep(0.35);
+  t2 := public.canlii_acquire(3, 300, 10000);
+  IF t2 IS NULL THEN RAISE EXCEPTION 'canlii: a call after the gap was refused'; END IF;
+  PERFORM public.canlii_release(t2);
+  PERFORM pg_sleep(0.35);
+  t2 := public.canlii_acquire(3, 300, 10000);
+  IF t2 IS NULL THEN RAISE EXCEPTION 'canlii: the third call of the day was refused'; END IF;
+  PERFORM public.canlii_release(t2);
+  PERFORM pg_sleep(0.35);
+  IF public.canlii_acquire(3, 300, 10000) IS NOT NULL THEN RAISE EXCEPTION 'canlii: the daily cap was not enforced'; END IF;
+  UPDATE public.canlii_api_state SET "day" = CURRENT_DATE - 1;
+  IF public.canlii_acquire(3, 300, 10000) IS NULL THEN RAISE EXCEPTION 'canlii: a new day did not reset the count'; END IF;
+  IF NOT public.canlii_user_allow(person, 2) OR NOT public.canlii_user_allow(person, 2) THEN RAISE EXCEPTION 'canlii: a person was refused within their allowance'; END IF;
+  IF public.canlii_user_allow(person, 2) THEN RAISE EXCEPTION 'canlii: a person went over their allowance'; END IF;
+END
+$canlii$;
+SELECT 'ok'`);
+  check("canlii:lease-and-allowance-behave", r.value === "ok", describe(r) + (r.message ? ` ${r.message}` : ""));
+  for (const role of ["anon", "authenticated"]) {
+    const call = as(role, "attacker", "SELECT public.canlii_acquire(1, 0, 1000)");
+    check(`canlii:${role}-cannot-take-the-lease`, call.denied === "42501", describe(call));
+  }
+}
+
+// ---------------------------------------------------------------------------
 // 4. Storage
 // ---------------------------------------------------------------------------
 
@@ -780,6 +826,7 @@ function main() {
     userOwnedMatrix();
     catalogueMatrix();
     storageMatrix();
+    canliiLeaseBehaviour();
 
     const by = (s) => results.filter((r) => r.status === s);
     const gaps = by("GAP");

@@ -200,6 +200,16 @@ async function main() {
     const model = read("src/lib/case-workspace/decisionHelp.ts");
     check("AI help runs inside the audit context that keeps only a hash of the text", /withAiCallContext\(\{ callType: "decision-help"/.test(model));
     check("the model call never logs the decision or the person's words", !/console\.(log|error|warn|info)/.test(model));
+    const prose = /const PROSE_FIELDS = new Set\(\[([\s\S]*?)\]\)/.exec(read("src/lib/audit/aiCallLog.ts"))?.[1] ?? "";
+    check(
+      "the AI call log redacts the help's explanation, quotes and notes, however short",
+      ["explanation", "quote", "why"].every((field) => prose.includes(`"${field}"`)),
+    );
+    const upload = read("app/builder/_components/EvidenceUploadCard.tsx");
+    check(
+      "a decision that cannot be marked as one is removed, not left behind as unattributed evidence",
+      /if \(response\?\.ok\) return null;\s*const removed = await removeUpload\(documentId\);/.test(upload) && /method: "DELETE"/.test(upload),
+    );
 
     const organisation = read("app/api/workspace/organisation/route.ts");
     check(
@@ -419,6 +429,21 @@ async function main() {
     const second = fakeClient({ key: "k", store, respond: metadataResponder(calls) }); // another server, same cache table
     await second.api.lookupCase("2014 ONCA 925");
     check("repeat lookups, even from another server, do not call CanLII again", afterFirst === 2 && calls.length === afterFirst, `${calls.length} calls`);
+    const peekCalls = calls.length;
+    const peek = { cacheOnly: true, missed: false };
+    const fromCache = await first.api.caseSummary("2014 ONCA 925", peek);
+    const unknownPeek = { cacheOnly: true, missed: false };
+    await first.api.caseSummary("2015 ONCA 7", unknownPeek);
+    check(
+      "a cache-only lookup never calls CanLII, and says when the cache did not have the answer",
+      calls.length === peekCalls && fromCache?.case.title === "Ariston Realty Corp. v. Elcarim Inc." && unknownPeek.missed,
+      `${calls.length - peekCalls} calls; missed ${unknownPeek.missed}`,
+    );
+    const lookupRoute = read("app/api/canlii/case/route.ts");
+    check(
+      "a lookup that would reach CanLII counts against the person's own daily allowance first",
+      /caseSummary\(citation, peek\)[\s\S]*if \(peek\.missed\) \{\s*if \(!\(await allowPersonLookup\(user\.id\)\)\)/.test(lookupRoute),
+    );
     await first.api.lookupCase("2099 ONCA 1");
     const afterMiss = calls.length;
     await first.api.lookupCase("2099 ONCA 1");
@@ -460,6 +485,10 @@ async function main() {
     check("the CanLII box renders nothing until it has an answer, and nothing when off", /if \(!answer\?\.enabled \|\| !answer\.case\) return null;/.test(info));
     check("the CanLII box loads after the page, never holding it up", /useEffect\(/.test(info) && /"use client"/.test(info));
     check("being cited is never presented as being upheld", /not the same as being followed or upheld/.test(info));
+    check(
+      "a person's decision is looked up from its saved citation, not on every keystroke",
+      /<CanliiCaseInfo citation=\{details\.citation\}/.test(read("app/cases/_components/CourtDecisionPanel.tsx")),
+    );
   }
 
   // =========================================================================
@@ -504,6 +533,15 @@ async function main() {
       "help that names an anonymised party is refused",
       checkedDecisionHelp({ explanation: "The tenant, Jane Kowalski, paid the deposit.", passages: [] }, decision) === null &&
         checkedDecisionHelp({ explanation: "The tenant, known as Ms. Kowalski, paid.", passages: [] }, decision) === null,
+    );
+    check(
+      "a quotation inside the explanation must be in the decision too",
+      checkedDecisionHelp({ explanation: "The judge said \"the landlord acted in bad faith throughout\".", passages: [] }, decision) === null &&
+        checkedDecisionHelp({ explanation: "The judge said \"the deposit must be returned with interest\".", passages: [] }, decision) !== null,
+    );
+    check(
+      "a full name is caught even when one of its words appears in the decision",
+      namesNotInDecision("The tenant was Jane Kowalski.", `${decision} Jane signed the lease.`).length === 1,
     );
     check("the decision's own names and ordinary words pass", namesNotInDecision("Deputy Judge Alvarez found that the tenant, J.K., paid the deposit on March 1.", decision).length === 0);
     const prompt = read("app/api/workspace/documents/decision-help/route.ts");

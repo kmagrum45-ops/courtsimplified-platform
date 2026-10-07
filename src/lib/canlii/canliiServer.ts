@@ -9,7 +9,7 @@
  * CanLII were off. It never fails or waits because of CanLII (canliiCore.ts).
  */
 
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
 
 import {
   createCanliiClient,
@@ -22,7 +22,7 @@ import {
   type LeaseResult,
 } from "./canliiCore";
 
-function adminClient(): SupabaseClient | null {
+function adminClient(): ReturnType<typeof createClient> | null {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return null;
@@ -55,6 +55,21 @@ const store: CacheStore = {
     if (db) await db.from("canlii_cache").upsert({ key, payload, fetched_at: new Date().toISOString() });
   },
 };
+
+/** Lookups that reach CanLII, per person per day. Cached answers are free. */
+export const PER_PERSON_DAILY_LOOKUPS = 30;
+
+/**
+ * Counts one CanLII-reaching lookup for this person and says whether it is
+ * within their daily allowance. False when it cannot be counted (for example
+ * before the migration is applied), so an uncounted lookup never reaches CanLII.
+ */
+export async function allowPersonLookup(userId: string): Promise<boolean> {
+  const db = adminClient();
+  if (!db) return false;
+  const { data, error } = await db.rpc("canlii_user_allow", { person: userId, max_per_day: PER_PERSON_DAILY_LOOKUPS });
+  return !error && data === true;
+}
 
 let client: CanliiClient | null = null;
 

@@ -16,8 +16,10 @@
 -- again. `canlii_api_state` is one row that every server instance must take a
 -- short, token-held lease on before a call, so across ALL instances there is
 -- at most one call at a time, at least 500 ms apart (2 a second), and a daily
--- cap well under CanLII's 5,000. Both tables are server-only: RLS on, no
--- policies, no client grants (rlsManifest.mjs serverOnly).
+-- cap well under CanLII's 5,000. `canlii_user_usage` gives each person a
+-- daily allowance of lookups that reach CanLII. All three tables are
+-- server-only: RLS on, no policies, no client grants (rlsManifest.mjs
+-- serverOnly).
 --
 -- SAFE BEFORE AND AFTER. The site reads the new columns in a separate query
 -- and ignores a failure (courtDecisionStore.ts), and the CanLII client treats
@@ -78,6 +80,7 @@ CREATE TABLE IF NOT EXISTS "public"."canlii_cache" (
 
 ALTER TABLE "public"."canlii_cache" ENABLE ROW LEVEL SECURITY;
 REVOKE ALL ON TABLE "public"."canlii_cache" FROM "anon", "authenticated";
+GRANT ALL ON TABLE "public"."canlii_cache" TO "service_role";
 
 -- 3. The CanLII API rate-limit state: one row, one lease ----------------------
 -- The row is created by canlii_acquire on first use rather than seeded here.
@@ -93,6 +96,7 @@ CREATE TABLE IF NOT EXISTS "public"."canlii_api_state" (
 
 ALTER TABLE "public"."canlii_api_state" ENABLE ROW LEVEL SECURITY;
 REVOKE ALL ON TABLE "public"."canlii_api_state" FROM "anon", "authenticated";
+GRANT ALL ON TABLE "public"."canlii_api_state" TO "service_role";
 
 -- Takes the single lease when no call is in flight (or the last holder's lease
 -- has run out), the last call began at least `min_gap_ms` ago, and today's
@@ -141,6 +145,44 @@ REVOKE ALL ON FUNCTION "public"."canlii_acquire"(integer, integer, integer) FROM
 REVOKE ALL ON FUNCTION "public"."canlii_release"("uuid") FROM PUBLIC, "anon", "authenticated";
 GRANT EXECUTE ON FUNCTION "public"."canlii_acquire"(integer, integer, integer) TO "service_role";
 GRANT EXECUTE ON FUNCTION "public"."canlii_release"("uuid") TO "service_role";
+
+-- 3b. Each person's own daily allowance of lookups that reach CanLII ----------
+-- Without it, one account could step through citations and spend the whole
+-- day's cap (and use our key to harvest metadata, Terms s. 5.1). Lookups the
+-- cache already answers are free and not counted (app/api/canlii/case).
+
+CREATE TABLE IF NOT EXISTS "public"."canlii_user_usage" (
+    "user_id" "uuid" NOT NULL,
+    "day" "date" NOT NULL DEFAULT CURRENT_DATE,
+    "lookups" integer NOT NULL DEFAULT 0,
+    PRIMARY KEY ("user_id", "day")
+);
+
+ALTER TABLE "public"."canlii_user_usage" ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE "public"."canlii_user_usage" FROM "anon", "authenticated";
+GRANT ALL ON TABLE "public"."canlii_user_usage" TO "service_role";
+
+-- Counts one lookup for this person today and says whether it is within
+-- `max_per_day`. Atomic: the upsert takes the row lock.
+CREATE OR REPLACE FUNCTION "public"."canlii_user_allow"("person" "uuid", "max_per_day" integer)
+RETURNS boolean
+LANGUAGE "plpgsql"
+SET "search_path" TO 'public'
+AS $$
+DECLARE
+    used integer;
+BEGIN
+    INSERT INTO "public"."canlii_user_usage" ("user_id", "day", "lookups")
+    VALUES ("person", CURRENT_DATE, 1)
+    ON CONFLICT ("user_id", "day") DO UPDATE
+        SET "lookups" = "canlii_user_usage"."lookups" + 1
+    RETURNING "lookups" INTO used;
+    RETURN used <= "max_per_day";
+END;
+$$;
+
+REVOKE ALL ON FUNCTION "public"."canlii_user_allow"("uuid", integer) FROM PUBLIC, "anon", "authenticated";
+GRANT EXECUTE ON FUNCTION "public"."canlii_user_allow"("uuid", integer) TO "service_role";
 
 -- 4. The audit log's call type for help with an uploaded decision --------------
 -- Redefines the CHECK last defined in 20261004120000_ai_call_log_tidy_wording.sql,

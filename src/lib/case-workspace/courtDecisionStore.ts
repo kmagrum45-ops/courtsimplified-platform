@@ -11,7 +11,7 @@
  * test:canlii checks that no main documents select names these columns.
  */
 
-import type { SupabaseClient } from "@supabase/supabase-js";
+import type { createClient } from "@supabase/supabase-js";
 
 import { COURT_DECISION_TYPE, type DecisionDetails } from "./courtDecision";
 
@@ -21,7 +21,7 @@ export const DECISION_COLUMNS = "id,decision_case_name,decision_citation,decisio
 
 /** The owner's own decisions' details. Empty on any error, including "column does not exist". */
 export async function decisionDetailsFor(
-  supabase: SupabaseClient,
+  supabase: ReturnType<typeof createClient>,
   userId: string,
   rows: readonly { id: string; user_type: string | null }[],
 ): Promise<Map<string, DecisionDetails>> {
