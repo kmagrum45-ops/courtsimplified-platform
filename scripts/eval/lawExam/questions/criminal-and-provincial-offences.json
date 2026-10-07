@@ -45,6 +45,11 @@
         "file": "docs/sources/corpus/criminal-code.txt",
         "pinpoint": "s. 334(b)(i)",
         "quote": "of an indictable offence and is liable to imprisonment for a term not exceeding two years"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 334(b)(ii)",
+        "quote": "of an offence punishable on summary conviction"
       }
     ]
   },
@@ -56,13 +61,13 @@
     "story": "Gordon Lam and his neighbour Wendell Price in Peterborough have argued for two years over a shared laneway. Since August 2026, Wendell has parked his boat trailer across the mouth of Gordon's driveway most mornings, so Gordon cannot get his car out to go to work. Gordon has asked him in writing to stop. Wendell says the laneway is half his and he can park where he likes. Nothing has been damaged. Gordon's homeowner's insurer has told him this is not something it covers.",
     "question": "Gordon has heard the word 'mischief' but thinks it only covers breaking or damaging things. What does the Criminal Code say mischief covers, and what mental element does it require?",
     "expected": "answer",
-    "modelAnswer": "Mischief under s. 430(1) of the Criminal Code is not limited to damage. A person commits mischief who wilfully destroys or damages property (para. (a)), renders property dangerous, useless, inoperative or ineffective (para. (b)), obstructs, interrupts or interferes with the lawful use, enjoyment or operation of property (para. (c)), or obstructs, interrupts or interferes with any person in the lawful use, enjoyment or operation of property (para. (d)). Blocking someone from using their driveway is the kind of conduct paragraphs (c) and (d) describe. The mental element is that the act be done wilfully. Whether Wendell's parking was lawful use of a shared laneway, and whether Gordon's use was lawful, are questions of fact and property rights that the charge would turn on; the site does not judge them. Where the property is not worth more than $5,000 and no danger to life is involved, mischief may be prosecuted as an indictable offence (up to two years) or on summary conviction (s. 430(4)). A police decision to charge is separate from Gordon's own civil options.",
+    "modelAnswer": "Mischief under s. 430(1) of the Criminal Code is not limited to damage. A person commits mischief who wilfully destroys or damages property (para. (a)), renders property dangerous, useless, inoperative or ineffective (para. (b)), obstructs, interrupts or interferes with the lawful use, enjoyment or operation of property (para. (c)), or obstructs, interrupts or interferes with any person in the lawful use, enjoyment or operation of property (para. (d)). Blocking someone from using their driveway is the kind of conduct paragraphs (c) and (d) describe. The mental element is that the act be done wilfully; for this Part, a person who causes an event by an act, knowing the act will probably cause it and being reckless whether it occurs, is deemed to cause it wilfully (s. 429(1)). Section 429(2) adds that no one can be convicted of mischief if they act with legal justification or excuse or colour of right, which is why Wendell's claim that the laneway is half his matters. Whether Wendell's parking was lawful use of a shared laneway, and whether Gordon's use was lawful, are questions of fact and property rights that the charge would turn on; the site does not judge them. Where the property is not worth more than $5,000 and no danger to life is involved, mischief may be prosecuted as an indictable offence (up to two years) or on summary conviction (s. 430(4)). A police decision to charge is separate from Gordon's own civil options.",
     "keyPoints": [
       "mischief is done wilfully",
       "includes obstructing or interfering with lawful use or enjoyment of property",
       "includes interfering with a person in the lawful use of property",
       "damage is not required",
-      "indictable or summary conviction under s. 430(4)"
+      "no conviction where there is legal justification, excuse or colour of right (s. 429(2))"
     ],
     "sources": [
       {
@@ -89,6 +94,26 @@
         "file": "docs/sources/corpus/criminal-code.txt",
         "pinpoint": "s. 430(3)",
         "quote": "Every one who commits mischief in relation to property that is a testamentary instrument or the value of which exceeds five thousand dollars"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 429(1)",
+        "quote": "knowing that the act or omission will probably cause the occurrence of the event and being reckless whether the event occurs or not, shall be deemed, for the purposes of this Part, wilfully to have caused the occurrence of the event"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 429(2)",
+        "quote": "A person shall not be convicted of an offence under sections 430 to 446 if they act with legal justification or excuse or colour of right."
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 430(1)(b)",
+        "quote": "renders property dangerous, useless, inoperative or ineffective"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 430(2)",
+        "quote": "Every one who commits mischief that causes actual danger to life is guilty of an indictable offence and liable to imprisonment for life."
       }
     ]
   },
@@ -132,6 +157,16 @@
         "file": "docs/sources/corpus/criminal-code.txt",
         "pinpoint": "s. 266",
         "quote": "Every one who commits an assault is guilty of"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 265(3)(a)-(d)",
+        "quote": "the application of force to the complainant or to a person other than the complainant; (b) threats or fear of the application of force to the complainant or to a person other than the complainant; (c) fraud; or (d) the exercise of authority"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 266(a)-(b)",
+        "quote": "an indictable offence and is liable to imprisonment for a term not exceeding five years; or (b) an offence punishable on summary conviction"
       }
     ]
   },
@@ -181,6 +216,11 @@
         "file": "docs/sources/corpus/criminal-code.txt",
         "pinpoint": "s. 264(2)",
         "quote": "The conduct mentioned in subsection (1) consists of doing any of the following in person, by a means of telecommunication or by any other means"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 264(3)(b)",
+        "quote": "guilty of an offence punishable on summary conviction"
       }
     ]
   },
@@ -220,6 +260,11 @@
         "file": "docs/sources/corpus/criminal-code.txt",
         "pinpoint": "s. 264.1(3)",
         "quote": "Every one who commits an offence under paragraph (1)(b) or (c) (a) is guilty of an indictable offence and liable to imprisonment for a term not exceeding two years"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 264.1(3)(b)",
+        "quote": "is guilty of an offence punishable on summary conviction"
       }
     ]
   },
@@ -231,7 +276,7 @@
     "story": "In early August 2025 someone kicked in three panels of Nadia Haddad's backyard fence in Barrie, about $900 of damage. A neighbour's doorbell camera caught a man she recognises from the next street. Nadia did not go to police at the time because she was moving her mother into long-term care. She has now, in October 2026, decided to ask police to lay a mischief charge, and wants to know if any time limit applies.",
     "question": "Is there a time limit for a summary conviction proceeding under the Criminal Code, what starts it, and is there any exception?",
     "expected": "answer",
-    "modelAnswer": "Yes. Under s. 786(2) of the Criminal Code, which applies to summary conviction proceedings under that Part (s. 786(1)), no proceedings shall be instituted more than 12 months after the time when the subject matter of the proceedings arose. The clock runs from when the subject matter arose — here, when the fence was damaged in August 2025 — not from when Nadia decided to report it. The one exception the section gives is agreement: the 12-month bar does not apply if the prosecutor and the defendant so agree. Mischief to property worth not more than $5,000 can be prosecuted either as an indictable offence or on summary conviction (s. 430(4)); the 12-month limit in s. 786(2) is the limit for the summary conviction route. Whether a charge is laid, and by which route, is a decision for police and the prosecutor.",
+    "modelAnswer": "Yes. Under s. 786(2) of the Criminal Code, which applies to summary conviction proceedings under that Part (s. 786(1)), no proceedings shall be instituted more than 12 months after the time when the subject matter of the proceedings arose. The clock runs from when the subject matter arose — here, when the fence was damaged in August 2025 — not from when Nadia decided to report it. By October 2026 more than 12 months have passed since August 2025, so a summary conviction proceeding cannot now be instituted unless the prosecutor and the defendant agree. The one exception the section gives is agreement: the 12-month bar does not apply if the prosecutor and the defendant so agree. Mischief to property worth not more than $5,000 can be prosecuted either as an indictable offence or on summary conviction (s. 430(4)); the 12-month limit in s. 786(2) is the limit for the summary conviction route. Whether a charge is laid, and by which route, is a decision for police and the prosecutor.",
     "keyPoints": [
       "12 months",
       "from when the subject matter of the proceedings arose",
@@ -254,6 +299,11 @@
         "file": "docs/sources/corpus/criminal-code.txt",
         "pinpoint": "s. 430(4)",
         "quote": "is guilty of an indictable offence and liable to imprisonment for a term not exceeding two years; or (b) is guilty of an offence punishable on summary conviction"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 785, \"proceedings\" (a)",
+        "quote": "proceedings in respect of offences that are declared by an Act of Parliament or an enactment made thereunder to be punishable on summary conviction"
       }
     ]
   },
@@ -281,7 +331,7 @@
       },
       {
         "file": "docs/sources/corpus/criminal-code.txt",
-        "pinpoint": "s. 35(1)(b)(ii), (c)(ii)",
+        "pinpoint": "s. 35(1)(b)(ii)",
         "quote": "is about to take the property, is doing so or has just done so"
       },
       {
@@ -301,7 +351,7 @@
       },
       {
         "file": "docs/sources/corpus/criminal-code.txt",
-        "pinpoint": "s. 34(2)(b), (g)",
+        "pinpoint": "s. 34(2)(b)",
         "quote": "the extent to which the use of force was imminent and whether there were other means available to respond to the potential use of force"
       },
       {
@@ -316,8 +366,23 @@
       },
       {
         "file": "docs/sources/corpus/criminal-code.txt",
-        "pinpoint": "s. 34(2)(c), (e)",
+        "pinpoint": "s. 34(2)(c)",
         "quote": "the person’s role in the incident"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 34(2)",
+        "quote": "In determining whether the act committed is reasonable in the circumstances, the court shall consider the relevant circumstances of the person, the other parties and the act"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 34(2)(a)",
+        "quote": "the nature of the force or threat"
+      },
+      {
+        "file": "docs/sources/corpus/criminal-code.txt",
+        "pinpoint": "s. 34(2)(e)",
+        "quote": "the size, age, gender and physical capabilities of the parties to the incident"
       }
     ]
   },
@@ -372,6 +437,11 @@
         "file": "docs/sources/corpus/provincial-offences-act.txt",
         "pinpoint": "s. 8(2)",
         "quote": "Acceptance by the court office of payment under subsection (1) constitutes, (a) a plea of guilty by the defendant; (b) conviction of the defendant for the offence"
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 5.1(1)",
+        "quote": "This section applies if the offence notice indicates that an option of a meeting with the prosecutor to discuss the resolution of the offence is available."
       }
     ]
   },
@@ -383,13 +453,13 @@
     "story": "Aisha Rahman, a delivery driver in Mississauga, got an offence notice for an HTA offence in July 2026. A co-worker told her: \"Just pay it online. Paying isn't pleading guilty — it's like a parking fee. There's no conviction if you pay.\" Aisha is worried about her driving record because her job depends on it.",
     "question": "Paying the ticket online is not a conviction, so it cannot affect anything — right?",
     "expected": "correct-the-premise",
-    "modelAnswer": "No. Under s. 8(2) of the Provincial Offences Act, acceptance by the court office of payment of the set fine constitutes a plea of guilty by the defendant, conviction of the defendant for the offence, and imposition of a fine in the amount of the set fine. So paying is pleading guilty and being convicted. What is true is that a provincial offence is not a crime under criminal law and does not give a criminal record (CLEO, Steps to Justice). A person who does not wish to dispute the charge but wants to speak to penalty, or who wants a trial, has other options under the Act — for example, giving notice of intention to appear for a trial (s. 5(1)). Aisha would want to decide before paying.",
+    "modelAnswer": "No. Under s. 8(2) of the Provincial Offences Act, acceptance by the court office of payment of the set fine constitutes a plea of guilty by the defendant, conviction of the defendant for the offence, and imposition of a fine in the amount of the set fine. So paying is pleading guilty and being convicted. What is true is that a provincial offence does not give a criminal record (CLEO, Steps to Justice). Paying is not the only option. She can give notice of intention to appear for a trial (s. 5(1)); if the notice offers a meeting with the prosecutor, she can request one within 15 days after being served (s. 5.1(2)); and if it does not, she can appear before a justice to plead guilty and make submissions as to penalty (s. 7(1)). Aisha would want to decide before paying.",
     "keyPoints": [
       "payment is a plea of guilty",
       "payment is a conviction for the offence",
       "fine imposed in the amount of the set fine",
       "no criminal record for a provincial offence",
-      "trial option available instead"
+      "other options: trial, meeting with the prosecutor, or plea with submissions"
     ],
     "sources": [
       {
@@ -406,6 +476,16 @@
         "file": "docs/sources/corpus/provincial-offences-act.txt",
         "pinpoint": "s. 5(1)",
         "quote": "may give notice of their intention to appear in court for the purpose of entering a plea and having a trial of the matter"
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 5.1(2)",
+        "quote": "request a meeting with the prosecutor to discuss the resolution of the offence if, within 15 days after being served with the offence notice"
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 7(1)",
+        "quote": "may appear before a justice sitting in court for the purpose of pleading guilty to the offence and making submissions as to penalty"
       }
     ]
   },
@@ -417,7 +497,7 @@
     "story": "Jun Park filed a notice of intention to appear for a red-light ticket in Brampton in January 2026. In March he moved to Guelph and updated his licence address with the province, but the court office mailed the notice of trial to his old apartment. He never received it, did not attend, and was convicted in his absence. On October 1, 2026 he learned of the conviction when his insurer raised his premium. He is also annoyed that the officer misspelled his street name on the ticket.",
     "question": "What can Jun do about a conviction entered without a hearing, by when, and what has to be shown?",
     "expected": "answer",
-    "modelAnswer": "Under s. 11(1) of the Provincial Offences Act, a defendant convicted without a hearing may apply to have the conviction struck out by completing the prescribed form and filing it in the court office, within 15 days after becoming aware of the conviction. For Jun the 15 days run from when he became aware — on his account, October 1, 2026 — not from the date of the conviction. Under s. 11(2), the clerk shall strike out the conviction if satisfied, by the defendant's affidavit or other evidence, that through no fault of the defendant he was unable to appear for a hearing or did not receive delivery of a notice or document relating to the offence. Jun's evidence of the move and the misdirected notice goes to that. If the clerk does not strike it out, the clerk forwards the application to a justice for review (s. 11(3)). If the conviction is struck out, the clerk gives notice of the time and place of the trial (s. 11(4)(c)). The misspelled street name is a separate point about the certificate, not a requirement of s. 11.",
+    "modelAnswer": "A defendant who was given notice of the trial and does not appear is deemed not to dispute the charge, and a justice enters a conviction without a hearing (s. 9.1(1), (2)). Under s. 11(1) of the Provincial Offences Act, a defendant convicted without a hearing may apply to have the conviction struck out by completing the prescribed form and filing it in the court office, within 15 days after becoming aware of the conviction. For Jun the 15 days run from when he became aware — on his account, October 1, 2026 — not from the date of the conviction. Under s. 11(2), the clerk shall strike out the conviction if satisfied, by the defendant's affidavit or other evidence, that through no fault of the defendant he was unable to appear for a hearing or did not receive delivery of a notice or document relating to the offence. Jun's evidence of the move and the misdirected notice goes to that. If the clerk does not strike it out, the clerk forwards the application to a justice for review (s. 11(3)). If the conviction is struck out, the clerk gives notice of the time and place of the trial (s. 11(4)(c)). The misspelled street name is a separate point about the certificate, not a requirement of s. 11.",
     "keyPoints": [
       "15 days after becoming aware of the conviction",
       "file the prescribed form in the court office",
@@ -450,6 +530,21 @@
         "file": "docs/sources/corpus/provincial-offences-act.txt",
         "pinpoint": "s. 11(4)(c)",
         "quote": "to the defendant and the prosecutor of the time and place of the trial"
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 9.1(1)",
+        "quote": "A defendant is deemed to not wish to dispute the charge where the defendant has been issued a notice of the time and place of trial and fails to appear at the time and place appointed for the trial."
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 9.1(2)",
+        "quote": "shall without a hearing enter a conviction in the defendant's absence and impose the set fine for the offence if the certificate is complete and regular on its face"
+      },
+      {
+        "file": "docs/sources/corpus/provincial-offences-act.txt",
+        "pinpoint": "s. 11(3)",
+        "quote": "who shall strike out the conviction if the justice determines that the requirements in subsection (2) have been met"
       }
     ]
   },
@@ -494,6 +589,11 @@
         "file": "docs/sources/corpus/cleo-provincial-offences-i-dont-agree-with-my-provincial-offences-trial-can-i-appeal.txt",
         "pinpoint": "Question and answer",
         "quote": "You do not need to get permission to appeal, sometimes called leave, before starting your appeal."
+      },
+      {
+        "file": "docs/sources/corpus/cleo-provincial-offences-i-dont-agree-with-my-provincial-offences-trial-can-i-appeal.txt",
+        "pinpoint": "Question and answer",
+        "quote": "You must show that the Provincial Offences Court made an error that makes the decision improper."
       }
     ]
   },
@@ -543,6 +643,21 @@
         "file": "docs/sources/corpus/highway-traffic-act.txt",
         "pinpoint": "s. 200(2)",
         "quote": "liable to a fine of not less than $400 and not more than $2,000 or to imprisonment for a term of not more than six months, or to both, and in addition the person’s licence or permit may be suspended for a period of not more than two years"
+      },
+      {
+        "file": "docs/sources/corpus/highway-traffic-act.txt",
+        "pinpoint": "s. 200(1)",
+        "quote": "Where an accident occurs on a highway, every person in charge of a vehicle or street car that is directly or indirectly involved in the accident shall"
+      },
+      {
+        "file": "docs/sources/corpus/highway-traffic-act.txt",
+        "pinpoint": "s. 200(1)(c)",
+        "quote": "motor vehicle liability insurance policy insurer and policy number, name and address of the registered owner of the vehicle and the vehicle permit number"
+      },
+      {
+        "file": "docs/sources/corpus/highway-traffic-act.txt",
+        "pinpoint": "s. 199(1)(a)",
+        "quote": "the accident results in personal injuries or in damage to property apparently exceeding an amount prescribed by regulation"
       }
     ]
   },
@@ -607,6 +722,21 @@
         "file": "docs/sources/corpus/trespass-to-property-act.txt",
         "pinpoint": "s. 12(1)",
         "quote": "the court shall, on the request of the prosecutor and with the consent of the person who suffered the damage, determine the damages and shall make a judgment for damages against the person convicted"
+      },
+      {
+        "file": "docs/sources/corpus/trespass-to-property-act.txt",
+        "pinpoint": "s. 2(1)(a)(i)",
+        "quote": "enters on premises when entry is prohibited under this Act"
+      },
+      {
+        "file": "docs/sources/corpus/trespass-to-property-act.txt",
+        "pinpoint": "s. 3(1)",
+        "quote": "entry is prohibited without any notice on premises"
+      },
+      {
+        "file": "docs/sources/corpus/trespass-to-property-act.txt",
+        "pinpoint": "s. 11",
+        "quote": "or, at the time the offence was committed, the motor vehicle or motorized snow vehicle was in the possession of a person other than the owner without the owner's consent"
       }
     ]
   },
@@ -657,7 +787,7 @@
     "story": "On Halloween 2025 a 15-year-old, Tyler, kicked the side mirror off Leila Ahmadi's parked car in Oshawa and spray-painted the hood; repairs cost $2,300. Tyler was later found guilty under the Youth Criminal Justice Act and did not appeal. Leila wants to recover her money from Tyler's parents. A friend told her she would have to sue in the Superior Court and prove that the parents were negligent in supervising Tyler.",
     "question": "To get her money from Tyler's parents, Leila has to prove they were negligent supervisors — isn't that right?",
     "expected": "correct-the-premise",
-    "modelAnswer": "No. Under s. 2(1) of the Parental Responsibility Act, 2000, where a child (a person under 18, s. 1) damages or destroys property, the owner may bring an action in the Small Claims Court against a parent to recover damages, up to that court's monetary limit, for the loss of or damage to the property and for economic loss resulting from it. Under s. 2(2), the parent is liable unless the parent satisfies the court either that they were exercising reasonable supervision at the time and made reasonable efforts to prevent or discourage that kind of activity, or that the activity was not intentional. So the burden is on the parent, not on Leila, to show reasonable supervision. Section 2(3) lists what the court may consider on supervision, such as the child's age and prior conduct. And under s. 3(2), proof that the child was found guilty under the Youth Criminal Justice Act is proof, absent evidence to the contrary, that the child committed the offence, if no appeal was taken and the time for appeal has expired. Where both parents are liable, their liability is joint and several (s. 6). Leila would give the court notice in the prescribed form before presenting evidence obtained under that Act (s. 3(4)).",
+    "modelAnswer": "No. Under s. 2(1) of the Parental Responsibility Act, 2000, where a child (a person under 18, s. 1) damages or destroys property, the owner may bring an action in the Small Claims Court against a parent to recover damages, up to that court's monetary limit, for the loss of or damage to the property and for economic loss resulting from it. Under s. 2(2), the parent is liable unless the parent satisfies the court either that they were exercising reasonable supervision at the time and made reasonable efforts to prevent or discourage that kind of activity, or that the activity was not intentional. So the burden is on the parent, not on Leila, to show reasonable supervision. Section 2(3) lists what the court may consider on supervision, such as the child's age and prior conduct. And under s. 3(2), proof that the child was found guilty under the Youth Criminal Justice Act is proof, absent evidence to the contrary, that the child committed the offence, if no appeal was taken and the time for appeal has expired. The Act does not limit remedies otherwise available (s. 9), and even in an action brought otherwise than under the Act, the onus of establishing reasonable supervision and control rests with the parent (s. 10(2)). Where both parents are liable, their liability is joint and several (s. 6). Leila would give the court notice in the prescribed form before presenting evidence obtained under that Act (s. 3(4)).",
     "keyPoints": [
       "action in Small Claims Court against a parent",
       "parent liable unless the parent shows reasonable supervision or that it was not intentional",
@@ -710,6 +840,21 @@
         "file": "docs/sources/corpus/parental-responsibility-act-2000.txt",
         "pinpoint": "s. 2(1)(a)-(b)",
         "quote": "for loss of or damage to the property suffered as a result of the activity of the child; and (b) for economic loss suffered as a consequence of that loss of or damage to property"
+      },
+      {
+        "file": "docs/sources/corpus/parental-responsibility-act-2000.txt",
+        "pinpoint": "s. 2(1)",
+        "quote": "not in excess of the monetary jurisdiction of the Small Claims Court"
+      },
+      {
+        "file": "docs/sources/corpus/parental-responsibility-act-2000.txt",
+        "pinpoint": "s. 9",
+        "quote": "Nothing in this Act shall be interpreted to limit remedies otherwise available under existing law"
+      },
+      {
+        "file": "docs/sources/corpus/parental-responsibility-act-2000.txt",
+        "pinpoint": "s. 10(2)",
+        "quote": "the onus of establishing that the parent exercised reasonable supervision and control over the child rests with the parent"
       }
     ]
   },
@@ -769,6 +914,11 @@
         "file": "docs/sources/corpus/compulsory-automobile-insurance-act.txt",
         "pinpoint": "s. 3(1)",
         "quote": "An operator of a motor vehicle on a highway shall have in the motor vehicle at all times"
+      },
+      {
+        "file": "docs/sources/corpus/compulsory-automobile-insurance-act.txt",
+        "pinpoint": "s. 2(7)",
+        "quote": "In the event of a conviction under subsection (3), the justice may order that the motor vehicle"
       }
     ]
   }

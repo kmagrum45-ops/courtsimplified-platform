@@ -15,11 +15,31 @@
       "a tenancy ends only in accordance with the Act (s. 37 (1))"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 5 (i)", "quote": "living accommodation whose occupant or occupants are required to share a bathroom or kitchen facility with the owner" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 5 (i)", "quote": "where the owner, spouse, child or parent lives in the building in which the living accommodation is located" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 3 (1)", "quote": "applies with respect to rental units in residential complexes, despite any other Act and despite any agreement or waiver to the contrary" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 4 (1)", "quote": "a provision in a tenancy agreement that is inconsistent with this Act or the regulations is void" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 37 (1)", "quote": "A tenancy may be terminated only in accordance with this Act" }
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 5 (i)",
+        "quote": "living accommodation whose occupant or occupants are required to share a bathroom or kitchen facility with the owner"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 5 (i)",
+        "quote": "where the owner, spouse, child or parent lives in the building in which the living accommodation is located"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 3 (1)",
+        "quote": "applies with respect to rental units in residential complexes, despite any other Act and despite any agreement or waiver to the contrary"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 4 (1)",
+        "quote": "a provision in a tenancy agreement that is inconsistent with this Act or the regulations is void"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 37 (1)",
+        "quote": "A tenancy may be terminated only in accordance with this Act"
+      }
     ]
   },
   {
@@ -38,13 +58,51 @@
       "tenant may apply to the Board within one year to recover money collected illegally (s. 135)"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 105 (1)", "quote": "The only security deposit that a landlord may collect is a rent deposit collected in accordance with section 106" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 105 (2)", "quote": "as security for the performance of an obligation or the payment of a liability of the tenant or to be returned to the tenant upon the happening of a condition" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 106 (2)", "quote": "The amount of a rent deposit shall not be more than the lesser of the amount of rent for one rent period and the amount of rent for one month" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 106 (10)", "quote": "A landlord shall apply a rent deposit that a tenant has paid to the landlord or to a former landlord in payment of the rent for the last rent period before the tenancy terminates" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 135 (1)", "quote": "pay to the tenant any money the person collected or retained in contravention of this Act" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 135 (4)", "quote": "No order shall be made under this section with respect to an application filed more than one year after the person collected or retained money in contravention of this Act" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 34", "quote": "The tenant is responsible for the repair of undue damage to the rental unit or residential complex caused by the wilful or negligent conduct of the tenant" }
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 105 (1)",
+        "quote": "The only security deposit that a landlord may collect is a rent deposit collected in accordance with section 106"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 105 (2)",
+        "quote": "as security for the performance of an obligation or the payment of a liability of the tenant or to be returned to the tenant upon the happening of a condition"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 106 (2)",
+        "quote": "The amount of a rent deposit shall not be more than the lesser of the amount of rent for one rent period and the amount of rent for one month"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 106 (1)",
+        "quote": "A landlord may require a tenant to pay a rent deposit with respect to a tenancy if the landlord does so on or before entering into the tenancy agreement"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 106 (6)",
+        "quote": "A landlord of a rental unit shall pay interest to the tenant annually on the amount of the rent deposit at a rate equal to the guideline"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 106 (10)",
+        "quote": "A landlord shall apply a rent deposit that a tenant has paid to the landlord or to a former landlord in payment of the rent for the last rent period before the tenancy terminates"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 135 (1)",
+        "quote": "pay to the tenant any money the person collected or retained in contravention of this Act"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 135 (4)",
+        "quote": "No order shall be made under this section with respect to an application filed more than one year after the person collected or retained money in contravention of this Act"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 34",
+        "quote": "The tenant is responsible for the repair of undue damage to the rental unit or residential complex caused by the wilful or negligent conduct of the tenant"
+      }
     ]
   },
   {
@@ -63,10 +121,31 @@
       "tenant may deduct unpaid interest from a later rent payment (s. 106 (9))"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 106 (3)", "quote": "If the lawful rent increases after a tenant has paid a rent deposit, the landlord may require the tenant to pay an additional amount to increase the rent deposit up to the amount permitted by subsection (2)" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 106 (6)", "quote": "A landlord of a rental unit shall pay interest to the tenant annually on the amount of the rent deposit at a rate equal to the guideline determined under section 120" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 106 (7)", "quote": "the amount, if any, by which the maximum amount of the rent deposit permitted under subsection (2) exceeds the amount of the rent deposit paid by the tenant and the deducted amount shall be deemed to form part of the rent deposit paid by the tenant" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 106 (9)", "quote": "the tenant may deduct the amount of the payment from a subsequent rent payment" }
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 106 (3)",
+        "quote": "If the lawful rent increases after a tenant has paid a rent deposit, the landlord may require the tenant to pay an additional amount to increase the rent deposit up to the amount permitted by subsection (2)"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 106 (2)",
+        "quote": "The amount of a rent deposit shall not be more than the lesser of the amount of rent for one rent period and the amount of rent for one month"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 106 (6)",
+        "quote": "A landlord of a rental unit shall pay interest to the tenant annually on the amount of the rent deposit at a rate equal to the guideline determined under section 120"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 106 (7)",
+        "quote": "the amount, if any, by which the maximum amount of the rent deposit permitted under subsection (2) exceeds the amount of the rent deposit paid by the tenant and the deducted amount shall be deemed to form part of the rent deposit paid by the tenant"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 106 (9)",
+        "quote": "the tenant may deduct the amount of the payment from a subsequent rent payment"
+      }
     ]
   },
   {
@@ -85,11 +164,46 @@
       "one year from collection (s. 135 (4))"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 134 (1) (a)", "quote": "a fee, premium, commission, bonus, penalty, key deposit or other like amount of money whether or not the money is refundable" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 134 (1)", "quote": "Unless otherwise prescribed, no landlord shall, directly or indirectly, with respect to any rental unit" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 134 (2)", "quote": "No superintendent, property manager or other person who acts on behalf of a landlord with respect to a rental unit shall, directly or indirectly, with or without the authority of the landlord" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 135 (2)", "quote": "A prospective tenant may apply to the Board for an order under subsection (1)" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 135 (4)", "quote": "No order shall be made under this section with respect to an application filed more than one year after the person collected or retained money in contravention of this Act" }
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 105 (1)",
+        "quote": "The only security deposit that a landlord may collect is a rent deposit collected in accordance with section 106"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 106 (2)",
+        "quote": "The amount of a rent deposit shall not be more than the lesser of the amount of rent for one rent period and the amount of rent for one month"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 134 (1) (a)",
+        "quote": "a fee, premium, commission, bonus, penalty, key deposit or other like amount of money whether or not the money is refundable"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 134 (1)",
+        "quote": "Unless otherwise prescribed, no landlord shall, directly or indirectly, with respect to any rental unit"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 134 (2)",
+        "quote": "No superintendent, property manager or other person who acts on behalf of a landlord with respect to a rental unit shall, directly or indirectly, with or without the authority of the landlord"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 135 (1)",
+        "quote": "may apply to the Board for an order that the landlord, superintendent or agent of the landlord pay to the tenant any money the person collected or retained in contravention of this Act"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 135 (2)",
+        "quote": "A prospective tenant may apply to the Board for an order under subsection (1)"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 135 (4)",
+        "quote": "No order shall be made under this section with respect to an application filed more than one year after the person collected or retained money in contravention of this Act"
+      }
     ]
   },
   {
@@ -108,12 +222,36 @@
       "guideline cap of not more than 2.5 per cent unless an exception applies (s. 120)"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 116 (1)", "quote": "A landlord shall not increase the rent charged to a tenant for a rental unit without first giving the tenant at least 90 days written notice of the landlord's intention to do so" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 116 (3)", "quote": "The notice shall be in a form approved by the Board and shall set out the landlord's intention to increase the rent and the amount of the new rent" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 116 (4)", "quote": "An increase in rent is void if the landlord has not given the notice required by this section, and the landlord must give a new notice before the landlord can take the increase" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 119 (1)", "quote": "may do so only if at least 12 months have elapsed, (a) since the day of the last rent increase for that tenant in that rental unit, if there has been a previous increase; or (b) since the day the rental unit was first rented to that tenant" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 120 (1)", "quote": "by more than the guideline, except in accordance with section 126 or 127 or an agreement under section 121 or 123" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 120 (2), para. 2", "quote": "The guideline for a calendar year shall be not more than 2.5 per cent" }
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 116 (1)",
+        "quote": "A landlord shall not increase the rent charged to a tenant for a rental unit without first giving the tenant at least 90 days written notice of the landlord's intention to do so"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 116 (3)",
+        "quote": "The notice shall be in a form approved by the Board and shall set out the landlord's intention to increase the rent and the amount of the new rent"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 116 (4)",
+        "quote": "An increase in rent is void if the landlord has not given the notice required by this section, and the landlord must give a new notice before the landlord can take the increase"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 119 (1)",
+        "quote": "may do so only if at least 12 months have elapsed, (a) since the day of the last rent increase for that tenant in that rental unit, if there has been a previous increase; or (b) since the day the rental unit was first rented to that tenant"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 120 (1)",
+        "quote": "by more than the guideline, except in accordance with section 126 or 127 or an agreement under section 121 or 123"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 120 (2), para. 2",
+        "quote": "The guideline for a calendar year shall be not more than 2.5 per cent"
+      }
     ]
   },
   {
@@ -131,11 +269,36 @@
       "the landlord bears the onus of proving the exemption (s. 6.1 (6))"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 6.1 (2)", "quote": "Sections 120, 121, 122, 126, 127, 129, 131, 132, 133, 165 and 167 do not apply on and after the commencement date with respect to a rental unit" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 6.1 (2), para. 1", "quote": "no part of the building, mobile home park or land lease community was occupied for residential purposes on or before November 15, 2018" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 6.1 (4)", "quote": "does not apply with respect to a rental unit that is subject to a tenancy in respect of which a tenancy agreement was entered into on or before November 15, 2018" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 6.1 (6)", "quote": "the onus is on the landlord to prove that the subsection applies" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 116 (1)", "quote": "without first giving the tenant at least 90 days written notice of the landlord's intention to do so" }
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 6.1 (2)",
+        "quote": "Sections 120, 121, 122, 126, 127, 129, 131, 132, 133, 165 and 167 do not apply on and after the commencement date with respect to a rental unit"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 6.1 (2), para. 1",
+        "quote": "no part of the building, mobile home park or land lease community was occupied for residential purposes on or before November 15, 2018"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 6.1 (4)",
+        "quote": "does not apply with respect to a rental unit that is subject to a tenancy in respect of which a tenancy agreement was entered into on or before November 15, 2018"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 6.1 (6)",
+        "quote": "the onus is on the landlord to prove that the subsection applies"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 116 (1)",
+        "quote": "without first giving the tenant at least 90 days written notice of the landlord's intention to do so"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 119 (1)",
+        "quote": "may do so only if at least 12 months have elapsed"
+      }
     ]
   },
   {
@@ -154,13 +317,66 @@
       "tenant may leave earlier on at least 10 days' notice (s. 48 (3), (4))"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 48 (1)", "quote": "in good faith requires possession of the rental unit for the purpose of residential occupation for a period of at least one year" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 48 (2)", "quote": "The date for termination specified in the notice shall be at least 60 days after the notice is given and shall be the day a period of the tenancy ends" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 48.1 (1)", "quote": "a landlord shall compensate a tenant in an amount equal to one month's rent or offer the tenant another rental unit acceptable to the tenant" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 48.1 (2), para. 2", "quote": "The date for termination specified in the notice is at least 120 days after the notice is given" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 48.1, amendment table", "quote": "2025, c. 14, Sched. 12, s. 2 (1, 2) - 21/09/2026" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 48 (4)", "quote": "The date for termination specified in the tenant's notice shall be at least 10 days after the date the tenant's notice is given" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 72 (1) (a)", "quote": "unless the landlord has filed with the Board an affidavit sworn by the person who personally requires the rental unit" }
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 48 (1)",
+        "quote": "in good faith requires possession of the rental unit for the purpose of residential occupation for a period of at least one year"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 48 (1) (c)",
+        "quote": "a child or parent of the landlord or the landlord's spouse"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 48 (5)",
+        "quote": "(a) the rental unit is owned in whole or in part by an individual; and (b) the landlord is an individual"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 43 (1)",
+        "quote": "the notice shall be in a form approved by the Board"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 48 (2)",
+        "quote": "The date for termination specified in the notice shall be at least 60 days after the notice is given and shall be the day a period of the tenancy ends"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 48.1 (1)",
+        "quote": "a landlord shall compensate a tenant in an amount equal to one month's rent or offer the tenant another rental unit acceptable to the tenant"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 48.1 (2), para. 2",
+        "quote": "The date for termination specified in the notice is at least 120 days after the notice is given"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 48.1 (2), para. 3",
+        "quote": "The date for termination specified in the notice is the day a period of the tenancy ends"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 48.1, amendment table",
+        "quote": "2025, c. 14, Sched. 12, s. 2 (1, 2) - 21/09/2026"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 48 (3)",
+        "quote": "may, at any time before the date specified in the notice, terminate the tenancy, effective on a specified date earlier than the date set out in the landlord's notice"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 48 (4)",
+        "quote": "The date for termination specified in the tenant's notice shall be at least 10 days after the date the tenant's notice is given"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 72 (1) (a)",
+        "quote": "unless the landlord has filed with the Board an affidavit sworn by the person who personally requires the rental unit"
+      }
     ]
   },
   {
@@ -178,11 +394,36 @@
       "only a Board order or the tenant leaving gives possession (ss. 37 (1), 39)"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 48 (5)", "quote": "This section does not authorize a landlord to give a notice of termination of a tenancy with respect to a rental unit unless" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 48 (5) (a), (b)", "quote": "(a) the rental unit is owned in whole or in part by an individual; and (b) the landlord is an individual" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 39", "quote": "A landlord shall not recover possession of a rental unit subject to a tenancy unless, (a) the tenant has vacated or abandoned the unit; or (b) an order of the Board evicting the tenant has authorized the possession" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 37 (1)", "quote": "A tenancy may be terminated only in accordance with this Act" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 20 (1)", "quote": "A landlord is responsible for providing and maintaining a residential complex, including the rental units in it, in a good state of repair and fit for habitation" }
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 48 (5)",
+        "quote": "This section does not authorize a landlord to give a notice of termination of a tenancy with respect to a rental unit unless"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 48 (5) (a), (b)",
+        "quote": "(a) the rental unit is owned in whole or in part by an individual; and (b) the landlord is an individual"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 39",
+        "quote": "A landlord shall not recover possession of a rental unit subject to a tenancy unless, (a) the tenant has vacated or abandoned the unit; or (b) an order of the Board evicting the tenant has authorized the possession"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 37 (1)",
+        "quote": "A tenancy may be terminated only in accordance with this Act"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 72 (1) (a)",
+        "quote": "unless the landlord has filed with the Board an affidavit sworn by the person who personally requires the rental unit"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 20 (1)",
+        "quote": "A landlord is responsible for providing and maintaining a residential complex, including the rental units in it, in a good state of repair and fit for habitation"
+      }
     ]
   },
   {
@@ -202,13 +443,61 @@
       "orders include increased rent for a year and up to 12 months' rent general compensation (s. 57 (3))"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 57 (1) (a)", "quote": "the landlord gave a notice of termination under section 48 in bad faith, the former tenant vacated the rental unit as a result of the notice" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 57 (1) (a)", "quote": "no person referred to in clause 48 (1) (a), (b), (c) or (d) occupied the rental unit within a reasonable time after the former tenant vacated the rental unit" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 57 (2)", "quote": "No application may be made under subsection (1) more than one year after the former tenant vacated the rental unit" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 57 (5)", "quote": "it is presumed, unless the contrary is proven on a balance of probabilities, that a landlord gave a notice of termination under section 48 in bad faith" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 57 (5) (a)", "quote": "(a) advertises the rental unit for rent" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 57 (3), para. 1.1", "quote": "general compensation in an amount not exceeding the equivalent of 12 months of the last rent charged to the former tenant" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 57 (3), para. 1", "quote": "any increased rent that the former tenant has incurred or will incur for a one-year period after vacating the rental unit" }
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 57 (1) (a)",
+        "quote": "the landlord gave a notice of termination under section 48 in bad faith, the former tenant vacated the rental unit as a result of the notice"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 57 (1) (a)",
+        "quote": "no person referred to in clause 48 (1) (a), (b), (c) or (d) occupied the rental unit within a reasonable time after the former tenant vacated the rental unit"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 57 (2)",
+        "quote": "No application may be made under subsection (1) more than one year after the former tenant vacated the rental unit"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 57 (5)",
+        "quote": "it is presumed, unless the contrary is proven on a balance of probabilities, that a landlord gave a notice of termination under section 48 in bad faith"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 57 (5) (a)",
+        "quote": "(a) advertises the rental unit for rent"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 57 (6)",
+        "quote": "begins on the day the landlord gives the notice of termination under section 48"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 57 (6) (b)",
+        "quote": "ends one year after the former tenant vacates the rental unit"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 57 (3), para. 1.1",
+        "quote": "general compensation in an amount not exceeding the equivalent of 12 months of the last rent charged to the former tenant"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 57 (3), para. 1",
+        "quote": "any increased rent that the former tenant has incurred or will incur for a one-year period after vacating the rental unit"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 57 (3), para. 1.2",
+        "quote": "reasonable out-of-pocket moving, storage and other like expenses that the former tenant has incurred or will incur"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 57 (3), para. 3",
+        "quote": "An order that the landlord pay to the Board an administrative fine"
+      }
     ]
   },
   {
@@ -219,20 +508,74 @@
     "story": "Noor rents an apartment in Brampton for $2,100, due on the first of each month. She lost shifts at work and did not pay the rent due November 1, 2026. On November 5, 2026 her landlord handed her a notice of termination for non-payment of rent. The same week her car broke down. Noor also has an unresolved complaint about a broken dishwasher.",
     "question": "How soon after the notice can the termination date be, how can Noor stop the termination, and is the landlord under any deadline to apply to the Board?",
     "expected": "answer",
-    "modelAnswer": "Where a tenant fails to pay rent lawfully owing, the landlord may give notice of termination 'effective not earlier than the 7th day after the notice is given' (s. 59 (1), as amended by the Fighting Delays, Building Faster Act, 2025). The notice must set out the rent due and say that the tenant can avoid termination by paying, on or before the termination date, the rent due plus any additional rent that has come due by the date of payment (s. 59 (2)). The notice is void if, before the day the landlord applies to the Board, the tenant pays the arrears and the additional rent that would have been due (s. 59 (3)). As for the landlord's timing: the usual rule that an application may not be made later than 30 days after the termination date does not apply to an application based on non-payment of rent (s. 69 (2), (3)), and a non-payment notice is not one that becomes void 30 days after its termination date (s. 46 (2)). If the case goes to a hearing and Noor wants to raise her own issue, such as the dishwasher, she must give the landlord advance written notice within the time in the Rules and, unless the regulations provide otherwise, pay half of the rent arrears claimed before the hearing (s. 82 (1), (2)).",
+    "modelAnswer": "Where a tenant fails to pay rent lawfully owing, the landlord may give notice of termination 'effective not earlier than the 7th day after the notice is given' (s. 59 (1), as amended by the Fighting Delays, Building Faster Act, 2025). The notice must set out the rent due and say that the tenant can avoid termination by paying, on or before the termination date, the rent due plus any additional rent that has come due by the date of payment (s. 59 (2)). The notice is void if, before the day the landlord applies to the Board, the tenant pays the arrears and the additional rent that would have been due (s. 59 (3)). The landlord may not apply before the day after the termination date in the notice (s. 74 (1)), and even after an application is filed, it shall be discontinued if, before the eviction order issues, the Board is satisfied that she has paid the arrears, the additional rent that would have been due, and the landlord's application fee (s. 74 (2)). As for the landlord's timing: the usual rule that an application may not be made later than 30 days after the termination date does not apply to an application based on non-payment of rent (s. 69 (2), (3)), and a non-payment notice is not one that becomes void 30 days after its termination date (s. 46 (2)). If the case goes to a hearing and Noor wants to raise her own issue, such as the dishwasher, she must give the landlord advance written notice within the time in the Rules and, unless the regulations provide otherwise, pay half of the rent arrears claimed before the hearing (s. 82 (1), (2)).",
     "keyPoints": [
       "termination not earlier than the 7th day after notice (s. 59 (1))",
-      "paying the arrears before the landlord applies voids the notice (s. 59 (3))",
+      "paying the arrears before the landlord applies voids the notice (s. 59 (3)); paying arrears, later rent and the fee before an order discontinues the application (s. 74 (2))",
       "no 30-day application deadline for non-payment (s. 69 (3); s. 46 (2))",
       "raising tenant issues requires advance notice and paying half the arrears (s. 82 (2))"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 59 (1)", "quote": "the landlord may give the tenant notice of termination of the tenancy effective not earlier than the 7th day after the notice is given" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 59 (2)", "quote": "shall specify that the tenant may avoid the termination of the tenancy by paying, on or before the termination date specified in the notice, the rent due" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 59 (3)", "quote": "The notice of termination is void if, before the day the landlord applies to the Board for an order terminating the tenancy and evicting the tenant based on the notice, the tenant pays" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 69 (3)", "quote": "Subsection (2) does not apply with respect to an application based on the tenant's failure to pay rent" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 46 (2)", "quote": "Subsection (1) does not apply with respect to a notice based on a tenant's failure to pay rent" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 82 (2), para. 4", "quote": "Half of any rent arrears that were claimed in the application when it was filed" }
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 59 (1)",
+        "quote": "the landlord may give the tenant notice of termination of the tenancy effective not earlier than the 7th day after the notice is given"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 59 (2)",
+        "quote": "shall specify that the tenant may avoid the termination of the tenancy by paying, on or before the termination date specified in the notice, the rent due"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 59 (3)",
+        "quote": "The notice of termination is void if, before the day the landlord applies to the Board for an order terminating the tenancy and evicting the tenant based on the notice, the tenant pays"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 74 (1)",
+        "quote": "before the day following the termination date specified in the notice"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 74 (2)",
+        "quote": "shall be discontinued if, before the Board issues the eviction order, the Board is satisfied that the tenant has paid to the landlord or to the Board"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 74 (2) (c)",
+        "quote": "the landlord's application fee"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 69 (2)",
+        "quote": "An application under subsection (1) may not be made later than 30 days after the termination date specified in the notice"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 69 (3)",
+        "quote": "Subsection (2) does not apply with respect to an application based on the tenant's failure to pay rent"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 46 (2)",
+        "quote": "Subsection (1) does not apply with respect to a notice based on a tenant's failure to pay rent"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 82 (1)",
+        "quote": "the Board shall permit the tenant to raise any issue that could be the subject of an application made by the tenant under this Act if the tenant complies with the requirements set out in subsection (2)"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 82 (2), paras. 1-3",
+        "quote": "The tenant shall give advance notice to the landlord of the tenant's intent to raise the issue at the hearing"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 82 (2), para. 4",
+        "quote": "Half of any rent arrears that were claimed in the application when it was filed"
+      }
     ]
   },
   {
@@ -251,12 +594,56 @@
       "remedies include abatement and repair orders; prior notice to landlord considered (s. 30)"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 20 (1)", "quote": "A landlord is responsible for providing and maintaining a residential complex, including the rental units in it, in a good state of repair and fit for habitation and for complying with health, safety, housing and maintenance standards" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 20 (2)", "quote": "or a contravention of a standard before entering into the tenancy agreement" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 29 (1), para. 1", "quote": "An order determining that the landlord has breached an obligation under subsection 20 (1) or section 161" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 29 (2)", "quote": "No application may be made under subsection (1) more than one year after the day the alleged conduct giving rise to the application occurred" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 30 (1), para. 4", "quote": "Order the landlord to do specified repairs or replacements or other work within a specified time" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 30 (2)", "quote": "the Board shall consider whether the tenant or former tenant advised the landlord of the alleged breaches before applying to the Board" }
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 20 (1)",
+        "quote": "A landlord is responsible for providing and maintaining a residential complex, including the rental units in it, in a good state of repair and fit for habitation and for complying with health, safety, housing and maintenance standards"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 20 (2)",
+        "quote": "or a contravention of a standard before entering into the tenancy agreement"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 4 (1)",
+        "quote": "a provision in a tenancy agreement that is inconsistent with this Act or the regulations is void"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 29 (1), para. 1",
+        "quote": "An order determining that the landlord has breached an obligation under subsection 20 (1) or section 161"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 29 (2)",
+        "quote": "No application may be made under subsection (1) more than one year after the day the alleged conduct giving rise to the application occurred"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 30 (1), para. 4",
+        "quote": "Order the landlord to do specified repairs or replacements or other work within a specified time"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 30 (2)",
+        "quote": "the Board shall consider whether the tenant or former tenant advised the landlord of the alleged breaches before applying to the Board"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 30 (1), para. 2",
+        "quote": "Order an abatement of rent."
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 30 (1), para. 3",
+        "quote": "Authorize a repair or replacement that has been or is to be made"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 30 (1), para. 5",
+        "quote": "other reasonable out-of-pocket expenses that the tenant has incurred or will incur as a result of the landlord's breach"
+      }
     ]
   },
   {
@@ -276,13 +663,76 @@
       "illegal-entry application within one year (s. 29 (1), para. 6; s. 29 (2))"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 25", "quote": "A landlord may enter a rental unit only in accordance with section 26 or 27" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 26 (1)", "quote": "(a) in cases of emergency; or (b) if the tenant consents to the entry at the time of entry" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 26 (3) (a)", "quote": "the landlord and tenant have agreed that the tenancy will be terminated or one of them has given notice of termination to the other" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 27 (1)", "quote": "A landlord may enter a rental unit in accordance with written notice given to the tenant at least 24 hours before the time of entry" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 27 (3)", "quote": "shall specify the reason for entry, the day of entry and a time of entry between the hours of 8 a.m. and 8 p.m." },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 27 (2)", "quote": "at least 24 hours before the time of entry to allow a potential purchaser to view the rental unit" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 29 (1), para. 6", "quote": "An order determining that the landlord, superintendent or agent of the landlord has illegally entered the rental unit" }
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 25",
+        "quote": "A landlord may enter a rental unit only in accordance with section 26 or 27"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 26 (1)",
+        "quote": "(a) in cases of emergency; or (b) if the tenant consents to the entry at the time of entry"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 26 (3) (a)",
+        "quote": "the landlord and tenant have agreed that the tenancy will be terminated or one of them has given notice of termination to the other"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 27 (1)",
+        "quote": "A landlord may enter a rental unit in accordance with written notice given to the tenant at least 24 hours before the time of entry"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 27 (3)",
+        "quote": "shall specify the reason for entry, the day of entry and a time of entry between the hours of 8 a.m. and 8 p.m."
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 27 (2)",
+        "quote": "at least 24 hours before the time of entry to allow a potential purchaser to view the rental unit"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 29 (1), para. 6",
+        "quote": "An order determining that the landlord, superintendent or agent of the landlord has illegally entered the rental unit"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 4 (1)",
+        "quote": "a provision in a tenancy agreement that is inconsistent with this Act or the regulations is void"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 29 (2)",
+        "quote": "No application may be made under subsection (1) more than one year after the day the alleged conduct giving rise to the application occurred"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 31 (1) (a)",
+        "quote": "order that the landlord, superintendent or agent may not engage in any further activities listed in those paragraphs"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 31 (1) (c)",
+        "quote": "order an abatement of rent"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 31 (1) (b) (ii)",
+        "quote": "other reasonable out-of-pocket expenses that the tenant has incurred or will incur"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 31 (1) (d)",
+        "quote": "order that the landlord pay to the Board an administrative fine"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 31 (1) (f)",
+        "quote": "make any other order that it considers appropriate"
+      }
     ]
   },
   {
@@ -302,13 +752,81 @@
       "possession order must be filed with the sheriff within 15 days (s. 31 (5))"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 39", "quote": "A landlord shall not recover possession of a rental unit subject to a tenancy unless" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 24", "quote": "A landlord shall not alter the locking system on a door giving entry to a rental unit or residential complex or cause the locking system to be altered during the tenant's occupancy of the rental unit without giving the tenant replacement keys" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 40", "quote": "No landlord shall, without legal process, seize a tenant's property for default in the payment of rent" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 31 (3)", "quote": "order that the landlord allow the tenant to recover possession of the rental unit and that the landlord refrain from renting the unit to anyone else" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 31 (5) (a)", "quote": "at the end of the 15th day after the day it is issued if it is not filed within those 15 days with the sheriff" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 29 (1), para. 5", "quote": "has altered the locking system on a door giving entry to the rental unit or the residential complex or caused the locking system to be altered during the tenant's occupancy of the rental unit without giving the tenant replacement keys" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 41 (1)", "quote": "if the rental unit has been vacated in accordance with, (a) a notice of termination of the landlord or the tenant" }
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 39",
+        "quote": "A landlord shall not recover possession of a rental unit subject to a tenancy unless"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 37 (1)",
+        "quote": "A tenancy may be terminated only in accordance with this Act"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 24",
+        "quote": "A landlord shall not alter the locking system on a door giving entry to a rental unit or residential complex or cause the locking system to be altered during the tenant's occupancy of the rental unit without giving the tenant replacement keys"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 40",
+        "quote": "No landlord shall, without legal process, seize a tenant's property for default in the payment of rent"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 31 (3)",
+        "quote": "order that the landlord allow the tenant to recover possession of the rental unit and that the landlord refrain from renting the unit to anyone else"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 31 (5) (a)",
+        "quote": "at the end of the 15th day after the day it is issued if it is not filed within those 15 days with the sheriff"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 29 (1), para. 5",
+        "quote": "has altered the locking system on a door giving entry to the rental unit or the residential complex or caused the locking system to be altered during the tenant's occupancy of the rental unit without giving the tenant replacement keys"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 41 (1)",
+        "quote": "if the rental unit has been vacated in accordance with, (a) a notice of termination of the landlord or the tenant"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 29 (1), para. 3",
+        "quote": "has substantially interfered with the reasonable enjoyment of the rental unit or residential complex"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 31 (4)",
+        "quote": "shall have the same effect, and shall be enforced in the same manner, as a writ of possession"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 31 (1) (c)",
+        "quote": "order an abatement of rent"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 29 (1), para. 4",
+        "quote": "has harassed, obstructed, coerced, threatened or interfered with the tenant during the tenant's occupancy of the rental unit"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 31 (1) (b) (i)",
+        "quote": "replacing property of the tenant that was damaged, destroyed or disposed of"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 31 (1) (b) (ii)",
+        "quote": "other reasonable out-of-pocket expenses that the tenant has incurred or will incur"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 31 (1) (d)",
+        "quote": "order that the landlord pay to the Board an administrative fine"
+      }
     ]
   },
   {
@@ -319,7 +837,7 @@
     "story": "For about 14 months the heating in Amira's Hamilton apartment broke down again and again. She bought space heaters, spent four nights in a hotel during a cold snap, and her rent was never reduced. She has added up a claim of $22,000 against her landlord and wants to file it in Small Claims Court because a coworker told her it is faster. She still lives in the unit.",
     "question": "Can Amira choose to sue her landlord in Small Claims Court for these losses instead of applying to the Landlord and Tenant Board? What happens to any amount she claims above the Board's monetary limit?",
     "expected": "answer",
-    "modelAnswer": "A claim that the landlord failed to keep the unit in a good state of repair is a matter for the Board: a tenant may apply for an order determining that the landlord breached s. 20 (1) (s. 29 (1), para. 1), and the Board 'has exclusive jurisdiction to determine all applications under this Act' (s. 168 (2)). So she cannot simply choose a court for a claim the Board can hear. The Board may order payment of up to 'the greater of $10,000 and the monetary jurisdiction of the Small Claims Court' (s. 207 (1)). Only a person 'whose claim exceeds the Board's monetary jurisdiction' may start a proceeding in a court of competent jurisdiction, and that court can then exercise the Board's powers (s. 207 (2)). If she applies to the Board for an amount at or below its limit, 'all rights of the party in excess of the Board's monetary jurisdiction are extinguished once the Board issues its order' (s. 207 (3)), so she cannot later sue for the rest. Timing also matters: no application may be made more than one year after the day the alleged conduct occurred (s. 29 (2)), so the dates of each heating failure should be recorded.",
+    "modelAnswer": "A claim that the landlord failed to keep the unit in a good state of repair is a matter for the Board: a tenant may apply for an order determining that the landlord breached s. 20 (1) (s. 29 (1), para. 1), and the Board 'has exclusive jurisdiction to determine all applications under this Act' (s. 168 (2)). So she cannot simply choose a court for a claim the Board can hear. The Board may order payment of up to 'the greater of $10,000 and the monetary jurisdiction of the Small Claims Court' (s. 207 (1)); the Ministry of the Attorney General states that the Small Claims Court limit increased to $50,000 effective October 1, 2025, so the Board's limit is $50,000 and her $22,000 claim is within it. Only a person 'whose claim exceeds the Board's monetary jurisdiction' may start a proceeding in a court of competent jurisdiction, and that court can then exercise the Board's powers (s. 207 (2)). If she applies to the Board for an amount at or below its limit, 'all rights of the party in excess of the Board's monetary jurisdiction are extinguished once the Board issues its order' (s. 207 (3)), so she cannot later sue for the rest. Timing also matters: no application may be made more than one year after the day the alleged conduct occurred (s. 29 (2)), so the dates of each heating failure should be recorded.",
     "keyPoints": [
       "the Board has exclusive jurisdiction over applications under the Act (s. 168 (2))",
       "Board limit is the greater of $10,000 and the Small Claims Court limit (s. 207 (1))",
@@ -327,11 +845,41 @@
       "amounts above the limit are extinguished once the Board orders (s. 207 (3))"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 168 (2)", "quote": "The Board has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 207 (1)", "quote": "order the payment to any given person of an amount of money up to the greater of $10,000 and the monetary jurisdiction of the Small Claims Court" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 207 (2)", "quote": "A person entitled to apply under this Act but whose claim exceeds the Board's monetary jurisdiction may commence a proceeding in any court of competent jurisdiction" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 207 (3)", "quote": "all rights of the party in excess of the Board's monetary jurisdiction are extinguished once the Board issues its order" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 29 (2)", "quote": "No application may be made under subsection (1) more than one year after the day the alleged conduct giving rise to the application occurred" }
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 29 (1), para. 1",
+        "quote": "An order determining that the landlord has breached an obligation under subsection 20 (1) or section 161"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 168 (2)",
+        "quote": "The Board has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 207 (1)",
+        "quote": "order the payment to any given person of an amount of money up to the greater of $10,000 and the monetary jurisdiction of the Small Claims Court"
+      },
+      {
+        "file": "docs/sources/corpus/ontario-suing-someone-small-claims.txt",
+        "pinpoint": "Small Claims Court monetary increase",
+        "quote": "Effective October 1, 2025, the monetary jurisdiction of Small Claims Court will increase from $35,000 to $50,000"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 207 (2)",
+        "quote": "A person entitled to apply under this Act but whose claim exceeds the Board's monetary jurisdiction may commence a proceeding in any court of competent jurisdiction"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 207 (3)",
+        "quote": "all rights of the party in excess of the Board's monetary jurisdiction are extinguished once the Board issues its order"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 29 (2)",
+        "quote": "No application may be made under subsection (1) more than one year after the day the alleged conduct giving rise to the application occurred"
+      }
     ]
   },
   {
@@ -351,12 +899,56 @@
       "six-month claim to surplus sale proceeds (s. 42 (7))"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 79", "quote": "If a landlord believes that a tenant has abandoned a rental unit, the landlord may apply to the Board for an order terminating the tenancy" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 42 (1) (b)", "quote": "the landlord gives notice to the tenant of the rental unit and to the Board of the landlord's intention to dispose of the property" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 42 (2)", "quote": "If the tenant has abandoned the rental unit, the landlord may dispose of any unsafe or unhygienic items immediately" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 42 (3)", "quote": "The landlord may sell, retain for the landlord's own use or otherwise dispose of any other items if 30 days have passed" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 42 (6)", "quote": "The landlord may require the tenant to pay the landlord for arrears of rent and any reasonable out-of-pocket expenses incurred by the landlord in moving, storing or securing the tenant's property" },
-      { "file": "docs/sources/corpus/residential-tenancies-act-2006.txt", "pinpoint": "s. 42 (7)", "quote": "If, within six months after the date the notice referred to in clause (1) (b) is given to the tenant and the Board or the order terminating the tenancy is issued" }
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 39",
+        "quote": "A landlord shall not recover possession of a rental unit subject to a tenancy unless"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 79",
+        "quote": "If a landlord believes that a tenant has abandoned a rental unit, the landlord may apply to the Board for an order terminating the tenancy"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 42 (1) (b)",
+        "quote": "the landlord gives notice to the tenant of the rental unit and to the Board of the landlord's intention to dispose of the property"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 42 (2)",
+        "quote": "If the tenant has abandoned the rental unit, the landlord may dispose of any unsafe or unhygienic items immediately"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 42 (3)",
+        "quote": "The landlord may sell, retain for the landlord's own use or otherwise dispose of any other items if 30 days have passed"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 42 (4)",
+        "quote": "If, before the 30 days have passed, the tenant notifies the landlord that he or she intends to remove property referred to in subsection (3), the tenant may remove the property within that 30-day period"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 42 (5)",
+        "quote": "the landlord shall make the property available to the tenant at a reasonable time and at a location close to the rental unit"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 42 (6)",
+        "quote": "The landlord may require the tenant to pay the landlord for arrears of rent and any reasonable out-of-pocket expenses incurred by the landlord in moving, storing or securing the tenant's property"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 42 (7)",
+        "quote": "If, within six months after the date the notice referred to in clause (1) (b) is given to the tenant and the Board or the order terminating the tenancy is issued"
+      },
+      {
+        "file": "docs/sources/corpus/residential-tenancies-act-2006.txt",
+        "pinpoint": "s. 42 (7)",
+        "quote": "the landlord shall pay to the tenant the amount by which the proceeds of sale exceed the sum of"
+      }
     ]
   },
   {
@@ -376,15 +968,56 @@
       "relief from forfeiture in the Superior Court of Justice (s. 20)"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/commercial-tenancies-act.txt", "pinpoint": "s. 18 (1)", "quote": "if the rent reserved, or any part thereof, remains unpaid for fifteen days after any of the days on which it ought to have been paid, although no formal demand thereof has been made, it is lawful for the landlord at any time thereafter to re-enter" },
-      { "file": "docs/sources/corpus/ontario-renting-commercial-property.txt", "pinpoint": "Late or unpaid rent", "quote": "A landlord can change the locks and end the tenancy or seize and sell the tenant’s property to cover unpaid rent. They can’t do both." },
-      { "file": "docs/sources/corpus/ontario-renting-commercial-property.txt", "pinpoint": "Option 1: Change the locks", "quote": "For example, if rent was due January 1, the landlord may change the locks on January 17." },
-      { "file": "docs/sources/corpus/ontario-renting-commercial-property.txt", "pinpoint": "Resolving conflicts", "quote": "a landlord or tenant can apply to the Landlord and Tenant Board ( LTB ) for a determination about whether the Residential Tenancies Act applies to their situation" },
-      { "file": "docs/sources/corpus/commercial-tenancies-act.txt", "pinpoint": "s. 43", "quote": "Distress shall be reasonable." },
-      { "file": "docs/sources/corpus/commercial-tenancies-act.txt", "pinpoint": "s. 53", "quote": "cause the goods and chattels so distrained to be appraised by two appraisers" },
-      { "file": "docs/sources/corpus/commercial-tenancies-act.txt", "pinpoint": "s. 53", "quote": "does not, within five days next after such distress taken and notice thereof" },
-      { "file": "docs/sources/corpus/commercial-tenancies-act.txt", "pinpoint": "s. 20 (1)", "quote": "apply to the court for relief, and the court may grant such relief as, having regard to the proceeding and conduct of the parties under section 19 and to all the other circumstances, the court thinks fit" },
-      { "file": "docs/sources/corpus/commercial-tenancies-act.txt", "pinpoint": "s. 20 (4)", "quote": "pays into court all the rent in arrear and the costs of the proceeding, the proceeding is forever stayed" }
+      {
+        "file": "docs/sources/corpus/commercial-tenancies-act.txt",
+        "pinpoint": "s. 18 (1)",
+        "quote": "if the rent reserved, or any part thereof, remains unpaid for fifteen days after any of the days on which it ought to have been paid, although no formal demand thereof has been made, it is lawful for the landlord at any time thereafter to re-enter"
+      },
+      {
+        "file": "docs/sources/corpus/ontario-renting-commercial-property.txt",
+        "pinpoint": "Late or unpaid rent",
+        "quote": "A landlord can change the locks and end the tenancy or seize and sell the tenant’s property to cover unpaid rent. They can’t do both."
+      },
+      {
+        "file": "docs/sources/corpus/ontario-renting-commercial-property.txt",
+        "pinpoint": "Option 1: Change the locks",
+        "quote": "For example, if rent was due January 1, the landlord may change the locks on January 17."
+      },
+      {
+        "file": "docs/sources/corpus/ontario-renting-commercial-property.txt",
+        "pinpoint": "Resolving conflicts",
+        "quote": "a landlord or tenant can apply to the Landlord and Tenant Board ( LTB ) for a determination about whether the Residential Tenancies Act applies to their situation"
+      },
+      {
+        "file": "docs/sources/corpus/commercial-tenancies-act.txt",
+        "pinpoint": "s. 43",
+        "quote": "Distress shall be reasonable."
+      },
+      {
+        "file": "docs/sources/corpus/commercial-tenancies-act.txt",
+        "pinpoint": "s. 53",
+        "quote": "cause the goods and chattels so distrained to be appraised by two appraisers"
+      },
+      {
+        "file": "docs/sources/corpus/commercial-tenancies-act.txt",
+        "pinpoint": "s. 53",
+        "quote": "does not, within five days next after such distress taken and notice thereof"
+      },
+      {
+        "file": "docs/sources/corpus/commercial-tenancies-act.txt",
+        "pinpoint": "s. 20 (1)",
+        "quote": "apply to the court for relief, and the court may grant such relief as, having regard to the proceeding and conduct of the parties under section 19 and to all the other circumstances, the court thinks fit"
+      },
+      {
+        "file": "docs/sources/corpus/commercial-tenancies-act.txt",
+        "pinpoint": "s. 20 (4)",
+        "quote": "pays into court all the rent in arrear and the costs of the proceeding, the proceeding is forever stayed"
+      },
+      {
+        "file": "docs/sources/corpus/commercial-tenancies-act.txt",
+        "pinpoint": "s. 20 (5)",
+        "quote": "the lessee shall hold and enjoy the demised premises according to the lease thereof made without any new lease"
+      }
     ]
   },
   {
@@ -404,13 +1037,46 @@
       "priority over encumbrances; enforced like a mortgage (ss. 86 (1), 85 (6))"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/condominium-act-1998.txt", "pinpoint": "s. 84 (3)", "quote": "An owner is not exempt from the obligation to contribute to the common expenses even if, (a) the owner has waived or abandoned the right to use the common elements or part of them; (b) the owner is making a claim against the corporation" },
-      { "file": "docs/sources/corpus/condominium-act-1998.txt", "pinpoint": "s. 85 (1)", "quote": "the corporation has a lien against the owner's unit and its appurtenant common interest for the unpaid amount together with all interest owing and all reasonable legal costs and reasonable expenses" },
-      { "file": "docs/sources/corpus/condominium-act-1998.txt", "pinpoint": "s. 85 (2)", "quote": "The lien expires three months after the default that gave rise to the lien occurred unless the corporation within that time registers a certificate of lien" },
-      { "file": "docs/sources/corpus/condominium-act-1998.txt", "pinpoint": "s. 85 (4)", "quote": "At least 10 days before the day a certificate of lien is registered, the corporation shall give written notice of the lien to the owner" },
-      { "file": "docs/sources/corpus/condominium-act-1998.txt", "pinpoint": "s. 85 (6)", "quote": "The lien may be enforced in the same manner as a mortgage" },
-      { "file": "docs/sources/corpus/condominium-act-1998.txt", "pinpoint": "s. 86 (1)", "quote": "has priority over every registered and unregistered encumbrance even though the encumbrance existed before the lien arose" },
-      { "file": "docs/sources/corpus/condominium-act-1998.txt", "pinpoint": "s. 86 (3)", "quote": "give written notice of the lien to every encumbrancer whose encumbrance is registered against the title of the unit affected by the lien" }
+      {
+        "file": "docs/sources/corpus/condominium-act-1998.txt",
+        "pinpoint": "s. 84 (1)",
+        "quote": "the owners shall contribute to the common expenses in the proportions specified in the declaration"
+      },
+      {
+        "file": "docs/sources/corpus/condominium-act-1998.txt",
+        "pinpoint": "s. 84 (3)",
+        "quote": "An owner is not exempt from the obligation to contribute to the common expenses even if, (a) the owner has waived or abandoned the right to use the common elements or part of them; (b) the owner is making a claim against the corporation"
+      },
+      {
+        "file": "docs/sources/corpus/condominium-act-1998.txt",
+        "pinpoint": "s. 85 (1)",
+        "quote": "the corporation has a lien against the owner's unit and its appurtenant common interest for the unpaid amount together with all interest owing and all reasonable legal costs and reasonable expenses"
+      },
+      {
+        "file": "docs/sources/corpus/condominium-act-1998.txt",
+        "pinpoint": "s. 85 (2)",
+        "quote": "The lien expires three months after the default that gave rise to the lien occurred unless the corporation within that time registers a certificate of lien"
+      },
+      {
+        "file": "docs/sources/corpus/condominium-act-1998.txt",
+        "pinpoint": "s. 85 (4)",
+        "quote": "At least 10 days before the day a certificate of lien is registered, the corporation shall give written notice of the lien to the owner"
+      },
+      {
+        "file": "docs/sources/corpus/condominium-act-1998.txt",
+        "pinpoint": "s. 85 (6)",
+        "quote": "The lien may be enforced in the same manner as a mortgage"
+      },
+      {
+        "file": "docs/sources/corpus/condominium-act-1998.txt",
+        "pinpoint": "s. 86 (1)",
+        "quote": "has priority over every registered and unregistered encumbrance even though the encumbrance existed before the lien arose"
+      },
+      {
+        "file": "docs/sources/corpus/condominium-act-1998.txt",
+        "pinpoint": "s. 86 (3)",
+        "quote": "give written notice of the lien to every encumbrancer whose encumbrance is registered against the title of the unit affected by the lien"
+      }
     ]
   },
   {
@@ -421,23 +1087,90 @@
     "story": "Jun's car broke down on Highway 401 near Kingston. A tow truck took it to a vehicle storage yard. When Jun went to get his laptop from the back seat, the yard operator refused to let him take it until he paid the storage bill, and had not given him any invoice. Two days later Jun had the car taken to Pierre's garage. Pierre quoted $900 out loud to replace the alternator; there is no written agreement. Pierre now says the bill is $1,600 and will not release the car until it is paid in full. Jun's car is also overdue for an oil change.",
     "question": "What rights do the storage operator and Pierre have, and what can Jun do to get his laptop and his car back?",
     "expected": "answer",
-    "modelAnswer": "Storage yard: under the Towing and Storage Safety and Enforcement Act, 2021, no vehicle storage operator 'shall retain anything found in a motor vehicle as a means of pressuring a person to make a payment' for towing or storage services (s. 24 (5)), so holding the laptop to force payment is prohibited. The operator must also let the owner have reasonable access to the vehicle during regular business hours (s. 24 (2)), and may not charge or demand payment for storage without first providing an invoice in accordance with the regulations (s. 27 (2)). Garage: under the Repair and Storage Liens Act, in the absence of a written agreement to the contrary, a repairer has a lien on the article it repaired and may keep it until paid, for the amount the customer agreed to pay or, where no amount was agreed, the fair value of the repair (s. 3 (1)). No repairer's lien arises where the repairer was required to follow the listed consumer protection provisions and did not (s. 3 (2)); those provisions are outside this answer. If Pierre does not get paid, he may sell the car under Part III after 60 days from when payment came due or the repair was completed (s. 3 (3)). To get the car back while disputing the amount, Jun may apply to the court where there is a dispute about the amount of the lien or the work authorized (s. 24 (1), (1.2)). He must pay into court, or post security for, the full amount claimed, or pay in an amount he offers in settlement and secure the balance (s. 24 (4)); on receiving the initial certificate, Pierre must release the car within three days unless he files a notice of objection (s. 24 (6)). The oil change is irrelevant.",
+    "modelAnswer": "Storage yard: under the Towing and Storage Safety and Enforcement Act, 2021, no vehicle storage operator 'shall retain anything found in a motor vehicle as a means of pressuring a person to make a payment' for towing or storage services (s. 24 (5)), so holding the laptop to force payment is prohibited. The operator must also let the owner have reasonable access to the vehicle during regular business hours (s. 24 (2)), and may not charge or demand payment for storage without first providing an invoice in accordance with the regulations (s. 27 (2)). Garage: under the Repair and Storage Liens Act, in the absence of a written agreement to the contrary, a repairer has a lien on the article it repaired and may keep it until paid, for the amount the customer agreed to pay or, where no amount was agreed, the fair value of the repair (s. 3 (1)). But no repairer's lien arises if the repairer was required to comply with sections 56 and 57, subsection 58 (1) and section 59 of the Consumer Protection Act, 2002 and has not done so (RSLA s. 3 (2)). Under the CPA, no repairer shall charge a consumer for any work or repairs unless the repairer first gives an estimate that meets the prescribed requirements (CPA s. 56 (1)), and for a vehicle that estimate must be in writing (O. Reg. 17/05, s. 48). A repairer may charge without an estimate only if it offered one, the consumer declined, the consumer specifically authorized a maximum amount, and the charge does not exceed it (CPA s. 56 (2)). Pierre's $900 was said out loud, so it is not a written estimate; whether he can charge anything, and so whether he has a lien at all, turns on whether the s. 56 (2) conditions were met. If they were, the lien cannot exceed the maximum amount Jun authorized (RSLA s. 3 (2.1) (b)), and the $1,600 bill is above $900. If Pierre does not get paid, he may sell the car under Part III after 60 days from when payment came due or the repair was completed (s. 3 (3)). To get the car back while disputing the amount, Jun may apply to the court where there is a dispute about the amount of the lien or the work authorized (s. 24 (1), (1.2)). He must pay into court, or post security for, the full amount claimed, or pay in an amount he offers in settlement and secure the balance (s. 24 (4)); on receiving the initial certificate, Pierre must release the car within three days unless he files a notice of objection (s. 24 (6)). The oil change is irrelevant.",
     "keyPoints": [
       "storage operator may not hold items in the car to pressure payment (TSSEA s. 24 (5))",
       "invoice required before charging for storage (TSSEA s. 27 (2))",
-      "repairer's lien for agreed amount or fair value; may retain the car (RSLA s. 3 (1))",
+      "repairer's lien for agreed amount or fair value, but none if CPA s. 56 was required and not followed (RSLA s. 3 (1), (2))",
+      "written estimate required unless the consumer declined it and authorized a maximum (CPA s. 56)",
       "court application with payment into court; release within three days unless objection (RSLA s. 24)"
     ],
     "sources": [
-      { "file": "docs/sources/corpus/towing-and-storage-safety-and-enforcement-act-2021.txt", "pinpoint": "s. 24 (5)", "quote": "No tow truck driver, tow operator or vehicle storage operator shall retain anything found in a motor vehicle as a means of pressuring a person to make a payment for towing services or vehicle storage services" },
-      { "file": "docs/sources/corpus/towing-and-storage-safety-and-enforcement-act-2021.txt", "pinpoint": "s. 24 (2)", "quote": "A vehicle storage operator shall permit the owner of a motor vehicle and any other prescribed person to have reasonable access to the motor vehicle during the operator’s regular business hours" },
-      { "file": "docs/sources/corpus/towing-and-storage-safety-and-enforcement-act-2021.txt", "pinpoint": "s. 27 (2)", "quote": "No vehicle storage operator shall charge or demand payment for vehicle storage services without first providing an invoice to the person receiving the services" },
-      { "file": "docs/sources/corpus/repair-and-storage-liens-act.txt", "pinpoint": "s. 3 (1)", "quote": "In the absence of a written agreement to the contrary, a repairer has a lien against an article that the repairer has repaired for an amount equal to one of the following, and the repairer may retain possession of the article until the amount is paid" },
-      { "file": "docs/sources/corpus/repair-and-storage-liens-act.txt", "pinpoint": "s. 3 (1), para. 2", "quote": "Where no such amount has been agreed upon, the fair value of the repair" },
-      { "file": "docs/sources/corpus/repair-and-storage-liens-act.txt", "pinpoint": "s. 3 (3)", "quote": "upon the expiration of the sixty-day period following the day" },
-      { "file": "docs/sources/corpus/repair-and-storage-liens-act.txt", "pinpoint": "s. 24 (1.2) (a)", "quote": "a dispute concerning the amount of the lien of the lien claimant including any question relating to the quality of the repair" },
-      { "file": "docs/sources/corpus/repair-and-storage-liens-act.txt", "pinpoint": "s. 24 (4)", "quote": "The applicant shall pay into court, or deposit security with the court in the amount of, the full amount claimed by the respondent" },
-      { "file": "docs/sources/corpus/repair-and-storage-liens-act.txt", "pinpoint": "s. 24 (6)", "quote": "within three days of receiving the initial certificate, shall release the article described therein to the applicant unless, within the three day period, the respondent files with the court a notice of objection" }
+      {
+        "file": "docs/sources/corpus/towing-and-storage-safety-and-enforcement-act-2021.txt",
+        "pinpoint": "s. 24 (5)",
+        "quote": "No tow truck driver, tow operator or vehicle storage operator shall retain anything found in a motor vehicle as a means of pressuring a person to make a payment for towing services or vehicle storage services"
+      },
+      {
+        "file": "docs/sources/corpus/towing-and-storage-safety-and-enforcement-act-2021.txt",
+        "pinpoint": "s. 24 (2)",
+        "quote": "A vehicle storage operator shall permit the owner of a motor vehicle and any other prescribed person to have reasonable access to the motor vehicle during the operator’s regular business hours"
+      },
+      {
+        "file": "docs/sources/corpus/towing-and-storage-safety-and-enforcement-act-2021.txt",
+        "pinpoint": "s. 27 (2)",
+        "quote": "No vehicle storage operator shall charge or demand payment for vehicle storage services without first providing an invoice to the person receiving the services"
+      },
+      {
+        "file": "docs/sources/corpus/repair-and-storage-liens-act.txt",
+        "pinpoint": "s. 3 (1)",
+        "quote": "In the absence of a written agreement to the contrary, a repairer has a lien against an article that the repairer has repaired for an amount equal to one of the following, and the repairer may retain possession of the article until the amount is paid"
+      },
+      {
+        "file": "docs/sources/corpus/repair-and-storage-liens-act.txt",
+        "pinpoint": "s. 3 (1), para. 2",
+        "quote": "Where no such amount has been agreed upon, the fair value of the repair"
+      },
+      {
+        "file": "docs/sources/corpus/repair-and-storage-liens-act.txt",
+        "pinpoint": "s. 3 (2)",
+        "quote": "no repairer's lien arises if the repairer was required to comply with sections 56 and 57, subsection 58 (1) and section 59 of the Consumer Protection Act, 2002, if applicable, and the repairer has not done so"
+      },
+      {
+        "file": "docs/sources/corpus/consumer-protection-act-2002.txt",
+        "pinpoint": "s. 56 (1)",
+        "quote": "No repairer shall charge a consumer for any work or repairs unless the repairer first gives the consumer an estimate that meets the prescribed requirements"
+      },
+      {
+        "file": "docs/sources/corpus/oreg-17-05-consumer-protection-general.txt",
+        "pinpoint": "O. Reg. 17/05, s. 48",
+        "quote": "an estimate of the total cost of work on and repairs to a vehicle shall be in writing"
+      },
+      {
+        "file": "docs/sources/corpus/consumer-protection-act-2002.txt",
+        "pinpoint": "s. 56 (2)",
+        "quote": "the repairer offers to give the consumer an estimate and the consumer declines the offer of an estimate; (b) the consumer specifically authorizes the maximum amount that he or she will pay the repairer to make the repairs or do the work"
+      },
+      {
+        "file": "docs/sources/corpus/repair-and-storage-liens-act.txt",
+        "pinpoint": "s. 3 (2.1) (b)",
+        "quote": "the maximum amount authorized by the person who requested the repair, if section 56 of the Consumer Protection Act, 2002 applies to the person"
+      },
+      {
+        "file": "docs/sources/corpus/repair-and-storage-liens-act.txt",
+        "pinpoint": "s. 3 (3)",
+        "quote": "upon the expiration of the sixty-day period following the day"
+      },
+      {
+        "file": "docs/sources/corpus/repair-and-storage-liens-act.txt",
+        "pinpoint": "s. 24 (1.2) (a)",
+        "quote": "a dispute concerning the amount of the lien of the lien claimant including any question relating to the quality of the repair"
+      },
+      {
+        "file": "docs/sources/corpus/repair-and-storage-liens-act.txt",
+        "pinpoint": "s. 24 (4)",
+        "quote": "The applicant shall pay into court, or deposit security with the court in the amount of, the full amount claimed by the respondent"
+      },
+      {
+        "file": "docs/sources/corpus/repair-and-storage-liens-act.txt",
+        "pinpoint": "s. 24 (6)",
+        "quote": "within three days of receiving the initial certificate, shall release the article described therein to the applicant unless, within the three day period, the respondent files with the court a notice of objection"
+      },
+      {
+        "file": "docs/sources/corpus/repair-and-storage-liens-act.txt",
+        "pinpoint": "s. 24 (1)",
+        "quote": "may apply to the court in accordance with the procedure set out in this section to have the dispute resolved and the article returned"
+      }
     ]
   }
 ]

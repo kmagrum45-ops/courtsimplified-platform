@@ -83,6 +83,11 @@
         "file": "docs/sources/corpus/succession-law-reform-act.txt",
         "pinpoint": "s. 18 (2)",
         "quote": "in the case of a will that was made under section 5 or 6, the signature of the testator"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 21.1 (1)",
+        "quote": "If the Superior Court of Justice is satisfied that a document or writing that was not properly executed or made under this Act sets out the testamentary intentions of a deceased"
       }
     ]
   },
@@ -180,6 +185,11 @@
         "file": "docs/sources/corpus/succession-law-reform-act.txt",
         "pinpoint": "s. 57 (1) \"dependant\"",
         "quote": "“dependant” means, (a) the spouse of the deceased"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 15 (b), (c)",
+        "quote": "(b) another will made in accordance with the provisions of this Part; (c) a writing, (i) declaring an intention to revoke, and (ii) made in accordance with the provisions of this Part governing making of a will"
       }
     ]
   },
@@ -358,12 +368,12 @@
     "story": "Marguerite Lam's husband, Dennis, died in Mississauga on February 10, 2026. They had been married for 30 years and were living together. Dennis's will leaves Marguerite only his car and a $10,000 cash gift, and the rest of the estate, including a large investment portfolio he built during the marriage, to a charity. Dennis's executor wants to pay the charity right away. Marguerite's accountant thinks she might be better off claiming half the difference in their net family properties instead of taking under the will. It is now October 2026 and she has not filed anything.",
     "question": "What is the deadline for Marguerite to choose between the will and an equalization claim, where must the choice be filed, and what happens if she misses it? Can the executor pay the charity in the meantime?",
     "expected": "answer",
-    "modelAnswer": "When a spouse dies leaving a will, the surviving spouse must elect to take under the will or to receive the equalization entitlement under s. 5 (Family Law Act, s. 6 (1)). The election must be in the prescribed form and filed in the office of the Estate Registrar for Ontario within six months after the first spouse's death (s. 6 (10)). The clock starts at Dennis's death on February 10, 2026, so the six months had passed by October 2026. If no election is filed in time, she is deemed to have elected to take under the will, unless the court, on application, orders otherwise (s. 6 (11)); a late election therefore needs a court order. Separately, an application for equalization based on s. 5 (2) (a spouse's death) must not be brought after six months after the first spouse's death (s. 7 (3) (c)). On distribution: no distribution may be made within six months of the spouse's death unless the surviving spouse consents in writing or the court authorizes it (s. 6 (14)), and once the personal representative has notice of an application under this Part, distribution is restricted again (s. 6 (15)). If she elects equalization, the gifts to her in the will are revoked unless the will expressly says they are in addition (s. 6 (8)).",
+    "modelAnswer": "When a spouse dies leaving a will, the surviving spouse must elect to take under the will or to receive the equalization entitlement under s. 5 (Family Law Act, s. 6 (1)). The election must be in the prescribed form and filed in the office of the Estate Registrar for Ontario within six months after the first spouse's death (s. 6 (10)). The clock starts at Dennis's death on February 10, 2026, so the six months had passed by October 2026. If no election is filed in time, she is deemed to have elected to take under the will, unless the court, on application, orders otherwise (s. 6 (11)); a late election therefore needs a court order. Separately, an application for equalization based on s. 5 (2) (a spouse's death) must not be brought after six months after the first spouse's death (s. 7 (3) (c)). On distribution: no distribution may be made within six months of the spouse's death unless the surviving spouse consents in writing or the court authorizes it (s. 6 (14)). By October 2026 those six months have run, so s. 6 (14) no longer holds the executor back; but once the personal representative has received notice of an application under this Part, no distribution may be made without the applicant's written consent or the court's authorization (s. 6 (15)). So if Marguerite applies to the court for an order allowing a late election, giving the executor notice of that application matters. If she elects equalization, the gifts to her in the will are revoked unless the will expressly says they are in addition (s. 6 (8)).",
     "keyPoints": [
       "elect to take under the will or the s. 5 entitlement (s. 6 (1))",
       "file with the Estate Registrar for Ontario within six months after the death (s. 6 (10))",
       "deemed to take under the will if not filed, unless the court orders otherwise (s. 6 (11))",
-      "no distribution within six months without consent or court authorization (s. 6 (14))"
+      "no distribution within six months without consent or court authorization, or after notice of an application (s. 6 (14), (15))"
     ],
     "sources": [
       {
@@ -395,6 +405,11 @@
         "file": "docs/sources/corpus/family-law-act.txt",
         "pinpoint": "s. 6 (8)",
         "quote": "the gifts made to him or her in the deceased spouse’s will are revoked and the will shall be interpreted as if the surviving spouse had died before the other"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 6 (15)",
+        "quote": "No distribution shall be made in the administration of a deceased spouse’s estate after the personal representative has received notice of an application under this Part, unless, (a) the applicant gives written consent to the distribution; or (b) the court authorizes the distribution."
       }
     ]
   },
@@ -454,6 +469,31 @@
         "file": "docs/sources/corpus/substitute-decisions-act.txt",
         "pinpoint": "s. 47 (1)",
         "quote": "has the ability to understand whether the proposed attorney has a genuine concern for the person’s welfare"
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 8 (1) (d)",
+        "quote": "knows that the attorney must account for his or her dealings with the person’s property"
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 8 (1) (g)",
+        "quote": "appreciates the possibility that the attorney could misuse the authority given to him or her"
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 47 (1) (b)",
+        "quote": "appreciates that the person may need to have the proposed attorney make decisions for the person"
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 48 (1)",
+        "quote": "A power of attorney for personal care shall be executed in the presence of two witnesses, each of whom shall sign the power of attorney as witness."
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 48 (4)",
+        "quote": "is not effective, but the court may, on any person’s application, declare the power of attorney for personal care to be effective if the court is satisfied that it is in the grantor’s interests to do so"
       }
     ]
   },
@@ -465,12 +505,12 @@
     "story": "Owen Fitzgerald holds a valid continuing power of attorney for property for his mother, Agnes, 88, who signed it in 2019 while fully capable and now has advanced dementia. Owen's brother lives in British Columbia and has not visited in years. Agnes's 2010 will splits everything equally between the two brothers. Owen thinks that is unfair given that he does all the caregiving.",
     "question": "Since I hold Mom's power of attorney for property and she can no longer manage her affairs, what do I need to do to sign a new will for her leaving more to me?",
     "expected": "correct-the-premise",
-    "modelAnswer": "The premise is wrong: a power of attorney for property does not let the attorney make a will for the grantor. Under the Substitute Decisions Act, 1992, s. 7 (2), a continuing power of attorney may authorize the attorney to do on the grantor's behalf anything in respect of property that the grantor could do if capable, 'except make a will'. The capacity test for giving the power repeats this: the grantor must know that the attorney can do anything she could do with her property 'except make a will' (s. 8 (1) (c)). Owen's power of attorney does remain valid even though Agnes has since become incapable (s. 9 (2)), so he can keep managing her property, but he must account for his dealings with it (s. 8 (1) (d) describes this as something the grantor must know). Her 2010 will can be revoked or changed only in the ways the Succession Law Reform Act allows, by Agnes herself; s. 15 lists them, and none is an act by an attorney.",
+    "modelAnswer": "The premise is wrong: a power of attorney for property does not let the attorney make a will for the grantor. Under the Substitute Decisions Act, 1992, s. 7 (2), a continuing power of attorney may authorize the attorney to do on the grantor's behalf anything in respect of property that the grantor could do if capable, 'except make a will'. The capacity test for giving the power repeats this: the grantor must know that the attorney can do anything she could do with her property 'except make a will' (s. 8 (1) (c)). Owen's power of attorney does remain valid even though Agnes has since become incapable (s. 9 (2)), so he can keep managing her property. Because Agnes is incapable of managing property, s. 38 (1) applies s. 32 (other than subsections (10) and (11)) to Owen as attorney, with necessary modifications; that includes the duty to exercise his powers diligently, with honesty and integrity and in good faith, for her benefit (s. 32 (1)), and to keep accounts of all transactions involving her property (s. 32 (6)). Her 2010 will can be revoked only in the ways s. 15 of the Succession Law Reform Act lists: another will made under that Part, a writing declaring an intention to revoke made with the formalities of a will, or burning, tearing or otherwise destroying it by the testator or by someone in her presence and by her direction with the intention of revoking it. Each of those is Agnes's own act or done at her direction; none is something an attorney can do under a power of attorney, which cannot extend to making a will (s. 7 (2)).",
     "keyPoints": [
       "an attorney for property cannot make a will (s. 7 (2))",
       "the POA stays valid after the grantor becomes incapable (s. 9 (2))",
-      "the attorney must account for dealings with the property",
-      "only the testator can revoke or change her will (SLRA s. 15)"
+      "the attorney must keep accounts (s. 32 (6), applied by s. 38 (1))",
+      "a will is revoked only in the ways SLRA s. 15 lists, none of them by an attorney"
     ],
     "sources": [
       {
@@ -480,8 +520,8 @@
       },
       {
         "file": "docs/sources/corpus/substitute-decisions-act.txt",
-        "pinpoint": "s. 8 (1) (c), (d)",
-        "quote": "except make a will, subject to the conditions and restrictions set out in the power of attorney; (d) knows that the attorney must account for his or her dealings with the person’s property"
+        "pinpoint": "s. 8 (1) (c)",
+        "quote": "knows that the attorney will be able to do on the person’s behalf anything in respect of property that the person could do if capable, except make a will"
       },
       {
         "file": "docs/sources/corpus/substitute-decisions-act.txt",
@@ -492,6 +532,31 @@
         "file": "docs/sources/corpus/succession-law-reform-act.txt",
         "pinpoint": "s. 15",
         "quote": "A will or part of a will is revoked only by"
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 38 (1)",
+        "quote": "Section 32, except subsections (10) and (11), and sections 33, 33.1, 33.2, 34, 35.1, 36 and 37 also apply, with necessary modifications, to an attorney acting under a continuing power of attorney if the grantor is incapable of managing property"
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 32 (6)",
+        "quote": "A guardian shall, in accordance with the regulations, keep accounts of all transactions involving the property."
+      },
+      {
+        "file": "docs/sources/corpus/substitute-decisions-act.txt",
+        "pinpoint": "s. 32 (1)",
+        "quote": "A guardian of property is a fiduciary whose powers and duties shall be exercised and performed diligently, with honesty and integrity and in good faith, for the incapable person’s benefit."
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 15 (b), (c)",
+        "quote": "(b) another will made in accordance with the provisions of this Part; (c) a writing, (i) declaring an intention to revoke, and (ii) made in accordance with the provisions of this Part governing making of a will"
+      },
+      {
+        "file": "docs/sources/corpus/succession-law-reform-act.txt",
+        "pinpoint": "s. 15 (d)",
+        "quote": "burning, tearing or otherwise destroying it by the testator or by some person in his or her presence and by his or her direction with the intention of revoking it"
       }
     ]
   },
@@ -610,6 +675,11 @@
         "file": "docs/sources/corpus/mortgages-act.txt",
         "pinpoint": "s. 31 (1)",
         "quote": "other than the persons having an interest in the mortgaged property prior to that of the mortgagee"
+      },
+      {
+        "file": "docs/sources/corpus/mortgages-act.txt",
+        "pinpoint": "s. 22 (2)",
+        "quote": "The mortgagor may, by a notice in writing, require the mortgagee to furnish the mortgagor with a statement in writing"
       }
     ]
   },
@@ -695,10 +765,10 @@
     "area": "estates-and-real-property",
     "courtPath": "civil",
     "style": "multi-issue",
-    "story": "Irene Kowalski, a widow in St. Catharines, was 84 when she added her daughter Tanya, 52, as a joint owner of her $180,000 savings account in 2022, after Irene's eyesight began to fail. Tanya paid Irene's bills from the account; she has a good job and her own home. Irene's will, made in 2015, leaves everything equally to Tanya and her son Michael. Irene died in July 2026. Tanya says the account is hers by survivorship and is not part of the estate. Michael says it belongs to the estate. Irene left no note about the account. Tanya points out that she and her mother were very close and that she visited every day.",
+    "story": "Irene Kowalski, a widow in St. Catharines, was 84 when she added her daughter Tanya, 52, without Tanya paying anything, as a joint owner of her $180,000 savings account in 2022, after Irene's eyesight began to fail. Tanya paid Irene's bills from the account; she has a good job and her own home. Irene's will, made in 2015, leaves everything equally to Tanya and her son Michael. Irene died in July 2026. Tanya says the account is hers by survivorship and is not part of the estate. Michael says it belongs to the estate. Irene left no note about the account. Tanya points out that she and her mother were very close and that she visited every day.",
     "question": "How does a court approach whether the joint account passed to Tanya or belongs to Irene's estate? Who has to prove what, and to what standard, and does the parent-child relationship create a presumption of a gift?",
     "expected": "answer",
-    "modelAnswer": "The leading authority is Pecore v. Pecore, 2007 SCC 17. Adding Tanya to the account for no payment was a gratuitous transfer. The presumption of resulting trust is the general rule for gratuitous transfers: where a transfer is made for no consideration, the onus is on the transferee to show that a gift was intended, because equity presumes bargains, not gifts (para. 24). The presumption of advancement (a presumed gift) between parent and child is limited to transfers to minor children (para. 40). For an independent adult child like Tanya, there is a rebuttable presumption that she holds the property in trust for the ageing parent, to facilitate the management of the parent's affairs (para. 36). So Tanya, not Michael, carries the burden of showing that Irene intended a gift of the account, including the balance on death. The standard is the ordinary civil one: the evidence must show the transferor's contrary intention on the balance of probabilities (para. 43). The court starts with the presumption and weighs all of the evidence to find Irene's actual intention; the presumption decides the result only where there is not enough evidence to rebut it (para. 44). The closeness of the relationship does not create a presumption of a gift, but courts can consider evidence about the quality of the relationship in deciding whether the presumption of resulting trust has been rebutted (para. 37). Relevant evidence would include why the account was made joint (here, the failing eyesight and bill-paying), the will's equal division, and anything showing what Irene intended. If the account is held in trust, it forms part of the estate and passes under the will equally.",
+    "modelAnswer": "The leading authority is Pecore v. Pecore, 2007 SCC 17. Adding Tanya to the account for no payment was a gratuitous transfer. The presumption of resulting trust is the general rule for gratuitous transfers: where a transfer is made for no consideration, the onus is on the transferee to show that a gift was intended, because equity presumes bargains, not gifts (para. 24). The presumption of advancement (a presumed gift) between parent and child is limited to transfers to minor children (para. 40). For an independent adult child like Tanya, there is a rebuttable presumption that she holds the property in trust for the ageing parent, to facilitate the management of the parent's affairs (para. 36). So Tanya, not Michael, carries the burden of showing that Irene intended a gift of the account, including the balance on death. The standard is the ordinary civil one: the evidence must show the transferor's contrary intention on the balance of probabilities (para. 43). The court starts with the presumption and weighs all of the evidence to find Irene's actual intention; the presumption decides the result only where there is not enough evidence to rebut it (para. 44). The closeness of the relationship does not create a presumption of a gift, but courts can consider evidence about the quality of the relationship in deciding whether the presumption of resulting trust has been rebutted (para. 37). Relevant evidence would include why the account was made joint (here, the failing eyesight and bill-paying), the will's equal division, and anything showing what Irene intended. If Tanya does not prove that Irene intended to give her the right of survivorship, the assets are treated as part of Irene's estate and distributed according to her will (para. 53), here equally.",
     "keyPoints": [
       "presumption of resulting trust for gratuitous transfers to an adult child",
       "onus on the transferee to prove a gift was intended",
@@ -741,6 +811,11 @@
         "file": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
         "pinpoint": "para. 37",
         "quote": "I see no reason why courts cannot consider evidence relating to the quality of the relationship between the transferor and transferee in order to determine whether the presumption of a resulting trust has been rebutted"
+      },
+      {
+        "file": "docs/sources/decisions/pecore-v-pecore-2007-SCC-17.english.txt",
+        "pinpoint": "para. 53",
+        "quote": "it will fall to the surviving joint account holder to prove that the transferor intended to gift the right of survivorship to whatever assets are left in the account to the survivor. Otherwise, the assets will be treated as part of the transferor’s estate to be distributed according to the transferor’s will."
       }
     ]
   }
