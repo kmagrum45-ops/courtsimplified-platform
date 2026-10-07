@@ -10,8 +10,8 @@
  *   2. FETCH. Code pulls each named section from the library
  *      (namedProvisions), and searches the library with each statement, so the
  *      checker reads the real text even when a citation is slightly off.
- *   3. CHECK. A separate call sees only the statements and the passages. For
- *      each statement it must point to the passage and copy the words that
+ *   3. CHECK. A separate call for each statement, all side by side, sees only
+ *      that statement and its passages. It must point to the passage and copy the words that
  *      support it -- or, where the statement is wrong, give a corrected one
  *      the passage does support (the one chance to correct it).
  *   4. CODE DECIDES. A statement is shown only if the quoted words really are
@@ -24,7 +24,9 @@
  * support it (CLAUDE.md s. 2), and nothing unchecked gets through. Never
  * judges a case (s. 3); the answer is a suggestion, not a decision (s. 4).
  *
- * Costs two chat calls and one embedding call. Never throws: on any failure
+ * Costs one draft call, one embedding call and one small check call per
+ * statement. At the time limit, statements already checked are shown and the
+ * rest are listed as not confirmed. Never throws: on any failure
  * it answers { status: "unavailable" } and callers fall back to what they
  * showed before.
  */
@@ -66,7 +68,10 @@ export type CheckedAnswer = {
 
 export const MAX_STATEMENTS = 10;
 const MAX_CITES_PER_STATEMENT = 3;
-const MAX_PASSAGES = 36;
+/** Search hits read for each statement, on top of the sections it names. */
+const SEARCH_PER_STATEMENT = 4;
+/** The most passages one statement's check reads. */
+const PASSAGES_PER_STATEMENT = 10;
 const PASSAGE_CHARS = 1800;
 const STATEMENT_MAX = 600;
 
@@ -213,38 +218,52 @@ function personsWordsOf(input: CheckedAnswerInput): string {
   return `${input.question}\n${input.story ?? ""}\n${input.facts ?? ""}`;
 }
 
-/** Passages the checker reads: the named sections first, then what a search with each statement finds. */
+/**
+ * Passages the checker reads for each statement: the sections it names first,
+ * then what a search with that statement finds, then the sections those point
+ * to. Each statement gets its own short list, so each check is small and the
+ * checks run side by side (2026-10-07: one check over every passage at once
+ * ran past the time limit on 5 of 18 exam questions).
+ */
 async function gatherPassages(
   index: LoadedIndex,
   input: CheckedAnswerInput,
   draft: Draft,
   embed: NonNullable<CheckedAnswerDeps["embed"]>,
-): Promise<{ passages: Passage[]; missingLaw: string[] }> {
-  const byId = new Map<string, Passage>();
+): Promise<{ perStatement: Passage[][]; missingLaw: string[] }> {
   const missingLaw: string[] = [];
-  const add = (passage: Passage) => {
-    if (!byId.has(passage.id) && !excludedForCourt(input.courtPath, passage.sourceId)) byId.set(passage.id, passage);
-  };
-  for (const statement of draft.statements) {
+  const queries = draft.statements.map((statement) => `${statement.text} ${statement.cites.join("; ")}`.slice(0, 500));
+  const vectors = queries.length ? await embed(queries, index.meta.model, index.meta.dimensions) : [];
+  const perStatement = draft.statements.map((statement, i) => {
+    const byId = new Map<string, Passage>();
+    const add = (passage: Passage) => {
+      if (!byId.has(passage.id) && !excludedForCourt(input.courtPath, passage.sourceId)) byId.set(passage.id, passage);
+    };
     for (const cite of statement.cites) {
       const found = namedProvisions(index, cite, 0.9);
       if (found.length === 0) missingLaw.push(cite);
       for (const passage of found) add(passage);
     }
-  }
-  const queries = draft.statements.map((statement) => `${statement.text} ${statement.cites.join("; ")}`.slice(0, 500));
-  if (queries.length) {
-    const vectors = await embed(queries, index.meta.model, index.meta.dimensions);
-    const hits = searchIndex(index, vectors, {
-      perQuery: 3,
-      total: MAX_PASSAGES,
-      excludeSource: (sourceId) => excludedForCourt(input.courtPath, sourceId),
-    });
-    const found = hits.map((hit) => readPassage(index, hit.id, hit.score)).filter((passage): passage is Passage => Boolean(passage));
-    for (const passage of found) add(passage);
-    for (const passage of followCrossReferences(index, found)) add(passage);
-  }
-  return { passages: [...byId.values()].slice(0, MAX_PASSAGES), missingLaw: [...new Set(missingLaw)] };
+    if (vectors[i]) {
+      const hits = searchIndex(index, [vectors[i]], {
+        perQuery: SEARCH_PER_STATEMENT,
+        total: SEARCH_PER_STATEMENT,
+        excludeSource: (sourceId) => excludedForCourt(input.courtPath, sourceId),
+      });
+      const found = hits.map((hit) => readPassage(index, hit.id, hit.score)).filter((passage): passage is Passage => Boolean(passage));
+      for (const passage of found) add(passage);
+      for (const passage of followCrossReferences(index, found)) add(passage);
+    }
+    return [...byId.values()].slice(0, PASSAGES_PER_STATEMENT);
+  });
+  return { perStatement, missingLaw: [...new Set(missingLaw)] };
+}
+
+/** Resolves to `fallback` when `promise` has not settled by `deadline` (ms since epoch). */
+function byDeadline<T>(promise: Promise<T>, deadline: number, fallback: T): Promise<T> {
+  const left = deadline - Date.now();
+  if (left <= 0) return Promise.resolve(fallback);
+  return Promise.race([promise.catch(() => fallback), new Promise<T>((resolve) => setTimeout(() => resolve(fallback), left).unref?.())]);
 }
 
 function sourceOf(passage: Passage, quote: string): AnswerSource {
@@ -261,37 +280,53 @@ function sourceOf(passage: Passage, quote: string): AnswerSource {
 // ---------------------------------------------------------------- the pipeline
 
 export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnswerDeps = {}): Promise<CheckedAnswer> {
+  const deadline = Date.now() + (deps.timeoutMs ?? 50_000);
   const work = (async (): Promise<CheckedAnswer> => {
     const index = deps.index === undefined ? loadCorpusIndex() : deps.index;
     if (!index || !input.question.trim()) return UNAVAILABLE;
 
-    const draft = parseDraft(await (deps.draft ?? draftWithModel)(input));
+    const draftText = await byDeadline((deps.draft ?? draftWithModel)(input), deadline, null);
+    const draft = draftText === null ? null : parseDraft(draftText);
     if (!draft) return UNAVAILABLE;
     if (draft.scope === "outside") {
       return { status: "outside-scope", statements: [], notConfirmed: [], declinedToJudge: false, missingLaw: [] };
     }
     if (draft.statements.length === 0) return { ...UNAVAILABLE, declinedToJudge: draft.asksForPrediction };
 
-    const { passages, missingLaw } = await gatherPassages(index, input, draft, deps.embed ?? (await defaultEmbed()));
-    const byId = new Map(passages.map((passage) => [passage.id, passage]));
+    const gathered = await byDeadline(gatherPassages(index, input, draft, deps.embed ?? (await defaultEmbed())), deadline, null);
+    if (!gathered) return UNAVAILABLE;
+    const { perStatement, missingLaw } = gathered;
     const texts = draft.statements.map((statement) => statement.text);
-    const results = passages.length ? parseCheck(await (deps.check ?? checkWithModel)(texts, passages, input)) : [];
-    if (!results) return UNAVAILABLE;
+    const checkOne = deps.check ?? checkWithModel;
+
+    // One check per statement, side by side. A statement whose check has not
+    // finished by the time limit is listed as not confirmed; the rest are shown.
+    const results = await Promise.all(
+      texts.map(async (text, i) => {
+        const passages = perStatement[i];
+        if (!passages.length) return null;
+        const reply = await byDeadline(checkOne([text], passages, input), deadline, "");
+        const parsed = reply ? parseCheck(reply) : null;
+        const result = parsed?.find((item) => item.n === 1) ?? null;
+        return result ? { result, byId: new Map(passages.map((passage) => [passage.id, passage])) } : null;
+      }),
+    );
 
     const personsWords = personsWordsOf(input);
     const statements: AnswerStatement[] = [];
     const notConfirmed: string[] = [];
     texts.forEach((text, i) => {
-      const result = results.find((item) => item.n === i + 1);
+      const checked = results[i];
+      const result = checked?.result;
       const topic = result?.topic || text.split(/[.;:]/)[0].slice(0, 80);
-      if (!result || result.verdict === "unsupported") {
+      if (!checked || !result || result.verdict === "unsupported") {
         notConfirmed.push(topic);
         return;
       }
       const shown = result.verdict === "corrected" ? (result.corrected ?? "") : text;
       const support = [
-        { passage: byId.get(result.passage), quote: result.quote },
-        ...(result.passage2 && result.quote2 ? [{ passage: byId.get(result.passage2), quote: result.quote2 }] : []),
+        { passage: checked.byId.get(result.passage), quote: result.quote },
+        ...(result.passage2 && result.quote2 ? [{ passage: checked.byId.get(result.passage2), quote: result.quote2 }] : []),
       ].filter((entry): entry is { passage: Passage; quote: string } => Boolean(entry.passage));
       const why = shown ? statementRejection(shown, support, personsWords) : "no corrected statement";
       if (why) {
@@ -312,8 +347,8 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
     };
   })().catch(() => UNAVAILABLE);
 
-  const timeoutMs = deps.timeoutMs ?? 50_000;
-  return Promise.race([work, new Promise<CheckedAnswer>((resolve) => setTimeout(() => resolve(UNAVAILABLE), timeoutMs).unref?.())]);
+  // A last guard: whatever happens above, the caller hears back shortly after the limit.
+  return byDeadline(work, deadline + 1_000, UNAVAILABLE);
 }
 
 /** What the screens receive: everything but the internal list of missing laws. */
