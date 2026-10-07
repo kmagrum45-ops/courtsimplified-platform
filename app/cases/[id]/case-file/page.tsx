@@ -55,11 +55,12 @@ function whenText(event: EventRow): string {
 }
 
 export default function CaseFileSection() {
-  const { caseRecord, position } = useCaseHome();
+  const { caseRecord, position, stepId } = useCaseHome();
   const master = (caseRecord.master_result ?? {}) as Record<string, unknown>;
   const intake = (master.intakeData ?? {}) as { facts?: string; goal?: string; yourName?: string; otherParty?: string };
   const drafts = readCaseDrafts(master);
-  const step = position.stepId ? findStage(position.stepId) : undefined;
+  // The chosen step, or the one the confirmed stage points to (Phase 1).
+  const step = stepId ? findStage(stepId) : undefined;
 
   const [events, setEvents] = useState<EventRow[] | null>(null);
   const [documents, setDocuments] = useState<DocumentRow[] | null>(null);
@@ -71,13 +72,13 @@ export default function CaseFileSection() {
   const datesGiven = Object.keys(position.dateAnswers ?? {}).length > 0;
 
   useEffect(() => {
-    if (caseRecord.court_path === "small-claims" || !position.stepId || !datesGiven) return;
+    if (caseRecord.court_path === "small-claims" || !stepId || !datesGiven) return;
     void (async () => {
       const response = await fetch("/api/case/stage-answer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          stageId: position.stepId,
+          stageId: stepId,
           courtPath: caseRecord.court_path,
           confirmedFacts: {},
           dateAnswers: position.dateAnswers,
@@ -87,7 +88,7 @@ export default function CaseFileSection() {
       const sections = (body?.answer?.sections ?? []) as { heading: string; text: string }[];
       setStepDeadline(sections.find((section) => /deadline/i.test(section.heading))?.text ?? null);
     })();
-  }, [caseRecord.court_path, position.stepId, position.dateAnswers, datesGiven]);
+  }, [caseRecord.court_path, stepId, position.dateAnswers, datesGiven]);
 
   useEffect(() => {
     void (async () => {

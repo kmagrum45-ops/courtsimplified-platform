@@ -30,6 +30,8 @@
  * NO MODEL IS CALLED HERE.
  */
 
+import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
+import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
 import { NextRequest, NextResponse } from "next/server";
 
 import { createClient } from "@supabase/supabase-js";
@@ -280,7 +282,7 @@ export async function GET(req: NextRequest) {
       /*
        * Deadlines come from the engine, for the step the user chose and the
        * dates they gave (master_result.position, written by /api/cases/position).
-       * A case with no chosen step gets no computed deadlines — not a guess at
+       * A case with no chosen step uses the step its confirmed stage points to (below); with neither, no computed deadlines — not a guess at
        * which step it might be at.
        *
        * Until 2026-10-04 this looked the stage up by the case's COURT PATH
@@ -290,7 +292,17 @@ export async function GET(req: NextRequest) {
        * regulation whatever the deadline's source.
        */
       const position = readCasePosition(ownedCase.master_result, ownedCase.court_path);
-      const stage = position.stepId ? findStage(position.stepId) : undefined;
+      // The step the person chose, or else the one their confirmed stage
+      // points to -- the same step the case page shows them as theirs
+      // (Phase 1, 2026-10-07: dates given with no step picked counted nothing
+      // here while the case page counted them).
+      const record = readCaseRecord(ownedCase.master_result, ownedCase.court_path);
+      const stepId =
+        position.stepId ||
+        (record.courtPath && position.confirmedStage
+          ? suggestedStageFor(record.courtPath, position.confirmedStage, record.side?.value === "responding")
+          : "");
+      const stage = stepId ? findStage(stepId) : undefined;
       const dates = caseDatesFrom(position.dateAnswers);
 
       const computed = stage ? computedDeadlinesFor(stage.deadlines, dates, "workspace") : [];

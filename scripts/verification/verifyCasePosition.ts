@@ -224,7 +224,9 @@ const read = (file: string) => readFileSync(path.join(process.cwd(), file), "utf
   const route = read("app/api/workspace/organisation/route.ts");
   check(
     "workspace deadlines come from the stored step and dates",
-    /readCasePosition\(/.test(route) && /findStage\(position\.stepId\)/.test(route) && /caseDatesFrom\(position\.dateAnswers\)/.test(route),
+    // The chosen step first; since Phase 1 (2026-10-07) the step the
+    // confirmed stage points to when none was chosen.
+    /readCasePosition\(/.test(route) && /position\.stepId\s*\|\|/.test(route) && /findStage\(stepId\)/.test(route) && /caseDatesFrom\(position\.dateAnswers\)/.test(route),
   );
   check("workspace deadlines no longer match a stage id to a court path", !/candidate\.id === ownedCase\.court_path/.test(route));
 }
@@ -238,7 +240,9 @@ const read = (file: string) => readFileSync(path.join(process.cwd(), file), "utf
     saveAt !== -1 &&
       readAt !== -1 &&
       /\.\.\.userOwned/.test(builder.slice(saveAt, saveAt + 400)) &&
-      /\["position", "drafts"\]/.test(builder.slice(readAt, saveAt)),
+      // The kept keys include position and drafts; more may join (Phase 1
+      // added formApplicability and intakeAnswers).
+      /\["position", "drafts"[^\]]*\]/.test(builder.slice(readAt, saveAt)),
   );
 }
 

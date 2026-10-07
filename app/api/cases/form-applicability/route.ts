@@ -1,3 +1,5 @@
+import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
+import { suggestApplicability } from "@/src/lib/case-system/forms/applicabilitySuggestions";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
@@ -202,7 +204,11 @@ export async function GET(request: Request) {
   if (!CASE_ID_PATTERN.test(caseId)) return NextResponse.json({ error: "A valid selected case is required." }, { status: 400 });
   const result = await readinessForOwnedCase(request, caseId);
   if ("error" in result) return NextResponse.json({ error: result.error }, { status: result.status });
-  return NextResponse.json({ courtPath: result.area, formApplicability: asRecord(result.masterResult.formApplicability) || {}, applicabilityQuestions: result.applicabilityQuestions, recommendations: result.recommendations, stageSupport: result.stageSupport });
+  return NextResponse.json({ courtPath: result.area, formApplicability: asRecord(result.masterResult.formApplicability) || {}, applicabilityQuestions: result.applicabilityQuestions, suggestedApplicability: suggestionsFor(result), recommendations: result.recommendations, stageSupport: result.stageSupport });
+}
+/** Answers the case already holds, offered for the person to confirm (applicabilitySuggestions.ts). */
+function suggestionsFor(result: { area: FormsCourtPath; masterResult: Record<string, unknown>; applicabilityQuestions: ApplicabilityQuestion[] }) {
+  return suggestApplicability(result.applicabilityQuestions, readCaseRecord(result.masterResult, result.area), result.masterResult);
 }
 export async function PATCH(request: Request) {
   const contentLength = Number(request.headers.get("content-length") || 0);
@@ -224,5 +230,5 @@ export async function PATCH(request: Request) {
   if (!data?.id) return NextResponse.json({ error: "The selected case could not be updated." }, { status: 404 });
   const updated = await readinessForOwnedCase(request, caseId);
   if ("error" in updated) return NextResponse.json({ error: updated.error }, { status: updated.status });
-  return NextResponse.json({ courtPath: updated.area, formApplicability: asRecord(updated.masterResult.formApplicability) || {}, applicabilityQuestions: updated.applicabilityQuestions, recommendations: updated.recommendations, stageSupport: updated.stageSupport });
+  return NextResponse.json({ courtPath: updated.area, formApplicability: asRecord(updated.masterResult.formApplicability) || {}, applicabilityQuestions: updated.applicabilityQuestions, suggestedApplicability: suggestionsFor(updated), recommendations: updated.recommendations, stageSupport: updated.stageSupport });
 }

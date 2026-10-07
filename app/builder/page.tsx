@@ -1,6 +1,7 @@
 "use client";
 
 import { recordedAmountOf } from "@/src/lib/case-system/amountNotes";
+import { documentsOf } from "@/src/lib/case-system/caseRecord";
 import Link from "next/link";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -350,6 +351,8 @@ function BuilderPageContent() {
    * A ref, because the save runs after the state update that sets them.
    */
   const guidedDatesRef = useRef<Record<string, string>>({});
+  /** Every answer the person confirmed in the guided intake, kept with the case (Phase 1). */
+  const guidedAnswersRef = useRef<{ questionId: string; answerText: string }[]>([]);
   /** What the panel saved this visit, so Back then Forward shows it (page review, 2026-10-07). */
   const [positionThisVisit, setPositionThisVisit] = useState<{ stepId?: string | null; dateAnswers?: Record<string, string> }>({});
 
@@ -816,9 +819,11 @@ function BuilderPageContent() {
          * has not told us they did not file — the same one-directional rule the
          * event-derived facts follow, for the same reason.
          */
-        const filingFacts = filingFactsFromDocuments(
-          (caseData as unknown as Record<string, unknown>)?.filedDocuments,
-        );
+        // The documents list lives in `extra` (filedDocuments, or documents
+        // for civil). This read a top-level key that does not exist, so
+        // form-intake cases saved no filing facts and the timeline said
+        // "not enough recorded" (Phase 1 inventory, 2026-10-07).
+        const filingFacts = filingFactsFromDocuments(documentsOf(caseData));
 
         const intakeFacts: Record<string, unknown> = {
           ...(filingFacts.anythingFiled ? { claimFiled: true } : {}),
@@ -844,12 +849,15 @@ function BuilderPageContent() {
           .maybeSingle();
         const storedMaster = asRecord(userOwnedRow?.master_result);
         const userOwned: Record<string, unknown> = Object.fromEntries(
-          (["position", "drafts"] as const)
+          // formApplicability (the Forms page answers) and intakeAnswers (the
+          // guided answers) are the user's too; a re-save erased them.
+          (["position", "drafts", "formApplicability", "intakeAnswers"] as const)
             .filter((key) => storedMaster[key] !== undefined && storedMaster[key] !== null)
             .map((key) => [key, storedMaster[key]]),
         );
         // Dates confirmed in the guided intake join the position; a date the
         // user gave on the case page since wins.
+        if (guidedAnswersRef.current.length) userOwned.intakeAnswers = guidedAnswersRef.current;
         if (Object.keys(guidedDatesRef.current).length) {
           const storedPosition = asRecord(userOwned.position);
           userOwned.position = {
@@ -928,6 +936,7 @@ function BuilderPageContent() {
       // without that, deriveCaseStageWithEvents receives {} and the stage comes
       // entirely from confirmed events.
       setDraftIntakeFacts(result.facts as Record<string, unknown>);
+      guidedAnswersRef.current = (result.answers ?? []).slice(-200);
       const confirmedDates = suggestedDatesFromAnswers(result.answers ?? []);
       setGuidedDates(confirmedDates);
       guidedDatesRef.current = Object.fromEntries(
@@ -986,8 +995,12 @@ function BuilderPageContent() {
 
     setAnalysis(result);
     pushStep("results");
-    // A fresh analysis is a fresh stage suggestion, so it is re-confirmed.
-    setConfirmedStage(null);
+    // A fresh analysis is a fresh stage suggestion, so it is re-confirmed --
+    // unless this case already has a stage the person confirmed, which stays
+    // theirs and can still be changed (Phase 1: a returning user was asked
+    // to confirm their stage again on every re-run).
+    const stored = queryCaseId ? readCasePosition(existingMasterResult, courtPath).confirmedStage : null;
+    setConfirmedStage(stored && stored !== "not-sure" ? (stored as UniversalStage) : null);
     setCaseData({
       ...payload,
       masterResultPatch,

@@ -57,6 +57,9 @@ jobs:
       - name: The recorded amount set against the court's limits
         run: npm run test:amount-notes
 
+      - name: One case record that every page reads (master plan Phase 1)
+        run: npm run test:case-record
+
       - name: Two-year limit counted from an injury under the s. 5 (2) presumption
         run: npm run test:presumed-limitation
 

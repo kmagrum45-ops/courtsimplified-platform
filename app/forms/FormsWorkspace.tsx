@@ -426,6 +426,12 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
   const [generatingKey, setGeneratingKey] = useState<string | null>(null);
   const [formApplicability, setFormApplicability] = useState<FormApplicability>({});
   const [applicabilityQuestions, setApplicabilityQuestions] = useState<ApplicabilityQuestion[]>([]);
+  /**
+   * Answers the case already holds, pre-selected with where they came from
+   * (applicabilitySuggestions.ts, master plan Phase 1). Saved only when the
+   * person presses Save.
+   */
+  const [suggestedAnswers, setSuggestedAnswers] = useState<{ fieldPath: string; value: boolean | string; reason: string }[]>([]);
   const [verifiedRecommendations, setVerifiedRecommendations] = useState<
     VerifiedFormRecommendation[]
   >([]);
@@ -535,6 +541,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
       const result = await response.json();
       setFormApplicability(result.formApplicability || {});
       setApplicabilityQuestions(Array.isArray(result.applicabilityQuestions) ? result.applicabilityQuestions : []);
+      setSuggestedAnswers(Array.isArray(result.suggestedApplicability) ? result.suggestedApplicability : []);
       setVerifiedRecommendations(Array.isArray(result.recommendations) ? result.recommendations : []);
       setStageSupport(
         result.stageSupport && typeof result.stageSupport === "object"
@@ -680,8 +687,19 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
 
   const mappingStage = applicableStage(masterResult);
 
-  function answerFor(question: ApplicabilityQuestion): unknown {
+  function savedAnswerFor(question: ApplicabilityQuestion): unknown {
     return question.field_path.split(".").reduce<unknown>((value, part) => asRecord(value)?.[part], formApplicability);
+  }
+
+  function suggestionFor(question: ApplicabilityQuestion) {
+    return savedAnswerFor(question) === undefined
+      ? suggestedAnswers.find((suggestion) => suggestion.fieldPath === question.field_path)
+      : undefined;
+  }
+
+  function answerFor(question: ApplicabilityQuestion): unknown {
+    const saved = savedAnswerFor(question);
+    return saved === undefined ? suggestionFor(question)?.value : saved;
   }
 
   function updateApplicability(question: ApplicabilityQuestion, value: boolean | string) {
@@ -724,6 +742,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
     }
     setFormApplicability(result.formApplicability || {});
     setApplicabilityQuestions(Array.isArray(result.applicabilityQuestions) ? result.applicabilityQuestions : []);
+    setSuggestedAnswers(Array.isArray(result.suggestedApplicability) ? result.suggestedApplicability : []);
     setVerifiedRecommendations(Array.isArray(result.recommendations) ? result.recommendations : []);
     setStageSupport(
       result.stageSupport && typeof result.stageSupport === "object"
@@ -906,7 +925,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                 {applicabilityQuestions.map((question) => {
                   const answer = answerFor(question);
                   const selectedValue = question.choices.find((choice) => choice.value === answer)?.value;
-                  return <label key={question.field_path} className="block font-semibold">{question.question}{question.explanation ? <span className="mt-1 block font-normal text-[#4f685f]">{question.explanation}</span> : null}<select className="mt-2 block w-full rounded-xl border border-[#d8e6df] p-3" value={selectedValue === undefined ? "" : JSON.stringify(selectedValue)} onChange={(event) => { const choice = question.choices.find((item) => JSON.stringify(item.value) === event.target.value); if (choice) updateApplicability(question, choice.value); }}><option value="" disabled>Select an answer</option>{question.choices.map((choice) => <option key={`${typeof choice.value}:${choice.value}`} value={JSON.stringify(choice.value)}>{choice.label}</option>)}</select></label>;
+                  return <label key={question.field_path} className="block font-semibold">{question.question}{question.explanation ? <span className="mt-1 block font-normal text-[#4f685f]">{question.explanation}</span> : null}{suggestionFor(question) ? <span className="mt-1 block font-normal text-[#2f7d67]">From your case: {suggestionFor(question)!.reason} Change it if that is not right, then save.</span> : null}<select className="mt-2 block w-full rounded-xl border border-[#d8e6df] p-3" value={selectedValue === undefined ? "" : JSON.stringify(selectedValue)} onChange={(event) => { const choice = question.choices.find((item) => JSON.stringify(item.value) === event.target.value); if (choice) updateApplicability(question, choice.value); }}><option value="" disabled>Select an answer</option>{question.choices.map((choice) => <option key={`${typeof choice.value}:${choice.value}`} value={JSON.stringify(choice.value)}>{choice.label}</option>)}</select></label>;
                 })}
               </div>
             ) : null}

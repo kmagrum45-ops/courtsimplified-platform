@@ -32,6 +32,8 @@ import LegalInformationNotice from "../../_components/LegalInformationNotice";
 import { userIsResponding } from "../../builder/_components/respondingSide";
 import type { StoredCaseData } from "../../builder/_components/builderTypes";
 import { courtPathAsPathway, readCasePosition } from "@/src/lib/case-system/casePosition";
+import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
+import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
 import {
   CaseHomeContext,
   COURT_LABELS,
@@ -93,15 +95,21 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
     if (!caseRecord) return null;
     const master = asRecord(caseRecord.master_result);
     const position = readCasePosition(master, caseRecord.court_path);
+    const courtPath = courtPathAsPathway(caseRecord.court_path);
+    const responding = userIsResponding({
+      confirmedStage: position.confirmedStage,
+      caseData: (master.intakeData as StoredCaseData | undefined) ?? null,
+      intakeFacts: asRecord(master.intakeFacts),
+    });
     return {
       caseRecord,
       position,
-      courtPath: courtPathAsPathway(caseRecord.court_path),
-      responding: userIsResponding({
-        confirmedStage: position.confirmedStage,
-        caseData: (master.intakeData as StoredCaseData | undefined) ?? null,
-        intakeFacts: asRecord(master.intakeFacts),
-      }),
+      courtPath,
+      responding,
+      record: readCaseRecord(master, caseRecord.court_path),
+      stepId:
+        position.stepId ||
+        (courtPath && position.confirmedStage ? suggestedStageFor(courtPath, position.confirmedStage, responding) : ""),
       reload: load,
     };
   }, [caseRecord, load]);
