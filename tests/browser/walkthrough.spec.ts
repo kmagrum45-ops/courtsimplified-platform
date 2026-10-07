@@ -352,10 +352,23 @@ async function visitCaseHome(page: Page, persona: Persona, steps: Step[]) {
   }
 }
 
+/**
+ * WALKTHROUGH_SHARD="2/4" runs every 4th persona starting at the 2nd, so the
+ * workflow can play 20 personas in parallel jobs inside its time limit
+ * (2026-10-07: 8 took ~2 hours on one runner). Unset runs them all.
+ */
+function shardOf(personas: Persona[]): Persona[] {
+  const match = /^(\d+)\/(\d+)$/.exec(process.env.WALKTHROUGH_SHARD ?? "");
+  if (!match) return personas;
+  const index = Number(match[1]) - 1;
+  const total = Number(match[2]);
+  return personas.filter((_, i) => i % total === index);
+}
+
 test.describe("page walkthrough", () => {
   test.use({ navigationTimeout: 120_000, actionTimeout: 60_000 });
 
-  for (const persona of PERSONAS) {
+  for (const persona of shardOf(PERSONAS)) {
     test(persona.id, async ({ page }) => {
       test.setTimeout(persona.mode === "guided" ? 1_200_000 : 600_000);
       const steps: Step[] = [];
