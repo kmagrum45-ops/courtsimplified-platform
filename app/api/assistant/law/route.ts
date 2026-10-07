@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import { checkedAnswer, checkedAnswerView } from "@/src/lib/case-system/retrieval/checkedAnswer";
 import { findingsView } from "@/src/lib/case-system/retrieval/findingsView";
 import { researchQuestion } from "@/src/lib/case-system/retrieval/researchQuestion";
 import { fileSourceRequests } from "@/src/lib/case-system/retrieval/sourceRequests";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
-import { assistantLawEnabled, plainExplanationsEnabled } from "@/src/lib/content-library/phaseScope";
+import { assistantLawEnabled, checkedAnswersEnabled, plainExplanationsEnabled } from "@/src/lib/content-library/phaseScope";
 import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 
 /**
@@ -50,6 +51,9 @@ function isBody(value: unknown): value is Body {
 type Dependencies = {
   authenticate: typeof getAuthenticatedUser;
   research: typeof researchQuestion;
+  /** 2026-10-07: the checked answer (retrieval/checkedAnswer.ts). */
+  answer: typeof checkedAnswer;
+  answerEnabled: () => boolean;
   fileRequests: typeof fileSourceRequests;
   enabled: () => boolean;
   hasAi: () => boolean;
@@ -59,6 +63,8 @@ export function createAssistantLawPost(overrides: Partial<Dependencies> = {}) {
   const deps: Dependencies = {
     authenticate: getAuthenticatedUser,
     research: researchQuestion,
+    answer: checkedAnswer,
+    answerEnabled: () => checkedAnswersEnabled(),
     fileRequests: fileSourceRequests,
     enabled: () => assistantLawEnabled(),
     hasAi: hasConfiguredServerAi,
@@ -75,12 +81,28 @@ export function createAssistantLawPost(overrides: Partial<Dependencies> = {}) {
     if (!deps.enabled() || !deps.hasAi()) return NextResponse.json({ ok: true, findings: [], skipped: "off" });
     if (!(await deps.authenticate(request))) return NextResponse.json({ ok: true, findings: [], skipped: "sign-in" });
 
-    const result = await deps.research({
+    // 2026-10-07: answer first, checked statement by statement against the
+    // official text. When that gives an answer (or a decline, or "outside
+    // what we cover"), it is the reply; otherwise the research step runs as
+    // before, so a person always gets the law the library holds.
+    const input = {
       question: body.question,
       ...(body.story ? { story: body.story } : {}),
       courtPath: body.courtPath,
       ...(body.side && SIDES[body.side] ? { side: SIDES[body.side] } : {}),
-    });
+    };
+    const started = Date.now();
+    if (deps.answerEnabled()) {
+      const answer = await deps.answer(input, { timeoutMs: 35_000 }).catch(() => null);
+      if (answer?.missingLaw.length) await deps.fileRequests(answer.missingLaw, { courtPath: body.courtPath });
+      if (answer && (answer.status === "answered" || answer.status === "outside-scope" || answer.declinedToJudge)) {
+        return NextResponse.json({ ok: true, findings: [], answer: checkedAnswerView(answer) });
+      }
+    }
+
+    // Whatever time the answer used comes off the research step's, so the
+    // reply stays inside maxDuration.
+    const result = await deps.research(input, { timeoutMs: Math.max(10_000, 55_000 - (Date.now() - started)) });
     if (result.sourceRequests.length > 0) {
       await deps.fileRequests(result.sourceRequests, { courtPath: body.courtPath });
     }

@@ -168,6 +168,31 @@ next-step blocks measure 10.5–13.3.
 
 ---
 
+## Checked answers: answer first, then prove each statement (2026-10-07)
+
+`src/lib/case-system/retrieval/checkedAnswer.ts`. The site answers a question
+or a story the way a lawyer would, naming the Act and section for each
+statement; code fetches those sections from the library (`namedProvisions`,
+which resolves "Consumer Protection Act, 2002, s. 43 (1)" to the passage), adds
+what a search with each statement finds, and a separate call must quote the
+words that support each statement or correct it. Code then decides:
+a statement is shown only if its quote is in the passage the library returned,
+every number is in that passage or the person's own words, and it neither
+predicts nor grades the case. The rest is listed as "could not confirm".
+
+Why: the first law exam run (2026-10-07) showed the research step finds the
+main rule but returns passages, not an answer, and its caps (2 questions x
+about 5 passages) cannot hold the 6-10 provisions a full answer needs. The
+model already knows which section governs; letting it name the section and
+making the library prove it uses that knowledge without trusting it.
+
+Wired into the story analysis ("Your situation, answered", beside the research
+step) and the Court Assistant (answer first, research as the fallback).
+Switch: `checkedAnswersEnabled` (CHECKED_ANSWERS=off). Suite:
+`test:checked-answer` (fake model, real library). This caught me: the suite's
+own first quotes, written from memory, were not the Act's words, and the code
+check refused them, which is the point.
+
 ## Decisions already settled
 
 **Outcome language is refused even when sourced.** A verified block said "The

@@ -47,7 +47,8 @@ import { buildElementProofAnalysis } from "./elementProofEngine";
 import { CLAIM_TYPES } from "../intake/claimTypes";
 import { isNoQuestionNeeded, questionsForElement } from "../intake/depth/elementQuestionRegistry";
 import { fillSlots } from "../intake/depth/slots";
-import { aiAnalysisTextToUsers, appliedLawEnabled, plainExplanationsEnabled, researchStepEnabled } from "../../content-library/phaseScope";
+import { aiAnalysisTextToUsers, appliedLawEnabled, checkedAnswersEnabled, plainExplanationsEnabled, researchStepEnabled } from "../../content-library/phaseScope";
+import { checkedAnswer, checkedAnswerView, STORY_QUESTION, type CheckedAnswer } from "../retrieval/checkedAnswer";
 import {
   buildSourcePack,
   sourcePackForPrompt,
@@ -2559,6 +2560,19 @@ export async function runCourtSimplifiedBrain(
           : retrieveForStory(retrievalInput)
         ).catch(() => null);
 
+  // 2026-10-07: the person's situation answered in plain words, each
+  // statement checked against the official text (retrieval/checkedAnswer.ts).
+  // Runs beside the research step; never fails or holds up the analysis.
+  const situationAnswer: Promise<CheckedAnswer | null> =
+    input.allowExternalCognition === false || !checkedAnswersEnabled()
+      ? Promise.resolve(null)
+      : checkedAnswer({
+          question: STORY_QUESTION,
+          story: input.rawUserText,
+          courtPath: retrievalCourt,
+          side: retrievalInput.side,
+        }, { timeoutMs: 45_000 }).catch(() => null);
+
   const normalizedIntake = await normalizeIntake(input);
 
   const factPatternAnalysis = buildFactPatternAnalysis(normalizedIntake);
@@ -2617,6 +2631,12 @@ export async function runCourtSimplifiedBrain(
     console.info(`[researchStory] library gaps: ${retrieved.sourceRequests.join(" | ")}`);
     await fileSourceRequests(retrieved.sourceRequests, { courtPath: retrievalCourt });
   }
+  const answered = await situationAnswer;
+  if (answered?.missingLaw.length) {
+    // Laws the answer named that the library lacks: names only, never the story.
+    await fileSourceRequests(answered.missingLaw, { courtPath: retrievalCourt });
+  }
+  const situationView = answered && answered.status !== "unavailable" ? checkedAnswerView(answered) : undefined;
   const appliedLaw = appliedLawEnabled()
     ? sourcePack.items
         .filter((item) => isRetrievedItem(item) && citedIds.has(item.id))
@@ -2895,6 +2915,7 @@ export async function runCourtSimplifiedBrain(
     // from the model's citations whether or not its own wording is shown:
     // what is shown here is the source's text, not the model's.
     ...(appliedLaw.length ? { appliedLaw } : {}),
+    ...(situationView ? { checkedAnswer: situationView } : {}),
     // The research step's questions, each with the provisions that answer it
     // (their own words, a code-checked quote) or the law the library lacks.
     ...(research ? { research } : {}),

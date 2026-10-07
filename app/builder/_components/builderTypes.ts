@@ -1,4 +1,4 @@
-import type { AppliedLawItem, ResearchFindingView } from "@/src/lib/case-system/intelligence/intelligenceTypes";
+import type { AppliedLawItem, CheckedAnswerView, ResearchFindingView } from "@/src/lib/case-system/intelligence/intelligenceTypes";
 import { sanitizeSummaryText } from "@/src/lib/case-system/intelligence/caseStrengthLanguageValidator";
 
 export type CourtPath = "family" | "small-claims" | "civil";
@@ -192,6 +192,8 @@ export type AnalysisResult = {
    */
   appliedLaw?: AppliedLawItem[];
   research?: { findings: ResearchFindingView[]; sourceRequests: string[]; rounds: number };
+  /** 2026-10-07: the situation answered, every statement checked (retrieval/checkedAnswer.ts). */
+  checkedAnswer?: CheckedAnswerView;
 };
 
 export type StoredCaseData = {

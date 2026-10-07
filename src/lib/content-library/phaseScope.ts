@@ -242,3 +242,18 @@ export function assistantLawEnabled(
 ): boolean {
   return env.ASSISTANT_LAW !== "off" && appliedLawEnabled(env) && researchStepEnabled(env);
 }
+
+/**
+ * Checked answers (retrieval/checkedAnswer.ts, 2026-10-07): the site answers
+ * the person's question, or their story, in plain words, and shows a statement
+ * only after code has confirmed the official words that support it. Its own
+ * switch, like every advice-giving feature (CLAUDE.md s. 2): CHECKED_ANSWERS=off
+ * turns it off. Also off when model text is not shown to users
+ * (AI_ANALYSIS_TEXT_TO_USERS=off) or provisions are not shown (APPLIED_LAW=off),
+ * since every statement is shown with its provision.
+ */
+export function checkedAnswersEnabled(
+  env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+): boolean {
+  return env.CHECKED_ANSWERS !== "off" && aiAnalysisTextToUsers(env) && appliedLawEnabled(env);
+}

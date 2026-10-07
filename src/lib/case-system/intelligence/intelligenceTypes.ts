@@ -763,6 +763,17 @@ export type ElementProofEngineResult = {
  * with the provisions that answer it -- each the provision's own words and a
  * quote code found in it -- or the law the library does not have yet.
  */
+/** A checked answer as the screens show it (retrieval/checkedAnswer.ts). */
+export type CheckedAnswerView = {
+  status: "answered" | "not-confirmed" | "outside-scope" | "unavailable";
+  statements: {
+    text: string;
+    sources: { passageId: string; citation: string; sourceUrl: string; quote: string; kind: "legislation" | "guidance" | "decision" }[];
+  }[];
+  notConfirmed: string[];
+  declinedToJudge: boolean;
+};
+
 export type ResearchFindingView = {
   question: string;
   status: "answered" | "not-in-library" | "not-found";
@@ -839,6 +850,12 @@ export type LegalIntelligenceResult = {
   appliedLaw?: AppliedLawItem[];
   /** The research step's questions and what the library had for each. */
   research?: { findings: ResearchFindingView[]; sourceRequests: string[]; rounds: number };
+  /**
+   * 2026-10-07: the person's situation, answered in plain words, every
+   * statement checked against the official text quoted with it
+   * (retrieval/checkedAnswer.ts). Behind phaseScope.checkedAnswersEnabled.
+   */
+  checkedAnswer?: CheckedAnswerView;
   /** Statements the grounding gate removed, and why (groundedCognition.ts). */
   groundingReport?: {
     kept: number;

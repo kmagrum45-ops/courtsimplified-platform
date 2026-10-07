@@ -157,6 +157,9 @@ jobs:
       - name: Court decisions from CanLII follow CanLII's terms (attribution, isolation, no scraping, rate limit, works with no key)
         run: npm run test:canlii
 
+      - name: Checked answers show only statements the official text supports
+        run: npm run test:checked-answer
+
       - name: Law exam answer keys quote the law word for word
         run: npm run test:law-exam
 

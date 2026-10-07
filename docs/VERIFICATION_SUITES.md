@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-125 documented, 28 without a header.
+126 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -30,6 +30,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:case-reviews` | **Runs the 10 fabricated fixtures in fixtures/caseReviews/ through the**<br>SAME real pipeline runFixtures.ts uses (pipelineRunner.ts -- no second, independently-maintained copy of the turn loop), and writes one full, human-readable "case review" markdown file per case, plus an index that itemizes all 10 with a one-line description of |
 | `npm run test:catalogue-verified` | **A catalogue entry's verifiedAt vouches for the text that was verified, and**<br>for nothing else. |
 | `npm run test:check-oracles` | **No check can be satisfied by a comment. A check's oracle must be independent of the**<br>implementation's description of itself. |
+| `npm run test:checked-answer` | **Checked answers show only what the official text supports.**<br>WHAT THIS CATCHES: an answer the site shows without proof. The checked answer (retrieval/checkedAnswer.ts) lets the model answer first and then checks every statement against the library. This suite drives that pipeline with a fake drafter and a fake checker o |
 | `npm run test:child-support-draft` | **The child support draft carries recorded figures and cited rules, and**<br>calculates nothing. |
 | `npm run test:child-support-intake` | **The child support screen: the common case is small, the second income figure**<br>is absent rather than empty, and an out-of-scope situation is named. |
 | `npm run test:child-support-table-card` | **The table card explains the table and never works an example.**<br>COSTS NOTHING. Reads the component source and the vendored sources. No render, no network. |
