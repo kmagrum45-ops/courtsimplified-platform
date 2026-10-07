@@ -1,0 +1,1252 @@
+{
+  "records": [
+    {
+      "key": "sc-claim-new-home-defects|plaintiffElement|new-home-owner-nhd",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b1f71776cbc35d853434eb52b8b5a3567105ded47f4dc584eefa77cd7745fece",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 1(1), \"home\"",
+          "quote": "(a) a self-contained one-family dwelling, detached or attached to one or more others by one or more common walls, ... one-family dwellings under one ownership, (c) a condominium unit that is a residential dwelling"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 1(1), \"home\"",
+          "quote": "but does not include a dwelling built and sold for occupancy for temporary periods or for seasonal purposes"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 1(1), \"owner\"",
+          "quote": "“owner” means a person who first acquires a home from its vendor for occupancy, and the person’s successors in title"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 1(1), \"vendor\"",
+          "quote": "a person who, on the person’s own behalf, sells a home not previously occupied to an owner and includes a builder, as defined in clause (a) of the definition of “builder”, who acts as such under a contract with the owner"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 13(5)",
+          "quote": "A warranty is enforceable even though there is no privity of contract between the owner and the vendor."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-new-home-warranties-plan-act.txt"
+    },
+    {
+      "key": "sc-claim-new-home-defects|plaintiffElement|warranty-breached-nhd",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "43b1502506cb1e823961185c4846d09eb48303237dc8b97e9c4986751e3114f4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 13(1)",
+          "quote": "Every vendor of a home warrants to the owner, (a) that the home, (i) is constructed in a workmanlike manner and is free from defects in material, (ii) is fit for habitation, and (iii) is constructed in accordance with the Ontario Building Code; (b) that the home is free of major structural defects as defined by the regulations; and (c) such other warranties as are prescribed by the regulations."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 13(6)",
+          "quote": "The warranties set out in subsection (1) apply despite any agreement or waiver to the contrary and are in addition to any other rights the owner may have and to any other warranty agreed upon."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-new-home-warranties-plan-act.txt"
+    },
+    {
+      "key": "sc-claim-new-home-defects|plaintiffElement|claim-in-time-nhd",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a3d442a30b7fe87bddb692b2dbe579f25a5861aa7c4c6c6f8f626545130a7ba2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 13(3)",
+          "quote": "The vendor of a home shall deliver to the owner a certificate specifying the date upon which the home is completed for the owner’s possession and the warranties take effect from the date specified in the certificate."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 13(4)",
+          "quote": "A warranty under subsection (1) applies only in respect of claims made thereunder within one year after the warranty takes effect, or such longer time under such conditions as are prescribed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 14(4)",
+          "quote": "Subject to the regulations, an owner who suffers damage because of a major structural defect mentioned in clause 13 (1) (b) is entitled to receive payment out of the guarantee fund for the cost of the remedial work required to correct the major structural defect if the owner makes a claim within four years after the warranty expires or such longer time under such conditions as are prescribed."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-new-home-warranties-plan-act.txt"
+    },
+    {
+      "key": "sc-claim-new-home-defects|defendantConsideration|exclusions-nhd",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3b660597c7be6b2a437f783c6bda301d11b03775714fb6cba86f3073ca32e6f6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 13(2)",
+          "quote": "A warranty under subsection (1) does not apply in respect of, (a) defects in materials, design and work supplied by the owner; (b) secondary damage caused by defects, such as property damage and personal injury; (c) normal wear and tear; (d) normal shrinkage of materials caused by drying after construction; (e) damage caused by dampness or condensation due to failure by the owner to maintain adequate ventilation; (f) damage resulting from improper maintenance; (g) alterations, deletions or additions made by the owner;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 13(2)(i), (k), (l)",
+          "quote": "(i) damage resulting from an act of God; ... (k) damage caused by municipal services or other utilities; (l) surface defects in work and materials specified and accepted in writing by the owner at the date of possession."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-new-home-warranties-plan-act.txt"
+    },
+    {
+      "key": "sc-claim-new-home-defects|defendantConsideration|dispute-nhd",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "294b39084d57dc152956e41424eebe0447e602d8365587c86a67af5668b00cf5",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-new-home-defects|proceduralNote|sc-claim-new-home-defects#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "58569cf8f40110b35434a4c316180e1b803d27542278518ba7c342580dc9346e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 17(1)",
+          "quote": "The Corporation may, upon the request of an owner, conciliate any dispute between the owner and a vendor."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 17(2)",
+          "quote": "Where there is a dispute between a vendor and an owner arising out of a purchase agreement or construction contract, neither party shall commence any proceeding in respect thereof until after fifteen days after the party notifies the Corporation of the dispute for the purpose of giving the Corporation an opportunity to effect conciliation."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 17(4)",
+          "quote": "Every purchase agreement and construction contract between a vendor and prospective owner shall be deemed to contain a written agreement to submit present or future differences to arbitration, subject to appeal to the Divisional Court, and the Arbitration Act, 1991 applies."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-new-home-warranties-plan-act.txt"
+    },
+    {
+      "key": "sc-claim-new-home-defects|proceduralNote|sc-claim-new-home-defects#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "e53149b41e34a1b081ccaea563b47b3c83cb4d7066b0953be97453e93ddd3541",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 14(3)",
+          "quote": "Subject to the regulations, an owner of a home is entitled to receive payment out of the guarantee fund for damages resulting from a breach of warranty if, (a) the person became the owner of the home through receiving a transfer of title to it or through the substantial performance by a builder of a construction contract; and (b) the person has a cause of action against the vendor or the builder, as the case may be, for damages resulting from the breach of warranty."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 14(6)",
+          "quote": "The Corporation shall investigate the concern giving rise to a claim to verify that it relates to an entitlement to receive compensation out of the guarantee fund under subsection (1), (2), (3) or (4) and, if it does, shall determine whether the claimant is entitled to receive such compensation and how it will deal with the claim."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 14(13)",
+          "quote": "When the Corporation makes a decision in respect of a claim, it shall serve notice of the decision, together with reasons for the decision, on the claimant"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 14(14)",
+          "quote": "A notice under subsection (13) shall state that the claimant is entitled to appeal the decision to the tribunal by providing notice to the tribunal, to the Corporation and to the other persons, if any, that are prescribed, in the form and within the time that is prescribed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+          "pinpoint": "s. 14(20)",
+          "quote": "Unless the regulations specifically provide otherwise, nothing in this Act restricts the remedies otherwise available to an owner or any other prescribed person for the failure of another person to perform a duty imposed by this Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-new-home-warranties-plan-act.txt"
+    },
+    {
+      "key": "sc-claim-new-home-defects|proceduralNote|sc-claim-new-home-defects#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-real-estate-agent-conduct|plaintiffElement|brokerage-registrant-rea",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b4f2c062d5ed0d41003cab5c010165cbbe93626253b1845928e361be2473263b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 1(1), \"brokerage\"",
+          "quote": "“brokerage” means a corporation, partnership, sole proprietor, association or other organization or entity that, on behalf of others and for compensation or reward or the expectation of such, trades in real estate or holds himself, herself or itself out as such"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 1(1), \"registrant\"",
+          "quote": "“registrant” means a brokerage that is registered under this Act or a broker or salesperson who is registered under this Act"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 1(1), \"trade\"",
+          "quote": "“trade” includes a disposition or acquisition of or transaction in real estate by sale, purchase, agreement for purchase and sale, exchange, option, lease, rental or otherwise"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 26",
+          "quote": "A brokerage shall ensure that every salesperson and broker that the brokerage employs is carrying out their duties in compliance with this Act and the regulations."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/trust-in-real-estate-services-act.txt"
+    },
+    {
+      "key": "sc-claim-real-estate-agent-conduct|plaintiffElement|commission-terms-rea",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "aa6ada6a6b00307bf0a0f6886e47c5ead901ffddedba31b151cd4f458bbe7ed4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 36(1)",
+          "quote": "All remuneration payable to a brokerage in respect of a trade in real estate shall be an agreed amount or percentage of the sale price or rental price, as the case may be, or a combination of both."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 36(3)",
+          "quote": "No registrant shall request or enter into an arrangement for the payment of any remuneration based on the difference between the price at which real estate is listed for sale or rental and the actual sale price or rental price, as the case may be, of the real estate, nor is a registrant entitled to retain any remuneration computed upon any such basis."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 33(3)",
+          "quote": "Unless agreed to in writing by the seller, no brokerage is entitled to claim remuneration from the seller in respect of a trade in real estate if the real estate is, to the knowledge of the brokerage, covered by an unexpired listing agreement with another brokerage."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/trust-in-real-estate-services-act.txt"
+    },
+    {
+      "key": "sc-claim-real-estate-agent-conduct|plaintiffElement|trust-money-rea",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c9eeb600f8f75ec24eccf028a3bb934ae54ab598b321dd022a03993d342f9469",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 27(1)",
+          "quote": "Every brokerage shall, (a) maintain in Ontario an account designated as a trust account"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 27(1)(b)-(d)",
+          "quote": "(b) deposit into the account all money that comes into the brokerage’s hands in trust for other persons in connection with the brokerage’s business; (c) at all times keep the money separate and apart from money belonging to the brokerage; and (d) disburse the money only in accordance with the terms of the trust."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 27(3)",
+          "quote": "Unless otherwise provided by contract, all interest on the trust money referred to in subsection (1) shall be paid to the beneficial owner of the trust money."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/trust-in-real-estate-services-act.txt"
+    },
+    {
+      "key": "sc-claim-real-estate-agent-conduct|plaintiffElement|false-information-rea",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dddacff89b156770469697c1411be842464db6b8f55b45ae2e7c5d0ba7539c0c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 34",
+          "quote": "No registrant shall falsify, assist in falsifying or induce or counsel another person to falsify or assist in falsifying any information or document relating to a trade in real estate."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 35",
+          "quote": "No registrant shall furnish, assist in furnishing or induce or counsel another person to furnish or assist in furnishing any false or deceptive information or documents relating to a trade in real estate."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 37",
+          "quote": "No registrant shall make false, misleading or deceptive statements in any advertisement, circular, pamphlet or material published by any means relating to trading in real estate."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/trust-in-real-estate-services-act.txt"
+    },
+    {
+      "key": "sc-claim-real-estate-agent-conduct|defendantConsideration|registration-for-commission-rea",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ea3e3ec7e3c79296f783ff4f883bffbc6cccd7c4ad3a9c0e87a2bcf692ae34f6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 9",
+          "quote": "No action shall be brought for remuneration for services in connection with a trade in real estate unless at the time of rendering the services the person bringing the action was registered or exempt from registration under this Act and the court may stay any such action upon motion."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/trust-in-real-estate-services-act.txt"
+    },
+    {
+      "key": "sc-claim-real-estate-agent-conduct|defendantConsideration|dispute-rea",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "866278be4be30c632cd6a30aa64281589a9dbc0c365cbecce55a047ff86a1b0b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-real-estate-agent-conduct|proceduralNote|sc-claim-real-estate-agent-conduct#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "1b55422d42ce4fbc6729dd04ca7cd98cfefde223619d10a18035c9c24b70e630",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 9(1)",
+          "quote": "The supply of goods or services pursuant to an agreement that is subject to any of the following Acts is exempt from the application of sections 22, 23, 26 and 37 to 47 of the Act: ... 2. The Trust in Real Estate Services Act, 2002. 3. The Travel Industry Act, 2002. 4. The Funeral, Burial and Cremation Services Act, 2002."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 9(2)",
+          "quote": "The exemption from the application of sections 22, 23 and 26 of the Act is effective even if section 21 of the Act states that sections 22 to 26 of the Act do apply in the circumstances."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-real-estate-agent-conduct|proceduralNote|sc-claim-real-estate-agent-conduct#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c4398b78710bc39947613ab8fbd326ac1ab9fc5f7e94c9905734b8987e71884f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 19(1)",
+          "quote": "The registrar may, (a) receive complaints concerning conduct that may be in contravention of this Act or the regulations; (b) make written requests to registrants for information regarding complaints; and (c) attempt to mediate or resolve complaints"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 20",
+          "quote": "If the registrar is of the opinion, whether as a result of a complaint or otherwise, that a registrant has contravened any provision of this Act or the regulations, the registrar may do any of the following, as the registrar considers appropriate: 1. Give the registrant a written warning"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+          "pinpoint": "s. 20, para. 3",
+          "quote": "Refer the matter, in whole or in part, to the discipline committee."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/trust-in-real-estate-services-act.txt"
+    },
+    {
+      "key": "sc-claim-real-estate-agent-conduct|proceduralNote|sc-claim-real-estate-agent-conduct#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-travel-agent-or-tour-operator|plaintiffElement|travel-business-tra",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c7cc76b48c5d0b2eb96c2e2f675c73d1c811be44dbd8790572974b4776668780",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+          "pinpoint": "s. 1(1), \"travel agent\"",
+          "quote": "“travel agent” means a person who sells, to consumers, travel services provided by another person"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+          "pinpoint": "s. 1(1), \"travel wholesaler\"",
+          "quote": "“travel wholesaler” means a person who acquires rights to travel services for the purpose of resale to a travel agent or who carries on the business of dealing with travel agents or travel wholesalers for the sale of travel services provided by another person"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+          "pinpoint": "s. 1(1), \"travel services\"",
+          "quote": "“travel services” means transportation or sleeping accommodation for the use of a traveller, tourist or sightseer or other services combined with that transportation or sleeping accommodation"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+          "pinpoint": "s. 4(1)",
+          "quote": "No person shall act or hold himself, herself or itself out as being available to act, (a) as a travel agent unless the person is registered as a travel agent under this Act; or (b) as a travel wholesaler unless the person is registered as a travel wholesaler under this Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/travel-industry-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-travel-agent-or-tour-operator|plaintiffElement|repayment-owed-tra",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a7a6ec769a400a059fd4452ee3008529c40dd1672e1b40e5f30b73bae152285d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+          "pinpoint": "s. 25(1)",
+          "quote": "Where any person is entitled to the repayment of any money paid for or on account of a travel service, any travel agent and any travel wholesaler who received such money or any part thereof is liable jointly and severally with any other person liable therefore, for the repayment of such money to the extent of the amount received by him, her or it."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/travel-industry-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-travel-agent-or-tour-operator|plaintiffElement|false-information-tra",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "028190c1acda09846d19f24bfbb9a603fbedfe9875e3a70df4fbe62f3295b781",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+          "pinpoint": "s. 26",
+          "quote": "No registrant shall falsify, assist in falsifying or induce or counsel another person to falsify or assist in falsifying any information or document relating to the provision of travel services."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+          "pinpoint": "s. 27",
+          "quote": "No registrant shall furnish, assist in furnishing or induce or counsel another person to furnish or assist in furnishing any false or deceptive information or documents relating to the provision of travel services."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+          "pinpoint": "s. 28",
+          "quote": "No registrant shall make false, misleading or deceptive statements in any advertisement, circular, pamphlet or material published by any means relating to the provision of travel services."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/travel-industry-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-travel-agent-or-tour-operator|defendantConsideration|properly-disbursed-tra",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d5b78a8d886b9c7cbccbc167f428731e7e58bd191d9d480577cbce30ad624986",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+          "pinpoint": "s. 25(2)",
+          "quote": "Subsection (1) does not apply if, (a) the travel agent or travel wholesaler has properly disbursed the money received; (b) the travel agent or travel wholesaler has acted in good faith and at arm’s length with the person with whom he, she or it would be jointly and severally liable under subsection (1); and (c) the person with whom the travel agent or travel wholesaler would be jointly and severally liable under subsection (1) is not in breach of a requirement to be registered under this Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/travel-industry-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-travel-agent-or-tour-operator|defendantConsideration|registration-for-commission-tra",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b22642208cc418fc8ad362f37f7e85f12df70d2de00b257219d9320802a6d96f",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+          "pinpoint": "s. 7",
+          "quote": "No action shall be brought against a consumer of travel services for a commission or other remuneration in relation to the provision of those services unless at the time of rendering the services the person bringing the action was registered or exempt from registration under this Act and the court may stay any such action upon motion."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/travel-industry-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-travel-agent-or-tour-operator|defendantConsideration|dispute-tra",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f101fa7ee7a47d64b52245ba0f362cc4da6c16060ffa8ca59a9124bae0430bea",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-travel-agent-or-tour-operator|proceduralNote|sc-claim-travel-agent-or-tour-operator#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "120de7a3e98af930fe41c63d6450bca51554787a9fd2a7a37fab0262221df6ed",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 9(1)",
+          "quote": "The supply of goods or services pursuant to an agreement that is subject to any of the following Acts is exempt from the application of sections 22, 23, 26 and 37 to 47 of the Act: ... 2. The Trust in Real Estate Services Act, 2002. 3. The Travel Industry Act, 2002. 4. The Funeral, Burial and Cremation Services Act, 2002."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 9(2)",
+          "quote": "The exemption from the application of sections 22, 23 and 26 of the Act is effective even if section 21 of the Act states that sections 22 to 26 of the Act do apply in the circumstances."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-travel-agent-or-tour-operator|proceduralNote|sc-claim-travel-agent-or-tour-operator#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "23106c14c9c54dafa06c84f11e2db7df18e4b2b3550b4c65c42316c7c03e5664",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+          "pinpoint": "s. 41(1)",
+          "quote": "The Travel Industry Compensation Fund established under the Travel Industry Act is continued."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+          "pinpoint": "s. 41(2)",
+          "quote": "The Fund shall be administered and managed in accordance with the regulations."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+          "pinpoint": "s. 16(1)",
+          "quote": "If the registrar receives a complaint about a registrant, the registrar may request information in relation to the complaint from any registrant."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+          "pinpoint": "s. 16(4)",
+          "quote": "In handling complaints, the registrar may do any of the following, as appropriate: 1. Attempt to mediate or resolve the complaint."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/travel-industry-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-travel-agent-or-tour-operator|proceduralNote|sc-claim-travel-agent-or-tour-operator#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-funeral-or-cemetery-dispute|plaintiffElement|contract-requirements-fun",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "437801ad8d11b71b18d58da82dad27673c37f2c0a1d892b120c0af90179eb9a3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 40(1)(a)-(d)",
+          "quote": "A contract for the provision of licensed supplies or services is not enforceable by an operator unless, (a) the contract is written, signed by both parties and complies with the regulations; (b) the contract sets out the purchaser’s cancellation rights under this Act; (c) the contract sets out all the supplies and services to be provided and the price charged for each of them; (d) the operator delivers a signed copy of the contract to the purchaser in the prescribed manner;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 41(1)",
+          "quote": "A purchaser under a contract that is not enforceable by the operator under subsection 40 (1) may cancel the contract at any time after it is made by giving the operator written notice of cancellation."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 41(2)",
+          "quote": "An operator who receives a notice of cancellation under subsection (1) shall, within 30 days of receiving the notice, refund to the purchaser all money received under the contract together with the amounts that are prescribed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 40(2)",
+          "quote": "may bring an action in a court of competent jurisdiction to recover any amounts paid under the contract together with costs if, (a) the purchaser has given the operator notice of cancellation under subsection 41 (1); and (b) the operator has refused to pay the purchaser the amount payable under subsection 41 (2)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/funeral-burial-cremation-services-act.txt"
+    },
+    {
+      "key": "sc-claim-funeral-or-cemetery-dispute|plaintiffElement|cooling-off-fun",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7d133148986e2ad11467d97fbfede03758ef761bf4bbd3f0a07d4cbcef90f7c1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 42(1)",
+          "quote": "If a purchaser enters into a contract for the provision of licensed supplies and services and all of the requirements in subsection 40 (1) are met, the purchaser is entitled to cancel the contract at any time within 30 days after the day on which the last of the requirements described in subsection 40 (1) is met."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 42(2)",
+          "quote": "A purchaser may cancel a contract under subsection (1) by giving the operator written notice of the cancellation."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 42(3)",
+          "quote": "An operator who receives a notice of cancellation under subsection (2) shall, within 30 days after receiving the notice, refund to the purchaser all money received under the contract together with the amounts that are prescribed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 43(2)",
+          "quote": "By giving the operator written notice of cancellation, a purchaser may cancel a contract that includes the provision of licensed supplies or services within 30 days after the day on which the contract is made if the operator has not fully performed the contract."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 43(4)",
+          "quote": "An operator who receives a notice of cancellation under subsection (2) shall, within 30 days of receiving the notice, refund to the purchaser, (a) all money received under the contract, if none of the licensed supplies and services under the contract have been provided at the time the purchaser cancels the contract"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 43(4)(b)",
+          "quote": "all money received under the contract less the value of those supplies and services that have been provided, if part of the licensed supplies and services have been provided in accordance with the contract"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/funeral-burial-cremation-services-act.txt"
+    },
+    {
+      "key": "sc-claim-funeral-or-cemetery-dispute|plaintiffElement|later-cancellation-fun",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "bf88331a71e68d32094d85400a20ed72517a268521c87fdf15f6da60c730a1e6",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 44(1)",
+          "quote": "The purchaser under a contract for the provision of licensed supplies or services, other than interment rights and scattering rights, may cancel the contract at any time if a right to cancel under section 42 or 43 no longer applies and if the operator has not fully performed the contract."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 44(3)",
+          "quote": "A purchaser may cancel a contract under subsection (1) by giving the operator written notice of cancellation."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 44(4)",
+          "quote": "An operator who receives a notice of cancellation under subsection (3) shall, within 30 days of receiving the notice, refund to the purchaser, (a) all money received under the contract, together with the amounts that are prescribed, less a prescribed amount, if none of the licensed supplies and services under the contract have been provided at the time the contract is cancelled; and (b) the amount specified in clause (a), less the value of the supplies and services that have been provided, if part of the licensed supplies and services have been provided in accordance with the contract at the time the purchaser cancels the contract."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/funeral-burial-cremation-services-act.txt"
+    },
+    {
+      "key": "sc-claim-funeral-or-cemetery-dispute|plaintiffElement|over-price-list-fun",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b769044aeb8d4648064ea617606c907430959dbe08195834a2e85c992bc47ae8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 34(1)",
+          "quote": "No licensee shall charge, collect or receive any amount of money for a licensed supply or service that is more than the price indicated on the price list maintained under section 33."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 34(2)",
+          "quote": "A licensee who charges, collects or receives an amount of money for a licensed supply or service that is more than the price indicated on the price list or, if the price for the supply or service sold is not on the price list, more than the price charged for a similar supply or service, shall repay the difference to the purchaser within 30 days."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 38",
+          "quote": "If money is paid under a contract for the sale or provision of licensed supplies and services in advance of the provision of the supplies and services and if, subsequent to the payment but before the provision of the supplies and services, there is an increase in the price of any of those supplies and services, the operator shall not charge the purchaser any additional amount in respect of the increase"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/funeral-burial-cremation-services-act.txt"
+    },
+    {
+      "key": "sc-claim-funeral-or-cemetery-dispute|defendantConsideration|rights-exercised-fun",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "65f78e5432e0df260c57c05f72467780a1833bd32170972706139a7bcce663ca",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 43(3)",
+          "quote": "A right to cancel under subsection (2) does not apply with respect to interment or scattering rights that have been exercised."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 44(1)",
+          "quote": "The purchaser under a contract for the provision of licensed supplies or services, other than interment rights and scattering rights, may cancel the contract at any time"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 44(2)",
+          "quote": "Subsection (1) does not apply to the portion of a contract relating to private structures or a private scattering ground and the provisions of that portion relating to cancellation do apply."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/funeral-burial-cremation-services-act.txt"
+    },
+    {
+      "key": "sc-claim-funeral-or-cemetery-dispute|defendantConsideration|dispute-fun",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6ea9633b754651f62b610d58811092020dcbb00fb0b5a86f991368c5d959228c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-funeral-or-cemetery-dispute|proceduralNote|sc-claim-funeral-or-cemetery-dispute#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "48e58d13a568f1a490ab0d86106b5ee26f47f8dcaae3d9137237df008c61d49d",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 9(1)",
+          "quote": "The supply of goods or services pursuant to an agreement that is subject to any of the following Acts is exempt from the application of sections 22, 23, 26 and 37 to 47 of the Act: ... 2. The Trust in Real Estate Services Act, 2002. 3. The Travel Industry Act, 2002. 4. The Funeral, Burial and Cremation Services Act, 2002."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+          "pinpoint": "O. Reg. 17/05, s. 9(2)",
+          "quote": "The exemption from the application of sections 22, 23 and 26 of the Act is effective even if section 21 of the Act states that sections 22 to 26 of the Act do apply in the circumstances."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-17-05-consumer-protection-general.txt"
+    },
+    {
+      "key": "sc-claim-funeral-or-cemetery-dispute|proceduralNote|sc-claim-funeral-or-cemetery-dispute#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "5218f1c265790d8716a28e92c118ce5a733ca0bd53dcac6fac83031d51a195d3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 66(1)",
+          "quote": "The registrar may, (a) receive complaints concerning conduct that may be in contravention of a requirement under this Act; (b) make inquiries, gather information or make written requests for information from any person regarding a complaint described in clause (a); and (c) attempt to mediate or resolve a complaint described in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 61(1)",
+          "quote": "A compensation fund scheme shall be established for the purposes of this Act in accordance with the regulations."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+          "pinpoint": "s. 61(2)",
+          "quote": "The purpose of a prescribed compensation fund shall be to compensate a person who suffers a financial loss due to a failure on the part of a licensee to comply with this Act or the regulations or with the terms of an agreement made under this Act."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/funeral-burial-cremation-services-act.txt"
+    },
+    {
+      "key": "sc-claim-funeral-or-cemetery-dispute|proceduralNote|sc-claim-funeral-or-cemetery-dispute#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-ticket-resale-or-cancelled-event|plaintiffElement|ticket-and-seller-tix",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "272640e90db6cf417c9a8e8f8d7699b028cbaa5ce58d1b91fd786e97e68db706",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 1, \"ticket\"",
+          "quote": "“ticket” means any card, pass, paper, document or thing, whether in electronic form or otherwise, that, on presentation, entitles the holder to admission to a recreational, sporting or cultural event or other prescribed event in Ontario"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 1, \"ticket business\"",
+          "quote": "“ticket business” means a primary seller, a secondary seller or an operator of a secondary ticketing platform"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 1, \"secondary seller\"",
+          "quote": "“secondary seller” means a person who is engaged in the business of making available for sale tickets that were originally made available for sale by a primary seller"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 1, \"secondary ticketing platform\"",
+          "quote": "“secondary ticketing platform” means a website, online service, electronic application, print publication or physical location that facilitates the sale of tickets by providing ticket sellers, other than primary sellers, with a venue to make their tickets available for sale"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 1.1",
+          "quote": "For the purposes of this Act, a ticket sale on the secondary market refers to the sale of a ticket that was originally made available for sale by a primary seller."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ticket-sales-act-2017.txt"
+    },
+    {
+      "key": "sc-claim-ticket-resale-or-cancelled-event|plaintiffElement|refund-guarantee-tix",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c7e880c7395bb210020c6a881e87339a80266228d4f4f02e42d539f70b79e92a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 2(1), para. 1",
+          "quote": "Every person who makes a ticket available for sale on the secondary market or who facilitates the sale of a ticket on the secondary market shall provide one of the following guarantees or confirmations when the ticket is made available for sale: 1. A guarantee in writing issued by a secondary seller or operator of a secondary ticketing platform of a full refund for the ticket purchaser if, i. the event that the ticket provides admission to is cancelled before the ticket can be used, ii. the ticket does not grant the ticket purchaser admission to the event for which it was issued, unless this failure is due to an action taken by the primary seller or venue after the ticket is sold, iii. the ticket is counterfeit, or iv. the ticket does not match its description as advertised or as represented to the ticket purchaser."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 2(1), para. 2",
+          "quote": "A confirmation in writing from the primary seller that the ticket is valid"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 2(2)",
+          "quote": "If a person who facilitates the sale of a ticket on the secondary market complies with subsection (1) with respect to the sale, no other person is required to comply with that subsection with respect to the sale."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ticket-sales-act-2017.txt"
+    },
+    {
+      "key": "sc-claim-ticket-resale-or-cancelled-event|plaintiffElement|price-and-disclosure-tix",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "362d73f43272b3b7b82fcb414f390838f8646cea45b8d5e0b819d3e628cac410",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 2(3)",
+          "quote": "No person shall make a ticket available for sale on the secondary market or facilitate the sale of a ticket on the secondary market for an amount that exceeds the total price paid when the ticket was purchased from the primary seller, plus any applicable fees, service charges and taxes charged by the secondary seller or operator of a secondary ticketing platform."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 6(3)",
+          "quote": "Every person who makes a ticket available for sale on the secondary market shall ensure that the offer discloses, (a) the total price of the ticket when it was purchased from the primary seller; (b) the total price charged on the secondary sale of the ticket; (c) any fees, service charges and taxes applicable to the secondary sale, in the form of a separately itemized list"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 6(4)",
+          "quote": "Every operator of a secondary ticketing platform that facilitates the sale of a ticket shall ensure that the offer discloses, (a) the total price of the ticket when it was purchased from the primary seller;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 3",
+          "quote": "No person shall make a ticket available for sale if the ticket is not in the person’s possession or control."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ticket-sales-act-2017.txt"
+    },
+    {
+      "key": "sc-claim-ticket-resale-or-cancelled-event|plaintiffElement|loss-from-contravention-tix",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "9f8a346755122e615f8752c1819ad55746527fd782efa04da999ec2dec952c10",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 11(1)",
+          "quote": "a ticket business or ticket purchaser who has suffered a loss as a result of a person’s contravention of a provision of this Act or the regulations may commence an action in a court against that person."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 11(3)",
+          "quote": "If the court finds that the defendant has contravened the provision, the court may, (a) order restitution of any money or other consideration given or furnished by the plaintiff; (b) award the plaintiff damages in the amount of any loss suffered because of the contravention, including exemplary or punitive damages;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ticket-sales-act-2017.txt"
+    },
+    {
+      "key": "sc-claim-ticket-resale-or-cancelled-event|defendantConsideration|charity-or-other-complied-tix",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "204b71b737e9ac3a4ccb559daedba0359b0d0d0f64a51cc4ffae45be911c0b99",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 2(4)",
+          "quote": "This section does not apply if the ticket sale is for the benefit of a registered charity as defined in subsection 248 (1) of the Income Tax Act (Canada)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 2(2)",
+          "quote": "If a person who facilitates the sale of a ticket on the secondary market complies with subsection (1) with respect to the sale, no other person is required to comply with that subsection with respect to the sale."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ticket-sales-act-2017.txt"
+    },
+    {
+      "key": "sc-claim-ticket-resale-or-cancelled-event|defendantConsideration|due-diligence-tix",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fe514cfe996e88057d9ee2b8ab6a0d848f17e892a4f440042f9c6cc2009e2830",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 11(4)",
+          "quote": "An order under clause (3) (b) for exemplary or punitive damages may not be made if the person took reasonable precautions and exercised due diligence to avoid contravening the provision."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ticket-sales-act-2017.txt"
+    },
+    {
+      "key": "sc-claim-ticket-resale-or-cancelled-event|defendantConsideration|dispute-tix",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "dfd27d6ff824d69b58a78d0098d2cea4e140259027b855358048ee2ca9fd13d7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-ticket-resale-or-cancelled-event|proceduralNote|sc-claim-ticket-resale-or-cancelled-event#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ea20d7f394774418975e40612ede63f5d6da9a54471938f4e57e213b43f4e7f4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 11(1)",
+          "quote": "may commence an action in a court against that person."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 11(2)",
+          "quote": "A person seeking a remedy mentioned in clause (3) (c) or (d) must commence the action in the Superior Court of Justice."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 11(3)(c)-(d)",
+          "quote": "(c) grant an injunction restraining the person from continuing to contravene the provision; (d) make an order of specific performance against the person"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/ticket-sales-act-2017.txt, docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-ticket-resale-or-cancelled-event|proceduralNote|sc-claim-ticket-resale-or-cancelled-event#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "29240074e49d2d8b06d781ae006ab8b314e5219efdd75a387b75cf0e0209bd91",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 12(1)",
+          "quote": "The Ministry may, (a) receive complaints concerning conduct that may be in contravention of this Act, whether the conduct constitutes an offence or not; and (b) make inquiries, gather information and attempt to mediate or resolve complaints"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+          "pinpoint": "s. 12(2)",
+          "quote": "The Ministry may mediate a complaint if the parties to the complaint agree to mediation."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ticket-sales-act-2017.txt"
+    },
+    {
+      "key": "sc-claim-ticket-resale-or-cancelled-event|proceduralNote|sc-claim-ticket-resale-or-cancelled-event#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-college-or-university-fee-dispute|plaintiffElement|contract-with-school-uni",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "10d1e8e2f7dbea99b18f1d377812c56e12c54bf42c79fca96de27f0c7a9eb8a6",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jaffer-v-york-university-2010-ONCA-654.txt",
+          "pinpoint": "para. 30",
+          "quote": "There is no dispute that the relationship between a student and a university has a contractual foundation, giving rise to duties in both contract and tort"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jaffer-v-york-university-2010-ONCA-654.txt",
+          "pinpoint": "para. 29",
+          "quote": "His claim is that the university owed him various obligations in both contract and in tort, and that its failure to meet those obligations has caused him pecuniary and non-pecuniary damages. Such claims fall within the jurisdiction of the Superior Court and may proceed if they are properly pleaded and tenable in law and disclose a reasonable cause of action."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/jaffer-v-york-university-2010-ONCA-654.txt"
+    },
+    {
+      "key": "sc-claim-college-or-university-fee-dispute|plaintiffElement|money-not-grade-uni",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fc25f0cc447f4510eaf930616835a6426137039f796b4b3adeef5cee55c4138e",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jaffer-v-york-university-2010-ONCA-654.txt",
+          "pinpoint": "para. 26",
+          "quote": "After reviewing the cases, Rouleau J.A. concluded at para. 46 of Gauthier that it is the remedy sought that is indicative of jurisdiction. Judicial review is the proper procedure when seeking to reverse an internal academic decision. However, if a plaintiff alleges the basis for a cause of action in tort or contract and claims damages, then the court will have jurisdiction even if the dispute arises out of an academic matter"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jaffer-v-york-university-2010-ONCA-654.txt",
+          "pinpoint": "para. 29",
+          "quote": "the action is not simply an indirect attempt at judicial review, as the appellant does not seek to reverse decisions with respect to his grades or compel the university to readmit him."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/jaffer-v-york-university-2010-ONCA-654.txt"
+    },
+    {
+      "key": "sc-claim-college-or-university-fee-dispute|plaintiffElement|amount-uni",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d37b88057ef57e4eecb9ff2b1cf2bc6ba2bb75edf10ba51832549167f332b47c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-college-or-university-fee-dispute|defendantConsideration|academic-discretion-uni",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "4014fb63a56636d3fbd4168af7f1c6605aac2734661e367fb90abebcc40d27b2",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jaffer-v-york-university-2010-ONCA-654.txt",
+          "pinpoint": "para. 27",
+          "quote": "by enrolling at the university, it is understood that the student agrees to be subject to the institution's discretion in resolving academic matters, including the assessment of the quality of the student's work and the organization and implementation of university programs."
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jaffer-v-york-university-2010-ONCA-654.txt",
+          "pinpoint": "para. 28",
+          "quote": "the court may strike a claim under r. 21.01(1), or in exceptional circumstances r. 25.11, when it appears that the cause of action is untenable or unlikely to succeed. This will occur if, for example, an action is simply an indirect attempt to appeal an academic decision and the appropriate remedy would be judicial review, or if the pleadings do not disclose details necessary to establish that the university's actions go beyond the broad discretion that it enjoys."
+        }
+      ],
+      "howRead": "Saved decision docs/sources/decisions/jaffer-v-york-university-2010-ONCA-654.txt"
+    },
+    {
+      "key": "sc-claim-college-or-university-fee-dispute|defendantConsideration|dispute-uni",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "de8f57e1eba10b3c2cc90a89d540830b199c1f5eed9eb96bed605a1d3e635b7a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-college-or-university-fee-dispute|proceduralNote|sc-claim-college-or-university-fee-dispute#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "02445f1236cca00c854e888841d2a46d00c7f77d434a3305cfebde2a08fb50c1",
+      "sources": [
+        {
+          "sourceUrl": "docs/sources/decisions/jaffer-v-york-university-2010-ONCA-654.txt",
+          "pinpoint": "para. 29",
+          "quote": "Such claims fall within the jurisdiction of the Superior Court"
+        },
+        {
+          "sourceUrl": "docs/sources/decisions/jaffer-v-york-university-2010-ONCA-654.txt",
+          "pinpoint": "para. 26",
+          "quote": "Judicial review is the proper procedure when seeking to reverse an internal academic decision."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "pinpoint": "s. 22(1)",
+          "quote": "The Small Claims Court is continued as a branch of the Superior Court of Justice under the name Small Claims Court in English"
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/decisions/jaffer-v-york-university-2010-ONCA-654.txt, docs/sources/corpus/cja-courts-of-justice-act.txt"
+    },
+    {
+      "key": "sc-claim-college-or-university-fee-dispute|proceduralNote|sc-claim-college-or-university-fee-dispute#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6bc68f649a3ad6a3806407d107d073378d6d2483c7b786fe570a05dbb355f3d1",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Plaintiff's claim",
+          "quote": "A Plaintiff's Claim [Form 7A] commences an action."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Give a full explanation of what happened, including the dates and places and nature of the occurrences involved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-college-or-university-fee-dispute|proceduralNote|sc-claim-college-or-university-fee-dispute#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    }
+  ],
+  "unverifiable": []
+}

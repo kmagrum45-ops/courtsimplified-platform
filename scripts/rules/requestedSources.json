@@ -372,5 +372,137 @@
       "Statutory Powers Procedure Act"
     ],
     "why": "How hearings before Ontario tribunals (the Landlord and Tenant Board, the Human Rights Tribunal) are run: notice, adjournments, reviews. People sent to a tribunal by a forum check need it."
+  },
+  {
+    "id": "travel-industry-act-2002",
+    "title": "Travel Industry Act, 2002",
+    "citation": "S.O. 2002, c. 30, Sched. D",
+    "url": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Travel Industry Act"
+    ],
+    "why": "Travel agent and tour operator disputes: registration, the compensation fund, what a traveller can recover. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "funeral-burial-cremation-services-act",
+    "title": "Funeral, Burial and Cremation Services Act, 2002",
+    "citation": "S.O. 2002, c. 33",
+    "url": "https://www.ontario.ca/laws/docs/02f33_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Funeral, Burial and Cremation Services Act"
+    ],
+    "why": "Funeral and cemetery contract disputes, which the consumer regulation partly exempts from the general consumer rules. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "arthur-wishart-act-franchise",
+    "title": "Arthur Wishart Act (Franchise Disclosure), 2000",
+    "citation": "S.O. 2000, c. 3",
+    "url": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Arthur Wishart Act"
+    ],
+    "why": "Franchise disputes: the disclosure document, rescission, the duty of fair dealing. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "partnerships-act",
+    "title": "Partnerships Act",
+    "citation": "R.S.O. 1990, c. P.5",
+    "url": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Partnerships Act"
+    ],
+    "why": "Partnership break-ups: when a partnership exists, partners' duties, dissolution and accounts. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "wages-act",
+    "title": "Wages Act",
+    "citation": "R.S.O. 1990, c. W.1",
+    "url": "https://www.ontario.ca/laws/docs/90w01_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Wages Act"
+    ],
+    "why": "How much of a person's wages can be garnished after a judgment; needed by the garnishment case types. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "execution-act",
+    "title": "Execution Act",
+    "citation": "R.S.O. 1990, c. E.24",
+    "url": "https://www.ontario.ca/laws/docs/90e24_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Execution Act"
+    ],
+    "why": "What property is exempt when a judgment is enforced by a writ of seizure and sale. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "ontario-new-home-warranties-plan-act",
+    "title": "Ontario New Home Warranties Plan Act",
+    "citation": "R.S.O. 1990, c. O.31",
+    "url": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Ontario New Home Warranties Plan Act"
+    ],
+    "why": "New-home warranty and deposit disputes with builders. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "trust-in-real-estate-services-act",
+    "title": "Trust in Real Estate Services Act, 2002",
+    "citation": "S.O. 2002, c. 30, Sched. C",
+    "url": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Real Estate"
+    ],
+    "why": "Disputes with a real estate agent or brokerage: registration, deposits held in trust, duties to clients. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "digital-platform-workers-rights-act",
+    "title": "Digital Platform Workers' Rights Act, 2022",
+    "citation": "S.O. 2022, c. 7, Sched. 1",
+    "url": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Digital Platform Workers"
+    ],
+    "why": "Gig workers' pay: what a platform must pay and how a worker enforces it. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "charities-accounting-act",
+    "title": "Charities Accounting Act",
+    "citation": "R.S.O. 1990, c. C.10",
+    "url": "https://www.ontario.ca/laws/docs/90c10_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Charities Accounting Act"
+    ],
+    "why": "Disputes over money given to a charity or fundraiser. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "ticket-sales-act-2017",
+    "title": "Ticket Sales Act, 2017",
+    "citation": "S.O. 2017, c. 33, Sched. 3",
+    "url": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Ticket Sales Act"
+    ],
+    "why": "Ticket resale and cancelled-event refunds. Case types were left out for want of it (2026-10-07)."
   }
 ]

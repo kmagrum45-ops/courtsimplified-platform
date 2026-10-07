@@ -1643,9 +1643,19 @@ brief `scripts/content/MORE_CASE_TYPES_BRIEF.md`). Each author left a type out w
 text states the law it rests on. To add one, save the source first (corpus or
 `docs/sources/decisions/` with a README entry), then write the type.
 
-- **Not saved, so the type was left out:** Real Estate and Business Brokers Act (real estate
-  agent), Travel Industry Act, 2002 (travel agent), federal air passenger rules (airline delay,
-  baggage), Funeral, Burial and Cremation Services Act, 2002, Ticket Sales Act, 2017, courier
+- **Saved the same evening and written (batches gaps-1 to gaps-4):** Trust in Real Estate
+  Services Act, 2002 (e-Laws `02r30`), Travel Industry Act, 2002 (`02t30`), Funeral, Burial and
+  Cremation Services Act, 2002 (`02f33`), Ticket Sales Act, 2017 (`17t33`), Ontario New Home
+  Warranties Plan Act (`90o31`), plus Arthur Wishart Act (`00a03`), Partnerships Act (`90p05`),
+  Wages Act (`90w01`), Execution Act (`90e24`), Digital Platform Workers' Rights Act, 2022
+  (`22d07`) and Charities Accounting Act (`90c10`), all fetched by Vendor Sources run
+  37702637576. Decisions: Antrim (2013 SCC 13, SCC item 12887) for private nuisance, Scalera
+  (2000 SCC 24, item 1786) for battery, Merrifield (2019 ONCA 205, ontariocourts.ca .htm) on
+  harassment. SCC item ids were found by web-searching the exact case title plus "SCC Cases".
+  Still unsupported: trespass to land (Scalera is trespass to the person), an assault with no
+  contact, the right to cut back a neighbour's branches.
+- **Not saved, so the type was left out:** federal air passenger rules (airline delay,
+  baggage), courier
   liability, telecom (CCTS) and utility rules, the law on immigration consultants and paralegal
   fees, investment and mortgage-broker Acts, copyright and other IP statutes, CRA/EI/CPP and
   social-assistance appeal law.

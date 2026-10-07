@@ -1,0 +1,876 @@
+Merrifield v. Canada (Attorney General), 2019 ONCA 205
+<!--
+h1 { line-height:100%; page-break-after:avoid; font-size:13.0pt; font-family:"Arial", "sans-serif"; text-transform:uppercase; }
+h2 { line-height:100%; page-break-after:avoid; font-size:13.0pt; font-family:"Arial", "sans-serif"; }
+h3 { line-height:100%; page-break-after:avoid; font-size:13.0pt; font-family:"Arial", "sans-serif"; }
+h4 { text-indent:0in; line-height:100%; page-break-after:avoid; font-size:13.0pt; font-family:"Arial", "sans-serif"; }
+h5 { line-height:100%; font-size:13.0pt; font-family:"Arial", "sans-serif"; }
+h6 { line-height:100%; font-size:13.0pt; font-family:"Arial", "sans-serif"; }
+p.MsoHeading7, li.MsoHeading7, div.MsoHeading7 { line-height:100%; font-weight:bold; }
+p.MsoHeading8, li.MsoHeading8, div.MsoHeading8 { line-height:100%; font-weight:bold; }
+p.MsoHeading9, li.MsoHeading9, div.MsoHeading9 { line-height:100%; font-weight:bold; }
+p.MsoFootnoteText, li.MsoFootnoteText, div.MsoFootnoteText { font-size:10.0pt; }
+div.MHeading12 { text-align:center; text-indent:0in; font-weight:bold; }
+span.MsoPageNumber { font-size:13.0pt; font-family:"Arial", "sans-serif"; }
+p.MsoListBullet, li.MsoListBullet, div.MsoListBullet { margin-left: 3%;text-align:justify; line-height:100%; }
+p.MsoListBulletCxSpFirst, li.MsoListBulletCxSpFirst, div.MsoListBulletCxSpFirst { margin-left: 3%;text-align:justify; line-height:100%; }
+p.MsoListBulletCxSpMiddle, li.MsoListBulletCxSpMiddle, div.MsoListBulletCxSpMiddle { margin-left: 3%;text-align:justify; line-height:100%; }
+p.MsoListBulletCxSpLast, li.MsoListBulletCxSpLast, div.MsoListBulletCxSpLast { margin-left: 3%;text-align:justify; line-height:100%; }
+p.MsoListBullet2, li.MsoListBullet2, div.MsoListBullet2 { margin-left: 3%;text-align:justify; }
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate { font-size:8.0pt; }
+span.MsoPlaceholderText { color:gray; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+span.Heading1Char { text-transform:uppercase; font-weight:bold; }
+span.Heading2Char { font-weight:bold; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+span.Heading3Char { font-weight:bold; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+span.Heading4Char { font-weight:bold; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+span.Heading5Char { font-weight:bold; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+span.Heading6Char { font-weight:bold; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+span.Heading7Char { font-weight:bold; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+span.Heading8Char { font-weight:bold; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+span.Heading9Char { font-weight:bold; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+p.CITATION, li.CITATION, div.CITATION { text-align:right; }
+p.DATE, li.DATE, div.DATE { text-align:right; }
+p.DOCKET, li.DOCKET, div.DOCKET { text-align:right; }
+p.CourtofAppealforOntario, li.CourtofAppealforOntario, div.CourtofAppealforOntario, YCJAWarningEmphasis { text-align:center; font-size:15.0pt; }
+p.YCJAWarningEmphasis { text-align:center; font-size:15.0pt; font-style:italic}
+p.Namesofpanelofjudges, li.Namesofpanelofjudges, div.Namesofpanelofjudges { text-align:center; }
+p.Namesofparty, li.Namesofparty, div.Namesofparty { text-align:center; }
+p.Partys, li.Partys, div.Partys { text-align:right; }
+p.and, li.and, div.and { text-align:center; }
+p.Onappealfrom, li.Onappealfrom, div.Onappealfrom { text-align:justify; }
+p.Judge, li.Judge, div.Judge { font-weight:bold; }
+span.Underline { text-decoration:underline; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+p.StrongUnderline, li.StrongUnderline, div.StrongUnderline { font-weight:bold; text-decoration:underline; }
+p.DSubquote, li.DSubquote, div.DSubquote { text-align:justify; margin-left: 5%; margin-right: 5%; }
+p.AParaNumbering, li.AParaNumbering, div.AParaNumbering { text-align:justify; text-indent:0in; }
+p.CQuote, li.CQuote, div.CQuote { text-align:justify; margin-left: 5%; margin-right: 5%; }
+p.BContinuingPara, li.BContinuingPara, div.BContinuingPara { text-align:justify; }
+p.LHeading11, li.LHeading11, div.LHeading11 { line-height:100%; font-weight:bold; font-style:italic; }
+span.LHeading11Char { font-weight:bold; font-style:italic; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+p.KHeading10, li.KHeading10, div.KHeading10 { line-height:100%; font-weight:bold; }
+p.MHeading12, li.MHeading12, div.MHeading12 { text-align:center; text-indent:0in; line-height:100%; font-weight:bold; }p.EmphasisStrong, li.EmphasisStrong, div.EmphasisStrong { font-weight:bold; font-style:italic; }
+p.LegislativeQuote, li.LegislativeQuote, div.LegislativeQuote { text-align:justify; margin-left: 5%; margin-right: 5%; }
+p.LegislativeSubquote, li.LegislativeSubquote, div.LegislativeSubquote { text-align:justify; margin-left: 10%; margin-right: 10%; }
+p.FootnoteTextEmphasis, li.FootnoteTextEmphasis, div.FootnoteTextEmphasis { font-size:10.0pt; font-style:italic; }
+p.Heading, li.Heading, div.Heading { line-height:100%; font-weight:bold; }
+p.EmphasisUnderline, li.EmphasisUnderline, div.EmphasisUnderline { font-style:italic; text-decoration:underline; }
+p.EmphasisStrongUnderline, li.EmphasisStrongUnderline, div.EmphasisStrongUnderline { font-weight:bold; font-style:italic; text-decoration:underline; }
+p.EmphasisUnderline, li.EmphasisUnderline, div.EmphasisUnderline { font-style:italic; text-decoration:underline; }
+span.EmphasisUnderlineChar { font-style:italic; text-decoration:underline; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+span.FootnoteTextEmphasisChar { font-style:italic; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+span.EmphasisStrongUnderlineChar { font-weight:bold; font-style:italic; text-decoration:underline; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+div.Section1 { page:Section1; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+p.Endorsement { text-align:center; }
+p.Endorsment { text-align:center; }
+p.OralEndorsement { text-align:center; }
+p.AppealBookEndorsement { text-align:center; }
+p.APPEALBOOKENDORSEMENT { text-align:center; }
+p.Costs { text-align:center; }
+p.COSTSENDORSEMENT { text-align:center; }
+p.CostsEndorsement { text-align:center; }
+p.Warning { text-align:center; font-weight:bold; font-size:14.0pt; }
+p { font-size:13.0pt; font-family:"Arial", "sans-serif"; }
+p.Indent { margin-left: 5%; margin-right: 5%; }
+p.Indent2 { margin-left: 10%; margin-right: 10%; }
+span.EmphasisStrongChar { font-weight:bold; font-style:italic; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+span.HeadingChar { font-weight:bold;font-size:13.0pt; font-family:"Arial", "sans-serif"; }
+span.KHeading10Char { font-weight:bold; font-size:13.0pt; font-family:"Arial", "sans-serif"; }
+span.MHeading12Char { font-weight:bold; font-size:13.0pt; font-family:"Arial", "sans-serif";}
+-->
+ COURT OF APPEAL FOR ONTARIO
+ CITATION: Merrifield v. Canada (Attorney General), 2019 ONCA
+ 205
+ DATE: 20190315
+ DOCKET: C63556
+ Juriansz, Brown and
+ Huscroft JJ.A.
+ BETWEEN
+ Peter
+ Merrifield
+ Plaintiff (Respondent/Appellant by way of
+ cross-appeal)
+and
+ The Attorney
+ General of Canada, Inspector James Jagoe, Superintendent
+ Marc Proulx
+Defendants (Appellants/Respondents by way of
+ cross-appeal)
+Sean Gaudet and James Gorham,
+ for the appellants
+ Laura Young, John Kingman
+ Phillips and John-Otto Phillips, for the respondent
+ Heard: September 18-19, 2018
+ <span
+style='color:black'>On appeal from the judgment of Justice Mary E. Vallee of
+ the Superior Court of Justice, dated February 28, 2017, with reasons reported
+ at 2017 ONSC 1333, 42 C.C.L.T. (4th) 4. 
+ <span style='line-height:
+200%;color:black;text-transform:none'>By the Court:
+ [1]<span
+style='font:7.0pt "Times New Roman"'> This appeal relates to claims of harassment and bullying by Royal Canadian
+ Mounted Police (RCMP) managerial members of the respondent Peter Merrifield from
+ 2005 to 2012. Merrifield was a junior RCMP Constable in 2005. He was promoted
+ to Corporal in 2009 and Sergeant in 2014.
+ [2]<span
+style='font:7.0pt "Times New Roman"'> The litigation has been protracted; Merrifield issued his notice of
+ action in May 2007 and a 40-day trial was held over a period of 17 months, from
+ November 2014 - April 2016. A lengthy decision was released in February 2017. 
+ [3]<span
+ seven years of strained relations between Merrifield and several of his
+ superiors in the RCMP. In allowing the action, the trial judge recognized a new
+ freestanding tort of harassment and found that many of the managerial decisions
+ made in relation to Merrifield constituted harassment. In addition, she found
+ the appellants liable for intentional infliction of mental suffering in
+ relation to one set of interactions. The trial judge awarded Merrifield
+ $100,000 in general damages, $41,000 in special damages, and $825,000 in costs
+ of the action. 
+ [4]<span
+style='font:7.0pt "Times New Roman"'> We conclude that the trial judge erred by recognizing a tort of
+ harassment, erred in applying the test for the intentional infliction of mental
+ suffering, and made palpable and overriding errors in much of her fact-finding.
+ The judgment must be set aside.
+ [5]<span
+ cross-appeal, seeking an increase in the damages awarded, is dismissed.
+ <span style='line-height:
+200%;color:black'>BACKGROUND
+ [6]<span
+ summary of the facts relevant to the litigation suffices.
+ [7]<span
+ Assessment Group (TAG), a unit responsible for providing protective services to
+ federal politicians, including the Prime Minister. TAG duties also included
+ monitoring criminal, extremist, and terrorist groups, and carrying out threat
+ assessments.
+ [8]<span
+ when his superior officers learned that he had run for the nomination to be the
+ of Barrie without complying with the applicable RCMP regulations. It was
+ decided that Merrifield was potentially in a conflict of interest position and
+ should be removed from investigating a death threat made against Member of
+ Parliament Belinda Stronach, who had recently left the Conservative Party
+ caucus to join the Liberal Party caucus. Merrifield was transferred out of the
+ TAG unit to another unit not responsible for protecting politicians. 
+ [9]<span
+ learned that this was not the first time that Merrifield had spoken publicly
+ sent a memo to him on September 28, 2005, reminding him of his obligation to
+ comply with applicable RCMP policies regarding media appearances.
+ [10]<span
+style='font:7.0pt "Times New Roman"'> In
+ October 2005, Merrifield was refused assignment to the Special Operations
+ Centre (SOC), which had been constituted to respond to a terrorist threat
+ against Toronto. 
+ [11]<span
+style='font:7.0pt "Times New Roman"'> In
+ January 2006, Merrifield was transferred to Customs and Excise. He did not
+ report for work but commenced sick leave. He did not report to his new post
+ until July 2006. On January 5, 2006, Merrifield wrote to Proulx, accusing him
+ usage. The card had been cancelled by the RCMP in October 2005 due to
+ nonpayment.
+ [12]<span
+style='font:7.0pt "Times New Roman"'> On
+ January 6, 2006, Proulx commenced a formal investigation pursuant to Part IV of
+ the Royal Canadian Mounted Police Act<span
+style='color:black;font-style:normal'>, R.S.C., 1985, c.
+ investigator concluded that Merrifield had contravened administrative policy by
+ failing to pay the balance due on the card and had used the card for minor unauthorized
+ purposes. A line officer issued a performance log directing Merrifield as to
+ use of the credit card and expense policy.
+ [13]<span
+style='font:7.0pt "Times New Roman"'> On
+ June 27, 2007, Merrifield commenced this action against the Crown, on behalf of
+ the RCMP, and individual RCMP members Inspector James Jagoe, Superintendent
+ Marc Proulx, Assistant Commissioner Michel Seguin, Chief Superintendent Norman Mazzerolle,
+ and Superintendent Martin Van Doren, seeking damages for the mental distress he
+ suffered as a result of managerial bullying and harassment. He twice amended
+ his statement of claim, most recently in April 2012, seeking further
+ declaratory relief related to claims under ss. 2(b), 2(d) and 3 of the Canadian
+ Charter of Rights and Freedoms. The action was discontinued as against
+ Seguin, Mazzerolle and Van Doren by order of the trial judge on November 17,
+ 2014.
+ [14]<span
+style='font:7.0pt "Times New Roman"'> On
+ January 5, 2012, Merrifield sent an email message to the RCMP Commissioner and
+ several other senior members of the RCMP, asking why his harassment claim was
+ not being settled. Receipt of the email message was acknowledged but his
+ question went unanswered.
+ [15]<span
+style='font:7.0pt "Times New Roman"'> The
+ trial judge found that the tort of harassment exists in Ontario. Her analysis
+ concerning the existence of the tort is quite brief in the context of an
+ She set out four questions (as submitted by the plaintiff) that must be
+ 1. Was the conduct of the defendants toward Merrifield
+ outrageous?
+ 2. Did the defendants intend to cause emotional distress or did
+ they have a reckless disregard for causing Merrifield to suffer from emotional
+ distress?
+ 3. Did Merrifield suffer from severe or extreme emotional
+ distress?
+ 4. Was the outrageous conduct of the defendants the actual and
+ proximate cause of the emotional distress?
+ [16]<span
+style='font:7.0pt "Times New Roman"'> The
+ trial judge found that the elements of the tort were satisfied. She found, for
+ explanation for failing to advise them he was running for the Conservative
+ the TAG unit was not bona fide, and
+ from TAG.
+ [17]<span
+style='font:7.0pt "Times New Roman"'> The
+ trial judge found that the appellants had a reckless disregard for whether
+ their behaviour would cause Merrifield to suffer from emotional distress; that
+ outrageous conduct was the actual and proximate cause of his emotional
+ distress. 
+ [18]<span
+style='font:7.0pt "Times New Roman"'> The
+ investigation without first asking Merrifield for an explanation of apparent
+ irregularities in the use of his American Express card was flagrant and
+ outrageous conduct that he should have known would cause Merrifield harm. She
+ considered that Proulx acted hypocritically in ordering the Part IV
+ investigation, because he had himself engaged in discreditable conduct contemporaneously
+ in attempting to procure the services of a prostitute. The trial judge was
+ satisfied that Merrifield suffered from depression and post-traumatic stress
+ disorder as a result of the RCMP actions, and she concluded that Merrifield had
+ established the tort of intentional infliction of mental suffering (IIMS).
+ DISCUSSION
+ TORT OF HARASSMENT
+ [19]<span
+style='font:7.0pt "Times New Roman"'> The
+ decision under appeal is the first case in which a Canadian appellate court has
+ been required to determine whether a common law tort of harassment exists. What
+ is required in order for a new tort to be recognized or established? Neither
+ party canvassed this issue, yet it is key to the resolution of this appeal.
+ Accordingly, it is helpful to begin with a brief consideration of the nature of
+ common law change, before considering whether a tort of harassment should be
+ recognized at this time.
+ The nature of common law change
+ [20]<span
+style='font:7.0pt "Times New Roman"'> Common
+ law change is evolutionary in nature: it proceeds slowly and incrementally
+ rather than quickly and dramatically, as McLachlin J. explained
+ in Watkins v. Olafson<span
+lang=EN-US>, <span lang=EN-US style='color:
+black;text-decoration:none'>[1989] 2 S.C.R. 750, at p. 760<span
+lang=EN-US>:
+ Generally
+ speaking, the judiciary is bound to apply the rules of law found in the
+ legislation and in the precedents. Over time, the law in any given area may
+ change; but the process of change is a slow and incremental one, based largely
+ on the mechanism of extending an existing principle to new circumstances. While
+ it may be that some judges are more activist than others, the courts have
+ generally declined to introduce major and far-reaching changes in the rules
+ hitherto accepted as governing the situation before them.
+ [21]<span
+style='font:7.0pt "Times New Roman"'> As
+ she went on to explain at pp. 760-761, courts may not be in the best position
+ to address problems in the law; significant change may best be left to the
+ legislature:
+ There
+ are sound reasons supporting this judicial reluctance to dramatically recast
+ established rules of law. The court may not be in the best position to assess
+ the deficiencies of the existing law, much less problems which may be
+ associated with the changes it might make. The court has before it a single
+ case; major changes in the law should be predicated on a wider view of how the
+ rule will operate in the broad generality of cases. Moreover, the court may not
+ be in a position to appreciate fully the economic and policy issues underlying
+ the choice it is asked to make. Major changes to the law often involve devising
+ subsidiary rules and procedures relevant to their implementation, a task which
+ is better accomplished through consultation between courts and practitioners
+ than by judicial decree. Finally, and perhaps most importantly, there is the
+ long-established principle that in a constitutional democracy it is the
+ legislature, as the elected branch of government, which should assume the major
+ responsibility for law reform. 
+ <span
+class=MsoHyperlink>[22]<span
+style='font:7.0pt "Times New Roman"'> These
+ wise words of caution have been reiterated by the Supreme Court in a variety of
+ contexts including R. v.
+ Salituro, <span
+lang=EN-US style='color:black;text-decoration:none'>[1991] 3 S.C.R. 654, <a
+name="_Toc529823699"><span lang=EN-US
+style='color:black;text-decoration:none'>and <span
+style='color:black'>R. v. Mann, <span
+class=MsoHyperlink>2004
+ SCC 52, [2004] 3 S.C.R. 5<span
+lang=EN-US style='color:black;text-decoration:none'>9. The same idea is seen in
+ English law: see e.g. Launchbury<span
+class=MsoHyperlink> v.
+ Morgans, [1972] UKHL 5,<span
+class=MsoHyperlink> [1973] A.C. 127.
+ [23]<span
+style='font:7.0pt "Times New Roman"'> Thus,
+ when the Supreme Court created a duty of honest contractual performance <a
+name="_Toc529823702">in Bhasin v.
+ Hrynew, <span
+lang=EN-US style='color:black;text-decoration:none'>2014 SCC 71, [2014] 3
+ S.C.R. 494, it did so on the basis that good faith contractual
+ performance already existed<span
+lang=EN-US> in Canadian common law as a general organizing principle that
+ underpins and informs existing common law rules. Creation of the new common law
+ duty was justified on the basis that it was an incremental step that followed
+ from the implications of the general organizing principle, a step that
+ responded to societal needs and vindicated the reasonable expectations of
+ commercial parties without precipitating unintended effects.
+ Common law change in Ontario
+ [24]<span
+style='font:7.0pt "Times New Roman"'> The
+ importance of incremental development of the common law was discussed in <a
+name="OLE_LINK3">Jones v. Tsige, 2012
+ ONCA 32, 108 O.R. (3d) 241, in which this court recognized the existence of
+ a tort of intrusion upon seclusion. 
+ [25]<span
+style='font:7.0pt "Times New Roman"'> Far
+ from being created from whole cloth, the intrusion upon seclusion tort was
+ grounded in what Sharpe J.A. identified as an emerging acceptance of claims for
+ breach of privacy. He carefully reviewed Ontario and Canadian case law, in
+ which he discerned both supportive dicta and a refusal to reject the existence
+ of the tort, and provincial legislation that established a right to privacy
+ while not foreclosing common law development. He also considered academic
+ scholarship, much of which supported the existence of a right to privacy. He
+ drew upon American tort law, which recognizes a right to privacy, as well as
+ the law of the United Kingdom, Australia, and New Zealand. He also noted
+ [26]<span
+style='font:7.0pt "Times New Roman"'> Ultimately,
+font-style:normal'>confirming the existence of the tort rather than
+ simply creating it. As he put it, at para. 65: 
+ In my view, it is appropriate
+ for this court to confirm the existence of a right of action for intrusion upon
+ seclusion. Recognition of such a cause of action would amount to an incremental
+ step that is consistent with the role of this court to develop the common law
+ in a manner consistent with the changing needs of society.
+ Authority does not support the recognition of a tort of
+ harassment 
+ [27]<span
+style='font:7.0pt "Times New Roman"'> The
+ trial judge in this case relied on four trial-level decisions proffered by Merrifield
+ as supporting the existence of the tort and establishing its elements: <span
+style='color:black'>Mainland Sawmills Ltd. et al v. IWA-Canada et
+ al, 2006 BCSC 1195, 41 C.C.L.T. (3d)
+ 52; Savino v. Shelestowsky<span
+style='color:black;font-style:normal'>, <span style='font-style:
+normal'>2013 ONSC 4394, 4 C.C.L.T. (4th) 94;<span
+style='color:black'> McHale v. Ontario<span style='color:black;
+font-style:normal'>, 2014 ONSC
+ 5179; and P.M. v. Evangelista<span
+style='color:black;font-style:normal'>, <span style='font-style:
+normal'>2015 ONSC 1419. 
+ [28]<span
+style='font:7.0pt "Times New Roman"'> She
+ erred in doing so. Taken as a whole, these cases confirm neither the existence
+ of the tort nor its elements.
+ [29]<span
+style='font:7.0pt "Times New Roman"'> <span
+style='color:black'>Mainland Sawmills is the key case in the
+ despite the fact that it is a British Columbia trial level authority in which
+ the court did no more than assume,
+ for purposes of dealing with an application seeking to have particular claims dismissed,
+ that the tort exists. Far from confirming the existence of the tort, the
+ application judge in Mainland <span
+style='color:black'>Sawmills specifically concluded that the law is
+ unclear.
+ [30]<span
+style='font:7.0pt "Times New Roman"'> As
+ for the elements of the tort, these too were assumed by the application judge
+ in Mainland Sawmills based on the
+ arising out of the tort of intentional infliction of emotional distress. In
+ short, Mainland Sawmills is not
+ authority for either the existence of the tort of harassment or the elements of
+ such a tort.
+ [31]<span
+style='font:7.0pt "Times New Roman"'> Nevertheless, Mainland Sawmills has been cited and
+ relied on in several subsequent cases in Ontario in which the tort of harassment
+ has been asserted.
+ [32]<span
+style='font:7.0pt "Times New Roman"'> In Savino, the motion judge does no more
+ Sawmills as one of the few cases in which the elements of the tort
+ are set out.
+ [33]<span
+style='font:7.0pt "Times New Roman"'> <span
+style='color:black'>McHale appears to assume the existence of the
+ tort and cites two cases, Lynch v. Westario Power
+ Inc.,<span
+style='color:black'> [2009]
+ O.J. No. 2927 (S.C.), and Mainland
+ Sawmills, for the elements of the tort, only to conclude
+ that the tort was not pleaded with sufficient particularity. <span
+style='color:black'>Lynch specifically states that the existence of
+ the tort of harassment is unclear and, like McHale, finds that the
+ tort was not pleaded with sufficient particularity in accordance with <span
+style='color:black'>Mainland Sawmills in any event.
+ [34]<span
+style='color:black'>Savino and Lynch for the elements of the tort. P.M. is
+ the only case cited by the respondent in which damages were awarded for harassment
+ ($5,000), but the defendant in that case was the administrator of the estate of
+ the tortfeasor and did not lead evidence.
+ [35]<span
+style='font:7.0pt "Times New Roman"'> The
+ trial judge concluded that the law of harassment has evolved since 2011, citing McHale, P.M.,
+ and John v. Cusack<span
+style='color:black;font-style:normal'>, <span lang=EN-US
+style='line-height:200%'>2015 ONSC 5004,<span lang=EN-US
+style='font-size:11.5pt;line-height:200%;font-family:"Times New Roman",serif'> in
+ assumes its existence for purposes of a summary judgment motion, ultimately dismissing
+ the claim as frivolous and vexatious.
+ [36]<span
+style='font:7.0pt "Times New Roman"'> This
+ is the extent of the authority cited in support of the existence of the tort.
+ In sum, these cases assume rather than establish the existence of the tort.
+ They are not authority for recognizing the existence of a tort of harassment in
+ Ontario, still less for establishing either a new tort or its requisite
+ elements.
+ There is no other basis to recognize a new tort
+ [37]<span
+style='font:7.0pt "Times New Roman"'> Given
+ that authority does not support the existence of a tort of harassment, should this
+ court nevertheless recognize such a new tort?
+ [38]<span
+style='font:7.0pt "Times New Roman"'> To
+ pose the question in this way is to suggest that the recognition of new torts
+ new tort anytime it considers it appropriate to do so. But that is not how the
+ common law works, nor is it the way the common law should work.
+ [39]<span
+style='font:7.0pt "Times New Roman"'> At
+ the outset, it is important to recognize that this is not a case like <span
+style='color:black'>Tsige, which, as we have said, is best
+ understood as a culmination of a number of related legal developments. As we
+ have explained, current Canadian legal authority does not support the
+ recognition of a tort of harassment.
+ [40]<span
+style='font:7.0pt "Times New Roman"'> We
+ were not provided with any foreign judicial authority that would support the recognition
+ of a new tort. Nor were we provided with any academic authority or compelling
+ policy rationale for recognizing a new tort and its requisite elements. 
+ [41]<span
+style='font:7.0pt "Times New Roman"'> This
+ is not a case whose facts cry out for the creation of a novel legal remedy, as
+ in Tsige<span style='color:black;
+font-style:normal'>. That case concerned a highly significant
+ prolonged, and shocking. Discipline imposed on the defendant by her employer did
+ not redress the wrong done to the plaintiff. In these circumstances, as Sharpe
+ [42]<span
+style='font:7.0pt "Times New Roman"'> That
+ is not this case. In this case, there are legal remedies available to redress
+ conduct that is alleged to constitute harassment. The tort of IIMS is one of
+ these remedies, and it is discussed below. 
+ [43]<span
+style='font:7.0pt "Times New Roman"'> In
+ summary, the case for recognizing the proposed tort of harassment has not been
+ made. On the contrary, as we will explain, there are good reasons opposing the recognition
+ of the proposed tort at this time.
+ (IIMS)
+ [44]<span
+style='font:7.0pt "Times New Roman"'> The
+ tort of IIMS is well established in Ontario and may be asserted as a basis for
+ claiming damages for mental suffering in the employment context.
+ [45]<span
+style='font:7.0pt "Times New Roman"'> In
+ the leading case, Prinzo v. Baycrest Centre for Geriatric Care<span
+style='font-style:normal'>, (2002) 60 O.R. (3d) 474, at
+ para. 48, this court held that the test for IIMS is met where the plaintiff
+ establishes conduct that is (1) flagrant and outrageous, (2) calculated to
+ produce harm, and which (3) results in visible and provable illness.
+ [46]<span
+style='font:7.0pt "Times New Roman"'> A
+ comparison of the elements of the proposed tort of harassment accepted by the
+ trial judge and the elements of the existing tort of IIMS is instructive.
+ [47]<span
+style='font:7.0pt "Times New Roman"'> Whereas
+ IIMS requires flagrant and outrageous conduct, the proposed harassment tort
+ would require only outrageous conduct. More significant, IIMS is an intentional
+ tort, requiring an intention to cause the kind of harm that occurred or
+ knowledge that it was almost certain to occur. This is a purely subjective
+ test: Boucher v. Wal-Mart Canada Corp.,
+ 2014 ONCA 419, 120 O.R. (3d) 481, at para. 43, whereas the proposed tort
+ of harassment would require either intention or objectively-defined
+ reckless disregard. Finally, IIMS requires conduct that is the proximate cause
+ of a visible and provable illness, whereas causing severe or extreme emotional
+ distress is sufficient for the proposed tort of harassment.
+ [48]<span
+style='font:7.0pt "Times New Roman"'> Plainly,
+ the elements of the tort of harassment recognized by the trial judge are
+ similar to, but less onerous than, the elements of IIMS. Put another way, it is
+ more difficult to establish the tort of IIMS than the proposed tort of
+ harassment, not least because IIMS is an intentional tort, whereas harassment would
+ operate as a negligence-based tort.
+ [49]<span
+ the similarities between IIMS and the proposed tort of harassment, and the
+ availability of IIMS in employment law contexts, what is the rationale for
+ creating the new tort? 
+ [50]<span
+style='font:7.0pt "Times New Roman"'> Merrifield
+ submits that the new tort must be created because there is an increased
+ societal recognition that harassment is wrongful conduct. He notes that moral
+ damages for mental distress can be awarded only at termination of employment,
+ leaving a gap that the tort of harassment should fill. He asserts that the <span
+style='line-height:200%'>decision of the Supreme Court in Saadati v. Moorhead<span
+style='line-height:200%'>, 2017 SCC 28, [2017] 1 S.C.R. 543, supports the
+ creation of the tort of harassment, and that the test the trial judge
+ recognized for the tort is sufficiently stringent to limit the reach of the
+ tort.
+ [51]<span
+style='font:7.0pt "Times New Roman"'> We
+ disagree.
+ [52]<span
+style='font:7.0pt "Times New Roman"'> Saadati<span
+style='font-style:normal'> is concerned with proof of mental injury in the
+ context of a known cause of action. Although it may make damages for mental
+ injury more readily available in negligence actions, it does not require the
+ recognition of a new tort. Moreover, this court has not allowed negligence to
+ ground a claim for mental suffering in the employment context: Piresferreira
+ v. Ayotte, 2010 ONCA 384, 319 D.L.R.
+ (4th) 665.
+ [53]<span
+style='font:7.0pt "Times New Roman"'> In
+ summary, while we do not foreclose the development of a properly conceived tort
+ of harassment that might apply in appropriate contexts, we conclude that
+ Merrifield has presented no compelling reason to recognize a new tort of
+ harassment in this case.
+ Was IIMS established?
+ [54]<span
+style='font:7.0pt "Times New Roman"'> The
+ trial judge set out the test for IIMS outlined by this court in <span
+style='color:black'>Wal-Mart. This requires a plaintiff to
+ 1) was flagrant and outrageous; 
+ 2) was calculated to harm the plaintiff; and
+ 3) caused the plaintiff to suffer a visible and provable
+ illness. 
+ <span
+ outrageous because: a) he did not ask Merrifield for an explanation for his
+ had reason to believe the credit card was being used for non-RCMP purposes, c)
+ he provided no particulars of the transactions that concerned him or a date
+ range for which the investigation was to be conducted, and d) he alleged
+ discreditable conduct contemporaneous to engaging in discreditable conduct
+ himself, namely attempting to procure a prostitute. She found that <span
+lang=EN-US>Proulx had a reckless disregard for causing Merrifield emotional
+ distress, and that emotional distress was a consequence that was known to be
+ substantially certain to follow from the decision to order the investigation.
+ Finally, the trial judge found that Merrifield suffered from depression
+ and post-traumatic stress disorder, based largely on his evidence and that of
+ his family doctor that he was off work sick. Thus, she concluded that the tort
+ of IIMS was established solely on the facts of the Part IV credit card
+ investigation.
+ [56]<span
+style='font:7.0pt "Times New Roman"'> This
+ conclusion cannot stand. It flows from palpable and overriding errors in the
+ [57]<span
+style='font:7.0pt "Times New Roman"'> First,
+ the trial judge suggests that Proulx was required to be satisfied that there
+ was a breach of the RCMP Code of Conduct prior to ordering the investigation.
+ This is incorrect. Proulx had the authority under s. 40(1) of the RCMP Act to
+ order an investigation after having satisfied himself that Merrifield may have
+ contravened RCMP policy on the use and payment of his RCMP credit card. 
+ [58]<span
+style='font:7.0pt "Times New Roman"'> Second,
+ but it was not equivalent to alleging the commission of criminal offences, as
+ the trial judge stated.
+ [59]<span
+style='font:7.0pt "Times New Roman"'> Third,
+ flagrant and outrageous because Proulx himself had engaged in disgraceful
+style='color:black'>bona fide because he had breached a wholly
+ unrelated provision of the Code of Conduct after initiating the Part IV investigation is palpably wrong. There is simply no
+ respect to the Part IV investigation, and also calls into question her
+ evidence was irrelevant. It was never pleaded and should not have been
+ admitted.
+ [60]<span
+style='font:7.0pt "Times New Roman"'> In
+ sum, the IIMS argument failed at the first requirement and the trial judge
+ erred in concluding otherwise. But the trial judge also erred in finding that
+ the second and third elements of the tort were established. There was no
+ harm was substantially certain to follow from his decision to order the Part IV
+ despite multiple findings of flagrant and outrageous conduct, the evidence did
+ not establish the requisite causal connection.
+ <span
+style='line-height:200%'>[61] Our conclusions that the trial judge erred in recognizing the
+ tort of harassment and in finding that the tort of IIMS was established in
+ regard to the Part IV investigation are sufficient to allow the appeal. It is
+ not necessary to address all of the additional arguments made by the appellants;
+ however, given that most of the trial was focused on contested issues of fact, we
+ consider it appropriate to address additional palpable and overriding errors the
+ trial judge made in her analysis, as we explain below.
+ [62]<span
+style='font:7.0pt "Times New Roman"'> The
+ trial judge made numerous palpable and overriding errors in her fact- finding.
+ These errors include ignoring relevant evidence, considering irrelevant
+ matters, and making findings of fact that are clearly wrong. These errors
+ relation to the Part IV investigation or in any other context.
+ <span
+ Conservative Party nomination
+ [63]<span
+style='font:7.0pt "Times New Roman"'> The
+ the Conservative Party nomination in the Barrie riding in 2005. The trial
+ [64]<span
+style='font:7.0pt "Times New Roman"'> In
+ evaluating the factual record, the trial judge failed to keep in mind the requirements
+ of the governing regulations: Royal Canadian Mounted Police Regulations,
+ 1988, SOR/88-361. (These regulations were repealed in 2014, after all the
+ events of this case.)
+ [65]<span
+style='font:7.0pt "Times New Roman"'> Section
+ only while on leave without pay granted for that purpose, (a) run for
+ nomination, or stand as a candidate, in a federal, provincial or territorial
+ [66]<span
+style='font:7.0pt "Times New Roman"'> Merrifield
+ was aware of the regulations in 2004. On February 3, 2004, he wrote an email to
+ he had considered the regulations closely, as he quoted and commented on
+ several sections. He questioned whether the regulations applied if he were
+ standing for nomination in an electoral district that did not exist as yet. Verrecchia
+ on which the member enters the process and ending the day he withdraws or the
+ memorandum dated February 11, 2004, indicating that the Professional Standards
+ that he had to submit his request for LWOP through proper channels and have it
+ approved, and that it was his responsibility to identify and avoid situations
+ of conflict.
+ [67]<span
+style='font:7.0pt "Times New Roman"'> In
+ 2004, Merrifield sought nominations in three ridings, but sought LWOP for only
+ two of the three ridings. Subsequently, Merrifield ran as a candidate in the
+ federal election while on LWOP and returned to his duties following his defeat.
+ [68]<span
+style='font:7.0pt "Times New Roman"'> In
+ 2005, Merrifield filed his papers seeking nomination in the Barrie riding some
+ weeks before the nomination meeting was held on May 14, 2005. Merrifield
+ revised his campaign literature from 2004 and had it reprinted. He had 300
+ pamphlets distributed. He had people working on his campaign, obtained a list
+ of local party members, made audio recorded telephone calls, and had a campaign
+ website. However, he did not advise the RCMP that he was running and did not
+ request LWOP to run for the nomination.
+ [69]<span
+style='font:7.0pt "Times New Roman"'> Shortly
+ before the nomination meeting on May 14, Merrifield was asked if he had any
+ ambition to run in another election. According to Assistant Sergeant Crane,
+ testified that he told Crane and Jagoe that he would not be running in an
+ he had received a call from the Richmond Hill riding of the Conservative Party
+ offering him the candidacy in that riding.
+ [70]<span
+style='font:7.0pt "Times New Roman"'> A
+ few days following the nomination meeting, Crane and Jagoe learned that
+ Merrifield had been running for the Conservative Party nomination in Barrie at
+ the time of the conversation detailed above. They thought that Merrifield had
+ not been forthright with them. When they confronted him with the fact he had
+ run for nomination without disclosing it or obtaining proper leave, Merrifield
+ explained the difference between running for nomination and running in a public
+ The trial judge thought it unreasonable of Crane, Jagoe, and Proulx not to
+ A
+ logical explanation of the difference between a nomination meeting [and] an
+ election fell on deaf ears. Surely, these two higher ranking officers [Crane
+ and Jagoe] who had management responsibilities were capable of understanding
+ the difference. I find that they chose not to understand it.
+ [71]<span
+style='font:7.0pt "Times New Roman"'> At
+ difference between a nomination meeting and an election. To him it was all the
+ [72]<span
+style='font:7.0pt "Times New Roman"'> Given
+ the regulations, it made no difference whether Merrifield had been running for
+ nomination or for election. He was required to be on leave during the entire
+ period he was running for nomination. He should have sought and obtained LWOP
+ before he stood for nomination, as Verrecchia had advised him in writing in
+ 2004. 
+ [73]<span
+style='font:7.0pt "Times New Roman"'> The
+ trial judge was clearly wrong in finding that Crane, Jagoe, and Proulx were
+ direct questions led them to believe he had no current political ambitions at a
+ time when he was actively involved in the political process. That, his failure
+ to advise his line supervisor and request LWOP, and his subsequent self-serving
+ rationalization for his conduct gave his superior officers good reason to
+ conclude that he could not be trusted to be forthright with them. They could
+ reasonably believe that a forthright colleague would have disclosed that he was
+ running for nomination at the very time he was asked questions exploring his
+ [74]<span
+style='font:7.0pt "Times New Roman"'> The
+ irrelevant considerations. 
+ [75]<span
+style='font:7.0pt "Times New Roman"'> The
+ only to have the status to speak at the nomination meeting and as a strategy to
+ divert votes from the leading candidate. She accepted that Merrifield had not
+ sold any (para. 688) (or many (para. 747)) memberships and did not have the
+ required support to win the nomination.
+ [76]<span
+style='font:7.0pt "Times New Roman"'> These
+ irrelevant considerations do not excuse Merrifield for contravening the
+ regulations. They do not change the facts that Merrifield stood for nomination;
+ that he did not apply for leave; that he did not advise the RCMP before he ran;
+ and that he did not disclose the fact he was running when asked directly about
+ his political ambitions.
+ [77]<span
+style='font:7.0pt "Times New Roman"'> The
+ irrelevant. The regulations requiring leave expressly applied to the nomination
+ process without regard to the nature of that process. It was a legal error to
+ non-compliance with the regulations.
+ [78]<span
+style='font:7.0pt "Times New Roman"'> The
+ throughout her decision. The fact is that he ran as a candidate for the
+ nomination. He completed the nomination papers and distributed campaign
+ material and flyers to party members. It was irrelevant what his intentions
+ [79]<span
+style='font:7.0pt "Times New Roman"'> The
+ his previous leaves without pay to run for nominations and election should be
+ coded. But Sgt. Boos said nothing that could reasonably be construed to lead
+ Merrifield to believe that he did not need LWOP, however it was coded. Even accepting
+ and advise the RCMP that he was running for nomination. 
+ [80]<span
+style='font:7.0pt "Times New Roman"'> The
+ leave only for the day of the nomination meeting. But that position is plainly
+ a self-serving reading of the regulation. Verrecchia had clearly advised
+ Merrifield otherwise in writing in February 2004. Merrifield should have
+ arranged leave from the date he filed his candidacy papers with the riding
+ until he was no longer a candidate for nomination. During this period he was
+ sending out his campaign flyers, had an active website, and was soliciting
+ support for his nomination. Had Merrifield complied with the regulations,
+ Crane, Jagoe, and Proulx would not have been surprised to learn that he had
+ run. 
+ [81]<span
+style='font:7.0pt "Times New Roman"'> In
+ RCMP superiors had good reason to regard him as a colleague who could not be
+ RCMP.
+ [82]<span
+style='font:7.0pt "Times New Roman"'> A
+ judge failed to consider all of the evidence. In particular, she failed to
+ consider the evidence that Merrifield himself had perceived the potential for a
+ conflict, and she failed to consider the evidence of Verrecchia, despite having
+ summarized it earlier in her reasons. 
+ [83]<span
+style='font:7.0pt "Times New Roman"'> At
+ para. 149, the trial judge mentioned in passing that Merrifield declined to
+ in council check for her would be a conflict of interest, so I declined to
+ because if there was something omitted or something erroneously reported, that
+ personal relationship could be seen as a conflict of interest, whether through
+ concealment or advantage. So it would be best not to conduct that order in
+ from his political affiliation but from his personal relationship with
+ Stronach. What Merrifield described as a personal relationship was an artifact
+ with her on the Conservative caucus for the Greater Toronto Area.
+ [84]<span
+style='font:7.0pt "Times New Roman"'> Further,
+ the trial judge noted that when Merrifield was assigned to investigate a death
+ [85]<span
+style='font:7.0pt "Times New Roman"'> This
+ testimony may not establish that Merrifield thought he was in a conflict of
+ interest position, but it does show that he perceived the possibility of
+ a conflict.
+ [86]<span
+style='font:7.0pt "Times New Roman"'> The
+ Council check, or to his asking Stronach if he should recuse himself from
+ [87]<span
+style='font:7.0pt "Times New Roman"'> The
+ asked Stronach if he should recuse himself from the investigation and was
+ concerned about the appearance of their relationship as a potential conflict.
+ As Jagoe explained in his testimony, if Merrifield were not removed from the
+ reasonable consideration.
+ [88]<span
+style='font:7.0pt "Times New Roman"'> In
+ summarizing the evidence, the trial judge recounted that Proulx checked with
+ 168. Verrecchia said that Proulx sought her guidance about the conflict of
+ interest policy and whether Merrifield had contravened it. Among other things,
+ a conflict as he was partisan and his objectivity might be questioned. The RCMP
+ had to be objective, especially with respect to political investigations. According
+ [O]bjectively, it was an apparent conflict for Mr. Merrifield
+ involvement in the Stronach investigation created both perceived and apparent
+ conflicts.
+ [89]<span
+style='font:7.0pt "Times New Roman"'> Verrecchia
+ also stated her concerns about the campaign literature Merrifield had
+ distributed while he was not on LWOP and still working for the RCMP. He was
+ speaking against some of the laws of the day, for example the gun registry,
+ which was a law of Canada that had to be enforced by the RCMP. Verrecchia said:
+ against the government and its existing laws. He had an obligation to enforce
+ [90]<span
+style='font:7.0pt "Times New Roman"'> Verrecchia
+ also pointed out that section 12.12 F of the RCMP Conflict of Interest Policy
+ suitable assignment taking into account political opinions expressed, political
+ impact that may result from the posting and investigations with political
+ advised Proulx that Merrifield should not be doing any political investigations
+ as it was a conflict.
+ [91]<span
+style='font:7.0pt "Times New Roman"'> The
+ fact that Proulx consulted and followed the advice of internal resources at the
+ RCMP before forming a firm opinion that Merrifield posed a potential conflict
+ of interest, and before transferring him out of TAG, demonstrates that the
+ fide was clearly wrong. On no understanding could his conduct be
+ said to be outrageous.
+ [92]<span
+style='font:7.0pt "Times New Roman"'> A
+ problematic if he had followed the regulations and been on LWOP, but as an
+ active RCMP officer he had expressed political views in opposition to the laws
+ of Canada that he was required to enforce, and in these circumstances it was
+ not unreasonable to be concerned about a conflict of interest.
+ [93]<span
+style='font:7.0pt "Times New Roman"'> The
+ trial judge considered it significant that no conflict was apprehended when
+ Merrifield, after running in the election in 2004, worked in the Integrated National
+ Security Enforcement Team (INSET) and was assigned to TAG, a sub-unit of INSET,
+ in February 2005. Verrecchia explained in her testimony that this was not a
+ concern as his LWOP status had separated him from the RCMP during the campaign
+ and unfamiliar with the policies that applied to RCMP members engaging in
+ political activities. That is why he consulted Verrecchia.
+ [94]<span
+style='font:7.0pt "Times New Roman"'> In
+ her analysis section, the trial judge made only passing reference to Verrecchia.
+ to state that Proulx also consulted the RCMP Policy Branch. The trial judge
+ pointed out that the Policy Branch took a long time to respond and that, when
+ nomination meeting had compromised his ability to work in national security,
+ the Policy Branch would have provided Supt. Proulx with direction in a timely
+ [95]<span
+style='font:7.0pt "Times New Roman"'> As
+ the Crown points out, there are two problems with this.
+ [96]<span
+style='font:7.0pt "Times New Roman"'> First,
+ ability to work in national security; it was whether his political activities
+ compromised his ability to protect politicians. Second, the trial judge was
+ wrong to ascribe bad faith to Proulx, who was not responsible for the delay of
+ the Policy Branch and was acting on the best information and advice he had been
+ given. It is illogical for the trial judge to conclude that, because the Policy
+ [97]<span
+style='font:7.0pt "Times New Roman"'> Setting
+ of interest was not bona fide sweeps
+ away additional findings. For example, it sweeps away the finding that
+ [98]<span
+style='font:7.0pt "Times New Roman"'> On
+ January 5, 2012, Merrifield sent a lengthy email to a number of senior members
+ of the RCMP, including the Commissioner, Deputy Commissioner, and Assistant
+ Commissioner, lamenting that the RCMP had taken no steps to settle his case and
+ [99]<span
+style='font:7.0pt "Times New Roman"'> The
+ trial judge evidently regarded the email as significant and set it out in full
+ extraordinary steps to contact upper management with the hope of resolving his
+ right or decent. I find that it was one of the actual and proximate causes of
+ [100]<span
+ analysis is clearly erroneous. Merrifield and the RCMP were opposing parties in
+ litigation. The proper avenue for communication between the parties was through
+ counsel. In effect, Merrifield was complaining that the RCMP was defending the
+ action rather than settling it. His request should have been communicated
+ through his counsel. The RCMP response, if any, likewise should have been
+ through counsel.
+ [101]<span
+style='font:7.0pt "Times New Roman"'> In any event, the
+ trial judge was mistaken in saying the RCMP did not respond to the email. The Assistant
+ Commissioner emailed Merrifield on January 6, 2012, the day after his email was
+ received, informing him that the RCMP was continuing its discussions with Department
+ the RCMP had not abandoned efforts towards trying to reach a resolution and anticipated
+ added).
+ [102]<span
+style='font:7.0pt "Times New Roman"'> In the circumstances,
+ this was an entirely appropriate response.
+ [103]<span
+style='font:7.0pt "Times New Roman"'> It was patently wrong
+ concerns with Merrifield had been addressed, and that Merrifield had been
+ Merrifield could not be trusted to be completely forthright could reasonably be
+ rather than disciplined him did not give rise to an obligation on Proulx to
+ [104]<span
+style='font:7.0pt "Times New Roman"'> In our view, this
+ matter illustrates the readiness with which the trial judge identified
+ wrongdoing on the part of the RCMP managers and found them to have acted
+ outrageously. We note that the trial judge found that many of the other things
+ the RCMP did or did not do were elements of conduct she considered outrageous.
+ We are not to be taken to agree with those other findings, but for purposes of
+ this decision it is not necessary or fruitful to go through all of them here.
+ CONCLUSION
+ [105]<span
+style='font:7.0pt "Times New Roman"'> In summary, the trial
+ judge erred in concluding that the tort of harassment exists in Ontario and we
+ are not persuaded that the tort should be recognized. The trial judge also
+ initiation of a Code of Conduct investigation. No other facts found by the
+ trial judge met the test for IIMS.
+ [106]<span
+style='font:7.0pt "Times New Roman"'> For these reasons, the
+ appeal is allowed. The cross-appeal is dismissed.
+ [107]<span
+style='font:7.0pt "Times New Roman"'> The appellants are
+ entitled to costs of the appeal, the cross-appeal, and the trial.<span
+lang=EN-US> The appellants may make brief submissions on costs, not exceeding 10
+ pages, to the Registrar of this court within 10 days of this decision. The
+ respondent will have 10 days from service of those written submissions
+ to serve and file his submissions, which shall not exceed 10 pages.
