@@ -11,31 +11,30 @@
  * test:canlii checks that no main documents select names these columns.
  */
 
-import type { createClient } from "@supabase/supabase-js";
-
 import { COURT_DECISION_TYPE, type DecisionDetails } from "./courtDecision";
 
 export { COURT_DECISION_TYPE };
 
 export const DECISION_COLUMNS = "id,decision_case_name,decision_citation,decision_court,decision_date";
 
+/**
+ * Reads the decision columns for these rows. The caller supplies the query
+ * (scoped to the signed-in user), so this file needs no database client type.
+ */
+export type DecisionColumnsQuery = (ids: string[]) => PromiseLike<{ data: unknown; error: unknown }>;
+
 /** The owner's own decisions' details. Empty on any error, including "column does not exist". */
 export async function decisionDetailsFor(
-  supabase: ReturnType<typeof createClient>,
-  userId: string,
+  query: DecisionColumnsQuery,
   rows: readonly { id: string; user_type: string | null }[],
 ): Promise<Map<string, DecisionDetails>> {
   const ids = rows.filter((row) => row.user_type === COURT_DECISION_TYPE).map((row) => row.id);
   const out = new Map<string, DecisionDetails>();
   if (!ids.length) return out;
   try {
-    const { data, error } = await supabase
-      .from("workspace_documents")
-      .select(DECISION_COLUMNS)
-      .eq("user_id", userId)
-      .in("id", ids);
-    if (error || !data) return out;
-    for (const row of data as unknown as Record<string, string | null>[]) {
+    const { data, error } = await query(ids);
+    if (error || !Array.isArray(data)) return out;
+    for (const row of data as Record<string, string | null>[]) {
       out.set(String(row.id), {
         caseName: row.decision_case_name,
         citation: row.decision_citation,

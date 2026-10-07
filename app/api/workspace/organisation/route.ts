@@ -32,7 +32,7 @@
 
 import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
 import { decisionAttribution } from "@/src/lib/case-workspace/courtDecision";
-import { COURT_DECISION_TYPE, decisionDetailsFor } from "@/src/lib/case-workspace/courtDecisionStore";
+import { COURT_DECISION_TYPE, DECISION_COLUMNS, decisionDetailsFor } from "@/src/lib/case-workspace/courtDecisionStore";
 import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -265,7 +265,10 @@ export async function GET(req: NextRequest) {
 
       // Read apart from the main select; empty until migration 20261007090000
       // is applied, and the decisions still list with "Source: CanLII".
-      const details = await decisionDetailsFor(supabase, user.id, decisionRows);
+      const details = await decisionDetailsFor(
+        (ids) => supabase.from("workspace_documents").select(DECISION_COLUMNS).eq("user_id", user.id).in("id", ids),
+        decisionRows,
+      );
       const decisions = decisionRows.map((row) => {
         const decision = details.get(row.id) ?? {};
         return {
