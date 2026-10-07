@@ -596,6 +596,14 @@ export const S_MONETARY_LIMIT: RuleCitation = {
   quote: "The maximum amount of a claim in the Small Claims Court is $50,000.",
 };
 
+/** Page review 2026-10-07: the amount the user recorded, set against the court's limit (amountNotes.ts). */
+export const S_CJA_23_1_1_LEAVE: RuleCitation = {
+  sourceId: "cja-courts-of-justice-act",
+  pinpoint: "s. 23 (1.1)",
+  quote:
+    "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court.",
+};
+
 // --- the pre-suit notice provisions. See scripts/rules/noticeSources.ts for
 // --- why they are handled apart from every other deadline in the product.
 
@@ -891,4 +899,22 @@ export const F_R3_2_SHORT = familyRule(
 export const F_R3_3_CLOSED = familyRule(
   "r. 3 (3)",
   "If the last day of a period of time under these rules or an order falls on a day when court offices are closed, the period ends on the next day they are open.",
+);
+
+// --- Rule 76, set against the amount the user recorded (amountNotes.ts,
+// --- page review 2026-10-07).
+
+export const RCP_76_02_1_MANDATORY = civilRule(
+  "r. 76.02 (1)",
+  "The procedure set out in this Rule shall be used in an action if the following conditions are satisfied: 1. The plaintiff's claim is exclusively for one or more of the following: i. Money. ii. Real property. iii. Personal property. 2. The total of the following amounts is $200,000 or less exclusive of interest and costs:",
+);
+
+export const RCP_76_02_3_OPTIONAL = civilRule(
+  "r. 76.02 (3)",
+  "The procedure set out in this Rule may be used in any other action at the option of the plaintiff, subject to subrules (4) to (9).",
+);
+
+export const RCP_76_02_4_SAY_SO = civilRule(
+  "r. 76.02 (4)",
+  "The statement of claim (Form 14A, 14B or 14D) or notice of action (Form 14C) shall indicate that the action is being brought under this Rule.",
 );

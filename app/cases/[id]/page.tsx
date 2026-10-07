@@ -13,6 +13,7 @@
  * (section 4), exactly as in the builder.
  */
 
+import { recordedAmountOf } from "@/src/lib/case-system/amountNotes";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
@@ -223,6 +224,7 @@ export default function CaseOverviewPage() {
               suggestedDates={suggestedDates}
               storyHints={storyHintsForDates([userStory(intake), intake?.timeline].filter(Boolean).join("\n"))}
               userWords={userWordsOf(intake)}
+              recordedAmount={recordedAmountOf(intake)}
             />
           ) : (
             <NextStepsCard pathway={courtPath} stage={confirmed} userWords={userWordsOf(master.intakeData)} />
