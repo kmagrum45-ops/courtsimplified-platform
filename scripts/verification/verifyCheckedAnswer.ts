@@ -48,9 +48,18 @@ const index = loadCorpusIndex();
 /** A fake embedder: no vectors that match anything, so only named sections are read. */
 const noSearch: CheckedAnswerDeps["embed"] = async (texts, _model, dimensions) => texts.map(() => new Array(dimensions).fill(0));
 
-/** A checker that answers from a script keyed by statement number, using the passages it was given. */
-function scriptedCheck(script: (statements: string[], passages: Passage[]) => unknown): CheckedAnswerDeps["check"] {
-  return async (statements, passages) => JSON.stringify(script(statements, passages));
+/**
+ * A checker that answers from a script keyed by the statement's number in the
+ * draft (`texts`), using the passages it was given. The pipeline checks one
+ * statement per call, so the scripted result for that statement is returned
+ * as number 1.
+ */
+function scriptedCheck(script: (statements: string[], passages: Passage[]) => unknown, texts: string[] = []): CheckedAnswerDeps["check"] {
+  return async (statements, passages) => {
+    const n = Math.max(1, texts.indexOf(statements[0]) + 1);
+    const all = (script(statements, passages) as { results?: { n: number }[] }).results ?? [];
+    return JSON.stringify({ results: all.filter((item) => item.n === n).map((item) => ({ ...item, n: 1 })) });
+  };
 }
 
 const passageFor = (passages: Passage[], sourceId: string) => passages.find((passage) => passage.sourceId === sourceId);
@@ -62,20 +71,17 @@ async function main() {
     return;
   }
 
-  const draftCpa = async () =>
-    JSON.stringify({
-      scope: "ontario",
-      asksForPrediction: false,
-      statements: [
-        { text: "You can cancel a direct agreement without any reason within 10 days after you receive the written copy of it.", cites: ["Consumer Protection Act, 2002, s. 43 (1)"] },
-        { text: "You must give notice of cancellation within 30 days.", cites: ["Consumer Protection Act, 2002, s. 43 (1)"] },
-        { text: "You will likely win if you cancel in time.", cites: ["Consumer Protection Act, 2002, s. 43 (1)"] },
-        { text: "The Imaginary Statute Act requires a 90-day notice first.", cites: ["Imaginary Statute Act, s. 12"] },
-      ],
-    });
+  const cpaStatements = [
+    { text: "You can cancel a direct agreement without any reason within 10 days after you receive the written copy of it.", cites: ["Consumer Protection Act, 2002, s. 43 (1)"] },
+    { text: "You must give notice of cancellation within 30 days.", cites: ["Consumer Protection Act, 2002, s. 43 (1)"] },
+    { text: "You will likely win if you cancel in time.", cites: ["Consumer Protection Act, 2002, s. 43 (1)"] },
+    { text: "The Imaginary Statute Act requires a 90-day notice first.", cites: ["Imaginary Statute Act, s. 12"] },
+  ];
+  const cpaTexts = cpaStatements.map((statement) => statement.text);
+  const draftCpa = async () => JSON.stringify({ scope: "ontario", asksForPrediction: false, statements: cpaStatements });
 
   // ---- 1. A true statement, quoted from the passage it cites, is shown
-  let seenPassages: Passage[] = [];
+  const seenPassages: Passage[] = [];
   const answer = await checkedAnswer(
     { question: "Can I cancel the window contract the salesperson signed with me at my kitchen table?", courtPath: "small-claims" },
     {
@@ -83,7 +89,7 @@ async function main() {
       draft: draftCpa,
       embed: noSearch,
       check: scriptedCheck((statements, passages) => {
-        seenPassages = passages;
+        seenPassages.push(...passages);
         const cpa = passageFor(passages, "consumer-protection-act-2002");
         return {
           results: [
@@ -94,7 +100,7 @@ async function main() {
             { n: 4, verdict: "unsupported", passage: "", quote: "", topic: "a 90-day notice" },
           ],
         };
-      }),
+      }, cpaTexts),
     },
   );
   const cpa = passageFor(seenPassages, "consumer-protection-act-2002");
@@ -108,7 +114,7 @@ async function main() {
   check("a statement whose quote is not in the passage is not shown", !answer.statements.some((statement) => /30 days/.test(statement.text)));
   check("a statement that predicts the outcome is not shown", !answer.statements.some((statement) => /likely win/.test(statement.text)));
   check("a law the library does not hold is reported missing, not stated", answer.missingLaw.some((law) => /Imaginary Statute/.test(law)) && !answer.statements.some((s) => /Imaginary/.test(s.text)));
-  check("what could not be confirmed is listed by topic", answer.notConfirmed.includes("time to give notice") && answer.notConfirmed.includes("a 90-day notice"), JSON.stringify(answer.notConfirmed));
+  check("what could not be confirmed is listed by topic", answer.notConfirmed.includes("time to give notice") && answer.notConfirmed.some((topic) => /90-day notice/.test(topic)), JSON.stringify(answer.notConfirmed));
   check("the answer is marked answered", answer.status === "answered");
 
   // ---- 2. A wrong statement is shown only in its corrected form, when that passes
@@ -182,6 +188,34 @@ async function main() {
   check("a slow model answers unavailable at the time limit", slow.status === "unavailable");
   const noLibrary = await checkedAnswer({ question: "Anything?", courtPath: "civil" }, { index: null });
   check("with no library, unavailable", noLibrary.status === "unavailable");
+
+  // ---- 6b. Each statement is checked on its own; at the time limit the ones
+  // already checked are shown and the rest are listed as not confirmed.
+  const partialTexts = cpaTexts.slice(0, 2);
+  const checkCalls: string[][] = [];
+  const partial = await checkedAnswer(
+    { question: "Can I cancel the window contract?", courtPath: "small-claims" },
+    {
+      index,
+      embed: noSearch,
+      timeoutMs: 400,
+      draft: async () => JSON.stringify({ scope: "ontario", asksForPrediction: false, statements: cpaStatements.slice(0, 2) }),
+      check: async (statements, passages) => {
+        checkCalls.push(statements);
+        const cpaPassage = passageFor(passages, "consumer-protection-act-2002");
+        if (statements[0] === partialTexts[1]) await new Promise((resolve) => setTimeout(resolve, 3000));
+        return JSON.stringify({
+          results: [{ n: 1, verdict: "supported", passage: cpaPassage?.id, quote: "may, without any reason, cancel a direct agreement at any time from the date of entering into the agreement until 10 days after the consumer has received the written copy of the agreement", topic: statements[0] === partialTexts[0] ? "cancelling" : "slow topic" }],
+        });
+      },
+    },
+  );
+  check("each statement goes to its own check", checkCalls.length === 2 && checkCalls.every((call) => call.length === 1));
+  check(
+    "a slow check does not hold back the statements already checked",
+    partial.statements.length === 1 && partial.statements[0].text === partialTexts[0] && partial.notConfirmed.length === 1,
+    JSON.stringify(partial),
+  );
 
   // ---- 7. The pure checks
   check("parseDraft keeps at most ten statements and drops empty ones", (parseDraft(JSON.stringify({ statements: Array.from({ length: 14 }, (_, i) => ({ text: `Statement number ${i} here.`, cites: ["x"] })).concat([{ text: "", cites: [] }]) }))?.statements.length ?? 0) === 10);

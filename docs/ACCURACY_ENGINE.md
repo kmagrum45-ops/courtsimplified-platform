@@ -180,6 +180,14 @@ a statement is shown only if its quote is in the passage the library returned,
 every number is in that passage or the person's own words, and it neither
 predicts nor grades the case. The rest is listed as "could not confirm".
 
+Each statement is checked by its own small call (its named sections, four
+search hits and their cross-references, at most ten passages), all side by
+side. At the time limit, statements already checked are shown and the rest
+are listed as not confirmed. This caught us: the first version sent every
+statement and up to 36 passages to one check call, and in the 2026-10-07 exam
+run 5 of 18 questions ran past the 50-second limit and showed nothing at all
+(19/36 points; 19/26 on the questions that finished).
+
 Why: the first law exam run (2026-10-07) showed the research step finds the
 main rule but returns passages, not an answer, and its caps (2 questions x
 about 5 passages) cannot hold the 6-10 provisions a full answer needs. The
