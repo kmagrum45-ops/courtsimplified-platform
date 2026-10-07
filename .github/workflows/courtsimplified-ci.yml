@@ -60,6 +60,9 @@ jobs:
       - name: One case record that every page reads (master plan Phase 1)
         run: npm run test:case-record
 
+      - name: The next step comes first (master plan Phase 2)
+        run: npm run test:next-step
+
       - name: Two-year limit counted from an injury under the s. 5 (2) presumption
         run: npm run test:presumed-limitation
 
