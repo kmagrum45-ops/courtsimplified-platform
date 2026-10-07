@@ -245,6 +245,13 @@ Any behaviour change it produces must be explained, not absorbed silently: updat
 isn't. Never quietly let `.actual.md` drift out of sync with what `*.expected.md` says should
 happen.
 
+## 7a. The master plan
+
+`docs/MASTER_PLAN.md` is the plan and the fixed beta finish line (adopted
+2026-10-06). Work from it. It changes only through its decision log; a new
+finding goes into the phase that owns it or onto the after-beta list, never
+moves the finish line on its own.
+
 ## 8. Know what exists before adding to it
 
 This codebase has 58 documents and more than 80 verification suites. The
