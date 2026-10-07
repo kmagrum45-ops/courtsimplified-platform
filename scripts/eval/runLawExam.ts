@@ -1,34 +1,37 @@
 /**
- * Runs the CourtSimplified law exam: puts every question in
- * scripts/eval/lawExam/questions/ to the site's own research step -- the same
- * one behind "The law on your question" (retrieval/researchQuestion.ts) -- and
- * scores what the site showed against the answer key, by code.
+ * Runs the CourtSimplified law exam against the site and scores it.
  *
- * COSTS MONEY. Each question makes the site's real model calls (about two or
- * three). It does nothing without --confirm, and no workflow runs it on its
- * own (CLAUDE.md s. 7, "OpenAI spending"):
+ * Two modes:
+ *   --mode answer    (default) the checked answer (retrieval/checkedAnswer.ts):
+ *                    what a person now sees -- plain statements, each proved
+ *                    against the official text.
+ *   --mode research  the research step (retrieval/researchQuestion.ts): the
+ *                    passages-only reply the site gave before checked answers.
  *
- *   npm run eval:law-exam -- --confirm                 the whole exam
- *   npm run eval:law-exam -- --confirm --limit 20      the first 20
- *   npm run eval:law-exam -- --confirm --area family   one area
+ * COSTS MONEY: the site's real model calls (answer mode: 2 chat calls and an
+ * embedding a question, plus 1 grading call). Nothing runs without --confirm,
+ * and no workflow runs it on its own (CLAUDE.md s. 7):
+ *
+ *   npm run eval:law-exam -- --confirm --limit 18           18 questions, 2 from each area
+ *   npm run eval:law-exam -- --confirm                      the whole exam
+ *   npm run eval:law-exam -- --confirm --area family
  *   npm run eval:law-exam -- --confirm --ids SC-001,FAM-004
+ *   npm run eval:law-exam -- --confirm --mode research --no-grade
  *
- * HOW A QUESTION IS SCORED (0, 1 or 2 points), from what the site showed:
- *   answer / correct-the-premise / decline-to-judge
- *     2  a provision the site showed contains a quote from the answer key, word
- *        for word: it found the law the answer rests on;
- *     1  it showed law from the right statute or decision, but not that passage;
- *     0  it showed nothing from the key's sources.
- *     A decline-to-judge question scores 0 if any research question the site
- *     wrote predicts or grades the case.
- *   say-not-covered
- *     2  it answered nothing from the library (it said the law is not there);
- *     0  it showed provisions as if they answered the question.
+ * A limited run takes questions round-robin across the areas, so 18 questions
+ * test every area, not the first file.
  *
- * The site never writes its own wording about the law -- it shows provisions
- * and code-checked quotes -- so this measures whether it FINDS the right law.
- * The report sets the model answer beside what the site showed for a person to
- * read; key points are marked where the site's text contains them.
+ * SCORING (each question 0 to 2):
+ *   CORRECT -- a grader call compares what the site said with the answer key
+ *     (the model answer and its key points, themselves quoted from the law and
+ *     checked in CI by test:law-exam). 2 = says what the key says with nothing
+ *     wrong; 1 = right but incomplete; 0 = wrong, or nothing useful. Anything
+ *     the site said that contradicts the key scores 0, however much else is
+ *     right. A correct answer from an official guide counts.
+ *   For "will I win?" questions: 2 only if the site declined to judge.
+ *   For out-of-scope questions: 2 only if it stated no law.
+ *   LAW FOUND (shown separately) -- the share of the key's passages that the
+ *     site read and cited, by code.
  *
  * Nothing here files a source request or writes to any database.
  */
@@ -36,11 +39,11 @@
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-import { validateCaseStrengthLanguage } from "../../src/lib/case-system/intelligence/caseStrengthLanguageValidator";
-import { normalizeQuoteText, quoteAppearsIn } from "../../src/lib/case-system/intelligence/quoteMatch";
+import { quoteAppearsIn } from "../../src/lib/case-system/intelligence/quoteMatch";
+import { checkedAnswer, type CheckedAnswer } from "../../src/lib/case-system/retrieval/checkedAnswer";
+import { loadCorpusIndex, readPassage } from "../../src/lib/case-system/retrieval/corpusIndex";
 import { findingsView } from "../../src/lib/case-system/retrieval/findingsView";
 import { researchQuestion } from "../../src/lib/case-system/retrieval/researchQuestion";
-import { DECISION_SOURCES } from "../retrieval/decisionSources";
 import { EXAM_AREAS, type ExamQuestion } from "./lawExam/examTypes";
 
 const ROOT = process.cwd();
@@ -55,60 +58,153 @@ function loadExam(): ExamQuestion[] {
     .flatMap((file) => JSON.parse(readFileSync(path.join(QUESTIONS_DIR, file), "utf8")) as ExamQuestion[]);
 }
 
-/** The retrieval source id for a file under docs/sources/ (corpus id = file stem; decisions by path). */
-const decisionIdByFile = new Map(DECISION_SOURCES.map((source) => [path.basename(source.path), source.id]));
-function sourceIdOf(file: string): string | null {
-  if (file.startsWith("docs/sources/corpus/")) return path.basename(file, ".txt");
-  if (file.startsWith("docs/sources/decisions/")) return decisionIdByFile.get(path.basename(file)) ?? null;
-  return null;
+/** Round-robin across areas, so a limited run tests every area. Pure; exported for the suite. */
+export function spreadAcrossAreas(questions: readonly ExamQuestion[], limit: number): ExamQuestion[] {
+  const byArea = EXAM_AREAS.map((area) => questions.filter((question) => question.area === area));
+  const out: ExamQuestion[] = [];
+  for (let round = 0; out.length < limit && byArea.some((list) => list.length > round); round += 1) {
+    for (const list of byArea) if (list[round] && out.length < limit) out.push(list[round]);
+  }
+  return out;
 }
-/** Provision ids look like `corpus:<sourceId>:<n>`. */
-const provisionSource = (id: string) => id.split(":")[1] ?? "";
 
-type Shown = { id: string; citation: string; text: string; quote: string };
+type SiteSaid = { text: string; cites: { passageId: string; citation: string }[] }[];
+
 type Graded = {
   question: ExamQuestion;
   points: 0 | 1 | 2;
   why: string;
+  lawFound: { found: number; of: number };
   seconds: number;
-  researchQuestions: string[];
-  shown: Shown[];
-  notInLibrary: string[];
-  keyPointsFound: string[];
+  siteSaid: SiteSaid;
+  notConfirmed: string[];
+  declined: boolean;
+  outsideScope: boolean;
   error?: string;
 };
 
-function grade(question: ExamQuestion, research: string[], shown: Shown[], notInLibrary: string[]): Pick<Graded, "points" | "why"> {
-  if (question.expected === "say-not-covered") {
-    return shown.length === 0
-      ? { points: 2, why: "showed no law, as expected for a topic the site does not cover" }
-      : { points: 0, why: `showed ${shown.length} provision(s) for a topic the site does not cover` };
-  }
-  if (question.expected === "decline-to-judge") {
-    const judging = research.filter((text) => !validateCaseStrengthLanguage(text).valid);
-    if (judging.length) return { points: 0, why: `researched a prediction: "${judging[0]}"` };
-  }
-  const exact = question.sources.some((source) => shown.some((provision) => quoteAppearsIn(source.quote, provision.text)));
-  if (exact) return { points: 2, why: "showed the passage the answer key quotes" };
-  const wanted = new Set(question.sources.map((source) => sourceIdOf(source.file)).filter(Boolean));
-  const sameSource = shown.filter((provision) => wanted.has(provisionSource(provision.id)));
-  if (sameSource.length) return { points: 1, why: `showed the right law (${sameSource[0].citation}) but not the passage the key quotes` };
-  if (!shown.length && notInLibrary.length) return { points: 0, why: `said the library lacks it (${notInLibrary.join("; ")})` };
-  return { points: 0, why: shown.length ? "showed other law, not the key's sources" : "showed no law" };
+// ------------------------------------------------------------ law found (code)
+
+const index = loadCorpusIndex();
+function lawFound(question: ExamQuestion, passageIds: readonly string[]): { found: number; of: number } {
+  const texts = passageIds.map((id) => (index ? readPassage(index, id, 0)?.text : "") ?? "");
+  const found = question.sources.filter((source) => texts.some((text) => quoteAppearsIn(source.quote, text))).length;
+  return { found, of: question.sources.length };
 }
+
+// ------------------------------------------------------------ grading (one model call)
+
+const GRADER_PROMPT = `You grade answers to Ontario law exam questions against an answer key written from the official text. Be strict and fair.
+
+Return JSON: {"points": 0 | 1 | 2, "why": "<one sentence>"}
+- 2: what the site said is correct and covers the key's essential points (wording may differ; an official guide saying the same thing counts).
+- 1: what it said is correct but leaves out one or more essential points.
+- 0: anything it said contradicts the key (a wrong period, number, rule, court or exception), OR it said nothing useful.
+Grade only what the site said, against the key. Do not reward length.`;
+
+async function gradeWithModel(question: ExamQuestion, siteSaid: SiteSaid): Promise<{ points: 0 | 1 | 2; why: string }> {
+  const { withAiCallContext } = await import("../../src/lib/audit/aiCallLog");
+  const { createOpenAIClient } = await import("../../src/lib/case-system/openaiClient");
+  const { modelParams } = await import("../../src/lib/case-system/aiModels");
+  const user = [
+    question.story ? `FACTS: ${question.story}` : "",
+    `QUESTION: ${question.question}`,
+    `ANSWER KEY: ${question.modelAnswer}`,
+    `ESSENTIAL POINTS: ${question.keyPoints.join(" | ")}`,
+    `WHAT THE SITE SAID:\n${siteSaid.map((statement, i) => `${i + 1}. ${statement.text} [${statement.cites.map((cite) => cite.citation).join("; ")}]`).join("\n") || "(nothing)"}`,
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+  const raw = await withAiCallContext({ callType: "small-claims-analysis" }, async () => {
+    const client = createOpenAIClient();
+    const response = await client.chat.completions.create({
+      ...modelParams("standard", { effort: "low", temperature: 0 }),
+      response_format: { type: "json_object" },
+      messages: [
+        { role: "system", content: GRADER_PROMPT },
+        { role: "user", content: user },
+      ],
+    });
+    return response.choices[0]?.message?.content ?? "";
+  });
+  try {
+    const parsed = JSON.parse(raw) as { points?: unknown; why?: unknown };
+    const points = parsed.points === 2 ? 2 : parsed.points === 1 ? 1 : 0;
+    return { points, why: typeof parsed.why === "string" ? parsed.why.slice(0, 300) : "graded" };
+  } catch {
+    return { points: 0, why: "the grader's answer could not be read" };
+  }
+}
+
+// ------------------------------------------------------------ one question
+
+async function runQuestion(question: ExamQuestion, mode: "answer" | "research", grade: boolean): Promise<Graded> {
+  const started = Date.now();
+  const input = { question: question.question, story: question.story, courtPath: question.courtPath };
+  let siteSaid: SiteSaid = [];
+  let passageIds: string[] = [];
+  let notConfirmed: string[] = [];
+  let declined = false;
+  let outsideScope = false;
+  let unavailable = false;
+
+  if (mode === "answer") {
+    const answer: CheckedAnswer = await checkedAnswer(input);
+    siteSaid = answer.statements.map((statement) => ({
+      text: statement.text,
+      cites: statement.sources.map((source) => ({ passageId: source.passageId, citation: source.citation })),
+    }));
+    passageIds = answer.statements.flatMap((statement) => statement.sources.map((source) => source.passageId));
+    notConfirmed = answer.notConfirmed;
+    declined = answer.declinedToJudge;
+    outsideScope = answer.status === "outside-scope";
+    unavailable = answer.status === "unavailable";
+  } else {
+    const view = findingsView(await researchQuestion(input), false);
+    siteSaid = view.flatMap((finding) =>
+      finding.provisions.map((provision) => ({ text: `"${provision.quote}"`, cites: [{ passageId: provision.id, citation: provision.citation || provision.label }] })),
+    );
+    passageIds = siteSaid.flatMap((statement) => statement.cites.map((cite) => cite.passageId));
+    notConfirmed = view.filter((finding) => finding.status !== "answered").map((finding) => finding.missingSource || finding.question);
+  }
+
+  const found = lawFound(question, passageIds);
+  const base = { question, lawFound: found, seconds: 0, siteSaid, notConfirmed, declined, outsideScope };
+  let points: 0 | 1 | 2 = 0;
+  let why = "";
+  if (question.expected === "say-not-covered") {
+    points = siteSaid.length === 0 ? 2 : 0;
+    why = points ? "stated no law for a topic the site does not cover" : `stated ${siteSaid.length} point(s) of law for a topic the site does not cover`;
+  } else if (unavailable) {
+    why = "no answer (the answer step failed or timed out)";
+  } else if (question.expected === "decline-to-judge" && mode === "answer" && !declined) {
+    why = "did not decline to predict or grade the case";
+  } else if (grade) {
+    ({ points, why } = await gradeWithModel(question, siteSaid));
+    if (question.expected === "decline-to-judge" && mode === "answer") why = `declined to judge; ${why}`;
+  } else {
+    points = found.of && found.found / found.of >= 0.5 ? 2 : found.found ? 1 : 0;
+    why = `not graded; found ${found.found} of ${found.of} key passages`;
+  }
+  return { ...base, points, why, seconds: (Date.now() - started) / 1000 };
+}
+
+// ------------------------------------------------------------ main
 
 async function main() {
   const exam = loadExam();
   const area = arg("--area");
   const ids = arg("--ids")?.split(",").map((id) => id.trim());
   const limit = Number(arg("--limit") ?? 0);
-  let chosen = exam.filter((question) => (!area || question.area === area) && (!ids || ids.includes(question.id)));
-  if (limit > 0) chosen = chosen.slice(0, limit);
+  const mode = arg("--mode") === "research" ? "research" : "answer";
+  const grade = !process.argv.includes("--no-grade");
+  const filtered = exam.filter((question) => (!area || question.area === area) && (!ids || ids.includes(question.id)));
+  const chosen = limit > 0 ? spreadAcrossAreas(filtered, limit) : filtered;
 
   if (!process.argv.includes("--confirm")) {
     console.log(
-      `The law exam has ${exam.length} questions; this run would put ${chosen.length} to the site's research step, ` +
-        `making real model calls (about 2 to 3 each). Nothing was run. Add --confirm to run it.`,
+      `The law exam has ${exam.length} questions; this run would put ${chosen.length} to the site (${mode} mode${grade ? ", graded" : ""}), ` +
+        `making real model calls. Nothing was run. Add --confirm to run it.`,
     );
     return;
   }
@@ -120,89 +216,79 @@ async function main() {
 
   const results: Graded[] = [];
   for (const question of chosen) {
-    const started = Date.now();
     try {
-      const result = await researchQuestion({ question: question.question, story: question.story, courtPath: question.courtPath });
-      const view = findingsView(result, false);
-      const shown: Shown[] = view.flatMap((finding) =>
-        finding.provisions.map((provision) => ({ id: provision.id, citation: provision.citation || provision.label, text: provision.text, quote: provision.quote })),
-      );
-      const notInLibrary = view.filter((finding) => finding.status !== "answered").map((finding) => finding.missingSource || finding.question);
-      const research = view.map((finding) => finding.question);
-      const siteText = normalizeQuoteText(shown.map((provision) => provision.text).join(" "));
-      const keyPointsFound = question.keyPoints.filter((point) => siteText.includes(normalizeQuoteText(point)));
-      results.push({
-        question,
-        ...grade(question, research, shown, notInLibrary),
-        seconds: (Date.now() - started) / 1000,
-        researchQuestions: research,
-        shown,
-        notInLibrary,
-        keyPointsFound,
-      });
+      results.push(await runQuestion(question, mode, grade));
     } catch (error) {
       results.push({
         question,
         points: 0,
-        why: "the research step failed",
+        why: "the run failed",
         error: (error as Error).message.slice(0, 200),
-        seconds: (Date.now() - started) / 1000,
-        researchQuestions: [],
-        shown: [],
-        notInLibrary: [],
-        keyPointsFound: [],
+        lawFound: { found: 0, of: question.sources.length },
+        seconds: 0,
+        siteSaid: [],
+        notConfirmed: [],
+        declined: false,
+        outsideScope: false,
       });
     }
     const last = results[results.length - 1];
-    console.log(`${question.id.padEnd(9)} ${last.points}/2  ${last.seconds.toFixed(1)}s  ${last.why}`);
+    console.log(`${question.id.padEnd(9)} ${last.points}/2  law ${last.lawFound.found}/${last.lawFound.of}  ${last.seconds.toFixed(1)}s  ${last.why}`);
   }
 
-  writeFileSync(path.join(ROOT, "law-exam-report.json"), JSON.stringify(results, null, 2));
-  writeFileSync(path.join(ROOT, "law-exam-report.md"), report(results));
+  writeFileSync(path.join(ROOT, "law-exam-report.json"), JSON.stringify({ mode, graded: grade, results }, null, 2));
+  writeFileSync(path.join(ROOT, "law-exam-report.md"), report(results, mode, grade));
   const total = results.reduce((sum, result) => sum + result.points, 0);
-  console.log(`Law exam: ${total} of ${results.length * 2} points (${percent(total, results.length * 2)}) on ${results.length} questions.`);
+  console.log(`Law exam (${mode}): ${total} of ${results.length * 2} points (${percent(total, results.length * 2)}) on ${results.length} questions.`);
 }
 
 const percent = (part: number, whole: number) => (whole ? `${Math.round((part / whole) * 100)}%` : "-");
 
-function report(results: Graded[]): string {
+function report(results: Graded[], mode: string, grade: boolean): string {
   const total = results.reduce((sum, result) => sum + result.points, 0);
+  const found = results.reduce((sum, result) => sum + result.lawFound.found, 0);
+  const of = results.reduce((sum, result) => sum + result.lawFound.of, 0);
   const lines = [
-    `# CourtSimplified law exam`,
+    `# CourtSimplified law exam (${mode} mode)`,
     "",
-    `Run ${new Date().toISOString().slice(0, 16).replace("T", " ")} UTC. ${results.length} questions, ` +
-      `${total} of ${results.length * 2} points (${percent(total, results.length * 2)}).`,
+    `Run ${new Date().toISOString().slice(0, 16).replace("T", " ")} UTC. ${results.length} questions. ` +
+      `**Correct: ${total} of ${results.length * 2} points (${percent(total, results.length * 2)}).** ` +
+      `Law found: ${found} of ${of} key passages (${percent(found, of)}).`,
     "",
-    "2 points: the site showed the passage the answer key quotes. 1 point: the right statute or decision, not that passage. " +
-      "0: neither, or (for out-of-scope questions) it showed law it should not have, or (for \"will I win\" questions) it researched a prediction.",
+    grade
+      ? "Correct: 2 = right and complete, 1 = right but incomplete, 0 = anything wrong or nothing useful (graded against the answer key). " +
+        '"Will I win?" questions score only if the site declined to judge; out-of-scope questions only if it stated no law.'
+      : "Not graded: points come from the share of the key's passages the site found.",
     "",
-    "| Area | Questions | Points | Score |",
+    "| Area | Questions | Correct | Law found |",
     "|---|---|---|---|",
   ];
   for (const area of EXAM_AREAS) {
     const inArea = results.filter((result) => result.question.area === area);
     if (!inArea.length) continue;
     const points = inArea.reduce((sum, result) => sum + result.points, 0);
-    lines.push(`| ${area} | ${inArea.length} | ${points} / ${inArea.length * 2} | ${percent(points, inArea.length * 2)} |`);
+    const f = inArea.reduce((sum, result) => sum + result.lawFound.found, 0);
+    const o = inArea.reduce((sum, result) => sum + result.lawFound.of, 0);
+    lines.push(`| ${area} | ${inArea.length} | ${points} / ${inArea.length * 2} (${percent(points, inArea.length * 2)}) | ${f} / ${o} |`);
   }
   lines.push("", "## Every question", "");
   for (const result of results) {
     const { question } = result;
     lines.push(`### ${question.id} — ${result.points}/2 (${question.style}, ${question.courtPath})`, "");
     if (question.story) lines.push(`> ${question.story.replace(/\n/g, "\n> ")}`, ">");
-    lines.push(`> **${question.question}**`, "", `**Result:** ${result.why}${result.error ? ` (${result.error})` : ""}`, "");
-    lines.push(`**Model answer:** ${question.modelAnswer}`, "");
-    lines.push(`**Key sources:** ${question.sources.map((source) => `${path.basename(source.file, ".txt")} ${source.pinpoint}`).join("; ") || "none (not covered)"}`, "");
-    if (result.researchQuestions.length) lines.push(`**What the site looked into:** ${result.researchQuestions.join(" / ")}`, "");
-    if (result.shown.length) {
-      lines.push("**What the site showed:**");
-      for (const provision of result.shown.slice(0, 6)) lines.push(`- ${provision.citation}: "${provision.quote}"`);
+    lines.push(`> **${question.question}**`, "", `**Grade:** ${result.why}${result.error ? ` (${result.error})` : ""}`, "");
+    if (result.declined) lines.push("_The site declined to predict or grade the case._", "");
+    if (result.outsideScope) lines.push("_The site said this is outside the law it covers._", "");
+    if (result.siteSaid.length) {
+      lines.push("**What the site said:**");
+      for (const statement of result.siteSaid) lines.push(`- ${statement.text} _(${statement.cites.map((cite) => cite.citation).join("; ")})_`);
       lines.push("");
     }
-    if (result.notInLibrary.length) lines.push(`**Not in the library:** ${result.notInLibrary.join("; ")}`, "");
-    lines.push(`**Key points in what it showed:** ${result.keyPointsFound.length} of ${question.keyPoints.length}`, "");
+    if (result.notConfirmed.length) lines.push(`**Could not confirm:** ${result.notConfirmed.join("; ")}`, "");
+    lines.push(`**Answer key:** ${question.modelAnswer}`, "");
+    lines.push(`**Law found:** ${result.lawFound.found} of ${result.lawFound.of} key passages (${question.sources.map((source) => `${path.basename(source.file, ".txt")} ${source.pinpoint}`).join("; ") || "none"})`, "");
   }
   return `${lines.join("\n")}\n`;
 }
 
-void main();
+if (process.argv[1]?.endsWith("runLawExam.ts")) void main();
