@@ -63,6 +63,9 @@ const DECISION_PAGES: Record<string, string> = {
   "snell-v-farrell-1990-2-SCR-311.pdf": SCC(634),
   "jones-v-tsige-2012-ONCA-32.pdf": "https://coadecisions.ontariocourts.ca/coa/coa/en/10962/1/document.do",
   "jesan-real-estate-v-doyle-2020-ONCA-714.pdf": "https://coadecisions.ontariocourts.ca/coa/coa/en/19170/1/document.do",
+  "antrim-truck-centre-v-ontario-2013-SCC-13.pdf": SCC(12887),
+  "non-marine-underwriters-v-scalera-2000-SCC-24.pdf": SCC(1786),
+  "merrifield-v-canada-2019-ONCA-205.pdf": "https://www.ontariocourts.ca/decisions/2019/2019ONCA0205.htm",
   // Every other saved decision, from its "Retrieved from" address in docs/sources/README.md (2026-10-07).
   "andrews-v-grand-and-toy-1978-2-SCR-229.pdf": SCC(2587),
   "barendregt-v-grebliunas-2022-SCC-22.pdf": SCC(19396),

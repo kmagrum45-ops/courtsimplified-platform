@@ -920,3 +920,30 @@ what it decides; nothing is said about any of them except in its own words.
 - **Retrieved from:** https://coadecisions.ontariocourts.ca/coa/coa/en/18855/1/document.do (case page item/18855); text by `pdftotext -layout`
 - **Downloaded:** 2026-10-05 (Fetch Decisions run 37397793266)
 - **Noted up:** no
+
+### `decisions/antrim-truck-centre-v-ontario-2013-SCC-13.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Antrim Truck Centre Ltd. v. Ontario (Transportation)*.
+- **Citation:** 2013 SCC 13, [2013] 1 S.C.R. 594
+- **Retrieved for:** private nuisance (noise, smoke, trees, interference with land between neighbours).
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/12887/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-07 (Fetch Decisions run 37702811464)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/non-marine-underwriters-v-scalera-2000-SCC-24.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Non-Marine Underwriters, Lloyd's of London v. Scalera*.
+- **Citation:** 2000 SCC 24, [2000] 1 S.C.R. 551
+- **Retrieved for:** battery and the trespass torts (a civil claim for assault or battery).
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/1786/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-07 (Fetch Decisions run 37702811464)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/merrifield-v-canada-2019-ONCA-205.txt`
+
+- **What it is:** Court of Appeal for Ontario decision, *Merrifield v. Canada (Attorney General)*.
+- **Citation:** 2019 ONCA 205
+- **Retrieved for:** whether Ontario law has a civil claim for harassment.
+- **Retrieved from:** https://www.ontariocourts.ca/decisions/2019/2019ONCA0205.htm
+- **Downloaded:** 2026-10-07 (Fetch Decisions run 37702811464)
+- **Noted up:** no
