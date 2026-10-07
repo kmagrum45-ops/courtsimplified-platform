@@ -282,6 +282,8 @@
 import type { EducationCitation } from "./educationTopics";
 import type { CourtArea } from "./questionBank";
 
+import { MORE_SMALL_CLAIMS_TYPES } from "./moreClaimTypes";
+
 export type EvidenceCategory = {
   name: string;
   why: string;
@@ -566,7 +568,7 @@ export type ClaimType = {
   status: "draft" | "reviewed";
 };
 
-export const CLAIM_TYPES: ClaimType[] = [
+const CORE_CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-unpaid-debt-services",
     name: "Unpaid debt or non-payment for services",
@@ -6119,3 +6121,10 @@ export const CLAIM_TYPES: ClaimType[] = [
     status: "reviewed",
   },
 ];
+
+/**
+ * The first library above, then every batch written after it
+ * (moreClaimTypes/, 2026-10-07: the owner's direction to cover hundreds of
+ * case types, each sourced and checked by test:catalogue-verified).
+ */
+export const CLAIM_TYPES: ClaimType[] = [...CORE_CLAIM_TYPES, ...MORE_SMALL_CLAIMS_TYPES];

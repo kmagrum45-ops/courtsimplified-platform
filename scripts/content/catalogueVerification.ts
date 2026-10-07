@@ -19,6 +19,8 @@
  */
 
 import { createHash } from "node:crypto";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
+import path from "node:path";
 
 import {
   CLAIM_TYPES,
@@ -176,6 +178,23 @@ export type VerificationLog = {
   unverifiable: { key: string; reason: string }[];
   records: VerificationRecord[];
 };
+
+/**
+ * The whole log: docs/sources/catalogue-verification.json, plus one file per
+ * batch of case types written after it (docs/sources/catalogue-verification/,
+ * 2026-10-07), so authors working in parallel never edit the same file.
+ */
+export function loadVerificationLog(root: string): VerificationLog {
+  const main = JSON.parse(readFileSync(path.join(root, "docs/sources/catalogue-verification.json"), "utf8")) as VerificationLog;
+  const dir = path.join(root, "docs/sources/catalogue-verification");
+  if (!existsSync(dir)) return main;
+  for (const file of readdirSync(dir).filter((name) => name.endsWith(".json")).sort()) {
+    const part = JSON.parse(readFileSync(path.join(dir, file), "utf8")) as Partial<VerificationLog>;
+    main.records.push(...(part.records ?? []));
+    main.unverifiable.push(...(part.unverifiable ?? []));
+  }
+  return main;
+}
 
 /** Whitespace and typographic quotes are not content; nothing else is forgiven. */
 export function normalizeForQuote(text: string): string {
