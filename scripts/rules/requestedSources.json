@@ -311,5 +311,78 @@
       "TO THE E-LAWS CURRENCY DATE"
     ],
     "why": "Named as missing by the research step (\"Fraudulent Conveyances Act, R.S.O. 1990, c. F.29\")."
+  },
+  {
+    "id": "oreg-516-06-rta-general",
+    "title": "General regulation under the Residential Tenancies Act, 2006",
+    "citation": "O. Reg. 516/06",
+    "url": "https://www.ontario.ca/laws/docs/060516_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Residential Tenancies Act"
+    ],
+    "why": "Law exam, 2026-10-07: the RTA's exceptions (fees a landlord may charge, rent rules) are prescribed here; the Act alone cannot answer them."
+  },
+  {
+    "id": "oreg-74-95-collection-general",
+    "title": "General regulation under the Collection and Debt Settlement Services Act",
+    "citation": "O. Reg. 74/95",
+    "url": "https://www.ontario.ca/laws/docs/950074_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Collection"
+    ],
+    "why": "Law exam, 2026-10-07: the limits on how and when a collection agency may contact a debtor are in this regulation, not the Act."
+  },
+  {
+    "id": "oreg-285-01-esa-exemptions",
+    "title": "Exemptions, Special Rules and Establishment of Minimum Wage",
+    "citation": "O. Reg. 285/01",
+    "url": "https://www.ontario.ca/laws/docs/010285_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Employment Standards Act"
+    ],
+    "why": "Law exam, 2026-10-07: which employees are exempt from overtime, hours and other ESA parts is set here."
+  },
+  {
+    "id": "oreg-54-95-preferential-share",
+    "title": "Preferential Share regulation under the Succession Law Reform Act",
+    "citation": "O. Reg. 54/95",
+    "url": "https://www.ontario.ca/laws/docs/950054_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Succession Law Reform Act"
+    ],
+    "minCharacters": 300,
+    "why": "Law exam, 2026-10-07: the surviving spouse's preferential share on an intestacy is prescribed here; the Act only refers to it."
+  },
+  {
+    "id": "oreg-461-96-auto-court-proceedings",
+    "title": "Court Proceedings for Automobile Accidents that Occur on or after November 1, 1996",
+    "citation": "O. Reg. 461/96",
+    "url": "https://www.ontario.ca/laws/docs/960461_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Insurance Act"
+    ],
+    "why": "Law exam, 2026-10-07: what 'permanent serious impairment' means for suing after a car accident, and the evidence needed, is defined here."
+  },
+  {
+    "id": "statutory-powers-procedure-act",
+    "title": "Statutory Powers Procedure Act",
+    "citation": "R.S.O. 1990, c. S.22",
+    "url": "https://www.ontario.ca/laws/docs/90s22_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Statutory Powers Procedure Act"
+    ],
+    "why": "How hearings before Ontario tribunals (the Landlord and Tenant Board, the Human Rights Tribunal) are run: notice, adjournments, reviews. People sent to a tribunal by a forum check need it."
   }
 ]
