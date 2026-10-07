@@ -18,8 +18,11 @@
  *   - sc-claim-copyright-or-intellectual-property is NOT written. Neither the
  *     Copyright Act nor any other intellectual-property statute or decision is
  *     saved, and nothing saved says which court hears these claims.
- *   - The Charities Accounting Act is not saved, so the charity type rests only
- *     on unjust enrichment (Kerr v. Baranow) and the general Small Claims rules.
+ *   - The charity type rests on unjust enrichment (Kerr v. Baranow), the
+ *     general Small Claims rules, and the saved Charities Accounting Act
+ *     (s. 8, use of property held for a charitable purpose; ss. 6, 10 and 12,
+ *     the complaint and application routes, which go to the Superior Court of
+ *     Justice, and the Act's saving of other remedies).
  *   - The Motor Vehicle Accident Claims Act is not saved, so the hit-and-run
  *     type says nothing about how the Fund pays claims; it rests on the Highway
  *     Traffic Act, the Insurance Act (s. 265) and the Negligence Act.
@@ -145,6 +148,9 @@ const SC_GUIDE_CITATION = {
   verifiedAt: VERIFIED,
   pinpoint: "Reasons for claim; information to include about the defendant; the $50,000 limit",
 };
+const CAA = "https://www.ontario.ca/laws/docs/90c10_e.doc";
+const CAA_CONSOLIDATION = "2023-12-04";
+
 const KERR_CITATION = {
   sourceName: "Kerr v. Baranow, 2011 SCC 10",
   officialUrl: KERR,
@@ -359,11 +365,19 @@ export const TYPES_SC_OTHER_3: ClaimType[] = [
         id: "purpose-promised-charity",
         name: "What the money was raised or given for",
         plainExplanation:
+          "Under s. 8 of the Charities Accounting Act, a person who holds an interest in real or personal " +
+          "property for a charitable purpose shall use the property for the charitable purpose. Under " +
+          "s. 7, a \"charitable purpose\" means the relief of poverty, education, the advancement of " +
+          "religion, and any purpose beneficial to the community not falling under those three. Under " +
+          "s. 12, the Act does not affect any right or remedy a person may have under any other Act, in " +
+          "equity, at common law or otherwise. " +
           BURDEN +
           "This part of the checklist is about what the person collecting the money said it would be " +
           "used for, and what was done with it.",
-        sourceUrl: SCJ_STEPS,
+        sourceUrl: CAA,
         verifiedAt: VERIFIED,
+        consolidationPeriod: CAA_CONSOLIDATION,
+        alsoCites: [{ sourceUrl: SCJ_STEPS, pinpoint: "The trial (burden of proof)" }],
         evidenceCategories: [
           {
             name: "The appeal for money",
@@ -432,7 +446,28 @@ export const TYPES_SC_OTHER_3: ClaimType[] = [
     ],
     applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-no-agreement-existed"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
-    proceduralNotes: [NAMING, LIMITATION],
+    proceduralNotes: [
+      NAMING,
+      LIMITATION,
+      {
+        note:
+          "The Charities Accounting Act sets out two routes of its own, both to the Superior Court of " +
+          "Justice rather than by a Plaintiff's Claim in Small Claims Court. Under s. 6(1), any person may complain about the way a person or " +
+          "organization asked for or got money from the public by way of contribution or gift for any " +
+          "purpose, or about the way that money was dealt with or disposed of; under s. 6(2), the " +
+          "complaint is in writing and delivered by the complainant to a judge of the Superior Court of " +
+          "Justice, and under s. 6(3), if the judge is of the opinion that the public interest can be " +
+          "served by an investigation, the Act allows an order directing the Public Guardian and " +
+          "Trustee to investigate. Under s. 6(8), s. 6 does not apply to any religious or fraternal organization " +
+          "or to any person who solicited or procured its funds. Under s. 10(1), where two or more " +
+          "persons allege a breach of a trust created for a charitable purpose, they may apply to the " +
+          "Superior Court of Justice, and under s. 10(2) the application is on notice to the Public " +
+          "Guardian and Trustee.",
+        sourceUrl: CAA,
+        verifiedAt: VERIFIED,
+        consolidationPeriod: CAA_CONSOLIDATION,
+      },
+    ],
     signals: [
       "fundraiser kept the money",
       "gofundme money never went to the family",
@@ -442,9 +477,21 @@ export const TYPES_SC_OTHER_3: ClaimType[] = [
       "team fundraiser money missing",
       "charity drive money kept",
       "organizer spent the donations",
+      "charity misused donations",
+      "want to complain about a charity",
     ],
     typicalDefendantProfile: "either",
-    citations: [KERR_CITATION, SC_GUIDE_CITATION, LIMITATION_CITATION],
+    citations: [
+      KERR_CITATION,
+      {
+        sourceName: "Charities Accounting Act, R.S.O. 1990, c. C.10",
+        officialUrl: CAA,
+        verifiedAt: VERIFIED,
+        pinpoint: "ss. 6(1)-(3), 6(8), 7, 8, 10(1)-(2), 12",
+      },
+      SC_GUIDE_CITATION,
+      LIMITATION_CITATION,
+    ],
     reviewedAt: null,
     status: "draft",
   },

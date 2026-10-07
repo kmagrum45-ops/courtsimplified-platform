@@ -789,8 +789,28 @@
       "key": "sc-defence-wages-or-bank-account-garnished|plaintiffElement|what-cannot-be-taken-garnish",
       "verifiedAt": "2026-10-07",
       "outcome": "authored",
-      "fingerprint": "785927677d40c0fee4fdb761640780bab41585b749ed8cddf93bc7762f5f5242",
+      "fingerprint": "5c6bc7c6362b08391275f76559c9404d27259f9609ffae087d6ecf32d00aa493",
       "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90w01_e.doc",
+          "pinpoint": "s. 7(1)",
+          "quote": "For the purposes of this section, “wages” does not include an amount that an employer is required by law to deduct from wages."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90w01_e.doc",
+          "pinpoint": "s. 7(1.1)",
+          "quote": "payments from an insurance or indemnity scheme that are intended to replace income lost because of disability shall be deemed to be wages, whether the scheme is administered by the employer or another person."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90w01_e.doc",
+          "pinpoint": "s. 7(2)",
+          "quote": "Subject to subsection (3), 80 per cent of a person’s wages are exempt from seizure or garnishment."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90w01_e.doc",
+          "pinpoint": "s. 7(3)",
+          "quote": "Fifty per cent of a person’s wages are exempt from seizure or garnishment in the enforcement of an order for support or maintenance enforceable in Ontario."
+        },
         {
           "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
           "pinpoint": "r. 20.08(9)",
@@ -802,7 +822,31 @@
           "quote": "Section 7 of the Wages Act restricts the amount of wages that can be garnished. In addition, there are some exemptions from garnishment. For example, employment insurance, social assistance and pension payments cannot be garnished, even if the funds have been deposited into an account at a financial institution."
         }
       ],
-      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+      "howRead": "Vendored corpus file docs/sources/corpus/wages-act.txt; Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-wages-or-bank-account-garnished|plaintiffElement|change-wage-exemption-garnish",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "b0b6a02c517c034fb41889c7f5151d1758a427ccea7c868270ebc3d12a0109b7",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90w01_e.doc",
+          "pinpoint": "s. 7(4)",
+          "quote": "A judge of the court in which a writ of execution or notice of garnishment enforceable against a person’s wages is issued may, on motion by the creditor on notice to the person, order that the exemption set out in subsection (2) or (3) be decreased, if the judge is satisfied that it is just to do so, having regard to the nature of the debt owed to the creditor, the person’s financial circumstances and any other matter the judge considers relevant."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90w01_e.doc",
+          "pinpoint": "s. 7(5)",
+          "quote": "A judge of the court in which a writ of execution or notice of garnishment enforceable against a person’s wages is issued may, on motion by the person on notice to the creditor, order that the exemption set out in subsection (2) or (3) be increased, if the judge is satisfied that it is just to do so, having regard to the person’s financial circumstances and any other matter the judge considers relevant."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90w01_e.doc",
+          "pinpoint": "s. 7(6)",
+          "quote": "Where an employer receives notice of a motion under subsection (4) or (5), the employer may pay into court the part of the person’s wages that is not exempt from seizure or garnishment under subsection (2) or (3), as the case may be, and the judge on the hearing of the motion may make such order for payment out of court as is just."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/wages-act.txt; read 2026-10-07"
     },
     {
       "key": "sc-defence-wages-or-bank-account-garnished|plaintiffElement|joint-account-garnish",
@@ -932,7 +976,7 @@
       "key": "sc-defence-writ-against-property|plaintiffElement|writ-against-land-writ",
       "verifiedAt": "2026-10-07",
       "outcome": "authored",
-      "fingerprint": "f6f702020f6c17aa50beb7c5964ed9511ff1480d883ab8176b8893c30afa10fe",
+      "fingerprint": "9317e7a1b5ca5ec4cf9b73766b09923560475e221d39bb49d8149a235dcb5ac1",
       "sources": [
         {
           "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -943,9 +987,29 @@
           "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
           "pinpoint": "Writ of Seizure and Sale of Land",
           "quote": "The writ would encumber any land presently owned or land which may be purchased in the future by the debtor in the county(ies) or district(s) where the writ is filed. ... The writ of seizure and sale of land can be very effective in the long run since it will be difficult for the debtor to sell or mortgage the land until the debt is paid."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90e24_e.doc",
+          "pinpoint": "s. 1 \"prescribed amount\"",
+          "quote": "“prescribed amount” means the amount prescribed by the regulations made under section 35;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90e24_e.doc",
+          "pinpoint": "s. 2(2)",
+          "quote": "The principal residence of a debtor is exempt from forced seizure or sale by any process at law or in equity if the value of the debtor’s equity in the principal residence does not exceed the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90e24_e.doc",
+          "pinpoint": "s. 2(3)",
+          "quote": "Despite subsection (2), if the value of the debtor’s equity in the principal residence exceeds the prescribed amount, the principal residence is subject to seizure and sale under this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90e24_e.doc",
+          "pinpoint": "s. 35(1)(a)",
+          "quote": "The Lieutenant Governor in Council may make regulations, (a) prescribing amounts for the purposes of paragraph 2, 3, 4 or 5 of subsection 2 (1) or subsection 2 (2);"
         }
       ],
-      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; Vendored corpus file docs/sources/corpus/execution-act.txt; read 2026-10-07"
     },
     {
       "key": "sc-defence-writ-against-property|plaintiffElement|how-long-a-writ-lasts-writ",
@@ -970,7 +1034,7 @@
       "key": "sc-defence-writ-against-property|plaintiffElement|writ-against-belongings-writ",
       "verifiedAt": "2026-10-07",
       "outcome": "authored",
-      "fingerprint": "da48f3328d846978bfbafa994938a7a4fcfd24f1e27ba7bb39ed206b0ab01a30",
+      "fingerprint": "636e0cb5f0b6575631c4f849b7467772cf85ebe579e43586fe3a4648f0f66a4c",
       "sources": [
         {
           "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -986,14 +1050,58 @@
           "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
           "pinpoint": "r. 20.06(6)",
           "quote": "Personal property seized under a writ of seizure and sale of personal property shall not be sold by the bailiff unless notice of the time and place of sale has been, (a) mailed, at least 10 days before the sale, ... (ii) to the debtor at the debtor's last known address"
-        },
-        {
-          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
-          "pinpoint": "Debtor's goods exempt from seizure by the creditor",
-          "quote": "Under the Execution Act , a debtor is entitled to certain exemptions from seizure of personal property such as: clothing (up to a certain amount) household furniture, utensils, equipment, food and fuel (up to a certain amount) tools and instruments used in the debtor's business ... one motor vehicle worth less than the specified amount The debtor has a right to choose the goods that make up the exemptions."
         }
       ],
-      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; Vendored corpus file docs/sources/corpus/guide-after-judgment.txt; read 2026-10-07"
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-writ-against-property|plaintiffElement|exempt-belongings-writ",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "605a347bb6b5dfc1041d5ddcf1b416d38f5c5ea11571e2d5937c06a650f19a84",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90e24_e.doc",
+          "pinpoint": "s. 2(1)",
+          "quote": "The following personal property of a debtor that is not a corporation is, at the option of the debtor, exempt from forced seizure or sale by any process at law or in equity: 1. Necessary clothing of the debtor and the debtor’s dependants. 2. Household furnishings and appliances that are of a value not exceeding the prescribed amount. 3. Tools and other personal property of the debtor, not exceeding the prescribed amount in value, that are used by the debtor to earn income from the debtor’s occupation. 4. One motor vehicle that is of a value not exceeding the prescribed amount. 5. Personal property prescribed by the regulations that is of a value not exceeding the prescribed amount."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90e24_e.doc",
+          "pinpoint": "s. 1 \"prescribed amount\"",
+          "quote": "“prescribed amount” means the amount prescribed by the regulations made under section 35;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90e24_e.doc",
+          "pinpoint": "s. 35(1)(a)",
+          "quote": "The Lieutenant Governor in Council may make regulations, (a) prescribing amounts for the purposes of paragraph 2, 3, 4 or 5 of subsection 2 (1) or subsection 2 (2);"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90e24_e.doc",
+          "pinpoint": "s. 2(1.1)",
+          "quote": "Despite paragraphs 2, 3, 4 and 5 of subsection (1), if the value of the personal property exceeds the prescribed amount for the property, the property is subject to seizure and sale under this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90e24_e.doc",
+          "pinpoint": "s. 3(2)",
+          "quote": "If an exemption is claimed for a motor vehicle that has a sale value in excess of the sum of the amount prescribed for the purpose of paragraph 4 of subsection 2 (1) and the costs of the sale, the motor vehicle is subject to seizure and sale under a writ of execution and the prescribed amount referred to in that paragraph shall be paid to the debtor out of the proceeds of the sale."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90e24_e.doc",
+          "pinpoint": "s. 2(4)",
+          "quote": "Aids and devices owned by a debtor that are required by the debtor or the debtor’s dependants to assist with a disability or a medical or dental condition are exempt from forced seizure or sale by any process at law or in equity."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90e24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "Subject to section 2, the execution debtor is entitled to select, from his or her personal property, the personal property he or she claims as exempt from forced seizure and sale."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90e24_e.doc",
+          "pinpoint": "s. 5(4)",
+          "quote": "The onus of proof that the requirements of this section are satisfied is on the person claiming the exemption."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/execution-act.txt; read 2026-10-07"
     },
     {
       "key": "sc-defence-writ-against-property|defendantConsideration|paid-in-full-writ",
@@ -1027,6 +1135,20 @@
         }
       ],
       "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-defence-writ-against-property|defendantConsideration|dispute-over-exemption-writ",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "703e51233c95637ac8aeb7b17686567b443443d5c94db58a9927daa3f4f05d69",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90e24_e.doc",
+          "pinpoint": "s. 8(1)",
+          "quote": "Where a dispute arises as to, (a) whether or not a chattel is eligible for exemption from seizure under sections 2 to 7; or (b) whether or not chattels claimed to be exempt exceed the value of the exemption prescribed by section 2, the debtor or creditor may apply to the Superior Court of Justice for the determination of the question, and the court shall determine the question after a hearing upon such notice to such persons as the court directs."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/execution-act.txt; read 2026-10-07"
     },
     {
       "key": "sc-defence-writ-against-property|proceduralNote|sc-defence-writ-against-property#note0",

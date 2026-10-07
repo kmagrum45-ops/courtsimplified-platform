@@ -624,22 +624,47 @@
       "key": "sc-claim-gig-platform-payment|plaintiffElement|platform-terms-gig",
       "verifiedAt": "2026-10-07",
       "outcome": "authored",
-      "fingerprint": "e9fc827d2f52f7195a661a2169852f9500fbeb03944b1a32aa969e79bfca66ee",
+      "fingerprint": "7bbca2e7c600f0c8be1efce31cc00bd75a0b841e155583965211b277e06b7d74",
       "sources": [
         {
-          "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
-          "pinpoint": "The trial (burden of proof)",
-          "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "s. 7(1)",
+          "quote": "Within 24 hours after an individual is given access to an operator's digital platform for the purpose of accepting or declining to perform digital platform work, the operator shall provide the following information in writing to the individual: 1. A description of how pay for digital platform work is calculated. 2. Whether tips or other gratuities are collected by the operator and, if so, when and how they are collected. 3. The recurring pay period and recurring pay day established by the operator under section 8."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "s. 7(2)",
+          "quote": "if there is a change in any of the information, the operator shall inform the individual, in writing, of the change before the change takes effect."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "s. 7(4)",
+          "quote": "An operator shall provide the following information in writing to a worker when offering a work assignment to the worker: 1. The estimated amount the worker will be paid for the work and a description of how that amount was calculated."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "s. 7(5)",
+          "quote": "An operator shall provide the following information in writing to a worker within 24 hours of completion of a work assignment by the worker: 1. The actual amount the worker will be paid for the work, a description of how that amount was calculated and when the amount will be paid. 2. The amount of any tips or other gratuities collected by the operator in respect of the work assignment, the amount of tip or other gratuity that will be paid to the worker and when the amount will be paid."
         }
       ],
-      "howRead": "Vendored corpus file docs/sources/corpus/scj-steps-to-a-civil-case.txt; read 2026-10-07"
+      "howRead": "Vendored corpus file docs/sources/corpus/digital-platform-workers-rights-act.txt; read 2026-10-07"
     },
     {
       "key": "sc-claim-gig-platform-payment|plaintiffElement|work-done-unpaid-gig",
       "verifiedAt": "2026-10-07",
       "outcome": "authored",
-      "fingerprint": "fd3c237820221c6dee6cd0bf25d13354dfdbc4585387b4761c528cbaaabb02ff",
+      "fingerprint": "c179a6ce9129a5465a32127e371367fdd121b425c312450582227714aee8a23f",
       "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "s. 8(1)",
+          "quote": "An operator shall establish a recurring pay period and a recurring pay day and shall pay all amounts earned during each pay period and all tips or other gratuities collected by the operator during each pay period no later than the pay day for that period."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "s. 10(1)",
+          "quote": "An operator shall not withhold amounts earned or tips or other gratuities from a worker, make a deduction from an amount earned by a worker or a worker's tips or other gratuities or cause a worker to return or give the amount earned by the worker or the worker's tips or other gratuities to the operator unless authorized to do so under this section or in such circumstances as may be prescribed."
+        },
         {
           "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
           "pinpoint": "Making a claim > Reasons for claim and details",
@@ -651,13 +676,32 @@
           "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
         }
       ],
-      "howRead": "Vendored corpus file docs/sources/corpus/guide-making-a-claim.txt; read 2026-10-07"
+      "howRead": "Vendored corpus files docs/sources/corpus/digital-platform-workers-rights-act.txt and guide-making-a-claim.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gig-platform-payment|plaintiffElement|minimum-pay-gig",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "fe66bc56306a4c11d90426ad69508b1e1eb50eab94cfae95cf18826191cc0ef0",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "s. 2",
+          "quote": "The purpose of this Act is to establish certain worker rights for workers, regardless of whether those workers are employees."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "s. 9(1)-(2)",
+          "quote": "An operator shall pay workers at least the minimum wage payable under section 23.1 of the Employment Standards Act, 2000 for the class of employees set out in subparagraph 1 iv of subsection 23.1 (1) of that Act. ... Unless the regulations provide otherwise, for the purposes of determining compliance with subsection (1), the following rules apply: 1. Minimum wage shall be paid for each work assignment performed by a worker. 2. Tips and other gratuities paid in respect of a work assignment shall not be included in determining compliance with subsection (1)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/digital-platform-workers-rights-act.txt; read 2026-10-07"
     },
     {
       "key": "sc-claim-gig-platform-payment|plaintiffElement|employee-status-gig",
       "verifiedAt": "2026-10-07",
       "outcome": "authored",
-      "fingerprint": "f225ea9b6c202945a7575b73c4c46ea4edf94f45f85bf095c769bfcb13c2f5c6",
+      "fingerprint": "1b02888ff64b699bc11ac4c4caef6550b91028c8085020e5a890f893f7ada07f",
       "sources": [
         {
           "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
@@ -681,7 +725,7 @@
       "key": "sc-claim-gig-platform-payment|defendantConsideration|arbitration-clause-gig",
       "verifiedAt": "2026-10-07",
       "outcome": "authored",
-      "fingerprint": "f734368e7368e8fdda8a781aa22f4724b8f4f0eaae739fcd0a16e0faad091476",
+      "fingerprint": "1cb318ff31ff1af2a97092e96bfc67abc5806fbe6dc837b5587c7c2da0b111ed",
       "sources": [
         {
           "sourceUrl": "docs/sources/decisions/uber-technologies-inc-v-heller-2020-SCC-16.english.txt",
@@ -702,9 +746,38 @@
           "sourceUrl": "docs/sources/decisions/uber-technologies-inc-v-heller-2020-SCC-16.english.txt",
           "pinpoint": "para. 66",
           "quote": "An inequality of bargaining power exists when one party cannot adequately protect their interests in the contracting process"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "s. 12",
+          "quote": "All digital platform work-related disputes between an operator and a worker shall be resolved in Ontario."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "no operator and no worker shall contract out of or waive a worker right and any such contracting out or waiver is void."
         }
       ],
-      "howRead": "Saved decision, read from docs/sources/decisions/uber-technologies-inc-v-heller-2020-SCC-16.english.txt; read 2026-10-07"
+      "howRead": "Saved decision docs/sources/decisions/uber-technologies-inc-v-heller-2020-SCC-16.english.txt and vendored corpus file docs/sources/corpus/digital-platform-workers-rights-act.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gig-platform-payment|defendantConsideration|deduction-authorized-gig",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a2e5f119056716d7fcf1f9f87ffc4e2ab4cccf17a87436455a5fb80a2663f846",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "s. 10(2)-(3)",
+          "quote": "An operator may withhold or make a deduction from amounts earned by a worker or a worker's tips or other gratuities or cause a worker to return or give them to the operator if a statute of Ontario or Canada or a court order authorizes it. ... Subsection (2) does not apply if the statute or order requires the operator to remit the withheld, deducted, returned or given amounts earned or tips or other gratuities to a third party and the operator fails to do so."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "no operator and no worker shall contract out of or waive a worker right and any such contracting out or waiver is void."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/digital-platform-workers-rights-act.txt; read 2026-10-07"
     },
     {
       "key": "sc-claim-gig-platform-payment|proceduralNote|sc-claim-gig-platform-payment#note0",
@@ -748,6 +821,35 @@
         }
       ],
       "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt; read 2026-10-07"
+    },
+    {
+      "key": "sc-claim-gig-platform-payment|proceduralNote|sc-claim-gig-platform-payment#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6515501f96db7d979064d5d5ab235f4d1d12efac8e8a295a70517e3238cce23e",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "s. 25(1), (3)",
+          "quote": "A person alleging that this Act has been or is being contravened may file a complaint with the Ministry in a written or electronic form approved by the Director. ... A complaint regarding a contravention that occurred more than two years before the day on which the complaint was filed shall be deemed not to have been filed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "s. 33(1)",
+          "quote": "If a compliance officer finds that an operator owes an amount to a worker, the officer may, ... order the operator to pay the amount owing to the worker;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "ss. 26, 27(1)-(2)",
+          "quote": "A worker who commences a civil proceeding with respect to an alleged failure to pay for work performed may not file a complaint with respect to the same matter or have such a complaint investigated. ... A worker who files a complaint under this Act with respect to an alleged failure to pay for work performed may not commence a civil proceeding with respect to the same matter. ... Despite subsection (1), a worker who has filed a complaint may commence a civil proceeding with respect to a matter described in that subsection if the worker withdraws the complaint within two weeks after it is filed."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+          "pinpoint": "s. 28(2)",
+          "quote": "A worker who is represented by a trade union that is or was a party to a collective agreement may not file a complaint alleging a contravention of this Act that is enforceable under subsection (1) or have such a complaint investigated."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/digital-platform-workers-rights-act.txt; read 2026-10-07"
     },
     {
       "key": "sc-claim-caregiver-or-domestic-worker-unpaid|plaintiffElement|hired-by-household-caregiver",

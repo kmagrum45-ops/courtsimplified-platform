@@ -24,8 +24,11 @@
  *   - No saved source sets out a test for telling an employee from an
  *     independent contractor, so none is stated; the misclassification type
  *     rests on the ESA's definitions and s. 5.1.
- *   - The Digital Platform Workers' Rights Act, 2022 is not saved, so the gig
- *     type says nothing about it.
+ *   - The gig type rests on the saved Digital Platform Workers' Rights Act,
+ *     2022 (information, pay day, minimum wage, holding back pay, the
+ *     Ministry complaint route). No regulation under that Act is saved, so
+ *     nothing is said about prescribed pay-period limits or other prescribed
+ *     matters.
  *   - The ESA regulation with special rules for some home workers is not
  *     saved, so the caregiver type rests only on the Act's general rules.
  *   - No saved source speaks to non-solicitation clauses; only the ESA's
@@ -54,6 +57,8 @@ const HONDA = "docs/sources/decisions/honda-canada-v-keays-2008-SCC-39.english.t
 const GRANT = "docs/sources/decisions/grant-v-torstar-2009-SCC-61.english.txt";
 const HILL = "docs/sources/decisions/hill-v-church-of-scientology-1995-2-SCR-1130.html.txt";
 const UBER = "docs/sources/decisions/uber-technologies-inc-v-heller-2020-SCC-16.english.txt";
+const DPWRA = "https://www.ontario.ca/laws/docs/22d07_e.doc";
+const DPWRA_CONSOLIDATION = "2025-07-01";
 
 // ---- Shared wording. Each entry that uses it has its own record. ----
 
@@ -725,28 +730,49 @@ export const TYPES_SC_WORK_1: ClaimType[] = [
     plaintiffElements: [
       {
         id: "platform-terms-gig",
-        name: "What the platform agreed to pay",
+        name: "What the platform told the worker about pay",
         plainExplanation:
-          BURDEN +
-          "This part of the checklist is about the platform's terms, the pay rate for each job, and " +
-          "any change the platform made to them.",
-        sourceUrl: SCJ_STEPS,
+          "Under s. 7(1) of the Digital Platform Workers' Rights Act, 2022, within 24 hours after a " +
+          "worker is given access to the platform, the operator gives them in writing a description of " +
+          "how pay is calculated, whether tips are collected by the operator (and when and how), and the " +
+          "recurring pay period and pay day. Under s. 7(2), if any of that information changes, the " +
+          "operator tells the worker in writing before the change takes effect. Under s. 7(4), when " +
+          "offering a work assignment, the operator gives in writing the estimated pay and how it was " +
+          "calculated; under s. 7(5), within 24 hours of a completed assignment, it gives in writing the " +
+          "actual pay, how it was calculated, when it will be paid, and any tips collected and paid. " +
+          "This part of the checklist is about what the platform told the worker, and when.",
+        sourceUrl: DPWRA,
         verifiedAt: VERIFIED,
+        consolidationPeriod: DPWRA_CONSOLIDATION,
         evidenceCategories: [
           {
-            name: "The terms",
-            why: "Shows what the platform said it would pay.",
-            examples: ["Screenshots or a saved copy of the terms you accepted", "Rate cards or pay notices in the app"],
+            name: "The pay information the platform gave",
+            why: "Shows how the platform said pay would be calculated and when it would be paid.",
+            examples: ["Screenshots or a saved copy of the terms and pay description", "Notices of changes to pay", "The pay period and pay day shown in the app"],
+          },
+          {
+            name: "Job offers and job summaries",
+            why: "Shows the estimated and actual pay for each job.",
+            examples: ["Screenshots of job offers showing estimated pay", "Trip or delivery summaries showing actual pay and tips"],
           },
         ],
       },
       {
         id: "work-done-unpaid-gig",
-        name: "The work was done and not paid",
+        name: "The work was done and the pay or tips were not paid",
         plainExplanation:
-          AMOUNT + "This part of the checklist is about each job completed and the payment missing for it.",
-        sourceUrl: SC_GUIDE,
+          "Under s. 8(1) of the Digital Platform Workers' Rights Act, 2022, an operator establishes a " +
+          "recurring pay period and pay day and pays all amounts earned, and all tips collected by the " +
+          "operator, during each pay period no later than the pay day for that period. Under s. 10(1), an " +
+          "operator shall not withhold amounts earned or tips from a worker, make a deduction from them, " +
+          "or cause a worker to return them, unless authorized under that section or in prescribed " +
+          "circumstances. " +
+          AMOUNT +
+          "This part of the checklist is about each job completed and the pay or tips missing for it.",
+        sourceUrl: DPWRA,
         verifiedAt: VERIFIED,
+        consolidationPeriod: DPWRA_CONSOLIDATION,
+        alsoCites: [{ sourceUrl: SC_GUIDE, pinpoint: "Making a claim: reasons for claim; the $50,000 limit" }],
         evidenceCategories: [
           {
             name: "Jobs completed",
@@ -761,13 +787,41 @@ export const TYPES_SC_WORK_1: ClaimType[] = [
         ],
       },
       {
+        id: "minimum-pay-gig",
+        name: "Each job was paid at least the minimum wage",
+        plainExplanation:
+          "Section 2 of the Digital Platform Workers' Rights Act, 2022 says its purpose is to establish " +
+          "worker rights for workers, regardless of whether those workers are employees. Under s. 9(1), " +
+          "an operator pays workers at least the minimum wage payable under s. 23.1 of the Employment " +
+          "Standards Act, 2000 for the class of employees set out in subparagraph 1 iv of s. 23.1(1). " +
+          "Under s. 9(2), unless the regulations provide otherwise, minimum wage is paid for each work " +
+          "assignment, and tips are not counted in deciding whether it was paid. This part of the " +
+          "checklist is about the time spent on each job and the pay received for it, not counting tips.",
+        sourceUrl: DPWRA,
+        verifiedAt: VERIFIED,
+        consolidationPeriod: DPWRA_CONSOLIDATION,
+        evidenceCategories: [
+          {
+            name: "Time on each job",
+            why: "Shows how long each work assignment took.",
+            examples: ["Trip or delivery logs with start and end times", "Job summaries from the app"],
+          },
+          {
+            name: "Pay for each job, without tips",
+            why: "Shows the pay for each assignment separate from tips.",
+            examples: ["Per-job earnings breakdowns", "Weekly statements showing tips separately"],
+          },
+        ],
+      },
+      {
         id: "employee-status-gig",
         name: "If claiming what employees get: the worker was an employee",
         plainExplanation:
           ESA_EMPLOYEE +
           ESA_NO_TREATING +
           "This part of the checklist applies only if the claim includes something the Employment " +
-          "Standards Act gives employees, such as minimum wage or termination pay.",
+          "Standards Act gives employees, such as termination pay. Minimum pay for platform work is " +
+          "covered separately, under the Digital Platform Workers' Rights Act, 2022.",
         sourceUrl: ESA,
         verifiedAt: VERIFIED,
         consolidationPeriod: ESA_CONSOLIDATION,
@@ -793,17 +847,59 @@ export const TYPES_SC_WORK_1: ClaimType[] = [
           "arbitrate (para. 4). The Court said unconscionability requires both an inequality of " +
           "bargaining power and a resulting improvident bargain (para. 65), and that an inequality of " +
           "bargaining power exists when one party cannot adequately protect their interests in the " +
-          "contracting process (para. 66).",
+          "contracting process (para. 66). Separately, s. 12 of the Digital Platform Workers' Rights " +
+          "Act, 2022 says all digital platform work-related disputes between an operator and a worker " +
+          "shall be resolved in Ontario, and under s. 5(1) no operator and no worker shall contract out " +
+          "of or waive a worker right, and any such contracting out or waiver is void.",
         whenThisComesUp:
           "When the platform asks the court to stop the claim because its terms say disputes go to " +
           "arbitration.",
         sourceUrl: UBER,
         verifiedAt: VERIFIED,
+        alsoCites: [{ sourceUrl: DPWRA, pinpoint: "Digital Platform Workers' Rights Act, 2022, ss. 5(1) and 12" }],
+      },
+      {
+        id: "deduction-authorized-gig",
+        name: "The platform says it was allowed to hold back or deduct pay",
+        plainExplanation:
+          "Under s. 10(2) of the Digital Platform Workers' Rights Act, 2022, an operator may withhold or " +
+          "make a deduction from amounts earned or tips, or cause a worker to return them, if a statute " +
+          "of Ontario or Canada or a court order authorizes it. Under s. 10(3), that does not apply if " +
+          "the statute or order requires the operator to send the money to a third party and the " +
+          "operator fails to do so. Under s. 5(1), a worker right cannot be contracted out of or waived, " +
+          "and any such contracting out or waiver is void.",
+        whenThisComesUp:
+          "When the platform says a law, a court order or its own terms allowed it to keep or deduct " +
+          "part of the pay or tips.",
+        sourceUrl: DPWRA,
+        verifiedAt: VERIFIED,
+        consolidationPeriod: DPWRA_CONSOLIDATION,
       },
     ],
     applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-no-agreement-existed", "defence-set-off-or-counterclaim"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
-    proceduralNotes: [START, LIMITATION],
+    proceduralNotes: [
+      START,
+      LIMITATION,
+      {
+        note:
+          "The Digital Platform Workers' Rights Act, 2022 also gives a route outside this court. Under " +
+          "s. 25(1), a person alleging the Act has been or is being contravened may file a complaint " +
+          "with the Ministry, in a form approved by the Director; under s. 25(3), a complaint about a " +
+          "contravention that happened more than two years before it was filed is deemed not to have " +
+          "been filed. Under s. 33(1), a compliance officer who finds that an operator owes a worker an " +
+          "amount may order the operator to pay it. The Act limits using both routes for unpaid work: under " +
+          "s. 26, a worker who starts a civil proceeding about a failure to pay for work performed may " +
+          "not file a complaint about the same matter, and under s. 27, a worker who files a complaint " +
+          "may not start a civil proceeding about the same matter unless the complaint is withdrawn " +
+          "within two weeks after it is filed. Under s. 28(2), a worker represented by a trade union " +
+          "that is or was a party to a collective agreement may not file a complaint about a " +
+          "contravention enforceable under that agreement.",
+        sourceUrl: DPWRA,
+        verifiedAt: VERIFIED,
+        consolidationPeriod: DPWRA_CONSOLIDATION,
+      },
+    ],
     signals: [
       "delivery app won't pay me",
       "rideshare driver not paid",
@@ -813,9 +909,19 @@ export const TYPES_SC_WORK_1: ClaimType[] = [
       "courier app owes me",
       "platform didn't pay for my deliveries",
       "missing payouts from the app",
+      "the app kept my tips",
+      "paid less than minimum wage for deliveries",
+      "app changed the pay without telling me",
+      "never told how my pay is calculated",
     ],
     typicalDefendantProfile: "business",
     citations: [
+      {
+        sourceName: "Digital Platform Workers' Rights Act, 2022, S.O. 2022, c. 7, Sched. 1",
+        officialUrl: DPWRA,
+        verifiedAt: VERIFIED,
+        pinpoint: "ss. 2, 5(1), 7, 8(1), 9, 10, 12, 25-28, 33(1)",
+      },
       SC_GUIDE_CITATION,
       {
         sourceName: "Uber Technologies Inc. v. Heller, 2020 SCC 16",
