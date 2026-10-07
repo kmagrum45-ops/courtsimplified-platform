@@ -5,6 +5,7 @@ import { useState } from "react";
 import EventCandidateSurface from "../../../builder/_components/EventCandidateSurface";
 import CaseTimeline from "../../_components/CaseTimeline";
 import CaseWorkspace from "../../_components/CaseWorkspace";
+import { readCasePosition } from "@/src/lib/case-system/casePosition";
 import { builderHref, useCaseHome } from "../../_components/CaseHomeContext";
 
 /**
@@ -28,7 +29,13 @@ export default function CaseTimelineSection() {
         <EventCandidateSurface caseId={caseRecord.id} onRecorded={() => setRefresh((value) => value + 1)} />
       ) : null}
       <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
-        <CaseTimeline key={refresh} caseId={caseRecord.id} updateHref={builderHref(caseRecord)} canRecord={canRecord} />
+        <CaseTimeline
+          key={refresh}
+          caseId={caseRecord.id}
+          updateHref={builderHref(caseRecord)}
+          canRecord={canRecord}
+          confirmedStage={readCasePosition(caseRecord.master_result, courtPath).confirmedStage}
+        />
       </section>
       <section aria-labelledby="chronology-heading">
         <h2 id="chronology-heading" className="mb-3 text-xl font-bold text-[#10231f]">

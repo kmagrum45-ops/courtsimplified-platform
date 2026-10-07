@@ -34,6 +34,7 @@ import { readCaseDrafts } from "@/src/lib/case-system/drafts/caseDrafts";
 import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { authHeaders, builderHref, formatDate, useCaseHome } from "../_components/CaseHomeContext";
 import { userStory } from "@/src/lib/case-system/userStory";
+import { suggestedNoticeStep } from "@/src/lib/case-system/claim-types/noticeStep";
 
 type EventsResponse = {
   events: Array<{
@@ -225,6 +226,17 @@ export default function CaseOverviewPage() {
               storyHints={storyHintsForDates([userStory(intake), intake?.timeline].filter(Boolean).join("\n"))}
               userWords={userWordsOf(intake)}
               recordedAmount={recordedAmountOf(intake)}
+              // The notice step the builder suggested, here too (page review,
+              // 2026-10-07: the case page silently dropped the snow-and-ice
+              // notice step and its deadline).
+              noticeStepId={suggestedNoticeStep({
+                claimTypeId:
+                  typeof asRecord(intake?.extra).confirmedClaimTypeId === "string"
+                    ? (asRecord(intake?.extra).confirmedClaimTypeId as string)
+                    : null,
+                story: userStory(intake),
+                courtPath,
+              })}
             />
           ) : (
             <NextStepsCard pathway={courtPath} stage={confirmed} userWords={userWordsOf(master.intakeData)} />

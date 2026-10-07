@@ -2164,3 +2164,15 @@ the vehicle-notice step already did. And any counted date before today says
 review of the site owner's own story: injured 13 January 2025, told "you have
 60 days" with no sign the time ended 14 March 2025, and never shown the last
 day to sue, 13 January 2027.
+
+**Not only injuries (2026-10-07).** s. 5 (2) presumes discovery on the day of
+"the act or omission on which the claim is based" -- for any claim, not only
+an injury. Counting only from an injury date left every debt and contract
+claimant with "If this involves an injury, what date did it happen?" and no
+date (page review round 4: the unpaid-invoice and contractor-deposit
+personas). The event `act-or-omission` (question `case-date-act-or-omission`)
+is now asked at steps with no injury deadline; injury steps still ask the
+injury date once for both. `countFromDate` takes the injury date first, then
+the act-or-omission date. verifyDeadlineEngine's "asked AND used" check counts
+an event used when `countFromDate` reads it, so a presumption source is not
+mistaken for an unused question.

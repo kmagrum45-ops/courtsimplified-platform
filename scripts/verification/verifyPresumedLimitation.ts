@@ -15,7 +15,8 @@
  *   - a two-year date shown without the presumption sentence (a counted date
  *     presented as settled when the Act lets it be displaced);
  *   - a counted date in the past not saying it has passed;
- *   - the presumption quote drifting from the vendored Limitations Act.
+ *   - the presumption quote drifting from the vendored Limitations Act;
+ *   - a claim with no injury asked for an injury date (2026-10-07).
  *
  * COSTS NOTHING: the stage-answer route, no model.
  *
@@ -50,9 +51,22 @@ async function deadlineText(stageId: string, dateAnswers: Record<string, string>
 }
 
 async function main() {
-  for (const stageId of ["before-filing:notice-snow-ice-private", "before-filing:notice-municipality", "before-filing:deciding-whether-to-sue"]) {
+  for (const stageId of ["before-filing:notice-snow-ice-private", "before-filing:notice-municipality"]) {
     check(`${stageId} asks for the injury date`, dateQuestionsForStep(stageId).some((question) => question.id === "sc-date-injury"));
   }
+  // Page review 2026-10-07: a debt claimant was asked "If this involves an
+  // injury..." and never got a date. A step with no injury deadline asks for
+  // the day the claim is based on, and never for an injury.
+  const general = dateQuestionsForStep("before-filing:deciding-whether-to-sue");
+  check(
+    "a step with no injury deadline asks the day the claim is based on, not an injury date",
+    general.some((question) => question.id === "case-date-act-or-omission") && !general.some((question) => question.id === "sc-date-injury"),
+    JSON.stringify(general.map((question) => question.id)),
+  );
+  const debt = await deadlineText("before-filing:deciding-whether-to-sue", { "case-date-act-or-omission": "2025-07-15" });
+  check("a debt claim's two-year date is counted from that day", /15 July 2027/.test(debt), debt.slice(-400));
+  const injuryOnly = await deadlineText("before-filing:deciding-whether-to-sue", { "sc-date-injury": "2025-01-13" });
+  check("an injury date still counts the two years where it was given", /13 January 2027/.test(injuryOnly));
 
   const ice = await deadlineText("before-filing:notice-snow-ice-private", { "sc-date-injury": "2025-01-13" });
   check("the ice-slip notice date is counted and said to have passed", /14 March 2025/.test(ice) && /already passed/.test(ice), ice.slice(-600));

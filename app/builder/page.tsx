@@ -342,6 +342,16 @@ function BuilderPageContent() {
   const [guidedAnalysisError, setGuidedAnalysisError] = useState("");
   // Dates confirmed in the guided intake, offered on the next-steps panel.
   const [guidedDates, setGuidedDates] = useState<Record<string, SuggestedDate>>({});
+  /*
+   * Dates the user confirmed in the guided intake are THEIR answers, so they
+   * are saved to the case's position with it and counted straight away
+   * (page review, 2026-10-07: the injury and service dates were confirmed in
+   * the intake and the next-steps panel and case page asked for them again).
+   * A ref, because the save runs after the state update that sets them.
+   */
+  const guidedDatesRef = useRef<Record<string, string>>({});
+  /** What the panel saved this visit, so Back then Forward shows it (page review, 2026-10-07). */
+  const [positionThisVisit, setPositionThisVisit] = useState<{ stepId?: string | null; dateAnswers?: Record<string, string> }>({});
 
   /*
    * Picking a mode is an internal state change, not a URL change, so
@@ -833,11 +843,24 @@ function BuilderPageContent() {
           .eq("id", activeId)
           .maybeSingle();
         const storedMaster = asRecord(userOwnedRow?.master_result);
-        const userOwned = Object.fromEntries(
+        const userOwned: Record<string, unknown> = Object.fromEntries(
           (["position", "drafts"] as const)
             .filter((key) => storedMaster[key] !== undefined && storedMaster[key] !== null)
             .map((key) => [key, storedMaster[key]]),
         );
+        // Dates confirmed in the guided intake join the position; a date the
+        // user gave on the case page since wins.
+        if (Object.keys(guidedDatesRef.current).length) {
+          const storedPosition = asRecord(userOwned.position);
+          userOwned.position = {
+            ...storedPosition,
+            dateAnswers: { ...guidedDatesRef.current, ...asRecord(storedPosition.dateAnswers) },
+          };
+          setPositionThisVisit((current) => ({
+            ...current,
+            dateAnswers: { ...guidedDatesRef.current, ...(current.dateAnswers ?? {}) },
+          }));
+        }
 
         const { error } = await supabase
           .from("cases")
@@ -905,7 +928,11 @@ function BuilderPageContent() {
       // without that, deriveCaseStageWithEvents receives {} and the stage comes
       // entirely from confirmed events.
       setDraftIntakeFacts(result.facts as Record<string, unknown>);
-      setGuidedDates(suggestedDatesFromAnswers(result.answers ?? []));
+      const confirmedDates = suggestedDatesFromAnswers(result.answers ?? []);
+      setGuidedDates(confirmedDates);
+      guidedDatesRef.current = Object.fromEntries(
+        Object.entries(confirmedDates).map(([questionId, suggestion]) => [questionId, suggestion.value]),
+      );
 
       // The active case, so the run sees the events the user confirmed.
       const response = await requestSmallClaimsAnalysis(
@@ -1037,7 +1064,12 @@ function BuilderPageContent() {
     return id && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id) ? id : null;
   }
 
-  const savedPosition = readCasePosition(existingMasterResult, courtPath);
+  const storedPosition = readCasePosition(existingMasterResult, courtPath);
+  const savedPosition = {
+    ...storedPosition,
+    stepId: positionThisVisit.stepId !== undefined ? positionThisVisit.stepId : storedPosition.stepId,
+    dateAnswers: { ...storedPosition.dateAnswers, ...(positionThisVisit.dateAnswers ?? {}) },
+  };
 
   async function saveConfirmedStage(caseId: string, stage: UniversalStage) {
     try {
@@ -1626,6 +1658,12 @@ function BuilderPageContent() {
                 caseId={savedCaseId()}
                 initialStepId={savedPosition.stepId}
                 initialDateAnswers={savedPosition.dateAnswers}
+                onSaved={(saved) =>
+                  setPositionThisVisit((current) => ({
+                    stepId: saved.stepId !== undefined ? saved.stepId : current.stepId,
+                    dateAnswers: saved.dateAnswers ? { ...(current.dateAnswers ?? {}), ...saved.dateAnswers } : current.dateAnswers,
+                  }))
+                }
                 storyHints={storyHintsForDates([userStory(caseData), caseData?.timeline].filter(Boolean).join("\n"))}
                 suggestedDates={guidedDates}
                 userWords={userWordsOf(caseData)}

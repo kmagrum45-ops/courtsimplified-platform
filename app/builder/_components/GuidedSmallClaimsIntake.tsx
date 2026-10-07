@@ -1240,7 +1240,9 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
         <QuestionHelp key={currentQuestion.id} question={currentQuestion} />
       ) : null}
 
-      {!halted && pendingSuggestion ? (
+      {/* After the story proposals, not beside them (page review, 2026-10-07:
+          "What kind of dispute is this?" and this box asked at once). */}
+      {!halted && !proposalDrafts && pendingSuggestion ? (
         <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-[#4a3b12]">
           <p className="font-semibold text-[#3a2e0e]">
             This sounds like it may be about: {pendingSuggestion.claimTypeName} — is that right?

@@ -62,6 +62,7 @@ export type DeadlineEventKey =
   | "action-commenced"
   | "claim-discovered"
   | "injury-occurred"
+  | "act-or-omission"
   // 2026-10-01: civil and family. Recorded, not asked — their deadlines are
   // shown as periods with the rule (computedDeadline.ts skips their regimes).
   | "order-made"
@@ -363,6 +364,23 @@ export const DEADLINE_EVENTS = {
     label: "the day the injury happened",
     question: "If this involves an injury, what date did it happen?",
     questionId: "sc-date-injury",
+  },
+  /*
+   * Page review 2026-10-07: the two-year limit was counted only from an
+   * injury date, so a debt or contract claimant was asked "If this involves an
+   * injury..." and never got a date. Limitations Act s. 5 (2) presumes
+   * discovery "on the day the act or omission on which the claim is based took
+   * place" -- for any claim. That day is a plain fact the person knows (the
+   * day payment was refused, the day the work stopped); what the law makes of
+   * it is said beside the counted date.
+   */
+  "act-or-omission": {
+    key: "act-or-omission",
+    label: "the day the thing your claim is about happened",
+    question:
+      "On what day did the thing your claim is about happen? For example, the day you were hurt, the day payment was due or refused, or the day the work stopped.",
+    questionId: "case-date-act-or-omission",
+    askedOn: "case-page",
   },
   "judgment-date": {
     key: "judgment-date",

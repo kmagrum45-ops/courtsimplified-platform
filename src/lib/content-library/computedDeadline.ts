@@ -153,13 +153,16 @@ export function countFromDate(
   deadline: Pick<StageDeadline, "countFromEvent">,
   dates: CaseDates,
 ): { from: string | undefined; presumed: boolean } {
+  // The day the claim is based on: the injury, for an injury claim; otherwise
+  // the act or omission the person names (page review, 2026-10-07).
+  const basedOn = dates["injury-occurred"] ?? dates["act-or-omission"];
   const presumed =
     deadline.countFromEvent === "claim-discovered" &&
     !dates["claim-discovered"] &&
-    Boolean(dates["injury-occurred"]) &&
+    Boolean(basedOn) &&
     isInScope("caseSpecificDeadlines");
   return {
-    from: presumed ? dates["injury-occurred"] : dates[deadline.countFromEvent as keyof CaseDates],
+    from: presumed ? basedOn : dates[deadline.countFromEvent as keyof CaseDates],
     presumed,
   };
 }

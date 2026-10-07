@@ -3022,7 +3022,7 @@ const DEFENDANT: CaseStage[] = [
         qualifier:
           "This is the time if you were served in Ontario. If you were served elsewhere in Canada or in the United States, it is 40 days. If you were served anywhere else, it is 60 days. If you deliver a notice of intent to defend (Form 18B) in that time, you get 10 more days for the defence. Deliver means serve it on the other parties and file it with proof of service. " +
           DEFENCE_QUALIFIER_SERVICE +
-          " A counterclaim against the plaintiff goes in the same document as your defence, by the same time. Your counterclaim may also name someone who is not yet a party. If so, issue it within the same time as your defence, or before you are noted in default, or later with the court's leave. Then serve and file it, with proof of service, within 30 days after it is issued. You can also do this at any time before you are noted in default, or later with the court's leave. A crossclaim against a co-defendant goes with your defence, by the same time. It can also go in at any time before you are noted in default, or later with leave. The court must give that leave unless it would prejudice the plaintiff. The time can be extended by filing a consent, or by the court. You can still deliver a defence at any time before you are noted in default. But once the time is up, the plaintiff can have you noted in default without telling you. After that, you get no notice of further steps. If the claim is under the simplified procedure and you say it does not fit Rule 76, say so in your defence. A jury notice must be delivered before pleadings close.",
+          " A counterclaim against the plaintiff goes in the same document as your defence, by the same time. Your counterclaim may also name someone who is not yet a party. If so, issue it within the same time as your defence, or before you are noted in default, or later with the court's leave. Then serve and file it, with proof of service, within 30 days after it is issued. A crossclaim against a co-defendant goes with your defence, by the same time. It can also go in at any time before you are noted in default, or later with leave. The court must give that leave unless it would prejudice the plaintiff. The time can be extended by filing a consent, or by the court. You can still deliver a defence at any time before you are noted in default. But once the time is up, the plaintiff can have you noted in default without telling you. After that, you get no notice of further steps. If the claim is under the simplified procedure and you say it does not fit Rule 76, say so in your defence. An action under the simplified procedure is not tried with a jury, so no jury notice can be delivered in it, unless the claim arises from slander, libel, malicious arrest, malicious prosecution or false imprisonment. In any other action, a jury notice must be delivered before pleadings close.",
         exceptions: [
           RCP_18_02_INTENT,
           RCP_18_02_TEN_MORE,
@@ -3042,6 +3042,8 @@ const DEFENDANT: CaseStage[] = [
           RCP_19_01_NOTING,
           RCP_19_02_NO_NOTICE,
           RCP_76_02_OBJECTION,
+          RCP_76_02_1_NO_JURY,
+          RCP_76_02_1_JURY_EXCEPTIONS,
           RCP_47_01_JURY,
         ],
       },
