@@ -1,0 +1,4 @@
+fixture harness outcome: success
+accuracy eval outcome: success
+retrieval probe outcome: success
+retrieval recall outcome: success

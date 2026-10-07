@@ -1,0 +1,1766 @@
+{
+  "summary": {
+    "generatedAt": "2026-10-07T03:27:58.335Z",
+    "stories": 50,
+    "storyHits": 46,
+    "labels": 71,
+    "labelsFound": 56,
+    "labelsFoundOnlyByReference": 2,
+    "medianMs": {
+      "queries": 4450,
+      "embed": 201,
+      "total": 4754
+    },
+    "slowestMs": 8976
+  },
+  "rows": [
+    {
+      "id": "defend-served-claim",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "oreg-258-98-small-claims-rules 9.01"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 3508,
+      "embedMs": 345,
+      "totalMs": 3969,
+      "queries": [
+        "What is the time limit for a defendant served with a Plaintiff’s Claim in the Ontario Small Claims Court to serve and file a Defence?",
+        "How is the time for serving and filing a Defence calculated under the Rules of the Small Claims Court?",
+        "What are the requirements for a defendant to dispute a Plaintiff’s Claim by serving and filing a Defence in the Ontario Small Claims Court?"
+      ],
+      "retrieved": [
+        "oreg-258-98-small-claims-rules r. 9.01 [0.81]",
+        "oreg-258-98-small-claims-rules r. 10.03 [0.80]",
+        "guide-serving-documents A defence [0.76]",
+        "guide-making-a-claim How long the defendant to a de [0.76]",
+        "guide-making-a-claim How long the defendant has to  [0.76]",
+        "oreg-258-98-small-claims-rules r. 11.3.01 (1)-(3) [0.73]"
+      ]
+    },
+    {
+      "id": "they-never-answered",
+      "court": "small-claims",
+      "hit": false,
+      "found": [],
+      "viaReference": [],
+      "missed": [
+        "oreg-258-98-small-claims-rules 11.01",
+        "oreg-258-98-small-claims-rules 11.02"
+      ],
+      "queriesMs": 4602,
+      "embedMs": 240,
+      "totalMs": 4962,
+      "queries": [
+        "Under the Ontario Small Claims Court Rules, what is the time for a defendant to serve and file a defence after service of a plaintiff’s claim?",
+        "What constitutes valid service of a plaintiff’s claim on an individual defendant at the defendant’s place of residence, and how must service be proved?",
+        "In an existing Small Claims Court proceeding, how may a plaintiff have a defendant noted in default for failing to file a defence?",
+        "When may a plaintiff obtain default judgment for a debt or liquidated demand after a defendant has been noted in default?",
+        "What procedure applies to obtaining default judgment where the plaintiff’s claim is for unliquidated damages, including a motion or an assessment hearing?"
+      ],
+      "retrieved": [
+        "guide-getting-ready-for-court Assessment hearing [0.81]",
+        "oreg-258-98-small-claims-rules r. 11.03 (4)-(7) [0.80]",
+        "ontario-suing-someone-small-claims If no Defence is filed within  [0.80]",
+        "guide-making-a-claim If the defendant to the defend [0.78]",
+        "scj-steps-in-a-case Default Proceedings [0.78]",
+        "oreg-258-98-small-claims-rules r. 9.01 [0.77]",
+        "guide-making-a-claim How long the defendant to a de [0.77]",
+        "scj-default-proceedings Default judgment [0.77]",
+        "ontario-suing-someone-small-claims If no Defence is filed within  [0.76]",
+        "scj-default-proceedings Default proceedings [0.76]",
+        "guide-serving-documents Example 2 [0.72]",
+        "oreg-258-98-small-claims-rules r. 8.01 (1)-(5.1) (ref) [0.80]"
+      ]
+    },
+    {
+      "id": "default-judgment-against-me",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "oreg-258-98-small-claims-rules 11.06"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 3834,
+      "embedMs": 192,
+      "totalMs": 4087,
+      "queries": [
+        "What is the procedure for a defendant to bring a motion to set aside a default judgment in the Ontario Small Claims Court?",
+        "What are the requirements for valid service of a plaintiff’s claim on a defendant, including where the defendant has changed residence?",
+        "What grounds must a defendant establish to have a default judgment set aside, including lack of service, a reasonable explanation for the default and a defence on the merits?",
+        "What time limits and supporting affidavit requirements apply to a motion to set aside a default judgment?",
+        "How may a defendant obtain a stay of enforcement pending determination of a motion to set aside a default judgment?"
+      ],
+      "retrieved": [
+        "oreg-258-98-small-claims-rules r. 11.06 [0.80]",
+        "oreg-258-98-small-claims-rules r. 11.04 [0.74]",
+        "guide-getting-ready-for-court Judgment against a party who d [0.73]",
+        "guide-replying-to-a-claim What happens if you are noted  [0.73]",
+        "guide-serving-documents Changing address of service [0.65]",
+        "oreg-258-98-small-claims-rules r. 8.01 (1)-(5.1) [0.65]",
+        "guide-serving-documents Service of Claim [0.64]",
+        "guide-serving-documents Example 2 [0.64]",
+        "oreg-258-98-small-claims-rules r. 8.01 (6)-(8) [0.63]",
+        "oreg-258-98-small-claims-rules r. 8.02 (ref) [0.65]",
+        "oreg-258-98-small-claims-rules r. 8.03 (1)-(3) (ref) [0.65]"
+      ]
+    },
+    {
+      "id": "claim-not-served-yet",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "oreg-258-98-small-claims-rules 8.01"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 3720,
+      "embedMs": 176,
+      "totalMs": 3959,
+      "queries": [
+        "What is the time limit for service of a plaintiff’s claim after it is issued in the Ontario Small Claims Court?",
+        "What methods of personal service or alternatives to personal service are permitted for serving a plaintiff’s claim on an individual defendant?",
+        "When may the Ontario Small Claims Court order substituted service where a defendant cannot be served personally?",
+        "How may a plaintiff obtain an extension of time for service of an issued plaintiff’s claim in the Ontario Small Claims Court?"
+      ],
+      "retrieved": [
+        "guide-serving-documents Substituted Service [0.74]",
+        "oreg-258-98-small-claims-rules r. 8.04 [0.73]",
+        "guide-serving-documents How long the plaintiff has to  [0.72]",
+        "oreg-258-98-small-claims-rules r. 8.02 [0.71]",
+        "oreg-258-98-small-claims-rules r. 8.03 (1)-(3) [0.70]",
+        "guide-serving-documents Excerpt from the Rules [0.70]",
+        "oreg-258-98-small-claims-rules r. 8.01 (1)-(5.1) [0.69]",
+        "guide-serving-documents Personal service and alternati [0.69]",
+        "ontario-suing-someone-small-claims When your trial date is less t [0.68]",
+        "oreg-258-98-small-claims-rules r. 11.03 (1)-(3) (ref) [0.69]"
+      ]
+    },
+    {
+      "id": "which-courthouse",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "oreg-258-98-small-claims-rules 6.01"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 3681,
+      "embedMs": 212,
+      "totalMs": 4185,
+      "queries": [
+        "Under the Rules of the Small Claims Court, in which territorial division must a plaintiff commence an action?",
+        "How is the proper territorial division determined where a corporate defendant carries on business in one division and the cause of action arose in another?",
+        "Does the plaintiff’s place of residence determine where a claim may be commenced in the Small Claims Court?"
+      ],
+      "retrieved": [
+        "oreg-258-98-small-claims-rules r. 6.01 (1)-(3) [0.76]",
+        "guide-making-a-claim What Small Claims Court office [0.69]",
+        "guide-making-a-claim Serving the claim outside the  [0.66]",
+        "scj-steps-in-a-case Rule 20.10 [0.65]",
+        "cja-courts-of-justice-act s. 23 (1)-(2) [0.65]",
+        "ontario-suing-someone-small-claims you are the plaintiff (the def [0.64]",
+        "ontario-suing-someone-small-claims If you think you can’t afford  [0.64]",
+        "oreg-258-98-small-claims-rules r. 8.02 [0.61]",
+        "guide-making-a-claim Example 11 [0.57]",
+        "provincial-offences-act s. 26 (4) [0.55]",
+        "decision-bce para. 33 [0.53]",
+        "business-corporations-act s. 210 (1)-(4) [0.53]",
+        "cja-courts-of-justice-act s. 11 (1)-(2) (ref) [0.65]"
+      ]
+    },
+    {
+      "id": "conference-coming",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "oreg-258-98-small-claims-rules 13.02"
+      ],
+      "viaReference": [],
+      "missed": [
+        "oreg-258-98-small-claims-rules 13.01"
+      ],
+      "queriesMs": 2258,
+      "embedMs": 201,
+      "totalMs": 2488,
+      "queries": [
+        "What is the purpose of a settlement conference in the Ontario Small Claims Court?",
+        "Who is required to attend a settlement conference in the Ontario Small Claims Court?",
+        "What are the consequences of failing to attend a settlement conference in the Ontario Small Claims Court?"
+      ],
+      "retrieved": [
+        "guide-getting-ready-for-court Who attends a settlement confe [0.77]",
+        "oreg-258-98-small-claims-rules r. 13.02 (6)-(7) [0.77]",
+        "oreg-258-98-small-claims-rules r. 13.02 (1)-(5) [0.76]",
+        "oreg-258-98-small-claims-rules r. 13.03 (1)-(3) [0.73]",
+        "guide-getting-ready-for-court If you cannot attend on the da [0.72]",
+        "oreg-258-98-small-claims-rules r. 17.01 (1)-(2.1) [0.72]",
+        "scj-steps-in-a-case Important information for befo [0.71]",
+        "guide-getting-ready-for-court Objecting to change of attenda [0.71]",
+        "scj-steps-in-a-case Trial management conference [0.69]",
+        "guide-getting-ready-for-court Example 3 [0.67]",
+        "oreg-258-98-small-claims-rules r. 17.01 (3)-(5) (ref) [0.72]"
+      ]
+    },
+    {
+      "id": "won-but-not-paid",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "oreg-258-98-small-claims-rules 20.08"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 3978,
+      "embedMs": 371,
+      "totalMs": 4500,
+      "queries": [
+        "What procedures are available to a judgment creditor to enforce an unpaid judgment in the Ontario Small Claims Court?",
+        "How does a judgment creditor obtain and serve a notice of garnishment on a judgment debtor’s employer under the Small Claims Court Rules?",
+        "What statutory exemptions and limits apply to garnishment of a judgment debtor’s wages in Ontario?",
+        "How may a judgment creditor request an examination of the judgment debtor concerning income, assets and means of satisfying a Small Claims Court judgment?"
+      ],
+      "retrieved": [
+        "scj-steps-in-a-case Enforcement steps [0.79]",
+        "oreg-258-98-small-claims-rules r. 20.10 (1)-(2) [0.79]",
+        "oreg-258-98-small-claims-rules r. 20.08 (3) [0.78]",
+        "oreg-258-98-small-claims-rules r. 8.01 (9)-(12) [0.78]",
+        "guide-after-judgment the details of the court order [0.77]",
+        "guide-after-judgment Writ of Seizure and Sale of Pe [0.77]",
+        "guide-after-judgment Examination Hearing [0.77]",
+        "guide-after-judgment the details of the court order [0.76]",
+        "guide-serving-documents Notice of Garnishment [0.76]",
+        "scj-steps-in-a-case The debtor’s debts, income, pr [0.73]",
+        "oreg-258-98-small-claims-rules r. 20.08 (8)-(10) [0.63]",
+        "esa-2000-ontario s. 14 (1)-(2) [0.60]",
+        "oreg-258-98-small-claims-rules r. 8.02 (ref) [0.78]",
+        "oreg-258-98-small-claims-rules r. 8.03 (1)-(3) (ref) [0.78]",
+        "oreg-258-98-small-claims-rules r. 20.08 (5.4)-(7) (ref) [0.63]"
+      ]
+    },
+    {
+      "id": "too-much-for-small-claims",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "oreg-626-00-monetary-jurisdiction 1"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 7212,
+      "embedMs": 181,
+      "totalMs": 7550,
+      "queries": [
+        "What is the monetary jurisdiction of the Ontario Small Claims Court when commencing an action, and may a plaintiff abandon the portion of a claim exceeding that jurisdiction?",
+        "Who is the proper plaintiff in an action to recover funds misappropriated from a corporate bank account, and when may a shareholder seek leave to bring a derivative action?",
+        "What duties under Ontario partnership law or corporate law apply to the alleged misappropriation of business funds by a partner, director or officer?",
+        "What rules govern service of a Plaintiff’s Claim where the defendant’s whereabouts are unknown, including substituted service or dispensing with service?",
+        "What limitation period applies to commencing an action for recovery of misappropriated business funds, and when is the claim discovered?"
+      ],
+      "retrieved": [
+        "cja-courts-of-justice-act s. 23 (1)-(2) [0.70]",
+        "oreg-258-98-small-claims-rules r. 11.3.01 (1)-(3) [0.68]",
+        "oreg-258-98-small-claims-rules r. 8.01 (1)-(5.1) [0.68]",
+        "business-corporations-act s. 246 (1)-(2) [0.68]",
+        "guide-serving-documents If you are unable to serve you [0.68]",
+        "oreg-626-00-monetary-jurisdiction s. 1 (1)-(2) [0.67]",
+        "business-corporations-act s. 138 (3)-(5) [0.67]",
+        "business-corporations-act s. 256 (1)-(2) [0.67]",
+        "oreg-258-98-small-claims-rules r. 11.01 (1)-(3) [0.67]",
+        "residential-tenancies-act-2006 s. 207 (1)-(3) [0.67]",
+        "guide-serving-documents Substituted Service [0.66]",
+        "decision-pioneer paras. 29-30 [0.64]",
+        "cja-courts-of-justice-act s. 11 (1)-(2) (ref) [0.70]",
+        "oreg-258-98-small-claims-rules r. 8.02 (ref) [0.68]",
+        "oreg-258-98-small-claims-rules r. 8.03 (1)-(3) (ref) [0.68]"
+      ]
+    },
+    {
+      "id": "appeal-small-claims",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "cja-courts-of-justice-act 31"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 4630,
+      "embedMs": 188,
+      "totalMs": 4874,
+      "queries": [
+        "Is a final order of a deputy judge of the Ontario Small Claims Court following trial appealable to the Divisional Court, and what monetary threshold applies?",
+        "What grounds of appeal and standards of review apply to a Small Claims Court judgment?",
+        "What time limits and procedural requirements apply to commencing and perfecting an appeal from a Small Claims Court final order?",
+        "Does an appeal stay enforcement of a Small Claims Court judgment, and how may a stay pending appeal be obtained?"
+      ],
+      "retrieved": [
+        "cja-courts-of-justice-act s. 31 [0.67]",
+        "cja-courts-of-justice-act s. 19 (1)-(1.1) [0.67]",
+        "guide-getting-ready-for-court Appealing a judgement [0.65]",
+        "cja-courts-of-justice-act s. 19 (1.2)-(2) [0.64]",
+        "class-proceedings-act s. 30 (11) [0.63]",
+        "oreg-258-98-small-claims-rules r. 11.04 [0.62]",
+        "guide-getting-ready-for-court Judgment against a party who d [0.62]",
+        "ontario-suing-someone-small-claims When your trial date is less t [0.62]",
+        "oreg-258-98-small-claims-rules r. 17.01 (3)-(5) [0.61]",
+        "guide-serving-documents How long the plaintiff has to  [0.61]",
+        "cja-courts-of-justice-act s. 137.1 (1)-(3) (ref) [0.67]",
+        "class-proceedings-act s. 25 (1)-(3) (ref) [0.63]",
+        "oreg-258-98-small-claims-rules r. 6.01 (1)-(3) (ref) [0.61]"
+      ]
+    },
+    {
+      "id": "cannot-afford-fees",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "ontario-fee-waiver"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 3421,
+      "embedMs": 184,
+      "totalMs": 3637,
+      "queries": [
+        "What is the procedure for obtaining a fee waiver before commencing an action in the Ontario Small Claims Court?",
+        "Does receipt of income support under the Ontario Disability Support Program qualify an applicant for a fee waiver in the Ontario Small Claims Court?",
+        "What application form and supporting documentation are required to request a waiver of the fee for filing a plaintiff’s claim in the Ontario Small Claims Court?"
+      ],
+      "retrieved": [
+        "ontario-fee-waiver income support from the Ontari [0.79]",
+        "ontario-fee-waiver Who can ask for a fee waiver [0.73]",
+        "ontario-fees-small-claims If you cannot afford to pay th [0.72]",
+        "ontario-fee-waiver Have your court fees waived [0.72]",
+        "ontario-fee-waiver fees for serving documents on  [0.71]",
+        "ontario-suing-someone-small-claims If you think you can’t afford  [0.71]",
+        "ontario-fees-small-claims --> [0.69]",
+        "ontario-file-small-claims-online $108 for filing a claim [0.69]"
+      ]
+    },
+    {
+      "id": "old-loan",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "limitations-act-2002 4"
+      ],
+      "viaReference": [],
+      "missed": [
+        "limitations-act-2002 5"
+      ],
+      "queriesMs": 3864,
+      "embedMs": 182,
+      "totalMs": 4107,
+      "queries": [
+        "What limitation period applies to commencing an action in the Ontario Small Claims Court for repayment of a loan?",
+        "When is a claim for repayment of a loan with a fixed repayment date discovered under the Limitations Act, 2002?",
+        "What effect does an acknowledgment of liability or part payment have on the limitation period for a debt claim?",
+        "How is an action for recovery of an unpaid loan commenced by filing and serving a Plaintiff’s Claim in the Ontario Small Claims Court?"
+      ],
+      "retrieved": [
+        "limitations-act-2002 s. 13 (1)-(3) [0.72]",
+        "limitations-act-2002 s. 13 (8)-(11) [0.72]",
+        "oreg-258-98-small-claims-rules r. 7.01 (1)-(2) [0.72]",
+        "guide-making-a-claim Checklist: Making a claim [0.72]",
+        "ontario-suing-someone-small-claims If you think you can’t afford  [0.71]",
+        "oreg-258-98-small-claims-rules r. 8.01 (1)-(5.1) [0.71]",
+        "limitations-act-2002 s. 4 [0.70]",
+        "limitations-act-2002 s. 15 (1)-(4) [0.66]",
+        "oreg-258-98-small-claims-rules r. 11.1.01 (1)-(3) [0.65]",
+        "consumer-reporting-act s. 23 (4) [0.62]",
+        "provincial-offences-act s. 76 (1)-(2) [0.61]",
+        "limitations-act-2002 s. 13 (4)-(7) (ref) [0.72]",
+        "oreg-258-98-small-claims-rules r. 8.02 (ref) [0.71]",
+        "oreg-258-98-small-claims-rules r. 8.03 (1)-(3) (ref) [0.71]",
+        "oreg-258-98-small-claims-rules r. 11.03 (1)-(3) (ref) [0.65]",
+        "oreg-258-98-small-claims-rules r. 9.03 (1)-(2) (ref) [0.65]"
+      ]
+    },
+    {
+      "id": "found-out-late",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "limitations-act-2002 5"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 5112,
+      "embedMs": 181,
+      "totalMs": 5340,
+      "queries": [
+        "What is the limitation period for commencing an action in the Ontario Small Claims Court for breach of a roofing contract or negligent performance of roofing work?",
+        "When is a claim concerning a latent construction defect discovered under the Limitations Act, 2002, including when the claimant knew or ought reasonably to have known of the loss and that a proceeding was an appropriate means to seek a remedy?",
+        "How does the ultimate limitation period under the Limitations Act, 2002 apply to a claim concerning a latent defect in roofing work?",
+        "What requirements govern commencing a claim in the Ontario Small Claims Court for damages arising from defective roofing work, including the court’s monetary jurisdiction and issuance of a plaintiff’s claim?"
+      ],
+      "retrieved": [
+        "limitations-act-2002 s. 5 (1)-(3) [0.79]",
+        "decision-grant-thornton paras. 43-44 [0.73]",
+        "decision-grant-thornton paras. 27-28 [0.72]",
+        "decision-grant-thornton para. 29 [0.71]",
+        "decision-grant-thornton paras. 3-4 [0.71]",
+        "guide-getting-ready-for-court Example 1 [0.68]",
+        "limitations-act-2002 s. 15 (1)-(4) [0.68]",
+        "cja-courts-of-justice-act s. 23 (1)-(2) [0.67]",
+        "guide-making-a-claim Example 11 [0.67]",
+        "oreg-258-98-small-claims-rules r. 7.01 (1)-(2) [0.66]",
+        "limitations-act-2002 s. 15 (4)-(6) [0.66]",
+        "consumer-reporting-act s. 23 (4) [0.58]",
+        "cja-courts-of-justice-act s. 11 (1)-(2) (ref) [0.67]"
+      ]
+    },
+    {
+      "id": "door-to-door",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "consumer-protection-act-2002 43"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 4667,
+      "embedMs": 210,
+      "totalMs": 5004,
+      "queries": [
+        "Does the prohibition on door-to-door solicitation and entering into consumer agreements at a consumer’s home apply to a water heater rental agreement?",
+        "What cooling-off period and cancellation requirements apply to a direct agreement for the rental of a water heater under Ontario consumer protection legislation?",
+        "What are the legal consequences and refund obligations if a water heater rental agreement is cancelled or is void because it was entered into contrary to restrictions on door-to-door transactions?",
+        "What jurisdiction does the Ontario Small Claims Court have over a claim arising from the cancellation of a water heater rental agreement, and what procedure applies to commencing the claim?"
+      ],
+      "retrieved": [
+        "consumer-protection-act-2002 s. 43 (1)-(2) [0.73]",
+        "oreg-17-05-consumer-protection-general s. 35 (2) [0.72]",
+        "oreg-17-05-consumer-protection-general s. 28 (3)-(4) [0.70]",
+        "oreg-17-05-consumer-protection-general s. 35 (2) [0.70]",
+        "oreg-17-05-consumer-protection-general s. 35.1 (1)-(2) [0.69]",
+        "ontario-cpa-rights Cooling-off period [0.68]",
+        "consumer-protection-act-2002 s. 96 (1)-(3) [0.63]",
+        "guide-after-judgment Enforcing an order from anothe [0.62]",
+        "guide-making-a-claim Section 347 of the Criminal Co [0.61]",
+        "cja-courts-of-justice-act s. 23 (1)-(2) [0.60]",
+        "consumer-protection-act-2002 s. 15 (1)-(2) (ref) [0.73]",
+        "consumer-protection-act-2002 s. 42 (1)-(2) (ref) [0.73]",
+        "oreg-17-05-consumer-protection-general s. 28 (1)-(2) (ref) [0.70]",
+        "oreg-17-05-consumer-protection-general s. 35 (1) (ref) [0.70]",
+        "cja-courts-of-justice-act s. 11 (1)-(2) (ref) [0.60]"
+      ]
+    },
+    {
+      "id": "estimate-blown",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "consumer-protection-act-2002 10"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 4118,
+      "embedMs": 213,
+      "totalMs": 4370,
+      "queries": [
+        "Under Ontario consumer protection legislation, what limits apply to a supplier charging an amount that exceeds a written estimate for renovation services?",
+        "What constitutes a consumer’s agreement to amend an estimate or authorize additional renovation work under Ontario consumer protection legislation?",
+        "What remedies are available to a consumer for renovation charges exceeding a written estimate without authorization?",
+        "What rules govern commencing a claim or defending a claim in the Ontario Small Claims Court concerning disputed renovation charges?"
+      ],
+      "retrieved": [
+        "consumer-protection-act-2002 s. 10 (1)-(3) [0.77]",
+        "cpo-protecting-consumer-rights Learn more about contracts [0.71]",
+        "cpo-guide-home-renovation-businesses section 35 of the General Regu [0.70]",
+        "oreg-17-05-consumer-protection-general s. 46 (1) [0.70]",
+        "consumer-protection-act-2002 s. 58 (1)-(2) [0.69]",
+        "oreg-17-05-consumer-protection-general s. 42 (1)-(2) [0.69]",
+        "oreg-17-05-consumer-protection-general s. 48 [0.68]",
+        "oreg-17-05-consumer-protection-general s. 25.4 (3)-(4) [0.68]",
+        "oreg-258-98-small-claims-rules r. 13.09 [0.67]",
+        "oreg-258-98-small-claims-rules r. 10.03 [0.67]",
+        "oreg-258-98-small-claims-rules r. 9.01 [0.66]",
+        "oreg-258-98-small-claims-rules r. 9.03 (3)-(4.3) [0.65]",
+        "oreg-17-05-consumer-protection-general s. 46 (2) (ref) [0.70]",
+        "oreg-17-05-consumer-protection-general s. 46 (3) (ref) [0.70]",
+        "oreg-17-05-consumer-protection-general s. 41 (1)-(2) (ref) [0.69]",
+        "oreg-17-05-consumer-protection-general s. 25.4 (1)-(2) (ref) [0.68]"
+      ]
+    },
+    {
+      "id": "mechanic-holding-car",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "consumer-protection-act-2002 56",
+        "repair-and-storage-liens-act 3"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 6472,
+      "embedMs": 188,
+      "totalMs": 6721,
+      "queries": [
+        "Under Ontario consumer protection legislation, what requirements apply to estimates, authorization of motor vehicle repairs, and charges exceeding an estimate?",
+        "Under the Repair and Storage Liens Act, when does a motor vehicle repairer have a possessory lien and a right to retain the vehicle pending payment?",
+        "What procedure under the Repair and Storage Liens Act permits an owner to obtain release of a vehicle while disputing the repair charges, including payment into court or provision of security?",
+        "What jurisdiction does the Ontario Small Claims Court have over a claim for recovery of possession of a motor vehicle and damages arising from disputed repair charges?",
+        "Under the Rules of the Small Claims Court, what requirements apply to commencing a claim against a motor vehicle repairer and serving the plaintiff’s claim?"
+      ],
+      "retrieved": [
+        "cpo-guide-auto-repair any restrictions, limitations  [0.83]",
+        "oreg-17-05-consumer-protection-general s. 48 [0.82]",
+        "consumer-protection-act-2002 s. 58 (1)-(2) [0.81]",
+        "oreg-17-05-consumer-protection-general s. 48 [0.79]",
+        "consumer-protection-act-2002 s. 56 (1)-(2) [0.79]",
+        "cpo-guide-auto-repair the amount you and the custome [0.76]",
+        "repair-and-storage-liens-act s. 24 (1.2)-(4) [0.75]",
+        "repair-and-storage-liens-act s. 3 (1)-(2) [0.75]",
+        "oreg-258-98-small-claims-rules r. 8.01 (1)-(5.1) [0.75]",
+        "repair-and-storage-liens-act s. 24 (13)-(14) [0.74]",
+        "repair-and-storage-liens-act s. 24 (10)-(12) [0.73]",
+        "cja-courts-of-justice-act s. 23 (1)-(2) [0.69]",
+        "repair-and-storage-liens-act s. 24 (1)-(1.1) (ref) [0.75]",
+        "oreg-258-98-small-claims-rules r. 8.02 (ref) [0.75]",
+        "oreg-258-98-small-claims-rules r. 8.03 (1)-(3) (ref) [0.75]",
+        "repair-and-storage-liens-act s. 24 (7)-(9) (ref) [0.74]",
+        "cja-courts-of-justice-act s. 11 (1)-(2) (ref) [0.69]"
+      ]
+    },
+    {
+      "id": "lied-to-at-sale",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "consumer-protection-act-2002 14",
+        "consumer-protection-act-2002 18"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 4378,
+      "embedMs": 277,
+      "totalMs": 4691,
+      "queries": [
+        "What remedies are available under the Consumer Protection Act for a false, misleading or deceptive representation concerning the condition or quality of used goods?",
+        "What rights to reject goods or claim damages arise under the Sale of Goods Act where goods do not correspond with their description or fail to meet an applicable implied condition of quality or fitness?",
+        "What are the requirements for commencing an action in the Ontario Small Claims Court for rescission, restitution or damages arising from a misrepresentation in the sale of goods?"
+      ],
+      "retrieved": [
+        "ontario-cpa-rights Misrepresentation [0.72]",
+        "sale-of-goods-act s. 29 (1)-(3) [0.70]",
+        "sale-of-goods-act s. 14 [0.69]",
+        "sale-of-goods-act s. 53 [0.68]",
+        "ontario-cpa-rights recommending unnecessary repai [0.66]",
+        "consumer-protection-act-2002 s. 18 (8)-(12) [0.65]",
+        "consumer-protection-act-2002 s. 14 (2) [0.65]",
+        "sale-of-goods-act s. 16 (1)-(2) [0.65]",
+        "consumer-protection-act-2002 s. 18 (1)-(3) [0.64]",
+        "consumer-protection-act-2002 s. 14 (1)-(2) [0.64]",
+        "cja-courts-of-justice-act s. 23 (1)-(2) [0.62]",
+        "cja-courts-of-justice-act s. 11 (1)-(2) (ref) [0.62]"
+      ]
+    },
+    {
+      "id": "product-not-fit",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "sale-of-goods-act 15"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 4879,
+      "embedMs": 223,
+      "totalMs": 5187,
+      "queries": [
+        "Under Ontario consumer protection legislation, what rights and remedies apply where goods purchased from a retailer are not reasonably fit for their intended purpose?",
+        "Under the Sale of Goods Act, when does an implied condition of fitness for a particular purpose arise where the buyer makes that purpose known and relies on the seller’s skill or judgment?",
+        "What legal effect does an “all sales final” term have on statutory conditions, warranties and remedies for goods that are unfit for their disclosed purpose?",
+        "What remedies are available for breach of an implied condition of fitness, including rejection of goods, recovery of the purchase price and damages?",
+        "What are the requirements for commencing an action in the Ontario Small Claims Court concerning the sale of goods that are unfit for their disclosed purpose?"
+      ],
+      "retrieved": [
+        "sale-of-goods-act s. 15 [0.75]",
+        "ontario-cpa-rights recommending unnecessary repai [0.68]",
+        "sale-of-goods-act s. 14 [0.68]",
+        "cpo-when-shopping Rules for loyalty reward point [0.67]",
+        "oreg-17-05-consumer-protection-general s. 81 (4)-(5) [0.65]",
+        "sale-of-goods-act s. 12 (1)-(3) [0.64]",
+        "oreg-17-05-consumer-protection-general s. 35 (2) [0.64]",
+        "oreg-17-05-consumer-protection-general s. 80 (4)-(6) [0.64]",
+        "sale-of-goods-act s. 48 (1)-(3) [0.61]",
+        "consumer-protection-act-2002 s. 18 (8)-(12) [0.61]",
+        "oreg-258-98-small-claims-rules r. 7.01 (1)-(2) [0.60]",
+        "oreg-333-08-motor-vehicle-dealers-general s. 39 (2)-(4) [0.60]",
+        "oreg-17-05-consumer-protection-general s. 81 (1)-(3) (ref) [0.65]",
+        "oreg-17-05-consumer-protection-general s. 35 (1) (ref) [0.64]",
+        "oreg-17-05-consumer-protection-general s. 80 (1)-(3) (ref) [0.64]"
+      ]
+    },
+    {
+      "id": "collection-calls",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "cpo-guide-collection-agencies"
+      ],
+      "viaReference": [],
+      "missed": [
+        "cleo-debt-and-consumer-rights-collection-agency-called-me-do-i-have-talk-them"
+      ],
+      "queriesMs": 7023,
+      "embedMs": 195,
+      "totalMs": 7258,
+      "queries": [
+        "Under Ontario’s Collection and Debt Settlement Services Act and its regulations, what restrictions apply to a collection agency contacting a debtor at the debtor’s place of employment?",
+        "Is a debtor required to communicate with a collection agency, and what notice may the debtor give to require communications in writing or to request that the matter be taken to court?",
+        "Under the Limitations Act, 2002, how are the limitation period, discoverability, acknowledgment of liability and partial payment applied to an action to recover an unpaid telecommunications debt?",
+        "Under the Rules of the Small Claims Court, what requirements and time limits apply to a defendant serving and filing a defence, including a defence that the claim is barred by a limitation period?"
+      ],
+      "retrieved": [
+        "cpo-guide-collection-agencies When you can contact a debtor' [0.79]",
+        "oreg-258-98-small-claims-rules r. 9.01 [0.76]",
+        "cpo-guide-collection-agencies If a debtor seeks legal action [0.76]",
+        "guide-serving-documents A defence [0.75]",
+        "guide-making-a-claim How long the defendant to a de [0.75]",
+        "oreg-258-98-small-claims-rules r. 10.03 [0.74]",
+        "cpo-guide-collection-agencies contact the debtor [0.73]",
+        "guide-making-a-claim How long the defendant has to  [0.73]",
+        "cpo-guide-collection-agencies Prohibited practices and condu [0.72]",
+        "limitations-act-2002 s. 13 (8)-(11) [0.70]",
+        "limitations-act-2002 s. 13 (1)-(3) [0.70]",
+        "decision-grant-thornton para. 29 [0.66]",
+        "limitations-act-2002 s. 13 (4)-(7) (ref) [0.70]"
+      ]
+    },
+    {
+      "id": "credit-report-wrong",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "consumer-reporting-act 13"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 4735,
+      "embedMs": 204,
+      "totalMs": 4986,
+      "queries": [
+        "What rights does a consumer have under the Consumer Reporting Act to dispute inaccurate information in a consumer report and require a consumer reporting agency to investigate and correct that information?",
+        "What obligations does a consumer reporting agency have under the Consumer Reporting Act to notify recipients of a consumer report when disputed information is corrected or deleted?",
+        "What remedies are available under Ontario law for a loan account reported in a consumer’s name without authorization?",
+        "Does the Ontario Small Claims Court have jurisdiction to award damages arising from inaccurate consumer reporting or to order a consumer reporting agency to correct a consumer report?",
+        "What are the requirements and applicable limitation period for commencing an action in the Ontario Small Claims Court concerning inaccurate consumer reporting?"
+      ],
+      "retrieved": [
+        "consumer-reporting-act s. 13 (1)-(2) [0.72]",
+        "oreg-17-05-consumer-protection-general s. 46 (2) [0.71]",
+        "consumer-reporting-act s. 23 (4) [0.69]",
+        "consumer-reporting-act s. 12 (5)-(7) [0.69]",
+        "consumer-protection-act-2002 s. 18 (8)-(12) [0.67]",
+        "consumer-reporting-act s. 23.1 (1)-(3) [0.66]",
+        "cpo-guide-collection-agencies The Director's powers [0.62]",
+        "consumer-protection-act-2002 s. 117 [0.62]",
+        "cpo-guide-collection-agencies If a debtor seeks legal action [0.59]",
+        "oreg-17-05-consumer-protection-general s. 58 (1)-(2) [0.58]",
+        "oreg-17-05-consumer-protection-general s. 46 (1) (ref) [0.71]"
+      ]
+    },
+    {
+      "id": "deposit-kept",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "residential-tenancies-act-2006 106"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 6123,
+      "embedMs": 182,
+      "totalMs": 6372,
+      "queries": [
+        "Does the Residential Tenancies Act, 2006 apply to a basement rental unit, including where the tenant is required to share a kitchen or bathroom with the landlord or a qualifying family member?",
+        "Under the Residential Tenancies Act, 2006, when must a rent deposit be applied to the last rental period, and when is the tenant entitled to repayment of an unapplied deposit?",
+        "What interest is a landlord required to pay on a rent deposit under the Residential Tenancies Act, 2006?",
+        "Does the Ontario Small Claims Court have jurisdiction over a former tenant’s claim for repayment of a rent deposit, or does the Landlord and Tenant Board have exclusive jurisdiction?",
+        "What application or claim must a former tenant commence to recover a rent deposit, and what limitation period applies?"
+      ],
+      "retrieved": [
+        "residential-tenancies-act-2006 s. 106 (9)-(10) [0.82]",
+        "residential-tenancies-act-2006 s. 106 (6)-(8) [0.79]",
+        "residential-tenancies-act-2006 s. 3 (1)-(3) [0.67]",
+        "human-rights-code s. 21 (1)-(3) [0.64]",
+        "residential-tenancies-act-2006 s. 207 (1)-(3) [0.62]",
+        "guide-after-judgment What the debtor can do if they [0.61]",
+        "guide-after-judgment Enforcing an order from anothe [0.60]",
+        "cja-courts-of-justice-act s. 23 (1)-(2) [0.60]",
+        "residential-tenancies-act-2006 s. 120 (1)-(3) (ref) [0.79]",
+        "residential-tenancies-act-2006 s. 106 (1)-(5) (ref) [0.79]",
+        "human-rights-code s. 2 (1)-(2) (ref) [0.64]",
+        "cja-courts-of-justice-act s. 11 (1)-(2) (ref) [0.60]"
+      ]
+    },
+    {
+      "id": "landlord-walks-in",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "residential-tenancies-act-2006 27"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 5886,
+      "embedMs": 201,
+      "totalMs": 6149,
+      "queries": [
+        "Under the Residential Tenancies Act, 2006, in what circumstances may a landlord enter a rental unit without written notice or the tenant’s consent?",
+        "What written notice requirements and permitted hours of entry apply when a landlord enters a rental unit under the Residential Tenancies Act, 2006?",
+        "When does a landlord’s entry into a rental unit constitute substantial interference with a tenant’s reasonable enjoyment or harassment under the Residential Tenancies Act, 2006?",
+        "What is the procedure for a tenant to apply to the Landlord and Tenant Board for remedies arising from a landlord’s illegal entry into a rental unit?",
+        "Does the Ontario Small Claims Court have jurisdiction over a tenant’s claim arising from a landlord’s entry into a rental unit, or does the matter fall within the exclusive jurisdiction of the Landlord and Tenant Board?"
+      ],
+      "retrieved": [
+        "residential-tenancies-act-2006 s. 27 (1) [0.81]",
+        "residential-tenancies-act-2006 s. 26 (1)-(3) [0.78]",
+        "residential-tenancies-act-2006 s. 235 (1)-(2) [0.75]",
+        "cja-courts-of-justice-act s. 23 (1)-(2) [0.63]",
+        "decision-letestu paras. 10-11 [0.61]",
+        "decision-letestu paras. 5-9 [0.60]",
+        "commercial-tenancies-act s. 74 (1)-(2) [0.60]",
+        "residential-tenancies-act-2006 s. 122 (1)-(3) [0.60]",
+        "residential-tenancies-act-2006 s. 20 (1)-(2) (ref) [0.81]",
+        "residential-tenancies-act-2006 s. 161 (ref) [0.81]",
+        "cja-courts-of-justice-act s. 11 (1)-(2) (ref) [0.63]",
+        "residential-tenancies-act-2006 s. 121 (1)-(4) (ref) [0.60]"
+      ]
+    },
+    {
+      "id": "repairs-ignored",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "residential-tenancies-act-2006 20"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 4380,
+      "embedMs": 219,
+      "totalMs": 4658,
+      "queries": [
+        "What obligations does a landlord have under the Residential Tenancies Act, 2006 to maintain a rental unit in a good state of repair and comply with applicable heating standards?",
+        "What constitutes withholding or interfering with the reasonable supply of a vital service, including heat, under the Residential Tenancies Act, 2006?",
+        "What applications and remedies are available to a tenant before the Landlord and Tenant Board for failure to provide heat or comply with maintenance obligations?",
+        "Does the Ontario Small Claims Court have jurisdiction over a tenant’s claim concerning lack of heat, or does the matter fall within the exclusive jurisdiction of the Landlord and Tenant Board?",
+        "What procedures are available to request an expedited hearing before the Landlord and Tenant Board where a rental unit lacks heat?"
+      ],
+      "retrieved": [
+        "residential-tenancies-act-2006 s. 20 (1)-(2) [0.83]",
+        "residential-tenancies-act-2006 s. 21 (1)-(2) [0.71]",
+        "mortgages-act s. 51 (1)-(2) [0.67]",
+        "residential-tenancies-act-2006 s. 183 [0.64]",
+        "residential-tenancies-act-2006 s. 29 (1) [0.64]",
+        "cleo-topic-landlord-and-tenant-board Tenant applications [0.60]",
+        "decision-letestu paras. 10-11 [0.57]",
+        "commercial-tenancies-act s. 68 [0.57]",
+        "decision-letestu paras. 5-9 [0.56]",
+        "ontario-renting-commercial-property Renting commercial property in [0.56]",
+        "residential-tenancies-act-2006 s. 161 (ref) [0.64]"
+      ]
+    },
+    {
+      "id": "own-use-eviction",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "residential-tenancies-act-2006 48"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 5813,
+      "embedMs": 182,
+      "totalMs": 6054,
+      "queries": [
+        "Does the Small Claims Court have jurisdiction over a dispute concerning termination of a residential tenancy for occupation by a landlord’s child, or does the Landlord and Tenant Board have exclusive jurisdiction?",
+        "What notice, termination date and compensation requirements apply to a notice of termination for occupation by a landlord’s child under the Residential Tenancies Act, 2006?",
+        "What must a landlord establish to obtain an eviction order based on a child’s good faith intention to occupy the rental unit for residential purposes?",
+        "May a tenant remain in possession after receiving a notice of termination pending the landlord’s application to the Landlord and Tenant Board and the issuance of an eviction order?",
+        "What remedies and application limitation period apply where a tenant vacates a rental unit because of a notice of termination given in bad faith for occupation by a landlord’s child?"
+      ],
+      "retrieved": [
+        "residential-tenancies-act-2006 s. 48 (3)-(5) [0.72]",
+        "residential-tenancies-act-2006 s. 57 (6)-(7) [0.70]",
+        "residential-tenancies-act-2006 s. 77 (1)-(5) [0.65]",
+        "residential-tenancies-act-2006 s. 207 (1)-(3) [0.65]",
+        "decision-kaiman paras. 12-14 [0.62]",
+        "decision-kaiman para. 1 [0.62]",
+        "ontario-suing-someone-small-claims Arbitration [0.60]",
+        "decision-letestu paras. 10-11 [0.59]",
+        "residential-tenancies-act-2006 s. 72 (2)-(4) [0.56]",
+        "decision-jesan para. 60 [0.56]",
+        "residential-tenancies-act-2006 s. 48 (1)-(2) (ref) [0.72]",
+        "residential-tenancies-act-2006 s. 4 (1)-(2) (ref) [0.70]",
+        "residential-tenancies-act-2006 s. 57 (4)-(5) (ref) [0.70]",
+        "residential-tenancies-act-2006 s. 49 (1) (ref) [0.56]",
+        "residential-tenancies-act-2006 s. 50 (1)-(3) (ref) [0.56]"
+      ]
+    },
+    {
+      "id": "dog-bite",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "dog-owners-liability-act 2"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 4321,
+      "embedMs": 242,
+      "totalMs": 4614,
+      "queries": [
+        "Under the Dog Owners’ Liability Act, is the owner of a dog liable for damages resulting from a bite or attack on another person, irrespective of fault or negligence or knowledge of the dog’s propensity to bite or attack?",
+        "Under the Dog Owners’ Liability Act, does a defective gate affect the dog owner’s liability or give rise to a right to contribution or indemnity from another person?",
+        "What damages may be claimed for personal injuries resulting from a dog bite, and what is the monetary jurisdiction of the Ontario Small Claims Court?",
+        "Under the Rules of the Small Claims Court, how must a proceeding be commenced on behalf of a minor plaintiff, and what are the requirements for a litigation guardian?"
+      ],
+      "retrieved": [
+        "dog-owners-liability-act s. 2 (1)-(4) [0.85]",
+        "oreg-258-98-small-claims-rules r. 4.01 (1)-(3) [0.82]",
+        "dog-owners-liability-act s. 3 (1)-(2) [0.79]",
+        "oreg-258-98-small-claims-rules r. 4.04 (1)-(2) [0.78]",
+        "oreg-258-98-small-claims-rules r. 4.03 (1)-(2) [0.78]",
+        "oreg-258-98-small-claims-rules r. 4.02 (1)-(3) [0.78]",
+        "dog-owners-liability-act s. 5.1 [0.74]",
+        "dog-owners-liability-act s. 4 (1)-(1.3) [0.74]",
+        "pounds-act s. 2 [0.67]",
+        "decision-waldick  [0.65]"
+      ]
+    },
+    {
+      "id": "store-slip",
+      "court": "small-claims",
+      "hit": false,
+      "found": [],
+      "viaReference": [],
+      "missed": [
+        "occupiers-liability-act 3"
+      ],
+      "queriesMs": 4484,
+      "embedMs": 196,
+      "totalMs": 4904,
+      "queries": [
+        "Under the Occupiers’ Liability Act, what duty of care does a grocery store occupier owe to a person entering the premises regarding a spill on the floor and the provision of warning signs?",
+        "How does the Negligence Act apply to contributory negligence in an occupiers’ liability claim arising from a slip and fall?",
+        "What damages may be claimed for personal injury and loss of employment income in an occupiers’ liability action?",
+        "What limitation period under the Limitations Act, 2002 applies to commencing an occupiers’ liability action?",
+        "What monetary jurisdiction and procedures for commencing an action by plaintiff’s claim apply in the Ontario Small Claims Court?"
+      ],
+      "retrieved": [
+        "oreg-258-98-small-claims-rules r. 7.01 (1)-(2) [0.74]",
+        "ontario-fees-small-claims --> [0.74]",
+        "cja-courts-of-justice-act s. 23 (1)-(2) [0.73]",
+        "oreg-332-16-small-claims-fees s. 1 (1)-(2) [0.72]",
+        "guide-getting-ready-for-court Rule for claims less than $5,0 [0.71]",
+        "decision-waldick  [0.67]",
+        "occupiers-liability-act s. 6.1 (1)-(3) [0.67]",
+        "limitations-act-2002 s. 15 (4)-(6) [0.66]",
+        "decision-waldick  [0.66]",
+        "limitations-act-2002 s. 4 [0.65]",
+        "decision-waldick  [0.65]",
+        "insurance-act s. 267.8 (20)-(22) [0.61]",
+        "cja-courts-of-justice-act s. 11 (1)-(2) (ref) [0.73]",
+        "insurance-act s. 267.8 (1) (ref) [0.61]",
+        "insurance-act s. 267.8 (2)-(4) (ref) [0.61]"
+      ]
+    },
+    {
+      "id": "city-sidewalk",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "municipal-act-2001 44"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 8338,
+      "embedMs": 228,
+      "totalMs": 8976,
+      "queries": [
+        "Under the Municipal Act, 2001, when is a municipality liable for personal injury caused by snow or ice on a municipal sidewalk, and when must gross negligence be established?",
+        "What written notice requirements apply to a personal injury claim against a municipality under the Municipal Act, 2001, and when may failure to give timely notice be excused on grounds of reasonable excuse and absence of prejudice?",
+        "What limitation period and discoverability rules apply to commencing an action for personal injury against a municipality?",
+        "Does the Ontario Small Claims Court have monetary jurisdiction over the proposed personal injury action, and what rules govern issuing a Plaintiff’s Claim and serving a municipality?"
+      ],
+      "retrieved": [
+        "municipal-act-2001 s. 44 (9)-(12) [0.80]",
+        "municipal-act-2001 s. 55 (1)-(3) [0.68]",
+        "city-of-toronto-act-2006 s. 42 (7)-(10) [0.67]",
+        "municipal-act-2001 s. 45 (1)-(2) [0.67]",
+        "oreg-258-98-small-claims-rules r. 8.02 [0.66]",
+        "cja-courts-of-justice-act s. 23 (1)-(2) [0.66]",
+        "municipal-act-2001 s. 44 (1)-(3) [0.66]",
+        "oreg-258-98-small-claims-rules r. 8.01 (1)-(5.1) [0.66]",
+        "occupiers-liability-act s. 6.1 (1)-(3) [0.65]",
+        "occupiers-liability-act s. 6.1 (4)-(7) [0.65]",
+        "city-of-toronto-act-2006 s. 42 (4)-(6) [0.65]",
+        "limitations-act-2002 s. 5 (1)-(3) [0.63]",
+        "cja-courts-of-justice-act s. 11 (1)-(2) (ref) [0.66]",
+        "municipal-act-2001 s. 44 (4)-(8) (ref) [0.66]",
+        "oreg-258-98-small-claims-rules r. 8.03 (1)-(3) (ref) [0.66]",
+        "oreg-258-98-small-claims-rules r. 11.03 (1)-(3) (ref) [0.66]",
+        "city-of-toronto-act-2006 s. 42 (1)-(3) (ref) [0.65]"
+      ]
+    },
+    {
+      "id": "toronto-sidewalk",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "city-of-toronto-act-2006 42"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 4804,
+      "embedMs": 189,
+      "totalMs": 5040,
+      "queries": [
+        "What statutory duty does the City of Toronto have to keep a highway, including a municipal sidewalk, in a reasonable state of repair, and when is it liable for personal injury caused by non-repair?",
+        "What statutory defences apply to a claim against the City of Toronto for personal injury caused by a sidewalk being in a state of non-repair?",
+        "What written notice of a personal injury claim arising from highway non-repair must be given to the City of Toronto, within what period, and what exceptions apply to failure to give notice?",
+        "What limitation period applies to commencing an action against the City of Toronto for personal injury caused by sidewalk non-repair?",
+        "Does the Ontario Small Claims Court have jurisdiction over a claim for personal injury damages against the City of Toronto, and what rules govern commencing the action and serving the municipality?"
+      ],
+      "retrieved": [
+        "city-of-toronto-act-2006 s. 42 (1)-(3) [0.82]",
+        "city-of-toronto-act-2006 s. 42 (7)-(10) [0.78]",
+        "municipal-act-2001 s. 44 (1)-(3) [0.76]",
+        "city-of-toronto-act-2006 s. 42 (4)-(6) [0.76]",
+        "municipal-act-2001 s. 44 (9)-(12) [0.75]",
+        "city-of-toronto-act-2006 s. 392 (1)-(2) [0.74]",
+        "municipal-act-2001 s. 45 (1)-(2) [0.72]",
+        "city-of-toronto-act-2006 s. 117 (1)-(3) (ref) [0.82]",
+        "municipal-act-2001 s. 44 (4)-(8) (ref) [0.76]"
+      ]
+    },
+    {
+      "id": "newspaper-lie",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "libel-and-slander-act 5"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 7668,
+      "embedMs": 178,
+      "totalMs": 7922,
+      "queries": [
+        "Does the Ontario Small Claims Court have jurisdiction over an action for damages for libel published in a newspaper?",
+        "What elements must a plaintiff establish in an action for libel arising from a newspaper publication concerning a business?",
+        "What notice must be served before commencing an action for libel in a newspaper under the Libel and Slander Act?",
+        "What limitation period applies to commencing an action for libel in a newspaper under the Libel and Slander Act?",
+        "What are the requirements for issuing and serving a Plaintiff’s Claim in the Ontario Small Claims Court?",
+        "What damages may be claimed for injury to business reputation and resulting pecuniary loss in an action for libel?"
+      ],
+      "retrieved": [
+        "libel-and-slander-act s. 6 [0.80]",
+        "oreg-258-98-small-claims-rules r. 8.01 (1)-(5.1) [0.79]",
+        "oreg-258-98-small-claims-rules r. 7.01 (1)-(2) [0.78]",
+        "oreg-258-98-small-claims-rules r. 7.02 (1)-(4) [0.75]",
+        "libel-and-slander-act s. 5 (1)-(2) [0.74]",
+        "guide-making-a-claim Checklist: Making a claim [0.74]",
+        "guide-serving-documents Serving a claim [0.74]",
+        "libel-and-slander-act s. 5 (3) [0.68]",
+        "libel-and-slander-act s. 8 (1)-(3) [0.63]",
+        "decision-hill 32. (1) This Charter applies [0.60]",
+        "decision-hill 32. (1) This Charter applies [0.59]",
+        "decision-hill 32. (1) This Charter applies [0.59]",
+        "oreg-258-98-small-claims-rules r. 8.02 (ref) [0.79]",
+        "oreg-258-98-small-claims-rules r. 8.03 (1)-(3) (ref) [0.79]"
+      ]
+    },
+    {
+      "id": "both-at-fault-fence",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "negligence-act 3"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 4085,
+      "embedMs": 409,
+      "totalMs": 4754,
+      "queries": [
+        "In an Ontario Small Claims Court action for property damage caused by the operation of a motor vehicle, what must the plaintiff establish to prove negligence?",
+        "Under Ontario's Negligence Act, when does the location of a fence beyond a property boundary constitute contributory negligence, and how is liability apportioned?",
+        "What evidence is required in an Ontario Small Claims Court action to establish a property boundary and an alleged fence encroachment?",
+        "How are damages for the repair or replacement of a fence assessed in an Ontario Small Claims Court action?"
+      ],
+      "retrieved": [
+        "negligence-act s. 3 [0.69]",
+        "decision-waldick  [0.68]",
+        "highway-traffic-act s. 193 (1)-(4) [0.67]",
+        "line-fences-act s. 8 (1)-(3) [0.66]",
+        "highway-traffic-act s. 192 (1)-(3) [0.65]",
+        "pounds-act s. 17 (3) [0.64]",
+        "negligence-act s. 7 [0.64]",
+        "decision-waldick  [0.63]",
+        "decision-clements paras. 6-8 [0.63]",
+        "decision-marchi paras. 19-20 [0.63]",
+        "line-fences-act s. 18 (1)-(2) [0.62]",
+        "guide-getting-ready-for-court Preparing for a settlement con [0.57]",
+        "highway-traffic-act s. 3 (1)-(3) (ref) [0.67]"
+      ]
+    },
+    {
+      "id": "kid-vandalism",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "parental-responsibility-act-2000 2"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 4703,
+      "embedMs": 242,
+      "totalMs": 4995,
+      "queries": [
+        "Under Ontario’s Parental Responsibility Act, 2000, when may a parent be liable in Small Claims Court for property damage intentionally caused by their minor child?",
+        "What defences are available to a parent under the Parental Responsibility Act, 2000, concerning reasonable supervision and reasonable efforts to prevent or discourage the child’s conduct?",
+        "What burden of proof applies to a claim against a parent for property damage under the Parental Responsibility Act, 2000?",
+        "Under the Rules of the Small Claims Court, how is an action commenced against a minor, and when must the minor be represented by a litigation guardian?",
+        "What damages may be recovered for damage to a motor vehicle in an Ontario Small Claims Court action?"
+      ],
+      "retrieved": [
+        "parental-responsibility-act-2000 s. 2 (1)-(2) [0.78]",
+        "oreg-258-98-small-claims-rules r. 4.01 (1)-(3) [0.78]",
+        "oreg-258-98-small-claims-rules r. 4.03 (1)-(2) [0.74]",
+        "oreg-258-98-small-claims-rules r. 4.02 (1)-(3) [0.74]",
+        "parental-responsibility-act-2000 s. 10 (1)-(3) [0.73]",
+        "parental-responsibility-act-2000 s. 5 [0.69]",
+        "parental-responsibility-act-2000 s. 2 (3) [0.66]",
+        "highway-traffic-act s. 193 (1)-(4) [0.65]",
+        "oreg-258-98-small-claims-rules r. 19.05 [0.62]",
+        "guide-after-judgment one motor vehicle worth less t [0.61]",
+        "insurance-act s. 263 (4)-(5) [0.59]",
+        "cpo-guide-auto-repair the cost of the original work  [0.59]",
+        "highway-traffic-act s. 3 (1)-(3) (ref) [0.65]"
+      ]
+    },
+    {
+      "id": "neighbour-trespass",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "trespass-to-property-act 2"
+      ],
+      "viaReference": [
+        "trespass-to-property-act 2"
+      ],
+      "missed": [],
+      "queriesMs": 3421,
+      "embedMs": 171,
+      "totalMs": 3632,
+      "queries": [
+        "Does unauthorized entry onto private land or placement of a trailer on that land constitute trespass under Ontario law?",
+        "What damages may be claimed in the Ontario Small Claims Court for trespass to land?",
+        "Does the Ontario Small Claims Court have jurisdiction to grant an injunction restraining continuing trespass or an order requiring removal of property from land?",
+        "What are the requirements for commencing an action for trespass by filing and serving a Plaintiff’s Claim in the Ontario Small Claims Court?"
+      ],
+      "retrieved": [
+        "oreg-258-98-small-claims-rules r. 7.01 (1)-(2) [0.77]",
+        "oreg-258-98-small-claims-rules r. 8.01 (1)-(5.1) [0.74]",
+        "guide-making-a-claim Checklist: Making a claim [0.71]",
+        "guide-serving-documents Serving a claim [0.70]",
+        "ontario-suing-someone-small-claims If you think you can’t afford  [0.70]",
+        "trespass-to-property-act s. 12 (1)-(2) [0.66]",
+        "trespass-to-property-act s. 12 (3)-(6) [0.64]",
+        "decision-jesan para. 60 [0.63]",
+        "cja-courts-of-justice-act s. 23 (1)-(2) [0.62]",
+        "cja-courts-of-justice-act s. 101 (1)-(2) [0.61]",
+        "trespass-to-property-act s. 3 (1)-(2) [0.59]",
+        "oreg-258-98-small-claims-rules r. 8.02 (ref) [0.74]",
+        "oreg-258-98-small-claims-rules r. 8.03 (1)-(3) (ref) [0.74]",
+        "trespass-to-property-act s. 2 (1)-(2) (ref) [0.66]",
+        "cja-courts-of-justice-act s. 11 (1)-(2) (ref) [0.62]"
+      ]
+    },
+    {
+      "id": "fired-no-notice",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "esa-2000-ontario 57"
+      ],
+      "viaReference": [
+        "esa-2000-ontario 57"
+      ],
+      "missed": [
+        "esa-2000-ontario 54"
+      ],
+      "queriesMs": 5560,
+      "embedMs": 240,
+      "totalMs": 5919,
+      "queries": [
+        "What statutory notice of termination or termination pay is required under the Employment Standards Act, 2000 when an employer terminates an employee’s employment without notice?",
+        "In what circumstances is an employee exempt from entitlement to notice of termination or termination pay because of wilful misconduct, disobedience or wilful neglect of duty?",
+        "What are the eligibility requirements for statutory severance pay under the Employment Standards Act, 2000?",
+        "What common law reasonable notice or damages in lieu of notice may be claimed for wrongful dismissal, and how does an enforceable employment agreement affect that entitlement?",
+        "What monetary jurisdiction, limitation period and procedure apply to commencing a wrongful dismissal action in the Ontario Small Claims Court?",
+        "How does filing a complaint under the Employment Standards Act, 2000 affect an employee’s ability to commence a civil proceeding for wrongful dismissal?"
+      ],
+      "retrieved": [
+        "esa-2000-ontario s. 98 (1)-(2) [0.77]",
+        "esa-2000-ontario s. 97 (1)-(4) [0.77]",
+        "esa-guide-termination Termination pay [0.74]",
+        "esa-2000-ontario s. 64 (1)-(2) [0.74]",
+        "esa-2000-ontario s. 61 (1)-(1.1) [0.71]",
+        "esa-guide-termination Less than 1 year\t 1 week [0.70]",
+        "decision-honda para. 50 [0.69]",
+        "esa-guide-termination Written notice of termination [0.69]",
+        "esa-guide-termination Qualifying for termination not [0.69]",
+        "decision-honda para. 25 [0.67]",
+        "oreg-258-98-small-claims-rules r. 11.1.01 (1)-(3) [0.67]",
+        "decision-whiten para. 78 [0.66]",
+        "esa-2000-ontario s. 57 (ref) [0.71]",
+        "esa-2000-ontario s. 58 (1)-(3) (ref) [0.71]",
+        "oreg-258-98-small-claims-rules r. 11.03 (1)-(3) (ref) [0.67]",
+        "oreg-258-98-small-claims-rules r. 9.03 (1)-(2) (ref) [0.67]"
+      ]
+    },
+    {
+      "id": "common-law-notice",
+      "court": "civil",
+      "hit": true,
+      "found": [
+        "decision-honda",
+        "decision-brake"
+      ],
+      "viaReference": [],
+      "missed": [
+        "decision-machtinger"
+      ],
+      "queriesMs": 3982,
+      "embedMs": 192,
+      "totalMs": 4264,
+      "queries": [
+        "In an action for wrongful dismissal before the Ontario Superior Court of Justice, is an employee dismissed as a result of restructuring entitled to common law reasonable notice or damages in lieu of notice beyond minimum entitlements under the Employment Standards Act, 2000?",
+        "What termination pay and severance pay entitlements apply under the Employment Standards Act, 2000 upon termination of employment without cause?",
+        "How are length of service, age, character of employment and availability of similar employment considered in determining the reasonable notice period in a wrongful dismissal action?",
+        "What is a dismissed employee’s duty to mitigate damages, and how does the availability of comparable employment affect damages in a wrongful dismissal action?"
+      ],
+      "retrieved": [
+        "decision-brake paras. 157-158 [0.80]",
+        "decision-red-deer  [0.77]",
+        "decision-red-deer  [0.76]",
+        "decision-red-deer  [0.76]",
+        "decision-potter para. 77 [0.74]",
+        "esa-2000-ontario s. 64 (1)-(2) [0.73]",
+        "esa-2000-ontario s. 65 (3)-(5) [0.73]",
+        "decision-brake paras. 159-160 [0.73]",
+        "decision-honda para. 50 [0.71]",
+        "decision-potter paras. 30-31 [0.70]",
+        "decision-honda paras. 26-28 [0.70]",
+        "decision-honda para. 25 [0.70]",
+        "esa-2000-ontario s. 57 (ref) [0.73]",
+        "esa-2000-ontario s. 58 (1)-(3) (ref) [0.73]"
+      ]
+    },
+    {
+      "id": "severance",
+      "court": "civil",
+      "hit": true,
+      "found": [
+        "esa-2000-ontario 64"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 6114,
+      "embedMs": 207,
+      "totalMs": 6395,
+      "queries": [
+        "Under the Employment Standards Act, 2000, when is an employee whose employment is severed because of the permanent discontinuance of an employer’s business entitled to severance pay?",
+        "How are the employer’s payroll and the number of employees whose employment is severed determined for the statutory severance pay eligibility thresholds, including operations outside Ontario?",
+        "What individual or mass termination notice, termination pay and benefit continuation requirements apply when an employer closes a workplace and terminates employees’ employment?",
+        "How is statutory severance pay calculated based on an employee’s period of employment?",
+        "In a wrongful dismissal action before the Ontario Superior Court of Justice, how are common law reasonable notice damages distinguished from statutory termination pay and severance pay?",
+        "How does commencing a civil proceeding for wrongful dismissal affect an employee’s right to pursue termination pay or severance pay through a complaint under the Employment Standards Act, 2000?"
+      ],
+      "retrieved": [
+        "esa-2000-ontario s. 64 (1)-(2) [0.78]",
+        "esa-2000-ontario s. 97 (1)-(4) [0.77]",
+        "esa-2000-ontario s. 98 (1)-(2) [0.76]",
+        "esa-2000-ontario s. 65 (1)-(2.1) [0.73]",
+        "esa-guide-termination Mass termination [0.72]",
+        "esa-guide-termination provide a copy of the Form 1 t [0.71]",
+        "termination-and-severance-of-employment s. 3 (2)-(3) [0.70]",
+        "decision-matthews para. 75 [0.68]",
+        "decision-potter para. 77 [0.68]",
+        "decision-matthews paras. 68-69 [0.67]",
+        "esa-guide-termination French [0.67]",
+        "esa-guide-termination Employer obligations in a mass [0.67]"
+      ]
+    },
+    {
+      "id": "vacation-pay",
+      "court": "small-claims",
+      "hit": false,
+      "found": [],
+      "viaReference": [],
+      "missed": [
+        "esa-2000-ontario 38",
+        "esa-2000-ontario 11",
+        "esa-2000-ontario 35.2",
+        "esa-2000-ontario 36"
+      ],
+      "queriesMs": 3846,
+      "embedMs": 183,
+      "totalMs": 4069,
+      "queries": [
+        "What are an employer’s obligations under the Employment Standards Act, 2000 to pay accrued vacation pay when an employee resigns, and when must that payment be made?",
+        "Does the Ontario Small Claims Court have jurisdiction over an employee’s claim for unpaid vacation pay following resignation?",
+        "What restrictions apply to pursuing a civil proceeding for unpaid vacation pay where an employee has filed a complaint under the Employment Standards Act, 2000?",
+        "What limitation period and commencement requirements apply to a claim for unpaid vacation pay in the Ontario Small Claims Court?"
+      ],
+      "retrieved": [
+        "esa-2000-ontario s. 76 (1)-(2) [0.80]",
+        "esa-2000-ontario s. 97 (1)-(4) [0.76]",
+        "esa-guide-vacation When employment ends [0.72]",
+        "esa-2000-ontario s. 37 (1)-(2) [0.68]",
+        "esa-2000-ontario s. 35 [0.64]",
+        "termination-and-severance-of-employment s. 7 [0.64]",
+        "decision-brake paras. 120-123 [0.63]"
+      ]
+    },
+    {
+      "id": "overtime",
+      "court": "small-claims",
+      "hit": true,
+      "found": [
+        "esa-2000-ontario 22"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 4450,
+      "embedMs": 181,
+      "totalMs": 4680,
+      "queries": [
+        "What entitlement to overtime pay and what overtime threshold apply under the Employment Standards Act, 2000 to an employee performing warehouse work?",
+        "What exemptions or special rules respecting overtime pay under Ontario Regulation 285/01 apply to an employee performing warehouse work?",
+        "Does the Ontario Small Claims Court have jurisdiction over a civil action against an employer for unpaid overtime wages?",
+        "What restrictions under the Employment Standards Act, 2000 apply to pursuing a civil proceeding for unpaid wages and filing a complaint concerning the same wages?",
+        "What limitation period and requirements for commencing an action by Plaintiff’s Claim apply to a claim for unpaid overtime wages in the Ontario Small Claims Court?"
+      ],
+      "retrieved": [
+        "esa-2000-ontario s. 97 (1)-(4) [0.78]",
+        "esa-2000-ontario s. 98 (1)-(2) [0.78]",
+        "esa-2000-ontario s. 22 (1)-(2) [0.74]",
+        "esa-guide-overtime-pay If the employee has more than  [0.70]",
+        "esa-guide-overtime-pay on a weekly basis or [0.69]",
+        "esa-guide-overtime-pay Result: Ben is entitled to tot [0.67]",
+        "esa-guide-overtime-pay Overtime pay [0.67]",
+        "esa-2000-ontario s. 22 (9) [0.67]",
+        "oreg-258-98-small-claims-rules r. 11.1.01 (1)-(3) [0.63]",
+        "ontario-fees-small-claims --> [0.62]",
+        "oreg-258-98-small-claims-rules r. 11.03 (1)-(3) (ref) [0.63]",
+        "oreg-258-98-small-claims-rules r. 9.03 (1)-(2) (ref) [0.63]"
+      ]
+    },
+    {
+      "id": "fired-pregnant",
+      "court": "civil",
+      "hit": true,
+      "found": [
+        "human-rights-code 10"
+      ],
+      "viaReference": [],
+      "missed": [
+        "human-rights-code 5"
+      ],
+      "queriesMs": 4297,
+      "embedMs": 171,
+      "totalMs": 4516,
+      "queries": [
+        "In a civil proceeding before the Ontario Superior Court of Justice, what statutory protections apply to termination of employment because of pregnancy under the Human Rights Code and the Employment Standards Act, 2000?",
+        "What constitutes discrimination in employment because of sex, including pregnancy, where an employee's position is eliminated following disclosure of pregnancy?",
+        "Under section 46.1 of the Human Rights Code, when may the Ontario Superior Court of Justice grant a remedy for infringement of a right under the Code in a civil proceeding?",
+        "What notice of termination, termination pay, severance pay and common law reasonable notice requirements apply when an employer terminates employment on the basis of position elimination?"
+      ],
+      "retrieved": [
+        "human-rights-code s. 46.1 (1)-(2) [0.76]",
+        "esa-guide-termination provide a copy of the Form 1 t [0.68]",
+        "decision-machtinger III. Statutory Provisions [0.68]",
+        "termination-and-severance-of-employment s. 3 (1)-(2) [0.68]",
+        "esa-2000-ontario s. 56 (3.4)-(3.6) [0.67]",
+        "decision-jaffer para. 43 [0.66]",
+        "esa-guide-termination Mass termination [0.66]",
+        "esa-2000-ontario s. 65 (3)-(5) [0.66]",
+        "termination-and-severance-of-employment s. 2 (1) [0.66]",
+        "human-rights-code s. 46.2 (1)-(2) [0.66]",
+        "human-rights-code s. 45.2 (1)-(2) [0.66]",
+        "human-rights-code s. 10 (2)-(3) [0.55]",
+        "termination-and-severance-of-employment s. 3 (2)-(3) (ref) [0.68]",
+        "esa-2000-ontario s. 56 (3.1)-(3.3) (ref) [0.67]",
+        "esa-2000-ontario s. 57 (ref) [0.66]",
+        "esa-2000-ontario s. 58 (1)-(3) (ref) [0.66]",
+        "termination-and-severance-of-employment s. 2 (1)-(3) (ref) [0.66]",
+        "human-rights-code s. 9 (ref) [0.66]"
+      ]
+    },
+    {
+      "id": "move-away",
+      "court": "family",
+      "hit": true,
+      "found": [
+        "childrens-law-reform-act 39.3",
+        "divorce-act 16.9"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 5008,
+      "embedMs": 247,
+      "totalMs": 5527,
+      "queries": [
+        "Does a proposed change in a child’s residence constitute a relocation under the Divorce Act or the Children’s Law Reform Act where the parents exercise substantially equal parenting time?",
+        "What notice of relocation must a parent provide, and how may the other parent object to the proposed relocation under the applicable legislation?",
+        "Where a proposed relocation is disputed, what court authorization is required before a parent may relocate the child?",
+        "What best interests of the child factors and burden of proof apply to a contested relocation where the parents exercise substantially equal parenting time?",
+        "What procedure under the Family Law Rules applies to an application or motion seeking an order prohibiting a child’s relocation, including an urgent motion for temporary relief before the proposed move?"
+      ],
+      "retrieved": [
+        "childrens-law-reform-act s. 39.3 (4)-(7) [0.73]",
+        "divorce-act s. 16.91 (1)-(2) [0.72]",
+        "family-law-rules r. 14 (1)-(3.1) [0.72]",
+        "family-law-rules r. 14 (6)-(10) [0.71]",
+        "family-law-rules r. 15 (4)-(6) [0.71]",
+        "family-law-rules r. 14 (11.3)-(12) [0.71]",
+        "divorce-act s. 16.9 (1)-(3) [0.70]",
+        "childrens-law-reform-act s. 39.3 (1)-(3) [0.70]",
+        "divorce-act s. 16.93 (1)-(3) [0.68]",
+        "childrens-law-reform-act s. 39.4 (3)-(5) [0.68]",
+        "childrens-law-reform-act s. 39.4 (6)-(9) [0.68]",
+        "decision-barendregt paras. 8-9 [0.67]",
+        "childrens-law-reform-act s. 21 (1)-(4) (ref) [0.73]",
+        "divorce-act s. 16.1 (1)-(4) (ref) [0.72]",
+        "family-law-rules r. 5 (1) (ref) [0.71]",
+        "family-law-rules r. 35.1 (1)-(3) (ref) [0.71]"
+      ]
+    },
+    {
+      "id": "afraid-of-ex",
+      "court": "family",
+      "hit": true,
+      "found": [
+        "family-law-act 46",
+        "childrens-law-reform-act 35"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 6477,
+      "embedMs": 233,
+      "totalMs": 7229,
+      "queries": [
+        "Who may apply for a restraining order against a former cohabiting partner under section 46 of Ontario’s Family Law Act?",
+        "What constitutes reasonable grounds to fear for one’s safety for the purposes of obtaining a restraining order under the Family Law Act?",
+        "What conditions may a restraining order impose to prohibit direct or indirect contact and attendance at an applicant’s residence or place of employment?",
+        "How may an applicant commence a family court proceeding and bring an urgent motion for a temporary restraining order without notice under the Family Law Rules?"
+      ],
+      "retrieved": [
+        "family-law-act s. 46 (1)-(3) [0.74]",
+        "family-law-rules r. 8 (10)-(13) [0.73]",
+        "family-law-rules r. 14 (13)-(17) [0.70]",
+        "family-law-rules r. 8 (5)-(6) [0.70]",
+        "family-law-rules r. 1.3 (5)-(8) [0.70]",
+        "criminal-code s. 810.03 (1)-(4) [0.68]",
+        "residential-tenancies-act-2006 s. 47.3 (3)-(4) [0.67]",
+        "childrens-law-reform-act s. 35 (1)-(3) [0.67]",
+        "criminal-code s. 810.03 (1)-(3) [0.66]",
+        "criminal-code s. 810.03 (1)-(3) [0.66]",
+        "family-law-act s. 40 [0.65]",
+        "family-law-act s. 46 (4) [0.64]",
+        "family-law-rules r. 12 (1)-(3) (ref) [0.70]",
+        "family-law-rules r. 20 (1)-(4) (ref) [0.70]",
+        "family-law-rules r. 8 (7)-(9) (ref) [0.70]",
+        "family-law-rules r. 3 (4)-(5) (ref) [0.70]",
+        "family-law-rules r. 14 (6)-(10) (ref) [0.70]",
+        "residential-tenancies-act-2006 s. 47.1 (1)-(3) (ref) [0.67]"
+      ]
+    },
+    {
+      "id": "child-support-amount",
+      "court": "family",
+      "hit": true,
+      "found": [
+        "ontario-child-support-guidelines-full 3",
+        "federal-child-support-guidelines-full 3"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 3702,
+      "embedMs": 196,
+      "totalMs": 4100,
+      "queries": [
+        "How is the table amount of child support determined under the applicable Child Support Guidelines where the children reside primarily with one parent?",
+        "How is a parent's annual income determined for the purpose of calculating child support under the applicable Child Support Guidelines?",
+        "Which child support legislation applies to separated parents depending on whether relief is sought under the Divorce Act or the Family Law Act?",
+        "How does a parent commence an application for child support following separation under the Family Law Rules?"
+      ],
+      "retrieved": [
+        "ontario-child-support-guidelines-full s. 3 (1)-(2) [0.73]",
+        "ontario-child-support-guidelines-full s. 16 [0.72]",
+        "federal-child-support-guidelines-full s. 16 [0.72]",
+        "federal-child-support-guidelines-full s. 3 (1)-(2) [0.72]",
+        "ontario-child-support-guidelines-full s. 15 (1)-(2) [0.72]",
+        "federal-child-support-guidelines-full s. 15 (1)-(2) [0.69]",
+        "federal-child-support-guidelines-full s. 3 (3) [0.69]",
+        "ontario-child-support-guidelines-full s. 25.1 (6) [0.67]",
+        "family-law-rules r. 8 (1)-(1.2) [0.64]",
+        "decision-dbs para. 56 [0.64]",
+        "decision-dbs paras. 49-50 [0.64]",
+        "family-law-act s. 33 (6)-(8) [0.64]",
+        "ontario-child-support-guidelines-full s. 7 (1) (ref) [0.73]",
+        "ontario-child-support-guidelines-full s. 17 (1)-(2) (ref) [0.72]",
+        "ontario-child-support-guidelines-full s. 20 (1)-(2) (ref) [0.72]",
+        "federal-child-support-guidelines-full s. 17 (1)-(2) (ref) [0.72]",
+        "federal-child-support-guidelines-full s. 20 (1)-(2) (ref) [0.72]",
+        "federal-child-support-guidelines-full s. 7 (1) (ref) [0.72]"
+      ]
+    },
+    {
+      "id": "common-law-support",
+      "court": "family",
+      "hit": true,
+      "found": [
+        "family-law-act 29"
+      ],
+      "viaReference": [],
+      "missed": [
+        "family-law-act 30"
+      ],
+      "queriesMs": 3566,
+      "embedMs": 193,
+      "totalMs": 3857,
+      "queries": [
+        "What are the eligibility requirements for an unmarried cohabiting partner to claim spousal support under the Ontario Family Law Act?",
+        "How is entitlement to spousal support determined where a cohabiting partner performed childcare and homemaking responsibilities during the relationship?",
+        "What factors govern the amount and duration of spousal support under the Ontario Family Law Act?",
+        "How does an unmarried former partner commence an application for spousal support in an Ontario court under the Family Law Rules?"
+      ],
+      "retrieved": [
+        "family-law-act s. 33 (9) [0.70]",
+        "family-law-act s. 7 (1)-(3) [0.70]",
+        "family-law-act s. 33 (1)-(3) [0.68]",
+        "family-law-act s. 29 [0.68]",
+        "divorce-act s. 15.2 (4)-(6) [0.68]",
+        "decision-kerr paras. 84-85 [0.68]",
+        "family-law-rules r. 36 (1)-(4) [0.68]",
+        "decision-bracklow para. 49 [0.68]",
+        "succession-law-reform-act s. 62 (1) [0.67]",
+        "decision-kerr para. 145 [0.67]",
+        "decision-kerr para. 98 [0.67]",
+        "decision-bracklow paras. 59-60 [0.67]",
+        "family-law-act s. 5 (1)-(3) (ref) [0.70]",
+        "divorce-act s. 15.2 (1)-(3) (ref) [0.68]"
+      ]
+    },
+    {
+      "id": "dividing-property",
+      "court": "family",
+      "hit": true,
+      "found": [
+        "family-law-act 5"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 3662,
+      "embedMs": 203,
+      "totalMs": 3903,
+      "queries": [
+        "How is net family property equalized between married spouses in an Ontario divorce proceeding?",
+        "How is a matrimonial home owned solely by one spouse treated in calculating net family property?",
+        "What rights of possession does each married spouse have in a matrimonial home, regardless of ownership?",
+        "How does a spouse apply for equalization of net family property in an Ontario family court divorce proceeding, and what limitation periods apply?"
+      ],
+      "retrieved": [
+        "family-law-act s. 5 (1)-(3) [0.76]",
+        "family-law-act s. 19 (1)-(2) [0.75]",
+        "family-law-act s. 7 (1)-(3) [0.70]",
+        "family-law-act s. 4 (2) [0.67]"
+      ]
+    },
+    {
+      "id": "parenting-decisions",
+      "court": "family",
+      "hit": true,
+      "found": [
+        "childrens-law-reform-act 24"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 2946,
+      "embedMs": 198,
+      "totalMs": 3183,
+      "queries": [
+        "What statutory provisions govern the determination of parenting arrangements following separation in an Ontario family court proceeding?",
+        "What factors must the court consider when determining the best interests of the child in making a parenting order?",
+        "How does the court determine the allocation of parenting time and the child's primary residence when the parents cannot agree?",
+        "What procedure applies to an application for a parenting order in Ontario family court where parenting arrangements are contested?"
+      ],
+      "retrieved": [
+        "childrens-law-reform-act s. 24 (1)-(3) [0.76]",
+        "childrens-law-reform-act s. 21 (1)-(4) [0.74]",
+        "divorce-act s. 16 (1)-(3) [0.72]",
+        "childrens-law-reform-act s. 24 (4)-(7) [0.72]",
+        "ontario-child-support-guidelines-full s. 8 [0.71]",
+        "decision-barendregt para. 153 [0.70]",
+        "childrens-law-reform-act s. 28 (4)-(7) [0.70]",
+        "family-law-rules r. 35.1 (8)-(9) [0.68]",
+        "ontario-child-support-guidelines-full s. 9 [0.68]",
+        "divorce-act s. 16 (4)-(7) [0.68]",
+        "family-law-rules r. 8 (3.1)-(4) [0.65]",
+        "family-law-rules r. 35.1 (1)-(3) [0.65]",
+        "family-law-rules r. 39 (6)-(8) (ref) [0.65]",
+        "family-law-rules r. 41 (1)-(4) (ref) [0.65]"
+      ]
+    },
+    {
+      "id": "divorce-grounds",
+      "court": "family",
+      "hit": true,
+      "found": [
+        "divorce-act 8"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 3499,
+      "embedMs": 171,
+      "totalMs": 3718,
+      "queries": [
+        "May a spouse apply for a divorce in Ontario on the ground of marriage breakdown established by living separate and apart for at least one year?",
+        "Is the consent or signature of the other spouse required to commence an application for divorce or obtain a divorce order?",
+        "What are the requirements for service of an application for divorce on the respondent under the Family Law Rules?",
+        "How may an applicant proceed with an application for divorce if the respondent does not file an answer?"
+      ],
+      "retrieved": [
+        "divorce-act s. 8 (1)-(3) [0.71]",
+        "family-law-rules r. 8 (5)-(6) [0.69]",
+        "family-law-rules r. 10 (1)-(2.1) [0.69]",
+        "family-law-rules r. 36 (1)-(4) [0.69]",
+        "family-law-rules r. 10 (3)-(5) [0.59]",
+        "divorce-act s. 18.3 (1)-(2) [0.59]",
+        "divorce-act s. 8 (3) [0.58]",
+        "divorce-act s. 18.3 (3) [0.58]",
+        "decision-bracklow paras. 27-28 [0.55]",
+        "decision-bracklow para. 30 [0.55]",
+        "marriage-act s. 6 (1)-(2) [0.53]",
+        "family-law-rules r. 8 (7)-(9) (ref) [0.69]",
+        "family-law-rules r. 35.1 (1)-(3) (ref) [0.59]",
+        "family-law-rules r. 1 (8.1)-(8.4) (ref) [0.59]",
+        "divorce-act s. 18.2 (1)-(3) (ref) [0.59]",
+        "divorce-act s. 17 (1)-(2.1) (ref) [0.59]",
+        "divorce-act s. 18.1 (1)-(4) (ref) [0.58]"
+      ]
+    },
+    {
+      "id": "urgent-family-motion",
+      "court": "family",
+      "hit": true,
+      "found": [
+        "family-law-rules 14",
+        "childrens-law-reform-act 36"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 4667,
+      "embedMs": 201,
+      "totalMs": 4915,
+      "queries": [
+        "What is the procedure in the Ontario family court for bringing an urgent motion for the return of children withheld following parenting time?",
+        "In what circumstances may a motion concerning parenting time or the return of children be brought before a case conference under the Family Law Rules?",
+        "What requirements apply to bringing an urgent motion without notice under the Family Law Rules?",
+        "What orders may the court make to enforce an existing parenting order where a parent fails to return the children after parenting time?",
+        "In what circumstances may the court make an order directing police to locate, apprehend and deliver a child under the Children's Law Reform Act?"
+      ],
+      "retrieved": [
+        "childrens-law-reform-act s. 36 (2)-(6) [0.79]",
+        "childrens-law-reform-act s. 36 (1)-(2) [0.78]",
+        "family-law-rules r. 1.4 (5)-(7) [0.72]",
+        "childrens-law-reform-act s. 37 (1)-(3) [0.72]",
+        "family-law-rules r. 14 (11.3)-(12) [0.72]",
+        "family-law-rules r. 14 (6)-(10) [0.72]",
+        "childrens-law-reform-act s. 40 [0.69]",
+        "family-law-rules r. 17 (3.3)-(4) [0.64]",
+        "family-law-rules r. 1.4 (1)-(4) (ref) [0.72]",
+        "childrens-law-reform-act s. 22 (1) (ref) [0.69]",
+        "childrens-law-reform-act s. 25 (ref) [0.69]",
+        "family-law-rules r. 1 (8.1)-(8.4) (ref) [0.64]",
+        "family-law-rules r. 15 (1)-(3) (ref) [0.64]"
+      ]
+    },
+    {
+      "id": "summary-judgment",
+      "court": "civil",
+      "hit": true,
+      "found": [
+        "rules-of-civil-procedure 20.04",
+        "rules-of-civil-procedure 20.01"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 3922,
+      "embedMs": 198,
+      "totalMs": 4354,
+      "queries": [
+        "In an existing civil proceeding in the Ontario Superior Court of Justice, when may a plaintiff move for summary judgment on the ground that there is no genuine issue requiring a trial?",
+        "When may a statement of defence be struck out on the ground that it discloses no reasonable defence, is frivolous or vexatious, or is an abuse of the process of the court?",
+        "What procedural requirements and evidentiary rules apply to a plaintiff’s motion for summary judgment?",
+        "When may judgment be granted after a statement of defence is struck out?"
+      ],
+      "retrieved": [
+        "rules-of-civil-procedure r. 20.01 (1)-(3) [0.74]",
+        "rules-of-civil-procedure r. 20.04 (1)-(2.1) [0.72]",
+        "rules-of-civil-procedure r. 20.05 (7) [0.72]",
+        "rules-of-civil-procedure r. 20.02 (1)-(2) [0.69]",
+        "decision-hryniak paras. 46-47 [0.69]",
+        "decision-hryniak para. 42 [0.67]",
+        "decision-jaffer para. 17 [0.67]",
+        "decision-jaffer para. 16 [0.67]",
+        "decision-hryniak para. 96 [0.67]",
+        "rules-of-civil-procedure r. 20.05 (2)-(6) (ref) [0.72]",
+        "rules-of-civil-procedure r. 39.01 (1)-(4) (ref) [0.69]"
+      ]
+    },
+    {
+      "id": "contractor-holdback",
+      "court": "civil",
+      "hit": true,
+      "found": [
+        "construction-act 22"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 4229,
+      "embedMs": 248,
+      "totalMs": 4561,
+      "queries": [
+        "What statutory holdback is an owner required to retain under the Construction Act in respect of improvements to residential premises?",
+        "Under what conditions may an unpaid subcontractor preserve a construction lien against an owner's interest in the premises, and what time limits apply?",
+        "What obligations does an owner have to retain funds upon receiving written notice of a lien under the Construction Act?",
+        "When may an owner safely pay a contractor or release the statutory holdback under the Construction Act?",
+        "What procedures apply in the Ontario Superior Court of Justice to vacate a construction lien by payment into court or provision of security if a lien is preserved?"
+      ],
+      "retrieved": [
+        "construction-act s. 26 (7)-(8) [0.74]",
+        "construction-act s. 44 (3)-(4) [0.73]",
+        "construction-act s. 9 (1)-(2) [0.73]",
+        "construction-act s. 22 (1)-(2) [0.72]",
+        "construction-act s. 36 (1)-(3) [0.65]",
+        "construction-act s. 26 (1)-(4) (ref) [0.74]",
+        "construction-act s. 26 (4)-(6) (ref) [0.74]",
+        "construction-act s. 44 (1)-(2) (ref) [0.73]",
+        "construction-act s. 31 (1)-(2) (ref) [0.65]"
+      ]
+    },
+    {
+      "id": "money-paid-by-mistake",
+      "court": "small-claims",
+      "hit": false,
+      "found": [],
+      "viaReference": [],
+      "missed": [
+        "decision-garland"
+      ],
+      "queriesMs": 3434,
+      "embedMs": 204,
+      "totalMs": 3675,
+      "queries": [
+        "Does the Ontario Small Claims Court have jurisdiction over a claim for recovery of money transferred to an unintended recipient by mistake?",
+        "What are the requirements for restitution of a mistaken payment on the basis of unjust enrichment, and what defences may be available to the recipient?",
+        "How is a proceeding for recovery of a mistaken payment commenced by filing and serving a Plaintiff’s Claim in the Ontario Small Claims Court?",
+        "What limitation period applies to an action for recovery of money paid by mistake, and when is the claim discovered?"
+      ],
+      "retrieved": [
+        "guide-making-a-claim Checklist: Making a claim [0.72]",
+        "ontario-suing-someone-small-claims If you think you can’t afford  [0.70]",
+        "guide-making-a-claim a motion in writing for an ass [0.70]",
+        "oreg-258-98-small-claims-rules r. 7.01 (1)-(2) [0.69]",
+        "decision-kerr paras. 47-48 [0.61]",
+        "decision-kerr para. 55 [0.61]",
+        "decision-kerr paras. 75-76 [0.60]",
+        "guide-after-judgment Enforcing an order from anothe [0.60]",
+        "limitations-act-2002 s. 5 (1)-(3) [0.59]"
+      ]
+    },
+    {
+      "id": "insurer-bad-faith",
+      "court": "civil",
+      "hit": true,
+      "found": [
+        "decision-whiten",
+        "decision-fidler"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 5744,
+      "embedMs": 178,
+      "totalMs": 6002,
+      "queries": [
+        "Under the Insurance Act, what statutory conditions apply to an insurer’s denial of a claim for fire damage to residential property on the ground that the insured wilfully caused the loss?",
+        "In an action in the Ontario Superior Court of Justice for payment under a fire insurance policy, what burden and standard of proof apply to an insurer’s allegation of arson by the insured?",
+        "What limitation period applies to commencing an action against an insurer for denial of a fire insurance claim, and how do the Insurance Act and the Limitations Act, 2002 interact?",
+        "In a civil action concerning a denied fire insurance claim, what rules govern the admissibility of fire investigation reports and expert opinion evidence concerning the cause of the fire?",
+        "What legal principles govern an insurer’s duty of good faith in investigating and denying a fire insurance claim, and the availability of aggravated or punitive damages for breach of that duty?"
+      ],
+      "retrieved": [
+        "insurance-act s. 148 (6)-(2) [0.70]",
+        "decision-fidler para. 63 [0.69]",
+        "decision-whiten para. 83 [0.69]",
+        "insurance-act s. 148 (1)-(2) [0.69]",
+        "decision-bhasin paras. 55-56 [0.68]",
+        "insurance-act s. 259.1 [0.67]",
+        "decision-fidler paras. 71-72 [0.67]",
+        "limitations-act-2002 s. 15 (4)-(6) [0.66]",
+        "decision-fidler paras. 63-65 [0.65]",
+        "insurance-act s. 302.1 (1)-(2) [0.65]",
+        "decision-pecore paras. 43-44 [0.63]",
+        "rules-of-civil-procedure r. 31.06 (5)-(6) [0.62]",
+        "insurance-act s. 300 (ref) [0.65]",
+        "insurance-act s. 302.2 (ref) [0.65]"
+      ]
+    },
+    {
+      "id": "business-partner-lied",
+      "court": "civil",
+      "hit": true,
+      "found": [
+        "decision-bhasin",
+        "decision-callow"
+      ],
+      "viaReference": [],
+      "missed": [],
+      "queriesMs": 4817,
+      "embedMs": 773,
+      "totalMs": 5661,
+      "queries": [
+        "In a civil proceeding before the Ontario Superior Court of Justice, when does non-renewal or termination of a supply agreement constitute breach of contract, and what contractual or reasonable notice is required?",
+        "What is the scope of the duty of honest performance in relation to representations about renewal and the exercise of contractual termination or non-renewal rights?",
+        "What are the elements of fraudulent misrepresentation or negligent misrepresentation arising from assurances that a commercial agreement would be renewed?",
+        "When may promissory estoppel apply to assurances of renewal of a commercial agreement?",
+        "What limitation periods apply to claims for breach of contract and misrepresentation, and when are those claims discovered under the Limitations Act, 2002?"
+      ],
+      "retrieved": [
+        "decision-callow paras. 30-31 [0.74]",
+        "limitations-act-2002 s. 4 [0.73]",
+        "limitations-act-2002 s. 15 (1)-(4) [0.72]",
+        "decision-bhasin para. 30 [0.71]",
+        "decision-bhasin paras. 94-96 [0.70]",
+        "limitations-act-2002 s. 15 (4)-(6) [0.70]",
+        "decision-callow para. 43 [0.70]",
+        "decision-callow paras. 37-38 [0.70]",
+        "limitations-act-2002 s. 5 (1)-(3) [0.69]",
+        "decision-callow para. 89 [0.66]",
+        "decision-jesan paras. 35-37 [0.64]",
+        "decision-bhasin para. 28 [0.57]"
+      ]
+    }
+  ]
+}
