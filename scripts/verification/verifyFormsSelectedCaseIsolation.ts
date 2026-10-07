@@ -8,6 +8,7 @@ import {
   getCanonicalFormLookup,
   resolveSelectedFormsCase,
   SELECTED_CASE_UNAVAILABLE_MESSAGE,
+  UNLINKED_CATALOGUE_ROW_MESSAGE,
   UNLINKED_FORM_RECOMMENDATION_MESSAGE,
 } from "../../src/lib/case-system/formsSelectedCase";
 import {
@@ -269,6 +270,18 @@ assert.equal(
 );
 
 const formsPageSource = readFileSync("app/forms/FormsWorkspace.tsx", "utf8");
+// Page review 2026-10-07: every catalogue row without a filler record read
+// "Named in your case analysis" -- 60 to 87 forms per case, arrest warrants
+// and estate forms included. A catalogue row may not claim the analysis
+// named it; only the recommendation boxes may.
+const catalogueRowSource = formsPageSource.slice(formsPageSource.indexOf('<p className="font-bold text-[#10231f]">Available</p>'));
+assert.ok(catalogueRowSource.length > 0, "catalogue row block found");
+assert.ok(
+  !catalogueRowSource.slice(0, 1200).includes("UNLINKED_FORM_RECOMMENDATION_MESSAGE"),
+  "A catalogue row must not say the case analysis named it",
+);
+assert.ok(!/analysis|named|recommend/i.test(UNLINKED_CATALOGUE_ROW_MESSAGE), "The row message claims nothing about the case");
+
 const caseLoaderSource = formsPageSource.slice(
   formsPageSource.indexOf("async function loadCaseContext()"),
   formsPageSource.indexOf("async function loadForms()"),

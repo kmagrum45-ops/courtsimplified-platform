@@ -26,6 +26,7 @@ import {
   getCanonicalFormLookup,
   resolveSelectedFormsCase,
   SELECTED_CASE_UNAVAILABLE_MESSAGE,
+  UNLINKED_CATALOGUE_ROW_MESSAGE,
   UNLINKED_FORM_RECOMMENDATION_MESSAGE,
   type FormsCourtPath,
 } from "../../src/lib/case-system/formsSelectedCase";
@@ -744,7 +745,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
       });
 
       if (!catalogLookup) {
-        alert(UNLINKED_FORM_RECOMMENDATION_MESSAGE);
+        alert(UNLINKED_CATALOGUE_ROW_MESSAGE);
         return;
       }
 
@@ -851,9 +852,13 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
               <p className="mt-2 text-[#4f685f]">
                 Available official forms: {stats.total}
               </p>
-              <p className="mt-1 text-[#4f685f]">
-                Checked against your case: {verifiedRecommendations.length}
-              </p>
+              {/* Page review 2026-10-07: "Checked against your case: 0" sat
+                  beside the form the step names, reading as a contradiction. */}
+              {verifiedRecommendations.length ? (
+                <p className="mt-1 text-[#4f685f]">
+                  Checked against your case: {verifiedRecommendations.length}
+                </p>
+              ) : null}
 
               {/*
                 States the true reason the list is empty. Without this a user at
@@ -891,9 +896,9 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
 
         {caseId && !caseLoading && !caseUnavailable ? (
           <section className="mt-6 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-bold text-[#10231f]">Verified form confirmation</h2>
+            <h2 className="text-xl font-bold text-[#10231f]">Check which forms apply</h2>
             <p className="mt-2 text-sm leading-6 text-[#4f685f]">
-              We only show a recommendation after every applicable answer is explicit and verified against the selected case.
+              Answer these and we will show the official forms that match your answers.
             </p>
 
             {applicabilityQuestions.length ? (
@@ -970,7 +975,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                   );
                 })}
               </div>
-            ) : mappingStage === "starting-case" || mappingStage === "responding" ? <p className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">Review required — a verified form recommendation is unavailable until every applicable fact is explicitly confirmed and matches the selected case.</p> : <p className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">Review required — we can confirm which forms apply only when you are starting a case or responding to one. For any other step, every official form is listed below.</p>}
+            ) : mappingStage === "starting-case" || mappingStage === "responding" ? <p className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm text-[#4f685f]">Answer the questions above and save them to see the forms that match.</p> : <p className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm text-[#4f685f]">We can match forms to your answers only when you are starting a case or responding to one. Every official form is listed below.</p>}
           </section>
         ) : null}
 
@@ -982,6 +987,9 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
         */}
 
         <section className="mt-8 grid gap-5 lg:grid-cols-3">
+          {/* Shown only when the first analysis named forms (page review
+              2026-10-07: "did not flag a form" sat under the step's own forms). */}
+          {unifiedSignals.requiredLabels.length ? (
           <div className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
             <h2 className="text-xl font-bold text-[#10231f]">
               Required next forms
@@ -991,7 +999,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
             </p>
 
             <div className="mt-4 space-y-2 text-sm">
-              {unifiedSignals.requiredLabels.length ? (
+              {(
                 unifiedSignals.requiredLabels.map((label) => (
                   <div
                     key={label}
@@ -1001,20 +1009,10 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                     <p className="mt-1">{UNLINKED_FORM_RECOMMENDATION_MESSAGE}</p>
                   </div>
                 ))
-              ) : (
-                <p className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] px-4 py-3 text-[#4f685f]">
-                  {/* Page walkthrough, 2026-10-06: "No required next forms were
-                      found in the unified case result" sat under a section that
-                      named Forms 18A and 18B. This box reads only what the first
-                      analysis saved; the forms for the user's next step are
-                      shown above it on the case page. */}
-                  {embedded
-                    ? "Your first case analysis did not flag a form. The forms for your next step, if it names any, are listed above."
-                    : "Your case analysis did not flag a form yet."}
-                </p>
               )}
             </div>
           </div>
+          ) : null}
 
           <div className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
             <h2 className="text-xl font-bold text-[#10231f]">
@@ -1210,12 +1208,9 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                         </a>
                       ) : null}
 
-                       <p className="mt-3 text-sm font-semibold text-[#557168]">
-                         {[getPathLabel(form.court_type), form.procedure_stage, form.form_group]
-                          .map(cleanSpaces)
-                          .filter(Boolean)
-                          .join(" • ") || "General form"}
-                      </p>
+                      {/* The "Family • already-started • Service" line showed raw
+                          catalogue keys (page review, 2026-10-07); the page is
+                          already one court's list. */}
                     </div>
 
                     <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] px-4 py-3 text-sm">
@@ -1226,8 +1221,8 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                           .join(" + ") || "No file connected"}
                       </p>
                       {!catalogLookup ? (
-                        <p className="mt-2 font-bold text-[#8a6d1d]">
-                          {UNLINKED_FORM_RECOMMENDATION_MESSAGE}
+                        <p className="mt-2 text-[#4f685f]">
+                          {UNLINKED_CATALOGUE_ROW_MESSAGE}
                         </p>
                       ) : null}
                     </div>

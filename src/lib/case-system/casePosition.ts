@@ -190,9 +190,15 @@ export function dateQuestionsForStep(stepId: string | null | undefined): DateQue
     if (deadline.length.count === 0) continue;
     // The two-year limit is counted from an injury date under the Act's
     // presumption (computedDeadline.ts), so the injury date is asked for it.
+    // An injury step (notice, slip and fall) asks the injury date once for
+    // both; any other step asks for the day the claim is based on (page
+    // review, 2026-10-07: a debt claimant was asked about an injury).
+    const injuryStep = stage.deadlines.some((other) => other.countFromEvent === "injury-occurred");
     const countFrom =
       deadline.countFromEvent === "claim-discovered" && isInScope("caseSpecificDeadlines")
-        ? "injury-occurred"
+        ? injuryStep
+          ? "injury-occurred"
+          : "act-or-omission"
         : deadline.countFromEvent;
     const event = DEADLINE_EVENTS[countFrom as keyof typeof DEADLINE_EVENTS] as
       | { questionId?: string; question: string | null }
@@ -263,6 +269,8 @@ const STORY_CUES: Record<string, RegExp> = {
   "sc-date-defence-filed": /\bfiled (?:my|a|the|our) defen[cs]e\b/i,
   "sc-date-settlement-conference": /\bsettlement conference\b/i,
   "sc-date-injury": /\b(hurt|injur(?:ed|y)|fell|slipped|tripped|bitten|bit me|hit by|accident|crash(?:ed)?)\b/i,
+  // The day a non-injury claim is based on (2026-10-07).
+  "case-date-act-or-omission": /\b(invoice|never paid|stopped paying|(?:refused|won'?t|wont|didn'?t) (?:to )?pay|stopped (?:showing up|coming|work)|last day|was due|due date|bounced)\b/i,
   // Civil and family (2026-10-05). Each names the document or event the date
   // question asks about, so the quote beside the question is about that.
   "case-date-served-with-application": /\b(served|got|received)\b.*\bapplication\b/i,
@@ -305,6 +313,11 @@ export function suggestedDatesFromAnswers(
     if (!value) continue;
     const quoted = answer.answerText.trim().slice(0, 120);
     suggestions[answer.questionId] = { value, basis: `You answered: “${quoted}”` };
+    // For an injury claim the day of the injury IS the day the claim is
+    // based on: one answer, offered for both questions (2026-10-07).
+    if (answer.questionId === "sc-date-injury" && !suggestions["case-date-act-or-omission"]) {
+      suggestions["case-date-act-or-omission"] = { value, basis: `You answered: “${quoted}”` };
+    }
   }
   return suggestions;
 }

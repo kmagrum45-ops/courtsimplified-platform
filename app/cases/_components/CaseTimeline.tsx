@@ -113,6 +113,7 @@ export default function CaseTimeline({
   caseId,
   updateHref,
   canRecord = true,
+  confirmedStage = null,
 }: {
   caseId: string;
   /** Where "Update the analysis" goes: the builder for this case and its court. */
@@ -123,6 +124,12 @@ export default function CaseTimeline({
    * route refuses other courts; offering the form there only produced an error.
    */
   canRecord?: boolean;
+  /**
+   * The stage the user confirmed on the case page. Page review 2026-10-07:
+   * the timeline said "Not enough recorded to say. Nothing recorded yet says
+   * where the case is" beside a stage the user had confirmed that day.
+   */
+  confirmedStage?: string | null;
 }) {
   const [data, setData] = useState<TimelineResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -284,7 +291,9 @@ export default function CaseTimeline({
         </p>
         <p className="mt-1 text-lg font-bold text-[#10231f]">
           <span data-testid="case-stage" data-stage={data?.stage.stage ?? "unknown"}>
-            {stageLabel(data?.stage.stage ?? "unknown")}
+            {(data?.stage.stage ?? "unknown") === "unknown" && confirmedStage
+              ? stageLabel(confirmedStage)
+              : stageLabel(data?.stage.stage ?? "unknown")}
           </span>
         </p>
 
@@ -296,6 +305,8 @@ export default function CaseTimeline({
               <li key={line}>• {line}</li>
             ))}
           </ul>
+        ) : confirmedStage ? (
+          <p className="mt-2 text-sm text-[#4f685f]">You confirmed this stage on the Overview.</p>
         ) : (
           <p className="mt-2 text-sm text-[#4f685f]">
             Nothing recorded yet says where the case is. Recording the steps below will change

@@ -241,6 +241,7 @@ export default function StageAnswerPanel({
   noticeStepId = null,
   userWords = "",
   recordedAmount = "",
+  onSaved,
 }: {
   courtPath: StagePathway;
   confirmedStage?: string | null;
@@ -268,6 +269,8 @@ export default function StageAnswerPanel({
   userWords?: string;
   /** The amount the user recorded, set against the court's limits at the starting step (amountNotes.ts). */
   recordedAmount?: string;
+  /** Told what was saved, so a page that remounts this panel can show it again. */
+  onSaved?: (saved: { stepId?: string | null; dateAnswers?: Record<string, string> }) => void;
 }) {
   const options = stagesForPathway(courtPath).map((stage) => ({
     id: stage.id,
@@ -291,7 +294,27 @@ export default function StageAnswerPanel({
   const [dateAnswers, setDateAnswers] = useState<Record<string, string>>(initialDateAnswers);
   const [dateDraft, setDateDraft] = useState<Record<string, string>>(initialDateAnswers);
   const [dateStatus, setDateStatus] = useState<"" | "saving" | "saved" | "not-saved">("");
+  /*
+   * Page review 2026-10-07: a confirmed defendant scrolled 36 to 48 steps,
+   * half of them the other side's (and saw "I have a settlement conference
+   * date" twice, once per side). Once the side is known, the list shows that
+   * side and "either side"; the rest is one tap away, never removed.
+   */
+  const [showOtherSide, setShowOtherSide] = useState(false);
   const amountNote = amountNoteFor({ courtPath, stepId: stageId, recordedAmount });
+
+  // Dates saved to the case after this panel mounted (the guided intake's
+  // confirmed dates are saved with the case) are counted when they arrive.
+  const initialKey = JSON.stringify(initialDateAnswers);
+  useEffect(() => {
+    const arriving = Object.entries(initialDateAnswers).filter(([key, value]) => value && !(key in dateAnswers));
+    if (!arriving.length) return;
+    const next = { ...Object.fromEntries(arriving), ...dateAnswers };
+    setDateAnswers(next);
+    setDateDraft((current) => ({ ...Object.fromEntries(arriving), ...current }));
+    if (stageId) void load(stageId, municipality ? { municipality } : {}, next);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialKey]);
 
   // Show the saved (or suggested) step's answer straight away; the user can change it.
   useEffect(() => {
@@ -336,7 +359,9 @@ export default function StageAnswerPanel({
     // The step is saved with the dates: counting a deadline at the suggested
     // step is the user acting on it, and the case file needs the step to show
     // the counted date (page review, 2026-10-06).
-    setDateStatus((await savePosition(caseId, { dateAnswers: asked, stepId: stageId || null })) ? "saved" : "not-saved");
+    const saved = await savePosition(caseId, { dateAnswers: asked, stepId: stageId || null });
+    setDateStatus(saved ? "saved" : "not-saved");
+    if (saved) onSaved?.({ dateAnswers: next, stepId: stageId || null });
   }
 
   return (
@@ -370,12 +395,24 @@ export default function StageAnswerPanel({
             // own question.
             if (id) void load(id, id === "before-filing:notice-toronto" ? { municipality: "Toronto" } : {});
             // The user picked this; record it on their case.
-            if (caseId) void savePosition(caseId, { stepId: id || null });
+            if (caseId) {
+              void savePosition(caseId, { stepId: id || null }).then((saved) => {
+                if (saved) onSaved?.({ stepId: id || null });
+              });
+            }
           }}
           className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
         >
           <option value="">Choose one…</option>
-          {orderGroupsForReader(GROUPS[courtPath], responding).map((group) => (
+          {orderGroupsForReader(GROUPS[courtPath], responding)
+            .filter(
+              (group) =>
+                showOtherSide ||
+                !confirmedStage ||
+                !group.label.startsWith("Other situations") ||
+                options.some((option) => option.group === group.side && option.id === stageId),
+            )
+            .map((group) => (
             <optgroup key={group.side} label={group.label}>
               {options.filter((option) => option.group === group.side).map((option) => (
                 <option key={option.id} value={option.id}>
@@ -386,6 +423,16 @@ export default function StageAnswerPanel({
           ))}
         </select>
       </label>
+      {confirmedStage && !showOtherSide ? (
+        <button
+          type="button"
+          data-testid="stage-answer-show-other-side"
+          onClick={() => setShowOtherSide(true)}
+          className="mt-2 text-sm font-semibold text-[#2f7d67] underline"
+        >
+          Show the other side&apos;s steps too
+        </button>
+      ) : null}
 
       {loading && <p className="mt-3 text-sm text-[#4d675f]">Loading…</p>}
       {failed && (

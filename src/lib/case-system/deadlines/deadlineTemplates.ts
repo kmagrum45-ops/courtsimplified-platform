@@ -187,9 +187,9 @@ export const DEADLINE_TEMPLATES: Record<DeadlineTemplateId, DeadlineTemplate> = 
   "uncertain-settled-practice-holiday": {
     id: "uncertain-settled-practice-holiday",
     text:
-      "This date moved because of {holiday}. We could not find a statute stating when " +
-      "{holiday} falls, so the date used here is the settled one. The court office can " +
-      "confirm it.",
+      "This date moved because {holiday} is a holiday under the rules. We have not found " +
+      "where the law sets the day it falls on, so we used the day it is usually held. The " +
+      "court office can confirm it.",
     cites: C.R_1_02_HOLIDAY,
   },
   "uncertain-statutory-saturday": {
@@ -253,7 +253,7 @@ export const DEADLINE_TEMPLATES: Record<DeadlineTemplateId, DeadlineTemplate> = 
     id: "presumed-discovery-from-injury",
     text:
       "The Limitations Act presumes you knew about your claim on the day it happened, unless " +
-      "you can prove you learned of it later. So this is counted from the date you gave for the injury.",
+      "you can prove you learned of it later. So this is counted from the date you gave for when it happened.",
     cites: C.S_LIMITATIONS_5_2_PRESUMPTION,
   },
   "computed-date-has-passed": {

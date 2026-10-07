@@ -8,6 +8,16 @@ export const SELECTED_CASE_UNAVAILABLE_MESSAGE =
 export const UNLINKED_FORM_RECOMMENDATION_MESSAGE =
   "Named in your case analysis. Check it against the official form in the list below before you use it.";
 
+/**
+ * A catalogue row with no record the form filler can use. Page review
+ * 2026-10-07: the recommendation message above was shown on these rows, so
+ * 60 to 87 forms per case -- arrest warrants, estate forms -- read "Named in
+ * your case analysis" when nothing had named them. A row says only what is
+ * true of the row.
+ */
+export const UNLINKED_CATALOGUE_ROW_MESSAGE =
+  "We cannot fill this one in for you yet. Use the official form file.";
+
 const CANONICAL_FORM_ID_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 

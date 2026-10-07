@@ -50,7 +50,7 @@ import {
 import { DEADLINE_TEMPLATES } from "../../src/lib/case-system/deadlines/deadlineTemplates";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { collectContentInventory } from "../../src/lib/content-library/contentInventory";
-import { computedDeadlinesFor } from "../../src/lib/content-library/computedDeadline";
+import { computedDeadlinesFor, countFromDate } from "../../src/lib/content-library/computedDeadline";
 import { assertsAbsenceProblems } from "../content/blockGates";
 import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 import { dateQuestionsForStep } from "../../src/lib/case-system/casePosition";
@@ -522,9 +522,16 @@ for (const stage of ALL_STAGES) {
 // This is the check that stops the catalogue from growing a question because it
 // seemed like a useful thing to know.
 
-const eventsUsedByDeadlines = new Set(
+const eventsUsedByDeadlines = new Set<string>(
   ALL_STAGES.flatMap((stage) => stage.deadlines.map((deadline) => deadline.countFromEvent)),
 );
+// An event the two-year limit is counted from under s. 5 (2)'s presumption is
+// used too, though no deadline names it (computedDeadline.ts countFromDate).
+for (const deadline of ALL_STAGES.flatMap((stage) => stage.deadlines)) {
+  for (const event of Object.keys(DEADLINE_EVENTS) as (keyof typeof DEADLINE_EVENTS)[]) {
+    if (countFromDate(deadline, { [event]: "2025-01-15" }).from) eventsUsedByDeadlines.add(event);
+  }
+}
 
 for (const event of Object.values(DEADLINE_EVENTS)) {
   if (event.question === null) {
