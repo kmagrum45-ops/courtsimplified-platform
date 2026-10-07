@@ -213,7 +213,7 @@ function main(): void {
 
   // And that it can see pipeline state when pipeline state is there — the
   // "Saving core intake" panel is gated on `analysis` by design.
-  const savingPanel = /\{analysis && [^}]*canonicalIntakeSaved/.test(builder);
+  const savingPanel = /\{[^{}]*\banalysis &&[^{}]*canonicalIntakeSaved/.test(builder);
   check(
     "self-test: a genuinely analysis-gated block still exists to be distinguished from",
     savingPanel,
