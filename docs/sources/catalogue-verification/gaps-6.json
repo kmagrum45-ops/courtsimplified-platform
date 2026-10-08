@@ -1,0 +1,666 @@
+{
+  "records": [
+    {
+      "key": "sc-claim-government-benefits-dispute|plaintiffElement|appealable-decision-gbd",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c7d2ba77f70b423eddb32db2b5144a8c34ff210ff9aca8d6b2f349a78305bfb0",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 24",
+          "quote": "An administrator shall give notice to the applicant or recipient of a decision that may be appealed and the notice shall advise the applicant or recipient that he or she may request an internal review of the decision."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 26(1)",
+          "quote": "Any decision of an administrator affecting eligibility for or the amount of basic financial assistance, other than a decision referred to in subsection (2), may be appealed to the Tribunal."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 26(2), paras. 2, 6, 7",
+          "quote": "2. A decision respecting discretionary benefits."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 26(2), para. 6",
+          "quote": "6. A variation, refusal or cancellation of assistance caused by an amendment to this Act or the regulations."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 26(2), para. 7",
+          "quote": "7. A decision respecting emergency assistance."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 19",
+          "quote": "The Director shall give notice to the applicant or recipient of a decision that may be appealed and the notice shall advise the applicant or recipient that he or she may request an internal review of it."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 21(1)",
+          "quote": "Any decision of the Director affecting eligibility for or the amount of income support, assistance under section 49 or extended health benefits under section 49.1, other than a decision referred to in subsection (2), may be appealed to the Tribunal."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 21(2), para. 1",
+          "quote": "1. A decision respecting discretionary income support."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 21(3)",
+          "quote": "No appeal lies to the Tribunal with respect to a decision taken under Part III of this Act."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/ontario-works-act-1997.txt, docs/sources/corpus/odsp-act-1997.txt"
+    },
+    {
+      "key": "sc-claim-government-benefits-dispute|plaintiffElement|internal-review-gbd",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "3fe3efd41427d995a858f78ab1ee8cee3dbcc53dbf9139011092e6cf2d696615",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 27(1)-(2)",
+          "quote": "No appeal may be commenced unless an internal review has been requested. Same (2) The request for internal review must be made within the prescribed time."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 25(3)(a)",
+          "quote": "An administrator's decision that may be appealed is final, (a) when the prescribed time for requesting an internal review expires, if no internal review is requested within that time;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 22(1)",
+          "quote": "No appeal may be commenced unless an internal review has been requested."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 22(2)",
+          "quote": "The request for internal review must be made within the prescribed time."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/ontario-works-act-1997.txt, docs/sources/corpus/odsp-act-1997.txt"
+    },
+    {
+      "key": "sc-claim-government-benefits-dispute|plaintiffElement|tribunal-appeal-gbd",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "859ab476db7111c099cd03b44ba762fb1a78a2eded834d4589555f100afd2456",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 28(1)",
+          "quote": "An applicant or recipient may appeal a decision of an administrator within the prescribed period after an internal review by filing a notice of appeal that shall include reasons for requesting the appeal."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 28(2)",
+          "quote": "The Tribunal may extend the time for appealing a decision if it is satisfied that there are apparent grounds for an appeal and that there are reasonable grounds for applying for the extension."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 28(11)",
+          "quote": "The onus lies on the appellant to satisfy the Tribunal that the decision of the administrator is wrong."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 23(1)",
+          "quote": "An applicant or recipient may appeal a decision of the Director within the prescribed period after an internal review by filing a notice of appeal that shall include reasons for requesting the appeal."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 23(2)",
+          "quote": "The Tribunal may extend the time for appealing a decision if it is satisfied that there are apparent grounds for an appeal and that there are reasonable grounds for applying for the extension."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 23(10)",
+          "quote": "The onus lies on the appellant to satisfy the Tribunal that the"
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/ontario-works-act-1997.txt, docs/sources/corpus/odsp-act-1997.txt"
+    },
+    {
+      "key": "sc-claim-government-benefits-dispute|defendantConsideration|no-damages-action-gbd",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "103058c1448c6dfaa10076db6607be0352b5a40454c61b37c5f78d532641efbb",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 77(1)",
+          "quote": "No action or other proceeding in damages shall be instituted against the Ministry, the Director, a delivery agent, a delivery partner, an officer or employee of any of them or anyone acting under their authority for any act done in good faith in the execution or intended execution of a duty or authority under this Act or for any alleged neglect or default in the execution in good faith of any duty or authority under this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 77(2)",
+          "quote": "Subsection (1) does not, by reason of subsection 8 (3) of the Crown Liability and Proceedings Act, 2019, relieve the Crown of liability in respect of a tort committed by a person mentioned in subsection (1) to which it would otherwise be subject."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 58(1)",
+          "quote": "No action or other proceeding in damages shall be instituted against the Ministry, the Director or a delivery agent, an officer, employee of any of them or anyone acting under their authority for any act done in good faith in the execution or intended execution of a duty or authority under this Act or for any alleged neglect or default in the execution in good faith of any duty or authority under this Act."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 58(2)",
+          "quote": "Subsection (1) does not, by reason of subsection 8 (3) of the Crown Liability and Proceedings Act, 2019, relieve the Crown of liability"
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/ontario-works-act-1997.txt, docs/sources/corpus/odsp-act-1997.txt"
+    },
+    {
+      "key": "sc-claim-government-benefits-dispute|defendantConsideration|missed-appeal-gbd",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "94097c3382e5124ab0aa5c5b7b124b1e1bc7aacd3b42004671af5a5af0acd429",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 35",
+          "quote": "If an administrator's decision is not appealed to the Tribunal within the time required under this Act, no further appeal lies to the Tribunal or a court with regard to that decision."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 28(2)",
+          "quote": "The Tribunal may extend the time for appealing a decision if it is satisfied that there are apparent grounds for an appeal and that there are reasonable grounds for applying for the extension."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 30",
+          "quote": "If the Director's decision is not appealed to the Tribunal within the time required under this Act, no further appeal lies to the Tribunal or a court with regard to that decision."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 23(2)",
+          "quote": "The Tribunal may extend the time for appealing a decision if it is satisfied that there are apparent grounds for an appeal and that there are reasonable grounds for applying for the extension."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/ontario-works-act-1997.txt, docs/sources/corpus/odsp-act-1997.txt"
+    },
+    {
+      "key": "sc-claim-government-benefits-dispute|proceduralNote|sc-claim-government-benefits-dispute#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "7a6c6ec6278d40b343cb84ac999fa853c1484922cf6f767607b9db6774be18ab",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 2, \"Tribunal\"",
+          "quote": "\"Tribunal\" means the Social Benefits Tribunal established under section 60."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 36(1)",
+          "quote": "The Director and any party to a hearing may appeal the Tribunal's decision to the Divisional Court on a question of law."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 31(1)",
+          "quote": "In an appeal to the Tribunal, the Tribunal may, (a) deny the appeal; (b) grant the appeal; (c) grant the appeal in part; or (d) refer the matter back to the administrator for reconsideration in accordance with any directions the Tribunal considers proper."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 31(1)",
+          "quote": "Any party to a hearing before the Tribunal may appeal the Tribunal's decision to the Divisional Court on a question of law."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/ontario-works-act-1997.txt, docs/sources/corpus/odsp-act-1997.txt"
+    },
+    {
+      "key": "sc-claim-government-benefits-dispute|proceduralNote|sc-claim-government-benefits-dispute#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "a878d2d8923c2adb6fc1bed7bff68f804c5eebaa4269cbb209766d1ffbeb0fac",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 27(2)",
+          "quote": "The request for internal review must be made within the prescribed time."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 28(1)",
+          "quote": "An applicant or recipient may appeal a decision of an administrator within the prescribed period after an internal review"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 28(2)",
+          "quote": "The Tribunal may extend the time for appealing a decision"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 22(2)",
+          "quote": "The request for internal review must be made within the prescribed time."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+          "pinpoint": "s. 23(1)",
+          "quote": "An applicant or recipient may appeal a decision of the Director within the prescribed period after an internal review"
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/ontario-works-act-1997.txt, docs/sources/corpus/odsp-act-1997.txt"
+    },
+    {
+      "key": "sc-claim-government-benefits-dispute|proceduralNote|sc-claim-government-benefits-dispute#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c42195c81d87b599428d2ec056bc80926c2c098d97c3f75a10e403184b7e9cf5",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 21(2)",
+          "quote": "A decision determining that an overpayment exists shall be final and enforceable against the recipient as if it were an order of the Superior Court of Justice if, (a) notice of it has been given under subsection (1); (b) the time for commencing an appeal to the Tribunal has expired; and (c) no appeal has been commenced."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+          "pinpoint": "s. 22",
+          "quote": "The administrator may recover an overpayment as a debt due to the delivery agent in a court of competent jurisdiction, whether or not notice has been provided under section 21."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/ontario-works-act-1997.txt"
+    },
+    {
+      "key": "sc-claim-immigration-consultant-or-paralegal-fee|plaintiffElement|licensee-lpf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f57f0e7dc90db3ec68b25cdd88fdc2352ce9a9d252f6210c9d533ad764df71b9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l08_e.doc",
+          "pinpoint": "s. 1(1), \"licensee\"",
+          "quote": "\"licensee\" means, (a) a person licensed to practise law in Ontario as a barrister and solicitor, or (b) a person licensed to provide legal services in Ontario;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l08_e.doc",
+          "pinpoint": "s. 26.1(1)",
+          "quote": "Subject to subsection (5), no person, other than a licensee whose licence is not suspended, shall practise law in Ontario or provide legal services in Ontario."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l08_e.doc",
+          "pinpoint": "s. 26.1(3)",
+          "quote": "No licensee shall practise law in Ontario or provide legal services in Ontario except to the extent permitted by the licensee's licence."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l08_e.doc",
+          "pinpoint": "s. 26.1(5)",
+          "quote": "A person who is not a licensee may practise law or provide legal services in Ontario if and to the extent permitted by the by-laws."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/law-society-act.txt"
+    },
+    {
+      "key": "sc-claim-immigration-consultant-or-paralegal-fee|plaintiffElement|the-bill-lpf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "434cdec5e93fac330d509952743515201d5fbcabcd2d504cb4b354cb1771c58b",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s15_e.doc",
+          "pinpoint": "s. 2(1)",
+          "quote": "No action shall be brought for the recovery of fees, charges or disbursements for business done by a solicitor as such until one month after a bill thereof, subscribed with the proper hand of the solicitor, his or her executor, administrator or assignee or, in the case of a partnership, by one of the partners, either with his or her own name, or with the name of the partnership, has been delivered to the person to be charged therewith,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s15_e.doc",
+          "pinpoint": "s. 2(3)",
+          "quote": "A solicitor's bill of fees, charges or disbursements is sufficient in form if it contains a reasonable statement or description of the services rendered with a lump sum charge therefor together with a detailed statement of disbursements,"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s15_e.doc",
+          "pinpoint": "s. 33(3)",
+          "quote": "The rate of interest applicable to a bill shall be shown on the bill delivered."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/solicitors-act.txt"
+    },
+    {
+      "key": "sc-claim-immigration-consultant-or-paralegal-fee|plaintiffElement|what-was-paid-lpf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "6f9964e1dae668e7dee267a4e6a7e925d83b30cad946797ca74a1742128d0753",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s15_e.doc",
+          "pinpoint": "s. 6(2)",
+          "quote": "The bill delivered shall stand referred to an assessment officer for assessment, and on the reference the solicitor shall give credit for, and an account shall be taken of, all sums of money by him or her received from or on account of the client, and the solicitor shall refund what, if anything, he or she may on such assessment appear to have been overpaid."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s15_e.doc",
+          "pinpoint": "s. 11",
+          "quote": "The payment of a bill does not preclude the court from referring it for assessment if the special circumstances of the case, in the opinion of the court, appear to require the assessment."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s15_e.doc",
+          "pinpoint": "s. 33(2)",
+          "quote": "Where, on an assessment of a solicitor's bill of fees, charges and disbursements, it appears that the client has overpaid the solicitor, the client is entitled to interest on the overpayment calculated from the date when the overpayment was made."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/solicitors-act.txt"
+    },
+    {
+      "key": "sc-claim-immigration-consultant-or-paralegal-fee|defendantConsideration|fee-action-lpf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "24f268f73b02e1617e821e7bb6b1957748acf73fcba3a8a910bd6ef7479ca20c",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s15_e.doc",
+          "pinpoint": "s. 2(1)",
+          "quote": "No action shall be brought for the recovery of fees, charges or disbursements for business done by a solicitor as such until one month after a bill thereof"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s15_e.doc",
+          "pinpoint": "s. 6(4)",
+          "quote": "The solicitor shall not commence or prosecute any action in respect of the matters referred pending the reference without leave of the court or a judge."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s15_e.doc",
+          "pinpoint": "s. 33(1)",
+          "quote": "A solicitor may charge interest on unpaid fees, charges or disbursements, calculated from a date that is one month after the bill is delivered under section 2."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/solicitors-act.txt"
+    },
+    {
+      "key": "sc-claim-immigration-consultant-or-paralegal-fee|defendantConsideration|dispute-lpf",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45444a174d95006e8820d5267f8b6e9f00802e5ac940740be23ad1a588d0bcd9",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-immigration-consultant-or-paralegal-fee|proceduralNote|sc-claim-immigration-consultant-or-paralegal-fee#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "f1b94b3502c6a29aaff11475c6daf05792f6ec95aeebae40958d30e97d00ea3a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s15_e.doc",
+          "pinpoint": "s. 3",
+          "quote": "Where the retainer of the solicitor is not disputed and there are no special circumstances, an order may be obtained on requisition from a local registrar of the Superior Court of Justice, (a) by the client, for the delivery and assessment of the solicitor's bill; (b) by the client, for the assessment of a bill already delivered, within one month from its delivery;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s15_e.doc",
+          "pinpoint": "s. 4(1)",
+          "quote": "No such reference shall be directed upon an application made by the party chargeable with such bill after a verdict or judgment has been obtained, or after twelve months from the time such bill was delivered, sent or left as aforesaid, except under special circumstances to be proved to the satisfaction of the court or judge to whom the application for the reference is made."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s15_e.doc",
+          "pinpoint": "s. 32.1(1)",
+          "quote": "The provisions of this Act and the regulations that apply in relation to contingency fee agreements apply with necessary modifications to persons licensed under the Law Society Act to provide legal services in Ontario in the same manner as to solicitors,"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/solicitors-act.txt"
+    },
+    {
+      "key": "sc-claim-immigration-consultant-or-paralegal-fee|proceduralNote|sc-claim-immigration-consultant-or-paralegal-fee#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "03100695b20127aa652a5ea400dfd6b164c97f316443eaba64c0250ecbe5a9f8",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l08_e.doc",
+          "pinpoint": "s. 49.3(1)",
+          "quote": "The Society may conduct an investigation into a licensee's conduct if the Society receives information suggesting that the licensee may have engaged in professional misconduct or conduct unbecoming a licensee."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90l08_e.doc",
+          "pinpoint": "s. 51(5)",
+          "quote": "Convocation in its absolute discretion may make grants from the Fund in order to relieve or mitigate loss sustained by a person in consequence of, (a) dishonesty on the part of a person, while a licensee, in connection with his or her professional business or in connection with any trust of which he or she was or is a trustee;"
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/law-society-act.txt"
+    },
+    {
+      "key": "sc-claim-immigration-consultant-or-paralegal-fee|proceduralNote|sc-claim-immigration-consultant-or-paralegal-fee#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    },
+    {
+      "key": "sc-claim-financial-advisor-or-mortgage-broker|plaintiffElement|mortgage-dealing-fam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "74da1d22fe1e8346ab4e78bba111f51b741568e67aac67d9f05f438c09674c89",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06m29_e.doc",
+          "pinpoint": "s. 2(1)",
+          "quote": "For the purposes of this Act, a person or entity is dealing in mortgages in Ontario when he, she or it engages in any of the following activities in Ontario, or holds themself out as doing so: 1. Soliciting another person or entity to borrow or lend money on the security of real property. 2. Providing information about a prospective borrower to a prospective mortgage lender, whether or not this Act governs the lender. 3. Assessing a prospective borrower on behalf of a prospective mortgage lender, whether or not this Act governs the lender. 4. Negotiating or arranging a mortgage on behalf of another person or entity, or attempting to do so."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06m29_e.doc",
+          "pinpoint": "s. 2(2)",
+          "quote": "No person or entity shall carry on the business of dealing in mortgages in Ontario unless he, she or it has a brokerage licence or is exempted from the requirement to have such a licence."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06m29_e.doc",
+          "pinpoint": "s. 2(3)",
+          "quote": "No individual shall deal in mortgages in Ontario for remuneration, whether direct or indirect, as an employee or otherwise, unless he or she has a mortgage broker's or agent's licence and is acting on behalf of a mortgage brokerage or is exempted from the requirement to have such a licence."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/mortgage-brokerages-act-2006.txt"
+    },
+    {
+      "key": "sc-claim-financial-advisor-or-mortgage-broker|plaintiffElement|registered-adviser-fam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "d67fd70eebf3678df4788a3f9784ecfefb72fcf3923f09599b54633f91eadda4",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s05_e.doc",
+          "pinpoint": "s. 1(1), \"adviser\"",
+          "quote": "\"adviser\" means a person or company engaging in or holding himself, herself or itself out as engaging in the business of advising others as to the investing in or the buying or selling of securities;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s05_e.doc",
+          "pinpoint": "s. 25(3)",
+          "quote": "Unless a person or company is exempt under Ontario securities law from the requirement to comply with this subsection, the person or company shall not engage in the business of, or hold himself, herself or itself out as engaging in the business of, advising anyone with respect to investing in, buying or selling securities unless the person or company, (a) is registered in accordance with Ontario securities law as an adviser; (b) is a representative registered in accordance with Ontario securities law as an advising representative of a registered adviser and is acting on behalf of the registered adviser; or (c) is a representative registered in accordance with Ontario securities law as an associate advising representative of a registered adviser and is acting on behalf of the registered adviser under the supervision of a registered advising representative of the registered adviser."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s05_e.doc",
+          "pinpoint": "s. 44(1)",
+          "quote": "No person or company shall represent that he, she or it is registered under this Act unless the representation is true and, when making the representation, the person or company specifies his, her or its category of registration."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/securities-act.txt"
+    },
+    {
+      "key": "sc-claim-financial-advisor-or-mortgage-broker|plaintiffElement|false-information-fam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "97e3ca249eedb737b3343b684c4722ad6e0e9775a2c49e34ed708050af70e730",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06m29_e.doc",
+          "pinpoint": "s. 43(2)",
+          "quote": "No mortgage broker or agent shall give, assist in giving or induce or counsel another person or entity to give or assist in giving any false or deceptive information or document when dealing in mortgages in Ontario or trading in mortgages in Ontario."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06m29_e.doc",
+          "pinpoint": "s. 23(1)",
+          "quote": "A mortgage brokerage shall disclose to each borrower the cost of borrowing and any other information prescribed for the purposes of this section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06m29_e.doc",
+          "pinpoint": "s. 23(2)(c)",
+          "quote": "(c) shall be expressed as a rate per annum;"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s05_e.doc",
+          "pinpoint": "s. 44(2)",
+          "quote": "No person or company shall make a statement about any matter that a reasonable investor would consider relevant in deciding whether to enter into or maintain a trading or advising relationship with the person or company if the statement is untrue or omits information necessary to prevent the statement from being false or misleading in the circumstances in which it is made."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/mortgage-brokerages-act-2006.txt, docs/sources/corpus/securities-act.txt"
+    },
+    {
+      "key": "sc-claim-financial-advisor-or-mortgage-broker|defendantConsideration|unlicensed-fee-fam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "c9458ed7297d86ec63a4704deae7a637505831e06898985b54d40f1803867b6a",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06m29_e.doc",
+          "pinpoint": "s. 12(1)",
+          "quote": "A person or entity is not entitled to commence an action or proceeding to be remunerated for dealing in mortgages in Ontario, trading in mortgages in Ontario or administering mortgages in Ontario unless, at the time the person or entity was dealing in, trading in or administering mortgages, he, she or it was licensed to do so or was not required to be licensed to do so."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06m29_e.doc",
+          "pinpoint": "s. 12(2)",
+          "quote": "The court may, upon motion, stay an action or proceeding described in subsection (1)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/mortgage-brokerages-act-2006.txt"
+    },
+    {
+      "key": "sc-claim-financial-advisor-or-mortgage-broker|defendantConsideration|dispute-fam",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "602c34db9fd62b506f0c9c8ade4d298899260cb81b8cc048f35bd0cb8311b8a3",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 1.i",
+          "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+          "pinpoint": "r. 9.02(1), para. 2",
+          "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "key": "sc-claim-financial-advisor-or-mortgage-broker|proceduralNote|sc-claim-financial-advisor-or-mortgage-broker#note0",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "8eeeeaf61bf6783384247eee6aa723ad021ef575487068526f3bc3d05edf6c13",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06m29_e.doc",
+          "pinpoint": "s. 50(1)",
+          "quote": "If a person is convicted of an offence under this Act, the court may order the person convicted to pay compensation or make restitution"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/06m29_e.doc",
+          "pinpoint": "s. 50(3)",
+          "quote": "No civil remedy for an act or omission is affected by reason only that an order for compensation or restitution under this section has been made in respect of that act or omission."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Calculate and explain the amount of money and any interest you are claiming."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- How to fill out the claim form",
+          "quote": "Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the \"Reasons for Claim and Details\" section."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "pinpoint": "Making a claim -- Types of claims dealt with in Small Claims Court",
+          "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+        }
+      ],
+      "howRead": "Vendored corpus files docs/sources/corpus/mortgage-brokerages-act-2006.txt, docs/sources/corpus/guide-making-a-claim.txt"
+    },
+    {
+      "key": "sc-claim-financial-advisor-or-mortgage-broker|proceduralNote|sc-claim-financial-advisor-or-mortgage-broker#note1",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "ef92da80c1c2d07a78d7a82f078d7ed2eb37f23e246a6d941b4e8b4360899fc2",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s05_e.doc",
+          "pinpoint": "s. 136(1)",
+          "quote": "If, contrary to Ontario securities law, a registered dealer fails to disclose to a person or company with whom it effects a purchase or sale of a security that it intended to act as principal in respect of the purchase or sale, the person or company may rescind the contract effecting the purchase or sale by mailing or delivering written notice of the rescission to the registered dealer within 60 days after the date of delivery of the security"
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s05_e.doc",
+          "pinpoint": "s. 136(2)",
+          "quote": "If, contrary to Ontario securities law, a registered dealer fails to disclose to a person or company that it has acted as principal in respect of a purchase or sale of a security, the person or company may rescind the contract effecting the purchase or sale by mailing or delivering written notice of the rescission to the registered dealer within seven days after the date of the delivery to the person or company of the written confirmation of the contract."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s05_e.doc",
+          "pinpoint": "s. 136(4)",
+          "quote": "Subsections (1) and (2) do not allow the rescission of a contract effecting the purchase of a security by a person or company if the person or company no longer owns the security."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/90s05_e.doc",
+          "pinpoint": "s. 136(6)",
+          "quote": "No action respecting a rescission shall be commenced under this section after the expiration of a period of 90 days from the date of delivery of the notice under subsection (1) or (2)."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/securities-act.txt"
+    },
+    {
+      "key": "sc-claim-financial-advisor-or-mortgage-broker|proceduralNote|sc-claim-financial-advisor-or-mortgage-broker#note2",
+      "verifiedAt": "2026-10-07",
+      "outcome": "authored",
+      "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
+      "sources": [
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 4",
+          "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(1)",
+          "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+        },
+        {
+          "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+          "pinpoint": "s. 5(2)",
+          "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+        }
+      ],
+      "howRead": "Vendored corpus file docs/sources/corpus/limitations-act-2002.txt"
+    }
+  ],
+  "unverifiable": []
+}

@@ -124,7 +124,7 @@ export const DECLARED_PROFILES: ClaimTypeProfile[] = [
   d("goods-and-services", "sc-claim-website-app-or-software-build", "A website, app or software not delivered"),
   d("goods-and-services", "sc-claim-hosting-or-saas-billing", "Domain, hosting or software billing"),
   d("goods-and-services", "sc-claim-influencer-or-brand-deal-unpaid", "An unpaid brand or influencer deal"),
-  d("goods-and-services", "sc-claim-immigration-consultant-or-paralegal-fee", "An immigration consultant or paralegal fee"),
+  d("goods-and-services", "sc-claim-immigration-consultant-or-paralegal-fee", "A lawyer's or paralegal's fee"),
   d("goods-and-services", "sc-claim-financial-advisor-or-mortgage-broker", "A financial advisor or mortgage broker"),
   d("goods-and-services", "sc-claim-insurance-claim-denied", "An insurance claim refused"),
   d("goods-and-services", "sc-claim-bank-error-or-unauthorized-transaction", "A bank error or a transaction you did not make"),
@@ -266,7 +266,7 @@ export const DECLARED_PROFILES: ClaimTypeProfile[] = [
   d("other", "sc-claim-charity-or-fundraising-dispute", "A charity or fundraising dispute"),
   sensitive("other", "sc-claim-elder-financial-abuse", "Money taken from an older person"),
   d("other", "sc-claim-parking-traffic-or-bylaw-charge", "A parking ticket, traffic or by-law charge"),
-  d("other", "sc-claim-government-benefits-dispute", "A CRA, EI, CPP or social assistance decision"),
+  d("other", "sc-claim-government-benefits-dispute", "An Ontario Works or ODSP decision"),
   d("other", "sc-claim-copyright-or-intellectual-property", "Copyright or intellectual property"),
   d("other", "sc-claim-hit-and-run-or-uninsured-driver", "A hit and run, or a driver with no insurance"),
 

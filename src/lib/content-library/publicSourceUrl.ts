@@ -66,6 +66,7 @@ const DECISION_PAGES: Record<string, string> = {
   "antrim-truck-centre-v-ontario-2013-SCC-13.pdf": SCC(12887),
   "non-marine-underwriters-v-scalera-2000-SCC-24.pdf": SCC(1786),
   "merrifield-v-canada-2019-ONCA-205.pdf": "https://www.ontariocourts.ca/decisions/2019/2019ONCA0205.htm",
+  "tms-lighting-v-kjs-transport-2014-ONCA-1.pdf": "https://www.ontariocourts.ca/decisions/2014/2014ONCA0001.htm",
   // Every other saved decision, from its "Retrieved from" address in docs/sources/README.md (2026-10-07).
   "andrews-v-grand-and-toy-1978-2-SCR-229.pdf": SCC(2587),
   "barendregt-v-grebliunas-2022-SCC-22.pdf": SCC(19396),

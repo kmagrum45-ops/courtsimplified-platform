@@ -504,5 +504,111 @@
       "Ticket Sales Act"
     ],
     "why": "Ticket resale and cancelled-event refunds. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "ontario-works-act-1997",
+    "title": "Ontario Works Act, 1997",
+    "citation": "S.O. 1997, c. 25, Sched. A",
+    "url": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Ontario Works Act"
+    ],
+    "why": "Appeals of social assistance decisions (internal review, Social Benefits Tribunal). Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "odsp-act-1997",
+    "title": "Ontario Disability Support Program Act, 1997",
+    "citation": "S.O. 1997, c. 25, Sched. B",
+    "url": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Disability Support Program"
+    ],
+    "why": "Appeals of ODSP decisions. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "solicitors-act",
+    "title": "Solicitors Act",
+    "citation": "R.S.O. 1990, c. S.15",
+    "url": "https://www.ontario.ca/laws/docs/90s15_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Solicitors Act"
+    ],
+    "why": "Assessing a lawyer's bill; needed by the lawyer and paralegal fee types. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "law-society-act",
+    "title": "Law Society Act",
+    "citation": "R.S.O. 1990, c. L.8",
+    "url": "https://www.ontario.ca/laws/docs/90l08_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Law Society Act"
+    ],
+    "why": "Who may provide legal services (lawyers and licensed paralegals). Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "mortgage-brokerages-act-2006",
+    "title": "Mortgage Brokerages, Lenders and Administrators Act, 2006",
+    "citation": "S.O. 2006, c. 29",
+    "url": "https://www.ontario.ca/laws/docs/06m29_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Mortgage Brokerages"
+    ],
+    "why": "Disputes with a mortgage broker or brokerage. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "securities-act",
+    "title": "Securities Act",
+    "citation": "R.S.O. 1990, c. S.5",
+    "url": "https://www.ontario.ca/laws/docs/90s05_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Securities Act"
+    ],
+    "why": "Disputes with a financial advisor or dealer; misrepresentation claims. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "energy-consumer-protection-act-2010",
+    "title": "Energy Consumer Protection Act, 2010",
+    "citation": "S.O. 2010, c. 8",
+    "url": "https://www.ontario.ca/laws/docs/10e08_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Energy Consumer Protection Act"
+    ],
+    "why": "Electricity and gas retail contracts and billing disputes. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "air-passenger-protection-regulations",
+    "title": "Air Passenger Protection Regulations",
+    "citation": "SOR/2019-150",
+    "url": "https://laws-lois.justice.gc.ca/eng/regulations/SOR-2019-150/FullText.html",
+    "format": "html",
+    "mustContain": [
+      "Air Passenger Protection Regulations"
+    ],
+    "why": "Flight delays, cancellations, denied boarding and lost baggage. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "copyright-act",
+    "title": "Copyright Act",
+    "citation": "R.S.C. 1985, c. C-42",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-42/FullText.html",
+    "format": "html",
+    "mustContain": [
+      "Copyright Act"
+    ],
+    "why": "Copyright claims and which courts hear them. Case types were left out for want of it (2026-10-07)."
   }
 ]
