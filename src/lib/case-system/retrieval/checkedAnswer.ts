@@ -217,8 +217,11 @@ export function statementRejection(statement: string, support: { passage: Passag
  */
 const PASSAGE_TALK = /\b(?:(?:supplied|provided|given|these|those|the)\s+(?:passages?|text|excerpts?)|passages?\s+(?:do|does|did)\s+not)\b/i;
 export function withoutTalkAboutPassages(text: string): string {
-  const sentences = text.match(/[^.!?]+[.!?]+(?:\s+|$)|[^.!?]+$/g) ?? [text];
-  return sentences.filter((sentence) => !PASSAGE_TALK.test(sentence)).join("").trim();
+  // A sentence ends at . ! or ? followed by a space, so "$2.5 million" and
+  // "s. 64 (1)" stay whole (2026-10-07 exam: an earlier pattern cut "$2." off
+  // and showed "5 million" as the threshold).
+  const sentences = text.trim().split(/(?<=[.!?])\s+/);
+  return sentences.filter((sentence) => !PASSAGE_TALK.test(sentence)).join(" ").trim();
 }
 
 // ---------------------------------------------------------------- dependencies

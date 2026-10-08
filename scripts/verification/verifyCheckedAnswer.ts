@@ -251,6 +251,11 @@ async function main() {
     withoutTalkAboutPassages("You must give 60 days notice. The supplied passages do not establish that the Act applies.") === "You must give 60 days notice.",
   );
   check("a statement that is only talk about the passages leaves nothing", withoutTalkAboutPassages("The passages do not establish this.") === "");
+  check(
+    "an amount with a decimal point is never cut in two",
+    withoutTalkAboutPassages("Severance is owed if the payroll is $2.5 million or more under s. 64 (1). The supplied passages do not say more.") ===
+      "Severance is owed if the payroll is $2.5 million or more under s. 64 (1).",
+  );
   check("ordinary law is left alone", withoutTalkAboutPassages("The tenant may give notice. The landlord must repair.") === "The tenant may give notice. The landlord must repair.");
 
   // ---- 7. The pure checks
