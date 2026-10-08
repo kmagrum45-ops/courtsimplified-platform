@@ -24,6 +24,14 @@ on:
         description: "Only this area (blank = all), e.g. small-claims, family, civil-procedure"
         required: false
         default: ""
+      set:
+        description: "tuning (the 130 used for fixing), holdout (the 30 held back for the honest score), or all"
+        required: false
+        default: "tuning"
+      ids:
+        description: "Only these questions, comma-separated (e.g. the failures of the last run); blank = all in the set"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -56,10 +64,13 @@ jobs:
           LIMIT: ${{ inputs.limit }}
           AREA: ${{ inputs.area }}
           MODE: ${{ inputs.mode }}
+          SET: ${{ inputs.set }}
+          IDS: ${{ inputs.ids }}
         run: |
           set -o pipefail
-          args=(--confirm --limit "${LIMIT:-18}" --mode "${MODE:-answer}")
+          args=(--confirm --limit "${LIMIT:-18}" --mode "${MODE:-answer}" --concurrency 4 --set "${SET:-tuning}")
           if [ -n "${AREA}" ]; then args+=(--area "${AREA}"); fi
+          if [ -n "${IDS}" ]; then args+=(--ids "${IDS}"); fi
           npm run eval:law-exam -- "${args[@]}" 2>&1 | tee law-exam.log
           tail -1 law-exam.log | sed 's/^/::notice title=Law exam::/'
 
@@ -69,7 +80,7 @@ jobs:
         run: |
           set -euo pipefail
           out="$(mktemp -d)"
-          cp law-exam-report.md law-exam-report.json law-exam.log "$out/" 2>/dev/null || true
+          cp law-exam-report.md law-exam-report.json law-exam-failures.md law-exam.log "$out/" 2>/dev/null || true
           printf 'branch: %s\ncommit: %s\nexam: %s\n' "${GITHUB_REF_NAME}" "${GITHUB_SHA}" "${{ steps.exam.outcome }}" > "$out/OUTCOME.txt"
           printf '{\n  "git": { "deploymentEnabled": false }\n}\n' > "$out/vercel.json"
           cd "$out"
