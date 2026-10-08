@@ -37,7 +37,8 @@ type Finding = {
   problem: string;
   fix: string;
 };
-type Verdict = { findings: Finding[]; overall: string };
+type Check = { result: "pass" | "fail" | "n/a"; why: string };
+type Verdict = { findings: Finding[]; overall: string; finishLine?: Record<string, Check> };
 
 const CATEGORIES = [
   "echo — the user's own words pasted back instead of organized or summarized",
@@ -46,10 +47,23 @@ const CATEGORIES = [
   "wrong-side — speaks to the user as if they were on the other side",
   "contradiction — two places say conflicting things",
   "jargon — internal or system wording (e.g. 'canonical', 'routed as', 'Unified Analysis'), unexplained legal terms, or a citation list with no plain explanation",
-  "advice — applies the law to this user's facts, grades their case, predicts an outcome, or tells them what to choose",
+  "grading — says or suggests the case is strong or weak, predicts an outcome or what a judge will think, or pushes settlement (applying the law to the user's facts and naming their next step is expected, not a problem: CLAUDE.md s. 2, 2026-10-04)",
   "missing — something this user plainly needs on this page and does not get (for example, a served person's time to respond)",
   "repetition — the same content shown more than once",
   "broken — an error, a placeholder, an empty section, or a page that failed",
+];
+
+/** The beta finish line, docs/MASTER_PLAN.md, one check per line (2026-10-08). */
+export const FINISH_LINE: [string, string][] = [
+  ["nextForm", "The next-step card names the correct next form for this person's situation."],
+  ["deadline", "A fixed period with a known date is counted to a date; a date already passed says so."],
+  ["fileFeeService", "Where and how to file, the fee, and how to serve are shown."],
+  ["noRepeat", "No fact the person already gave is asked again, on any page (including after going back or reloading, where the journey shows it)."],
+  ["onTopic", "Nothing for the other side, another court or another kind of case sits above the fold of a page."],
+  ["sourced", "Every legal statement shown carries its source (citation or official link)."],
+  ["noGrading", "Nothing judges the case, predicts an outcome or pushes settlement."],
+  ["limits", "Where the site cannot fully handle the case, it says so and points to help."],
+  ["conversation", "The guided conversation acknowledges what the person said, asks one question at a time, says why a question matters when that is not obvious, and answers their questions in plain words."],
 ];
 
 const SYSTEM_PROMPT = `You are reviewing CourtSimplified, an Ontario legal-information website for people without a lawyer. You are given ONE persona's journey: the true facts about them, and the visible text of each page they saw, in order.
@@ -66,11 +80,14 @@ Category meanings:
 ${CATEGORIES.map((c) => `- ${c}`).join("\n")}
 
 Rules for you:
-- The site gives legal INFORMATION, never advice. Do not suggest fixes that would make it assess the case or tell the user what to do; suggest information-style fixes.
+- The site guides like a lawyer: it SHOULD apply the law to this person's facts, name the court, form, rule, deadline and next step. It must NEVER grade the case or predict the outcome. Never suggest a fix that grades the case.
 - Judge only what is on the pages. Do not invent problems. Text inside site navigation, footers or legal notices is fine unless it is wrong.
 - Showing the user's own words for them to CHECK is fine when it is labelled as their words; it is an 'echo' problem when the page presents pasted text as if it were analysis or a summary.
 
-Return JSON: {"findings": [...], "overall": "<3-5 sentences: how well these pages serve this persona, and the most important improvements>"}`;
+Also score the journey against the beta FINISH LINE (docs/MASTER_PLAN.md). For each check give "pass", "fail" or "n/a" (only when the journey never reaches what the check needs) and a one-sentence reason quoting the page where you can:
+${FINISH_LINE.map(([id, text]) => `- ${id}: ${text}`).join("\n")}
+
+Return JSON: {"findings": [...], "finishLine": {${FINISH_LINE.map(([id]) => `"${id}": {"result": "pass|fail|n/a", "why": "..."}`).join(", ")}}, "overall": "<3-5 sentences: how well these pages serve this persona, and the most important improvements>"}`;
 
 function describeRun(run: Run): string {
   const facts = [
@@ -101,9 +118,16 @@ async function critique(run: Run, apiKey: string): Promise<Verdict> {
     ],
   });
   const parsed = JSON.parse(response.choices[0]?.message?.content ?? "{}") as Partial<Verdict>;
+  const finishLine: Record<string, Check> = {};
+  for (const [id] of FINISH_LINE) {
+    const item = (parsed.finishLine as Record<string, Partial<Check>> | undefined)?.[id];
+    const result = item?.result === "pass" || item?.result === "fail" || item?.result === "n/a" ? item.result : "n/a";
+    finishLine[id] = { result, why: typeof item?.why === "string" ? item.why : "not scored" };
+  }
   return {
     findings: Array.isArray(parsed.findings) ? (parsed.findings as Finding[]) : [],
     overall: typeof parsed.overall === "string" ? parsed.overall : "",
+    finishLine,
   };
 }
 
@@ -168,6 +192,36 @@ async function main(): Promise<void> {
       pages.push(`### ${step.n}. ${step.step}`, "", `\`${step.url}\` · screenshot \`${step.screenshot}\`${step.note ? ` · ${step.note}` : ""}`, "", "```text", step.text, "```", "");
     }
   }
+
+  // The finish line, case by case (docs/MASTER_PLAN.md): every check must pass
+  // for every case. A failed run fails every check it did not reach.
+  const line: string[] = [
+    "# Beta finish line — case by case",
+    "",
+    "From the page walkthrough (20 fabricated cases) and the critic. pass / FAIL / n/a (the journey never reached what the check needs). Checks: docs/MASTER_PLAN.md.",
+    "",
+    `| Case | ${FINISH_LINE.map(([id]) => id).join(" | ")} |`,
+    `|---|${FINISH_LINE.map(() => "---").join("|")}|`,
+  ];
+  const totals: Record<string, { pass: number; fail: number }> = Object.fromEntries(FINISH_LINE.map(([id]) => [id, { pass: 0, fail: 0 }]));
+  for (const run of runs) {
+    const scored = verdicts[run.persona.id].finishLine ?? {};
+    const cells = FINISH_LINE.map(([id]) => {
+      const result = run.failure ? "fail" : (scored[id]?.result ?? "n/a");
+      if (result === "pass") totals[id].pass += 1;
+      if (result === "fail") totals[id].fail += 1;
+      return result === "fail" ? "**FAIL**" : result;
+    });
+    line.push(`| ${run.persona.id} | ${cells.join(" | ")} |`);
+  }
+  line.push(`| **passed / failed** | ${FINISH_LINE.map(([id]) => `${totals[id].pass} / ${totals[id].fail}`).join(" | ")} |`, "", "## Why each check failed", "");
+  for (const run of runs) {
+    const scored = verdicts[run.persona.id].finishLine ?? {};
+    const failed = FINISH_LINE.filter(([id]) => scored[id]?.result === "fail");
+    if (run.failure) line.push(`- **${run.persona.id}**: the run did not finish (${run.failure.slice(0, 160)})`);
+    for (const [id] of failed) line.push(`- **${run.persona.id}** · ${id}: ${scored[id].why}`);
+  }
+  fs.writeFileSync(path.join(OUT, "FINISH_LINE.md"), `${line.join("\n")}\n`);
 
   fs.writeFileSync(path.join(OUT, "REPORT.md"), `${report.join("\n")}\n`);
   fs.writeFileSync(path.join(OUT, "PAGES.md"), `${pages.join("\n")}\n`);
