@@ -123,10 +123,17 @@ live site ran none of it.
   CI run (it runs on PRs into `main`, with the real OpenAI key), fix what fails,
   merge. Do not end a session with work only on a side branch, and do not tell
   the user something is fixed until it is merged and Vercel has deployed it.
-- **Everything goes into `main` right away (site owner, 2026-09-29).** Open the
-  PR and merge it immediately; do not leave it waiting on CI. CI also runs on
-  every push to `main`, so a failure there is fixed straight away in the next
-  PR. No work waits on a side branch, not even for a review.
+- **Everything goes into `main` through auto-merge (site owner, 2026-10-08;
+  replaces "merge immediately, don't wait for CI" of 2026-09-29).** Open the PR
+  and switch on auto-merge straight away (GraphQL `enablePullRequestAutoMerge`,
+  method SQUASH). GitHub merges it by itself the moment `typecheck-and-build`
+  passes — the ruleset "main must pass checks" requires that check on `main`,
+  and nobody but the site owner can bypass it. So nothing waits on a person,
+  and nothing broken reaches `main`. Why it changed: merging before CI finished
+  put two type errors on `main` on 2026-10-08, failed both Vercel builds
+  each time, and emailed the site owner. If the check fails, fix it on the
+  same branch; the PR merges itself once it passes. Wait for the merge before
+  telling the user something is live, and before syncing `case-workspace`.
 - **Never push directly to `main`.** Merge through a PR so the history shows it.
 - **A branch that is not the site must never be built by Vercel.** Anything that
   publishes reports or data to its own branch puts a `vercel.json` with
