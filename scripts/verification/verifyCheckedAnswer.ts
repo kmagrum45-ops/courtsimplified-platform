@@ -259,6 +259,12 @@ async function main() {
   const fakePassage = { id: "p", sourceId: "s", text: "A tenant may terminate a tenancy by giving at least 60 days notice.", pinpoint: "s. 44", heading: "", source: { id: "s", title: "Some Act", url: "", readableUrl: "", tier: "legislation", file: "" } } as unknown as Passage;
   check("a number from the person's own words is allowed", statementRejection("You were served on September 20 and must give 60 days notice.", [{ passage: fakePassage, quote: "giving at least 60 days notice" }], "I was served on September 20") === null);
   check("a number in neither the law nor their words is refused", /number/.test(statementRejection("You must give 90 days notice.", [{ passage: fakePassage, quote: "giving at least 60 days notice" }], "") ?? ""));
+  const spelled = { ...fakePassage, text: "An employer shall pay severance pay if the employee was employed for five years or more and the employer has a payroll of $2.5 million or more." } as Passage;
+  check(
+    "a number the law spells in words may be written in digits",
+    statementRejection("Severance pay is owed after 5 years if the payroll is $2,500,000 or more.", [{ passage: spelled, quote: "if the employee was employed for five years or more" }], "") === null,
+  );
+  check("a digit the law does not spell is still refused", /number/.test(statementRejection("Severance pay is owed after 7 years.", [{ passage: spelled, quote: "if the employee was employed for five years or more" }], "") ?? ""));
   check("grading the case is refused", Boolean(statementRejection("You have a strong case if you give 60 days notice.", [{ passage: fakePassage, quote: "giving at least 60 days notice" }], "")));
 
   console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

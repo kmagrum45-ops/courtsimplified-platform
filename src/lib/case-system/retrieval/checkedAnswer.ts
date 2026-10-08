@@ -95,7 +95,9 @@ Rules:
 - Every statement of law cites the exact Ontario or federal statute or regulation and section, or the court rule, that supports it: "Limitations Act, 2002, s. 4", "Rules of the Small Claims Court, r. 9.01 (1)", "Family Law Act, s. 7 (3)". Give the full name of the Act. A leading court decision may be cited by name and neutral citation.
 - Never say or suggest whether they will win, whether their case is strong or weak, or their chances. Never say what a judge will think.
 - Do not compute calendar dates. State the period and what starts it ("within 20 days after being served").
-- Never invent a section number. If unsure of the number, cite the Act and describe the rule.`;
+- Never invent a section number. If unsure of the number, cite the Act and describe the rule.
+- When the law gives the person more than one route (for example, sue in the Superior Court, or stay in Small Claims and give up the amount over the limit), name each route; never present one route as the only one.
+- Answer every part of the question, including the conditions and how amounts or thresholds are measured.`;
 
 export const CHECK_SYSTEM_PROMPT = `You check statements of Ontario law against the official text. You are given numbered PASSAGES (the official text) and STATEMENTS. Use only the passages; ignore what you otherwise know.
 

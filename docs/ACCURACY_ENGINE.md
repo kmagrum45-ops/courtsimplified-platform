@@ -195,6 +195,13 @@ had proved. Now each check also sees the sections every other statement names, t
 prompt forbids talk about the passages, and code drops any sentence that does it
 (`withoutTalkAboutPassages`).
 
+Third run: 24/36, no time-outs. ESA s. 64 (severance) was "not confirmed" because the
+Act spells its numbers ("five years", "six-month period") and the number check refused
+"5 years". `numbersInWords` (explainProvision.ts) now lets a digit match a number the
+passage spells; a digit the passage does not state is still refused. The draft is also
+told to name every route the law gives (waiving the excess over the Small Claims limit
+was left out).
+
 Why: the first law exam run (2026-10-07) showed the research step finds the
 main rule but returns passages, not an answer, and its caps (2 questions x
 about 5 passages) cannot hold the 6-10 provisions a full answer needs. The
