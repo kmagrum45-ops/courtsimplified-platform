@@ -283,6 +283,7 @@ async function main() {
 
   // ---- 6e. The second look: points it adds are checked like the rest
   const reviewCalls: string[][] = [];
+  const reviewPassages: string[] = [];
   const goodQuote = "may, without any reason, cancel a direct agreement at any time from the date of entering into the agreement until 10 days after the consumer has received the written copy of the agreement";
   const reviewed = await checkedAnswer(
     { question: "Can I cancel the contract I signed at my door?", courtPath: "small-claims" },
@@ -291,8 +292,9 @@ async function main() {
       embed: noSearch,
       thorough: true,
       draft: async () => JSON.stringify({ scope: "ontario", asksForPrediction: false, statements: cpaStatements.slice(0, 1) }),
-      review: async (_input, confirmed) => {
+      review: async (_input, confirmed, passages) => {
         reviewCalls.push(confirmed);
+        reviewPassages.push(...passages.map((passage) => passage.id));
         return JSON.stringify({
           missing: [
             { text: "The cancellation period runs until 10 days after you receive the written copy of the agreement.", cites: ["Consumer Protection Act, 2002, s. 43 (1)"] },
@@ -307,6 +309,12 @@ async function main() {
       },
     },
   );
+  {
+    const cited = reviewed.statements[0]?.sources[0]?.passageId ?? "";
+    const n = Number(cited.slice(cited.lastIndexOf(":") + 1));
+    const base = cited.slice(0, cited.lastIndexOf(":"));
+    check("the second look also reads the sections either side of the one cited", reviewPassages.includes(`${base}:${n - 1}`) || reviewPassages.includes(`${base}:${n + 1}`), JSON.stringify(reviewPassages.slice(0, 6)));
+  }
   check("the second look sees what the answer already says", reviewCalls.length === 1 && reviewCalls[0][0]?.startsWith("You can cancel a direct agreement"));
   check("a point the second look adds is shown once it passes the check", reviewed.statements.some((statement) => /written copy/.test(statement.text)), JSON.stringify(reviewed.statements.map((x) => x.text)));
   check("a point the second look adds that fails the check is not shown", !reviewed.statements.some((statement) => /45 days/.test(statement.text)));

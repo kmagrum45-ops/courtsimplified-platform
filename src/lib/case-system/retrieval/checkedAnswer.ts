@@ -93,8 +93,8 @@ export const STORY_ANSWER_TIME_MS = 120_000;
 /** The second look runs only with at least this much time left. */
 const REVIEW_NEEDS_MS = 40_000;
 /** The most passages the second look reads, and the most points it may add. */
-const REVIEW_PASSAGES = 20;
-const MAX_REVIEW_ADDITIONS = 6;
+const REVIEW_PASSAGES = 32;
+const MAX_REVIEW_ADDITIONS = 8;
 const PASSAGE_CHARS = 1800;
 const STATEMENT_MAX = 600;
 
@@ -513,8 +513,31 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
     // exactly like the first ones before it can be shown.
     if (thorough && deadline - Date.now() > REVIEW_NEEDS_MS) {
       const confirmed = judged.flatMap((item) => ("statement" in item ? [item] : []));
+      // What the second look reads, the way a lawyer reads around a section:
+      // the passages the answer rests on, then the provisions on either side of
+      // each (where the exceptions, the appeal route and the next step usually
+      // are), then what a search with the question itself finds (2026-10-08
+      // exam: most remaining misses were a point in a neighbouring section).
       const lawRead = new Map<string, Passage>();
-      for (const item of confirmed) for (const passage of item.passages) if (lawRead.size < REVIEW_PASSAGES) lawRead.set(passage.id, passage);
+      const addRead = (passage: Passage | null | undefined) => {
+        if (passage && lawRead.size < REVIEW_PASSAGES && !lawRead.has(passage.id) && !excludedForCourt(input.courtPath, passage.sourceId)) lawRead.set(passage.id, passage);
+      };
+      const cited = confirmed.flatMap((item) => item.statement.sources.map((source) => item.passages.find((passage) => passage.id === source.passageId)));
+      for (const passage of cited) addRead(passage);
+      for (const passage of cited) {
+        if (!passage) continue;
+        const at = passage.id.lastIndexOf(":");
+        const n = Number(passage.id.slice(at + 1));
+        if (!Number.isInteger(n)) continue;
+        for (const near of [n - 1, n + 1]) addRead(readPassage(index, `${passage.id.slice(0, at)}:${near}`, 0.5));
+      }
+      try {
+        const [vector] = await embed([input.question.slice(0, 500)], index.meta.model, index.meta.dimensions);
+        const hits = searchIndex(index, [vector], { perQuery: 8, total: 8, excludeSource: (sourceId) => excludedForCourt(input.courtPath, sourceId) });
+        for (const hit of hits) addRead(readPassage(index, hit.id, hit.score));
+      } catch {
+        // The second look still runs on what the answer rests on.
+      }
       const reviewText = await byDeadline(
         (deps.review ?? reviewWithModel)(input, confirmed.map((item) => item.statement.text), [...lawRead.values()]),
         deadline,
