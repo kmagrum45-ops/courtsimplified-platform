@@ -261,9 +261,10 @@ is sent with `prompt_cache_options: {mode: "explicit"}` and no breakpoint, so
 nothing is written to the prompt cache (implicit caching wrote every prompt at
 1.25x the input price and almost none was read back) — openaiClient.ts
 `withoutCacheWrites`. Every AI workflow runs `scripts/ai/spendGuard.mjs` first
-and stops if today's spend (Toronto time) is over $15; it needs the repository
-secret `OPENAI_ADMIN_KEY` (an OpenAI admin key; the Costs API) and fails closed
-without it. The walkthrough, story review, retrieval eval, nightly and coverage
+and shows today's spend (Toronto time), with a warning over $15; it never stops
+a run (site owner, 2026-10-08: work is not to stop mid-way). Reading the spend
+needs the repository secret `OPENAI_ADMIN_KEY` (an OpenAI admin key; the Costs
+API); without it the note says so and the run continues. The walkthrough, story review, retrieval eval, nightly and coverage
 runs skip code they already passed on (run with `force=yes` to override); CI's
 billed suite runs only when the AI code changed since it last passed. The
 walkthrough and nightly runs use low reasoning effort, and the repository
