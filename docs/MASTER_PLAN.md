@@ -84,6 +84,19 @@ defined response: the rule and what it requires without saying whether it is
 met, urgent routes first, choices listed, or a plain "not covered yet" with
 referral routes. Each new claim type gets at least one test case.
 
+## After-beta list
+
+Ideas that are wanted, but wait until the finish line passes. Add to this
+list rather than starting them; the owner moves an item into the plan only
+through the decision log.
+
+- Strategy features: looking at a matter from every angle (own lawyer, judge,
+  the other side), behind their own switch, never saying how strong a case is
+  (owner, 2026-10-08).
+- A communication log, and a shared space where the two sides can negotiate
+  on the site instead of by email.
+- Polish that does not change what the person does next.
+
 ## Decision log
 
 | Date | Decision | Why |
@@ -91,3 +104,4 @@ referral routes. Each new claim type gets at least one test case.
 | 2026-10-06 | Plan adopted | One plan and one fixed finish line, so "done" is measured, not re-argued |
 | 2026-10-06 | Added the conversation check to the finish line; owner approved the plan and handed the build to Claude | Correct answers are not enough; the person must also be guided well in conversation |
 | 2026-10-07 | Owner direction: the site answers people's questions and stories in plain words, checking every statement against the official text before showing it (checked answers); and the library grows to hundreds of case types with a sourced answer for every stage. Added to the work alongside Phases 3-5; the finish line's test cases now also include the law exam (`scripts/eval/lawExam/`). | The first law exam run showed the site finds the main rule but shows only about half of what a full answer needs, and gives passages instead of an answer. The owner wants accurate answers, not lists of passages |
+| 2026-10-08 | Owner direction: (1) no new feature directions until the finish line passes; a new idea goes on the after-beta list, and work already under way in a chat is finished, not dropped. (2) Phases 3-5 are worked in one main chat at a time; any other chat at the same time takes a separate job that does not touch the same files, and checks the open pull requests before starting. (3) Pull requests merge through auto-merge once CI passes (CLAUDE.md 5a). | Since the plan was adopted, most work went to directions added after it, and Phases 3-5 had not started, so the finish line kept moving. Several chats on the same code duplicated work and, on 2026-10-08, put two broken builds on main. |
