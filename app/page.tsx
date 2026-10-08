@@ -40,7 +40,7 @@ const workflowSteps = [
   },
   {
     title: "Build your case workspace",
-    text: "Keep forms, evidence, drafting, timelines, and strategy connected to one organized case file.",
+    text: "Keep forms, evidence, drafting, and timelines connected to one organized case file.",
   },
   {
     title: "Prepare organized case materials",
@@ -98,6 +98,27 @@ export default function HomePage() {
           ))}
 
           <NotSureCourtGuide />
+        </div>
+      </section>
+
+      {/* ANSWERS CHECKED AGAINST THE LAW (2026-10-08) -- the method, stated once, linked in full */}
+      <section className="border-t border-[#d9e6df] bg-[#f3f8f5]">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+          <h2 className="text-3xl font-bold tracking-tight text-[#10231f]">
+            Answers checked against the official law
+          </h2>
+          <p className="mt-4 max-w-4xl text-base leading-8 text-[#557168]">
+            Ask a question or tell your story, and the site answers in plain words, applying the law to your facts:
+            which court, which form, which deadline, and what comes next. Every statement is checked word for word
+            against the official text of the law before you see it, and shown with the words that support it. Anything
+            the site cannot confirm, it does not state. It never tells you whether you will win.
+          </p>
+          <Link
+            href="/how-answers-are-checked"
+            className="mt-5 inline-flex text-sm font-semibold text-[#2f7d67] underline underline-offset-4 hover:text-[#10231f]"
+          >
+            How answers are checked →
+          </Link>
         </div>
       </section>
 
