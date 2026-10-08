@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { checkedAnswer, checkedAnswerView } from "@/src/lib/case-system/retrieval/checkedAnswer";
+import { ANSWER_TIME_MS, checkedAnswer, checkedAnswerView } from "@/src/lib/case-system/retrieval/checkedAnswer";
 import { findingsView } from "@/src/lib/case-system/retrieval/findingsView";
 import { researchQuestion } from "@/src/lib/case-system/retrieval/researchQuestion";
 import { fileSourceRequests } from "@/src/lib/case-system/retrieval/sourceRequests";
@@ -19,7 +19,9 @@ import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
  */
 
 export const runtime = "nodejs";
-export const maxDuration = 60;
+// 300 s, Vercel's limit with Fluid compute: a thorough checked answer takes up to
+// ANSWER_TIME_MS, and the research fallback gets what is left (2026-10-07).
+export const maxDuration = 300;
 
 const MAX_QUESTION = 1_000;
 const MAX_STORY = 8_000;
@@ -93,7 +95,7 @@ export function createAssistantLawPost(overrides: Partial<Dependencies> = {}) {
     };
     const started = Date.now();
     if (deps.answerEnabled()) {
-      const answer = await deps.answer(input, { timeoutMs: 35_000 }).catch(() => null);
+      const answer = await deps.answer(input, { timeoutMs: ANSWER_TIME_MS }).catch(() => null);
       if (answer?.missingLaw.length) await deps.fileRequests(answer.missingLaw, { courtPath: body.courtPath });
       if (answer && (answer.status === "answered" || answer.status === "outside-scope" || answer.declinedToJudge)) {
         return NextResponse.json({ ok: true, findings: [], answer: checkedAnswerView(answer) });
@@ -102,7 +104,7 @@ export function createAssistantLawPost(overrides: Partial<Dependencies> = {}) {
 
     // Whatever time the answer used comes off the research step's, so the
     // reply stays inside maxDuration.
-    const result = await deps.research(input, { timeoutMs: Math.max(10_000, 55_000 - (Date.now() - started)) });
+    const result = await deps.research(input, { timeoutMs: Math.max(20_000, 270_000 - (Date.now() - started)) });
     if (result.sourceRequests.length > 0) {
       await deps.fileRequests(result.sourceRequests, { courtPath: body.courtPath });
     }

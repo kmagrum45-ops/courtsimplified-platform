@@ -1361,7 +1361,7 @@ function CourtAssistantChatInner({
             </div>
             {message.role === "assistant" && law[index - 1]?.state === "loading" ? (
               <p data-testid="assistant-law-loading" className="mt-3 text-xs text-[#4d675f]">
-                Looking up the law on your question…
+                Looking up the law on your question and checking every statement against the official text. This can take up to two minutes.
               </p>
             ) : null}
             {message.role === "assistant" && law[index - 1]?.state === "done"

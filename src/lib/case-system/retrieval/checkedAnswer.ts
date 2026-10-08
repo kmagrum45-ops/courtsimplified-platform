@@ -80,6 +80,21 @@ const SHARED_PASSAGES = 6;
 const SEARCH_ON_RETRY = 12;
 /** A second check is tried only with at least this much time left. */
 const RETRY_NEEDS_MS = 15_000;
+/** Time budgets from which the answer is thorough (fuller draft, second look). */
+export const THOROUGH_FROM_MS = 90_000;
+/**
+ * How long a person's question may take to answer, thoroughly (site owner,
+ * 2026-10-07: "if it needs to take time to be accurate, then do it"). Inside
+ * Vercel's 300-second function limit with room for the fallback research.
+ */
+export const ANSWER_TIME_MS = 150_000;
+/** The same for the story answer on the case page, which runs beside the analysis. */
+export const STORY_ANSWER_TIME_MS = 120_000;
+/** The second look runs only with at least this much time left. */
+const REVIEW_NEEDS_MS = 40_000;
+/** The most passages the second look reads, and the most points it may add. */
+const REVIEW_PASSAGES = 20;
+const MAX_REVIEW_ADDITIONS = 6;
 const PASSAGE_CHARS = 1800;
 const STATEMENT_MAX = 600;
 
@@ -235,7 +250,11 @@ export function withoutTalkAboutPassages(text: string): string {
 
 export type CheckedAnswerDeps = {
   index?: LoadedIndex | null;
-  draft?: (input: CheckedAnswerInput) => Promise<string>;
+  draft?: (input: CheckedAnswerInput, effort?: string) => Promise<string>;
+  /** The second look: names what a complete answer still needs, as statements with cites. */
+  review?: (input: CheckedAnswerInput, confirmed: string[], passages: Passage[]) => Promise<string>;
+  /** Fuller draft and a second look. Default: on when timeoutMs is at least THOROUGH_FROM_MS. */
+  thorough?: boolean;
   check?: (statements: string[], passages: Passage[], input: CheckedAnswerInput, hint?: string) => Promise<string>;
   embed?: (texts: string[], model: string, dimensions: number) => Promise<number[][]>;
   timeoutMs?: number;
@@ -319,12 +338,15 @@ function sourceOf(passage: Passage, quote: string): AnswerSource {
 // ---------------------------------------------------------------- the pipeline
 
 export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnswerDeps = {}): Promise<CheckedAnswer> {
-  const deadline = Date.now() + (deps.timeoutMs ?? 50_000);
+  const timeoutMs = deps.timeoutMs ?? 50_000;
+  const deadline = Date.now() + timeoutMs;
+  // Thorough when there is time for it: a fuller first draft and a second look.
+  const thorough = deps.thorough ?? timeoutMs >= THOROUGH_FROM_MS;
   const work = (async (): Promise<CheckedAnswer> => {
     const index = deps.index === undefined ? loadCorpusIndex() : deps.index;
     if (!index || !input.question.trim()) return UNAVAILABLE;
 
-    const draftText = await byDeadline((deps.draft ?? draftWithModel)(input), deadline, null);
+    const draftText = await byDeadline((deps.draft ?? draftWithModel)(input, thorough ? "medium" : undefined), deadline, null);
     const draft = draftText === null ? null : parseDraft(draftText);
     if (!draft) return UNAVAILABLE;
     if (draft.scope === "outside") {
@@ -332,50 +354,84 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
     }
     if (draft.statements.length === 0) return { ...UNAVAILABLE, declinedToJudge: draft.asksForPrediction };
 
-    const gathered = await byDeadline(gatherPassages(index, input, draft, deps.embed ?? (await defaultEmbed())), deadline, null);
-    if (!gathered) return UNAVAILABLE;
-    const { passagesFor, missingLaw } = gathered;
-    const texts = draft.statements.map((statement) => statement.text);
+    const embed = deps.embed ?? (await defaultEmbed());
     const checkOne = deps.check ?? checkWithModel;
     const personsWords = personsWordsOf(input);
+    type Judged = { statement: AnswerStatement; topic: string; passages: Passage[] } | { why: string; topic: string };
 
-    type Judged = { statement: AnswerStatement; topic: string } | { why: string; topic: string };
-    const judge = async (i: number, searchCount: number, hint?: string): Promise<Judged> => {
-      const text = texts[i];
-      const fallbackTopic = text.split(/[.;:]/)[0].slice(0, 80);
-      const passages = passagesFor(i, searchCount);
-      if (!passages.length) return { why: "no passage found", topic: fallbackTopic };
-      const reply = await byDeadline(checkOne([text], passages, input, hint), deadline, "");
-      if (!reply) return { why: "the check did not finish", topic: fallbackTopic };
-      const result = parseCheck(reply)?.find((item) => item.n === 1) ?? null;
-      const topic = result?.topic || fallbackTopic;
-      if (!result) return { why: "the check gave no result", topic };
-      if (result.verdict === "unsupported") return { why: "the checker found no passage that supports it", topic };
-      const byId = new Map(passages.map((passage) => [passage.id, passage]));
-      const shown = withoutTalkAboutPassages(result.verdict === "corrected" ? (result.corrected ?? "") : text);
-      const support = [
-        { passage: byId.get(result.passage), quote: result.quote },
-        ...(result.passage2 && result.quote2 ? [{ passage: byId.get(result.passage2), quote: result.quote2 }] : []),
-      ].filter((entry): entry is { passage: Passage; quote: string } => Boolean(entry.passage));
-      const why = shown ? statementRejection(shown, support, personsWords) : "no corrected statement";
-      if (why) return { why: `${why} (quoted: "${result.quote.slice(0, 120)}")`, topic };
-      return { statement: { text: shown, sources: support.map(({ passage, quote }) => sourceOf(passage, quote)) }, topic };
+    /** Checks a set of drafted statements, each on its own, side by side. */
+    const checkAll = async (drafted: Draft): Promise<{ judged: Judged[]; missingLaw: string[] } | null> => {
+      const gathered = await byDeadline(gatherPassages(index, input, drafted, embed), deadline, null);
+      if (!gathered) return null;
+      const { passagesFor } = gathered;
+      const texts = drafted.statements.map((statement) => statement.text);
+      const judge = async (i: number, searchCount: number, hint?: string): Promise<Judged> => {
+        const text = texts[i];
+        const fallbackTopic = text.split(/[.;:]/)[0].slice(0, 80);
+        const passages = passagesFor(i, searchCount);
+        if (!passages.length) return { why: "no passage found", topic: fallbackTopic };
+        const reply = await byDeadline(checkOne([text], passages, input, hint), deadline, "");
+        if (!reply) return { why: "the check did not finish", topic: fallbackTopic };
+        const result = parseCheck(reply)?.find((item) => item.n === 1) ?? null;
+        const topic = result?.topic || fallbackTopic;
+        if (!result) return { why: "the check gave no result", topic };
+        if (result.verdict === "unsupported") return { why: "the checker found no passage that supports it", topic };
+        const byId = new Map(passages.map((passage) => [passage.id, passage]));
+        const shown = withoutTalkAboutPassages(result.verdict === "corrected" ? (result.corrected ?? "") : text);
+        const support = [
+          { passage: byId.get(result.passage), quote: result.quote },
+          ...(result.passage2 && result.quote2 ? [{ passage: byId.get(result.passage2), quote: result.quote2 }] : []),
+        ].filter((entry): entry is { passage: Passage; quote: string } => Boolean(entry.passage));
+        const why = shown ? statementRejection(shown, support, personsWords) : "no corrected statement";
+        if (why) return { why: `${why} (quoted: "${result.quote.slice(0, 120)}")`, topic };
+        return { statement: { text: shown, sources: support.map(({ passage, quote }) => sourceOf(passage, quote)) }, topic, passages };
+      };
+      // A statement that fails is checked once more, against a wider search
+      // and told why it failed, if time allows (2026-10-07 exam: most lost
+      // points were true statements the first check could not confirm).
+      const judged = await Promise.all(
+        texts.map(async (_text, i) => {
+          const first = await judge(i, SEARCH_PER_STATEMENT);
+          if ("statement" in first || deadline - Date.now() < RETRY_NEEDS_MS) return first;
+          const hint = `An earlier check of this statement failed: ${first.why}. Look again across all the passages. Copy the supporting words exactly, character for character. If only part of the statement is supported, give the supported part as the corrected statement.`;
+          const second = await judge(i, SEARCH_ON_RETRY, hint);
+          return "statement" in second ? second : { ...second, why: `${first.why}; then ${second.why}` };
+        }),
+      );
+      return { judged, missingLaw: gathered.missingLaw };
     };
 
-    // One check per statement, side by side. A statement that fails is checked
-    // once more, against a wider search and told why it failed, if time allows
-    // (2026-10-07 exam: most lost points were true statements the first check
-    // could not confirm). A statement still unchecked at the time limit is
-    // listed as not confirmed; the rest are shown.
-    const judged = await Promise.all(
-      texts.map(async (_text, i) => {
-        const first = await judge(i, SEARCH_PER_STATEMENT);
-        if ("statement" in first || deadline - Date.now() < RETRY_NEEDS_MS) return first;
-        const hint = `An earlier check of this statement failed: ${first.why}. Look again across all the passages. Copy the supporting words exactly, character for character. If only part of the statement is supported, give the supported part as the corrected statement.`;
-        const second = await judge(i, SEARCH_ON_RETRY, hint);
-        return "statement" in second ? second : { ...second, why: `${first.why}; then ${second.why}` };
-      }),
-    );
+    const firstRound = await checkAll(draft);
+    if (!firstRound) return UNAVAILABLE;
+    const judged = [...firstRound.judged];
+    const missingLaw = [...firstRound.missingLaw];
+
+    // THE SECOND LOOK (2026-10-07, site owner: "if it needs to take time to be
+    // accurate, then do it"). Most exam points lost were answers that were
+    // right but left something out. With time left, a separate review reads
+    // the question, the confirmed statements and the law they rest on, and
+    // names what a complete answer still needs; each point it adds is checked
+    // exactly like the first ones before it can be shown.
+    if (thorough && deadline - Date.now() > REVIEW_NEEDS_MS) {
+      const confirmed = judged.flatMap((item) => ("statement" in item ? [item] : []));
+      const lawRead = new Map<string, Passage>();
+      for (const item of confirmed) for (const passage of item.passages) if (lawRead.size < REVIEW_PASSAGES) lawRead.set(passage.id, passage);
+      const reviewText = await byDeadline(
+        (deps.review ?? reviewWithModel)(input, confirmed.map((item) => item.statement.text), [...lawRead.values()]),
+        deadline,
+        null,
+      );
+      const additions = reviewText === null ? null : parseDraft(reviewText.replace(/"missing"\s*:/, '"statements":'));
+      const already = new Set(judged.map((item) => ("statement" in item ? item.statement.text : item.topic).toLowerCase()));
+      const fresh = (additions?.statements ?? []).filter((statement) => !already.has(statement.text.toLowerCase())).slice(0, MAX_REVIEW_ADDITIONS);
+      if (fresh.length) {
+        const secondRound = await checkAll({ ...draft, statements: fresh });
+        if (secondRound) {
+          judged.push(...secondRound.judged);
+          missingLaw.push(...secondRound.missingLaw);
+        }
+      }
+    }
 
     const statements: AnswerStatement[] = [];
     const notConfirmed: string[] = [];
@@ -395,7 +451,7 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
       statements,
       notConfirmed: [...new Set(notConfirmed)],
       declinedToJudge: draft.asksForPrediction,
-      missingLaw,
+      missingLaw: [...new Set(missingLaw)],
       notConfirmedWhy,
     };
   })().catch(() => UNAVAILABLE);
@@ -465,8 +521,27 @@ async function chatJson(system: string, user: string, effort: string): Promise<s
   });
 }
 
-export async function draftWithModel(input: CheckedAnswerInput): Promise<string> {
-  return chatJson(DRAFT_SYSTEM_PROMPT, draftUserPrompt(input), process.env.AI_EFFORT_ANSWER || "low");
+export async function draftWithModel(input: CheckedAnswerInput, effort?: string): Promise<string> {
+  return chatJson(DRAFT_SYSTEM_PROMPT, draftUserPrompt(input), effort || process.env.AI_EFFORT_ANSWER || "low");
+}
+
+export const REVIEW_SYSTEM_PROMPT = `You are a senior Ontario lawyer reviewing a junior's answer before it goes to a client who is representing themselves. You are given the client's QUESTION and situation, the STATEMENTS already in the answer (each already checked against the law), and PASSAGES of the law those statements rest on.
+
+Name what a complete answer to this question still needs, the way a careful lawyer would before court: the basic rule a section starts from, its conditions and exceptions, every route the law gives the client, how amounts are calculated or capped, deadlines and what starts them, who must prove what, and the form or step and where it is filed. Only what the question calls for; never repeat a point already made.
+
+Return JSON: {"missing": [{"text": "<one or two plain sentences>", "cites": ["<full Act or rule name and section>"]}]}, at most ${MAX_REVIEW_ADDITIONS}, most important first, or {"missing": []} if nothing essential is missing.
+- Every point cites the exact statute, regulation or rule section. Never invent a section number.
+- Never say or suggest whether the client will win, how strong the case is, or what a judge will think.
+- Do not compute calendar dates; state the period and what starts it.`;
+
+export async function reviewWithModel(input: CheckedAnswerInput, confirmed: string[], passages: Passage[]): Promise<string> {
+  const user = [
+    `QUESTION: ${input.question.slice(0, 1000)}`,
+    `SITUATION (facts, not law):\n${`${input.story ?? ""}\n${input.facts ?? ""}`.trim().slice(0, 3000) || "(not given)"}`,
+    `STATEMENTS ALREADY IN THE ANSWER:\n${confirmed.map((text, i) => `${i + 1}. ${text}`).join("\n") || "(none)"}`,
+    `PASSAGES:\n${passages.map((passage) => `${passageItem(passage).citation || passageItem(passage).label}\n${passage.text.slice(0, PASSAGE_CHARS)}`).join("\n\n")}`,
+  ].join("\n\n");
+  return chatJson(REVIEW_SYSTEM_PROMPT, user, process.env.AI_EFFORT_ANSWER_REVIEW || "medium");
 }
 
 export async function checkWithModel(statements: string[], passages: Passage[], input: CheckedAnswerInput, hint?: string): Promise<string> {

@@ -48,7 +48,7 @@ import { CLAIM_TYPES } from "../intake/claimTypes";
 import { isNoQuestionNeeded, questionsForElement } from "../intake/depth/elementQuestionRegistry";
 import { fillSlots } from "../intake/depth/slots";
 import { aiAnalysisTextToUsers, appliedLawEnabled, checkedAnswersEnabled, plainExplanationsEnabled, researchStepEnabled } from "../../content-library/phaseScope";
-import { checkedAnswer, checkedAnswerView, STORY_QUESTION, type CheckedAnswer } from "../retrieval/checkedAnswer";
+import { checkedAnswer, checkedAnswerView, STORY_ANSWER_TIME_MS, STORY_QUESTION, type CheckedAnswer } from "../retrieval/checkedAnswer";
 import {
   buildSourcePack,
   sourcePackForPrompt,
@@ -2571,7 +2571,7 @@ export async function runCourtSimplifiedBrain(
           story: input.rawUserText,
           courtPath: retrievalCourt,
           side: retrievalInput.side,
-        }, { timeoutMs: 45_000 }).catch(() => null);
+        }, { timeoutMs: STORY_ANSWER_TIME_MS }).catch(() => null);
 
   const normalizedIntake = await normalizeIntake(input);
 

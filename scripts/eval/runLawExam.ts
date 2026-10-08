@@ -40,7 +40,7 @@ import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 import { quoteAppearsIn } from "../../src/lib/case-system/intelligence/quoteMatch";
-import { checkedAnswer, type CheckedAnswer } from "../../src/lib/case-system/retrieval/checkedAnswer";
+import { ANSWER_TIME_MS, checkedAnswer, type CheckedAnswer } from "../../src/lib/case-system/retrieval/checkedAnswer";
 import { loadCorpusIndex, readPassage } from "../../src/lib/case-system/retrieval/corpusIndex";
 import { findingsView } from "../../src/lib/case-system/retrieval/findingsView";
 import { researchQuestion } from "../../src/lib/case-system/retrieval/researchQuestion";
@@ -152,7 +152,8 @@ async function runQuestion(question: ExamQuestion, mode: "answer" | "research", 
   let unavailable = false;
 
   if (mode === "answer") {
-    const answer: CheckedAnswer = await checkedAnswer(input);
+    // The same time budget a person's question gets on the site.
+    const answer: CheckedAnswer = await checkedAnswer(input, { timeoutMs: ANSWER_TIME_MS });
     siteSaid = answer.statements.map((statement) => ({
       text: statement.text,
       cites: statement.sources.map((source) => ({ passageId: source.passageId, citation: source.citation })),

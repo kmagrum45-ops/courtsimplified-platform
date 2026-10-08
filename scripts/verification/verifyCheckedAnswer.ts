@@ -278,6 +278,51 @@ async function main() {
   check("why a topic was not confirmed is recorded for the exam", (failedTwice.notConfirmedWhy ?? []).some((item) => item.topic === "time to give notice" && /no passage that supports it/.test(item.why)));
   check("and never reaches the screens", !("notConfirmedWhy" in checkedAnswerView(failedTwice)));
 
+  // ---- 6e. The second look: points it adds are checked like the rest
+  const reviewCalls: string[][] = [];
+  const goodQuote = "may, without any reason, cancel a direct agreement at any time from the date of entering into the agreement until 10 days after the consumer has received the written copy of the agreement";
+  const reviewed = await checkedAnswer(
+    { question: "Can I cancel the contract I signed at my door?", courtPath: "small-claims" },
+    {
+      index,
+      embed: noSearch,
+      thorough: true,
+      draft: async () => JSON.stringify({ scope: "ontario", asksForPrediction: false, statements: cpaStatements.slice(0, 1) }),
+      review: async (_input, confirmed) => {
+        reviewCalls.push(confirmed);
+        return JSON.stringify({
+          missing: [
+            { text: "The cancellation period runs until 10 days after you receive the written copy of the agreement.", cites: ["Consumer Protection Act, 2002, s. 43 (1)"] },
+            { text: "You have 45 days to cancel any agreement.", cites: ["Consumer Protection Act, 2002, s. 43 (1)"] },
+          ],
+        });
+      },
+      check: async (statements, passages) => {
+        const cpaPassage = passageFor(passages, "consumer-protection-act-2002");
+        const bad = /45 days/.test(statements[0]);
+        return JSON.stringify({ results: [{ n: 1, verdict: "supported", passage: cpaPassage?.id, quote: bad ? "cancel any agreement within 45 days" : goodQuote, topic: bad ? "45 days" : "cancelling" }] });
+      },
+    },
+  );
+  check("the second look sees what the answer already says", reviewCalls.length === 1 && reviewCalls[0][0]?.startsWith("You can cancel a direct agreement"));
+  check("a point the second look adds is shown once it passes the check", reviewed.statements.some((statement) => /written copy/.test(statement.text)), JSON.stringify(reviewed.statements.map((x) => x.text)));
+  check("a point the second look adds that fails the check is not shown", !reviewed.statements.some((statement) => /45 days/.test(statement.text)));
+  let reviewedQuick = false;
+  await checkedAnswer(
+    { question: "Can I cancel?", courtPath: "small-claims" },
+    {
+      index,
+      embed: noSearch,
+      draft: async () => JSON.stringify({ scope: "ontario", asksForPrediction: false, statements: cpaStatements.slice(0, 1) }),
+      review: async () => {
+        reviewedQuick = true;
+        return "{}";
+      },
+      check: async (_s, passages) => JSON.stringify({ results: [{ n: 1, verdict: "supported", passage: passageFor(passages, "consumer-protection-act-2002")?.id, quote: goodQuote, topic: "x" }] }),
+    },
+  );
+  check("a quick answer (under the thorough time budget) skips the second look", !reviewedQuick);
+
   // ---- 6d. Talk about the passages is dropped, the law kept
   check(
     "a sentence about the passages is dropped and the rest kept",
