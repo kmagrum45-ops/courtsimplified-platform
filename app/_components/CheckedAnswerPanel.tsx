@@ -61,6 +61,11 @@ export default function CheckedAnswerPanel({ answer }: { answer: CheckedAnswerVi
           We could not confirm these against the official text yet, so we have not answered them: {answer.notConfirmed.join("; ")}.
         </p>
       ) : null}
+      {answer.statements.length ? (
+        <a href="/how-answers-are-checked" target="_blank" rel="noreferrer" className="mt-3 inline-block text-xs font-semibold text-[#2f7d67] underline">
+          How this answer was checked
+        </a>
+      ) : null}
     </div>
   );
 }

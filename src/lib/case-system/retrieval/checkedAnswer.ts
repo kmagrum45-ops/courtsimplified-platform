@@ -142,7 +142,7 @@ Return JSON: {"results": [ ... ]}`;
 
 // ---------------------------------------------------------------- parsing (pure)
 
-type Draft = { scope: "ontario" | "outside"; asksForPrediction: boolean; statements: { text: string; cites: string[] }[] };
+export type Draft = { scope: "ontario" | "outside"; asksForPrediction: boolean; statements: { text: string; cites: string[] }[] };
 
 const str = (value: unknown, max: number) => (typeof value === "string" ? value.replace(/\s+/g, " ").trim().slice(0, max) : "");
 
@@ -285,6 +285,41 @@ export function withoutTalkAboutPassages(text: string): string {
   return sentences.filter((sentence) => !PASSAGE_TALK.test(sentence)).join(" ").trim();
 }
 
+/** Share of words two statements have in common (Jaccard on words of 3+ letters). Pure. */
+export function overlap(a: string, b: string): number {
+  const words = (text: string) => new Set(text.toLowerCase().match(/[a-z0-9]{3,}/g) ?? []);
+  const x = words(a);
+  const y = words(b);
+  if (!x.size || !y.size) return 0;
+  let shared = 0;
+  for (const word of x) if (y.has(word)) shared += 1;
+  return shared / (x.size + y.size - shared);
+}
+/** Two statements this alike make the same point. */
+const SAME_POINT = 0.6;
+/** An unconfirmed point this alike to a confirmed one is already covered. */
+const COVERED = 0.5;
+/** The most statements checked from two merged drafts. */
+const MAX_MERGED_STATEMENTS = 16;
+
+/**
+ * Two independent drafts, merged: the first draft's statements, then the
+ * second's that make a point the first did not. Outside scope only if every
+ * draft says so; a prediction request if either sees one. Pure.
+ */
+export function mergeDrafts(drafts: Draft[]): Draft | null {
+  if (!drafts.length) return null;
+  const inScope = drafts.filter((item) => item.scope !== "outside");
+  if (!inScope.length) return drafts[0];
+  const statements: Draft["statements"] = [];
+  for (const item of inScope) {
+    for (const statement of item.statements) {
+      if (!statements.some((existing) => overlap(existing.text, statement.text) >= SAME_POINT)) statements.push(statement);
+    }
+  }
+  return { scope: "ontario", asksForPrediction: drafts.some((item) => item.asksForPrediction), statements: statements.slice(0, MAX_MERGED_STATEMENTS) };
+}
+
 /** The second look's doubts: statement numbers (1-based) and why, within range. Pure. */
 export function parseDoubts(raw: string, count: number): { n: number; why: string }[] {
   try {
@@ -400,8 +435,16 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
     const index = deps.index === undefined ? loadCorpusIndex() : deps.index;
     if (!index || !input.question.trim()) return UNAVAILABLE;
 
-    const draftText = await byDeadline((deps.draft ?? draftWithModel)(input, thorough ? "medium" : undefined), deadline, null);
-    const draft = draftText === null ? null : parseDraft(draftText);
+    // CONSISTENCY (2026-10-08 exam: the same question came back complete on one
+    // run and missing a point on the next). When thorough, two drafts are
+    // written independently, side by side, and merged; every statement in
+    // either is checked, so a point one draft misses the other can supply.
+    const drafting = (deps.draft ?? draftWithModel);
+    const draftTexts = await Promise.all(
+      (thorough ? [0, 1] : [0]).map(() => byDeadline(drafting(input, thorough ? "medium" : undefined), deadline, null)),
+    );
+    const drafts = draftTexts.map((text) => (text === null ? null : parseDraft(text))).filter((item): item is Draft => Boolean(item));
+    const draft = mergeDrafts(drafts);
     if (!draft) return UNAVAILABLE;
     if (draft.scope === "outside") {
       return { status: "outside-scope", statements: [], notConfirmed: [], declinedToJudge: false, missingLaw: [] };
@@ -411,7 +454,7 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
     const embed = deps.embed ?? (await defaultEmbed());
     const checkOne = deps.check ?? checkWithModel;
     const personsWords = personsWordsOf(input);
-    type Judged = { statement: AnswerStatement; topic: string; passages: Passage[] } | { why: string; topic: string };
+    type Judged = { statement: AnswerStatement; topic: string; passages: Passage[] } | { why: string; topic: string; text?: string };
 
     /** Checks a set of drafted statements, each on its own, side by side. */
     const checkAll = async (drafted: Draft, hints: (string | undefined)[] = []): Promise<{ judged: Judged[]; missingLaw: string[] } | null> => {
@@ -423,13 +466,14 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
         const text = texts[i];
         const fallbackTopic = text.split(/[.;:]/)[0].slice(0, 80);
         const passages = passagesFor(i, searchCount);
-        if (!passages.length) return { why: "no passage found", topic: fallbackTopic };
+        const failed = (why: string, topic = fallbackTopic): Judged => ({ why, topic, text });
+        if (!passages.length) return failed("no passage found");
         const reply = await byDeadline(checkOne([text], passages, input, hint), deadline, "");
-        if (!reply) return { why: "the check did not finish", topic: fallbackTopic };
+        if (!reply) return failed("the check did not finish");
         const result = parseCheck(reply)?.find((item) => item.n === 1) ?? null;
         const topic = result?.topic || fallbackTopic;
-        if (!result) return { why: "the check gave no result", topic };
-        if (result.verdict === "unsupported") return { why: "the checker found no passage that supports it", topic };
+        if (!result) return failed("the check gave no result", topic);
+        if (result.verdict === "unsupported") return failed("the checker found no passage that supports it", topic);
         const byId = new Map(passages.map((passage) => [passage.id, passage]));
         const shown = withoutTalkAboutPassages(result.verdict === "corrected" ? (result.corrected ?? "") : text);
         const support = [
@@ -437,7 +481,7 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
           ...(result.passage2 && result.quote2 ? [{ passage: byId.get(result.passage2), quote: result.quote2 }] : []),
         ].filter((entry): entry is { passage: Passage; quote: string } => Boolean(entry.passage));
         const why = shown ? statementRejection(shown, support, personsWords) : "no corrected statement";
-        if (why) return { why: `${why} (quoted: "${result.quote.slice(0, 120)}")`, topic };
+        if (why) return failed(`${why} (quoted: "${result.quote.slice(0, 120)}")`, topic);
         return { statement: { text: shown, sources: support.map(({ passage, quote }) => sourceOf(passage, quote)) }, topic, passages };
       };
       // A statement that fails is checked once more, against a wider search
@@ -508,11 +552,19 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
     const notConfirmedWhy: { topic: string; why: string }[] = [];
     for (const item of judged) {
       if ("statement" in item) statements.push(item.statement);
-      else {
-        notConfirmed.push(item.topic);
-        notConfirmedWhy.push({ topic: item.topic, why: item.why });
-      }
     }
+    // Two drafts can confirm the same point twice: keep the fuller one.
+    const kept = statements.filter((statement, i) =>
+      !statements.some((other, j) => j !== i && overlap(statement.text, other.text) >= SAME_POINT && (other.text.length > statement.text.length || (other.text.length === statement.text.length && j < i))),
+    );
+    for (const item of judged) {
+      if ("statement" in item) continue;
+      // A point confirmed in other words is not listed as unconfirmed.
+      if (item.text && kept.some((statement) => overlap(statement.text, item.text!) >= COVERED)) continue;
+      notConfirmed.push(item.topic);
+      notConfirmedWhy.push({ topic: item.topic, why: item.why });
+    }
+    statements.splice(0, statements.length, ...kept);
 
     // A statement with no legal content would not need a source; one with
     // legal content always has one by now. Both are fine; nothing else is shown.
