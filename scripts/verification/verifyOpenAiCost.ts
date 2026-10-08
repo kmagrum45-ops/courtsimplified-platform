@@ -82,7 +82,8 @@ async function main() {
     "CI's billed suite runs only after the spend check and only on AI code it has not passed on",
     /steps\.spend\.outcome == 'success'/.test(billed.split("\n")[1] ?? "") && /safety-passed\.outputs\.cache-hit != 'true'/.test(billed.split("\n")[1] ?? ""),
   );
-  const noKey = spawnSync(process.execPath, [path.join(ROOT, "scripts/ai/spendGuard.mjs")], { env: { PATH: process.env.PATH ?? "" }, encoding: "utf8" });
+  // Cast: Next.js types require NODE_ENV on every env object; this run deliberately passes PATH only (no keys).
+  const noKey = spawnSync(process.execPath, [path.join(ROOT, "scripts/ai/spendGuard.mjs")], { env: { PATH: process.env.PATH ?? "" } as unknown as NodeJS.ProcessEnv, encoding: "utf8" });
   check("with no admin key the note says so and the run continues (never stops work)", noKey.status === 0 && /OPENAI_ADMIN_KEY/.test(noKey.stdout));
   const guard = await import("../../scripts/ai/spendGuard.mjs");
   check("today's costs are summed", guard.sumCosts({ data: [{ results: [{ amount: { value: 3.5 } }, { amount: { value: 1.25 } }] }] }) === 4.75);
