@@ -188,6 +188,13 @@ statement and up to 36 passages to one check call, and in the 2026-10-07 exam
 run 5 of 18 questions ran past the 50-second limit and showed nothing at all
 (19/36 points; 19/26 on the questions that finished).
 
+Second exam run (after that fix, with twenty Acts added): 22/36, no time-outs, law found
+79% (was 47%). Three of the four zero scores came from corrected statements that added
+"the supplied passages do not establish..." and so contradicted rules another statement
+had proved. Now each check also sees the sections every other statement names, the
+prompt forbids talk about the passages, and code drops any sentence that does it
+(`withoutTalkAboutPassages`).
+
 Why: the first law exam run (2026-10-07) showed the research step finds the
 main rule but returns passages, not an answer, and its caps (2 questions x
 about 5 passages) cannot hold the 6-10 provisions a full answer needs. The

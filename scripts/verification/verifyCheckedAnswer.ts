@@ -30,6 +30,7 @@ import {
   parseCheck,
   parseDraft,
   statementRejection,
+  withoutTalkAboutPassages,
   type CheckedAnswerDeps,
 } from "../../src/lib/case-system/retrieval/checkedAnswer";
 import { quoteAppearsIn } from "../../src/lib/case-system/intelligence/quoteMatch";
@@ -216,6 +217,41 @@ async function main() {
     partial.statements.length === 1 && partial.statements[0].text === partialTexts[0] && partial.notConfirmed.length === 1,
     JSON.stringify(partial),
   );
+
+  // ---- 6c. Each check also sees the sections the other statements name
+  const seenBySecond: Passage[][] = [];
+  await checkedAnswer(
+    { question: "Can I cancel, and how long do I have to sue?", courtPath: "small-claims" },
+    {
+      index,
+      embed: noSearch,
+      draft: async () =>
+        JSON.stringify({
+          scope: "ontario",
+          asksForPrediction: false,
+          statements: [
+            { text: "You can cancel a direct agreement within 10 days.", cites: ["Consumer Protection Act, 2002, s. 43 (1)"] },
+            { text: "You have two years to sue.", cites: ["Limitations Act, 2002, s. 4"] },
+          ],
+        }),
+      check: async (statements, passages) => {
+        if (/two years/.test(statements[0])) seenBySecond.push(passages);
+        return JSON.stringify({ results: [] });
+      },
+    },
+  );
+  check(
+    "a statement's check also sees the sections the rest of the answer names",
+    (seenBySecond[0] ?? []).some((p) => p.sourceId === "consumer-protection-act-2002") && (seenBySecond[0] ?? []).some((p) => p.sourceId === "limitations-act-2002"),
+  );
+
+  // ---- 6d. Talk about the passages is dropped, the law kept
+  check(
+    "a sentence about the passages is dropped and the rest kept",
+    withoutTalkAboutPassages("You must give 60 days notice. The supplied passages do not establish that the Act applies.") === "You must give 60 days notice.",
+  );
+  check("a statement that is only talk about the passages leaves nothing", withoutTalkAboutPassages("The passages do not establish this.") === "");
+  check("ordinary law is left alone", withoutTalkAboutPassages("The tenant may give notice. The landlord must repair.") === "The tenant may give notice. The landlord must repair.");
 
   // ---- 7. The pure checks
   check("parseDraft keeps at most ten statements and drops empty ones", (parseDraft(JSON.stringify({ statements: Array.from({ length: 14 }, (_, i) => ({ text: `Statement number ${i} here.`, cites: ["x"] })).concat([{ text: "", cites: [] }]) }))?.statements.length ?? 0) === 10);
