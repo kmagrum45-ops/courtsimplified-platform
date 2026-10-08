@@ -72,6 +72,8 @@ const MAX_CITES_PER_STATEMENT = 3;
 const SEARCH_PER_STATEMENT = 4;
 /** The most passages one statement's check reads. */
 const PASSAGES_PER_STATEMENT = 10;
+/** Sections other statements name, added to each check so it sees the whole answer's law. */
+const SHARED_PASSAGES = 6;
 const PASSAGE_CHARS = 1800;
 const STATEMENT_MAX = 600;
 
@@ -108,6 +110,8 @@ For each statement return:
 - "unsupported": no passage supports the statement or a corrected version of it.
 - Applying the law to the person's facts is fine when the passage states the rule being applied.
 - A statement may need two passages; then give the main one and put the second in "passage2" and "quote2".
+- Never write about the passages themselves ("the passages do not establish...", "the supplied text does not say..."). If part of a statement is not supported, leave that part out of the corrected version; never add doubts, caveats or "if" clauses the statement did not have.
+- The passages state the law; the person's situation gives the facts. A passage not repeating the person's facts is no reason to doubt a statement that applies its rule to them.
 Return JSON: {"results": [ ... ]}`;
 
 // ---------------------------------------------------------------- parsing (pure)
@@ -202,6 +206,19 @@ export function statementRejection(statement: string, support: { passage: Passag
   return null;
 }
 
+/**
+ * Drops sentences that talk about the passages instead of the law ("The
+ * supplied passages do not establish..."). A reader cannot use them, and they
+ * contradicted statements the rest of the answer had proved (2026-10-07 exam,
+ * 3 of 18 questions graded wrong for it). Dropping a sentence only removes
+ * words, so what is left is still supported by the same quote.
+ */
+const PASSAGE_TALK = /\b(?:(?:supplied|provided|given|these|those|the)\s+(?:passages?|text|excerpts?)|passages?\s+(?:do|does|did)\s+not)\b/i;
+export function withoutTalkAboutPassages(text: string): string {
+  const sentences = text.match(/[^.!?]+[.!?]+(?:\s+|$)|[^.!?]+$/g) ?? [text];
+  return sentences.filter((sentence) => !PASSAGE_TALK.test(sentence)).join("").trim();
+}
+
 // ---------------------------------------------------------------- dependencies
 
 export type CheckedAnswerDeps = {
@@ -234,6 +251,10 @@ async function gatherPassages(
   const missingLaw: string[] = [];
   const queries = draft.statements.map((statement) => `${statement.text} ${statement.cites.join("; ")}`.slice(0, 500));
   const vectors = queries.length ? await embed(queries, index.meta.model, index.meta.dimensions) : [];
+  // The sections every statement names, so each check also sees the rules the
+  // rest of the answer rests on (2026-10-07 exam: a check that saw only its own
+  // statement's passages doubted rules another statement had proved).
+  const namedByAll = draft.statements.flatMap((statement) => statement.cites.flatMap((cite) => namedProvisions(index, cite, 0.9)));
   const perStatement = draft.statements.map((statement, i) => {
     const byId = new Map<string, Passage>();
     const add = (passage: Passage) => {
@@ -254,7 +275,9 @@ async function gatherPassages(
       for (const passage of found) add(passage);
       for (const passage of followCrossReferences(index, found)) add(passage);
     }
-    return [...byId.values()].slice(0, PASSAGES_PER_STATEMENT);
+    const own = [...byId.values()].slice(0, PASSAGES_PER_STATEMENT);
+    for (const passage of namedByAll) if (byId.size < PASSAGES_PER_STATEMENT + SHARED_PASSAGES) add(passage);
+    return [...own, ...[...byId.values()].filter((passage) => !own.includes(passage))].slice(0, PASSAGES_PER_STATEMENT + SHARED_PASSAGES);
   });
   return { perStatement, missingLaw: [...new Set(missingLaw)] };
 }
@@ -323,7 +346,7 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
         notConfirmed.push(topic);
         return;
       }
-      const shown = result.verdict === "corrected" ? (result.corrected ?? "") : text;
+      const shown = withoutTalkAboutPassages(result.verdict === "corrected" ? (result.corrected ?? "") : text);
       const support = [
         { passage: checked.byId.get(result.passage), quote: result.quote },
         ...(result.passage2 && result.quote2 ? [{ passage: checked.byId.get(result.passage2), quote: result.quote2 }] : []),
