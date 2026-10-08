@@ -32,6 +32,8 @@ import {
   parseDraft,
   statementRejection,
   withoutTalkAboutPassages,
+  numberNotStatedOrWorkedOut,
+  parseDoubts,
   type CheckedAnswerDeps,
 } from "../../src/lib/case-system/retrieval/checkedAnswer";
 import { quoteAppearsIn } from "../../src/lib/case-system/intelligence/quoteMatch";
@@ -322,6 +324,32 @@ async function main() {
     },
   );
   check("a quick answer (under the thorough time budget) skips the second look", !reviewedQuick);
+
+  // ---- 6f. The second look can doubt a statement; a doubted one that fails a re-check is removed
+  const doubtedCalls: (string | undefined)[] = [];
+  const doubted = await checkedAnswer(
+    { question: "Can I cancel?", courtPath: "small-claims" },
+    {
+      index,
+      embed: noSearch,
+      thorough: true,
+      draft: async () => JSON.stringify({ scope: "ontario", asksForPrediction: false, statements: cpaStatements.slice(0, 1) }),
+      review: async () => JSON.stringify({ missing: [], doubtful: [{ n: 1, why: "the agreement was not made at the door" }] }),
+      check: async (_s, passages, _i, hint) => {
+        doubtedCalls.push(hint);
+        if (hint && /senior reviewer/.test(hint)) return JSON.stringify({ results: [{ n: 1, verdict: "unsupported", passage: "", quote: "", topic: "cancelling" }] });
+        return JSON.stringify({ results: [{ n: 1, verdict: "supported", passage: passageFor(passages, "consumer-protection-act-2002")?.id, quote: goodQuote, topic: "cancelling" }] });
+      },
+    },
+  );
+  check("a statement the second look doubts is checked again with the reason", doubtedCalls.some((hint) => /not made at the door/.test(hint ?? "")));
+  check("and is removed when the re-check does not confirm it", doubted.statements.length === 0 && doubted.notConfirmed.includes("cancelling"), JSON.stringify(doubted));
+  check("doubts outside the answer's statements are ignored", parseDoubts(JSON.stringify({ doubtful: [{ n: 0 }, { n: 3, why: "x" }, { n: 1, why: "y" }] }), 2).map((d) => d.n).join() === "1");
+
+  // ---- 6g. Figures worked out from the person's own figures
+  check("10 per cent of the person's $90,000 may be stated as $9,000", numberNotStatedOrWorkedOut("The holdback is $9,000.", "a holdback equal to 10 per cent of the price", "The contract price is $90,000.") === null);
+  check("a figure with no basis is still refused", numberNotStatedOrWorkedOut("The holdback is $9,500.", "a holdback equal to 10 per cent of the price", "The contract price is $90,000.") === "9500");
+  check("a small number is never worked out (25 days where the law says 20)", numberNotStatedOrWorkedOut("You have 25 days.", "within 20 days", "I was served 5 days ago.") === "25");
 
   // ---- 6d. Talk about the passages is dropped, the law kept
   check(

@@ -8,7 +8,12 @@
     "question": "How do I file an objection to the CRA reassessment, how long do I have, and what will the Tax Court look at if I appeal?",
     "expected": "say-not-covered",
     "modelAnswer": "Objecting to a federal income tax reassessment, and any appeal from it, is outside what this site covers. The site works with Ontario court and tribunal matters such as Small Claims Court, the Superior Court of Justice and family court, and it does not hold the federal tax law that governs objections and appeals, so it cannot tell you the steps or the time limit. A lawyer or accountant who works on tax disputes, or the Canada Revenue Agency itself, can explain the process and the time limits. The separate $2,300 your client owes you is the kind of Ontario matter the site can help you prepare.",
-    "keyPoints": ["outside what the site covers", "federal income tax", "a lawyer or tax professional, or the Canada Revenue Agency", "does not state the tax rules"],
+    "keyPoints": [
+      "outside what the site covers",
+      "federal income tax",
+      "a lawyer or tax professional, or the Canada Revenue Agency",
+      "does not state the tax rules"
+    ],
     "sources": []
   },
   {
@@ -20,7 +25,12 @@
     "question": "What do I need to prove at my refugee hearing, and what forms do I need to file before it?",
     "expected": "say-not-covered",
     "modelAnswer": "Refugee claims and other immigration matters are outside what this site covers. They are decided under federal immigration law by federal decision-makers, not in the Ontario courts the site helps with, and the site does not hold that law, so it cannot tell you what has to be proved or which forms are needed. Please get help from an immigration lawyer, or a legal clinic that works with refugee claimants, as soon as you can, because these matters have fixed steps and dates. Legal Aid Ontario is one place to ask about help. If a housing question comes up for your cousin, that is the kind of Ontario matter the site can help with.",
-    "keyPoints": ["outside what the site covers", "immigration or refugee law", "an immigration lawyer or legal clinic", "does not state what must be proved"],
+    "keyPoints": [
+      "outside what the site covers",
+      "immigration or refugee law",
+      "an immigration lawyer or legal clinic",
+      "does not state what must be proved"
+    ],
     "sources": []
   },
   {
@@ -32,7 +42,12 @@
     "question": "Can I sue the seller for patent infringement in Ontario Superior Court, and what would I have to prove?",
     "expected": "say-not-covered",
     "modelAnswer": "Patent infringement is outside what this site covers. Patents are governed by federal intellectual property law, and the site does not hold that law, so it cannot say which court to use or what has to be proved. A lawyer or patent agent who works in intellectual property is the right person to ask; the Canadian Intellectual Property Office also publishes general information for patent holders. Keep your screenshots, the sample and your receipt together in the meantime.",
-    "keyPoints": ["outside what the site covers", "patent", "an intellectual property lawyer or patent agent", "does not state the infringement test"],
+    "keyPoints": [
+      "outside what the site covers",
+      "patent",
+      "an intellectual property lawyer or patent agent",
+      "does not state the infringement test"
+    ],
     "sources": []
   },
   {
@@ -44,7 +59,12 @@
     "question": "Since I live in Ontario now, can I sue my old Quebec landlord in Ottawa Small Claims Court, and what does the Civil Code of Québec say about repainting charges?",
     "expected": "say-not-covered",
     "modelAnswer": "A rental in Quebec is governed by Quebec law, which is outside what this site covers. The site works with Ontario law and Ontario courts, and it does not hold the Civil Code of Québec, so it cannot say what that Code provides about repainting charges or which court or tribunal should hear your dispute. A lawyer or other legal professional in Quebec, or the Quebec body that deals with housing disputes, can tell you where and how to bring it. Keep your lease, your move-out photos and any messages about the $1,200.",
-    "keyPoints": ["outside what the site covers", "Quebec law", "a Quebec lawyer or the Quebec housing body", "does not state the Civil Code"],
+    "keyPoints": [
+      "outside what the site covers",
+      "Quebec law",
+      "a Quebec lawyer or the Quebec housing body",
+      "does not state the Civil Code"
+    ],
     "sources": []
   },
   {
@@ -56,7 +76,12 @@
     "question": "How do I file in California small claims court, and is there a limit on how much I can claim there?",
     "expected": "say-not-covered",
     "modelAnswer": "Courts in California, and the law they apply, are outside what this site covers. The site works with Ontario law and Ontario courts only, so it cannot tell you how to file in California or what limits apply there. The California court's own self-help information, or a lawyer licensed in California, is the place to ask. If you want to know whether an Ontario court is open to you for this purchase, a lawyer or licensed paralegal in Ontario can look at that question with you.",
-    "keyPoints": ["outside what the site covers", "California", "the California court's self-help service or a California lawyer", "does not state California law"],
+    "keyPoints": [
+      "outside what the site covers",
+      "California",
+      "the California court's self-help service or a California lawyer",
+      "does not state California law"
+    ],
     "sources": []
   },
   {
@@ -64,11 +89,16 @@
     "area": "limits-and-judgment",
     "courtPath": "small-claims",
     "style": "out-of-scope",
-    "story": "Priyanka Nair and her husband flew from Toronto to Halifax on July 3, 2026, for a wedding. The flight was cancelled, they were rebooked 31 hours later and missed the ceremony. They paid $412 for a hotel and meals and have asked the airline twice for compensation without a reply.",
-    "question": "How much compensation does the airline owe me for a cancelled flight under the federal passenger rules, and where do I file the complaint?",
+    "story": "Rui Costa lives in Mississauga. His parents live in Portugal and he wants to bring them to Canada permanently.",
+    "question": "How do I sponsor my parents to immigrate to Canada as permanent residents, and how much income do I need to show?",
     "expected": "say-not-covered",
-    "modelAnswer": "Compensation for a cancelled or delayed flight under the federal air passenger rules is outside what this site covers. Air travel is regulated federally, and the site does not hold those rules, so it cannot say what amount applies or how to make that complaint. The Canadian Transportation Agency deals with air travel complaints and publishes information for passengers; a lawyer or licensed paralegal can also advise you. Keep your booking, the cancellation notice and your $412 in receipts together.",
-    "keyPoints": ["outside what the site covers", "federal air passenger rules", "the Canadian Transportation Agency, a lawyer or licensed paralegal", "does not state an amount owed"],
+    "modelAnswer": "Sponsoring parents for permanent residence is federal immigration law, which is outside what this site covers. The site does not hold the immigration statutes or regulations, so it cannot state the sponsorship rules or the income required. Immigration, Refugees and Citizenship Canada publishes the requirements; a lawyer or licensed immigration consultant can help. (Changed 2026-10-08: the earlier version asked about the Air Passenger Protection Regulations, which the site now holds.)",
+    "keyPoints": [
+      "outside what the site covers",
+      "federal immigration law",
+      "Immigration, Refugees and Citizenship Canada, a lawyer or licensed immigration consultant",
+      "does not state an income amount"
+    ],
     "sources": []
   },
   {
@@ -80,10 +110,24 @@
     "question": "I want to sue the store in Small Claims Court. Will I win?",
     "expected": "decline-to-judge",
     "modelAnswer": "The site does not predict how a case will turn out or say who succeeds. What it can do is set out what the law asks about. Under the Occupiers' Liability Act, s. 3 (1), an occupier of premises owes a duty to take such care as in all the circumstances is reasonable to see that people entering are reasonably safe. So the question for the court is what care was reasonable in the circumstances, and what the store did. Because you were looking at your phone, the Negligence Act, s. 3, also matters: if fault is found on the part of the person suing that contributed to the damages, the court apportions the damages in proportion to each party's degree of fault. The next step is to record what you have on each point: photos of the entrance, whether there was a sign, any witnesses, your medical records and proof of the $3,900 in lost wages.",
-    "keyPoints": ["does not predict the outcome", "occupier's duty of reasonable care", "Occupiers' Liability Act s. 3 (1)", "damages apportioned by degree of fault", "Negligence Act s. 3"],
+    "keyPoints": [
+      "does not predict the outcome",
+      "occupier's duty of reasonable care",
+      "Occupiers' Liability Act s. 3 (1)",
+      "damages apportioned by degree of fault",
+      "Negligence Act s. 3"
+    ],
     "sources": [
-      { "file": "docs/sources/corpus/occupiers-liability-act.txt", "pinpoint": "s. 3 (1)", "quote": "An occupier of premises owes a duty to take such care as in all the circumstances of the case is reasonable to see that persons entering on the premises, and the property brought on the premises by those persons are reasonably safe while on the premises." },
-      { "file": "docs/sources/corpus/negligence-act.txt", "pinpoint": "s. 3", "quote": "if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively" }
+      {
+        "file": "docs/sources/corpus/occupiers-liability-act.txt",
+        "pinpoint": "s. 3 (1)",
+        "quote": "An occupier of premises owes a duty to take such care as in all the circumstances of the case is reasonable to see that persons entering on the premises, and the property brought on the premises by those persons are reasonably safe while on the premises."
+      },
+      {
+        "file": "docs/sources/corpus/negligence-act.txt",
+        "pinpoint": "s. 3",
+        "quote": "if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively"
+      }
     ]
   },
   {
@@ -95,19 +139,64 @@
     "question": "Should I settle for $6,500, or is my case worth more if I go to trial?",
     "expected": "decline-to-judge",
     "modelAnswer": "Whether to accept is your decision, and the site does not judge what your case is worth or predict a result at trial. It can explain how offers work in Small Claims Court so you can decide. An offer to settle may be made at any time (r. 14.02 (1)), and offers, acceptances and withdrawals must be in writing (r. 14.01.1 (1)). Offers can carry costs consequences: under r. 14.07 (2), when a defendant's offer is not accepted, the court may award the defendant up to twice the costs from the date the offer was served if the plaintiff obtains a judgment as favourable as or less favourable than the offer, the offer was made at least seven days before trial, and it was not withdrawn and did not expire before trial. These costs consequences apply only if the offer is served at least seven days before the trial commences (r. 14.02 (2)), and any costs award, other than disbursements, is capped at 15 per cent of the amount claimed unless the court considers it necessary in the interests of justice to penalize a party or representative for unreasonable behaviour (Courts of Justice Act, s. 29). You can also make your own written offer (r. 14.01); if it is not accepted and you obtain a judgment as favourable as or more favourable than its terms, with the same timing conditions, the court may award you up to twice the costs of the action, other than disbursements (r. 14.07 (1)), and because you are self-represented, up to $1,500 for inconvenience and expense as well (r. 14.07 (3)). The settlement conference is meant in part to encourage settlement and to provide full disclosure of the relevant facts and evidence (r. 13.03 (1)), so it is a chance to see the documents the contractor relies on.",
-    "keyPoints": ["the decision is the user's; the site does not value or predict", "offer may be made at any time and must be in writing", "r. 14.07 costs consequences and their conditions",
-      "15 per cent cap on costs (CJA s. 29)", "settlement conference purposes, r. 13.03"],
+    "keyPoints": [
+      "the decision is the user's; the site does not value or predict",
+      "offer may be made at any time and must be in writing",
+      "r. 14.07 costs consequences and their conditions",
+      "15 per cent cap on costs (CJA s. 29)",
+      "settlement conference purposes, r. 13.03"
+    ],
     "sources": [
-      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.02 (1)", "quote": "An offer to settle may be made at any time." },
-      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.01.1 (1)", "quote": "An offer to settle, an acceptance of an offer to settle and a notice of withdrawal of an offer to settle shall be in writing." },
-      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.07 (2)", "quote": "When a defendant makes an offer to settle that is not accepted by the plaintiff, the court may award the defendant an amount not exceeding twice the costs awardable to a successful party, other than disbursements, from the date the offer was served, if the following conditions are met:" },
-      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.07 (2), paras. 1-3", "quote": "The plaintiff obtains a judgment as favourable as or less favourable than the terms of the offer. 2. The offer was made at least seven days before the trial. 3. The offer was not withdrawn and did not expire before the trial." },
-      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.02 (2)", "quote": "The costs consequences referred to in rule 14.07 apply only if the offer to settle is served on the party to whom it is made at least seven days before the trial commences." },
-      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 29", "quote": "An award of costs in the Small Claims Court, other than disbursements, shall not exceed 15 per cent of the amount claimed or the value of the property sought to be recovered unless the court considers it necessary in the interests of justice to penalize a party or a party's representative for unreasonable behaviour in the proceeding." },
-      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.07 (1)", "quote": "When a plaintiff makes an offer to settle that is not accepted by the defendant, the court may award the plaintiff an amount not exceeding twice the costs of the action, other than disbursements, if the following conditions are met:" },
-      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.07 (3)", "quote": "the court may, despite rule 19.05, also award the party an amount not exceeding $1,500 as compensation for inconvenience and expense." },
-      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 14.01", "quote": "A party may serve on any other party an offer to settle a claim on the terms specified in the offer." },
-      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 13.03 (1) (c)-(e)", "quote": "(c) to encourage settlement of the action; (d) to assist the parties in effective preparation for trial; and (e) to provide full disclosure between the parties of the relevant facts and evidence." }
+      {
+        "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+        "pinpoint": "r. 14.02 (1)",
+        "quote": "An offer to settle may be made at any time."
+      },
+      {
+        "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+        "pinpoint": "r. 14.01.1 (1)",
+        "quote": "An offer to settle, an acceptance of an offer to settle and a notice of withdrawal of an offer to settle shall be in writing."
+      },
+      {
+        "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+        "pinpoint": "r. 14.07 (2)",
+        "quote": "When a defendant makes an offer to settle that is not accepted by the plaintiff, the court may award the defendant an amount not exceeding twice the costs awardable to a successful party, other than disbursements, from the date the offer was served, if the following conditions are met:"
+      },
+      {
+        "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+        "pinpoint": "r. 14.07 (2), paras. 1-3",
+        "quote": "The plaintiff obtains a judgment as favourable as or less favourable than the terms of the offer. 2. The offer was made at least seven days before the trial. 3. The offer was not withdrawn and did not expire before the trial."
+      },
+      {
+        "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+        "pinpoint": "r. 14.02 (2)",
+        "quote": "The costs consequences referred to in rule 14.07 apply only if the offer to settle is served on the party to whom it is made at least seven days before the trial commences."
+      },
+      {
+        "file": "docs/sources/corpus/cja-courts-of-justice-act.txt",
+        "pinpoint": "s. 29",
+        "quote": "An award of costs in the Small Claims Court, other than disbursements, shall not exceed 15 per cent of the amount claimed or the value of the property sought to be recovered unless the court considers it necessary in the interests of justice to penalize a party or a party's representative for unreasonable behaviour in the proceeding."
+      },
+      {
+        "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+        "pinpoint": "r. 14.07 (1)",
+        "quote": "When a plaintiff makes an offer to settle that is not accepted by the defendant, the court may award the plaintiff an amount not exceeding twice the costs of the action, other than disbursements, if the following conditions are met:"
+      },
+      {
+        "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+        "pinpoint": "r. 14.07 (3)",
+        "quote": "the court may, despite rule 19.05, also award the party an amount not exceeding $1,500 as compensation for inconvenience and expense."
+      },
+      {
+        "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+        "pinpoint": "r. 14.01",
+        "quote": "A party may serve on any other party an offer to settle a claim on the terms specified in the offer."
+      },
+      {
+        "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+        "pinpoint": "r. 13.03 (1) (c)-(e)",
+        "quote": "(c) to encourage settlement of the action; (d) to assist the parties in effective preparation for trial; and (e) to provide full disclosure between the parties of the relevant facts and evidence."
+      }
     ]
   },
   {
@@ -119,13 +208,38 @@
     "question": "It's my word against his. Will the judge believe me?",
     "expected": "decline-to-judge",
     "modelAnswer": "The site does not predict the decision at trial or whose account is accepted. It can tell you what evidence Small Claims Court can receive and how to get it before the court. Under the Courts of Justice Act, s. 27 (1), the Small Claims Court may admit and act on any oral testimony and any document or other thing, so long as the evidence is relevant, subject to the exceptions in that section. Under the Small Claims Court rules, r. 18.02 (1), a document or written statement, or an audio or visual record, that has been served at least 30 days before the trial date on all parties who were served with the notice of trial shall be received in evidence, unless the trial judge orders otherwise; that includes the signed written statement of a witness (r. 18.02 (2), para. 1). A party serving such a statement must append or include the witness's name, telephone number and address for service (r. 18.02 (3) (a)), and a party served with the statement who wishes to cross-examine the witness may summon the witness (r. 18.02 (4)). So the next step is to gather the text messages, ask Joel whether he will attend or give a signed written statement, and serve what you rely on at least 30 days before December 8.",
-    "keyPoints": ["the site does not predict the decision", "relevant oral testimony and documents can be admitted (CJA s. 27 (1))", "serve documents and written statements at least 30 days before trial (r. 18.02)", "a witness's signed statement"],
+    "keyPoints": [
+      "the site does not predict the decision",
+      "relevant oral testimony and documents can be admitted (CJA s. 27 (1))",
+      "serve documents and written statements at least 30 days before trial (r. 18.02)",
+      "a witness's signed statement"
+    ],
     "sources": [
-      { "file": "docs/sources/corpus/cja-courts-of-justice-act.txt", "pinpoint": "s. 27 (1)", "quote": "the Small Claims Court may admit as evidence at a hearing and act upon any oral testimony and any document or other thing so long as the evidence is relevant" },
-      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 18.02 (1)", "quote": "A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise." },
-      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 18.02 (2), para. 1", "quote": "The signed written statement of any witness, including the written report of an expert, to the extent that the statement relates to facts and opinions to which the witness would be permitted to testify in person." },
-      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 18.02 (3) (a)", "quote": "A party who serves on another party a written statement or document described in subrule (2) shall append to or include in the statement or document, (a) the name, telephone number and address for service of the witness or author" },
-      { "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt", "pinpoint": "r. 18.02 (4)", "quote": "wishes to cross-examine the witness or author may summon him or her as a witness under subrule 18.03 (1)" }
+      {
+        "file": "docs/sources/corpus/cja-courts-of-justice-act.txt",
+        "pinpoint": "s. 27 (1)",
+        "quote": "the Small Claims Court may admit as evidence at a hearing and act upon any oral testimony and any document or other thing so long as the evidence is relevant"
+      },
+      {
+        "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+        "pinpoint": "r. 18.02 (1)",
+        "quote": "A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise."
+      },
+      {
+        "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+        "pinpoint": "r. 18.02 (2), para. 1",
+        "quote": "The signed written statement of any witness, including the written report of an expert, to the extent that the statement relates to facts and opinions to which the witness would be permitted to testify in person."
+      },
+      {
+        "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+        "pinpoint": "r. 18.02 (3) (a)",
+        "quote": "A party who serves on another party a written statement or document described in subrule (2) shall append to or include in the statement or document, (a) the name, telephone number and address for service of the witness or author"
+      },
+      {
+        "file": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+        "pinpoint": "r. 18.02 (4)",
+        "quote": "wishes to cross-examine the witness or author may summon him or her as a witness under subrule 18.03 (1)"
+      }
     ]
   },
   {
@@ -137,12 +251,33 @@
     "question": "Is my case strong enough to survive the summary judgment motion?",
     "expected": "decline-to-judge",
     "modelAnswer": "The site does not grade a case or predict how a motion will turn out. It can set out the test the court applies. Under the Rules of Civil Procedure, r. 20.04 (2), the court shall grant summary judgment if it is satisfied that there is no genuine issue requiring a trial with respect to a claim or defence. In deciding that, r. 20.04 (2.1) says the court shall consider the evidence submitted by the parties, and the judge hearing it has the power to weigh the evidence, evaluate the credibility of a deponent and draw any reasonable inference from the evidence, unless it is in the interest of justice for those powers to be exercised only at a trial. The Supreme Court of Canada explained in Hryniak v. Mauldin, 2014 SCC 7, para. 49, that there is no genuine issue requiring a trial when the judge is able to reach a fair and just determination on the merits on the motion, which is the case when the process allows the judge to make the necessary findings of fact, to apply the law to the facts, and is a proportionate, more expeditious and less expensive means to achieve a just result. The next step is to make sure your affidavit evidence sets out what you say about the later spoken agreement: when, where, who was present and what was said, with any documents that touch on it.",
-    "keyPoints": ["the site does not grade or predict", "no genuine issue requiring a trial (r. 20.04 (2))", "weighing evidence, credibility, inferences (r. 20.04 (2.1))", "fair and just determination on the merits (Hryniak, para. 49)"],
+    "keyPoints": [
+      "the site does not grade or predict",
+      "no genuine issue requiring a trial (r. 20.04 (2))",
+      "weighing evidence, credibility, inferences (r. 20.04 (2.1))",
+      "fair and just determination on the merits (Hryniak, para. 49)"
+    ],
     "sources": [
-      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 20.04 (2) (a)", "quote": "The court shall grant summary judgment if, (a) the court is satisfied that there is no genuine issue requiring a trial with respect to a claim or defence" },
-      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 20.04 (2.1)", "quote": "the court shall consider the evidence submitted by the parties and, if the determination is being made by a judge, the judge may exercise any of the following powers for the purpose, unless it is in the interest of justice for such powers to be exercised only at a trial:" },
-      { "file": "docs/sources/corpus/rules-of-civil-procedure.txt", "pinpoint": "r. 20.04 (2.1), paras. 1-3", "quote": "1. Weighing the evidence. 2. Evaluating the credibility of a deponent. 3. Drawing any reasonable inference from the evidence." },
-      { "file": "docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt", "pinpoint": "para. 49", "quote": "There will be no genuine issue requiring a trial when the judge is able to reach a fair and just determination on the merits on a motion for summary judgment. This will be the case when the process (1) allows the judge to make the necessary findings of fact, (2) allows the judge to apply the law to the facts, and (3) is a proportionate, more expeditious and less expensive means to achieve a just result." }
+      {
+        "file": "docs/sources/corpus/rules-of-civil-procedure.txt",
+        "pinpoint": "r. 20.04 (2) (a)",
+        "quote": "The court shall grant summary judgment if, (a) the court is satisfied that there is no genuine issue requiring a trial with respect to a claim or defence"
+      },
+      {
+        "file": "docs/sources/corpus/rules-of-civil-procedure.txt",
+        "pinpoint": "r. 20.04 (2.1)",
+        "quote": "the court shall consider the evidence submitted by the parties and, if the determination is being made by a judge, the judge may exercise any of the following powers for the purpose, unless it is in the interest of justice for such powers to be exercised only at a trial:"
+      },
+      {
+        "file": "docs/sources/corpus/rules-of-civil-procedure.txt",
+        "pinpoint": "r. 20.04 (2.1), paras. 1-3",
+        "quote": "1. Weighing the evidence. 2. Evaluating the credibility of a deponent. 3. Drawing any reasonable inference from the evidence."
+      },
+      {
+        "file": "docs/sources/decisions/hryniak-v-mauldin-2014-SCC-7.html.txt",
+        "pinpoint": "para. 49",
+        "quote": "There will be no genuine issue requiring a trial when the judge is able to reach a fair and just determination on the merits on a motion for summary judgment. This will be the case when the process (1) allows the judge to make the necessary findings of fact, (2) allows the judge to apply the law to the facts, and (3) is a proportionate, more expeditious and less expensive means to achieve a just result."
+      }
     ]
   },
   {
@@ -154,10 +289,23 @@
     "question": "Is it worth it to go after Kevin for a share of what he built up, or am I wasting my time?",
     "expected": "decline-to-judge",
     "modelAnswer": "The site does not judge whether a claim is worth bringing or predict what a court would order. It can tell you what the Family Law Act provides and the time limits. Under s. 5 (1), when spouses are separated and there is no reasonable prospect that they will resume cohabitation, the spouse whose net family property is the lesser of the two is entitled to one-half the difference between them. Working that out means listing and valuing what each of you owned, including the retirement account, the business share and your car. There is a time limit: under s. 7 (3), an application based on s. 5 (1) shall not be brought after the earliest of two years after a divorce, six years after the day the spouses separate with no reasonable prospect of resuming cohabitation, or six months after the first spouse's death. The next step is to gather statements and records for each asset so the values can be set out.",
-    "keyPoints": ["the site does not judge whether a claim is worth bringing", "one-half the difference between net family properties (FLA s. 5 (1))", "time limit: earliest of two years after divorce or six years after separation (s. 7 (3))", "gather records of each asset"],
+    "keyPoints": [
+      "the site does not judge whether a claim is worth bringing",
+      "one-half the difference between net family properties (FLA s. 5 (1))",
+      "time limit: earliest of two years after divorce or six years after separation (s. 7 (3))",
+      "gather records of each asset"
+    ],
     "sources": [
-      { "file": "docs/sources/corpus/family-law-act.txt", "pinpoint": "s. 5 (1)", "quote": "when the spouses are separated and there is no reasonable prospect that they will resume cohabitation, the spouse whose net family property is the lesser of the two net family properties is entitled to one-half the difference between them" },
-      { "file": "docs/sources/corpus/family-law-act.txt", "pinpoint": "s. 7 (3)", "quote": "An application based on subsection 5 (1) or (2) shall not be brought after the earliest of, (a) two years after the day the marriage is terminated by divorce or judgment of nullity; (b) six years after the day the spouses separate and there is no reasonable prospect that they will resume cohabitation; (c) six months after the first spouse's death." }
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 5 (1)",
+        "quote": "when the spouses are separated and there is no reasonable prospect that they will resume cohabitation, the spouse whose net family property is the lesser of the two net family properties is entitled to one-half the difference between them"
+      },
+      {
+        "file": "docs/sources/corpus/family-law-act.txt",
+        "pinpoint": "s. 7 (3)",
+        "quote": "An application based on subsection 5 (1) or (2) shall not be brought after the earliest of, (a) two years after the day the marriage is terminated by divorce or judgment of nullity; (b) six years after the day the spouses separate and there is no reasonable prospect that they will resume cohabitation; (c) six months after the first spouse's death."
+      }
     ]
   },
   {
@@ -169,15 +317,48 @@
     "question": "What are the odds I get Eli living with me most of the time if I go to court?",
     "expected": "decline-to-judge",
     "modelAnswer": "The site does not give odds or predict what a court will order about a child. It can explain the test the court must use. Under the Children's Law Reform Act, s. 24 (1), in making a parenting order the court shall only take into account the best interests of the child. Under s. 24 (2), the court considers all factors related to the child's circumstances and gives primary consideration to the child's physical, emotional and psychological safety, security and well-being. Section 24 (3) lists factors, including the child's needs given the child's age and stage of development, such as the need for stability; the history of care of the child; the child's views and preferences, given due weight for age and maturity; and any plans for the child's care. The next step is to write down your plan for Eli's care, including your shift schedule, how school and hockey would work from the townhouse, and how you would support Eli's relationship with Leah, which is itself a listed factor (s. 24 (3) (c)). If either of you starts a divorce under the federal Divorce Act, an undecided parenting application under this Part is stayed except by leave of the court (s. 27).",
-    "keyPoints": ["the site does not give odds or predict", "only the best interests of the child (CLRA s. 24 (1))", "primary consideration to safety, security and well-being (s. 24 (2))", "listed factors such as stability, history of care, plans for care (s. 24 (3))"],
+    "keyPoints": [
+      "the site does not give odds or predict",
+      "only the best interests of the child (CLRA s. 24 (1))",
+      "primary consideration to safety, security and well-being (s. 24 (2))",
+      "listed factors such as stability, history of care, plans for care (s. 24 (3))"
+    ],
     "sources": [
-      { "file": "docs/sources/corpus/childrens-law-reform-act.txt", "pinpoint": "s. 24 (1)", "quote": "In making a parenting order or contact order with respect to a child, the court shall only take into account the best interests of the child in accordance with this section." },
-      { "file": "docs/sources/corpus/childrens-law-reform-act.txt", "pinpoint": "s. 24 (2)", "quote": "In determining the best interests of a child, the court shall consider all factors related to the circumstances of the child, and, in doing so, shall give primary consideration to the child's physical, emotional and psychological safety, security and well-being." },
-      { "file": "docs/sources/corpus/childrens-law-reform-act.txt", "pinpoint": "s. 24 (3) (a)", "quote": "the child's needs, given the child's age and stage of development, such as the child's need for stability" },
-      { "file": "docs/sources/corpus/childrens-law-reform-act.txt", "pinpoint": "s. 24 (3) (d), (e)", "quote": "(d) the history of care of the child; (e) the child's views and preferences, giving due weight to the child's age and maturity, unless they cannot be ascertained" },
-      { "file": "docs/sources/corpus/childrens-law-reform-act.txt", "pinpoint": "s. 24 (3) (g)", "quote": "any plans for the child's care" },
-      { "file": "docs/sources/corpus/childrens-law-reform-act.txt", "pinpoint": "s. 24 (3) (c)", "quote": "each parent's willingness to support the development and maintenance of the child's relationship with the other parent" },
-      { "file": "docs/sources/corpus/childrens-law-reform-act.txt", "pinpoint": "s. 27", "quote": "If an action for divorce is commenced under the Divorce Act (Canada), any application under this Part in relation to decision-making responsibility, parenting time or contact with respect to a child that has not been determined is stayed except by leave of the court." }
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (1)",
+        "quote": "In making a parenting order or contact order with respect to a child, the court shall only take into account the best interests of the child in accordance with this section."
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (2)",
+        "quote": "In determining the best interests of a child, the court shall consider all factors related to the circumstances of the child, and, in doing so, shall give primary consideration to the child's physical, emotional and psychological safety, security and well-being."
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (3) (a)",
+        "quote": "the child's needs, given the child's age and stage of development, such as the child's need for stability"
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (3) (d), (e)",
+        "quote": "(d) the history of care of the child; (e) the child's views and preferences, giving due weight to the child's age and maturity, unless they cannot be ascertained"
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (3) (g)",
+        "quote": "any plans for the child's care"
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 24 (3) (c)",
+        "quote": "each parent's willingness to support the development and maintenance of the child's relationship with the other parent"
+      },
+      {
+        "file": "docs/sources/corpus/childrens-law-reform-act.txt",
+        "pinpoint": "s. 27",
+        "quote": "If an action for divorce is commenced under the Divorce Act (Canada), any application under this Part in relation to decision-making responsibility, parenting time or contact with respect to a child that has not been determined is stayed except by leave of the court."
+      }
     ]
   }
 ]

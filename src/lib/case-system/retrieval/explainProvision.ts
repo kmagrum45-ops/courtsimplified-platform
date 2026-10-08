@@ -151,6 +151,14 @@ export function numbersInWords(text: string): string[] {
   return out;
 }
 
+/** Every number a text states, in digits or in words. Pure. */
+export function numbersStated(text: string): string[] {
+  return [...numbers(text), ...numbersInWords(text)];
+}
+
+/** The numbers a text uses, as written in digits. Pure. */
+export const numbersUsed = numbers;
+
 /** The first number in `text` that `source` does not contain, or null. Pure; shared with sourcedQuestions.ts. */
 export function numberNotInSource(text: string, source: string): string | null {
   const allowed = new Set([...numbers(source), ...numbersInWords(source)]);
