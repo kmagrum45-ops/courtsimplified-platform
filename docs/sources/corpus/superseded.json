@@ -1,0 +1,11 @@
+{
+  "why": "Official pages that still state a figure the law has since changed. A passage containing one of these phrases is never given to the answer check, so the site cannot confirm a statement from it. Each entry names the law in force and where that was read. Added 2026-10-08 after the law exam: the site stated the old $35,000 Small Claims limit from the Superior Court's own guide.",
+  "entries": [
+    {
+      "sourceId": "scj-steps-to-a-civil-case",
+      "phrase": "$35,000",
+      "inForce": "The Small Claims Court limit is $50,000: O. Reg. 626/00, s. 1 (1) (docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt), effective October 1, 2025 per ontario.ca, 'Small claims court: suing someone' (docs/sources/corpus/ontario-suing-someone-small-claims.txt).",
+      "found": "2026-10-08"
+    }
+  ]
+}

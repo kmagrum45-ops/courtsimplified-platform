@@ -1702,3 +1702,13 @@ re-extracted from the `.raw` page with a real HTML parser (drop `<script>`/`<sty
 block tags). The SCC `?iframe=true` pages did not have this problem. A decision saved under
 `docs/sources/decisions/` is searched by the library only once it is listed in
 `scripts/retrieval/decisionSources.ts` and the index is rebuilt.
+
+## Official pages that state an old figure (2026-10-08)
+
+The Superior Court's "Steps in a civil case" guide (ontariocourts.ca, saved as
+`scj-steps-to-a-civil-case`) still says the Small Claims limit is $35,000. It has been
+$50,000 since October 1, 2025 (O. Reg. 626/00, s. 1 (1); ontario.ca "Small claims court:
+suing someone"). The law exam caught the site repeating $35,000. Such passages are listed
+in `docs/sources/corpus/superseded.json` (source, phrase, the law in force) and
+`readPassage` never hands them out. Add an entry whenever an official page is found to
+lag the law; re-fetching does not help while the page itself is stale.

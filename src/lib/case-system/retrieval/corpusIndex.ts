@@ -20,6 +20,7 @@
  * Server-only (reads the file system). Asserted by `npm run test:corpus-retrieval`.
  */
 
+import supersededList from "../../../../docs/sources/corpus/superseded.json";
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 
@@ -237,6 +238,19 @@ export function sourcePassages(index: LoadedIndex, sourceId: string): CorpusChun
   return [...chunks.values()];
 }
 
+/**
+ * Passages of official pages that still state a figure the law has changed
+ * (docs/sources/corpus/superseded.json, 2026-10-08: the Superior Court's guide
+ * still says the Small Claims limit is $35,000; it has been $50,000 since
+ * October 1, 2025). They are never handed out, so nothing can be confirmed
+ * from them. Pure.
+ */
+const SUPERSEDED: { sourceId: string; phrase: string }[] = (supersededList as { entries: { sourceId: string; phrase: string }[] }).entries;
+
+export function isSupersededPassage(sourceId: string, text: string): boolean {
+  return SUPERSEDED.some((entry) => entry.sourceId === sourceId && text.includes(entry.phrase));
+}
+
 export function readPassage(index: LoadedIndex, id: string, score: number): Passage | null {
   const sourceId = id.split(":")[1];
   const source = index.meta.sources[sourceId];
@@ -246,5 +260,6 @@ export function readPassage(index: LoadedIndex, id: string, score: number): Pass
   if (!chunk) return null;
   const row = index.meta.chunks.find(([chunkId]) => chunkId === id);
   if (!row || row[1] !== passageHash(chunk, source)) return null;
+  if (isSupersededPassage(sourceId, chunk.text)) return null;
   return { ...chunk, source, score };
 }

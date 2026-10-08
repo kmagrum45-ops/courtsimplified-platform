@@ -2249,3 +2249,9 @@ conditions must fit the facts before a rule supports a statement; the second loo
 doubt a statement, which is re-checked with the reason and removed if it fails; "is
 it worth it" and "how much will I get" are declined. Re-running the failures: 56 ->
 42 -> 33 short of full marks. What remains is mostly a specific point left out.
+
+Full tuning run after the consistency fix (two drafts) and cost fix, 2026-10-08: 217/260
+(83%), 35 short of full marks (8 zero). Token use: 2,824 calls, about 3,855 input and 485
+output tokens per call, 0 written to the prompt cache. Fixes: stale official passages are
+never handed out (superseded.json); the check must use the clause of a rule that fits the
+person's situation (7 days for daily or weekly tenancies, 14 for others).
