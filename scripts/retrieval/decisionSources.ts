@@ -74,6 +74,19 @@ const sccPage = (id: string, title: string, citation: string, year: number, file
   readableUrl: `https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/${item}/index.do`,
 });
 
+/** A Court of Appeal decision read from its page on www.ontariocourts.ca (2026-10-07). */
+const oncaPage = (id: string, title: string, citation: string, year: number, file: string, url: string): DecisionSource => ({
+  id: `decision-${id}`,
+  kind: "decision",
+  court: "ONCA",
+  title,
+  citation,
+  year,
+  path: `decisions/${file}`,
+  url,
+  readableUrl: url,
+});
+
 const pdfDerived = (base: string, html = false) => [`${base}.${html ? "html" : "english"}.txt`, `${base}.pdf`] as const;
 
 export const DECISION_SOURCES: DecisionSource[] = [
@@ -146,5 +159,9 @@ export const DECISION_SOURCES: DecisionSource[] = [
   sccPage("nelles", "Nelles v. Ontario", "[1989] 2 S.C.R. 170", 1989, "nelles-v-ontario-1989-2-SCR-170.html.txt", 499),
   sccPage("vout", "Vout v. Hay", "[1995] 2 S.C.R. 876", 1995, "vout-v-hay-1995-2-SCR-876.html.txt", 1273),
   onca("jones-tsige", "Jones v. Tsige", "2012 ONCA 32", 2012, "jones-v-tsige-2012-ONCA-32.txt", 10962),
+  sccPage("antrim", "Antrim Truck Centre Ltd. v. Ontario (Transportation)", "2013 SCC 13", 2013, "antrim-truck-centre-v-ontario-2013-SCC-13.html.txt", 12887),
+  sccPage("scalera", "Non-Marine Underwriters, Lloyd’s of London v. Scalera", "2000 SCC 24", 2000, "non-marine-underwriters-v-scalera-2000-SCC-24.html.txt", 1786),
+  oncaPage("merrifield", "Merrifield v. Canada (Attorney General)", "2019 ONCA 205", 2019, "merrifield-v-canada-2019-ONCA-205.txt", "https://www.ontariocourts.ca/decisions/2019/2019ONCA0205.htm"),
+  oncaPage("tms-lighting", "TMS Lighting Ltd. v. KJS Transport Inc.", "2014 ONCA 1", 2014, "tms-lighting-v-kjs-transport-2014-ONCA-1.txt", "https://www.ontariocourts.ca/decisions/2014/2014ONCA0001.htm"),
   onca("waksdale", "Waksdale v. Swegon North America Inc.", "2020 ONCA 391", 2020, "waksdale-v-swegon-2020-ONCA-391.txt", 18855),
 ];

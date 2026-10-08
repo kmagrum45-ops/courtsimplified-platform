@@ -1692,3 +1692,13 @@ Two things this cost time on:
   the same page as its PDF.
 - Authors running at the same time must not share helper-script names in the scratchpad: one
   author's `gen.py` overwrote another's and blanked a batch's fingerprints once.
+
+### ontariocourts.ca `.htm` decisions: re-extract from the raw page (2026-10-07)
+
+`fetchDecisionPages.sh` strips tags line by line, so a tag split over two lines in an
+ontariocourts.ca `.htm` page (Word-exported, `<span\nstyle=...>`) leaves CSS and half-tags in
+the text (about a third of the lines for Merrifield and TMS Lighting). The two saved files were
+re-extracted from the `.raw` page with a real HTML parser (drop `<script>`/`<style>`, break on
+block tags). The SCC `?iframe=true` pages did not have this problem. A decision saved under
+`docs/sources/decisions/` is searched by the library only once it is listed in
+`scripts/retrieval/decisionSources.ts` and the index is rebuilt.
