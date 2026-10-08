@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 /**
- * Daily OpenAI spend check, run before every AI test (2026-10-08).
+ * Daily OpenAI spend note, run before every AI test (2026-10-08).
+ *
+ * NEVER STOPS A RUN (site owner, 2026-10-08: "if they are going over, it's
+ * because they need to, and I don't want work stopped in the middle"). It shows
+ * today's spend and, when it is over the limit, a warning. With no admin key it
+ * says the spend could not be read and lets the run continue.
  *
  * WHY. October's OpenAI spend reached about $396 against a $100 budget, almost
  * all from automated testing. Every workflow that makes billed AI calls runs
@@ -14,10 +19,7 @@
  * ordinary API key cannot read costs. The key is read from the environment,
  * sent only to api.openai.com, and never printed.
  *
- * FAILS CLOSED. With no admin key, or when the Costs API cannot be read, the
- * run is stopped: a check that cannot see the spend must not wave a run
- * through. OpenAI's cost figures can lag by some hours, so the limit is a
- * brake, not an exact meter.
+ * OpenAI's cost figures can lag by some hours.
  *
  * Imports nothing outside Node, so it runs before `npm ci`.
  */
@@ -26,11 +28,11 @@ const limit = Number(process.env.AI_DAILY_SPEND_LIMIT || 15);
 const key = process.env.OPENAI_ADMIN_KEY;
 
 function stop(message) {
-  console.log(`::error title=AI test run stopped::${message}`);
+  // A warning, never a failure: the run goes ahead.
+  console.log(`::warning title=OpenAI spend::${message}`);
   if (process.env.GITHUB_STEP_SUMMARY) {
-    import("node:fs").then(({ appendFileSync }) => appendFileSync(process.env.GITHUB_STEP_SUMMARY, `**AI test run stopped.** ${message}\n`));
+    import("node:fs").then(({ appendFileSync }) => appendFileSync(process.env.GITHUB_STEP_SUMMARY, `**OpenAI spend:** ${message}\n`));
   }
-  process.exitCode = 1;
 }
 
 /** Midnight today in Toronto, as Unix seconds. */
@@ -74,7 +76,7 @@ async function main() {
   }
   const spent = sumCosts(page);
   const line = `Today's OpenAI spend so far: $${spent.toFixed(2)} (limit $${limit.toFixed(2)}).`;
-  if (spent > limit) return stop(`${line} AI test runs are stopped for today.`);
+  if (spent > limit) return stop(`${line} Over the daily limit; the run continues.`);
   console.log(`::notice title=OpenAI spend::${line}`);
 }
 
