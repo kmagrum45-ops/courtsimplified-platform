@@ -23,7 +23,7 @@
  * Run: node --import tsx scripts/verification/verifyCheckedAnswer.ts
  */
 
-import { loadCorpusIndex, type Passage } from "../../src/lib/case-system/retrieval/corpusIndex";
+import { loadCorpusIndex, readPassage, type Passage } from "../../src/lib/case-system/retrieval/corpusIndex";
 import {
   checkedAnswer,
   checkedAnswerView,
@@ -368,6 +368,12 @@ async function main() {
   check("a point only the second draft makes is added", Boolean(merged?.statements.some((x) => /refund/.test(x.text))));
   check("a prediction request in either draft is declined", merged?.asksForPrediction === true);
   check("outside scope only if every draft says so", mergeDrafts([{ scope: "outside", asksForPrediction: false, statements: [] }, { scope: "ontario", asksForPrediction: false, statements: [{ text: "Some rule of Ontario law here.", cites: [] }] }])?.scope === "ontario");
+
+  // ---- 6i. A passage stating a figure the law has changed is never handed out
+  const stale = index.meta.chunks.map(([id]) => id).filter((id) => id.startsWith("corpus:scj-steps-to-a-civil-case:"));
+  const staleRead = stale.map((id) => readPassage(index, id, 0.5));
+  check("the Superior Court guide's old $35,000 limit is never given to the check", stale.length > 0 && !staleRead.some((p) => p && p.text.includes("$35,000")));
+  check("the rest of that guide still is", staleRead.some(Boolean));
 
   // ---- 6d. Talk about the passages is dropped, the law kept
   check(

@@ -136,6 +136,7 @@ For each statement return:
 - Applying the law to the person's facts is fine when the passage states the rule being applied.
 - A statement may need two passages; then give the main one and put the second in "passage2" and "quote2".
 - Never write about the passages themselves ("the passages do not establish...", "the supplied text does not say..."). If part of a statement is not supported, leave that part out of the corrected version; never add doubts, caveats or "if" clauses the statement did not have.
+- When a passage gives different periods, amounts or steps for different situations (clauses (a), (b)... such as "by the day or week" and "in all other cases"), the statement must use the one for the person's situation; a statement using another is wrong and must be corrected.
 - A rule that depends on a condition (the kind of tenancy, claim, party, amount, date or procedure) supports a statement only if that condition fits the person's situation; otherwise correct the statement to the rule that does fit, or mark it unsupported. Never accept an old or repealed figure.
 - The passages state the law; the person's situation gives the facts. A passage not repeating the person's facts is no reason to doubt a statement that applies its rule to them.
 Return JSON: {"results": [ ... ]}`;
