@@ -26,6 +26,7 @@
 import { loadCorpusIndex, type Passage } from "../../src/lib/case-system/retrieval/corpusIndex";
 import {
   checkedAnswer,
+  checkedAnswerView,
   DECLINE_TO_JUDGE,
   parseCheck,
   parseDraft,
@@ -244,6 +245,38 @@ async function main() {
     "a statement's check also sees the sections the rest of the answer names",
     (seenBySecond[0] ?? []).some((p) => p.sourceId === "consumer-protection-act-2002") && (seenBySecond[0] ?? []).some((p) => p.sourceId === "limitations-act-2002"),
   );
+
+  // ---- 6c2. A statement that fails is checked once more, told why
+  const hints: (string | undefined)[] = [];
+  const retried = await checkedAnswer(
+    { question: "Can I cancel?", courtPath: "small-claims" },
+    {
+      index,
+      embed: noSearch,
+      draft: async () => JSON.stringify({ scope: "ontario", asksForPrediction: false, statements: cpaStatements.slice(0, 1) }),
+      check: async (_statements, passages, _input, hint) => {
+        hints.push(hint);
+        const cpaPassage = passageFor(passages, "consumer-protection-act-2002");
+        const quote = hint
+          ? "may, without any reason, cancel a direct agreement at any time from the date of entering into the agreement until 10 days after the consumer has received the written copy of the agreement"
+          : "may cancel a direct agreement whenever they like";
+        return JSON.stringify({ results: [{ n: 1, verdict: "supported", passage: cpaPassage?.id, quote, topic: "cancelling" }] });
+      },
+    },
+  );
+  check("a statement whose first check fails is checked again, and told why", hints.length === 2 && !hints[0] && /quote not in/.test(hints[1] ?? ""), JSON.stringify(hints));
+  check("the second check can confirm it", retried.statements.length === 1 && retried.notConfirmed.length === 0, JSON.stringify(retried));
+  const failedTwice = await checkedAnswer(
+    { question: "Can I cancel?", courtPath: "small-claims" },
+    {
+      index,
+      embed: noSearch,
+      draft: async () => JSON.stringify({ scope: "ontario", asksForPrediction: false, statements: cpaStatements.slice(1, 2) }),
+      check: async () => JSON.stringify({ results: [{ n: 1, verdict: "unsupported", passage: "", quote: "", topic: "time to give notice" }] }),
+    },
+  );
+  check("why a topic was not confirmed is recorded for the exam", (failedTwice.notConfirmedWhy ?? []).some((item) => item.topic === "time to give notice" && /no passage that supports it/.test(item.why)));
+  check("and never reaches the screens", !("notConfirmedWhy" in checkedAnswerView(failedTwice)));
 
   // ---- 6d. Talk about the passages is dropped, the law kept
   check(

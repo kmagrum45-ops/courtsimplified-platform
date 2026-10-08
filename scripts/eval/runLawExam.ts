@@ -78,6 +78,8 @@ type Graded = {
   seconds: number;
   siteSaid: SiteSaid;
   notConfirmed: string[];
+  /** Why each topic was not confirmed (the checked answer's internal record). */
+  notConfirmedWhy?: { topic: string; why: string }[];
   declined: boolean;
   outsideScope: boolean;
   error?: string;
@@ -144,6 +146,7 @@ async function runQuestion(question: ExamQuestion, mode: "answer" | "research", 
   let siteSaid: SiteSaid = [];
   let passageIds: string[] = [];
   let notConfirmed: string[] = [];
+  let notConfirmedWhy: { topic: string; why: string }[] = [];
   let declined = false;
   let outsideScope = false;
   let unavailable = false;
@@ -156,6 +159,7 @@ async function runQuestion(question: ExamQuestion, mode: "answer" | "research", 
     }));
     passageIds = answer.statements.flatMap((statement) => statement.sources.map((source) => source.passageId));
     notConfirmed = answer.notConfirmed;
+    notConfirmedWhy = answer.notConfirmedWhy ?? [];
     declined = answer.declinedToJudge;
     outsideScope = answer.status === "outside-scope";
     unavailable = answer.status === "unavailable";
@@ -169,7 +173,7 @@ async function runQuestion(question: ExamQuestion, mode: "answer" | "research", 
   }
 
   const found = lawFound(question, passageIds);
-  const base = { question, lawFound: found, seconds: 0, siteSaid, notConfirmed, declined, outsideScope };
+  const base = { question, lawFound: found, seconds: 0, siteSaid, notConfirmed, notConfirmedWhy, declined, outsideScope };
   let points: 0 | 1 | 2 = 0;
   let why = "";
   if (question.expected === "say-not-covered") {
@@ -285,6 +289,8 @@ function report(results: Graded[], mode: string, grade: boolean): string {
       lines.push("");
     }
     if (result.notConfirmed.length) lines.push(`**Could not confirm:** ${result.notConfirmed.join("; ")}`, "");
+    for (const item of result.notConfirmedWhy ?? []) lines.push(`- _why not confirmed (${item.topic}):_ ${item.why}`);
+    if (result.notConfirmedWhy?.length) lines.push("");
     lines.push(`**Answer key:** ${question.modelAnswer}`, "");
     lines.push(`**Law found:** ${result.lawFound.found} of ${result.lawFound.of} key passages (${question.sources.map((source) => `${path.basename(source.file, ".txt")} ${source.pinpoint}`).join("; ") || "none"})`, "");
   }
