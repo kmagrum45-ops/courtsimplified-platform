@@ -92,7 +92,7 @@ async function main() {
   console.log("\n4. Checks that are not about answer quality think less, and are not re-run on code they passed");
   for (const name of ["courtsimplified-walkthrough.yml", "courtsimplified-nightly-ai.yml"]) {
     const text = readFileSync(path.join(ROOT, ".github/workflows", name), "utf8");
-    check(`${name} runs at low effort`, /AI_EFFORT_DEEP: low/.test(text) && /AI_EFFORT_STANDARD: low/.test(text));
+    check(`${name} runs at low effort unless asked for more`, /AI_EFFORT_DEEP: (?:low|\$\{\{ inputs\.effort == 'medium' && 'medium' \|\| 'low' \}\})/.test(text) && /AI_EFFORT_STANDARD: low/.test(text));
   }
   for (const name of ["courtsimplified-walkthrough.yml", "courtsimplified-nightly-ai.yml", "courtsimplified-story-review.yml", "courtsimplified-retrieval-eval.yml", "courtsimplified-coverage.yml"]) {
     const text = readFileSync(path.join(ROOT, ".github/workflows", name), "utf8");

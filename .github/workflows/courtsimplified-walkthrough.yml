@@ -14,6 +14,10 @@ name: CourtSimplified Page Walkthrough
 on:
   workflow_dispatch:
     inputs:
+      effort:
+        description: "Reasoning effort for the site under test: low (cheaper; default) or medium (as the live site runs, for the finish-line check)"
+        required: false
+        default: "low"
       force:
         description: "Run even if this check already passed on the same code"
         required: false
@@ -79,7 +83,7 @@ jobs:
       # the repository variable AI_TEST_MODEL to use a cheaper model as well.
       AI_MODEL_DEEP: ${{ vars.AI_TEST_MODEL }}
       AI_MODEL_STANDARD: ${{ vars.AI_TEST_MODEL }}
-      AI_EFFORT_DEEP: low
+      AI_EFFORT_DEEP: ${{ inputs.effort == 'medium' && 'medium' || 'low' }}
       AI_EFFORT_STANDARD: low
       # Audit rows go to a local file, never to a database.
       AI_CALL_LOG: file
@@ -217,6 +221,7 @@ jobs:
           git commit -q -m "Page walkthrough for ${GITHUB_SHA::7} (run ${GITHUB_RUN_ID})"
           git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/walkthrough-reports
           echo "Published to walkthrough-reports." >> "$GITHUB_STEP_SUMMARY"
+          [ -f FINISH_LINE.md ] && sed -n '1,30p' FINISH_LINE.md >> "$GITHUB_STEP_SUMMARY" || true
           [ -f REPORT.md ] && head -30 REPORT.md >> "$GITHUB_STEP_SUMMARY" || true
 
       - name: Record that this check passed on this code
