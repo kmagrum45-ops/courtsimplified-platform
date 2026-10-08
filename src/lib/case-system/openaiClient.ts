@@ -91,6 +91,57 @@ export const OPENAI_MAX_RETRIES = 0;
  * ever genuinely needs storing, that is a change to this file, which is a
  * visible diff someone writes and someone reviews.
  */
+/**
+ * NO CACHE WRITES BY DEFAULT (2026-10-08). OpenAI's newer models (GPT-5.6 and
+ * later, including gpt-6.1-sol) cache prompts IMPLICITLY: every request of
+ * 1,024 tokens or more is written to the prompt cache, billed at 1.25 times the
+ * normal input rate. Our prompts end with each person's own story or question,
+ * so the cached copy is almost never read back. October's bill showed it:
+ * $205.76 of cache writes against $3.64 of cache reads. Asking for EXPLICIT
+ * mode with no breakpoint means nothing is written and every input token is
+ * billed once, at the normal rate. A caller whose long, stable prefix really is
+ * reused can still pass its own prompt_cache_options and a breakpoint.
+ * If a model rejects the parameter, createWithParamFallback drops it and the
+ * call goes ahead.
+ */
+export function withoutCacheWrites(body: Record<string, unknown>): Record<string, unknown> {
+  if ("prompt_cache_options" in body) return body;
+  const model = String(body.model ?? "");
+  return implicitCacheWriteModel(model) ? { ...body, prompt_cache_options: { mode: "explicit" } } : body;
+}
+
+/** True for the models that write to the prompt cache unless told not to (GPT-5.6 and later). */
+export function implicitCacheWriteModel(model: string): boolean {
+  const match = /^gpt-(\d+)(?:\.(\d+))?/i.exec(model.trim());
+  if (!match) return false;
+  const major = Number(match[1]);
+  const minor = Number(match[2] ?? 0);
+  return major > 5 || (major === 5 && minor >= 6);
+}
+
+/**
+ * Token use, summed in this process (2026-10-08): calls, input, input read from
+ * the cache, input written to the cache, output. Counts only, never content.
+ * The law exam prints it so the cost per call can be measured.
+ */
+export const tokenUse = { calls: 0, input: 0, cachedRead: 0, cacheWrite: 0, output: 0 };
+function countUse(response: unknown) {
+  const usage = (response as { usage?: Record<string, unknown> } | null)?.usage;
+  if (!usage) return;
+  const details = (usage.prompt_tokens_details ?? usage.input_tokens_details ?? {}) as Record<string, unknown>;
+  const n = (value: unknown) => (typeof value === "number" ? value : 0);
+  tokenUse.calls += 1;
+  tokenUse.input += n(usage.prompt_tokens ?? usage.input_tokens);
+  tokenUse.output += n(usage.completion_tokens ?? usage.output_tokens);
+  tokenUse.cachedRead += n(details.cached_tokens);
+  tokenUse.cacheWrite += n(details.cache_write_tokens ?? details.cache_creation_tokens);
+}
+async function counted<T>(promise: Promise<T>): Promise<T> {
+  const response = await promise;
+  countUse(response);
+  return response;
+}
+
 export function forceNoStore<T>(client: T): T {
   const target = client as unknown as { chat: { completions: { create: (...args: unknown[]) => unknown } } };
   const chatCreate = target.chat.completions.create.bind(target.chat.completions);
@@ -102,8 +153,8 @@ export function forceNoStore<T>(client: T): T {
     // returns and throws.
     observeAiCall(body, async () =>
       createWithParamFallback(
-        (attempt) => chatCreate({ ...attempt, store: false }, options) as Promise<unknown>,
-        body,
+        (attempt) => counted(chatCreate({ ...attempt, store: false }, options) as Promise<unknown>),
+        withoutCacheWrites(body),
         warnDroppedParam,
       ),
     )) as never;
@@ -130,8 +181,8 @@ export function forceNoStore<T>(client: T): T {
     chatCompletions.parse = ((body: Record<string, unknown>, options?: unknown) =>
       observeAiCall(body, async () =>
         createWithParamFallback(
-          (attempt) => chatParse({ ...attempt, store: false }, options) as Promise<unknown>,
-          body,
+          (attempt) => counted(chatParse({ ...attempt, store: false }, options) as Promise<unknown>),
+          withoutCacheWrites(body),
           warnDroppedParam,
         ),
       )) as never;
@@ -145,7 +196,7 @@ export function forceNoStore<T>(client: T): T {
     const responsesCreate = (responses.create as (...args: unknown[]) => unknown).bind(responses);
     responses.create = ((body: Record<string, unknown>, options?: unknown) =>
       observeAiCall(body, async () =>
-        responsesCreate({ ...body, store: false }, options),
+        counted(responsesCreate({ ...withoutCacheWrites(body), store: false }, options) as Promise<unknown>),
       )) as never;
   }
 

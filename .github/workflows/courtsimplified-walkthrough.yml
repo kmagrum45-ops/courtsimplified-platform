@@ -13,7 +13,11 @@ name: CourtSimplified Page Walkthrough
 # low; start it from the Actions tab (or ask Claude) when a run is wanted.
 on:
   workflow_dispatch:
-
+    inputs:
+      force:
+        description: "Run even if this check already passed on the same code"
+        required: false
+        default: "no"
 permissions:
   contents: write
 
@@ -24,10 +28,35 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Skips the run when it already passed on exactly this code (2026-10-08):
+  # a marker is saved after a pass, keyed on the code's contents.
+  gate:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.decide.outputs.run }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: passed
+        uses: actions/cache/restore@v4
+        with:
+          path: .ai-passed
+          key: ai-passed-walkthrough-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}
+          lookup-only: true
+      - id: decide
+        run: |
+          if [ "${{ steps.passed.outputs.cache-hit }}" = "true" ] && [ "${{ inputs.force }}" != "yes" ]; then
+            echo "::notice title=Already passed::This check already passed on this exact code; not run again (run with force=yes to override)."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+
   # 20 personas in 5 parallel jobs of 4 (2026-10-07; one runner took ~2 hours
   # for 8). Each job plays its share; the `report` job merges them, runs the
   # critic once, and publishes.
   walkthrough:
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 120
     strategy:
@@ -46,6 +75,12 @@ jobs:
       NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.STAGING_SUPABASE_PUBLISHABLE_KEY || secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.STAGING_SUPABASE_SERVICE_ROLE_KEY || secrets.SUPABASE_SERVICE_ROLE_KEY }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      # Not a test of answer quality, so the model thinks less (2026-10-08); set
+      # the repository variable AI_TEST_MODEL to use a cheaper model as well.
+      AI_MODEL_DEEP: ${{ vars.AI_TEST_MODEL }}
+      AI_MODEL_STANDARD: ${{ vars.AI_TEST_MODEL }}
+      AI_EFFORT_DEEP: low
+      AI_EFFORT_STANDARD: low
       # Audit rows go to a local file, never to a database.
       AI_CALL_LOG: file
 
@@ -58,6 +93,12 @@ jobs:
         with:
           node-version: 22
           cache: npm
+
+      # Stops the run if today's OpenAI spend is over $15 (scripts/ai/spendGuard.mjs, 2026-10-08).
+      - name: Check today's OpenAI spend
+        env:
+          OPENAI_ADMIN_KEY: ${{ secrets.OPENAI_ADMIN_KEY }}
+        run: node scripts/ai/spendGuard.mjs
 
       - name: Install dependencies
         run: npm ci
@@ -111,9 +152,18 @@ jobs:
           path: walkthrough-output
           retention-days: 3
 
+      - name: Record that this check passed on this code
+        if: success()
+        run: mkdir -p .ai-passed && date -u > .ai-passed/passed
+      - if: success()
+        uses: actions/cache/save@v4
+        with:
+          path: .ai-passed
+          key: ai-passed-walkthrough-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}
+
   report:
     needs: walkthrough
-    if: always()
+    if: always() && needs.walkthrough.result != 'skipped'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     env:
@@ -127,6 +177,12 @@ jobs:
         with:
           node-version: 22
           cache: npm
+
+      # Stops the run if today's OpenAI spend is over $15 (scripts/ai/spendGuard.mjs, 2026-10-08).
+      - name: Check today's OpenAI spend
+        env:
+          OPENAI_ADMIN_KEY: ${{ secrets.OPENAI_ADMIN_KEY }}
+        run: node scripts/ai/spendGuard.mjs
 
       - name: Install dependencies
         run: npm ci
@@ -162,3 +218,12 @@ jobs:
           git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/walkthrough-reports
           echo "Published to walkthrough-reports." >> "$GITHUB_STEP_SUMMARY"
           [ -f REPORT.md ] && head -30 REPORT.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Record that this check passed on this code
+        if: success()
+        run: mkdir -p .ai-passed && date -u > .ai-passed/passed
+      - if: success()
+        uses: actions/cache/save@v4
+        with:
+          path: .ai-passed
+          key: ai-passed-walkthrough-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}

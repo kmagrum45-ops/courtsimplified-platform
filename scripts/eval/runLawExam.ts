@@ -286,6 +286,13 @@ async function main() {
     ].join("\n"),
   );
   const total = results.reduce((sum, result) => sum + result.points, 0);
+  // Token use for the whole run (openaiClient.ts tokenUse): what each call
+  // costs, measured, including any input written to the prompt cache.
+  const { tokenUse } = await import("../../src/lib/case-system/openaiClient");
+  const per = (n: number) => (tokenUse.calls ? Math.round(n / tokenUse.calls) : 0);
+  console.log(
+    `Token use: ${tokenUse.calls} calls; per call ${per(tokenUse.input)} input (${per(tokenUse.cacheWrite)} written to cache, ${per(tokenUse.cachedRead)} read from cache), ${per(tokenUse.output)} output.`,
+  );
   console.log(`Law exam (${mode}): ${total} of ${results.length * 2} points (${percent(total, results.length * 2)}) on ${results.length} questions.`);
 }
 

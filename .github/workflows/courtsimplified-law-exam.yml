@@ -55,6 +55,12 @@ jobs:
           node-version: 22
           cache: npm
 
+      # Stops the run if today's OpenAI spend is over $15 (scripts/ai/spendGuard.mjs, 2026-10-08).
+      - name: Check today's OpenAI spend
+        env:
+          OPENAI_ADMIN_KEY: ${{ secrets.OPENAI_ADMIN_KEY }}
+        run: node scripts/ai/spendGuard.mjs
+
       - run: npm ci
 
       - name: Run the exam

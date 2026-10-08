@@ -11,9 +11,38 @@ name: CourtSimplified Nightly Real-AI Integration
 # low; start it from the Actions tab (or ask Claude) when a run is wanted.
 on:
   workflow_dispatch:
-
+    inputs:
+      force:
+        description: "Run even if this check already passed on the same code"
+        required: false
+        default: "no"
 jobs:
+  # Skips the run when it already passed on exactly this code (2026-10-08):
+  # a marker is saved after a pass, keyed on the code's contents.
+  gate:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.decide.outputs.run }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: passed
+        uses: actions/cache/restore@v4
+        with:
+          path: .ai-passed
+          key: ai-passed-nightly-ai-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}
+          lookup-only: true
+      - id: decide
+        run: |
+          if [ "${{ steps.passed.outputs.cache-hit }}" = "true" ] && [ "${{ inputs.force }}" != "yes" ]; then
+            echo "::notice title=Already passed::This check already passed on this exact code; not run again (run with force=yes to override)."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+
   real-ai-integration:
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -27,6 +56,12 @@ jobs:
       NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      # Not a test of answer quality, so the model thinks less (2026-10-08); set
+      # the repository variable AI_TEST_MODEL to use a cheaper model as well.
+      AI_MODEL_DEEP: ${{ vars.AI_TEST_MODEL }}
+      AI_MODEL_STANDARD: ${{ vars.AI_TEST_MODEL }}
+      AI_EFFORT_DEEP: low
+      AI_EFFORT_STANDARD: low
 
     steps:
       - name: Checkout repository
@@ -38,8 +73,23 @@ jobs:
           node-version: 22
           cache: npm
 
+      # Stops the run if today's OpenAI spend is over $15 (scripts/ai/spendGuard.mjs, 2026-10-08).
+      - name: Check today's OpenAI spend
+        env:
+          OPENAI_ADMIN_KEY: ${{ secrets.OPENAI_ADMIN_KEY }}
+        run: node scripts/ai/spendGuard.mjs
+
       - name: Install dependencies
         run: npm ci
 
       - name: Configured server AI integration check
         run: npm run test:ai-real-integration
+
+      - name: Record that this check passed on this code
+        if: success()
+        run: mkdir -p .ai-passed && date -u > .ai-passed/passed
+      - if: success()
+        uses: actions/cache/save@v4
+        with:
+          path: .ai-passed
+          key: ai-passed-nightly-ai-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}

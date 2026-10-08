@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-126 documented, 28 without a header.
+127 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -83,6 +83,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:no-store` | **Every OpenAI request carries `store: false`, and no call site can bypass it.**<br>COSTS NOTHING. Reads source off disk and calls the factory with a fake key. No network, no model call. |
 | `npm run test:notice-step` | **A claim whose kind can need written notice before suing is pointed to that**<br>notice step first, and only when the person's own words place it. |
 | `npm run test:official-forms` | **The official-forms watch reads the Ontario Court Forms pages correctly, and**<br>the recorded official list covers every live form the regulations name. |
+| `npm run test:openai-cost` | **OpenAI spending stays under control.**<br>WHAT IT CATCHES (2026-10-08: October's spend reached about $396 against a $100 budget, $205.76 of it prompt-cache WRITES that were almost never read back): - a call to a GPT-5.6+ model going out without prompt_cache_options, so the whole prompt is written to t |
 | `npm run test:output-guard` | **Arbitrary model text cannot reach a user, and every user-facing model call**<br>returns structured output. |
 | `npm run test:overview-labels` | **Guards the two leaks the browser scenario harness found on 2026-08-22, across**<br>16 and 8 scenarios respectively: |
 | `npm run test:overview-relevance` | **The overview shows what fits the claim the user confirmed, and nothing is**<br>silently dropped or reworded. |
