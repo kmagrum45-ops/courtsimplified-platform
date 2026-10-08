@@ -125,10 +125,15 @@ live site ran none of it.
   the user something is fixed until it is merged and Vercel has deployed it.
 - **Everything goes into `main` through auto-merge (site owner, 2026-10-08;
   replaces "merge immediately, don't wait for CI" of 2026-09-29).** Open the PR
-  and switch on auto-merge straight away (GraphQL `enablePullRequestAutoMerge`,
-  method SQUASH). GitHub merges it by itself the moment `typecheck-and-build`
-  passes — the ruleset "main must pass checks" requires that check on `main`,
-  and nobody but the site owner can bypass it. So nothing waits on a person,
+  and switch on auto-merge straight away, method SQUASH (in a Claude session
+  the GitHub proxy has no GraphQL: use `gh api -X PUT
+  repos/{owner}/{repo}/pulls/<n>/ccr/auto_merge`; elsewhere GraphQL
+  `enablePullRequestAutoMerge`). GitHub merges it by itself the moment
+  `typecheck-and-build` passes — the ruleset "main must pass checks" requires
+  that check on `main` with an EMPTY bypass list. Keep it empty: Claude
+  sessions act on GitHub as the owner's own account, so bypassing "Repository
+  admin" let a direct merge straight through (found 2026-10-08). The owner can
+  still edit or switch off the ruleset in an emergency. So nothing waits on a person,
   and nothing broken reaches `main`. Why it changed: merging before CI finished
   put two type errors on `main` on 2026-10-08, failed both Vercel builds
   each time, and emailed the site owner. If the check fails, fix it on the
