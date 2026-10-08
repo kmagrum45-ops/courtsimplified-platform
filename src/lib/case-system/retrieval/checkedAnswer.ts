@@ -103,7 +103,8 @@ Rules:
 - Do not compute calendar dates. State the period and what starts it ("within 20 days after being served").
 - Never invent a section number. If unsure of the number, cite the Act and describe the rule.
 - When the law gives the person more than one route (for example, sue in the Superior Court, or stay in Small Claims and give up the amount over the limit), name each route; never present one route as the only one.
-- Answer every part of the question, including the conditions and how amounts or thresholds are measured.`;
+- Answer every part of the question, including the conditions and how amounts or thresholds are measured.
+- Be complete the way a careful lawyer is: state the basic rule a section starts from (for example, that a will must be in writing), then its conditions, exceptions, how amounts are calculated and capped, deadlines and who must prove what, then the form or step and where it is filed. A point left out is as harmful as a wrong one.`;
 
 export const CHECK_SYSTEM_PROMPT = `You check statements of Ontario law against the official text. You are given numbered PASSAGES (the official text) and STATEMENTS. Use only the passages; ignore what you otherwise know.
 
@@ -465,7 +466,7 @@ async function chatJson(system: string, user: string, effort: string): Promise<s
 }
 
 export async function draftWithModel(input: CheckedAnswerInput): Promise<string> {
-  return chatJson(DRAFT_SYSTEM_PROMPT, draftUserPrompt(input), process.env.AI_EFFORT_ANSWER || "low");
+  return chatJson(DRAFT_SYSTEM_PROMPT, draftUserPrompt(input), process.env.AI_EFFORT_ANSWER || "medium");
 }
 
 export async function checkWithModel(statements: string[], passages: Passage[], input: CheckedAnswerInput, hint?: string): Promise<string> {
