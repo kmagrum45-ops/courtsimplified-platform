@@ -466,7 +466,7 @@ async function chatJson(system: string, user: string, effort: string): Promise<s
 }
 
 export async function draftWithModel(input: CheckedAnswerInput): Promise<string> {
-  return chatJson(DRAFT_SYSTEM_PROMPT, draftUserPrompt(input), process.env.AI_EFFORT_ANSWER || "medium");
+  return chatJson(DRAFT_SYSTEM_PROMPT, draftUserPrompt(input), process.env.AI_EFFORT_ANSWER || "low");
 }
 
 export async function checkWithModel(statements: string[], passages: Passage[], input: CheckedAnswerInput, hint?: string): Promise<string> {
