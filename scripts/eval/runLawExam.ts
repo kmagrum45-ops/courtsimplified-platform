@@ -203,7 +203,13 @@ async function main() {
   const limit = Number(arg("--limit") ?? 0);
   const mode = arg("--mode") === "research" ? "research" : "answer";
   const grade = !process.argv.includes("--no-grade");
-  const filtered = exam.filter((question) => (!area || question.area === area) && (!ids || ids.includes(question.id)));
+  // 30 questions are held back (lawExam/holdout.json): never used for tuning,
+  // run once at the end for an honest score. --set tuning (default when no ids
+  // are named) leaves them out; --set holdout runs only them.
+  const holdout = new Set((JSON.parse(readFileSync(path.join(ROOT, "scripts/eval/lawExam/holdout.json"), "utf8")) as { ids: string[] }).ids);
+  const set = arg("--set") ?? (ids ? "all" : "tuning");
+  const inSet = (id: string) => (set === "holdout" ? holdout.has(id) : set === "tuning" ? !holdout.has(id) : true);
+  const filtered = exam.filter((question) => (!area || question.area === area) && (!ids || ids.includes(question.id)) && inSet(question.id));
   const chosen = limit > 0 ? spreadAcrossAreas(filtered, limit) : filtered;
 
   if (!process.argv.includes("--confirm")) {
@@ -219,12 +225,25 @@ async function main() {
     return;
   }
 
-  const results: Graded[] = [];
-  for (const question of chosen) {
+  // Several questions at once (--concurrency, default 1), so the whole exam
+  // fits in the workflow's time; results keep the questions' order.
+  const concurrency = Math.max(1, Number(arg("--concurrency") ?? 1));
+  const results: Graded[] = new Array(chosen.length);
+  let next = 0;
+  const worker = async () => {
+    while (next < chosen.length) {
+      const at = next++;
+      const question = chosen[at];
+      results[at] = await runOne(question);
+      const last = results[at];
+      console.log(`${question.id.padEnd(9)} ${last.points}/2  law ${last.lawFound.found}/${last.lawFound.of}  ${last.seconds.toFixed(1)}s  ${last.why}`);
+    }
+  };
+  const runOne = async (question: ExamQuestion): Promise<Graded> => {
     try {
-      results.push(await runQuestion(question, mode, grade));
+      return await runQuestion(question, mode, grade);
     } catch (error) {
-      results.push({
+      return {
         question,
         points: 0,
         why: "the run failed",
@@ -235,14 +254,33 @@ async function main() {
         notConfirmed: [],
         declined: false,
         outsideScope: false,
-      });
+      };
     }
-    const last = results[results.length - 1];
-    console.log(`${question.id.padEnd(9)} ${last.points}/2  law ${last.lawFound.found}/${last.lawFound.of}  ${last.seconds.toFixed(1)}s  ${last.why}`);
-  }
+  };
+  await Promise.all(Array.from({ length: Math.min(concurrency, chosen.length) }, worker));
 
   writeFileSync(path.join(ROOT, "law-exam-report.json"), JSON.stringify({ mode, graded: grade, results }, null, 2));
   writeFileSync(path.join(ROOT, "law-exam-report.md"), report(results, mode, grade));
+  // Only what needs fixing, small enough to read in one go: every question
+  // short of full marks, with the grade, what went unconfirmed and why, and
+  // the key points it was graded against.
+  const failing = results.filter((result) => result.points < 2);
+  writeFileSync(
+    path.join(ROOT, "law-exam-failures.md"),
+    [
+      `# Questions short of full marks: ${failing.length} of ${results.length}`,
+      `ids: ${failing.map((result) => result.question.id).join(",")}`,
+      "",
+      ...failing.flatMap((result) => [
+        `## ${result.question.id} ${result.points}/2`,
+        `Q: ${result.question.question}`,
+        `Grade: ${result.why}`,
+        ...(result.notConfirmedWhy ?? []).map((item) => `- not confirmed (${item.topic}): ${item.why}`),
+        `Key points: ${(result.question as { keyPoints?: string[] }).keyPoints?.join(" | ") ?? ""}`,
+        "",
+      ]),
+    ].join("\n"),
+  );
   const total = results.reduce((sum, result) => sum + result.points, 0);
   console.log(`Law exam (${mode}): ${total} of ${results.length * 2} points (${percent(total, results.length * 2)}) on ${results.length} questions.`);
 }

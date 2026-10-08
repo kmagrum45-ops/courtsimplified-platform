@@ -141,6 +141,11 @@ if (!only) {
   check("every area is examined", missingAreas.length === 0, missingAreas.join(", "));
   const missingStyles = EXAM_STYLES.filter((style) => !all.some((question) => question.style === style));
   check("every style of question is used", missingStyles.length === 0, missingStyles.join(", "));
+  // The held-back questions (2026-10-07): the honest score. They must exist,
+  // number 30, and not include the questions already used to tune the site.
+  const holdout = (JSON.parse(readFileSync(path.join(ROOT, "scripts/eval/lawExam/holdout.json"), "utf8")) as { ids: string[] }).ids;
+  check("30 questions are held back, every one real", holdout.length === 30 && holdout.every((id) => ids.includes(id)), holdout.filter((id) => !ids.includes(id)).join(", "));
+  check("no held-back question is one already used for tuning (-001, -002)", !holdout.some((id) => /-00[12]$/.test(id)));
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
