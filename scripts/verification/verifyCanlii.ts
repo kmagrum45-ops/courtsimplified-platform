@@ -310,6 +310,7 @@ async function main() {
       [".github/workflows/courtsimplified-change-watch.yml", "GitHub's API (opens an issue)"],
       [".github/workflows/courtsimplified-forms-probe.yml", "runs probeOfficialForms.ts, which refuses CanLII"],
       [".github/workflows/courtsimplified-walkthrough.yml", "the site under test"],
+      ["scripts/ai/spendGuard.mjs", "OpenAI's Costs API (api.openai.com)"],
       ["scripts/diagnose-auth-email.mjs", "Supabase"],
       ["scripts/ensureStorageBuckets.mjs", "Supabase"],
       ["scripts/fix-smtp-and-verify.mjs", "Supabase"],
