@@ -153,7 +153,9 @@ export function numbersInWords(text: string): string[] {
 
 /** Every number a text states, in digits or in words. Pure. */
 export function numbersStated(text: string): string[] {
-  return [...numbers(text), ...numbersInWords(text)];
+  // "76.02" and "14.03 (1)" name Rule 76 and rule 14: each part counts as stated.
+  const parts = (text.match(/\b\d+(?:\.\d+)+\b/g) ?? []).flatMap((n) => n.split("."));
+  return [...numbers(text), ...numbersInWords(text), ...parts.map((n) => String(Number(n)))];
 }
 
 /** The numbers a text uses, as written in digits. Pure. */

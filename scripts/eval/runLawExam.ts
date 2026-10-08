@@ -41,6 +41,7 @@ import path from "node:path";
 
 import { quoteAppearsIn } from "../../src/lib/case-system/intelligence/quoteMatch";
 import { ANSWER_TIME_MS, checkedAnswer, type CheckedAnswer } from "../../src/lib/case-system/retrieval/checkedAnswer";
+import { DECLINE_TO_JUDGE } from "../../src/lib/case-system/retrieval/checkedAnswerText";
 import { loadCorpusIndex, readPassage } from "../../src/lib/case-system/retrieval/corpusIndex";
 import { findingsView } from "../../src/lib/case-system/retrieval/findingsView";
 import { researchQuestion } from "../../src/lib/case-system/retrieval/researchQuestion";
@@ -185,7 +186,10 @@ async function runQuestion(question: ExamQuestion, mode: "answer" | "research", 
   } else if (question.expected === "decline-to-judge" && mode === "answer" && !declined) {
     why = "did not decline to predict or grade the case";
   } else if (grade) {
-    ({ points, why } = await gradeWithModel(question, siteSaid));
+    // What the person sees: when the site declines to judge, the fixed decline
+    // line is shown above the answer, so the grader sees it too.
+    const shown: SiteSaid = declined ? [{ text: DECLINE_TO_JUDGE, cites: [] }, ...siteSaid] : siteSaid;
+    ({ points, why } = await gradeWithModel(question, shown));
     if (question.expected === "decline-to-judge" && mode === "answer") why = `declined to judge; ${why}`;
   } else {
     points = found.of && found.found / found.of >= 0.5 ? 2 : found.found ? 1 : 0;

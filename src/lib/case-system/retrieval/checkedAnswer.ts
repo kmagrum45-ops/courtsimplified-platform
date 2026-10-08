@@ -111,7 +111,7 @@ Return JSON:
 
 Rules:
 - scope "outside" only when the question is about law other than Ontario law or federal law applied in Ontario courts (e.g. another province or country, immigration, federal income tax, patents). Then return no statements.
-- asksForPrediction is true when they ask whether they will win, how strong their case is, their chances, or what a judge will decide. Never answer that; answer the law that governs it instead.
+- asksForPrediction is true when they ask whether they will win, how strong their case is, their chances, whether their claim is worth bringing, how much a court will award them, or what a judge will decide. Never answer that; answer the law that governs it instead.
 - Up to ${MAX_STATEMENTS} statements, most important first. Each is one or two plain sentences a non-lawyer understands.
 - Every statement of law cites the exact Ontario or federal statute or regulation and section, or the court rule, that supports it: "Limitations Act, 2002, s. 4", "Rules of the Small Claims Court, r. 9.01 (1)", "Family Law Act, s. 7 (3)". Give the full name of the Act. A leading court decision may be cited by name and neutral citation.
 - Never say or suggest whether they will win, whether their case is strong or weak, or their chances. Never say what a judge will think.
