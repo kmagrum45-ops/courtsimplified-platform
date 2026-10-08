@@ -947,3 +947,12 @@ what it decides; nothing is said about any of them except in its own words.
 - **Retrieved from:** https://www.ontariocourts.ca/decisions/2019/2019ONCA0205.htm
 - **Downloaded:** 2026-10-07 (Fetch Decisions run 37702811464)
 - **Noted up:** no
+
+### `decisions/tms-lighting-v-kjs-transport-2014-ONCA-1.txt`
+
+- **What it is:** Court of Appeal for Ontario decision, *TMS Lighting Ltd. v. KJS Transport Inc.*.
+- **Citation:** 2014 ONCA 1
+- **Retrieved for:** proving damages in nuisance and trespass between neighbouring properties.
+- **Retrieved from:** https://www.ontariocourts.ca/decisions/2014/2014ONCA0001.htm
+- **Downloaded:** 2026-10-07 (Fetch Decisions run 37710019914)
+- **Noted up:** no
