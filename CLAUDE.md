@@ -255,6 +255,21 @@ Any behaviour change it produces must be explained, not absorbed silently: updat
 isn't. Never quietly let `.actual.md` drift out of sync with what `*.expected.md` says should
 happen.
 
+**OpenAI spending, cost controls (2026-10-08).** October reached about $396
+against a $100 budget, almost all testing. Now: every call to a GPT-5.6+ model
+is sent with `prompt_cache_options: {mode: "explicit"}` and no breakpoint, so
+nothing is written to the prompt cache (implicit caching wrote every prompt at
+1.25x the input price and almost none was read back) — openaiClient.ts
+`withoutCacheWrites`. Every AI workflow runs `scripts/ai/spendGuard.mjs` first
+and stops if today's spend (Toronto time) is over $15; it needs the repository
+secret `OPENAI_ADMIN_KEY` (an OpenAI admin key; the Costs API) and fails closed
+without it. The walkthrough, story review, retrieval eval, nightly and coverage
+runs skip code they already passed on (run with `force=yes` to override); CI's
+billed suite runs only when the AI code changed since it last passed. The
+walkthrough and nightly runs use low reasoning effort, and the repository
+variable `AI_TEST_MODEL` sets a cheaper model for them. `npm run test:openai-cost`
+checks all of this in CI.
+
 **OpenAI spending (2026-10-07).** The walkthrough, story review (which runs
 `test:fixtures`), nightly AI, corpus index and retrieval eval workflows are
 manual-only (`workflow_dispatch`), because they spend the site's OpenAI

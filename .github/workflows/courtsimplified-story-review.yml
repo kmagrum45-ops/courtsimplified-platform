@@ -15,7 +15,11 @@ name: CourtSimplified Story Review
 # low; start it from the Actions tab (or ask Claude) when a run is wanted.
 on:
   workflow_dispatch:
-
+    inputs:
+      force:
+        description: "Run even if this check already passed on the same code"
+        required: false
+        default: "no"
 permissions:
   contents: write
 
@@ -24,7 +28,32 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Skips the run when it already passed on exactly this code (2026-10-08):
+  # a marker is saved after a pass, keyed on the code's contents.
+  gate:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.decide.outputs.run }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: passed
+        uses: actions/cache/restore@v4
+        with:
+          path: .ai-passed
+          key: ai-passed-story-review-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}
+          lookup-only: true
+      - id: decide
+        run: |
+          if [ "${{ steps.passed.outputs.cache-hit }}" = "true" ] && [ "${{ inputs.force }}" != "yes" ]; then
+            echo "::notice title=Already passed::This check already passed on this exact code; not run again (run with force=yes to override)."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+
   story-review:
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 75
 
@@ -44,6 +73,12 @@ jobs:
         with:
           node-version: 22
           cache: npm
+
+      # Stops the run if today's OpenAI spend is over $15 (scripts/ai/spendGuard.mjs, 2026-10-08).
+      - name: Check today's OpenAI spend
+        env:
+          OPENAI_ADMIN_KEY: ${{ secrets.OPENAI_ADMIN_KEY }}
+        run: node scripts/ai/spendGuard.mjs
 
       - name: Install dependencies
         run: npm ci
@@ -123,3 +158,12 @@ jobs:
           git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/story-review-reports
           echo "Published to story-review-reports." >> "$GITHUB_STEP_SUMMARY"
           head -40 REPORT.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Record that this check passed on this code
+        if: success()
+        run: mkdir -p .ai-passed && date -u > .ai-passed/passed
+      - if: success()
+        uses: actions/cache/save@v4
+        with:
+          path: .ai-passed
+          key: ai-passed-story-review-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}

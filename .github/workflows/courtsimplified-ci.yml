@@ -250,6 +250,9 @@ jobs:
       - name: AI model configuration verification
         run: npm run test:ai-models
 
+      - name: OpenAI spending stays under control (no cache writes, daily limit, no repeat runs)
+        run: npm run test:openai-cost
+
       # This suite makes real, billed OpenAI calls, so it needs the
       # OPENAI_API_KEY repository secret. Without the secret it cannot run at
       # all -- it failed in one second on 2026-09-28, the first time any CI run
@@ -261,9 +264,39 @@ jobs:
         if: env.OPENAI_API_KEY == ''
         run: echo "::warning title=Safety regression not run::OPENAI_API_KEY repository secret is not set, so the real-AI safety suite was skipped. Run npm run test:safety-regression locally before shipping intake changes."
 
-      - name: Safety pass regression (real OpenAI calls -- see file header)
+      # COST (2026-10-08): the only billed suite in CI runs only when the AI code
+      # changed since it last passed (a marker keyed on that code), and only when
+      # today's OpenAI spend is under $15 (scripts/ai/spendGuard.mjs).
+      - name: Safety regression already passed on this AI code?
+        id: safety-passed
         if: env.OPENAI_API_KEY != ''
+        uses: actions/cache/restore@v4
+        with:
+          path: .ai-passed
+          key: ai-passed-safety-regression-${{ hashFiles('src/**', 'app/api/**', 'scripts/verification/verifySafetyPassRegression.ts') }}
+          lookup-only: true
+
+      - name: Check today's OpenAI spend
+        id: spend
+        if: env.OPENAI_API_KEY != '' && steps.safety-passed.outputs.cache-hit != 'true'
+        continue-on-error: true
+        env:
+          OPENAI_ADMIN_KEY: ${{ secrets.OPENAI_ADMIN_KEY }}
+        run: node scripts/ai/spendGuard.mjs
+
+      - name: Safety pass regression (real OpenAI calls -- see file header)
+        if: env.OPENAI_API_KEY != '' && steps.safety-passed.outputs.cache-hit != 'true' && steps.spend.outcome == 'success'
         run: npm run test:safety-regression
+
+      - name: Record that the safety regression passed on this AI code
+        if: env.OPENAI_API_KEY != '' && steps.safety-passed.outputs.cache-hit != 'true' && steps.spend.outcome == 'success'
+        run: mkdir -p .ai-passed && date -u > .ai-passed/passed
+
+      - if: env.OPENAI_API_KEY != '' && steps.safety-passed.outputs.cache-hit != 'true' && steps.spend.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: .ai-passed
+          key: ai-passed-safety-regression-${{ hashFiles('src/**', 'app/api/**', 'scripts/verification/verifySafetyPassRegression.ts') }}
 
       - name: Family role comes from the user's answer
         run: npm run test:family-role

@@ -117,6 +117,7 @@
     "test:safety-coverage": "node --import tsx scripts/verification/verifySafetyPassCoverage.ts",
     "content:export": "node --import tsx scripts/content/exportReviewPacket.ts",
     "content:import": "node --import tsx scripts/content/importReviewResults.ts",
+    "test:openai-cost": "node --import tsx scripts/verification/verifyOpenAiCost.ts",
     "test:output-guard": "node --import tsx scripts/verification/verifyOutputGuard.ts",
     "test:ai-call-logging": "node --import tsx scripts/verification/verifyAiCallLogging.ts",
     "compliance:ai-report": "node --import tsx --env-file=.env.local scripts/compliance/aiQuarterlyReport.ts",

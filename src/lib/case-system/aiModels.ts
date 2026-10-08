@@ -195,7 +195,9 @@ export function modelParams(tier: AiTier, options: ModelParamOptions = {}): Chat
  * here: a model rejecting those is a configuration error that should surface,
  * not be papered over.
  */
-export const DROPPABLE_PARAMS: readonly string[] = ["temperature", "top_p", "seed"];
+// prompt_cache_options (2026-10-08): sent to stop implicit cache writes
+// (openaiClient.ts withoutCacheWrites); dropped if a model does not know it.
+export const DROPPABLE_PARAMS: readonly string[] = ["temperature", "top_p", "seed", "prompt_cache_options"];
 
 /**
  * Which droppable parameter an error says the model rejected, if any.
@@ -219,7 +221,7 @@ export function rejectedDroppableParam(
   }
 
   const message = error instanceof Error ? error.message : String((error as { message?: unknown }).message ?? "");
-  const match = /unsupported (?:parameter|value)[^']*'([a-z_]+)'/i.exec(message);
+  const match = /unsupported (?:parameter|value)[^']*'([a-z_]+)'/i.exec(message) ?? /unrecognized request argument supplied:\s*([a-z_]+)/i.exec(message);
   if (match && DROPPABLE_PARAMS.includes(match[1]) && match[1] in body) return match[1];
   return null;
 }
