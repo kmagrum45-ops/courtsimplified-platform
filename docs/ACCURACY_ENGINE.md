@@ -208,6 +208,15 @@ a wider search (12 hits), told why the first check failed, when 15 seconds remai
 Why each topic was not confirmed is kept internally (`notConfirmedWhy`, never shown
 to a person) and printed in the exam report, so the next fix is aimed, not guessed.
 
+Thorough mode (site owner, 2026-10-07: "if it needs to take time to be accurate, then do
+it"): a person's question gets up to 150 s (ANSWER_TIME_MS; the route's maxDuration is
+300 s, Vercel's Fluid-compute limit), the story answer 120 s. With that time the draft is
+written at medium effort, and a SECOND LOOK (reviewWithModel) reads the question, the
+confirmed statements and the law they rest on, and names up to six points a complete
+answer still needs; each is checked exactly like the first statements. Exam: 32/36
+(89%), no zero scores, answers in 50-120 s. Medium effort alone, inside 50 s, scored 61%
+because it ran out of time: the gain came from the time, not the effort setting.
+
 Why: the first law exam run (2026-10-07) showed the research step finds the
 main rule but returns passages, not an answer, and its caps (2 questions x
 about 5 passages) cannot hold the 6-10 provisions a full answer needs. The
