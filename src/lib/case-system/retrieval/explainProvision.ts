@@ -118,9 +118,42 @@ Return JSON: {"unsupported": ["..."], "missing": ["..."]}, with empty lists if t
 
 const numbers = (text: string) => (text.match(/\d+(?:[.,]\d+)*/g) ?? []).map((n) => n.replace(/,/g, ""));
 
+const UNITS: Record<string, number> = {
+  zero: 0, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10,
+  eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19,
+  first: 1, second: 2, third: 3, fourth: 4, fifth: 5, sixth: 6, seventh: 7, eighth: 8, ninth: 9, tenth: 10,
+  twelfth: 12, fifteenth: 15, twentieth: 20, thirtieth: 30,
+};
+const TENS: Record<string, number> = { twenty: 20, thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70, eighty: 80, ninety: 90 };
+
+/**
+ * The numbers a passage writes in words, as digits: Ontario statutes write
+ * "five years", "six-month period", "forty-eight hours", "second
+ * anniversary", "$2.5 million". A plain-language statement saying "5 years"
+ * or "$2,500,000" states the same number (2026-10-07 law exam: correct
+ * statements of ESA s. 64 were refused because the Act spells its numbers).
+ * Pure; only ever adds numbers the passage really states.
+ */
+export function numbersInWords(text: string): string[] {
+  const out: string[] = [];
+  const lower = text.toLowerCase();
+  for (const match of lower.matchAll(/\b(twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety)(?:[- ](one|two|three|four|five|six|seven|eight|nine|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth))?\b/g)) {
+    out.push(String(TENS[match[1]] + (match[2] ? UNITS[match[2]] : 0)));
+  }
+  for (const match of lower.matchAll(/\b([a-z]+)\b/g)) if (match[1] in UNITS) out.push(String(UNITS[match[1]]));
+  for (const match of lower.matchAll(/\b(one|two|three|four|five|six|seven|eight|nine|ten|twelve|fifteen|twenty|fifty)?\s*hundred\b/g)) {
+    out.push(String((match[1] ? UNITS[match[1]] ?? TENS[match[1]] : 1) * 100));
+  }
+  for (const match of lower.matchAll(/\$?\s*(\d+(?:\.\d+)?)\s+(thousand|million|billion)\b/g)) {
+    const scale = match[2] === "thousand" ? 1e3 : match[2] === "million" ? 1e6 : 1e9;
+    out.push(String(Math.round(Number(match[1]) * scale)));
+  }
+  return out;
+}
+
 /** The first number in `text` that `source` does not contain, or null. Pure; shared with sourcedQuestions.ts. */
 export function numberNotInSource(text: string, source: string): string | null {
-  const allowed = new Set(numbers(source));
+  const allowed = new Set([...numbers(source), ...numbersInWords(source)]);
   for (const n of numbers(text)) if (!allowed.has(n)) return n;
   return null;
 }
