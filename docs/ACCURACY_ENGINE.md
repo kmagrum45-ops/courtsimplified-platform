@@ -2255,3 +2255,10 @@ Full tuning run after the consistency fix (two drafts) and cost fix, 2026-10-08:
 output tokens per call, 0 written to the prompt cache. Fixes: stale official passages are
 never handed out (superseded.json); the check must use the clause of a rule that fits the
 person's situation (7 days for daily or weekly tenancies, 14 for others).
+
+### Held-back score, 2026-10-08
+
+The 30 held-back questions (lawExam/holdout.json), never used for tuning, run once
+cold: 52/60 (87%), law found 89%. Full report: docs/law-exam/holdout-2026-10-08.md.
+This is the honest measure; the tuning-set score (83%) was earned on questions the
+fixes were aimed at.
