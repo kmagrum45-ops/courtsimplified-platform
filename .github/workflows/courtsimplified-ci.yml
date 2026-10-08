@@ -250,6 +250,9 @@ jobs:
       - name: AI model configuration verification
         run: npm run test:ai-models
 
+      - name: Case strategy stays switched off, sourced, and never grades a case
+        run: npm run test:strategy
+
       - name: OpenAI spending stays under control (no cache writes, daily limit, no repeat runs)
         run: npm run test:openai-cost
 

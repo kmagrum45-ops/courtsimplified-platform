@@ -67,6 +67,18 @@ Not allowed: strengths, weaknesses, risk scores, readiness scores that weight ri
 
 If asked to add something that grades a case, flag it rather than building it.
 
+**Case strategy is the one exception for opposing arguments and settlement tools
+(site owner, 2026-10-08).** Inside the strategy feature only
+(`retrieval/strategy.ts`, `/api/case/strategy`), and only while its switch is on
+(`STRATEGY=on`; off on the live site until the Law Society's A2I approval covers
+it), the site may set out what the law makes available to the other side and the
+law and evidence that answer each, what the court must decide and the test for
+each, and procedural tools including offers to settle and their cost
+consequences. Each is stated as what the law provides, never as a prediction of
+what anyone will do. **The ban on grading the case stays absolute, there too:**
+no strengths or weaknesses, no chances, no "how strong your case is", no
+prediction of what a judge will think or decide. Plan: `docs/STRATEGY_PLAN.md`.
+
 ## 4. Suggest, never decide
 
 Every AI-generated output is shown as a suggestion the user confirms or overrides. Never auto-apply, never silently reroute, never decide for the user.

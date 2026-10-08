@@ -257,3 +257,19 @@ export function checkedAnswersEnabled(
 ): boolean {
   return env.CHECKED_ANSWERS !== "off" && aiAnalysisTextToUsers(env) && appliedLawEnabled(env);
 }
+
+/**
+ * Case strategy (retrieval/strategy.ts, 2026-10-08): the matter from every seat
+ * -- what must be proven, what the law gives the other side and the answer to
+ * each, what the court must decide, and the procedural tools and timing.
+ * OFF unless STRATEGY=on, so it stays off for real users until the Law
+ * Society's A2I approval covers it (site owner, 2026-10-08). Needs checked
+ * answers, since every statement in it is one. It never grades the case.
+ * The page shows the button only when NEXT_PUBLIC_STRATEGY=on as well.
+ */
+export function strategyEnabled(
+  env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+): boolean {
+  return env.STRATEGY === "on" && checkedAnswersEnabled(env);
+}
+
