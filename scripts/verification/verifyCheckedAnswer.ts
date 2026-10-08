@@ -34,6 +34,7 @@ import {
   withoutTalkAboutPassages,
   numberNotStatedOrWorkedOut,
   parseDoubts,
+  mergeDrafts,
   type CheckedAnswerDeps,
 } from "../../src/lib/case-system/retrieval/checkedAnswer";
 import { quoteAppearsIn } from "../../src/lib/case-system/intelligence/quoteMatch";
@@ -350,6 +351,23 @@ async function main() {
   check("10 per cent of the person's $90,000 may be stated as $9,000", numberNotStatedOrWorkedOut("The holdback is $9,000.", "a holdback equal to 10 per cent of the price", "The contract price is $90,000.") === null);
   check("a figure with no basis is still refused", numberNotStatedOrWorkedOut("The holdback is $9,500.", "a holdback equal to 10 per cent of the price", "The contract price is $90,000.") === "9500");
   check("a small number is never worked out (25 days where the law says 20)", numberNotStatedOrWorkedOut("You have 25 days.", "within 20 days", "I was served 5 days ago.") === "25");
+
+  // ---- 6h. Two drafts, merged: each point once, the second draft fills gaps
+  const merged = mergeDrafts([
+    { scope: "ontario", asksForPrediction: false, statements: [{ text: "You can cancel a direct agreement within 10 days after receiving the written copy.", cites: ["a"] }] },
+    {
+      scope: "ontario",
+      asksForPrediction: true,
+      statements: [
+        { text: "You can cancel the direct agreement within 10 days after receiving the written copy.", cites: ["a"] },
+        { text: "The supplier must refund every payment within 15 days after you cancel.", cites: ["b"] },
+      ],
+    },
+  ]);
+  check("a point both drafts make is checked once", merged?.statements.filter((x) => /direct agreement/.test(x.text)).length === 1);
+  check("a point only the second draft makes is added", Boolean(merged?.statements.some((x) => /refund/.test(x.text))));
+  check("a prediction request in either draft is declined", merged?.asksForPrediction === true);
+  check("outside scope only if every draft says so", mergeDrafts([{ scope: "outside", asksForPrediction: false, statements: [] }, { scope: "ontario", asksForPrediction: false, statements: [{ text: "Some rule of Ontario law here.", cites: [] }] }])?.scope === "ontario");
 
   // ---- 6d. Talk about the passages is dropped, the law kept
   check(
