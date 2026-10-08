@@ -35,7 +35,7 @@ import type { CheckedAnswerView } from "../intelligence/intelligenceTypes";
 import { hasLegalContent } from "../intelligence/groundedCognition";
 import { MIN_QUOTE_CHARS, normalizeQuoteText, quoteAppearsIn } from "../intelligence/quoteMatch";
 import { loadCorpusIndex, readPassage, searchIndex, type LoadedIndex, type Passage } from "./corpusIndex";
-import { numberNotInSource, outcomeTermNotInProvision } from "./explainProvision";
+import { numbersStated, numbersUsed, outcomeTermNotInProvision } from "./explainProvision";
 import { namedProvisions } from "./namedProvisions";
 import { excludedForCourt, followCrossReferences, passageItem, type RetrievalCourt } from "./storyRetrieval";
 
@@ -111,7 +111,7 @@ Return JSON:
 
 Rules:
 - scope "outside" only when the question is about law other than Ontario law or federal law applied in Ontario courts (e.g. another province or country, immigration, federal income tax, patents). Then return no statements.
-- asksForPrediction is true when they ask whether they will win, how strong their case is, their chances, or what a judge will decide. Never answer that; answer the law that governs it instead.
+- asksForPrediction is true when they ask whether they will win, how strong their case is, their chances, whether their claim is worth bringing, how much a court will award them, or what a judge will decide. Never answer that; answer the law that governs it instead.
 - Up to ${MAX_STATEMENTS} statements, most important first. Each is one or two plain sentences a non-lawyer understands.
 - Every statement of law cites the exact Ontario or federal statute or regulation and section, or the court rule, that supports it: "Limitations Act, 2002, s. 4", "Rules of the Small Claims Court, r. 9.01 (1)", "Family Law Act, s. 7 (3)". Give the full name of the Act. A leading court decision may be cited by name and neutral citation.
 - Never say or suggest whether they will win, whether their case is strong or weak, or their chances. Never say what a judge will think.
@@ -119,6 +119,7 @@ Rules:
 - Never invent a section number. If unsure of the number, cite the Act and describe the rule.
 - When the law gives the person more than one route (for example, sue in the Superior Court, or stay in Small Claims and give up the amount over the limit), name each route; never present one route as the only one.
 - Answer every part of the question, including the conditions and how amounts or thresholds are measured.
+- Use the figures, forms and procedures in force now, and the ones that fit this person's situation (the kind of tenancy, claim, court and party). Where the law gives a percentage or formula, work it out with their figures and say how.
 - Be complete the way a careful lawyer is: state the basic rule a section starts from (for example, that a will must be in writing), then its conditions, exceptions, how amounts are calculated and capped, deadlines and who must prove what, then the form or step and where it is filed. A point left out is as harmful as a wrong one.`;
 
 export const CHECK_SYSTEM_PROMPT = `You check statements of Ontario law against the official text. You are given numbered PASSAGES (the official text) and STATEMENTS. Use only the passages; ignore what you otherwise know.
@@ -135,6 +136,7 @@ For each statement return:
 - Applying the law to the person's facts is fine when the passage states the rule being applied.
 - A statement may need two passages; then give the main one and put the second in "passage2" and "quote2".
 - Never write about the passages themselves ("the passages do not establish...", "the supplied text does not say..."). If part of a statement is not supported, leave that part out of the corrected version; never add doubts, caveats or "if" clauses the statement did not have.
+- A rule that depends on a condition (the kind of tenancy, claim, party, amount, date or procedure) supports a statement only if that condition fits the person's situation; otherwise correct the statement to the rule that does fit, or mark it unsupported. Never accept an old or repealed figure.
 - The passages state the law; the person's situation gives the facts. A passage not repeating the person's facts is no reason to doubt a statement that applies its rule to them.
 Return JSON: {"results": [ ... ]}`;
 
@@ -211,6 +213,43 @@ export function parseCheck(raw: string): CheckResult[] | null {
  * is in its passage, every number is in the passage or the person's own
  * words, and it does not predict or grade the case.
  */
+/**
+ * The first number in `statement` that is neither stated in `source` (the law
+ * and the person's words) nor worked out from two numbers stated there by one
+ * step of arithmetic: a percentage of an amount, a product, a sum, a
+ * difference or a quotient. A lawyer applies the law to the client's figures
+ * ("10 per cent of your $90,000 contract is $9,000"); refusing that cost 23
+ * statements in the 2026-10-08 exam run. A number with no such basis is still
+ * refused. Pure.
+ */
+export function numberNotStatedOrWorkedOut(statement: string, law: string, personsWords: string): string | null {
+  const toNumbers = (text: string) => [...new Set(numbersStated(text))].map(Number).filter((n) => Number.isFinite(n)).slice(0, 120);
+  const fromLaw = toNumbers(law);
+  const fromPerson = toNumbers(personsWords);
+  const stated = [...new Set([...fromLaw, ...fromPerson])];
+  const allowed = new Set(stated.map((n) => String(n)));
+  // Worked-out figures must start from one of the person's own figures and come
+  // to 100 or more (an amount of money): small numbers (days, weeks) are never
+  // worked out, so "25 days" where the law says 20 is still refused.
+  const keep = (n: number) => {
+    if (!Number.isFinite(n) || n < 100) return;
+    allowed.add(String(Math.round(n * 100) / 100));
+    allowed.add(String(Math.round(n)));
+  };
+  for (const a of fromPerson) {
+    for (const b of stated) {
+      keep((a * b) / 100);
+      keep(a * b);
+      keep(a + b);
+      keep(a - b);
+      if (b !== 0) keep(a / b);
+      keep(a * (1 - b / 100));
+    }
+  }
+  for (const n of numbersUsed(statement)) if (!allowed.has(String(Number(n)))) return n;
+  return null;
+}
+
 export function statementRejection(statement: string, support: { passage: Passage; quote: string }[], personsWords: string): string | null {
   if (support.length === 0) return "no passage";
   for (const { passage, quote } of support) {
@@ -220,7 +259,7 @@ export function statementRejection(statement: string, support: { passage: Passag
   const passageText = support
     .map(({ passage }) => `${passage.source.title ?? ""} ${passage.source.citation ?? ""} ${passage.pinpoint ?? ""} ${passage.heading ?? ""}\n${passage.text}`)
     .join("\n");
-  const stray = numberNotInSource(statement, `${passageText}\n${personsWords}`);
+  const stray = numberNotStatedOrWorkedOut(statement, passageText, personsWords);
   if (stray) return `number "${stray}" is not in the law or the person's words`;
   const term = outcomeTermNotInProvision(statement, passageText);
   if (term) return `outcome wording "${term}"`;
@@ -244,6 +283,21 @@ export function withoutTalkAboutPassages(text: string): string {
   // and showed "5 million" as the threshold).
   const sentences = text.trim().split(/(?<=[.!?])\s+/);
   return sentences.filter((sentence) => !PASSAGE_TALK.test(sentence)).join(" ").trim();
+}
+
+/** The second look's doubts: statement numbers (1-based) and why, within range. Pure. */
+export function parseDoubts(raw: string, count: number): { n: number; why: string }[] {
+  try {
+    const parsed = JSON.parse(raw) as { doubtful?: unknown };
+    if (!Array.isArray(parsed.doubtful)) return [];
+    return parsed.doubtful
+      .map((item) => item as { n?: unknown; why?: unknown })
+      .filter((item) => typeof item.n === "number" && item.n >= 1 && item.n <= count && Number.isInteger(item.n))
+      .map((item) => ({ n: item.n as number, why: String(item.why ?? "").replace(/\s+/g, " ").slice(0, 300) }))
+      .slice(0, 6);
+  } catch {
+    return [];
+  }
 }
 
 // ---------------------------------------------------------------- dependencies
@@ -360,7 +414,7 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
     type Judged = { statement: AnswerStatement; topic: string; passages: Passage[] } | { why: string; topic: string };
 
     /** Checks a set of drafted statements, each on its own, side by side. */
-    const checkAll = async (drafted: Draft): Promise<{ judged: Judged[]; missingLaw: string[] } | null> => {
+    const checkAll = async (drafted: Draft, hints: (string | undefined)[] = []): Promise<{ judged: Judged[]; missingLaw: string[] } | null> => {
       const gathered = await byDeadline(gatherPassages(index, input, drafted, embed), deadline, null);
       if (!gathered) return null;
       const { passagesFor } = gathered;
@@ -391,9 +445,9 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
       // points were true statements the first check could not confirm).
       const judged = await Promise.all(
         texts.map(async (_text, i) => {
-          const first = await judge(i, SEARCH_PER_STATEMENT);
+          const first = await judge(i, SEARCH_PER_STATEMENT, hints[i]);
           if ("statement" in first || deadline - Date.now() < RETRY_NEEDS_MS) return first;
-          const hint = `An earlier check of this statement failed: ${first.why}. Look again across all the passages. Copy the supporting words exactly, character for character. If only part of the statement is supported, give the supported part as the corrected statement.`;
+          const hint = `${hints[i] ? `${hints[i]} ` : ""}An earlier check of this statement failed: ${first.why}. Look again across all the passages. Copy the supporting words exactly, character for character. If only part of the statement is supported, give the supported part as the corrected statement.`;
           const second = await judge(i, SEARCH_ON_RETRY, hint);
           return "statement" in second ? second : { ...second, why: `${first.why}; then ${second.why}` };
         }),
@@ -422,6 +476,22 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
         null,
       );
       const additions = reviewText === null ? null : parseDraft(reviewText.replace(/"missing"\s*:/, '"statements":'));
+      // Statements the reviewer says apply the wrong rule to these facts are
+      // checked again, told the reviewer's reason; one that fails is removed.
+      const doubts = reviewText === null ? [] : parseDoubts(reviewText, confirmed.length);
+      if (doubts.length) {
+        const doubted = doubts.map((doubt) => confirmed[doubt.n - 1]);
+        const recheck = await checkAll(
+          { ...draft, statements: doubted.map((item) => ({ text: item.statement.text, cites: item.statement.sources.map((source) => source.citation) })) },
+          doubts.map((doubt) => `A senior reviewer doubts this statement fits the person's facts: ${doubt.why}. Mark it supported only if the passage's rule, with all its conditions, applies to this person's situation; otherwise correct it to the rule that does apply, or mark it unsupported.`),
+        );
+        if (recheck) {
+          doubted.forEach((item, k) => {
+            const at = judged.indexOf(item);
+            if (at >= 0) judged[at] = recheck.judged[k];
+          });
+        }
+      }
       const already = new Set(judged.map((item) => ("statement" in item ? item.statement.text : item.topic).toLowerCase()));
       const fresh = (additions?.statements ?? []).filter((statement) => !already.has(statement.text.toLowerCase())).slice(0, MAX_REVIEW_ADDITIONS);
       if (fresh.length) {
@@ -529,7 +599,9 @@ export const REVIEW_SYSTEM_PROMPT = `You are a senior Ontario lawyer reviewing a
 
 Name what a complete answer to this question still needs, the way a careful lawyer would before court: the basic rule a section starts from, its conditions and exceptions, every route the law gives the client, how amounts are calculated or capped, deadlines and what starts them, who must prove what, and the form or step and where it is filed. Only what the question calls for; never repeat a point already made.
 
-Return JSON: {"missing": [{"text": "<one or two plain sentences>", "cites": ["<full Act or rule name and section>"]}]}, at most ${MAX_REVIEW_ADDITIONS}, most important first, or {"missing": []} if nothing essential is missing.
+Also check each statement already in the answer against the person's facts: a rule that depends on a condition (the kind of tenancy, claim, party, amount or date) must fit this person's situation, use the current figure and the right form, and not be a rule from a different procedure. List any that do not.
+
+Return JSON: {"missing": [{"text": "<one or two plain sentences>", "cites": ["<full Act or rule name and section>"]}], "doubtful": [{"n": <statement number>, "why": "<what does not fit>"}]}, at most ${MAX_REVIEW_ADDITIONS} missing points, most important first; empty lists if nothing is missing or doubtful.
 - Every point cites the exact statute, regulation or rule section. Never invent a section number.
 - Never say or suggest whether the client will win, how strong the case is, or what a judge will think.
 - Do not compute calendar dates; state the period and what starts it.`;

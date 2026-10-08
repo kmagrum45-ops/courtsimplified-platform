@@ -2238,3 +2238,14 @@ injury date once for both. `countFromDate` takes the injury date first, then
 the act-or-omission date. verifyDeadlineEngine's "asked AND used" check counts
 an event used when `countFromDate` reads it, so a presumption source is not
 mistaken for an unused question.
+
+### Full tuning run, 2026-10-08
+
+130 tuning questions (30 held back, lawExam/holdout.json): 190/260 (73%) first run.
+Fixes by cause: figures worked out from the person's own amounts
+(numberNotStatedOrWorkedOut: one step of arithmetic, from a figure the person gave,
+results of 100 or more only); rule numbers in a passage ("76.02") count as stated;
+conditions must fit the facts before a rule supports a statement; the second look can
+doubt a statement, which is re-checked with the reason and removed if it fails; "is
+it worth it" and "how much will I get" are declined. Re-running the failures: 56 ->
+42 -> 33 short of full marks. What remains is mostly a specific point left out.

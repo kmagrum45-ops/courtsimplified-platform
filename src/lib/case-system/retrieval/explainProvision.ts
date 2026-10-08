@@ -151,6 +151,16 @@ export function numbersInWords(text: string): string[] {
   return out;
 }
 
+/** Every number a text states, in digits or in words. Pure. */
+export function numbersStated(text: string): string[] {
+  // "76.02" and "14.03 (1)" name Rule 76 and rule 14: each part counts as stated.
+  const parts = (text.match(/\b\d+(?:\.\d+)+\b/g) ?? []).flatMap((n) => n.split("."));
+  return [...numbers(text), ...numbersInWords(text), ...parts.map((n) => String(Number(n)))];
+}
+
+/** The numbers a text uses, as written in digits. Pure. */
+export const numbersUsed = numbers;
+
 /** The first number in `text` that `source` does not contain, or null. Pure; shared with sourcedQuestions.ts. */
 export function numberNotInSource(text: string, source: string): string | null {
   const allowed = new Set([...numbers(source), ...numbersInWords(source)]);
