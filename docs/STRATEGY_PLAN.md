@@ -1,4 +1,4 @@
-# Strategy — the plan (agreed 2026-10-08, not yet built)
+# Strategy — the plan (agreed 2026-10-08; first version built 2026-10-08)
 
 Site owner's decisions, 2026-10-08:
 
@@ -37,3 +37,15 @@ the ban on grading a case's strength or predicting outcomes stays absolute.
 A strategy exam built like the law exam (scripts/eval/lawExam): case scenarios,
 each with a written checklist of what a careful lawyer would cover from each seat,
 graded by a separate call; plus a check that no strategy output grades the case.
+
+## Built (2026-10-08)
+
+- `src/lib/case-system/retrieval/strategy.ts`: four seats, each a thorough checked
+  answer run side by side (what must be proven; what the law gives the other side and
+  the answer to each; what the court must decide; steps, tools and timing).
+- `POST /api/case/strategy`: signed in, `STRATEGY=on`, on the person's click.
+- `app/_components/StrategyPanel.tsx` on the case overview, shown only with
+  `NEXT_PUBLIC_STRATEGY=on`.
+- CLAUDE.md s. 3 records the exception and keeps the ban on grading absolute.
+- `npm run test:strategy` checks the switch, the seats, and that nothing grading the
+  case can pass. The strategy exam (graded scenarios) is still to be written.
