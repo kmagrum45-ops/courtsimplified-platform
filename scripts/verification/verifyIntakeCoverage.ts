@@ -57,13 +57,17 @@ const ALLOWED_SOURCE_DOMAINS = [
   "https://canlii.org/",
   "https://www.lso.ca/",
   "https://lso.ca/",
+  // The federal Justice Laws site: the official consolidation of federal Acts
+  // and regulations (Divorce Act, Air Passenger Protection Regulations,
+  // Copyright Act). The catalogue check already accepts it (2026-10-07).
+  "https://laws-lois.justice.gc.ca/",
 ];
 
 // Shared error-message fragment so the three "no resolvable source" checks
 // below don't each carry their own copy of the domain list to fall out of
 // sync -- update ALLOWED_SOURCE_DOMAINS and this string together.
 const RESOLVABLE_SOURCE_HINT =
-  "ontario.ca, ontariocourts.ca, ontariocourtforms.on.ca, canlii.org, or lso.ca, " +
+  "ontario.ca, ontariocourts.ca, ontariocourtforms.on.ca, canlii.org, lso.ca, or laws-lois.justice.gc.ca, " +
   "or a file under docs/sources/ (see that folder's README)";
 
 // CLAUDE.md section 2: a primary source saved locally under docs/sources/

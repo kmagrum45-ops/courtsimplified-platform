@@ -1654,8 +1654,16 @@ text states the law it rests on. To add one, save the source first (corpus or
   harassment. SCC item ids were found by web-searching the exact case title plus "SCC Cases".
   Still unsupported: trespass to land (Scalera is trespass to the person), an assault with no
   contact, the right to cut back a neighbour's branches.
-- **Not saved, so the type was left out:** federal air passenger rules (airline delay,
-  baggage), courier
+- **Saved later the same evening (Vendor Sources run 37709989300) and written (gaps-5, gaps-6):**
+  Air Passenger Protection Regulations (SOR/2019-150), Copyright Act, Energy Consumer Protection
+  Act, 2010 (`10e08`), Ontario Works Act, 1997 (`97o25a`), ODSP Act, 1997 (`97o25b`), Solicitors
+  Act (`90s15`), Law Society Act (`90l08`), Mortgage Brokerages, Lenders and Administrators Act,
+  2006 (`06m29`), Securities Act (`90s05`). TMS Lighting (2014 ONCA 1) is about proving
+  nuisance and trespass damages only; it does not state what trespass to land requires, so
+  trespass is still left out. `verifyIntakeCoverage` now accepts laws-lois.justice.gc.ca, as
+  the catalogue check already did.
+- **Not saved, so the type was left out:** the Montreal Convention and Carriage by Air Act
+  (baggage amounts), courier
   liability, telecom (CCTS) and utility rules, the law on immigration consultants and paralegal
   fees, investment and mortgage-broker Acts, copyright and other IP statutes, CRA/EI/CPP and
   social-assistance appeal law.

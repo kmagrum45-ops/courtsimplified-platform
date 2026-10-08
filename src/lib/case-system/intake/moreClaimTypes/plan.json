@@ -161,16 +161,6 @@
         "sensitive": false
       },
       {
-        "id": "sc-claim-airline-delay-or-cancellation",
-        "name": "A flight delayed, cancelled, or boarding denied",
-        "sensitive": false
-      },
-      {
-        "id": "sc-claim-airline-baggage-lost-or-damaged",
-        "name": "Baggage lost or damaged by an airline",
-        "sensitive": false
-      },
-      {
         "id": "sc-claim-gym-or-personal-development-contract",
         "name": "Cancelling a gym or class membership",
         "sensitive": false
@@ -220,11 +210,6 @@
       {
         "id": "sc-claim-phone-internet-or-tv-billing",
         "name": "A phone, internet or TV bill",
-        "sensitive": false
-      },
-      {
-        "id": "sc-claim-electricity-or-gas-billing",
-        "name": "An electricity or gas bill",
         "sensitive": false
       },
       {
@@ -304,16 +289,6 @@
       {
         "id": "sc-claim-influencer-or-brand-deal-unpaid",
         "name": "An unpaid brand or influencer deal",
-        "sensitive": false
-      },
-      {
-        "id": "sc-claim-immigration-consultant-or-paralegal-fee",
-        "name": "An immigration consultant or paralegal fee",
-        "sensitive": false
-      },
-      {
-        "id": "sc-claim-financial-advisor-or-mortgage-broker",
-        "name": "A financial advisor or mortgage broker",
         "sensitive": false
       },
       {
@@ -853,16 +828,6 @@
         "sensitive": false
       },
       {
-        "id": "sc-claim-government-benefits-dispute",
-        "name": "A CRA, EI, CPP or social assistance decision",
-        "sensitive": false
-      },
-      {
-        "id": "sc-claim-copyright-or-intellectual-property",
-        "name": "Copyright or intellectual property",
-        "sensitive": false
-      },
-      {
         "id": "sc-claim-hit-and-run-or-uninsured-driver",
         "name": "A hit and run, or a driver with no insurance",
         "sensitive": false
@@ -1259,11 +1224,6 @@
         "sensitive": false
       },
       {
-        "id": "sc-claim-trespass-by-people-or-pets",
-        "name": "People, pets or children coming onto your land",
-        "sensitive": false
-      },
-      {
         "id": "sc-claim-harassment-by-a-neighbour",
         "name": "A neighbour who is harassing you",
         "sensitive": true
@@ -1295,6 +1255,60 @@
       {
         "id": "civil-claim-assault-and-battery",
         "name": "Someone hurt you on purpose (assault and battery, civil claim)",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "gaps-5",
+    "court": "small-claims",
+    "family": "goods-and-services",
+    "types": [
+      {
+        "id": "sc-claim-airline-delay-or-cancellation",
+        "name": "A flight delayed, cancelled, or boarding denied",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-airline-baggage-lost-or-damaged",
+        "name": "Baggage lost or damaged by an airline",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-electricity-or-gas-billing",
+        "name": "An electricity or gas bill",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-copyright-or-intellectual-property",
+        "name": "Copyright or intellectual property",
+        "sensitive": false
+      }
+    ]
+  },
+  {
+    "batch": "gaps-6",
+    "court": "small-claims",
+    "family": "goods-and-services",
+    "types": [
+      {
+        "id": "sc-claim-government-benefits-dispute",
+        "name": "An Ontario Works or ODSP decision",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-immigration-consultant-or-paralegal-fee",
+        "name": "A lawyer's or paralegal's fee",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-financial-advisor-or-mortgage-broker",
+        "name": "A financial advisor or mortgage broker",
+        "sensitive": false
+      },
+      {
+        "id": "sc-claim-trespass-by-people-or-pets",
+        "name": "People, pets or children coming onto your land",
         "sensitive": false
       }
     ]
