@@ -62,6 +62,8 @@ export type CheckedAnswer = {
   declinedToJudge: boolean;
   /** Laws named in the draft that the library does not hold (for source requests). */
   missingLaw: string[];
+  /** Internal: why each topic was not confirmed (for the law exam report; never shown to a person). */
+  notConfirmedWhy?: { topic: string; why: string }[];
 };
 
 // ---------------------------------------------------------------- limits
@@ -74,6 +76,10 @@ const SEARCH_PER_STATEMENT = 4;
 const PASSAGES_PER_STATEMENT = 10;
 /** Sections other statements name, added to each check so it sees the whole answer's law. */
 const SHARED_PASSAGES = 6;
+/** Search hits read when a statement is checked a second time. */
+const SEARCH_ON_RETRY = 12;
+/** A second check is tried only with at least this much time left. */
+const RETRY_NEEDS_MS = 15_000;
 const PASSAGE_CHARS = 1800;
 const STATEMENT_MAX = 600;
 
@@ -229,7 +235,7 @@ export function withoutTalkAboutPassages(text: string): string {
 export type CheckedAnswerDeps = {
   index?: LoadedIndex | null;
   draft?: (input: CheckedAnswerInput) => Promise<string>;
-  check?: (statements: string[], passages: Passage[], input: CheckedAnswerInput) => Promise<string>;
+  check?: (statements: string[], passages: Passage[], input: CheckedAnswerInput, hint?: string) => Promise<string>;
   embed?: (texts: string[], model: string, dimensions: number) => Promise<number[][]>;
   timeoutMs?: number;
 };
@@ -252,7 +258,7 @@ async function gatherPassages(
   input: CheckedAnswerInput,
   draft: Draft,
   embed: NonNullable<CheckedAnswerDeps["embed"]>,
-): Promise<{ perStatement: Passage[][]; missingLaw: string[] }> {
+): Promise<{ passagesFor: (i: number, searchCount: number) => Passage[]; missingLaw: string[] }> {
   const missingLaw: string[] = [];
   const queries = draft.statements.map((statement) => `${statement.text} ${statement.cites.join("; ")}`.slice(0, 500));
   const vectors = queries.length ? await embed(queries, index.meta.model, index.meta.dimensions) : [];
@@ -260,31 +266,35 @@ async function gatherPassages(
   // rest of the answer rests on (2026-10-07 exam: a check that saw only its own
   // statement's passages doubted rules another statement had proved).
   const namedByAll = draft.statements.flatMap((statement) => statement.cites.flatMap((cite) => namedProvisions(index, cite, 0.9)));
-  const perStatement = draft.statements.map((statement, i) => {
+  const named = draft.statements.map((statement) =>
+    statement.cites.flatMap((cite) => {
+      const found = namedProvisions(index, cite, 0.9);
+      if (found.length === 0) missingLaw.push(cite);
+      return found;
+    }),
+  );
+  const passagesFor = (i: number, searchCount: number): Passage[] => {
     const byId = new Map<string, Passage>();
     const add = (passage: Passage) => {
       if (!byId.has(passage.id) && !excludedForCourt(input.courtPath, passage.sourceId)) byId.set(passage.id, passage);
     };
-    for (const cite of statement.cites) {
-      const found = namedProvisions(index, cite, 0.9);
-      if (found.length === 0) missingLaw.push(cite);
-      for (const passage of found) add(passage);
-    }
+    for (const passage of named[i] ?? []) add(passage);
     if (vectors[i]) {
       const hits = searchIndex(index, [vectors[i]], {
-        perQuery: SEARCH_PER_STATEMENT,
-        total: SEARCH_PER_STATEMENT,
+        perQuery: searchCount,
+        total: searchCount,
         excludeSource: (sourceId) => excludedForCourt(input.courtPath, sourceId),
       });
       const found = hits.map((hit) => readPassage(index, hit.id, hit.score)).filter((passage): passage is Passage => Boolean(passage));
       for (const passage of found) add(passage);
       for (const passage of followCrossReferences(index, found)) add(passage);
     }
-    const own = [...byId.values()].slice(0, PASSAGES_PER_STATEMENT);
-    for (const passage of namedByAll) if (byId.size < PASSAGES_PER_STATEMENT + SHARED_PASSAGES) add(passage);
-    return [...own, ...[...byId.values()].filter((passage) => !own.includes(passage))].slice(0, PASSAGES_PER_STATEMENT + SHARED_PASSAGES);
-  });
-  return { perStatement, missingLaw: [...new Set(missingLaw)] };
+    const ownLimit = Math.max(PASSAGES_PER_STATEMENT, searchCount + (named[i]?.length ?? 0));
+    const own = [...byId.values()].slice(0, ownLimit);
+    for (const passage of namedByAll) if (byId.size < ownLimit + SHARED_PASSAGES) add(passage);
+    return [...own, ...[...byId.values()].filter((passage) => !own.includes(passage))].slice(0, ownLimit + SHARED_PASSAGES);
+  };
+  return { passagesFor, missingLaw: [...new Set(missingLaw)] };
 }
 
 /** Resolves to `fallback` when `promise` has not settled by `deadline` (ms since epoch). */
@@ -323,46 +333,59 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
 
     const gathered = await byDeadline(gatherPassages(index, input, draft, deps.embed ?? (await defaultEmbed())), deadline, null);
     if (!gathered) return UNAVAILABLE;
-    const { perStatement, missingLaw } = gathered;
+    const { passagesFor, missingLaw } = gathered;
     const texts = draft.statements.map((statement) => statement.text);
     const checkOne = deps.check ?? checkWithModel;
+    const personsWords = personsWordsOf(input);
 
-    // One check per statement, side by side. A statement whose check has not
-    // finished by the time limit is listed as not confirmed; the rest are shown.
-    const results = await Promise.all(
-      texts.map(async (text, i) => {
-        const passages = perStatement[i];
-        if (!passages.length) return null;
-        const reply = await byDeadline(checkOne([text], passages, input), deadline, "");
-        const parsed = reply ? parseCheck(reply) : null;
-        const result = parsed?.find((item) => item.n === 1) ?? null;
-        return result ? { result, byId: new Map(passages.map((passage) => [passage.id, passage])) } : null;
+    type Judged = { statement: AnswerStatement; topic: string } | { why: string; topic: string };
+    const judge = async (i: number, searchCount: number, hint?: string): Promise<Judged> => {
+      const text = texts[i];
+      const fallbackTopic = text.split(/[.;:]/)[0].slice(0, 80);
+      const passages = passagesFor(i, searchCount);
+      if (!passages.length) return { why: "no passage found", topic: fallbackTopic };
+      const reply = await byDeadline(checkOne([text], passages, input, hint), deadline, "");
+      if (!reply) return { why: "the check did not finish", topic: fallbackTopic };
+      const result = parseCheck(reply)?.find((item) => item.n === 1) ?? null;
+      const topic = result?.topic || fallbackTopic;
+      if (!result) return { why: "the check gave no result", topic };
+      if (result.verdict === "unsupported") return { why: "the checker found no passage that supports it", topic };
+      const byId = new Map(passages.map((passage) => [passage.id, passage]));
+      const shown = withoutTalkAboutPassages(result.verdict === "corrected" ? (result.corrected ?? "") : text);
+      const support = [
+        { passage: byId.get(result.passage), quote: result.quote },
+        ...(result.passage2 && result.quote2 ? [{ passage: byId.get(result.passage2), quote: result.quote2 }] : []),
+      ].filter((entry): entry is { passage: Passage; quote: string } => Boolean(entry.passage));
+      const why = shown ? statementRejection(shown, support, personsWords) : "no corrected statement";
+      if (why) return { why: `${why} (quoted: "${result.quote.slice(0, 120)}")`, topic };
+      return { statement: { text: shown, sources: support.map(({ passage, quote }) => sourceOf(passage, quote)) }, topic };
+    };
+
+    // One check per statement, side by side. A statement that fails is checked
+    // once more, against a wider search and told why it failed, if time allows
+    // (2026-10-07 exam: most lost points were true statements the first check
+    // could not confirm). A statement still unchecked at the time limit is
+    // listed as not confirmed; the rest are shown.
+    const judged = await Promise.all(
+      texts.map(async (_text, i) => {
+        const first = await judge(i, SEARCH_PER_STATEMENT);
+        if ("statement" in first || deadline - Date.now() < RETRY_NEEDS_MS) return first;
+        const hint = `An earlier check of this statement failed: ${first.why}. Look again across all the passages. Copy the supporting words exactly, character for character. If only part of the statement is supported, give the supported part as the corrected statement.`;
+        const second = await judge(i, SEARCH_ON_RETRY, hint);
+        return "statement" in second ? second : { ...second, why: `${first.why}; then ${second.why}` };
       }),
     );
 
-    const personsWords = personsWordsOf(input);
     const statements: AnswerStatement[] = [];
     const notConfirmed: string[] = [];
-    texts.forEach((text, i) => {
-      const checked = results[i];
-      const result = checked?.result;
-      const topic = result?.topic || text.split(/[.;:]/)[0].slice(0, 80);
-      if (!checked || !result || result.verdict === "unsupported") {
-        notConfirmed.push(topic);
-        return;
+    const notConfirmedWhy: { topic: string; why: string }[] = [];
+    for (const item of judged) {
+      if ("statement" in item) statements.push(item.statement);
+      else {
+        notConfirmed.push(item.topic);
+        notConfirmedWhy.push({ topic: item.topic, why: item.why });
       }
-      const shown = withoutTalkAboutPassages(result.verdict === "corrected" ? (result.corrected ?? "") : text);
-      const support = [
-        { passage: checked.byId.get(result.passage), quote: result.quote },
-        ...(result.passage2 && result.quote2 ? [{ passage: checked.byId.get(result.passage2), quote: result.quote2 }] : []),
-      ].filter((entry): entry is { passage: Passage; quote: string } => Boolean(entry.passage));
-      const why = shown ? statementRejection(shown, support, personsWords) : "no corrected statement";
-      if (why) {
-        notConfirmed.push(topic);
-        return;
-      }
-      statements.push({ text: shown, sources: support.map(({ passage, quote }) => sourceOf(passage, quote)) });
-    });
+    }
 
     // A statement with no legal content would not need a source; one with
     // legal content always has one by now. Both are fine; nothing else is shown.
@@ -372,6 +395,7 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
       notConfirmed: [...new Set(notConfirmed)],
       declinedToJudge: draft.asksForPrediction,
       missingLaw,
+      notConfirmedWhy,
     };
   })().catch(() => UNAVAILABLE);
 
@@ -444,8 +468,9 @@ export async function draftWithModel(input: CheckedAnswerInput): Promise<string>
   return chatJson(DRAFT_SYSTEM_PROMPT, draftUserPrompt(input), process.env.AI_EFFORT_ANSWER || "low");
 }
 
-export async function checkWithModel(statements: string[], passages: Passage[], input: CheckedAnswerInput): Promise<string> {
-  return chatJson(CHECK_SYSTEM_PROMPT, checkUserPrompt(statements, passages, input), process.env.AI_EFFORT_ANSWER_CHECK || "medium");
+export async function checkWithModel(statements: string[], passages: Passage[], input: CheckedAnswerInput, hint?: string): Promise<string> {
+  const user = checkUserPrompt(statements, passages, input) + (hint ? `\n\nNOTE: ${hint}` : "");
+  return chatJson(CHECK_SYSTEM_PROMPT, user, process.env.AI_EFFORT_ANSWER_CHECK || "medium");
 }
 
 async function defaultEmbed() {

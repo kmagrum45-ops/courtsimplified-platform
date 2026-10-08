@@ -202,6 +202,12 @@ passage spells; a digit the passage does not state is still refused. The draft i
 told to name every route the law gives (waiving the excess over the Small Claims limit
 was left out).
 
+Fifth run: 26/36 (72%), no zero scores. Most lost points were true statements the
+first check could not confirm. A statement that fails is now checked once more against
+a wider search (12 hits), told why the first check failed, when 15 seconds remain.
+Why each topic was not confirmed is kept internally (`notConfirmedWhy`, never shown
+to a person) and printed in the exam report, so the next fix is aimed, not guessed.
+
 Why: the first law exam run (2026-10-07) showed the research step finds the
 main rule but returns passages, not an answer, and its caps (2 questions x
 about 5 passages) cannot hold the 6-10 provisions a full answer needs. The
