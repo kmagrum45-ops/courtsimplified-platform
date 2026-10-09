@@ -956,3 +956,91 @@ what it decides; nothing is said about any of them except in its own words.
 - **Retrieved from:** https://www.ontariocourts.ca/decisions/2014/2014ONCA0001.htm
 - **Downloaded:** 2026-10-07 (Fetch Decisions run 37710019914)
 - **Noted up:** no
+
+## Claims against the Crown and the police, and bail (2026-10-09)
+
+Fetched for a story about harm by an accused released on bail. The search run
+(Fetch Decisions 37976295989) found each judgment's page; the judgment run
+(37976584406) fetched the frame `?iframe=true`, converted to plain text (page
+styles, scripts and link markers removed; paragraphs and numbers kept).
+
+### `decisions/ontario-ag-v-clark-2021-SCC-18.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Ontario (Attorney General) v. Clark*.
+- **Citation:** 2021 SCC 18, [2021] 1 S.C.R. 607
+- **Retrieved for:** whether Crown prosecutors are immune from civil claims by people other than the accused (misfeasance in public office).
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/18855/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-09 (Fetch Decisions runs 37976295989, 37976584406)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/hill-v-hamilton-wentworth-police-2007-SCC-41.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Hill v. Hamilton‑Wentworth Regional Police Services Board*.
+- **Citation:** 2007 SCC 41, [2007] 3 S.C.R. 129
+- **Retrieved for:** the tort of negligent investigation by police.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/2382/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-09 (Fetch Decisions runs 37976295989, 37976584406)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/odhavji-estate-v-woodhouse-2003-SCC-69.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *Odhavji Estate v. Woodhouse*.
+- **Citation:** 2003 SCC 69, [2003] 3 S.C.R. 263
+- **Retrieved for:** what misfeasance in public office requires.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/2104/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-09 (Fetch Decisions runs 37976295989, 37976584406)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/r-v-antic-2017-SCC-27.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *R. v. Antic*.
+- **Citation:** 2017 SCC 27, [2017] 1 S.C.R. 509
+- **Retrieved for:** the principles governing release on bail (the ladder of release forms).
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/16649/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-09 (Fetch Decisions runs 37976295989, 37976584406)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/r-v-zora-2020-SCC-14.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *R. v. Zora*.
+- **Citation:** 2020 SCC 14, [2020] 2 S.C.R. 3
+- **Retrieved for:** bail conditions: what they may be imposed for.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/18391/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-09 (Fetch Decisions runs 37976295989, 37976584406)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/r-v-st-cloud-2015-SCC-27.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *R. v. St-Cloud*.
+- **Citation:** 2015 SCC 27, [2015] 2 S.C.R. 328
+- **Retrieved for:** the third (tertiary) ground for detention.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/15358/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-09 (Fetch Decisions runs 37976295989, 37976584406)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/r-v-morales-1992-3-SCR-711.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *R. v. Morales*.
+- **Citation:** [1992] 3 S.C.R. 711
+- **Retrieved for:** the public-safety (secondary) ground for detention under the Charter.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/941/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-09 (Fetch Decisions runs 37976295989, 37976584406)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/r-v-hall-2002-SCC-64.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *R. v. Hall*.
+- **Citation:** 2002 SCC 64, [2002] 3 S.C.R. 309
+- **Retrieved for:** the grounds for detention after the 1997 amendments.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/2006/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-09 (Fetch Decisions runs 37976295989, 37976584406)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+### `decisions/r-v-myers-2019-SCC-18.html.txt`
+
+- **What it is:** Supreme Court of Canada judgment, *R. v. Myers*.
+- **Citation:** 2019 SCC 18, [2019] 2 S.C.R. 105
+- **Retrieved for:** reviews of detention under s. 525 of the Criminal Code.
+- **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/17634/index.do (judgment frame `?iframe=true`)
+- **Downloaded:** 2026-10-09 (Fetch Decisions runs 37976295989, 37976584406)
+- **Noted up:** no (see SOURCING_NOTES, "Noting up")
