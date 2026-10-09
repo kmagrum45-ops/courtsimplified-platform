@@ -22,7 +22,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { originatingDocumentRecorded, userIsResponding } from "../../app/builder/_components/respondingSide";
-import { orderGroupsForReader, suggestedStageFor } from "../../app/builder/_components/StageAnswerPanel";
+import { orderGroupsForReader, suggestedStageFor, yearChoices } from "../../app/builder/_components/StageAnswerPanel";
 import { stepNamedInStory } from "../../src/lib/case-system/stage-map/suggestedStep";
 import { ALL_STAGES, findStage } from "../../src/lib/case-system/stage-map/stageMap";
 
@@ -136,6 +136,17 @@ check("a served defendant is shown the defence step", suggestedStageFor("small-c
     ["noted me in default", "got default judgment against me", "summary judgment", "motion to change", "served with a motion to change", "trial management conference", "settlement conference", "case conference", "change the support order"].map((t) => stepNamedInStory(court as never, r, t)),
   )).filter(Boolean);
   check("every step a story can name exists", named.every((id) => all.has(id)), named.filter((id) => !all.has(id)).join(", "));
+}
+{
+  // A date with no year: the person is asked which year, never given a guess
+  // to count from (site owner, 2026-10-08).
+  check("an upcoming date offers this year and next", JSON.stringify(yearChoices("2026-11-20", "2026-10-08")) === JSON.stringify(["2026-11-20", "2027-11-20"]));
+  check("a past date offers this year and last", JSON.stringify(yearChoices("2026-10-01", "2026-10-08")) === JSON.stringify(["2026-10-01", "2025-10-01"]));
+  const panel = readFileSync(path.join(process.cwd(), "app/builder/_components/StageAnswerPanel.tsx"), "utf8");
+  check(
+    "a date whose year was not given is answered by choosing the year, not counted from a guess",
+    /suggestion && !value && suggestion\.yearAssumed \?[\s\S]{0,800}Which year was that\?[\s\S]{0,600}yearChoices\(/.test(panel),
+  );
 }
 
 if (failures > 0) {

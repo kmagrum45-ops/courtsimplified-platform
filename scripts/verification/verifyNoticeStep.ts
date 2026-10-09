@@ -63,7 +63,7 @@ const dates = suggestedDatesFromAnswers([
 check("a confirmed injury date is offered for the injury question", dates["sc-date-injury"]?.value === "2025-01-13", JSON.stringify(dates));
 check("only date questions are offered", !("sc-orient-when-happened" in dates));
 check("an answer with no date at all offers nothing", !("sc-date-claim-served" in dates));
-// "October 1" with no year is offered, its year marked as our guess, and the
+// "October 1" with no year is offered, the card asks which year, and the
 // builder keeps only full dates as the person's answers (walkthrough 2026-10-08).
 const monthDay = suggestedDatesFromAnswers([{ questionId: "sc-date-claim-served", answerText: "October 1, in person" }], new Date("2026-10-08T12:00:00Z"));
 check("a month and day answer is offered with the year marked as a guess", monthDay["sc-date-claim-served"]?.value === "2026-10-01" && monthDay["sc-date-claim-served"]?.yearAssumed === true, JSON.stringify(monthDay));

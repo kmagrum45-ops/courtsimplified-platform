@@ -93,6 +93,19 @@ export function orderGroupsForReader<T extends { side: string; label: string }>(
   ];
 }
 
+/**
+ * The two years a month and day with no year can mean: the one nearest today
+ * on the right side (an upcoming conference is this year's or next; a service
+ * date is this year's or last), and the one beyond it. The person picks.
+ * Exported for test:case-position.
+ */
+export function yearChoices(isoDate: string, today: string = todayIso()): string[] {
+  const year = Number(isoDate.slice(0, 4));
+  const rest = isoDate.slice(4);
+  const other = isoDate >= today ? year + 1 : year - 1;
+  return [`${year}${rest}`, `${other}${rest}`].filter((date) => !Number.isNaN(Date.parse(date)));
+}
+
 function todayIso(): string {
   const now = new Date();
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
@@ -509,15 +522,10 @@ export default function StageAnswerPanel({
           <div className="mt-3 space-y-4">
             {result.dateQuestions!.map((question) => {
               const hint = storyHints[question.id];
-              const suggestion =
+              const suggestion: { value: string; basis: string; yearAssumed?: boolean } | undefined =
                 suggestedDates[question.id] ??
                 (hint?.value
-                  ? {
-                      value: hint.value,
-                      basis: hint.yearAssumed
-                        ? `from your story: “${hint.quote}” — the year is our guess`
-                        : `from your story: “${hint.quote}”`,
-                    }
+                  ? { value: hint.value, basis: `from your story: “${hint.quote}”`, yearAssumed: hint.yearAssumed }
                   : undefined);
               const value = dateDraft[question.id] ?? "";
               return (
@@ -538,7 +546,36 @@ export default function StageAnswerPanel({
                       You wrote: &ldquo;{hint.quote}&rdquo; Pick that date above, with its year.
                     </p>
                   ) : null}
-                  {suggestion && !value ? (
+                  {suggestion && !value && suggestion.yearAssumed ? (
+                    // The person gave a month and day but no year. The deadline
+                    // depends on the year, so we ask instead of guessing
+                    // (site owner, 2026-10-08: "why wouldn't the site ask for
+                    // the year when it knows the rule depends on it?"). One
+                    // click on their year uses it and counts the deadline.
+                    <div className="mt-2" data-testid={`stage-answer-year-choice-${question.id}`}>
+                      <p className="text-sm text-[#16302b]">
+                        {suggestion.basis.replace(/^from your story/, "From your story")}.{" "}
+                        <span className="font-semibold">Which year was that?</span>
+                      </p>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {yearChoices(suggestion.value).map((choice) => (
+                          <button
+                            key={choice}
+                            type="button"
+                            data-testid={`stage-answer-year-${question.id}-${choice.slice(0, 4)}`}
+                            onClick={() => {
+                              const draft = { ...dateDraft, [question.id]: choice };
+                              setDateDraft(draft);
+                              void countDeadline(draft);
+                            }}
+                            className="rounded-xl border border-[#2f7d67] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]"
+                          >
+                            {formatIso(choice)}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ) : suggestion && !value ? (
                     // One click uses the suggested date AND counts the deadline:
                     // choosing it is the user's confirmation (page review,
                     // 2026-10-06: no served person ever saw their due date).

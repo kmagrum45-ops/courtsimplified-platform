@@ -229,7 +229,7 @@ export const EVENT_TO_DATE_QUESTION: Record<string, string> = {
 export type SuggestedDate = {
   value: string;
   basis: string;
-  /** The person gave a month and day; the year is our guess, so it is only ever offered. */
+  /** The person gave a month and day but no year: the card asks them which year (StageAnswerPanel yearChoices). */
   yearAssumed?: boolean;
 };
 
@@ -318,14 +318,14 @@ export function suggestedDatesFromAnswers(
     const full = match ? parseUserDate(match[1].replace(/,/g, "")) : null;
     // "October 1" with no year (walkthrough, 2026-10-08: a tenant confirmed
     // October 1 service and was asked for the date again): offered with the
-    // year marked as our guess, and never applied without their click.
+    // card asks which year it was, and nothing is used until they choose.
     const assumed = full ? null : assumedYearDate(answer.answerText, now, UPCOMING_QUESTIONS.has(answer.questionId));
     const value = full ?? assumed;
     if (!value) continue;
     const quoted = answer.answerText.trim().slice(0, 120);
     suggestions[answer.questionId] = {
       value,
-      basis: assumed ? `You answered: “${quoted}” — the year is our guess` : `You answered: “${quoted}”`,
+      basis: `You answered: “${quoted}”`,
       ...(assumed ? { yearAssumed: true } : {}),
     };
     // For an injury claim the day of the injury IS the day the claim is
