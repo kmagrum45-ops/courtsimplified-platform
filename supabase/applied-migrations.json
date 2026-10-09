@@ -278,5 +278,37 @@
     "ref": "fddlpnibovkkkgboabqb",
     "appliedAt": "2026-10-04T23:47:00.000Z",
     "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20261007090000_court_decisions_and_canlii.sql",
+    "sha256": "432c9d312534e4e384ac997b455122b233a7134bc3c52934df52a37f94952b50",
+    "environment": "staging",
+    "ref": "icpvzwxyjsdgyqfkwycw",
+    "appliedAt": "2026-10-09T14:14:00.000Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20261009090000_case_reader_and_case_chat.sql",
+    "sha256": "04c856ebc306bd63bd71b26cfd85355a50d549cc0c16940703c25a9f9d5b7252",
+    "environment": "staging",
+    "ref": "icpvzwxyjsdgyqfkwycw",
+    "appliedAt": "2026-10-09T14:14:00.000Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20261007090000_court_decisions_and_canlii.sql",
+    "sha256": "432c9d312534e4e384ac997b455122b233a7134bc3c52934df52a37f94952b50",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-10-09T14:27:00.000Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20261009090000_case_reader_and_case_chat.sql",
+    "sha256": "04c856ebc306bd63bd71b26cfd85355a50d549cc0c16940703c25a9f9d5b7252",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-10-09T14:27:00.000Z",
+    "appliedBy": "kmagr"
   }
 ]
