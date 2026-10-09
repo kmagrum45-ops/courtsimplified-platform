@@ -3251,6 +3251,54 @@
       "characters": 351139,
       "lines": 4618,
       "file": "copyright-act.txt"
+    },
+    {
+      "id": "tmp-cc-20061214",
+      "title": "Criminal Code",
+      "citation": "x",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20061214/P1TT3xt3.html",
+      "retrievedAt": "2026-10-09T19:13:27.540Z",
+      "sha256": "e90c0008121f5762dea84a85ff3663503b37fbc15fc0892f6514dac014179b61",
+      "consolidation": "(none stated)",
+      "characters": 1880628,
+      "lines": 24755,
+      "file": "tmp-cc-20061214.txt"
+    },
+    {
+      "id": "tmp-cc-20070301",
+      "title": "Criminal Code",
+      "citation": "x",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20070301/P1TT3xt3.html",
+      "retrievedAt": "2026-10-09T19:13:30.033Z",
+      "sha256": "1c8804869be7afbeb209697ca3c3d36adc604104e03beab20c27a8735f414857",
+      "consolidation": "(none stated)",
+      "characters": 1880844,
+      "lines": 24763,
+      "file": "tmp-cc-20070301.txt"
+    },
+    {
+      "id": "tmp-cc-20070701",
+      "title": "Criminal Code",
+      "citation": "x",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20070701/P1TT3xt3.html",
+      "retrievedAt": "2026-10-09T19:13:31.982Z",
+      "sha256": "5d050030f6afb1201b360b4a996e65233de2b9516d0dda24a666640fd9ab83f1",
+      "consolidation": "(none stated)",
+      "characters": 1885088,
+      "lines": 24748,
+      "file": "tmp-cc-20070701.txt"
+    },
+    {
+      "id": "tmp-cc-20071201",
+      "title": "Criminal Code",
+      "citation": "x",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20071201/P1TT3xt3.html",
+      "retrievedAt": "2026-10-09T19:13:33.846Z",
+      "sha256": "4bc5d734fb4bf779d3ac598d0a3eede5069f8040905e10ebfae71fc13e1390c5",
+      "consolidation": "(none stated)",
+      "characters": 1885278,
+      "lines": 24744,
+      "file": "tmp-cc-20071201.txt"
     }
   ],
   "failures": []

@@ -1,0 +1,11 @@
+tmp-cc-20061214                        ok   1880628 chars  e90c0008121f
+                                       (none stated)
+tmp-cc-20070301                        ok   1880844 chars  1c8804869be7
+                                       (none stated)
+tmp-cc-20070701                        ok   1885088 chars  5d050030f6af
+                                       (none stated)
+tmp-cc-20071201                        ok   1885278 chars  4bc5d734fb4b
+                                       (none stated)
+
+262 vendored, 0 failed.
+Manifest: docs/sources/corpus/manifest.json
