@@ -150,6 +150,14 @@ async function main() {
   const builder = readFileSync(path.join(ROOT, "app/builder/page.tsx"), "utf8");
   check("the builder's re-save keeps the picture", /"intakeAnswers", "casePicture"\]/.test(builder));
   check("the builder asks for a reading only when switched on", /NEXT_PUBLIC_CASE_READER === "on"/.test(builder));
+  // One save at a time (walkthrough 2026-10-09: overlapping saves of the same
+  // case timed out in the database and stopped five runs).
+  check(
+    "the builder saves one at a time, skips the save the new case id triggers, and reads the id from a ref",
+    /saveChainRef\.current = saveChainRef\.current\.then\(saveMasterCase\)/.test(builder) &&
+      /last\.analysis === analysis && last\.caseData === caseData/.test(builder) &&
+      /queryCaseId \|\| masterCaseIdRef\.current/.test(builder),
+  );
   for (const file of ["app/cases/[id]/page.tsx", "app/cases/[id]/layout.tsx"]) {
     check(`${file} uses the stored picture`, /readStoredPicture\(master\.casePicture\)/.test(readFileSync(path.join(ROOT, file), "utf8")));
   }

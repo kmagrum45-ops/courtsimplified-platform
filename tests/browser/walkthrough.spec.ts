@@ -309,6 +309,9 @@ async function backAndForward(page: Page, persona: Persona, steps: Step[]) {
   // step rewrites openings ("im suing" -> "I'm suing", "me and my husband" ->
   // "My husband and I"), and an opening match failed two personas whose intake
   // came back exactly as filled (2026-10-08, read from their saved page text).
+  // Half, not most (2026-10-09): the personas are written with typos the
+  // spelling step corrects ("contracter"), and each corrected word no longer
+  // matches; a blank intake still scores near zero.
   const words = Array.from(new Set(persona.story.toLowerCase().match(/[a-z]{6,}/g) ?? [])).slice(0, 12);
   await expect
     .poll(
@@ -320,7 +323,7 @@ async function backAndForward(page: Page, persona: Persona, steps: Step[]) {
         }, words),
       { timeout: 30_000 },
     )
-    .toBeGreaterThanOrEqual(0.7);
+    .toBeGreaterThanOrEqual(0.5);
   await capture(page, persona, steps, "back-to-intake", "Browser Back from the results: the intake as it was filled.");
   await page.goForward();
   await expect(results).toBeVisible({ timeout: 30_000 });
