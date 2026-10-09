@@ -63,7 +63,8 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
   const caseId = typeof params.id === "string" ? params.id : Array.isArray(params.id) ? params.id[0] : "";
 
   const [caseRecord, setCaseRecord] = useState<CaseRecord | null>(null);
-  const [state, setState] = useState<"loading" | "ready" | "missing">("loading");
+  const [state, setState] = useState<"loading" | "ready" | "missing" | "failed">("loading");
+  const [loadError, setLoadError] = useState("");
 
   const load = useCallback(async () => {
     const { supabase } = await import("@/src/lib/supabase/client");
@@ -74,12 +75,25 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
       router.replace(`/login?next=${encodeURIComponent(`/cases/${caseId}`)}`);
       return;
     }
-    const { data, error } = await supabase
-      .from("cases")
-      .select("id,title,court_path,status,current_stage,created_at,updated_at,master_result")
-      .eq("id", caseId)
-      .maybeSingle();
-    if (error || !data) {
+    const read = () =>
+      supabase
+        .from("cases")
+        .select("id,title,court_path,status,current_stage,created_at,updated_at,master_result")
+        .eq("id", caseId)
+        .maybeSingle();
+    let { data, error } = await read();
+    // A failed read is not a missing case (2026-10-08: a walkthrough reload was
+    // told its case "may have been deleted"). Try twice more before saying so.
+    for (let attempt = 1; error && attempt <= 2; attempt += 1) {
+      await new Promise((resolve) => setTimeout(resolve, 1_500 * attempt));
+      ({ data, error } = await read());
+    }
+    if (error) {
+      setLoadError(error.message);
+      setState("failed");
+      return;
+    }
+    if (!data) {
       setState("missing");
       return;
     }
@@ -118,6 +132,28 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
     return (
       <main className="mx-auto max-w-6xl px-4 py-16 text-center text-sm text-[#4f685f]" aria-live="polite">
         Opening your case…
+      </main>
+    );
+  }
+
+  if (state === "failed") {
+    return (
+      <main className="mx-auto max-w-3xl px-4 py-16">
+        <div className="rounded-3xl border border-[#d8e6df] bg-white p-8">
+          <h1 className="text-2xl font-bold text-[#10231f]">Your case could not be loaded just now</h1>
+          <p className="mt-3 text-[#4f685f]">Nothing has been lost. Please try again in a moment.</p>
+          <p data-testid="case-load-error" className="mt-2 text-xs text-[#7a5418]">Details: {loadError.slice(0, 200)}</p>
+          <button
+            type="button"
+            onClick={() => {
+              setState("loading");
+              void load();
+            }}
+            className="mt-6 inline-flex rounded-full bg-[#2f7d67] px-5 py-3 font-semibold text-white"
+          >
+            Try again
+          </button>
+        </div>
       </main>
     );
   }

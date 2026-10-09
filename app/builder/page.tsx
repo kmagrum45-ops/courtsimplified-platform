@@ -870,7 +870,10 @@ function BuilderPageContent() {
           }));
         }
 
-        const { error } = await supabase
+        // Writing the same row twice is harmless, so a failed write is tried
+        // twice more before the user is told it failed (2026-10-08: two
+        // walkthrough runs stopped on "could not be saved").
+        const writeCase = () => supabase
           .from("cases")
           .update({
             // Named for who the case is with, not the engine's summary.
@@ -888,6 +891,11 @@ function BuilderPageContent() {
             updated_at: now,
           })
           .eq("id", activeId);
+        let { error } = await writeCase();
+        for (let attempt = 1; error && attempt <= 2; attempt += 1) {
+          await new Promise((resolve) => setTimeout(resolve, 1_500 * attempt));
+          ({ error } = await writeCase());
+        }
 
         if (error) {
           setSaveError(error.message);
