@@ -21,7 +21,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { userIsResponding } from "../../app/builder/_components/respondingSide";
+import { originatingDocumentRecorded, userIsResponding } from "../../app/builder/_components/respondingSide";
 import { orderGroupsForReader, suggestedStageFor } from "../../app/builder/_components/StageAnswerPanel";
 import { ALL_STAGES, findStage } from "../../src/lib/case-system/stage-map/stageMap";
 
@@ -104,6 +104,20 @@ check("a served defendant is shown the defence step", suggestedStageFor("small-c
   check("a defendant sees their own questions first", orderGroupsForReader(groups, true)[0].side === "defendant");
   check("a plaintiff sees their own questions first", orderGroupsForReader(groups, false)[0].side === "plaintiff");
   check("no question group is dropped", orderGroupsForReader(groups, true).length === groups.length);
+}
+{
+  // A case already under way is not offered a new claim draft (walkthrough,
+  // 2026-10-08: judgment, conference and motion cases were).
+  const blank = { courtPath: "small-claims", caseData: null, intakeFacts: null };
+  check("a case being started is offered the claim draft", !originatingDocumentRecorded({ ...blank, confirmedStage: "starting-case" }));
+  check("no stage recorded: still offered", !originatingDocumentRecorded(blank));
+  for (const stage of ["already-started", "conference", "motion", "trial", "enforcement"]) {
+    check(`a confirmed "${stage}" case is not offered a new claim`, originatingDocumentRecorded({ ...blank, confirmedStage: stage }));
+  }
+  check(
+    "the stage chosen on the intake counts too",
+    originatingDocumentRecorded({ ...blank, caseData: { caseStage: "enforcement", extra: {} } as never }),
+  );
 }
 
 if (failures > 0) {

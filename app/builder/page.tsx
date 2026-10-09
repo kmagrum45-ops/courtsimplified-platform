@@ -1082,6 +1082,7 @@ function BuilderPageContent() {
     courtPath,
     caseData,
     intakeFacts: draftIntakeFacts,
+    confirmedStage,
   });
   const respondingSide = userIsResponding({
     confirmedStage,
