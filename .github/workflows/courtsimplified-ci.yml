@@ -63,6 +63,9 @@ jobs:
       - name: The next step comes first (master plan Phase 2)
         run: npm run test:next-step
 
+      - name: The next step's form, fee, filing and service are sourced (master plan Phase 2)
+        run: npm run test:next-step-practical
+
       - name: Two-year limit counted from an injury under the s. 5 (2) presumption
         run: npm run test:presumed-limitation
 
