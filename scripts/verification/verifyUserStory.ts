@@ -36,7 +36,7 @@ import path from "node:path";
 import { sentenceFromRecord, storyFromRecord, userStory } from "../../src/lib/case-system/userStory";
 import { candidatesFromTimeline } from "../../src/lib/case-system/events/caseEventCandidates";
 import { storyHintsForDates } from "../../src/lib/case-system/casePosition";
-import { storyQuoteFor } from "../../src/lib/case-system/family/triageStoryQuote";
+import { storyAnswerFor, storyQuoteFor } from "../../src/lib/case-system/family/triageStoryQuote";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -114,6 +114,14 @@ const nextYear = storyHintsForDates("The settlement conference is on March 3.", 
 check("an upcoming date earlier in the year is next year's", nextYear?.value === "2027-03-03", JSON.stringify(nextYear));
 const withYear = storyHintsForDates("I was served on September 20, 2026.", now)["sc-date-claim-served"];
 check("a date with its year is not marked assumed", withYear?.value === "2026-09-20" && !withYear.yearAssumed, JSON.stringify(withYear));
+
+// The answer the story gives is offered as the highlighted choice (walkthrough 2026-10-08).
+check("'we were never married' offers No", storyAnswerFor("married-to-other-party", "me and my sons father split up 2 years ago, we were never married.") === "no");
+check("'My husband and I got married in 2012' offers Yes", storyAnswerFor("married-to-other-party", "My husband and I got married in 2012 and separated in January 2025.") === "yes");
+check("someone else's marriage offers nothing", storyAnswerFor("married-to-other-party", "my ex got married again last year and stopped paying.") === null);
+check("contradictory words offer nothing", storyAnswerFor("married-to-other-party", "my ex-husband, well we were never married really") === null);
+check("'our two kids' offers Yes for a child together", storyAnswerFor("child-together", "our two kids live with me") === "yes");
+check("a story with no such words offers nothing", storyAnswerFor("married-to-other-party", "he stopped paying support in may") === null);
 
 // The family triage quotes what the story already says, beside the question.
 const familyStory =

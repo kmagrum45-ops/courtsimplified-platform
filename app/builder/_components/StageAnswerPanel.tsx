@@ -310,6 +310,7 @@ export default function StageAnswerPanel({
   const savedStep = initialStepId && options.some((option) => option.id === initialStepId) ? initialStepId : "";
   const startingStep = savedStep || suggested;
   const [stageId, setStageId] = useState(startingStep);
+  const [choosingStep, setChoosingStep] = useState(false);
   const [result, setResult] = useState<Response | null>(null);
   const [municipality, setMunicipality] = useState("");
   const [loading, setLoading] = useState(false);
@@ -405,7 +406,26 @@ export default function StageAnswerPanel({
           : "Choose the question closest to where your case is. We will show what the court rules and official guides say about that step, with the sources."}
       </p>
 
-      <label className="mt-4 block">
+      {/* With a step already suggested from what they told us, the person sees
+          it named, not a "Where is your case?" list asking them again
+          (walkthrough, 2026-10-08: the list stayed open after every stage was
+          confirmed, and read as the question being asked twice). The list is
+          one click away. */}
+      {stageId && !choosingStep ? (
+        <p className="mt-4 text-sm text-[#16302b]" data-testid="stage-answer-current">
+          <span className="font-semibold">Your step: </span>
+          {options.find((option) => option.id === stageId)?.label ?? ""}{" "}
+          <button
+            type="button"
+            data-testid="stage-answer-change"
+            onClick={() => setChoosingStep(true)}
+            className="font-semibold text-[#2f7d67] underline"
+          >
+            Not right? Choose another step
+          </button>
+        </p>
+      ) : null}
+      <label className={stageId && !choosingStep ? "hidden" : "mt-4 block"}>
         <span className="text-sm font-semibold text-[#16302b]">Where is your case?</span>
         <select
           aria-label="Where is your case?"
@@ -414,6 +434,7 @@ export default function StageAnswerPanel({
           onChange={(event) => {
             const id = event.target.value;
             setStageId(id);
+            setChoosingStep(false);
             setResult(null);
             setMunicipality("");
             // Choosing the Toronto question IS the person saying it was in
@@ -448,7 +469,7 @@ export default function StageAnswerPanel({
           ))}
         </select>
       </label>
-      {confirmedStage && !showOtherSide ? (
+      {confirmedStage && !showOtherSide && (choosingStep || !stageId) ? (
         <button
           type="button"
           data-testid="stage-answer-show-other-side"
