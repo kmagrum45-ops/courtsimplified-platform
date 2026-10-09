@@ -14,7 +14,11 @@
  *   - the billed CI suite running on code it already passed on, or without the
  *     spend check;
  *   - the walkthrough or nightly check (not tests of answer quality) running
- *     at full reasoning effort.
+ *     at full reasoning effort;
+ *   - a test run's hard spending cap not stopping calls once reached, a call
+ *     made after it, or the cap applying with none set (the live site);
+ *   - the walkthrough running without its cap and token ledger, or the cost
+ *     report mis-adding a run's tokens.
  *
  * COSTS NOTHING: no network; the OpenAI client is a fake.
  *
@@ -26,7 +30,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import { rejectedDroppableParam } from "../../src/lib/case-system/aiModels";
-import { forceNoStore, implicitCacheWriteModel, tokenUse, withoutCacheWrites } from "../../src/lib/case-system/openaiClient";
+import { SpendCapReached, assertUnderSpendCap, estimatedSpendUsd, forceNoStore, implicitCacheWriteModel, tokenUse, withoutCacheWrites } from "../../src/lib/case-system/openaiClient";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 let failures = 0;
@@ -119,6 +123,48 @@ async function main() {
     const text = readFileSync(path.join(ROOT, ".github/workflows", name), "utf8");
     check(`${name} skips code it already passed on`, text.includes("needs.gate.outputs.run == 'true'") && text.includes("actions/cache/save@v4"));
   }
+
+  console.log("\n5. A test run's hard spending cap (2026-10-09)");
+  const saved = { ...tokenUse };
+  const savedCap = process.env.AI_SPEND_CAP_USD;
+  check("estimated at $2 / $10 per million by default", Math.abs(estimatedSpendUsd({ input: 1_000_000, output: 100_000 }) - 3) < 1e-9);
+  delete process.env.AI_SPEND_CAP_USD;
+  tokenUse.input = 50_000_000;
+  let livesFree = true;
+  try {
+    assertUnderSpendCap();
+  } catch {
+    livesFree = false;
+  }
+  check("no cap set (the live site): never stops a call", livesFree);
+  process.env.AI_SPEND_CAP_USD = "4";
+  tokenUse.input = 1_000_000;
+  tokenUse.output = 0;
+  let under = true;
+  try {
+    assertUnderSpendCap();
+  } catch {
+    under = false;
+  }
+  check("under the cap: calls go ahead", under);
+  tokenUse.input = 2_000_000;
+  let calledAfterCap = false;
+  const capped = forceNoStore({
+    chat: { completions: { create: async (_body: Record<string, unknown>) => { calledAfterCap = true; return { choices: [] }; } } },
+  });
+  const outcome = await capped.chat.completions.create({ model: "gpt-6.1-sol", messages: [] }).then(() => "made", (error: unknown) => (error instanceof SpendCapReached ? "stopped" : "other"));
+  check("at the cap: the call is refused before it is made", outcome === "stopped" && !calledAfterCap);
+  Object.assign(tokenUse, saved);
+  if (savedCap === undefined) delete process.env.AI_SPEND_CAP_USD;
+  else process.env.AI_SPEND_CAP_USD = savedCap;
+  const walk = readFileSync(path.join(ROOT, ".github/workflows/courtsimplified-walkthrough.yml"), "utf8");
+  check("the walkthrough runs with a cap and a token ledger, and reports its cost", /AI_SPEND_CAP_USD: \$\{\{ inputs\.cap_per_share \}\}/.test(walk) && /AI_TOKEN_LEDGER:/.test(walk) && /costReport\.mjs/.test(walk));
+  const report = (await import("../../scripts/ai/costReport.mjs")) as { summarize: (lines: { file: string; text: string }[], prices?: { input: number; output: number }) => { total: { calls: number; input: number; output: number }; dollars: (use: { input: number; output: number }) => number } };
+  const summary = report.summarize([
+    { file: "tokens-share-1.jsonl", text: '{"model":"m","input":1000000,"output":0}\n{"model":"m","input":0,"output":100000}\nnot json\n' },
+    { file: "tokens-critic.jsonl", text: '{"model":"m","input":500000,"output":50000}\n' },
+  ]);
+  check("the cost report adds every ledger and skips broken lines", summary.total.calls === 3 && summary.total.input === 1_500_000 && Math.abs(summary.dollars(summary.total) - 4.5) < 1e-9);
 
   console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
   process.exitCode = failures ? 1 : 0;

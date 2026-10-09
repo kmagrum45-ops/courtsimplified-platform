@@ -28,6 +28,7 @@
  * is worth more than an invisible 3x bill.
  */
 
+import { appendFileSync } from "node:fs";
 import OpenAI from "openai";
 
 import { observeAiCall } from "../audit/aiCallLog";
@@ -125,6 +126,55 @@ export function implicitCacheWriteModel(model: string): boolean {
  * The law exam prints it so the cost per call can be measured.
  */
 export const tokenUse = { calls: 0, input: 0, cachedRead: 0, cacheWrite: 0, output: 0 };
+
+/**
+ * A HARD SPENDING CAP for a test run (site owner, 2026-10-09: "stay within
+ * $60 and do not go over it"). The account has no spend meter we can read
+ * (the Costs API needs an admin key we do not have), so the run counts its
+ * own tokens and stops calling the model once its estimated cost reaches
+ * AI_SPEND_CAP_USD: every further call fails at once, and the site falls back
+ * as it does when the AI is down. Unset (the live site), there is no cap.
+ *
+ * The estimate prices tokens at AI_PRICE_INPUT_PER_M / AI_PRICE_OUTPUT_PER_M
+ * dollars per million (default 2 and 10, gpt-6.1-sol's published list price
+ * on 2026-10-09; reasoning tokens are output). AI_TOKEN_LEDGER names a file
+ * that gets one line per call (model and token counts, never content), so a
+ * run's report can say what it cost.
+ */
+const env = (name: string): string => (typeof process !== "undefined" ? (process.env[name] ?? "") : "");
+export function estimatedSpendUsd(use: { input: number; output: number } = tokenUse): number {
+  const input = Number(env("AI_PRICE_INPUT_PER_M")) || 2;
+  const output = Number(env("AI_PRICE_OUTPUT_PER_M")) || 10;
+  return (use.input * input + use.output * output) / 1_000_000;
+}
+export class SpendCapReached extends Error {
+  constructor(cap: number) {
+    super(`This run's AI spending cap ($${cap}) has been reached; no further model calls are made.`);
+    this.name = "SpendCapReached";
+  }
+}
+export function assertUnderSpendCap(): void {
+  const cap = Number(env("AI_SPEND_CAP_USD"));
+  if (cap > 0 && estimatedSpendUsd() >= cap) throw new SpendCapReached(cap);
+}
+function spendCapRejection(): Promise<never> | null {
+  try {
+    assertUnderSpendCap();
+    return null;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+function recordInLedger(model: string, input: number, output: number): void {
+  const ledger = env("AI_TOKEN_LEDGER");
+  if (!ledger) return;
+  try {
+    appendFileSync(ledger, `${JSON.stringify({ model, input, output })}\n`, "utf8");
+  } catch {
+    // A ledger that cannot be written never stops a call.
+  }
+}
+
 function countUse(response: unknown) {
   const usage = (response as { usage?: Record<string, unknown> } | null)?.usage;
   if (!usage) return;
@@ -135,6 +185,7 @@ function countUse(response: unknown) {
   tokenUse.output += n(usage.completion_tokens ?? usage.output_tokens);
   tokenUse.cachedRead += n(details.cached_tokens);
   tokenUse.cacheWrite += n(details.cache_write_tokens ?? details.cache_creation_tokens);
+  recordInLedger(String((response as { model?: unknown })?.model ?? ""), n(usage.prompt_tokens ?? usage.input_tokens), n(usage.completion_tokens ?? usage.output_tokens));
 }
 async function counted<T>(promise: Promise<T>): Promise<T> {
   const response = await promise;
@@ -145,19 +196,23 @@ async function counted<T>(promise: Promise<T>): Promise<T> {
 export function forceNoStore<T>(client: T): T {
   const target = client as unknown as { chat: { completions: { create: (...args: unknown[]) => unknown } } };
   const chatCreate = target.chat.completions.create.bind(target.chat.completions);
-  target.chat.completions.create = ((body: Record<string, unknown>, options?: unknown) =>
+  target.chat.completions.create = ((body: Record<string, unknown>, options?: unknown) => {
+    // A refused call is a rejected promise, like any failed call.
+    const capped = spendCapRejection();
+    if (capped) return capped;
     // LSO Step 7. The audit row is written HERE, for the same reason store:false
     // is set here -- see src/lib/audit/aiCallLog.ts. "Every model call is
     // logged" has to be a property of the client, not a habit of seven callers.
     // observeAiCall is an observer: it returns and throws exactly what the call
     // returns and throws.
-    observeAiCall(body, async () =>
+    return observeAiCall(body, async () =>
       createWithParamFallback(
         (attempt) => counted(chatCreate({ ...attempt, store: false }, options) as Promise<unknown>),
         withoutCacheWrites(body),
         warnDroppedParam,
       ),
-    )) as never;
+    );
+  }) as never;
 
   /*
    * `chat.completions.parse` — the SDK's structured-output helper.
@@ -178,14 +233,17 @@ export function forceNoStore<T>(client: T): T {
     const chatParse = (chatCompletions.parse as (...args: unknown[]) => unknown).bind(
       target.chat.completions,
     );
-    chatCompletions.parse = ((body: Record<string, unknown>, options?: unknown) =>
-      observeAiCall(body, async () =>
+    chatCompletions.parse = ((body: Record<string, unknown>, options?: unknown) => {
+      const capped = spendCapRejection();
+      if (capped) return capped;
+      return observeAiCall(body, async () =>
         createWithParamFallback(
           (attempt) => counted(chatParse({ ...attempt, store: false }, options) as Promise<unknown>),
           withoutCacheWrites(body),
           warnDroppedParam,
         ),
-      )) as never;
+      );
+    }) as never;
   }
 
   // The Responses API is wrapped too, even though nothing uses it yet. It is
@@ -194,10 +252,13 @@ export function forceNoStore<T>(client: T): T {
   const responses = (client as unknown as { responses?: { create?: unknown } }).responses;
   if (responses && typeof responses.create === "function") {
     const responsesCreate = (responses.create as (...args: unknown[]) => unknown).bind(responses);
-    responses.create = ((body: Record<string, unknown>, options?: unknown) =>
-      observeAiCall(body, async () =>
+    responses.create = ((body: Record<string, unknown>, options?: unknown) => {
+      const capped = spendCapRejection();
+      if (capped) return capped;
+      return observeAiCall(body, async () =>
         counted(responsesCreate({ ...withoutCacheWrites(body), store: false }, options) as Promise<unknown>),
-      )) as never;
+      );
+    }) as never;
   }
 
   /*
