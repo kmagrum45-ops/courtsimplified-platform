@@ -626,7 +626,7 @@ function draftUserPrompt(input: CheckedAnswerInput): string {
     input.side ? `THEY ARE: ${input.side === "plaintiff" ? "the person bringing the case" : "the person responding to it"}` : "",
     input.facts ? `WHAT THEIR CASE RECORD HOLDS:\n${input.facts.slice(0, 2000)}` : "",
     input.story ? `THEIR STORY, IN THEIR WORDS:\n${input.story.slice(0, 6000)}` : "",
-    `THEIR QUESTION: ${input.question.slice(0, 1000)}`,
+    `THEIR QUESTION: ${input.question.slice(0, 5000)}`,
   ]
     .filter(Boolean)
     .join("\n\n");
@@ -641,7 +641,7 @@ export function checkUserPrompt(statements: string[], passages: Passage[], input
     .join("\n\n");
   return [
     `THE PERSON'S SITUATION (for applying the law; not a source of law):\n${`${input.story ?? ""}\n${input.facts ?? ""}`.trim().slice(0, 2000) || "(not given)"}`,
-    `QUESTION: ${input.question.slice(0, 1000)}`,
+    `QUESTION: ${input.question.slice(0, 5000)}`,
     `PASSAGES:\n${passageBlock}`,
     `STATEMENTS:\n${statements.map((text, i) => `${i + 1}. ${text}`).join("\n")}`,
   ].join("\n\n");
@@ -684,7 +684,7 @@ Return JSON: {"missing": [{"text": "<one or two plain sentences>", "cites": ["<f
 
 export async function reviewWithModel(input: CheckedAnswerInput, confirmed: string[], passages: Passage[]): Promise<string> {
   const user = [
-    `QUESTION: ${input.question.slice(0, 1000)}`,
+    `QUESTION: ${input.question.slice(0, 5000)}`,
     `SITUATION (facts, not law):\n${`${input.story ?? ""}\n${input.facts ?? ""}`.trim().slice(0, 3000) || "(not given)"}`,
     `STATEMENTS ALREADY IN THE ANSWER:\n${confirmed.map((text, i) => `${i + 1}. ${text}`).join("\n") || "(none)"}`,
     `PASSAGES:\n${passages.map((passage) => `${passageItem(passage).citation || passageItem(passage).label}\n${passage.text.slice(0, PASSAGE_CHARS)}`).join("\n\n")}`,
