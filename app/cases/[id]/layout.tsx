@@ -34,6 +34,7 @@ import type { StoredCaseData } from "../../builder/_components/builderTypes";
 import { courtPathAsPathway, readCasePosition } from "@/src/lib/case-system/casePosition";
 import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
 import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
+import { userStory } from "@/src/lib/case-system/userStory";
 import {
   CaseHomeContext,
   COURT_LABELS,
@@ -123,7 +124,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
       record: readCaseRecord(master, caseRecord.court_path),
       stepId:
         position.stepId ||
-        (courtPath && position.confirmedStage ? suggestedStageFor(courtPath, position.confirmedStage, responding) : ""),
+        (courtPath && position.confirmedStage ? suggestedStageFor(courtPath, position.confirmedStage, responding, userStory(master.intakeData as StoredCaseData | undefined)) : ""),
       reload: load,
     };
   }, [caseRecord, load]);

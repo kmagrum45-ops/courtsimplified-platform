@@ -1722,6 +1722,7 @@ function BuilderPageContent() {
                   }))
                 }
                 storyHints={storyHintsForDates([userStory(caseData), caseData?.timeline].filter(Boolean).join("\n"))}
+                storyText={[userStory(caseData), caseData?.goal, caseData?.urgent].filter(Boolean).join("\n")}
                 suggestedDates={guidedDates}
                 userWords={userWordsOf(caseData)}
                 recordedAmount={recordedAmountOf(caseData)}

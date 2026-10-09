@@ -23,6 +23,7 @@ import path from "node:path";
 
 import { originatingDocumentRecorded, userIsResponding } from "../../app/builder/_components/respondingSide";
 import { orderGroupsForReader, suggestedStageFor } from "../../app/builder/_components/StageAnswerPanel";
+import { stepNamedInStory } from "../../src/lib/case-system/stage-map/suggestedStep";
 import { ALL_STAGES, findStage } from "../../src/lib/case-system/stage-map/stageMap";
 
 let failures = 0;
@@ -118,6 +119,23 @@ check("a served defendant is shown the defence step", suggestedStageFor("small-c
     "the stage chosen on the intake counts too",
     originatingDocumentRecorded({ ...blank, caseData: { caseStage: "enforcement", extra: {} } as never }),
   );
+}
+{
+  // A procedural event the person names picks the step (walkthrough 2026-10-08).
+  const story = (court: "small-claims" | "civil" | "family", responding: boolean, text: string) => suggestedStageFor(court, "responding", responding, text);
+  check("Small Claims: 'noted me in default' is the noted-in-default step", story("small-claims", true, "I never filed anything and the clerk noted me in default last week.") === "defendant:noted-in-default");
+  check("civil: 'I have been noted in default'", stepNamedInStory("civil", true, "I have been noted in default.") === "civil:defendant:noted-in-default");
+  check("a default judgment already signed", stepNamedInStory("small-claims", true, "They got default judgment against me in May.") === "defendant:default-judgment-against-me");
+  check("a default judgment only feared is not", stepNamedInStory("small-claims", true, "I want to file my defence so there is no default judgment.") === "");
+  check("family: changing a final support order", stepNamedInStory("family", false, "I lost my job and want to lower the child support order from 2022.") === "family:both:asking-to-change-final-order");
+  check("family: served with a motion to change", stepNamedInStory("family", true, "I was served with a motion to change by my ex.") === "family:both:served-with-motion-to-change");
+  check("family: a case conference is not a settlement conference", stepNamedInStory("family", true, "now there is a case conference on november 20") === "family:both:case-conference-scheduled");
+  check("an ordinary story names nothing, and the stage decides", stepNamedInStory("small-claims", false, "He owes me $4,800 for painting.") === "" && suggestedStageFor("small-claims", "starting-case", false, "He owes me $4,800 for painting.") === "plaintiff:claim-drafted-not-filed");
+  const all = new Set(ALL_STAGES.map((stage) => stage.id));
+  const named = ["small-claims", "civil", "family"].flatMap((court) => [true, false].flatMap((r) =>
+    ["noted me in default", "got default judgment against me", "summary judgment", "motion to change", "served with a motion to change", "trial management conference", "settlement conference", "case conference", "change the support order"].map((t) => stepNamedInStory(court as never, r, t)),
+  )).filter(Boolean);
+  check("every step a story can name exists", named.every((id) => all.has(id)), named.filter((id) => !all.has(id)).join(", "));
 }
 
 if (failures > 0) {

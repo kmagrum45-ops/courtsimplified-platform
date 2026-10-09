@@ -257,6 +257,7 @@ export default function StageAnswerPanel({
   userWords = "",
   recordedAmount = "",
   city = "",
+  storyText = "",
   onSaved,
 }: {
   courtPath: StagePathway;
@@ -287,6 +288,8 @@ export default function StageAnswerPanel({
   recordedAmount?: string;
   /** The person's city, so the card names the filing portal for their region. */
   city?: string;
+  /** The person's own story (not the analysis), read for a procedural event they name, such as "noted in default". */
+  storyText?: string;
   /** Told what was saved, so a page that remounts this panel can show it again. */
   onSaved?: (saved: { stepId?: string | null; dateAnswers?: Record<string, string> }) => void;
 }) {
@@ -301,7 +304,7 @@ export default function StageAnswerPanel({
     (confirmedStage === "starting-case" || !confirmedStage) &&
     Boolean(noticeStepId) &&
     options.some((option) => option.id === noticeStepId);
-  const suggested = noticeFirst ? (noticeStepId as string) : suggestedStageFor(courtPath, confirmedStage, responding);
+  const suggested = noticeFirst ? (noticeStepId as string) : suggestedStageFor(courtPath, confirmedStage, responding, storyText);
   const savedStep = initialStepId && options.some((option) => option.id === initialStepId) ? initialStepId : "";
   const startingStep = savedStep || suggested;
   const [stageId, setStageId] = useState(startingStep);
