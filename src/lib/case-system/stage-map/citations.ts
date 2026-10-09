@@ -54,7 +54,16 @@ export type CorpusSourceId =
   | "evidence-act"
   // 2026-10-05: the notice before suing over an injury from a vehicle
   // (s. 258.3), which the stage map had no stage for.
-  | "insurance-act";
+  | "insurance-act"
+  // 2026-10-08: the next-step card's fee, filing and fee-waiver lines
+  // (content-library/nextStepPractical.ts). The fee regulations, and the
+  // ontario.ca pages that say which portal files where.
+  | "oreg-332-16-small-claims-fees"
+  | "oreg-293-92-superior-court-fees"
+  | "ontario-file-small-claims-online"
+  | "ontario-file-civil-claim-online"
+  | "ontario-fees-family"
+  | "ontario-fee-waiver";
 
 /** The page a person opens to read the law for themselves. */
 export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
@@ -79,6 +88,12 @@ export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
   "family-responsibility-support-arrears-enforcement-act": "https://www.ontario.ca/laws/statute/96f31",
   "evidence-act": "https://www.ontario.ca/laws/statute/90e23",
   "insurance-act": "https://www.ontario.ca/laws/statute/90i08",
+  "oreg-332-16-small-claims-fees": "https://www.ontario.ca/laws/regulation/160332",
+  "oreg-293-92-superior-court-fees": "https://www.ontario.ca/laws/regulation/920293",
+  "ontario-file-small-claims-online": "https://www.ontario.ca/page/file-small-claims-court-documents-online",
+  "ontario-file-civil-claim-online": "https://www.ontario.ca/page/file-civil-claim-online",
+  "ontario-fees-family": "https://www.ontario.ca/page/family-court-fees",
+  "ontario-fee-waiver": "https://www.ontario.ca/page/have-your-court-fees-waived",
 };
 
 /** How each source is named to a user. Shown beside the quote. */
@@ -106,6 +121,12 @@ export const SOURCE_NAMES: Record<CorpusSourceId, string> = {
     "Family Responsibility and Support Arrears Enforcement Act, 1996, S.O. 1996, c. 31",
   "evidence-act": "Evidence Act, R.S.O. 1990, c. E.23",
   "insurance-act": "Insurance Act, R.S.O. 1990, c. I.8",
+  "oreg-332-16-small-claims-fees": "O. Reg. 332/16 (Small Claims Court fees)",
+  "oreg-293-92-superior-court-fees": "O. Reg. 293/92 (Superior Court of Justice and Court of Appeal fees)",
+  "ontario-file-small-claims-online": "ontario.ca, File Small Claims Court documents online",
+  "ontario-file-civil-claim-online": "ontario.ca, File a civil claim online",
+  "ontario-fees-family": "ontario.ca, Family court fees",
+  "ontario-fee-waiver": "ontario.ca, Have your court fees waived",
 };
 
 export type RuleCitation = {

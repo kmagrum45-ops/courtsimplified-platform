@@ -226,6 +226,8 @@ export default function CaseOverviewPage() {
               storyHints={storyHintsForDates([userStory(intake), intake?.timeline].filter(Boolean).join("\n"))}
               userWords={userWordsOf(intake)}
               recordedAmount={recordedAmountOf(intake)}
+              // The city the case recorded picks the filing portal (Toronto region or not).
+              city={typeof (intake?.extra as Record<string, unknown> | undefined)?.yourCity === "string" ? ((intake?.extra as Record<string, unknown>).yourCity as string) : ""}
               // The notice step the builder suggested, here too (page review,
               // 2026-10-07: the case page silently dropped the snow-and-ice
               // notice step and its deadline).

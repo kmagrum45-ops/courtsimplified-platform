@@ -1724,6 +1724,7 @@ function BuilderPageContent() {
                 suggestedDates={guidedDates}
                 userWords={userWordsOf(caseData)}
                 recordedAmount={recordedAmountOf(caseData)}
+                city={confirmedLocation?.city ?? ""}
                 noticeStepId={suggestedNoticeStep({
                   claimTypeId:
                     draftClaimTypeId ||

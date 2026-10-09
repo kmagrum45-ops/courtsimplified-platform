@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
 import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-system/casePosition";
 import FormsNamedHere from "../../_components/FormsNamedHere";
+import NextStepPractical from "../../_components/NextStepPractical";
+import { practicalFor, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
 import { amountNoteFor } from "@/src/lib/case-system/amountNotes";
 import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
 
@@ -109,13 +111,19 @@ function NextStepCard({
   court,
   userWords,
   askedForDates,
+  stepId,
+  city,
 }: {
   summary: NextStepSummary;
   answer: RenderedAnswer;
   court: string;
   userWords: string;
   askedForDates: boolean;
+  stepId: string;
+  /** The person's city, which decides the filing portal (Toronto region or not). */
+  city: string;
 }) {
+  const practical = practicalFor(stepId, court as PracticalCourt, city);
   const today = todayIso();
   const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
   const firstParagraph = toDo.split(/\n\s*\n/)[0]?.trim() ?? "";
@@ -141,7 +149,10 @@ function NextStepCard({
         </ul>
       ) : null}
       {firstParagraph ? <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{firstParagraph}</p> : null}
-      {toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
+      {/* The form, fee, filing and service for this step (Phase 2); the forms
+          the answer's text names are the fallback for a step with none recorded. */}
+      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} /> : null}
+      {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
       {answer.sources.length > 0 ? (
         <p className="mt-3 text-xs leading-5 text-[#4d675f]">
           {answer.sources.slice(0, 4).map((source, index) => (
@@ -245,6 +256,7 @@ export default function StageAnswerPanel({
   noticeStepId = null,
   userWords = "",
   recordedAmount = "",
+  city = "",
   onSaved,
 }: {
   courtPath: StagePathway;
@@ -273,6 +285,8 @@ export default function StageAnswerPanel({
   userWords?: string;
   /** The amount the user recorded, set against the court's limits at the starting step (amountNotes.ts). */
   recordedAmount?: string;
+  /** The person's city, so the card names the filing portal for their region. */
+  city?: string;
   /** Told what was saved, so a page that remounts this panel can show it again. */
   onSaved?: (saved: { stepId?: string | null; dateAnswers?: Record<string, string> }) => void;
 }) {
@@ -452,6 +466,8 @@ export default function StageAnswerPanel({
           court={courtPath}
           userWords={userWords}
           askedForDates={(result.dateQuestions?.length ?? 0) > 0}
+          stepId={stageId}
+          city={city}
         />
       ) : null}
 
