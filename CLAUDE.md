@@ -290,7 +290,10 @@ a run (site owner, 2026-10-08: work is not to stop mid-way). Reading the spend
 needs the repository secret `OPENAI_ADMIN_KEY` (an OpenAI admin key; the Costs
 API); without it the note says so and the run continues. The walkthrough, story review, retrieval eval, nightly and coverage
 runs skip code they already passed on (run with `force=yes` to override); CI's
-billed suite runs only when the AI code changed since it last passed. The
+billed suite runs only when the code it runs (its import closure,
+`scripts/ai/importClosureHash.mjs`) changed since it last passed; with the
+OpenAI balance empty it is postponed with a warning and no pass recorded
+(`scripts/ai/openaiCredit.mjs`), so it runs on the next build with credit. The
 walkthrough and nightly runs use low reasoning effort, and the repository
 variable `AI_TEST_MODEL` sets a cheaper model for them. `npm run test:openai-cost`
 checks all of this in CI.

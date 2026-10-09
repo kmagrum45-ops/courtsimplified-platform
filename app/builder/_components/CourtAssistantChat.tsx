@@ -716,6 +716,31 @@ type CourtAssistantChatInnerProps = CourtAssistantChatProps & {
   chatStore: ChatExternalStore;
 };
 
+/**
+ * The conversation saved with the case (2026-10-08, /api/cases/chat), so it
+ * follows the person to another device or a cleared browser. Best effort:
+ * until the case_chat_messages migration is applied, or without a saved
+ * case, these do nothing and the browser copy is all there is, as before.
+ */
+const SAVED_CASE_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+async function caseChatRequest(method: "GET" | "POST" | "DELETE", caseId: string, body?: unknown): Promise<unknown> {
+  try {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    if (!session?.access_token) return null;
+    const response = await fetch(method === "GET" ? `/api/cases/chat?caseId=${encodeURIComponent(caseId)}` : "/api/cases/chat", {
+      method,
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
+      ...(body ? { body: JSON.stringify(body) } : {}),
+    });
+    return await response.json();
+  } catch {
+    return null;
+  }
+}
+
 function CourtAssistantChatInner({
   caseData,
   caseId,
@@ -740,6 +765,23 @@ function CourtAssistantChatInner({
   );
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const savedCaseId = caseId && SAVED_CASE_ID.test(caseId) ? caseId : "";
+
+  // A conversation this browser does not have, but the case does, is brought
+  // back (another device, a cleared browser).
+  useEffect(() => {
+    if (!savedCaseId || messages.some((message) => message.role === "user")) return;
+    let active = true;
+    void caseChatRequest("GET", savedCaseId).then((result) => {
+      const saved = (result as { ok?: boolean; messages?: ChatMessage[] } | null)?.messages;
+      if (!active || !Array.isArray(saved) || saved.length === 0) return;
+      setMessages((current) => (current.some((message) => message.role === "user") ? current : [...current.slice(0, 1), ...saved]));
+    });
+    return () => {
+      active = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [savedCaseId]);
   const [caseMemory, setCaseMemory] = useState<unknown>(
     initialChatState.caseMemory,
   );
@@ -901,6 +943,9 @@ function CourtAssistantChatInner({
               courtPath: path,
               ...(story ? { story } : {}),
               ...(side ? { side } : {}),
+              // The saved case, so the answer knows what is already recorded
+              // (read on the server from the case the person owns).
+              ...(caseId && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(caseId) ? { caseId } : {}),
             }),
           });
           const data = (await response.json()) as { findings?: ResearchFindingView[]; answer?: CheckedAnswerView };
@@ -1011,6 +1056,15 @@ function CourtAssistantChatInner({
           content: answer,
         },
       ]);
+      if (savedCaseId) {
+        void caseChatRequest("POST", savedCaseId, {
+          caseId: savedCaseId,
+          messages: [
+            { role: "user", content: trimmed },
+            { role: "assistant", content: answer },
+          ],
+        });
+      }
     } catch (error) {
       console.error(
         "CourtSimplified guided assistant request failed.",
@@ -1041,6 +1095,7 @@ function CourtAssistantChatInner({
 
   function clearCurrentChat() {
     setMessages([INITIAL_ASSISTANT_MESSAGE]);
+    if (savedCaseId) void caseChatRequest("DELETE", savedCaseId, { caseId: savedCaseId });
     setInput("");
     setCaseMemory(null);
     setLatestIntelligence(null);

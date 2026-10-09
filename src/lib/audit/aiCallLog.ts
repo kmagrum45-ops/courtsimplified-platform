@@ -102,7 +102,14 @@ export type AiCallType =
    * (ZDR) switch. Every quote is checked against the uploaded text. See
    * case-workspace/courtDecision.ts.
    */
-  | "decision-help";
+  | "decision-help"
+  /**
+   * 2026-10-08. Reads the person's whole account and reports their side, the
+   * procedural events and the dates they describe, each with a quote that code
+   * checks is their own words, and a year kept only if they wrote it. See
+   * intake/caseReader.ts.
+   */
+  | "case-reader";
 
 export type AiValidationResult = "valid" | "invalid" | "error" | "timeout";
 

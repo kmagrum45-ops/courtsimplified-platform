@@ -13,6 +13,7 @@
  * (section 4), exactly as in the builder.
  */
 
+import { readStoredPicture } from "@/src/lib/case-system/intake/caseReader";
 import { recordedAmountOf } from "@/src/lib/case-system/amountNotes";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
@@ -229,6 +230,7 @@ export default function CaseOverviewPage() {
               recordedAmount={recordedAmountOf(intake)}
               // The city the case recorded picks the filing portal (Toronto region or not).
               city={typeof (intake?.extra as Record<string, unknown> | undefined)?.yourCity === "string" ? ((intake?.extra as Record<string, unknown>).yourCity as string) : ""}
+              picture={readStoredPicture(master.casePicture)}
               // The notice step the builder suggested, here too (page review,
               // 2026-10-07: the case page silently dropped the snow-and-ice
               // notice step and its deadline).

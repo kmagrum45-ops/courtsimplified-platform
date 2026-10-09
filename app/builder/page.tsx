@@ -4,6 +4,7 @@ import { recordedAmountOf } from "@/src/lib/case-system/amountNotes";
 import { documentsOf, storedIntakeValues } from "@/src/lib/case-system/caseRecord";
 import Link from "next/link";
 import GetHelp from "../_components/GetHelp";
+import { readStoredPicture, type CasePicture } from "../../src/lib/case-system/intake/caseReader";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -355,6 +356,8 @@ function BuilderPageContent() {
   /** Every answer the person confirmed in the guided intake, kept with the case (Phase 1). */
   const guidedAnswersRef = useRef<{ questionId: string; answerText: string }[]>([]);
   /** What the panel saved this visit, so Back then Forward shows it (page review, 2026-10-07). */
+  // The case reader's checked reading of what the person wrote (CASE_READER).
+  const [casePicture, setCasePicture] = useState<CasePicture | null>(null);
   // A press of "Try saving again" re-runs the case save below.
   const [saveAttempt, setSaveAttempt] = useState(0);
   const [positionThisVisit, setPositionThisVisit] = useState<{ stepId?: string | null; dateAnswers?: Record<string, string> }>({});
@@ -580,6 +583,7 @@ function BuilderPageContent() {
 
       setMasterCaseId(data.id);
       setExistingMasterResult(loadedMasterResult);
+      setCasePicture(readStoredPicture(loadedMasterResult.casePicture));
       setTriageState(triageStateFromStored(loadedMasterResult.familyStatus));
 
       /*
@@ -854,7 +858,8 @@ function BuilderPageContent() {
         const userOwned: Record<string, unknown> = Object.fromEntries(
           // formApplicability (the Forms page answers) and intakeAnswers (the
           // guided answers) are the user's too; a re-save erased them.
-          (["position", "drafts", "formApplicability", "intakeAnswers"] as const)
+          // casePicture (the case reader's checked reading, /api/case/read) too.
+          (["position", "drafts", "formApplicability", "intakeAnswers", "casePicture"] as const)
             .filter((key) => storedMaster[key] !== undefined && storedMaster[key] !== null)
             .map((key) => [key, storedMaster[key]]),
         );
@@ -910,6 +915,30 @@ function BuilderPageContent() {
       setLastSavedAt(user && activeId ? now : "");
       setCanonicalIntakeSaved(true);
       setSavingMaster(false);
+
+      // With the case saved, the case reader reads everything the person
+      // wrote on it (master plan Phase 3). Off unless switched on; when it is
+      // off or fails, nothing changes.
+      if (process.env.NEXT_PUBLIC_CASE_READER === "on" && user && activeId) {
+        void (async () => {
+          try {
+            const {
+              data: { session },
+            } = await supabase.auth.getSession();
+            if (!session?.access_token) return;
+            const response = await fetch("/api/case/read", {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
+              body: JSON.stringify({ caseId: activeId }),
+            });
+            const result = (await response.json()) as { picture?: unknown };
+            const picture = readStoredPicture(result.picture);
+            if (picture) setCasePicture(picture);
+          } catch {
+            // The page carries on as before.
+          }
+        })();
+      }
     }
 
     saveMasterCase();
@@ -1751,6 +1780,7 @@ function BuilderPageContent() {
                 userWords={userWordsOf(caseData)}
                 recordedAmount={recordedAmountOf(caseData)}
                 city={confirmedLocation?.city ?? ""}
+                picture={casePicture}
                 noticeStepId={suggestedNoticeStep({
                   claimTypeId:
                     draftClaimTypeId ||

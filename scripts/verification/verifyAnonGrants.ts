@@ -42,6 +42,7 @@ const CASE_TABLES = [
   "case_generated_documents",
   "case_events",
   "case_event_candidate_dismissals",
+  "case_chat_messages",
 ];
 
 /**

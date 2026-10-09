@@ -179,6 +179,31 @@ async function routeAndWiring(stubResult: ResearchResult | null) {
   const fallback = await (await answerRoute("unavailable")(new NextRequest("http://localhost/api/assistant/law", { method: "POST", body: JSON.stringify({ question: QUESTION, courtPath: "small-claims" }) }))).json();
   check("when no checked answer is possible, the research step runs as before", answerCalls.join() === "unavailable,research" && Array.isArray(fallback.findings) && !fallback.answer);
 
+  // The saved case (2026-10-08): its story and what it records reach the
+  // answer, read from the case the person owns, never from the request.
+  let seenInput = null as Record<string, unknown> | null;
+  let loadedFor = "";
+  const withCase = createAssistantLawPost({
+    authenticate: (async () => ({ id: "u" })) as never,
+    enabled: () => true,
+    hasAi: () => true,
+    answerEnabled: () => true,
+    loadCase: async (_request, _user, caseId) => {
+      loadedFor = caseId;
+      return { story: "the saved story", facts: "Side: responding to a case someone else started (confirmed by the person)" };
+    },
+    answer: (async (input: Record<string, unknown>) => {
+      seenInput = input;
+      return { status: "answered", statements: [], notConfirmed: [], declinedToJudge: false, missingLaw: [] };
+    }) as never,
+    fileRequests: (async () => ({ filed: [], skipped: [] })) as never,
+  });
+  const caseId = "00000000-0000-4000-8000-000000000002";
+  await withCase(new NextRequest("http://localhost/api/assistant/law", { method: "POST", body: JSON.stringify({ question: QUESTION, courtPath: "small-claims", story: "words from the page", caseId }) }));
+  check("with a saved case, its story and recorded facts reach the answer", loadedFor === caseId && seenInput?.["story"] === "the saved story" && /confirmed by the person/.test(String(seenInput?.["facts"])));
+  check("a case id that is not one is refused", (await withCase(new NextRequest("http://localhost/api/assistant/law", { method: "POST", body: JSON.stringify({ question: QUESTION, courtPath: "small-claims", caseId: "x" }) }))).status === 400);
+  check("the Court Assistant sends its saved case", read("app/builder/_components/CourtAssistantChat.tsx").includes("? { caseId } : {}"));
+
   console.log("\n4. Switches and wiring");
   check("on by default", assistantLawEnabled({}));
   check("ASSISTANT_LAW=off turns it off", !assistantLawEnabled({ ASSISTANT_LAW: "off" }));

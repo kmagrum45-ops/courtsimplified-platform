@@ -6,7 +6,12 @@ import { researchQuestion } from "@/src/lib/case-system/retrieval/researchQuesti
 import { fileSourceRequests } from "@/src/lib/case-system/retrieval/sourceRequests";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
 import { assistantLawEnabled, checkedAnswersEnabled, plainExplanationsEnabled } from "@/src/lib/content-library/phaseScope";
-import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
+import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
+import { caseFactsText, readCaseRecord } from "@/src/lib/case-system/caseRecord";
+import { allDateQuestions } from "@/src/lib/case-system/casePosition";
+import { UUID_PATTERN } from "@/src/lib/case-system/events/caseEventRequest";
+import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
+import { userStory } from "@/src/lib/case-system/userStory";
 
 /**
  * "The law on your question" for the Court Assistant: one question, researched
@@ -33,12 +38,12 @@ const SIDES: Record<string, "plaintiff" | "defendant"> = {
   respondent: "defendant",
 };
 
-type Body = { question: string; story?: string; courtPath: "small-claims" | "civil" | "family"; side?: string };
+type Body = { question: string; story?: string; courtPath: "small-claims" | "civil" | "family"; side?: string; caseId?: string };
 
 function isBody(value: unknown): value is Body {
   if (!value || typeof value !== "object") return false;
   const body = value as Record<string, unknown>;
-  if (Object.keys(body).some((key) => !["question", "story", "courtPath", "side"].includes(key))) return false;
+  if (Object.keys(body).some((key) => !["question", "story", "courtPath", "side", "caseId"].includes(key))) return false;
   return (
     typeof body.question === "string" &&
     body.question.trim().length >= 3 &&
@@ -46,7 +51,8 @@ function isBody(value: unknown): value is Body {
     (body.story === undefined || (typeof body.story === "string" && body.story.length <= MAX_STORY)) &&
     typeof body.courtPath === "string" &&
     COURTS.has(body.courtPath) &&
-    (body.side === undefined || (typeof body.side === "string" && body.side.length <= 40))
+    (body.side === undefined || (typeof body.side === "string" && body.side.length <= 40)) &&
+    (body.caseId === undefined || (typeof body.caseId === "string" && UUID_PATTERN.test(body.caseId)))
   );
 }
 
@@ -59,6 +65,13 @@ type Dependencies = {
   fileRequests: typeof fileSourceRequests;
   enabled: () => boolean;
   hasAi: () => boolean;
+  /**
+   * 2026-10-08 (master plan Phase 1): the person's saved case, so the answer
+   * knows what is already recorded -- their story and their confirmed side,
+   * step and dates -- read from the case they own, never from the request.
+   * Null when there is no saved case or it is not theirs.
+   */
+  loadCase: (request: NextRequest, user: { id: string }, caseId: string) => Promise<{ story: string; facts: string } | null>;
 };
 
 export function createAssistantLawPost(overrides: Partial<Dependencies> = {}) {
@@ -70,6 +83,21 @@ export function createAssistantLawPost(overrides: Partial<Dependencies> = {}) {
     fileRequests: fileSourceRequests,
     enabled: () => assistantLawEnabled(),
     hasAi: hasConfiguredServerAi,
+    loadCase: async (request, user, caseId) => {
+      const owned = (await getAuthenticatedOwnedCase(request, user as never, caseId).catch(() => null)) as
+        | { master_result?: unknown; court_path?: string | null }
+        | null;
+      if (!owned) return null;
+      const master = (owned.master_result && typeof owned.master_result === "object" ? owned.master_result : {}) as Record<string, unknown>;
+      const record = readCaseRecord(master, owned.court_path);
+      return {
+        story: userStory(master.intakeData as never),
+        facts: caseFactsText(record, {
+          stepTitle: (id) => findStage(id)?.title,
+          dateQuestion: (id) => allDateQuestions().find((question) => question.id === id)?.question,
+        }),
+      };
+    },
     ...overrides,
   };
   return async function assistantLawPost(request: NextRequest) {
@@ -81,7 +109,12 @@ export function createAssistantLawPost(overrides: Partial<Dependencies> = {}) {
     }
     if (!isBody(body)) return NextResponse.json({ ok: false, error: "A valid request body is required." }, { status: 400 });
     if (!deps.enabled() || !deps.hasAi()) return NextResponse.json({ ok: true, findings: [], skipped: "off" });
-    if (!(await deps.authenticate(request))) return NextResponse.json({ ok: true, findings: [], skipped: "sign-in" });
+    const user = await deps.authenticate(request);
+    if (!user) return NextResponse.json({ ok: true, findings: [], skipped: "sign-in" });
+    // The saved case, when there is one: its story replaces the request's, and
+    // what it records is added under its own heading.
+    const saved = body.caseId ? await deps.loadCase(request, user as { id: string }, body.caseId).catch(() => null) : null;
+    const story = (saved?.story || body.story || "").slice(0, MAX_STORY);
 
     // 2026-10-07: answer first, checked statement by statement against the
     // official text. When that gives an answer (or a decline, or "outside
@@ -89,8 +122,9 @@ export function createAssistantLawPost(overrides: Partial<Dependencies> = {}) {
     // before, so a person always gets the law the library holds.
     const input = {
       question: body.question,
-      ...(body.story ? { story: body.story } : {}),
+      ...(story ? { story } : {}),
       courtPath: body.courtPath,
+      ...(saved?.facts ? { facts: saved.facts } : {}),
       ...(body.side && SIDES[body.side] ? { side: SIDES[body.side] } : {}),
     };
     const started = Date.now();

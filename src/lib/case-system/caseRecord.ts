@@ -174,3 +174,26 @@ export function storedIntakeValues(masterResult: unknown): Record<string, string
   if (documents.length) out.documentStatus = documents;
   return Object.fromEntries(Object.entries(out).filter(([, value]) => (Array.isArray(value) ? value.length : value)));
 }
+
+/**
+ * What the case already records, in plain lines, for the assistant
+ * (master plan Phase 1, 2026-10-08: the assistant was given only the story,
+ * so it could ask again for a date or step the person had already given).
+ * Built from the saved record only -- never from the request -- and says
+ * where each fact came from. Empty when nothing is recorded.
+ */
+export function caseFactsText(record: CaseRecord, describe: { stepTitle?: (stepId: string) => string | undefined; dateQuestion?: (id: string) => string | undefined } = {}): string {
+  const lines: string[] = [];
+  const from = (source: Provenance) => (source === "confirmed" ? "confirmed by the person" : "from their intake");
+  if (record.side) lines.push(`Side: ${record.side.value === "responding" ? "responding to a case someone else started" : "bringing the case"} (${from(record.side.source)})`);
+  if (record.position.confirmedStage) lines.push(`Where the case is: ${record.position.confirmedStage} (confirmed by the person)`);
+  if (record.position.stepId) lines.push(`Their exact step: ${describe.stepTitle?.(record.position.stepId) ?? record.position.stepId} (chosen by the person)`);
+  for (const [id, fact] of Object.entries(record.dates)) {
+    lines.push(`${describe.dateQuestion?.(id) ?? id}: ${fact.value} (${from(fact.source)})`);
+  }
+  if (record.amount) lines.push(`Amount: ${record.amount} (from their intake)`);
+  if (record.otherParty) lines.push(`The other party: ${record.otherParty} (from their intake)`);
+  if (record.city) lines.push(`City: ${record.city} (from their intake)`);
+  if (record.documents.length) lines.push(`Documents recorded as filed or received: ${record.documents.join(", ")}`);
+  return lines.join("\n");
+}

@@ -80,6 +80,11 @@ export function isDateQuestionId(id: string): boolean {
   return DATE_QUESTIONS.has(id);
 }
 
+/** Every date question, id and wording (the case reader is told which dates it may report). */
+export function allDateQuestions(): { id: string; question: string }[] {
+  return [...DATE_QUESTIONS.entries()].map(([id, entry]) => ({ id, question: entry.question }));
+}
+
 const asRecord = (value: unknown): Record<string, unknown> =>
   value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
 
