@@ -3251,6 +3251,18 @@
       "characters": 351139,
       "lines": 4618,
       "file": "copyright-act.txt"
+    },
+    {
+      "id": "victims-bill-of-rights-1995",
+      "title": "Victims' Bill of Rights, 1995",
+      "citation": "S.O. 1995, c. 6",
+      "url": "https://www.ontario.ca/laws/docs/95v06_e.doc",
+      "retrievedAt": "2026-10-09T18:55:48.019Z",
+      "sha256": "ed47defecf690eab1e6b2c128d1dc688aac0f31da742f2ac06e086d318fc6626",
+      "consolidation": "CONSOLIDATION PERIOD: FROM OCTOBER 16, 2024 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 16581,
+      "lines": 337,
+      "file": "victims-bill-of-rights-1995.txt"
     }
   ],
   "failures": []
