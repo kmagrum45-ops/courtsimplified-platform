@@ -79,7 +79,7 @@ const FEE_LIST: Fee[] = [
   { id: "sc-claim", court: "small-claims", amount: 108, label: "Filing a claim (most people)", cite: sc("s. 1 (2), para. 1", "On the filing of a claim by an infrequent claimant, $108.") },
   { id: "sc-claim-frequent", court: "small-claims", amount: 228, label: "Filing a claim, if you have already filed 10 or more claims in that office this year", cite: sc("s. 1 (2), para. 2", "On the filing of a claim by a frequent claimant, $228.") },
   { id: "sc-defendants-claim", court: "small-claims", amount: 108, label: "Filing a defendant's claim", cite: sc("s. 1 (2), para. 3", "On the filing of a defendant’s claim, $108.") },
-  { id: "sc-motion", court: "small-claims", amount: 127, label: "Filing a motion", cite: sc("s. 1 (2), para. 4", "On the filing of a notice of motion served on another party, a notice of motion without notice or a notice of motion for a consent order (except a notice of motion under the Wages Act), $127.") },
+  { id: "sc-motion", court: "small-claims", amount: 127, label: "Filing a motion (paid by the person bringing it)", cite: sc("s. 1 (2), para. 4", "On the filing of a notice of motion served on another party, a notice of motion without notice or a notice of motion for a consent order (except a notice of motion under the Wages Act), $127.") },
   { id: "sc-defence", court: "small-claims", amount: 77, label: "Filing a defence", cite: sc("s. 1 (2), para. 5", "On the filing of a defence, $77.") },
   { id: "sc-trial", court: "small-claims", amount: 308, label: "Setting a trial or assessment hearing date (most people)", cite: sc("s. 1 (2), para. 6", "For the fixing of a date for a trial or an assessment hearing by an infrequent claimant, $308.") },
   { id: "sc-default", court: "small-claims", amount: 94, label: "Asking for default judgment (most people)", cite: sc("s. 1 (2), para. 8", "For the filing of a request for default judgment by an infrequent claimant, $94.") },
@@ -96,7 +96,7 @@ const FEE_LIST: Fee[] = [
   { id: "civ-garnishment", court: "civil", amount: 155, label: "A notice of garnishment", cite: sup("s. 1 (1), para. 1 viii", "A notice of garnishment or notice of renewal of garnishment (including the filing of the notice with the sheriff), $155.") },
   { id: "civ-intent", court: "civil", amount: 194, label: "Filing a notice of intent to defend", cite: sup("s. 1 (1), para. 3 i", "A notice of intent to defend, $194.") },
   { id: "civ-defence", court: "civil", amount: 194, label: "Filing a defence (no fee if you already paid for a notice of intent to defend)", cite: sup("s. 1 (1), para. 3 ii", "If no notice of intent to defend has been filed by the same party, a statement of defence, a defence to counterclaim, a defence to crossclaim or a third party defence, $194.") },
-  { id: "civ-motion", court: "civil", amount: 339, label: "Filing a motion", cite: sup("s. 1 (1), para. 3 iv", "A notice of motion served on another party, a notice of motion without notice, a notice of motion for a consent order or a notice of motion for leave to appeal, other than a notice of motion in a family law appeal, $339.") },
+  { id: "civ-motion", court: "civil", amount: 339, label: "Filing a motion (paid by the person bringing it)", cite: sup("s. 1 (1), para. 3 iv", "A notice of motion served on another party, a notice of motion without notice, a notice of motion for a consent order or a notice of motion for leave to appeal, other than a notice of motion in a family law appeal, $339.") },
   { id: "civ-default", court: "civil", amount: 177, label: "Asking the registrar to sign default judgment", cite: sup("s. 1 (1), para. 3 viii", "A requisition for signing of default judgment by registrar, $177.") },
   { id: "civ-trial-record", court: "civil", amount: 859, label: "Filing the trial record (first time only)", cite: sup("s. 1 (1), para. 3 ix", "A trial record, $859, for the first time only.") },
   { id: "civ-appeal-interlocutory", court: "civil", amount: 243, label: "A notice of appeal from an interlocutory order", cite: sup("s. 1 (1), para. 3 x", "A notice of appeal or cross-appeal from an interlocutory order, $243.") },
@@ -107,6 +107,8 @@ const FEE_LIST: Fee[] = [
   { id: "fam-answer", court: "family", amount: 171, label: "Filing an answer (Superior Court of Justice)", cite: sup("s. 1.2 (1), para. 2", "On the filing of an answer, other than an answer referred to in paragraph 3, $171.") },
   { id: "fam-answer-divorce", court: "family", amount: 214, label: "Filing an answer that asks for a divorce (Superior Court of Justice)", cite: sup("s. 1.2 (1), para. 3", "On the filing of an answer that includes a request for a divorce by a respondent, $214.") },
   { id: "fam-list", court: "family", amount: 445, label: "Placing an application on the list for hearing (Superior Court of Justice)", cite: sup("s. 1.2 (1), para. 4", "On the placing of an application on the list for hearing, $445.") },
+  { id: "fam-appeal-final", court: "family", amount: 243, label: "A notice of appeal from a final order", cite: sup("s. 1 (1), para. 3 xii", "A notice of appeal or cross-appeal to an appellate court of a final order of any court or tribunal, other than the Small Claims Court or the Consent and Capacity Board, $243.") },
+  { id: "fam-appeal-interlocutory", court: "family", amount: 243, label: "A notice of appeal from a temporary (interlocutory) order", cite: sup("s. 1 (1), para. 3 x", "A notice of appeal or cross-appeal from an interlocutory order, $243.") },
   { id: "fam-summons", court: "family", amount: 33, label: "Issuing a summons to a witness (Superior Court of Justice)", cite: sup("s. 1.2 (1), para. 5", "On the issue of a summons to a witness, $33.") },
 ];
 
@@ -130,6 +132,19 @@ export const FAMILY_FEE_NOTES: PlainLine[] = [
     cite: cite("ontario-fees-family", "Superior Court and Family Court branch fees", "anyone filing an application or an answer with a divorce claim must include the federal government’s $10 fee"),
   },
 ];
+
+/** Shown with a family appeal fee instead: appeals pay the civil fees. */
+export const FAMILY_APPEAL_FEE_NOTE: PlainLine = {
+  say: "Family appeals pay the civil court fees, unless you have a fee waiver certificate.",
+  cite: cite(
+    "ontario-fees-family",
+    "Family appeal fees",
+    "You must pay fees to appeal an order in a family court proceeding unless you have a fee waiver certificate ... For the purposes of court fees, family appeals are treated like civil court proceedings.",
+  ),
+};
+
+/** The first-instance family fees, which the Ontario Court of Justice and some Superior Court cases do not charge. */
+const FIRST_INSTANCE_FAMILY_FEES = new Set(["fam-application", "fam-answer", "fam-answer-divorce", "fam-list", "fam-summons"]);
 
 export const FEE_WAIVER: PlainLine = {
   say: "If you cannot afford the fee, you can ask the court to waive it. Asking costs nothing.",
@@ -302,7 +317,7 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
   family: {
     originating: [
       {
-        say: "An application is served right away on every other party, by special service.",
+        say: "An application is served right away on every other party, usually by special service.",
         cite: flr("r. 8 (5)", "The application shall be served immediately on every other party, and special service shall be used unless the party is listed in subrule (6)."),
       },
       {
@@ -343,6 +358,13 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
           "Special service of the following documents shall be carried out only by a method set out in clause (3) (a), unless the court orders otherwise: 1. A notice of contempt motion. 2. A summons to witness.",
         ),
       },
+      {
+        say: "Someone other than you must serve it.",
+        cite: flr(
+          "r. 6 (4.1)",
+          "special service of the following documents shall be carried out by a person other than the party required to serve the document: ... 3. A document listed in subrule (4).",
+        ),
+      },
     ],
     garnishment: [],
     proof: {
@@ -377,6 +399,11 @@ const CIV_MOTION = rcp(
   "A motion shall be made by a notice of motion (in Form 37A) unless the nature of the motion or the circumstances make a notice of motion unnecessary or these rules provide otherwise.",
 );
 const FAM_MOTION = flr("r. 14 (9)", "A motion, whether made with or without notice, (a) requires a notice of motion (Form 14) and an affidavit (Form 14A); and (b) may be supported by additional evidence.");
+
+const APPEAL_START = rcp(
+  "r. 61.04 (1)",
+  "An appeal to an appellate court shall be commenced by serving a notice of appeal in Form 61A.2 (Court of Appeal) or 61A.3 (Divisional Court) together with the certificate required by subrule 61.05 (1), within 30 days after the making of the order appealed from, unless a statute or these rules provide otherwise",
+);
 
 const NOTHING: StepPractical = { forms: [], fees: [], files: false, serve: null };
 
@@ -417,11 +444,11 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "defendant:defence-period-expired-not-yet-noted": { forms: ["9A"], fees: ["sc-defence"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
   "defendant:noted-in-default": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
   "defendant:default-judgment-against-me": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
-  "defendant:defence-filed": { forms: ["13A", "10A"], fees: ["sc-defendants-claim"], files: true, serve: "ordinary" },
+  "defendant:defence-filed": { forms: ["13A"], fees: [], files: true, serve: "ordinary" },
   "defendant:considering-defendants-claim": { forms: ["10A"], fees: ["sc-defendants-claim"], files: true, serve: "originating" },
   "defendant:awaiting-settlement-conference": { forms: ["13A"], fees: [], files: true, serve: "ordinary" },
   "defendant:trial-date-set": { forms: ["18A"], fees: ["sc-summons"], files: true, serve: "summons" },
-  "defendant:judgment-against-me": { forms: ["15A", "civil:61A.3"], fees: ["sc-motion", "sc-appeal"], files: true, serve: "ordinary" },
+  "defendant:judgment-against-me": { forms: ["15A"], fees: ["sc-motion", "sc-appeal"], files: true, serve: "ordinary", also: [APPEAL_START] },
   // ---- Small Claims: either side
   "both:missed-settlement-conference": NOTHING,
   "both:missed-trial": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
@@ -433,7 +460,7 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "civil:before-filing:limitation-period-may-have-passed": NOTHING,
   // ---- Civil: plaintiff
   "civil:plaintiff:claim-drafted-not-issued": { forms: ["14A", "14C"], fees: ["civ-claim"], files: true, serve: null, also: [CIV_START] },
-  "civil:plaintiff:claim-issued-not-served": { forms: ["16B", "14D"], fees: [], files: false, serve: "originating" },
+  "civil:plaintiff:claim-issued-not-served": { forms: ["16B", "14D"], fees: [], files: true, serve: "originating" },
   "civil:plaintiff:service-attempted-failed": { forms: ["37A", "16B"], fees: ["civ-motion"], files: true, serve: "originating", also: [CIV_MOTION] },
   "civil:plaintiff:served-awaiting-defence": NOTHING,
   "civil:plaintiff:defence-period-expired-no-defence": { forms: ["19D", "19A"], fees: ["civ-default"], files: true, serve: null },
@@ -447,7 +474,7 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "civil:plaintiff:judgment-unpaid": { forms: ["60A", "60G", "60H"], fees: ["civ-writ", "civ-garnishment"], files: true, serve: null },
   // ---- Civil: defendant
   "civil:defendant:served-defence-period-running": { forms: ["18A", "18B"], fees: ["civ-intent", "civ-defence"], files: true, serve: "ordinary" },
-  "civil:defendant:defence-delivered": { forms: ["30A", "29A"], fees: ["civ-third-party"], files: true, serve: "ordinary" },
+  "civil:defendant:defence-delivered": { forms: ["30A"], fees: [], files: false, serve: "ordinary" },
   "civil:defendant:served-with-third-party-claim": { forms: ["29B"], fees: ["civ-defence"], files: true, serve: "ordinary" },
   "civil:defendant:served-with-counterclaim-as-new-party": { forms: ["27C"], fees: ["civ-defence"], files: true, serve: "ordinary" },
   "civil:defendant:served-with-crossclaim": { forms: ["28B"], fees: ["civ-defence"], files: true, serve: "ordinary" },
@@ -457,7 +484,7 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "civil:defendant:noted-in-default": { forms: ["37A"], fees: ["civ-motion"], files: true, serve: "ordinary", also: [CIV_MOTION] },
   "civil:defendant:default-judgment-against-me": { forms: ["37A"], fees: ["civ-motion"], files: true, serve: "ordinary", also: [CIV_MOTION] },
   "civil:defendant:action-dismissed-counterclaim-pending": { forms: ["23B"], fees: [], files: true, serve: "ordinary" },
-  "civil:defendant:judgment-being-enforced": { forms: ["61C"], fees: ["civ-appeal-final"], files: true, serve: "ordinary" },
+  "civil:defendant:judgment-being-enforced": { forms: ["61A.2", "61A.3", "61C"], fees: ["civ-appeal-final"], files: true, serve: "ordinary", also: [APPEAL_START] },
   // ---- Civil: either side
   "civil:both:lawyer-removed-from-record": { forms: ["15B", "15C"], fees: [], files: true, serve: "ordinary" },
   "civil:both:served-with-amended-pleading": NOTHING,
@@ -471,8 +498,8 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "civil:both:interlocutory-order-made": { forms: ["61A", "62A"], fees: ["civ-motion", "civ-appeal-interlocutory"], files: true, serve: "ordinary" },
   "civil:both:pretrial-scheduled": { forms: ["50A"], fees: [], files: true, serve: "ordinary" },
   "civil:both:trial-date-set": { forms: ["53A"], fees: ["civ-summons"], files: true, serve: "summons" },
-  "civil:both:missed-trial": { forms: ["61C"], fees: ["civ-appeal-final"], files: true, serve: "ordinary" },
-  "civil:both:judgment-given": { forms: ["61C", "61E"], fees: ["civ-appeal-final"], files: true, serve: "ordinary" },
+  "civil:both:missed-trial": { forms: ["37A", "61A.2", "61A.3", "61C"], fees: ["civ-motion", "civ-appeal-final"], files: true, serve: "ordinary", also: [CIV_MOTION, APPEAL_START] },
+  "civil:both:judgment-given": { forms: ["61A.2", "61A.3", "61C"], fees: ["civ-appeal-final"], files: true, serve: "ordinary", also: [APPEAL_START] },
   "civil:both:appeal-in-progress": { forms: ["61D"], fees: ["civ-perfect"], files: true, serve: "ordinary" },
 
   // ---- Family: before filing
@@ -488,7 +515,7 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "family:applicant:amending-own-application": NOTHING,
   // ---- Family: respondent
   "family:respondent:served-time-to-answer-running": { forms: ["10", "13"], fees: ["fam-answer", "fam-answer-divorce"], files: true, serve: "ordinary" },
-  "family:respondent:answer-time-missed": { forms: ["13"], fees: [], files: true, serve: "ordinary" },
+  "family:respondent:answer-time-missed": { forms: ["10", "13", "14", "14A"], fees: ["fam-answer"], files: true, serve: "ordinary", also: [FAM_MOTION] },
   "family:respondent:answer-filed": { forms: ["17", "10A"], fees: [], files: true, serve: "ordinary" },
   "family:respondent:served-with-amended-application": NOTHING,
   // ---- Family: either side
@@ -505,8 +532,8 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "family:both:served-with-motion-to-change": { forms: ["15B", "13"], fees: [], files: true, serve: "ordinary" },
   "family:both:motion-to-change-response-time-missed": NOTHING,
   "family:both:trial-scheduled": { forms: ["13B", "23"], fees: ["fam-summons"], files: true, serve: "summons" },
-  "family:both:appealing-temporary-order": { forms: ["38"], fees: [], files: true, serve: "ordinary" },
-  "family:both:final-order-made": { forms: ["38"], fees: [], files: true, serve: "ordinary" },
+  "family:both:appealing-temporary-order": { forms: ["38"], fees: ["fam-appeal-interlocutory"], files: true, serve: "ordinary" },
+  "family:both:final-order-made": { forms: ["38", "civil:61A.2", "civil:61A.3"], fees: ["fam-appeal-final"], files: true, serve: "ordinary", also: [APPEAL_START] },
   "family:both:support-order-not-paid": NOTHING,
   "family:both:case-in-wrong-municipality": NOTHING,
   "family:both:notice-of-approaching-dismissal": NOTHING,
@@ -558,7 +585,14 @@ export function practicalFor(stepId: string, court: PracticalCourt, city = ""): 
       return { court: other as PracticalCourt, number };
     }),
     fees,
-    feeNotes: court === "family" && fees.length > 0 ? FAMILY_FEE_NOTES : [],
+    feeNotes:
+      court !== "family"
+        ? []
+        : fees.some((fee) => FIRST_INSTANCE_FAMILY_FEES.has(fee.id))
+          ? FAMILY_FEE_NOTES
+          : fees.some((fee) => fee.id.startsWith("fam-appeal"))
+            ? [FAMILY_APPEAL_FEE_NOTE]
+            : [],
     feeWaiver: fees.length > 0 ? FEE_WAIVER : null,
     filing: step.files
       ? [...(toronto === true ? [filingLines.toronto] : toronto === false ? [filingLines.elsewhere] : [filingLines.toronto, filingLines.elsewhere]), ...filingLines.more]

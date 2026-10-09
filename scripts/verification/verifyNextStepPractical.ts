@@ -29,6 +29,7 @@ import { ALL_STAGES, isSpecialStage, pathwayOf } from "../../src/lib/case-system
 import type { RuleCitation } from "../../src/lib/case-system/stage-map/citations";
 import { formGuideEntry } from "../../src/lib/content-library/forms/formGuide";
 import {
+  FAMILY_APPEAL_FEE_NOTE,
   FAMILY_FEE_NOTES,
   FEE_WAIVER,
   FEES,
@@ -57,6 +58,7 @@ for (const file of readdirSync(CORPUS)) if (file.endsWith(".txt")) corpus.set(fi
 const COURTS: PracticalCourt[] = ["small-claims", "civil", "family"];
 const lines: PlainLine[] = [
   ...FAMILY_FEE_NOTES,
+  FAMILY_APPEAL_FEE_NOTE,
   FEE_WAIVER,
   ...COURTS.flatMap((court) => [FILING[court].toronto, FILING[court].elsewhere, ...FILING[court].more]),
   ...COURTS.flatMap((court) => [
@@ -124,7 +126,8 @@ for (const stage of steps) {
   for (const form of entry.forms) {
     const [formCourt, number] = form.includes(":") ? form.split(":") : [court, form];
     if (!formGuideEntry(formCourt, number)) unknownForm.push(`${stage.id}: ${form}`);
-    const named = new RegExp(`Forms?\\s+(?:[0-9A-Z.]+(?:,\\s*|\\s+(?:and|or)\\s+))*${number.replace(/\./g, "\\.")}(?![0-9A-Z.])`, "i");
+    // "Form 61A.2 (Court of Appeal) or 61A.3 (Divisional Court)" names both.
+    const named = new RegExp(`Forms?\\s+(?:[0-9A-Z.]+(?:\\s*\\([^)]*\\))?(?:,\\s*|\\s+(?:and|or)\\s+))*${number.replace(/\./g, "\\.")}(?![0-9A-Z.])`, "i");
     if (!named.test(own)) unnamed.push(`${stage.id}: Form ${number}`);
   }
   for (const id of entry.fees) {
@@ -155,6 +158,9 @@ for (const court of COURTS) {
 const served = steps.filter((stage) => STEP_PRACTICAL[stage.id]?.serve);
 const emptyService = served.filter((stage) => (practicalFor(stage.id, pathwayOf(stage) as PracticalCourt)?.serving.length ?? 0) < 2).map((stage) => stage.id);
 check("every step that serves a document shows how, and how to prove it", emptyService.length === 0, emptyService.join(", "));
+
+const appealNotes = practicalFor("family:both:final-order-made", "family")?.feeNotes ?? [];
+check("a family appeal shows the appeal fee note, not the no-fee notes for starting a case", appealNotes.includes(FAMILY_APPEAL_FEE_NOTE) && !appealNotes.some((line) => FAMILY_FEE_NOTES.includes(line)));
 
 console.log("\n6. Nothing grades a case");
 const grading = lines.filter((line) => /\b(strong|weak|likely|unlikely|chance|win|lose|merit)/i.test(line.say)).map((line) => line.say);
