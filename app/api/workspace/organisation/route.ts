@@ -56,7 +56,7 @@ import { DOCUMENT_TYPES } from "@/src/lib/case-workspace/documentTypes";
 import { computedDeadlinesFor } from "@/src/lib/content-library/computedDeadline";
 import { caseDatesFrom } from "@/src/lib/case-system/deadlines/deadlineEvents";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
-import { officialUrl } from "@/src/lib/case-system/stage-map/citations";
+import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
 import { readCasePosition } from "@/src/lib/case-system/casePosition";
 
 export const runtime = "nodejs";
@@ -355,7 +355,9 @@ export async function GET(req: NextRequest) {
         (stage?.deadlines ?? []).map((deadline) => [
           deadline.id,
           {
-            rule: deadline.rule?.pinpoint ?? null,
+            // The law's name with the section: "Limitations Act, 2002, s. 4",
+            // never a bare "s. 4" (held-back walkthrough, 2026-10-09).
+            rule: deadline.rule ? `${sourceName(deadline.rule)}, ${deadline.rule.pinpoint}` : null,
             url: deadline.rule ? officialUrl(deadline.rule) : null,
             what: deadline.what,
           },

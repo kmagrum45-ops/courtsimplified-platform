@@ -2290,7 +2290,7 @@ const PLAINTIFF: CaseStage[] = [
     side: "plaintiff",
     wentWrong: false,
     userQuestion: "How do I start my action in the Superior Court?",
-    title: "Statement of claim prepared, not yet issued",
+    title: "Starting your claim, not issued yet",
     description:
       "A statement of claim or notice of action has been prepared but the registrar has not yet issued it.",
     cues: [

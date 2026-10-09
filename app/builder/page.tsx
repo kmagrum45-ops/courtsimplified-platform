@@ -223,6 +223,10 @@ function BuilderPageContent() {
    * rather than inheriting the previous case's answer.
    */
   const [confirmedStage, setConfirmedStage] = useState<UniversalStage | null>(null);
+  // The stage the person confirmed for the case being worked on this visit, so
+  // re-running the analysis after Back or an edit does not ask it again
+  // (held-back walkthrough, 2026-10-09). Cleared with a new case.
+  const lastConfirmedRef = useRef<{ caseId: string | null; stage: UniversalStage } | null>(null);
   const [caseData, setCaseData] = useState<StoredCaseData | null>(null);
 
   /**
@@ -1093,7 +1097,10 @@ function BuilderPageContent() {
     // unless this case already has a stage the person confirmed, which stays
     // theirs and can still be changed (Phase 1: a returning user was asked
     // to confirm their stage again on every re-run).
-    const stored = queryCaseId ? readCasePosition(existingMasterResult, courtPath).confirmedStage : null;
+    const storedOnCase = queryCaseId ? readCasePosition(existingMasterResult, courtPath).confirmedStage : null;
+    const thisVisit = lastConfirmedRef.current;
+    const sameCase = Boolean(thisVisit && (queryCaseId || masterCaseIdRef.current) && thisVisit.caseId === (queryCaseId || masterCaseIdRef.current));
+    const stored = storedOnCase && storedOnCase !== "not-sure" ? storedOnCase : sameCase ? thisVisit!.stage : null;
     setConfirmedStage(stored && stored !== "not-sure" ? (stored as UniversalStage) : null);
     setCaseData({
       ...payload,
@@ -1788,6 +1795,7 @@ function BuilderPageContent() {
               confirmedStage={confirmedStage}
               onConfirm={(stage) => {
                 setConfirmedStage(stage);
+                lastConfirmedRef.current = { caseId: savedCaseId() || masterCaseIdRef.current, stage };
                 // Recorded on the case so the case page shows the same stage.
                 const id = savedCaseId();
                 if (id) void saveConfirmedStage(id, stage);

@@ -191,7 +191,10 @@ export default function CaseOverviewPage() {
           <p className="text-xs text-[#4f685f]">You confirmed this on {formatDate(position.confirmedStageAt)}.</p>
         ) : null}
         {/* Only when the records actually point somewhere; "not enough recorded" is noise here. */}
-        {events?.stage.basis.length && events.stage.stage !== "unknown" ? (
+        {/* Only before the person has confirmed where they are: after that,
+            a second "what your records say" stage contradicted theirs
+            (held-back walkthrough, 2026-10-09). */}
+        {!confirmed && events?.stage.basis.length && events.stage.stage !== "unknown" ? (
           <details className="rounded-2xl border border-[#e3efe9] bg-[#f8fcfa] p-4 text-sm text-[#4f685f]">
             <summary className="cursor-pointer font-semibold text-[#24463d]">
               What your records say: {getStageLabel(events.stage.stage as UniversalStage)}

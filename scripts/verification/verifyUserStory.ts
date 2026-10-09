@@ -35,7 +35,7 @@ import path from "node:path";
 
 import { sentenceFromRecord, storyFromRecord, userStory } from "../../src/lib/case-system/userStory";
 import { candidatesFromTimeline } from "../../src/lib/case-system/events/caseEventCandidates";
-import { storyHintsForDates } from "../../src/lib/case-system/casePosition";
+import { dateInSentence, storyHintsForDates } from "../../src/lib/case-system/casePosition";
 import { storyAnswerFor, storyQuoteFor } from "../../src/lib/case-system/family/triageStoryQuote";
 
 let failures = 0;
@@ -140,6 +140,27 @@ const root = path.resolve(__dirname, "../..");
 for (const file of ["app/builder/_components/IntelligenceOverviewPanel.tsx", "app/cases/[id]/case-file/page.tsx"]) {
   const source = readFileSync(path.join(root, file), "utf8");
   check(`${file} shows the story through userStory`, source.includes("userStory("));
+}
+
+// Every date question reads the story, not only the hand-written dozen
+// (held-back walkthrough, 2026-10-09), and a date goes to the moment nearest it.
+{
+  const counterclaim = storyHintsForDates(
+    "i sued my former business partner. on september 25 2026 his lawyer served me with a statement of defence and counterclaim saying i owe him 60000",
+    now,
+  );
+  check("a counterclaim served on a written date answers the claim-back question", counterclaim["sc-date-defendants-claim-served"]?.value === "2026-09-25");
+  const motion = storyHintsForDates("now they served a motion for summary judgment and the hearing is on december 3 2026.", now);
+  check("the hearing date goes to the hearing question", motion["case-date-motion-hearing-date"]?.value === "2026-12-03");
+  check("the hearing date is not offered as the day of service", !motion["sc-date-claim-served"]?.value);
+  const defendantsClaim = storyHintsForDates("he filed a defence and now i got served with something called a defendants claim on september 28 saying i owe him", now);
+  check("a service date is not offered as the day the defence was filed", !defendantsClaim["sc-date-defence-filed"]?.value);
+  const bite = storyHintsForDates("the dog bit my leg when i was walking on the sidewalk on july 19 2026.", now);
+  check("an injury date is also the day the claim is based on", bite["sc-date-injury"]?.value === "2026-07-19" && bite["case-date-act-or-omission"]?.value === "2026-07-19");
+  const fired = storyHintsForDates("they let me go on june 30 2026 with no reason.", now);
+  check("the day someone was let go is the day the claim is based on", fired["case-date-act-or-omission"]?.value === "2026-06-30");
+  check("a written date fills the timeline's date box", dateInSentence("Now the trial is on January 14 2027.")?.iso === "2027-01-14");
+  check("a date without a year fills only the words", dateInSentence("The papers came on December 3.")?.iso === null);
 }
 
 if (failures > 0) {
