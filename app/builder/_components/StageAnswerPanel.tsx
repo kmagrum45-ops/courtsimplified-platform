@@ -6,6 +6,7 @@ import { stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage
 import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-system/casePosition";
 import FormsNamedHere from "../../_components/FormsNamedHere";
 import NextStepPractical from "../../_components/NextStepPractical";
+import GetHelp from "../../_components/GetHelp";
 import { practicalFor, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
 import { amountNoteFor } from "@/src/lib/case-system/amountNotes";
 import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
@@ -167,6 +168,7 @@ function NextStepCard({
           {answer.sources.length > 4 ? " — all sources are in the full answer below." : ""}
         </p>
       ) : null}
+      <GetHelp compact heading="Want a person to check this step with you?" />
     </div>
   );
 }

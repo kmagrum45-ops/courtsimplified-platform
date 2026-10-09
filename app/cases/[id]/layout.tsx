@@ -28,6 +28,7 @@ import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
+import GetHelp from "../../_components/GetHelp";
 import LegalInformationNotice from "../../_components/LegalInformationNotice";
 import { userIsResponding } from "../../builder/_components/respondingSide";
 import type { StoredCaseData } from "../../builder/_components/builderTypes";
@@ -154,6 +155,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
           >
             Try again
           </button>
+          <GetHelp compact heading="Need help with your case in the meantime?" />
         </div>
       </main>
     );
@@ -171,6 +173,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
           <Link href="/dashboard" className="mt-6 inline-flex rounded-full bg-[#2f7d67] px-5 py-3 font-semibold text-white">
             Go to my cases
           </Link>
+          <GetHelp compact heading="Need help with your case?" />
         </div>
       </main>
     );
