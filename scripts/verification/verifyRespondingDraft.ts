@@ -68,9 +68,22 @@ check("what is not given says so, and nothing is invented", Boolean(empty) && (e
 check("an unknown court gets no draft", respondingDocumentDraft("tribunal", intake, new Date()) === null);
 
 const page = read("app/builder/page.tsx");
-check("the builder offers it only to the responding side", /COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && respondingSide && savedCaseId\(\) && respondingDocumentTitle/.test(page));
+// Asserts the property, not today's wording (CLAUDE.md section 5): every
+// offer is behind the drafting switch, the pause, and the responding side --
+// which may be folded into a named gate such as offerRespondingDraft.
+const builderOffers = page.match(/COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && (\w+) && savedCaseId\(\) && respondingDocumentTitle/g) ?? [];
+const builderGates = builderOffers.map((offer) => offer.match(/PAUSED && (\w+) &&/)?.[1] ?? "");
+const gateIsResponding = (name: string) =>
+  name === "respondingSide" || new RegExp(`const ${name} = respondingSide &&`).test(page);
+check("the builder offers it only to the responding side", builderGates.length > 0 && builderGates.every(gateIsResponding));
 const drafts = read("app/cases/[id]/drafts/page.tsx");
-check("the Drafts tab offers it only to the responding side", /offerRespondingDocument =\s*COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && Boolean\(respondingTitle\) && responding;/.test(drafts));
+const draftsGate = drafts.match(/offerRespondingDocument =([^;]+);/)?.[1] ?? "";
+check(
+  "the Drafts tab offers it only to the responding side",
+  ["COURT_DOCUMENT_DRAFTING_ENABLED", "!FORM_COMPLETION_PAUSED", "Boolean(respondingTitle)", "responding"].every((part) =>
+    draftsGate.split("&&").map((term) => term.trim()).includes(part),
+  ),
+);
 
 console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
 if (failures) process.exitCode = 1;

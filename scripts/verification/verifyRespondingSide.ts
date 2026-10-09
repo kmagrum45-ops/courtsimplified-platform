@@ -21,7 +21,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { originatingDocumentRecorded, userIsResponding } from "../../app/builder/_components/respondingSide";
+import { originatingDocumentRecorded, respondingDocumentStillDue, userIsResponding } from "../../app/builder/_components/respondingSide";
 import { orderGroupsForReader, suggestedStageFor, yearChoices } from "../../app/builder/_components/StageAnswerPanel";
 import { stepNamedInStory } from "../../src/lib/case-system/stage-map/suggestedStep";
 import { ALL_STAGES, findStage } from "../../src/lib/case-system/stage-map/stageMap";
@@ -147,6 +147,14 @@ check("a served defendant is shown the defence step", suggestedStageFor("small-c
     "a date whose year was not given is answered by choosing the year, not counted from a guess",
     /suggestion && !value && suggestion\.yearAssumed \?[\s\S]{0,800}Which year was that\?[\s\S]{0,600}yearChoices\(/.test(panel),
   );
+}
+{
+  // Past the defence, the Defence draft is not offered (replay 2026-10-09).
+  check("served, time running: the defence is still due", respondingDocumentStillDue("defendant:served-defence-period-running"));
+  check("no step known: offered as before", respondingDocumentStillDue(null));
+  for (const step of ["defendant:noted-in-default", "civil:defendant:default-judgment-against-me", "defendant:judgment-against-me", "defendant:defence-filed", "family:respondent:answer-filed"]) {
+    check(`${step}: not offered`, !respondingDocumentStillDue(step));
+  }
 }
 
 if (failures > 0) {

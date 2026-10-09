@@ -4,7 +4,8 @@ import { recordedAmountOf } from "@/src/lib/case-system/amountNotes";
 import { documentsOf, storedIntakeValues } from "@/src/lib/case-system/caseRecord";
 import Link from "next/link";
 import GetHelp from "../_components/GetHelp";
-import { readStoredPicture, type CasePicture } from "../../src/lib/case-system/intake/caseReader";
+import { readStoredPicture, stepFromPicture, type CasePicture } from "../../src/lib/case-system/intake/caseReader";
+import { stepNamedInStory } from "../../src/lib/case-system/stage-map/suggestedStep";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -49,7 +50,7 @@ import {
 import StageConfirmation from "./_components/StageConfirmation";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "../../src/lib/case-system/drafts/respondingDocumentDraft";
-import { originatingDocumentRecorded, userIsResponding } from "./_components/respondingSide";
+import { originatingDocumentRecorded, respondingDocumentStillDue, userIsResponding } from "./_components/respondingSide";
 import { readCasePosition, storyHintsForDates, suggestedDatesFromAnswers, type SuggestedDate } from "../../src/lib/case-system/casePosition";
 import { suggestedNoticeStep } from "../../src/lib/case-system/claim-types/noticeStep";
 import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
@@ -1153,6 +1154,17 @@ function BuilderPageContent() {
   });
   // The document that STARTS a case is offered only to the side that starts it.
   const offerOriginatingDraft = !originatingDocumentFiled && !respondingSide;
+  // The ordinary response is offered only while it is still their next
+  // document: the step they chose or, before they choose, the one their
+  // words name (case reader first, then the phrase lists).
+  const respondingStep =
+    (courtPath === "small-claims" || courtPath === "civil" || courtPath === "family"
+      ? positionThisVisit.stepId ||
+        readCasePosition(existingMasterResult, courtPath).stepId ||
+        stepFromPicture(courtPath, casePicture, respondingSide) ||
+        stepNamedInStory(courtPath, respondingSide, [userStory(caseData), caseData?.goal, caseData?.urgent].filter(Boolean).join("\n"))
+      : "") || "";
+  const offerRespondingDraft = respondingSide && respondingDocumentStillDue(respondingStep);
 
   function getActiveCaseId() {
     return masterCaseId || queryCaseId || null;
@@ -1891,7 +1903,7 @@ function BuilderPageContent() {
                     Create Family Application draft (Form 8)
                   </button>
                 ) : null}
-                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && respondingSide && savedCaseId() && respondingDocumentTitle(courtPath) ? (
+                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && offerRespondingDraft && savedCaseId() && respondingDocumentTitle(courtPath) ? (
                   <button type="button" data-testid="create-responding-draft" onClick={createRespondingDraft} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create {respondingDocumentTitle(courtPath)?.replace(/^Draft /, "")} draft
                   </button>
@@ -1906,7 +1918,7 @@ function BuilderPageContent() {
                 <button type="button" onClick={() => goToCaseSection("documents")} disabled={savingMaster || !savedCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Add documents and evidence</button>
                 <button type="button" onClick={() => goToCaseSection("forms")} disabled={savingMaster || !savedCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Check official forms</button>
               </div>
-              {confirmedStage && COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && respondingSide && savedCaseId() && respondingDocumentTitle(courtPath) ? (
+              {confirmedStage && COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && offerRespondingDraft && savedCaseId() && respondingDocumentTitle(courtPath) ? (
                 /* Page walkthrough, 2026-10-06: the draft button sat far below
                    the deadline, so a served person could start drafting without
                    seeing when their response is due. */
