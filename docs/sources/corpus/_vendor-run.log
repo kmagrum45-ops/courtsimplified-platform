@@ -1,0 +1,20 @@
+victims-bill-of-rights-1995            FAILED  missing required marker(s): VICTIMS' BILL OF RIGHTS
+canadian-victims-bill-of-rights        ok     17414 chars  0f1e290714b6
+                                       (none stated)
+crown-attorneys-act                    ok     22831 chars  0cf9e2873fd3
+                                       CONSOLIDATION PERIOD: FROM JULY 1, 2019 TO THE E-LAWS CURRENCY DATE.
+ministry-of-the-attorney-general-act   ok      6591 chars  dbcbde4ef8c8
+                                       CONSOLIDATION PERIOD: FROM JULY 1, 2019 TO THE E-LAWS CURRENCY DATE.
+ocj-public-access-court-recordings     ok      7557 chars  221c50b037c3
+                                       (none stated)
+scj-accessing-digital-recordings       ok     12345 chars  532b668dcd36
+                                       (none stated)
+
+263 vendored, 1 failed.
+Manifest: docs/sources/corpus/manifest.json
+
+SOURCES MISSING FROM THE CORPUS:
+  victims-bill-of-rights-1995 — missing required marker(s): VICTIMS' BILL OF RIGHTS
+
+Nothing may be written from memory to fill these. Record them in the
+report and leave the content that would have cited them unwritten.

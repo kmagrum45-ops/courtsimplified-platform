@@ -3251,7 +3251,73 @@
       "characters": 351139,
       "lines": 4618,
       "file": "copyright-act.txt"
+    },
+    {
+      "id": "canadian-victims-bill-of-rights",
+      "title": "Canadian Victims Bill of Rights",
+      "citation": "S.C. 2015, c. 13, s. 2",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/C-23.7/FullText.html",
+      "retrievedAt": "2026-10-09T18:53:51.039Z",
+      "sha256": "0f1e290714b6d827e59134af55cf93309d02b27ae1bfd3bc169a4db3e7346a81",
+      "consolidation": "(none stated)",
+      "characters": 17414,
+      "lines": 299,
+      "file": "canadian-victims-bill-of-rights.txt"
+    },
+    {
+      "id": "crown-attorneys-act",
+      "title": "Crown Attorneys Act",
+      "citation": "R.S.O. 1990, c. C.49",
+      "url": "https://www.ontario.ca/laws/docs/90c49_e.doc",
+      "retrievedAt": "2026-10-09T18:53:51.174Z",
+      "sha256": "0cf9e2873fd3b8ecf385ef33a02cd79e403dd3dfc780e325817aa8cbae092949",
+      "consolidation": "CONSOLIDATION PERIOD: FROM JULY 1, 2019 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 22831,
+      "lines": 442,
+      "file": "crown-attorneys-act.txt"
+    },
+    {
+      "id": "ministry-of-the-attorney-general-act",
+      "title": "Ministry of the Attorney General Act",
+      "citation": "R.S.O. 1990, c. M.17",
+      "url": "https://www.ontario.ca/laws/docs/90m17_e.doc",
+      "retrievedAt": "2026-10-09T18:53:51.383Z",
+      "sha256": "dbcbde4ef8c8598afafa44a199668ebfe48709a9797d1a6058ae125495883b73",
+      "consolidation": "CONSOLIDATION PERIOD: FROM JULY 1, 2019 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 6591,
+      "lines": 133,
+      "file": "ministry-of-the-attorney-general-act.txt"
+    },
+    {
+      "id": "ocj-public-access-court-recordings",
+      "title": "Public Access to Court Recordings — Ontario Court of Justice",
+      "citation": "ontariocourts.ca — Ontario Court of Justice",
+      "url": "https://ontariocourts.ca/ocj/public-access/public-access-to-court-recordings",
+      "retrievedAt": "2026-10-09T18:53:53.615Z",
+      "sha256": "221c50b037c3c994a9eae65ddb70d92b522aa3e6202331dc4d14199bc9e8c3a9",
+      "consolidation": "(none stated)",
+      "characters": 7557,
+      "lines": 246,
+      "file": "ocj-public-access-court-recordings.txt"
+    },
+    {
+      "id": "scj-accessing-digital-recordings",
+      "title": "Accessing a Digital Recording and Ordering Transcripts — Superior Court of Justice",
+      "citation": "ontariocourts.ca — Superior Court of Justice",
+      "url": "https://www.ontariocourts.ca/scj/guides-and-service-resources/access-to-digital-recordings-court-records/accessing-a-digital-recording-ordering-transcripts/",
+      "retrievedAt": "2026-10-09T18:53:53.761Z",
+      "sha256": "532b668dcd36948de3a628d2890cd10b54b9129cd87a33eed6e7857904364044",
+      "consolidation": "(none stated)",
+      "characters": 12345,
+      "lines": 298,
+      "file": "scj-accessing-digital-recordings.txt"
     }
   ],
-  "failures": []
+  "failures": [
+    {
+      "id": "victims-bill-of-rights-1995",
+      "url": "https://www.ontario.ca/laws/docs/95v06_e.doc",
+      "reason": "missing required marker(s): VICTIMS' BILL OF RIGHTS"
+    }
+  ]
 }
