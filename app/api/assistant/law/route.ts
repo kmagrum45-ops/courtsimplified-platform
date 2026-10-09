@@ -38,12 +38,37 @@ const SIDES: Record<string, "plaintiff" | "defendant"> = {
   respondent: "defendant",
 };
 
-type Body = { question: string; story?: string; courtPath: "small-claims" | "civil" | "family"; side?: string; caseId?: string };
+type Body = {
+  question: string;
+  story?: string;
+  courtPath: "small-claims" | "civil" | "family";
+  side?: string;
+  caseId?: string;
+  /** The person's earlier messages in this conversation, oldest first. */
+  earlier?: string[];
+};
+
+const MAX_EARLIER = 4;
+
+/**
+ * A follow-up read with the conversation it belongs to (2026-10-09, the owner
+ * comparing OpenCase: "It happened in Ottawa" was answered on its own, as if
+ * nothing came before it). The person's earlier messages go with the question,
+ * marked as earlier, so the answer and the search both know what it follows.
+ * Only the person's own words: never the site's replies, which are not facts.
+ */
+export function questionInConversation(question: string, earlier: readonly string[] = []): string {
+  const before = earlier.map((text) => text.trim()).filter(Boolean).slice(-MAX_EARLIER);
+  if (before.length === 0) return question;
+  return `${question}\n\n(This follows what they wrote earlier in the conversation, oldest first:\n${before
+    .map((text) => `- ${text.slice(0, MAX_QUESTION)}`)
+    .join("\n")})`;
+}
 
 function isBody(value: unknown): value is Body {
   if (!value || typeof value !== "object") return false;
   const body = value as Record<string, unknown>;
-  if (Object.keys(body).some((key) => !["question", "story", "courtPath", "side", "caseId"].includes(key))) return false;
+  if (Object.keys(body).some((key) => !["question", "story", "courtPath", "side", "caseId", "earlier"].includes(key))) return false;
   return (
     typeof body.question === "string" &&
     body.question.trim().length >= 3 &&
@@ -52,7 +77,11 @@ function isBody(value: unknown): value is Body {
     typeof body.courtPath === "string" &&
     COURTS.has(body.courtPath) &&
     (body.side === undefined || (typeof body.side === "string" && body.side.length <= 40)) &&
-    (body.caseId === undefined || (typeof body.caseId === "string" && UUID_PATTERN.test(body.caseId)))
+    (body.caseId === undefined || (typeof body.caseId === "string" && UUID_PATTERN.test(body.caseId))) &&
+    (body.earlier === undefined ||
+      (Array.isArray(body.earlier) &&
+        body.earlier.length <= MAX_EARLIER &&
+        body.earlier.every((text) => typeof text === "string" && text.length <= MAX_QUESTION)))
   );
 }
 
@@ -121,7 +150,7 @@ export function createAssistantLawPost(overrides: Partial<Dependencies> = {}) {
     // what we cover"), it is the reply; otherwise the research step runs as
     // before, so a person always gets the law the library holds.
     const input = {
-      question: body.question,
+      question: questionInConversation(body.question, body.earlier),
       ...(story ? { story } : {}),
       courtPath: body.courtPath,
       ...(saved?.facts ? { facts: saved.facts } : {}),

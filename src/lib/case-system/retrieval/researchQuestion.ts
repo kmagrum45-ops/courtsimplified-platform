@@ -49,7 +49,7 @@ export function questionPrompt(input: QuestionInput): string {
   const context = (input.story ?? "").trim();
   return [
     `COURT: ${input.courtPath}.${input.side ? ` The person is the ${input.side === "plaintiff" ? "one bringing the matter" : "one responding to it"}.` : ""}`,
-    `THEIR QUESTION: ${input.question.trim().slice(0, 1000)}`,
+    `THEIR QUESTION: ${input.question.trim().slice(0, 5000)}`,
     context ? `WHAT THEY HAVE TOLD US ABOUT THEIR MATTER:\n${context.slice(0, 4000)}` : "",
   ]
     .filter(Boolean)

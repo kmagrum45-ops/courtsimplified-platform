@@ -940,6 +940,12 @@ function CourtAssistantChatInner({
             },
             body: JSON.stringify({
               question: trimmed.slice(0, 1000),
+              // What they wrote before in this chat, so a follow-up ("It
+              // happened in Ottawa") is answered with what it follows.
+              earlier: messages
+                .filter((message) => message.role === "user")
+                .map((message) => message.content.slice(0, 1000))
+                .slice(-4),
               courtPath: path,
               ...(story ? { story } : {}),
               ...(side ? { side } : {}),

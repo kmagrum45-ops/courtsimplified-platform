@@ -144,6 +144,46 @@ async function routeAndWiring(stubResult: ResearchResult | null) {
   check("a question too long is refused", (await post({ question: "x".repeat(1001), courtPath: "civil" })).status === 400);
   check("an unknown court is refused", (await post({ question: QUESTION, courtPath: "criminal" })).status === 400);
 
+  // A follow-up is answered with the conversation it follows (2026-10-09:
+  // "It happened in Ottawa" was answered as if nothing came before it).
+  {
+    let seen = "";
+    const followRoute = createAssistantLawPost({
+      authenticate: (async () => ({ id: "u" })) as never,
+      enabled: () => true,
+      hasAi: () => true,
+      answerEnabled: () => false,
+      research: (async (input: { question: string }) => {
+        seen = input.question;
+        return research;
+      }) as never,
+      fileRequests: (async () => ({ filed: [], skipped: [] })) as never,
+    });
+    const send = (body: unknown) => followRoute(new NextRequest("http://localhost/api/assistant/law", { method: "POST", body: JSON.stringify(body) }));
+    await send({ question: "It happened in Ottawa", courtPath: "civil", earlier: ["The man was released on bail four months before."] });
+    check("a follow-up goes with the person's earlier words", seen.startsWith("It happened in Ottawa") && seen.includes("released on bail"));
+    await send({ question: "It happened in Ottawa", courtPath: "civil" });
+    check("a first question goes alone", seen === "It happened in Ottawa");
+    check("more than four earlier messages is refused", (await send({ question: "x y z", courtPath: "civil", earlier: ["a", "b", "c", "d", "e"] })).status === 400);
+    check("an earlier message must be text", (await send({ question: "x y z", courtPath: "civil", earlier: [42] })).status === 400);
+  }
+
+  // Numbered references, one number per source (2026-10-09).
+  {
+    const { numberedSources } = await import("../../app/_components/CheckedAnswerPanel");
+    const source = (citation: string) => ({ passageId: citation, citation, sourceUrl: "", quote: "q", kind: "legislation" as const });
+    const refs = numberedSources({
+      statements: [
+        { text: "One.", sources: [source("Act A, s. 1"), source("Act B, s. 2")] },
+        { text: "Two.", sources: [source("Act A, s. 1")] },
+      ],
+    } as never);
+    check(
+      "each source gets one number, reused where it is cited again",
+      refs.list.length === 2 && refs.numbersFor[0].join() === "1,2" && refs.numbersFor[1].join() === "1",
+    );
+  }
+
   // 2026-10-07: the checked answer comes first; the research step is the fallback.
   const answerCalls: string[] = [];
   const answerRoute = (status: "answered" | "not-confirmed" | "unavailable") =>
