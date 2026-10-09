@@ -3,6 +3,7 @@
 import { recordedAmountOf } from "@/src/lib/case-system/amountNotes";
 import { documentsOf, storedIntakeValues } from "@/src/lib/case-system/caseRecord";
 import Link from "next/link";
+import GetHelp from "../_components/GetHelp";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -354,6 +355,8 @@ function BuilderPageContent() {
   /** Every answer the person confirmed in the guided intake, kept with the case (Phase 1). */
   const guidedAnswersRef = useRef<{ questionId: string; answerText: string }[]>([]);
   /** What the panel saved this visit, so Back then Forward shows it (page review, 2026-10-07). */
+  // A press of "Try saving again" re-runs the case save below.
+  const [saveAttempt, setSaveAttempt] = useState(0);
   const [positionThisVisit, setPositionThisVisit] = useState<{ stepId?: string | null; dateAnswers?: Record<string, string> }>({});
 
   /*
@@ -916,6 +919,7 @@ function BuilderPageContent() {
     courtPath,
     masterCaseId,
     queryCaseId,
+    saveAttempt,
   ]);
 
   /*
@@ -970,8 +974,12 @@ function BuilderPageContent() {
       guidedAnswersRef.current = (result.answers ?? []).slice(-200);
       const confirmedDates = suggestedDatesFromAnswers(result.answers ?? []);
       setGuidedDates(confirmedDates);
+      // Only dates the person gave in full are kept as their answers; a date
+      // whose year we guessed is offered on the card for them to choose.
       guidedDatesRef.current = Object.fromEntries(
-        Object.entries(confirmedDates).map(([questionId, suggestion]) => [questionId, suggestion.value]),
+        Object.entries(confirmedDates)
+          .filter(([, suggestion]) => !suggestion.yearAssumed)
+          .map(([questionId, suggestion]) => [questionId, suggestion.value]),
       );
 
       // The active case, so the run sees the events the user confirmed.
@@ -1082,6 +1090,7 @@ function BuilderPageContent() {
     courtPath,
     caseData,
     intakeFacts: draftIntakeFacts,
+    confirmedStage,
   });
   const respondingSide = userIsResponding({
     confirmedStage,
@@ -1640,16 +1649,32 @@ function BuilderPageContent() {
 
         {resultsVisible && !loadingExistingCase && !caseLoadError && !canonicalIntakeSaved && (
           <section className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm" aria-live="polite">
-            <h2 className="text-xl font-bold text-[#10231f]">Saving core intake</h2>
+            <h2 className="text-xl font-bold text-[#10231f]">Saving your case</h2>
             <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-              CourtSimplified is saving this area&apos;s structured intake to the canonical case record before opening guided assistant.
+              We are saving what you told us to your case, so every page can use it.
             </p>
             {saveError && (
               <p data-testid="save-error" className="mt-3 text-sm font-semibold text-[#a63b3b]">
-                The core intake could not be saved. Review or edit the intake before continuing.
+                Your case could not be saved just now. Nothing you entered is lost.
                 {/* The database's own reason, for support and the walkthrough (2026-10-08: two runs stopped here and the cause could not be seen). */}
                 <span className="mt-1 block text-xs font-normal text-[#7a5418]">Details: {saveError.slice(0, 200)}</span>
               </p>
+            )}
+            {saveError && (
+              <button
+                type="button"
+                data-testid="save-retry"
+                onClick={() => setSaveAttempt((attempt) => attempt + 1)}
+                className="mt-3 rounded-full bg-[#2f7d67] px-5 py-2 text-sm font-semibold text-white"
+              >
+                Try saving again
+              </button>
+            )}
+            {saveError && (
+              <GetHelp
+                heading="Need help while this is fixed?"
+                why="Your answers are still on this page. You can try again in a moment, or reach a person through these services."
+              />
             )}
           </section>
         )}
@@ -1721,6 +1746,7 @@ function BuilderPageContent() {
                   }))
                 }
                 storyHints={storyHintsForDates([userStory(caseData), caseData?.timeline].filter(Boolean).join("\n"))}
+                storyText={[userStory(caseData), caseData?.goal, caseData?.urgent].filter(Boolean).join("\n")}
                 suggestedDates={guidedDates}
                 userWords={userWordsOf(caseData)}
                 recordedAmount={recordedAmountOf(caseData)}

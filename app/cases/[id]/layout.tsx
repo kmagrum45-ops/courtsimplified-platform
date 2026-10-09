@@ -28,12 +28,14 @@ import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
+import GetHelp from "../../_components/GetHelp";
 import LegalInformationNotice from "../../_components/LegalInformationNotice";
 import { userIsResponding } from "../../builder/_components/respondingSide";
 import type { StoredCaseData } from "../../builder/_components/builderTypes";
 import { courtPathAsPathway, readCasePosition } from "@/src/lib/case-system/casePosition";
 import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
 import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
+import { userStory } from "@/src/lib/case-system/userStory";
 import {
   CaseHomeContext,
   COURT_LABELS,
@@ -123,7 +125,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
       record: readCaseRecord(master, caseRecord.court_path),
       stepId:
         position.stepId ||
-        (courtPath && position.confirmedStage ? suggestedStageFor(courtPath, position.confirmedStage, responding) : ""),
+        (courtPath && position.confirmedStage ? suggestedStageFor(courtPath, position.confirmedStage, responding, userStory(master.intakeData as StoredCaseData | undefined)) : ""),
       reload: load,
     };
   }, [caseRecord, load]);
@@ -153,6 +155,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
           >
             Try again
           </button>
+          <GetHelp compact heading="Need help with your case in the meantime?" />
         </div>
       </main>
     );
@@ -170,6 +173,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
           <Link href="/dashboard" className="mt-6 inline-flex rounded-full bg-[#2f7d67] px-5 py-3 font-semibold text-white">
             Go to my cases
           </Link>
+          <GetHelp compact heading="Need help with your case?" />
         </div>
       </main>
     );

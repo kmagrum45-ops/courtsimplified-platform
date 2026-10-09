@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-129 documented, 28 without a header.
+131 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -63,6 +63,8 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:guard-coverage` | **WHERE the output guard is actually applied — asserted, and stated honestly.**<br>COSTS NOTHING. Reads source off disk. |
 | `npm run test:guided-stage-by-role` | **Guided intake must not hand a user the OTHER side's next steps.**<br>mapGuidedIntakeToSmallClaimsInput() picks the case stage, and the stage picks a next-step block (src/lib/content-library/nextSteps.ts) that is written for one side. Until 2026-09-27 the stage was inferred from filed documents alone, and the case-review batch c |
 | `npm run test:harness-coverage` | **Which values of a branch-selecting harness parameter have actually been run.**<br>COSTS NOTHING. Reads the spec and harness sources off disk. No browser, no network. |
+| `npm run test:held-back-cases` | **The ten held-back finish-line cases stay held back**<br>(tests/browser/walkthrough/heldBackPersonas.ts; master plan decision log, 2026-10-08). |
+| `npm run test:help-at-limits` | **Where the site says it cannot do something, it points to a person who can**<br>(master plan finish line: "a case the site cannot fully handle says so and points to help"). |
 | `npm run test:intake-sequencing` | **Asserts that during intake nothing renders between the question and the**<br>answer box. |
 | `npm run test:inventory-coverage` | **Every body of live, user-facing legal content is in the review packet.**<br>COSTS NOTHING. Calls the inventory and reads source off disk. |
 | `npm run test:journey-battery` | **Journey regression battery runner — tranche 1.**<br>Categories A–D from docs/TEST_BATTERY_DESIGN.md §2: the four paths with ZERO prior coverage. |

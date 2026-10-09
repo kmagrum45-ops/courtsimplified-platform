@@ -18,6 +18,10 @@ on:
         description: "Only these cases, comma-separated ids from tests/browser/walkthrough/personas.ts; blank = all 20"
         required: false
         default: ""
+      set:
+        description: "tuning (the 20 cases) or held-back (the 10 finish-line cases in heldBackPersonas.ts, run only to measure)"
+        required: false
+        default: "tuning"
       effort:
         description: "Reasoning effort for the site under test: low (cheaper; default) or medium (as the live site runs, for the finish-line check)"
         required: false
@@ -48,7 +52,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: .ai-passed
-          key: ai-passed-walkthrough-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}
+          key: ai-passed-walkthrough-${{ inputs.set }}-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}
           lookup-only: true
       - id: decide
         run: |
@@ -144,6 +148,7 @@ jobs:
           PLAYWRIGHT_BASE_URL: http://localhost:3100
           WALKTHROUGH_SHARD: ${{ matrix.shard }}/5
           WALKTHROUGH_PERSONAS: ${{ inputs.personas }}
+          WALKTHROUGH_SET: ${{ inputs.set }}
         run: npx playwright test tests/browser/walkthrough.spec.ts --reporter=line --workers=1
 
       - name: Keep this share's pages
@@ -168,7 +173,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: .ai-passed
-          key: ai-passed-walkthrough-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}
+          key: ai-passed-walkthrough-${{ inputs.set }}-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}
 
   report:
     needs: walkthrough
@@ -236,4 +241,4 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: .ai-passed
-          key: ai-passed-walkthrough-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}
+          key: ai-passed-walkthrough-${{ inputs.set }}-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}

@@ -226,7 +226,12 @@ export const EVENT_TO_DATE_QUESTION: Record<string, string> = {
   "defence-filed": "sc-date-defence-filed",
 };
 
-export type SuggestedDate = { value: string; basis: string };
+export type SuggestedDate = {
+  value: string;
+  basis: string;
+  /** The person gave a month and day; the year is our guess, so it is only ever offered. */
+  yearAssumed?: boolean;
+};
 
 export function suggestedDatesFromEvents(
   events: ReadonlyArray<{
@@ -304,19 +309,29 @@ const MENTIONS_DATE = new RegExp(`\\b${MONTH}\\b|\\b\\d{1,2}[/-]\\d{1,2}\\b|\\b\
  */
 export function suggestedDatesFromAnswers(
   answers: ReadonlyArray<{ questionId: string; answerText: string }>,
+  now: Date = new Date(),
 ): Record<string, SuggestedDate> {
   const suggestions: Record<string, SuggestedDate> = {};
   for (const answer of answers) {
     if (!isDateQuestionId(answer.questionId) || suggestions[answer.questionId]) continue;
     const match = FULL_DATE.exec(answer.answerText);
-    const value = match ? parseUserDate(match[1].replace(/,/g, "")) : null;
+    const full = match ? parseUserDate(match[1].replace(/,/g, "")) : null;
+    // "October 1" with no year (walkthrough, 2026-10-08: a tenant confirmed
+    // October 1 service and was asked for the date again): offered with the
+    // year marked as our guess, and never applied without their click.
+    const assumed = full ? null : assumedYearDate(answer.answerText, now, UPCOMING_QUESTIONS.has(answer.questionId));
+    const value = full ?? assumed;
     if (!value) continue;
     const quoted = answer.answerText.trim().slice(0, 120);
-    suggestions[answer.questionId] = { value, basis: `You answered: “${quoted}”` };
+    suggestions[answer.questionId] = {
+      value,
+      basis: assumed ? `You answered: “${quoted}” — the year is our guess` : `You answered: “${quoted}”`,
+      ...(assumed ? { yearAssumed: true } : {}),
+    };
     // For an injury claim the day of the injury IS the day the claim is
     // based on: one answer, offered for both questions (2026-10-07).
     if (answer.questionId === "sc-date-injury" && !suggestions["case-date-act-or-omission"]) {
-      suggestions["case-date-act-or-omission"] = { value, basis: `You answered: “${quoted}”` };
+      suggestions["case-date-act-or-omission"] = { ...suggestions[answer.questionId] };
     }
   }
   return suggestions;
@@ -332,21 +347,41 @@ export type StoryHint = {
 const MONTH_DAY = new RegExp(`\\b(${MONTH}) (\\d{1,2})(?:st|nd|rd|th)?\\b|\\b(\\d{1,2})(?:st|nd|rd|th)? (${MONTH})\\b`, "i");
 
 /**
- * "September 20" with no year: the most recent September 20 on or before
- * today. Page review, 2026-10-06: every served person's story gave the day
- * ("I was served on September 20") and no page worked out their deadline,
- * because the story hint offered a date only when the year was written. The
- * assumption is shown with the suggestion, and nothing is used until the user
- * chooses it (CLAUDE.md section 4).
+ * The date questions about something still to come: a conference, a trial, a
+ * hearing. A month and day with no year in a story about one of these is the
+ * NEXT such date, not the last. Walkthrough, 2026-10-08: "a case conference on
+ * November 20", told in October 2026, was read as 20 November 2025, and the
+ * card said its deadline had already passed.
  */
-function mostRecentDate(sentence: string, now: Date): string | null {
+const UPCOMING_QUESTIONS = new Set([
+  "sc-date-settlement-conference",
+  "case-date-case-conference-date",
+  "case-date-family-settlement-conference-date",
+  "case-date-trial-management-conference-date",
+  "case-date-trial-date",
+  "case-date-motion-hearing-date",
+  "case-date-mediation-session-date",
+]);
+
+/**
+ * "September 20" with no year: the most recent September 20 on or before
+ * today, or, for an upcoming event, the next one on or after today. Page
+ * review, 2026-10-06: every served person's story gave the day ("I was served
+ * on September 20") and no page worked out their deadline, because the story
+ * hint offered a date only when the year was written. The assumption is shown
+ * with the suggestion, and nothing is used until the user chooses it
+ * (CLAUDE.md section 4).
+ */
+function assumedYearDate(sentence: string, now: Date, upcoming: boolean): string | null {
   const match = MONTH_DAY.exec(sentence);
   if (!match) return null;
   const month = (match[1] ?? match[4]) as string;
   const day = (match[2] ?? match[3]) as string;
-  for (const year of [now.getFullYear(), now.getFullYear() - 1]) {
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+  const years = upcoming ? [now.getFullYear(), now.getFullYear() + 1] : [now.getFullYear(), now.getFullYear() - 1];
+  for (const year of years) {
     const value = parseUserDate(`${month} ${day} ${year}`);
-    if (value && value <= now.toISOString().slice(0, 10)) return value;
+    if (value && (upcoming ? value >= today : value <= today)) return value;
   }
   return null;
 }
@@ -364,7 +399,7 @@ export function storyHintsForDates(story: string | null | undefined, now: Date =
     if (!sentence) continue;
     const match = FULL_DATE.exec(sentence);
     const value = match ? parseUserDate(match[1].replace(/,/g, "")) : null;
-    const assumed = value ? null : mostRecentDate(sentence, now);
+    const assumed = value ? null : assumedYearDate(sentence, now, UPCOMING_QUESTIONS.has(questionId));
     hints[questionId] = {
       quote: sentence.length > 240 ? `${sentence.slice(0, 237)}…` : sentence,
       value: value ?? assumed,

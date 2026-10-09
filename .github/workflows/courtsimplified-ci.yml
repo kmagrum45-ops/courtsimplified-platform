@@ -66,6 +66,12 @@ jobs:
       - name: The next step's form, fee, filing and service are sourced (master plan Phase 2)
         run: npm run test:next-step-practical
 
+      - name: Where the site cannot help, it points to a person who can
+        run: npm run test:help-at-limits
+
+      - name: The ten held-back finish-line cases stay held back
+        run: npm run test:held-back-cases
+
       - name: Two-year limit counted from an injury under the s. 5 (2) presumption
         run: npm run test:presumed-limitation
 

@@ -49,12 +49,25 @@ export function userIsResponding(args: {
  * Only TRUE is meaningful. Absence means not recorded, never "did not
  * happen" — the same rule the intakeFacts writer follows.
  */
+/**
+ * Stages that only exist once a case has been started. Walkthrough,
+ * 2026-10-08: a plaintiff with a judgment, one with a settlement conference
+ * booked and one with a motion were each offered a new Plaintiff's Claim or
+ * Statement of Claim draft, because neither the documents list nor the guided
+ * facts said the claim was filed -- but the stage they chose did.
+ */
+const STARTED_STAGES = new Set(["already-started", "conference", "motion", "trial", "enforcement"]);
+
 export function originatingDocumentRecorded(args: {
   courtPath: string;
   caseData: StoredCaseData | null;
   intakeFacts: Record<string, unknown> | null;
+  /** The stage the user confirmed, if any. */
+  confirmedStage?: string | null;
 }): boolean {
   if (args.intakeFacts?.claimFiled === true) return true;
+  if (args.confirmedStage && STARTED_STAGES.has(args.confirmedStage)) return true;
+  if (args.caseData?.caseStage && STARTED_STAGES.has(args.caseData.caseStage)) return true;
 
   const extra = args.caseData?.extra as Record<string, unknown> | undefined;
   const raw = extra?.filedDocuments ?? extra?.documents;

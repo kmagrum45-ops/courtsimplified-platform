@@ -24,3 +24,35 @@ export function storyQuoteFor(questionId: string, story: string | undefined): st
   }
   return null;
 }
+
+/**
+ * The answer the person's own words give, for the yes/no questions where the
+ * words are unambiguous -- offered as the highlighted choice, never recorded
+ * until they press it (CLAUDE.md section 4). Walkthrough, 2026-10-08: three
+ * family runs were asked "Were you married?" beside a quote of "My husband and
+ * I got married in 2012" or "we were never married", which read as the site
+ * not listening. Anything less clear than these phrases offers nothing.
+ */
+const STORY_ANSWERS: Record<string, { yes?: RegExp; no?: RegExp }> = {
+  "married-to-other-party": {
+    no: /\b(?:never (?:got |been )?married|(?:were|was)n'?t married|(?:were|are) not married|not married to (?:him|her|each other)|common[- ]law)\b/i,
+    // "we got married", not "my ex got married again" (someone else's marriage).
+    yes: /\b(?:(?:we|(?:him|her) and i|i and (?:him|her)|(?:my )?(?:husband|wife) and i) got married|i got married to (?:him|her)|(?:we were|we're|we are) married|married (?:him|her) in|my (?:husband|wife|ex-?husband|ex-?wife)\b)/i,
+  },
+  "child-together": {
+    yes: /\b(?:our (?:(?:two|three|four|2|3|4|little|youngest|oldest) )?(?:son|daughter|sons|daughters|kids?|child(?:ren)?|baby|boys|girls)|my (?:son|daughter)'?s? (?:father|mother|dad|mom))\b/i,
+  },
+  "case-involves-children": {
+    yes: /\b(?:son|daughter|sons|daughters|kids?|child(?:ren)?|baby|boys|girls|custody|parenting time|child support)\b/i,
+  },
+};
+
+export function storyAnswerFor(questionId: string, story: string | undefined): "yes" | "no" | null {
+  const cues = STORY_ANSWERS[questionId];
+  if (!cues || !story) return null;
+  const no = cues.no?.test(story) ?? false;
+  const yes = cues.yes?.test(story) ?? false;
+  // Both (e.g. "my ex-husband ... we were never married" is contradictory): offer nothing.
+  if (yes === no) return null;
+  return yes ? "yes" : "no";
+}

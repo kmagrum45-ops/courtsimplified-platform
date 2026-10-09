@@ -78,6 +78,8 @@
     "test:case-record": "node --import tsx scripts/verification/verifyCaseRecord.ts",
     "test:next-step": "node --import tsx scripts/verification/verifyNextStepCard.ts",
     "test:next-step-practical": "node --import tsx scripts/verification/verifyNextStepPractical.ts",
+    "test:help-at-limits": "node --import tsx scripts/verification/verifyHelpAtLimits.ts",
+    "test:held-back-cases": "node --import tsx scripts/verification/verifyHeldBackCases.ts",
     "test:presumed-limitation": "node --import tsx scripts/verification/verifyPresumedLimitation.ts",
     "test:narrative-prefill": "node --import tsx scripts/verification/verifyNarrativePrefill.ts",
     "test:ontario-beta-bundle": "node --import tsx scripts/verification/verifyOntarioBetaProcedureAuthorityBundle.ts",

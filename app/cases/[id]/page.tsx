@@ -224,6 +224,7 @@ export default function CaseOverviewPage() {
               initialDateAnswers={position.dateAnswers}
               suggestedDates={suggestedDates}
               storyHints={storyHintsForDates([userStory(intake), intake?.timeline].filter(Boolean).join("\n"))}
+              storyText={[userStory(intake), intake?.goal, intake?.urgent].filter(Boolean).join("\n")}
               userWords={userWordsOf(intake)}
               recordedAmount={recordedAmountOf(intake)}
               // The city the case recorded picks the filing portal (Toronto region or not).

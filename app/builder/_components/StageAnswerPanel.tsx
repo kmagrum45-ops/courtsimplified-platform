@@ -6,6 +6,7 @@ import { stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage
 import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-system/casePosition";
 import FormsNamedHere from "../../_components/FormsNamedHere";
 import NextStepPractical from "../../_components/NextStepPractical";
+import GetHelp from "../../_components/GetHelp";
 import { practicalFor, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
 import { amountNoteFor } from "@/src/lib/case-system/amountNotes";
 import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
@@ -167,6 +168,7 @@ function NextStepCard({
           {answer.sources.length > 4 ? " — all sources are in the full answer below." : ""}
         </p>
       ) : null}
+      <GetHelp compact heading="Want a person to check this step with you?" />
     </div>
   );
 }
@@ -257,6 +259,7 @@ export default function StageAnswerPanel({
   userWords = "",
   recordedAmount = "",
   city = "",
+  storyText = "",
   onSaved,
 }: {
   courtPath: StagePathway;
@@ -287,7 +290,9 @@ export default function StageAnswerPanel({
   recordedAmount?: string;
   /** The person's city, so the card names the filing portal for their region. */
   city?: string;
-  /** Told what was saved, so a page that remounts this panel can show it again. */
+  /** The person's own story (not the analysis), read for a procedural event they name, such as "noted in default". */
+  storyText?: string;
+  /** Told what the person chose (dates and step), so a page that remounts this panel can show it again; called before the save to the case. */
   onSaved?: (saved: { stepId?: string | null; dateAnswers?: Record<string, string> }) => void;
 }) {
   const options = stagesForPathway(courtPath).map((stage) => ({
@@ -301,10 +306,11 @@ export default function StageAnswerPanel({
     (confirmedStage === "starting-case" || !confirmedStage) &&
     Boolean(noticeStepId) &&
     options.some((option) => option.id === noticeStepId);
-  const suggested = noticeFirst ? (noticeStepId as string) : suggestedStageFor(courtPath, confirmedStage, responding);
+  const suggested = noticeFirst ? (noticeStepId as string) : suggestedStageFor(courtPath, confirmedStage, responding, storyText);
   const savedStep = initialStepId && options.some((option) => option.id === initialStepId) ? initialStepId : "";
   const startingStep = savedStep || suggested;
   const [stageId, setStageId] = useState(startingStep);
+  const [choosingStep, setChoosingStep] = useState(false);
   const [result, setResult] = useState<Response | null>(null);
   const [municipality, setMunicipality] = useState("");
   const [loading, setLoading] = useState(false);
@@ -372,6 +378,11 @@ export default function StageAnswerPanel({
     }
     setDateAnswers(next);
     void load(stageId, municipality ? { municipality } : {}, next);
+    // The page keeps what the person chose for this visit whether or not the
+    // save below succeeds, so Back and Forward show the counted date again
+    // (walkthrough, 2026-10-08: it was kept only after a successful save, and
+    // two runs lost it on returning to the results).
+    onSaved?.({ dateAnswers: next, stepId: stageId || null });
     if (!caseId) return;
     setDateStatus("saving");
     // The step is saved with the dates: counting a deadline at the suggested
@@ -379,7 +390,6 @@ export default function StageAnswerPanel({
     // the counted date (page review, 2026-10-06).
     const saved = await savePosition(caseId, { dateAnswers: asked, stepId: stageId || null });
     setDateStatus(saved ? "saved" : "not-saved");
-    if (saved) onSaved?.({ dateAnswers: next, stepId: stageId || null });
   }
 
   return (
@@ -396,7 +406,26 @@ export default function StageAnswerPanel({
           : "Choose the question closest to where your case is. We will show what the court rules and official guides say about that step, with the sources."}
       </p>
 
-      <label className="mt-4 block">
+      {/* With a step already suggested from what they told us, the person sees
+          it named, not a "Where is your case?" list asking them again
+          (walkthrough, 2026-10-08: the list stayed open after every stage was
+          confirmed, and read as the question being asked twice). The list is
+          one click away. */}
+      {stageId && !choosingStep ? (
+        <p className="mt-4 text-sm text-[#16302b]" data-testid="stage-answer-current">
+          <span className="font-semibold">Your step: </span>
+          {options.find((option) => option.id === stageId)?.label ?? ""}{" "}
+          <button
+            type="button"
+            data-testid="stage-answer-change"
+            onClick={() => setChoosingStep(true)}
+            className="font-semibold text-[#2f7d67] underline"
+          >
+            Not right? Choose another step
+          </button>
+        </p>
+      ) : null}
+      <label className={stageId && !choosingStep ? "hidden" : "mt-4 block"}>
         <span className="text-sm font-semibold text-[#16302b]">Where is your case?</span>
         <select
           aria-label="Where is your case?"
@@ -405,6 +434,7 @@ export default function StageAnswerPanel({
           onChange={(event) => {
             const id = event.target.value;
             setStageId(id);
+            setChoosingStep(false);
             setResult(null);
             setMunicipality("");
             // Choosing the Toronto question IS the person saying it was in
@@ -412,12 +442,10 @@ export default function StageAnswerPanel({
             // confirmed-fact rule requires. Every other municipality has its
             // own question.
             if (id) void load(id, id === "before-filing:notice-toronto" ? { municipality: "Toronto" } : {});
-            // The user picked this; record it on their case.
-            if (caseId) {
-              void savePosition(caseId, { stepId: id || null }).then((saved) => {
-                if (saved) onSaved?.({ stepId: id || null });
-              });
-            }
+            // The user picked this: kept on the page for this visit, and
+            // recorded on their case.
+            onSaved?.({ stepId: id || null });
+            if (caseId) void savePosition(caseId, { stepId: id || null });
           }}
           className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
         >
@@ -441,7 +469,7 @@ export default function StageAnswerPanel({
           ))}
         </select>
       </label>
-      {confirmedStage && !showOtherSide ? (
+      {confirmedStage && !showOtherSide && (choosingStep || !stageId) ? (
         <button
           type="button"
           data-testid="stage-answer-show-other-side"

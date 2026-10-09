@@ -60,7 +60,7 @@ function download(filename: string, content: string, type: string) {
 const fileName = (title: string) => (title.trim() || "draft").replace(/[^\w\- ]+/g, "").replace(/\s+/g, "-").slice(0, 80) || "draft";
 
 export default function CaseDraftsSection() {
-  const { caseRecord, reload, responding, courtPath } = useCaseHome();
+  const { caseRecord, reload, responding, courtPath, position } = useCaseHome();
   const caseId = caseRecord.id;
   const master = (caseRecord.master_result ?? {}) as Record<string, unknown>;
 
@@ -205,6 +205,7 @@ export default function CaseDraftsSection() {
       courtPath: courtPath ?? "",
       caseData: (master.intakeData as StoredCaseData | undefined) ?? null,
       intakeFacts: (master.intakeFacts as Record<string, unknown> | undefined) ?? null,
+      confirmedStage: position.confirmedStage,
     });
 
   // The document that RESPONDS to a case, offered to the side responding

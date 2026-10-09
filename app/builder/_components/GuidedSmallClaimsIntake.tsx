@@ -226,33 +226,20 @@ export type GuidedIntakeCompletionResult = {
  * question has no `why` to show.
  */
 function QuestionHelp({ question }: { question: IntakeQuestion | null }) {
-  const [showWhy, setShowWhy] = useState(false);
-
   // 2026-09-30. `examples` is reviewed bank content the server already sends,
   // but nothing rendered it: "What outcome are you asking the court to order?"
   // showed no examples although four are written (site owner's walk-through).
   const examples = question?.examples ?? [];
   if (!question?.why && examples.length === 0) return null;
 
+  // Why the question matters is shown, not folded behind a toggle
+  // (walkthrough, 2026-10-08: "no visible explanation beneath 'Why does this
+  // matter?'" -- the finish line asks the site to say why when it is not obvious).
   return (
     <div className="mt-2 text-xs leading-5">
-      {examples.length > 0 ? (
-        <p data-testid="question-examples" className="mb-1 text-[#4d675f]">
-          For example: {examples.join(" · ")}
-        </p>
-      ) : null}
       {question?.why ? (
-      <button
-        type="button"
-        onClick={() => setShowWhy((current) => !current)}
-        className="font-semibold text-[#2f7d67] underline"
-      >
-        Why does this matter?
-      </button>
-      ) : null}
-
-      {showWhy && question?.why ? (
-        <p className="mt-1 text-[#4d675f]">
+        <p data-testid="question-why" className="mb-1 text-[#4d675f]">
+          <span className="font-semibold text-[#2f7d67]">Why this matters: </span>
           {question.why}
           {question.sourceUrl ? (
             <>
@@ -262,6 +249,11 @@ function QuestionHelp({ question }: { question: IntakeQuestion | null }) {
               </a>
             </>
           ) : null}
+        </p>
+      ) : null}
+      {examples.length > 0 ? (
+        <p data-testid="question-examples" className="text-[#4d675f]">
+          For example: {examples.join(" · ")}
         </p>
       ) : null}
     </div>

@@ -30,6 +30,7 @@ import {
   UNLINKED_FORM_RECOMMENDATION_MESSAGE,
   type FormsCourtPath,
 } from "../../src/lib/case-system/formsSelectedCase";
+import GetHelp from "../_components/GetHelp";
 import { formSummaryFor } from "../../src/lib/content-library/forms/formSummaries";
 import { OFFICIAL_FORMS_FETCHED_AT, officialFormFor } from "../../src/lib/content-library/forms/officialFormLink";
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
@@ -896,6 +897,9 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                     : `No form-routing rules cover the "${stageSupport.stage}" stage yet. That is a gap in our routing data, not a finding that no forms apply to you — the full official catalogue below is still available to browse.`}
                 </p>
               ) : null}
+              {stageSupport && !stageSupport.supported ? (
+                <GetHelp compact heading="Want a person to help pick the right form?" why="We could not match forms to where your case is, so these services can help you choose." />
+              ) : null}
             </div>
           </div>
         </section>
@@ -994,7 +998,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                   );
                 })}
               </div>
-            ) : mappingStage === "starting-case" || mappingStage === "responding" ? <p className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm text-[#4f685f]">Answer the questions above and save them to see the forms that match.</p> : <p className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm text-[#4f685f]">We can match forms to your answers only when you are starting a case or responding to one. Every official form is listed below.</p>}
+            ) : mappingStage === "starting-case" || mappingStage === "responding" ? <p className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm text-[#4f685f]">Answer the questions above and save them to see the forms that match.</p> : <div className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm text-[#4f685f]"><p>We can match forms to your answers here only when you are starting a case or responding to one. The forms for your next step are shown at the top of this page when we have them recorded, and every official form is listed below.</p><GetHelp compact heading="Want a person to help pick the right form?" /></div>}
           </section>
         ) : null}
 

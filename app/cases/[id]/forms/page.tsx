@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import FormsNamedHere from "../../../_components/FormsNamedHere";
+import NextStepPractical from "../../../_components/NextStepPractical";
+import { practicalFor, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
 import FormsWorkspace from "../../../forms/FormsWorkspace";
 import { isPlaceholder, nextStepBlockFor } from "@/src/lib/content-library/nextSteps";
 import { officialFormsNamedIn, relevantToFamilyCase, userWordsOf } from "@/src/lib/content-library/forms/formsInText";
@@ -19,6 +21,13 @@ export default function CaseFormsSection() {
   const { caseRecord, courtPath, position, stepId } = useCaseHome();
   const [stepTexts, setStepTexts] = useState<string[] | null>(null);
   const userWords = userWordsOf((caseRecord.master_result ?? {}).intakeData);
+  const intakeExtra = ((caseRecord.master_result ?? {}).intakeData as { extra?: Record<string, unknown> } | undefined)?.extra ?? {};
+  const city = typeof intakeExtra.yourCity === "string" ? intakeExtra.yourCity : "";
+  // The step's own forms, from the sourced next-step table (nextStepPractical.ts),
+  // win over forms read out of the step's answer text: that text also names
+  // forms for other cases ("Form 14B for a mortgage action") and for the other
+  // side (walkthrough, 2026-10-08).
+  const practical = courtPath && stepId ? practicalFor(stepId, courtPath as PracticalCourt, city) : null;
 
   useEffect(() => {
     if (!courtPath || !position.confirmedStage) {
@@ -53,7 +62,18 @@ export default function CaseFormsSection() {
 
   return (
     <div className="space-y-6">
-      {stepTexts &&
+      {practical && practical.forms.length > 0 && courtPath ? (
+        <section data-testid="forms-for-next-step" className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
+          <h2 className="text-xl font-bold text-[#10231f]">Forms for your next step</h2>
+          <p className="mt-1 text-sm text-[#4f685f]">
+            What your next step takes: the form, the fee, where to file it and how to serve it.{" "}
+            <Link href={`/cases/${encodeURIComponent(caseRecord.id)}`} className="font-semibold text-[#2f7d67] underline">
+              Read that step
+            </Link>
+          </p>
+          <NextStepPractical stepId={stepId} court={courtPath} city={city} />
+        </section>
+      ) : stepTexts &&
       courtPath &&
       officialFormsNamedIn(stepTexts, courtPath).some((form) => courtPath !== "family" || relevantToFamilyCase(form, userWords)) ? (
         <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
