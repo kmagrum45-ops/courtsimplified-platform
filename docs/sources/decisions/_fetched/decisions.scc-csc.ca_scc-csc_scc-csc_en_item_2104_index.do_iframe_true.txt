@@ -1,0 +1,568 @@
+ Odhavji Estate v. Woodhouse - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Odhavji Estate v. Woodhouse
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Odhavji Estate v. Woodhouse
+ /scc-csc/scc-csc/fr/item/2104/index.do?alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Supreme Court Judgments
+Decision Information
+ Odhavji Estate v. Woodhouse
+ Collection
+ Supreme Court Judgments
+ Date
+ 2003-12-05
+ Neutral citation
+ 2003 SCC 69
+ Report
+ [2003] 3 SCR 263
+ Case number
+ 28425
+ Judges
+ McLachlin, Beverley; Gonthier, Charles Doherty; Iacobucci, Frank; Major, John C.; Bastarache, Michel; Binnie, William Ian Corneil; Arbour, Louise; LeBel, Louis; Deschamps, Marie
+ On appeal from
+ Ontario
+ Subjects
+ Action
+ Civil procedure
+ Torts
+ Notes
+ SCC Case Information: [LINK https://www.scc-csc.ca/cases-dossiers/search-recherche/28425/] 28425
+ [LINK /scc-csc/scc-csc/en/2104/1/document.do] 
+Decision Content
+ Odhavji Estate v. Woodhouse, [2003] 3 S.C.R. 263, 2003 SCC 69 
+ Estate of Manish Odhavji, deceased, Pramod Odhavji, 
+ Bharti Odhavji and Rahul Odhavji Appellants (Plaintiffs) 
+ v. 
+ Detective Martin Woodhouse, Detective Constable Philip Gerrits, 
+ Officer John Doe, Officer Jane Doe, Metropolitan Toronto 
+ Chief of Police David Boothby, Metropolitan Toronto Police 
+ Services Board and Her Majesty The Queen 
+ in Right of Ontario Respondents (Defendants) 
+ and between 
+ Metropolitan Toronto Chief of Police David Boothby Appellant on cross-appeal 
+ v. 
+ Estate of Manish Odhavji, deceased, Pramod Odhavji, 
+ Bharti Odhavji and Rahul Odhavji Respondents on cross-appeal 
+ and 
+ Attorney General of Canada, Attorney General of 
+ British Columbia, Canadian Civil Liberties Association, 
+ Urban Alliance on Race Relations, African Canadian 
+ Legal Clinic, Mental Health Legal Committee, 
+ Association in Defence of the Wrongfully Convicted and 
+ Innocence Project of Osgoode Hall Law School Interveners 
+ Indexed as: Odhavji Estate v. Woodhouse 
+ Neutral citation: 2003 SCC 69. 
+ File No.: 28425. 
+ 2003: February 17; 2003: December 5. 
+ Present: McLachlin C.J. and Gonthier, Iacobucci, Major, Bastarache, Binnie, Arbour, LeBel and Deschamps JJ. 
+ on appeal from the court of appeal for ontario 
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">Practice — Motion to strike — Police officers involved in fatal shooting — 
+ Actions brought by estate and family of victim — Statement of claim alleging misfeasance in public office against police officers and chief of police and negligence against chief of police, police services board and province — Actions based on failure of police officers to cooperate in SIU investigation — Whether portions of statement of claim should be struck out as disclosing no reasonable cause of action — Rules of Civil Procedure, R.R.O. 1990, Reg. 194, r. 21.01(1)(b). 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Torts — Tort of misfeasance in public office — Chief of police and police officers — Victim killed by police — Police officers involved in shooting not complying with statutory duty to cooperate with SIU investigation — Plaintiffs bringing actions in misfeasance in public office against police officers and chief of police — Whether tort of misfeasance in public office can arise from misconduct involving breaches of statutory duty — Whether tort limited to unlawful exercises of statutory or prerogative powers. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Torts — Negligence — Duty of care — Victim killed by police — Police officers involved in shooting not complying with statutory duty to cooperate with SIU investigation — Plaintiffs bringing actions in negligence against chief of police, police services board and province — Whether they owed plaintiffs duty to take reasonable care to ensure that police officers cooperated with investigation. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Costs — Court of Appeal’s costs award — Plaintiffs submitting that they are public interest litigants and should not have been required to pay costs — Actions involving public authorities and raising issues of public interest insufficient to alter essential nature of litigation — Plaintiffs not falling within definition of public interest litigants — No clear and compelling reasons to interfere with Court of Appeal’s decision to award costs in accordance with usual rule that successful party is entitled to costs. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">O was fatally shot by police officers. The Special Investigation Unit (“SIU”) began an investigation. The police officers involved in the incident did not comply with SIU requests that they remain segregated, that they attend interviews on the same day as the shooting, and that they provide shift notes, on-duty clothing, and blood samples in a timely manner. Under s. 113(9) of the Ontario Police Services Act, members of the force are under a statutory obligation to cooperate with SIU investigations and, under s. 41(1), a chief of police is required to ensure that members of the force carry out their duties in accordance with the provisions of the Act. The SIU cleared the officers of any wrongdoing. O’s estate and family commenced a variety of actions. The statement of claim alleged that the lack of a thorough investigation into the shooting incident had caused them to suffer mental distress, anger, depression and anxiety. They claimed that the officers’ failure to cooperate with the SIU gave rise to actions for misfeasance in a public office against the officers and the Chief of Police, and to actions for negligence against the Chief, the Metropolitan Toronto Police Services Board, and the Province. The defendants brought motions under rule 21.01(1)(b) of the Ontario Rules of Civil Procedure to strike out the claims on the ground that they disclose no reasonable cause of action. The motions judge and the Court of Appeal struck out portions of the statement of claim. In this Court, the plaintiffs appeal against the Court of Appeal’s decision to strike the claims for misfeasance in a public office against the officers and the Chief, and the claims for negligence against the Board and the Province. The Chief cross‑appeals against the Court of Appeal’s decision to allow an action for negligence against him to proceed. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Held: The appeal should be allowed in part and the cross-appeal dismissed. The actions in misfeasance in a public office against the police officers and the Chief and the action in negligence against the Chief should be allowed to proceed. The actions in negligence against the Board and the Province should be struck from the statement of claim. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Under rule 21.01(1)(b), a court may strike out a statement of claim for disclosing no reasonable cause of action when it is plain and obvious that the action is certain to fail because the statement of claim contains a radical defect. In this case, if the facts of the motion to strike are taken as pleaded, it is not plain and obvious that the actions for misfeasance in a public office against the police officers and the Chief must fail. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">The failure of a public officer to perform a statutory duty can constitute misfeasance in a public office. Misfeasance is not limited to unlawful exercises of statutory or prerogative powers. It is an intentional tort distinguished by (1) deliberate, unlawful conduct in the exercise of public functions; and (2) awareness that the conduct is unlawful and likely to injure the plaintiff. The requirement that the defendant must have been aware that his or her unlawful conduct would harm the plaintiff establishes the required nexus between the parties. A plaintiff must also prove the requirements common to all torts, specifically, that the tortious conduct was the legal cause of his or her injuries, and that the injuries suffered are compensable in tort law. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Here, the statement of claim pleads each of the constituent elements of the tort. The officers’ alleged failure to cooperate with the SIU investigation and the Chief’s alleged failure to ensure that they did cooperate both constitute unlawful breaches of statutory duties under the Police Services Act. The allegation that the officers’ acts and omissions “represented intentional breaches of their legal duties as police officers” satisfies the requirement that the officers were aware that their conduct was unlawful and that it was intentional and deliberate. The allegation that the Chief deliberately failed to segregate the officers satisfies the requirement that he intentionally breached his legal obligation to ensure compliance with the Police Services Act. However, the same cannot be said of his alleged failures to ensure that the officers produced timely and complete notes, attended interviews, and provided accurate and complete accounts. A mere failure to discharge obligations of an office cannot constitute misfeasance in a public office and the plaintiffs must prove the failures were deliberate. The allegation that the officers and the Chief “ought to have known” that their misconduct would cause the plaintiffs to suffer must be struck from the statement of claim because misfeasance in a public office is an intentional tort requiring subjective awareness that harm to the plaintiff is a likely consequence of the alleged misconduct. Lastly, at the pleadings stage, it is sufficient with respect to damages that the statement of claim alleges mental distress, anger, depression and anxiety as a consequence of the alleged misconduct, but the plaintiffs will have to prove at trial that the alleged misconduct caused anxiety or depression of sufficient magnitude to warrant compensation. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">To succeed with their actions in negligence against the Chief, the Board, and the Province, the plaintiffs must first establish that these defendants owed the plaintiffs a duty to take reasonable care to ensure that the police officers cooperated with the SIU investigation. To do so, the plaintiffs must demonstrate that: (1) the harm complained of is a reasonably foreseeable consequence of the alleged breach; (2) there is sufficient proximity between the parties that it would not be unjust or unfair to impose a duty of care on the defendants; and (3) there exist no policy reasons to negative or otherwise restrict that duty. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">The circumstances of this case raise a prima facie duty of care owed by the Chief to the plaintiffs. First, it is reasonably foreseeable that the officers’ failure to cooperate with the SIU investigation would harm the plaintiffs. As the Chief was responsible for ensuring that cooperation, it is reasonably foreseeable that his failure to do so would harm the plaintiffs. Second, a finding of proximity is supported by the relatively direct causal link between the alleged misconduct — negligent supervision — and the complained of harm, and by the fact that members of the public reasonably expect a chief of police to be mindful of the injuries that might arise as a consequence of police misconduct. The public expectation is consistent with the statutory obligations the Police Services Act imposes on the Chief. No broad policy considerations exist that ought to negative the prima facie obligation of the Chief to prevent the misconduct. With respect to damages, the same principles set out in the context of the actions in misfeasance in a public office are applicable. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">The relationship between the plaintiffs and the Board and the Province, however, are not such that a duty of care may rightly be imposed. The Board is not under a private law duty to ensure that police officers, as a matter of general practice, cooperate with the SIU. There is no close causal connection between the misconduct alleged against the Board and the alleged harm. The Board does not supervise officers and is not involved in their day‑to‑day conduct. This weakens substantially the nexus between the Board and members of the public injured as a consequence of police misconduct. Further, the Board has no statutory obligation to ensure that police officers cooperate with the SIU. Courts should be loath to interfere with the Board’s broad discretion to determine what objectives and priorities to pursue or what policies to enact, and a decision not to enact additional policies or training procedures for the purpose of ensuring cooperation under s. 113(9) does not constitute a breach of its obligation to provide adequate and effective police services. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Similarly, the Province does not have a private law obligation to institute policies and training procedures for the purpose of ensuring that police officers, as a matter of general policy, cooperate with the SIU. There is insufficient proximity between the parties to conclude that the Province is under a private law obligation to ensure that members of the force comply with an SIU investigation. The Province is too far removed from the day-to-day conduct of members of the force and the Solicitor General is not under a statutory obligation to ensure that police officers cooperate with the SIU. The Solicitor General’s decision not to enact additional policies or training procedures in respect of s. 113(9) does not constitute a breach of his duty to ensure that the Board provides adequate and effective police services. 
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid">Cases Cited 
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"> 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Applied: Anns v. Merton London Borough Council, [1978] A.C. 728; explained: R. v. Saskatchewan Wheat Pool, [1983] 1 S.C.R. 205; referred to: Hunt v. Carey Canada Inc., [1990] 2 S.C.R. 959; Attorney General of Canada v. Inuit Tapirisat of Canada, [1980] 2 S.C.R. 735; Ashby v. White (1703), 2 Ld. Raym. 938, 92 E.R. 126; Roncarelli v. Duplessis, [1959] S.C.R. 121; Powder Mountain Resorts Ltd. v. British Columbia (2001), 94 B.C.L.R. (3d) 14, 2001 BCCA 619; Alberta (Minister of Public Works, Supply and Services) v. Nilsson (2002), 220 D.L.R. (4th) 474, 2002 ABCA 283, aff’g (1999), 70 Alta. L.R. (3d) 267, 1999 ABQB 440; Northern Territory of Australia v. Mengel (1995), 129 A.L.R. 1; Henly v. Mayor of Lyme (1828), 5 Bing. 91, 130 E.R. 995; Garrett v. Attorney-General, [1997] 2 N.Z.L.R. 332; Three Rivers District Council v. Bank of England (No. 3), [2000] 2 W.L.R. 1220; Granite Power Corp. v. Ontario, [2002] O.J. No. 2188 (QL); R. v. Dytham, [1979] Q.B. 722; Uni-Jet Industrial Pipe Ltd. v. Canada (Attorney General) (2001), 156 Man. R. (2d) 14, 2001 MBCA 40; Guay v. Sun Publishing Co., [1953] 2 S.C.R. 216; Frame v. Smith, [1987] 2 S.C.R. 99; Le Lievre v. Gould, [1893] 1 Q.B. 491; Kamloops (City of) v. Nielsen, [1984] 2 S.C.R. 2; B.D.C. Ltd. v. Hofstrand Farms Ltd., [1986] 1 S.C.R. 228; Canadian National Railway Co. v. Norsk Pacific Steamship Co., [1992] 1 S.C.R. 1021; London Drugs Ltd. v. Kuehne & Nagel International Ltd., [1992] 3 S.C.R. 299; Winnipeg Condominium Corporation No. 36 v. Bird Construction Co., [1995] 1 S.C.R. 85; Cooper v. Hobart, [2001] 3 S.C.R. 537, 2001 SCC 79; Donoghue v. Stevenson, [1932] A.C. 562; Hercules Managements Ltd. v. Ernst & Young, [1997] 2 S.C.R. 165; Martel Building Ltd. v. Canada, [2000] 2 S.C.R. 860, 2000 SCC 60; B. (R.) v. Children’s Aid Society of Metropolitan Toronto, [1995] 1 S.C.R. 315. 
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid">Statutes and Regulations Cited 
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"> 
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt">Police Services Act, R.S.O. 1990, c. P.15, ss. 3(2), 31(1), 41(1), 113(1), (9). 
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt">Rules of Civil Procedure, R.R.O. 1990, Reg. 194, rr. 21.01(1)(b), 57.01(1). 
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:24.4pt">Rules of Court, B.C. Reg. 221/90, r. 19(24)(a). 
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid">Authors Cited 
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"> 
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt">Fleming, John G. The Law of Torts, 9th ed. Sydney: LBC Information Services, 1998. 
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:24.4pt">Smith, John William. A Selection of Leading Cases on Various Branches of the Law, 13th ed. Toronto: Carswell, 1929. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">APPEAL and CROSS-APPEAL from a judgment of the Ontario Court of Appeal (2000), 52 O.R. (3d) 181, 194 D.L.R. (4th) 577 (sub nom. Odhavji Estate v. Toronto Metropolitan Police Force), 142 O.A.C. 149, 3 C.C.L.T. (3d) 226, [2000] O.J. No. 4733 (QL), varying a judgment of the Ontario Court (General Division), [1998] O.J. No. 5426 (QL). Appeal allowed in part and cross-appeal dismissed. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Julian N. Falconer and Richard Macklin, for the appellants/respondents on cross-appeal. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Kevin McGivney, Cheryl Woodin and Robert W. Traves, for the respondents Woodhouse and Gerrits. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Ansuya Pachai and Kerri Kitchura, for the respondent/appellant on cross-appeal the Metropolitan Toronto Chief of Police David Boothby and the respondent the Metropolitan Toronto Police Services Board. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">John P. Zarudny, Troy Harrison and James Kendik, for the respondent Her Majesty the Queen in Right of Ontario. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">David Sgayias, Q.C., and Anne M. Turley, for the intervener the Attorney General of Canada. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">D. Clifton Prowse and J. Gareth Morley, for the intervener the Attorney General of British Columbia. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Written submissions only by John B. Laskin and Kristine M. Di Bacco, for the intervener the Canadian Civil Liberties Association. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Written submissions only by Peter J. Pliszka and Anne C. McConville, for the intervener the Urban Alliance on Race Relations. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Written submissions only by Marie Chen and Sheena Scott, for the intervener the African Canadian Legal Clinic. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Written submissions only by Suzan E. Fraser and Najma Jamaldin, for the intervener the Mental Health Legal Committee. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Written submissions only by Sean Dewart and Louis Sokolov, for the intervener the Association in Defence of the Wrongfully Convicted. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Written submissions only by Marlys A. Edwardh and Breese Davies for the intervener the Innocence Project of Osgoode Hall Law School. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">The judgment of the Court was delivered by 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">1 Iacobucci J. — This appeal concerns actions for misfeasance in a public office and negligence within the context of motions to strike the actions as disclosing no reasonable cause of action. Unlike the Court of Appeal, I would permit the actions for misfeasance in a public office to proceed. Like the Court of Appeal, I would permit the action against Metropolitan Toronto Chief of Police David Boothby to proceed, but would strike the actions for negligence against the Metropolitan Toronto Police Services Board and Her Majesty the Queen in Right of Ontario. 
+ <p class="MsoNormal" style="margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;line-height:24.4pt">I. Facts 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">2 On September 26, 1997, Manish Odhavji was fatally shot by officers of the Metropolitan Toronto Police Service while running from his vehicle subsequent to a bank robbery. Within 25 minutes of the shooting, an assistant to Metropolitan Toronto Chief of Police David Boothby (the “Chief”) notified the Special Investigations Unit of the Ministry of the Solicitor General (the “SIU”) of the incident. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">3 The SIU is a civilian agency statutorily mandated to conduct independent investigations of police conduct in cases of death or serious injury caused by the police. The SIU began its investigation immediately. It requested that the defendant officers remain segregated, that they make themselves available for same-day interviews, and that they provide their shift notes, on-duty clothing, and blood samples. Under s. 113(9) of the Police Services Act, R.S.O. 1990, c. P.15, members of the force are under a statutory obligation to cooperate with members of the SIU in the conduct of the investigation. Under s. 41(1) of the Police Services Act, a chief of police is required to ensure that members of the force carry out their duties in accordance with the provisions of the Act. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">4 The estate of Mr. Odhavji and the members of his immediate family (the “plaintiffs”) allege that the defendant officers intentionally breached their statutory obligation to cooperate fully with the SIU investigation. In particular, the plaintiffs allege that the defendant officers did not attend for interviews with the SIU until September 30, that they did not comply with the request to remain segregated, and that they failed to comply with the request for shift notes, on-duty clothing, and blood samples in a timely manner — and that when statements were eventually given to the SIU, they were both inaccurate and misleading. In the plaintiffs’ statement of claim, the lack of a thorough investigation into the shooting incident has caused the plaintiffs to suffer mental distress, anger, depression and anxiety. The plaintiffs further allege that these damages are consequences that the defendant officers and the Chief knew or ought to have known would result from an inadequate investigation into the shooting incident. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">5 The actions at issue in this appeal are not related to the allegedly wrongful death of Mr. Odhavji, but, rather, to the defendant officers’ alleged failure to cooperate with the SIU. It is the plaintiffs’ submission that the foregoing facts give rise to an action for misfeasance in a public office against the defendant officers and the Chief, and actions for negligence against the Chief, the Metropolitan Toronto Police Services Board (the “Board”) and Her Majesty the Queen in Right of Ontario (the “Province”). More specifically, this appeal concerns: (i) the plaintiffs’ appeal against the Court of Appeal’s decision to strike the actions for misfeasance in a public office, and the actions for negligence against the Board and the Province, on the basis that they disclose no reasonable cause of action; and (ii) the Chief’s cross-appeal against the Court of Appeal’s decision to allow the action for negligence against the Chief to proceed. 
+ <p class="MsoNormal" style="margin-left:22.5pt;text-align:justify;text-indent:
+-22.5pt;line-height:24.4pt">II. Relevant Statutory Provisions 
+ 6 Rules of Civil Procedure, R.R.O. 1990, Reg. 194, r. 21 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+12.2pt">rule 21 determination of an issue before trial 
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:12.2pt">21.01 (1) A party may move before a judge, 
+ . . . 
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:12.2pt">(b) to strike out a pleading on the ground that it discloses no reasonable cause of action or defence, 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">and the judge may make an order or grant judgment accordingly. 
+ Police Services Act, R.S.O. 1990, c. P.15 
+ <p class="MsoNormal" style="text-align:justify;text-indent:78.45pt;line-height:
+12.2pt">3. — . . . 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;line-height:
+12.2pt">(2) The Solicitor General shall, 
+ <p class="MsoNormal" style="margin-left:103.5pt;text-align:justify;text-indent:
+-25.05pt;line-height:12.2pt">(a) monitor police forces to ensure that adequate and effective police services are provided at the municipal and provincial levels; 
+ <p class="MsoNormal" style="margin-left:103.5pt;text-align:justify;text-indent:
+-25.05pt;line-height:12.2pt">(b) monitor boards and police forces to ensure that they comply with prescribed standards of service; 
+ . . . 
+ <p class="MsoNormal" style="margin-left:103.5pt;text-align:justify;text-indent:
+-25.05pt;line-height:12.2pt">(d) develop and promote programs to enhance professional police practices, standards and training; 
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+19.95pt;line-height:12.2pt">31. — (1) A board is responsible for the provision of police services and for law enforcement and crime prevention in the municipality and shall, [since amended] 
+ . . . 
+ <p class="MsoNormal" style="margin-left:103.5pt;text-align:justify;text-indent:
+-25.05pt;line-height:12.2pt">(b) generally determine, after consultation with the chief of police, objectives and priorities with respect to police services in the municipality; 
+ <p class="MsoNormal" style="margin-left:103.5pt;text-align:justify;text-indent:
+-25.05pt;line-height:12.2pt">(c) establish policies for the effective management of the police force; 
+ . . . 
+ <p class="MsoNormal" style="margin-left:103.5pt;text-align:justify;text-indent:
+-25.05pt;line-height:12.2pt">(e) direct the chief of police and monitor his or her performance; 
+ . . . 
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+19.95pt;line-height:12.2pt">(4) The board shall not direct the chief of police with respect to specific operational decisions or with respect to the day‑to‑day operation of the police force. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:78.45pt;line-height:
+12.2pt">41. — (1) The duties of a chief of police include, 
+ . . . 
+ <p class="MsoNormal" style="margin-left:103.5pt;text-align:justify;text-indent:
+-25.05pt;line-height:12.2pt">(b) ensuring that members of the police force carry out their duties in accordance with this Act and the regulations and in a manner that reflects the needs of the community, and that discipline is maintained in the police force; 
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+19.95pt;line-height:12.2pt">113. — (1) There shall be a special investigations unit of the Ministry of the Solicitor General. 
+ . . . 
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+19.95pt;line-height:24.4pt">(9) Members of police forces shall co-operate fully with the members of the unit in the conduct of investigations. 
+ <p class="MsoNormal" style="margin-left:22.5pt;text-align:justify;text-indent:
+-22.5pt;line-height:24.4pt">III. Judicial History 
+ <p class="MsoNormal" style="margin-left:22.5pt;text-align:justify;text-indent:
+-22.5pt;line-height:24.4pt">A. Ontario Court (General Division), [1998] O.J. No. 5426 (QL) 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">7 According to Day J., misfeasance in a public office can be established in one of two ways: either by proof of malice with intent to injure, or by proof that the public officer intentionally engaged in acts that were ultra vires the scope of his or her office and that she or he could foresee with a degree of certainty that harm would be caused to the plaintiff. As applied to the facts of this case, Day J. concluded that the action against the defendant officers could proceed, but only if the cause of action for misfeasance was framed in malice. He held that it was plain and obvious that the action for misfeasance in a public office against the Chief would fail, owing to the fact that he was not directly and consciously involved in the breach of the obligation to cooperate with the SIU investigation. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">8 Day J. allowed the action for negligent supervision against the Chief to proceed on the basis that he made no submissions in respect of this issue. In respect of the actions for negligent supervision against the Board and the Province, Day J. found that there was sufficient proximity between the parties to conclude that the defendants owed a duty of care to the appellants. Nonetheless, Day J. struck the action against the Board, on the basis that a duty of care is negatived in situations in which the agency’s involvement was limited to establishing policy. He found that the action for negligent supervision against the Province could succeed, on the basis that a cause of action for negligence lies where the responsible Minister fails to take sufficient steps to implement a particular policy decision, in this instance the decision to establish the SIU. 
+ <p class="MsoNormal" style="margin-left:22.5pt;text-align:justify;text-indent:
+-22.5pt;line-height:24.4pt">B. Ontario Court of Appeal (2000), 52 O.R. (3d) 181 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">9 Borins J.A., for the majority of the court, held that the defining element of misfeasance in a public office is the unlawful exercise of a statutory or prerogative power that adheres to the defendant’s office. On this view, the failure of a public officer to perform a statutory duty cannot constitute misfeasance in a public office. Consequently, Borins J.A. found it plain and obvious that neither action for misfeasance in a public office could succeed, owing to the fact that the defendants had not been engaged in the exercise of a statutory or prerogative power that adhered to their respective offices. The most that could be said was that the defendants failed to comply with the obligations imposed upon them by the Police Services Act. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">10 In respect of the actions for negligent supervision, Borins J.A. held that the action against the Chief was based on s. 41(1)(b) of the Police Services Act, which imposes a duty on a chief of police to ensure that members of the police force carry out their duties in accordance with the Act and its regulations. Borins J.A. concluded that it was not plain and obvious that the action for negligent supervision against the Chief must fail. It was, however, plain and obvious that the actions against the Board and the Province must fail. With respect to the Board, Borins J.A. agreed with Day J. that the Board’s involvement was limited to establishing policy. With respect to the Province, Borins J.A. held that the Police Services Act does not impose a duty on the Province to control the operational conduct of the municipal police officers or to ensure that police officers comply with their obligation to cooperate with an SIU investigation. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">11 Feldman J.A., dissenting, did not agree that it was plain and obvious that the actions for misfeasance in a public office must fail. In her view, the essence of the tort is the misfeasance in or misuse of the office itself; its purpose is to prevent the deliberate injuring of members of the public by the intentional disregard of official duty. Feldman J.A. thus held that there is no principled reason to distinguish between a public officer who improperly exercises a power and a public officer who deliberately fails to carry out a duty where they know or are recklessly indifferent to the fact that injury to the plaintiff is the likely result. Applied to the facts of this case, Feldman J.A. would have found that the actions for misfeasance in a public office should have been allowed to proceed. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">12 Feldman J.A. also was of the view that each of the actions for negligent supervision should have been allowed to proceed. She agreed with Borins J.A. that the Province is not under an obligation to ensure that individual officers comply with their statutory obligation to cooperate with the SIU, but noted that the nature of the claim was that the Province failed to implement training procedures or other policies in order to ensure that officers, as a matter of general practice, cooperated with the SIU. Feldman J.A. was uncertain whether the Police Services Act imposes a statutory duty on the Province in respect of these operational matters, and thus felt it inappropriate to strike the claim at this stage of the action. In respect of the Board, Feldman J.A. found that it was not immediately clear whether the Board is under an obligation to establish policies and monitor their implementation for the purpose of ensuring that police officers comply with their statutory obligations. Thus, Feldman J.A. would have found that it was not plain and obvious that the actions for negligent supervision could not succeed. 
+ <p class="MsoNormal" style="margin-left:27.0pt;text-align:justify;text-indent:
+-27.0pt;line-height:24.4pt">IV. Analysis 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">13 In discussing the issues in this appeal, I will begin by stating the test for striking a statement of claim on the basis that it discloses no reasonable cause of action. I will then consider that test within the context of the actions for misfeasance in a public office, and then within the context of the actions for negligence. 
+ <p class="MsoNormal" style="margin-left:22.5pt;text-align:justify;text-indent:
+-22.5pt;line-height:24.4pt">A. Striking Out a Statement of Claim 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">14 The defendants’ motions to have the actions dismissed were made pursuant to rule 21.01(1)(b) of the Ontario Rules of Civil Procedure, R.R.O. 1990, Reg. 194. Rule 21.01(1)(b) stipulates that a court may strike out a statement of claim that discloses no reasonable cause of action. The rules with respect to striking out a statement of claim are much the same in other provinces. In British Columbia, for example, rule 19(24)(a) of the Rules of Court, B.C. Reg. 221/90, states that a court may strike out a pleading on the ground that it discloses no reasonable claim. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">15 An excellent statement of the test for striking out a claim under such provisions is that set out by Wilson J. in Hunt v. Carey Canada Inc., [1990] 2 S.C.R. 959, at p. 980: 
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;line-height:
+24.4pt">. . . assuming that the facts as stated in the statement of claim can be proved, is it “plain and obvious” that the plaintiff’s statement of claim discloses no reasonable cause of action? As in England, if there is a chance that the plaintiff might succeed, then the plaintiff should not be “driven from the judgment seat”. Neither the length and complexity of the issues, the novelty of the cause of action, nor the potential for the defendant to present a strong defence should prevent the plaintiff from proceeding with his or her case. Only if the action is certain to fail because it contains a radical defect . . . should the relevant portions of a plaintiff’s statement of claim be struck out . . . . 
+ The test is a stringent one. The facts are to be taken as pleaded. When so taken, the question that must then be determined is whether there it is “plain and obvious” that the action must fail. It is only if the statement of claim is certain to fail because it contains a “radical defect” that the plaintiff should be driven from the judgment. See also Attorney General of Canada v. Inuit Tapirisat of Canada, [1980] 2 S.C.R. 735. 
+ <p class="MsoNormal" style="margin-left:22.5pt;text-align:justify;text-indent:
+-22.5pt;line-height:24.4pt">B. The Actions for Misfeasance in a Public Office 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">16 The essence of the Court of Appeal’s decision is that the “radical defect” from which the actions for misfeasance in a public office suffer is their failure to plead the constituent elements of the tort. In particular, the Court of Appeal held that the defining element of the tort is the unlawful exercise of the statutory or prerogative powers that adhere to the defendant’s office. Because the alleged misconduct involved the breach of a statutory duty rather than the improper or unlawful exercise of a statutory or prerogative power, it is “plain and obvious”, on this view, that the actions for misfeasance in a public office cannot succeed. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">17 Consequently, I begin by considering the Court of Appeal’s conclusion that the unlawful exercise of a statutory or prerogative power is a constituent element of the tort. With respect, a review of the leading cases clearly reveals that the tort is not limited to circumstances in which the defendant officer is engaged in the unlawful exercise of a particular statutory or prerogative power. As I will discuss, the class of conduct at which the tort is targeted is not as narrow as the unlawful exercise of a particular statutory or prerogative power, but more broadly based on unlawful conduct in the exercise of public functions generally. 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-19.95pt;line-height:24.4pt">(1) The Defining Elements of the Tort 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">18 The origins of the tort of misfeasance in a public office can be traced to Ashby v. White (1703), 2 Ld. Raym. 938, 92 E.R. 126, in which Holt C.J. found that a cause of action lay against an elections officer who maliciously and fraudulently deprived Mr. White of the right to vote. Although the defendant possessed the power to deprive certain persons from participating in the election, he did not have the power to do so for an improper purpose. Although the original judgment suggests that he was simply applying the principle ubi jus ibi remedium, Holt C.J. produced a revised form of the judgment in which he stated that it was because fraud and malice were proven that the action lay: J. W. Smith, A Selection of Leading Cases on Various Branches of the Law (13th ed. 1929), at p. 282. Thus, in its earliest form it is arguable that misfeasance in a public office was limited to circumstances in which a public officer abused a power actually possessed. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">19 Subsequent cases, however, have made clear that the ambit of the tort is not restricted in this manner. In Roncarelli v. Duplessis, [1959] S.C.R. 121, this Court found the defendant Premier of Quebec liable for directing the manager of the Quebec Liquor Commission to revoke the plaintiff’s liquor licence. Although Roncarelli was decided at least in part on the basis of the Quebec civil law of delictual responsibility, it is widely regarded as having established that misfeasance in a public office is a recognized tort in Canada. See for example Powder Mountain Resorts Ltd. v. British Columbia (2001), 94 B.C.L.R. (3d) 14, 2001 BCCA 619; and Alberta (Minister of Public Works, Supply and Services) v. Nilsson (2002), 220 D.L.R. (4th) 474, 2002 ABCA 283. In Roncarelli, the Premier was authorized to give advice to the Commission in respect of any legal questions that might arise, but had no authority to involve himself in a decision to revoke a particular licence. As Abbott J. observed, at p. 184, Mr. Duplessis “was given no statutory power to interfere in the administration or direction of the Quebec Liquor Commission”. Martland J. made a similar observation, at p. 158, stating that Mr. Duplessis’ conduct involved “the exercise of powers which, in law, he did not possess at all”. From this, it is clear that the tort is not restricted to the abuse of a statutory or prerogative power actually held. If that were the case, there would have been no grounds on which to find Mr. Duplessis liable. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">20 This understanding of the tort is consistent with the widespread consensus in other common law jurisdictions that there is a broad range of misconduct that can found an action for misfeasance in a public office. For example, in Northern Territory of Australia v. Mengel (1995), 129 A.L.R. 1 (H.C.), Brennan J. wrote as follows, at p. 25: 
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+19.95pt;line-height:24.4pt">The tort is not limited to an abuse of office by exercise of a statutory power. Henly v. Mayor of Lyme [(1828), 5 Bing. 91, 130 E.R. 995] was not a case arising from an impugned exercise of a statutory power. It arose from an alleged failure to maintain a sea wall or bank, the maintenance of which was a condition of the grant to the corporation of Lyme of the sea wall or bank and the appurtenant right to tolls. Any act or omission done or made by a public official in the purported performance of the functions of the office can found an action for misfeasance in public office. [Emphasis added.] 
+ In Garrett v. Attorney-General, [1997] 2 N.Z.L.R. 332, the Court of Appeal for New Zealand considered an allegation that a sergeant failed to investigate properly the plaintiff’s claim that she had been sexually assaulted by a police constable. Blanchard J. concluded, at p. 344, that the tort can be committed “by an official who acts or omits to act in breach of duty knowing about the breach and also knowing harm or loss is thereby likely to be occasioned to the plaintiff”. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">21 The House of Lords reached the same conclusion in Three Rivers District Council v. Bank of England (No. 3), [2000] 2 W.L.R. 1220. In Three Rivers, the plaintiffs alleged that officers with the Bank of England improperly issued a licence to the Bank of Credit and Commerce International and then failed to close the bank once it became evident that such action was necessary. Forced to consider whether the tort could apply in the case of omissions, the House of Lords concluded that “the tort can be constituted by an omission by a public officer as well as by acts on his part” (per Lord Hutton, at p. 1267). In Australia, New Zealand and the United Kingdom, it is equally clear that the tort of misfeasance is not limited to the unlawful exercise of a statutory or prerogative power actually held. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">22 What then are the essential ingredients of the tort, at least insofar as it is necessary to determine the issues that arise on the pleadings in this case? In Three Rivers, the House of Lords held that the tort of misfeasance in a public office can arise in one of two ways, what I shall call Category A and Category B. Category A involves conduct that is specifically intended to injure a person or class of persons. Category B involves a public officer who acts with knowledge both that she or he has no power to do the act complained of and that the act is likely to injure the plaintiff. This understanding of the tort has been endorsed by a number of Canadian courts: see for example Powder Mountain Resorts, supra; Alberta (Minister of Public Works, Supply and Services) (C.A.), supra; and Granite Power Corp. v. Ontario, [2002] O.J. No. 2188 (QL) (S.C.J.). It is important, however, to recall that the two categories merely represent two different ways in which a public officer can commit the tort; in each instance, the plaintiff must prove each of the tort’s constituent elements. It is thus necessary to consider the elements that are common to each form of the tort. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">23 In my view, there are two such elements. First, the public officer must have engaged in deliberate and unlawful conduct in his or her capacity as a public officer. Second, the public officer must have been aware both that his or her conduct was unlawful and that it was likely to harm the plaintiff. What distinguishes one form of misfeasance in a public office from the other is the manner in which the plaintiff proves each ingredient of the tort. In Category B, the plaintiff must prove the two ingredients of the tort independently of one another. In Category A, the fact that the public officer has acted for the express purpose of harming the plaintiff is sufficient to satisfy each ingredient of the tort, owing to the fact that a public officer does not have the authority to exercise his or her powers for an improper purpose, such as deliberately harming a member of the public. In each instance, the tort involves deliberate disregard of official duty coupled with knowledge that the misconduct is likely to injure the plaintiff. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">24 Insofar as the nature of the misconduct is concerned, the essential question to be determined is not whether the officer has unlawfully exercised a power actually possessed, but whether the alleged misconduct is deliberate and unlawful. As Lord Hobhouse wrote in Three Rivers, supra, at p. 1269: 
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+19.95pt;line-height:24.4pt">The relevant act (or omission, in the sense described) must be unlawful. This may arise from a straightforward breach of the relevant statutory provisions or from acting in excess of the powers granted or for an improper purpose. 
+ Lord Millett reached a similar conclusion, namely, that a failure to act can amount to misfeasance in a public office, but only in those circumstances in which the public officer is under a legal obligation to act. Lord Hobhouse stated the principle in the following terms, at p. 1269: “If there is a legal duty to act and the decision not to act amounts to an unlawful breach of that legal duty, the omission can amount to misfeasance [in a public office].” See also R. v. Dytham, [1979] Q.B. 722 (C.A.). So, in the United Kingdom, a failure to act can constitute misfeasance in a public office, but only if the failure to act constitutes a deliberate breach of official duty. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">25 Canadian courts also have made a deliberate unlawful act a focal point of the inquiry. In Alberta (Minister of Public Works, Supply and Services) v. Nilsson (1999), 70 Alta. L.R. (3d) 267, 1999 ABQB 440, at para. 108, the Court of Queen’s Bench stated that the essential question to be determined is whether there has been deliberate misconduct on the part of a public official. Deliberate misconduct, on this view, consists of: (i) an intentional illegal act; and (ii) an intent to harm an individual or class of individuals. See also Uni-Jet Industrial Pipe Ltd. v. Canada (Attorney General) (2001), 156 Man. R. (2d) 14, 2001 MBCA 40, in which Kroft J.A. adopted the same test. In Powder Mountain Resorts, supra, Newbury J.A. described the tort in similar terms, at para. 7: 
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;line-height:
+24.4pt">. . . it may, I think, now be accepted that the tort of abuse of public office will be made out in Canada where a public official is shown either to have exercised power for the specific purpose of injuring the plaintiff (i.e., to have acted in “bad faith in the sense of the exercise of public power for an improper or ulterior motive”) or to have acted “unlawfully with a mind of reckless indifference to the illegality of his act” and to the probability of injury to the plaintiff. (See Lord Steyn in Three Rivers, at [1231].) Thus there remains what in theory at least is a clear line between this tort on the one hand, and what on the other hand may be called negligent excess of power — i.e., an act committed without knowledge of (or subjective recklessness as to) its unlawfulness and the probable consequences for the plaintiff. [Emphasis in original.] 
+ Under this view, the ambit of the tort is limited not by the requirement that the defendant must have been engaged in a particular type of unlawful conduct, but by the requirement that the unlawful conduct must have been deliberate and the defendant must have been aware that the unlawful conduct was likely to harm the plaintiff. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">26 As is often the case, there are a number of phrases that might be used to describe the essence of the tort. In Garrett, supra, Blanchard J. stated, at p. 350, that “[t]he purpose behind the imposition of this form of tortious liability is to prevent the deliberate injuring of members of the public by deliberate disregard of official duty.” In Three Rivers, supra, Lord Steyn stated, at p. 1230, that “[t]he rationale of the tort is that in a legal system based on the rule of law executive or administrative power ‘may be exercised only for the public good’ and not for ulterior and improper purposes.” As each passage makes clear, misfeasance in a public office is not directed at a public officer who inadvertently or negligently fails adequately to discharge the obligations of his or her office: see Three Rivers, at p. 1273, per Lord Millett. Nor is the tort directed at a public officer who fails adequately to discharge the obligations of the office as a consequence of budgetary constraints or other factors beyond his or her control. A public officer who cannot adequately discharge his or her duties because of budgetary constraints has not deliberately disregarded his or her official duties. The tort is not directed at a public officer who is unable to discharge his or her obligations because of factors beyond his or her control but, rather, at a public officer who could have discharged his or her public obligations, yet wilfully chose to do otherwise. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">27 Another factor that may remove an official’s conduct from the scope of the tort of misfeasance in a public office is a conflict with the officer’s statutory obligations and his or her constitutionally protected rights, such as the right against self-incrimination. Should such circumstances arise, a public officer’s decision not to comply with his or her statutory obligation may not amount to misfeasance in a public office. I need not decide that question here except that it could be argued. A public officer who properly insists on asserting his or her constitutional rights cannot accurately be said to have deliberately disregarded the legal obligations of his or her office. Under this argument, an obligation inconsistent with the officer’s constitutional rights is not itself lawful. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">28 As a matter of policy, I do not believe that it is necessary to place any further restrictions on the ambit of the tort. The requirement that the defendant must have been aware that his or her conduct was unlawful reflects the well-established principle that misfeasance in a public office requires an element of “bad faith” or “dishonesty”. In a democracy, public officers must retain the authority to make decisions that, where appropriate, are adverse to the interests of certain citizens. Knowledge of harm is thus an insufficient basis on which to conclude that the defendant has acted in bad faith or dishonestly. A public officer may in good faith make a decision that she or he knows to be adverse to interests of certain members of the public. In order for the conduct to fall within the scope of the tort, the officer must deliberately engage in conduct that he or she knows to be inconsistent with the obligations of the office. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">29 The requirement that the defendant must have been aware that his or her unlawful conduct would harm the plaintiff further restricts the ambit of the tort. Liability does not attach to each officer who blatantly disregards his or her official duty, but only to a public officer who, in addition, demonstrates a conscious disregard for the interests of those who will be affected by the misconduct in question. This requirement establishes the required nexus between the parties. Unlawful conduct in the exercise of public functions is a public wrong, but absent some awareness of harm there is no basis on which to conclude that the defendant has breached an obligation that she or he owes to the plaintiff, as an individual. And absent the breach of an obligation that the defendant owes to the plaintiff, there can be no liability in tort. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">30 In sum, I believe that the underlying purpose of the tort is to protect each citizen’s reasonable expectation that a public officer will not intentionally injure a member of the public through deliberate and unlawful conduct in the exercise of public functions. Once these requirements have been satisfied, it is unclear why the tort would be restricted to a public officer who engaged in the unlawful exercise of a statutory power that she or he actually possesses. If the tort were restricted in this manner, the tort would not extend to a public officer, such as Mr. Duplessis, who intentionally exceeded his powers for the express purpose of interfering with a citizen’s economic interests. Nor would it extend to a public officer who breached a statutory obligation for the same purpose. But there is no principled reason, in my view, why a public officer who wilfully injures a member of the public through intentional abuse of a statutory power would be liable, but not a public officer who wilfully injures a member of the public through an intentional excess of power or a deliberate failure to discharge a statutory duty. In each instance, the alleged misconduct is equally inconsistent with the obligation of a public officer not to intentionally injure a member of the public through deliberate and unlawful conduct in the exercise of public functions. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">31 I wish to stress that this conclusion is not inconsistent with R. v. Saskatchewan Wheat Pool, [1983] 1 S.C.R. 205, in which the Court established that the nominate tort of statutory breach does not exist. Saskatchewan Wheat Pool states only that it is insufficient that the defendant has breached the statute. It does not, however, establish that the breach of a statute cannot give rise to liability if the constituent elements of tortious responsibility have been satisfied. Put a different way, the mere fact that the alleged misconduct also constitutes a breach of statute is insufficient to exempt the officer from civil liability. Just as a public officer who breaches a statute might be liable for negligence, so too might a public officer who breaches a statute be liable for misfeasance in a public office. Saskatchewan Wheat Pool would only be relevant to this motion if the appellants had pleaded no more than a failure to discharge a statutory obligation. This, however, is not the case. The principle established in Saskatchewan Wheat Pool has no bearing on the outcome of the motion on this appeal. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">32 To summarize, I am of the opinion that the tort of misfeasance in a public office is an intentional tort whose distinguishing elements are twofold: (i) deliberate unlawful conduct in the exercise of public functions; and (ii) awareness that the conduct is unlawful and likely to injure the plaintiff. Alongside deliberate unlawful conduct and the requisite knowledge, a plaintiff must also prove the other requirements common to all torts. More specifically, the plaintiff must prove that the tortious conduct was the legal cause of his or her injuries, and that the injuries suffered are compensable in tort law. 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-19.95pt;line-height:24.4pt">(2) Application to the Case at Hand 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">33 As outlined earlier, on a motion to strike on the basis that the statement of claim discloses no reasonable cause of action, the facts are taken as pleaded. Consequently, the primary question that arises on this appeal is whether the statement of claim pleads each of the constituent elements of the tort. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">34 In respect of the first constituent element, namely, unlawful conduct in the exercise of public functions, the statement of claim alleges that the defendant officers did not cooperate with the SIU investigation, but, rather, took positive steps to frustrate the investigation. As described above, police officers are under a statutory obligation to cooperate fully with members of the SIU in the conduct of investigations, pursuant to s. 113(9) of the Police Services Act. On the face of it, the decision not to cooperate with an investigation constitutes an unlawful breach of statutory duty. Similarly, the alleged failure of the Chief to ensure that the defendant officers cooperated with the investigation also would seem to constitute an unlawful breach of duty. Under s. 41(1)(b) of the Police Services Act, the duties of a chief of police include ensuring that members of the police force carry out their duties in accordance with the Act. A decision not to ensure that police officers cooperate with the SIU is inconsistent with the statutory obligations of the office. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">35 As discussed above, an obligation inconsistent with a public officer’s constitutional rights cannot give rise to misfeasance in a public office. It is arguable that the statutory obligation to cooperate fully with the members of the SIU cannot trump a police officer’s constitutional right against self-incrimination. I do not need to answer this question because it has not been argued that the SIU’s requests were inconsistent with the officers’ constitutional rights. Nor has it been argued that the alleged misconduct, which includes submitting inaccurate and misleading shift notes and disobeying an order to remain segregated, is privileged by the right against self-incrimination. As a consequence, it is not “plain and obvious” that the officers were faced with a stark choice between complying with the SIU’s requests and abandoning their right against self-incrimination, either as a matter of fact or law. The potential conflict between the duty to cooperate with the SIU and the right against self-incrimination cannot be relied on to dismiss the action at this stage of the proceedings. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">36 Insofar as the second requirement is concerned, the statement of claim alleges that the acts and omissions of the defendant officers “represented intentional breaches of their legal duties as police officers”. This plainly satisfies the requirement that the officers were aware that the alleged failure to cooperate with the investigation was unlawful. The allegation is not simply that the officers failed to comply with s. 113(9) of the Police Services Act, but that the failure to comply was intentional and deliberate. Insofar as the Chief is concerned, the statement of claim alleges as follows: 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-19.95pt;line-height:12.2pt">(i) Chief Boothby, through his legal counsel, was directed by S.I.U. officers to segregate the defendant officers and he deliberately failed to do so; 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-19.95pt;line-height:12.2pt">(ii) Chief Boothby failed to ensure that defendant police officers produced timely and complete notes; 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-19.95pt;line-height:12.2pt">(iii) Chief Boothby failed to ensure that the defendant police officers attended for requested interviews by S.I.U. in a timely manner; and 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-19.95pt;line-height:24.4pt">(iv) Chief Boothby failed to ensure that the defendant police officers gave accurate and complete accounts of the specifics of the shooting incident. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">37 Although the allegation that the Chief deliberately failed to segregate the officers satisfies the requirement that the Chief intentionally breached his legal obligation to ensure compliance with the Police Services Act, the same cannot be said of his alleged failure to ensure that the defendant officers produced timely and complete notes, attended for interviews in a timely manner, and provided accurate and complete accounts of the incident. As above, inadvertence or negligence will not suffice; a mere failure to discharge the obligations of the office cannot constitute misfeasance in a public office. In light of the allegation that the Chief’s failure to segregate the officers was deliberate, this is not a sufficient basis on which to strike the pleading. Suffice it to say, the failure to issue orders for the purpose of ensuring that the defendant officers cooperated with the investigation will only constitute misfeasance in a public office if the plaintiffs prove that the Chief deliberately failed to comply with the standard established by s. 41(1)(b) of the Police Services Act. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">38 The statement of claim also alleges that the defendant officers and the Chief “knew or ought to have known” that the alleged misconduct would cause the plaintiffs to suffer physically, psychologically and emotionally. Although the allegation that the defendants knew that a failure to cooperate with the investigation would injure the plaintiffs satisfies the requirement that the alleged misconduct was likely to injure the plaintiffs, misfeasance in a public office is an intentional tort that requires subjective awareness that harm to the plaintiff is a likely consequence of the alleged misconduct. At the very least, according to a number of cases, the defendant must have been subjectively reckless or wilfully blind as to the possibility that harm was a likely consequence of the alleged misconduct: see for example Three Rivers, supra; Powder Mountain Resorts, supra; and Alberta (Minister of Public Works, Supply and Services) (C.A.), supra. This, again, is not a sufficient basis on which to strike the pleading. It is clear, however, that the phrase “or ought to have known” must be struck from the statement of claim. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">39 The final factor to be considered is whether the damages that the plaintiffs claim to have suffered as a consequence of the aforementioned misconduct are compensable. In the defendant officers’ submission, the alleged damages are non-compensable. Consequently, it is their submission that even if the plaintiffs could prove the other elements of the tort, it still would be plain and obvious that the actions for misfeasance in a public office must fail. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">40 In the defendant officers’ submission, the essence of the plaintiffs’ claim is that they were deprived of a thorough, competent and credible investigation. And owing to the fact that no individual has a private right to a thorough, competent and credible criminal investigation, the plaintiffs have suffered no compensable damages. If this were an accurate assessment of the plaintiffs’ claim, I would agree. Individual citizens might desire a thorough investigation, or even that the investigation result in a certain outcome, but they are not entitled to compensation in the absence of a thorough investigation or if the desired outcome fails to materialize. This, however, is not an accurate assessment of the plaintiffs’ submission. In their statement of claim, the plaintiffs also allege that they have suffered physically, psychologically and emotionally, in the form of mental distress, anger, depression and anxiety as a direct result of the defendant officers’ failure to cooperate with the SIU. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">41 Although courts have been cautious in protecting an individual’s right to psychiatric well-being, compensation for damages of this kind is not foreign to tort law. As the law currently stands, that the appellant has suffered grief or emotional distress is insufficient. Nevertheless, it is well established that compensation for psychiatric damages is available in instances in which the plaintiff suffers from a “visible and provable illness” or “recognizable physical or psychopathological harm”: see for example Guay v. Sun Publishing Co., [1953] 2 S.C.R. 216, and Frame v. Smith, [1987] 2 S.C.R. 99. Consequently, even if the plaintiffs could prove that they had suffered psychiatric damage, in the form of anxiety or depression, they still would have to prove both that it was caused by the alleged misconduct and that it was of sufficient magnitude to warrant compensation. But the causation and magnitude of psychiatric damage are matters to be determined at trial. At the pleadings stage, it is sufficient that the statement of claim alleges that the plaintiffs have suffered mental distress, anger, depression and anxiety as a consequence of the alleged misconduct. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">42 In the final analysis, I would allow the appeal in respect of the actions for misfeasance in a public office. If the facts are taken as pleaded, it is not plain and obvious that the actions for misfeasance in a public office against the defendant officers and the Chief must fail. The plaintiffs may well face an uphill battle, but they should not be deprived of the opportunity to prove each of the constituent elements of the tort. 
+ <p class="MsoNormal" style="margin-left:22.5pt;text-align:justify;text-indent:
+-22.5pt;line-height:24.4pt">C. The Actions for Negligence 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">43 In addition to the actions for misfeasance in a public office, the statement of claim includes actions for negligence against the Chief, the Board and the Province. The essence of these claims is that the Chief, the Board and the Province are liable as a consequence of their failure to ensure that the defendant officers complied with s. 113(9) of the Police Services Act. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">44 In order for an action in negligence to succeed, a plaintiff must be able to establish three things: (i) that the defendant owed the plaintiff a duty of care; (ii) that the defendant breached that duty of care; and (iii) that damages resulted from that breach. The primary question that arises on this appeal is in respect of the first element, namely, whether the defendants owed to the appellants a duty to take reasonable care to ensure that the defendant officers cooperated with the SIU investigation. If the defendants are under no such obligation, the actions for negligence cannot succeed. After discussing the general principles applicable to the duty of care analysis, I will go on to discuss this approach in the context of the negligence actions against the Chief, the Board and the Province. I will also address the defendants’ submission that complained of harm is non-compensable. 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-19.95pt;line-height:24.4pt">(1) The Duty of Care 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">45 It is a well-established principle that a defendant is not liable in negligence unless the law exacts an obligation in the circumstances to take reasonable care. As Lord Esher concluded in Le Lievre v. Gould, [1893] 1 Q.B. 491 (C.A.), at p. 497, “[a] man is entitled to be as negligent as he pleases towards the whole world if he owes no duty to them.” Duty may therefore be defined as an obligation, recognised by law, to take reasonable care to avoid conduct that entails an unreasonable risk of harm to others. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">46 It is now well established in Canada that the existence of such a duty is to be determined in accordance with the two-step analysis first enunciated by the House of Lords in Anns v. Merton London Borough Council, [1978] A.C. 728, at pp. 751-52: 
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;line-height:
+24.4pt">First one has to ask whether, as between the alleged wrongdoer and the person who has suffered damage there is a sufficient relationship of proximity or neighbourhood such that, in the reasonable contemplation of the former, carelessness on his part may be likely to cause damage to the latter — in which case a prima facie duty of care arises. Secondly, if the first question is answered affirmatively, it is necessary to consider whether there are any considerations which ought to negative, or to reduce or limit the scope of the duty or the class of person to whom it is owed or the damages to which a breach of it may give rise. 
+ See for example Kamloops (City of) v. Nielsen, [1984] 2 S.C.R. 2; B.D.C. Ltd. v. Hofstrand Farms Ltd., [1986] 1 S.C.R. 228; Canadian National Railway Co. v. Norsk Pacific Steamship Co., [1992] 1 S.C.R. 1021; London Drugs Ltd. v. Kuehne & Nagel International Ltd., [1992] 3 S.C.R. 299; Winnipeg Condominium Corporation No. 36 v. Bird Construction Co., [1995] 1 S.C.R. 85; and Cooper v. Hobart, [2001] 3 S.C.R. 537, 2001 SCC 79. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">47 The first stage of analysis, then, demands an inquiry into whether there is a sufficiently close relationship between the plaintiff and defendant that the defendant owes to the plaintiff a prima facie duty of care. The question of when such a duty arises is one with which this Court and others have repeatedly grappled since Lord Atkin enunciated the neighbour principle in Donoghue v. Stevenson, [1932] A.C. 562 (H.L.), at p. 580: 
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;line-height:
+24.4pt">The rule that you are to love your neighbour becomes in law, you must not injure your neighbour; and the lawyer’s question, Who is my neighbour? receives a restricted reply. You must take reasonable care to avoid acts or omissions which you can reasonably foresee would be likely to injure your neighbour. Who, then, in law is my neighbour? The answer seems to be — persons who are so closely and directly affected by my act that I ought reasonably to have them in contemplation as being so affected when I am directing my mind to the acts or omissions which are called in question. 
+ As eloquently observed by Professor J. G. Fleming, this passage is a sacrosanct preamble to judicial disquisitions on duty, yet contains a fateful ambiguity: The Law of Torts (9th ed. 1998), at p. 151. More specifically, does the reference to persons so closely and directly affected by the conduct in question that the defendant ought reasonably to have had them in contemplation conflate foreseeability of harm and duty? Or does it require something in addition to foreseeability of harm? 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">48 In Cooper, supra, the Court clearly stated that the latter approach is the correct one. At para. 29 of their joint reasons, McLachlin C.J. and Major J. stated that there must be reasonable foreseeability of harm “plus something more”. At para. 31, they concluded that this “something more” is proximity: in order to establish that the defendant owed the plaintiff a duty of care, the reasonable foreseeability of harm must be supplemented by proximity. It is only if harm is a reasonably foreseeable consequence of the conduct in question and there is a sufficient degree of proximity between the parties that a prima facie duty of care is established. The question that thus arises is what precisely is meant by the term proximity. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">49 McLachlin C.J. and Major J. concluded, at para. 32, that the term “proximity”, in the context of negligence law, is used to describe the type of relationship in which a duty of care to guard against foreseeable harm may rightly be imposed. As this Court stated in Hercules Managements Ltd. v. Ernst & Young, [1997] 2 S.C.R. 165, at para. 24: 
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;line-height:
+24.4pt">The label “proximity”, as it was used by Lord Wilberforce in Anns, supra, was clearly intended to connote that the circumstances of the relationship inhering between the plaintiff and the defendant are of such a nature that the defendant may be said to be under an obligation to be mindful of the plaintiff’s legitimate interests in conducting his or her affairs. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">50 Consequently, the essential purpose of the inquiry is to evaluate the nature of that relationship in order to determine whether it is just and fair to impose a duty of care on the defendant. The factors that are relevant to this inquiry depend on the circumstances of the case. As stated by McLachlin J. (as she then was) in Norsk, supra, at p. 1151, “[p]roximity may be usefully viewed, not so much as a test in itself, but as a broad concept which is capable of subsuming different categories of cases involving different factors” (cited with approval in Hercules Managements, supra, at para. 23, and Cooper, supra, at para. 35). Examples of factors that might be relevant to the inquiry include the expectations of the parties, representations, reliance and the nature of the property or interest involved. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">51 The second stage of the Anns test requires the trial judge to consider whether there exist any residual policy considerations that ought to negative or reduce the scope of the duty or the class of persons to whom it is owed. In Cooper, McLachlin C.J. and Major J. wrote, at para. 37, that this stage of the analysis is not concerned with the relationship between the parties but, rather, with the effect of recognizing a duty of care on other legal obligations, the legal system and society more generally. At this stage of the analysis, the question to be asked is whether there exist broad policy considerations that would make the imposition of a duty of care unwise, despite the fact that harm was a reasonably foreseeable consequence of the conduct in question and there was a sufficient degree of proximity between the parties that the imposition of a duty would not be unfair. 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-19.95pt;line-height:24.4pt">(2) Application of the Anns Test 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">52 The essence of the appellants’ claim is that the Chief, the Board and the Province breached a duty to take reasonable care to ensure that the defendant officers complied with their legal obligation to cooperate with the SIU investigation. In order for this to give rise to an action in negligence, it must first be true that the defendants owed the appellants a duty to take such care. On the analysis above, this requires the Odhavji family to establish each of the following: (i) that the harm complained of is a reasonably foreseeable consequence of the alleged breach; (ii) that there is sufficient proximity between the parties that it would not be unjust or unfair to impose a duty of care on the defendants; and (iii) that there exist no policy reasons to negative or otherwise restrict that duty. If the defendants did not owe such a duty to the appellants, it is plain and obvious that the actions for negligence cannot succeed. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">(i) Police Chief Boothby 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">53 The conclusion that the harm complained of is a reasonably foreseeable consequence of the Chief’s conduct is dependent on the prior conclusion that it is a reasonably foreseeable consequence of an inadequate investigation into the shooting incident. If it is not reasonably foreseeable that the plaintiffs would suffer psychiatric harm as a consequence of an inadequate investigation into the incident, it is not reasonably foreseeable that the Chief’s failure to ensure that the defendant officers’ failure to cooperate with the SIU would injure the plaintiffs. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">54 It is not immediately clear, in my view, that this initial threshold has been satisfied. Although it is to be expected that an inadequate investigation would distress or anger the close relatives of Mr. Odhavji, it is less obvious that this distress or anger would rise to the level of compensable psychiatric harm. Nevertheless, I do not think it “plain and obvious” that such harm is an unforeseeable consequence of the defendant officers’ failure to cooperate with the investigation. The task might be a difficult one, but the appellants should not be deprived of the opportunity to prove that the complained of harm is a reasonably foreseeable consequence of a truncated or otherwise inadequate investigation into the shooting incident. It is reasonably foreseeable that the officers’ failure to cooperate with the SIU investigation would harm the appellants. As the Chief was responsible for ensuring that the officers cooperated with the SIU investigation, it is reasonably foreseeable that the Chief’s failure to do so would also harm the appellants. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">55 The next question that arises is whether there is sufficient proximity between the parties that a duty of care may rightly be imposed on the Chief. It may be that the appellants can show that it was reasonably foreseeable that the alleged misconduct would result in psychiatric harm, but foreseeability alone is an insufficient basis on which to establish a prima facie duty of care. In addition to showing foreseeability, the appellants must establish that it is just and fair to impose on the Chief a private law obligation to ensure that the defendant officers cooperated with the SIU. A broad range of factors may be relevant to this inquiry, including a close causal connection, the parties’ expectations and any assumed or imposed obligations. See for example Norsk, supra, at p. 1153; Martel Building Ltd. v. Canada, [2000] 2 S.C.R. 860, 2000 SCC 60, at paras. 51-52; and Cooper, supra, at para. 35. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">56 In the present case, one factor that supports a finding of proximity is the relatively direct causal link between the alleged misconduct and the complained of harm. As discussed above, the duties of a chief of police include ensuring that the members of the force carry out their duties in accordance with the provisions of the Police Services Act. In those instances in which a member of the public is injured as a consequence of police misconduct, there is an extremely close causal connection between the negligent supervision and the resultant injury: the failure of the chief of police to ensure that the members of the force carry out their duties in accordance with the provisions of the Police Services Act leads directly to the police misconduct, which, in turn, leads directly to the complained of harm. The failure of the Chief to ensure the defendant officers cooperated with the SIU is thus but one step removed from the complained of harm. Although a close causal connection is not a condition precedent of liability, it strengthens the nexus between the parties. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">57 A second factor that strengthens the nexus between the Chief and the Odhavjis is the fact that members of the public reasonably expect a chief of police to be mindful of the injuries that might arise as a consequence of police misconduct. Although the vast majority of police officers in our country exercise their powers responsibly, members of the force have a significant capacity to affect members of the public adversely through improper conduct in the exercise of police functions. It is only reasonable that members of the public vulnerable to the consequences of police misconduct would expect that a chief of police would take reasonable care to prevent, or at least to discourage, members of the force from injuring members of the public through improper conduct in the exercise of police functions. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">58 Finally, I also believe it noteworthy that this expectation is consistent with the statutory obligations that s. 41(1)(b) of the Police Services Act imposes on the Chief. Under s. 41(1)(b), the Chief is under a freestanding statutory obligation to ensure that the members of the force carry out their duties in accordance with the provisions of the Police Services Act and the needs of the community. This includes an obligation to ensure that members of the police force do not injure members of the public through misconduct in the exercise of police functions. The fact that the Chief already is under a duty to ensure compliance with an SIU investigation adds substantial weight to the position that it is neither unjust nor unfair to conclude that the Chief owed to the plaintiffs a duty of care to ensure that the defendant officers did, in fact, cooperate with the SIU investigation. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">59 In light of the above factors, I conclude that the circumstances of the case satisfy the first stage of the Anns test and raise a prima facie duty of care. If it is reasonably foreseeable that the defendant officers’ decision not to cooperate with the SIU would injure the plaintiffs, a private law obligation to ensure that the officers cooperate with the SIU is rightly imposed on the Chief. Consequently, the only issue that is left to consider is whether there exist any broad policy considerations that ought to negative the prima facie obligation of the Chief to prevent the misconduct. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">60 Counsel for the Chief submits that imposing a private law duty on the Chief to ensure that the officers cooperate with the investigation would compromise the independence of the SIU. It is difficult to see how this is the case, particularly as the Chief already is under a statutory obligation to ensure such cooperation. Imposing a duty of care on the Chief to ensure that members of the force cooperate with the SIU would have no bearing on the capacity of the SIU to determine how or in what circumstances to conduct such an investigation. Counsel for the Chief also submits that another factor to consider is the availability of alternative remedies, namely, the public complaints process that allows members of the public to complain in respect of the conduct of a police officer. What the appellants seek, though, is not the opportunity to file a complaint that might result in the imposition of disciplinary sanctions but, rather, compensation for the psychological harm that they have suffered as a consequence of the Chief’s inadequate supervision. The public complaints process is no alternative to liability in negligence. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">61 In short, I believe that it would be inappropriate to strike the action for negligent supervision against the Chief on the basis that he did not owe the plaintiffs a duty of care. If the plaintiffs can establish that the complained of harm is a reasonably foreseeable consequence of the Chief’s failure to ensure that the defendant officers cooperated with the SIU, the Chief was under a private law duty of care to take reasonable care to prevent such misconduct. The cross-appeal against the Court of Appeal’s decision to allow the action in negligence against Police Chief Boothby to proceed is therefore dismissed. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">(ii) Metropolitan Toronto Police Services Board 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">62 The plaintiffs do not allege that the Board was under a private law obligation to ensure that the defendant officers in this appeal cooperated with the SIU investigation into the allegedly wrongful death of Mr. Odhavji. Rather, the basis of the action is that the Board breached a duty of care to ensure that police officers, as a matter of general practice, cooperate with SIU investigations. The duty of care is owed not to the Odhavjis in particular, but to the family of a person harmed by the police. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">63 The first question to answer is whether it is reasonably foreseeable that the family of a person harmed by the police would suffer acute anxiety or depression as a consequence of the Board’s failure to enact additional policies or training procedures for the purpose of ensuring that police officers cooperate with the SIU. But, once again, foreseeability alone is insufficient. Even if it is reasonably foreseeable that the Board’s decision not to enact additional procedures would exacerbate the allegedly systematic failure of the police officers to cooperate with the SIU, and that this, in turn, would cause the families of persons harmed by the police to suffer psychiatric harm, it still must be determined whether the Board is under a private law duty to ensure that members of the force, as a matter of general practice, cooperate with the SIU. For the reasons that follow, I am of the view that the Board is under no such duty. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">64 The first factor that I consider is the lack of a close causal connection between the alleged misconduct and the complained of harm. As discussed earlier, the fact that a chief of police is in a direct supervisory relationship with members of the force gives rise to a certain propinquity between the Chief and the Odhavjis; the close connection between the Chief’s inadequate supervision and the officers’ subsequent failure to cooperate with the SIU establishes a nexus between the Chief and the individuals who are injured as a consequence of the officers’ misconduct. The Board, however, is much further in the background than the Chief. Unlike the Chief, the Board does not directly involve itself in the day‑to‑day conduct of police officers, but, rather, implements general policy and monitors the performance of the various chiefs of police. The Board does not supervise members of the force, but, rather, supervises the Chief (who, in turn, supervises members of the force). This lack of involvement in the day‑to‑day conduct of the police force weakens substantially the nexus between the Board and members of the public injured as a consequence of police misconduct. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">65 A second factor that distinguishes the Board from the Chief is the absence of a statutory obligation to ensure that members of the police force cooperate with the SIU. As discussed earlier, the express duties of the Chief include ensuring that members of the force comply with s. 113(9) of the Police Services Act. Under s. 31(1), the Board is responsible for the provision of adequate and effective police services, but is not under an express obligation to ensure that members of the force carry out their duties in accordance with the Police Services Act. The absence of such an obligation is consistent with the general tenor of s. 31(1), which provides the Board with a broad degree of discretion to determine the policies and procedures that are necessary to provide adequate and effective police services. A few enumerated exceptions aside, the Board is free to determine what objectives to pursue, and what policies to enact in pursuit of those objectives. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">66 It is possible, I concede, that circumstances might arise in which the Board is required to address a particular problem in order to discharge its statutory obligation to provide adequate and effective police services. If there was evidence, for example, of a widespread problem in respect of the excessive use of force in the detention of visible minorities, the Board arguably is under a positive obligation to combat racism and the resultant use of excessive force. But as a general matter, courts should be loath to interfere with the Board’s broad discretion to determine what objectives and priorities to pursue, or what policies to enact in pursuit of those objectives. Suffice it to say, the Board’s decision not to enact additional policies or training procedures in respect of s. 113(9) does not constitute a breach of its obligation to provide “adequate and effective” police services. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">67 Considered against this backdrop, I conclude that the circumstances of the relationship inhering between the plaintiff and the defendant are not such that a duty of care to ensure that members of the police force cooperate with the SIU may rightly be imposed. The appeal against the Court of Appeal’s decision to strike the action against the Board is dismissed. 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-19.95pt;line-height:24.4pt">(iii) The Province 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">68 As with the Board, the plaintiffs do not allege that the Province, through the Solicitor General, was under a private law obligation to ensure that the defendant officers in this appeal cooperated with the investigation into the allegedly wrongful death of Mr. Odhavji. Rather, the basis of the action is that the Province breached a private law obligation to institute policies and training procedures for the purpose of ensuring that members of the force, as a matter of general practice, cooperate with the SIU. Owing to the fact that my conclusions in respect of the action against the Province mirror my conclusions in respect of the action against the Board, the following analysis is fairly brief. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">69 As above, I am not certain that it is reasonably foreseeable that the Solicitor General’s decision not to institute further policies and training procedures in respect of s. 113(9) would cause the families of persons harmed by the police to suffer compensable psychiatric harm. This, however, is a matter that is properly addressed at trial. But even if it is reasonably foreseeable that the failure of the Solicitor General to institute further policies and training procedures in respect of s. 113(9) would cause the families of persons harmed by the police to suffer compensable psychiatric harm, there is insufficient proximity between the parties to conclude that the Province is under a private law obligation to ensure that members of the force comply with s. 113(9) of the Police Services Act. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">70 Like the Board, the Province is not directly involved in the day-to-day conduct of members of the police force. Whereas the Police Chief is in a direct supervisory relationship with members of the force, the Solicitor General’s involvement in the conduct of police officers is limited to a general obligation to monitor boards and police forces to ensure that adequate and effective police services are provided and to develop and promote programs to enhance professional police practices, standards and training. Like the Board, the Province is very much in the background, perhaps even more so. The lack of any direct involvement in the day-to-day conduct of members of the force substantially weakens the nexus between the Province and the plaintiffs. The Province simply is too far removed from the day-to-day conduct of members of the force to be under a private law obligation to ensure that members of the force cooperate with the SIU. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">71 This lack of any direct involvement in the day-to-day conduct of police officers is compounded by the fact that the responsible minister is not under a statutory obligation to ensure that police officers cooperate with the SIU. Under s. 3(2) of the Police Services Act, the Solicitor General is under a general duty to monitor police forces to ensure that adequate and effective police services are provided. It is not, however, under an obligation to ensure that members of the force carry out their duties in accordance with the Police Services Act and the needs of the community. Although I do not foreclose the possibility that s. 3(2) might give rise to a statutory obligation to address widespread or systemic misconduct of a particularly serious nature, the circumstances of this case do not give rise to such an obligation. The Solicitor General’s decision not to enact additional policies or training procedures in respect of s. 113(9) does not constitute a breach of his duty to ensure that the Board provides “adequate and effective” police services in the municipality. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">72 For the above reasons, it is my conclusion that the Province does not owe to the plaintiffs a duty of care. Absent a more direct involvement in the day-to-day conduct of police officers or a statutory obligation to ensure that members of the force comply with s. 113(9), it would be improper to impose on the Province a private law obligation to ensure that members of the police force cooperate with the SIU. The appeal against the Court of Appeal’s decision to strike the action against the Province is dismissed. 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-19.95pt;line-height:24.4pt">(3) Damages 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">73 The final factor to consider is the defendants’ submission that the alleged injuries are non-compensable. Consequently, it is their submission that even if it is established that the defendants owed the plaintiffs a duty of care, it is still plain and obvious that the actions for negligence must fail. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">74 As discussed in the context of the actions for misfeasance in a public office, courts have been cautious in protecting an individual’s right to psychiatric well-being, but it is well established that compensation for psychiatric damages is available in instances in which the plaintiff suffers a “visible and provable illness” or “recognizable physical or psychopathological harm”. At the pleadings stage, it is sufficient that the statement of claim alleges mental distress, anger, depression and anxiety as a consequence of the defendant’s negligence. Causation and the magnitude of psychiatric damage are matters to be determined at trial. 
+ <p class="MsoNormal" style="margin-left:22.5pt;text-align:justify;text-indent:
+-22.5pt;line-height:24.4pt">D. The Court of Appeal’s Costs Award 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">75 A final issue to consider is the Court of Appeal’s decision to follow the usual rule that the successful party is entitled to costs. In the plaintiffs’ submission, it was improper for the Court of Appeal to award costs to the defendant officers and the Province. By the consent of the parties, a “no-costs” order was made in respect of the actions against the Chief and the Board. The plaintiffs submit that they are public interest litigants and should not have been required to pay costs. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">76 Although circumstances might arise in which there are cogent arguments for departing from the normal cost rules, I have difficulty conceptualizing the plaintiffs in the present appeal as public interest litigants. In the plaintiffs’ own submissions, there are typically two types of public interest litigants: (i) litigants who have no direct pecuniary or other material interest in the proceedings (e.g., a non-profit organization); and (ii) litigants who do have a pecuniary interest, but whose interest is modest in comparison to the cost of the proceedings. The plaintiffs in the present case do not fit into either category — and thus do not fit their own definition of a public interest litigant. Indeed, it is difficult to regard a plaintiff who is seeking several millions of dollars in damages as a public interest litigant. The fact that the actions involve public authorities and raise issues of public interest is insufficient to alter the essential nature of the litigation. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">77 Moreover, under rule 57.01(1) of the Rules of Civil Procedure, costs awarded in a proceeding are a matter of discretion for the court. Consequently, this Court should not interfere with a lower court’s exercise of that discretion unless there is a clear and compelling reason for doing so. See for example B. (R.) v. Children’s Aid Society of Metropolitan Toronto, [1995] 1 S.C.R. 315. In the present case, there is no such basis on which to interfere with the Court of Appeal’s decision to award costs in accordance with the usual rule that the successful party is entitled to costs. 
+ <p class="MsoNormal" style="margin-left:22.5pt;text-align:justify;text-indent:
+-22.5pt;line-height:24.4pt">V. Disposition 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">78 In the result, the appeal against the Court of Appeal’s decision to strike the actions for misfeasance in a public office is allowed. The judgment of the Court of Appeal is set aside, and an order will issue striking the phrase “or ought to have known” from the amended statement of claim. The cross-appeal against the Court of Appeal’s decision to allow the action in negligence in respect of the SIU investigation against the Chief to proceed is dismissed, as is the appeal against the Court of Appeal’s decision to strike the actions in negligence in respect of the SIU investigation against the Board and the Province. Although success has been divided, the plaintiffs have achieved a significant success in respect of the actions against the defendant officers and the Chief. Accordingly, I would award costs to the plaintiffs in this Court. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Appeal allowed in part and cross-appeal dismissed with costs. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Solicitors for the appellants/respondents on cross-appeal: Falconer Charney Macklin, Toronto. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Solicitors for the respondents Woodhouse and Gerrits: Borden Ladner Gervais, Toronto. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Solicitors for the respondent/appellant on cross-appeal the Metropolitan Toronto Chief of Police David Boothby and the respondent the Metropolitan Toronto Police Services Board: City of Toronto, Toronto. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Solicitor for the respondent Her Majesty the Queen in Right of Ontario: Attorney General of Ontario, Toronto. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Solicitor for the intervener the Attorney General of Canada: Attorney General of Canada, Ottawa. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Solicitor for the intervener the Attorney General of British Columbia: Attorney General of British Columbia, Vancouver. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Solicitors for the intervener the Canadian Civil Liberties Association: Torys, Toronto. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Solicitors for the intervener the Urban Alliance on Race Relations: Fasken Martineau DuMoulin, Toronto. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Solicitors for the intervener the African Canadian Legal Clinic: African Canadian Legal Clinic, Toronto. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Solicitor for the intervener the Mental Health Legal Committee: Suzan E. Fraser, Toronto. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Solicitors for the intervener the Association in Defence of the Wrongfully Convicted: Sack Goldblatt Mitchell, Toronto. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">Solicitors for the intervener the Innocence Project of Osgoode Hall Law School: Ruby & Edwardh, Toronto. 
+ You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.
+ Continue 
+ Do not display this message anymore
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.modalClose = "Close";

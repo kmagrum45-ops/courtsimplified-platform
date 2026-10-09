@@ -1,0 +1,432 @@
+ R. v. Antic - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ R. v. Antic
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ R. v. Antic
+ /scc-csc/scc-csc/fr/item/16649/index.do?alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Supreme Court Judgments
+Decision Information
+ R. v. Antic
+ Collection
+ Supreme Court Judgments
+ Date
+ 2017-06-01
+ Neutral citation
+ 2017 SCC 27
+ Report
+ [2017] 1 SCR 509
+ Case number
+ 36783
+ Judges
+ McLachlin, Beverley; Abella, Rosalie Silberman; Moldaver, Michael J.; Karakatsanis, Andromache; Wagner, Richard; Gascon, Clément; Côté, Suzanne; Brown, Russell; Rowe, Malcolm
+ On appeal from
+ Ontario
+ Subjects
+ Constitutional law
+ Criminal law
+ Notes
+ SCC Case Information: [LINK https://www.scc-csc.ca/cases-dossiers/search-recherche/36783/] 36783
+ [LINK /scc-csc/scc-csc/en/16649/1/document.do] 
+Decision Content
+ SUPREME COURT OF CANADA
+ Citation: R. v. Antic, 2017 SCC 27, [2017] 1 S.C.R. 509
+ Appeal heard: December 2, 2016 Judgment rendered: June 1, 2017 Docket: 36783
+ Between:
+ Her Majesty The Queen in Right of Canada
+ Appellant
+ <p class="SCCLsocVersus" align="center" style="margin-bottom:0in;margin-bottom:
+.0001pt;text-align:center">and
+ Kevin Antic
+ Respondent
+ <p class="SCCLsocOtherPartySeparator" align="center" style="margin-bottom:0in;
+margin-bottom:.0001pt;text-align:center">- and -
+ Canadian Civil Liberties Association and
+ Criminal Lawyers’ Association (Ontario)
+ Interveners
+ Coram: McLachlin C.J. and Abella, Moldaver, Karakatsanis, Wagner, Gascon, Côté, Brown and Rowe JJ.
+ Reasons for Judgment: (paras. 1 to 72)
+ Wagner J. (McLachlin C.J. and Abella, Moldaver, Karakatsanis, Gascon, Côté, Brown and Rowe JJ. concurring)
+ R. v. Antic, 2017 SCC 27, [2017] 1 S.C.R. 509
+ Her Majesty the Queen in Right of Canada<span style="font-weight:
+normal"> Appellant
+ v.
+ Kevin Antic Respondent
+ and
+ Canadian Civil Liberties Association and
+ Criminal Lawyers’ Association (Ontario)<span style="font-weight:
+normal"> Interveners
+ Indexed as: R. v. Antic
+ 2017 SCC 27
+ File No.: 36783.
+ 2016: December 2; 2017: June 1.
+ Present: McLachlin C.J. and Abella, Moldaver, Karakatsanis, Wagner, Gascon, Côté, Brown and Rowe JJ.
+ on appeal from the ontario superior court of justice
+ Constitutional law — [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter of Rights — <span style="line-height:
+200%">Right not to be denied reasonable bail without just cause —<span style="line-height:
+200%"> Accused denied interim release because he did not meet geographic criteria in [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec2] s. 515(2) (e) of [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en] Criminal Code for cash deposit to be imposed in addition to surety as condition of release — Bail review judge finding geographic limitation infringes [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] s. 11(e) of [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Canadian Charter of Rights and Freedoms as it has effect of denying accused bail — Bail review judge striking down limitation and ordering accused’s release with cash deposit and surety — Whether s. 515(2)(e) of [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en] Criminal Code infringes [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] s. 11(e) of [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter — [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec2] Criminal Code, R.S.C. 1985, c. C‑46, s. 515(2) (e).
+ Criminal law — Interim release — <span style="line-height:
+200%">Accused denied interim release because he did not meet geographic criteria in [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec2] s. 515(2) (e) of [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en] Criminal Code for cash deposit to be imposed in addition to surety as condition of release — <span style="line-height:
+200%">Principles and guidelines governing application of interim release provisions — Proper interpretation and application of s. 515(2)(e) — [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec2] Criminal Code, R.S.C. 1985, c. C‑46, s. 515(2) (e).
+ A was arrested and charged with several drug and firearms offences. He was denied release at his bail hearing, and sought review of the detention order. The bail review judge declined to vacate the order, indicating that he would have released A if he could have imposed both a surety and a cash deposit as release conditions. However, [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec2] s. 515(2) (e) of the [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en] Criminal Code permits a justice of the peace or judge to require both a cash deposit and surety supervision only if the accused is from out of the province or does not ordinarily reside within 200 km of the place in which he or she is in custody. As an Ontario resident living within 200 km of the place in which he was detained, A did not meet these criteria. A brought a subsequent bail review application, challenging the constitutionality of s. 515(2)(e). The bail review judge found that since the geographical limitation in s. 515(2)(e) prevented him from granting bail on the terms that he deemed appropriate, the provision violated the right not to be denied reasonable bail without just cause under [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] s. 11( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] e [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] ) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . He severed and struck down the geographical limitation in s. 515(2)(e) and ordered A’s release with a surety and a cash deposit of $100,000.
+ Held: The appeal should be allowed and the declaration of constitutionality reversed.
+ The right not to be denied reasonable bail without just cause is an essential element of an enlightened criminal justice system. It entrenches the effect of the presumption of innocence at the pre‑trial stage of the criminal trial process and safeguards the liberty of accused persons. This right has two aspects: a person charged with an offence has the right not to be denied bail without just cause and the right to reasonable bail. Under the first aspect, a provision may not deny bail without “just cause” — there is just cause to deny bail only if the denial occurs in a narrow set of circumstances, and the denial is necessary to promote the proper functioning of the bail system and is not undertaken for any purpose extraneous to that system. The second aspect, the right to reasonable bail, relates to the terms of bail, including the quantum of any monetary component and other restrictions that are imposed on the accused for the release period. It protects accused persons from conditions and forms of release that are unreasonable.
+ While a bail hearing is an expedited procedure, the bail provisions are federal law and must be applied consistently and fairly in all provinces and territories. A central part of the Canadian law of bail consists of the ladder principle and the authorized forms of release, which are found in [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec1] s. 515(1) to [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec3] (3) of the [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en] Criminal Code . Save for exceptions, an unconditional release on an undertaking is the default position when granting release. Alternative forms of release are to be imposed in accordance with the ladder principle, which must be adhered to strictly: release is favoured at the earliest reasonable opportunity and on the least onerous grounds. If the Crown proposes an alternate form of release, it must show why this form is necessary for a more restrictive form of release to be imposed. Each rung of the ladder must be considered individually and must be rejected before moving to a more restrictive form of release. Where the parties disagree on the form of release, it is an error of law for a judge to order a more restrictive form without justifying the decision to reject the less onerous forms. A recognizance with sureties is one of the most onerous forms of release, and should not be imposed unless all the less onerous forms have been considered and rejected as inappropriate. It is not necessary to impose cash bail on accused persons if they or their sureties have reasonably recoverable assets and are able to pledge those assets to the satisfaction of the court. A recognizance is functionally equivalent to cash bail and has the same coercive effect. Cash bail should be relied on only in exceptional circumstances in which release on a recognizance with sureties is unavailable. When cash bail is ordered, the amount must not be set so high that it effectively amounts to a detention order, which means that the amount should be no higher than necessary to satisfy the concern that would otherwise warrant detention and proportionate to the means of the accused and the circumstances of the case. The judge is under a positive obligation to inquire into the ability of the accused to pay. Terms of release under s. 515(4) should only be imposed to the extent that they are necessary to address concerns related to the statutory criteria for detention and to ensure that the accused is released. They must not be imposed to change an accused person’s behaviour or to punish an accused person. Where a bail review is requested, courts must follow the bail review process set out in R. v. St‑Cloud, 2015 SCC 27, [2015] 2 S.C.R. 328.
+ In the instant case, [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec2] s. 515(2) (e) of the [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en] Criminal Code did not have the effect of denying A bail — it was the bail review judge’s application of the bail provisions that did so. The bail review judge committed two errors in fashioning A’s release order. First, by requiring a cash deposit with a surety, one of the most onerous forms of release, he failed to adhere to the ladder principle. Even though A had offered a surety with a monetary pledge, the bail review judge was fixated on and insisted on a cash deposit because he believed the erroneous assumption that cash is more coercive than a pledge. Second, the bail review judge erred in making his decision on the basis of speculation as to whether A might believe that forfeiture proceedings would not be taken against his elderly grandmother if he breached his bail terms. A judge cannot impose a more onerous form of release solely because he or she speculates that the accused will not believe in the enforceability of a surety or a pledge. Parliament expressly authorized the possibility of an accused being released on entering into a recognizance with sureties in the place of cash bail, and judges should not undermine the bail scheme by speculating, contrary to any evidence and to Parliament’s intent, that requiring cash will be more effective.
+ Given that s. 515(2)(e) did not have the effect of denying A bail, it cannot be concluded that this provision denies him bail without just cause. Thus, the first aspect of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] s. 11( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] e [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] ) [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter right is not triggered. As to the second aspect of the s. 11(e) right, it does not need to be addressed because, properly interpreted, s. 515(2)(e) does not apply to A and cannot therefore authorize an unreasonable form of release in his case. Had the bail review judge applied the bail provisions properly, A could have been granted reasonable bail. Accordingly, the bail review judge’s declaration of unconstitutionality should be reversed and the cash‑plus‑surety release ordered should be replaced with a cash‑only release under s. 515(2)(d) on the same terms as those previously imposed, since A has already posted the cash deposit.
+ Cases Cited
+ Referred to: R. v. Smith, 2003 SKCA 8, 171 C.C.C. (3d) 383; R. v. Hall, 2002 SCC 64, [2002] 3 S.C.R. 309; R. v. St‑Cloud, 2015 SCC 27, [2015] 2 S.C.R. 328; R. v. Anoussis, 2008 QCCQ 8100, 242 C.C.C. (3d) 113; R. v. Pearson, [1992] 3 S.C.R. 665; R. v. Morales, [1992] 3 S.C.R. 711; Canada (Minister of Justice) v. Mirza, 2009 ONCA 732, 248 C.C.C. (3d) 1; United States of America v. Robertson, 2013 BCCA 284, 339 B.C.A.C. 199; R. v. Garrington, [1973] 1 O.R. 370; R. v. Brost, 2012 ABQB 696, 552 A.R. 140; R. v. Saunter, 2006 ABQB 808; R. v. Rowan, 2011 ONSC 7362; R. v. Folkes, 2007 ABQB 624, 430 A.R. 266; Ell v. Alberta, 2003 SCC 35, [2003] 1 S.C.R. 857; R. v. Oakes, [1986] 1 S.C.R. 103; Re Keenan and The Queen (1979), 57 C.C.C. (2d) 267; R. v. Brown (1974), 21 C.C.C. (2d) 575; R. v. D.A., 2014 ONSC 2166, [2014] O.J. No. 2059 (QL); R. v. G. (C.A.), 2014 ABQB 119, 306 C.R.R. (2d) 288; R. v. Omeasoo, 2013 ABPC 328; 576 A.R. 357; R. v. Patko, 2005 BCCA 183, 197 C.C.C. (3d) 192.
+ Statutes and Regulations Cited
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Act respecting the duties of Justices of the Peace, out of Sessions, in relation to persons charged with Indictable Offences, S.C. 1869, c. 30.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Bail Reform Act, S.C. 1970‑71‑72, c. 37.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Bill of Rights (Eng.), 1688, 1 Will. & Mar. 2, c. 2.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">[LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] Canadian Charter of Rights and Freedoms [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] , s. 11( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] e [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] ) .
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">[LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec469] Criminal Code [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec469] , R.S.C. 1985, c. C‑46, ss. 469 , [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec1] 515(1) , [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec2] (2) , [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec3] (3) , [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec4] (4) , [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec6] (6) , [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec10] (10) ,[LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec520] 520 .
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Criminal Code, S.C. 1953‑54, c. 51, ss. 451, 463(3).
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:26.95pt;text-indent:-26.95pt;line-height:normal">Statutes of Westminster, The First (Eng.), 1275, 3 Edw. 1, c. 15.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:27.0pt;text-indent:-27.0pt;line-height:normal">[LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec40subsec1] Supreme Court Act [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec40subsec1] , R.S.C. 1985, c. S‑26, s. 40(1) .
+ Authors Cited
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.0pt;text-indent:-27.0pt;line-height:normal">Canada. Canadian Committee on Corrections. Report of the Canadian Committee on Corrections — Toward Unity: Criminal Justice and Corrections. Ottawa: Queen’s Printer, 1969 [Ouimet Report].
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.0pt;text-indent:-27.0pt;line-height:normal">Canada. House of Commons. House of Commons Debates, vol. III, 3rd Sess., 28th Parl., February 5, 1971, p. 3118.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.0pt;text-indent:-27.0pt;line-height:normal">Canadian Civil Liberties Association and Education Trust. Set Up to Fail: Bail and the Revolving Door of Pre‑trial Detention, by Abby Deshman and Nicole Myers, 2014 (online: https://ccla.org/cclanewsite/wp-content/uploads/2015/02/Set-up-to-fail-FINAL.pdf; archived version: [LINK http://www.scc-csc.ca/cso-dce/2017SCC-CSC27_1_eng.pdf] http://www.scc-csc.ca/cso-dce/2017SCC-CSC27_1_eng.pdf).
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.0pt;text-indent:-27.0pt;line-height:normal">Friedland, Martin L. Detention before Trial: A Study of Criminal Cases Tried in the Toronto Magistrates’ Courts. Toronto: University of Toronto Press, 1965.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.0pt;text-indent:-27.0pt;line-height:normal">Friedland, Martin L. “The Bail Reform Act Revisited” (2012), 16 Can. Crim. L.R. 315.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.0pt;text-indent:-27.0pt;line-height:normal">Irving, Nancy L. Alberta Bail Review: Endorsing a Call for Change, 2016 (online: https://open.alberta.ca/dataset/2532e913-c5c6-4316-842d-b1cf39217994/resource/4c134128-7c59-4057-8fdd-dbd0ce0a9ae8/download/AlbertaBailReview-REPORT.pdf; archived version: [LINK http://www.scc-csc.ca/cso-dce/2017SCC-CSC27_2_eng.pdf] http://www.scc-csc.ca/cso-dce/2017SCC-CSC27_2_eng.pdf).
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.0pt;text-indent:-27.0pt;line-height:normal">Roach, Kent. “A Charter Reality Check: How Relevant Is the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter to the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Justness of Our Criminal Justice System ?” (2008), 40 S.C.L.R. (2d) 717.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:27.0pt;text-indent:-27.0pt;line-height:normal">Trotter, Gary T. The Law of Bail in Canada, 3rd ed. Toronto: Carswell, 2010 (loose‑leaf updated 2016, release 1).
+ APPEAL from a decision of the Ontario Superior Court of Justice (Munroe J.), 2015 ONSC 6593, declaring [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec2] s. 515(2) (e) of the [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en] Criminal Code unconstitutional and granting the accused judicial interim release. Appeal allowed.
+ Nick Devlin and Amber Pashuk, for the appellant.
+ No one appeared for the respondent. 
+ Jonathan Shime, for the intervener the Canadian Civil Liberties Association.
+ John Norris and Chris Sewrattan, for the intervener the Criminal Lawyers’ Association (Ontario).
+ Vincenzo Rondinelli, as amicus curiae.
+ <p class="MsoNormal" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in;text-indent:58.3pt;line-height:200%">The judgment of the Court was delivered by
+ Wagner J. —
+ <span style="text-decoration:
+none">I. Overview
+ [1] The right not to be denied reasonable bail without just cause is an essential element of an enlightened criminal justice system. It entrenches the effect of the presumption of innocence at the pre-trial stage of the criminal trial process and safeguards the liberty of accused persons. This case requires the Court to clarify important aspects of the law of bail, specifically, when a judge or a justice of the peace can impose a cash deposit on an accused as a condition of release.
+ [2] At issue are the interpretation and the constitutionality of [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec2] s. 515(2) (e) of the [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en] Criminal Code [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en] , R.S.C. 1985, c. C-46 , which authorizes one form of pre-trial release. Section 515(2)(e) permits a judge or a justice to require both a cash deposit and surety supervision[LINK #_ftn1] <span style="font-size:
+12.0pt;font-family:"Times New Roman","serif"">[1] as conditions of release if an accused ordinarily resides out of the province or more than 200 km away from the place in which he or she is in custody. But this form of combined “cash-plus-surety” release is not available to accused persons who do not meet these geographic criteria.
+ [3] The judge who heard the bail review application in this case (“bail review judge”) held that s. 515(2)(e) violates the right not to be denied reasonable bail without just cause under [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] s. 11( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] e [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] ) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Canadian Charter of Rights and Freedoms because it had the effect of denying bail to the respondent, Kevin Antic. The bail review judge erred in coming to this conclusion. Section 515(2)(e) did not have the effect of denying Mr. Antic bail ― it was the bail review judge’s misapplication of the bail provisions that did so.
+ [4] The “ladder principle”, which is codified in s. 515(3) of the Code, requires a justice or a judge to impose the least onerous form of release on an accused unless the Crown shows why that should not be the case. The bail review judge failed to adhere to this central principle. He erred by requiring a cash deposit with a surety, one of the most onerous forms of release, even though Mr. Antic had offered a surety with a monetary pledge (known in the Code as a recognizance[LINK #_ftn2] <span style="font-size:
+12.0pt;font-family:"Times New Roman","serif"">[2]). A cash deposit and a monetary pledge both give an accused the same financial incentive to abide by his or her release order. Neither is more coercive than the other. But requiring cash can be unfair, as it makes an accused person’s release contingent on his or her access to funds. Thus, cash bail is merely a limited alternative to a pledge that should not be imposed where accused persons or their sureties have reasonably recoverable assets[LINK #_ftn3] <span style="font-size:
+12.0pt;font-family:"Times New Roman","serif"">[3] to pledge. 
+ [5] I would allow the appeal. Mr. Antic had offered to provide sureties with a monetary pledge. He could have been released without a cash deposit. Therefore, there is no need to address the question whether s. 515(2)(e) violates s. 11(e).
+ [6] Yet the concerns raised in this case extend beyond the provision at issue. The bail review judge’s reasons appear to be illustrative of how the bail provisions are being applied inconsistently across the country. While the bail hearing is admittedly an expedited procedure, the bail provisions are federal law and must be applied consistently in all provinces and territories. This case affords an opportunity to determine the proper approach to applying those provisions, one that is consistent with the right not to be denied reasonable bail without just cause under s. 11(e) and with the presumption of innocence. 
+ <span style="text-decoration:
+none">II. Relevant Provisions
+ [7] [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] Section 11( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] e [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] ) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter reads as follows:
+ 11. Any person charged with an offence has the right 
+ . . .
+ (e) not to be denied reasonable bail without just cause;
+ [8] And the relevant portions of s. 515 of the Code read as follows:
+ 515 (1) Subject to this section, where an accused who is charged with an offence other than an offence listed in section 469 is taken before a justice, the justice shall, unless a plea of guilty by the accused is accepted, order, in respect of that offence, that the accused be released on his giving an undertaking without conditions, unless the prosecutor, having been given a reasonable opportunity to do so, shows cause, in respect of that offence, why the detention of the accused in custody is justified or why an order under any other provision of this section should be made and where the justice makes an order under any other provision of this section, the order shall refer only to the particular offence for which the accused was taken before the justice.
+ (2) Where the justice does not make an order under subsection (1), he shall, unless the prosecutor shows cause why the detention of the accused is justified, order that the accused be released
+ (a) on his giving an undertaking with such conditions as the justice directs;
+ (b) on his entering into a recognizance before the justice, without sureties, in such amount and with such conditions, if any, as the justice directs but without deposit of money or other valuable security;
+ (c) on his entering into a recognizance before the justice with sureties in such amount and with such conditions, if any, as the justice directs but without deposit of money or other valuable security;
+ (d) with the consent of the prosecutor, on his entering into a recognizance before the justice, without sureties, in such amount and with such conditions, if any, as the justice directs and on his depositing with the justice such sum of money or other valuable security as the justice directs; or
+ (e) if the accused is not ordinarily resident in the province in which the accused is in custody or does not ordinarily reside within two hundred kilometres of the place in which he is in custody, on his entering into a recognizance before the justice with or without sureties in such amount and with such conditions, if any, as the justice directs, and on his depositing with the justice such sum of money or other valuable security as the justice directs.
+ . . .
+ (3) The justice shall not make an order under any of paragraphs (2)(b) to (e) unless the prosecution shows cause why an order under the immediately preceding paragraph should not be made.
+ (4) The justice may direct as conditions under subsection (2) that the accused shall do any one or more of the following things as specified in the order:
+ (a) report at times to be stated in the order to a peace officer or other person designated in the order;
+ (b) remain within a territorial jurisdiction specified in the order;
+ (c) notify the peace officer or other person designated under paragraph (a) of any change in his address or his employment or occupation;
+ (d) abstain from communicating, directly or indirectly, with any victim, witness or other person identified in the order, or refrain from going to any place specified in the order, except in accordance with the conditions specified in the order that the justice considers necessary;
+ (e) where the accused is the holder of a passport, deposit his passport as specified in the order;
+ (e.1) comply with any other condition specified in the order that the justice considers necessary to ensure the safety and security of any victim of or witness to the offence; and
+ (f) comply with such other reasonable conditions specified in the order as the justice considers desirable.
+ <span style="text-decoration:
+none">III. Background and Judicial History
+ [9] Mr. Antic was arrested in Windsor, Ontario, and charged with several drug and firearms offences. He is an Ontario resident, but he spends much of his time in the state of Michigan and has no assets in Canada. Mr. Antic’s initial bail hearing occurred after he was arrested.
+ A. Ontario Court of Justice (Justice of the Peace Renaud), No. C57727, June 30, 2015
+ [10] At the bail hearing, the justice of the peace denied Mr. Antic’s release. Because Mr. Antic was charged with drug trafficking, the presumption in favour of pre-trial release did not apply and he bore the burden of justifying his release (Code, s. 515(6)). The justice concluded that having Mr. Antic’s girlfriend supervise him as a surety would address any safety concerns. However, because Mr. Antic had no significant ties to the local community, the justice found that his release plan did not adequately address the substantial flight risk he posed. 
+ B. Ontario Superior Court of Justice (Munroe J.), No. CR-15-3408, July 17, 2015
+ [11] Mr. Antic sought a review of the detention order under s. 520 of the Code. He offered a pledge or a deposit of money as well as two additional sureties (his father and his grandmother) to satisfy the flight risk concerns.
+ [12] The bail review judge rejected the new release plan and declined to vacate the detention order. He insisted on a cash deposit because he was worried that Mr. Antic could abscond if what was at stake was “a mere pledge” of $10,000 from his grandmother. The bail review judge speculated that Mr. Antic would assume that if he breached his bail conditions, the government would not seize his elderly grandmother’s house. The bail review judge did not consider Mr. Antic’s girlfriend as a potential surety even though she was available at that time.
+ [13] The bail review judge wrote that he would have released Mr. Antic if he could have imposed both a surety and a cash deposit as release conditions in order to satisfy the flight risk and safety concerns. However, s. 515(2)(e) of the Code permits a cash-plus-surety release only if the accused is from out of the province or does not ordinarily reside within 200 km of the place in which he or she is in custody. As an Ontario resident living within 200 km of the place in which he was detained, Mr. Antic did not qualify for this.
+ C. Ontario Superior Court of Justice (Munroe J.), No. CR-15-3429, August 28, 2015
+ [14] In his second bail review application, Mr. Antic argued that the following new facts justified his release: (i) he had pleaded guilty to the drug trafficking charges and had been sentenced to a short term in jail (which he had already served in pre-trial custody); (ii) the handgun found under his bed had been misclassified as a 40 calibre weapon; (iii) his co-accused had been released on bail; and (iv) there was a potential for delay in obtaining a date for a preliminary inquiry on the remaining charges he faced.
+ [15] The bail review judge disagreed. He was still concerned that Mr. Antic would abscond regardless of these changed circumstances.
+ D. Ontario Superior Court of Justice (Munroe J.), 2015 ONSC 6593, October 23, 2015
+ [16] Mr. Antic sought a third bail review, this time challenging the constitutionality of s. 515(2)(e).
+ [17] The bail review judge found that s. 515(2)(e) violates the right not to be denied reasonable bail without just cause under [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] s. 11( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] e [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] ) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . He held that the only viable conditions of release for Mr. Antic would be a large cash deposit and surety supervision. However, the geographical limitation in s. 515(2)(e) prevented him from granting bail on these terms. The bail review judge thus concluded that the geographical restriction unconstitutionally denied Mr. Antic bail. He severed and struck down the geographical limitation in s. 515(2)(e). He then ordered Mr. Antic’s release with a surety and a cash deposit of $100,000.
+ [18] This Court granted the Crown leave to appeal the bail review judge’s decision, as the Crown has no right to appeal a bail review decision made under s. 520 to the provincial court of appeal: R. v. Smith, 2003 SKCA 8, 171 C.C.C. (3d) 383, at para. 25; [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec40subsec1] Supreme Court Act [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec40subsec1] , R.S.C. 1985, c. S-26, s. 40(1) . 
+ [19] After over a year in pre-trial custody, Mr. Antic raised sufficient funds to post the $100,000 cash deposit and was released on July 15, 2016.
+ <span style="text-decoration:
+none">IV. Issue
+ [20] Does [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en#!fragment/sec515subsec2] s. 515(2) (e) of the [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en] Criminal Code infringe the right not to be denied reasonable bail without just cause under [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] s. 11( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] e [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] ) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter ?
+ <span style="text-decoration:
+none">V. Analysis
+ A. Concept and History of Bail
+ [21] When someone is charged with a crime, the Code and the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter typically require that the accused be released from detention before trial on what is known as “bail”. Although release is the default position in most cases, a judge or a justice also has the authority to deny the release of an accused or to impose conditions on the accused when he or she is released, provided that the Crown justifies the detention or the conditions. The Code primarily utilizes the expression “judicial interim release” to refer to “bail”. In these reasons, I will use the terms “bail” and “pre-trial release” interchangeably in referring to this concept.
+ [22] The concept of bail traces back to English antiquity. Early codifications of the law of bail include the Statutes of Westminster, The First (Eng.) 1275, 3 Edw. 1, c. 15, which structured the terms under which judges could grant bail, and The Bill of Rights (Eng.), 1688, 1 Will. & Mar. 2, c. 2, which prohibited excessive bail conditions. By the 1800s, the sole purpose of the law of bail in England was to ensure that accused persons who were released on bail would attend their trials: G. T. Trotter, The Law of Bail in Canada (3rd ed. (loose-leaf)), at p. 1-6.
+ [23] Bail has deep historical roots in Canada as well. Canadian law reflected the English law of bail until Parliament enacted legislation in 1869 that made bail discretionary for all offences: see An Act respecting the duties of Justices of the Peace, out of Sessions, in relation to persons charged with Indictable Offences, S.C. 1869, c. 30; R. v. Hall, 2002 SCC 64, [2002] 3 S.C.R. 309, at para. 14; R. v. St-Cloud, 2015 SCC 27, [2015] 2 S.C.R. 328, at para. 26. In dissenting reasons in Hall, Iacobucci J. explained that older versions of the Code had provided justices, judges and magistrates with no real guidance on bail:
+ Before 1972, the law of bail was a highly discretionary matter. It was presumed that an accused person would be detained prior to trial unless he or she applied for bail under s. 463(1) of the Criminal Code, S.C. 1953-54, c. 51 (as amended by S.C. 1960-61, c. 43, s. 16), and s. 463(3) gave virtually no guidance to the bail judge charged with determining whether to detain an accused committed for trial . . . . [para. 56]
+ [24] The provisions of the pre-1972 Code also gave no guidance on the imposition of release conditions. There were three forms of release: (a) release with sufficient sureties upon entering into a recognizance, (b) release upon making a cash deposit, and (c) release upon entering into a recognizance without a deposit: S.C. 1953-54, c. 51, ss. 451 and 463(3). These forms of release were not ranked in any way, which meant that a justice, a judge or a magistrate could impose any of them in any given case.
+ [25] Pioneering work by Professor Martin L. Friedland and by the Canadian Committee on Corrections sparked a significant reform of the bail system. Professor Friedland’s study, Detention before Trial, specifically examined the practice of bail courts in Toronto: M. L. Friedland, Detention before Trial: A Study of Criminal Cases Tried in the Toronto Magistrates’ Courts (1965). The Canadian Committee on Corrections, established in 1965 by Order-in-Council, examined more broadly the Canadian criminal process and correctional system, including the law of bail. It delivered its recommendations in a report that is now known as the Ouimet Report (after the Committee’s chairman, Justice Roger Ouimet of the Quebec Superior Court): Report of the Canadian Committee on Corrections ― Toward Unity: Criminal Justice and Corrections (1969). 
+ [26] Both Professor Friedland and the authors of the Ouimet Report recognized that the bail system’s overreliance on cash bail limited the possibility of release for many accused persons. Professor Friedland observed that there was an “undue preoccupation with [bail’s] monetary aspects”: Friedland, Detention before Trial, at p. 176. Generally, magistrates required accused persons to deposit cash before they would release them. This led to an unconscionable result: “. . . the ability of the accused to marshall funds or property in advance” determined whether he or she would be released (ibid., at p. 176).
+ [27] Professor Friedland also mentioned some of the practical challenges involved in setting the quantum of a cash deposit, as well as the unfairness it produced:
+ A system which requires security in advance often produces an insoluble dilemma. In most cases it is impossible to pick a figure which is high enough to ensure the accused’s appearance in court and yet low enough for him to raise: the two seldom, if ever, overlap. [ibid., at p. 176]
+ [28] The 1972 Bail Reform Act, S.C. 1970-71-72, c. 37, was an attempt to address these concerns by placing strict limits on cash bail. Then Justice Minister John Turner, speaking in the House of Commons, recognized that requiring cash in advance to secure pre-trial release could operate “harshly against poor people”. He stated that “cash bail in this bill is only a last resort” and that the bill was intended to limit cash bail to circumstances in which “the alleged offender was not ordinarily resident in the community where he was in custody”: House of Commons Debates, vol. III, 3rd Sess., 28th Parl., February 5, 1971, at p. 3118.
+ [29] The Bail Reform Act also codified what is now known as the “ladder principle”. This Act set out possible forms of release, which were ordered from the least to the most onerous. The ladder principle generally requires that a justice not order a more onerous form of release unless the Crown shows why a less onerous form is inappropriate. In other words, the ladder principle means “that release is favoured at the earliest reasonable opportunity and . . . on the least onerous grounds”: R. v. Anoussis, 2008 QCCQ 8100, 242 C.C.C. (3d) 113, at para. 23, per Healy J.C.Q. (as he then was).
+ [30] The ladder principle and the authorized forms of release remain a central part of the Canadian law of bail and are now enumerated in s. 515(1) to (3) of the Code. In the Code, the possibility of requiring a cash deposit is limited to the two most onerous forms of release: s. 515(2)(d) and (e).
+ [31] In 1982, the enactment of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter transformed the statutory right to bail into a constitutional right: R. v. Pearson, [1992] 3 S.C.R. 665, at p. 691. I will now examine the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter right not to be denied reasonable bail without just cause more closely.
+ B. Interpretation of [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] Section 11(e) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter 
+ [32] [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] Section 11( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] e [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] ) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter states: “Any person charged with an offence has the right . . . not to be denied reasonable bail without just cause”. This right creates “a basic entitlement to be granted reasonable bail unless there is just cause to do otherwise”: Pearson, at p. 691. 
+ [33] Before proceeding, I must mention that the expression “just cause” is used in two senses in the bail context. First, as used in [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] s. 11( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] e [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] ) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter , “just cause” relates to the circumstances in which denying bail is constitutional: an accused has a constitutional entitlement to be granted bail unless there is “just cause” to deny it.
+ [34] Second, the expression “just cause” is also commonly used to describe the statutory grounds that justify the pre-trial detention of an accused. These grounds, which are enumerated in s. 515(10) of the Code, are flight risk, public safety and public confidence in the administration of justice. In most cases, it is presumed that the accused should be released, and he or she will not be detained unless the Crown can show on the basis of these statutory criteria that detention is warranted.
+ [35] In these reasons, I will use the expression “just cause” only in the constitutional sense. To avoid confusion, I will refer to the grounds under the Code as the “statutory criteria for detention”.
+ [36] This Court first interpreted the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter right to bail in Pearson and in R. v. Morales, [1992] 3 S.C.R. 711. In Pearson, Lamer C.J. observed that the word “bail” in the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter must be interpreted broadly and include “all forms of what is formally known under the [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-c-46-en] Criminal Code as ‘judicial interim release’”: Pearson, at p. 690. He noted that the right under s. 11(e) has two aspects, (1) the right not to be denied bail without “just cause” and (2) the right to “reasonable bail”: Pearson, at p. 689.
+ [37] In Pearson and Morales, the Court considered the meaning of the first aspect of this right, that is, the right not to be denied bail without “just cause”. This aspect “imposes constitutional standards on the grounds under which bail is granted or denied”: Pearson, at p. 689; see also Morales, at p. 735. The “reasonable bail” aspect, on the other hand, concerns the terms and conditions of release: ibid. 
+ [38] I will briefly summarize Lamer C.J.’s discussion on this two-part right, after which I will consider the provision at issue in the case at bar.
+ (1) Right Not to Be Denied Bail Without “Just Cause”
+ [39] A statutory provision that allows for the pre-trial detention of an accused triggers the protection of s. 11(e). For example, the Court held in Pearson that s. 515(6)(d) of the Code constitutes a denial of bail under s. 11(e) because it puts the onus on an accused to justify pre-trial release if he or she is charged with certain offences. Since this reverse onus amounts to a presumption in favour of detention, “there is a departure from the basic entitlement to bail [that] is sufficient to conclude that there is a denial of bail for the purposes of s. 11(e)”: p. 693.
+ [40] A provision may not deny bail without “just cause”. The right not to be denied bail without just cause imposes a constitutional standard that must be met for the denial of bail to be valid. Lamer C.J. held that there is just cause to deny bail only if the denial (1) occurs in a “narrow set of circumstances” and (2) the denial of bail “is necessary to promote the proper functioning of the bail system and is not undertaken for any purpose extraneous to the bail system”: Pearson, at p. 693; see also Morales, at p. 737; Hall, at para. 16.
+ (2) Right to “Reasonable Bail”
+ [41] In contrast to the first aspect of the s. 11(e) right, the right to reasonable bail relates to the terms of bail, including the “quantum of any monetary component and other . . . restrictions” that are imposed on the accused for the release period: Hall, at para. 16. The right not to be denied reasonable bail without just cause protects accused persons from conditions and forms of release that are unreasonable. The French version of s. 11(e) bears this out: a person charged with an offence has the right to a release “assortie d’un cautionnement raisonnable” (“in conjunction with reasonable bail”).
+ [42] It must be borne in mind that s. 515(2) of the Code establishes the only legal forms of pre-trial release, such as a surety release or release with a recognizance. But it is the justice or judge who ultimately decides which form of release to order in a given case, and he or she also has discretion under s. 515(4) of the Code to impose terms that are specific to the circumstances of the accused. Both a legislated form of release and the specific terms of release ordered by a justice or a judge can be unreasonable and, as a result, unconstitutional.
+ C. Provision at Issue: Section 515(2)(e)
+ [43] On the basis of these constitutional principles, I will begin by discussing the proper interpretation of the challenged provision, s. 515(2)(e) of the Code, and the scheme governing the forms of release. I will then explain why I do not need to address [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] s. 11( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] e [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec11] ) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . 
+ (1) Proper Interpretation of Section 515(2)(e) and the Scheme Governing the Forms of Release
+ [44] To interpret s. 515(2)(e), it is first necessary to understand the ladder principle. As I explained above, the ladder principle requires that the form of release imposed on an accused be no more onerous than necessary. This principle is set out in s. 515(1) to (3) of the Code. Although these provisions are more strictly applicable in a contested bail hearing, they also provide the legal backdrop that should guide plans of release to which the parties consent.
+ [45] Section 515(1) requires that, where an accused is charged with an offence other than the ones listed in s. 469 of the Code, “the accused be released on his giving an undertaking without conditions”. However, s. 515(1) affords the prosecutor an opportunity to show why the accused should either be detained or be released under more onerous forms of release. The Code also requires that accused persons charged with any of the offences listed in s. 515(6) be detained unless they justify their release. 
+ [46] Aside from the release of an accused under s. 515(1) on his or her giving an undertaking without conditions, s. 515(2) sets out the other permissible forms of pre-trial release:
+ (2) Where the justice does not make an order under subsection (1), he shall, unless the prosecutor shows cause why the detention of the accused is justified, order that the accused be released
+ (a) on his giving an undertaking with such conditions as the justice directs;
+ (b) on his entering into a recognizance before the justice, without sureties, in such amount and with such conditions, if any, as the justice directs but without deposit of money or other valuable security;
+ (c) on his entering into a recognizance before the justice with sureties in such amount and with such conditions, if any, as the justice directs but without deposit of money or other valuable security;
+ (d) with the consent of the prosecutor, on his entering into a recognizance before the justice, without sureties, in such amount and with such conditions, if any, as the justice directs and on his depositing with the justice such sum of money or other valuable security as the justice directs; or
+ (e) if the accused is not ordinarily resident in the province in which the accused is in custody or does not ordinarily reside within two hundred kilometres of the place in which he is in custody, on his entering into a recognizance before the justice with or without sureties in such amount and with such conditions, if any, as the justice directs, and on his depositing with the justice such sum of money or other valuable security as the justice directs.
+ Each provision, moving from s. 515(2)(a) to s. 515(2)(e), involves more burdensome conditions of release for the accused than the one before it. These forms of release, coupled with the specific release terms a justice or a judge may impose under s. 515(4), have significant potential to impinge on an accused person’s liberty.
+ [47] The ladder principle is codified in s. 515(3), which prohibits a justice or a judge from imposing a more onerous form of release unless the Crown shows why a less onerous form is inappropriate: “The justice shall not make an order under any of paragraphs (2)(b) to (e) unless the prosecution shows cause why an order under the immediately preceding paragraph should not be made.”
+ [48] Parliament included cash in the most onerous “rungs” of the ladder for added flexibility, not because cash is more effective than other release conditions in ensuring compliance with bail terms. A recognizance creates the same financial incentive for the accused to comply with the terms of release as does a cash deposit. One does not mitigate the flight or safety risk posed by an accused person more effectively than the other: Anoussis, at para. 22.[LINK #_ftn4] [4] The central purpose of the Bail Reform Act was to avoid the harsh effects on accused persons of requiring cash deposits where other avenues of release are available. As the authors of the Ouimet Report recognized, cash bail provides added flexibility by offering an alternative form of release where a meaningful recognizance cannot be given and a surety cannot be obtained: pp. 106-7. 
+ [49] Therefore, where a monetary condition of release is necessary and a satisfactory personal recognizance or recognizance with sureties can be obtained, a justice or a judge cannot impose cash bail. A pledge and a deposit perform the same function: the accused or the surety may lose his or her money if the accused person breaches the terms of bail. Release with a pledge of money thus has the same coercive power as release with a cash deposit.
+ (2) Proper Application of Section 515(2)(e) and the Scheme Governing the Forms of Release
+ [50] With these interpretive principles in mind, I will now turn to the bail review decision at issue in this appeal. Mr. Antic’s show cause hearing and bail reviews were contested. Mr. Antic bore the onus of establishing why the detention order should be vacated. However, once Mr. Antic had satisfied the bail review judge that new circumstances justified his vacating the order, the ladder principle ought to have guided the judge in fashioning a release order. Although Mr. Antic had been charged with drug trafficking, which had reversed the onus at the initial bail hearing, he had pleaded guilty to these charges by the time of his second bail review hearing. He was therefore not in a reverse onus position at that time.
+ [51] No party disputes that Mr. Antic posed a flight risk and a safety risk, but the bail review judge committed two errors in fashioning Mr. Antic’s release order. 
+ [52] First, the bail review judge failed to apply the ladder principle properly. Although he purported to apply it, he erred by insisting on cash despite the existence of other forms of release. The bail review judge was fixated on a cash deposit because he believed the erroneous assumption that cash is more coercive than a pledge. But, as I explained above, a recognizance is functionally equivalent to cash bail and has the same coercive effect. The bail review judge should not have insisted on a cash deposit where the accused could have entered into a recognizance with a surety (the effect of which is that the surety joins in acknowledging the debt to the Crown).
+ [53] The bail review judge’s second error may in fact have influenced the first. He expressed concern that the “pull of bail” would not be strong enough without a cash deposit. Because the proposed surety was an elderly woman, the bail review judge was concerned that Mr. Antic might believe that a forfeiture proceeding would not be taken against her if he breached his bail terms.
+ [54] The bail review judge erred in making his decision on the basis of such conjecture. A justice or a judge cannot impose a more onerous form of release solely because he or she speculates that the accused will not believe in the enforceability of a surety or a pledge. The bail system is based on the promises to attend court made by accused persons and on their belief in the consequences that will follow if such promises are broken. As Rosenberg J.A. rightly observed, “if accused came to believe that they could fail to attend court without their sureties suffering any penalty, the surety system would be ineffective”: Canada (Minister of Justice) v. Mirza, 2009 ONCA 732, 248 C.C.C. (3d) 1, at para. 41.
+ [55] Parliament expressly authorized the possibility of an accused being released on entering into a recognizance with sureties in the place of cash bail. Justices and judges should not undermine the bail scheme by speculating, contrary to any evidence and to Parliament’s intent, that requiring cash will be more effective.
+ [56] Additionally, it now appears obvious that the quantum of the cash deposit set by the bail review judge was beyond the readily available means of the accused and his sureties. Courts have long held that it is impermissible to “fix the amount of a surety or cash deposit so high as to effectively constitute a detention order”, which means that the amount should not be beyond the readily available means of the accused and his or her sureties: United States of America v. Robertson, 2013 BCCA 284, 339 B.C.A.C. 199, at para. 22, citing R. v. Garrington, [1973] 1 O.R. 370 (H.C.J.), at p. 379. As a result, a justice or a judge setting bail is under a positive obligation “to make inquiries into the ability of the accused to pay”: R. v. Brost, 2012 ABQB 696, 552 A.R. 140, at para. 40, citing R. v. Saunter, 2006 ABQB 808, at para. 17 (CanLII). At the same time, the amount must be no higher than necessary to satisfy the concern that would otherwise warrant detention.
+ [57] Even though Mr. Antic testified that he had no assets in Canada and the proposed sureties testified that they did not have ready access to large sums of cash, the bail review judge set his cash bail at $100,000. Unsurprisingly, it took Mr. Antic many months in custody to raise the money needed to satisfy this release condition. Not only was the bail review judge’s reliance on cash bail unreasonable in that he did not correctly apply the ladder principle, but the quantum he chose also became Mr. Antic’s “de facto prison”, which is a sign that the amount may have been set too high.
+ [58] Parliament limited cash bail for good reason. All the parties and interveners recognized that cash bail can operate unfairly. This is consistent with the findings of Professor Friedland’s study and of the Ouimet Report. To interpret s. 515(2)(e) and the scheme governing the forms of release in a way that readily allows for increased resort to cash bail would be contrary to the intent of the Bail Reform Act and inconsistent with the right not to be denied reasonable bail without just cause enshrined in the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter .
+ [59] As this case illustrates, requiring cash as a condition of release has the potential to result in increased incarceration of accused persons. Cash bail does not give impecunious persons greater access to bail. Rather, requiring a cash deposit will often prevent an accused person from being released, as it did for many months in Mr. Antic’s case. Professor Friedland observed in his study that a majority of accused persons who were required to deposit security as a condition of release were unable to raise the necessary funds: Detention before Trial, at pp. 130 and 176. An accused person’s release should not be contingent on his or her ability “to marshall funds or property in advance”: ibid., at p. 176.
+ [60] Had the bail review judge applied the bail provisions properly, Mr. Antic could have been granted reasonable bail. Mr. Antic had suitable sureties and his sureties had available assets, but the judge’s insistence on cash bail led him to err. The bail review judge’s decision should be reversed.
+ (3) Does Section 515(2)(e) Violate the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter ?
+ [61] In this case, given that s. 515(2)(e) did not have the effect of denying Mr. Antic bail, I cannot conclude that it denies him bail without “just cause”. Thus, the first aspect of the s. 11(e) right not to be denied reasonable bail without just cause is not triggered.
+ [62] If section 515(2)(e) had imposed a geographical limit on a form of release that performs a function different than that of money, such as a surety, it may indeed have denied an accused bail without just cause. But that is not what is at issue in this case. As I explained above, release with a pledge is functionally the same as release with a cash deposit. The fact that cash bail was not an option in Mr. Antic’s case did not have the effect of denying him bail. Because the Crown had justified a monetary condition of release, Mr. Antic or his sureties should have been allowed to pledge money rather than being required to deposit money with the court. 
+ [63] Furthermore, I need not address the second aspect of the s. 11(e) right. Properly interpreted, s. 515(2)(e) does not apply to Mr. Antic and cannot therefore authorize an unreasonable form of release in his case. It is unnecessary to further elaborate on the meaning of reasonable bail. 
+ D. Proper Approach to Bail Moving Forward
+ [64] Settling the proper interpretation of s. 515(2)(e) and the scheme governing the forms of release does not resolve one concern that underlies this case. The bail review judge’s errors appear to be symptomatic of a widespread inconsistency in the law of bail. One commentator, Kent Roach, observes an element of incongruity in the bail system: “Although the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter speaks directly to bail, the bottom line so far has been that remand populations and denial of bail have increased dramatically in the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter era”: K. Roach, “A Charter Reality Check: How Relevant Is the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter to the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Justness of Our Criminal Justice System ?” (2008), 40 S.C.L.R. (2d) 717, at p. 727.
+ [65] Despite the fact that the Code applies uniformly across the country some have suggested that courts are applying the pre-trial forms of release differently in different provinces and territories. For instance, Rosenberg J.A., writing for a unanimous five-judge panel of the Court of Appeal for Ontario, recognized that “[t]here may now be an over reliance on sureties” in that province: Mirza, at para. 47; see also Canadian Civil Liberties Association and Education Trust, Set Up to Fail: Bail and the Revolving Door of Pre-trial Detention, by A. Deshman and N. Myers (2014) (online), at p. 36 (“CCLA Report”); M. L. Friedland, “The Bail Reform Act Revisited” (2012), 16 Can. Crim. L.R. 315, at p. 321; R. v. Rowan, 2011 ONSC 7362, at para. 16 (CanLII). Surety release may also be relied on heavily in Yukon: CCLA Report, at pp. 35-36. In Alberta, some judges and justices are improperly imposing cash bail without seeking the consent of the Crown even though doing so is prohibited by the Code: R. v. Folkes, 2007 ABQB 624, 430 A.R. 266, at paras. 2 and 13; Brost, at para. 32; N. L. Irving, Alberta Bail Review: Endorsing a Call for Change (2016) (online), at p. 20. These examples suggest a divergence in the law of bail across this country.
+ [66] It is time to ensure that the bail provisions are applied consistently and fairly. The stakes are too high for anything less. Pre-trial custody “affects the mental, social, and physical life of the accused and his family” and may also have a “substantial impact on the result of the trial itself”: Friedland, Detention before Trial, at p. 172, quoted in Ell v. Alberta, 2003 SCC 35, [2003] 1 S.C.R. 857, at para. 24; see also Hall, at para. 59. An accused is presumed innocent and must not find it necessary to plead guilty solely to secure his or her release, nor must an accused needlessly suffer on being released: CCLA Report, at p. 3. Courts must respect the presumption of innocence, “a hallowed principle lying at the very heart of criminal law. . . . [that] confirms our faith in humankind”: R. v. Oakes, [1986] 1 S.C.R. 103, at pp. 119-20.
+ [67] Therefore, the following principles and guidelines should be adhered to when applying the bail provisions in a contested hearing:
+ <p class="MsoListParagraphCxSpFirst" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:.5in;text-align:justify;text-indent:-.5in;
+line-height:200%">(a) Accused persons are constitutionally presumed innocent, and the corollary to the presumption of innocence is the constitutional right to bail.
+ <p class="MsoListParagraphCxSpMiddle" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:.5in;text-align:justify;text-indent:-.5in;
+line-height:200%">(b) Section 11(e) guarantees both the right not to be denied bail without just cause and the right to bail on reasonable terms.
+ <p class="MsoListParagraphCxSpMiddle" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:.5in;text-align:justify;text-indent:-.5in;
+line-height:200%">(c) Save for exceptions, an unconditional release on an undertaking is the default position when granting release: s. 515(1).
+ <p class="MsoListParagraphCxSpMiddle" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:.5in;text-align:justify;text-indent:-.5in;
+line-height:200%">(d) The ladder principle articulates the manner in which alternative forms of release are to be imposed. According to it, “release is favoured at the earliest reasonable opportunity and, having regard to the [statutory criteria for detention], on the least onerous grounds”: Anoussis, at para. 23. This principle must be adhered to strictly.
+ <p class="MsoListParagraphCxSpMiddle" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:.5in;text-align:justify;text-indent:-.5in;
+line-height:200%">(e) If the Crown proposes an alternative form of release, it must show why this form is necessary. The more restrictive the form of release, the greater the burden on the accused. Thus, a justice of the peace or a judge cannot impose a more restrictive form of release unless the Crown has shown it to be necessary having regard to the statutory criteria for detention.
+ <p class="MsoListParagraphCxSpMiddle" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:.5in;text-align:justify;text-indent:-.5in;
+line-height:200%">(f) Each rung of the ladder must be considered individually and must be rejected before moving to a more restrictive form of release. Where the parties disagree on the form of release, it is an error of law for a justice or a judge to order a more restrictive form of release without justifying the decision to reject the less onerous forms.
+ <p class="MsoListParagraphCxSpMiddle" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:.5in;text-align:justify;text-indent:-.5in;
+line-height:200%">(g) A recognizance with sureties is one of the most onerous forms of release. A surety should not be imposed unless all the less onerous forms of release have been considered and rejected as inappropriate.
+ <p class="MsoListParagraphCxSpMiddle" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:.5in;text-align:justify;text-indent:-.5in;
+line-height:200%">(h) It is not necessary to impose cash bail on accused persons if they or their sureties have reasonably recoverable assets and are able to pledge those assets to the satisfaction of the court to justify their release. A recognizance is functionally equivalent to cash bail and has the same coercive effect. Thus, under s. 515(2)(d) or s. 515(2)(e), cash bail should be relied on only in exceptional circumstances in which release on a recognizance with sureties is unavailable. 
+ <p class="MsoListParagraphCxSpMiddle" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:.5in;text-align:justify;text-indent:-.5in;
+line-height:200%">(i) When such exceptional circumstances exist and cash bail is ordered, the amount must not be set so high that it effectively amounts to a detention order, which means that the amount should not be beyond the readily available means of the accused and his or her sureties. As a corollary to this, the justice or judge is under a positive obligation, when setting the amount, to inquire into the ability of the accused to pay. The amount of cash bail must be no higher than necessary to satisfy the concern that would otherwise warrant detention and proportionate to the means of the accused and the circumstances of the case. 
+ <p class="MsoListParagraphCxSpMiddle" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:.5in;text-align:justify;text-indent:-.5in;
+line-height:200%">(j) Terms of release imposed under s. 515(4) may “only be imposed to the extent that they are necessary” to address concerns related to the statutory criteria for detention and to ensure that the accused can be released.[LINK #_ftn5] [5] They must not be imposed to change an accused person’s behaviour or to punish an accused person.
+ <p class="MsoListParagraphCxSpLast" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:.5in;text-align:justify;text-indent:-.5in;
+line-height:200%">(k) Where a bail review is applied for, the court must follow the bail review process set out in St-Cloud.
+ [68] Of course, it often happens that the Crown and the accused negotiate a plan of release and present it on consent. Consent release is an efficient method of achieving the release of an accused, and the principles and guidelines outlined above do not apply strictly to consent release plans. Although a justice or a judge should not routinely second-guess joint proposals by counsel, he or she does have the discretion to reject one. Joint proposals must be premised on the statutory criteria for detention and the legal framework for release. 
+ E. Remedy
+ [69] Given the bail review judge’s errors, I must reverse his declaration of unconstitutionality. Because Mr. Antic is ordinarily resident in the province of Ontario, his release order is no longer legal. Cash-plus-surety release is not available to local accused persons under s. 515(2)(e). This leaves Mr. Antic without a release order.
+ [70] At the hearing, the Crown consented to Mr. Antic’s release with only a cash deposit under s. 515(2)(d), which means that the money he has deposited would remain with the court. This would relieve Mr. Antic’s surety of her duties. 
+ [71] Given the Crown’s consent, I would order that Mr. Antic’s release order be replaced with one for his release under s. 515(2)(d). As I explained above, cash bail is generally inappropriate in a case such as this in which the accused has a surety and his surety has assets to pledge. But Mr. Antic is out on bail and does not need to be reincarcerated. Since he has already posted the cash deposit, the simplest way to keep Mr. Antic out of custody is to convert his form of release to cash-only bail. Although the quantum of bail may also be excessive, it would be inappropriate for this Court to vary the amount without the benefit of evidence from Mr. Antic and the Crown. The release order should retain the other conditions imposed by the bail review judge. Mr. Antic and the Crown retain the right to seek a variation of the release order. 
+ F. Disposition
+ [72] I would allow the appeal, reverse the declaration of unconstitutionality and replace the cash-plus-surety release ordered by the bail review judge with a cash-only release on the same terms as those that he imposed.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:24.0pt;margin-left:58.5pt">Appeal allowed.
+ Solicitor for the appellant: Public Prosecution Service of Canada, Toronto.
+ Solicitors for the intervener the Canadian Civil Liberties Association: Cooper, Sandler, Shime & Bergman, Toronto.
+ Solicitors for the intervener the Criminal Lawyers’ Association (Ontario): Simcoe Chambers, Toronto; Chris Sewrattan, Toronto.
+ [LINK #_ftnref1] [1] A surety is an individual who supervises the accused and ensures that the accused remains faithful to his or her pledge to the court to appear for trial: G. T. Trotter, The Law of Bail in Canada (3rd ed. (loose-leaf)), at p. 6-11.
+ [LINK #_ftnref2] [2] A recognizance is the “formal record of an acknowledgement of indebtedness to the Crown” that is usually nullified when the accused attends in court for trial: Trotter, at p. 6-11.
+ [LINK #_ftnref3] [3] By “reasonably recoverable assets”, I mean assets that could be recovered by the Crown by way of a forfeiture proceeding such that the risk for the accused of losing the assets is meaningful. Whether assets are reasonably recoverable is for the judge or the justice to determine.
+ [LINK #_ftnref4] [4] In fact, there is no evidence that a release with sureties results in greater compliance with bail terms than does a recognizance: Canadian Civil Liberties Association and Education Trust, Set Up to Fail: Bail and the Revolving Door of Pre-trial Detention, by A. Deshman and N. Myers (2014) (online), at p. 37 (“CCLA Report”).
+ [LINK #_ftnref5] [5] Trotter, at p. 6-4. See e.g. Re Keenan and The Queen (1979), 57 C.C.C. (2d) 267 (Que. C.A.); Anoussis, at para. 17; R. v. Brown (1974), 21 C.C.C. (2d) 575 (Ont. C.A.); R. v. D.A., 2014 ONSC 2166, [2014] O.J. No. 2059 (QL); R. v. G. (C.A.), 2014 ABQB 119, 306 C.R.R. (2d) 288, at para. 18; R. v. Omeasoo, 2013 ABPC 328, 576 A.R. 357, at para. 30; R. v. Patko, 2005 BCCA 183, 197 C.C.C. (3d) 192, at paras. 19 and 23.
+ You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.
+ Continue 
+ Do not display this message anymore
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.modalClose = "Close";
