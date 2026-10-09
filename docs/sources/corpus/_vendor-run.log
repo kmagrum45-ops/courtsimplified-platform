@@ -1,0 +1,44 @@
+tmp-paca-ev001                         FAILED  HTTP 403
+tmp-paca-ev002                         FAILED  HTTP 403
+tmp-paca-ev003                         FAILED  HTTP 403
+tmp-paca-ev004                         FAILED  HTTP 403
+tmp-paca-ev005                         FAILED  HTTP 403
+tmp-paca-ev006                         FAILED  HTTP 403
+tmp-paca-ev007                         FAILED  HTTP 403
+tmp-paca-ev008                         FAILED  HTTP 403
+tmp-paca-ev009                         FAILED  HTTP 403
+tmp-paca-ev010                         FAILED  HTTP 403
+tmp-paca-ev011                         FAILED  HTTP 403
+tmp-paca-ev012                         FAILED  HTTP 403
+tmp-cc-20070101-p1tt                   FAILED  HTTP 404
+tmp-cc-20070101-full                   FAILED  HTTP 404
+tmp-cc-20060101-p1tt                   FAILED  HTTP 404
+tmp-cc-20060101-full                   FAILED  HTTP 404
+tmp-cc-20080101-p1tt                   ok   1068627 chars  23731cb324cc
+                                       (none stated)
+tmp-cc-20080101-full                   FAILED  HTTP 404
+
+259 vendored, 17 failed.
+Manifest: docs/sources/corpus/manifest.json
+
+SOURCES MISSING FROM THE CORPUS:
+  tmp-paca-ev001 — HTTP 403
+  tmp-paca-ev002 — HTTP 403
+  tmp-paca-ev003 — HTTP 403
+  tmp-paca-ev004 — HTTP 403
+  tmp-paca-ev005 — HTTP 403
+  tmp-paca-ev006 — HTTP 403
+  tmp-paca-ev007 — HTTP 403
+  tmp-paca-ev008 — HTTP 403
+  tmp-paca-ev009 — HTTP 403
+  tmp-paca-ev010 — HTTP 403
+  tmp-paca-ev011 — HTTP 403
+  tmp-paca-ev012 — HTTP 403
+  tmp-cc-20070101-p1tt — HTTP 404
+  tmp-cc-20070101-full — HTTP 404
+  tmp-cc-20060101-p1tt — HTTP 404
+  tmp-cc-20060101-full — HTTP 404
+  tmp-cc-20080101-full — HTTP 404
+
+Nothing may be written from memory to fill these. Record them in the
+report and leave the content that would have cited them unwritten.

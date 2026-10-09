@@ -3251,7 +3251,105 @@
       "characters": 351139,
       "lines": 4618,
       "file": "copyright-act.txt"
+    },
+    {
+      "id": "tmp-cc-20080101-p1tt",
+      "title": "Criminal Code",
+      "citation": "R.S.C. 1985, c. C-46",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20080101/P1TT3xt3.html",
+      "retrievedAt": "2026-10-09T19:07:40.943Z",
+      "sha256": "23731cb324cc809e847d815b134ea66a6b083caf41504499003ba6327a2e5c92",
+      "consolidation": "(none stated)",
+      "characters": 1068627,
+      "lines": 14355,
+      "file": "tmp-cc-20080101-p1tt.txt"
     }
   ],
-  "failures": []
+  "failures": [
+    {
+      "id": "tmp-paca-ev001",
+      "url": "https://www.ontario.ca/laws/docs/90p27_ev001.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-ev002",
+      "url": "https://www.ontario.ca/laws/docs/90p27_ev002.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-ev003",
+      "url": "https://www.ontario.ca/laws/docs/90p27_ev003.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-ev004",
+      "url": "https://www.ontario.ca/laws/docs/90p27_ev004.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-ev005",
+      "url": "https://www.ontario.ca/laws/docs/90p27_ev005.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-ev006",
+      "url": "https://www.ontario.ca/laws/docs/90p27_ev006.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-ev007",
+      "url": "https://www.ontario.ca/laws/docs/90p27_ev007.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-ev008",
+      "url": "https://www.ontario.ca/laws/docs/90p27_ev008.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-ev009",
+      "url": "https://www.ontario.ca/laws/docs/90p27_ev009.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-ev010",
+      "url": "https://www.ontario.ca/laws/docs/90p27_ev010.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-ev011",
+      "url": "https://www.ontario.ca/laws/docs/90p27_ev011.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-ev012",
+      "url": "https://www.ontario.ca/laws/docs/90p27_ev012.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-cc-20070101-p1tt",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20070101/P1TT3xt3.html",
+      "reason": "HTTP 404"
+    },
+    {
+      "id": "tmp-cc-20070101-full",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20070101/FullText.html",
+      "reason": "HTTP 404"
+    },
+    {
+      "id": "tmp-cc-20060101-p1tt",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20060101/P1TT3xt3.html",
+      "reason": "HTTP 404"
+    },
+    {
+      "id": "tmp-cc-20060101-full",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20060101/FullText.html",
+      "reason": "HTTP 404"
+    },
+    {
+      "id": "tmp-cc-20080101-full",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20080101/FullText.html",
+      "reason": "HTTP 404"
+    }
+  ]
 }
