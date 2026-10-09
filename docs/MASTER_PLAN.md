@@ -96,6 +96,14 @@ through the decision log.
 - A communication log, and a shared space where the two sides can negotiate
   on the site instead of by email.
 - Polish that does not change what the person does next.
+- A public Sources page listing every official text the answers quote, with
+  its link and the date it was saved (docs/sources/corpus/manifest.json), and
+  a Trust and Security page that claims only what is in place (Canadian data
+  residency, per-person access, production auth settings) and nothing in
+  progress. Seen on opencase.com, whose page called certifications "certified"
+  that its own list showed "In Progress" (owner, 2026-10-09).
+- Before the Trust page, decide on production backups: the free plan has none
+  automatic, only the manual dumps (CLAUDE.md section 6).
 
 ## Decision log
 
