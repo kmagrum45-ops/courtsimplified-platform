@@ -220,13 +220,26 @@ const read = (file: string) => readFileSync(path.join(process.cwd(), file), "utf
   );
 }
 
+/** The last spread passed to caseDatesFrom is, or ends with, position.dateAnswers. */
+function personsDatesWin(source: string): boolean {
+  const arg = /caseDatesFrom\(([^)]*)\)/.exec(source)?.[1]?.trim() ?? "";
+  if (arg === "position.dateAnswers") return true;
+  const last = [...arg.matchAll(/\.\.\.([\w.]+)/g)].at(-1)?.[1] ?? "";
+  if (last === "position.dateAnswers") return true;
+  const definition = new RegExp(`const ${last} = \\{([^}]*)\\}`).exec(source)?.[1] ?? "";
+  return [...definition.matchAll(/\.\.\.([\w.]+)/g)].at(-1)?.[1] === "position.dateAnswers";
+}
+
 {
   const route = read("app/api/workspace/organisation/route.ts");
   check(
     "workspace deadlines come from the stored step and dates",
     // The chosen step first; since Phase 1 (2026-10-07) the step the
     // confirmed stage points to when none was chosen.
-    /readCasePosition\(/.test(route) && /position\.stepId\s*\|\|/.test(route) && /findStage\(stepId\)/.test(route) && /caseDatesFrom\(position\.dateAnswers\)/.test(route),
+    // The property (CLAUDE.md section 5): the person's own dates reach the
+    // count and win over anything offered under them (2026-10-09: dates from
+    // the story were added underneath).
+    /readCasePosition\(/.test(route) && /position\.stepId\s*\|\|/.test(route) && /findStage\(stepId\)/.test(route) && personsDatesWin(route),
   );
   check("workspace deadlines no longer match a stage id to a court path", !/candidate\.id === ownedCase\.court_path/.test(route));
 }
@@ -259,3 +272,14 @@ if (failures > 0) {
   process.exit(1);
 }
 console.log("\nAll case-position checks passed.");
+
+// A Small Claims trial step asks the trial date and counts back from it
+// (held-back walkthrough, 2026-10-09: "the trial is on January 14 2027" and no
+// date was ever worked out).
+for (const stepId of ["plaintiff:trial-date-set", "defendant:trial-date-set"]) {
+  const asked = dateQuestionsForStep(stepId).map((question) => question.id);
+  if (!asked.includes("case-date-trial-date")) {
+    console.error(`FAIL  ${stepId} asks for the trial date`);
+    process.exitCode = 1;
+  } else console.log(`PASS  ${stepId} asks for the trial date`);
+}

@@ -3108,7 +3108,7 @@
       "userQuestion": "I have a trial date — what do I need to do to get ready?",
       "whatsHappening": "The clerk has fixed a date for trial and served a notice of trial. At a trial, each party tells their own side of the case to a judge who makes a decision. A trial can be put off only by court order. If you have a very good reason for not attending, you can ask the court to put it off, and the court office can help.",
       "whatToDoNext": "You can serve documents and written statements on all parties who got the notice of trial, at least 30 days before trial. They are then received in evidence, unless the trial judge orders otherwise. Each must give the name, phone number and address for service of the witness or author, and for an expert, a summary of qualifications. The court can issue a Summons to Witness (Form 18A) for a fee, and you serve it personally at least 10 days before trial, with attendance money. If you summon the author of a served statement, serve a copy of the summons on every other party at the same time. If a witness you summon needs an interpreter, you must arrange for a qualified one to attend. This does not apply if the Ministry provides an English-French interpreter. If you miss either step, the other parties may ask to put off the trial, with costs.",
-      "yourDeadline": null,
+      "yourDeadline": "Serve any documents, written statements, or audio or visual records you want received in evidence, on every party who got the notice of trial. Do this at least 30 days before the trial date. This is optional. A document served this way is received in evidence unless the trial judge orders otherwise. Earlier is fine.\n\nIf you need a witness to come, hand them a summons to witness (Form 18A) with their attendance money. Do this at least 10 days before the trial date. The summons must be served on the witness personally. Earlier is fine.",
       "whatHappensAfter": "If the trial is not put off before the date, you or someone for you must attend court that day to ask for this. If the defendant does not attend, the judge may go ahead without them, or strike out the defence and let you prove your claim. You would then prove only the amount of the claim, not liability. If you do not attend, the judge may go ahead, dismiss the action and let the defendant prove their own claim, if any, or make another just order. Usually the judge gives judgment right after both sides finish, but sometimes the decision comes later.",
       "slots": [],
       "citations": [
@@ -3121,6 +3121,21 @@
           "sourceId": "oreg-258-98-small-claims-rules",
           "pinpoint": "r. 17.01 (2)",
           "quote": "If an action is called for trial and a party fails to attend, the trial judge may, (a) proceed with the trial in the party's absence; (b) if the plaintiff attends and the defendant fails to do so, strike out the defence and dismiss the defendant's claim, if any, and allow the plaintiff to prove the plaintiff's claim, subject to subrule (3); (c) if the defendant attends and the plaintiff fails to do so, dismiss the action and allow the defendant to prove the defendant's claim, if any"
+        },
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 18.02 (1)",
+          "quote": "A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise."
+        },
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 3.01",
+          "quote": "If these rules or an order of the court prescribe a period of time for the taking of a step in a proceeding, the time shall be counted by excluding the first day and including the last day of the period; if the last day of the period of time falls on a holiday, the period ends on the next day that is not a holiday."
+        },
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 8.01 (7)",
+          "quote": "A summons to witness (Form 18A) shall be served personally by the party who requires the presence of the witness, or by the party's representative, at least 10 days before the trial date; at the time of service, attendance money calculated in accordance with the regulations made under the Administration of Justice Act shall be paid or tendered to the witness."
         }
       ],
       "sourceIds": [
@@ -4410,7 +4425,7 @@
       "userQuestion": "There is a trial date — how do I get ready to defend myself?",
       "whatsHappening": "A settlement conference was held, a party asked for a trial date, and the clerk set the date. Before the trial, the court may also call a trial management conference with a judge. If so, you and your representative, if any, must take part, unless the court directs otherwise. If you get notice of it and do not attend, the court may order costs or other sanctions. A trial can be put off to a later date only by order of the court.",
       "whatToDoNext": "At least 30 days before trial, you can serve documents, statements, and audio or visual records on all parties who got the notice of trial. They are then received in evidence, unless the trial judge orders otherwise, but a statement only counts for what its writer could say in court. With each one, give the writer's name, phone number and address for service, and a summary of an expert's qualifications. You can summon a witness in Ontario, such as the writer of a statement served on you, with a Summons to Witness (Form 18A). If you summon such a writer, you must serve a copy of the summons on every other party at the same time.",
-      "yourDeadline": null,
+      "yourDeadline": "Serve any documents, written statements, or audio or visual records you want received in evidence, on every party who got the notice of trial. Do this at least 30 days before the trial date. This is optional. A document served this way is received in evidence unless the trial judge orders otherwise. Earlier is fine.\n\nIf you need a witness to come, hand them a summons to witness (Form 18A) with their attendance money. Do this at least 10 days before the trial date. The summons must be served on the witness personally. Earlier is fine.",
       "whatHappensAfter": "The clerk issues a summons for a fee of $33. You must serve it personally, with attendance money, at least 10 days before trial. If the plaintiff attends and you do not, the judge may go ahead without you, or make another order that is just. The judge may instead strike out your defence, dismiss your defendant's claim, if any, and let the plaintiff prove their claim. In that case, the plaintiff must prove the amount but not that you are liable, and the judge must decide any place of trial issue in your defence.",
       "slots": [],
       "citations": [
@@ -4423,6 +4438,21 @@
           "sourceId": "oreg-258-98-small-claims-rules",
           "pinpoint": "r. 17.01 (2)",
           "quote": "If an action is called for trial and a party fails to attend, the trial judge may, (a) proceed with the trial in the party's absence; (b) if the plaintiff attends and the defendant fails to do so, strike out the defence and dismiss the defendant's claim, if any, and allow the plaintiff to prove the plaintiff's claim, subject to subrule (3); (c) if the defendant attends and the plaintiff fails to do so, dismiss the action and allow the defendant to prove the defendant's claim, if any"
+        },
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 18.02 (1)",
+          "quote": "A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise."
+        },
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 3.01",
+          "quote": "If these rules or an order of the court prescribe a period of time for the taking of a step in a proceeding, the time shall be counted by excluding the first day and including the last day of the period; if the last day of the period of time falls on a holiday, the period ends on the next day that is not a holiday."
+        },
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 8.01 (7)",
+          "quote": "A summons to witness (Form 18A) shall be served personally by the party who requires the presence of the witness, or by the party's representative, at least 10 days before the trial date; at the time of service, attendance money calculated in accordance with the regulations made under the Administration of Justice Act shall be paid or tendered to the witness."
         }
       ],
       "sourceIds": [
