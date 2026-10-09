@@ -32,7 +32,7 @@ export const CROWN_AND_VICTIM_SOURCES: CorpusSource[] = [
     citation: "S.O. 1995, c. 6",
     url: ELAWS("95v06"),
     format: "elaws-doc",
-    mustContain: ["VICTIMS' BILL OF RIGHTS", "CONSOLIDATION PERIOD"],
+    mustContain: ["BILL OF RIGHTS, 1995", "CONSOLIDATION PERIOD"],
     why: "What Ontario's law says victims of crime should be told and how they should be treated, and what it says about suing over it.",
   },
   {
