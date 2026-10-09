@@ -1,0 +1,1316 @@
+                   COURT OF APPEAL FOR ONTARIO
+
+  CITATION: Poorkid Investments Inc. v. Ontario (Solicitor General), 2023 ONCA
+                                                                            172
+                                                               DATE: 20230315
+                                                              DOCKET: C70397
+
+                   Huscroft, Harvison Young and Sossin JJ.A.
+
+BETWEEN
+
+      Poorkid Investments Inc., The Coach Pyramids Inc., and Brian Haggith
+
+                                                         Applicants (Respondents)
+
+                                        and
+
+      Solicitor General of Ontario Sylvia Jones, Ontario Provincial Police
+Commissioner Thomas Carrique, Ontario Provincial Police Chief Superintendent
+John Cain, Ontario Provincial Police Inspector Philip Carter and Her Majesty the
+                         Queen in the Right of Ontario
+
+                                                         Respondents (Appellants)
+
+S. Zachary Green and Ryan Cookson, for the appellants
+
+W. Peter Murray, for the respondents
+
+Heard: August 18, 2022
+
+On appeal from the order of Justice David A. Broad of the Superior Court of Justice,
+dated February 10, 2022, with reasons reported at 2022 ONSC 883.
+
+Huscroft J.A.:
+
+OVERVIEW
+
+[1]   The respondents, Poorkid Investments Inc., The Coach Pyramids Inc., and
+
+Brian Haggith, are the named representative plaintiffs in a class action brought
+
+against the appellants, which include the Crown, the Solicitor General of Ontario,
+                                       Page: 2
+
+
+
+the   Ontario   Provincial   Police   (“OPP”)    Commissioner,     the   OPP    Chief
+
+Superintendent, and an Inspector of the OPP (collectively the “Crown”). They seek
+
+damages arising out of the OPP’s response to protests by Indigenous activists in
+
+Caledonia, Ontario and plead four grounds of liability: misfeasance in public office,
+
+nonfeasance, negligence, and nuisance. In essence, the respondents allege that
+
+the appellants failed to carry out their legal duties.
+
+[2]   Proceedings brought against the Crown or an officer or employee of the
+
+Crown that include a claim for misfeasance in public office or bad faith in the
+
+exercise of public duties or functions are deemed to be stayed by operation of s. 17
+
+of the Crown Liability and Proceedings Act, 2019, S.O. 2019 c. 7, Sch. 17 (“CLPA”),
+
+and can proceed only with leave of the court. To obtain leave a plaintiff must
+
+establish that the proceeding is brought in good faith and that there is a reasonable
+
+possibility the claim will succeed.
+
+[3]   The respondents did not seek leave under the CLPA to bring their
+
+proceedings. Instead, they brought an application for a declaration that s. 17 of the
+
+CLPA violates s. 96 of the Constitution Act, 1867 and is of no force and effect. The
+
+application judge found that the financial cost of bringing a motion for leave under
+
+s. 17 – almost exclusively legal fees – did not violate s. 96 of the Constitution Act,
+
+1867. However, he found that the procedure established by s. 17 violated s. 96
+
+because it bars claimants from presenting the evidence necessary to satisfy the
+                                        Page: 3
+
+
+
+court that there is a reasonable possibility that a claim will succeed, and so
+
+prevents them from having “meaningful access” to the superior courts. The Crown
+
+appeals.
+
+[4]   I conclude that s. 17 of the CLPA is a valid exercise of provincial lawmaking
+
+authority under s. 92(14) of the Constitution Act, 1867 and does not violate s. 96.
+
+Although s. 17 of the CLPA makes it more difficult to bring proceedings against the
+
+Crown, the leave requirement and associated rules established by s. 17 do not
+
+touch on the core jurisdiction of superior courts, still less infringe it.
+
+[5]   I would allow the appeal for the reasons that follow.
+
+BACKGROUND
+
+[6]   The respondents seek damages from the Crown on behalf of property
+
+owners and businesses in Caledonia, Haldimand County, and the vicinity, as well
+
+as those who entered agreements of purchase and sale for homes to be built in a
+
+proposed subdivision known as McKenzie Meadows. The damages were alleged
+
+to have been incurred as a result of the closure of public highways and a railway
+
+line, occupation of the subdivision, and an interruption of hydro service.
+
+[7]   The claim alleges that the OPP failed to carry out their duties under the
+
+Comprehensive Ontario Police Services Act, 2019, S.O. 2019, c. 1, and wrongly
+
+acted in accordance with the OPP’s “Framework for Police Preparedness for
+                                      Page: 4
+
+
+
+Aboriginal Critical Incidents”. Among other things, the OPP are alleged to have
+
+failed to prevent crime and failed to enforce injunctions against the protests.
+
+The Crown Liability and Proceedings Act, 2019
+
+[8]   The CLPA replaced the Proceedings Against the Crown Act, R.S.O. 1990,
+
+c. P.27. Like that Act, the CLPA imposes liability on the Crown for tortious conduct
+
+from which it would otherwise be immune at common law. The CLPA preserves
+
+various immunities for the Crown and officers, employees, and agents of the
+
+Crown with respect to the performance of certain duties and governs the conduct
+
+of proceedings in which the Crown is a party. The Act maintains some procedural
+
+provisions similar to those in the Proceedings Against the Crown Act but effects a
+
+significant change concerning some torts. Specifically, s. 17 of the CLPA
+
+establishes a screening procedure that applies to claims against the Crown, or an
+
+officer or employee of the Crown, for misfeasance in public office or a tort based
+
+on bad faith respecting anything done in the exercise or intended exercise of
+
+powers, duties, or functions.
+
+[9]   Proceedings concerning the tort of misfeasance in public office or torts
+
+based on bad faith in the exercise or intended exercise of public authority are
+
+deemed stayed, unless leave to bring the proceeding is granted pursuant to
+
+s. 17(2) of the CLPA:
+                                       Page: 5
+
+
+
+             (2) A proceeding to which this section applies that is brought on or
+             after the day section 1 of Schedule 7 to the Smarter and Stronger
+             Justice Act, 2020 comes into force may proceed only with leave of the
+             court and, unless and until leave is granted, is deemed to have been
+             stayed in respect of all claims in that proceeding from the time that it
+             is brought.
+
+[10]   The CLPA sets out a detailed leave procedure that limits the evidence that
+
+may be adduced by the parties in ss. 17(3)-(7):
+
+             (3) On a motion for leave under subsection (2), the claimant shall, in
+             accordance with section 15 if applicable, serve on the defendant and
+             file with the court,
+
+                   (a) an affidavit, or such other document as may be prescribed,
+                   setting out a concise statement of the material facts on which
+                   the claimant intends to rely; and
+
+                   (b) an affidavit of documents, or such other document as may
+                   be prescribed, disclosing, to the full extent of the claimant’s
+                   knowledge, information and belief, all documents relevant to
+                   any matter in issue in the proceeding that are or have been in
+                   the claimant’s possession, control or power.
+
+             (4) On a motion for leave under subsection (2), the defendant may
+             serve on the claimant and file an affidavit, or such other document as
+             may be prescribed, setting out a concise statement of the material
+             facts on which the defendant intends to rely for the defence, but is not
+             required to do so.
+
+             (5) No person may be examined or summoned for examination on the
+             contents of an affidavit or prescribed document referred to in
+             subsection (3) or (4) or in relation to the motion for leave, other than
+             the maker of the affidavit or prescribed document.
+
+             (6) The defendant shall not be subject to discovery or the inspection
+             of documents, or to examination for discovery, in relation to the motion
+             for leave.
+
+             (7) The court shall not grant leave unless it is satisfied that,
+                                      Page: 6
+
+
+
+                    (a) the proceeding is being brought in good faith; and
+
+                    (b) there is a reasonable possibility that the claim described in
+                    subsection (1) would be resolved in the claimant’s favour.
+
+[11]   In summary, claimants must file an affidavit setting out the material facts on
+
+which they intend to rely, along with an affidavit of documents; the defendant may
+
+file an affidavit but is under no obligation to do so; no one is to be examined or
+
+summoned for examination in regard to the affidavit, affidavit of documents, or in
+
+relation to the motion for leave except for the maker of the affidavit or prescribed
+
+document; and the defendant is not subject to discovery or the inspection of
+
+documents, or to examination for discovery. The constitutionality of this screening
+
+process is the question at the heart of this appeal.
+
+The application judge’s decision
+
+[12]   The respondents brought an application seeking a declaration that s. 17 of
+
+the CLPA violates s. 96 of the Constitution Act, 1867 and is of no force or effect.
+
+The application was supported by two affidavits, one from a practicing litigation
+
+lawyer, David Thompson, and the other from the CEO of a company that provides
+
+consulting services to lawyers and law firms including in relation to class actions,
+
+David Johnson. Neither was tendered or qualified as an expert witness.
+
+Mr. Johnson’s affidavit included quotations from the Premier of Ontario,
+
+Doug Ford, and the press secretary for the Attorney General of Ontario, taken from
+
+media sources. The Crown cross examined Mr. Thompson but not Mr. Johnson,
+                                      Page: 7
+
+
+
+and filed no evidence in response to the application. There was, in short, little
+
+evidence before the application judge.
+
+[13]   The application judge framed the question before him as whether s. 96 of
+
+the Constitution Act, 1867 is “infringed by legislation that requires persons seeking
+
+to pursue an action against the Crown (or its agents) alleging bad faith or
+
+misfeasance in public office to obtain leave of the court to do so in circumstances
+
+where the defendant Crown is not obliged to make any documentary discovery or
+
+to submit to any oral examination”.
+
+[14]   The application judge found that the rule of law, which informs a proper
+
+interpretation of s. 96, requires not simply access to the superior courts but
+
+meaningful access, which he described as “ensuring that a litigant’s claim is
+
+determined on its merits, including the right to present material evidence”. The
+
+application judge found that s. 17 precluded this, taking judicial notice of what he
+
+described    as   facts   in   published   comments      on    the   legislation   by
+
+Professor Erika Chamberlain, who he quoted as follows:
+
+             In lawsuits involving bad faith, plaintiffs must now get
+             permission from a court before they can sue and show
+             that their claim has a reasonable possibility of success.
+             During this process, the Crown can examine the plaintiff,
+             but need not produce any documents or witnesses itself.
+
+             This puts plaintiffs in a tough position. Bad faith is
+             essentially a state of mind, so it’s typically difficult to
+             prove without at least some evidence from the defendant.
+             For instance, it may require disclosure of internal
+                                      Page: 8
+
+
+
+             communications showing that an official was acting for
+             an improper purpose or with bias against the plaintiff.
+
+             Without the disclosure of these documents or the ability
+             to question government officers, plaintiffs will only be
+             able to speculate that bad faith was involved. This may
+             not be sufficient to get a court’s permission to proceed.
+
+[15]   Based on this commentary, the application judge concluded that bad faith is
+
+a state of mind; it is difficult to prove in the absence of evidence from a defendant;
+
+and it may require disclosure of a defendant’s internal communications.
+
+[16]   The application judge acknowledged that the implementation of a robust
+
+deterrent screening mechanism to prevent unmeritorious claims against the Crown
+
+from proceeding is a valid legislative objective that does not, by itself, prevent
+
+access to the superior courts in a manner contrary to s. 96 of the Constitution Act,
+
+1867. But relying on Trial Lawyers Association of British Columbia v. British
+
+Columbia (Attorney General), 2014 SCC 59, [2014] 3 S.C.R. 31, the application
+
+judge noted that the legislature’s power to establish screening mechanisms is not
+
+unlimited. In a key passage in his decision, the application judge stated:
+
+             In my view, prohibiting any documentary or oral discovery
+             of the defendant as an integral part of the screening
+             mechanism does prevent many claimants who may well
+             have meritorious claims against the Crown based on bad
+             faith or misfeasance in public office from having
+             meaningful access to the Superior Court in a way that is
+             inconsistent with s. 96 and the requirements that flow by
+             necessary implication from s. 96. This inconsistency is
+             brought about by barring such claimants from any
+             realistic and effective means of presenting sufficient,
+                                      Page: 9
+
+
+
+             credible and necessary evidence to satisfy the court that
+             there is a reasonable possibility that their claims would
+             succeed.
+
+[17]   Thus, the application judge concluded that s. 17 is unconstitutional because
+
+it establishes a barrier to “meaningful” access to the superior courts, while denying
+
+a realistic and effective means of overcoming that barrier by relieving the Crown
+
+from being subject to documentary and oral discovery.
+
+[18]   The application judge went on to find that the remedies of reading in, reading
+
+down, or severance were not appropriate because it could not be assumed that
+
+the Legislature would have passed the tailored provision, and there was no basis
+
+to determine the specifics of a discovery mechanism. He concluded that the
+
+appropriate remedy was to issue a declaration that s. 17 is of no force or effect,
+
+leaving it to the Legislature to enact a new, constitutionally compliant provision
+
+should it wish to do so.
+
+DISCUSSION
+
+[19]   I begin with a brief discussion of the role and jurisdiction of superior courts
+
+before addressing the issues in this case.
+
+The role and jurisdiction of superior courts
+
+[20]   Although Canada’s constitutional structure is premised on federalism,
+
+Canada’s judicial system is unitary in nature: the judges of provincial superior
+
+courts are appointed by the federal government. In Reference re Residential
+                                       Page: 10
+
+
+
+Tenancies Act, [1981] 1 S.C.R. 714, at p. 728 (“Residential Tenancies”), Dickson J.
+
+(as he then was) described the judicature provisions of the Constitution Act, 1867
+
+as supporting a “strong constitutional base for national unity”. In Reference re
+
+Code of Civil Procedure (Que.), art. 35, 2021 SCC 27, 459 D.L.R. (4th) 555
+
+(“Quebec Reference”), the Supreme Court emphasized that the judicature
+
+provisions, along with s. 92(14), were designed by the Fathers of Confederation to
+
+strike a balance between provincial initiatives on the administration of justice and
+
+the need to respect the status of the superior courts as the centrepiece of the
+
+unitary judicial system. The Court added that the fundamental principles underlying
+
+s. 96 and the organization of Canada’s judiciary are national unity and the rule of
+
+law: Quebec Reference, at paras. 1-2,4.
+
+Provincial legislative authority
+
+[21]   Section 92(14) of the Constitution Act, 1867 establishes the exclusive
+
+authority of the provinces over the administration of justice, which includes
+
+prescribing the procedure that must be followed in civil matters. As the application
+
+judge noted, Ontario has established various procedural mechanisms that govern
+
+the ability of litigants to bring their disputes to the superior courts for adjudication,
+
+including r. 21.01 of the Rules of Civil Procedure, R.R.O. 1990, Reg. 194, which
+
+permits matters to be determined prior to trial; r. 20 of the Rules of Civil Procedure,
+
+which establishes a summary judgment procedure to resolve matters without a
+                                        Page: 11
+
+
+
+trial; rr. 2.1.01 and 2.1.02 of the Rules of Civil Procedure and s. 140 of the Courts
+
+of Justice Act, R.S.O. 1990, c. C.43, which preclude frivolous or vexatious
+
+proceedings; and the Class Proceedings Act, 1992, S.O. 1992, c. 6, which permits
+
+class actions by named plaintiffs but requires preliminary motions to certify the
+
+proceedings and appoint a representative plaintiff.
+
+[22]   There is no question that the CLPA is within Ontario’s legislative authority.
+
+However, Ontario’s authority to enact the CLPA must be considered alongside
+
+other constitutional provisions to ensure the consistent operation of the
+
+Constitution as a whole. Provincial legislative authority under s. 92(14) cannot be
+
+exercised in a manner that infringes s. 96 and the core jurisdiction of superior
+
+courts that it has been held to protect.
+
+Protecting the core jurisdiction of the superior courts
+
+[23]   Section 96 of the Constitution Act, 1867 is ostensibly a simple provision
+
+governing the appointment of judges to the superior courts – courts of inherent
+
+jurisdiction. It provides as follows:
+
+             96. The Governor General shall appoint the Judges of the Superior,
+             District, and County Courts in each Province, except those of the
+             Courts of Probate in Nova Scotia and New Brunswick.
+
+[24]   However, s. 96 has come to be understood as performing a much more
+
+significant role: “protecting the special status of the superior courts of general
+
+jurisdiction as the cornerstone of our unitary justice system”: Quebec Reference,
+                                          Page: 12
+
+
+
+at para. 4. Doctrine has developed with a view to protecting the special status of
+
+the superior courts – ensuring that their jurisdiction is not usurped by Parliament
+
+or a provincial legislature, whether by transferring their core powers to inferior
+
+courts and administrative tribunals or removing them altogether. If this were to
+
+occur, the superior courts would lose their essential nature and the federal-
+
+provincial structural balance fundamental to Canada’s justice system would be
+
+lost.
+
+[25]    Where legislation seeks to establish adjudicative authority in an
+
+administrative tribunal or inferior court, the three-part test set out in Residential
+
+Tenancies applies. The court asks:
+
+   1) Whether the power, function, or jurisdiction purported to be conferred
+
+        conforms to the power, function, or jurisdiction exercised by s. 96 courts at
+
+        the time of confederation. If it does, the court asks:
+
+   2) Whether, in its institutional context, the power, function, or jurisdiction is
+
+        judicial in nature. If it is, the court asks:
+
+   3) Whether, having regard to the tribunal’s function as a whole, the power is a
+
+        sole or central function of the tribunal, such that it is operating like a s. 96
+
+        court.
+
+[26]    In essence, the Residential Tenancies test permits administrative tribunals
+
+and inferior courts to exercise authority once exercised by s. 96 courts so long as
+                                              Page: 13
+
+
+
+the exercise of that authority is not the sole or central function of the tribunal or
+
+inferior court, such that it is operating like a s. 96 court: Residential Tenancies, at
+
+p. 736. The Residential Tenancies test thus aims to protect the historical
+
+jurisdiction of superior courts: Quebec Reference, at paras. 55-59.
+
+[27]   In MacMillan Bloedel Ltd. v. Simpson, [1995] 4 S.C.R. 725, the Supreme
+
+Court added that while adjudicative authority can, in some circumstances, be
+
+established outside the context of the superior courts, on no account can the
+
+inherent or core jurisdiction of the superior courts be transferred exclusively to
+
+another court or removed. Lamer C.J., writing for a majority of the Court,
+
+acknowledged that the core jurisdiction concept was difficult to define, but said that
+
+it is of “paramount importance” to the existence of the superior courts. He endorsed
+
+a broad conception set out by I.H. Jacob in “The Inherent Jurisdiction of the Court”
+
+(1970), 23 Curr. Legal Probs. 23, in which Jacob described the power of superior
+
+courts to maintain their authority and prevent their process from being obstructed as
+
+“intrinsic” and the “very life-blood” and “very essence” of superior courts. “Without
+
+such a power”, Jacob wrote: “the court would have form but would lack substance.
+
+The jurisdiction which is inherent in a superior court of law is that which enables it to
+
+fulfil itself as a court of law”: at p. 27.
+
+[28]   Thus, core jurisdiction is defining of the superior courts and must be guarded
+
+jealously. In MacMillan Bloedel, Lamer C.J. put the matter this highly: removal of
+                                      Page: 14
+
+
+
+any part of the core jurisdiction, he said, “emasculates the court, making it
+
+something other than a superior court”: at para. 30.
+
+[29]   There is no claim that the CLPA has transferred the core jurisdiction of the
+
+superior courts to another body; jurisdiction over the relevant tort claims continues
+
+to lie with the superior courts. The procedure governing the adjudication of those
+
+actions has changed, however, and the question is whether this procedural change
+
+is tantamount to a removal of the superior courts’ core jurisdiction. The application
+
+judge held that it was, likening the effect of the screening procedure to the hearing
+
+fees at issue in Trial Lawyers. As I explain below, the trial judge’s reasoning is
+
+premised on a misreading of that case.
+
+Trial Lawyers
+
+[30]   Trial Lawyers concerned a challenge to the constitutionality of hearing fees
+
+– charges for the daily use of the court – set out in the rules applying to proceedings
+
+in the Supreme Court of British Columbia. McLachlin C.J., writing for a majority of
+
+the Court, held that the hearing fees were so high as to prevent people from coming
+
+to the courts to have their disputes resolved. This, she said, prevented the
+
+business of the courts from being done; it infringed the core jurisdiction of superior
+
+courts by depriving them of their ability to serve as courts of inherent general
+
+jurisdiction. She reasoned as follows:
+                                      Page: 15
+
+
+
+             The historic task of the superior courts is to resolve
+             disputes between individuals and decide questions of
+             private and public law. Measures that prevent people
+             from coming to the courts to have those issues resolved
+             are at odds with this basic judicial function. The resolution
+             of these disputes and resulting determination of issues of
+             private and public law, viewed in the institutional context
+             of the Canadian justice system, are central to what the
+             superior courts do. Indeed, it is their very book of
+             business. To prevent this business being done strikes at
+             the core of the jurisdiction of the superior courts protected
+             by s. 96 of the Constitution Act, 1867. As a result, hearing
+             fees that deny people access to the courts infringe the
+             core jurisdiction of the superior courts: at para. 32.
+
+[31]   Trial Lawyers is an exceptional decision that is expressly limited in its reach.
+
+The Supreme Court did not hold that the hearing fees infringed s. 96 of the
+
+Constitution Act, 1867 simply because they prevented some individuals from
+
+accessing the superior courts. Nor could it have done so. Section 96 is a structural
+
+provision of the Constitution; it does not establish individual rights and in particular
+
+does not establish an individual right of access to the superior courts. It would be
+
+a mistake to conclude that because a structural provision of the Constitution exists
+
+for the benefit of persons – because it serves the common good by establishing
+
+the judicial system or the institutions of government – it establishes a justiciable
+
+individual right. The hearing fees impugned in Trial Lawyers were found to
+
+impermissibly infringe the core jurisdiction of the superior courts because they
+
+deprived the superior courts of their ability to hear and determine disputes
+
+otherwise within that jurisdiction. This was a matter of impairing the function of a
+                                       Page: 16
+
+
+
+superior court as an institution charged with delivering the common good, not a
+
+violation of an individual’s constitutional rights. The difference is significant: the
+
+focus of the Supreme Court’s analysis was necessarily on the courts as an
+
+institution rather than on individual rights.
+
+[32]   The Supreme Court confirmed this understanding of Trial Lawyers recently
+
+in the Quebec Reference. A majority of the Court characterized the problem in Trial
+
+Lawyers this way: those who could not afford the hearing fees but were not eligible
+
+for an income-based exemption from paying them “fell through the cracks in the
+
+judicial system; their disputes could no longer be resolved by the law, which
+
+jeopardized the maintenance of an actual order of positive laws and thus the rule
+
+of law”: at para. 69.
+
+[33]   Trial Lawyers specifically rejected the argument that hearing fees are
+
+unconstitutional per se. Although McLachlin C.J. did not explain when hearing fees
+
+become sufficiently high as to infringe the core jurisdiction of the superior courts,
+
+it is plain from the language of the decision that quantum matters. Hearing fees
+
+are impermissible when they “prevent” disputes from coming to the courts; “deny”
+
+or “effectively [deny]” disputes coming before the superior courts; “[bar] access” to
+
+the superior courts; and so on: Trial Lawyers, at paras. 32-37. In other words,
+
+financial impediments to access to the superior courts rise to the level of a
+                                       Page: 17
+
+
+
+constitutional infringement only if they have the effect of preventing the superior
+
+courts from exercising their core jurisdiction.
+
+[34]   The core jurisdiction concept has, from the outset, been understood as “very
+
+narrow”, including “only critically important jurisdictions which are essential to the
+
+existence of a superior court of inherent jurisdiction and to the preservation of its
+
+fundamental role within our legal system”: Reference re Amendments to the
+
+Residential Tenancies Act (N.S.), [1996] 1 S.C.R. 186, per Lamer C.J.
+
+(concurring), at p. 224. The Supreme Court confirmed the narrow scope of the
+
+concept in the Quebec Reference, noting that it focuses on the essential business
+
+of the superior courts: “review of the legality and constitutional validity of laws,
+
+enforcement of its orders, control over its own process, and its residual jurisdiction
+
+as a court of original general jurisdiction”: at para. 68. For their part, Wagner C.J.
+
+and Rowe J. (dissenting in part) emphasized that the superior courts’ core
+
+jurisdiction involves only “critically important” jurisdictions, the deprivation of which
+
+would deprive the superior courts of the ability to play their central and unifying
+
+role in the constitutional order and to uphold the rule of law: at para. 233.
+
+[35]   This case is nothing like Trial Lawyers. Section 17 of the CLPA does no
+
+more than regulate the way in which disputes come before the superior courts. It
+
+does not prevent disputes from being heard and determined by the superior courts
+                                     Page: 18
+
+
+
+and in no way infringes – let alone “emasculates” – the core jurisdiction s. 96
+
+protects.
+
+Section 17 of the CLPA does not infringe the core jurisdiction of the
+
+superior courts
+
+[36]   Much of the confusion in this case arises out of the misreading of Trial
+
+Lawyers and s. 96 caselaw outlined above. Section 96 caselaw is concerned with
+
+protecting the status of superior courts and the core of their adjudicative authority
+
+from legislative and executive encroachment. It is not concerned with the ability of
+
+individuals to access the superior courts and does not establish an individual right
+
+of access to the superior courts. Limitations on access to the superior courts are
+
+matters of constitutional concern under s. 96 of the Constitution Act, 1867 only in
+
+so far as they impermissibly infringe the core jurisdiction of the superior courts.
+
+Nothing of the sort has occurred in this case.
+
+[37]   The application judge errs at the outset of his analysis by characterizing
+
+s. 17 of the CLPA as establishing a “barrier” to accessing the superior courts.
+
+Nothing in s. 17 bars, denies, or otherwise prevents access to the superior courts
+
+and their core function of adjudicating disputes. Section 17 establishes a screening
+
+process – a procedure that allows the superior courts to screen out unmeritorious
+
+claims. The operation of the screening process is determined by the superior
+
+courts themselves: they determine whether or not a claim may proceed based on
+                                     Page: 19
+
+
+
+their interpretation and application of the criteria set out in s. 17. In other words,
+
+the superior courts continue to exercise their core jurisdiction – hearing and
+
+resolving disputes.
+
+[38]   According to the application judge, the absence of documentary and oral
+
+discovery prevents meritorious claims against the Crown from proceeding,
+
+essentially because s. 17 makes it too difficult to obtain leave. I set out the key
+
+passage from the judgment again:
+
+             In my view, prohibiting any documentary or oral discovery
+             of the defendant as an integral part of the screening
+             mechanism does prevent many claimants who may well
+             have meritorious claims against the Crown based on bad
+             faith or misfeasance in public office from having
+             meaningful access to the Superior Court in a way that is
+             inconsistent with s. 96 and the requirements that flow by
+             necessary implication from s. 96. This inconsistency is
+             brought about by barring such claimants from any
+             realistic and effective means of presenting sufficient,
+             credible and necessary evidence to satisfy the court that
+             there is a reasonable possibility that their claims would
+             succeed.
+
+[39]   There are two problems with this passage, both of them fatal to a finding of
+
+inconsistency with s. 96. The first is that, even taking the argument on its own
+
+terms, there was no evidentiary basis to support the conclusion that prohibiting
+
+documentary and oral discovery in the screening process deprives individuals of
+
+access to the superior courts. The most that could be said on the record before the
+
+application judge was that s. 17 makes it more difficult to pursue particular types
+                                       Page: 20
+
+
+
+of claims against the Crown by establishing an additional procedural step.
+
+However, there is no evidence as to how easy or difficult it is to satisfy this
+
+procedural step. Secondly, and more fundamentally, even assuming that it is
+
+difficult to satisfy the procedural step, mere difficulty in proceeding with a claim
+
+cannot be equated with preventing the superior courts from exercising their core
+
+jurisdiction in the manner contemplated by Trial Lawyers. I address each of these
+
+problems below.
+
+There is no evidence that the law prevents access to the superior courts
+
+[40]   As noted above, the application judge made findings of fact based on
+
+academic commentary, which asserted that bad faith is a state of mind that is
+
+difficult to prove without evidence from the defendant and that proving bad faith
+
+may require disclosure of the defendant’s internal communications. This
+
+commentary entered the litigation in a roundabout way: it was published in an
+
+online publication and referenced in an online news article that was attached as
+
+an exhibit to Mr. Johnson’s affidavit. The affidavit itself did not refer to the original
+
+online publication nor did it attach the publication itself.
+
+[41]   The application judge erred in taking judicial notice of the statements made
+
+in this commentary. There was no evidence before the application judge
+
+concerning the necessity of discovery for purposes of establishing a claim of bad
+
+faith or misfeasance in public office – a factual vacuum created by the respondents’
+                                     Page: 21
+
+
+
+choice not to bring a leave motion pursuant to s. 17 of the CLPA. The commentary
+
+quoted by the application judge was not factual in nature; it was the expression of
+
+an opinion and there was no basis for the application judge to take judicial notice
+
+of its conclusions and assumptions as statements of fact. As the Crown notes, it is
+
+not the claimant’s burden under s. 17 of the CLPA to establish bad faith in any
+
+event: claimants need only establish a reasonable possibility that their claim will
+
+succeed, and the respondents did not even attempt to meet that burden in this
+
+case.
+
+[42]    There is, of course, nothing inappropriate about citing academic legal
+
+scholarship and much to be gained when it comes to better understanding legal
+
+concepts that may be relevant to judicial reasoning. But whether academic
+
+commentary or scholarship purports simply to describe the law or to explain it, it is
+
+not properly the subject of judicial notice – that is, it cannot be accepted as fact
+
+without proof. It is not subject to the sort of constraints that govern the use of
+
+evidence in the litigation process, and there is a risk that reliance on it may result
+
+in evidence being imported into judicial proceedings indirectly, bypassing the
+
+relevant evidentiary safeguards. See the helpful discussion of judicial notice by
+
+Brown J.A. in R. v. J.M., 2021 ONCA 150, 154 O.R. (3d) 401, at paras. 29-38.
+
+[43]    Academic arguments should be assessed with the same sort of critical
+
+detachment as submissions from counsel. To the extent that academic arguments
+                                      Page: 22
+
+
+
+have a normative purpose – to the extent they are concerned with what the law
+
+ought to be rather than what it is – they are inherently controversial and properly
+
+subject to critique and challenge from other scholars. Their significance and
+
+shortcomings cannot be understood without placing them in this context. But
+
+whether scholarship is ostensibly descriptive or normative, it is improper to take
+
+judicial notice of the facts asserted or the conclusions reached.
+
+Leave requirements do not infringe the core jurisdiction of the superior courts
+
+[44]   The application judge described aspects of s. 17 of the CLPA as
+
+unprecedented in Canadian law, and on appeal the Crown says that the application
+
+judge erred in this regard: the leave requirement in s. 17 is modeled on s. 138.8 of
+
+the Securities Act, R.S.O. 1990, c. S.5. The respondents disagree, but there is no
+
+need to resolve this matter. Whether s. 17 of the CLPA is unprecedented is
+
+irrelevant to whether it impermissibly infringes s. 96 of the Constitution Act, 1867.
+
+[45]   The most that can be said is that, on its face, s. 17 of the CLPA makes it
+
+more difficult for some tort claims against the Crown to proceed than it was under
+
+the Proceedings Against the Crown Act. As a result it is conceivable, if not likely,
+
+that fewer claims will proceed than might otherwise be the case. But that is not
+
+relevant to whether s. 17 infringes s. 96 of the Constitution Act, 1867. Section 96
+
+does not require that all tort claims be treated alike, much less litigation in general,
+
+and it has nothing to say about whether any particular claim should survive a
+                                      Page: 23
+
+
+
+preliminary screening process conducted by the court. The core jurisdiction of
+
+superior courts under s. 96 is impermissibly infringed only if the superior courts are
+
+prevented from serving as courts of inherent general jurisdiction. Nothing in s. 17
+
+of the CLPA has this effect.
+
+[46]   The application judge’s error is apparent from the way in which he describes
+
+the alleged infringement of s. 96. He does not say that the leave requirements in
+
+s. 17 prevent superior courts from hearing disputes or fulfilling their constitutional
+
+role as a court of inherent general jurisdiction; he says the leave requirements
+
+prevent some claimants from having meaningful access to the superior courts. This
+
+is not an application of or even an expansion of the holding in Trial Lawyers; it is
+
+an unwarranted change to it. It subtly recasts s. 96 as an individual rights provision
+
+– a change neither required nor permitted by s. 96 jurisprudence or the Constitution
+
+Act, 1867.
+
+[47]   Section 17 of the CLPA does not interfere with the constitutional role of the
+
+superior courts. That some – perhaps even many – claimants will be denied leave
+
+to bring proceedings as a result of the screening mechanism does not mean that
+
+the constitutional role of the superior courts has been impermissibly infringed.
+
+Claimants will be denied leave to bring proceedings only after they have had
+
+access to the superior courts and failed to satisfy the courts as to the strength of
+
+their case. Superior courts are still able to hear the relevant tort claims and fulfill
+                                     Page: 24
+
+
+
+their cornerstone role in Canada’s unitary justice system. Whether it is considered
+
+good or bad policy to screen particular tort claims against the Crown is irrelevant;
+
+so long as the legislation does not prevent the superior courts from exercising their
+
+core jurisdiction, it does not impermissibly infringe s. 96 of the Constitution Act,
+
+1867.
+
+[48]    In short, s. 96 immunizes neither the substantive content of the law nor the
+
+procedure governing litigation against legislative reform: the Legislature may
+
+establish, amend, or repeal causes of action, and may establish various procedural
+
+requirements. Section 96 protects the core jurisdiction of the superior courts, but
+
+procedural requirements that must be met before particular claims may be brought
+
+cannot be equated with depriving the superior courts of the ability to hear disputes
+
+and so preventing them from fulfilling their constitutional role – especially given
+
+that the superior courts will determine whether those procedural requirements
+
+have been met.
+
+Section 17 of the CLPA is not inconsistent with the rule of law
+
+[49]    The application judge drew support for his “meaningful access” concept from
+
+the rule of law, which he said is met “not by mere access to the court in the sense
+
+affording litigants the simple right to make submissions, but rather by meaningful
+
+access to the court in the sense of ensuring that a litigant’s claim is determined on
+
+its merits, including the right to present material evidence.” Although he purported
+                                       Page: 25
+
+
+
+to rely on the rule of law as an interpretive aid, as I will explain, his decision is at
+
+odds with the concept and the purpose for which it may be invoked.
+
+[50]   I will briefly outline the rule of law concept and the use of unwritten principles
+
+in constitutional litigation before addressing the application judge’s error.
+
+The nature of the rule of law
+
+[51]   The rule of law is a venerable principle of political philosophy – a complex,
+
+multifaceted ideal that informs legislative and judicial processes. It has ancient
+
+origins and has been developed in a tradition running through scholars such as
+
+Aristotle, Thomas Aquinas, Sir William Blackstone, and A.V. Dicey. The rule of law
+
+is the subject of a large and growing body of contemporary academic scholarship:
+
+see, for example, Kristen Rundle, Revisiting the Rule of Law (New York:
+
+Cambridge University Press, 2022); Frederick Schauer, “Lon Fuller and the Rule
+
+of Law” (2020) University of Virginia School of Law Public Law and Legal Theory
+
+Paper Series 2020-46; John Tasioulas, “The Rule of Law” in Tasioulas, ed., The
+
+Cambridge Companion to the Philosophy of Law (Cambridge: Cambridge
+
+University Press, 2019); and Brian Z. Tamanaha, “The History and Elements of the
+
+Rule of Law” (2012) Sing. J.L.S. 232.
+
+[52]   To say that the rule of law is respected in a legal order is to make a claim
+
+about the health of that legal order – that it is functioning in accordance with a
+
+range of criteria the concept may be understood as embracing. Lon Fuller famously
+                                      Page: 26
+
+
+
+offered a list of eight rule of law principles he described as the “inner morality of
+
+law” in The Morality of Law, rev’d edn. (New Haven: Yale University Press, 1969),
+
+at pp. 33-38. According to Fuller, the law should be: 1) general in nature; 2)
+
+publicized; 3) prospective in operation; 4) understandable; 5) non-contradictory; 6)
+
+possible to comply with; 7) relatively constant; and 8) congruent with its
+
+administration. John Finnis offers a similar account in Natural Law and Natural
+
+Rights, 2nd ed. (Oxford: Oxford University Press, 2011), at pp. 270-71: “A legal
+
+system exemplifies the Rule of Law to the extent … that (i) its rules are prospective,
+
+not retroactive, and (ii) are not in any other way impossible to comply with; that (iii)
+
+its rules are promulgated, (iv) clear, and (v) coherent one with another; that (vi) its
+
+rules are sufficiently stable to allow people to be guided by their knowledge of the
+
+content of the rules; that (vii) the making of decrees and orders applicable to
+
+relatively limited situations is guided by rules that are promulgated, clear, stable,
+
+and relatively general; and that (viii) those people who have authority to make,
+
+administer, and apply the rules in an official capacity (a) are accountable for their
+
+compliance with rules applicable to their performance and (b) do actually
+
+administer the law consistently and in accordance with its tenor.”
+
+[53]   Contemporary accounts of the rule of law typically share a number of these
+
+commitments but may differ in important respects. This is to be expected: good
+
+faith disagreement about the essential nature of the rule of law flourishes in any
+                                       Page: 27
+
+
+
+democratic order that aspires to the ideal: see Jeremy Waldron, “The Rule of Law
+
+as an Essentially Contested Concept” (2021) NYU School of Law Public Law and
+
+Legal Theory Research Paper Series, Working Paper No. 21-15. The rule of law
+
+has always served as a constitutional lodestar for lawmakers – an ideal to be
+
+aspired to, rather than a canonical set of rules that is subject to enforcement.
+
+[54]   The Supreme Court outlined the elements of the rule of law for adjudication
+
+purposes in the Re Manitoba Language Rights, [1985] 1 S.C.R. 721 and the
+
+Reference re Secession of Quebec, [1998] 2 S.C.R. 217. Those elements are: 1)
+
+the supremacy of the law over the acts of government and private persons; 2) the
+
+creation and maintenance of an actual order of positive laws that preserves and
+
+embodies the more general principle of normative order; and 3) the requirement
+
+that the relationship between the state and the individual be regulated by law.
+
+[55]   These elements focus on the nature and purpose of the law rather than its
+
+substance, and are not independently enforceable in legal proceedings. As
+
+Wagner C.J. and Brown J., writing for a majority of the Supreme Court, explained
+
+in Toronto (City) v. Ontario (Attorney General), 2021 SCC 34, 462 D.L.R. (4th) 1,
+
+at para. 58, to enforce unwritten constitutional principles would trespass on the
+
+legislature’s authority to amend the Constitution, raise concerns about the
+
+legitimacy of judicial review, and distort the separation of powers. Fundamentally,
+
+it would be at odds with the settlement reflected in the text of the Constitution itself.
+                                       Page: 28
+
+
+
+Thus, they stated the conclusion categorically: “unwritten constitutional principles
+
+cannot serve as bases for invalidating legislation”: Toronto (City), at para. 63.
+
+Nothing could be clearer.
+
+[56]   There is nothing new or surprising in this. The Court reached the same
+
+conclusion when considering the unwritten principle of the rule of law in British
+
+Columbia v. Imperial Tobacco Canada Ltd., 2005 SCC 49, [2005] 2 S.C.R. 473, at
+
+paras. 59-60. Nevertheless, it is clear that the elements of rule of law identified by
+
+the Court may be invoked both as an interpretive aid and to help develop
+
+necessary structural constitutional doctrines: Toronto (City), at paras. 55-56. The
+
+majority in Toronto (City) cites Trial Lawyers as an example of the rule of law
+
+informing a purposive interpretation of s. 96 of the Constitution Act, at para. 55.
+
+[57]   However, two distinct difficulties attend the use of the rule of law as an
+
+interpretive aid in adjudication. The first is the need to respect the scope of the
+
+elements of the rule of law identified by the Court. The second is the difficulty of
+
+maintaining the distinction between the use of rule of law as an interpretive aid,
+
+which is legitimate, and direct enforcement of the rule of law to invalidate
+
+legislation, which is not. The application judge’s decision illustrates both difficulties.
+                                       Page: 29
+
+
+
+“Meaningful access to the court” as described by the application judge is not an
+
+element of the rule of law
+
+[58]   It seems reasonable that there should be “meaningful access to the court in
+
+the sense of ensuring that a litigant’s claim is determined on its merits, including
+
+the right to present material evidence”, but the application judge’s “meaningful
+
+access” concept is not required by the rule of law on that account, nor does it
+
+engage the aspect of the rule of law dealing with physical access to courts set out
+
+in B.C.G.E.U. v. British Columbia (Attorney General), [1988] 2 S.C.R. 214.
+
+[59]   The rule of law is not a repository of all things considered desirable in a legal
+
+system. None of the elements of the rule of law recognized in Re Manitoba
+
+Language Rights and Reference re Secession of Quebec speak directly to the
+
+terms of legislation: Imperial Tobacco, at para. 59.
+
+[60]   Indeed, it is noteworthy that in Imperial Tobacco the Supreme Court rejected
+
+several “fair civil trial” features asserted as protected by the rule of law in upholding
+
+the constitutionality of British Columbia legislation that went much further than
+
+s. 17 of the CLPA: it authorized actions by the provincial government against
+
+tobacco product manufacturers for the recovery of health care expenses incurred
+
+by the government, changed evidentiary requirements, permitted the government
+
+to establish aggregate claims, reversed the burden of proof in several respects,
+
+and operated retrospectively. The legislation changed the general rules of civil
+                                      Page: 30
+
+
+
+litigation considerably, but, as the Supreme Court stated, there is no constitutional
+
+right to have one’s civil trial governed by customary rules of civil procedure and
+
+evidence: Imperial Tobacco, at para. 76. That conclusion applies with equal force
+
+in this case.
+
+The rule of law as an interpretive aid
+
+[61]   The written aspects of the Constitution are carefully crafted, reflecting
+
+constitutional settlements that courts must respect. Unwritten constitutional
+
+principles may provide interpretive guidance for understanding the nature of
+
+particular constitutional settlements, but that guidance is ultimately limited by
+
+constitutional text and design. Courts cannot rely on unwritten constitutional
+
+principles to alter or supplement the text of the Constitution; constitutional text has
+
+“primordial” importance and can be changed only by constitutional amendment:
+
+Quebec (Attorney General) v. 9147-0732 Québec Inc., 2020 SCC 32, 451 D.L.R.
+
+(4th) 367, at para. 11; Toronto (City), at para. 65.
+
+[62]   Section 17 of the CLPA changes only the way in which some claims proceed
+
+in the superior courts. In doing so it does not offend the rule of law. On the contrary,
+
+the rule of law requires that s.17 be enforced as enacted. Whether it is considered
+
+good or bad policy – fair or unfair on some metric – is for the Legislature to
+
+determine. The political process is not to be bypassed by the courts.
+                                      Page: 31
+
+
+
+[63]   That is what occurred in this case. Although the application judge
+
+acknowledged that the rule of law could not be invoked to invalidate legislation, his
+
+decision that s. 17 of the CLPA is inconsistent with s. 96 rests largely on the
+
+“meaningful access” principle he identified as an element of the rule of law, which
+
+he relied on in interpreting s. 96. In effect, the application judge’s interpretation so
+
+alters s. 96 doctrine that it directly enforces his “meaningful access” principle.
+
+[64]   The result is a decision that renders unconstitutional procedural rules
+
+properly made pursuant to s. 92(14) of the Constitution Act, 1867. The rule of law
+
+does not support this decision. On the contrary, both the Constitution and the rule
+
+of law require that s. 17 of the CLPA be given effect.
+
+CONCLUSION
+
+[65]   I would allow the appeal.
+
+[66]   The appellants are entitled to costs of the appeal fixed in the amount of
+
+$30,000 and to costs on the application below of $49,908.40, both figures inclusive
+
+of HST and disbursements.
+
+Released: March 15, 2023 “G.H.”
+                                                                  “Grant Huscroft J.A.”
+                                                    “I agree. A. Harvison Young J.A.”
+                                                                 “I agree. Sossin J.A.”
+

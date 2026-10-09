@@ -1,0 +1,1701 @@
+                    COURT OF APPEAL FOR ONTARIO
+
+                                   CITATION: Leroux v. Ontario, 2023 ONCA 314
+                                                               DATE: 20230504
+                                                             DOCKET: C70224
+
+                        Doherty, Zarnett and Coroza JJ.A.
+
+BETWEEN
+
+                Marc Leroux as Litigation Guardian of Briana Leroux
+
+                                                               Plaintiff/Respondent
+                                                                          (Appellant)
+
+                                        and
+
+             His Majesty the King in Right of the Province of Ontario
+
+                                                              Defendant/Appellant
+                                                                    (Respondent)
+
+                Proceeding under the Class Proceedings Act, 1992
+
+Kirk Baert, Celeste Poltak, and Caitlin Leach, for the appellant
+
+D. Brent McPherson, Vanessa Glasser, and Ravi Amarnath, for the respondent
+
+Heard: September 22, 2022
+
+On appeal from the order of the Divisional Court (Regional Senior Justice Mark L.
+Edwards, dissenting in part, Justices David L. Corbett and Michael A. Penny),
+dated March 26, 2021, with reasons reported at 2021 ONSC 2269, 484 C.R.R.
+(2d) 67, and 2021 ONSC 4468, 75 C.C.L.T. (4th) 107, allowing an appeal from the
+orders of Justice Edward P. Belobaba of the Superior Court of Justice, dated
+December 14, 2018 and March 25, 2020, with reasons reported at
+2018 ONSC 6452, 53 C.C.L.T. (4th) 228, and 2020 ONSC 1994, 63 C.C.L.T.
+(4th) 219.
+
+Zarnett J.A.:
+                                               Page: 2
+
+
+INTRODUCTION
+
+[1]     The appellant, through her litigation guardian, commenced a proposed class
+
+action against the Government of Ontario and moved for certification under s. 5(1)
+
+of the Class Proceedings Act, 1992, S.O. 1992, c. 6 (the “CPA”).1 The motion judge
+
+granted certification. A majority of the Divisional Court reversed that order.
+
+[2]     The proposed class is composed of adults with developmental disabilities
+
+who, like the appellant, have been assessed and approved to receive three specific
+
+types of supports and services under the Services and Supports to Promote the
+
+Social Inclusion of Persons with Developmental Disabilities Act, 2008, S.O. 2008,
+
+c. 14 (the “2008 Disabilities Act”), but did not receive them or experienced
+
+substantial delays.
+
+[3]     The motion judge held that the criteria for certification were met. In particular,
+
+he was satisfied that the statement of claim disclosed a cause of action as required
+
+by s. 5(1)(a) of the CPA, both for negligence and breach of s. 7 of the Canadian
+
+Charter of Rights and Freedoms, which guarantees “the right to life, liberty and
+
+security of the person and the right not to be deprived thereof except in accordance
+
+with the principles of fundamental justice”. Taking the facts alleged in the statement
+
+
+
+
+1 The appellant has a severe developmental disability and accordingly is represented by her father,
+
+Marc Leroux, who has acted as her litigation guardian throughout the proceedings.
+                                                Page: 3
+
+
+of claim as true, the motion judge was of the view that each claim had a reasonable
+
+chance of success and neither was doomed to fail.2
+
+[4]     The motion judge characterized the negligence claim as one complaining of
+
+operational negligence rather than core policy decisions for which the government
+
+enjoys immunity: “[t]he complaint, in a nutshell, is about the negligent operation of
+
+a social assistance system that has approved the delivery of much-needed support
+
+and services but then fails to follow up”. Although he was sceptical of the s. 7
+
+Charter claim, he did not consider the appellant’s claim that Ontario’s conduct
+
+deprived class members of “some measure of security of the person” to be
+
+foreclosed by the existing jurisprudence. The motion judge also held that the
+
+balance of the certification criteria under ss. 5(1)(b)-(e) had been satisfied.
+
+[5]     The majority of the Divisional Court allowed Ontario’s appeal and set aside
+
+the certification order. The Divisional Court was unanimous in its view that the s. 7
+
+Charter claim was precluded by binding jurisprudence. In the majority’s view, the
+
+negligence claim was also doomed to fail as it complained of core policy decisions
+
+about the allocation of scarce resources. The dissenting judge would have
+
+
+
+
+2 The motion judge considered a claim originally asserted in the statement of claim for breach of fiduciary
+
+duty to be doomed to fail and struck it. After the motion judge’s decision, the appellant amended the
+statement of claim to implement the motion judge’s decision in this respect. These reasons treat the
+amended statement of claim as the operative pleading.
+                                       Page: 4
+
+
+permitted the negligence claim to continue on the basis that the motion judge
+
+correctly characterized it as impugning operational rather than policy matters.
+
+[6]   For the reasons that follow, I would allow the appeal, set aside the order of
+
+the Divisional Court, and restore the motion judge’s order.
+
+[7]   I agree with the motion judge and the dissenting judge in the Divisional Court
+
+that the negligence claim does not impugn a core policy decision concerning the
+
+allocation of scarce resources. As pleaded, the action alleges that, within existing
+
+resources, Ontario has negligently implemented a program that has already
+
+assessed and approved class members for the receipt of supports and services.
+
+The majority of the Divisional Court erred in recharacterizing the appellant’s claim.
+
+Taking the pleaded facts as true, it is not plain and obvious that the negligence
+
+claim is one barred by core policy immunity, nor one in which no duty of care could
+
+arguably arise.
+
+[8]   I also agree with the conclusion of the motion judge that the s. 7 claim should
+
+not be struck. The Divisional Court read that claim too narrowly, interpreting it as
+
+one that only asserted that the deprivation of the s. 7 right to security of the person
+
+stemmed from the failure to provide services or the existence of waitlists. Reading
+
+the pleading generously, the claim also identifies the deprivation as originating
+
+from Ontario’s allegedly ad hoc, unreasonable administration of waitlists for
+
+persons who have already been assessed and approved for essential services.
+                                      Page: 5
+
+
+This state conduct allegedly causes psychological harm sufficiently profound to
+
+deprive class members of their security of the person. A claim based on that fact
+
+pattern has not been foreclosed by s. 7 jurisprudence.
+
+BACKGROUND
+
+(1)    The Pleaded Facts and Causes of Action
+
+[9]    The statement of claim describes the appellant as a young adult residing in
+
+Timmins, Ontario. She has a developmental disability and is non-verbal, requiring
+
+24/7 support and services to meet her basic living needs.
+
+[10]   The claim alleges that, prior to her eighteenth birthday in February 2016,
+
+Ontario provided services to the appellant through the Ministry of Children and
+
+Youth Services (the “MCYS”). Despite her needs not changing, the MCYS
+
+terminated these services when the appellant turned 18 years old.
+
+[11]   In anticipation of MCYS services ending, the appellant’s family applied
+
+approximately six months before her eighteenth birthday for services and supports
+
+under the 2008 Disabilities Act, which is administered by the Ministry of Community
+
+and Social Services (the “MCSS”).
+
+[12]   Section 3 of the 2008 Disabilities Act defines a person with a developmental
+
+disability as someone with significant limitations in cognitive and adaptive
+
+functioning that originated before the person reached 18, that are likely to be life-
+
+long in nature, and that affect areas of major life activity, such as personal care,
+                                                  Page: 6
+
+
+language skills, learning abilities, or the capacity to live independently as an adult.
+
+Under s. 14 of the statute, if an applicant is an adult who resides in Ontario, has a
+
+developmental disability within the meaning of s. 3, and provides proof of the
+
+disability, they are eligible for supports and services, which the pleadings refer to
+
+as “Developmental Services”.
+
+[13]    In August and September 2016, the appellant was assessed for her eligibility
+
+under the 2008 Disabilities Act by the regional Developmental Services Ontario
+
+(“DSO”) office in Timmins, for which Ontario is responsible. She was assessed as
+
+eligible and approved by the DSO for Developmental Services. Despite this
+
+approval, Ontario neither provided nor funded such services to meet her daily living
+
+needs. Instead, the appellant was placed on a waitlist, referred to in the claim as
+
+a “DSO Waitlist”, with no estimate as to the length of wait. The claim alleges that
+
+the appellant has remained on a DSO waitlist, resulting in her receiving only the
+
+supports and services that her family have been able to provide at their own
+
+expense, through to the time of the commencement of the action in April 2017 and
+
+its amendment in January 2019.3
+
+[14]    On the basis that the appellant’s experience is one shared by others who
+
+are similarly situated, the action is brought on behalf of the appellant and all other
+
+
+
+
+3 Although not referred to in the pleading, the evidence on the certification motion referred to the appellant
+
+obtaining emergency support for a limited time.
+                                                Page: 7
+
+
+persons who have, since July 2011, been assessed as eligible and approved for
+
+services under the 2008 Disabilities Act, and subsequently placed on one of three
+
+DSO waitlists (also known as “service registries”)4 for approved services:
+
+(i) residential services and supports; (ii) caregiver respite services and supports,
+
+and (iii) "Passport" funding.
+
+[15]    The claim refers to and incorporates criticisms of the DSO waitlists found in
+
+three reports. First, it quotes from the 2014 report of the Legislative Assembly’s
+
+Select Committee on Developmental Services calling for the elimination of the
+
+waitlists. Second, it cites a 2014 report of the Auditor General which notes
+
+problems with the MCSS database, shortcomings in its computer system, as well
+
+as the lack of a consistent prioritization process and methods to tie funding to
+
+individuals' needs, and which called for the government to develop a consistent
+
+prioritization and waitlist management process across the province. Third, it
+
+references a 2016 Ombudsman Report decrying “interminable waitlist delays”.
+
+[16]    The claim asserts two causes of action.
+
+[17]    The first is in negligence. The nub of this cause of action appears in a
+
+paragraph in the “Overview” section of the pleading. It reads:
+
+                Ontario has through statute and conduct undertaken to
+                provide adults with developmental disabilities the
+                services, supports or direct funding, to provide for their
+
+
+4 The motion judge noted, at para. 15 of his certification reasons, that Ontario conceded that service
+
+registries were waitlists and the two terms are interchangeable.
+                                      Page: 8
+
+
+             most basic human needs and daily safety
+             (‘Developmental Services’). In performance of this
+             undertaking, adults with developmental disabilities are
+             assessed and approved for Developmental Services, as
+             prescribed by statute. Despite being assessed and
+             approved for Developmental Services, the entitlement to
+             such services is arbitrarily denied as a result of
+             unreasonably managed waitlists, which are maintained
+             by regional Developmental Services Ontario offices
+             (‘DSO Waitlists’)”.
+
+[18]   The claim later alleges that Ontario created, administered, supervised, and
+
+managed the DSO waitlists during the class period. The claim asserts that Ontario
+
+owed a duty of care to the class members, stating that it was in a relationship of
+
+proximity with the class members, and that the harm suffered by class members
+
+was reasonably foreseeable. The claim also alleges that Ontario breached the duty
+
+of care in the way in which it administered, managed and supervised the DSO
+
+waitlists. The particulars provided include:
+
+             (a)   failing to act to reduce unreasonably long waitlist
+             times which serve as an effective denial of approved
+             Developmental Services;
+
+             (b)  creating waitlists of indeterminate length for
+             Developmental Services which are essential to the Class
+             Member's basic human needs, safety and security;
+
+             (c)     failing to have a consistent and rational scheme of
+             prioritization for Class Members on the DSO Waitlists;
+
+             (d)    failing to create a cohesive system to rationally and
+             efficiently allocate pre-existing resources to Class
+             Members on DSO Waitlists;
+                                      Page: 9
+
+
+             (e)    failing to provide class members with
+             Developmental Services which class members are
+             eligible and approved for pursuant to the 2008 Disabilities
+             Act;
+
+             (f)   arbitrarily cutting off existing Developmental
+             Services to individuals when they reach the age of 18,
+             regardless of pre-approval for such services and their
+             continuing developmental disability;
+
+             (g)  returning Class Members to a DSO Waitlist when
+             Developmental Services are discontinued;
+
+             (h)   failing to properly exercise discretion in
+             determining an appropriate length of time for Class
+             Members be subjected to a DSO Waitlist for approved
+             Developmental Services; and
+
+             (i)  failing to respond adequately, or at all, to
+             complaints or recommendations which were made
+             concerning the administration of DSO Waitlists.
+
+[19]   The second cause of action alleged is a breach of s. 7 of the Charter. The
+
+claim alleges that class members are eligible and have been approved for
+
+Developmental Services which are essential to their life and security of the person,
+
+and the unreasonable and indeterminate administration of DSO waitlists deprive
+
+them of s. 7 rights. The claim lists the alleged harms suffered by the class
+
+members, which includes “mental anguish” and the “development of new mental,
+
+psychological or psychiatric disorders”.
+                                    Page: 10
+
+
+(2)    The Procedural History
+
+i.     The Motion Judge’s Decision
+
+[20]   The motion judge determined that the statement of claim properly alleged a
+
+cause of action in negligence. As noted above, he viewed the crux of the complaint
+
+to be about Ontario’s negligent operation of “a social assistance system that has
+
+approved the delivery of much-needed support and services but then fails to follow
+
+up”.
+
+[21]   The motion judge noted that the design and funding of a social assistance
+
+scheme is a matter for the legislature, not the courts. But he found that the
+
+statement of claim was not complaining about inadequate funding or the need for
+
+a greater allocation of resources. Instead, it was about “the negligent utilization
+
+and administration of existing resources”. In the view of the motion judge, the
+
+appellant was suing about “the indeterminate delays in the waitlisted services, the
+
+flawed computer programs and bad databases and poor prioritization and
+
+matching of available resources”. The complaint was “not one of funding but the
+
+negligent operation of the existing system”.
+
+[22]   The motion judge then turned to the requirement that a duty of care exist
+
+and referred to the two-part Anns/Cooper test: Cooper v. Hobart, 2001 SCC 79,
+
+[2001] 3 S.C.R. 537. Under that test, a plaintiff in a negligence action must show
+                                     Page: 11
+
+
+the presence of proximity and foreseeability, and the absence of policy
+
+considerations that would negate the imposition of a duty of care.
+
+[23]   The motion judge was of the view that it was not plain and obvious that
+
+proximity could not be established. He referred to the allegations that every class
+
+member interacted with Ontario in receiving support and services prior to
+
+turning 18 and in applying and receiving approval for continuing support and
+
+services under the 2008 Disabilities Act. In the motion judge’s view,
+
+representations, direct contact, and reliance would have existed in the course of
+
+the relationship.
+
+[24]   The motion judge also considered that it was not plain and obvious that
+
+policy considerations negated a duty of care on the alleged facts. He distinguished
+
+two decisions − Wareham v. Ontario (Minister of Community and Social Services),
+
+2008 ONCA 771, 93 O.R. (3d) 27, and Wynberg v. Ontario (2006), 82 O.R.
+
+(3d) 561 (C.A.), leave to appeal refused, [2006] S.C.C.A. No. 441 − that were relied
+
+on by Ontario to show no duty of care could exist. He held that the allegations in
+
+this case are distinguishable from those advanced in Wareham and Wynberg and
+
+were the type of allegations that those cases contemplated could support a viable
+
+negligence action. Those allegations are: (i) the waitlists are not operated in
+
+accordance with the statutory scheme; (ii) the delays are the result of the defaults
+
+of Ontario’s employees who administer the program; (iii) the program as enacted
+
+is capable of being administered more effectively without a further allocation of
+                                     Page: 12
+
+
+resources, and (iv) the focus of the complaint is on the operational failures in the
+
+implementation of the program.
+
+[25]   The motion judge was sceptical of the Charter claim, but held it was not plain
+
+and obvious that the claim would fail. The conduct of the DSO offices and MCSS
+
+would meet the state conduct requirement. It could possibly be concluded that the
+
+conduct deprived the class members of “some measure of security of the person”.
+
+Deprived was a broad enough term to encompass conduct that erected barriers to
+
+something to which class members were entitled, and state caused delay could be
+
+a deprivation in some circumstances. He distinguished the statement in Chaoulli
+
+v. Quebec (Attorney General), 2005 SCC 35, [2005] 1 S.C.R. 791, at para. 104,
+
+that the Charter does not confer a freestanding right to health care, noting that the
+
+Supreme Court had gone on to confirm that a legislative scheme for health care
+
+had to comply with the Charter and the appellant’s claim was in respect of services
+
+and support that she had been approved to receive under the 2008 Disabilities Act.
+
+[26]   The motion judge also was of the view that, in light of the appellant’s
+
+allegations that the denial of benefits to which class members were entitled was
+
+due to procedural unfairness and arbitrariness, it was not plain and obvious that
+
+the deprivation occurred in accordance with the principles of fundamental justice.
+
+[27]   The motion judge also considered whether the other requirements for
+
+certification were met. He found the class definition, common issues, preferable
+                                     Page: 13
+
+
+procedure and suitable representative plaintiff requirements under ss. 5(1)(b)-(e)
+
+of the CPA were all satisfied.
+
+[28]   Subsequent to the motion judge’s certification decision, the Ontario
+
+legislature passed the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7,
+
+Sched. 17 (the “CLPA”). The Divisional Court, to which Ontario had appealed the
+
+certification decision, referred the matter back to the motion judge to consider the
+
+effect of the CLPA on the negligence claim. The motion judge noted that s. 11(4)
+
+of the CLPA immunizes Ontario against negligence claims that relate to the making
+
+of, or the failure to make, a decision respecting a policy matter, and s. 11(5)(c)
+
+defines policy matter to “potentially include even operational negligence”. For a
+
+number of reasons, including issues about whether the CLPA had retrospective
+
+operation, the motion judge concluded that it was not plain and obvious that the
+
+operational negligence claim asserted by the appellant was barred by the CLPA.
+
+He added a common issue about the effect of the CLPA so it could be determined
+
+at the common issues trial.
+
+ii.    The Divisional Court Decision
+
+[29]   The Divisional Court was unanimous in holding that the motion judge erred
+
+when he determined that the Charter claim was not doomed to fail. Regional Senior
+
+Justice Edwards, writing for the court on this issue, considered the jurisprudence
+
+to have rejected the proposition that “security of the person includes and requires
+                                      Page: 14
+
+
+provision for the economic satisfaction of basic human needs”. He went on to hold
+
+that what was actually alleged was a failure to positively provide benefits.
+
+Therefore, even if security of the person was engaged, there was no legally
+
+cognizable deprivation alleged as “[n]othing in the jurisprudence suggest[s] that
+
+s. 7 [of the Charter] places a positive obligation on the state to ensure that each
+
+person enjoys life, liberty or security of the person”. He did not consider it arguable
+
+that the delay in continuing benefits which the class members had received before
+
+they were 18 and for which they were eligible constituted a deprivation, as “a long
+
+line of authorities … establish that the government is under no obligation to ensure
+
+that a claimant receives or continues to receive the same level of benefits or
+
+support before or after a certain age or following a policy decision to reduce or
+
+even eliminate that benefit”. He considered the motion judge to have erred in
+
+relying on delay − that is inaction − by the government in providing benefits as
+
+arguably amounting to a deprivation.
+
+[30]   Although Edwards R.S.J. would have allowed the negligence claim to
+
+continue, the majority of the Divisional Court held that the motion judge erred in
+
+finding the appellant had alleged a cause of action in negligence that should have
+
+been certified. It held that Ontario enjoyed common law immunity against the
+
+negligence claim, and that Ontario owed no duty of care to the appellant.
+
+[31]   The majority distinguished two kinds of benefit programs offered by Ontario
+
+to persons with disabilities: “entitlement programs” and “eligibility programs”.
+                                             Page: 15
+
+
+[32]    In the majority’s view, the Ontario Disability Support Program (the “ODSP”)
+
+is an example of an entitlement program because “[w]here an ODSP applicant
+
+meets the criteria, she is entitled to receive prescribed ODSP benefits”. This was
+
+to be contrasted with an eligibility program “under which, if an applicant meets the
+
+test established to be eligible for benefits, she is placed on ‘waitlists’ or ‘service
+
+registries’ for benefits or services. The applicant is not ‘entitled’ to these benefits
+
+or services; she is ‘eligible’ for them. Available benefits or services are insufficient
+
+to meet the needs of all persons eligible to receive them. Ontario allocates the
+
+available benefits or services among eligible persons through a process of triage
+
+and ‘waitlists’ it has designed to implement these Eligibility Programs’”.
+
+[33]    The majority further stated that “[i]t is not alleged, in this case, that the
+
+[appellant] is ‘entitled’ to benefits for which she is merely ‘eligible’. It is not alleged,
+
+in this case, that the [appellant] is not receiving benefits to which she is ‘entitled’”.
+
+[34]    The majority reasoned that Crown immunity applies to the negligence claim
+
+in this case because what was complained about constituted a core policy decision
+
+at common law.5 The choice to provide an eligibility program rather than an
+
+entitlement program is a core policy choice, and it “is implicit that there may be,
+
+and likely will be, persons eligible for benefits who wait for those benefits, or who
+
+
+
+
+5 The majority did not find it necessary to determine whether there was immunity under the CLPA or
+
+whether it applied retrospectively.
+                                      Page: 16
+
+
+do not receive them at all.” The majority further noted that administering a system
+
+to allocate scarce resources between individuals with developmental disabilities
+
+“is, at its core, public administration of a benefits program”.
+
+[35]   In the majority’s view, the same considerations led to the conclusion that
+
+there was no private law duty owed by Ontario to the appellant: “[t]he government
+
+owes no private law duty of competent public administration to individual benefits
+
+claimants”. The majority also considered this conclusion to be compelled by the
+
+decisions in Wynberg and Wareham. They did not consider the appellant’s case
+
+for proximity to be assisted by her receipt of benefits before she was 18, because
+
+“[e]ntitlement and eligibility under programs for Children do not establish
+
+entitlement or eligibility for programs for Adults … to import continuing duties based
+
+on past receipt of benefits as a Child would impugn the government’s authority to
+
+draw a line between programs aimed at Children and programs aimed at Adults”.
+
+The majority also rejected the motion judge’s reasoning that representations “must
+
+have been made” to the class members as they transitioned from child to adult
+
+services. In their view, the evidence of an ongoing relationship between one of the
+
+plaintiffs in Wynberg and Ontario “was much better established” than it was in this
+
+case, yet the negligence claim in Wynberg did not succeed.
+
+[36]   The Divisional Court did not comment on the motion judge’s assessment of
+
+the other certification criteria.
+                                       Page: 17
+
+
+ISSUES
+
+[37]     This appeal raises two primary issues:
+
+      a) Did the Divisional Court err in concluding the appellant’s negligence claim
+
+         did not disclose a reasonable cause of action?
+
+      b) Did the Divisional Court err in concluding the appellant’s s. 7 Charter claim
+
+         did not disclose a reasonable cause of action?
+
+ANALYSIS
+
+(1)      The Cause of Action Test and the Standard of Review
+
+[38]     The test for whether a pleading in a proposed class action meets the cause
+
+of action requirement in s. 5(1)(a) of the CPA, and the test for whether a pleading
+
+should be struck under r. 21.01(1)(b) of the Rules of Civil Procedure, R.R.O. 1990,
+
+Reg. 194, for failing to disclose a reasonable cause of action, is the same: Atlantic
+
+Lottery Corp. Inc. v. Babstock, 2020 SCC 19, [2020] 2 S.C.R. 420, at para. 14. The
+
+facts asserted in the statement of claim are taken to be true unless patently
+
+incapable of proof: R. v. Imperial Tobacco Canada Ltd., 2011 SCC 42, [2011]
+
+3 S.C.R. 45, at para. 22. The statement of claim is to be read generously:
+
+Operation Dismantle v. The Queen, [1985] 1 S.C.R. 441, at p. 451. The question
+
+to be answered “is whether it is plain and obvious, assuming the facts pleaded to
+
+be true, that each of the plaintiffs’ pleaded claims disclose no reasonable cause of
+
+action”: Babstock, at para. 14.
+                                    Page: 18
+
+
+[39]   The standard of review on appeal from such a determination is correctness:
+
+Darmar Farms Inc. v. Syngenta Canada Inc., 2019 ONCA 789, 148 O.R. (3d) 115,
+
+at para. 30, leave to appeal refused, [2019] S.C.C.A. No. 409.
+
+(2)    The Negligence Claim
+
+i.     Position of the Parties
+
+[40]   The appellant’s primary submission is that the majority of the Divisional
+
+Court erred in concluding that Ontario is immune from the negligence claim
+
+because it impugned a core policy decision. This error stemmed from a
+
+mischaracterization of the claim. Properly characterized, the appellant argues that
+
+the negligence claim complains about the implementation of a government
+
+program, for which Ontario may be held liable. The appellant further contends that
+
+it is not plain and obvious that the CLPA bars this negligence claim.
+
+[41]   Ontario asserts that the Divisional Court majority correctly concluded that
+
+Ontario is immune from the appellant’s negligence claim. In its view, the substance
+
+of the negligence claim targets the structure of the government’s discretionary
+
+social program for adults with developmental disabilities “as a whole”, and the
+
+allocation of resources to it, which are core policy decisions. Ontario also argues
+
+that s. 11 of the CLPA bars the negligence claim.
+                                       Page: 19
+
+
+ii.    Government Liability for Negligence and Core Policy Immunity
+
+[42]   In Nelson (City) v. Marchi, 2021 SCC 41, 463 D.L.R. (4th) 1, the
+
+Supreme Court clarified how to distinguish “immune policy decisions from
+
+government activities that attract liability for negligence”: at para. 3.
+
+[43]   Every negligence claim must be based on a duty of care owed to the plaintiff
+
+by the defendant. In a case against a government authority, the Anns/Cooper
+
+framework is used to determine whether a duty of care exists, applied in a manner
+
+that has regard to whether the plaintiff’s claim falls within or is analogous to an
+
+established duty of care or is novel because proximity has not been recognized
+
+before. In novel cases, the full two-stage framework is followed. At the prima facie
+
+duty stage, the court asks whether the harm was a reasonably foreseeable
+
+consequence of the defendant’s conduct, and whether there is a relationship of
+
+proximity in which the failure to take reasonable care might foreseeably cause loss
+
+or harm to the plaintiff. Proximity arises in those relationships where the parties
+
+are in such a close and direct relationship that it would be “just and fair having
+
+regard to that relationship to impose a duty of care in law upon the defendant”:
+
+Cooper, at para. 34. At the policy stage, the court asks whether residual policy
+
+concerns outside the parties’ relationship should negate the prima facie duty:
+
+Marchi, at paras. 15-18.
+                                      Page: 20
+
+
+[44]   In the above sense, the “tort law duty of care will apply to a government
+
+agency in the same way that it will apply to an individual”: Just v. British Columbia,
+
+[1989] 2 S.C.R. 1228, at p. 1244. However, the law also recognizes that “certain
+
+policy decisions should be shielded from liability for negligence, as long as they
+
+are not irrational or made in bad faith”: Marchi, at para. 41. If a core policy decision
+
+is involved, immunity exists, and no duty of care will be imposed: Marchi, at
+
+para. 36.
+
+[45]   Core   policy   decisions    must    be    distinguished    from    “operational
+
+implementation”. Operational implementation has been defined as “the practical
+
+implementation of the formulated policies” or “the performance or carrying out of a
+
+policy”: Marchi, at para. 52. Such operational decisions are generally “made on the
+
+basis of administrative direction, expert or professional opinion, technical
+
+standards or general standards of reasonableness”: Brown v. British Columbia
+
+(Minister of Transportation and Highways), [1994] 1 S.C.R. 420, at p. 441.
+
+[46]   In ascertaining whether a decision is one of core policy, the use of the term
+
+“policy” is not determinative. Instead, “the key focus is always on the nature of the
+
+decision”: Marchi, at para. 60. Broadly speaking, it will be a decision “as to a course
+
+or principle of action … based on public policy considerations, such as economic,
+
+social and political factors”: Marchi, at para. 51.
+                                      Page: 21
+
+
+[47]   In Marchi, the Supreme Court identified four factors to ascertain whether a
+
+core policy decision is at issue. The rationale for the immunity – protecting the
+
+legislative and executive branch’s core institutional roles and competencies
+
+necessary to maintain the separation of powers – guides how to assess and weigh
+
+the factors. The court explained the factors, at paras. 62-65, in the following
+
+manner:
+
+             First: the level and responsibilities of the decision-maker.
+             With this factor, what is relevant is how closely related
+             the decision-maker is to a democratically-accountable
+             official who bears responsibility for public policy
+             decisions. The higher the level of the decision-maker
+             within the executive hierarchy, or the closer the decision-
+             maker is to an elected official, the higher the possibility
+             that judicial review for negligence will raise separation of
+             powers concerns or have a chilling effect on good
+             governance. Similarly, the more the job responsibilities of
+             the decision-maker include the assessment and
+             balancing of public policy considerations, the more likely
+             this factor will lean toward core policy immunity.
+             Conversely, decisions made by employees who are far-
+             removed from democratically accountable officials or
+             who are charged with implementation are less likely to be
+             core policy and more likely to attract liability under regular
+             private law negligence principles.
+
+             Second: the process by which the decision was made.
+             The more the process for reaching the government
+             decision was deliberative, required debate (possibly in a
+             public forum), involved input from different levels of
+             authority, and was intended to have broad application
+             and be prospective in nature, the more it will engage the
+             separation of powers rationale and point to a core policy
+             decision. On the other hand, the more a decision can be
+             characterized as a reaction of an employee or groups of
+             employees to a particular event, reflecting their discretion
+                                     Page: 22
+
+
+             and with no sustained period of deliberation, the more
+             likely it will be reviewable for negligence.
+
+             Third: the nature and extent of budgetary considerations.
+             A budgetary decision may be core policy depending on
+             the type of budgetary decision it is. Government
+             decisions “concerning budgetary allotments for
+             departments or government agencies will be classified as
+             policy decisions” because they are more likely to fall
+             within the core competencies of the legislative and
+             executive branches. On the other hand, the day-to-day
+             budgetary decisions of individual employees will likely not
+             raise separation of powers concerns.
+
+             Fourth: the extent to which the decision was based on
+             objective criteria. The more a government decision
+             weighs competing interests and requires making value
+             judgments, the more likely separation of powers will be
+             engaged because the court would be substituting its own
+             value judgment. Conversely, the more a decision is
+             based on “technical standards or general standards of
+             reasonableness”, the more likely it can be reviewed for
+             negligence. Those decisions might also have analogues
+             in the private sphere that courts are already used to
+             assessing because they are based on objective criteria.
+             [Citations omitted.]
+
+iii.   Discussion
+
+a)     Errors of the Divisional Court
+
+[48]   Against that backdrop, I return to the question of whether the majority of the
+
+Divisional Court erred in its treatment of the appellant’s negligence claim. As I will
+
+explain, the majority fell into error by: (a) mischaracterizing the claim in two ways;
+
+and (b) interpreting Wynberg and Wareham as determinative.
+                                     Page: 23
+
+
+[49]   First, the motion judge and dissenting judge at the Divisional Court correctly
+
+characterized the negligence claim as one alleging the “negligent operation of a
+
+social assistance system within existing resources” (emphasis added). The
+
+pleading specifically alleges that Ontario acted negligently in failing to rationally
+
+allocate “pre-existing” resources to class members on DSO waitlists who are
+
+already “assessed and approved” for Developmental Services, thus denying them
+
+their entitlement to services. Accordingly, the negligence claim does not target the
+
+discretionary social assistance program as a whole. It does not target Ontario’s
+
+allocation of resources nor Ontario’s exercise of discretion over who is approved
+
+for the services at issue.
+
+[50]   In holding that the appellant’s negligence claim impugns a core policy
+
+decision, the majority of the Divisional Court recharacterized the claim. The
+
+majority said, at para. 126 of its initial reasons, that the claim targeted the
+
+“administration of discretionary benefits under Eligibility Programs for Adults who
+
+are ‘eligible’ but not ‘entitled’ to those benefits.” The majority added that the
+
+appellant was not even alleging an entitlement to benefits.
+
+[51]   The appellant’s claim does, however, make an allegation of entitlement. The
+
+claim asserts that “[d]espite being assessed and approved for Developmental
+
+Services, the entitlement to such services is arbitrarily denied by unreasonably
+
+managed waitlists”.
+                                       Page: 24
+
+
+[52]   Respectfully, the majority’s distinction between “entitlement” and “eligibility”
+
+for Developmental Services elides an important point about this claim. The legal
+
+“entitlement” claimed for the class is that Ontario must take reasonable care in
+
+implementing the process to deliver Developmental Services to those it has
+
+assessed and approved to receive them.
+
+[53]   Pursuant to s. 14 of the 2008 Disabilities Act, the class members have been
+
+deemed eligible for Developmental Services by an “application entity”, and such
+
+“entity” has assessed each class member’s needs as required under s. 17(1)(a).
+
+The statute then contemplates, under s. 17(1)(b), that a “funding entity shall
+
+prioritize the provision of services and supports and funding to the applicant in
+
+accordance with sections 18 and 19” (emphasis added). On the appellant’s
+
+argument, the class members have moved beyond “mere eligibility” to a stage
+
+where they have been approved, assessed, and are entitled to be prioritized for
+
+benefits. The class members are therefore differently situated from those who only
+
+meet or potentially meet the criteria for eligibility. While ss. 18 and 19 have still not
+
+come into force, the appellant contends that, in the interim, Ontario must act non-
+
+negligently in how it prioritizes individuals approved to receive benefits it has
+
+placed on the DSO waitlists.
+
+[54]   Second, throughout its reasons, the majority relies on a description of the
+
+program that misses the essential nature of the allegation. These assertions
+
+include that Ontario already assists 47,000 people with developmental disabilities,
+                                     Page: 25
+
+
+that it has a triage system it designed to allocate resources to persons in the
+
+program (although such a triage system is not referred to in the claim), that
+
+available resources are inadequate to meet the needs of all eligible claimants, that
+
+there will be persons who are eligible for benefits who do not receive them, and
+
+that making decisions in this context is a complex task.
+
+[55]   This description shifts the claim to one that challenges decisions concerning
+
+what resources to devote to a triage system addressing a complex problem in
+
+which demand outstrips supply. But those are not the decisions the appellant
+
+impugns. The appellant pleads that Ontario has no consistent and rational scheme
+
+for allocating pre-existing resources, and that the cause of the non-receipt or
+
+delayed receipt of support and services by class members is that very failure. As
+
+the motion judge and dissenting judge at the Divisional Court correctly observed,
+
+the complaint as pleaded is about the negligent administration of DSO waitlists
+
+“within existing resources” and is not about “insufficient funding”.
+
+[56]   Third, the majority of the Divisional Court erred in concluding that Wareham
+
+or Wynberg were indistinguishable.
+
+[57]   In Wareham, this court upheld the motion judge’s decision to strike the class
+
+members’ negligence claim against Ontario, which related to the delay in receiving
+
+ODSP payments. The motion judge had held that it was plain and obvious that no
+
+duty of care was present between Ontario and the class members because of a
+                                      Page: 26
+
+
+lack of proximity, or the claim impugned a core policy decision. Like the dissenting
+
+judge at the Divisional Court, I agree that Wareham is distinguishable because the
+
+class included those who merely applied for ODSP. In addition, the motion judge
+
+in Wareham indicated that the class members’ allegation of reliance was only
+
+based on the existence of the Ontario Disability Support Program Act, 1997,
+
+S.O. 1997, c. 25, Sched. B, and not from representations made by government
+
+officials: (2008), 166 C.R.R. (2d) 162 (Ont. S.C.), at para. 23. In this case, the class
+
+members have all been assessed and approved for Developmental Services and
+
+the pleadings allege interactions with government officials through assessment
+
+and approval from which reliance could arise.
+
+[58]   Moreover, in Wareham, the motion judge concluded that the impugned
+
+conduct involved core policy decisions because it focused on the “design” of the
+
+ODSP and “the resources that are to be allocated to its operation”: at para. 25. In
+
+contrast, the motion judge below correctly noted that the appellant’s claim focuses
+
+on the operational failures in administering the DSO waitlists within existing
+
+resources and does not allege inadequate funding.
+
+[59]   In Wynberg, this court upheld a trial judge’s conclusion that the plaintiffs’
+
+negligence claim related to a core policy decision. At issue was Ontario’s decision
+
+to restrict access to the Intensive Early Intervention Program (the “IEIP”) to autistic
+
+children between two and five years old. At para. 255, this court agreed that: “rather
+
+than being a claim for operational failures in the implementation of a government
+                                                Page: 27
+
+
+program”, the claim related to Ontario’s “decision-making about the scope of IEIP
+
+and the services to be provided within the special education system”. As the motion
+
+judge and dissenting judge at the Divisional Court correctly noted, those facts are
+
+distinct from the case at bar since the class members here do not challenge the
+
+scope of eligibility for Developmental Services, and instead make allegations that
+
+were not made in Wynberg about operational negligence.
+
+b)      Core Policy Analysis
+
+[60]    The deficiencies of performance alleged by the appellant do not have the
+
+hallmarks of a core policy decision identified in Marchi.6 On the proper
+
+characterization of the statement of claim and in light of the facts it alleges, the
+
+motion judge and the dissenting judge in the Divisional Court reached the correct
+
+result about the negligence claim – that it is not plain and obvious that it is one
+
+complaining of core policy decisions attracting immunity.
+
+[61]    Each of the Marchi factors arguably suggest that the nature of the impugned
+
+decisions in the negligence claim are not ones of core policy. With regard to the
+
+first factor, the pleadings impugn the conduct of “directors” in MCSS who oversee
+
+the administration of Developmental Services and DSO employees at regional
+
+
+
+
+6 In oral argument the appellant conceded that one of the negligence allegations – arbitrarily cutting off
+
+existing Developmental Services to individuals when they reach the age of 18, regardless of pre-approval
+for such services and their continuing developmental disability, might go beyond operational negligence
+and was not being pressed.
+                                     Page: 28
+
+
+DSO offices. These are individuals removed from democratic accountability and
+
+are clearly charged with implementing the support and services offered under the
+
+2008 Disabilities Act. Similarly, the second factor cuts against finding a core policy
+
+decision. By impugning the “ad-hoc” irrational prioritization approach, as well as
+
+bad databases and computer programs, the appellant focuses on matters that can
+
+be characterized as reflecting an absence of any sustained period of deliberation.
+
+The third factor likewise leans towards finding the decisions reviewable for
+
+negligence as the pleadings suggest that the administration of DSO waitlists
+
+“within existing resources” involves day-to-day budgetary decisions. The fourth
+
+factor leans the same way, as the appellant’s claim criticizes prioritization
+
+decisions and practices on the basis that they are not coherent or rational, and
+
+thus can arguably be assessed based on objective criteria.
+
+[62]   When all of these factors are weighed and considered in their totality, it is
+
+not plain and obvious that the negligence claim targets core policy decisions. The
+
+overarching guiding principle for core policy immunity, the separation of powers,
+
+remains respected if this claim proceeds to trial, as it has the potential to be
+
+adjudicated without compromising the institutional roles and competencies of the
+
+three branches of government.
+                                       Page: 29
+
+
+c)     Duty of Care Analysis
+
+[63]   Moreover, in my view, the motion judge was correct in determining that the
+
+alleged facts can support the imposition of a duty of care. Foreseeability of harm
+
+is adequately alleged. So were facts from which a conclusion of proximity could be
+
+reached. As the motion judge noted, the appellant “pleads that every proposed
+
+class member directly interacted with the defendant through the receipt of
+
+developmental services before turning 18 and had further and direct contact after
+
+turning 18 and receiving formal approval for continuing support and services”. This
+
+creates a factual foundation for the motion judge’s comment that Ontario must
+
+have made representations subsequently relied on by the class members. There
+
+is thus the possibility of sufficient proximity being established at trial.
+
+[64]   The majority in the Divisional Court erred in concluding that Wynberg
+
+undermined a possible finding of proximity, asserting that the ongoing relationship
+
+between the plaintiffs and Ontario in that case was “much better established” than
+
+in the case at bar. As described above, Wynberg involved a negligence claim that
+
+impugned a core policy decision. There was also no basis to compare the facts as
+
+alleged in the pleading in this case against the evidentiary record established
+
+through a trial in Wynberg.
+
+[65]   Absent core policy immunity concerns, it is not plain and obvious that the
+
+prima facie duty of care arising from the presence of foreseeability of harm and
+                                      Page: 30
+
+
+proximity would be negated by any other residual policy concerns. As a result, it is
+
+not plain and obvious that the appellant’s negligence claim has no reasonable
+
+prospect of success.
+
+d)     Ontario’s Additional Arguments
+
+[66]   Ontario made two additional submissions about why the appellant’s
+
+negligence claim is doomed to fail. First, the claim impugns actions that are said
+
+to be immune under the CLPA. Second, the claim is deficient because it does not
+
+advance specific allegations of tortious conduct by individual Crown servants, for
+
+whom Ontario would be vicariously liable. Ontario cannot be directly liable for
+
+negligence − it can only be liable for acts of its servants under s. 5(2) of the
+
+Proceedings Against the Crown Act, R.S.O. 1990, c. P.27.
+
+[67]   In my view, Francis v. Ontario, 2021 ONCA 197, 154 O.R. (3d) 498, stands
+
+as an answer to both arguments.
+
+[68]   With respect to the first argument, Ontario points to ss. 11(4)-(5) of the
+
+CLPA. Section 11(4) of the CLPA provides that there is no cause of action against
+
+the Crown “in respect of any negligence … in the making of a decision in good faith
+
+respecting a policy matter”. Section 11(5) includes in the definition of policy matter
+
+“the creation, design, establishment, redesign or modification of a program, project
+
+or other initiative” and “the manner in which a program, project or other initiative is
+
+carried out”.
+                                       Page: 31
+
+
+[69]   The courts below did not decide whether the CLPA applied to this action
+
+which was commenced before the CLPA was enacted. Ontario argues in this court
+
+that the CLPA applies. Even if Ontario is right on that point, which I need not
+
+decide, it does not change the analysis since this court has held that the
+
+CLPA merely codifies existing law.
+
+[70]   In Francis, at para. 127, this court held that the CLPA did not give the
+
+government broader immunity to that which it enjoyed for core policy decisions at
+
+common law. As such, it did not immunize the government for operational matters
+
+such as the implementation of a core policy. In light of Francis, it is not plain and
+
+obvious that statutory immunity would apply under the CLPA.
+
+[71]   With respect to the second argument, this court in Francis stated, at
+
+paras. 144-146:
+
+             On a fair reading of the amended statement of claim, it is
+             clear that the allegations being made against Ontario
+             arise from its vicarious liability for the negligent acts of its
+             servants … It is also clear from the amended statement
+             of claim that the negligent acts are those of servants of
+             Ontario. It is axiomatic to point out that Ontario can only
+             operate through the actions of individuals.
+
+             There is no absolute requirement that the individual
+             servants of the Crown, who undertake the negligent acts,
+             must be named in the proceeding. Section 5(2) of the
+             PACA simply says that no proceeding can be brought
+             against the Crown "unless a proceeding in tort in respect
+             of such act or omission may be brought against that
+             servant or agent" (emphasis added). The section does
+                                     Page: 32
+
+
+             not require that the proceeding must be brought against
+             that servant or agent.
+
+             We accept that best practices in pleadings might suggest
+             that the negligent individual, from whom vicarious liability
+             arises, be named as a party, at least in a case where only
+             one event or individual is involved. However, this is a
+             class proceeding in which collective claims are made …
+             it is impractical to expect a representative plaintiff … to
+             name all of the individuals involved in the collectively
+             negligent acts. [Emphasis in original.]
+
+[72]   In my view, these quoted passages are a complete answer to Ontario’s
+
+second argument.
+
+(3)    Section 7 Charter Claim
+
+i.     Position of the Parties
+
+[73]   The appellant argues that the Divisional Court erred in finding it was plain
+
+and obvious that her s. 7 Charter claim had no reasonable chance of success. The
+
+appellant agrees that to establish a s. 7 violation there must be: state conduct, a
+
+deprivation of a s. 7 right, and the deprivation must not be in accordance with the
+
+principles of fundamental justice. But the appellant submits that the Divisional
+
+Court incorrectly interpreted the claim as asserting that the s. 7 breach consisted
+
+of Ontario not fulfilling a positive obligation to provide the class members economic
+
+and human needs. The appellant argues that the claim does not simply assert a
+
+deprivation of the class members’ s. 7 rights flowing from Ontario’s failure to
+
+provide Developmental Services or from the very existence of a waitlist. The claim
+                                       Page: 33
+
+
+also alleges a deprivation of the class members’ right to security of the person
+
+based on the manner in which Ontario has managed DSO waitlists for
+
+Developmental Services for persons it has assessed and approved to receive
+
+services. This state conduct allegedly interferes with the right to security of the
+
+person by undermining the physical and psychological integrity of class members.
+
+[74]   Ontario contends that the Divisional Court correctly struck the s. 7 claim. In
+
+its view, the Divisional Court was bound by previous s. 7 jurisprudence where
+
+claims were rejected on the basis that they sought to impose a positive obligation
+
+on the state to provide financial benefits − there is no obligation on the government
+
+to do so even in the case of benefits that accord with or enhance Charter values.
+
+The failure to provide benefits, or the existence of a waitlist for those benefits,
+
+cannot successfully ground a s. 7 claim. Ontario also argues that the appellant
+
+does not particularize how the deprivation fails to accord with a principle of
+
+fundamental justice, which is fatal to the viability of the s. 7 claim.
+
+ii.    The Law
+
+[75]   To demonstrate a violation of s. 7 of the Charter, a claimant must first
+
+demonstrate that the impugned state action interferes with or deprives them of
+
+their life, liberty, or security of the person. Once a s. 7 right has been engaged,
+
+they must show that the deprivation is not in accordance with the principles of
+
+fundamental justice: Carter v. Canada (Attorney General), 2015 SCC 5, [2015]
+                                      Page: 34
+
+
+1 S.C.R. 331, at para. 55. The pleadings must allege both constituent elements to
+
+disclose a viable s. 7 claim: Bowman v. Ontario, 2022 ONCA 477, 162 O.R.
+
+(3d) 561, at para. 97.
+
+[76]   In Gosselin v. Quebec (Attorney General), 2002 SCC 84, [2002]
+
+4 S.C.R. 429, at para. 81, the majority highlighted that s. 7 is focussed on a right
+
+“not to be deprived” and that nothing in the jurisprudence up to that time imposed
+
+a positive obligation on the state to ensure that each person enjoys life, liberty, or
+
+security of the person. However, the majority expressly left open the possibility that
+
+a positive obligation under s. 7 to sustain life, liberty or security of the person may
+
+be made out in special circumstances: at para. 83.
+
+[77]   In light of Gosselin, this court has consistently held that, to make out a
+
+deprivation of a s. 7 right, claimants cannot point to the government’s failure to
+
+provide a financial benefit, even if such a benefit may be necessary to sustain life,
+
+liberty, or security of the person: see Wynberg, at paras. 218-220; Flora v. Ontario
+
+(Health Insurance Plan, General Manager), 2008 ONCA 538, 91 O.R. (3d) 412, at
+
+para. 108. This court has upheld the striking of a s. 7 claim at the pleadings stage
+
+when the claim alleged that the deprivation stemmed from the state’s failure to
+
+provide access to publicly-funded autism therapy services for children since
+
+“[g]overnment action in not providing specific programs … cannot be said to
+
+deprive [the claimants] of constitutionally protected rights”: see Sagharian v.
+                                     Page: 35
+
+
+Ontario (Education), 2008 ONCA 411, 172 C.R.R. (2d) 105, at paras. 52-53, leave
+
+to appeal refused, [2008] S.C.C.A. No. 350 (emphasis in original).
+
+[78]   However, this court has also held that claimants may be able to make out a
+
+s. 7 deprivation that stems from delay in receiving essential financial benefits for
+
+which they are statutorily entitled: see Wareham, at paras. 16-17. As Doherty J.A.
+
+wrote, at para. 17, “[t]here is a potential argument to be made that [such] delay …
+
+could engage the right to security of the person where that delay has caused
+
+serious physical or psychological harm”.
+
+iii.   Discussion
+
+[79]   I agree with the appellant that the Divisional Court erred in finding the s. 7
+
+claim was doomed to fail because it is completely foreclosed by existing
+
+jurisprudence.
+
+[80]   The Divisional Court interpreted the claim as imposing a positive
+
+constitutional obligation on Ontario to provide Developmental Services to the class
+
+members.
+
+[81]   But when one reads the pleading generously, the appellant’s s. 7 claim
+
+includes an allegation of deprivation of the security of the person that stems from
+
+the manner in which Ontario administers DSO waitlists for Developmental Services
+
+for persons it has already assessed and approved. In other words, it does not
+
+simply allege that the failure to receive Developmental Services or the existence
+                                      Page: 36
+
+
+of the waitlist deprives class members of a s. 7 right. It alleges that the conduct of
+
+Ontario in assessing, approving, and then placing class members into an
+
+incoherent and irrational waitlist process visits harm to their security of the person.
+
+Read in this light, the complaint is not simply about state inaction or delay – i.e.,
+
+the failure to alleviate the class members’ vulnerabilities that already exist due to
+
+their developmental disabilities. The complaint is about harm to their security of
+
+the person, including their psychological integrity, that is alleged to occur from state
+
+action.
+
+[82]   As such, the claim can be distinguished from the claims in Wynberg, Flora,
+
+and Sagharian. In those cases, the claimants identified their s. 7 deprivation as
+
+originating from legislative limitations on the scope of a benefit or the mere
+
+existence of a waitlist, and thus their claims could be characterized as seeking to
+
+impose a positive obligation on the state.
+
+[83]   Here, the appellant points to state action (the ad hoc, unreasonable
+
+administration of a waitlist of individuals with approval for essential services) that
+
+she alleges causes a form of psychological harm sufficiently profound to deprive
+
+class members of the right to security of the person. The claim lists “mental
+
+anguish” and the “development of new mental, psychological or psychiatric
+
+disorders” as some of the harms stemming from the impugned state conduct. The
+
+appellant argues that this psychological harm surpasses the “ordinary stress and
+
+anxiety” that the Supreme Court has held to be insufficient to constitute a
+                                      Page: 37
+
+
+deprivation of the security of the person: New Brunswick (Minister of Health and
+
+Community Services) v. G. (J.), [1999] 3 S.C.R. 46, at para. 60.
+
+[84]   As the motion judge noted, it is true that the pleading also asserts that state
+
+inaction and delay in providing Developmental Services itself constitutes a
+
+deprivation of the security of the person because the benefits are essential to the
+
+class members. To the extent the pleading does so, it sails close to asserting a
+
+positive constitutional obligation in favour of these class members. But given that
+
+the claim read generously goes beyond this, the question is whether it should be
+
+allowed to proceed or considered doomed to fail.
+
+[85]   Although I share the motion judge’s scepticism about the ultimate success
+
+of the s. 7 claim, I agree with the result he reached that the claim should be allowed
+
+to proceed. It is not plain and obvious that, if proven, the psychological harm
+
+allegedly caused by Ontario’s management of DSO waitlists for Developmental
+
+Services to the vulnerable class members could not amount to a deprivation of the
+
+security of the person.
+
+[86]   And even to the extent the claim goes beyond that, it is important to
+
+recognize that claims should be struck with care: Imperial Tobacco, at para. 21.
+
+Novel claims that may incrementally develop the law should be allowed to proceed:
+
+Babstock, at para. 19. This may be particularly true for novel Charter claims that
+
+explore the scope of a right, as such claims often require a trial and an evidentiary
+                                      Page: 38
+
+
+record to fully understand the nature of the impugned state action and the harms
+
+experienced by claimants: Lorne Sossin and Gerard J. Kennedy, “Justiciability,
+
+Access to Justice and the Development of Constitutional Law in Canada”, (2017)
+
+45:4 Fed. L. Rev. 707, at p. 719.
+
+[87]   It is worth repeating that in Gosselin, the majority of the Supreme Court left
+
+open the possibility of a positive obligation under s. 7 to sustain life, liberty, or
+
+security of the person being made out in special circumstances. While this court
+
+has held that this possibility alone is normally an insufficient basis for allowing
+
+novel positive obligation claims under s. 7 to proceed to trial, this claim is arguably
+
+distinct because the class members have already been assessed and approved
+
+for Developmental Services pursuant to the 2008 Disabilities Act. This feature
+
+arguably shares some similarities to the features of the s. 7 claim in Wareham that
+
+was permitted to proceed. As such, the positive obligation dimension of this claim
+
+may likewise warrant further consideration at trial.
+
+[88]   Finally, I reject Ontario’s argument that the pleadings do not sufficiently
+
+identify a principle of fundamental justice with which the appellant’s alleged
+
+deprivation fails to accord. The appellant alleges arbitrariness, with her pleadings
+
+asserting that Ontario has created an “arbitrary” system for administrating the
+
+waitlist for Developmental Services. Taken at its highest, the appellant’s s. 7 claim
+
+argues that the deprivation of the security of the person experienced by class
+
+members has no rational connection to the purpose of the state action.
+                                      Page: 39
+
+
+[89]   Accordingly, I am satisfied that the appellant’s pleadings allege the
+
+constituent elements to make out a viable s. 7 Charter claim and should be allowed
+
+to proceed to trial.
+
+(4)    Remaining Certification Issues
+
+[90]   Ontario argues in the alternative that, if the Divisional Court erred in its
+
+conclusion that the appellant’s negligence or s. 7 Charter claims were doomed to
+
+fail, the setting aside of the certification order should be upheld because the motion
+
+judge erred in his common issues and preferable procedure analysis under
+
+ss. 5(1)(c) and 5(1)(d) of the CPA.
+
+[91]   Substantial deference is owed to a motion judge’s certification decision and
+
+appellate intervention is only warranted if there is a palpable and overriding error
+
+of fact or an error in principle: Fischer v. IG Investment Management Ltd.,
+
+2012 ONCA 47, 109 O.R. (3d) 498, at para. 40, aff’d on other grounds,
+
+2013 SCC 69, [2013] 3 S.C.R. 949. To certify common issues, there must be
+
+“some basis in fact” supporting the conclusion that the proposed issues are
+
+common to all class members and their resolution will avoid duplication of fact-
+
+finding or legal analysis: Cirillo v. Ontario, 2021 ONCA 353, 486 C.R.R. (2d) 25, at
+
+para. 57, leave to appeal refused, [2021] S.C.C.A. No. 296.
+
+[92]   I am satisfied the motion judge did not err, as asserted by Ontario, in
+
+concluding there was a factual basis to certify the common issues of (a) whether
+                                      Page: 40
+
+
+Ontario owed and breached a duty of care to the class, and (b) whether
+
+Ontario breached the class members’ s. 7 right. On the first common issue, I see
+
+no error in the motion judge’s conclusion that the question can be determined on
+
+a class-wide basis as the available evidence suggests that Ontario has a “singular
+
+approach” to administrating DSO waitlists. Similarly, on the second common issue,
+
+I see no error in the motion judge’s determination that the record suggests that
+
+Ontario subjects the class to a single common course of conduct that may
+
+constitute a s. 7 Charter breach.
+
+[93]   Finally, I am satisfied the motion judge did not err in concluding that a class
+
+action would be a preferable procedure. The motion judge reasonably exercised
+
+his discretion and determined that the resolution of the common issues would
+
+promote the objective of access to justice and, even if a substantial number of
+
+individual assessments remain, would meaningfully advance the litigation for class
+
+members.
+
+DISPOSITION
+
+[94]   For these reasons, I would allow the appeal, set aside the order of the
+
+Divisional Court, and restore the motion judge’s order.
+
+[95]   Pursuant to the agreement of the parties, costs of the appeal and the motion
+
+for leave to appeal to this court are awarded to the appellant in the total amount of
+
+$40,000. The costs of the certification motion, the motion for leave to appeal to the
+                                     Page: 41
+
+
+Divisional Court, and the Divisional Court appeal itself are awarded to the appellant
+
+in the total amount of $170,000. Both amounts are inclusive of disbursements and
+
+applicable taxes.
+
+Released: May 4, 2023 “D.D.”
+                                                                    “B. Zarnett J.A.”
+                                                             “I agree. Doherty J.A.”
+                                                              “I agree. Coroza J.A.”
+

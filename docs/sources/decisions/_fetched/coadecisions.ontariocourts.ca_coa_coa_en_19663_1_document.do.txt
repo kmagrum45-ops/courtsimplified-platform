@@ -1,0 +1,1150 @@
+                   COURT OF APPEAL FOR ONTARIO
+
+                                   CITATION: Cirillo v. Ontario, 2021 ONCA 353
+                                                                DATE: 20210526
+                                                              DOCKET: C68470
+
+                      Rouleau, Benotto and Thorburn JJ.A.
+
+BETWEEN
+
+                                  Robin Cirillo
+
+                                                               Plaintiff (Appellant)
+
+                                      and
+
+                   Her Majesty the Queen in Right of Ontario
+
+                                                        Defendant (Respondent)
+
+
+Kirk M. Baert, Celeste Poltak, Charles Hatt, Scott C. Hutchison and Lauren Mills
+Taylor, for the appellant
+
+Christopher A. Wayland, Jeffrey Claydon and S. Zachary Green, for the
+respondent
+
+Heard: February 1 and 2, 2021 by video conference
+
+On appeal from the orders of Justice Edward M. Morgan of the Superior Court of
+Justice, dated May 23, 2019 and June 26, 2020, with reasons reported at 2019
+ONSC 3066 and 2020 ONSC 3983.
+
+Benotto J.A.:
+
+[1]   The appellant, Robin Cirillo, sought to certify a class proceeding claiming
+
+redress for the Crown’s failure to hold timely bail hearings for accused persons.
+
+She based her claims as a representative plaintiff on negligence, breach of
+                                      Page: 2
+
+
+fiduciary duty and rights under the Charter of Rights and Freedoms. The motion
+
+judge dismissed the motion for certification. She appeals the order to this Court.
+
+She also appeals a second order dealing with the application of the Crown Liability
+
+and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (“CLPA”).
+
+[2]    I would dismiss the appeal. The proposed class action does not meet the
+
+requirements of the Class Proceedings Act, 1992, S.O. 1992, c. 6 (“CPA”). There
+
+is no cause of action in negligence, as the claim attacks core policy decisions
+
+insulated from tort liability. The appellant did not raise the fiduciary duty issue in
+
+written or oral argument. The Charter claims arise from a purported right to a bail
+
+hearing within 24 hours of arrest. Whether or not this right exists, the proposed
+
+class definition is flawed, there are no common issues, and a class action is not
+
+the preferable procedure. It is unnecessary to determine whether certification of
+
+the negligence claims would also be barred by s.11 of the CLPA.
+
+I.    FACTS
+
+       (1) Background
+
+[3]    The appellant was arrested on the evening of May 28, 2017 following an
+
+altercation with her ex-spouse during which she allegedly brandished a butter
+
+knife. No one was injured.
+
+[4]    The appellant was detained in a holding cell at the police station until the
+
+next morning when she was taken to the courthouse. She says she arrived at
+                                     Page: 3
+
+
+approximately 12:30 p.m. She was expecting to be released on consent. At 2:47
+
+p.m., when the matter was placed on the court docket, duty counsel advised the
+
+court that the appellant’s matter could not proceed because sureties were being
+
+interviewed. The justice of the peace then began a contested bail hearing in
+
+another matter.
+
+[5]   The contested bail hearing was interrupted at 3:25 p.m. by two offers from
+
+other courts to traverse matters. There was no indication that duty counsel was
+
+ready to proceed with the appellant’s hearing. Nor was there a request to have her
+
+matter traversed.
+
+[6]   The justice of the peace called the matter at around 5:24 p.m. Duty counsel
+
+advised the court that this was to be a consent release. She argued that the court
+
+was without jurisdiction to adjourn the matter, since neither counsel requested an
+
+adjournment, and that a lack of judicial resources should not be a reason for an
+
+adjournment. Duty counsel conceded that this was the earliest the matter could
+
+proceed. The justice of the peace rejected duty counsel’s submissions and
+
+adjourned court for the day, noting that there had been ample time for the hearing
+
+and that the court was simply out of time for the day.
+
+[7]   The appellant was transported to detention and returned to the court the
+
+next day. She was released on consent with multiple conditions and surety bail.
+                                       Page: 4
+
+
+      (2) The proposed class action
+
+[8]     The appellant commenced this action on behalf of herself and the following
+
+persons:
+
+              [A]ll … persons who were arrested and detained for a
+              period of more than 24 hours prior to any Bail Hearing
+              being available as a result of:
+
+              (a) the matter not being reached;
+
+              (b) transportation, or lack thereof, from detention to bail
+              hearing;
+
+              (c) interpretive services not present at the bail hearing;
+
+              (d) the accused not having the opportunity to speak with
+              counsel prior to arriving at the bail hearing; or
+
+              (f) the Crown not being willing to proceed with a hearing;
+
+              for the time period of January 1, 2000 to the present, but
+              excluding individuals charged with an offence mentioned
+              in s. 469 of the Criminal Code.
+
+[9]     The appellant challenges what she describes as the Crown’s operational
+
+failure in carrying out its constitutional and statutory duty to ensure a bail hearing
+
+within 24 hours, as required by the Criminal Code and the Charter. She says that
+
+the respondent has mismanaged the bail system, failed to provide the system with
+
+adequate resources, and has promulgated policies for Crown prosecutors that
+
+have had the effect of increasing the number of people in remand. She claims that
+
+the Crown’s actions constitute systemic negligence against the putative class
+                                       Page: 5
+
+
+members. In addition, she argues that the actions of the respondent violated the
+
+putative class members’ ss. 7, 9, 11(d), 11(e), and 12 Charter rights.
+
+[10]     The appellant seeks declaratory relief, including declaratory relief for
+
+negligence and breach of Charter rights. For instance, she seeks a declaration that
+
+the respondent is liable “for the damages caused by its breach of its common law
+
+duty in relation to the operation, management, administration, supervision, funding
+
+and control of bail hearings in Ontario”. She also seeks general and punitive
+
+damages.
+
+   (3) Decisions below
+
+   (a)      Certification
+
+[11]     The motion judge found that certification should be denied because: (i) the
+
+pleadings did not disclose a cause of action in negligence as the claims are not
+
+justiciable; (ii) it is plain and obvious that the claims based on breach of fiduciary
+
+duty have no prospect of success; (iii) the appellant’s claims for breach of Charter
+
+rights were not common to class members; and (iv) a class proceeding was not
+
+the preferable procedure for resolution of the class members’ claims.
+
+[12]     With respect to the appellant’s claims of negligence and breach of fiduciary
+
+duty, the motion judge first concluded that there could be no cause of action
+
+against the Crown in its prosecutorial capacity, as the immunity of the Crown as
+
+prosecutor (except for malicious prosecution) is “deeply entrenched” in law. As the
+                                      Page: 6
+
+
+claims could not be aimed at the Crown’s actual handling of bail proceedings, the
+
+causes of action must be aimed at broader decisions related to staffing and
+
+resource allocation decisions. Such claims require the court to go outside of its
+
+institutional competence.
+
+[13]   Relying on Phaneuf v. Ontario, 2010 ONCA 901, 104 O.R. (3d) 392, the
+
+motion judge concluded that underfunding alone cannot create a civil cause of
+
+action. He also noted that the impugned government actions were “core policy
+
+decisions”, as defined in R. v. Imperial Tobacco Canada Ltd., 2011 SCC 42, [2011]
+
+3 S.C.R. 45. As a result, the respondent is immune from liability in negligence and
+
+the negligence claim is doomed to fail.
+
+[14]   The motion judge held that the fiduciary claims were also doomed to fail.
+
+The issues raised by the appellant “provide[d] no basis for fiduciary duties as they
+
+do not require that any one vulnerable individual be favoured over another”.
+
+[15]   Finally, the motion judge concluded that the only possible cause of action
+
+pleaded was for breach of Charter rights. However, he concluded that there were
+
+no common issues to be certified. The class needed to share not simply a common
+
+court infrastructure but a common experience of having a specific Charter right
+
+violated. In this case, that would be difficult to demonstrate given that the Charter
+
+breaches alleged (ss. 7, 9, 11(d), 11(e), and 12) all “share a common thread of
+                                         Page: 7
+
+
+reasonableness” and that reasonableness is “a difficult standard” to assess as a
+
+common issue because the analysis is so fact dependent.
+
+[16]     The motion judge outlined the potential for multiple causes of the delay in
+
+the appellant’s bail hearing. The delay could be attributed to the Toronto Police
+
+Service (for the delay in transportation), the judge (for adjourning the matter), and
+
+duty counsel (who needed more time to prepare the appellant’s sureties). As a
+
+result, the motion judge found that the Charter claims required an individualized
+
+assessment of each case and therefore could not be certified as a common issue.
+
+[17]     Having found that there were no common issues, the motion judge found
+
+that the proposed class action was not the preferable procedure. He also found
+
+that it is “in doubt” whether there is an identifiable class and questioned whether
+
+the plaintiff was a suitable representative plaintiff.
+
+   (b)      Divisional Court Appeal & the CLPA
+
+[18]     Ms. Cirillo appealed the motion judge’s certification decision to the Divisional
+
+Court. The week after she served her notice of appeal, the CLPA came into force.
+
+The Crown relied on ss. 11(4) and (5) of the CLPA in its responding factum on
+
+appeal to argue that certification of the negligence claims was now statute barred.
+
+Section 11(4) provides:
+
+               (4) No cause of action arises against the Crown or an
+               officer, employee or agent of the Crown in respect of any
+               negligence or failure to take reasonable care in the
+               making of a decision in good faith respecting a policy
+                                     Page: 8
+
+
+            matter, or any negligence in a purported failure to make
+            a decision respecting a policy matter.
+
+Section 11(5) defines the term “policy matter”:
+
+            (5) For the purposes of subsection (4), a policy matter includes,
+
+                   (a) the creation, design, establishment, redesign or modification
+                   of a program, project or other initiative, including,
+
+                           (i) the terms, scope or features of the program, project
+                           or other initiative,
+
+                           (ii) the eligibility or exclusion of any person or entity or
+                           class of persons or entities to participate in the program,
+                           project or other initiative, or the requirements or limits
+                           of such participation, or
+
+                           (iii) limits on the duration of the program, project or
+                           other initiative, including any discretionary right to
+                           terminate or amend the operation of the program,
+                           project or other initiative;
+
+                   (b) the funding of a program, project or other initiative,
+                   including,
+
+                            (i) providing or ceasing to provide such funding,
+
+                            (ii) increasing or reducing the amount of funding
+                            provided,
+
+                            (iii) including, not including, amending or removing
+                            any terms or conditions in relation to such funding, or
+
+                            (iv) reducing or cancelling any funding previously
+                            provided or committed in support of the program,
+                            project or other initiative;
+
+                   (c) the manner in which a program, project or other initiative is
+                   carried out, including,
+
+                           (i) the carrying out, on behalf of the Crown, of some or
+                           all of a program, project or other initiative by another
+                                       Page: 9
+
+
+                            person or entity, including a Crown agency, Crown
+                            corporation, transfer payment recipient or independent
+                            contractor,
+
+                            (ii) the terms and conditions under which the person or
+                            entity will carry out such activities,
+
+                            (iii) the Crown’s degree of supervision or control over
+                            the person or entity in relation to such activities, or
+
+                            (iv) the existence or content of any policies,
+                            management procedures or oversight mechanisms
+                            concerning the program, project or other initiative;
+
+             (d) the termination of a program, project or other initiative, including
+             the amount of notice or other relief to be provided to affected members
+             of the public as a result of the termination;
+
+             (e) the making of such regulatory decisions as may be prescribed;
+             and
+
+             (f) any other policy matter that may be prescribed.
+
+[19]   The Crown also relied on s. 31(4) of the CLPA, which provides for the
+
+retroactive extinguishment of claims under s. 11. This would have caused the claim
+
+to have failed at the first requirement for certification in s. 5(1)(a) of the CPA.
+
+[20]   The Divisional Court remitted the question of whether the CLPA was a bar
+
+to certification of the negligence claims to the motion judge so that all the issues
+
+could eventually be considered together by the same panel on appeal.
+                                     Page: 10
+
+
+   (c)     Re-hearing on Crown Immunity
+
+[21]     Relying on his original findings of fact, the motion judge held that the
+
+impugned decisions were “core policy decisions” and, as a result, ss. 11(4) and (5)
+
+of the CLPA applied to the appellant’s certification motion.
+
+[22]     During the hearing, both parties agreed that ss. 11(4) and (5) do not
+
+represent a substantial change in the common law on Crown immunity. However,
+
+the respondent submitted that the new sections “codify and more clearly define”
+
+the types of decisions for which the Crown is immune.
+
+[23]     The motion judge chose not to opine on whether the CLPA broadened the
+
+scope of Crown immunity from the common law and whether ss. 11(4) and (5) of
+
+the CLPA violate s. 96 of the Constitution Act, 1867, because it was unnecessary
+
+to do so. He already concluded that the impugned decisions were policy decisions
+
+under the common law before the enactment of the CLPA, and nothing in the CLPA
+
+affected this conclusion.
+
+[24]     The appellant appealed the CLPA decision to this court. Nordheimer J.A.
+
+granted the request to consolidate the appellant’s Divisional Court certification
+
+appeal and her CLPA appeal so that this court could hear both appeals together.
+                                       Page: 11
+
+
+II.    POSITIONS OF THE PARTIES
+
+The appellant
+
+[25]     The appellant alleges that the motion judge made five key errors in his
+
+reasons:
+
+      • The motion judge erred in holding that the statement of claim did not disclose
+
+         a claim for negligence. In reaching that conclusion, he made several errors,
+
+         including that he mischaracterized the claims as attacking core policy
+
+         decisions and failed to consider whether the causes of action arose from
+
+         Crown decisions made in bad faith.
+
+      • The motion judge erred by finding that the CLPA immunized the respondent
+
+         from liability without considering whether the immunity was vitiated by s. 17
+
+         of the CLPA, which deals with claims of bad faith.
+
+      • The motion judge erred in holding that there was no common issue for the
+
+         Charter claim.
+
+      • The motion judge made a palpable and overriding error in finding that a class
+
+         proceeding would not be the preferable procedure for resolution of the
+
+         claims.
+
+[26]     The appellant also argued that the motion judge made merits determinations
+
+regarding the tenability of the appellant’s personal claim. I address this at the
+
+conclusion of my reasons.
+                                      Page: 12
+
+
+[27]   The appellant’s amended notice of appeal purports to appeal the motion
+
+judge’s holding on fiduciary duty, but since she made no written or oral
+
+submissions on this issue, I understand that she has effectively abandoned it.
+
+The respondent
+
+[28]   The respondent submits that, even though the bar for certification is low, the
+
+motion judge was correct to dismiss the certification motion. The Crown submits
+
+that there is no tenable cause of action. The negligence claims attack core policy
+
+decisions. The premise on which the appellant’s Charter and negligence claims
+
+are based – that there is a “right to” a bail “hearing” within 24 hours – is flawed.
+
+Furthermore, there is no identifiable class. Nor are there any common issues, and
+
+for that reason, a class action is not the preferable procedure.
+
+III. ISSUES
+
+[29]   The main issue for this court is whether the criteria in s. 5(1) of the CPA have
+
+been satisfied.
+
+IV. ANALYSIS
+
+[30]   To be certified as a class proceeding, the claim must comply with s. 5(1) of
+
+the CPA. Under s. 5(1) of the CPA, in order to be certified as a class action the
+
+plaintiff must demonstrate that:
+
+             (a) the pleadings or the notice of application disclose a
+             cause of action;
+                                      Page: 13
+
+
+             (b) there is an identifiable class of two or more persons
+             that would be represented by the representative plaintiff
+             or defendant;
+
+             (c) the claims or defences of the class members raise
+             common issues;
+
+             (d) a class proceeding would be the preferable procedure
+             for the resolution of the common issues; and
+
+             (e) there is a representative plaintiff or defendant who,
+
+             (i) would fairly and adequately represent the interests of
+             the class,
+
+             (ii) has produced a plan for the proceeding that sets out
+             a workable method of advancing the proceeding on
+             behalf of the class and of notifying class members of the
+             proceeding, and
+
+             (iii) does not have, on the common issues for the class,
+             an interest in conflict with the interests of other class
+             members.
+
+[31]   In this case, there is a dispute about the criteria under (a) through (d). I will
+
+deal with each of those criteria.
+
+       (a)   Section 5(1)(a): Cause of action
+
+[32]   Section 5(1)(a) of the CPA requires that the pleadings disclose a cause of
+
+action. The certification requirement under s. 5(1)(a) is the same as r. 21.01 of the
+
+Rules of Civil Procedure, R.R.O. 1990, Reg. 194. The pleadings cannot form the
+
+basis of a claim if it is “plain and obvious” that they do not disclose a cause of
+
+action. The causes of action are in negligence and breach of Charter rights.
+                                      Page: 14
+
+
+       (i) Negligence
+
+[33]   The appellant’s pleading alleges that the Crown owes a duty of care to
+
+criminal accused and must “manage bail court volumes to avoid known
+
+overcrowding of dockets or provide sufficient resources to address high volume of
+
+dockets”, “provide timely transportation from detention to Bail Hearings”, “establish
+
+Bail Hearings proximate to the location of Class members’ arrest and detention”,
+
+“pre-arrange necessary interpretation services for Class members”, and “provide
+
+Class members with contact to counsel prior to arrival at a Bail Hearing”.
+
+[34]   The appellant alleges that the respondent has failed to meet the standard of
+
+care, because it has failed to provide adequate resources to bail hearings, which
+
+“guarantees the volume of bail hearings cannot be heard in a timely manner”. It
+
+has also failed to provide: (1) adequate transportation to transport putative class
+
+members to bail hearings; (2) adequate interpretation services; and (3) counsel
+
+access to putative class members prior to their arrival at bail court. In addition, the
+
+appellant alleges that the respondent has breached its standard of care by over-
+
+relying on sureties and requiring their attendance at bail hearings.
+
+[35]   The motion judge determined these claims were core policy decisions and
+
+thus could not ground a negligence claim.
+                                     Page: 15
+
+
+[36]   The appellant submits that the motion judge erred in concluding that these
+
+claims relate to core policy decisions. Rather, she says the allegations relate to
+
+operational decisions, not policy choices.
+
+[37]   I do not agree. The claims on their face relate to core policy decisions.
+
+Contrary to the appellant’s submission, further evidence on this issue is
+
+unnecessary.
+
+[38]   The Supreme Court has described the type of policy decisions that cannot
+
+ground an action in tort in Imperial Tobacco, at para. 87:
+
+             Instead of defining protected policy decisions negatively,
+             as “not operational”, [they are defined] positively as
+             discretionary legislative or administrative decisions and
+             conduct that are grounded in social, economic, and
+             political considerations. Generally, policy decisions are
+             made by legislators or officers whose official
+             responsibility requires them to assess and balance public
+             policy considerations. The decision is a considered
+             decision that represents a “policy” in the sense of a
+             general rule or approach, applied to a particular situation.
+             It represents “a course or principle of action adopted or
+             proposed by a government”: New Oxford Dictionary of
+             English (1998), at p. 1434. When judges are faced with
+             such a course or principle of action adopted by a
+             government, they generally will find the matter to be a
+             policy decision. The weighing of social, economic, and
+             political considerations to arrive at a course or principle
+             of action is the proper role of government, not the courts.
+             For this reason, decisions and conduct based on these
+             considerations cannot ground an action in tort.
+             [Emphasis added.]
+                                     Page: 16
+
+
+[39]   In Imperial Tobacco, the court moved away from the stark dichotomy
+
+between policy/operational decisions in favour of a more principled test. Referring
+
+back to Imperial Tobacco, the court in Hinse v. Canada, 2015 SCC 35, [2015] 2
+
+S.C.R. 621, at para. 23, confirmed the nature of core policy decisions that are
+
+protected from suit:
+
+             … [I]t is not helpful to posit a stark dichotomy between
+             policy decisions and operational decisions, or to define
+             policy decisions negatively as decisions that are not
+             “operational” decisions: paras. 84-86. Although it
+             refrained from establishing a black-and-white test, the
+             Court concluded that core policy government decisions
+             that are protected from suit are “decisions as to a course
+             or principle of action that are based on public policy
+             considerations, such as economic, social and political
+             factors, provided they are neither irrational nor taken in
+             bad faith”.
+
+[40]   The negligence claims against the respondent in this proposed class action
+
+are clearly aimed at core policy decisions. They relate to resource allocation for
+
+bail hearings and staffing. The supporting material filed on the motion refers to the
+
+adequacy of “physical court space” and the need to build (instead of to renovate)
+
+courthouses. The claims focus on the role of government wielding its executive
+
+authority to determine the allocation and adequacy of resources devoted to the
+
+criminal justice system.
+
+[41]   The motion judge described the nature and breadth of the negligence
+
+claims, concluding the appellant challenged core policy decisions:
+                                     Page: 17
+
+
+             For a litigant to seek redress for the government's
+             resource decisions on a province-wide basis, to bring an
+             action that requires a court to delve into the propriety and
+             efficiency of those decisions, is to go outside the court's
+             institutional competence….
+
+             The sheer magnitude of this class action, its design in
+             alleging liability for policy decisions at a high level, its
+             direct impugning of the Province’s budgetary process,
+             makes it legally untenable. It raises causes of action that
+             do not exist and encounters Crown immunities that apply
+             to these kinds of wide-ranging policy decisions. They are
+             in the nature of “core policy decisions” – i.e. “decisions
+             as to a course or principle of action that are based on
+             public policy considerations, such as economic, social
+             and political factors, provided they are neither irrational
+             nor taken in bad faith” – and are protected from suit.
+             [Citations omitted.]
+
+[42]   The appellant alleges that the motion judge erred by inserting an analysis of
+
+resource allocation and underfunding into the proximity stage of the Anns analysis
+
+instead of considering them at the second residual policy stage of the Anns test.
+
+In my view, this makes no practical difference in this case. At whatever stage policy
+
+immunity is considered, the result is the same. The motion judge did not err when
+
+he concluded that the claim implicated core policy decisions and as such, there
+
+could be no claim in negligence.
+
+[43]   The appellant has submitted that the motion judge failed to consider that the
+
+operational failures were taken in bad faith. This is not correct. The motion judge
+
+correctly found that bad faith was not alleged in the pleadings and no particulars
+                                      Page: 18
+
+
+were pleaded. Further, the appellant’s witnesses acknowledged that there was no
+
+allegation of bad faith.
+
+[44]   I agree with the motion judge that it is plain and obvious that the claims in
+
+negligence do not disclose a cause of action.
+
+[45]   I add that, in any event, the negligence claims would not satisfy the
+
+remaining criteria in ss. 5(1)(b) and (d) largely for the same reasons set out below
+
+in relation to the Charter claims.
+
+       (ii) Charter claims
+
+[46]   The motion judge accepted that the Charter claims could satisfy the cause
+
+of action criterion:
+
+              The only possible causes of action pleaded that can
+              survive the obstacles identified above are the claims for
+              breach of Charter rights….
+
+              Needless to say, there are no Crown immunities for
+              breach of the Charter. It is undeniable that an
+              "[u]nreasonably prolonged custody awaiting a bail
+              hearing gives rise to a breach of s. 11(e) of the
+              Charter"…. It is equally the case that such unreasonable
+              denial of bail impugns the presumption of innocence in s.
+              11(d) of the Charter….
+
+              Furthermore, the Charter claims are framed in a way that
+              does not raise a justiciability problem in the same way as
+              the negligence and fiduciary duty claims do. They are
+              more specifically aimed at the role of the Crown in the
+              bail process itself and not at the "government in its
+              generic sense — meaning he whole of the apparatus of
+              state", which would beyond the scope of a valid Charter
+              claim….
+                                      Page: 19
+
+
+[47]   The motion judge nonetheless refused to certify the Charter claims. He did
+
+so because the Charter claims raised no common issues and so a class
+
+proceeding is not the preferable procedure. He also doubted that there is an
+
+identifiable class.
+
+[48]   I agree with the motion judge that the Charter claims should not be certified.
+
+[49]   I do not need to address the viability of the cause of action with respect to
+
+the Charter claims. Even if the Charter claims were to satisfy s. 5(1)(a), they do
+
+not meet the identifiable class, common issue or preferability criteria. I turn to those
+
+now.
+
+       (b)    Section 5(1)(b): Identifiable class
+
+[50]   A class definition must be defined by reference to objective criteria, without
+
+reference to the merits of the action: Hollick v. Toronto, 2001 SCC 68, [2001] 3
+
+S.C.R. 158, at para. 17.
+
+[51]   As noted above, the appellant’s putative class includes all persons within
+
+the class period who did not get a bail hearing within 24 hours “as a result of”
+
+certain criteria:
+
+              The Plaintiff brings this action pursuant to the CPA on her
+              own behalf and on behalf of all other persons who were
+              arrested and detained for a period of more than 24 hours
+              prior to any meaningful Bail Hearing being available as a
+              result of:
+
+              (a) the matter not being reached;
+                                     Page: 20
+
+
+             (b) transportation, or lack thereof, from detention to the
+             bail hearing;
+
+             (c) interpretative services not present at the bail hearing;
+
+             (d) the accused not having the opportunity to speak with
+             counsel prior to arriving at the bail hearing; or
+
+             (e) the Crown not being willing to proceed with a hearing.
+
+             for the time period of January 1, 2000 to the present, but
+             excluding individuals charged with an offence mentioned
+             in s.469 of the Criminal Code (the "Class").
+
+[52]   In addition to appearing in the statement of claim, the “as a result of”
+
+qualification appears throughout the proceedings: in the motion record, in
+
+argument before the motion judge, in the proposed common issues and the
+
+factum, and in argument before this court.
+
+[53]   A causation criterion is inherently merit-based. In Ragoonanan Estate v.
+
+Imperial Tobacco (2005), 78 O.R. (3d) 98 (S.C.), aff’d (2008) 236 O.A.C. 199 (Div.
+
+Ct.), the court did not certify a class proceeding because there was a causation
+
+element in the class identification. The proposed action was on behalf of persons
+
+who claimed that a certain brand of cigarette ignited furniture or a mattress. The
+
+motion judge held, at para. 37:
+
+             [The proposed class definition] is merits-based because
+             its application depends on proof of damage caused by
+             fire and also on the resolution of a number of other issues
+             of causation which may be seriously in dispute. These
+             would include the question whether the fire started on
+             upholstered furniture, or a mattress; whether the ignition
+             source of the fire was a cigarette; and, if so, whether it
+                                       Page: 21
+
+
+             was manufactured by the defendant…. For these
+             reasons, I find that the membership of such a class would
+             not be sufficiently "identifiable" within the meaning of s.
+             5(1)(b).
+
+[54]   Here, the difficulty is that a factual determination is required as to the cause
+
+of the delay beyond 24 hours. In an attempt to circumvent this problem, the
+
+appellant submitted that the right to a hearing is actually “within a reasonable time”.
+
+This qualification is also problematic for it results in a class definition that would be
+
+based on individual assessments and would be incapable of objective
+
+determination.
+
+[55]   I conclude that the identifiable class criterion is not met.
+
+       (c)   Section 5(1)(c): Common issues
+
+[56]   Common issue 5 relates to the Charter claims:
+
+             By its operation, management or administration of bail
+             hearings in Ontario, did the Defendant breach the class
+             members' Charter rights under ss. 7, 9, 11(d), 11(e)
+             and/or 12?
+
+             i) If the answer to common issue (5) is "yes", can the
+             breach be saved by s. 1 of the Charter?
+
+             ii) If the answer to common issue (5) is "yes", and the
+             answer to common issue (5)(i) is "no", are the class
+             members entitled to damages pursuant to s. 24(1) of the
+             Charter?
+
+[57]   The appellant submits that the question to be asked is whether there is
+
+“some basis in fact” supporting a conclusion that the proposed common issues are
+                                     Page: 22
+
+
+common to all class members in the sense that their resolution will avoid
+
+duplication of fact-finding or legal analysis: Pro-Sys Consultants Ltd. v. Microsoft
+
+Corp., 2013 SCC 57, [2013] 3 S.C.R. 477, at para. 102; Western Canadian
+
+Shopping Centres Inc. v. Dutton, 2001 SCC 46, [2001] 2 S.C.R. 534, at para. 39.
+
+[58]   Here, the motion judge quoted the following passage from a leading text on
+
+class actions in describing the cause of action requirement:
+
+             The [common issue] requirement is set out succinctly in
+             Warren Winkler, Paul Perell, Jasminka Kalajdzic, and
+             Alison Warner, The Law of Class Actions in Canada
+             (Toronto: Canada Law Book, 2014), 112-13:
+
+                   [I]f an issue can be resolved only by asking
+                   it of each class member, it is not a common
+                   issue… An issue is not ‘common’ simply
+                   because the same question arises in
+                   connection with the claim of each class
+                   member, if that issue can only be resolved
+                   by inquiry into the circumstances of each
+                   individual’s claim... The fact of a common
+                   cause of action asserted by all class
+                   members does not in itself give rise to a
+                   common        issue    since     the    actual
+                   determination of liability for each class
+                   member       may     require    individualized
+                   assessments.
+
+[59]   The motion judge noted that “[a]t the very least, the claim must share not
+
+only a common court infrastructure but a common experience of having a specific
+
+Charter right violated.” He noted that all of the Charter issues that were said to be
+
+engaged     “share[d]   a   common     thread    of   reasonableness”     and    that
+
+“[r]easonableness is a difficult issue to assess as a common issue.” He concluded
+                                    Page: 23
+
+
+that “[t]he proposed common issues pertaining to the Charter claims require
+
+individualized and particularized assessments of each case.” I agree with that
+
+conclusion.
+
+[60]   Here, the appellant asks whether “[b]y its operation, management or
+
+administration of bail hearings in Ontario… the Defendant breach[ed] the class
+
+members' Charter rights under ss. 7, 9, 11(d), 11(e) and/or 12”.
+
+[61]   The appellant submits that all class members share an interest in whether
+
+the Crown’s conduct offended the Charter, even if there is a significant level of
+
+difference among the class members, even if the common questions require
+
+nuanced answers based on the varied circumstances of class members, and even
+
+when there may be individual issues remaining following the trial of common
+
+issues. She submits that the reasonableness inquiry does not preclude a common
+
+determination. She also submits, pointing to several cases, that courts have
+
+repeatedly certified claims based on alleged Charter breaches.
+
+[62]   For instance, in Johnson v. Ontario, 2016 ONSC 5314, 364 C.R.R. (2d) 17,
+
+the plaintiffs were former inmates of the Elgin-Middlesex Detention Centre. They
+
+contended that overcrowding coupled with a lack of supervision resulted in
+
+inhumane conditions. Their statement of claim included a number of causes of
+
+action, including breach of ss. 7 and 12 of the Charter. The motion judge found
+
+that the questions relating to the alleged breaches of ss. 7 and 12 raised common
+                                    Page: 24
+
+
+issues. The focus was on the general operational methods adopted by the
+
+Detention Centre.
+
+[63]   In Lauzon v. Canada (Attorney General), 2014 ONSC 2811, 58 C.P.C. (7th)
+
+201, aff’d 2015 ONSC 2620, 384 D.L.R. (4th) 532 (Div. Ct.), the plaintiff sought to
+
+certify a class action on behalf of a class of inmates who wore t-shirts that were
+
+designed to commemorate Prisoner Justice Day. The Crown subsequently
+
+prohibited possession of the t-shirts. The plaintiffs claimed the Crown’s conduct
+
+breached their right to freedom of expression under s. 2(b) of the Charter. The
+
+motion judge concluded that the proposed common issues on breach of the
+
+Charter satisfied the common issues requirement. The activity in question was the
+
+same (wearing the t-shirts at Joyceville), the prohibition was imposed on all
+
+inmates, and if there was a breach, the s. 1 analysis would be common to all
+
+inmates.
+
+[64]   Finally, the appellant relies on Good v. Toronto Police Services Board, 2014
+
+ONSC 4583, 121 O.R. (3d) 413 (Div. Ct.), aff'd 2016 ONCA 250, 130 O.R. (3d)
+
+241, leave to appeal refused, [2016] S.C.C.A. No. 255. There, the plaintiff alleged
+
+a breach of the class members’ rights not to be arbitrarily detained during the G20
+
+summit in Toronto. There was some basis in fact of commonality: it was alleged a
+
+common order was made ordering the detention of the class members without
+
+regard for the individual characteristics or conduct of each class member.
+                                     Page: 25
+
+
+[65]   In my view, these cases share a distinguishing feature. The Charter
+
+questions arise from a single course of conduct: Johnson considered the common
+
+conditions inmates experienced in the same jail; Lauzon involved the decision to
+
+prohibit the t-shirts; Good involved an alleged command order to “box in” certain
+
+groups during a protest. Here, there is no single course of conduct giving rise to
+
+the alleged breaches.
+
+[66]   I consider the British Columbia Court of Appeal’s analysis in Thorburn v.
+
+British Columbia, 2013 BCCA 480, 52 B.C.L.R. (5th) 130, to be applicable. In that
+
+case, the representative plaintiff had been arrested at a protest and strip-searched
+
+in accordance with a specific policy. The plaintiff brought a class proceeding on
+
+behalf of those persons who were not remanded into pre-trial custody at the jail
+
+but who were subjected to routine strip searches. The motion judge dismissed the
+
+certification motion, and the Court of Appeal upheld the decision. At paras. 41-42,
+
+the court stated:
+
+             An unreasonable policy alone could not provide the
+             foundation for determining each class member’s cause
+             of action of an unreasonable search; only an individual
+             assessment of the relevant circumstances unique to
+             each class member would allow a judge to determine if a
+             cause of action had been established.
+
+                                        …
+
+             [A] finding of a s. 8 Charter violation as a result of an
+             unreasonable search of one class member will not found
+             a similar finding for another class member as a finding of
+                                    Page: 26
+
+
+             an unreasonable search is dependent on a multitude of
+             variable circumstances unique to each class member.
+
+[67]   Here, the Charter claims are similarly not capable of common determination.
+
+For example:
+
+             Sections 7 and 9: Any detention would have resulted from
+             adjournment and remand orders, which are not being challenged. If
+             they were challenged, the case would depend on the reasons why
+             each was made.
+
+             Section 11(e): Whether bail was “reasonable”, including whether the
+             terms of release were reasonable, are individual questions.
+
+             Section 12: The pleading does not contain factual allegations that
+             would support this claim. Detention pursuant to a court order, without
+             more, does not constitute cruel and unusual punishment. To the
+             extent that any putative class member has a claim for cruel and
+             unusual punishment, the facts that would support it would be
+             necessarily individual: see Ogiamien v. Ontario (Ministry of
+             Community Safety and Correctional Services), 2017 ONCA 667, 355
+             C.C.C. (3d) 41, at paras. 67-68; Toure v. Canada (Minister of Public
+             Safety and Emergency Preparedness), 2018 ONCA 681, 419 C.R.R.
+             (2d) 114, at paras. 75-76.
+
+[68]   Accordingly, I conclude that the common issue requirement is not met.
+
+       (d)   Section 5(1)(d): preferable procedure
+
+[69]   Despite the allegation of a systemic wrong, a class proceeding is not the
+
+preferable procedure. This court in Dennis v. Ontario Lottery and Gaming Corp.,
+
+2013 ONCA 501, 115 O.R. (3d) 321, at para. 71, leave to appeal refused, [2013]
+
+S.C.C.A. No. 373, said:
+
+             Even if the class definition and common issue
+             requirements were satisfied, it is my view that a class
+                                       Page: 27
+
+
+              action is not the preferable procedure. A general finding
+              of "systemic wrong" would not avoid the need for
+              protracted individualized proceedings into the
+              vulnerability and circumstances of each class member. A
+              more efficient and expeditious way to adjudicate these
+              claims would be to proceed directly by way of individual
+              actions as it is inevitable that a class proceeding will
+              break down into individual proceedings in any event.
+
+[70]    Similarly, in light of the foregoing conclusions, a class proceeding is not the
+
+preferable procedure. I agree with the motion judge’s reasons.
+
+        (e)   Crown Liability and Proceedings Act
+
+[71]    The Divisional Court remitted the matter to the motion judge for a decision
+
+on the impact of the CLPA. He concluded that his decision was unaffected by the
+
+enactment of the new statute.
+
+[72]    After oral submissions in this court, the parties requested and were given
+
+the opportunity to make brief further submissions with respect to the release of
+
+Leroux v. Ontario, 2021 ONSC 2269 (Div. Ct.) and Francis v. Ontario, 2021 ONCA
+
+197. Neither case impacts my conclusions on the substantive issues set out above.
+
+Given my conclusions, I do not need to address the CLPA or Leroux and Francis.
+
+V.     APPELLANT’S PERSONAL CLAIMS IN NEGLIGENCE
+
+[73]    Although the appellant’s factum states that the motion judge struck her
+
+personal claim in negligence, the order of May 23, 2019 only dismisses the
+
+certification of the class proceeding. The order of June 26, 2020 determines that
+                                    Page: 28
+
+
+the CLPA is a bar to the certification of her negligence claims. An appeal is from
+
+the order and not the reasons: Fram Elgin Mills 90 Inc. v. Romandale Farms Ltd.,
+
+2016 ONCA 404, 131 O.R. (3d) 455, at para. 33. Consequently, I conclude that
+
+the issue is not properly before us and make no determination with respect to her
+
+personal claims.
+
+VI. CONCLUSION
+
+[74]   The proposed class action does not meet the certification requirements of
+
+the CPA.
+
+[75]   I would dismiss the appeal. If the parties do not agree on costs, I would
+
+request written submissions limited to five pages within 15 days of the release of
+
+this decision.
+
+Released: May 26, 2021 “P.R.”
+                                                               “M.L. Benotto J.A.”
+                                                      “I agree Paul Rouleau J.A.”
+                                                      “I agree J.A. Thorburn J.A.”
+

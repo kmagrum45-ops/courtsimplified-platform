@@ -1,0 +1,269 @@
+                  COURT OF APPEAL FOR ONTARIO
+
+                             CITATION: Berentschot v. Ontario, 2026 ONCA 444
+                                                              DATE: 20260619
+                                                  DOCKET: COA-25-CV-1275
+
+                    Tulloch C.J.O., Lauwers and Miller JJ.A.
+
+BETWEEN
+
+                         Michelle Lorainne Berentschot
+
+                                                                       Appellant
+
+                                      and
+
+ Charles Philip Arthur George Mountbatten-Windsor, as His Majesty the King in
+  Right of Ontario, as represented by; Arif Virani, as The Attorney General of
+Canada, Doug Downey, as The Attorney General of Ontario and on behalf of the
+    men or women as, agents of the Crown, and Patricia DeGuire, as Chief
+              Commissioner of Ontario Human Rights Commission
+
+                                                                   Respondents
+
+Michelle Lorainne Berentschot, acting in person
+
+Sara Badawi, for the respondents Attorney General of Ontario and the Ontario
+Human Rights Commission
+
+Emmett Bisbee, for the respondent Attorney General of Canada
+
+Heard: June 10, 2026
+
+On appeal from the order of Justice Clyde Smith of the Superior Court of Justice,
+dated May 22, 2025.
+
+
+
+                          REASONS FOR DECISION
+                                       Page: 2
+
+
+A.       OVERVIEW
+
+[1]      The appellant appeals from the order of the motion judge dismissing her
+
+action pursuant to r. 2.1.01 of the Rules of Civil Procedure, R.R.O. 1990, Reg. 194,
+
+on the basis that it was frivolous, vexatious, and an abuse of the process of the
+
+court.
+
+[2]      The proceeding arises from federal public-health measures that were in
+
+force during the COVID-19 pandemic. The appellant alleges that, upon her return
+
+to Canada on August 5, 2022, she was subjected to mandatory border
+
+requirements, including PCR (“polymerase chain reaction”) testing and the use of
+
+the ArriveCan application. After refusing to comply with certain requirements, she
+
+was charged under the Contraventions Act, S.C. 1992, c. 47, although the charge
+
+was apparently later withdrawn. She subsequently pursued complaints through a
+
+number of administrative and political channels before commencing this action in
+
+November 2024.
+
+[3]      In her statement of claim, the appellant alleged violations of the Canadian
+
+Charter of Rights and Freedoms and of various principles of international law. She
+
+sought extensive declaratory relief and other remedies, including damages in the
+
+amount of $366,000,000.
+
+[4]      The motion judge concluded that the pleading was incoherent, failed to
+
+plead material facts capable of supporting a recognized cause of action, and
+                                       Page: 3
+
+
+disclosed no viable legal claim against Ontario. He, therefore, dismissed the action
+
+pursuant to r. 2.1.01.
+
+[5]    For the reasons that follow, we see no basis to interfere with that decision.
+
+
+B.     THE APPELLANT’S POSITION
+
+[6]    The appellant, who represented herself both below and on appeal, advances
+
+four principal arguments.
+
+[7]    First, she submits that r. 2.1.01 is intended to be used only in the clearest of
+
+cases and cannot properly be invoked where a proceeding raises constitutional
+
+issues requiring adjudication on the merits.
+
+[8]    Second, she argues that the motion judge exceeded the limited scope of r.
+
+2.1.01 by effectively determining that her claim disclosed no reasonable cause of
+
+action and was destined to fail. In her submission, such determinations fall within
+
+rr. 20 and 21 and require the procedural protections associated with those rules.
+
+[9]    Third, she submits that she should have been given the opportunity to
+
+amend her pleading to remedy any deficiencies. She contends that dismissal
+
+without leave to amend was inconsistent with principles of procedural fairness and
+
+deprived her of an effective remedy under s. 24(1) of the Charter.
+
+[10]   Fourth, she challenges the constitutionality of s. 17 of the Crown Liability
+
+and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (“CLPA”), arguing that it
+
+impermissibly restricts access to constitutional remedies against the Crown.
+                                     Page: 4
+
+
+C.     ANALYSIS
+
+[11]   We are not persuaded by any of the appellant’s submissions.
+
+[12]   A decision under r. 2.1.01 is discretionary and attracts appellate deference.
+
+Intervention is warranted only where the motion judge acted on an error in
+
+principle, misapprehended the applicable legal framework, or reached a result that
+
+is clearly wrong: Fabrikant v. Kelly, 2023 ONCA 579, at para. 3.
+
+[13]   The appellant has not demonstrated any such error.
+
+[14]   The appellant’s first and second grounds of appeal rest on the proposition
+
+that the assertion of Charter rights places a proceeding beyond the reach of r.
+
+2.1.01. That proposition is unsupported by the jurisprudence.
+
+[15]   The court’s authority to control its own process is not displaced when a
+
+litigant makes a constitutional claim: Ahmed v. Ontario (Attorney General), 2021
+
+ONCA 427; Joshi v. Ontario, 2019 ONSC 2444.
+
+[16]   Nor did the motion judge improperly convert the r. 2.1.01 process into a
+
+determination under rr. 20 or 21. His conclusion that the action was incapable of
+
+success flowed directly from his review of the pleading. He found that the
+
+statement of claim failed to set out coherent material facts, failed to identify a
+
+legally recognizable cause of action against Ontario, and consisted largely of broad
+
+assertions unsupported by particulars. Those conclusions were open to him on the
+
+record before the court.
+                                      Page: 5
+
+
+[17]   Rule 2.1.01 exists to permit the summary dismissal of proceedings that, on
+
+their face, constitute an abuse of process. The motion judge’s analysis remained
+
+well within the proper scope of the rule.
+
+[18]   We also reject the appellant’s submission that the motion judge was required
+
+to grant leave to amend.
+
+[19]   The procedural requirements of r. 2.1.01 were followed. The appellant
+
+received notice of the court’s concerns and was afforded an opportunity to make
+
+written submissions. She availed herself of that opportunity. The motion judge
+
+considered those submissions and concluded that they reiterated the allegations
+
+advanced in the claim without addressing its fundamental deficiencies.
+
+[20]   Although leave to amend may be appropriate where a viable cause of action
+
+could potentially be pleaded, a motion judge is not required to permit amendment
+
+where the proceeding is incapable of being transformed into a sustainable claim.
+
+It was open to the motion judge to conclude that this was such a case, and that no
+
+useful purpose would be served by granting leave to amend in this case.
+
+[21]   The appellant’s constitutional challenge to s. 17 of the CLPA and, to the
+
+extent advanced, to r. 2.1.01 itself cannot succeed. We note that this court has
+
+previously upheld the constitutionality of s. 17 of the CLPA: Poorkid Investments
+
+Inc. v. Ontario (Solicitor General), 2023 ONCA 172, 479 D.L.R. (4th) 469, leave to
+
+appeal refused, [2023] S.C.C.A. No. 188.
+                                       Page: 6
+
+
+[22]   In any event, the constitutionality of s. 17 of the CLPA is not engaged by this
+
+appeal. Ontario did not invoke that provision to block this action. Because the
+
+action was dismissed pursuant to r. 2.1.01, the validity of s. 17 has no bearing on
+
+the correctness of the order under appeal.
+
+[23]   Further, these constitutional arguments were not raised before the motion
+
+judge. No Notice of Constitutional Question was served as required by s. 109 of
+
+the Courts of Justice Act, R.S.O. 1990, c. C.43. Section 109(2) precludes the
+
+granting of constitutional relief in the absence of such notice.
+
+[24]   Moreover, there is no evidentiary record capable of supporting constitutional
+
+adjudication. Constitutional challenges generally require a proper factual
+
+foundation, particularly where legislation is alleged to be invalid or unconstitutional:
+
+Guindon v. Canada, 2015 SCC 41, [2015] 3 S.C.R. 3, at paras. 20-23.
+
+[25]   Finally, the appellant seeks various forms of declaratory and systemic relief
+
+that were not identified in her Notice of Appeal. Such relief is not properly before
+
+the court absent leave under r. 61.08(3). No such leave was sought or obtained.
+
+[26]   We acknowledge the appellant’s submissions about the challenges faced by
+
+self-represented litigants in navigating the justice system. However, those
+
+challenges cannot provide a basis for appellate intervention where the order under
+
+appeal discloses no legal error.
+                                      Page: 7
+
+
+D.     DISPOSITION
+
+[27]   The motion judge committed no reviewable error. His conclusion that the
+
+action was frivolous, vexatious, and an abuse of process was fully supported by
+
+the record and falls squarely within the ambit of r. 2.1.01.
+
+[28]   Accordingly, the appeal is dismissed.
+
+[29]   The respondents seek no costs. In the circumstances, no costs are
+
+awarded.
+
+                                                               “M. Tulloch C.J.O.”
+                                                                “P. Lauwers J.A.”
+                                                                 “B.W. Miller J.A.”
+

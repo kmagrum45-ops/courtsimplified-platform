@@ -1,0 +1,407 @@
+                    COURT OF APPEAL FOR ONTARIO
+
+                                  CITATION: Corrigan v. Ontario, 2023 ONCA 39
+                                                              DATE: 20230123
+                                                             DOCKET: C70652
+
+                        Doherty, Zarnett and Sossin JJ.A.
+
+BETWEEN
+
+                                Kathleen Corrigan
+
+                                                            Plaintiff (Respondent)
+
+                                       and
+
+                     His Majesty the King in Right of Ontario
+
+                                                            Defendant (Appellant)
+
+Heather Mackay and Heather McIvor, for the appellant
+
+Kathleen Corrigan, acting in person
+
+Heard: in writing
+
+On appeal from the order of Justice Robert L. Maranger of the Superior Court of
+Justice, dated March 29, 2022.
+
+                           REASONS FOR DECISION
+
+INTRODUCTION
+
+[1]   The Crown appeals from the dismissal of its motion to have the respondent’s
+
+statement of claim struck out as a nullity due to the failure of the respondent to
+
+comply with provisions of the Crown Liability and Proceedings Act, 2019,
+
+S.O. 2019, c. 7 (“CLPA”). Section 18(1) of the CLPA requires that notice of a claim
+                                              Page: 2
+
+
+be given 60 days before an action claiming damages against the Crown is
+
+commenced. The motion judge found that the respondent had failed to comply with
+
+the CLPA requirements, but he dismissed the motion because the Crown had
+
+delayed in bringing it.1
+
+[2]     The Crown argues that the motion judge’s conclusion is wrong in law. The
+
+respondent supports the result reached by the motion judge and maintains that the
+
+appeal is not properly in this court.
+
+[3]     As we explain below, the motion judge’s order is a final order and the appeal
+
+is properly before this court. As we also explain, the appeal must be allowed.
+
+Section 18(6) of the CLPA provides that an action commenced without complying
+
+with the notice requirements is a nullity “from the time the proceeding is brought”.
+
+There was no legal basis on which the motion judge could refuse to give effect to
+
+that provision.
+
+BACKGROUND
+
+[4]     On May 19, 2020, the respondent commenced an action against the Crown.
+
+The action included a claim for damages.
+
+[5]     The respondent commenced the action without first complying with the
+
+terms of s. 18(1) of the CLPA, which provides that no proceeding that includes a
+
+
+
+1 The motion judge also dismissed a motion by the respondent for default judgment. That aspect of the
+
+order is not in issue on this appeal.
+                                       Page: 3
+
+
+claim for damages may be brought against the Crown unless, at least 60 days
+
+before the commencement of the proceeding, the claimant serves a specified form
+
+of notice on the Crown. As noted above, s. 18(6) of the CLPA provides that an
+
+action commenced without complying with the notice requirements is a nullity “from
+
+the time the proceeding is brought”.
+
+[6]   In June and July 2020, Crown counsel wrote to the respondent drawing to
+
+her attention the requirement that notice to the Crown was required before the
+
+issuance of the claim. On July 15, 2020, Crown counsel specifically requested that
+
+the respondent discontinue her action due to non-compliance with the provisions
+
+of the CLPA, pointing out that the action was a nullity because of that non-
+
+compliance. Crown counsel suggested that the respondent could start a new
+
+action 60 days after the discontinuance of the existing one, as the Crown would
+
+treat the service of the claim issued in May 2020 as the prior notice required under
+
+the CLPA. On October 2, 2020, Crown counsel again wrote to the respondent
+
+advising her that the action was a nullity.
+
+[7]   The respondent did not accept Crown counsel’s position or suggestions, or
+
+act on them. She consistently advised that she was requesting that the Crown be
+
+noted in default.
+
+[8]   On August 23, 2021, the respondent wrote to Crown counsel advising that
+
+she had brought a motion for default judgment and had been instructed to serve
+                                     Page: 4
+
+
+the motion on the Crown. Crown counsel advised that a motion to strike the claim
+
+would be brought at the same time as the motion for default judgment. Those were
+
+the motions that came before the motion judge in March 2022.
+
+THE MOTION JUDGE’S DECISION
+
+[9]    The motion judge found that the respondent could not obtain default
+
+judgment for a number of reasons, including because “[s]he failed to comply with
+
+the notice provisions of the CLPA they [sic] are mandatory”. He found that the
+
+Crown at all times demonstrated good faith and had tried to assist the respondent
+
+in “rationalizing an improperly issued statement of claim”. However, he held that
+
+the Crown should have moved as soon as the respondent decided to ignore its
+
+advice concerning complying with the CLPA. He dismissed the Crown’s motion to
+
+strike the claim as a nullity. He also dismissed the respondent’s motion for default
+
+judgment and gave the Crown 20 days to file a defence.
+
+ANALYSIS
+
+(1)    The Appeal is Properly Brought in this Court
+
+[10]   The order under appeal – dismissing the Crown’s request to strike the claim
+
+as a nullity due to the failure to comply with the notice provisions of s. 18 of the
+
+CLPA – is a final order, from which an appeal lies directly to this court under
+
+s. 6(1)(b) of the Courts of Justice Act, R.S.O. 1990, c. C.43.
+                                        Page: 5
+
+
+[11]   An order is final if it determines a substantive right of a defendant: Ball v.
+
+Donais (1993), 13 O.R. (3d) 322 (C.A.); Drywall Acoustic Lathing Insulation Local
+
+675 Pension Fund v. SNC-Lavalin Group Inc., 2020 ONCA 375, at paras. 16-17.
+
+The right to have the action treated as a nullity, rather than having to defend it, is
+
+a substantive right conferred on the Crown by the CLPA.
+
+[12]   The motion judge’s order finally determined that substantive right. The order
+
+rejected the Crown’s position that the action should be struck as a nullity, and, in
+
+giving a fixed period of time for the Crown to deliver a statement of defence,
+
+contemplated the Crown having to defend the action or suffer judgment. Either is
+
+the antithesis of treating the action as a nullity. The order is final, not interlocutory,
+
+for appeal purposes.
+
+(2)    The Motion Judge Erred in not Striking the Action
+
+[13]   Prior to the enactment of the CLPA, s. 7(1) of the Proceedings Against the
+
+Crown Act, R.S.O. 1990, c. P.27, provided, in terms that are in all material respects
+
+the same as s. 18(1) of the CLPA, that no action could be brought against the
+
+Crown unless prior notice of 60 days was given. It was consistently held under that
+
+legislation that proper notice was a precondition to a claim in damages against the
+
+Crown, that this requirement could not be abridged, and that an action commenced
+
+without proper prior notice was a nullity: Zeus v. Spick, [2000] O.J. No. 3758 (S.C.),
+
+at para. 5, aff’d [2001] O.J. No. 2848 (C.A.), at para. 3; Beardsley v. Ontario (2001),
+                                       Page: 6
+
+
+57 O.R. (3d) 1 (C.A.), at paras. 10-12; Miguna v. Ontario (Attorney General)
+
+(2005), 262 D.L.R. (4th) 222 (Ont. C.A.), at paras. 7-8. In Noddle v. The Ontario
+
+Ministry of Health, 2019 ONSC 7337, at para. 32, it was also held that the
+
+requirement could not be waived.
+
+[14]   The same approach should be followed under the CLPA. First, the
+
+legislature, in enacting s. 18(1) of the CLPA in terms that mirror s. 7(1) of the former
+
+legislation, should be taken to have intended the same effect. Second, s. 18(6)
+
+removes any doubt about this, as it mandates treating an action commenced
+
+without complying with the required notice as a nullity from the time of its
+
+commencement.
+
+[15]   With respect, the motion judge’s conclusion that the Crown was not entitled
+
+to have the action struck as a nullity, because it did not move as soon as the
+
+respondent indicated she did not intend to comply with s. 18(1) of the CLPA,
+
+rewrites the legislation. It conditions the Crown’s right to have the action treated as
+
+a nullity on the timing of the motion, a condition not found in the text. It introduces
+
+a notion of waiver by delay that is inconsistent with the judicial interpretation of the
+
+prior legislation, which held that its requirements could not be abridged or waived.
+
+And it cannot stand in the face of s. 18(6) – since the action was a nullity from the
+
+time it was commenced, there is no basis on which the Crown’s delay in moving
+
+could affect the action’s status as a nullity.
+                                      Page: 7
+
+
+[16]   The respondent argues that the motion judge was right to dismiss the
+
+Crown’s motion because she had noted the Crown in default, and r. 19.02(1)(b) of
+
+the Rules of Civil Procedure, R.R.O. 1990, Reg. 194, prevents a defendant who
+
+has been so noted from bringing a motion without leave. We reject this argument.
+
+First, it was not the ground relied on by the motion judge who heard the Crown’s
+
+motion; to the extent leave was required, he implicitly granted it. But more
+
+fundamentally, the procedural rule relied on by the respondent cannot trump the
+
+clear effect of the CLPA provision that required the court to treat the action as a
+
+nullity. Moreover, s. 25 of the CLPA states that the Crown may not be noted in
+
+default without leave of the court, obtained on a motion made with notice to the
+
+Crown, and there is no evidence such leave was obtained.
+
+[17]   The respondent also argues that an effect of the noting in default is that the
+
+defendant is deemed to admit the allegations in the claim. Since r. 21.01(1)(a),
+
+under which the Crown moved, is available only for questions of law that arise from
+
+the pleadings, and the only pleading was the claim, there was no basis to consider
+
+facts surrounding the failure to give notice. We reject this argument. On a motion
+
+under r. 21.01(1)(a), evidence may be admitted in the discretion of the court:
+
+r. 21.01(2)(a). Here, the motion judge properly exercised his discretion to consider
+
+such evidence. As this court noted in Beardsley, at para. 10, rejecting a similar
+
+argument to the one advanced here by the respondent: “Proper notice is a
+
+necessary pre-condition to the right to sue the Crown. It would defeat the interests
+                                         Page: 8
+
+
+of justice to restrict a defendant’s right to adduce evidence that proper notice was
+
+not given.”
+
+[18]   The respondent also argues that estoppel should operate to prevent the
+
+Crown from asserting that the action is a nullity. She points to the fact that an
+
+application she brought to the Human Rights Tribunal of Ontario (“HRTO”), against
+
+the Ministry of the Solicitor General and four individuals, was dismissed in August
+
+2020 on the basis of the existence of her action. Section 34(11) of the Human
+
+Rights Code, R.S.O. 1990, c. H.19, bars an HRTO application where there is an
+
+existing civil action dealing with the same alleged rights infringement. The
+
+respondent argues that the Crown got the benefit of the existence of the action for
+
+the purpose of the dismissal of the HRTO application, and should be estopped
+
+from claiming the action is a nullity.
+
+[19]   We do not accept this argument.
+
+[20]   First, we are not satisfied that estoppel, any more than waiver, could have
+
+any effect on the operation of the CLPA given s. 18(6). Second, even assuming it
+
+could operate, we are not satisfied it would operate here.
+
+[21]   The motion judge made no findings that the respondent changed her
+
+position based on anything the Crown said to her or to anyone else, and he found
+
+the Crown acted in good faith throughout. The record is clear that the Crown
+
+unequivocally told the respondent that it considered the existing action against it
+                                        Page: 9
+
+
+to be a nullity. It was the respondent who not only persisted in maintaining the
+
+action but also commenced concurrent HRTO proceedings. This is what created
+
+the overlap in proceedings attracting the operation of s. 34(11) of the Human
+
+Rights Code, under which the HRTO has no discretion but to dismiss a human
+
+rights claim if there is a concurrent civil action, without regard to whether the civil
+
+action may be unsuccessful or struck out: Aba-Alkhail v. University of Ottawa,
+
+2012 HRTO 656, at para. 26; Grogan v. Ontario (Human Rights Tribunal),
+
+2012 ONSC 319, at para. 48, leave to appeal refused, M41084. In any event, the
+
+respondent was free to make the Crown’s position that the existing action against
+
+it was a nullity known to the HRTO if she believed that would assist her in resisting
+
+dismissal of her HRTO application.
+
+[22]   Moreover, although the Crown is the only formally named defendant in the
+
+action, the claim refers to the conduct of various individuals and entities. The
+
+motion judge referred to the respondent having taken the position that individual
+
+police officers, the police services board, and the City of Quinte West are also
+
+defendants to the action. He invited her to have the claim “clearly and on its face
+
+stipulate who she is naming as a party defendant”. It remains open to her to pursue
+
+that in the Superior Court – it is only as against the Crown that the action is a nullity.
+
+The HRTO’s reasons for dismissing the application reflect this uncertainty as to
+
+who in addition to the Crown are or may be parties to the action – those reasons
+
+referred to the action as being against “all-but-one of the respondents” to the
+                                    Page: 10
+
+
+HRTO proceeding. It was that substantial overlap that was relied on by the HRTO
+
+in dismissing the application.
+
+CONCLUSION
+
+[23]   The appeal is allowed. The statement of claim as against the Crown is struck
+
+out and the action as against the Crown is dismissed as a nullity.
+
+[24]   The parties may make written submissions, not exceeding three pages
+
+each, on the costs of the motion before the motion judge and of the appeal. The
+
+submissions of the Crown are to be delivered within ten days of the release of
+
+these reasons. The submissions of the respondent are to be delivered within ten
+
+days of the Crown’s submissions being delivered.
+
+                                                                        “Doherty J.A.”
+                                                                     “B. Zarnett J.A.”
+                                                                      “L. Sossin J.A.”
+
