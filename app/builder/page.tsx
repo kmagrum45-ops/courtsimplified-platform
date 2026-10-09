@@ -970,8 +970,12 @@ function BuilderPageContent() {
       guidedAnswersRef.current = (result.answers ?? []).slice(-200);
       const confirmedDates = suggestedDatesFromAnswers(result.answers ?? []);
       setGuidedDates(confirmedDates);
+      // Only dates the person gave in full are kept as their answers; a date
+      // whose year we guessed is offered on the card for them to choose.
       guidedDatesRef.current = Object.fromEntries(
-        Object.entries(confirmedDates).map(([questionId, suggestion]) => [questionId, suggestion.value]),
+        Object.entries(confirmedDates)
+          .filter(([, suggestion]) => !suggestion.yearAssumed)
+          .map(([questionId, suggestion]) => [questionId, suggestion.value]),
       );
 
       // The active case, so the run sees the events the user confirmed.

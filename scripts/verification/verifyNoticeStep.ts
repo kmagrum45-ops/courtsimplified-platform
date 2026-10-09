@@ -62,11 +62,17 @@ const dates = suggestedDatesFromAnswers([
 ]);
 check("a confirmed injury date is offered for the injury question", dates["sc-date-injury"]?.value === "2025-01-13", JSON.stringify(dates));
 check("only date questions are offered", !("sc-orient-when-happened" in dates));
-check("an answer with no full date offers nothing", !("sc-date-claim-served" in dates));
+check("an answer with no date at all offers nothing", !("sc-date-claim-served" in dates));
+// "October 1" with no year is offered, its year marked as our guess, and the
+// builder keeps only full dates as the person's answers (walkthrough 2026-10-08).
+const monthDay = suggestedDatesFromAnswers([{ questionId: "sc-date-claim-served", answerText: "October 1, in person" }], new Date("2026-10-08T12:00:00Z"));
+check("a month and day answer is offered with the year marked as a guess", monthDay["sc-date-claim-served"]?.value === "2026-10-01" && monthDay["sc-date-claim-served"]?.yearAssumed === true, JSON.stringify(monthDay));
+check("a full date is not marked as a guess", !dates["sc-date-injury"]?.yearAssumed);
 
 const read = (file: string) => readFileSync(path.join(process.cwd(), file), "utf8");
 const page = read("app/builder/page.tsx");
 check("the builder passes the notice step and the confirmed dates", /noticeStepId=\{suggestedNoticeStep\(/.test(page) && /suggestedDates=\{guidedDates\}/.test(page));
+check("only full dates become the person's answers", /filter\(\(\[, suggestion\]\) => !suggestion\.yearAssumed\)/.test(page));
 const panel = read("app/builder/_components/StageAnswerPanel.tsx");
 check("the panel suggests the notice step first when nothing is filed", /noticeFirst\s*\?\s*\(noticeStepId as string\)/.test(panel));
 

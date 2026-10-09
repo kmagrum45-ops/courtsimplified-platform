@@ -290,7 +290,7 @@ export default function StageAnswerPanel({
   city?: string;
   /** The person's own story (not the analysis), read for a procedural event they name, such as "noted in default". */
   storyText?: string;
-  /** Told what was saved, so a page that remounts this panel can show it again. */
+  /** Told what the person chose (dates and step), so a page that remounts this panel can show it again; called before the save to the case. */
   onSaved?: (saved: { stepId?: string | null; dateAnswers?: Record<string, string> }) => void;
 }) {
   const options = stagesForPathway(courtPath).map((stage) => ({
@@ -375,6 +375,11 @@ export default function StageAnswerPanel({
     }
     setDateAnswers(next);
     void load(stageId, municipality ? { municipality } : {}, next);
+    // The page keeps what the person chose for this visit whether or not the
+    // save below succeeds, so Back and Forward show the counted date again
+    // (walkthrough, 2026-10-08: it was kept only after a successful save, and
+    // two runs lost it on returning to the results).
+    onSaved?.({ dateAnswers: next, stepId: stageId || null });
     if (!caseId) return;
     setDateStatus("saving");
     // The step is saved with the dates: counting a deadline at the suggested
@@ -382,7 +387,6 @@ export default function StageAnswerPanel({
     // the counted date (page review, 2026-10-06).
     const saved = await savePosition(caseId, { dateAnswers: asked, stepId: stageId || null });
     setDateStatus(saved ? "saved" : "not-saved");
-    if (saved) onSaved?.({ dateAnswers: next, stepId: stageId || null });
   }
 
   return (
@@ -415,12 +419,10 @@ export default function StageAnswerPanel({
             // confirmed-fact rule requires. Every other municipality has its
             // own question.
             if (id) void load(id, id === "before-filing:notice-toronto" ? { municipality: "Toronto" } : {});
-            // The user picked this; record it on their case.
-            if (caseId) {
-              void savePosition(caseId, { stepId: id || null }).then((saved) => {
-                if (saved) onSaved?.({ stepId: id || null });
-              });
-            }
+            // The user picked this: kept on the page for this visit, and
+            // recorded on their case.
+            onSaved?.({ stepId: id || null });
+            if (caseId) void savePosition(caseId, { stepId: id || null });
           }}
           className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
         >

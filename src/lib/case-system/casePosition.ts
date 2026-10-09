@@ -226,7 +226,12 @@ export const EVENT_TO_DATE_QUESTION: Record<string, string> = {
   "defence-filed": "sc-date-defence-filed",
 };
 
-export type SuggestedDate = { value: string; basis: string };
+export type SuggestedDate = {
+  value: string;
+  basis: string;
+  /** The person gave a month and day; the year is our guess, so it is only ever offered. */
+  yearAssumed?: boolean;
+};
 
 export function suggestedDatesFromEvents(
   events: ReadonlyArray<{
@@ -304,19 +309,29 @@ const MENTIONS_DATE = new RegExp(`\\b${MONTH}\\b|\\b\\d{1,2}[/-]\\d{1,2}\\b|\\b\
  */
 export function suggestedDatesFromAnswers(
   answers: ReadonlyArray<{ questionId: string; answerText: string }>,
+  now: Date = new Date(),
 ): Record<string, SuggestedDate> {
   const suggestions: Record<string, SuggestedDate> = {};
   for (const answer of answers) {
     if (!isDateQuestionId(answer.questionId) || suggestions[answer.questionId]) continue;
     const match = FULL_DATE.exec(answer.answerText);
-    const value = match ? parseUserDate(match[1].replace(/,/g, "")) : null;
+    const full = match ? parseUserDate(match[1].replace(/,/g, "")) : null;
+    // "October 1" with no year (walkthrough, 2026-10-08: a tenant confirmed
+    // October 1 service and was asked for the date again): offered with the
+    // year marked as our guess, and never applied without their click.
+    const assumed = full ? null : assumedYearDate(answer.answerText, now, UPCOMING_QUESTIONS.has(answer.questionId));
+    const value = full ?? assumed;
     if (!value) continue;
     const quoted = answer.answerText.trim().slice(0, 120);
-    suggestions[answer.questionId] = { value, basis: `You answered: “${quoted}”` };
+    suggestions[answer.questionId] = {
+      value,
+      basis: assumed ? `You answered: “${quoted}” — the year is our guess` : `You answered: “${quoted}”`,
+      ...(assumed ? { yearAssumed: true } : {}),
+    };
     // For an injury claim the day of the injury IS the day the claim is
     // based on: one answer, offered for both questions (2026-10-07).
     if (answer.questionId === "sc-date-injury" && !suggestions["case-date-act-or-omission"]) {
-      suggestions["case-date-act-or-omission"] = { value, basis: `You answered: “${quoted}”` };
+      suggestions["case-date-act-or-omission"] = { ...suggestions[answer.questionId] };
     }
   }
   return suggestions;
