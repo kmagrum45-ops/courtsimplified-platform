@@ -663,6 +663,23 @@ function BuilderPageContent() {
     };
   }, [queryCaseId]);
 
+  /*
+   * ONE SAVE AT A TIME (walkthrough, 2026-10-09). Saving the case set its id,
+   * which re-ran this effect, so the same large record was written two or
+   * three times at once -- more with the retries -- and the database cancelled
+   * them ("canceling statement due to statement timeout", 57014): five of
+   * twenty runs stopped on "Saving your case". Now a re-run caused only by the
+   * id being set is skipped, and saves run one after another, never together.
+   * The case id is read from a ref, so a save that waits never inserts a
+   * second case.
+   */
+  const saveChainRef = useRef<Promise<void>>(Promise.resolve());
+  const lastSavedInputsRef = useRef<{ analysis: unknown; caseData: unknown; courtPath: string; attempt: number } | null>(null);
+  const masterCaseIdRef = useRef<string | null>(masterCaseId);
+  useEffect(() => {
+    masterCaseIdRef.current = masterCaseId;
+  }, [masterCaseId]);
+
   useEffect(() => {
     async function saveMasterCase() {
       if (!analysis || !caseData) {
@@ -677,7 +694,7 @@ function BuilderPageContent() {
         data: { user },
       } = await supabase.auth.getUser();
 
-      let finalCaseId = queryCaseId || masterCaseId || "";
+      let finalCaseId = queryCaseId || masterCaseIdRef.current || masterCaseId || "";
       const stage = getStageForPersistence(analysis, caseData);
       const now = new Date().toISOString();
 
@@ -776,6 +793,7 @@ function BuilderPageContent() {
 
       // No browser copy of the case is kept: it is saved to the account below.
 
+      masterCaseIdRef.current = activeId || null;
       setMasterCaseId(activeId);
 
       if (user && activeId) {
@@ -920,7 +938,8 @@ function BuilderPageContent() {
       // wrote on it (master plan Phase 3). Off unless switched on; when it is
       // off or fails, nothing changes.
       if (process.env.NEXT_PUBLIC_CASE_READER === "on" && user && activeId) {
-        void (async () => {
+        // Awaited, so the reading's own write is done before any next save.
+        await (async () => {
           try {
             const {
               data: { session },
@@ -941,7 +960,13 @@ function BuilderPageContent() {
       }
     }
 
-    saveMasterCase();
+    // Skip a re-run that changes nothing but the case id this save just set.
+    const last = lastSavedInputsRef.current;
+    if (last && last.analysis === analysis && last.caseData === caseData && last.courtPath === courtPath && last.attempt === saveAttempt) {
+      return;
+    }
+    if (analysis && caseData) lastSavedInputsRef.current = { analysis, caseData, courtPath, attempt: saveAttempt };
+    saveChainRef.current = saveChainRef.current.then(saveMasterCase).catch(() => undefined);
   }, [
     analysis,
     caseData,
