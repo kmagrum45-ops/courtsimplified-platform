@@ -612,217 +612,51 @@
     "why": "Copyright claims and which courts hear them. Case types were left out for want of it (2026-10-07)."
   },
   {
-    "id": "tmp-paca-p001",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev001.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT",
-      "HISTORICAL VERSION FOR THE PERIOD"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-p002",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev002.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT",
-      "HISTORICAL VERSION FOR THE PERIOD"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-p003",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev003.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT",
-      "HISTORICAL VERSION FOR THE PERIOD"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-p004",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev004.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT",
-      "HISTORICAL VERSION FOR THE PERIOD"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-p005",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev005.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT",
-      "HISTORICAL VERSION FOR THE PERIOD"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-p006",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev006.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT",
-      "HISTORICAL VERSION FOR THE PERIOD"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-p007",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev007.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT",
-      "HISTORICAL VERSION FOR THE PERIOD"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-p008",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev008.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT",
-      "HISTORICAL VERSION FOR THE PERIOD"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-p009",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev009.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT",
-      "HISTORICAL VERSION FOR THE PERIOD"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-p010",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev010.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT",
-      "HISTORICAL VERSION FOR THE PERIOD"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-p011",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev011.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT",
-      "HISTORICAL VERSION FOR THE PERIOD"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-p012",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev012.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT",
-      "HISTORICAL VERSION FOR THE PERIOD"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-p013",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev013.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT",
-      "HISTORICAL VERSION FOR THE PERIOD"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-p014",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev014.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT",
-      "HISTORICAL VERSION FOR THE PERIOD"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-p015",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev015.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT",
-      "HISTORICAL VERSION FOR THE PERIOD"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-cur",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/90p27_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-paca-curp",
-    "title": "Proceedings Against the Crown Act",
-    "citation": "R.S.O. 1990, c. P.27",
-    "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PROCEEDINGS AGAINST THE CROWN ACT"
-    ],
-    "why": "temporary probe"
-  },
-  {
-    "id": "tmp-cc-pitindex",
+    "id": "tmp-cc-20061214",
     "title": "Criminal Code",
     "citation": "x",
-    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/PITIndex.html",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20061214/P1TT3xt3.html",
     "format": "html",
     "mustContain": [
-      "Criminal Code"
+      "Criminal Code",
+      "515"
     ],
-    "minCharacters": 200,
+    "why": "temporary probe"
+  },
+  {
+    "id": "tmp-cc-20070301",
+    "title": "Criminal Code",
+    "citation": "x",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20070301/P1TT3xt3.html",
+    "format": "html",
+    "mustContain": [
+      "Criminal Code",
+      "515"
+    ],
+    "why": "temporary probe"
+  },
+  {
+    "id": "tmp-cc-20070701",
+    "title": "Criminal Code",
+    "citation": "x",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20070701/P1TT3xt3.html",
+    "format": "html",
+    "mustContain": [
+      "Criminal Code",
+      "515"
+    ],
+    "why": "temporary probe"
+  },
+  {
+    "id": "tmp-cc-20071201",
+    "title": "Criminal Code",
+    "citation": "x",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20071201/P1TT3xt3.html",
+    "format": "html",
+    "mustContain": [
+      "Criminal Code",
+      "515"
+    ],
     "why": "temporary probe"
   }
 ]
