@@ -94,7 +94,10 @@ async function main() {
   check("CI keys the billed suite on that closure", /importClosureHash\.mjs/.test(ci) && /ai-passed-safety-regression-\$\{\{ steps\.safety-code\.outputs\.hash \}\}/.test(ci));
   // An empty balance postpones the suite, never waives it: no pass is recorded.
   const credit = (await import("../../scripts/ai/openaiCredit.mjs")) as { quotaExhausted: (status: number, body: unknown) => boolean };
-  check("an empty balance is told apart from any other failure", credit.quotaExhausted(429, { error: { code: "insufficient_quota" } }) && !credit.quotaExhausted(429, { error: { code: "rate_limit_exceeded" } }) && !credit.quotaExhausted(500, {}));
+  check("an empty balance is told apart from any other failure", credit.quotaExhausted(429, { error: { code: "insufficient_quota" } }) &&
+      credit.quotaExhausted(429, { error: { message: "You have no credits remaining. Add credits to continue using the API." } }) &&
+      !credit.quotaExhausted(429, { error: { code: "rate_limit_exceeded", message: "Rate limit reached" } }) &&
+      !credit.quotaExhausted(500, {}));
   const recordStep = ci.slice(ci.indexOf("- name: Record that the safety regression passed"));
   check(
     "with no credit the suite is skipped with a warning and NO pass is recorded",

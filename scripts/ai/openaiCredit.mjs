@@ -22,8 +22,12 @@ const key = process.env.OPENAI_API_KEY ?? "";
 
 export function quotaExhausted(status, body) {
   if (status !== 429) return false;
-  const code = body?.error?.code ?? body?.error?.type ?? "";
-  return /insufficient_quota|billing/.test(String(code));
+  // 2026-10-09: the empty-balance answer came as "429 You have no credits
+  // remaining. Add credits to continue using the API ...", so the message
+  // counts as well as the code.
+  const error = body?.error ?? {};
+  const said = `${error.code ?? ""} ${error.type ?? ""} ${error.message ?? ""}`;
+  return /insufficient_quota|billing|no credits|add credits/i.test(said);
 }
 
 async function main() {
