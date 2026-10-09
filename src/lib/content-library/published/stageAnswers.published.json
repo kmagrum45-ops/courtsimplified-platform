@@ -1,11 +1,11 @@
 {
   "release": {
-    "runId": "run-19",
-    "model": "claude-opus-5-5 agent rounds (authored, 3 independent review rounds)",
-    "promotedAt": "2026-10-07T00:28:53.203Z",
+    "runId": "run-20",
+    "model": "run-19 blocks; the two Small Claims trial steps' deadline sections rendered by renderDeadlineSection from the stage map (no model)",
+    "promotedAt": "2026-10-09T15:56:21.612Z",
     "corpusGeneratedAt": "2026-09-27T00:45:24.224Z",
     "blockCount": 126,
-    "contentHash": "6384aa4b"
+    "contentHash": "7f4d02bf"
   },
   "blocks": [
     {
