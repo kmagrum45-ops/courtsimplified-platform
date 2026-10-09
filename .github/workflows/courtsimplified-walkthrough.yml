@@ -22,6 +22,18 @@ on:
         description: "tuning (the 20 cases) or held-back (the 10 finish-line cases in heldBackPersonas.ts, run only to measure)"
         required: false
         default: "tuning"
+      case_reader:
+        description: "on: the case reader (intake/caseReader.ts) reads each story, as it would with CASE_READER=on; off: as the live site runs today"
+        required: false
+        default: "off"
+      cap_per_share:
+        description: "Hard cap, in US dollars, on each of the 5 shares' estimated OpenAI spend (the run stops calling the model at it). Blank = no cap"
+        required: false
+        default: "4"
+      critic_cap:
+        description: "Hard cap, in US dollars, on the critic's estimated spend"
+        required: false
+        default: "3"
       effort:
         description: "Reasoning effort for the site under test: low (cheaper; default) or medium (as the live site runs, for the finish-line check)"
         required: false
@@ -52,7 +64,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: .ai-passed
-          key: ai-passed-walkthrough-${{ inputs.set }}-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}
+          key: ai-passed-walkthrough-${{ inputs.set }}-reader-${{ inputs.case_reader }}-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}
           lookup-only: true
       - id: decide
         run: |
@@ -95,6 +107,13 @@ jobs:
       AI_EFFORT_STANDARD: low
       # Audit rows go to a local file, never to a database.
       AI_CALL_LOG: file
+      # The case reader, when asked for (both halves: the route and the page).
+      CASE_READER: ${{ inputs.case_reader }}
+      NEXT_PUBLIC_CASE_READER: ${{ inputs.case_reader }}
+      # A hard cap on this share's estimated spend, and a ledger of its tokens
+      # for COST.md (openaiClient.ts, 2026-10-09).
+      AI_SPEND_CAP_USD: ${{ inputs.cap_per_share }}
+      AI_TOKEN_LEDGER: ${{ github.workspace }}/ai-tokens.jsonl
 
     steps:
       - name: Checkout repository
@@ -156,6 +175,7 @@ jobs:
         run: |
           mkdir -p walkthrough-output
           cp server.log "walkthrough-output/server-${{ matrix.shard }}.log" || true
+          cp ai-tokens.jsonl "walkthrough-output/tokens-share-${{ matrix.shard }}.jsonl" || true
           echo "${{ steps.walk.outcome }}" > "walkthrough-output/OUTCOME-${{ matrix.shard }}.txt"
 
       - name: Upload this share
@@ -173,7 +193,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: .ai-passed
-          key: ai-passed-walkthrough-${{ inputs.set }}-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}
+          key: ai-passed-walkthrough-${{ inputs.set }}-reader-${{ inputs.case_reader }}-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}
 
   report:
     needs: walkthrough
@@ -182,6 +202,7 @@ jobs:
     timeout-minutes: 60
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      AI_SPEND_CAP_USD: ${{ inputs.critic_cap }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -209,7 +230,13 @@ jobs:
           merge-multiple: true
 
       - name: Critic review
+        env:
+          AI_TOKEN_LEDGER: ${{ github.workspace }}/walkthrough-output/tokens-critic.jsonl
         run: node --import tsx scripts/walkthrough/critique.ts
+
+      - name: What this run cost (estimate)
+        if: always()
+        run: node scripts/ai/costReport.mjs walkthrough-output
 
       - name: Publish to the walkthrough-reports branch
         if: always()
@@ -231,6 +258,7 @@ jobs:
           git commit -q -m "Page walkthrough for ${GITHUB_SHA::7} (run ${GITHUB_RUN_ID})"
           git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/walkthrough-reports
           echo "Published to walkthrough-reports." >> "$GITHUB_STEP_SUMMARY"
+          [ -f COST.md ] && cat COST.md >> "$GITHUB_STEP_SUMMARY" || true
           [ -f FINISH_LINE.md ] && sed -n '1,30p' FINISH_LINE.md >> "$GITHUB_STEP_SUMMARY" || true
           [ -f REPORT.md ] && head -30 REPORT.md >> "$GITHUB_STEP_SUMMARY" || true
 
@@ -241,4 +269,4 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: .ai-passed
-          key: ai-passed-walkthrough-${{ inputs.set }}-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}
+          key: ai-passed-walkthrough-${{ inputs.set }}-reader-${{ inputs.case_reader }}-${{ hashFiles('src/**', 'app/**', 'scripts/**', 'package-lock.json') }}
