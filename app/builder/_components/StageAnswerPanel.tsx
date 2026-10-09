@@ -8,6 +8,7 @@ import FormsNamedHere from "../../_components/FormsNamedHere";
 import NextStepPractical from "../../_components/NextStepPractical";
 import GetHelp from "../../_components/GetHelp";
 import { practicalFor, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
+import { datesFromPicture, stepFromPicture, type CasePicture } from "@/src/lib/case-system/intake/caseReader";
 import { amountNoteFor } from "@/src/lib/case-system/amountNotes";
 import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
 
@@ -273,6 +274,7 @@ export default function StageAnswerPanel({
   recordedAmount = "",
   city = "",
   storyText = "",
+  picture = null,
   onSaved,
 }: {
   courtPath: StagePathway;
@@ -305,6 +307,12 @@ export default function StageAnswerPanel({
   city?: string;
   /** The person's own story (not the analysis), read for a procedural event they name, such as "noted in default". */
   storyText?: string;
+  /**
+   * The case reader's checked reading of everything they wrote
+   * (intake/caseReader.ts), when CASE_READER is on. Its step and dates come
+   * first; without it, the phrase lists below are the fallback.
+   */
+  picture?: CasePicture | null;
   /** Told what the person chose (dates and step), so a page that remounts this panel can show it again; called before the save to the case. */
   onSaved?: (saved: { stepId?: string | null; dateAnswers?: Record<string, string> }) => void;
 }) {
@@ -319,7 +327,11 @@ export default function StageAnswerPanel({
     (confirmedStage === "starting-case" || !confirmedStage) &&
     Boolean(noticeStepId) &&
     options.some((option) => option.id === noticeStepId);
-  const suggested = noticeFirst ? (noticeStepId as string) : suggestedStageFor(courtPath, confirmedStage, responding, storyText);
+  const suggested = noticeFirst
+    ? (noticeStepId as string)
+    : stepFromPicture(courtPath, picture, responding) || suggestedStageFor(courtPath, confirmedStage, responding, storyText);
+  // Dates the case reader found in their words, under what the guided intake recorded.
+  const offeredDates = { ...datesFromPicture(picture), ...suggestedDates };
   const savedStep = initialStepId && options.some((option) => option.id === initialStepId) ? initialStepId : "";
   const startingStep = savedStep || suggested;
   const [stageId, setStageId] = useState(startingStep);
@@ -523,7 +535,7 @@ export default function StageAnswerPanel({
             {result.dateQuestions!.map((question) => {
               const hint = storyHints[question.id];
               const suggestion: { value: string; basis: string; yearAssumed?: boolean } | undefined =
-                suggestedDates[question.id] ??
+                offeredDates[question.id] ??
                 (hint?.value
                   ? { value: hint.value, basis: `from your story: “${hint.quote}”`, yearAssumed: hint.yearAssumed }
                   : undefined);

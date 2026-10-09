@@ -36,6 +36,7 @@ import { courtPathAsPathway, readCasePosition } from "@/src/lib/case-system/case
 import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
 import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
 import { userStory } from "@/src/lib/case-system/userStory";
+import { readStoredPicture, stepFromPicture } from "@/src/lib/case-system/intake/caseReader";
 import {
   CaseHomeContext,
   COURT_LABELS,
@@ -125,7 +126,10 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
       record: readCaseRecord(master, caseRecord.court_path),
       stepId:
         position.stepId ||
-        (courtPath && position.confirmedStage ? suggestedStageFor(courtPath, position.confirmedStage, responding, userStory(master.intakeData as StoredCaseData | undefined)) : ""),
+        (courtPath && position.confirmedStage
+          ? stepFromPicture(courtPath, readStoredPicture(master.casePicture), responding) ||
+            suggestedStageFor(courtPath, position.confirmedStage, responding, userStory(master.intakeData as StoredCaseData | undefined))
+          : ""),
       reload: load,
     };
   }, [caseRecord, load]);

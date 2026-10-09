@@ -48,6 +48,8 @@ export const userOwned = {
     ],
   },
   case_event_candidate_dismissals: { parent: caseParent },
+  // 2026-10-08: the assistant conversation, saved with its case.
+  case_chat_messages: { parent: caseParent },
   // The four workspace tables are written only by server routes (service role);
   // signed-in users read them and nothing else.
   workspace_documents: { parent: caseParent, storagePathColumn: "storage_path", clientWrites: false },

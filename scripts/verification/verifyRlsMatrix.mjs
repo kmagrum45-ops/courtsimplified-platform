@@ -241,6 +241,7 @@ function genericValue(col, seed) {
 const tableOverrides = {
   cases: () => ({ court_path: lit("small-claims") }),
   case_events: () => ({ court_path: lit("small-claims"), source: lit("user-stated"), event_type: lit("probe") }),
+  case_chat_messages: () => ({ role: lit("user") }),
   case_event_candidate_dismissals: (k) => ({
     candidate_fingerprint: lit(createHash("sha256").update(k).digest("hex")),
     narrative_basis: lit("probe"),

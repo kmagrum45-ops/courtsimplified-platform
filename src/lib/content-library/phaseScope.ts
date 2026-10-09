@@ -273,3 +273,17 @@ export function strategyEnabled(
   return env.STRATEGY === "on" && checkedAnswersEnabled(env);
 }
 
+
+/**
+ * The case reader (intake/caseReader.ts, master plan Phase 3, 2026-10-08):
+ * the AI reads the person's whole account and reports, with checked quotes,
+ * their side, the procedural events and dates they describe. OFF unless
+ * CASE_READER=on, until the walkthrough has been run with it on; the page
+ * asks for it only with NEXT_PUBLIC_CASE_READER=on. Off, the site behaves as
+ * before.
+ */
+export function caseReaderEnabled(
+  env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+): boolean {
+  return env.CASE_READER === "on" && aiAnalysisTextToUsers(env);
+}

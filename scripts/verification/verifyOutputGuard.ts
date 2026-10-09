@@ -188,6 +188,11 @@ function main(): void {
     "src/lib/case-system/caseReview/caseReviewModel.ts",
     "src/lib/case-system/chat/libraryChat.ts",
     "src/lib/case-system/intake/storyAnswerProposals.ts",
+    // Added 2026-10-08: the case reader. JSON output; every item is dropped
+    // unless its quote is the person's own words (caseReader.ts
+    // validateCasePicture). Nothing it writes is shown as its words: it feeds
+    // the suggested step and the date offers, which the person confirms.
+    "src/lib/case-system/intake/caseReaderModel.ts",
     "src/lib/case-system/stage-map/resolveCasePosition.ts",
     // Added 2026-10-04: spelling suggestions for the user's own words. JSON
     // output, validated field by field in code before anything is shown.
