@@ -97,6 +97,29 @@ check(
   suggestApplicability([{ field_path: "formApplicability.smallClaims.respondingToPlaintiffsClaim", choices: [{ value: "yes" }] }], defendant, {}).length === 0,
 );
 
+{
+  // Held-back walkthrough, 2026-10-09: the Forms page asked what the recorded
+  // money claim and the described lawsuit already answered.
+  const base = readCaseRecord({}, "small-claims");
+  const withAmount = { ...base, amount: "$5,200", story: "the guy wont answer my texts now" };
+  const kind = suggestApplicability(
+    [{ field_path: "formApplicability.smallClaims.requestedRemedyType", choices: [{ value: "ordinary-money-claim" }, { value: "ordinary-property-claim" }] }],
+    withAmount,
+    {},
+  );
+  check("a recorded amount is offered 'money claim'", kind[0]?.value === "ordinary-money-claim");
+  const civil = { ...readCaseRecord({}, "civil"), story: "i sued my former business partner for 110000" };
+  const answers = suggestApplicability(
+    ["isGeneralAction", "isMortgageForeclosure", "isCommencedByNoticeOfAction"].map((name) => ({ field_path: `formApplicability.civil.${name}`, choices: yesNo })),
+    civil,
+    {},
+  );
+  check("suing is offered 'general action: yes'", answers.find((a) => a.fieldPath.endsWith("isGeneralAction"))?.value === true);
+  check("no mortgage in the story is offered 'not a foreclosure'", answers.find((a) => a.fieldPath.endsWith("isMortgageForeclosure"))?.value === false);
+  const mortgage = suggestApplicability([{ field_path: "formApplicability.civil.isMortgageForeclosure", choices: yesNo }], { ...civil, story: "the bank is selling under power of sale on my mortgage" }, {});
+  check("a story about a mortgage is not answered for them", mortgage.length === 0);
+}
+
 // ---- coming back to update the intake ---------------------------------------
 const stored = storedIntakeValues({
   position: { confirmedStage: "responding" },
