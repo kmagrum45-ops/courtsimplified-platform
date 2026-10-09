@@ -610,5 +610,245 @@
       "Copyright Act"
     ],
     "why": "Copyright claims and which courts hear them. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "tmp-paca-ev001",
+    "title": "Proceedings Against the Crown Act",
+    "citation": "R.S.O. 1990, c. P.27",
+    "url": "https://www.ontario.ca/laws/docs/90p27_ev001.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PROCEEDINGS AGAINST THE CROWN ACT",
+      "HISTORICAL VERSION FOR THE PERIOD"
+    ],
+    "why": "temporary probe"
+  },
+  {
+    "id": "tmp-paca-ev002",
+    "title": "Proceedings Against the Crown Act",
+    "citation": "R.S.O. 1990, c. P.27",
+    "url": "https://www.ontario.ca/laws/docs/90p27_ev002.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PROCEEDINGS AGAINST THE CROWN ACT",
+      "HISTORICAL VERSION FOR THE PERIOD"
+    ],
+    "why": "temporary probe"
+  },
+  {
+    "id": "tmp-paca-ev003",
+    "title": "Proceedings Against the Crown Act",
+    "citation": "R.S.O. 1990, c. P.27",
+    "url": "https://www.ontario.ca/laws/docs/90p27_ev003.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PROCEEDINGS AGAINST THE CROWN ACT",
+      "HISTORICAL VERSION FOR THE PERIOD"
+    ],
+    "why": "temporary probe"
+  },
+  {
+    "id": "tmp-paca-ev004",
+    "title": "Proceedings Against the Crown Act",
+    "citation": "R.S.O. 1990, c. P.27",
+    "url": "https://www.ontario.ca/laws/docs/90p27_ev004.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PROCEEDINGS AGAINST THE CROWN ACT",
+      "HISTORICAL VERSION FOR THE PERIOD"
+    ],
+    "why": "temporary probe"
+  },
+  {
+    "id": "tmp-paca-ev005",
+    "title": "Proceedings Against the Crown Act",
+    "citation": "R.S.O. 1990, c. P.27",
+    "url": "https://www.ontario.ca/laws/docs/90p27_ev005.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PROCEEDINGS AGAINST THE CROWN ACT",
+      "HISTORICAL VERSION FOR THE PERIOD"
+    ],
+    "why": "temporary probe"
+  },
+  {
+    "id": "tmp-paca-ev006",
+    "title": "Proceedings Against the Crown Act",
+    "citation": "R.S.O. 1990, c. P.27",
+    "url": "https://www.ontario.ca/laws/docs/90p27_ev006.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PROCEEDINGS AGAINST THE CROWN ACT",
+      "HISTORICAL VERSION FOR THE PERIOD"
+    ],
+    "why": "temporary probe"
+  },
+  {
+    "id": "tmp-paca-ev007",
+    "title": "Proceedings Against the Crown Act",
+    "citation": "R.S.O. 1990, c. P.27",
+    "url": "https://www.ontario.ca/laws/docs/90p27_ev007.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PROCEEDINGS AGAINST THE CROWN ACT",
+      "HISTORICAL VERSION FOR THE PERIOD"
+    ],
+    "why": "temporary probe"
+  },
+  {
+    "id": "tmp-paca-ev008",
+    "title": "Proceedings Against the Crown Act",
+    "citation": "R.S.O. 1990, c. P.27",
+    "url": "https://www.ontario.ca/laws/docs/90p27_ev008.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PROCEEDINGS AGAINST THE CROWN ACT",
+      "HISTORICAL VERSION FOR THE PERIOD"
+    ],
+    "why": "temporary probe"
+  },
+  {
+    "id": "tmp-paca-ev009",
+    "title": "Proceedings Against the Crown Act",
+    "citation": "R.S.O. 1990, c. P.27",
+    "url": "https://www.ontario.ca/laws/docs/90p27_ev009.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PROCEEDINGS AGAINST THE CROWN ACT",
+      "HISTORICAL VERSION FOR THE PERIOD"
+    ],
+    "why": "temporary probe"
+  },
+  {
+    "id": "tmp-paca-ev010",
+    "title": "Proceedings Against the Crown Act",
+    "citation": "R.S.O. 1990, c. P.27",
+    "url": "https://www.ontario.ca/laws/docs/90p27_ev010.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PROCEEDINGS AGAINST THE CROWN ACT",
+      "HISTORICAL VERSION FOR THE PERIOD"
+    ],
+    "why": "temporary probe"
+  },
+  {
+    "id": "tmp-paca-ev011",
+    "title": "Proceedings Against the Crown Act",
+    "citation": "R.S.O. 1990, c. P.27",
+    "url": "https://www.ontario.ca/laws/docs/90p27_ev011.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PROCEEDINGS AGAINST THE CROWN ACT",
+      "HISTORICAL VERSION FOR THE PERIOD"
+    ],
+    "why": "temporary probe"
+  },
+  {
+    "id": "tmp-paca-ev012",
+    "title": "Proceedings Against the Crown Act",
+    "citation": "R.S.O. 1990, c. P.27",
+    "url": "https://www.ontario.ca/laws/docs/90p27_ev012.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PROCEEDINGS AGAINST THE CROWN ACT",
+      "HISTORICAL VERSION FOR THE PERIOD"
+    ],
+    "why": "temporary probe"
+  },
+  {
+    "id": "tmp-cc-20070101-p1tt",
+    "title": "Criminal Code",
+    "citation": "R.S.C. 1985, c. C-46",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20070101/P1TT3xt3.html",
+    "format": "html",
+    "mustContain": [
+      "Criminal Code",
+      "515"
+    ],
+    "why": "temporary probe",
+    "section": {
+      "from": "PART XVI",
+      "to": "PART XVII"
+    }
+  },
+  {
+    "id": "tmp-cc-20070101-full",
+    "title": "Criminal Code",
+    "citation": "R.S.C. 1985, c. C-46",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20070101/FullText.html",
+    "format": "html",
+    "mustContain": [
+      "Criminal Code",
+      "515"
+    ],
+    "why": "temporary probe",
+    "section": {
+      "from": "PART XVI",
+      "to": "PART XVII"
+    }
+  },
+  {
+    "id": "tmp-cc-20060101-p1tt",
+    "title": "Criminal Code",
+    "citation": "R.S.C. 1985, c. C-46",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20060101/P1TT3xt3.html",
+    "format": "html",
+    "mustContain": [
+      "Criminal Code",
+      "515"
+    ],
+    "why": "temporary probe",
+    "section": {
+      "from": "PART XVI",
+      "to": "PART XVII"
+    }
+  },
+  {
+    "id": "tmp-cc-20060101-full",
+    "title": "Criminal Code",
+    "citation": "R.S.C. 1985, c. C-46",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20060101/FullText.html",
+    "format": "html",
+    "mustContain": [
+      "Criminal Code",
+      "515"
+    ],
+    "why": "temporary probe",
+    "section": {
+      "from": "PART XVI",
+      "to": "PART XVII"
+    }
+  },
+  {
+    "id": "tmp-cc-20080101-p1tt",
+    "title": "Criminal Code",
+    "citation": "R.S.C. 1985, c. C-46",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20080101/P1TT3xt3.html",
+    "format": "html",
+    "mustContain": [
+      "Criminal Code",
+      "515"
+    ],
+    "why": "temporary probe",
+    "section": {
+      "from": "PART XVI",
+      "to": "PART XVII"
+    }
+  },
+  {
+    "id": "tmp-cc-20080101-full",
+    "title": "Criminal Code",
+    "citation": "R.S.C. 1985, c. C-46",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/20080101/FullText.html",
+    "format": "html",
+    "mustContain": [
+      "Criminal Code",
+      "515"
+    ],
+    "why": "temporary probe",
+    "section": {
+      "from": "PART XVI",
+      "to": "PART XVII"
+    }
   }
 ]
