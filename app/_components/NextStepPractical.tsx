@@ -36,9 +36,19 @@ function Line({ line }: { line: PlainLine }) {
   );
 }
 
-export default function NextStepPractical({ stepId, court, city = "" }: { stepId: string; court: string; city?: string }) {
+export default function NextStepPractical({
+  stepId,
+  court,
+  city = "",
+  responding = false,
+}: {
+  stepId: string;
+  court: string;
+  city?: string;
+  responding?: boolean;
+}) {
   if (court !== "small-claims" && court !== "civil" && court !== "family") return null;
-  const view = practicalFor(stepId, court as PracticalCourt, city);
+  const view = practicalFor(stepId, court as PracticalCourt, city, responding);
   if (!view) return null;
   return (
     <div data-testid="next-step-practical" className="mt-3 space-y-3 text-sm leading-6 text-[#16302b]">

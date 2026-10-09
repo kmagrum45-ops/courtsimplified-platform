@@ -638,7 +638,19 @@ export type PracticalView = {
  * portal; with no city, both are shown, since guessing would send a person to
  * the wrong portal. Null when the step has nothing to file, serve or pay.
  */
-export function practicalFor(stepId: string, court: PracticalCourt, city = ""): PracticalView | null {
+/**
+ * Forms only the person bringing a motion files. On an "either side" step, a
+ * person responding sees their own forms first (held-back walkthrough,
+ * 2026-10-09: a defendant served with a summary judgment motion was shown
+ * "Form 37A -- Notice of Motion" first). Reordered, never removed.
+ */
+const MOVING_PARTY_FORMS: Record<PracticalCourt, ReadonlySet<string>> = {
+  "small-claims": new Set(["15A"]),
+  civil: new Set(["37A"]),
+  family: new Set(["14"]),
+};
+
+export function practicalFor(stepId: string, court: PracticalCourt, city = "", responding = false): PracticalView | null {
   const step = STEP_PRACTICAL[stepId];
   if (!step || (step.forms.length === 0 && step.fees.length === 0 && !step.files && !step.serve)) return null;
   const toronto = inTorontoRegion(city);
@@ -646,10 +658,16 @@ export function practicalFor(stepId: string, court: PracticalCourt, city = ""): 
   const fees = step.fees.map((id) => FEES[id]).filter(Boolean);
   const serviceLines = step.serve ? SERVICE[court][step.serve] : [];
   return {
-    forms: step.forms.map((form) => {
-      const [other, number] = form.includes(":") ? form.split(":") : [court, form];
-      return { court: other as PracticalCourt, number };
-    }),
+    forms: step.forms
+      .map((form) => {
+        const [other, number] = form.includes(":") ? form.split(":") : [court, form];
+        return { court: other as PracticalCourt, number };
+      })
+      .sort((a, b) =>
+        responding && stepId.includes(":both:")
+          ? Number(MOVING_PARTY_FORMS[a.court]?.has(a.number) ?? false) - Number(MOVING_PARTY_FORMS[b.court]?.has(b.number) ?? false)
+          : 0,
+      ),
     fees,
     feeNotes:
       court !== "family"
@@ -668,4 +686,27 @@ export function practicalFor(stepId: string, court: PracticalCourt, city = ""): 
     serving: serviceLines.length > 0 ? [...serviceLines, SERVICE[court].proof] : [],
     also: step.also ?? [],
   };
+}
+
+// ---------------------------------------------------------------- limits of acting alone
+
+/**
+ * Where the rules themselves say a person cannot act on their own, shown on
+ * the card (held-back walkthrough, 2026-10-09: a company defending a civil
+ * summary judgment motion was never told that a corporation needs a lawyer in
+ * the Superior Court). Keyed on the person's own words; a suggestion of what
+ * the rule says, never a judgment of the case.
+ */
+const CORPORATION_NEEDS_LAWYER: PlainLine = {
+  say: "In this court, a company (a corporation) must be represented by a lawyer, unless the court gives permission for someone else.",
+  cite: rcp("r. 15.01 (2)", "A party to a proceeding that is a corporation shall be represented by a lawyer, except with leave of the court."),
+};
+
+export function limitNotesFor(court: PracticalCourt, userWords: string): PlainLine[] {
+  const words = userWords.toLowerCase();
+  // The company must be the party, not just mentioned ("he took from our
+  // company account" is a person suing).
+  const company =
+    /\b(?:sued|suing|sue) (?:my|our) (?:company|corporation|business)\b|\b(?:my|our) (?:company|corporation) (?:is|was|has been) (?:being )?(?:sued|suing)\b|\bon behalf of (?:my|our) (?:company|corporation)\b|\b(?:my|our) (?:company|corporation) (?:wants|needs) to (?:sue|defend|respond)\b/.test(words);
+  return court === "civil" && company ? [CORPORATION_NEEDS_LAWYER] : [];
 }

@@ -7,7 +7,7 @@ import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-syst
 import FormsNamedHere from "../../_components/FormsNamedHere";
 import NextStepPractical from "../../_components/NextStepPractical";
 import GetHelp from "../../_components/GetHelp";
-import { practicalFor, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
+import { limitNotesFor, practicalFor, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
 import { datesFromPicture, stepFromPicture, type CasePicture } from "@/src/lib/case-system/intake/caseReader";
 import { amountNoteFor } from "@/src/lib/case-system/amountNotes";
 import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
@@ -129,6 +129,7 @@ function NextStepCard({
   stepId,
   city,
   fromStory = [],
+  responding = false,
 }: {
   summary: NextStepSummary;
   answer: RenderedAnswer;
@@ -140,6 +141,8 @@ function NextStepCard({
   city: string;
   /** Dates used for this count that came from the person's own words and are not yet saved. */
   fromStory?: { label: string; date: string }[];
+  /** The person's side, so an "either side" step leads with their own limit ("If you are responding ..."). */
+  responding?: boolean;
 }) {
   const practical = practicalFor(stepId, court as PracticalCourt, city);
   const today = todayIso();
@@ -153,11 +156,23 @@ function NextStepCard({
   const split = <T extends { what: string }>(items: T[]) => [items.filter((item) => !isConditional(item.what)), items.filter((item) => isConditional(item.what))];
   const [mainDeadlines, laterDeadlines] = split(summary.deadlines);
   const [mainPeriods, laterPeriods] = split(summary.periods);
-  // With nothing unconditional, the first limit leads rather than an empty card.
+  // With nothing unconditional, the limits for the person's own side lead
+  // ("If you are responding ..." for a respondent; held-back walkthrough,
+  // 2026-10-09: a defendant's card led with "If you are bringing the motion").
+  const ownSide = (what: string) => (responding ? /\bresponding\b|\bthe other party\b/i : /\bbringing\b|\bmoving party\b/i).test(what);
+  const otherSide = (what: string) => (responding ? /\bbringing\b|\bmoving party\b/i : /\bresponding\b/i).test(what);
+  const leadDeadlines = laterDeadlines.filter((item) => ownSide(item.what));
+  const leadPeriods = laterPeriods.filter((item) => ownSide(item.what));
+  const neutral = <T extends { what: string }>(items: T[]) => items.filter((item) => !otherSide(item.what));
   const main =
     mainDeadlines.length + mainPeriods.length > 0
       ? { deadlines: mainDeadlines, periods: mainPeriods }
-      : { deadlines: laterDeadlines.slice(0, 1), periods: laterDeadlines.length ? [] : laterPeriods.slice(0, 1) };
+      : leadDeadlines.length + leadPeriods.length > 0
+        ? { deadlines: leadDeadlines, periods: leadPeriods }
+        : {
+            deadlines: neutral(laterDeadlines).slice(0, 1),
+            periods: neutral(laterDeadlines).length ? [] : neutral(laterPeriods).slice(0, 1),
+          };
   const conditional = {
     deadlines: laterDeadlines.filter((item) => !main.deadlines.includes(item)),
     periods: laterPeriods.filter((item) => !main.periods.includes(item)),
@@ -208,7 +223,7 @@ function NextStepCard({
       {firstParagraph ? <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{firstParagraph}</p> : null}
       {/* The form, fee, filing and service for this step (Phase 2); the forms
           the answer's text names are the fallback for a step with none recorded. */}
-      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} /> : null}
+      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} /> : null}
       {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
       {answer.sources.length > 0 ? (
         <p className="mt-3 text-xs leading-5 text-[#4d675f]">
@@ -224,6 +239,14 @@ function NextStepCard({
           {answer.sources.length > 4 ? " — all sources are in the full answer below." : ""}
         </p>
       ) : null}
+      {limitNotesFor(court as PracticalCourt, userWords).map((line) => (
+        <p key={line.cite.pinpoint} data-testid="next-step-limit" className="mt-3 rounded-xl border border-[#f0c88a] bg-[#fffaf2] px-3 py-2 text-sm leading-6 text-[#7a4b12]">
+          {line.say}{" "}
+          <a href={officialUrl(line.cite)} target="_blank" rel="noreferrer" className="underline">
+            {sourceName(line.cite)}, {line.cite.pinpoint}
+          </a>
+        </p>
+      ))}
       <GetHelp compact heading="Want a person to check this step with you?" />
     </div>
   );
@@ -629,6 +652,7 @@ export default function StageAnswerPanel({
           askedForDates={(result.dateQuestions ?? []).some((question) => !dateAnswers[question.id] && !(storyDates[question.id] && !rejected[question.id]))}
           stepId={stageId}
           city={city}
+          responding={responding}
           fromStory={(result.dateQuestions ?? [])
             .filter((question) => !dateAnswers[question.id] && storyDates[question.id] && !rejected[question.id])
             .map((question) => ({ label: "", date: formatIso(storyDates[question.id].value) }))}

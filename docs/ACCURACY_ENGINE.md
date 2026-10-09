@@ -2283,3 +2283,15 @@ counterclaim" matched nothing and the step asked "what date was it served?".
 - Conditional time limits ("If your action is under the simplified procedure")
   are folded under the one that applies now.
 - Checks: `test:user-story` (the held-back stories), `test:responding-side`.
+
+### Small Claims trial steps count back from the trial date (run-20, 2026-10-09)
+
+`plaintiff:trial-date-set` and `defendant:trial-date-set` had no deadlines, so a
+person with a trial date never saw one worked out. They now carry r. 18.02 (1)
+(30 days before trial, documents and statements received in evidence) and
+r. 8.01 (7) (10 days before trial, a summons served personally), counted back
+from the trial date. The two published blocks' `yourDeadline` is
+`renderDeadlineSection` output, so run-20 is run-19's blocks with those two
+sections rendered (no model), promoted through `content:promote` (all gates).
+Trap: editing the published JSON by hand fails `test:published-library` on the
+content hash -- promote a candidate instead.

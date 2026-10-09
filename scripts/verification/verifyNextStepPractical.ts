@@ -41,6 +41,8 @@ import {
   practicalFor,
   type PlainLine,
   type PracticalCourt,
+  FAMILY_NO_STEP_FEE,
+  limitNotesFor,
 } from "../../src/lib/content-library/nextStepPractical";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
@@ -58,6 +60,8 @@ for (const file of readdirSync(CORPUS)) if (file.endsWith(".txt")) corpus.set(fi
 const COURTS: PracticalCourt[] = ["small-claims", "civil", "family"];
 const lines: PlainLine[] = [
   ...FAMILY_FEE_NOTES,
+  ...FAMILY_NO_STEP_FEE,
+  ...limitNotesFor("civil", "a supplier sued my company"),
   FAMILY_APPEAL_FEE_NOTE,
   FEE_WAIVER,
   ...COURTS.flatMap((court) => [FILING[court].toronto, FILING[court].elsewhere, ...FILING[court].more]),
@@ -161,6 +165,20 @@ check("every step that serves a document shows how, and how to prove it", emptyS
 
 const appealNotes = practicalFor("family:both:final-order-made", "family")?.feeNotes ?? [];
 check("a family appeal shows the appeal fee note, not the no-fee notes for starting a case", appealNotes.includes(FAMILY_APPEAL_FEE_NOTE) && !appealNotes.some((line) => FAMILY_FEE_NOTES.includes(line)));
+
+// A person responding to a motion sees their own forms first; nothing is removed (2026-10-09).
+const asMover = practicalFor("civil:both:summary-judgment-motion", "civil", "")?.forms.map((form) => form.number) ?? [];
+const asResponder = practicalFor("civil:both:summary-judgment-motion", "civil", "", true)?.forms.map((form) => form.number) ?? [];
+check(
+  "responding to a motion: the notice of motion is listed last, and every form is still there",
+  asResponder.at(-1) === "37A" && [...asResponder].sort().join() === [...asMover].sort().join(),
+  asResponder.join(","),
+);
+const responseStep = practicalFor("family:both:served-with-motion-to-change", "family")?.feeNotes ?? [];
+check("a family step that files papers with no fee of its own says so", responseStep.length > 0);
+
+check("a company in a civil case is told it needs a lawyer", limitNotesFor("civil", "a supplier sued my company").length === 1);
+check("a person whose story mentions a company account is not", limitNotesFor("civil", "i sued my former business partner for 110000 he took from our company account").length === 0);
 
 console.log("\n6. Nothing grades a case");
 const grading = lines.filter((line) => /\b(strong|weak|likely|unlikely|chance|win|lose|merit)/i.test(line.say)).map((line) => line.say);

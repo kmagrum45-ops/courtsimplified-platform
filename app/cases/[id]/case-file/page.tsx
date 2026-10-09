@@ -56,6 +56,7 @@ type TimelineItem = {
   displayDate: string;
   title: string;
   source: { kind: string; description: string; rule?: string | null };
+  notes?: string[];
 };
 
 function whenText(event: EventRow): string {
@@ -155,6 +156,7 @@ export default function CaseFileSection() {
                 <li key={`${item.title}-${item.displayDate}`}>
                   <strong>{item.displayDate}</strong>: {item.title}
                   {item.source.rule ? ` (${item.source.rule})` : ""}
+                  {item.notes?.[0]?.startsWith("Counted from the date in your story") ? <em> {item.notes[0]}</em> : null}
                 </li>
               ))}
             </ul>

@@ -307,6 +307,21 @@ export const R_13_03_DISCLOSURE = scc(
   "At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court, (a) a copy of any document to be relied on at the trial, including an expert report, not attached to the party's claim or defence; and (b) a list of proposed witnesses (Form 13A) and of other persons with knowledge of the matters in dispute in the action.",
 );
 
+/*
+ * The two things a Small Claims party does counted back from the trial date
+ * (held-back walkthrough, 2026-10-09: a defendant with a January 14 trial was
+ * told "at least 10 days before the trial" and never given the date).
+ */
+export const R_18_02_EVIDENCE_30_DAYS = scc(
+  "r. 18.02 (1)",
+  "A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.",
+);
+
+export const R_8_01_7_SUMMONS_10_DAYS = scc(
+  "r. 8.01 (7)",
+  "A summons to witness (Form 18A) shall be served personally by the party who requires the presence of the witness, or by the party's representative, at least 10 days before the trial date; at the time of service, attendance money calculated in accordance with the regulations made under the Administration of Justice Act shall be paid or tendered to the witness.",
+);
+
 export const R_13_07_SET_DOWN = scc(
   "r. 13.07",
   "At or after the settlement conference, the clerk shall provide the parties with a notice stating that one of the parties must request a trial date if the action is not disposed of within 30 days after the settlement conference, and pay the fee required for setting the action down for trial.",
