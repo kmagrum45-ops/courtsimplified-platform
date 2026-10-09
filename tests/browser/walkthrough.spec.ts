@@ -280,7 +280,10 @@ async function confirmStage(page: Page, persona: Persona, steps: Step[]) {
   await page.waitForTimeout(3_000);
   await capture(page, persona, steps, "stage-confirmed");
   // A user offered "Count my deadline from <the date in my story>" takes it.
-  const suggestion = page.locator('[data-testid^="stage-answer-date-suggestion-"]').first();
+  // A date given in full is offered as one click; a month and day without a
+  // year is answered by picking the year (the nearest is listed first, which
+  // is the year every persona means).
+  const suggestion = page.locator('[data-testid^="stage-answer-date-suggestion-"], [data-testid^="stage-answer-year-"] button').first();
   if (await suggestion.isVisible().catch(() => false)) {
     await suggestion.click();
     await page.waitForTimeout(4_000);
