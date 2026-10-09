@@ -27,6 +27,8 @@ type Step = { n: number; step: string; url: string; text: string; screenshot: st
 type Run = {
   persona: { id: string; path: string; summary: string; story: string; expect: string[]; fields?: Record<string, string> };
   failure: string | null;
+  /** Failed requests and page errors the run saw (walkthrough.spec.ts, 2026-10-08). */
+  problems?: string[];
   steps: Step[];
 };
 type Finding = {
@@ -218,7 +220,10 @@ async function main(): Promise<void> {
   for (const run of runs) {
     const scored = verdicts[run.persona.id].finishLine ?? {};
     const failed = FINISH_LINE.filter(([id]) => scored[id]?.result === "fail");
-    if (run.failure) line.push(`- **${run.persona.id}**: the run did not finish (${run.failure.slice(0, 160)})`);
+    if (run.failure) {
+      line.push(`- **${run.persona.id}**: the run did not finish (${run.failure.slice(0, 160)})`);
+      for (const problem of (run.problems ?? []).slice(-5)) line.push(`  - seen: \`${problem.replace(/`/g, "'").slice(0, 240)}\``);
+    }
     for (const [id] of failed) line.push(`- **${run.persona.id}** · ${id}: ${scored[id].why}`);
   }
   fs.writeFileSync(path.join(OUT, "FINISH_LINE.md"), `${line.join("\n")}\n`);

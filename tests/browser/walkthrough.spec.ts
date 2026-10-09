@@ -300,21 +300,23 @@ async function backAndForward(page: Page, persona: Persona, steps: Step[]) {
   // (2026-10-06: four personas failed a text-only check while their filled
   // intake was on screen). Either counts; the spelling step may have changed
   // a word, so a short opening is compared.
-  // Case-insensitive, and only the opening words: the spelling step
-  // capitalises and corrects ("i got served" -> "I got served"), which made an
-  // exact match fail on every persona (2026-10-06).
-  const opening = persona.story.slice(0, 7).toLowerCase();
+  // The property: the story the user wrote is back on screen. Judged by its
+  // longer words, most of which must appear, not by its opening: the spelling
+  // step rewrites openings ("im suing" -> "I'm suing", "me and my husband" ->
+  // "My husband and I"), and an opening match failed two personas whose intake
+  // came back exactly as filled (2026-10-08, read from their saved page text).
+  const words = Array.from(new Set(persona.story.toLowerCase().match(/[a-z]{6,}/g) ?? [])).slice(0, 12);
   await expect
     .poll(
       () =>
-        page.evaluate((start) => {
-          const norm = (text: string) => text.toLowerCase().replace(/\s+/g, " ");
+        page.evaluate((wanted) => {
           const fields = Array.from(document.querySelectorAll("textarea, input")) as (HTMLInputElement | HTMLTextAreaElement)[];
-          return fields.some((field) => norm(field.value).includes(start)) || norm(document.body.innerText).includes(start);
-        }, opening),
+          const shown = `${fields.map((field) => field.value).join(" ")} ${document.body.innerText}`.toLowerCase();
+          return wanted.filter((word) => shown.includes(word)).length / Math.max(1, wanted.length);
+        }, words),
       { timeout: 30_000 },
     )
-    .toBe(true);
+    .toBeGreaterThanOrEqual(0.7);
   await capture(page, persona, steps, "back-to-intake", "Browser Back from the results: the intake as it was filled.");
   await page.goForward();
   await expect(results).toBeVisible({ timeout: 30_000 });
@@ -338,7 +340,15 @@ async function reloadReopensCase(page: Page, persona: Persona, steps: Step[]) {
  */
 async function visitCaseHome(page: Page, persona: Persona, steps: Step[]) {
   const open = page.getByTestId("open-case-home");
-  if ((await open.count()) === 0 || !(await open.isEnabled().catch(() => false))) return;
+  if ((await open.count()) === 0) return;
+  // Disabled means the case is still saving or the save failed. Skipping it
+  // silently hid a failed save until the reload step, which then reported the
+  // wrong thing ("case could not be opened", 2026-10-08).
+  const enabled = await expect(open).toBeEnabled({ timeout: 60_000 }).then(() => true, () => false);
+  if (!enabled) {
+    const reason = await page.getByTestId("save-error").innerText().catch(() => "no save error shown");
+    throw new Error(`"Open your case page" stayed disabled after 60 s: ${reason.replace(/\s+/g, " ").slice(0, 300)}`);
+  }
   await open.click();
   await expect(page.getByTestId("case-home-title")).toBeVisible({ timeout: 60_000 });
   await page.waitForTimeout(3_000);
@@ -377,6 +387,25 @@ test.describe("page walkthrough", () => {
       test.setTimeout(persona.mode === "guided" ? 1_200_000 : 600_000);
       const steps: Step[] = [];
       let failure: string | null = null;
+      // Every failed request to the app or the database, with its status and
+      // the start of its error body, and every page error (2026-10-08: three
+      // runs stopped on a failed save or load and none recorded why). Only
+      // responses of 400 and above are read, which carry error messages, never
+      // a session; query strings are dropped.
+      const problems: string[] = [];
+      page.on("response", (response) => {
+        const url = new URL(response.url());
+        if (response.status() < 400 || !/\/(api|rest|auth|storage)\//.test(url.pathname)) return;
+        void response
+          .text()
+          .catch(() => "")
+          .then((body) => problems.push(`${response.request().method()} ${url.pathname} ${response.status()} ${body.replace(/\s+/g, " ").slice(0, 300)}`));
+      });
+      page.on("requestfailed", (request) => {
+        const url = new URL(request.url());
+        if (/\/(api|rest|auth|storage)\//.test(url.pathname)) problems.push(`${request.method()} ${url.pathname} failed: ${request.failure()?.errorText ?? "unknown"}`);
+      });
+      page.on("pageerror", (error) => problems.push(`page error: ${error.message.slice(0, 300)}`));
       try {
         // Real case rows (staging only, see the guard) so the case page can open.
         await authenticateRealTestUser(page, { realCases: true });
@@ -395,7 +424,7 @@ test.describe("page walkthrough", () => {
       fs.mkdirSync(OUT, { recursive: true });
       fs.writeFileSync(
         path.join(OUT, `${persona.id}.json`),
-        JSON.stringify({ persona, failure, steps }, null, 2),
+        JSON.stringify({ persona, failure, problems: problems.slice(0, 50), steps }, null, 2),
       );
       expect(failure, `persona ${persona.id} did not get through: ${failure}`).toBeNull();
     });
