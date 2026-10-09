@@ -273,36 +273,59 @@ jobs:
       # COST (2026-10-08): the only billed suite in CI runs only when the AI code
       # changed since it last passed (a marker keyed on that code), and only when
       # today's OpenAI spend is under $15 (scripts/ai/spendGuard.mjs).
+      # Keyed on the files the suite actually runs (its import closure), not on
+      # all of src/: a fee table or citation change re-ran 14 billed calls and,
+      # with the OpenAI balance empty, failed a build the suite never reads
+      # (2026-10-08). scripts/ai/importClosureHash.mjs.
+      - name: Hash the code the safety regression runs
+        id: safety-code
+        if: env.OPENAI_API_KEY != ''
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          entry=scripts/verification/verifySafetyPassRegression.ts
+          head=$(node scripts/ai/importClosureHash.mjs "$entry")
+          echo "hash=$head" >> "$GITHUB_OUTPUT"
+          # Nothing the suite runs differs from main, which only merges with
+          # this check passing: there is nothing new for it to test.
+          if [ -n "$BASE_SHA" ] && git fetch -q --depth=1 origin "$BASE_SHA" && git worktree add -q /tmp/base-checkout "$BASE_SHA"; then
+            base=$(CLOSURE_ROOT=/tmp/base-checkout node scripts/ai/importClosureHash.mjs "$entry" || true)
+            if [ "$base" = "$head" ]; then
+              echo "unchanged=true" >> "$GITHUB_OUTPUT"
+              echo "::notice title=Safety regression not needed::No file the safety suite runs differs from main."
+            fi
+          fi
+
       - name: Safety regression already passed on this AI code?
         id: safety-passed
         if: env.OPENAI_API_KEY != ''
         uses: actions/cache/restore@v4
         with:
           path: .ai-passed
-          key: ai-passed-safety-regression-${{ hashFiles('src/**', 'app/api/**', 'scripts/verification/verifySafetyPassRegression.ts') }}
+          key: ai-passed-safety-regression-${{ steps.safety-code.outputs.hash }}
           lookup-only: true
 
       - name: Check today's OpenAI spend
         id: spend
-        if: env.OPENAI_API_KEY != '' && steps.safety-passed.outputs.cache-hit != 'true'
+        if: env.OPENAI_API_KEY != '' && steps.safety-passed.outputs.cache-hit != 'true' && steps.safety-code.outputs.unchanged != 'true'
         continue-on-error: true
         env:
           OPENAI_ADMIN_KEY: ${{ secrets.OPENAI_ADMIN_KEY }}
         run: node scripts/ai/spendGuard.mjs
 
       - name: Safety pass regression (real OpenAI calls -- see file header)
-        if: env.OPENAI_API_KEY != '' && steps.safety-passed.outputs.cache-hit != 'true' && steps.spend.outcome == 'success'
+        if: env.OPENAI_API_KEY != '' && steps.safety-passed.outputs.cache-hit != 'true' && steps.spend.outcome == 'success' && steps.safety-code.outputs.unchanged != 'true'
         run: npm run test:safety-regression
 
       - name: Record that the safety regression passed on this AI code
-        if: env.OPENAI_API_KEY != '' && steps.safety-passed.outputs.cache-hit != 'true' && steps.spend.outcome == 'success'
+        if: env.OPENAI_API_KEY != '' && steps.safety-passed.outputs.cache-hit != 'true' && steps.spend.outcome == 'success' && steps.safety-code.outputs.unchanged != 'true'
         run: mkdir -p .ai-passed && date -u > .ai-passed/passed
 
-      - if: env.OPENAI_API_KEY != '' && steps.safety-passed.outputs.cache-hit != 'true' && steps.spend.outcome == 'success'
+      - if: env.OPENAI_API_KEY != '' && steps.safety-passed.outputs.cache-hit != 'true' && steps.spend.outcome == 'success' && steps.safety-code.outputs.unchanged != 'true'
         uses: actions/cache/save@v4
         with:
           path: .ai-passed
-          key: ai-passed-safety-regression-${{ hashFiles('src/**', 'app/api/**', 'scripts/verification/verifySafetyPassRegression.ts') }}
+          key: ai-passed-safety-regression-${{ steps.safety-code.outputs.hash }}
 
       - name: Family role comes from the user's answer
         run: npm run test:family-role

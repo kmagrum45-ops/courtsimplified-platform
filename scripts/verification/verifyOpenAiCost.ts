@@ -82,6 +82,16 @@ async function main() {
     "CI's billed suite runs only after the spend check and only on AI code it has not passed on",
     /steps\.spend\.outcome == 'success'/.test(billed.split("\n")[1] ?? "") && /safety-passed\.outputs\.cache-hit != 'true'/.test(billed.split("\n")[1] ?? ""),
   );
+  // The billed suite is keyed on the code it runs (2026-10-08): a change to the
+  // safety pass re-runs it; a change to a fee table does not.
+  const closure = (await import("../../scripts/ai/importClosureHash.mjs")) as { importClosure: (entries: string[]) => string[] };
+  const files = closure.importClosure(["scripts/verification/verifySafetyPassRegression.ts"]).map((file) => path.relative(ROOT, file));
+  check(
+    "the billed suite's key covers the safety pass and the OpenAI client, and not unrelated content",
+    files.includes("src/lib/case-system/intake/safetyPass.ts") && files.includes("src/lib/case-system/openaiClient.ts") && !files.includes("src/lib/content-library/nextStepPractical.ts"),
+    files.join(", "),
+  );
+  check("CI keys the billed suite on that closure and skips it when the closure matches main", /importClosureHash\.mjs/.test(ci) && /unchanged != 'true'/.test(billed.split("\n")[1] ?? ""));
   // Cast: Next.js types require NODE_ENV on every env object; this run deliberately passes PATH only (no keys).
   const noKey = spawnSync(process.execPath, [path.join(ROOT, "scripts/ai/spendGuard.mjs")], { env: { PATH: process.env.PATH ?? "" } as unknown as NodeJS.ProcessEnv, encoding: "utf8" });
   check("with no admin key the note says so and the run continues (never stops work)", noKey.status === 0 && /OPENAI_ADMIN_KEY/.test(noKey.stdout));
