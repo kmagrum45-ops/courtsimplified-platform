@@ -132,7 +132,7 @@ export type TimelineBuildInput = {
    * deadlineId. Supplied by the caller because this module does not read the stage
    * map — that would make a pure ordering function depend on the content library.
    */
-  deadlineRules?: Readonly<Record<string, { rule: string | null; url: string | null; what: string }>>;
+  deadlineRules?: Readonly<Record<string, { rule: string | null; url: string | null; what: string; note?: string }>>;
 };
 
 export type Timeline = {
@@ -269,6 +269,7 @@ export function buildTimeline(input: TimelineBuildInput): Timeline {
        * this date was counted rather than read off their court file.
        */
       notes: [
+        ...(meta?.note ? [meta.note] : []),
         computed.statement,
         ...(computed.uncertainty ? [computed.uncertainty] : []),
         ...(computed.closureWarning ? [computed.closureWarning] : []),

@@ -30,7 +30,8 @@
  * NO MODEL IS CALLED HERE.
  */
 
-import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
+import { readCaseRecord, recordedDateAnswers } from "@/src/lib/case-system/caseRecord";
+import { readStoredPicture, stepFromPicture } from "@/src/lib/case-system/intake/caseReader";
 import { decisionAttribution } from "@/src/lib/case-workspace/courtDecision";
 import { COURT_DECISION_TYPE, DECISION_COLUMNS, decisionDetailsFor } from "@/src/lib/case-workspace/courtDecisionStore";
 import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
@@ -54,10 +55,10 @@ import {
 import { findDates, formatForCourt, type DatePrecision } from "@/src/lib/case-workspace/parseDate";
 import { DOCUMENT_TYPES } from "@/src/lib/case-workspace/documentTypes";
 import { computedDeadlinesFor } from "@/src/lib/content-library/computedDeadline";
-import { caseDatesFrom } from "@/src/lib/case-system/deadlines/deadlineEvents";
+import { DEADLINE_EVENTS, caseDatesFrom } from "@/src/lib/case-system/deadlines/deadlineEvents";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
-import { readCasePosition } from "@/src/lib/case-system/casePosition";
+import { readCasePosition, storyHintsForDates } from "@/src/lib/case-system/casePosition";
 
 export const runtime = "nodejs";
 
@@ -341,13 +342,37 @@ export async function GET(req: NextRequest) {
       // (Phase 1, 2026-10-07: dates given with no step picked counted nothing
       // here while the case page counted them).
       const record = readCaseRecord(ownedCase.master_result, ownedCase.court_path);
+      // The same step the case page shows: theirs, else the one their story
+      // names (the case reader's, then the phrases), else their stage's.
+      const responding = record.side?.value === "responding";
+      const masterRecord = (ownedCase.master_result ?? {}) as Record<string, unknown>;
       const stepId =
         position.stepId ||
+        (record.courtPath ? stepFromPicture(record.courtPath, readStoredPicture(masterRecord.casePicture), responding) : "") ||
         (record.courtPath && position.confirmedStage
-          ? suggestedStageFor(record.courtPath, position.confirmedStage, record.side?.value === "responding")
+          ? suggestedStageFor(record.courtPath, position.confirmedStage, responding, record.story)
           : "");
       const stage = stepId ? findStage(stepId) : undefined;
-      const dates = caseDatesFrom(position.dateAnswers);
+      /*
+       * The dates they confirmed or answered, and -- under them -- a full date
+       * written in their own story, so the printable case file is not "None
+       * yet" for a person whose story said "served on September 28, 2026"
+       * (held-back walkthrough, 2026-10-09). A deadline counted from a story
+       * date says so, and asks them to confirm it on the Overview.
+       */
+      const confirmedDates = { ...recordedDateAnswers(record), ...position.dateAnswers };
+      const storyDates = Object.fromEntries(
+        Object.entries(storyHintsForDates(record.story))
+          .filter(([id, hint]) => hint.value && !hint.yearAssumed && !confirmedDates[id])
+          .map(([id, hint]) => [id, hint.value as string]),
+      );
+      const dates = caseDatesFrom({ ...storyDates, ...confirmedDates });
+      const fromStoryNote = (countFromEvent: string | undefined) => {
+        const questionId = countFromEvent ? (DEADLINE_EVENTS as Record<string, { questionId?: string }>)[countFromEvent]?.questionId : undefined;
+        return questionId && storyDates[questionId]
+          ? "Counted from the date in your story. Confirm it under \u201cYour next step\u201d on the Overview."
+          : undefined;
+      };
 
       const computed = stage ? computedDeadlinesFor(stage.deadlines, dates, "workspace") : [];
 
@@ -360,6 +385,7 @@ export async function GET(req: NextRequest) {
             rule: deadline.rule ? `${sourceName(deadline.rule)}, ${deadline.rule.pinpoint}` : null,
             url: deadline.rule ? officialUrl(deadline.rule) : null,
             what: deadline.what,
+            note: fromStoryNote(deadline.countFromEvent),
           },
         ]),
       );
