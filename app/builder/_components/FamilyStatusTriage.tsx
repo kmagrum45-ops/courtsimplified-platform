@@ -389,11 +389,14 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
         </div>
       )}
 
+      {/* Folded (walkthrough, 2026-10-08: the court-selection statutes, with a
+          list of 24 municipalities, sat above the person's own next step on
+          every family run). The next-step card names their court and filing. */}
       {outcome.courtInformation.length > 0 && (
-        <div className="mt-6">
-          <h3 className="text-sm font-bold uppercase tracking-wide text-[#2f7d67]">
+        <details className="mt-6">
+          <summary className="cursor-pointer text-sm font-bold uppercase tracking-wide text-[#2f7d67]">
             What the statutes say about which court
-          </h3>
+          </summary>
           <ul className="mt-3 space-y-4">
             {outcome.courtInformation.map((statement) => (
               <li key={statement.text} data-testid="triage-court-information">
@@ -402,7 +405,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               </li>
             ))}
           </ul>
-        </div>
+        </details>
       )}
 
       {/*
