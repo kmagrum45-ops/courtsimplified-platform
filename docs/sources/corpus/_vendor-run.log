@@ -1,0 +1,44 @@
+tmp-paca-p001                          ok     16667 chars  ca99ebb97140
+                                       HISTORICAL VERSION FOR THE PERIOD JANUARY 1, 1998 TO NOVEMBER 3, 2004.
+tmp-paca-p002                          ok     16349 chars  c0b18453a51e
+                                       HISTORICAL VERSION FOR THE PERIOD NOVEMBER 4, 2004 TO OCTOBER 18, 2006.
+tmp-paca-p003                          ok     17016 chars  16e87c24ddcb
+                                       HISTORICAL VERSION FOR THE PERIOD OCTOBER 19, 2006 TO MAY 16, 2007.
+tmp-paca-p004                          ok     20096 chars  4ff74def1529
+                                       HISTORICAL VERSION FOR THE PERIOD MAY 17, 2007 TO JULY 24, 2007.
+tmp-paca-p005                          ok     19606 chars  f30253c316bd
+                                       HISTORICAL VERSION FOR THE PERIOD JULY 25, 2007 TO NOVEMBER 26, 2008.
+tmp-paca-p006                          ok     19870 chars  bae21103a7ef
+                                       HISTORICAL VERSION FOR THE PERIOD NOVEMBER 27, 2008 TO DECEMBER 31, 2008.
+tmp-paca-p007                          ok     19675 chars  dd94009901c3
+                                       HISTORICAL VERSION FOR THE PERIOD JANUARY 1, 2009 TO DECEMBER 14, 2009.
+tmp-paca-p008                          FAILED  HTTP 403
+tmp-paca-p009                          FAILED  HTTP 403
+tmp-paca-p010                          FAILED  HTTP 403
+tmp-paca-p011                          FAILED  HTTP 403
+tmp-paca-p012                          FAILED  HTTP 403
+tmp-paca-p013                          FAILED  HTTP 403
+tmp-paca-p014                          FAILED  HTTP 403
+tmp-paca-p015                          FAILED  HTTP 403
+tmp-paca-cur                           ok     19200 chars  7a23771c4e6b
+                                       (none stated)
+tmp-paca-curp                          ok     19888 chars  6354efbac16a
+                                       CONSOLIDATION PERIOD: FROM DECEMBER 15, 2009 TO THE E-LAWS CURRENCY DATE.
+tmp-cc-pitindex                        ok      4886 chars  31b695359e62
+                                       (none stated)
+
+268 vendored, 8 failed.
+Manifest: docs/sources/corpus/manifest.json
+
+SOURCES MISSING FROM THE CORPUS:
+  tmp-paca-p008 — HTTP 403
+  tmp-paca-p009 — HTTP 403
+  tmp-paca-p010 — HTTP 403
+  tmp-paca-p011 — HTTP 403
+  tmp-paca-p012 — HTTP 403
+  tmp-paca-p013 — HTTP 403
+  tmp-paca-p014 — HTTP 403
+  tmp-paca-p015 — HTTP 403
+
+Nothing may be written from memory to fill these. Record them in the
+report and leave the content that would have cited them unwritten.

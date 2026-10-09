@@ -3251,7 +3251,168 @@
       "characters": 351139,
       "lines": 4618,
       "file": "copyright-act.txt"
+    },
+    {
+      "id": "tmp-paca-p001",
+      "title": "Proceedings Against the Crown Act",
+      "citation": "R.S.O. 1990, c. P.27",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev001.doc",
+      "retrievedAt": "2026-10-09T19:10:13.487Z",
+      "sha256": "ca99ebb971405ec9384f8000bd072ffcd8a269e22acf539bdcb24434e5adb802",
+      "consolidation": "HISTORICAL VERSION FOR THE PERIOD JANUARY 1, 1998 TO NOVEMBER 3, 2004.",
+      "characters": 16667,
+      "lines": 317,
+      "file": "tmp-paca-p001.txt"
+    },
+    {
+      "id": "tmp-paca-p002",
+      "title": "Proceedings Against the Crown Act",
+      "citation": "R.S.O. 1990, c. P.27",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev002.doc",
+      "retrievedAt": "2026-10-09T19:10:13.751Z",
+      "sha256": "c0b18453a51e6dd14040695ac77b76a3a835d44a04c3440a15b66b88adec5598",
+      "consolidation": "HISTORICAL VERSION FOR THE PERIOD NOVEMBER 4, 2004 TO OCTOBER 18, 2006.",
+      "characters": 16349,
+      "lines": 314,
+      "file": "tmp-paca-p002.txt"
+    },
+    {
+      "id": "tmp-paca-p003",
+      "title": "Proceedings Against the Crown Act",
+      "citation": "R.S.O. 1990, c. P.27",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev003.doc",
+      "retrievedAt": "2026-10-09T19:10:13.888Z",
+      "sha256": "16e87c24ddcb866437815d0cc8935c79f64d781b5b985a0ed9c9ad52ac86e030",
+      "consolidation": "HISTORICAL VERSION FOR THE PERIOD OCTOBER 19, 2006 TO MAY 16, 2007.",
+      "characters": 17016,
+      "lines": 324,
+      "file": "tmp-paca-p003.txt"
+    },
+    {
+      "id": "tmp-paca-p004",
+      "title": "Proceedings Against the Crown Act",
+      "citation": "R.S.O. 1990, c. P.27",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev004.doc",
+      "retrievedAt": "2026-10-09T19:10:14.067Z",
+      "sha256": "4ff74def15294365e9f318913d929d046616a2f298f02e196d5815f3c03d6337",
+      "consolidation": "HISTORICAL VERSION FOR THE PERIOD MAY 17, 2007 TO JULY 24, 2007.",
+      "characters": 20096,
+      "lines": 382,
+      "file": "tmp-paca-p004.txt"
+    },
+    {
+      "id": "tmp-paca-p005",
+      "title": "Proceedings Against the Crown Act",
+      "citation": "R.S.O. 1990, c. P.27",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev005.doc",
+      "retrievedAt": "2026-10-09T19:10:14.285Z",
+      "sha256": "f30253c316bd76328aae736ca59748c7d317e03ce5a61e0303e0c51aedc6fe5c",
+      "consolidation": "HISTORICAL VERSION FOR THE PERIOD JULY 25, 2007 TO NOVEMBER 26, 2008.",
+      "characters": 19606,
+      "lines": 375,
+      "file": "tmp-paca-p005.txt"
+    },
+    {
+      "id": "tmp-paca-p006",
+      "title": "Proceedings Against the Crown Act",
+      "citation": "R.S.O. 1990, c. P.27",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev006.doc",
+      "retrievedAt": "2026-10-09T19:10:14.535Z",
+      "sha256": "bae21103a7ef46ecb8ba10651dc465c03c826644371008f985ef9a1e69747fab",
+      "consolidation": "HISTORICAL VERSION FOR THE PERIOD NOVEMBER 27, 2008 TO DECEMBER 31, 2008.",
+      "characters": 19870,
+      "lines": 379,
+      "file": "tmp-paca-p006.txt"
+    },
+    {
+      "id": "tmp-paca-p007",
+      "title": "Proceedings Against the Crown Act",
+      "citation": "R.S.O. 1990, c. P.27",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev007.doc",
+      "retrievedAt": "2026-10-09T19:10:14.717Z",
+      "sha256": "dd94009901c313ba595b703bfe6d8559bfd543e5a17e5ef3fd1521b760e40540",
+      "consolidation": "HISTORICAL VERSION FOR THE PERIOD JANUARY 1, 2009 TO DECEMBER 14, 2009.",
+      "characters": 19675,
+      "lines": 376,
+      "file": "tmp-paca-p007.txt"
+    },
+    {
+      "id": "tmp-paca-cur",
+      "title": "Proceedings Against the Crown Act",
+      "citation": "R.S.O. 1990, c. P.27",
+      "url": "https://www.ontario.ca/laws/docs/90p27_e.doc",
+      "retrievedAt": "2026-10-09T19:10:15.635Z",
+      "sha256": "7a23771c4e6bbf75f44c0d9cf2edb10c86f76b70603076d010804130c816d25f",
+      "consolidation": "(none stated)",
+      "characters": 19200,
+      "lines": 373,
+      "file": "tmp-paca-cur.txt"
+    },
+    {
+      "id": "tmp-paca-curp",
+      "title": "Proceedings Against the Crown Act",
+      "citation": "R.S.O. 1990, c. P.27",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_e.doc",
+      "retrievedAt": "2026-10-09T19:10:15.855Z",
+      "sha256": "6354efbac16a55fa2348a3743e7e2fc09f28ccb25a161e37868aae2f6b5d6f2a",
+      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 15, 2009 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 19888,
+      "lines": 380,
+      "file": "tmp-paca-curp.txt"
+    },
+    {
+      "id": "tmp-cc-pitindex",
+      "title": "Criminal Code",
+      "citation": "x",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/PITIndex.html",
+      "retrievedAt": "2026-10-09T19:10:16.111Z",
+      "sha256": "31b695359e62b6bb0ef0ae63e1a23588de475f98cbf56e38fffa943a172d7ffc",
+      "consolidation": "(none stated)",
+      "characters": 4886,
+      "lines": 222,
+      "file": "tmp-cc-pitindex.txt"
     }
   ],
-  "failures": []
+  "failures": [
+    {
+      "id": "tmp-paca-p008",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev008.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-p009",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev009.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-p010",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev010.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-p011",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev011.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-p012",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev012.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-p013",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev013.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-p014",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev014.doc",
+      "reason": "HTTP 403"
+    },
+    {
+      "id": "tmp-paca-p015",
+      "url": "https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev015.doc",
+      "reason": "HTTP 403"
+    }
+  ]
 }
