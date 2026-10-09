@@ -1,0 +1,374 @@
+
+
+                      Proceedings Against the Crown Act
+
+                          R.S.O. 1990, Chapter P.27
+
+HISTORICAL VERSION FOR THE PERIOD JULY 25, 2007 TO NOVEMBER 26, 2008.
+
+Last amendment:  2007, c. 7, Sched. 34.
+
+
+Definitions
+      1.  In this Act,
+“agent”, when used  in  relation  to  the  Crown,  includes  an  independent
+ contractor employed by the Crown; (“mandataire”)
+“Crown” means Her Majesty the Queen in right of Ontario; (“Couronne”)
+“order”  includes  a  judgment,  decree,  rule,   award   and   declaration;
+ (“ordonnance”)
+“proceeding against the Crown”  includes  a  claim  by  way  of  set-off  or
+ counterclaim  raised  in  a  proceeding  by  the  Crown  and  includes  an
+ interpleader proceeding to which the Crown is a party;  (“instance  contre
+ la Couronne”)
+“servant”, when used in relation to the Crown, includes a  minister  of  the
+ Crown. (“préposé”)  R.S.O. 1990, c. P.27, s. 1.
+
+Acts not affected
+      2.  (1)  This Act does not affect and is subject to the  Certification
+of Titles Act as to claims against The  Certification  of  Titles  Assurance
+Fund,  the  Corporations  Tax  Act,  the  Expropriations  Act,  the   Public
+Transportation and Highway Improvement Act, the Income  Tax  Act,  the  Land
+Titles Act, as to claims against The Land Titles Assurance Fund, the  Mining
+Tax Act, the Motor Vehicle Accident Claims Act, the Motor Vehicle  Fuel  Tax
+Act, the Retail Sales Tax Act, the Workplace Safety and Insurance Act,  1997
+and The Succession Duty Act, being chapter 449 of the  Revised  Statutes  of
+Ontario, 1970.  R.S.O. 1990, c. P.27, s. 2 (1); 1997,  c. 16,  s. 14;  2004,
+c. 16, Sched. D, Table.
+
+Limits of scope of Act
+      (2)  Nothing in this Act,
+      (a)   subjects the Crown to greater liability in respect of  the  acts
+    or omissions of a servant or agent of the Crown than that to which  the
+    Crown would be subject in respect of such acts or omissions if it  were
+    a person of full age and capacity; or
+      (b)   subjects the Crown to a proceeding under this Act in respect  of
+    a cause of action that is enforceable against a  corporation  or  other
+    agency of the Crown; or
+      (c)   subjects the Crown to a proceeding under this Act in respect  of
+    any act or omission of a servant of the Crown unless that  servant  has
+    been appointed by or is employed by the Crown; or
+      (d)   subjects the Crown to a proceeding under this Act in respect  of
+    anything done in the due enforcement of the  criminal  law  or  of  the
+    penal provisions of any Act of the Legislature; or
+      (e)   authorizes a proceeding against the Crown  under  the  Employers
+    and Employees Act.  R.S.O. 1990, c. P.27, s. 2 (2).
+
+Right to sue Crown without fiat
+      3.  A claim against the Crown that, if this Act had not  been  passed,
+might be enforced by petition of right, subject to the grant of  a  fiat  by
+the Lieutenant Governor, may  be  enforced  as  of  right  by  a  proceeding
+against the Crown in accordance with this Act without the grant  of  a  fiat
+by the Lieutenant Governor.  R.S.O. 1990, c. P.27, s. 3.
+
+Right to sue Crown corporation without consent
+      4.  A claim against a corporation of the Crown that, if this  Act  had
+not been passed, might be enforced, subject to the consent of a  servant  of
+the Crown, may be enforced as of right without such consent.   R.S.O.  1990,
+c. P.27, s. 4.
+
+Liability in tort
+      5.  (1)  Except  as  otherwise  provided  in  this  Act,  and  despite
+section 71 of Part VI (Interpretation) of the  Legislation  Act,  2006,  the
+Crown is subject to all liabilities in tort to which, if it  were  a  person
+of full age and capacity, it would be subject,
+      (a)   in respect of a  tort  committed  by  any  of  its  servants  or
+    agents;
+      (b)   in respect of a breach of the duties  that  one  owes  to  one’s
+    servants or agents by reason of being their employer;
+      (c)   in respect  of  any  breach  of  the  duties  attaching  to  the
+    ownership, occupation, possession or control of property; and
+      (d)   under any statute, or under any regulation  or  by-law  made  or
+    passed under the authority  of  any  statute.   R.S.O.  1990,  c. P.27,
+    s. 5 (1); 2006, c. 21, Sched. F, s. 124.
+
+Where proceedings in tort lie
+      (2)  No proceeding shall be brought against  the  Crown  under  clause
+(1) (a) in respect of an act or omission of a servant or agent of the  Crown
+unless a proceeding in tort in respect  of  such  act  or  omission  may  be
+brought against that servant or agent or the personal representative of  the
+servant or agent.  R.S.O. 1990, c. P.27, s. 5 (2).
+
+Liability for acts of servants performing duties legally required
+      (3)  Where a function is conferred or imposed upon a  servant  of  the
+Crown as such, either by a rule of the common law or by or under a  statute,
+and that servant commits a tort in the course of  performing  or  purporting
+to perform that function, the liability of the Crown in respect of the  tort
+shall be such as it would have been if that function had been  conferred  or
+imposed by instructions lawfully given by the Crown.  R.S.O. 1990,  c. P.27,
+s. 5 (3).
+
+Application of enactments limiting liability of servants of the Crown
+      (4)  In  a  proceeding  against  the  Crown  under  this  section,  an
+enactment that negatives or limits the liability of a servant of  the  Crown
+in respect of a tort committed by that servant applies in  relation  to  the
+Crown as  it  would  have  applied  in  relation  to  that  servant  if  the
+proceeding against the Crown had been a  proceeding  against  that  servant.
+R.S.O. 1990, c. P.27, s. 5 (4).
+
+Property vesting in the Crown
+      (5)  Where property vests in the Crown independent of the acts or  the
+intentions of the Crown, the Crown is not, by virtue of  this  Act,  subject
+to liability in tort by reason only of the property being so vested.   2007,
+c. 7, Sched. 34, s. 1.
+
+Same
+      (5.1)  Property that vests in  the  Crown  as  a  consequence  of  the
+dissolution of a corporation by the Crown is  property  that  vests  in  the
+Crown independent of the acts or the intentions  of  the  Crown  within  the
+meaning of subsection (5).  2007, c. 7, Sched. 34, s. 1.
+
+Same
+      (5.2)  Subsection (5) does not  affect  the  liability  of  the  Crown
+under this Act in respect of any period after the Crown,  or  a  servant  or
+agent of the Crown,
+      (a)   in respect of personal property, begins to use the property  for
+    Crown purposes; or
+      (b)   in respect of land, has registered a notice  against  the  title
+    to the property that it intends to use the property for Crown purposes.
+     2007, c. 7, Sched. 34, s. 1.
+
+Notice
+      (5.3)  Notice under subsection 1  (3)  of  the  Escheats  Act  is  not
+notice for the purposes of clause (5.2) (b).  2007, c. 7, Sched. 34, s. 1.
+
+No liability for investigation, etc.
+      (5.4)  The Crown is not liable in  tort  by  reason  of  any  activity
+conducted either by the Crown or anyone acting on its  behalf  or  with  its
+approval to investigate any aspect of property that vests in  the  Crown  in
+the manner  described  in  subsection  (5),  to  restore  that  property  to
+productive use or to respond to complaints or to preserve public health  and
+safety, or similar actions for similar purposes,  including,  without  being
+limited to, the following:
+      1.    Any action taken for the purpose of  conducting,  completing  or
+    confirming an investigation.
+      2.    Any action taken  for  the  purpose  of  securing,  managing  or
+    maintaining the property, including action to,
+       i.     ensure  or  end  the  supply  of   water,   sewage   services,
+       electricity, artificial or natural gas, steam, hot  water,  heat  or
+       maintenance,
+      ii.   secure the property by means of locks, gates,  fences,  security
+       guards, cameras or other means, or
+      iii.  repair, demolish or remove anything that is or  might  create  a
+       safety risk or a hazard.
+      3.    Any action taken on the property for the purpose  of  responding
+    to,
+      i.    any danger to the health or safety of any  person  that  results
+       or may result from the presence of anything on the property  or  the
+       presence or discharge of a contaminant on, in or under the property,
+      ii.   any impairment or serious risk of impairment of the  quality  of
+       the natural environment for any use that can  be  made  of  it  that
+       results  or  may  result  from  the  presence  or  discharge  of   a
+       contaminant on, in or under the property, or
+      iii.  any injury or damage or serious risk of injury or damage to  any
+       property or to any plant or animal life that results or  may  result
+       from the presence or discharge of a contaminant on, in or under  the
+       property.
+      4.    Any action taken under the Escheats Act.
+      5.    Any other action prescribed by  the  regulations.   2007,  c. 7,
+    Sched. 34, s. 1.
+
+Regulations
+       (5.5)  The  Lieutenant  Governor  in  Council  may  make  regulations
+prescribing actions for the  purposes  of  subsection  (5.4).   2007,  c. 7,
+Sched. 34, s. 1.
+
+Limitation of liability in respect of judicial acts
+      (6)  No proceeding lies  against  the  Crown  under  this  section  in
+respect  of  anything  done  or  omitted  to  be  done  by  a  person  while
+discharging or  purporting  to  discharge  responsibilities  of  a  judicial
+nature vested in the person or  responsibilities  that  the  person  has  in
+connection with the execution of judicial process.   R.S.O.  1990,  c. P.27,
+s. 5 (6).
+
+Application of law as to indemnity and contribution
+      6.  The law relating to indemnity and contribution is  enforceable  by
+and against the Crown in respect of any liability to which  it  is  subject,
+as if the Crown were a person  of  full  age  and  capacity.   R.S.O.  1990,
+c. P.27, s. 6.
+
+Notice of claim
+       7.  (1)  Subject  to  subsection  (3),  except  in  the  case  of   a
+counterclaim or claim by way of set-off, no action  for  a  claim  shall  be
+commenced against the Crown unless the claimant has,  at  least  sixty  days
+before the commencement of the action, served on the Crown a notice  of  the
+claim containing sufficient particulars to  identify  the  occasion  out  of
+which the claim arose, and the Attorney General may require such  additional
+particulars as in his or her opinion are necessary to enable  the  claim  to
+be investigated.
+
+Limitation period extended
+      (2)  Where a notice of a claim is served under subsection  (1)  before
+the expiration of the limitation period applying to the commencement  of  an
+action for the claim and the sixty-day period referred to in subsection  (1)
+expires after the  expiration  of  the  limitation  period,  the  limitation
+period is extended to the end of seven days  after  the  expiration  of  the
+sixty-day period.
+
+Notice of claim for breach of duty respecting property
+      (3)  No proceeding shall be brought against  the  Crown  under  clause
+5 (1) (c) unless the notice required by subsection  (1)  is  served  on  the
+Crown within ten days after the claim arose.  R.S.O. 1990, c. P.27, s. 7.
+
+Discovery
+      8.  In a proceeding against the  Crown,  the  rules  of  court  as  to
+discovery and inspection of documents and examination  for  discovery  apply
+in the same manner as if the Crown were a corporation, except that,
+      (a)   the Crown may refuse to  produce  a  document  or  to  answer  a
+    question on the ground that the production or answer would be injurious
+    to the public interest;
+      (b)   the person who shall attend to be examined for  discovery  shall
+    be an official designated by the Deputy Attorney General; and
+      (c)   the Crown is not required to deliver an affidavit on  production
+    of documents for discovery and inspection, but a list of the  documents
+    that the Crown may  be  required  to  produce,  signed  by  the  Deputy
+    Attorney General, shall be delivered.  R.S.O. 1990, c. P.27, s. 8.
+
+Designation of Crown in proceeding
+      9.  In a proceeding under this Act,  the  Crown  shall  be  designated
+“Her Majesty the Queen in right of  Ontario”  or  “Sa  Majesté  du  chef  de
+l’Ontario”.  R.S.O. 1990, c. P.27, s. 9.
+
+Service on the Crown
+      10.  In  a  proceeding  under  this  Act,  a  document  to  be  served
+personally on the Crown shall be served by leaving a copy  of  the  document
+with a solicitor in the Crown Law Office (Civil Law) of the Ministry of  the
+Attorney General.  R.S.O. 1990, c. P.27, s. 10.
+
+Trial without jury
+      11.  In a proceeding against the  Crown,  trial  shall  be  without  a
+jury.  R.S.O. 1990, c. P.27, s. 11.
+
+Interpleader
+      12.  The Crown may obtain relief by way of an interpleader  proceeding
+and may be made a party to such a proceeding in the same manner as a  person
+may obtain relief by way of such a proceeding, or be made a  party  thereto,
+even though the application for relief is made by a sheriff  or  bailiff  or
+other like officer, and the provisions relating to interpleader  proceedings
+in the rules of court, subject to this Act, shall have  effect  accordingly.
+R.S.O. 1990, c. P.27, s. 12.
+
+Rights of parties and authority of court
+      13.  Except as  otherwise  provided  in  this  Act,  in  a  proceeding
+against the Crown, the rights of the parties are as nearly as  possible  the
+same as in a suit between persons, and the court may make any order that  it
+may make in a proceeding  between  persons,  and  may  otherwise  give  such
+appropriate relief as the case may require.  R.S.O. 1990, c. P.27, s. 13.
+
+No injunction or specific performance against Crown
+      14.  (1)  Where in a  proceeding  against  the  Crown  any  relief  is
+sought that might, in a proceeding between persons, be  granted  by  way  of
+injunction or specific performance, the court  shall  not,  as  against  the
+Crown, grant an injunction or make an order for  specific  performance,  but
+in lieu thereof may make an order declaratory of the rights of the parties.
+
+Limitation on injunctions and orders against Crown servants
+      (2)  The court shall not in any  proceeding  grant  an  injunction  or
+make an order against a servant of the Crown if the effect of  granting  the
+injunction or making the order would be  to  give  any  relief  against  the
+Crown that could not have been obtained in a proceeding against  the  Crown,
+but in lieu thereof may make an order  declaratory  of  the  rights  of  the
+parties.  R.S.O. 1990, c. P.27, s. 14.
+
+Order for recovery of property not to be made against Crown
+      15.  In a proceeding against the Crown in which the recovery  of  real
+or personal property is claimed, the court shall not make an order  for  its
+recovery or delivery but in lieu thereof may make an  order  declaring  that
+the claimant is entitled, as against the Crown, to the property  claimed  or
+to the possession thereof.  R.S.O. 1990, c. P.27, s. 15.
+
+Restriction on set-off and counterclaim
+      16.  (1)  A person is not entitled to claim a set-off  or  to  make  a
+counterclaim in a proceeding by the Crown for the recovery of taxes,  duties
+or penalties and is not entitled, in a proceeding of  any  other  nature  by
+the Crown, to claim a set-off or make a counterclaim arising out of a  right
+or claim to repayment in respect of any taxes, duties or penalties.
+
+Idem
+      (2)  Subject to subsection (1), a person may claim a set-off  or  make
+a counterclaim in a proceeding by the Crown if  the  subject-matter  of  the
+set-off or the counterclaim relates to a matter under the administration  of
+the particular government ministry with respect to which the  proceeding  is
+brought by the Crown.  R.S.O. 1990, c. P.27, s. 16.
+
+Crown defences
+      17.  In a proceeding against the  Crown,  any  defence  that,  if  the
+proceeding was between persons, could be relied upon by the defendant  as  a
+defence to the proceeding or otherwise may be  relied  upon  by  the  Crown.
+R.S.O. 1990, c. P.27, s. 17.
+
+No judgment by default against Crown without leave
+      18.  In a proceeding against the Crown, judgment shall not be  entered
+against the Crown in default of appearance or pleading without the leave  of
+the court to be obtained on motion of which notice has  been  given  to  the
+Crown.  R.S.O. 1990, c. P.27, s. 18.
+
+Proceedings in rem
+      19.  Nothing in this Act authorizes a proceeding in rem in respect  of
+any claim against the Crown, or the seizure, attachment,  arrest,  detention
+or sale of any property of the Crown.  R.S.O. 1990, c. P.27, s. 19.
+
+Interest on judgment debt
+      20.  A judgment debt due to or from the Crown bears  interest  in  the
+same way as a judgment debt due from one person to  another.   R.S.O.  1990,
+c. P.27, s. 20.
+
+Prohibition of execution against the Crown
+       21.  (1)  Subject  to  subsections  (2)  and  (3),  no  execution  or
+attachment or process in the nature thereof  shall  be  issued  out  of  any
+court against the Crown.
+
+Garnishments against Crown
+      (2)  A garnishment that is otherwise  lawful  may  issue  against  the
+Crown for the payment of money owing or accruing as remuneration payable  by
+the Crown for goods or services, subject to section 7 of the Wages Act.
+
+Garnishment for support or maintenance
+      (3)  A garnishment may issue against the Crown for an amount owing  or
+accruing under an order for support or maintenance, subject to section 7  of
+the Wages Act.
+
+Limitation
+      (4)  A garnishment is effective against the Crown only in  respect  of
+amounts payable on behalf of the administrative unit served with  notice  of
+garnishment to the person named in the notice of garnishment.
+
+Regulations
+      (5)  The Lieutenant Governor in Council may make regulations,
+      (a)   prescribing the method of service on the  Crown  of  notices  of
+    garnishment in place of the method prescribed in section 10;
+      (b)   providing that a notice of garnishment issued against the  Crown
+    is not effective unless a statement of particulars  in  the  prescribed
+    form is served with the notice of garnishment;
+      (c)   providing that a notice of garnishment issued against the  Crown
+    shall be deemed to be served on the day that  is  the  number  of  days
+    specified in the regulation after the actual date of service  or  after
+    the effective date of service under the rules of court, as the case may
+    be, but the regulation shall not specify more than thirty days  as  the
+    number of days;
+      (d)   prescribing  the  form  of  statement  of  particulars  for  the
+    purposes of this section.
+
+Definition
+      (6)  In this section,
+“administrative unit” means a Ministry  of  the  Government  of  Ontario,  a
+ Crown agency within the meaning of the Crown Agency Act or the  Office  of
+ the Assembly under the Legislative Assembly Act.   R.S.O.  1990,  c. P.27,
+ s. 21.
+
+Payment by Crown
+      22.  The Minister  of  Finance  shall  pay  out  of  the  Consolidated
+Revenue Fund the amount payable by the Crown,
+      (a)   under an order of a court that  is  final  and  not  subject  to
+    appeal;
+      (b)   under a settlement of a proceeding in a court; or
+      (c)   under a settlement of a claim that is the subject  of  a  notice
+    of claim under section 7.  1994, c. 27, s. 51.
+
+Conflict
+      23.  Where this Act conflicts with any other Act,  this  Act  governs.
+R.S.O. 1990, c. P.27, s. 23.
+                               ______________
+
+
+
+Back to top
