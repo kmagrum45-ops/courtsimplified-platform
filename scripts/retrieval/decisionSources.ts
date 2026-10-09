@@ -164,4 +164,17 @@ export const DECISION_SOURCES: DecisionSource[] = [
   oncaPage("merrifield", "Merrifield v. Canada (Attorney General)", "2019 ONCA 205", 2019, "merrifield-v-canada-2019-ONCA-205.txt", "https://www.ontariocourts.ca/decisions/2019/2019ONCA0205.htm"),
   oncaPage("tms-lighting", "TMS Lighting Ltd. v. KJS Transport Inc.", "2014 ONCA 1", 2014, "tms-lighting-v-kjs-transport-2014-ONCA-1.txt", "https://www.ontariocourts.ca/decisions/2014/2014ONCA0001.htm"),
   onca("waksdale", "Waksdale v. Swegon North America Inc.", "2020 ONCA 391", 2020, "waksdale-v-swegon-2020-ONCA-391.txt", 18855),
+  // ---- 2026-10-09: claims against the Crown and the police, and bail, for
+  // a story about harm by an accused released on bail (owner's test; see
+  // docs/sources/README.md). Fetch Decisions runs 37976295989 (search) and
+  // 37976584406 (judgments).
+  sccPage("clark", "Ontario (Attorney General) v. Clark", "2021 SCC 18", 2021, "ontario-ag-v-clark-2021-SCC-18.html.txt", 18855),
+  sccPage("hill-hamilton", "Hill v. Hamilton‑Wentworth Regional Police Services Board", "2007 SCC 41", 2007, "hill-v-hamilton-wentworth-police-2007-SCC-41.html.txt", 2382),
+  sccPage("odhavji", "Odhavji Estate v. Woodhouse", "2003 SCC 69", 2003, "odhavji-estate-v-woodhouse-2003-SCC-69.html.txt", 2104),
+  sccPage("antic", "R. v. Antic", "2017 SCC 27", 2017, "r-v-antic-2017-SCC-27.html.txt", 16649),
+  sccPage("zora", "R. v. Zora", "2020 SCC 14", 2020, "r-v-zora-2020-SCC-14.html.txt", 18391),
+  sccPage("st-cloud", "R. v. St-Cloud", "2015 SCC 27", 2015, "r-v-st-cloud-2015-SCC-27.html.txt", 15358),
+  sccPage("morales", "R. v. Morales", "[1992] 3 S.C.R. 711", 1992, "r-v-morales-1992-3-SCR-711.html.txt", 941),
+  sccPage("hall-bail", "R. v. Hall", "2002 SCC 64", 2002, "r-v-hall-2002-SCC-64.html.txt", 2006),
+  sccPage("myers-bail", "R. v. Myers", "2019 SCC 18", 2019, "r-v-myers-2019-SCC-18.html.txt", 17634),
 ];

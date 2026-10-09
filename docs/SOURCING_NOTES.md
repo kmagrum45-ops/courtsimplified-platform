@@ -1065,6 +1065,35 @@ Drafted and deliberately NOT shipped, so nobody re-derives them:
   is an application "in the prescribed form", not a Plaintiff's Claim, and that
   form's regulation is not in the corpus.
 
+### Claims against the Crown, bail and victims' rights (2026-10-09)
+
+**Check the index before saying a law is missing.** I told the owner the
+library lacked the Criminal Code and the Crown Liability and Proceedings Act,
+2019. Both were already vendored and indexed (2,659 and 43 passages), with the
+Human Rights Code, the Charter, Nelles, Miazga, Henry and Ward. Count
+`docs/sources/retrieval/corpus-index.json` chunks by source id first.
+
+- Added: Victims' Bill of Rights, 1995 (`95v06`), Canadian Victims Bill of
+  Rights (`C-23.7`), Crown Attorneys Act (`90c49`), Ministry of the Attorney
+  General Act (`90m17`), the OCJ page on public access to court recordings and
+  the SCJ page on digital recordings and transcripts.
+- **The 1995 Act's title uses a curly apostrophe** ("Victims’ Bill of
+  Rights"), so `mustContain: ["VICTIMS' BILL OF RIGHTS"]` failed. Use a marker
+  without the apostrophe ("BILL OF RIGHTS, 1995").
+- **A declared source must be vendored before it can merge** (test:rules-corpus
+  fails on a declared source with no file). Dispatch Vendor Sources with
+  `ref` set to the working branch; it runs from that branch.
+- SCC item ids found by the search run: Clark 18855, Hill v. Hamilton-Wentworth
+  2382, Odhavji 2104, Antic 16649, Zora 18391, St-Cloud 15358, Morales 941,
+  Hall 2006, R. v. Myers 17634.
+- The Fetch Decisions `.txt` keeps the page's CSS and scripts and `[LINK ...]`
+  markers: keep from "Decisions and Resources" to "Do not display this message
+  anymore", drop link markers and blank lines, and remove soft hyphens
+  (test:corpus-retrieval refuses them; St-Cloud had two).
+- **Not added:** the Proceedings Against the Crown Act (repealed 2019; no
+  current consolidation). A claim about events before 2019 may need its
+  historical text; that is a decision about which period to cite, not a fetch.
+
 ## Dead ends already ruled out
 
 ### Ontario Fault Determination Rules ≠ a route to sue the other driver
