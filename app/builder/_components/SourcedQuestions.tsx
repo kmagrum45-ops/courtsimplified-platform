@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { supabase } from "../../../src/lib/supabase/client";
@@ -105,6 +105,15 @@ export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "famil
   return { state, questions, answers, setAnswer, start };
 }
 
+/**
+ * ONE QUESTION AT A TIME (finish line: "asks one question at a time, says why
+ * a question matters"). Walkthrough, 2026-10-08: every guided run showed four
+ * or five of these together under "Answer any you can", and the critic failed
+ * the conversation check on all 15 that reached it. Now the person sees one
+ * question with why it matters, answers or skips it, and moves to the next;
+ * what they answered stays listed above, and every answer is kept exactly as
+ * before (withSourcedAnswers).
+ */
 export function SourcedQuestionsCard({
   state,
   questions,
@@ -118,6 +127,9 @@ export function SourcedQuestionsCard({
   setAnswer: (id: string, value: string) => void;
   footer?: ReactNode;
 }) {
+  const [index, setIndex] = useState(0);
+  // A new set of questions (a changed story) starts again at the first.
+  useEffect(() => setIndex(0), [questions]);
   if (state === "loading") {
     return (
       <div data-testid="sourced-questions-loading" className="rounded-xl border border-[#d9e7e1] bg-[#f6fbf9] p-4 text-sm text-[#4d675f]">
@@ -126,43 +138,77 @@ export function SourcedQuestionsCard({
     );
   }
   if (state !== "ready" || questions.length === 0) return null;
+  const current = Math.min(index, questions.length);
+  const done = current >= questions.length;
+  const question = done ? null : questions[current];
+  const link = question ? publicSourceUrl(question.sourceUrl) : undefined;
+  const answered = questions.slice(0, current).filter((item) => (answers[item.id] ?? "").trim());
   return (
     <section data-testid="sourced-questions" className="rounded-xl border border-[#d9e7e1] bg-[#f6fbf9] p-4 text-sm text-[#1f3b33]">
-      <h3 className="text-base font-semibold">Questions the law raises for your situation</h3>
+      <h3 className="text-base font-semibold">A few questions the law raises for your situation</h3>
       <p className="mt-1 text-[#4d675f]">
-        We read the law that applies to what you told us. It makes these points matter, and your story does not cover them
-        yet. Answer any you can, in your own words. Skip any you do not know.
+        We read the law that applies to what you told us. It makes a few more points matter that your story does not
+        cover yet. One at a time; skip any you do not know.
       </p>
-      <ol className="mt-3 space-y-4">
-        {questions.map((question) => {
-          const link = publicSourceUrl(question.sourceUrl);
-          return (
-            <li key={question.id}>
-              <label htmlFor={`sq-${question.id}`} className="font-semibold">
-                {question.question}
-              </label>
-              <textarea
-                id={`sq-${question.id}`}
-                value={answers[question.id] ?? ""}
-                onChange={(event) => setAnswer(question.id, event.target.value)}
-                rows={2}
-                maxLength={MAX_SOURCED_ANSWER_LENGTH}
-                className="mt-1 w-full rounded-lg border border-[#c9dcd4] bg-white p-2"
-              />
-              <p className="mt-1 text-xs text-[#4d675f]">
-                Why we ask: {question.why}{" "}
-                {link ? (
-                  <a href={link} target="_blank" rel="noreferrer" className="font-semibold underline">
-                    {question.citation}
-                  </a>
-                ) : (
-                  <span className="font-semibold">{question.citation}</span>
-                )}
-              </p>
+      {answered.length > 0 ? (
+        <ul data-testid="sourced-questions-answered" className="mt-3 space-y-1 text-xs text-[#4d675f]">
+          {answered.map((item) => (
+            <li key={item.id}>
+              <span className="font-semibold">{item.question}</span> — {answers[item.id]}
             </li>
-          );
-        })}
-      </ol>
+          ))}
+        </ul>
+      ) : null}
+      {question ? (
+        <div className="mt-3" data-testid="sourced-question-current">
+          <p className="text-xs font-semibold text-[#2f7d67]">
+            Question {current + 1} of {questions.length}
+          </p>
+          <label htmlFor={`sq-${question.id}`} className="mt-1 block font-semibold">
+            {question.question}
+          </label>
+          <p className="mt-1 text-xs text-[#4d675f]">
+            Why this matters: {question.why}{" "}
+            {link ? (
+              <a href={link} target="_blank" rel="noreferrer" className="font-semibold underline">
+                {question.citation}
+              </a>
+            ) : (
+              <span className="font-semibold">{question.citation}</span>
+            )}
+          </p>
+          <textarea
+            id={`sq-${question.id}`}
+            value={answers[question.id] ?? ""}
+            onChange={(event) => setAnswer(question.id, event.target.value)}
+            rows={2}
+            maxLength={MAX_SOURCED_ANSWER_LENGTH}
+            className="mt-2 w-full rounded-lg border border-[#c9dcd4] bg-white p-2"
+          />
+          <div className="mt-2 flex flex-wrap gap-2">
+            <button
+              type="button"
+              data-testid="sourced-question-next"
+              onClick={() => setIndex(current + 1)}
+              className="rounded-full bg-[#2f7d67] px-4 py-1.5 text-sm font-semibold text-white"
+            >
+              {(answers[question.id] ?? "").trim() ? "Next" : "Skip this one"}
+            </button>
+            {current > 0 ? (
+              <button type="button" onClick={() => setIndex(current - 1)} className="rounded-full border border-[#c9dcd4] bg-white px-4 py-1.5 text-sm font-semibold text-[#24463d]">
+                Back
+              </button>
+            ) : null}
+          </div>
+        </div>
+      ) : (
+        <p data-testid="sourced-questions-done" className="mt-3 text-[#4d675f]">
+          That is all the questions. Your answers are added to what you told us.{" "}
+          <button type="button" onClick={() => setIndex(0)} className="font-semibold text-[#2f7d67] underline">
+            Review them
+          </button>
+        </p>
+      )}
       {footer}
     </section>
   );

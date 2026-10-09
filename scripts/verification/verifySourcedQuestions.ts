@@ -263,6 +263,13 @@ function wiring() {
     check(`${court} shows the questions`, source.includes("<SourcedQuestionsCard"));
     check(`${court} carries the answers to the analysis`, /withSourcedAnswers\(|sourcedAnswersText\(/.test(source));
   }
+  // One question at a time, each with why it matters (walkthrough 2026-10-08:
+  // four or five at once failed the conversation check on every run).
+  const card = read("app/builder/_components/SourcedQuestions.tsx");
+  check(
+    "the card shows one question at a time, with why it matters",
+    /data-testid="sourced-question-current"/.test(card) && /Why this matters/.test(card) && !/questions\.map\(\(question\)[\s\S]{0,400}<textarea/.test(card),
+  );
   check(
     "the Small Claims analysis gets the story as sent, plus the answers",
     /result\.storyText[\s\S]{0,80}result\.followUpText/.test(read("app/builder/_components/guidedIntakeToSmallClaimsInput.ts")),
