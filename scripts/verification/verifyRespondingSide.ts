@@ -152,8 +152,29 @@ check("a served defendant is shown the defence step", suggestedStageFor("small-c
   // Past the defence, the Defence draft is not offered (replay 2026-10-09).
   check("served, time running: the defence is still due", respondingDocumentStillDue("defendant:served-defence-period-running"));
   check("no step known: offered as before", respondingDocumentStillDue(null));
-  for (const step of ["defendant:noted-in-default", "civil:defendant:default-judgment-against-me", "defendant:judgment-against-me", "defendant:defence-filed", "family:respondent:answer-filed"]) {
+  for (const step of ["civil:defendant:served-defence-period-running", "family:respondent:served-time-to-answer-running", "defendant:defence-period-expired-not-yet-noted"]) {
+    check(`${step}: still offered`, respondingDocumentStillDue(step));
+  }
+  // Held-back walkthrough 2026-10-09: a defendant with a trial date was offered one.
+  for (const step of ["defendant:noted-in-default", "civil:defendant:default-judgment-against-me", "defendant:judgment-against-me", "defendant:defence-filed", "family:respondent:answer-filed", "defendant:trial-date-set", "defendant:awaiting-settlement-conference", "plaintiff:trial-date-set", "civil:both:trial-date-set"]) {
     check(`${step}: not offered`, !respondingDocumentStillDue(step));
+  }
+}
+
+{
+  // The other side's claim back, named in the story (held-back walkthrough, 2026-10-09).
+  check(
+    "small claims: served with a defendant's claim",
+    stepNamedInStory("small-claims", false, "now i got served with something called a defendants claim on september 28") === "plaintiff:served-with-defendants-claim",
+  );
+  check(
+    "civil: served with a statement of defence and counterclaim",
+    stepNamedInStory("civil", false, "his lawyer served me with a statement of defence and counterclaim") === "civil:plaintiff:served-with-counterclaim",
+  );
+  check("civil: crossclaim, responding side", stepNamedInStory("civil", true, "they served a statement of defence and crossclaim") === "civil:defendant:served-with-crossclaim");
+  check("a defendant's own counterclaim plan names no plaintiff step", stepNamedInStory("small-claims", true, "i want to make a counterclaim") === "");
+  for (const id of ["plaintiff:served-with-defendants-claim", "civil:plaintiff:served-with-counterclaim", "civil:defendant:served-with-crossclaim", "civil:defendant:served-with-third-party-claim"]) {
+    check(`${id} exists`, Boolean(findStage(id)));
   }
 }
 

@@ -133,6 +133,26 @@ export const FAMILY_FEE_NOTES: PlainLine[] = [
   },
 ];
 
+/**
+ * A family step that files papers but has no fee of its own (held-back
+ * walkthrough, 2026-10-09: a parent served with a motion to change was promised
+ * a fee and shown none). The schedule lists what is charged; this step's
+ * papers are not on it.
+ */
+export const FAMILY_NO_STEP_FEE: PlainLine[] = [
+  {
+    say: "The family fee list charges for filing an application or an answer and for listing a case for hearing. It lists no fee for the papers at this step.",
+    cite: sup(
+      "s. 1.2 (1)",
+      "1. On the filing of an application, $214. 2. On the filing of an answer, other than an answer referred to in paragraph 3, $171. 3. On the filing of an answer that includes a request for a divorce by a respondent, $214. 4. On the placing of an application on the list for hearing, $445.",
+    ),
+  },
+  {
+    say: "In the Ontario Court of Justice there is no fee to file or list a family case.",
+    cite: cite("ontario-fees-family", "Ontario Court of Justice fees", "There are no filing or listing fees in family proceedings in the Ontario Court of Justice."),
+  },
+];
+
 /** Shown with a family appeal fee instead: appeals pay the civil fees. */
 export const FAMILY_APPEAL_FEE_NOTE: PlainLine = {
   say: "Family appeals pay the civil court fees, unless you have a fee waiver certificate.",
@@ -251,6 +271,27 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
           "Service of a plaintiff's claim or defendant's claim on an individual against whom the claim is made may be made by sending a copy of the claim by registered mail or by courier to the individual's place of residence, if the signature of the individual or any person who appears to be a member of the same household, verifying receipt of the copy, is obtained.",
         ),
       },
+      // How, in practice (held-back walkthrough, 2026-10-09: "stamped copies
+      // for you to serve" never said how). Each from rule 8.02 itself.
+      {
+        say: "To serve a person yourself, hand them a copy.",
+        cite: scr("r. 8.02 (a)", "on an individual, other than a person under disability, by leaving a copy of the document with him or her"),
+      },
+      {
+        say: "To serve a business that is a corporation, hand a copy to an officer or director, or to the person in charge at one of its places of business.",
+        cite: scr(
+          "r. 8.02 (c)",
+          "on any other corporation, by leaving a copy of the document with, (i) an officer, a director or another person authorized to act on behalf of the corporation, or (ii) a person at any place of business of the corporation who appears to be in control or management of the place of business",
+        ),
+      },
+      {
+        say: "Serve the claim within six months after the court issues it. The court can give more time.",
+        cite: scr("r. 8.01 (2)", "A claim shall be served within six months after the date it is issued, but the court may extend the time for service, before or after the six months has elapsed."),
+      },
+      {
+        say: "If the other side is outside Ontario, the court can add the reasonable cost of serving them there to the costs it awards.",
+        cite: scr("r. 8.05", "If the defendant is outside Ontario, the court may award as costs of the action the costs reasonably incurred in effecting service of the claim on the defendant there."),
+      },
     ],
     ordinary: [
       {
@@ -258,6 +299,13 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
         cite: scr(
           "r. 8.01 (14)",
           "The following documents may be served by mail, by courier, by email, personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03, unless the court orders otherwise: 1. A defence. 2. Any other document not referred to in subrules (1) to (13).",
+        ),
+      },
+      {
+        say: "By mail, send it to the other side's last known address (or their representative's). It counts as served on the fifth day after you mail it.",
+        cite: scr(
+          "r. 8.07 (1), (2)",
+          "If a document is to be served by mail under these rules, it shall be sent, by regular lettermail or registered mail, to the last address of the person or of the person's representative that is ... known to the sender, if the document is to be served by any other person. ... Service of a document by mail is deemed to be effective on the fifth day following the date of mailing.",
         ),
       },
     ],
@@ -291,6 +339,17 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
         say: "A statement of claim must be served personally or by an allowed alternative to personal service.",
         cite: rcp("r. 16.01 (1)", "An originating process shall be served personally as provided in rule 16.02 or by an alternative to personal service as provided in rule 16.03."),
       },
+      {
+        say: "To serve a person personally, hand them a copy.",
+        cite: rcp("r. 16.02 (1) (a)", "on an individual, other than a person under disability, by leaving a copy of the document with the individual"),
+      },
+      {
+        say: "To serve a corporation, such as an employer, hand a copy to an officer, director or agent, or to the person in charge at one of its places of business.",
+        cite: rcp(
+          "r. 16.02 (1) (c)",
+          "on any other corporation, by leaving a copy of the document with an officer, director or agent of the corporation, or with a person at any place of business of the corporation who appears to be in control or management of the place of business",
+        ),
+      },
     ],
     ordinary: [
       {
@@ -298,6 +357,13 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
         cite: rcp(
           "r. 16.01 (4)",
           "shall be served on a party who has a lawyer of record by serving the lawyer, and service may be made in a manner provided in rule 16.05; (b) may be served on a party acting in person or on a person who is not a party, (i) by mailing a copy of the document to the last address for service provided by the party or other person or, if no such address has been provided, to the party's or person's last known address",
+        ),
+      },
+      {
+        say: "To serve their lawyer: mail it or send it by courier to the lawyer's office, leave it with someone at that office, or email it to the email address the lawyer gave for service.",
+        cite: rcp(
+          "r. 16.05 (1)",
+          "Service of a document on the lawyer of record of a party may be made, (a) by mailing a copy to the lawyer's office; (b) by leaving a copy with a lawyer or employee in the lawyer's office; ... (e) by sending a copy to the lawyer's office by courier; or (f) by emailing a copy to the last email address for service provided by the lawyer",
         ),
       },
     ],
@@ -592,7 +658,9 @@ export function practicalFor(stepId: string, court: PracticalCourt, city = ""): 
           ? FAMILY_FEE_NOTES
           : fees.some((fee) => fee.id.startsWith("fam-appeal"))
             ? [FAMILY_APPEAL_FEE_NOTE]
-            : [],
+            : fees.length === 0 && step.files
+              ? FAMILY_NO_STEP_FEE
+              : [],
     feeWaiver: fees.length > 0 ? FEE_WAIVER : null,
     filing: step.files
       ? [...(toronto === true ? [filingLines.toronto] : toronto === false ? [filingLines.elsewhere] : [filingLines.toronto, filingLines.elsewhere]), ...filingLines.more]

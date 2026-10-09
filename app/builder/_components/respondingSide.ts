@@ -95,5 +95,10 @@ export function originatingDocumentRecorded(args: {
  */
 export function respondingDocumentStillDue(stepId: string | null | undefined): boolean {
   if (!stepId) return true;
-  return !/noted-in-default|default-judgment|judgment-against-me|judgment-being-enforced|defence-filed|defence-delivered|answer-filed|answer-time-missed/.test(stepId);
+  // Offered only at a step where the defence or answer is the next thing to
+  // do. A step past it -- noted in default, a judgment, a defence filed, a
+  // conference or trial -- gets no offer (held-back walkthrough, 2026-10-09:
+  // a defendant with a trial date was offered "Create Defence (Form 9A)
+  // draft"), and neither does a step for the other side picked by mistake.
+  return /(?:^|:)(?:served-defence-period-running|defence-period-expired-not-yet-noted|defence-period-expired-not-noted|served-time-to-answer-running|served-with-amended-application)$/.test(stepId);
 }

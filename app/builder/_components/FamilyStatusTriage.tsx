@@ -103,6 +103,11 @@ function Citations({ items }: { items: { label: string; sourceUrl: string }[] })
   );
 }
 
+/** The person's story says a family court order already exists. */
+export function existingFamilyOrder(story: string): boolean {
+  return /\b(?:court order|(?:final|support|custody|parenting) order|ordered (?:him |her |them |me )?to pay|motion to change|family responsibility office|\bFRO\b|order (?:from|says|made) )/i.test(story);
+}
+
 export default function FamilyStatusTriage({ state, onChange, homeCity = "", story = "" }: Props) {
   const [showWhy, setShowWhy] = useState(false);
   const [dateStart, setDateStart] = useState("");
@@ -113,6 +118,11 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   const { record, dismissed } = state;
   const question = selectNextTriageQuestion(record);
   const outcome = buildTriageOutcome(record);
+  // Someone who already has a family court order (a motion to change, support
+  // not being paid) is not choosing where to START a case; the start-a-case
+  // court statutes and municipality list were the first thing they read
+  // (held-back walkthrough, 2026-10-09). Hidden for them, with a line saying so.
+  const hasOrderAlready = existingFamilyOrder(story);
 
   function update(next: Partial<FamilyStatusRecord>) {
     onChange({ ...state, record: { ...record, ...next } });
@@ -351,13 +361,15 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
       )}
 
       {/* What the user has said, read back verbatim. Never a derived value. */}
-      {outcome.recorded.length > 0 && (
+      {/* Only what has been answered: seven "Not answered yet" lines read as
+          seven questions at once (held-back walkthrough, 2026-10-09). */}
+      {outcome.recorded.some((item) => item.state !== "not-yet") && (
         <div className="mt-6">
           <h3 className="text-sm font-bold uppercase tracking-wide text-[#2f7d67]">
             What is recorded
           </h3>
           <ul className="mt-2 space-y-1 text-sm">
-            {outcome.recorded.map((item) => (
+            {outcome.recorded.filter((item) => item.state !== "not-yet").map((item) => (
               <li key={item.label} data-testid="triage-recorded" data-state={item.state}>
                 <span className="font-semibold text-[#10231f]">{item.label}:</span> {item.value}
               </li>
@@ -392,7 +404,12 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
       {/* Folded (walkthrough, 2026-10-08: the court-selection statutes, with a
           list of 24 municipalities, sat above the person's own next step on
           every family run). The next-step card names their court and filing. */}
-      {outcome.courtInformation.length > 0 && (
+      {hasOrderAlready ? (
+        <p data-testid="triage-existing-order" className="mt-6 text-sm text-[#4f685f]">
+          You told us there is already a court order, so the rules about where to start a new family case are not shown here.
+        </p>
+      ) : null}
+      {!hasOrderAlready && outcome.courtInformation.length > 0 && (
         <details className="mt-6">
           <summary className="cursor-pointer text-sm font-bold uppercase tracking-wide text-[#2f7d67]">
             What the statutes say about which court
@@ -414,6 +431,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
       */}
       {/* Folded, not filtered: every row stays on the page (page review,
           2026-10-07: 24 rows were the longest thing on a phone screen). */}
+      {hasOrderAlready ? null : (
       <details className="mt-6">
         <summary className="cursor-pointer text-sm font-bold uppercase tracking-wide text-[#2f7d67]">
           Municipalities named in the Courts of Justice Act
@@ -437,6 +455,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
         </ul>
         <Citations items={[outcome.municipalitiesCitation]} />
       </details>
+      )}
     </section>
   );
 }

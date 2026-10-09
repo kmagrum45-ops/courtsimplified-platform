@@ -6,6 +6,7 @@ import EventCandidateSurface from "../../../builder/_components/EventCandidateSu
 import CaseTimeline from "../../_components/CaseTimeline";
 import CaseWorkspace from "../../_components/CaseWorkspace";
 import { readCasePosition } from "@/src/lib/case-system/casePosition";
+import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { recordedDateAnswers } from "@/src/lib/case-system/caseRecord";
 import { builderHref, useCaseHome } from "../../_components/CaseHomeContext";
 
@@ -20,7 +21,7 @@ import { builderHref, useCaseHome } from "../../_components/CaseHomeContext";
  * (page walkthrough). Each is recorded only when the user confirms it.
  */
 export default function CaseTimelineSection() {
-  const { caseRecord, courtPath, record } = useCaseHome();
+  const { caseRecord, courtPath, record, stepId } = useCaseHome();
   // Steps can be recorded only for Small Claims (see CaseTimeline's canRecord).
   const canRecord = courtPath === "small-claims";
   const [refresh, setRefresh] = useState(0);
@@ -40,6 +41,7 @@ export default function CaseTimelineSection() {
           updateHref={builderHref(caseRecord)}
           canRecord={canRecord}
           confirmedStage={readCasePosition(caseRecord.master_result, courtPath).confirmedStage}
+          stepTitle={(stepId && findStage(stepId)?.title) || ""}
         />
       </section>
       <section aria-labelledby="chronology-heading">

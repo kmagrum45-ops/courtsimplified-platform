@@ -25,7 +25,7 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
-import { EVENT_TO_DATE_QUESTION } from "@/src/lib/case-system/casePosition";
+import { EVENT_TO_DATE_QUESTION, dateInSentence } from "@/src/lib/case-system/casePosition";
 
 import { supabase } from "../../../src/lib/supabase/client";
 import {
@@ -54,12 +54,16 @@ type Draft = {
 };
 
 function emptyDraft(candidate: ResolvedCandidate): Draft {
+  // The date the person wrote in this sentence is filled in, not asked again
+  // (dateInSentence: a full date fills the picker, a date without a year only
+  // the words). They still press "Record this".
+  const written = dateInSentence(candidate.narrativeBasis);
   return {
     eventType: "",
     title: candidate.title,
-    occurredAtRaw: "",
-    occurredAtNormalized: "",
-    dateCertainty: "unknown",
+    occurredAtRaw: written?.raw ?? "",
+    occurredAtNormalized: written?.iso ?? "",
+    dateCertainty: written?.iso ? "exact" : written ? "approximate" : "unknown",
   };
 }
 

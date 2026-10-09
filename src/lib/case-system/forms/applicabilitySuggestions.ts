@@ -58,6 +58,25 @@ function suggest(
       return { value: true, reason: "The issues you chose include parenting." };
     }
   }
+  // "What ordinary claim are you starting?" -- a money claim, from the amount
+  // they recorded (held-back walkthrough, 2026-10-09: asked of a plaintiff
+  // whose $5,200 repair-cost claim was on record).
+  if (last === "requestedRemedyType" && record.amount && /\d/.test(record.amount)) {
+    return { value: "ordinary-money-claim", reason: `You recorded an amount: ${record.amount}.` };
+  }
+
+  // Civil: what the person's own words already answer. Each says only what is
+  // in their story; "Not sure" stays one click away.
+  const story = record.story.toLowerCase();
+  if (last === "isMortgageForeclosure" && story && !/\bmortgage|foreclos|power of sale/.test(story)) {
+    return { value: false, reason: "Your story does not mention a mortgage." };
+  }
+  if (last === "isCommencedByNoticeOfAction" && story && !/\bnotice of action\b/.test(story)) {
+    return { value: false, reason: "Your story does not mention a notice of action." };
+  }
+  if (last === "isGeneralAction" && /\b(?:statement of claim|sued|suing|sue)\b/.test(story)) {
+    return { value: true, reason: "You described suing someone." };
+  }
   return null;
 }
 

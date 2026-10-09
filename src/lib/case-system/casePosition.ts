@@ -278,9 +278,9 @@ const STORY_CUES: Record<string, RegExp> = {
   "sc-date-claim-issued": /\b(issued|filed (?:my|the|a) (?:claim|plaintiff'?s claim))\b/i,
   "sc-date-defence-filed": /\bfiled (?:my|a|the|our) defen[cs]e\b/i,
   "sc-date-settlement-conference": /\bsettlement conference\b/i,
-  "sc-date-injury": /\b(hurt|injur(?:ed|y)|fell|slipped|tripped|bitten|bit me|hit by|accident|crash(?:ed)?)\b/i,
+  "sc-date-injury": /\b(hurt|injur(?:ed|y)|fell|slipped|tripped|bitten|bit|attacked|hit by|accident|crash(?:ed)?)\b/i,
   // The day a non-injury claim is based on (2026-10-07).
-  "case-date-act-or-omission": /\b(invoice|never paid|stopped paying|(?:refused|won'?t|wont|didn'?t) (?:to )?pay|stopped (?:showing up|coming|work)|last day|was due|due date|bounced)\b/i,
+  "case-date-act-or-omission": /\b(invoice|never paid|stopped paying|(?:refused|won'?t|wont|didn'?t) (?:to )?pay|stopped (?:showing up|coming|work)|last day|was due|due date|bounced|fired|let me go|let go|terminated|dismissed me|laid (?:me )?off)\b/i,
   // Civil and family (2026-10-05). Each names the document or event the date
   // question asks about, so the quote beside the question is about that.
   "case-date-served-with-application": /\b(served|got|received)\b.*\bapplication\b/i,
@@ -391,25 +391,176 @@ function assumedYearDate(sentence: string, now: Date, upcoming: boolean): string
   return null;
 }
 
+/*
+ * Every date question gets a cue, not only the hand-written ones above
+ * (held-back walkthrough, 2026-10-09: "on september 25 2026 his lawyer served
+ * me with a statement of defence and counterclaim" and the page still asked
+ * "what date was it served?", because no cue existed for that question). The
+ * generic cue is built from the question's own words: the document or event
+ * it names ("garnishment", "crossclaim", "questioning") and, for a served,
+ * filed or issued question, that verb.
+ */
+const EXTRA_CUES: Record<string, RegExp> = {
+  "sc-date-defendants-claim-served": /\b(defendant'?s claim|counter-?claim|suing me back|sued me back)\b/i,
+  "sc-date-learned-of-default": /\b(noted in default|in default)\b/i,
+  "sc-date-learned-of-judgment": /\b(default judgment|judgment (?:against me|was made))\b/i,
+  "case-date-served-with-crossclaim": /\bcross-?claim\b/i,
+  "case-date-served-with-third-party-claim": /\bthird[- ]party claim\b/i,
+  "case-date-pre-trial-conference-date": /\bpre-?trial\b/i,
+  "case-date-motion-form-served": /\b(?:form 14b|motion form)\b/i,
+  "case-date-own-defence-delivered": /\b(?:filed|served|delivered) (?:my|our) (?:statement of )?defen[cs]e\b/i,
+};
+
+const SKIP_WORDS = new Set(["notice", "statement", "order", "court", "served", "scheduled", "record", "date", "first", "material", "materials", "other", "party", "parties", "action", "about", "their", "there", "which", "where", "given"]);
+const VERBS: Array<[RegExp, RegExp]> = [
+  [/\bserved\b/i, /\b(serv(?:ed|e)|got|received|handed|gave me|delivered)\b/i],
+  [/\bfiled\b/i, /\bfiled\b/i],
+  [/\bissued\b/i, /\b(issued|dated)\b/i],
+];
+
+type Cue = { key: RegExp; verb?: RegExp };
+
+function genericCue(question: string): Cue | null {
+  const head = question.split("?")[0].replace(/,? what date.*$/i, "");
+  const noun =
+    /served with (?:an? |the )?(.+?)$/i.exec(head)?.[1] ??
+    /^If (?:an? |the )?(.+?) (?:was|were|has been|have been|is|asked|made|issued)\b/i.exec(head)?.[1] ??
+    "";
+  const words = noun
+    .toLowerCase()
+    .replace(/\(.*?\)/g, " ")
+    .split(/[^a-z']+/)
+    .filter((word) => word.length >= 5 && !SKIP_WORDS.has(word))
+    .map((word) => word.replace(/'s$/, "").replace(/(?:ing|ed|s)$/, "").slice(0, 8));
+  if (!words.length) return null;
+  // Every naming word must be there: "notice of default hearing" is not any hearing.
+  const key = new RegExp(words.map((word) => `(?=[\\s\\S]*\\b${word})`).join(""), "i");
+  const verb = VERBS.find(([inQuestion]) => inQuestion.test(head))?.[1];
+  return { key, ...(verb ? { verb } : {}) };
+}
+
+/** The cue for each date question: its written one, else one built from its wording. */
+function cueFor(questionId: string, question: string): Cue | null {
+  const written = STORY_CUES[questionId] ?? EXTRA_CUES[questionId];
+  return written ? { key: written } : genericCue(question);
+}
+
+const DATE_ANYWHERE = new RegExp(`${FULL_DATE.source}|${MONTH_DAY.source}`, "gi");
+/*
+ * Words naming a different KIND of moment. Between a served question's words
+ * and its date, "filed" or "hearing" means the date belongs to something else;
+ * "got" or "received" is the same moment told differently.
+ */
+const MOMENT_WORDS: Record<string, RegExp> = {
+  served: /\b(filed|issued|hearing|conference|trial|mediation|scheduled|questioning)\b/i,
+  filed: /\b(served|got|received|issued|hearing|conference|trial|mediation|scheduled)\b/i,
+  issued: /\b(served|got|received|filed|hearing|conference|trial|mediation|scheduled)\b/i,
+  upcoming: /\b(served|filed|issued|received|got)\b/i,
+  other: /\b(served|filed|issued|hearing|conference|trial|mediation|scheduled)\b/i,
+};
+
+function momentOf(questionId: string, question: string): keyof typeof MOMENT_WORDS {
+  if (UPCOMING_QUESTIONS.has(questionId) || /scheduled|will it be heard|first day of trial/i.test(question)) return "upcoming";
+  if (/\bserved\b|\bdeliver/i.test(question)) return "served";
+  if (/\bfiled\b/i.test(question)) return "filed";
+  if (/\bissued\b|date is on it/i.test(question)) return "issued";
+  return "other";
+}
+
+function cueMatches(cue: Cue, text: string): boolean {
+  return cue.key.test(text) && (!cue.verb || cue.verb.test(text));
+}
+
+/** Where the cue's own words sit in the text: the verb if it has one, else the first naming word it matches. */
+function cuePositions(cue: Cue, text: string): number[] {
+  const source = cue.verb ?? cue.key;
+  if (source.source.startsWith("(?=")) {
+    const first = /\\b([a-z']+)\)/i.exec(source.source)?.[1];
+    if (!first) return [0];
+    return [...text.matchAll(new RegExp(`\\b${first}`, "gi"))].map((match) => match.index ?? 0);
+  }
+  return [...text.matchAll(new RegExp(source.source, "gi"))].map((match) => match.index ?? 0);
+}
+
+/**
+ * The dated part of the story about one moment: every date in the story, with
+ * the words around it (inside its sentence), tested against the cue. The
+ * moment's words must be near the date and nothing about a different kind of
+ * moment may sit between them, so "they served a motion and the hearing is on
+ * December 3" gives December 3 to the hearing question, not the served one.
+ */
+function datedMention(sentences: string[], cue: Cue, moment: keyof typeof MOMENT_WORDS): { sentence: string; date: string } | null {
+  let best: { sentence: string; date: string; distance: number } | null = null;
+  for (const sentence of sentences) {
+    for (const match of sentence.matchAll(DATE_ANYWHERE)) {
+      const at = match.index ?? 0;
+      const end = at + match[0].length;
+      const from = Math.max(0, at - 110);
+      const window = sentence.slice(from, end + 70);
+      if (!cueMatches(cue, window)) continue;
+      const other = MOMENT_WORDS[moment];
+      for (const position of cuePositions(cue, window).map((offset) => offset + from)) {
+        const between = position < at ? sentence.slice(position, at) : sentence.slice(end, position);
+        // The cue's own words may be "hearing" (a hearing question); only a
+        // DIFFERENT moment's word between them disqualifies.
+        const cleaned = cue.key.source.startsWith("(?=") ? between : between.replace(new RegExp(cue.key.source, "gi"), " ");
+        if (other.test(cleaned.replace(/^\w+/, ""))) continue;
+        const distance = Math.abs(position - at);
+        if (!best || distance < best.distance) best = { sentence, date: match[0], distance };
+      }
+    }
+  }
+  return best ? { sentence: best.sentence, date: best.date } : null;
+}
+
 export function storyHintsForDates(story: string | null | undefined, now: Date = new Date()): Record<string, StoryHint> {
   const hints: Record<string, StoryHint> = {};
   if (!story) return hints;
   const sentences = story.split(/(?<=[.!?])\s+|\n+/).map((sentence) => sentence.trim()).filter(Boolean);
-  for (const [questionId, cue] of Object.entries(STORY_CUES)) {
-    // Of the sentences about that moment, the one that names a date is the
-    // useful reminder ("The papers came on September 25." over "I was served a
-    // claim saying ...").
-    const about = sentences.filter((candidate) => cue.test(candidate));
-    const sentence = about.find((candidate) => MENTIONS_DATE.test(candidate)) ?? about[0];
+  for (const { id: questionId, question } of allDateQuestions()) {
+    const cue = cueFor(questionId, question);
+    if (!cue) continue;
+    // Of the sentences about that moment, the date nearest the moment's words
+    // is the useful one ("The papers came on September 25." over "I was
+    // served a claim saying ..."); with no date, the first such sentence is
+    // quoted as a reminder.
+    const dated = datedMention(sentences, cue, momentOf(questionId, question));
+    const sentence = dated?.sentence ?? sentences.find((candidate) => cueMatches(cue, candidate));
     if (!sentence) continue;
-    const match = FULL_DATE.exec(sentence);
-    const value = match ? parseUserDate(match[1].replace(/,/g, "")) : null;
-    const assumed = value ? null : assumedYearDate(sentence, now, UPCOMING_QUESTIONS.has(questionId));
+    const dateText = dated?.date ?? "";
+    const full = FULL_DATE.exec(dateText);
+    const value = full ? parseUserDate(full[1].replace(/,/g, "")) : null;
+    const assumed = value || !dateText ? null : assumedYearDate(dateText, now, UPCOMING_QUESTIONS.has(questionId));
     hints[questionId] = {
       quote: sentence.length > 240 ? `${sentence.slice(0, 237)}…` : sentence,
       value: value ?? assumed,
       ...(assumed ? { yearAssumed: true } : {}),
     };
   }
+  // For an injury claim the day of the injury IS the day the claim is based
+  // on, as in suggestedDatesFromAnswers (2026-10-09: a dog-bite story gave the
+  // date and the starting step asked for it again).
+  if (hints["sc-date-injury"]?.value && !hints["case-date-act-or-omission"]?.value) {
+    hints["case-date-act-or-omission"] = { ...hints["sc-date-injury"] };
+  }
   return hints;
+}
+
+/**
+ * The date written in one sentence of the person's story, for a form that
+ * would otherwise ask "The exact date, if you know it" beside that very
+ * sentence (held-back walkthrough, 2026-10-09: "Now the trial is on January
+ * 14 2027" was quoted and the date box was empty). A full date, year written,
+ * fills the date; a month and day without a year fills only the words, since
+ * the year would be a guess. The person still records it themselves.
+ */
+export function dateInSentence(sentence: string | null | undefined): { raw: string; iso: string | null } | null {
+  if (!sentence) return null;
+  const full = FULL_DATE.exec(sentence);
+  if (full) {
+    const iso = parseUserDate(full[1].replace(/,/g, ""));
+    return { raw: full[1], iso };
+  }
+  const partial = MONTH_DAY.exec(sentence);
+  return partial ? { raw: partial[0], iso: null } : null;
 }

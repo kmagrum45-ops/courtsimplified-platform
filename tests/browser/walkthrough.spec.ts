@@ -273,10 +273,17 @@ async function guidedSmallClaims(page: Page, persona: Persona, steps: Step[]) {
 }
 
 async function confirmStage(page: Page, persona: Persona, steps: Step[]) {
-  const select = page.getByTestId("stage-select");
-  if ((await select.count()) === 0) return;
-  await select.selectOption(persona.confirmStage);
-  await page.getByTestId("stage-confirm").click();
+  // One click when the site's suggestion is the persona's stage; otherwise
+  // "No, choose another" and the list (StageConfirmation, 2026-10-09).
+  const panel = page.getByTestId("stage-confirmation");
+  if ((await panel.count()) === 0) return;
+  if ((await panel.getAttribute("data-suggested")) === persona.confirmStage && (await page.getByTestId("stage-accept").count()) > 0) {
+    await page.getByTestId("stage-accept").click();
+  } else {
+    if ((await page.getByTestId("stage-change").count()) > 0) await page.getByTestId("stage-change").click();
+    await page.getByTestId("stage-select").selectOption(persona.confirmStage);
+    await page.getByTestId("stage-confirm").click();
+  }
   await page.waitForTimeout(3_000);
   await capture(page, persona, steps, "stage-confirmed");
   // A user offered "Count my deadline from <the date in my story>" takes it.

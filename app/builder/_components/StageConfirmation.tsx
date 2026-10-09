@@ -86,22 +86,58 @@ export default function StageConfirmation({
 
   const block = nextStepBlockFor(pathway, choice);
   const hasContent = Boolean(block && !isPlaceholder(block));
+  const choosing = changing || suggestedStage === "not-sure";
+
+  /*
+   * One line and one click when the suggestion is right (held-back
+   * walkthrough, 2026-10-09: a person who had just described being served
+   * read a full "Where is your case right now?" form as the site asking
+   * again). The list is there for anyone it got wrong. Still the person's
+   * confirmation (CLAUDE.md section 4): nothing follows until they press one.
+   */
+  if (!choosing) {
+    return (
+      <section
+        data-testid="stage-confirmation"
+        data-suggested={suggestedStage}
+        className="rounded-3xl border-2 border-[#2f7d67] bg-white p-5 shadow-sm"
+      >
+        <p className="text-sm leading-6 text-[#16302b]">
+          From what you told us: <strong className="text-[#10231f]">{labelFor(suggestedStage)}</strong>.
+        </p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <button
+            type="button"
+            data-testid="stage-accept"
+            onClick={() => onConfirm(suggestedStage)}
+            className="rounded-xl bg-[#2f7d67] px-5 py-2 text-sm font-semibold text-white"
+          >
+            Yes, that is right
+          </button>
+          <button
+            type="button"
+            data-testid="stage-change"
+            onClick={() => {
+              setChoice(suggestedStage);
+              setChanging(true);
+            }}
+            className="rounded-xl border border-[#d8e6df] bg-white px-5 py-2 text-sm font-semibold text-[#2f7d67]"
+          >
+            No, choose another
+          </button>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
       data-testid="stage-confirmation"
+      data-suggested={suggestedStage}
       className="rounded-3xl border-2 border-[#2f7d67] bg-white p-5 shadow-sm"
     >
-      <h3 className="text-lg font-bold text-[#10231f]">Where is your case right now?</h3>
-
-      <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-        From what you have told us, this looks like:{" "}
-        <strong className="text-[#10231f]">{labelFor(suggestedStage)}</strong>. Please confirm,
-        or choose a different one. We use this to decide which steps to show you.
-      </p>
-
-      <label className="mt-4 block">
-        <span className="text-sm font-semibold text-[#16302b]">Case stage</span>
+      <label className="block">
+        <span className="text-sm font-semibold text-[#16302b]">Which of these fits your case best?</span>
         <select
           aria-label="Case stage"
           data-testid="stage-select"
@@ -133,7 +169,7 @@ export default function StageConfirmation({
         }}
         className="mt-4 rounded-xl bg-[#2f7d67] px-5 py-3 font-semibold text-white"
       >
-        Confirm this stage
+        Use this
       </button>
     </section>
   );

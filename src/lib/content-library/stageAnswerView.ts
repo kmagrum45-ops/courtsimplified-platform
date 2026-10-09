@@ -302,11 +302,7 @@ function renderPublishedBlock(
     stageId,
     question: block.userQuestion,
     sections,
-    sources: block.citations.map((citation) => ({
-      name: SOURCE_NAMES[citation.sourceId],
-      pinpoint: citation.pinpoint,
-      url: OFFICIAL_URLS[citation.sourceId],
-    })),
+    sources: withDeadlineSources(block.citations, stageId),
     status: status as RenderedStageAnswer["status"],
     computed,
     release: { runId: PUBLISHED_RELEASE.runId, promotedAt: PUBLISHED_RELEASE.promotedAt },
@@ -319,6 +315,34 @@ function renderPublishedBlock(
  * "not-published" -- so the forum gate and the confirmed-fact rule have
  * already passed for this step -- and through the same guard.
  */
+/**
+ * The answer's own citations, then every provision its deadlines rest on --
+ * the rule, its exceptions and how the time is counted -- once each. The
+ * deadline prose names the discovery rule and the no-limit exceptions; their
+ * sections were missing from the source list (held-back walkthrough,
+ * 2026-10-09: "the listed Limitations Act source limited to 's. 4'").
+ */
+function withDeadlineSources(
+  citations: ReadonlyArray<{ sourceId: keyof typeof SOURCE_NAMES; pinpoint: string }>,
+  stageId: string,
+): RenderedSource[] {
+  const stage = findStage(stageId);
+  const fromDeadlines = (stage?.deadlines ?? []).flatMap((deadline) => [
+    ...(deadline.rule ? [deadline.rule] : []),
+    ...(deadline.exceptions ?? []),
+    ...(deadline.computation ? [deadline.computation] : []),
+  ]);
+  const seen = new Set<string>();
+  const out: RenderedSource[] = [];
+  for (const citation of [...citations, ...fromDeadlines]) {
+    const key = `${citation.sourceId}|${citation.pinpoint}`;
+    if (seen.has(key) || !SOURCE_NAMES[citation.sourceId]) continue;
+    seen.add(key);
+    out.push({ name: SOURCE_NAMES[citation.sourceId], pinpoint: citation.pinpoint, url: OFFICIAL_URLS[citation.sourceId] });
+  }
+  return out;
+}
+
 export function renderStageRulesOnly(stageId: string, dates: CaseDates = {}): RenderedStageAnswer | null {
   const stage = findStage(stageId);
   if (!stage || isSpecialStage(stageId)) return null;
@@ -346,11 +370,7 @@ export function renderStageRulesOnly(stageId: string, dates: CaseDates = {}): Re
     stageId,
     question: title,
     sections,
-    sources: stage.rules.map((rule) => ({
-      name: SOURCE_NAMES[rule.sourceId],
-      pinpoint: rule.pinpoint,
-      url: OFFICIAL_URLS[rule.sourceId],
-    })),
+    sources: withDeadlineSources(stage.rules, stageId),
     status: "rules-only",
     computed,
     release: { runId: "stage-map", promotedAt: "" },

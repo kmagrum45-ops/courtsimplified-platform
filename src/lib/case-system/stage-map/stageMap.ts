@@ -773,7 +773,7 @@ const PLAINTIFF: CaseStage[] = [
     side: "plaintiff",
     wentWrong: false,
     userQuestion: "How do I actually file my claim, and what does it cost?",
-    title: "Claim prepared but not filed",
+    title: "Starting your claim, not filed yet",
     description: "The claim has been written up but not yet filed with the court.",
     cues: [
       "I have filled out the form 7a",

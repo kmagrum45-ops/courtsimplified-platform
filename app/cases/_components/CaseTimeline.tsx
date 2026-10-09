@@ -114,8 +114,16 @@ export default function CaseTimeline({
   updateHref,
   canRecord = true,
   confirmedStage = null,
+  stepTitle = "",
 }: {
   caseId: string;
+  /**
+   * The exact step the person is at (the step on their Overview). It is what
+   * this page names, so the timeline never says "Conference / settlement step"
+   * to someone answering a counterclaim (held-back walkthrough, 2026-10-09):
+   * the records' own stage guess is only the fallback.
+   */
+  stepTitle?: string;
   /** Where "Update the analysis" goes: the builder for this case and its court. */
   updateHref: string;
   /**
@@ -287,11 +295,15 @@ export default function CaseTimeline({
       {/* Stage, with the reason. Both from one response, so they agree. */}
       <section className="mt-6 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
         <p className="text-xs font-semibold uppercase tracking-wide text-[#4f685f]">
-          What your records show
+          {stepTitle ? "Your step" : "What your records show"}
         </p>
         <p className="mt-1 text-lg font-bold text-[#10231f]">
           <span data-testid="case-stage" data-stage={data?.stage.stage ?? "unknown"}>
-            {(data?.stage.stage ?? "unknown") === "unknown" && confirmedStage
+            {stepTitle
+              ? stepTitle
+              : (data?.stage.stage ?? "unknown") === "unknown" && confirmedStage
+              ? stageLabel(confirmedStage)
+              : confirmedStage
               ? stageLabel(confirmedStage)
               : stageLabel(data?.stage.stage ?? "unknown")}
           </span>

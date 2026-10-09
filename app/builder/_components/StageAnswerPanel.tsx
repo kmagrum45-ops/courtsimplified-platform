@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
 import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-system/casePosition";
@@ -128,6 +128,7 @@ function NextStepCard({
   askedForDates,
   stepId,
   city,
+  fromStory = [],
 }: {
   summary: NextStepSummary;
   answer: RenderedAnswer;
@@ -137,31 +138,72 @@ function NextStepCard({
   stepId: string;
   /** The person's city, which decides the filing portal (Toronto region or not). */
   city: string;
+  /** Dates used for this count that came from the person's own words and are not yet saved. */
+  fromStory?: { label: string; date: string }[];
 }) {
   const practical = practicalFor(stepId, court as PracticalCourt, city);
   const today = todayIso();
   const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
-  const firstParagraph = toDo.split(/\n\s*\n/)[0]?.trim() ?? "";
+  const firstParagraph = forThisPerson(toDo.split(/\n\s*\n/)[0]?.trim() ?? "", {
+    userWords,
+    filingShown: Boolean(practical?.filing.length),
+  });
   const unit = (count: number, word: string) => `${count} ${count === 1 ? word.replace(/s$/, "") : word}`;
+  const isConditional = (what: string) => /^(if|where|when|unless)\b/i.test(what.trim());
+  const split = <T extends { what: string }>(items: T[]) => [items.filter((item) => !isConditional(item.what)), items.filter((item) => isConditional(item.what))];
+  const [mainDeadlines, laterDeadlines] = split(summary.deadlines);
+  const [mainPeriods, laterPeriods] = split(summary.periods);
+  // With nothing unconditional, the first limit leads rather than an empty card.
+  const main =
+    mainDeadlines.length + mainPeriods.length > 0
+      ? { deadlines: mainDeadlines, periods: mainPeriods }
+      : { deadlines: laterDeadlines.slice(0, 1), periods: laterDeadlines.length ? [] : laterPeriods.slice(0, 1) };
+  const conditional = {
+    deadlines: laterDeadlines.filter((item) => !main.deadlines.includes(item)),
+    periods: laterPeriods.filter((item) => !main.periods.includes(item)),
+  };
+  const deadlineItem = (deadline: NextStepSummary["deadlines"][number]) => (
+    <li key={`${deadline.what}-${deadline.date}`} data-testid="next-step-deadline">
+      <span className="font-semibold">{deadline.what}.</span> {deadline.statement}
+      {deadline.date < today ? <span className="font-semibold text-[#8a1c1c]"> That date has already passed.</span> : null}
+    </li>
+  );
+  const periodItem = (period: NextStepSummary["periods"][number]) => (
+    <li key={period.what} data-testid="next-step-period">
+      <span className="font-semibold">{period.what}.</span> {unit(period.count, period.unit)} after {period.countFrom}.
+      {askedForDates ? " Give the date below and we will count the last day for you." : ""}
+    </li>
+  );
   return (
     <div data-testid="next-step-card" className="mt-4 rounded-2xl border-2 border-[#2f7d67] bg-[#f2fbf7] p-4">
       <p className="text-xs font-semibold uppercase tracking-wide text-[#2f7d67]">Your next step</p>
       <p className="mt-1 text-sm text-[#4d675f]">Where you are: {summary.title}</p>
-      {summary.deadlines.length > 0 || summary.periods.length > 0 ? (
+      {fromStory.length > 0 ? (
+        <p data-testid="next-step-from-story" className="mt-2 text-sm leading-6 text-[#16302b]">
+          Counted from what you told us: {fromStory.map((entry) => `${entry.label} ${entry.date}`).join("; ")}. Check the date
+          below and save it to your case.
+        </p>
+      ) : null}
+      {main.deadlines.length > 0 || main.periods.length > 0 ? (
         <ul className="mt-3 space-y-2 text-sm leading-6 text-[#16302b]">
-          {summary.deadlines.map((deadline) => (
-            <li key={`${deadline.what}-${deadline.date}`} data-testid="next-step-deadline">
-              <span className="font-semibold">{deadline.what}.</span> {deadline.statement}
-              {deadline.date < today ? <span className="font-semibold text-[#8a1c1c]"> That date has already passed.</span> : null}
-            </li>
-          ))}
-          {summary.periods.map((period) => (
-            <li key={period.what} data-testid="next-step-period">
-              <span className="font-semibold">{period.what}.</span> {unit(period.count, period.unit)} after {period.countFrom}.
-              {askedForDates ? " Give the date below and we will count the last day for you." : ""}
-            </li>
-          ))}
+          {main.deadlines.map(deadlineItem)}
+          {main.periods.map(periodItem)}
         </ul>
+      ) : null}
+      {conditional.deadlines.length > 0 || conditional.periods.length > 0 ? (
+        // "If your action is under the simplified procedure ..." -- time limits
+        // that apply only in some cases. Folded, so the card leads with the one
+        // that applies now (held-back walkthrough, 2026-10-09: seven conditional
+        // limits each said "Give the date below").
+        <details data-testid="next-step-conditional" className="mt-3 text-sm leading-6 text-[#16302b]">
+          <summary className="cursor-pointer font-semibold text-[#2f7d67]">
+            Other time limits that may apply later ({conditional.deadlines.length + conditional.periods.length})
+          </summary>
+          <ul className="mt-2 space-y-2">
+            {conditional.deadlines.map(deadlineItem)}
+            {conditional.periods.map(periodItem)}
+          </ul>
+        </details>
       ) : null}
       {firstParagraph ? <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{firstParagraph}</p> : null}
       {/* The form, fee, filing and service for this step (Phase 2); the forms
@@ -246,6 +288,39 @@ async function savePosition(caseId: string, patch: Record<string, unknown>): Pro
   } catch {
     return false;
   }
+}
+
+/**
+ * The card's opening paragraph, without what does not concern this person
+ * (held-back walkthrough, 2026-10-09): the portal sentence when the card's
+ * own filing lines already name their portal ("Toronto uses ..." shown to a
+ * Hamilton plaintiff), and the mortgage-action form for someone whose case is
+ * not about a mortgage. Whole sentences or that one aside are dropped, never
+ * reworded; the full answer below keeps every word.
+ */
+export function forThisPerson(paragraph: string, { userWords, filingShown }: { userWords: string; filingShown: boolean }): string {
+  let text = paragraph;
+  if (!/\bmortgage/i.test(userWords)) {
+    text = text.replace(/,? or Form 14B for a mortgage action/g, "").replace(/ \(Form 14A, or Form 14B for a mortgage action\)/g, " (Form 14A)");
+  }
+  if (filingShown) {
+    text = text
+      .split(/(?<=[.!?])\s+/)
+      .filter((sentence) => !/\bportal\b/i.test(sentence))
+      .join(" ");
+  }
+  return text.trim();
+}
+
+/**
+ * "If you were served with a defendant's claim, what date was it served?" as
+ * the label of an answer already known: "Served with a defendant's claim".
+ */
+export function shortLabel(question: string): string {
+  const head = question.split("?")[0].split(/,\s*what date|,\s*what is/i)[0].replace(/^If\s+/i, "");
+  const served = /^you were (served with .+)$/i.exec(head);
+  const text = served ? served[1] : head.replace(/^(?:a|an|the)\s+/i, "");
+  return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
 function formatIso(iso: string): string {
@@ -350,6 +425,34 @@ export default function StageAnswerPanel({
    * side and "either side"; the rest is one tap away, never removed.
    */
   const [showOtherSide, setShowOtherSide] = useState(false);
+  /*
+   * A full date the person already gave -- in the guided intake, in their
+   * story, or found by the case reader in their words -- is USED for the count
+   * straight away and shown as theirs, instead of being asked again (held-back
+   * walkthrough, 2026-10-09: "on september 25 2026 his lawyer served me" and
+   * the page asked "what date was it served?"). Nothing is saved until they
+   * confirm it (CLAUDE.md section 4); "No, change it" drops it.
+   */
+  const [rejected, setRejected] = useState<Record<string, boolean>>({});
+  const [editing, setEditing] = useState<Record<string, boolean>>({});
+  const offeredKey = JSON.stringify(offeredDates);
+  const hintsKey = JSON.stringify(storyHints);
+  const storyDates = useMemo(() => {
+    const out: Record<string, { value: string; basis: string }> = {};
+    for (const [id, hint] of Object.entries(storyHints)) {
+      if (hint.value && !hint.yearAssumed) out[id] = { value: hint.value, basis: `from your story: “${hint.quote}”` };
+    }
+    for (const [id, offered] of Object.entries(offeredDates)) {
+      if (offered.value && !offered.yearAssumed) out[id] = { value: offered.value, basis: offered.basis };
+    }
+    return out;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [offeredKey, hintsKey]);
+  const withStoryDates = (answers: Record<string, string>, dropped: Record<string, boolean> = rejected) => {
+    const fromStory: Record<string, string> = {};
+    for (const [id, date] of Object.entries(storyDates)) if (!dropped[id]) fromStory[id] = date.value;
+    return { ...fromStory, ...answers };
+  };
   const amountNote = amountNoteFor({ courtPath, stepId: stageId, recordedAmount });
 
   // Dates saved to the case after this panel mounted (the guided intake's
@@ -372,14 +475,19 @@ export default function StageAnswerPanel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startingStep]);
 
-  async function load(id: string, facts: Record<string, string> = {}, answers: Record<string, string> = dateAnswers) {
+  async function load(
+    id: string,
+    facts: Record<string, string> = {},
+    answers: Record<string, string> = dateAnswers,
+    dropped: Record<string, boolean> = rejected,
+  ) {
     setLoading(true);
     setFailed(false);
     try {
       const response = await fetch("/api/case/stage-answer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ stageId: id, courtPath, confirmedFacts: facts, dateAnswers: answers }),
+        body: JSON.stringify({ stageId: id, courtPath, confirmedFacts: facts, dateAnswers: withStoryDates(answers, dropped) }),
       });
       if (!response.ok) throw new Error(String(response.status));
       setResult((await response.json()) as Response);
@@ -518,9 +626,12 @@ export default function StageAnswerPanel({
           answer={result.answer}
           court={courtPath}
           userWords={userWords}
-          askedForDates={(result.dateQuestions?.length ?? 0) > 0}
+          askedForDates={(result.dateQuestions ?? []).some((question) => !dateAnswers[question.id] && !(storyDates[question.id] && !rejected[question.id]))}
           stepId={stageId}
           city={city}
+          fromStory={(result.dateQuestions ?? [])
+            .filter((question) => !dateAnswers[question.id] && storyDates[question.id] && !rejected[question.id])
+            .map((question) => ({ label: "", date: formatIso(storyDates[question.id].value) }))}
         />
       ) : null}
 
@@ -540,6 +651,52 @@ export default function StageAnswerPanel({
                   ? { value: hint.value, basis: `from your story: “${hint.quote}”`, yearAssumed: hint.yearAssumed }
                   : undefined);
               const value = dateDraft[question.id] ?? "";
+              const saved = dateAnswers[question.id];
+              const fromStory = !saved && !rejected[question.id] ? storyDates[question.id] : undefined;
+              if ((saved || fromStory) && !editing[question.id]) {
+                return (
+                  <div key={question.id} data-testid={`stage-answer-known-${question.id}`}>
+                    <p className="text-sm text-[#16302b]">
+                      <span className="font-semibold">{shortLabel(question.question)}:</span> {formatIso(saved || fromStory!.value)}
+                    </p>
+                    <p className="text-xs text-[#4d675f]">
+                      {saved ? "Saved to your case." : `${fromStory!.basis.replace(/^from your story/, "From your story")}`} Used for:{" "}
+                      {question.sets.join("; ")}
+                    </p>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {fromStory ? (
+                        <button
+                          type="button"
+                          data-testid={`stage-answer-date-suggestion-${question.id}`}
+                          onClick={() => {
+                            const draft = { ...dateDraft, [question.id]: fromStory.value };
+                            setDateDraft(draft);
+                            void countDeadline(draft);
+                          }}
+                          className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
+                        >
+                          Yes, save this date
+                        </button>
+                      ) : null}
+                      <button
+                        type="button"
+                        data-testid={`stage-answer-date-change-${question.id}`}
+                        onClick={() => {
+                          setEditing({ ...editing, [question.id]: true });
+                          if (fromStory) {
+                            const dropped = { ...rejected, [question.id]: true };
+                            setRejected(dropped);
+                            void load(stageId, municipality ? { municipality } : {}, dateAnswers, dropped);
+                          }
+                        }}
+                        className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]"
+                      >
+                        {fromStory ? "No, change it" : "Change"}
+                      </button>
+                    </div>
+                  </div>
+                );
+              }
               return (
                 <div key={question.id}>
                   <label className="block">

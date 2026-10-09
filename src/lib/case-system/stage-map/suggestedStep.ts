@@ -31,7 +31,15 @@ export function stepNamedInStory(courtPath: StagePathway, responding: boolean, s
   const defaultJudgment =
     /\bdefault judg(?:e)?ment\b[^.]{0,30}\b(?:signed|entered|obtained|granted|issued|against (?:me|us))\b/.test(text) ||
     /\b(?:got|obtained|has|have|signed) (?:a )?default judg(?:e)?ment\b/.test(text);
+  // The other side's claim back against the person (held-back walkthrough,
+  // 2026-10-09: "now i got served with something called a defendants claim"
+  // and "served me with a statement of defence and counterclaim" were both
+  // left to find their step in a list).
+  const servedWithClaimBack = /\b(?:defendant'?s claim|counter-?claim|suing me back|sued me back)\b/.test(text);
+  const crossclaim = /\bcross-?claim\b/.test(text);
+  const thirdPartyClaim = /\bthird[- ]party claim\b/.test(text);
   if (courtPath === "small-claims") {
+    if (!responding && servedWithClaimBack) return "plaintiff:served-with-defendants-claim";
     if (responding && defaultJudgment) return "defendant:default-judgment-against-me";
     if (responding && notedInDefault) return "defendant:noted-in-default";
     if (!responding && notedInDefault) return "plaintiff:defendant-noted-in-default";
@@ -42,6 +50,9 @@ export function stepNamedInStory(courtPath: StagePathway, responding: boolean, s
     if (responding && notedInDefault) return "civil:defendant:noted-in-default";
     if (!responding && notedInDefault) return "civil:plaintiff:defendant-noted-in-default";
     if (/\bsummary judg(?:e)?ment\b/.test(text)) return "civil:both:summary-judgment-motion";
+    if (!responding && servedWithClaimBack) return "civil:plaintiff:served-with-counterclaim";
+    if (responding && crossclaim) return "civil:defendant:served-with-crossclaim";
+    if (responding && thirdPartyClaim) return "civil:defendant:served-with-third-party-claim";
     return "";
   }
   // Family.

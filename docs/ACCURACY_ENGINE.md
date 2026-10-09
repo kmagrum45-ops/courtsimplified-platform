@@ -2262,3 +2262,24 @@ The 30 held-back questions (lawExam/holdout.json), never used for tuning, run on
 cold: 52/60 (87%), law found 89%. Full report: docs/law-exam/holdout-2026-10-08.md.
 This is the honest measure; the tuning-set score (83%) was earned on questions the
 fixes were aimed at.
+
+## Dates the person gave are used, not asked again (held-back walkthrough, 2026-10-09)
+
+The held-back run failed "doesn't re-ask" in all 10 cases. The cause was not the
+AI: `storyHintsForDates` had hand-written cues for 20 of the 64 date questions,
+so "on september 25 2026 his lawyer served me with a statement of defence and
+counterclaim" matched nothing and the step asked "what date was it served?".
+
+- Every date question now has a cue: its written one (`STORY_CUES`,
+  `EXTRA_CUES`) or one built from its own wording (`genericCue`: every naming
+  word of the document or event, plus the served/filed/issued verb).
+- A date goes to the moment nearest it, and never across a word naming a
+  different kind of moment (`MOMENT_WORDS`): "they served a motion and the
+  hearing is on December 3" gives December 3 to the hearing, not the service.
+  This caught me: a whole-sentence cue gave one date to five questions.
+- The step panel counts the deadline from a full date the person gave and shows
+  it as theirs ("Yes, save this date" / "No, change it"); nothing is saved until
+  they confirm. A month and day with no year still asks which year.
+- Conditional time limits ("If your action is under the simplified procedure")
+  are folded under the one that applies now.
+- Checks: `test:user-story` (the held-back stories), `test:responding-side`.
