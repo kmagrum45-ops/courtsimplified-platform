@@ -106,6 +106,12 @@ check(
 );
 const lastYear = storyHintsForDates("The papers came on December 3.", now)["sc-date-claim-served"];
 check("a date later in the year is last year's", lastYear?.value === "2025-12-03", JSON.stringify(lastYear));
+// Something still to come is the NEXT such date (walkthrough, 2026-10-08: a
+// November 20 case conference, told in October, was read as last November's).
+const conference = storyHintsForDates("Now there is a case conference on November 20.", now)["case-date-case-conference-date"];
+check("an upcoming conference with no year is this year's or next, never past", conference?.value === "2026-11-20" && conference.yearAssumed === true, JSON.stringify(conference));
+const nextYear = storyHintsForDates("The settlement conference is on March 3.", now)["sc-date-settlement-conference"];
+check("an upcoming date earlier in the year is next year's", nextYear?.value === "2027-03-03", JSON.stringify(nextYear));
 const withYear = storyHintsForDates("I was served on September 20, 2026.", now)["sc-date-claim-served"];
 check("a date with its year is not marked assumed", withYear?.value === "2026-09-20" && !withYear.yearAssumed, JSON.stringify(withYear));
 
