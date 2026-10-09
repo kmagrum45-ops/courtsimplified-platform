@@ -1,0 +1,9 @@
+▲ Next.js 16.2.4
+- Local:         http://localhost:3100
+- Network:       http://10.1.1.150:3100
+✓ Ready in 152ms
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+[caseStrengthLanguageValidator] blanked cognition.systemWarnings[1] (matched term "prospects of success", 88 chars)
+[groundedCognition] 7 unverified statement(s) removed: element.explanation (presented as a fact but states law or procedure); claim.explanation (presented as a fact but states law or procedure); claim.explanation (presented as a fact but states law or procedure); missing.reason (no source cited); missing.reason (presented as a fact but states law or procedure); missing.reason (no source cited); missing.reason (presented as a fact but states law or procedure)
+[caseStrengthLanguageValidator] blanked cognition.systemWarnings[5] (matched term "chances of success", 109 chars)
+[groundedCognition] 3 unverified statement(s) removed: claim.explanation (presented as a fact but states law or procedure); link.explanation (presented as a fact but states law or procedure); nextBestActions (no source cited)

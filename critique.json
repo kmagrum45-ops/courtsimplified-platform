@@ -1,0 +1,2440 @@
+{
+  "held-back-civil-served-counterclaim": {
+    "findings": [
+      {
+        "step": "intake-form",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Human Rights ground, if any",
+        "problem": "The intake displays numerous unrelated discrimination, government and institutional-failure fields instead of focusing on this plaintiff's response to a salary counterclaim.",
+        "fix": "Use the story to show counterclaim-response questions first and hide unrelated issue fields unless the user selects those issues."
+      },
+      {
+        "step": "spelling-suggestions",
+        "category": "typo-kept",
+        "severity": "low",
+        "quote": "I sued my former business partner in superior court for 110000 he took from our company account.",
+        "problem": "The suggested correction retains the run-on construction and fails to capitalize the court name.",
+        "fix": "Suggest a grammatically complete sentence that preserves the allegation and amount while correctly naming the Superior Court."
+      },
+      {
+        "step": "intake-filled",
+        "category": "missing",
+        "severity": "high",
+        "quote": "within twenty days after service",
+        "problem": "The explanation gives only a period although the story already supplies the September 25, 2026 service date.",
+        "fix": "Explain that the ordinary deadline is October 15, 2026, citing the response and time-counting rules, while asking whether a defence has already been delivered."
+      },
+      {
+        "step": "after-analysis",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Open your case page",
+        "problem": "This results page does not answer the user's immediate counterclaim question or identify Form 27C and its deadline.",
+        "fix": "Show the counterclaim-response next step and calculated deadline immediately, even if the user has not confirmed the broader stage."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Give the date below and we will count the last day for you.",
+        "problem": "The next-step card does not calculate the October 15, 2026 deadline from the service date already provided.",
+        "fix": "Populate the service date from the story and show the calculated deadline with the counting rule and an option to correct the date."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "If you were served with a defendant's claim, what date was it served?",
+        "problem": "The calculator asks again for the September 25, 2026 service date already given in the story.",
+        "fix": "Carry the existing date into the calculator and ask only for correction or genuinely missing information."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "a defendant's claim",
+        "problem": "The calculator uses a different document label from the Superior Court statement of defence and counterclaim this person received.",
+        "fix": "Label the field as the service date of the statement of defence and counterclaim."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Set the action down for trial, or the registrar will dismiss it for delay.",
+        "problem": "The immediate next-step card mixes the urgent counterclaim response with numerous later discovery, mediation and trial-stage tasks.",
+        "fix": "Keep Form 27C and its delivery deadline in the immediate card and place applicable later tasks in a separate future-steps section."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "If your action is under the simplified procedure",
+        "problem": "The page repeatedly makes instructions conditional on simplified procedure without explaining how this user can identify whether their $110,000 action uses it.",
+        "fix": "Explain the relevant Rule 76 criteria and show how to check the existing claim's heading before assigning simplified-procedure tasks."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "If a deadline is 3 business days away or fewer, you cannot file online for it.",
+        "problem": "The page prohibits online filing near the deadline but gives no alternative filing route, despite the October 15 deadline being only three business days after October 9 when Thanksgiving is excluded.",
+        "fix": "Apply the restriction to the calculated deadline and provide the appropriate court-counter filing instructions for the existing action."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Other documents go to the other side's lawyer if they have one",
+        "problem": "The service section identifies the recipient but does not explain an actual permitted method for serving the lawyer who represents the former partner.",
+        "fix": "Explain the applicable Rule 16.05 service methods, their effective-service timing and how to complete Form 16B."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "Deliver means serve and file with proof of service.",
+        "problem": "The same lengthy response-and-reply explanation appears both before the form information and again under the full answer.",
+        "fix": "Keep a short actionable summary above the form and put the detailed explanation in one clearly labelled expandable section."
+      },
+      {
+        "step": "forward-to-results",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "If you were served with a defendant's claim, what date was it served?",
+        "problem": "Returning to results still asks for the service date already supplied rather than carrying it through the journey.",
+        "fix": "Persist the extracted September 25, 2026 service date across navigation and use it automatically."
+      },
+      {
+        "step": "forward-to-results",
+        "category": "missing",
+        "severity": "high",
+        "quote": "20 days after the day the statement of defence and counterclaim was served on you.",
+        "problem": "The returned results page still shows no October 15, 2026 response deadline.",
+        "fix": "Show the calculated deadline consistently whenever the next-step card is displayed."
+      },
+      {
+        "step": "case-overview",
+        "category": "contradiction",
+        "severity": "high",
+        "quote": "What your records say: Conference / settlement step",
+        "problem": "The recorded-stage summary conflicts with the same page's correct identification of an unanswered counterclaim.",
+        "fix": "Record the current step as responding to the counterclaim and do not infer a conference stage merely from receipt of a defence."
+      },
+      {
+        "step": "case-overview",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Give the date below and we will count the last day for you.",
+        "problem": "The saved case overview still does not use the known service date to display the response deadline.",
+        "fix": "Save the service event and show October 15, 2026 as the ordinary Form 27C delivery deadline."
+      },
+      {
+        "step": "case-overview",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "In the Toronto region, file online through the Ontario Courts Public Portal.",
+        "problem": "The saved overview reintroduces Toronto filing instructions although the intake recorded Kingston and the earlier results filtered them out.",
+        "fix": "Preserve location-based filtering and identify the filing route for the court handling the existing action."
+      },
+      {
+        "step": "case-timeline",
+        "category": "contradiction",
+        "severity": "high",
+        "quote": "Conference / settlement step",
+        "problem": "The timeline labels the case as a conference or settlement step while the recorded story and next-step card establish a counterclaim response.",
+        "fix": "Use the counterclaim-response stage and distinguish receipt of the opponent's defence from completion of the user's response."
+      },
+      {
+        "step": "case-timeline",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Nothing dated yet.",
+        "problem": "The timeline omits the explicitly dated September 25, 2026 service event.",
+        "fix": "Add the service event with its source identified as the user's story and allow the user to correct or confirm it without re-entering it."
+      },
+      {
+        "step": "case-forms",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Other documents go to the other side's lawyer if they have one",
+        "problem": "The forms page again gives no practical method for serving the former partner's lawyer.",
+        "fix": "Provide a sourced lawyer-service method and effective-service timing alongside Form 27C and Form 16B."
+      },
+      {
+        "step": "case-forms",
+        "category": "missing",
+        "severity": "high",
+        "quote": "If a deadline is 3 business days away or fewer, you cannot file online for it.",
+        "problem": "The filing section again supplies no usable alternative for this imminent deadline.",
+        "fix": "Show the calculated deadline and the appropriate non-online filing route for the existing court file."
+      },
+      {
+        "step": "case-forms",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "Which Civil Rules pleading are you preparing?",
+        "problem": "The page asks the user to select the pleading after already identifying their next form as Defence to Counterclaim.",
+        "fix": "Preselect Form 27C from the recorded next step and offer a change option rather than asking the user to identify it again."
+      },
+      {
+        "step": "case-forms",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "We can match forms to your answers here only when you are starting a case or responding to one.",
+        "problem": "The page offers matching questions but suggests matching is unavailable even though this plaintiff is responding to a counterclaim.",
+        "fix": "Treat responding to a counterclaim as a supported response stage and state clearly what the matching tool can do here."
+      },
+      {
+        "step": "case-forms",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Showing 240 of 240 forms.",
+        "problem": "The default catalogue displays unrelated attendance, vexatious-litigant and other forms instead of a focused set for the counterclaim response.",
+        "fix": "Default to the forms needed for this response and keep the complete catalogue behind an optional browse control."
+      },
+      {
+        "step": "case-case-file",
+        "category": "missing",
+        "severity": "high",
+        "quote": "None yet. Give the dates asked for under “Your next step”",
+        "problem": "The printable case file omits the response deadline and directs the user to supply a date already reproduced in its own story section.",
+        "fix": "Include the September 25 service event and October 15, 2026 deadline in the printable file with their sources."
+      },
+      {
+        "step": "reload-reopens-case",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "If you were served with a defendant's claim, what date was it served?",
+        "problem": "Reloading the saved case still asks for the known service date.",
+        "fix": "Persist the service date as structured case data and restore it on reload."
+      },
+      {
+        "step": "reload-reopens-case",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Give the date below and we will count the last day for you.",
+        "problem": "Even after reopening the saved case, the next-step card supplies only the response period rather than the known-date deadline.",
+        "fix": "Display October 15, 2026 consistently and update its urgency or overdue status as the current date changes."
+      }
+    ],
+    "overall": "The journey correctly recognizes that this plaintiff must answer a counterclaim using Form 27C, avoids a new claim draft and does not grade either claim. Its most serious failure is leaving the known service date unstructured and the October 15, 2026 deadline uncalculated throughout the saved case. The filing and service instructions also stop short of a usable plan for an imminent deadline and a represented opponent. Correcting the conflicting conference-stage label and separating later procedural tasks from the immediate response would make the guidance substantially clearer.",
+    "finishLine": {
+      "nextForm": {
+        "result": "pass",
+        "why": "The next-step card correctly says “Deliver a defence to counterclaim (Form 27C),” and no new Statement of Claim draft is offered."
+      },
+      "deadline": {
+        "result": "fail",
+        "why": "Despite the September 25, 2026 service date, the pages say “Give the date below” instead of calculating the October 15, 2026 deadline."
+      },
+      "fileFeeService": {
+        "result": "fail",
+        "why": "The pages show the $194 fee and online portals, but “Other documents go to the other side's lawyer” does not explain how to serve that lawyer, and the online-filing restriction has no alternative route."
+      },
+      "noRepeat": {
+        "result": "fail",
+        "why": "“If you were served with a defendant's claim, what date was it served?” repeatedly asks for the date already supplied, including after navigation and reload."
+      },
+      "onTopic": {
+        "result": "fail",
+        "why": "The overview and timeline prominently say “Conference / settlement step” although the user's immediate stage is answering the counterclaim."
+      },
+      "sourced": {
+        "result": "fail",
+        "why": "Fees, filing and service carry sources, but the visible multi-task deadline card and jury instructions do not carry sources covering each statement; the displayed summary source list names only Rules 27.01, 27.02, 1.03 and 27.05."
+      },
+      "noGrading": {
+        "result": "pass",
+        "why": "Nothing assesses either claim's merits or predicts this user's outcome; the conditional settlement-discussion instructions describe procedural tasks rather than urging a settlement."
+      },
+      "limits": {
+        "result": "pass",
+        "why": "The forms page says “We cannot fill this one in for you yet. Use the official form file,” and the journey supplies referral and legal-help options."
+      },
+      "conversation": {
+        "result": "fail",
+        "why": "The tailored question is asked one at a time with “Why this matters,” but the journey repeatedly requests the known service date and does not turn the user's question into an immediate dated action plan."
+      }
+    }
+  },
+  "held-back-civil-summary-judgment": {
+    "findings": [
+      {
+        "step": "intake-form",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Human Rights ground, if any",
+        "problem": "The intake mixes this invoice dispute with extensive human-rights, government, privacy and other unrelated questions, which remain visible after the motion-response situation is known.",
+        "fix": "Once the story identifies an existing summary judgment motion, show only relevant motion-response questions and leave other issue fields optional and collapsed."
+      },
+      {
+        "step": "after-analysis",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "Where is your case right now?",
+        "problem": "The page asks the user to confirm a stage already explicitly established by their account of a served summary judgment motion and scheduled hearing.",
+        "fix": "Record the motion-response stage from the story and offer an optional correction without requiring another answer."
+      },
+      {
+        "step": "after-analysis",
+        "category": "jargon",
+        "severity": "low",
+        "quote": "Verified workflow guidance only",
+        "problem": "This internal-sounding status label does not explain what the defendant needs to do.",
+        "fix": "Replace the label with a plain heading identifying the rules for responding to the summary judgment motion."
+      },
+      {
+        "step": "after-analysis",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Civil Rule 37 governs motion jurisdiction and procedure.",
+        "problem": "The initial results page gives only a generic motion rule rather than answering the user's urgent question about responding documents and dates.",
+        "fix": "Immediately show the defendant's responding factum, evidence and responding motion record requirements, with deadlines calculated from December 3, 2026."
+      },
+      {
+        "step": "after-analysis",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Create Statement of Defence (Form 18A) draft",
+        "problem": "The offered draft is for a defence that the company has already filed, not its response to the summary judgment motion.",
+        "fix": "Offer preparation of the responding affidavit, factum and motion record instead of another defence."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "If you are bringing the motion for summary judgment",
+        "problem": "The defendant's next-step card leads with the supplier's moving-party tasks, and this irrelevant branch persists through the counted results, overview and reload.",
+        "fix": "Filter the next-step card to the known responding party and keep moving-party information out of its primary instructions."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "contradiction",
+        "severity": "high",
+        "quote": "4 days after the date the motion will be heard, counting backwards",
+        "problem": "The card says 'after' while the detailed answer says 'before', making the uncounted deadline instructions contradictory.",
+        "fix": "Say 'at least four days before the hearing, excluding weekends and holidays under the applicable rule' and show the calculated date immediately."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "If you are responding, serve your affidavits and other evidence",
+        "problem": "The results do not warn that a corporation must be represented by a lawyer unless the court grants leave under rule 15.01(2), despite knowing that the company is the defendant.",
+        "fix": "Prominently explain rule 15.01(2), distinguish giving witness evidence from representing the company, and direct the user to an Ontario civil-litigation lawyer for timely help."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "serve your factum",
+        "problem": "The central required document is named without explaining that a factum is the written argument or how it differs from affidavit evidence.",
+        "fix": "Define the factum in plain language and provide a respondent-specific outline alongside the affidavit and motion-record instructions."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "draw an adverse inference",
+        "problem": "The page uses an unexplained legal expression in its warning about witnesses with personal knowledge.",
+        "fix": "Explain neutrally that the court may draw an unfavourable conclusion from the absence of evidence from a knowledgeable witness, without predicting what it will do here."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "You must set out specific facts, in affidavits or other evidence",
+        "problem": "The generic instructions do not explain how the already identified defective-parts photos and complaint emails can be organized as evidence for this motion.",
+        "fix": "Explain how a witness with relevant knowledge can describe the disputed deliveries and identify the photos and emails as affidavit exhibits, with instructions for swearing or affirming the affidavit."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Form 37A — Notice of Motion",
+        "problem": "The forms panel foregrounds the form for bringing a motion rather than the responding affidavit and service forms, and the same mismatch appears on later results, overview and Forms pages.",
+        "fix": "Feature Form 4D and Form 16B, explain that the responding factum and motion record are documents rather than a new notice of motion, and show Form 37B only with its applicable condition."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Filing a motion (paid by the person bringing it): $339",
+        "problem": "The fee section states the supplier's fee but never tells this defendant whether filing the responding materials attracts a fee.",
+        "fix": "State the applicable fee or absence of a fee for the responding filings, with an official source, rather than using the moving party's fee as the answer."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Civil Claims Online or Civil Submissions Online portal",
+        "problem": "The filing instructions do not identify which portal accepts the responding motion materials or explain what to do when the stated online deadline restriction applies.",
+        "fix": "Identify the appropriate submission route for these documents and give the court-office filing alternative for deadlines three business days away or fewer."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "by mailing a copy of the document",
+        "problem": "Mail is offered as a service method without explaining deemed service timing, which the defendant needs to meet the November 27 service deadline.",
+        "fix": "Explain the applicable deemed-service rule for mail and permitted service methods for the supplier's lawyer, making clear when service must take effect."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "If you are responding, you cannot rest only on what your pleading says or denies.",
+        "problem": "The same lengthy procedural paragraph is displayed in the next-step card and again under 'What to do next', with further overlapping instructions under 'Your deadline'.",
+        "fix": "Use a short respondent checklist at the top and put explanations and sources in a single detailed section."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "all sources are in the full answer below",
+        "problem": "The displayed source list cites the summary judgment test but does not attach the relevant rule 20.02, 20.03 and 37.10 citations to the card's evidence and filing requirements.",
+        "fix": "Place the applicable rule citation or official link beside each evidence, factum, motion-record and deadline requirement."
+      },
+      {
+        "step": "deadline-counted",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "by 10 a.m. four days before the hearing",
+        "problem": "The conditional responding-party confirmation deadline remains a relative period even after the hearing date has been counted.",
+        "fix": "Show the applicable conditional Form 37B deadline as November 27, 2026 at 10 a.m., with its rule and trigger."
+      },
+      {
+        "step": "case-overview",
+        "category": "contradiction",
+        "severity": "high",
+        "quote": "What your records say: Conference / settlement step",
+        "problem": "The overview classifies the case as a conference or settlement step while also recording the confirmed motion stage and scheduled summary judgment hearing, and the contradiction survives reload.",
+        "fix": "Reconcile the recorded defence and served motion into one consistent motion-response stage across the overview, timeline and saved case."
+      },
+      {
+        "step": "case-overview",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "In the Toronto region, file online through the Ontario Courts Public Portal.",
+        "problem": "The saved overview adds Toronto filing guidance even though the journey has recorded Barrie, and this irrelevant regional branch also appears on Forms and reload.",
+        "fix": "Preserve the recorded location and show the applicable filing route, allowing the user to correct the court location if necessary."
+      },
+      {
+        "step": "case-timeline",
+        "category": "contradiction",
+        "severity": "high",
+        "quote": "Conference / settlement step",
+        "problem": "The timeline repeats the incorrect conference classification instead of the confirmed motion-response stage.",
+        "fix": "Display the summary judgment response stage and record the December 3, 2026 hearing as the event anchoring its deadlines."
+      },
+      {
+        "step": "case-timeline",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "2026-11-24",
+        "problem": "The first deadline entry is the moving party's deadline, presented in the defendant's personal timeline as though it were one of their tasks.",
+        "fix": "Keep only the defendant's deadlines in their task timeline and label any necessary opponent deadline separately."
+      },
+      {
+        "step": "case-timeline",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Nothing recorded yet.",
+        "problem": "The event list does not record the defence already filed or the known December 3 hearing, despite displaying deadlines derived from that hearing.",
+        "fix": "Save the supplied procedural events with their provenance and request only genuinely missing event dates."
+      },
+      {
+        "step": "case-forms",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Which civil motion document are you preparing?",
+        "problem": "The form matcher offers a Notice of Motion or an exception to notice rather than the documents needed to respond to the motion already served.",
+        "fix": "Use the known responding role to present affidavit, factum, responding motion record and proof-of-service guidance without a moving-party questionnaire."
+      },
+      {
+        "step": "case-forms",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "Answer these and we will show the official forms that match your answers.",
+        "problem": "The page promises matching for its motion question but then says matching is available only when starting a case or responding to one.",
+        "fix": "State the motion-matching limitation before any questionnaire and provide a reliable respondent-specific document list instead."
+      },
+      {
+        "step": "case-forms",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Showing 240 of 240 forms.",
+        "problem": "The default forms list overwhelms the motion respondent with unrelated documents instead of prioritizing the required responding forms.",
+        "fix": "Default to forms relevant to this response and make the complete official catalogue an optional browsing view."
+      },
+      {
+        "step": "case-drafts",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Statement of Defence (Form 18A)",
+        "problem": "The drafts page again promotes a defence already filed while omitting dedicated responding factum and motion-record preparation.",
+        "fix": "Prioritize the responding affidavit, factum and motion-record index, and place any existing-defence work in a secondary option."
+      },
+      {
+        "step": "case-drafts",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "0 items from your timeline and dated documents",
+        "problem": "The chronology draft has no events even though the story supplies a dated hearing and identifies the filed defence and served motion.",
+        "fix": "Populate known events from the story, retaining unknown dates as unknown rather than discarding the events."
+      },
+      {
+        "step": "case-case-file",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "2026-11-24: If you are bringing the motion for summary judgment",
+        "problem": "The printable defendant case file includes the supplier's moving-party deadline among the user's deadlines.",
+        "fix": "Print only responding-party obligations in the user's deadline list and explicitly distinguish any opponent obligations."
+      },
+      {
+        "step": "case-case-file",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Steps you recorded",
+        "problem": "The portable case file says nothing is recorded despite the supplied defence, served motion and dated hearing, leaving those events buried in the story.",
+        "fix": "Include a structured procedural history and the December 3, 2026 hearing date alongside the responding deadlines."
+      }
+    ],
+    "overall": "The journey identifies the correct court and motion-response issue, calculates the main responding deadlines correctly, and avoids predicting the outcome. However, it repeatedly mixes the supplier's obligations into the defendant's tasks and points to starting-motion or already-filed defence forms. The most serious omission is the corporation's representation restriction, while conflicting stage records persist into the saved case and reload. A respondent-only checklist, appropriate forms and preparation guidance, complete filing and service instructions, and consistent saved events would make this substantially more usable.",
+    "finishLine": {
+      "nextForm": {
+        "result": "fail",
+        "why": "Although the card names responding documents, its forms panel leads with 'Form 37A — Notice of Motion' rather than the responding affidavit and proof-of-service forms."
+      },
+      "deadline": {
+        "result": "fail",
+        "why": "The principal responding deadlines are correctly counted to 'Friday 27 November 2026', but the conditional confirmation deadline remains 'by 10 a.m. four days before the hearing' despite the known date."
+      },
+      "fileFeeService": {
+        "result": "fail",
+        "why": "Filing and service sections exist, but 'Filing a motion (paid by the person bringing it): $339' does not answer the respondent's fee question, and the portal and mail-service instructions are incomplete."
+      },
+      "noRepeat": {
+        "result": "fail",
+        "why": "After the user explicitly described the served motion and hearing, the results still ask 'Where is your case right now?' and require stage confirmation."
+      },
+      "onTopic": {
+        "result": "fail",
+        "why": "The defendant's next-step card repeatedly starts with 'If you are bringing the motion for summary judgment', and the overview foregrounds an incorrect 'Conference / settlement step'."
+      },
+      "sourced": {
+        "result": "fail",
+        "why": "Several sections carry useful citations, but the next-step source list does not supply the applicable evidence and responding-procedure sources beside those requirements, instead saying 'all sources are in the full answer below'."
+      },
+      "noGrading": {
+        "result": "pass",
+        "why": "The pages state the rule-based test, including 'no genuine issue that needs a trial', without assessing whether this company's response will succeed or pushing settlement."
+      },
+      "limits": {
+        "result": "fail",
+        "why": "Generic referrals appear under 'Want a person to check this step with you?', but the pages never disclose the corporation-specific representation restriction or direct the company to help with it."
+      },
+      "conversation": {
+        "result": "fail",
+        "why": "The guided question usefully asks one question and explains 'Why this matters', but the journey surrounds it with a broad intake, repeats the stage question and answers the document question using unexplained terms such as 'factum'."
+      }
+    }
+  },
+  "held-back-civil-wrongful-dismissal": {
+    "findings": [
+      {
+        "step": "intake-form",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Human Rights ground, if any",
+        "problem": "The intake displays discrimination, government, institutional and other unrelated fields without tailoring them to this wrongful-dismissal story, and repeats them on subsequent intake views.",
+        "fix": "After reading the story, show employment-action questions and keep unrelated issue fields behind an optional change-of-issue control."
+      },
+      {
+        "step": "intake-form",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Confirm the civil details needed next",
+        "problem": "The page presents a large questionnaire without explaining which questions this employee needs to answer to start the action or why most of them matter.",
+        "fix": "Acknowledge the dismissal story and guide the employee through one relevant question at a time with a short explanation where needed."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "contradiction",
+        "severity": "high",
+        "quote": "Where you are: Statement of claim prepared, not yet issued",
+        "problem": "The site asserts that a claim is prepared without evidence of a prepared claim, repeats this on later results and overview pages, and ultimately shows 'No drafts yet.'",
+        "fix": "Describe the stage as preparing to start an action and direct the user to prepare Form 14A before having it issued."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Form 14B for a mortgage action",
+        "problem": "The opening next-step instructions include a mortgage form and unrelated construction, class-proceeding and property branches, with the same material repeated on later results and overview pages.",
+        "fix": "Lead with Form 14A and the Rule 76 requirements for this $90,000 employment claim, retaining Form 14C as a clearly explained alternative."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "For libel in a newspaper or broadcast",
+        "problem": "The full answer devotes substantial space to defamation and unrelated limitation exceptions that do not concern this dismissal, and repeats them in later views.",
+        "fix": "Explain the two-year limitation applicable to this dismissal and move unrelated limitation regimes out of this person's answer."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "the court's leave obtained on notice to the defendant",
+        "problem": "The instructions use unexplained terms such as 'leave' and 'on notice' while presenting themselves as plain guidance for a person without a lawyer.",
+        "fix": "Explain that leave means court permission and that an application made on notice requires notifying the other party."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "The usual document to start an action is a statement of claim",
+        "problem": "The long next-step paragraph appears both in the card and under 'What to do next' on the same page, and this duplication continues in subsequent results and overview views.",
+        "fix": "Use a short personalized action checklist in the card and reserve additional explanation for the full answer."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "You must serve a statement of claim within six months after it is issued.",
+        "problem": "The visible guidance gives a service period but never explains personal service, who can receive service for the employer, or how to record proof of service, including on later results and overview pages.",
+        "fix": "Add sourced instructions for personal service on the employer after issuance, including the appropriate recipient and Affidavit of Service, Form 16B."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Outside Toronto, file online through the Civil Claims Online or Civil Submissions Online portal.",
+        "problem": "The filing section names two portals generically without explicitly connecting Mississauga to the outside-Toronto route or identifying the filing location to select.",
+        "fix": "State that Mississauga uses the outside-Toronto route and identify the appropriate Superior Court filing office or location selection and portal steps."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Your statement of claim must then say the action is brought under Rule 76.",
+        "problem": "The results explain procedure but do not explain what this employee needs to plead and document for wrongful dismissal or how the termination letter, unsigned release and pay records relate to those requirements.",
+        "fix": "Provide a sourced employment-specific preparation checklist covering the employment agreement, termination, claimed loss and mitigation without assessing entitlement or predicting an award."
+      },
+      {
+        "step": "deadline-counted",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "On what day did the thing your claim is about happen?",
+        "problem": "The page still asks for the event date after extracting June 30, 2026 and saving the calculated deadline, and repeats the request after forward navigation, on the overview and after reload.",
+        "fix": "Show the saved termination date and calculation with an optional edit control rather than asking for the date again."
+      },
+      {
+        "step": "deadline-counted",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "the court office can confirm both",
+        "problem": "The page does not distinguish a court office's procedural assistance from legal advice about discoverability and the applicable limitation deadline, and repeats this assurance in later views.",
+        "fix": "Explain that court staff can assist with filing procedures but a lawyer should check any uncertainty about the legal limitation date."
+      },
+      {
+        "step": "case-overview",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "In the Toronto region, file online through the Ontario Courts Public Portal.",
+        "problem": "The case page reintroduces Toronto filing instructions despite the saved Mississauga location, and the same irrelevant instruction appears on Forms and after reload.",
+        "fix": "Preserve the saved location across case pages and show only the applicable outside-Toronto filing route by default."
+      },
+      {
+        "step": "case-timeline",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Nothing recorded yet.",
+        "problem": "The factual timeline remains empty despite a known termination date that the site has already used for its deadline calculation.",
+        "fix": "Offer the June 30, 2026 termination as a story-derived event to confirm and include it in the factual timeline once confirmed."
+      },
+      {
+        "step": "case-timeline",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "Computed from s. 4",
+        "problem": "The deadline's source is an unidentified section number rather than a recognizable statute citation, and the printable case file likewise gives only 's. 4'.",
+        "fix": "Name the Limitations Act, 2002, section 4, link to the official provision and briefly explain the two-year rule."
+      },
+      {
+        "step": "case-forms",
+        "category": "missing",
+        "severity": "high",
+        "quote": "the form, the fee, where to file it and how to serve it",
+        "problem": "The Forms page promises service instructions but contains no visible explanation of how to serve the issued claim.",
+        "fix": "Add a service section explaining personal service on the employer, the six-month period and proof of service with the relevant rules and form."
+      },
+      {
+        "step": "case-forms",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "Is this a general civil action?",
+        "problem": "The forms selector asks the user to re-establish the action type and whether it has started even though the site has already identified a new Superior Court civil action.",
+        "fix": "Populate the selector from the saved story and confirmed stage and ask only genuinely unresolved questions."
+      },
+      {
+        "step": "case-forms",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "No missing form information is currently flagged.",
+        "problem": "The page says no information is missing immediately after saying that unanswered questions must be saved to identify matching forms.",
+        "fix": "Distinguish an incomplete forms check from a completed check with no missing information."
+      },
+      {
+        "step": "case-forms",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Showing 240 of 240 forms.",
+        "problem": "The default list floods this new employment action with unrelated hearing, dismissal, vexatious-litigant, disability and other forms instead of prioritizing the forms needed now.",
+        "fix": "Default to forms for the saved next step and place the complete court-form catalogue behind an explicit browse option."
+      },
+      {
+        "step": "case-drafts",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "0 items from your timeline and dated documents.",
+        "problem": "The chronology tool offers no items despite the dated dismissal in the saved story, continuing the factual-timeline omission.",
+        "fix": "Use confirmed story-derived events as well as dated documents to populate the chronology."
+      },
+      {
+        "step": "case-case-file",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Your case on one page.",
+        "problem": "The portable case summary omits the recorded $90,000 claim amount and the list of available termination, release and pay documents.",
+        "fix": "Include the saved claim amount and distinguish documents the user says they possess from files actually uploaded."
+      }
+    ],
+    "overall": "The journey correctly keeps this person in Superior Court, names the starting forms, shows the $243 fee and saves the June 30, 2028 limitation calculation across navigation and reload. It also avoids grading the claim or predicting an award. However, it wrongly labels the claim as already prepared, omits personal-service instructions and surrounds the next step with unrelated legal branches. The highest-priority improvements are a concise employment-specific preparation checklist, complete Mississauga filing and employer-service guidance, and consistent reuse of saved facts throughout the forms, timeline and case summary.",
+    "finishLine": {
+      "nextForm": {
+        "result": "pass",
+        "why": "The next-step card names 'Form 14A — Statement of Claim (General)' and 'Form 14C — Notice of Action', which are the correct starting forms for this Superior Court plaintiff."
+      },
+      "deadline": {
+        "result": "pass",
+        "why": "The journey calculates and preserves 'Friday 30 June 2028' from the June 30, 2026 termination date, with the two-year calculation shown."
+      },
+      "fileFeeService": {
+        "result": "fail",
+        "why": "The pages show the '$243' fee and outside-Toronto online filing route, but never explain personal service on the employer and do not clearly identify the Mississauga filing location."
+      },
+      "noRepeat": {
+        "result": "fail",
+        "why": "After the deadline is saved, later pages still ask 'On what day did the thing your claim is about happen?', and Forms asks again whether this is a general civil action."
+      },
+      "onTopic": {
+        "result": "fail",
+        "why": "The opening next-step paragraph includes 'Form 14B for a mortgage action' and unrelated proceeding exceptions instead of keeping the primary guidance specific to this employment action."
+      },
+      "sourced": {
+        "result": "fail",
+        "why": "Many procedural statements have citations or official links, but the timeline and printable case file identify the limitation source only as 's. 4', without naming the statute."
+      },
+      "noGrading": {
+        "result": "pass",
+        "why": "The pages explain procedural requirements and an employment-law factor without predicting compensation, assessing the claim's strength or pushing settlement."
+      },
+      "limits": {
+        "result": "pass",
+        "why": "The notice says the information 'has not yet been reviewed by a licensed Ontario lawyer or paralegal', directs users to official sources and later offers the Law Society Referral Service and other help."
+      },
+      "conversation": {
+        "result": "fail",
+        "why": "The tailored employment question is asked one at a time and explains 'Why this matters', but the overall intake presents many unexplained questions at once and the results do not meaningfully acknowledge the dismissal facts."
+      }
+    }
+  },
+  "held-back-family-served-motion-to-change": {
+    "findings": [
+      {
+        "step": "intake-form",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "The Family Law Act's property rules (Part I) and matrimonial home rules (Part II)",
+        "problem": "General divorce, property and court-selection information appears before intake even though this user needs to respond in an existing child-support case.",
+        "fix": "Prioritize identifying the court and file number on her served motion, and put unrelated court-selection information behind an optional link."
+      },
+      {
+        "step": "intake-form",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "Your municipality: Not answered yet",
+        "problem": "The recorded-facts panel says her municipality is unknown while the same page says her saved location is Sudbury, Ontario.",
+        "fix": "Use the saved Sudbury location consistently in both the recorded-facts panel and case guidance."
+      },
+      {
+        "step": "intake-filled",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "The case involves children: Not answered yet",
+        "problem": "The recorded-facts panel still treats children as unknown despite her story and parenting details identifying two boys.",
+        "fix": "Populate known facts from her story and details, asking only about genuinely unresolved information."
+      },
+      {
+        "step": "spelling-suggestions",
+        "category": "broken",
+        "severity": "low",
+        "quote": "againstordinarily",
+        "problem": "Missing spaces in “againstordinarily” and “plusthe” make the table explanation harder to read.",
+        "fix": "Correct the spacing throughout the repeated table explanation."
+      },
+      {
+        "step": "after-analysis",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Create Answer (Form 10) draft",
+        "problem": "The offered draft is an answer to an application rather than a response to the motion to change she received.",
+        "fix": "Offer Form 15B with Form 13, or clearly state that Form 15B drafting is unavailable and link to the official forms."
+      },
+      {
+        "step": "after-analysis",
+        "category": "contradiction",
+        "severity": "high",
+        "quote": "Official source: O. Reg. 114/99, Family Law Rules, r. 10 (1).",
+        "problem": "The results page switches to the application-answer rule after the intake correctly identified Form 15B and rule 15.",
+        "fix": "Preserve the motion-to-change classification and show the applicable rule 15 response requirements throughout the journey."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Attend the mandatory information program.",
+        "problem": "The next-step card imposes an information-program requirement on this support-only motion to change, although the later explanation limits that requirement to motions not only about support.",
+        "fix": "Remove the program task and its 45-day deadline from this support-only case unless an applicable court order requires attendance."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Outside Toronto, file online through the Justice Services Online portal.",
+        "problem": "The page names a portal but never identifies the court and existing court file in which she must file her response.",
+        "fix": "Identify the court from her served documents, or ask for that missing detail, and explain that she must file in that existing case."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "They include the papers in rule 13 (3.1)",
+        "problem": "The financial-disclosure instructions refer her to a rule instead of giving a usable list of the documents she must gather with Form 13.",
+        "fix": "Provide a sourced, plain-language checklist of the financial attachments required for her response."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "If you are the one asking to change or cancel arrears",
+        "problem": "Arrears-cancellation, property and matrimonial-home branches clutter the immediate instructions for responding to a proposed child-support reduction.",
+        "fix": "Show her Form 15B and Form 13 tasks first and reserve unrelated branches for cases where those claims are identified."
+      },
+      {
+        "step": "deadline-counted",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "If you were served with a motion to change, what date was it served?",
+        "problem": "The page continues asking for the service date after extracting October 2 and saving the calculated deadline.",
+        "fix": "Show the saved service date with an optional edit control instead of asking the same question again."
+      },
+      {
+        "step": "case-overview",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "In the Toronto region, file online through the Ontario Courts Public Portal.",
+        "problem": "The saved case page reintroduces Toronto filing instructions despite the known Sudbury location and earlier filtering to outside-Toronto instructions.",
+        "fix": "Carry the saved location into case pages and show only the applicable filing route."
+      },
+      {
+        "step": "case-overview",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "Do you disagree with the change, or want the court to make an added or different change?",
+        "problem": "The same lengthy response instructions appear in the next-step card and again in the full answer.",
+        "fix": "Keep the card to a personalized task checklist and place the detailed sourced explanation in an optional expandable section."
+      },
+      {
+        "step": "case-overview",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Where you are: Served with a motion to change a final order",
+        "problem": "The overview does not explain how to organize her existing order and truck posts or what income disclosure to check when responding to the claimed income reduction.",
+        "fix": "Give sourced guidance on reviewing the ex's financial disclosure and organizing the order and posts as evidence without predicting what they prove or whether support will change."
+      },
+      {
+        "step": "case-timeline",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Nothing recorded yet.",
+        "problem": "The timeline omits the October 2 service event even though that date has been confirmed and used to calculate the response deadline.",
+        "fix": "Add the confirmed service event with its source and distinguish it from uploaded-document events."
+      },
+      {
+        "step": "case-forms",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "the form, the fee, where to file it and how to serve it",
+        "problem": "The page promises the fee but displays no fee amount or statement that no fee applies.",
+        "fix": "Show the applicable response filing fee or a sourced no-fee statement after identifying her court."
+      },
+      {
+        "step": "case-forms",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Are you responding to a Family Application?",
+        "problem": "The form-matching question treats responding to the other side as evidence of an application response even though her case is already identified as a motion to change.",
+        "fix": "Use the known motion-to-change document type to select Form 15B and Form 13 without reopening the application-answer branch."
+      },
+      {
+        "step": "case-drafts",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Answer (Form 10)",
+        "problem": "The saved-case draft menu still offers the wrong response form after the exact step and deadline have been correctly established.",
+        "fix": "Replace the Form 10 option with Form 15B drafting or an explicit limitation and official Form 15B link."
+      },
+      {
+        "step": "case-overview",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Pro Bono Ontario — Free legal advice by phone for certain civil matters.",
+        "problem": "This referral does not explain that the civil advice service is not a family-law advice route for her support response.",
+        "fix": "Prioritize family-law help and remove or clearly qualify services that do not handle her issue."
+      }
+    ],
+    "overall": "The journey eventually identifies the correct motion-to-change response forms and calculates a correct, persistent November 2 deadline without predicting the support outcome. However, the Form 10 draft offers and inapplicable information-program task create serious procedural risks. The site should preserve the exact case type across every page, show the existing court and applicable fee, and replace repeated generic text with a concise financial-disclosure and evidence checklist. Saved facts should consistently populate the intake, timeline and case pages.",
+    "finishLine": {
+      "nextForm": {
+        "result": "pass",
+        "why": "The exact next-step card correctly lists “Form 15B — Response to Motion to Change” and “Form 13 — Financial Statement (Support Claims),” although separate draft offers incorrectly use Form 10."
+      },
+      "deadline": {
+        "result": "pass",
+        "why": "The journey calculates “Monday 2 November 2026” from October 2 service and explains the Sunday-to-Monday adjustment; the deadline is still upcoming on October 9."
+      },
+      "fileFeeService": {
+        "result": "fail",
+        "why": "The pages show the Justice Services Online filing route, regular service and Form 6B, but the promised “fee” is absent and the existing court is not identified."
+      },
+      "noRepeat": {
+        "result": "fail",
+        "why": "“If you were served with a motion to change, what date was it served?” remains on results and saved-case pages after that date has been extracted and the deadline saved."
+      },
+      "onTopic": {
+        "result": "fail",
+        "why": "The upper intake and results content includes unrelated divorce and property court-selection material, while the overview's immediate card incorrectly says “Attend the mandatory information program.”"
+      },
+      "sourced": {
+        "result": "fail",
+        "why": "Many instructions have citations or official links, but the information-program discussion and its attendance restrictions carry no identifiable rule 8.1 citation in the visible text."
+      },
+      "noGrading": {
+        "result": "pass",
+        "why": "Nothing predicts whether support will be lowered, evaluates the truck evidence as strong or weak, or pushes settlement."
+      },
+      "limits": {
+        "result": "pass",
+        "why": "The forms page says “We cannot fill this one in for you yet. Use the official form file,” and the next-step pages provide human-help referrals."
+      },
+      "conversation": {
+        "result": "fail",
+        "why": "The targeted Form 15B question explains “Why this matters,” but the wider journey uses a large intake questionnaire, repeats known information and offers generic branches rather than a consistently focused conversation."
+      }
+    }
+  },
+  "held-back-family-support-not-paid": {
+    "findings": [
+      {
+        "step": "intake-form",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "WHAT THE STATUTES SAY ABOUT WHICH COURT",
+        "problem": "The prominent divorce, property and municipality material concerns choosing where to start a case rather than enforcing this existing FRO-filed support order, and remains prominent through forward-to-results.",
+        "fix": "Lead with existing-order enforcement and show court-selection information only if a relevant court step is being considered."
+      },
+      {
+        "step": "spelling-suggestions",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "The case involves children: Not answered yet",
+        "problem": "The recorded-facts panel treats children as unknown despite the story expressly identifying child support for their daughter, and this persists on later builder pages.",
+        "fix": "Extract the child-related facts already supplied and let the user correct them rather than marking them unanswered."
+      },
+      {
+        "step": "intake-form",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "Your municipality: Not answered yet",
+        "problem": "The same page says the location is confirmed as Thunder Bay but marks the user's municipality unanswered, with the mismatch persisting on subsequent builder pages.",
+        "fix": "Use the saved Thunder Bay location consistently in the recorded-facts panel."
+      },
+      {
+        "step": "spelling-suggestions",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "This produces your application and the rule that decides the amount.",
+        "problem": "The child-support application builder directs this recipient toward obtaining a support amount when she already has a $650 monthly order and needs enforcement, and remains visible after enforcement is confirmed.",
+        "fix": "Suppress the new-support application builder for this journey and replace it with FRO enforcement guidance."
+      },
+      {
+        "step": "spelling-suggestions",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "Tell me about the children this is for.",
+        "problem": "The application questions ask again about the child and living arrangement already supplied as one daughter, age five, living with the user, and recur on later builder pages.",
+        "fix": "Reuse the recorded child details and ask only for genuinely missing information relevant to enforcement."
+      },
+      {
+        "step": "spelling-suggestions",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "How a table amount is worked out: find the income row, then add the percentage",
+        "problem": "The lengthy table-calculation lesson expressly says it is not about the user's case and distracts from collecting unpaid support under an existing order.",
+        "fix": "Remove the table lesson from the enforcement journey and keep it available only as optional background."
+      },
+      {
+        "step": "after-analysis",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "a draft of it is not offered here",
+        "problem": "The results page says a starting-document draft is not offered while still displaying the child-support application builder and its draft button.",
+        "fix": "Make the available drafting controls consistent with the recorded existing-order stage."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "While a support order is filed there, only the Director may enforce it.",
+        "problem": "The next-step card starts with an undefined 'there' and 'Director' rather than identifying FRO, and repeats this opening on subsequent results and overview pages.",
+        "fix": "Start by saying that her order is already filed with the Family Responsibility Office and explaining that its Director is responsible for enforcement."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "An order that was withdrawn from the Director's office may be filed there again at any time.",
+        "problem": "Refiling and handing over existing private enforcement occupy the next-step card despite this order already being filed with FRO and no withdrawal being reported.",
+        "fix": "Keep the main card about the active FRO file and place withdrawal or refiling information behind clearly labelled optional branches."
+      },
+      {
+        "step": "case-overview",
+        "category": "missing",
+        "severity": "high",
+        "quote": "What to do next",
+        "problem": "The supposed next-step answer does not tell the recipient how to contact FRO about inactivity, what to ask, what information to provide, or how to escalate an unresolved concern.",
+        "fix": "Give a concrete recipient action using her order and FRO statements, with official FRO contact and complaint guidance."
+      },
+      {
+        "step": "case-overview",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Want a person to check this step with you?",
+        "problem": "Generic legal-help referrals do not explain that the site cannot manage FRO's enforcement process or direct her to FRO-specific assistance.",
+        "fix": "State the site's FRO-process limit explicitly and link to official FRO account, contact and escalation resources alongside suitable family-law help."
+      },
+      {
+        "step": "case-overview",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "The ways include a request for a financial statement, seizure and sale, and garnishment.",
+        "problem": "The answer gives a limited court-enforcement list but does not explain FRO's administrative enforcement tools or what information the recipient can supply to support their use.",
+        "fix": "Explain the relevant FRO enforcement tools from official sources, identify who uses them, and distinguish those powers from actions the recipient can take herself."
+      },
+      {
+        "step": "case-overview",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Other orders may be enforced in three ways.",
+        "problem": "The next-step card includes enforcement of other kinds of orders rather than staying focused on unpaid child support.",
+        "fix": "Remove other-order enforcement from this card and show it only for a matching order type."
+      },
+      {
+        "step": "case-overview",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "a writ to seize property for a time, a contempt order, and naming a receiver",
+        "problem": "The enforcement list uses unexplained legal remedies that a person without a lawyer cannot readily understand.",
+        "fix": "Explain relevant remedies in plain language, including who initiates them, and omit irrelevant remedies."
+      },
+      {
+        "step": "case-overview",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "While a support order is filed there, only the Director may enforce it.",
+        "problem": "The entire lengthy next-step paragraph is repeated under the full answer's 'What to do next' heading, including on reload.",
+        "fix": "Use a short actionable card followed by a fuller explanation that adds detail instead of duplicating it."
+      },
+      {
+        "step": "case-overview",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "how can the recipient request an enforcement review or escalate concerns about inactivity?",
+        "problem": "The research section raises the user's central question but supplies only a statutory duty quotation rather than an answer about review or escalation.",
+        "fix": "Answer the review and escalation question in plain words with the appropriate official procedural links."
+      },
+      {
+        "step": "case-overview",
+        "category": "jargon",
+        "severity": "low",
+        "quote": "order agreement",
+        "problem": "The saved document description is an internal-looking label that blurs the distinction between the court order she reported and an agreement.",
+        "fix": "Display 'Existing court order' as the recorded document type."
+      },
+      {
+        "step": "case-timeline",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Nothing recorded yet.",
+        "problem": "The timeline does not surface the reported 2024 order or non-payment since May 2026 even as events needing date confirmation.",
+        "fix": "Create provisional timeline entries from the story and ask for any exact dates needed before treating them as confirmed."
+      },
+      {
+        "step": "case-forms",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Forms for this case",
+        "problem": "The page never identifies a relevant next form or explains that her immediate FRO follow-up does not require a new court application.",
+        "fix": "State whether a form is needed for the actual next action and provide its official source if one is required."
+      },
+      {
+        "step": "case-forms",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Showing 146 of 146 forms.",
+        "problem": "An unfiltered catalogue beginning with stay and dismissal forms substitutes for enforcement-specific guidance and includes divorce, adoption and child-protection material.",
+        "fix": "Lead with this recipient's applicable action and put the complete catalogue behind an optional browse control."
+      },
+      {
+        "step": "case-forms",
+        "category": "contradiction",
+        "severity": "low",
+        "quote": "No official PDF is connected in the library.",
+        "problem": "Forms 13.1 and 13A say no PDF is connected but also display 'Current official PDF'.",
+        "fix": "Show only file formats actually connected to each form."
+      },
+      {
+        "step": "case-case-file",
+        "category": "broken",
+        "severity": "medium",
+        "quote": "Give the dates asked for under “Your next step” on the Overview tab",
+        "problem": "The case file directs the user to deadline-date questions that are not shown in the visible overview for this enforcement step.",
+        "fix": "Show a step-specific deadline explanation and link to date questions only when those questions actually exist."
+      }
+    ],
+    "overall": "The journey correctly recognizes enforcement, preserves the story and confirmed stage across navigation and reload, and explains that FRO's Director controls enforcement while the order is filed there. It does not grade the case, and its legal material is sourced. However, this recipient must work through substantial new-application and unrelated court material before reaching a dense explanation that still does not tell her how to address FRO inactivity. The priority is a short, personalized FRO action plan with official contact and escalation resources, an explicit service limit, and clear guidance on whether any form, filing, fee or service is needed.",
+    "finishLine": {
+      "nextForm": {
+        "result": "fail",
+        "why": "The 'YOUR NEXT STEP' card names no form, and 'Forms for this case' does not explain whether her immediate FRO follow-up requires a form at all."
+      },
+      "deadline": {
+        "result": "n/a",
+        "why": "No applicable fixed response period with a known triggering date is established; 'He hasn't paid since May 2026' describes arrears rather than a procedural deadline."
+      },
+      "fileFeeService": {
+        "result": "fail",
+        "why": "The journey reaches 'What to do next' but provides neither practical FRO submission instructions nor an explanation of whether filing, fees or service are needed for her actual next action."
+      },
+      "noRepeat": {
+        "result": "fail",
+        "why": "'Tell me about the children this is for' and 'How is the children’s time divided between you at the moment?' ask again for details already supplied and remain visible after returning to intake."
+      },
+      "onTopic": {
+        "result": "fail",
+        "why": "Builder pages prominently lead with divorce and property court-selection material under 'WHAT THE STATUTES SAY ABOUT WHICH COURT' instead of this existing FRO enforcement issue."
+      },
+      "sourced": {
+        "result": "pass",
+        "why": "The visible legal explanations carry statutory citations, source lists or official form links, including the overview's Act and Family Law Rules sources."
+      },
+      "noGrading": {
+        "result": "pass",
+        "why": "The pages explain enforcement powers without judging her prospects, predicting a result or pushing settlement, and expressly say the quoted provisions are 'not how your case will turn out'."
+      },
+      "limits": {
+        "result": "fail",
+        "why": "Although the forms page says 'We can match forms ... only when you are starting a case or responding to one', the journey never states its FRO-process limit or points to official FRO assistance."
+      },
+      "conversation": {
+        "result": "fail",
+        "why": "The tailored FRO question gives a useful 'Why this matters' explanation, but simultaneous seven-question application material and the lack of a practical answer to 'What can I do?' defeat the guided conversation."
+      }
+    }
+  },
+  "held-back-sc-defendant-trial": {
+    "findings": [
+      {
+        "step": "spelling-suggestions",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "trial · contract/agreement dispute, responding/defence, settlement",
+        "problem": "This mixture of classification labels does not clearly distinguish the completed settlement conference from the upcoming trial.",
+        "fix": "Say that the user is defending a contractor's claim, has completed the settlement conference, and is preparing for trial on January 14, 2027."
+      },
+      {
+        "step": "intake-filled",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "Still useful to add: your legal name, the other party’s name, the other party’s address for service, what evidence you have.",
+        "problem": "The page asks what evidence the user has without acknowledging the neighbour's eyewitness evidence already described.",
+        "fix": "Record the neighbour as a potential witness and ask only for missing details needed to obtain and serve his summons."
+      },
+      {
+        "step": "after-analysis",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Create Defence (Form 9A) draft",
+        "problem": "The offered action is to draft a defence that the user expressly says was already filed, rather than obtain a summons for the upcoming trial.",
+        "fix": "Offer Form 18A and the steps for having it issued and personally served with attendance money."
+      },
+      {
+        "step": "after-analysis",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Your records show the document that starts this case has already been filed",
+        "problem": "The page discusses withholding a case-starting document even though this defendant needs help securing a trial witness.",
+        "fix": "Acknowledge the filed defence and completed settlement conference, then explain the witness-summons action available now."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "At least 30 days before trial, you can serve documents",
+        "problem": "The next-step card leads with general evidence preparation instead of directly applying the summons procedure to the reluctant neighbour.",
+        "fix": "Lead with obtaining an issued Form 18A for the neighbour and put general trial-evidence preparation in a secondary section."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "at least 10 days before the trial",
+        "problem": "The page does not turn the known January 14, 2027 trial date into the January 4, 2027 summons-service deadline.",
+        "fix": "Show January 4, 2027 as the latest date for personal service with attendance money, explain the calculation, and save it to the case deadlines."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "At least 30 days before trial",
+        "problem": "The additional evidence-service period is not counted to a date despite the trial date being known.",
+        "fix": "Show December 15, 2026 for the stated 30-day evidence-service period, with its source and any applicable qualifications."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "wrong-side",
+        "severity": "high",
+        "quote": "Serving it on the other side",
+        "problem": "This heading incorrectly identifies the summons recipient as the opposing party when the summons must be personally served on the neighbour.",
+        "fix": "Use the heading 'Personally serve your witness' and separately explain any circumstances requiring copies to other parties."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Attendance money includes a fee for the witness to attend court each day and travel expenses to get to court.",
+        "problem": "The page never gives the attendance-money amounts or calculation needed to tender the required payment when serving the neighbour.",
+        "fix": "Show the sourced daily witness fee and travel allowances, and request only the missing travel details needed to calculate the payment."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Being served and not understanding the papers",
+        "problem": "The case snapshot falsely describes a confirmed issue about understanding newly served papers rather than a contractor dispute already at trial preparation.",
+        "fix": "Describe the case as a contractor's payment claim being defended at trial, with a reluctant eyewitness requiring a summons."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "How the papers arrived (Source)",
+        "problem": "The evidence checklist focuses on receipt of court papers instead of the neighbour's observations and the deck dispute.",
+        "fix": "Organize the known eyewitness evidence and relevant deck documents, then identify the information needed to summon the witness."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "At least 30 days before trial, you can serve documents, statements, and audio or visual records",
+        "problem": "The same long next-step paragraph appears again verbatim under the full answer, adding length without further practical guidance.",
+        "fix": "Keep one concise action checklist and use the expanded answer for additional explanation and sources."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Sources: Rules of the Small Claims Court, O. Reg. 258/98, r. 16.01 (1); Rules of the Small Claims Court, O. Reg. 258/98, r. 17.01 (2)",
+        "problem": "The card's source list omits the provisions governing its documentary-evidence and witness-summons statements, even though witness-summons provisions appear farther down the page.",
+        "fix": "Attach the relevant evidence and summons provisions directly to those statements rather than presenting these two provisions as their sources."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Notice of Garnishment (8)",
+        "problem": "The displayed source excerpt includes creditor enforcement instructions unrelated to obtaining this trial witness.",
+        "fix": "Display the relevant summons subsection and make surrounding unrelated provisions optional."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "to assist the police in apprehending the witness",
+        "problem": "The page introduces police apprehension without showing the preceding court process and conditions for dealing with a properly summoned witness who fails to attend.",
+        "fix": "Explain the sourced court process and prerequisites before mentioning Form 20K or police apprehension."
+      },
+      {
+        "step": "back-to-intake",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "what evidence you have",
+        "problem": "Returning to intake again prompts for evidence already described in the saved story without showing that the neighbour's evidence has been extracted.",
+        "fix": "Preserve an editable record of the known witness evidence and ask only for information still missing."
+      },
+      {
+        "step": "forward-to-results",
+        "category": "missing",
+        "severity": "high",
+        "quote": "at least 10 days before the trial",
+        "problem": "Going back and forward retains the trial stage but still does not calculate the summons-service deadline from the saved trial date.",
+        "fix": "Retain and display the January 4, 2027 service deadline alongside the January 14, 2027 trial date."
+      },
+      {
+        "step": "case-overview",
+        "category": "missing",
+        "severity": "high",
+        "quote": "at least 10 days before the trial",
+        "problem": "The saved case's main action page still gives only a relative summons-service period rather than the user's actual deadline.",
+        "fix": "Place the January 4, 2027 personal-service deadline prominently in the next-step card and save it to the timeline and printable case file."
+      },
+      {
+        "step": "case-overview",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Being served and not understanding the papers",
+        "problem": "The saved case overview continues to label the user's issue as understanding served papers despite the recorded trial stage.",
+        "fix": "Persist a case description that reflects the contractor dispute and need to summon the neighbour for trial."
+      },
+      {
+        "step": "case-timeline",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "The exact date, if you know it",
+        "problem": "The card quoting 'Now the trial is on January 14 2027' asks the user to enter the exact date already supplied.",
+        "fix": "Prefill January 14, 2027 and the trial event type, allowing confirmation or correction without re-entry."
+      },
+      {
+        "step": "case-timeline",
+        "category": "broken",
+        "severity": "medium",
+        "quote": "What kind of step was this?",
+        "problem": "The single card for 'I filed my defence in the spring, and we had the settlement conference' allows one event classification for two distinct court events.",
+        "fix": "Split the sentence into separate proposed defence-filing and settlement-conference events with their known details prefilled."
+      },
+      {
+        "step": "case-timeline",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Nothing dated yet.",
+        "problem": "The timeline omits the explicitly supplied trial date and the summons deadline that can be calculated from it.",
+        "fix": "Show the extracted trial date as awaiting confirmation if necessary and include the sourced summons-service deadline."
+      },
+      {
+        "step": "case-forms",
+        "category": "wrong-side",
+        "severity": "high",
+        "quote": "Serving it on the other side",
+        "problem": "The forms page repeats the misleading heading that suggests serving the summons on the contractor instead of the witness.",
+        "fix": "Label this section as personal service on the witness and explain separately when another party needs a copy."
+      },
+      {
+        "step": "case-forms",
+        "category": "missing",
+        "severity": "high",
+        "quote": "with their attendance money",
+        "problem": "The page intended to explain how to serve Form 18A does not provide the amounts or calculation for the mandatory attendance-money payment.",
+        "fix": "Provide the sourced witness fee and travel allowances and a calculation using the witness's necessary travel details."
+      },
+      {
+        "step": "case-forms",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "No form-routing rules cover the \"trial\" stage yet.",
+        "problem": "The page exposes internal routing terminology rather than plainly explaining the limited availability of personalized form selection.",
+        "fix": "Explain that automatic selection of additional trial forms is unavailable while clearly retaining Form 18A as the identified next form."
+      },
+      {
+        "step": "case-forms",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "We could not match forms to where your case is",
+        "problem": "This blanket statement conflicts with the Form 18A match displayed at the top of the same page.",
+        "fix": "Say that Form 18A is identified for the witness summons but the site cannot automatically select every other trial-related form."
+      },
+      {
+        "step": "case-forms",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "Want a person to help pick the right form?",
+        "problem": "The same help heading and four-service referral list appear twice on the page.",
+        "fix": "Show one referral section beside the explanation of the form-selection limitation."
+      },
+      {
+        "step": "case-forms",
+        "category": "broken",
+        "severity": "medium",
+        "quote": "The deadline for your step is on your Overview.",
+        "problem": "The promised deadline is not on the Overview, which shows only an uncalculated period.",
+        "fix": "Display the calculated deadline on both pages and make the reference link lead to that deadline."
+      },
+      {
+        "step": "case-drafts",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Defence (Form 9A)",
+        "problem": "The draft menu again promotes preparing a defence already filed rather than the witness summons needed at this stage.",
+        "fix": "Remove the routine new-defence offer at this stage and prioritize Form 18A preparation or a clear link to its official completion instructions."
+      },
+      {
+        "step": "case-case-file",
+        "category": "broken",
+        "severity": "high",
+        "quote": "Give the dates asked for under “Your next step” on the Overview tab",
+        "problem": "The printable file directs the user to date questions that the visible Overview does not contain, despite the trial date already being in the story.",
+        "fix": "Use the saved trial date to populate deadlines and provide a working confirmation or correction control if needed."
+      },
+      {
+        "step": "case-case-file",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Deadlines worked out from your dates\n\nNone yet.",
+        "problem": "The printable case file contains no summons-service deadline even though it reproduces the January 14, 2027 trial date.",
+        "fix": "Include the January 4, 2027 personal-service deadline with the attendance-money requirement and source."
+      },
+      {
+        "step": "reload-reopens-case",
+        "category": "missing",
+        "severity": "high",
+        "quote": "at least 10 days before the trial",
+        "problem": "Reloading successfully restores the case but still leaves its known summons-service deadline uncalculated.",
+        "fix": "Persist and restore the trial date and calculated January 4, 2027 service deadline together."
+      },
+      {
+        "step": "reload-reopens-case",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Being served and not understanding the papers",
+        "problem": "Reloading preserves the incorrect case classification rather than the user's actual trial-witness issue.",
+        "fix": "Correct the saved classification and ensure the corrected contractor-dispute and trial-witness description survives reload."
+      }
+    ],
+    "overall": "The journey eventually identifies the correct court, defendant role, Form 18A, issuing fee, and basic personal-service requirement without grading the defence. It does not finish the practical task: the known trial date never becomes a service deadline, and the attendance-money calculation is missing. Incorrect served-papers classification, repeated Defence offers, and the 'other side' service heading undermine otherwise useful guidance. The priority is a persistent, witness-specific checklist covering issuance, January 4, 2027 personal service, attendance money, and proof of service, consistently reflected in the timeline and printable case file.",
+    "finishLine": {
+      "nextForm": {
+        "result": "pass",
+        "why": "The confirmed next-step card correctly names 'Form 18A — Summons to Witness', although other pages still offer an unnecessary Defence draft."
+      },
+      "deadline": {
+        "result": "fail",
+        "why": "The pages say 'at least 10 days before the trial' but never calculate January 4, 2027 from the known January 14, 2027 trial date, and the case file says 'None yet.'"
+      },
+      "fileFeeService": {
+        "result": "pass",
+        "why": "The card shows the Small Claims Court Submissions Online portal, 'Issuing a summons to a witness: $33', and personal service on the witness at least 10 days before trial with attendance money, though the payment calculation and service heading need correction."
+      },
+      "noRepeat": {
+        "result": "fail",
+        "why": "The timeline quotes 'Now the trial is on January 14 2027' and then asks for 'The exact date, if you know it' instead of prefilling the supplied date."
+      },
+      "onTopic": {
+        "result": "fail",
+        "why": "The after-analysis action area offers 'Create Defence (Form 9A) draft' even though this defendant has already filed his defence and needs a trial-witness summons."
+      },
+      "sourced": {
+        "result": "fail",
+        "why": "The next-step paragraph's documentary-evidence and summons statements are followed by a source list naming only rules 16.01(1) and 17.01(2), rather than the provisions supporting those statements."
+      },
+      "noGrading": {
+        "result": "pass",
+        "why": "No visible page assesses the defence's strength, predicts this case's outcome, or pushes settlement; the text expressly says the sources explain the law, 'not how your case will turn out.'"
+      },
+      "limits": {
+        "result": "pass",
+        "why": "The forms page says it can match answers only when 'starting a case or responding to one' and provides official forms and help referrals, although its limitation wording conflicts with the existing Form 18A match."
+      },
+      "conversation": {
+        "result": "n/a",
+        "why": "This journey uses the structured intake form and never enters the offered 'Answer questions one at a time with AI help' conversation."
+      }
+    }
+  },
+  "held-back-sc-guided-dog-bite": {
+    "findings": [
+      {
+        "step": "story-proposals",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "If this involves an injury, what date did it happen?",
+        "problem": "The same July 19, 2026 date is presented for confirmation twice, once as the situation date and again as the injury date.",
+        "fix": "Show one confirmed bite date and reuse it for both purposes."
+      },
+      {
+        "step": "claim-type-suggestion",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "This sounds like it may be about: Dog bite or attack (Dog Owners' Liability Act) — is that right?",
+        "problem": "The page asks for claim-type confirmation while also asking the total dollar amount, contrary to the promised one-question-at-a-time conversation.",
+        "fix": "Finish confirming the dog-bite claim type before displaying the amount question."
+      },
+      {
+        "step": "after-analysis",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Choose what you are asking the court for.",
+        "problem": "The drafting gate asks the user to choose a remedy without carrying forward their already-confirmed request for compensation.",
+        "fix": "Carry forward the request for money compensation and ask only about any unresolved additions, such as interest and costs."
+      },
+      {
+        "step": "after-analysis",
+        "category": "repetition",
+        "severity": "low",
+        "quote": "Testing: this feature is switched on while we test it",
+        "problem": "The identical testing notice appears twice on this page.",
+        "fix": "Display the notice once beside the drafting feature it qualifies."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Where you are: Claim prepared but not filed",
+        "problem": "The site treats the user as ready to file a prepared claim even though no completed claim or draft is shown, and repeats this unsupported stage through the reloaded overview.",
+        "fix": "Identify the immediate step as preparing Form 7A, with filing guidance clearly identified as the following step."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Give the date below and we will count the last day for you.",
+        "problem": "The next-step card initially withholds a calculated deadline even though July 19, 2026 has already been confirmed and saved.",
+        "fix": "Calculate and display July 19, 2028 automatically, explaining the discovery-date assumption and allowing correction."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "On what day did the thing your claim is about happen?",
+        "problem": "The calculator asks again for the known bite date, and the same request remains on deadline-counted, forward-to-results, case-overview and reload-reopens-case.",
+        "fix": "Use the saved July 19, 2026 date and offer an explicit edit control rather than another intake question."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "the clerk returns stamped copies for you to serve on each defendant.",
+        "problem": "The filing guidance does not explain how to serve the neighbours, the time allowed for serving the issued claim, or how to record proof of service.",
+        "fix": "Add sourced instructions for serving each defendant within six months after issuance, permitted service methods and completing Form 8A."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "You are presumed to have known them on the day of the act or omission, unless shown otherwise.",
+        "problem": "The explanation of discovery and its presumption is not supported by the relevant Limitations Act section 5 citation in the displayed source list.",
+        "fix": "Cite and link section 5 beside the discovery explanation, alongside section 4 for the two-year period."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "If your claim is based on a document, attach a copy to each copy of the claim",
+        "problem": "The entire filing paragraph is repeated verbatim under the full answer, adding substantial duplication that persists on subsequent results and overview pages.",
+        "fix": "Keep a short action summary in the card and reserve the detailed filing instructions for the expanded answer."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "how could an allegation of contributory negligence affect liability?",
+        "problem": "The central explanation of the neighbours' blame allegation is presented as a technical research question and statutory extracts rather than a visible plain-language explanation.",
+        "fix": "Explain from section 2 that the user must establish ownership, the bite and resulting losses, that owner negligence need not be proved, and that proven contribution by the injured person can reduce damages without assessing this claim."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "In determining whether a dog is a pit bull",
+        "problem": "The displayed owner-definition extract includes extensive pit-bull classification material unrelated to this German shepherd bite, and recurs on later results and overview pages.",
+        "fix": "Show the relevant owner definition and keep unrelated statutory definitions behind an official-source link."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "broken",
+        "severity": "low",
+        "quote": "propri�taire",
+        "problem": "The statutory text contains corrupted characters, also visible in the later copies of the extract.",
+        "fix": "Correct the source-text encoding so accented characters display accurately."
+      },
+      {
+        "step": "back-to-intake",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Has the other party threatened you, or done anything that makes you feel unsafe?",
+        "problem": "The conversation does not explain why this additional safety question matters to the court guidance.",
+        "fix": "Briefly explain how the answer affects safety resources or urgent help before asking the question."
+      },
+      {
+        "step": "back-to-intake",
+        "category": "missing",
+        "severity": "high",
+        "quote": "That's everything needed for now.",
+        "problem": "The intake declares completion without resolving whether the approximate $1,235 includes six days of lost wages or obtaining a definite total that includes the requested pain-and-scar compensation.",
+        "fix": "Ask one focused question at a time to record medical expenses, lost-wage calculations and the amount the user wants to claim for pain and scarring, without valuing the case for them."
+      },
+      {
+        "step": "back-to-intake",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Veterinary records for an injured pet",
+        "problem": "The evidence guidance includes pet-injury records and veterinary bills although the known injury is to the user's leg.",
+        "fix": "Tailor the evidence checklist to human medical records, injury photographs, receipts, wage records, witnesses and dog ownership."
+      },
+      {
+        "step": "case-timeline",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "They might describe steps in the court process.",
+        "problem": "The site offers the already-understood bite incident for classification as a possible court-process step despite knowing nothing has been filed.",
+        "fix": "Keep the bite as a factual incident in the chronology and reserve court-step classification for statements that actually describe procedural events."
+      },
+      {
+        "step": "case-timeline",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "The exact date, if you know it",
+        "problem": "The proposed bite entry asks for a date already present in the quoted sentence and confirmed in the case.",
+        "fix": "Populate July 19, 2026 automatically and allow the user to edit it."
+      },
+      {
+        "step": "case-forms",
+        "category": "missing",
+        "severity": "high",
+        "quote": "the form, the fee, where to file it and how to serve it.",
+        "problem": "The promised next-step information provides the form, fee and filing instructions but no practical service instructions, while the catalogue only names personal service or an alternative.",
+        "fix": "Include a dedicated, sourced service section explaining the applicable methods, six-month service period and Form 8A."
+      },
+      {
+        "step": "case-forms",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "What ordinary claim are you starting?",
+        "problem": "The form selector asks money-versus-property again even though the saved story and compensation request already establish a money claim.",
+        "fix": "Reuse the saved money-claim answer and let the user change it if necessary."
+      },
+      {
+        "step": "case-forms",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "No missing form information is currently flagged.",
+        "problem": "The page reports no missing form information immediately after saying answers and saved confirmations are required to identify matching forms.",
+        "fix": "Either use the existing case facts to identify the forms or clearly list the genuinely unresolved confirmations."
+      },
+      {
+        "step": "case-drafts",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "What happened, in date order: 0 items from your timeline and dated documents.",
+        "problem": "The chronology option omits the known dated bite because it only draws from procedural timeline entries and documents.",
+        "fix": "Include confirmed factual incidents from intake, starting with the July 19, 2026 bite, while keeping them distinct from court-process steps."
+      },
+      {
+        "step": "case-case-file",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Your case on one page.",
+        "problem": "The printable case file omits the saved amount, evidence description and correct next form, leaving out important information already available elsewhere.",
+        "fix": "Include the compensation amount and unresolved components, described evidence, and Form 7A as the immediate preparation task."
+      },
+      {
+        "step": "case-case-file",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "The general deadline to start a court case (s. 4)",
+        "problem": "The standalone printable deadline cites only an unidentified section number, so the user cannot identify its legal source from the printout.",
+        "fix": "Name and link the Limitations Act, 2002, sections 4 and 5, and include the date and discovery assumption used in the calculation."
+      }
+    ],
+    "overall": "The journey correctly identifies a plaintiff's dog-bite money claim, names Form 7A and eventually calculates and preserves the July 19, 2028 deadline without grading the case. However, it prematurely treats the claim as prepared, leaves the compensation total unresolved and does not provide usable service instructions. The most important improvements are to reuse confirmed facts automatically, guide preparation of the actual claim before filing, and explain the dog-owner liability rules in plain language tied to the user's evidence needs. Repeated filing text and unrelated statutory material make the otherwise useful guidance harder to navigate.",
+    "finishLine": {
+      "nextForm": {
+        "result": "pass",
+        "why": "The next-step card correctly names “Form 7A — Plaintiff’s Claim,” although it incorrectly assumes the claim is already prepared."
+      },
+      "deadline": {
+        "result": "pass",
+        "why": "By deadline-counted, the site states “Wednesday 19 July 2028,” shows the two-year calculation from July 19, 2026, and retains the result after navigation and reload."
+      },
+      "fileFeeService": {
+        "result": "fail",
+        "why": "The pages show filing routes and the $108 fee, but “stamped copies for you to serve on each defendant” does not explain how or when to serve."
+      },
+      "noRepeat": {
+        "result": "fail",
+        "why": "“On what day did the thing your claim is about happen?” asks for the confirmed bite date again and remains visible after the deadline is saved and the case reloaded."
+      },
+      "onTopic": {
+        "result": "fail",
+        "why": "The prominent next-step card says “Where you are: Claim prepared but not filed,” routing this user to a later preparation stage without a completed claim."
+      },
+      "sourced": {
+        "result": "fail",
+        "why": "The discovery explanation lacks the relevant section 5 citation, and the printable deadline's “(s. 4)” does not identify the Act."
+      },
+      "noGrading": {
+        "result": "pass",
+        "why": "No visible text assesses this claim's strength, predicts its outcome or pushes settlement, and the legal extracts explicitly “say what the law provides, not how your case will turn out.”"
+      },
+      "limits": {
+        "result": "pass",
+        "why": "The site discloses that its information has “not yet been reviewed by a licensed Ontario lawyer or paralegal” and provides referral options under “Want a person to check this step with you?”"
+      },
+      "conversation": {
+        "result": "fail",
+        "why": "The site acknowledges the story and explains why the amount matters, but claim-type-suggestion asks two questions at once, later pages re-ask known facts, and the safety question lacks an explanation."
+      }
+    }
+  },
+  "held-back-sc-guided-out-of-province": {
+    "findings": [
+      {
+        "step": "claim-type-suggestion",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "What is the total dollar amount you are claiming?",
+        "problem": "The story already supplies the $6,800 price and $1,000 payment, but the site asks for the balance instead of extracting $5,800 for confirmation.",
+        "fix": "Show the calculation $6,800 minus $1,000 equals $5,800 and ask the user to confirm it."
+      },
+      {
+        "step": "claim-type-suggestion",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "This sounds like it may be about: Non-payment for goods sold — is that right?",
+        "problem": "The page asks this question alongside the amount question despite promising follow-up questions one at a time.",
+        "fix": "Resolve the claim-type confirmation before displaying the next unanswered question."
+      },
+      {
+        "step": "first-question",
+        "category": "missing",
+        "severity": "high",
+        "quote": "A few questions to get the details down.",
+        "problem": "The guided conversation proceeds with routine intake without acknowledging or answering the user's central question about suing an Alberta buyer from Ontario.",
+        "fix": "Acknowledge the Alberta buyer, explain that Ontario jurisdiction and service outside Ontario need separate consideration, and state the site's limits before continuing."
+      },
+      {
+        "step": "after-analysis",
+        "category": "broken",
+        "severity": "low",
+        "quote": "non-payment for goods soldgenerally",
+        "problem": "A missing space joins the claim type to the following explanation.",
+        "fix": "Insert a space between “sold” and “generally.”"
+      },
+      {
+        "step": "after-analysis",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Create Plaintiff's Claim draft (Form 7A)",
+        "problem": "The page offers Ontario claim preparation without plainly stating what the site can and cannot handle for this out-of-province defendant.",
+        "fix": "Place an Alberta-specific scope notice before claim preparation, explain the unresolved jurisdiction and service issues with sources, and link to appropriate legal help."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "contradiction",
+        "severity": "high",
+        "quote": "Where you are: Claim prepared but not filed",
+        "problem": "The page upgrades the confirmed fact that nothing has been filed into an unsupported assertion that the claim is prepared, which persists on subsequent results and case pages.",
+        "fix": "Describe the user as considering or preparing a new claim and do not mark the claim ready to file without confirmation."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "You can file in the territorial division where the problem happened",
+        "problem": "This Ontario venue explanation does not distinguish choosing an Ontario court location from establishing whether an Ontario court can hear a dispute involving an Alberta buyer.",
+        "fix": "Explain that rule 6.01 addresses court location rather than resolving interprovincial jurisdiction, and identify the additional legal questions and help needed without choosing Ontario for the user."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "the clerk returns stamped copies for you to serve on each defendant",
+        "problem": "The filing guidance gives no service method, service period, or explanation of serving this buyer in Alberta.",
+        "fix": "Provide the applicable claim-service period, permitted methods outside Ontario, proof-of-service requirements, and official rule references, or explicitly identify the unsupported portion and refer the user for help."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "contradiction",
+        "severity": "high",
+        "quote": "Pick that date above, with its year.",
+        "problem": "The calculator directs the user toward the quoted shipment date even though the page says the limitation period runs from discovery of the unpaid claim, which need not be the shipment date.",
+        "fix": "Ask when the balance became due and what the user knew about non-payment, explaining why the shipment date alone cannot establish the discovery date."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "For example, a claim based on a sexual assault has no limitation period.",
+        "problem": "An unrelated sexual-assault exception distracts from the limitation questions for this unpaid equipment sale.",
+        "fix": "Keep the visible explanation focused on payment terms, discovery, and potentially relevant acknowledgments, with unrelated exceptions available separately."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "If your claim is based on a document, attach a copy to each copy of the claim",
+        "problem": "The same filing instructions appear in both the next-step card and the full answer on this page and recur in the subsequent overview pages.",
+        "fix": "Keep one concise actionable instruction block and make the expanded answer add explanation rather than repeat it verbatim."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "echo",
+        "severity": "low",
+        "quote": "I'm claiming $5,800, which is the amount he still owes me.",
+        "problem": "The structured “Amount” field repeats the user's full sentence rather than organizing the confirmed amount.",
+        "fix": "Display “$5,800” in the amount field and retain the original sentence only in a clearly labelled record of the user's words."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "could the proceeding be stayed in favour of another province?",
+        "problem": "The jurisdiction section uses unexplained legal language and supplies statutory extracts rather than a visible plain-language answer to the user's question.",
+        "fix": "Explain jurisdiction and a stay in ordinary language before the extracts, including what remains unresolved for this Alberta sale."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Sources",
+        "problem": "The full answer's source list omits sources for some of its legal statements, including the sexual-assault exception and online filing review time.",
+        "fix": "Attach the relevant statutory citation or official link to each legal or procedural statement instead of relying on a partial source list."
+      },
+      {
+        "step": "back-to-intake",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Has the other party threatened you, or done anything that makes you feel unsafe?",
+        "problem": "The conversation asks a safety question without explaining its relevance to this unpaid commercial sale.",
+        "fix": "Briefly explain whether the answer affects safe communication or available guidance before asking the question."
+      },
+      {
+        "step": "case-timeline",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "They might describe steps in the court process.",
+        "problem": "The site presents shipment, non-payment, and an alleged damaged delivery as possible court steps even though the user confirmed that no case has started.",
+        "fix": "Treat these as factual events in the dispute and reserve court-step classification for facts suggesting an actual procedural event."
+      },
+      {
+        "step": "case-forms",
+        "category": "missing",
+        "severity": "high",
+        "quote": "the form, the fee, where to file it and how to serve it",
+        "problem": "The page promises service instructions but shows filing information and only a generic service description buried in the form catalogue.",
+        "fix": "Add an explicit service section addressing the Alberta defendant, with applicable methods, timing, proof, sources, and any site limitations."
+      },
+      {
+        "step": "case-forms",
+        "category": "broken",
+        "severity": "medium",
+        "quote": "Answer the questions above and save them to see the forms that match.",
+        "problem": "The form-matching section refers to questions and a save action that are not visible.",
+        "fix": "Render the unanswered matching questions and save control, or show the matches already established by the saved intake."
+      },
+      {
+        "step": "case-forms",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Nothing about these forms is flagged for you to check yet.",
+        "problem": "The page gives no filing caution for the known Alberta defendant despite unresolved Ontario jurisdiction and out-of-province service.",
+        "fix": "Flag those unresolved issues explicitly and explain that listing Form 7A does not establish that Ontario is the proper province."
+      },
+      {
+        "step": "case-forms",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Showing 48 of 48 forms.",
+        "problem": "The default catalogue mixes the claimant's relevant forms with defence, enforcement, disability, and other forms unrelated to the current step.",
+        "fix": "Default to forms relevant to the confirmed claimant stage and put the complete catalogue behind the optional “All forms” view."
+      },
+      {
+        "step": "case-drafts",
+        "category": "missing",
+        "severity": "high",
+        "quote": "The document that starts your case",
+        "problem": "The Ontario claim-drafting option again lacks a warning that the site has not resolved whether this Alberta dispute can be brought in Ontario.",
+        "fix": "Carry the out-of-province limitation into the draft entry point and distinguish preparing a draft from confirming the proper province."
+      },
+      {
+        "step": "case-case-file",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Exact step: How do I actually file my claim, and what does it cost?",
+        "problem": "The printable case file preserves an Ontario filing instruction but omits the unresolved jurisdiction and Alberta service questions that are central to the user's situation.",
+        "fix": "Include an “Unresolved issues before filing” section recording the Alberta defendant, jurisdiction question, service question, and referral."
+      },
+      {
+        "step": "reload-reopens-case",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "Nothing in your records needs sorting out right now.",
+        "problem": "After reload, the overview replaces the earlier missing-documents notice with an all-clear message even though no document upload is shown and key jurisdiction and date issues remain unresolved.",
+        "fix": "Preserve outstanding document and legal-information gaps across reloads rather than displaying an unsupported all-clear."
+      }
+    ],
+    "overall": "The journey captures the $5,800 balance, preserves the intake, and supplies useful Ontario form and fee information without grading the claim. Its central failure is treating ordinary Ontario filing as the next step without plainly addressing the Alberta buyer or explaining the site's limits. Jurisdiction, Ontario court location, and service outside Ontario need separate, sourced explanations and a targeted referral where the site cannot proceed. The site should also correct the unsupported “claim prepared” stage, avoid steering the deadline calculator toward shipment, and preserve unresolved issues across reloads and the printable case file.",
+    "finishLine": {
+      "nextForm": {
+        "result": "pass",
+        "why": "The next-step card names “Form 7A — Plaintiff’s Claim,” the correct form for starting an Ontario Small Claims action, although whether Ontario is available remains unresolved."
+      },
+      "deadline": {
+        "result": "n/a",
+        "why": "Only “June” is known, without a year, exact payment date, or established discovery date, so the journey does not reach a known date from which a deadline can be calculated."
+      },
+      "fileFeeService": {
+        "result": "fail",
+        "why": "The pages show filing channels and the $108/$228 fees, but “stamped copies for you to serve” does not explain how or when to serve the Alberta buyer."
+      },
+      "noRepeat": {
+        "result": "fail",
+        "why": "“What is the total dollar amount you are claiming?” asks for a balance already calculable from the stated $6,800 sale and $1,000 payment."
+      },
+      "onTopic": {
+        "result": "pass",
+        "why": "The page openings stay on the claimant's Small Claims path, including “Preparing your Plaintiff's Claim (Form 7A),” rather than putting another side, court, or kind of case above the fold."
+      },
+      "sourced": {
+        "result": "fail",
+        "why": "Although many instructions carry citations, statements such as “a claim based on a sexual assault has no limitation period” lack their relevant source in the displayed answer."
+      },
+      "noGrading": {
+        "result": "pass",
+        "why": "The visible pages do not assess this claim's strength or predict its outcome, and expressly describe the legal extracts as “not how your case will turn out.”"
+      },
+      "limits": {
+        "result": "fail",
+        "why": "Generic referrals under “Want a person to check this step with you?” do not explain the site's specific limits on Ontario jurisdiction and service for an Alberta defendant."
+      },
+      "conversation": {
+        "result": "fail",
+        "why": "The conversation acknowledges some facts but leaves the Ontario-versus-Alberta question unanswered, re-asks the amount, and displays the amount and claim-type questions together."
+      }
+    }
+  },
+  "held-back-sc-served-defendants-claim": {
+    "findings": [
+      {
+        "step": "intake-form",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Plaintiff / claimant",
+        "problem": "The single-role selector does not explain that she is the plaintiff in her fence claim but the defendant to her neighbour’s claim.",
+        "fix": "Allow both roles and explain that responding to the defendant’s claim requires a separate Defence."
+      },
+      {
+        "step": "intake-form",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "What documents already exist?",
+        "problem": "The document checklist has no option for a defendant’s claim received or served, although that document determines her immediate next step.",
+        "fix": "Add a defendant’s-claim-served option with service-date capture and route it to Form 9A."
+      },
+      {
+        "step": "after-analysis",
+        "category": "missing",
+        "severity": "high",
+        "quote": "What CourtSimplified can help with next",
+        "problem": "The page correctly withholds a new originating claim draft but does not identify the Defence she needs to respond to the defendant’s claim.",
+        "fix": "Name Defence (Form 9A) as her next step and link directly to its instructions and official form."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "Choose the question closest to where your case is.",
+        "problem": "The page asks her to identify her situation again even though her story explicitly asks how to respond to a defendant’s claim, and this same gate returns on subsequent results and overview pages.",
+        "fix": "Select the defendant’s-claim response guidance automatically and offer an optional correction."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "I was hurt on a Toronto street or sidewalk — do I have to tell the City first?",
+        "problem": "The next-step area leads with unrelated injury, pre-action and claim-starting questions rather than her current response obligation, including after returning and reloading.",
+        "fix": "Show the defendant’s-claim response first and move unrelated questions into an optional browse section."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Your role\nPlaintiff / claimant",
+        "problem": "The snapshot records only her original plaintiff role and omits her defendant role for the claim she now needs to answer.",
+        "fix": "Show both claim-specific roles and identify the $2,000 defendant’s claim as the matter requiring a response."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "within 20 days after service of the defendant's claim",
+        "problem": "The page quotes the response period and counting rule without calculating a deadline from the September 28 service date.",
+        "fix": "Confirm the service year if necessary and show October 19, 2026 for September 28, 2026 service, explaining the Sunday adjustment and whether the deadline has passed."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "file the defence, with proof of service, with the clerk",
+        "problem": "The quoted rule does not provide practical filing channels, the applicable Defence filing fee, permitted service methods or instructions for proving service.",
+        "fix": "Provide sourced instructions for serving every other party, preparing proof of service and filing Form 9A in the existing court file, including the fee."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "a meritorious defence and a reasonable explanation for the default",
+        "problem": "The visible guidance consists of dense legal extracts with unexplained terms rather than a plain-language answer to her question.",
+        "fix": "Lead with a sourced plain-language response tailored to her current step and place the full legal extracts behind optional expansion."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "Read more of the provision",
+        "problem": "Each short legal quotation is immediately followed by substantially the same provision again, making the response guidance unnecessarily long.",
+        "fix": "Display one concise explanation and keep the full provision collapsed unless requested."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "broken",
+        "severity": "low",
+        "quote": "within the court’s jurisdiction and applic(7 passages)",
+        "problem": "The research-question heading ends mid-word and runs directly into the passage count.",
+        "fix": "Render the complete heading with the passage count separately."
+      },
+      {
+        "step": "case-overview",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Your next step",
+        "problem": "The next-step card contains a generic question selector instead of naming Form 9A and the response deadline, and remains unchanged after reload.",
+        "fix": "Persist a next-step card naming Defence (Form 9A), the calculated deadline and direct service-and-filing instructions."
+      },
+      {
+        "step": "case-timeline",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "The exact date, if you know it",
+        "problem": "The timeline asks for a date again beside the sentence already stating September 28 rather than extracting it and asking only for any missing year.",
+        "fix": "Prefill the known service date and request only missing information needed to confirm it."
+      },
+      {
+        "step": "case-timeline",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "A defendant's claim was issued",
+        "problem": "The event options distinguish issuance but do not provide a specific defendant’s-claim-served event, even though service starts her response clock.",
+        "fix": "Split the defence filing and defendant’s-claim service into suggested events and provide a specific service event linked to the deadline."
+      },
+      {
+        "step": "case-forms",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Showing 48 of 48 forms.",
+        "problem": "The forms page leaves her to search the entire catalogue instead of identifying Form 9A for the defendant’s claim.",
+        "fix": "Pin Form 9A and the relevant proof-of-service form at the top with an explanation of why she needs them."
+      },
+      {
+        "step": "case-forms",
+        "category": "missing",
+        "severity": "high",
+        "quote": "The form a defendant uses to dispute a plaintiff's claim.",
+        "problem": "The Form 9A description omits its use to defend a defendant’s claim, which could make her think it is not her form.",
+        "fix": "Explain that Form 9A also answers a defendant’s claim and explicitly connect that use to her situation under rule 10.03."
+      },
+      {
+        "step": "case-forms",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "The deadline for your step is on your Overview.",
+        "problem": "The forms page promises a deadline on the Overview, but the visible Overview provides only a question selector and uncalculated legal periods.",
+        "fix": "Calculate and display the deadline on the Overview before directing her there."
+      },
+      {
+        "step": "case-case-file",
+        "category": "missing",
+        "severity": "high",
+        "quote": "None yet. Give the dates asked for under “Your next step”",
+        "problem": "The printable case file contains no deadline and asks for dates already supplied in her saved story.",
+        "fix": "Carry the September 28 service date into the case file and show the calculated response deadline, requesting only any genuinely missing date detail."
+      },
+      {
+        "step": "reload-reopens-case",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "Nothing in your records needs sorting out right now.",
+        "problem": "This all-clear conflicts with the unrecorded service event, absent response deadline and unresolved form selection visible elsewhere in the journey.",
+        "fix": "List the outstanding defendant’s-claim response tasks until the relevant dates and completion steps are recorded."
+      }
+    ],
+    "overall": "The site preserves her story, avoids grading either claim and correctly withholds a new Plaintiff’s Claim draft. It also retrieves the right defendant’s-claim response rule, but fails to turn that research into an actionable next step. The most important improvements are to distinguish her two roles, prominently identify Form 9A, calculate the service-based deadline and provide filing, fee and service instructions. Those details should persist across the Overview, Forms, Timeline and printable case file without making her repeat her situation.",
+    "finishLine": {
+      "nextForm": {
+        "result": "fail",
+        "why": "The “Your next step” card asks her to choose a question rather than naming Defence (Form 9A), although rule 10.03 appears farther down."
+      },
+      "deadline": {
+        "result": "fail",
+        "why": "Despite September 28 service and the quoted “within 20 days” rule, the printable case file says “None yet” instead of showing a calculated deadline."
+      },
+      "fileFeeService": {
+        "result": "fail",
+        "why": "The pages quote “file the defence, with proof of service, with the clerk” but do not show the fee, practical filing channels or how to serve her Defence."
+      },
+      "noRepeat": {
+        "result": "fail",
+        "why": "“Choose the question closest to where your case is” repeatedly asks her to identify an already-described situation, and the timeline asks again for her service date."
+      },
+      "onTopic": {
+        "result": "fail",
+        "why": "The next-step area begins with unrelated questions such as “I was hurt on a Toronto street or sidewalk” rather than her defendant’s-claim response."
+      },
+      "sourced": {
+        "result": "pass",
+        "why": "The visible legal extracts identify rules such as “Rules of the Small Claims Court, O. Reg. 258/98, r. 10.03,” and the form cards provide official form links."
+      },
+      "noGrading": {
+        "result": "pass",
+        "why": "The pages do not assess either claim or predict an outcome, and explicitly say the extracts describe the law, “not how your case will turn out.”"
+      },
+      "limits": {
+        "result": "pass",
+        "why": "The forms page states “We can match forms to your answers here only when you are starting a case or responding to one” and provides lawyer, paralegal and legal-help referrals."
+      },
+      "conversation": {
+        "result": "n/a",
+        "why": "The journey uses “Fill in the form yourself” and never reaches the guided one-question-at-a-time conversation."
+      }
+    }
+  },
+  "held-back-sc-used-car": {
+    "findings": [
+      {
+        "step": "spelling-suggestions",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "So far this looks like: starting case · property damage",
+        "problem": "The page classifies a claim about a misrepresented private car sale as property damage, and this classification persists on intake-filled and back-to-intake.",
+        "fix": "Identify the issue as a private used-car sale involving alleged misrepresentation and a claim for repair costs."
+      },
+      {
+        "step": "spelling-suggestions",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "Still useful to add: your legal name, the other party’s name, the other party’s address for service, what evidence you have, how the amount was calculated.",
+        "problem": "The request for how the amount was calculated ignores the story's explanation that $5,200 is the repair cost, and repeats on intake-filled and back-to-intake.",
+        "fix": "Record the amount as the stated repair cost and ask only whether it comes from an estimate or a paid invoice."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Where you are: Claim prepared but not filed",
+        "problem": "The page treats the claim as already prepared although the journey shows only intake information and no completed claim, and this assumption persists on subsequent results and overview pages.",
+        "fix": "Say the user is starting a claim and must prepare Form 7A before filing it."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Toronto uses the Ontario Courts Public Portal",
+        "problem": "The next-step card includes Toronto filing instructions despite the saved Hamilton location, and repeats them on forward-to-results, case-overview and reload-reopens-case.",
+        "fix": "Show Hamilton's outside-Toronto filing route in the next-step card and put other regions' instructions behind an optional link."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "On paper, you file your Plaintiff's Claim (Form 7A) in person or by mail at the court office",
+        "problem": "The filing instructions never identify the Hamilton court office or its address, leaving the paper filing route incomplete on all subsequent next-step pages.",
+        "fix": "Provide the Hamilton Small Claims Court office's official address and filing information, while explaining the territorial connection needed to file there."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "the clerk returns stamped copies for you to serve on each defendant",
+        "problem": "The page does not explain how to serve the issued claim, the service deadline or how to prove service, and the omission persists on the later results and overview pages.",
+        "fix": "Explain permitted service methods for this individual seller, the six-month service period after issue, and completing and filing Form 8A, with official sources."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "On what day did the thing your claim is about happen?",
+        "problem": "The page asks again for an event date even though the story already supplies the purchase date and the approximate discovery timing, and this generic question repeats on subsequent overview pages.",
+        "fix": "Use the saved purchase date and approximate engine-failure timing, asking only for the unresolved exact discovery date and explaining why it matters."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Give the date below and we will count the last day for you.",
+        "problem": "No calendar deadline or provisional date is shown despite the recorded August 2026 events, and the page does not clearly distinguish discovery of the concealed defect from the purchase.",
+        "fix": "Explain that discovery appears to have occurred around late August 2026, show a clearly qualified August 2028 limitation date or range, and request confirmation of the exact discovery date without suggesting the period has expired."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "For example, a claim based on a sexual assault has no limitation period.",
+        "problem": "The expanded deadline answer introduces an unrelated kind of claim, and repeats this example on later results and overview pages.",
+        "fix": "Keep this answer focused on the private-sale limitation period and move unrelated exceptions to optional general guidance."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "If your claim is based on a document, attach a copy to each copy of the claim",
+        "problem": "The filing paragraph appears both in the next-step card and verbatim in the full answer, alongside repeated form and source sections, and this duplication persists on later results and overview pages.",
+        "fix": "Keep a concise actionable card and make the expanded answer add explanations rather than repeat the same instructions."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "wrong-side",
+        "severity": "high",
+        "quote": "Being sued for something you did not do",
+        "problem": "The case snapshot says this plaintiff is being sued and falsely labels that issue as something they confirmed.",
+        "fix": "Show a plaintiff's claim for $5,200 in repair costs arising from an allegedly misrepresented private car sale."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "wrong-side",
+        "severity": "high",
+        "quote": "Documents your Defence relies on (Source)",
+        "problem": "The evidence checklist is written for a defendant rather than the buyer starting a claim.",
+        "fix": "List evidence for the buyer's claim, including the advertisement, seller's statements, sale and payment records, mechanic's findings, repair estimate or invoice, photos and messages."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "broken",
+        "severity": "medium",
+        "quote": "Where you were and what you did (Source)",
+        "problem": "The evidence list displays literal '(Source)' placeholders instead of meaningful references, and these persist on later results and overview pages.",
+        "fix": "Replace placeholders with usable references or remove them and present a concrete evidence checklist."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "The first element of civil fraud is a false representation by the defendant.",
+        "problem": "The legal research section supplies excerpts rather than a plain explanation of what this buyer must establish and which relevant facts or evidence are not yet recorded.",
+        "fix": "Explain the relevant misrepresentation requirements in plain words, connect them neutrally to the recorded statements and repair history, and identify unresolved matters such as reliance, seller knowledge and proof of loss."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "there is an implied condition that the goods will be of merchantable quality",
+        "problem": "The research section presents technical statutory wording without explaining that the quoted seller-dealing-in-goods condition is not automatically applicable to this private seller, and repeats it on later results and overview pages.",
+        "fix": "Explain the private-sale distinction and the limits of these implied terms before showing the optional statutory text."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "broken",
+        "severity": "medium",
+        "quote": "what effect would an as-is term or an opportunity to inspect ha(1 passage)",
+        "problem": "The research question ends mid-word before its passage count, and the same malformed heading appears on later results and overview pages.",
+        "fix": "Render the complete question and separate the passage count from its text."
+      },
+      {
+        "step": "forward-to-results",
+        "category": "wrong-side",
+        "severity": "high",
+        "quote": "Being sued for something you did not do",
+        "problem": "Returning from intake still leaves the plaintiff's case classified as defending a lawsuit.",
+        "fix": "Preserve the correct private-sale plaintiff classification when navigating back and forward."
+      },
+      {
+        "step": "forward-to-results",
+        "category": "wrong-side",
+        "severity": "high",
+        "quote": "Documents your Defence relies on (Source)",
+        "problem": "The returned results still give the plaintiff a defence evidence checklist.",
+        "fix": "Regenerate the checklist from the saved plaintiff role and private-sale facts."
+      },
+      {
+        "step": "case-overview",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "Nothing in your records needs sorting out right now.",
+        "problem": "This all-clear conflicts with the intake's outstanding party and service details and the overview's still-unworked deadline.",
+        "fix": "List the known unresolved information without suggesting anything about the merits of the claim."
+      },
+      {
+        "step": "case-overview",
+        "category": "wrong-side",
+        "severity": "high",
+        "quote": "Being sued for something you did not do",
+        "problem": "The saved case overview continues to describe the buyer as someone being sued despite displaying the plaintiff role.",
+        "fix": "Store and display the correct plaintiff-side private-sale issue consistently throughout the case."
+      },
+      {
+        "step": "case-overview",
+        "category": "wrong-side",
+        "severity": "high",
+        "quote": "Documents your Defence relies on (Source)",
+        "problem": "The saved overview continues to direct the plaintiff to organize defence documents.",
+        "fix": "Replace the defence checklist with claim-specific evidence and clearly identified outstanding proof."
+      },
+      {
+        "step": "case-timeline",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "They might describe steps in the court process.",
+        "problem": "The page treats buying the car, discovering the defect and unanswered texts as possible court steps even though it records that no claim has been filed.",
+        "fix": "Organize these as factual events in a separate chronology and reserve procedural-step questions for events that actually concern court proceedings."
+      },
+      {
+        "step": "case-timeline",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "The exact date, if you know it",
+        "problem": "The purchase event asks for a date already explicitly given as August 2, 2026.",
+        "fix": "Prefill the purchase date for confirmation and preserve the approximate timing of the later engine failure."
+      },
+      {
+        "step": "case-forms",
+        "category": "missing",
+        "severity": "high",
+        "quote": "What your next step takes: the form, the fee, where to file it and how to serve it.",
+        "problem": "The promised next-step section gives no actionable service instructions, and the later form catalogue's reference to personal service or an alternative does not explain how to carry either out.",
+        "fix": "Add a sourced service section covering the issued claim, permitted methods, the service deadline and Form 8A proof of service."
+      },
+      {
+        "step": "case-forms",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "What ordinary claim are you starting?",
+        "problem": "The page asks the user to identify a money or property claim although the saved story and $5,200 amount already describe a money claim for repairs.",
+        "fix": "Use the recorded money claim and ask only for eligibility facts that remain genuinely unknown."
+      },
+      {
+        "step": "case-forms",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "No missing form information is currently flagged.",
+        "problem": "The page presents an all-clear while simultaneously requiring answers and saved confirmations before it can show matching forms.",
+        "fix": "Distinguish an incomplete form check from a completed check with no missing information."
+      },
+      {
+        "step": "case-forms",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Showing 48 of 48 forms.",
+        "problem": "The default catalogue mixes the relevant claim forms with defence, enforcement and disability-related forms instead of narrowing the list to this plaintiff's starting stage.",
+        "fix": "Default to Form 7A and the relevant service form, with the complete catalogue available through an explicit browse option."
+      },
+      {
+        "step": "case-drafts",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "What happened, in date order: 0 items from your timeline and dated documents.",
+        "problem": "The chronology draft has no items even though the saved story contains a dated purchase and an approximately dated defect discovery.",
+        "fix": "Offer those saved factual events as clearly labelled proposed chronology entries for confirmation."
+      },
+      {
+        "step": "case-case-file",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Deadlines worked out from your dates",
+        "problem": "The printable file says 'None yet' and provides neither the applicable two-year period nor the recorded August 2026 discovery context.",
+        "fix": "Include the limitation period, a qualified August 2028 date or range, and any exact discovery-date confirmation still needed."
+      },
+      {
+        "step": "case-case-file",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Exact step: How do I actually file my claim, and what does it cost?",
+        "problem": "The printable case file names a filing question but omits the already available Form 7A, fee and filing route.",
+        "fix": "Include a concise next-step summary with the form, fee, Hamilton filing route and service requirements."
+      },
+      {
+        "step": "reload-reopens-case",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Count my deadline from Sunday, August 2, 2026",
+        "problem": "The suggested calculation uses the purchase date without explaining why discovery of the concealed defect about three weeks later may be the relevant starting point.",
+        "fix": "Separate purchase from discovery, ask a targeted question about when the defect became known, and show any purchase-based calculation only as a clearly explained provisional date."
+      },
+      {
+        "step": "reload-reopens-case",
+        "category": "wrong-side",
+        "severity": "high",
+        "quote": "Being sued for something you did not do",
+        "problem": "Reloading preserves the incorrect defendant-side issue rather than correcting the saved plaintiff case.",
+        "fix": "Correct the stored issue classification and keep it consistent after reload."
+      },
+      {
+        "step": "reload-reopens-case",
+        "category": "wrong-side",
+        "severity": "high",
+        "quote": "Documents your Defence relies on (Source)",
+        "problem": "The defence evidence checklist remains in the reopened plaintiff case.",
+        "fix": "Persist a plaintiff-side evidence checklist tailored to the misrepresented car sale."
+      }
+    ],
+    "overall": "The journey correctly identifies Small Claims Court, preserves the story and amount, offers Form 7A and shows sourced fee and online-filing information without grading the claim. However, it repeatedly labels this plaintiff as someone being sued and supplies defence-oriented evidence guidance. The most important improvements are to correct and persist the case classification, explain the private-sale misrepresentation requirements in plain language, and complete the Hamilton filing and service instructions. The site should also use the recorded dates to provide a qualified limitation calculation, clarify discovery timing and stop asking for facts already supplied.",
+    "finishLine": {
+      "nextForm": {
+        "result": "pass",
+        "why": "The next-step card correctly names 'Form 7A — Plaintiff’s Claim', and the drafts page also offers that document."
+      },
+      "deadline": {
+        "result": "fail",
+        "why": "The pages give '2 years after the day the claim was discovered' but never count a deadline to a date, and the reload suggestion uses August 2, 2026 without resolving the later discovery timing."
+      },
+      "fileFeeService": {
+        "result": "fail",
+        "why": "The pages show the $108 fee and outside-Toronto online portal, but omit the Hamilton court office details and actionable instructions for serving and proving service of the claim."
+      },
+      "noRepeat": {
+        "result": "fail",
+        "why": "The pages ask 'On what day did the thing your claim is about happen?' despite the saved dates, and the forms page asks 'What ordinary claim are you starting?' despite the recorded repair-cost money claim."
+      },
+      "onTopic": {
+        "result": "fail",
+        "why": "The prominent next-step card includes 'Toronto uses the Ontario Courts Public Portal' for this Hamilton user, while the case snapshot and checklist also introduce the wrong side."
+      },
+      "sourced": {
+        "result": "fail",
+        "why": "Although many instructions have citations, the expanded limitation answer's discovery test and sexual-assault exception lack their specific supporting provisions, with the listed Limitations Act source limited to 's. 4'."
+      },
+      "noGrading": {
+        "result": "pass",
+        "why": "Nothing visible rates the claim, predicts its outcome or pushes settlement, and the research section explicitly says its quotations are 'not how your case will turn out'."
+      },
+      "limits": {
+        "result": "pass",
+        "why": "The site discloses that its information 'has not yet been reviewed by a licensed Ontario lawyer or paralegal', warns that the decision has not been checked for later changes, and offers human-help referrals."
+      },
+      "conversation": {
+        "result": "n/a",
+        "why": "This journey uses structured intake rather than the offered 'Answer questions one at a time with AI help' route, so no guided conversation or answers to user questions are shown."
+      }
+    }
+  }
+}

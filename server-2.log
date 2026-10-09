@@ -1,0 +1,7 @@
+▲ Next.js 16.2.4
+- Local:         http://localhost:3100
+- Network:       http://10.1.1.213:3100
+✓ Ready in 112ms
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+[groundedCognition] 17 unverified statement(s) removed: element (no source cited); element (no source cited); element (no source cited); element.missingFacts (presented as a fact but states law or procedure); element.missingFacts (presented as a fact but states law or procedure); element (no source cited); element.missingFacts (presented as a fact but states law or procedure); claim.explanation (presented as a fact but states law or procedure); missing.reason (no source cited); missing.reason (presented as a fact but states law or procedure); missing.reason (no source cited); missing.reason (presented as a fact but states law or procedure); link.requiredProof (no source cited); link.requiredProof (no source cited); link.requiredProof (no source cited); link.missingEvidence (presented as a fact but states law or procedure); nextBestActions (no source cited)
+CourtSimplified GPT cognition failed. { errorName: 'Error' }

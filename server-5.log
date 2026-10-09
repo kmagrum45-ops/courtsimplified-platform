@@ -1,0 +1,9 @@
+▲ Next.js 16.2.4
+- Local:         http://localhost:3100
+- Network:       http://10.1.1.139:3100
+✓ Ready in 154ms
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+[groundedCognition] 9 unverified statement(s) removed: element (no source cited); element (no source cited); element (no source cited); element (no source cited); missing.reason (no source cited); missing.reason (presented as a fact but states law or procedure); link.requiredProof (no source cited); nextBestActions (no source cited); nextBestActions (no source cited)
+[betaProcedureAuthority] no legal_form_mapping_rules row lists stage "trial" — zero verified forms will be returned. Covered stages: starting-case, responding, already-started, conference, motion. This is a DATA gap, not a code failure: add the stage to the relevant rows' authority_stage_applicability, or tell the user the stage is not covered.
+[groundedCognition] 10 unverified statement(s) removed: element.missingFacts (presented as a fact but states law or procedure); claim.explanation (presented as a fact but states law or procedure); missing.reason (no source cited); missing.reason (presented as a fact but states law or procedure); missing.reason (no source cited); missing.reason (presented as a fact but states law or procedure); link.requiredProof (no source cited); risk (no source cited); form (no source cited); nextBestActions (no source cited)
+[betaProcedureAuthority] no legal_form_mapping_rules row lists stage "enforcement" — zero verified forms will be returned. Covered stages: starting-case, responding, already-started, conference, motion. This is a DATA gap, not a code failure: add the stage to the relevant rows' authority_stage_applicability, or tell the user the stage is not covered.
