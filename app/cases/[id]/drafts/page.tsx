@@ -38,7 +38,7 @@ import { startingDocumentDraft, startingDocumentTitle, type StartingDocumentInta
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "@/src/lib/case-system/drafts/respondingDocumentDraft";
 import { COURT_DOCUMENT_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
 import { FORM_COMPLETION_PAUSED } from "@/src/lib/content-library/phaseScope";
-import { originatingDocumentRecorded } from "../../../builder/_components/respondingSide";
+import { originatingDocumentRecorded, respondingDocumentStillDue } from "../../../builder/_components/respondingSide";
 import type { StoredCaseData } from "../../../builder/_components/builderTypes";
 import { authHeaders, formatDate, useCaseHome } from "../../_components/CaseHomeContext";
 
@@ -60,7 +60,7 @@ function download(filename: string, content: string, type: string) {
 const fileName = (title: string) => (title.trim() || "draft").replace(/[^\w\- ]+/g, "").replace(/\s+/g, "-").slice(0, 80) || "draft";
 
 export default function CaseDraftsSection() {
-  const { caseRecord, reload, responding, courtPath, position } = useCaseHome();
+  const { caseRecord, reload, responding, courtPath, position, stepId } = useCaseHome();
   const caseId = caseRecord.id;
   const master = (caseRecord.master_result ?? {}) as Record<string, unknown>;
 
@@ -212,7 +212,12 @@ export default function CaseDraftsSection() {
   // (respondingDocumentDraft.ts), under the same drafting gates.
   const respondingTitle = respondingDocumentTitle(courtPath);
   const offerRespondingDocument =
-    COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && Boolean(respondingTitle) && responding;
+    COURT_DOCUMENT_DRAFTING_ENABLED &&
+    !FORM_COMPLETION_PAUSED &&
+    Boolean(respondingTitle) &&
+    responding &&
+    // Not past the defence (noted in default, a judgment, a defence filed).
+    respondingDocumentStillDue(stepId);
 
   if (open) {
     return (

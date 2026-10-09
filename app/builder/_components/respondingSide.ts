@@ -83,3 +83,17 @@ export function originatingDocumentRecorded(args: {
 
   return (originating[args.courtPath] || []).some((id) => filed.includes(id));
 }
+
+/**
+ * Whether the ordinary response (Defence, Statement of Defence, Answer) is
+ * still the person's next document, given the step they are at. Replay,
+ * 2026-10-09: a defendant noted in default was offered "Create Defence
+ * (Form 9A) draft" as the first action, ahead of the motion to set the
+ * noting aside that their step actually needs. Past the defence -- noted in
+ * default, a default judgment, a judgment, or a defence already filed -- the
+ * draft is not offered. With no step known, it is, as before.
+ */
+export function respondingDocumentStillDue(stepId: string | null | undefined): boolean {
+  if (!stepId) return true;
+  return !/noted-in-default|default-judgment|judgment-against-me|judgment-being-enforced|defence-filed|defence-delivered|answer-filed|answer-time-missed/.test(stepId);
+}
