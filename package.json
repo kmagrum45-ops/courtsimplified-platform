@@ -72,6 +72,7 @@
     "test:no-store": "node --import tsx scripts/verification/verifyNoStore.ts",
     "test:ai-models": "node --import tsx scripts/verification/verifyAiModels.ts",
     "test:notice-step": "node --import tsx scripts/verification/verifyNoticeStep.ts",
+    "test:historical-law": "node --import tsx scripts/verification/verifyHistoricalLaw.ts",
     "test:responding-draft": "node --import tsx scripts/verification/verifyRespondingDraft.ts",
     "test:user-story": "node --import tsx scripts/verification/verifyUserStory.ts",
     "test:amount-notes": "node --import tsx scripts/verification/verifyAmountNotes.ts",

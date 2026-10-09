@@ -1044,3 +1044,26 @@ styles, scripts and link markers removed; paragraphs and numbers kept).
 - **Retrieved from:** https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/17634/index.do (judgment frame `?iframe=true`)
 - **Downloaded:** 2026-10-09 (Fetch Decisions runs 37976295989, 37976584406)
 - **Noted up:** no (see SOURCING_NOTES, "Noting up")
+
+## Law as it read on a past date (`historical/`, 2026-10-09)
+
+Past versions of laws, for "what was the law when this happened?". Kept apart
+from `corpus/`, which refuses historical versions on purpose. Every one is
+titled with its period (scripts/retrieval/historicalSources.ts), and a checked
+answer may rest on one only in a statement about that time
+(test:historical-law). Fetched by the Vendor Sources workflow from the
+official sites, on a probe branch that was never merged.
+
+### `historical/proceedings-against-the-crown-act-from-2004-11-04.txt` (and `-2006-10-19`, `-2007-05-17`, `-2007-07-25`)
+
+- **What it is:** the Proceedings Against the Crown Act, R.S.O. 1990, c. P.27, as e-Laws publishes its historical versions, each file's own header stating its period: November 4, 2004 to October 18, 2006; October 19, 2006 to May 16, 2007; May 17, 2007 to July 24, 2007; July 25, 2007 to November 26, 2008.
+- **Retrieved for:** suing the Ontario Crown over events in 2006-2007 (the Act was replaced by the Crown Liability and Proceedings Act, 2019, whose s. 31 says which applies).
+- **Retrieved from:** https://www.ontario.ca/laws/docs/elaws_statutes_90p27_ev002.doc (and `_ev003`, `_ev004`, `_ev005`). The same names without the `elaws_statutes_` prefix are HTTP 403.
+- **Downloaded:** 2026-10-09 (Vendor Sources run 37978287635)
+
+### `historical/criminal-code-part-xvi-2006-12-14-to-2007-12-31.txt`
+
+- **What it is:** Part XVI of the Criminal Code, R.S.C. 1985, c. C-46 (compelling appearance and interim release: bail), as it read from December 14, 2006 to December 31, 2007. An excerpt: from the "PART XVI Compelling Appearance" heading to the "PART XVII" heading, with a three-line header saying what it is.
+- **Retrieved from:** https://laws-lois.justice.gc.ca/eng/acts/C-46/20070701/P1TT3xt3.html (Justice Laws point-in-time version 2007-07-01 to 2007-11-30). The point-in-time versions from 2006-12-14, 2007-03-01 and 2007-12-01 were fetched too and Part XVI is identical in all four, so one file covers the period.
+- **Downloaded:** 2026-10-09 (Vendor Sources run 37978651892)
+- **Worth knowing:** today's s. 515 (10) (b) adds "or any person under the age of 18 years" to the public-safety ground; the 2007 text does not have those words.

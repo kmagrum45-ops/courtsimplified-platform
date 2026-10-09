@@ -24,6 +24,7 @@ import path from "node:path";
 
 import { chunkSource, readableUrl } from "../../src/lib/case-system/retrieval/corpusChunker";
 import { DECISION_SOURCES } from "./decisionSources";
+import { HISTORICAL_SOURCES } from "./historicalSources";
 import {
   chunkIndexedSource,
   sourceTextPath,
@@ -124,6 +125,17 @@ async function main() {
     };
     const file = sourceTextPath(ROOT, source);
     if (!existsSync(file) || !source.readableUrl) continue;
+    const chunks = chunkIndexedSource(source, readFileSync(file, "utf8"));
+    if (chunks.length === 0) continue;
+    sources[source.id] = source;
+    for (const chunk of chunks) rows.push({ id: chunk.id, hash: passageHash(chunk, source), input: embeddingInput(chunk, source) });
+  }
+
+  // Law as it read on a past date, each titled with its period
+  // (historicalSources.ts). Cut like any statute.
+  for (const source of HISTORICAL_SOURCES) {
+    const file = sourceTextPath(ROOT, source);
+    if (!existsSync(file)) continue;
     const chunks = chunkIndexedSource(source, readFileSync(file, "utf8"));
     if (chunks.length === 0) continue;
     sources[source.id] = source;

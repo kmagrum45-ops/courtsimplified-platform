@@ -1,0 +1,1220 @@
+Criminal Code, R.S.C. 1985, c. C-46 — Part XVI (Compelling Appearance of Accused Before a Justice and Interim Release)
+HISTORICAL VERSION: the text in force from December 14, 2006 to December 31, 2007.
+Taken from the Justice Laws point-in-time version from 2007-07-01 to 2007-11-30; Part XVI is word for word the same in the versions from 2006-12-14, 2007-03-01 and 2007-12-01 (compared 2026-10-09).
+
+PART XVI Compelling Appearance of Accused Before a Justice and Interim Release
+ Interpretation
+ Marginal note: Definitions
+ 493  In this Part,
+ accused
+ prévenu
+ accused includes
+ (a)  a person to whom a peace officer has issued an appearance notice under section 496, and
+
+ (b)  a person arrested for a criminal offence; ( prévenu )
+
+ appearance notice
+ citation à comparaître
+ appearance notice means a notice in Form 9 issued by a peace officer; ( citation à comparaître )
+ judge
+ juge
+ judge means
+ (a)  in the Province of Ontario, a judge of the superior court of criminal jurisdiction of the Province,
+
+ (b)  in the Province of Quebec, a judge of the superior court of criminal jurisdiction of the province or three judges of the Court of Quebec,
+
+ (c)   [Repealed, 1992, c. 51, s. 37]
+
+ (d)  in the Provinces of Nova Scotia, New Brunswick, Manitoba, British Columbia, Prince Edward Island, Saskatchewan, Alberta and Newfoundland, a judge of the superior court of criminal jurisdiction of the Province,
+
+ (e)  in Yukon and the Northwest Territories, a judge of the Supreme Court, and
+
+ (f)  in Nunavut, a judge of the Nunavut Court of Justice; ( juge )
+
+ officer in charge
+ fonctionnaire responsable
+ officer in charge means the officer for the time being in command of the police force responsible for the lock-up or other place to which an accused is taken after arrest or a peace officer designated by him for the purposes of this Part who is in charge of that place at the time an accused is taken to that place to be detained in custody; ( fonctionnaire responsable )
+ promise to appear
+ promesse de comparaître
+ promise to appear means a promise in Form 10; ( promesse de comparaître )
+ recognizance
+ engagement
+ recognizance , when used in relation to a recognizance entered into before an officer in charge, or other peace officer, means a recognizance in Form 11, and when used in relation to a recognizance entered into before a justice or judge, means a recognizance in Form 32; ( engagement )
+ summons
+ sommation
+ summons means a summons in Form 6 issued by a justice or judge; ( sommation )
+ undertaking
+ promesse
+ undertaking means an undertaking in Form 11.1 or 12; ( promesse )
+ warrant
+ mandat
+ warrant , when used in relation to a warrant for the arrest of a person, means a warrant in Form 7 and, when used in relation to a warrant for the committal of a person, means a warrant in Form 8. ( mandat )
+ R.S., 1985, c. C-46, s. 493
+ R.S., 1985, c. 11 (1st Supp.), s. 2, c. 27 (2nd Supp.), s. 10, c. 40 (4th Supp.), s. 2
+ 1990, c. 16, s. 5, c. 17, s. 12
+ 1992, c. 51, s. 37
+ 1994, c. 44, s. 39
+ 1999, c. 3, s. 30
+ 2002, c. 7, s. 143
+
+ Arrest without Warrant and Release from Custody
+ Marginal note: Arrest without warrant by any person
+ 494   (1)  Any one may arrest without warrant
+ (a)  a person whom he finds committing an indictable offence; or
+
+ (b)  a person who, on reasonable grounds, he believes
+ (i)  has committed a criminal offence, and
+
+ (ii)  is escaping from and freshly pursued by persons who have lawful authority to arrest that person.
+
+ Marginal note: Arrest by owner, etc., of property
+ (2)  Any one who is
+ (a)  the owner or a person in lawful possession of property, or
+
+ (b)  a person authorized by the owner or by a person in lawful possession of property,
+
+ may arrest without warrant a person whom he finds committing a criminal offence on or in relation to that property.
+
+ Marginal note: Delivery to peace officer
+ (3)  Any one other than a peace officer who arrests a person without warrant shall forthwith deliver the person to a peace officer.
+
+ R.S., c. C-34, s. 449
+ R.S., c. 2(2nd Supp.), s. 5
+
+ Marginal note: Arrest without warrant by peace officer
+ 495   (1)  A peace officer may arrest without warrant
+ (a)  a person who has committed an indictable offence or who, on reasonable grounds, he believes has committed or is about to commit an indictable offence;
+
+ (b)  a person whom he finds committing a criminal offence; or
+
+ (c)  a person in respect of whom he has reasonable grounds to believe that a warrant of arrest or committal, in any form set out in Part XXVIII in relation thereto, is in force within the territorial jurisdiction in which the person is found.
+
+ Marginal note: Limitation
+ (2)  A peace officer shall not arrest a person without warrant for
+ (a)  an indictable offence mentioned in section 553,
+
+ (b)  an offence for which the person may be prosecuted by indictment or for which he is punishable on summary conviction, or
+
+ (c)  an offence punishable on summary conviction,
+
+ in any case where
+ (d)  he believes on reasonable grounds that the public interest, having regard to all the circumstances including the need to
+ (i)  establish the identity of the person,
+
+ (ii)  secure or preserve evidence of or relating to the offence, or
+
+ (iii)  prevent the continuation or repetition of the offence or the commission of another offence,
+
+ may be satisfied without so arresting the person, and
+
+ (e)  he has no reasonable grounds to believe that, if he does not so arrest the person, the person will fail to attend court in order to be dealt with according to law.
+
+ Marginal note: Consequences of arrest without warrant
+ (3)  Notwithstanding subsection (2), a peace officer acting under subsection (1) is deemed to be acting lawfully and in the execution of his duty for the purposes of
+ (a)  any proceedings under this or any other Act of Parliament; and
+
+ (b)  any other proceedings, unless in any such proceedings it is alleged and established by the person making the allegation that the peace officer did not comply with the requirements of subsection (2).
+
+ R.S., 1985, c. C-46, s. 495
+ R.S., 1985, c. 27 (1st Supp.), s. 75
+
+ Marginal note: Issue of appearance notice by peace officer
+ 496  Where, by virtue of subsection 495(2), a peace officer does not arrest a person, he may issue an appearance notice to the person if the offence is
+ (a)  an indictable offence mentioned in section 553;
+
+ (b)  an offence for which the person may be prosecuted by indictment or for which he is punishable on summary conviction; or
+
+ (c)  an offence punishable on summary conviction.
+
+ R.S., c. C-34, s. 451
+ R.S., c. 2(2nd Supp.), s. 5
+
+ Marginal note: Release from custody by peace officer
+ 497   (1)  Subject to subsection (1.1), if a peace officer arrests a person without warrant for an offence described in paragraph 496(a), (b) or (c), the peace officer shall, as soon as practicable,
+ (a)  release the person from custody with the intention of compelling their appearance by way of summons; or
+
+ (b)  issue an appearance notice to the person and then release them.
+
+ Marginal note: Exception
+ (1.1)  A peace officer shall not release a person under subsection (1) if the peace officer believes, on reasonable grounds,
+ (a)  that it is necessary in the public interest that the person be detained in custody or that the matter of their release from custody be dealt with under another provision of this Part, having regard to all the circumstances including the need to
+ (i)  establish the identity of the person,
+
+ (ii)  secure or preserve evidence of or relating to the offence,
+
+ (iii)  prevent the continuation or repetition of the offence or the commission of another offence, or
+
+ (iv)  ensure the safety and security of any victim of or witness to the offence; or
+
+ (b)  that if the person is released from custody, the person will fail to attend court in order to be dealt with according to law.
+
+ Marginal note: Where subsection (1) does not apply
+ (2)  Subsection (1) does not apply in respect of a person who has been arrested without warrant by a peace officer for an offence described in subsection 503(3).
+
+ Marginal note: Consequences of non-release
+ (3)  A peace officer who has arrested a person without warrant for an offence described in subsection (1) and who does not release the person from custody as soon as practicable in the manner described in that subsection shall be deemed to be acting lawfully and in the execution of the peace officer’s duty for the purposes of
+ (a)  any proceedings under this or any other Act of Parliament; and
+
+ (b)  any other proceedings, unless in any such proceedings it is alleged and established by the person making the allegation that the peace officer did not comply with the requirements of subsection (1).
+
+ R.S., 1985, c. C-46, s. 497
+ 1999, c. 25, s. 3(Preamble)
+
+ Marginal note: Release from custody by officer in charge
+ 498   (1)  Subject to subsection (1.1), if a person who has been arrested without warrant by a peace officer is taken into custody, or if a person who has been arrested without warrant and delivered to a peace officer under subsection 494(3) or placed in the custody of a peace officer under subsection 163.5(3) of the Customs Act is detained in custody under subsection 503(1) for an offence described in paragraph 496(a), (b) or (c), or any other offence that is punishable by imprisonment for five years or less, and has not been taken before a justice or released from custody under any other provision of this Part, the officer in charge or another peace officer shall, as soon as practicable,
+ (a)  release the person with the intention of compelling their appearance by way of summons;
+
+ (b)  release the person on their giving a promise to appear;
+
+ (c)  release the person on the person’s entering into a recognizance before the officer in charge or another peace officer without sureties in an amount not exceeding $500 that the officer directs, but without deposit of money or other valuable security; or
+
+ (d)  if the person is not ordinarily resident in the province in which the person is in custody or does not ordinarily reside within 200 kilometres of the place in which the person is in custody, release the person on the person’s entering into a recognizance before the officer in charge or another peace officer without sureties in an amount not exceeding $500 that the officer directs and, if the officer so directs, on depositing with the officer a sum of money or other valuable security not exceeding in amount or value $500, that the officer directs.
+
+ Marginal note: Exception
+ (1.1)  The officer in charge or the peace officer shall not release a person under subsection (1) if the officer in charge or peace officer believes, on reasonable grounds,
+ (a)  that it is necessary in the public interest that the person be detained in custody or that the matter of their release from custody be dealt with under another provision of this Part, having regard to all the circumstances including the need to
+ (i)  establish the identity of the person,
+
+ (ii)  secure or preserve evidence of or relating to the offence,
+
+ (iii)  prevent the continuation or repetition of the offence or the commission of another offence, or
+
+ (iv)  ensure the safety and security of any victim of or witness to the offence; or
+
+ (b)  that, if the person is released from custody, the person will fail to attend court in order to be dealt with according to law.
+
+ Marginal note: Where subsection (1) does not apply
+ (2)  Subsection (1) does not apply in respect of a person who has been arrested without warrant by a peace officer for an offence described in subsection 503(3).
+
+ Marginal note: Consequences of non-release
+ (3)  An officer in charge or another peace officer who has the custody of a person taken into or detained in custody for an offence described in subsection (1) and who does not release the person from custody as soon as practicable in the manner described in that subsection shall be deemed to be acting lawfully and in the execution of the officer’s duty for the purposes of
+ (a)  any proceedings under this or any other Act of Parliament; or
+
+ (b)  any other proceedings, unless in any such proceedings it is alleged and established by the person making the allegation that the officer in charge or other peace officer did not comply with the requirements of subsection (1).
+
+ R.S., 1985, c. C-46, s. 498
+ R.S., 1985, c. 27 (1st Supp.), s. 186
+ 1997, c. 18, s. 52
+ 1998, c. 7, s. 2
+ 1999, c. 25, ss. 4, 30(Preamble)
+
+ Marginal note: Release from custody by officer in charge where arrest made with warrant
+ 499   (1)  Where a person who has been arrested with a warrant by a peace officer is taken into custody for an offence other than one mentioned in section 522, the officer in charge may, if the warrant has been endorsed by a justice under subsection 507(6),
+ (a)  release the person on the person’s giving a promise to appear;
+
+ (b)  release the person on the person’s entering into a recognizance before the officer in charge without sureties in the amount not exceeding five hundred dollars that the officer in charge directs, but without deposit of money or other valuable security; or
+
+ (c)  if the person is not ordinarily resident in the province in which the person is in custody or does not ordinarily reside within two hundred kilometres of the place in which the person is in custody, release the person on the person’s entering into a recognizance before the officer in charge without sureties in the amount not exceeding five hundred dollars that the officer in charge directs and, if the officer in charge so directs, on depositing with the officer in charge such sum of money or other valuable security not exceeding in amount or value five hundred dollars, as the officer in charge directs.
+
+ Marginal note: Additional conditions
+ (2)  In addition to the conditions for release set out in paragraphs (1)(a), (b) and (c), the officer in charge may also require the person to enter into an undertaking in Form 11.1 in which the person, in order to be released, undertakes to do one or more of the following things:
+ (a)  to remain within a territorial jurisdiction specified in the undertaking;
+
+ (b)  to notify a peace officer or another person mentioned in the undertaking of any change in his or her address, employment or occupation;
+
+ (c)  to abstain from communicating, directly or indirectly, with any victim, witness or other person identified in the undertaking, or from going to a place specified in the undertaking, except in accordance with the conditions specified in the undertaking;
+
+ (d)  to deposit the person’s passport with the peace officer or other person mentioned in the undertaking;
+
+ (e)  to abstain from possessing a firearm and to surrender any firearm in the possession of the person and any authorization, licence or registration certificate or other document enabling that person to acquire or possess a firearm;
+
+ (f)  to report at the times specified in the undertaking to a peace officer or other person designated in the undertaking;
+
+ (g)  to abstain from
+ (i)  the consumption of alcohol or other intoxicating substances, or
+
+ (ii)  the consumption of drugs except in accordance with a medical prescription; and
+
+ (h)  to comply with any other condition specified in the undertaking that the officer in charge considers necessary to ensure the safety and security of any victim of or witness to the offence.
+
+ Marginal note: Application to justice
+ (3)  A person who has entered into an undertaking under subsection (2) may, at any time before or at his or her appearance pursuant to a promise to appear or recognizance, apply to a justice for an order under subsection 515(1) to replace his or her undertaking, and section 515 applies, with such modifications as the circumstances require, to such a person.
+
+ Marginal note: Application by prosecutor
+ (4)  Where a person has entered into an undertaking under subsection (2), the prosecutor may
+ (a)  at any time before the appearance of the person pursuant to a promise to appear or recognizance, after three days notice has been given to that person, or
+
+ (b)  at the appearance,
+
+ apply to a justice for an order under subsection 515(2) to replace the undertaking, and section 515 applies, with such modifications as the circumstances require, to such a person.
+
+ R.S., 1985, c. C-46, s. 499
+ R.S., 1985, c. 27 (1st Supp.), s. 186
+ 1994, c. 44, s. 40
+ 1997, c. 18, s. 53
+ 1999, c. 25, s. 5(Preamble)
+
+ Marginal note: Money or other valuable security to be deposited with justice
+ 500  If a person has, under paragraph 498(1)(d) or 499(1)(c), deposited any sum of money or other valuable security with the officer in charge, the officer in charge shall, without delay after the deposit, cause the money or valuable security to be delivered to a justice for deposit with the justice.
+ R.S., 1985, c. C-46, s. 500
+ 1999, c. 5, s. 20, c. 25, s. 6(Preamble)
+
+ Marginal note: Contents of appearance notice, promise to appear and recognizance
+ 501   (1)  An appearance notice issued by a peace officer or a promise to appear given to, or a recognizance entered into before, an officer in charge or another peace officer shall
+ (a)  set out the name of the accused;
+
+ (b)  set out the substance of the offence that the accused is alleged to have committed; and
+
+ (c)  require the accused to attend court at a time and place to be stated therein and to attend thereafter as required by the court in order to be dealt with according to law.
+
+ Marginal note: Idem
+ (2)  An appearance notice issued by a peace officer or a promise to appear given to, or a recognizance entered into before, an officer in charge or another peace officer shall set out the text of subsections 145(5) and (6) and section 502.
+
+ Marginal note: Attendance for purposes of Identification of Criminals Act
+ (3)  An appearance notice issued by a peace officer or a promise to appear given to, or a recognizance entered into before, an officer in charge or another peace officer may require the accused to appear at a time and place stated in it for the purposes of the Identification of Criminals Act , where the accused is alleged to have committed an indictable offence and, in the case of an offence designated as a contravention under the Contraventions Act , the Attorney General, within the meaning of that Act, has not made an election under section 50 of that Act.
+
+ Marginal note: Signature of accused
+ (4)  An accused shall be requested to sign in duplicate his appearance notice, promise to appear or recognizance and, whether or not he complies with that request, one of the duplicates shall be given to the accused, but if the accused fails or refuses to sign, the lack of his signature does not invalidate the appearance notice, promise to appear or recognizance, as the case may be.
+
+ Marginal note: Proof of issue of appearance notice
+ (5)  The issue of an appearance notice by any peace officer may be proved by the oral evidence, given under oath, of the officer who issued it or by the officer’s affidavit made before a justice or other person authorized to administer oaths or to take affidavits.
+
+ R.S., 1985, c. C-46, s. 501
+ R.S., 1985, c. 27 (1st Supp.), s. 76
+ 1992, c. 47, s. 69
+ 1994, c. 44, ss. 41, 94
+ 1996, c. 7, s. 38
+
+ Marginal note: Failure to appear
+ 502  Where an accused who is required by an appearance notice or promise to appear or by a recognizance entered into before an officer in charge or another peace officer to appear at a time and place stated therein for the purposes of the Identification of Criminals Act does not appear at that time and place, a justice may, where the appearance notice, promise to appear or recognizance has been confirmed by a justice under section 508, issue a warrant for the arrest of the accused for the offence with which the accused is charged.
+ R.S., 1985, c. C-46, s. 502
+ 1992, c. 47, s. 70
+ 1996, c. 7, s. 38
+ 1997, c. 18, s. 54
+
+ Appearance of Accused before Justice
+ Marginal note: Taking before justice
+ 503   (1)  A peace officer who arrests a person with or without warrant or to whom a person is delivered under subsection 494(3) or into whose custody a person is placed under subsection 163.5(3) of the Customs Act shall cause the person to be detained in custody and, in accordance with the following provisions, to be taken before a justice to be dealt with according to law:
+ (a)  where a justice is available within a period of twenty-four hours after the person has been arrested by or delivered to the peace officer, the person shall be taken before a justice without unreasonable delay and in any event within that period, and
+
+ (b)  where a justice is not available within a period of twenty-four hours after the person has been arrested by or delivered to the peace officer, the person shall be taken before a justice as soon as possible,
+
+ unless, at any time before the expiration of the time prescribed in paragraph (a) or (b) for taking the person before a justice,
+ (c)  the peace officer or officer in charge releases the person under any other provision of this Part, or
+
+ (d)  the peace officer or officer in charge is satisfied that the person should be released from custody, whether unconditionally under subsection (4) or otherwise conditionally or unconditionally, and so releases him.
+
+ Marginal note: Conditional release
+ (2)  If a peace officer or an officer in charge is satisfied that a person described in subsection (1) should be released from custody conditionally, the officer may, unless the person is detained in custody for an offence mentioned in section 522, release that person on the person’s giving a promise to appear or entering into a recognizance in accordance with paragraphs 498(1)(b) to (d) and subsection (2.1).
+
+ Marginal note: Undertaking
+ (2.1)  In addition to the conditions referred to in subsection (2), the peace officer or officer in charge may, in order to release the person, require the person to enter into an undertaking in Form 11.1 in which the person undertakes to do one or more of the following things:
+ (a)  to remain within a territorial jurisdiction specified in the undertaking;
+
+ (b)  to notify the peace officer or another person mentioned in the undertaking of any change in his or her address, employment or occupation;
+
+ (c)  to abstain from communicating, directly or indirectly, with any victim, witness or other person identified in the undertaking, or from going to a place specified in the undertaking, except in accordance with the conditions specified in the undertaking;
+
+ (d)  to deposit the person’s passport with the peace officer or other person mentioned in the undertaking;
+
+ (e)  to abstain from possessing a firearm and to surrender any firearm in the possession of the person and any authorization, licence or registration certificate or other document enabling that person to acquire or possess a firearm;
+
+ (f)  to report at the times specified in the undertaking to a peace officer or other person designated in the undertaking;
+
+ (g)  to abstain from
+ (i)  the consumption of alcohol or other intoxicating substances, or
+
+ (ii)  the consumption of drugs except in accordance with a medical prescription; or
+
+ (h)  to comply with any other condition specified in the undertaking that the peace officer or officer in charge considers necessary to ensure the safety and security of any victim of or witness to the offence.
+
+ Marginal note: Application to justice
+ (2.2)  A person who has entered into an undertaking under subsection (2.1) may, at any time before or at his or her appearance pursuant to a promise to appear or recognizance, apply to a justice for an order under subsection 515(1) to replace his or her undertaking, and section 515 applies, with such modifications as the circumstances require, to such a person.
+
+ Marginal note: Application by prosecutor
+ (2.3)  Where a person has entered into an undertaking under subsection (2.1), the prosecutor may
+ (a)  at any time before the appearance of the person pursuant to a promise to appear or recognizance, after three days notice has been given to that person, or
+
+ (b)  at the appearance,
+
+ apply to a justice for an order under subsection 515(2) to replace the undertaking, and section 515 applies, with such modifications as the circumstances require, to such a person.
+
+ Marginal note: Remand in custody for return to jurisdiction where offence alleged to have been committed
+ (3)  Where a person has been arrested without warrant for an indictable offence alleged to have been committed in Canada outside the territorial division where the arrest took place, the person shall, within the time prescribed in paragraph (1)(a) or (b), be taken before a justice within whose jurisdiction the person was arrested unless, where the offence was alleged to have been committed within the province in which the person was arrested, the person was taken before a justice within whose jurisdiction the offence was alleged to have been committed, and the justice within whose jurisdiction the person was arrested
+ (a)  if the justice is not satisfied that there are reasonable grounds to believe that the person arrested is the person alleged to have committed the offence, shall release that person; or
+
+ (b)  if the justice is satisfied that there are reasonable grounds to believe that the person arrested is the person alleged to have committed the offence, may
+ (i)  remand the person to the custody of a peace officer to await execution of a warrant for his or her arrest in accordance with section 528, but if no warrant is so executed within a period of six days after the time he or she is remanded to such custody, the person in whose custody he or she then is shall release him or her, or
+
+ (ii)  where the offence was alleged to have been committed within the province in which the person was arrested, order the person to be taken before a justice having jurisdiction with respect to the offence.
+
+ Marginal note: Interim release
+ (3.1)  Notwithstanding paragraph (3)(b), a justice may, with the consent of the prosecutor, order that the person referred to in subsection (3), pending the execution of a warrant for the arrest of that person, be released
+ (a)  unconditionally; or
+
+ (b)  on any of the following terms to which the prosecutor consents, namely,
+ (i)  giving an undertaking, including an undertaking to appear at a specified time before the court that has jurisdiction with respect to the indictable offence that the person is alleged to have committed, or
+
+ (ii)  entering into a recognizance described in any of paragraphs 515(2)(a) to (e)
+
+ with such conditions described in subsection 515(4) as the justice considers desirable and to which the prosecutor consents.
+
+ Marginal note: Release of person about to commit indictable offence
+ (4)  A peace officer or an officer in charge having the custody of a person who has been arrested without warrant as a person about to commit an indictable offence shall release that person unconditionally as soon as practicable after he is satisfied that the continued detention of that person in custody is no longer necessary in order to prevent the commission by him of an indictable offence.
+
+ Marginal note: Consequences of non-release
+ (5)  Notwithstanding subsection (4), a peace officer or an officer in charge having the custody of a person referred to in that subsection who does not release the person before the expiration of the time prescribed in paragraph (1)(a) or (b) for taking the person before the justice shall be deemed to be acting lawfully and in the execution of his duty for the purposes of
+ (a)  any proceedings under this or any other Act of Parliament; or
+
+ (b)  any other proceedings, unless in such proceedings it is alleged and established by the person making the allegation that the peace officer or officer in charge did not comply with the requirements of subsection (4).
+
+ R.S., 1985, c. C-46, s. 503
+ R.S., 1985, c. 27 (1st Supp.), s. 77
+ 1994, c. 44, s. 42
+ 1997, c. 18, s. 55
+ 1998, c. 7, s. 3
+ 1999, c. 25, s. 7(Preamble)
+
+ Information, Summons and Warrant
+ Marginal note: In what cases justice may receive information
+ 504  Any one who, on reasonable grounds, believes that a person has committed an indictable offence may lay an information in writing and under oath before a justice, and the justice shall receive the information, where it is alleged
+ (a)  that the person has committed, anywhere, an indictable offence that may be tried in the province in which the justice resides, and that the person
+ (i)  is or is believed to be, or
+
+ (ii)  resides or is believed to reside,
+
+ within the territorial jurisdiction of the justice;
+
+ (b)  that the person, wherever he may be, has committed an indictable offence within the territorial jurisdiction of the justice;
+
+ (c)  that the person has, anywhere, unlawfully received property that was unlawfully obtained within the territorial jurisdiction of the justice; or
+
+ (d)  that the person has in his possession stolen property within the territorial jurisdiction of the justice.
+
+ R.S., c. C-34, s. 455
+ R.S., c. 2(2nd Supp.), s. 5
+
+ Marginal note: Time within which information to be laid in certain cases
+ 505  Where
+ (a)  an appearance notice has been issued to an accused under section 496, or
+
+ (b)  an accused has been released from custody under section 497 or 498,
+
+ an information relating to the offence alleged to have been committed by the accused or relating to an included or other offence alleged to have been committed by him shall be laid before a justice as soon as practicable thereafter and in any event before the time stated in the appearance notice, promise to appear or recognizance issued to or given or entered into by the accused for his attendance in court.
+ R.S., c. 2(2nd Supp.), s. 5
+
+ Marginal note: Form
+ 506  An information laid under section 504 or 505 may be in Form 2.
+ R.S., c. 2(2nd Supp.), s. 5
+
+ Marginal note: Justice to hear informant and witnesses — public prosecutions
+ 507   (1)  Subject to subsection 523(1.1), a justice who receives an information laid under section 504 by a peace officer, a public officer, the Attorney General or the Attorney General’s agent, other than an information laid before the justice under section 505, shall, except if an accused has already been arrested with or without a warrant,
+ (a)  hear and consider, ex parte ,
+ (i)  the allegations of the informant, and
+
+ (ii)  the evidence of witnesses, where he considers it desirable or necessary to do so; and
+
+ (b)  where he considers that a case for so doing is made out, issue, in accordance with this section, either a summons or a warrant for the arrest of the accused to compel the accused to attend before him or some other justice for the same territorial division to answer to a charge of an offence.
+
+ Marginal note: Process compulsory
+ (2)  No justice shall refuse to issue a summons or warrant by reason only that the alleged offence is one for which a person may be arrested without warrant.
+
+ Marginal note: Procedure when witnesses attend
+ (3)  A justice who hears the evidence of a witness pursuant to subsection (1) shall
+ (a)  take the evidence on oath; and
+
+ (b)  cause the evidence to be taken in accordance with section 540 in so far as that section is capable of being applied.
+
+ Marginal note: Summons to be issued except in certain cases
+ (4)  Where a justice considers that a case is made out for compelling an accused to attend before him to answer to a charge of an offence, he shall issue a summons to the accused unless the allegations of the informant or the evidence of any witness or witnesses taken in accordance with subsection (3) discloses reasonable grounds to believe that it is necessary in the public interest to issue a warrant for the arrest of the accused.
+
+ Marginal note: No process in blank
+ (5)  A justice shall not sign a summons or warrant in blank.
+
+ Marginal note: Endorsement of warrant by justice
+ (6)  A justice who issues a warrant under this section or section 508 or 512 may, unless the offence is one mentioned in section 522, authorize the release of the accused pursuant to section 499 by making an endorsement on the warrant in Form 29.
+
+ Marginal note: Promise to appear or recognizance deemed to have been confirmed
+ (7)  Where, pursuant to subsection (6), a justice authorizes the release of an accused pursuant to section 499, a promise to appear given by the accused or a recognizance entered into by the accused pursuant to that section shall be deemed, for the purposes of subsection 145(5), to have been confirmed by a justice under section 508.
+
+ Marginal note: Issue of summons or warrant
+ (8)  Where, on an appeal from or review of any decision or matter of jurisdiction, a new trial or hearing or a continuance or renewal of a trial or hearing is ordered, a justice may issue either a summons or a warrant for the arrest of the accused in order to compel the accused to attend at the new or continued or renewed trial or hearing.
+
+ R.S., 1985, c. C-46, s. 507
+ R.S., 1985, c. 27 (1st Supp.), s. 78
+ 1994, c. 44, s. 43
+ 2002, c. 13, s. 21
+
+ Marginal note: Referral when private prosecution
+ 507.1   (1)  A justice who receives an information laid under section 504, other than an information referred to in subsection 507(1), shall refer it to a provincial court judge or, in Quebec, a judge of the Court of Quebec, or to a designated justice, to consider whether to compel the appearance of the accused on the information.
+
+ Marginal note: Summons or warrant
+ (2)  A judge or designated justice to whom an information is referred under subsection (1) and who considers that a case for doing so is made out shall issue either a summons or warrant for the arrest of the accused to compel him or her to attend before a justice to answer to a charge of the offence charged in the information.
+
+ Marginal note: Conditions for issuance
+ (3)  The judge or designated justice may issue a summons or warrant only if he or she
+ (a)  has heard and considered the allegations of the informant and the evidence of witnesses;
+
+ (b)  is satisfied that the Attorney General has received a copy of the information;
+
+ (c)  is satisfied that the Attorney General has received reasonable notice of the hearing under paragraph (a); and
+
+ (d)  has given the Attorney General an opportunity to attend the hearing under paragraph (a) and to cross-examine and call witnesses and to present any relevant evidence at the hearing.
+
+ Marginal note: Appearance of Attorney General
+ (4)  The Attorney General may appear at the hearing held under paragraph (3)(a) without being deemed to intervene in the proceeding.
+
+ Marginal note: Information deemed not to have been laid
+ (5)  If the judge or designated justice does not issue a summons or warrant under subsection (2), he or she shall endorse the information with a statement to that effect. Unless the informant, not later than six months after the endorsement, commences proceedings to compel the judge or designated justice to issue a summons or warrant, the information is deemed never to have been laid.
+
+ Marginal note: Information deemed not to have been laid — proceedings commenced
+ (6)  If proceedings are commenced under subsection (5) and a summons or warrant is not issued as a result of those proceedings, the information is deemed never to have been laid.
+
+ Marginal note: New evidence required for new hearing
+ (7)  If a hearing in respect of an offence has been held under paragraph (3)(a) and the judge or designated justice has not issued a summons or a warrant, no other hearings may be held under that paragraph with respect to the offence or an included offence unless there is new evidence in support of the allegation in respect of which the hearing is sought to be held.
+
+ Marginal note: Subsections 507(2) to (8) to apply
+ (8)  Subsections 507(2) to (8) apply to proceedings under this section.
+
+ Marginal note: Non-application — informations laid under sections 810 and 810.1
+ (9)  Subsections (1) to (8) do not apply in respect of an information laid under section 810 or 810.1.
+
+ Marginal note: Definition of designated justice
+ (10)  In this section, designated justice means a justice designated for the purpose by the chief judge of the provincial court having jurisdiction in the matter or, in Quebec, a justice designated by the chief judge of the Court of Quebec.
+
+ 2002, c. 13, s. 22
+
+ Marginal note: Justice to hear informant and witnesses
+ 508   (1)  A justice who receives an information laid before him under section 505 shall
+ (a)  hear and consider, ex parte ,
+ (i)  the allegations of the informant, and
+
+ (ii)  the evidence of witnesses, where he considers it desirable or necessary to do so;
+
+ (b)  where he considers that a case for so doing is made out, whether the information relates to the offence alleged in the appearance notice, promise to appear or recognizance or to an included or other offence,
+ (i)  confirm the appearance notice, promise to appear or recognizance, as the case may be, and endorse the information accordingly, or
+
+ (ii)  cancel the appearance notice, promise to appear or recognizance, as the case may be, and issue, in accordance with section 507, either a summons or a warrant for the arrest of the accused to compel the accused to attend before him or some other justice for the same territorial division to answer to a charge of an offence and endorse on the summons or warrant that the appearance notice, promise to appear or recognizance, as the case may be, has been cancelled; and
+
+ (c)  where he considers that a case is not made out for the purposes of paragraph (b), cancel the appearance notice, promise to appear or recognizance, as the case may be, and cause the accused to be notified forthwith of the cancellation.
+
+ Marginal note: Procedure when witnesses attend
+ (2)  A justice who hears the evidence of a witness pursuant to subsection (1) shall
+ (a)  take the evidence on oath; and
+
+ (b)  cause the evidence to be taken in accordance with section 540 in so far as that section is capable of being applied.
+
+ R.S., 1985, c. C-46, s. 508
+ R.S., 1985, c. 27 (1st Supp.), s. 79
+
+ Marginal note: Information laid otherwise than in person
+ 508.1   (1)  For the purposes of sections 504 to 508, a peace officer may lay an information by any means of telecommunication that produces a writing.
+
+ Marginal note: Alternative to oath
+ (2)  A peace officer who uses a means of telecommunication referred to in subsection (1) shall, instead of swearing an oath, make a statement in writing stating that all matters contained in the information are true to the officer’s knowledge and belief, and such a statement is deemed to be a statement made under oath.
+
+ 1997, c. 18, s. 56
+
+ Marginal note: Summons
+ 509   (1)  A summons issued under this Part shall
+ (a)  be directed to the accused;
+
+ (b)  set out briefly the offence in respect of which the accused is charged; and
+
+ (c)  require the accused to attend court at a time and place to be stated therein and to attend thereafter as required by the court in order to be dealt with according to law.
+
+ Marginal note: Service on individual
+ (2)  A summons shall be served by a peace officer who shall deliver it personally to the person to whom it is directed or, if that person cannot conveniently be found, shall leave it for him at his latest or usual place of abode with an inmate thereof who appears to be at least sixteen years of age.
+
+ Marginal note: Proof of service
+ (3)  Service of a summons may be proved by the oral evidence, given under oath, of the peace officer who served it or by his affidavit made before a justice or other person authorized to administer oaths or to take affidavits.
+
+ Marginal note: Content of summons
+ (4)  There shall be set out in every summons the text of subsection 145(4) and section 510.
+
+ Marginal note: Attendance for purposes of Identification of Criminals Act
+ (5)  A summons may require the accused to appear at a time and place stated in it for the purposes of the Identification of Criminals Act , where the accused is alleged to have committed an indictable offence and, in the case of an offence designated as a contravention under the Contraventions Act , the Attorney General, within the meaning of that Act, has not made an election under section 50 of that Act.
+
+ R.S., 1985, c. C-46, s. 509
+ R.S., 1985, c. 27 (1st Supp.), s. 80
+ 1992, c. 47, s. 71
+ 1996, c. 7, s. 38
+
+ Marginal note: Failure to appear
+ 510  Where an accused who is required by a summons to appear at a time and place stated in it for the purposes of the Identification of Criminals Act does not appear at that time and place and, in the case of an offence designated as a contravention under the Contraventions Act, the Attorney General, within the meaning of that Act, has not made an election under section 50 of that Act, a justice may issue a warrant for the arrest of the accused for the offence with which the accused is charged.
+ R.S., 1985, c. C-46, s. 510
+ 1992, c. 47, s. 72
+ 1996, c. 7, s. 38
+
+ Marginal note: Contents of warrant to arrest
+ 511   (1)  A warrant issued under this Part shall
+ (a)  name or describe the accused;
+
+ (b)  set out briefly the offence in respect of which the accused is charged; and
+
+ (c)  order that the accused be forthwith arrested and brought before the judge or justice who issued the warrant or before some other judge or justice having jurisdiction in the same territorial division, to be dealt with according to law.
+
+ Marginal note: No return day
+ (2)  A warrant issued under this Part remains in force until it is executed and need not be made returnable at any particular time.
+
+ Marginal note: Discretion to postpone execution
+ (3)  Notwithstanding paragraph (1)(c), a judge or justice who issues a warrant may specify in the warrant the period before which the warrant shall not be executed, to allow the accused to appear voluntarily before a judge or justice having jurisdiction in the territorial division in which the warrant was issued.
+
+ Marginal note: Deemed execution of warrant
+ (4)  Where the accused appears voluntarily for the offence in respect of which the accused is charged, the warrant is deemed to be executed.
+
+ R.S., 1985, c. C-46, s. 511
+ R.S., 1985, c. 27 (1st Supp.), s. 81
+ 1997, c. 18, s. 57
+
+ Marginal note: Certain actions not to preclude issue of warrant
+ 512   (1)  A justice may, where the justice has reasonable and probable grounds to believe that it is necessary in the public interest to issue a summons or a warrant for the arrest of the accused, issue a summons or warrant, notwithstanding that
+ (a)  an appearance notice or a promise to appear or a recognizance entered into before an officer in charge or another peace officer has been confirmed or cancelled under subsection 508(1);
+
+ (b)  a summons has previously been issued under subsection 507(4); or
+
+ (c)  the accused has been released unconditionally or with the intention of compelling his appearance by way of summons.
+
+ Marginal note: Warrant in default of appearance
+ (2)  Where
+ (a)  service of a summons is proved and the accused fails to attend court in accordance with the summons,
+
+ (b)  an appearance notice or a promise to appear or a recognizance entered into before an officer in charge or another peace officer has been confirmed under subsection 508(1) and the accused fails to attend court in accordance therewith in order to be dealt with according to law, or
+
+ (c)  it appears that a summons cannot be served because the accused is evading service,
+
+ a justice may issue a warrant for the arrest of the accused.
+
+ R.S., 1985, c. C-46, s. 512
+ R.S., 1985, c. 27 (1st Supp.), s. 82
+ 1997, c. 18, s. 58
+
+ Marginal note: Formalities of warrant
+ 513  A warrant in accordance with this Part shall be directed to the peace officers within the territorial jurisdiction of the justice, judge or court by whom or by which it is issued.
+ R.S., c. 2(2nd Supp.), s. 5
+
+ Marginal note: Execution of warrant
+ 514   (1)  A warrant in accordance with this Part may be executed by arresting the accused
+ (a)  wherever he is found within the territorial jurisdiction of the justice, judge or court by whom or by which the warrant was issued; or
+
+ (b)  wherever he is found in Canada, in the case of fresh pursuit.
+
+ Marginal note: By whom warrant may be executed
+ (2)  A warrant in accordance with this Part may be executed by a person who is one of the peace officers to whom it is directed, whether or not the place in which the warrant is to be executed is within the territory for which the person is a peace officer.
+
+ R.S., c. 2(2nd Supp.), s. 5
+
+ Judicial Interim Release
+ Marginal note: Order of release
+ 515   (1)  Subject to this section, where an accused who is charged with an offence other than an offence listed in section 469 is taken before a justice, the justice shall, unless a plea of guilty by the accused is accepted, order, in respect of that offence, that the accused be released on his giving an undertaking without conditions, unless the prosecutor, having been given a reasonable opportunity to do so, shows cause, in respect of that offence, why the detention of the accused in custody is justified or why an order under any other provision of this section should be made and where the justice makes an order under any other provision of this section, the order shall refer only to the particular offence for which the accused was taken before the justice.
+
+ Marginal note: Release on undertaking with conditions, etc.
+ (2)  Where the justice does not make an order under subsection (1), he shall, unless the prosecutor shows cause why the detention of the accused is justified, order that the accused be released
+ (a)  on his giving an undertaking with such conditions as the justice directs;
+
+ (b)  on his entering into a recognizance before the justice, without sureties, in such amount and with such conditions, if any, as the justice directs but without deposit of money or other valuable security;
+
+ (c)  on his entering into a recognizance before the justice with sureties in such amount and with such conditions, if any, as the justice directs but without deposit of money or other valuable security;
+
+ (d)  with the consent of the prosecutor, on his entering into a recognizance before the justice, without sureties, in such amount and with such conditions, if any, as the justice directs and on his depositing with the justice such sum of money or other valuable security as the justice directs; or
+
+ (e)  if the accused is not ordinarily resident in the province in which the accused is in custody or does not ordinarily reside within two hundred kilometres of the place in which he is in custody, on his entering into a recognizance before the justice with or without sureties in such amount and with such conditions, if any, as the justice directs, and on his depositing with the justice such sum of money or other valuable security as the justice directs.
+
+ Marginal note: Power of justice to name sureties in order
+ (2.1)  Where, pursuant to subsection (2) or any other provision of this Act, a justice, judge or court orders that an accused be released on his entering into a recognizance with sureties, the justice, judge or court may, in the order, name particular persons as sureties.
+
+ Marginal note: Alternative to physical presence
+ (2.2)  Where, by this Act, the appearance of an accused is required for the purposes of judicial interim release, the appearance shall be by actual physical attendance of the accused but the justice may, subject to subsection (2.3), allow the accused to appear by means of any suitable telecommunication device, including telephone, that is satisfactory to the justice.
+
+ Marginal note: Where consent required
+ (2.3)  The consent of the prosecutor and the accused is required for the purposes of an appearance if the evidence of a witness is to be taken at the appearance and the accused cannot appear by closed-circuit television or any other means that allow the court and the accused to engage in simultaneous visual and oral communication.
+
+ Marginal note: Idem
+ (3)  The justice shall not make an order under any of paragraphs (2)(b) to (e) unless the prosecution shows cause why an order under the immediately preceding paragraph should not be made.
+
+ Marginal note: Conditions authorized
+ (4)  The justice may direct as conditions under subsection (2) that the accused shall do any one or more of the following things as specified in the order:
+ (a)  report at times to be stated in the order to a peace officer or other person designated in the order;
+
+ (b)  remain within a territorial jurisdiction specified in the order;
+
+ (c)  notify the peace officer or other person designated under paragraph (a) of any change in his address or his employment or occupation;
+
+ (d)  abstain from communicating, directly or indirectly, with any victim, witness or other person identified in the order, or refrain from going to any place specified in the order, except in accordance with the conditions specified in the order that the justice considers necessary;
+
+ (e)  where the accused is the holder of a passport, deposit his passport as specified in the order;
+
+ (e.1)  comply with any other condition specified in the order that the justice considers necessary to ensure the safety and security of any victim of or witness to the offence; and
+
+ (f)  comply with such other reasonable conditions specified in the order as the justice considers desirable.
+
+ Marginal note: Condition prohibiting possession of firearms, etc.
+ (4.1)  When making an order under subsection (2), in the case of an accused who is charged with
+ (a)  an offence in the commission of which violence against a person was used, threatened or attempted,
+
+ (a.1)  a terrorism offence,
+
+ (b)  an offence under section 264 (criminal harassment),
+
+ (b.1)  an offence under section 423.1 (intimidation of a justice system participant),
+
+ (c)  an offence relating to the contravention of subsection 5(3) or (4), 6(3) or 7(2) of the Controlled Drugs and Substances Act ,
+
+ (d)  an offence that involves, or the subject-matter of which is, a firearm, a cross-bow, a prohibited weapon, a restricted weapon, a prohibited device, ammunition, prohibited ammunition or an explosive substance, or
+
+ (e)  an offence under subsection 20(1) of the Security of Information Act , or an offence under subsection 21(1) or 22(1) or section 23 of that Act that is committed in relation to on offence under subsection 20(1) of that Act,
+
+ the justice shall add to the order a condition prohibiting the accused from possessing a firearm, cross-bow, prohibited weapon, restricted weapon, prohibited device, ammunition, prohibited ammunition or explosive substance, or all those things, until the accused is dealt with according to law unless the justice considers that such a condition is not required in the interests of the safety of the accused or the safety and security of a victim of the offence or of any other person.
+
+ Marginal note: Surrender, etc.
+ (4.11)  Where the justice adds a condition described in subsection (4.1) to an order made under subsection (2), the justice shall specify in the order the manner and method by which
+ (a)  the things referred to in subsection (4.1) that are in the possession of the accused shall be surrendered, disposed of, detained, stored or dealt with; and
+
+ (b)  the authorizations, licences and registration certificates held by the person shall be surrendered.
+
+ Marginal note: Reasons
+ (4.12)  Where the justice does not add a condition described in subsection (4.1) to an order made under subsection (2), the justice shall include in the record a statement of the reasons for not adding the condition.
+
+ Marginal note: Additional conditions
+ (4.2)  Before making an order under subsection (2), in the case of an accused who is charged with an offence referred to in subsection (4.3), the justice shall consider whether it is desirable, in the interests of the safety and security of any person, particularly a victim of or witness to the offence or a justice system participant, to include as a condition of the order
+ (a)  that the accused abstain from communicating, directly or indirectly, with any victim, witness or other person identified in the order, or refrain from going to any place specified in the order; or
+
+ (b)  that the accused comply with any other condition specified in the order that the justice considers necessary to ensure the safety and security of those persons.
+
+ Marginal note: Offences
+ (4.3)  The offences for the purposes of subsection (4.2) are
+ (a)  a terrorism offence;
+
+ (b)  an offence described in section 264 or 423.1;
+
+ (c)  an offence in the commission of which violence against a person was used, threatened or attempted; and
+
+ (d)  an offence under subsection 20(1) of the Security of Information Act , or an offence under subsection 21(1) or 22(1) or section 23 of that Act that is committed in relation to an offence under subsection 20(1) of that Act.
+
+ Marginal note: Detention in custody
+ (5)  Where the prosecutor shows cause why the detention of the accused in custody is justified, the justice shall order that the accused be detained in custody until he is dealt with according to law and shall include in the record a statement of his reasons for making the order.
+
+ Marginal note: Order of detention
+ (6)  Notwithstanding any provision of this section, where an accused is charged
+ (a)  with an indictable offence, other than an offence listed in section 469,
+ (i)  that is alleged to have been committed while at large after being released in respect of another indictable offence pursuant to the provisions of this Part or section 679 or 680,
+
+ (ii)  that is an offence under section 467.11, 467.12 or 467.13, or a serious offence alleged to have been committed for the benefit of, at the direction of, or in association with, a criminal organization,
+
+ (iii)  that is an offence under any of sections 83.02 to 83.04 and 83.18 to 83.23 or otherwise is alleged to be a terrorism offence,
+
+ (iv)  an offence under subsection 16(1) or (2), 17(1), 19(1), 20(1) or 22(1) of the Security of Information Act , or
+
+ (v)  an offence under subsection 21(1) or 22(1) or section 23 of the Security of Information Act that is committed in relation to on offence referred to in subparagraph (iv),
+
+ (b)  with an indictable offence, other than an offence listed in section 469 and is not ordinarily resident in Canada,
+
+ (c)  with an offence under any of subsections 145(2) to (5) that is alleged to have been committed while he was at large after being released in respect of another offence pursuant to the provisions of this Part or section 679, 680 or 816, or
+
+ (d)  with having committed an offence punishable by imprisonment for life under subsection 5(3), 6(3) or 7(2) of the Controlled Drugs and Substances Act or the offence of conspiring to commit such an offence,
+
+ the justice shall order that the accused be detained in custody until he is dealt with according to law, unless the accused, having been given a reasonable opportunity to do so, shows cause why his detention in custody is not justified, but where the justice orders that the accused be released, he shall include in the record a statement of his reasons for making the order.
+
+ Marginal note: Order of release
+ (7)  Where an accused to whom paragraph 6(a), (c) or (d) applies shows cause why the accused’s detention in custody is not justified, the justice shall order that the accused be released on giving an undertaking or entering into a recognizance described in any of paragraphs (2)(a) to (e) with the conditions described in subsections (4) to (4.2) or, where the accused was at large on an undertaking or recognizance with conditions, the additional conditions described in subsections (4) to (4.2), that the justice considers desirable, unless the accused, having been given a reasonable opportunity to do so, shows cause why the conditions or additional conditions should not be imposed.
+
+ Marginal note: Idem
+ (8)  Where an accused to whom paragraph (6)(b) applies shows cause why the accused’s detention in custody is not justified, the justice shall order that the accused be released on giving an undertaking or entering into a recognizance described in any of paragraphs (2)(a) to (e) with the conditions, described in subsections (4) to (4.2), that the justice considers desirable.
+
+ Marginal note: Sufficiency of record
+ (9)  For the purposes of subsections (5) and (6), it is sufficient if a record is made of the reasons in accordance with the provisions of Part XVIII relating to the taking of evidence at preliminary inquiries.
+
+ Marginal note: Justification for detention in custody
+ (10)  For the purposes of this section, the detention of an accused in custody is justified only on one or more of the following grounds:
+ (a)  where the detention is necessary to ensure his or her attendance in court in order to be dealt with according to law;
+
+ (b)  where the detention is necessary for the protection or safety of the public, including any victim of or witness to the offence, having regard to all the circumstances including any substantial likelihood that the accused will, if released from custody, commit a criminal offence or interfere with the administration of justice; and
+
+ (c)  on any other just cause being shown and, without limiting the generality of the foregoing, where the detention is necessary in order to maintain confidence in the administration of justice, having regard to all the circumstances, including the apparent strength of the prosecution’s case, the gravity of the nature of the offence, the circumstances surrounding its commission and the potential for a lengthy term of imprisonment.
+
+ Marginal note: Detention in custody for offence listed in section 469
+ (11)  Where an accused who is charged with an offence mentioned in section 469 is taken before a justice, the justice shall order that the accused be detained in custody until he is dealt with according to law and shall issue a warrant in Form 8 for the committal of the accused.
+
+ Marginal note: Order re no communication
+ (12)  A justice who orders that an accused be detained in custody under this section may include in the order a direction that the accused abstain from communicating, directly or indirectly, with any victim, witness or other person identified in the order, except in accordance with such conditions specified in the order as the justice considers necessary.
+
+ R.S., 1985, c. C-46, s. 515
+ R.S., 1985, c. 27 (1st Supp.), ss. 83, 186
+ 1991, c. 40, s. 31
+ 1993, c. 45, s. 8
+ 1994, c. 44, s. 44
+ 1995, c. 39, s. 153
+ 1996, c. 19, ss. 71, 93.3
+ 1997, c. 18, s. 59, c. 23, s. 16
+ 1999, c. 5, s. 21, c. 25, s. 8(Preamble)
+ 2001, c. 32, s. 37, c. 41, ss. 19, 133
+
+ Marginal note: Variation of undertaking or recognizance
+ 515.1  An undertaking or recognizance pursuant to which the accused was released that has been entered into under section 499, 503 or 515 may, with the written consent of the prosecutor, be varied, and where so varied, is deemed to have been entered into pursuant to section 515.
+ 1997, c. 18, s. 60
+
+ Marginal note: Remand in custody
+ 516   (1)  A justice may, before or at any time during the course of any proceedings under section 515, on application by the prosecutor or the accused, adjourn the proceedings and remand the accused to custody in prison by warrant in Form 19, but no adjournment shall be for more than three clear days except with the consent of the accused.
+
+ Marginal note: Detention pending bail hearing
+ (2)  A justice who remands an accused to custody under subsection (1) or subsection 515(11) may order that the accused abstain from communicating, directly or indirectly, with any victim, witness or other person identified in the order, except in accordance with any conditions specified in the order that the justice considers necessary.
+
+ R.S., 1985, c. C-46, s. 516
+ 1999, c. 5, s. 22, c. 25, s. 31(Preamble)
+
+ Marginal note: Order directing matters not to be published for specified period
+ 517   (1)  If the prosecutor or the accused intends to show cause under section 515, he or she shall so state to the justice and the justice may, and shall on application by the accused, before or at any time during the course of the proceedings under that section, make an order directing that the evidence taken, the information given or the representations made and the reasons, if any, given or to be given by the justice shall not be published in any document, or broadcast or transmitted in any way before such time as
+ (a)  if a preliminary inquiry is held, the accused in respect of whom the proceedings are held is discharged; or
+
+ (b)  if the accused in respect of whom the proceedings are held is tried or ordered to stand trial, the trial is ended.
+
+ Marginal note: Failure to comply
+ (2)  Every one who fails without lawful excuse, the proof of which lies on him, to comply with an order made under subsection (1) is guilty of an offence punishable on summary conviction.
+
+ (3)   [Repealed, 2005, c. 32, s. 17]
+
+ R.S., 1985, c. C-46, s. 517
+ R.S., 1985, c. 27 (1st Supp.), s. 101(E)
+ 2005, c. 32, s. 17
+
+ Marginal note: Inquiries to be made by justice and evidence
+ 518   (1)  In any proceedings under section 515,
+ (a)  the justice may, subject to paragraph (b), make such inquiries, on oath or otherwise, of and concerning the accused as he considers desirable;
+
+ (b)  the accused shall not be examined by the justice or any other person except counsel for the accused respecting the offence with which the accused is charged, and no inquiry shall be made of the accused respecting that offence by way of cross-examination unless the accused has testified respecting the offence;
+
+ (c)  the prosecutor may, in addition to any other relevant evidence, lead evidence
+ (i)  to prove that the accused has previously been convicted of a criminal offence,
+
+ (ii)  to prove that the accused has been charged with and is awaiting trial for another criminal offence,
+
+ (iii)  to prove that the accused has previously committed an offence under section 145, or
+
+ (iv)  to show the circumstances of the alleged offence, particularly as they relate to the probability of conviction of the accused;
+
+ (d)  the justice may take into consideration any relevant matters agreed on by the prosecutor and the accused or his counsel;
+
+ (d.1)  the justice may receive evidence obtained as a result of an interception of a private communication under and within the meaning of Part VI, in writing, orally or in the form of a recording and, for the purposes of this section, subsection 189(5) does not apply to that evidence;
+
+ (d.2)  the justice shall take into consideration any evidence submitted regarding the need to ensure the safety or security of any victim of or witness to an offence; and
+
+ (e)  the justice may receive and base his decision on evidence considered credible or trustworthy by him in the circumstances of each case.
+
+ Marginal note: Release pending sentence
+ (2)  Where, before or at any time during the course of any proceedings under section 515, the accused pleads guilty and that plea is accepted, the justice may make any order provided for in this Part for the release of the accused until the accused is sentenced.
+
+ R.S., 1985, c. C-46, s. 518
+ R.S., 1985, c. 27 (1st Supp.), ss. 84, 185(F)
+ 1994, c. 44, s. 45
+ 1999, c. 25, s. 9(Preamble)
+
+ Marginal note: Release of accused
+ 519   (1)  Where a justice makes an order under subsection 515(1), (2), (7) or (8),
+ (a)  if the accused thereupon complies with the order, the justice shall direct that the accused be released
+ (i)  forthwith, if the accused is not required to be detained in custody in respect of any other matter, or
+
+ (ii)  as soon thereafter as the accused is no longer required to be detained in custody in respect of any other matter; and
+
+ (b)  if the accused does not thereupon comply with the order, the justice who made the order or another justice having jurisdiction shall issue a warrant for the committal of the accused and may endorse thereon an authorization to the person having the custody of the accused to release the accused when the accused complies with the order
+ (i)  forthwith after the compliance, if the accused is not required to be detained in custody in respect of any other matter, or
+
+ (ii)  as soon thereafter as the accused is no longer required to be detained in custody in respect of any other matter
+
+ and if the justice so endorses the warrant, he shall attach to it a copy of the order.
+
+ Marginal note: Discharge from custody
+ (2)  Where the accused complies with an order referred to in paragraph (1)(b) and is not required to be detained in custody in respect of any other matter, the justice who made the order or another justice having jurisdiction shall, unless the accused has been or will be released pursuant to an authorization referred to in that paragraph, issue an order for discharge in Form 39.
+
+ Marginal note: Warrant for committal
+ (3)  Where the justice makes an order under subsection 515(5) or (6) for the detention of the accused, he shall issue a warrant for the committal of the accused.
+
+ R.S., 1985, c. C-46, s. 519
+ R.S., 1985, c. 27 (1st Supp.), s. 85
+
+ Marginal note: Review of order
+ 520   (1)  If a justice, or a judge of the Nunavut Court of Justice, makes an order under subsection 515(2), (5), (6), (7), (8) or (12) or makes or vacates any order under paragraph 523(2)(b), the accused may, at any time before the trial of the charge, apply to a judge for a review of the order.
+
+ Marginal note: Notice to prosecutor
+ (2)  An application under this section shall not, unless the prosecutor otherwise consents, be heard by a judge unless the accused has given to the prosecutor at least two clear days notice in writing of the application.
+
+ Marginal note: Accused to be present
+ (3)  If the judge so orders or the prosecutor or the accused or his counsel so requests, the accused shall be present at the hearing of an application under this section and, where the accused is in custody, the judge may order, in writing, the person having the custody of the accused to bring him before the court.
+
+ Marginal note: Adjournment of proceedings
+ (4)  A judge may, before or at any time during the hearing of an application under this section, on application by the prosecutor or the accused, adjourn the proceedings, but if the accused is in custody no adjournment shall be for more than three clear days except with the consent of the accused.
+
+ Marginal note: Failure of accused to attend
+ (5)  Where an accused, other than an accused who is in custody, has been ordered by a judge to be present at the hearing of an application under this section and does not attend the hearing, the judge may issue a warrant for the arrest of the accused.
+
+ Marginal note: Execution
+ (6)  A warrant issued under subsection (5) may be executed anywhere in Canada.
+
+ Marginal note: Evidence and powers of judge on review
+ (7)  On the hearing of an application under this section, the judge may consider
+ (a)  the transcript, if any, of the proceedings heard by the justice and by any judge who previously reviewed the order made by the justice,
+
+ (b)  the exhibits, if any, filed in the proceedings before the justice, and
+
+ (c)  such additional evidence or exhibits as may be tendered by the accused or the prosecutor,
+
+ and shall either
+ (d)  dismiss the application, or
+
+ (e)  if the accused shows cause, allow the application, vacate the order previously made by the justice and make any other order provided for in section 515 that he considers is warranted.
+
+ Marginal note: Limitation of further applications
+ (8)  Where an application under this section or section 521 has been heard, a further or other application under this section or section 521 shall not be made with respect to that same accused, except with leave of a judge, prior to the expiration of thirty days from the date of the decision of the judge who heard the previous application.
+
+ Marginal note: Application of sections 517, 518 and 519
+ (9)  The provisions of sections 517, 518 and 519 apply with such modifications as the circumstances require in respect of an application under this section.
+
+ R.S., 1985, c. C-46, s. 520
+ R.S., 1985, c. 27 (1st Supp.), s. 86
+ 1994, c. 44, s. 46
+ 1999, c. 3, s. 31
+
+ Marginal note: Review of order
+ 521   (1)  If a justice, or a judge of the Nunavut Court of Justice, makes an order under subsection 515(1), (2), (7), (8) or (12) or makes or vacates any order under paragraph 523(2)(b), the prosecutor may, at any time before the trial of the charge, apply to a judge for a review of the order.
+
+ Marginal note: Notice to accused
+ (2)  An application under this section shall not be heard by a judge unless the prosecutor has given to the accused at least two clear days notice in writing of the application.
+
+ Marginal note: Accused to be present
+ (3)  If the judge so orders or the prosecutor or the accused or his counsel so requests, the accused shall be present at the hearing of an application under this section and, where the accused is in custody, the judge may order, in writing, the person having the custody of the accused to bring him before the court.
+
+ Marginal note: Adjournment of proceedings
+ (4)  A judge may, before or at any time during the hearing of an application under this section, on application of the prosecutor or the accused, adjourn the proceedings, but if the accused is in custody no adjournment shall be for more than three clear days except with the consent of the accused.
+
+ Marginal note: Failure of accused to attend
+ (5)  Where an accused, other than an accused who is in custody, has been ordered by a judge to be present at the hearing of an application under this section and does not attend the hearing, the judge may issue a warrant for the arrest of the accused.
+
+ Marginal note: Warrant for detention
+ (6)  Where, pursuant to paragraph (8)(e), the judge makes an order that the accused be detained in custody until he is dealt with according to law, he shall, if the accused is not in custody, issue a warrant for the committal of the accused.
+
+ Marginal note: Execution
+ (7)  A warrant issued under subsection (5) or (6) may be executed anywhere in Canada.
+
+ Marginal note: Evidence and powers of judge on review
+ (8)  On the hearing of an application under this section, the judge may consider
+ (a)  the transcript, if any, of the proceedings heard by the justice and by any judge who previously reviewed the order made by the justice,
+
+ (b)  the exhibits, if any, filed in the proceedings before the justice, and
+
+ (c)  such additional evidence or exhibits as may be tendered by the prosecutor or the accused,
+
+ and shall either
+ (d)  dismiss the application, or
+
+ (e)  if the prosecutor shows cause, allow the application, vacate the order previously made by the justice and make any other order provided for in section 515 that he considers to be warranted.
+
+ Marginal note: Limitation of further applications
+ (9)  Where an application under this section or section 520 has been heard, a further or other application under this section or section 520 shall not be made with respect to the same accused, except with leave of a judge, prior to the expiration of thirty days from the date of the decision of the judge who heard the previous application.
+
+ Marginal note: Application of sections 517, 518 and 519
+ (10)  The provisions of sections 517, 518 and 519 apply with such modifications as the circumstances require in respect of an application under this section.
+
+ R.S., 1985, c. C-46, s. 521
+ R.S., 1985, c. 27 (1st Supp.), s. 87
+ 1994, c. 44, s. 47
+ 1999, c. 3, s. 32
+
+ Marginal note: Interim release by judge only
+ 522   (1)  Where an accused is charged with an offence listed in section 469, no court, judge or justice, other than a judge of or a judge presiding in a superior court of criminal jurisdiction for the province in which the accused is so charged, may release the accused before or after the accused has been ordered to stand trial.
+
+ Marginal note: Idem
+ (2)  Where an accused is charged with an offence listed in section 469, a judge of or a judge presiding in a superior court of criminal jurisdiction for the province in which the accused is charged shall order that the accused be detained in custody unless the accused, having been given a reasonable opportunity to do so, shows cause why his detention in custody is not justified within the meaning of subsection 515(10).
+
+ Marginal note: Order re no communication
+ (2.1)  A judge referred to in subsection (2) who orders that an accused be detained in custody under this section may include in the order a direction that the accused abstain from communicating, directly or indirectly, with any victim, witness or other person identified in the order except in accordance with such conditions specified in the order as the judge considers necessary.
+
+ Marginal note: Release of accused
+ (3)  If the judge does not order that the accused be detained in custody under subsection (2), the judge may order that the accused be released on giving an undertaking or entering into a recognizance described in any of paragraphs 515(2)(a) to (e) with such conditions described in subsections 515(4), (4.1) and (4.2) as the judge considers desirable.
+
+ Marginal note: Order not reviewable except under section 680
+ (4)  An order made under this section is not subject to review, except as provided in section 680.
+
+ Marginal note: Application of sections 517, 518 and 519
+ (5)  The provisions of sections 517, 518 except subsection (2) thereof, and 519 apply with such modifications as the circumstances require in respect of an application for an order under subsection (2).
+
+ Marginal note: Other offences
+ (6)  Where an accused is charged with an offence mentioned in section 469 and with any other offence, a judge acting under this section may apply the provisions of this Part respecting judicial interim release to that other offence.
+
+ R.S., 1985, c. C-46, s. 522
+ R.S., 1985, c. 27 (1st Supp.), s. 88
+ 1991, c. 40, s. 32
+ 1994, c. 44, s. 48
+ 1999, c. 25, s. 10(Preamble)
+
+ Marginal note: Period for which appearance notice, etc., continues in force
+ 523   (1)  Where an accused, in respect of an offence with which he is charged, has not been taken into custody or has been released from custody under or by virtue of any provision of this Part, the appearance notice, promise to appear, summons, undertaking or recognizance issued to, given or entered into by the accused continues in force, subject to its terms, and applies in respect of any new information charging the same offence or an included offence that was received after the appearance notice, promise to appear, summons, undertaking or recognizance was issued, given or entered into,
+ (a)  where the accused was released from custody pursuant to an order of a judge made under subsection 522(3), until his trial is completed; or
+
+ (b)  in any other case,
+ (i)  until his trial is completed, and
+
+ (ii)  where the accused is, at his trial, determined to be guilty of the offence, until a sentence within the meaning of section 673 is imposed on the accused unless, at the time the accused is determined to be guilty, the court, judge or justice orders that the accused be taken into custody pending such sentence.
+
+ Marginal note: Where new information charging same offence
+ (1.1)  Where an accused, in respect of an offence with which he is charged, has not been taken into custody or is being detained or has been released from custody under or by virtue of any provision of this Part and after the order for interim release or detention has been made, or the appearance notice, promise to appear, summons, undertaking or recognizance has been issued, given or entered into, a new information, charging the same offence or an included offence, is received, section 507 or 508, as the case may be, does not apply in respect of the new information and the order for interim release or detention of the accused and the appearance notice, promise to appear, summons, undertaking or recognizance, if any, applies in respect of the new information.
+
+ Marginal note: Order vacating previous order for release or detention
+ (2)  Notwithstanding subsections (1) and (1.1),
+ (a)  the court, judge or justice before which or whom an accused is being tried, at any time,
+
+ (b)  the justice, on completion of the preliminary inquiry in relation to an offence for which an accused is ordered to stand trial, other than an offence listed in section 469, or
+
+ (c)  with the consent of the prosecutor and the accused or, where the accused or the prosecutor applies to vacate an order that would otherwise apply pursuant to subsection (1.1), without such consent, at any time
+ (i)  where the accused is charged with an offence other than an offence listed in section 469, the justice by whom an order was made under this Part or any other justice,
+
+ (ii)  where the accused is charged with an offence listed in section 469, a judge of or a judge presiding in a superior court of criminal jurisdiction for the province, or
+
+ (iii)  the court, judge or justice before which or whom an accused is to be tried,
+
+ may, on cause being shown, vacate any order previously made under this Part for the interim release or detention of the accused and make any other order provided for in this Part for the detention or release of the accused until his trial is completed that the court, judge or justice considers to be warranted.
+
+ Marginal note: Provisions applicable to proceedings under subsection (2)
+ (3)  The provisions of sections 517, 518 and 519 apply, with such modifications as the circumstances require, in respect of any proceedings under subsection (2), except that subsection 518(2) does not apply in respect of an accused who is charged with an offence listed in section 469.
+
+ R.S., 1985, c. C-46, s. 523
+ R.S., 1985, c. 27 (1st Supp.), s. 89
+
+ Arrest of Accused on Interim Release
+ Marginal note: Issue of warrant for arrest of accused
+ 524   (1)  Where a justice is satisfied that there are reasonable grounds to believe that an accused
+ (a)  has contravened or is about to contravene any summons, appearance notice, promise to appear, undertaking or recognizance that was issued or given to him or entered into by him, or
+
+ (b)  has committed an indictable offence after any summons, appearance notice, promise to appear, undertaking or recognizance was issued or given to him or entered into by him,
+
+ he may issue a warrant for the arrest of the accused.
+
+ Marginal note: Arrest of accused without warrant
+ (2)  Notwithstanding anything in this Act, a peace officer who believes on reasonable grounds that an accused
+ (a)  has contravened or is about to contravene any summons, appearance notice, promise to appear, undertaking or recognizance that was issued or given to him or entered into by him, or
+
+ (b)  has committed an indictable offence after any summons, appearance notice, promise to appear, undertaking or recognizance was issued or given to him or entered into by him,
+
+ may arrest the accused without warrant.
+
+ Marginal note: Hearing
+ (3)  Where an accused who has been arrested with a warrant issued under subsection (1), or who has been arrested under subsection (2), is taken before a justice, the justice shall
+ (a)  where the accused was released from custody pursuant to an order made under subsection 522(3) by a judge of the superior court of criminal jurisdiction of any province, order that the accused be taken before a judge of that court; or
+
+ (b)  in any other case, hear the prosecutor and his witnesses, if any, and the accused and his witnesses, if any.
+
+ Marginal note: Retention of accused
+ (4)  Where an accused described in paragraph (3)(a) is taken before a judge and the judge finds
+ (a)  that the accused has contravened or had been about to contravene his summons, appearance notice, promise to appear, undertaking or recognizance, or
+
+ (b)  that there are reasonable grounds to believe that the accused has committed an indictable offence after any summons, appearance notice, promise to appear, undertaking or recognizance was issued or given to him or entered into by him,
+
+ he shall cancel the summons, appearance notice, promise to appear, undertaking or recognizance and order that the accused be detained in custody unless the accused, having been given a reasonable opportunity to do so, shows cause why his detention in custody is not justified within the meaning of subsection 515(10).
+
+ Marginal note: Release of accused
+ (5)  Where the judge does not order that the accused be detained in custody pursuant to subsection (4), he may order that the accused be released on his giving an undertaking or entering into a recognizance described in any of paragraphs 515(2)(a) to (e) with such conditions described in subsection 515(4) or, where the accused was at large on an undertaking or a recognizance with conditions, such additional conditions, described in subsection 515(4), as the judge considers desirable.
+
+ Marginal note: Order not reviewable
+ (6)  Any order made under subsection (4) or (5) is not subject to review, except as provided in section 680.
+
+ Marginal note: Release of accused
+ (7)  Where the judge does not make a finding under paragraph (4)(a) or (b), he shall order that the accused be released from custody.
+
+ Marginal note: Powers of justice after hearing
+ (8)  Where an accused described in subsection (3), other than an accused to whom paragraph (a) of that subsection applies, is taken before the justice and the justice finds
+ (a)  that the accused has contravened or had been about to contravene his summons, appearance notice, promise to appear, undertaking or recognizance, or
+
+ (b)  that there are reasonable grounds to believe that the accused has committed an indictable offence after any summons, appearance notice, promise to appear, undertaking or recognizance was issued or given to him or entered into by him,
+
+ he shall cancel the summons, appearance notice, promise to appear, undertaking or recognizance and order that the accused be detained in custody unless the accused, having been given a reasonable opportunity to do so, shows cause why his detention in custody is not justified within the meaning of subsection 515(10).
+
+ Marginal note: Release of accused
+ (9)  Where an accused shows cause why his detention in custody is not justified within the meaning of subsection 515(10), the justice shall order that the accused be released on his giving an undertaking or entering into a recognizance described in any of paragraphs 515(2)(a) to (e) with such conditions, described in subsection 515(4), as the justice considers desirable.
+
+ Marginal note: Reasons
+ (10)  Where the justice makes an order under subsection (9), he shall include in the record a statement of his reasons for making the order, and subsection 515(9) is applicable with such modifications as the circumstances require in respect thereof.
+
+ Marginal note: Where justice to order that accused be released
+ (11)  Where the justice does not make a finding under paragraph (8)(a) or (b), he shall order that the accused be released from custody.
+
+ Marginal note: Provisions applicable to proceedings under this section
+ (12)  The provisions of sections 517, 518 and 519 apply with such modifications as the circumstances require in respect of any proceedings under this section, except that subsection 518(2) does not apply in respect of an accused who is charged with an offence mentioned in section 522.
+
+ Marginal note: Certain provisions applicable to order under this section
+ (13)  Section 520 applies in respect of any order made under subsection (8) or (9) as though the order were an order made by a justice or a judge of the Nunavut Court of Justice under subsection 515(2) or (5), and section 521 applies in respect of any order made under subsection (9) as though the order were an order made by a justice or a judge of the Nunavut Court of Justice under subsection 515(2).
+
+ R.S., 1985, c. C-46, s. 524
+ 1999, c. 3, s. 33
+
+ Review of Detention where Trial Delayed
+ Marginal note: Time for application to judge
+ 525   (1)  Where an accused who has been charged with an offence other than an offence listed in section 469 and who is not required to be detained in custody in respect of any other matter is being detained in custody pending his trial for that offence and the trial has not commenced
+ (a)  in the case of an indictable offence, within ninety days from
+ (i)  the day on which the accused was taken before a justice under section 503, or
+
+ (ii)  where an order that the accused be detained in custody has been made under section 521 or 524, or a decision has been made with respect to a review under section 520, the later of the day on which the accused was taken into custody under that order and the day of the decision, or
+
+ (b)  in the case of an offence for which the accused is being prosecuted in proceedings by way of summary conviction, within thirty days from
+ (i)  the day on which the accused was taken before a justice under subsection 503(1), or
+
+ (ii)  where an order that the accused be detained in custody has been made under section 521 or 524, or a decision has been made with respect to a review under section 520, the later of the day on which the accused was taken into custody under that order and the day of the decision,
+
+ the person having the custody of the accused shall, forthwith on the expiration of those ninety or thirty days, as the case may be, apply to a judge having jurisdiction in the place in which the accused is in custody to fix a date for a hearing to determine whether or not the accused should be released from custody.
+
+ Marginal note: Notice of hearing
+ (2)  On receiving an application under subsection (1), the judge shall
+ (a)  fix a date for the hearing described in subsection (1) to be held in the jurisdiction
+ (i)  where the accused is in custody, or
+
+ (ii)  where the trial is to take place; and
+
+ (b)  direct that notice of the hearing be given to such persons, including the prosecutor and the accused, and in such manner as the judge may specify.
+
+ Marginal note: Matters to be considered on hearing
+ (3)  On the hearing described in subsection (1), the judge may, in deciding whether or not the accused should be released from custody, take into consideration whether the prosecutor or the accused has been responsible for any unreasonable delay in the trial of the charge.
+
+ Marginal note: Order
+ (4)  If, following the hearing described in subsection (1), the judge is not satisfied that the continued detention of the accused in custody is justified within the meaning of subsection 515(10), the judge shall order that the accused be released from custody pending the trial of the charge on his giving an undertaking or entering into a recognizance described in any of paragraphs 515(2)(a) to (e) with such conditions described in subsection 515(4) as the judge considers desirable.
+
+ Marginal note: Warrant of judge for arrest
+ (5)  Where a judge having jurisdiction in the province where an order under subsection (4) for the release of an accused has been made is satisfied that there are reasonable grounds to believe that the accused
+ (a)  has contravened or is about to contravene the undertaking or recognizance on which he has been released, or
+
+ (b)  has, after his release from custody on his undertaking or recognizance, committed an indictable offence,
+
+ he may issue a warrant for the arrest of the accused.
+
+ Marginal note: Arrest without warrant by peace officer
+ (6)  Notwithstanding anything in this Act, a peace officer who believes on reasonable grounds that an accused who has been released from custody under subsection (4)
+ (a)  has contravened or is about to contravene the undertaking or recognizance on which he has been released, or
+
+ (b)  has, after his release from custody on his undertaking or recognizance, committed an indictable offence,
+
+ may arrest the accused without warrant and take him or cause him to be taken before a judge having jurisdiction in the province where the order for his release was made.
+
+ Marginal note: Hearing and order
+ (7)  A judge before whom an accused is taken pursuant to a warrant issued under subsection (5) or pursuant to subsection (6) may, where the accused shows cause why his detention in custody is not justified within the meaning of subsection 515(10), order that the accused be released on his giving an undertaking or entering into a recognizance described in any of paragraphs 515(2)(a) to (e) with such conditions, described in subsection 515(4), as the judge considers desirable.
+
+ Marginal note: Provisions applicable to proceedings
+ (8)  The provisions of sections 517, 518 and 519 apply with such modifications as the circumstances require in respect of any proceedings under this section.
+
+ Marginal note: Directions for expediting trial
+ (9)  Where an accused is before a judge under any of the provisions of this section, the judge may give directions for expediting the trial of the accused.
+
+ R.S., 1985, c. C-46, s. 525
+ R.S., 1985, c. 27 (1st Supp.), s. 90
+ 1994, c. 44, s. 49
+ 1997, c. 18, s. 61
+
+ Marginal note: Directions for expediting proceedings
+ 526  Subject to subsection 525(9), a court, judge or justice before which or whom an accused appears pursuant to this Part may give directions for expediting any proceedings in respect of the accused.
+ R.S., 1985, c. C-46, s. 526
+ R.S., 1985, c. 27 (1st Supp.), s. 91
+
+ Procedure to Procure Attendance of a Prisoner
+ Marginal note: Procuring attendance
+ 527   (1)  A judge of a superior court of criminal jurisdiction may order in writing that a person who is confined in a prison be brought before the court, judge, justice or provincial court judge before whom the prisoner is required to attend, from day to day as may be necessary, if
+ (a)  the applicant for the order sets out the facts of the case in an affidavit and produces the warrant, if any; and
+
+ (b)  the judge is satisfied that the ends of justice require that an order be made.
+
+ Marginal note: Provincial court judge’s order
+ (2)  A provincial court judge has the same powers for the purposes of subsection (1) or (7) as a judge has under that subsection where the person whose attendance is required is within the province in which the provincial court judge has jurisdiction.
+
+ Marginal note: Conveyance of prisoner
+ (3)  An order that is made under subsection (1) or (2) shall be addressed to the person who has custody of the prisoner, and on receipt thereof that person shall
+ (a)  deliver the prisoner to any person who is named in the order to receive him; or
+
+ (b)  bring the prisoner before the court, judge, justice or provincial court judge, as the case may be, on payment of his reasonable charges in respect thereof.
+
+ Marginal note: Detention of prisoner required as witness
+ (4)  Where a prisoner is required as a witness, the judge or provincial court judge shall direct, in the order, the manner in which the prisoner shall be kept in custody and returned to the prison from which he is brought.
+
+ Marginal note: Detention in other cases
+ (5)  Where the appearance of a prisoner is required for the purposes of paragraph (1)(a) or (b), the judge or provincial court judge shall give appropriate directions in the order with respect to the manner in which the prisoner is
+ (a)  to be kept in custody, if he is ordered to stand trial; or
+
+ (b)  to be returned, if he is discharged on a preliminary inquiry or if he is acquitted of the charge against him.
+
+ Marginal note: Application of sections respecting sentence
+ (6)  Sections 718.3 and 743.1 apply where a prisoner to whom this section applies is convicted and sentenced to imprisonment by the court, judge, justice or provincial court judge.
+
+ Marginal note: Transfer of prisoner
+ (7)  On application by the prosecutor, a judge of a superior court of criminal jurisdiction may, if a prisoner or a person in the custody of a peace officer consents in writing, order the transfer of the prisoner or other person to the custody of a peace officer named in the order for a period specified in the order, where the judge is satisfied that the transfer is required for the purpose of assisting a peace officer acting in the execution of his or her duties.
+
+ Marginal note: Conveyance of prisoner
+ (8)  An order under subsection (7) shall be addressed to the person who has custody of the prisoner and on receipt thereof that person shall deliver the prisoner to the peace officer who is named in the order to receive him.
+
+ Marginal note: Return
+ (9)  When the purposes of any order made under this section have been carried out, the prisoner shall be returned to the place where he was confined at the time the order was made.
+
+ R.S., 1985, c. C-46, s. 527
+ R.S., 1985, c. 27 (1st Supp.), ss. 92, 101(E), 203
+ 1994, c. 44, s. 50
+ 1995, c. 22, s. 10
+ 1997, c. 18, s. 62
+
+ Endorsement of Warrant
+ Marginal note: Endorsing warrant
+ 528   (1)  Where a warrant for the arrest or committal of an accused, in any form set out in Part XXVIII in relation thereto, cannot be executed in accordance with section 514 or 703, a justice within whose jurisdiction the accused is or is believed to be shall, on application and proof on oath or by affidavit of the signature of the justice who issued the warrant, authorize the arrest of the accused within his jurisdiction by making an endorsement, which may be in Form 28, on the warrant.
+
+ Marginal note: Copy of affidavit or warrant
+ (1.1)  A copy of an affidavit or warrant submitted by a means of telecommunication that produces a writing has the same probative force as the original for the purposes of subsection (1).
+
+ Marginal note: Effect of endorsement
+ (2)  An endorsement that is made on a warrant pursuant to subsection (1) is sufficient authority to the peace officers to whom it was originally directed, and to all peace officers within the territorial jurisdiction of the justice by whom it is endorsed, to execute the warrant and to take the accused before the justice who issued the warrant or before any other justice for the same territorial division.
+
+ R.S., 1985, c. C-46, s. 528
+ R.S., 1985, c. 27 (1st Supp.), s. 93
+ 1994, c. 44, s. 51
+
+ Powers to Enter Dwelling-houses to Carry out Arrests
+ Marginal note: Including authorization to enter in warrant of arrest
+ 529   (1)  A warrant to arrest or apprehend a person issued by a judge or justice under this or any other Act of Parliament may authorize a peace officer, subject to subsection (2), to enter a dwelling-house described in the warrant for the purpose of arresting or apprehending the person if the judge or justice is satisfied by information on oath in writing that there are reasonable grounds to believe that the person is or will be present in the dwelling-house.
+
+ Marginal note: Execution
+ (2)  An authorization to enter a dwelling-house granted under subsection (1) is subject to the condition that the peace officer may not enter the dwelling-house unless the peace officer has, immediately before entering the dwelling-house, reasonable grounds to believe that the person to be arrested or apprehended is present in the dwelling-house.
+
+ R.S., 1985, c. C-46, s. 529
+ 1994, c. 44, s. 52
+ 1997, c. 39, s. 2
+
+ Marginal note: Warrant to enter dwelling-house
+ 529.1  A judge or justice may issue a warrant in Form 7.1 authorizing a peace officer to enter a dwelling-house described in the warrant for the purpose of arresting or apprehending a person identified or identifiable by the warrant if the judge or justice is satisfied by information on oath that there are reasonable grounds to believe that the person is or will be present in the dwelling-house and that
+ (a)  a warrant referred to in this or any other Act of Parliament to arrest or apprehend the person is in force anywhere in Canada;
+
+ (b)  grounds exist to arrest the person without warrant under paragraph 495(1)(a) or (b) or section 672.91; or
+
+ (c)  grounds exist to arrest or apprehend without warrant the person under an Act of Parliament, other than this Act.
+
+ 1997, c. 39, s. 2
+ 2002, c. 13, s. 23
+
+ Marginal note: Reasonable terms and conditions
+ 529.2  Subject to section 529.4, the judge or justice shall include in a warrant referred to in section 529 or 529.1 any terms and conditions that the judge or justice considers advisable to ensure that the entry into the dwelling-house is reasonable in the circumstances.
+ 1997, c. 39, s. 2
+
+ Marginal note: Authority to enter dwelling without warrant
+ 529.3   (1)  Without limiting or restricting any power a peace officer may have to enter a dwelling-house under this or any other Act or law, the peace officer may enter the dwelling-house for the purpose of arresting or apprehending a person, without a warrant referred to in section 529 or 529.1 authorizing the entry, if the peace officer has reasonable grounds to believe that the person is present in the dwelling-house, and the conditions for obtaining a warrant under section 529.1 exist but by reason of exigent circumstances it would be impracticable to obtain a warrant.
+
+ Marginal note: Exigent circumstances
+ (2)  For the purposes of subsection (1), exigent circumstances include circumstances in which the peace officer
+ (a)  has reasonable grounds to suspect that entry into the dwelling-house is necessary to prevent imminent bodily harm or death to any person; or
+
+ (b)  has reasonable grounds to believe that evidence relating to the commission of an indictable offence is present in the dwelling-house and that entry into the dwelling-house is necessary to prevent the imminent loss or imminent destruction of the evidence.
+
+ 1997, c. 39, s. 2
+
+ Marginal note: Omitting announcement before entry
+ 529.4   (1)  A judge or justice who authorizes a peace officer to enter a dwelling-house under section 529 or 529.1, or any other judge or justice, may authorize the peace officer to enter the dwelling-house without prior announcement if the judge or justice is satisfied by information on oath that there are reasonable grounds to believe that prior announcement of the entry would
+ (a)  expose the peace officer or any other person to imminent bodily harm or death; or
+
+ (b)  result in the imminent loss or imminent destruction of evidence relating to the commission of an indictable offence.
+
+ Marginal note: Execution of authorization
+ (2)  An authorization under this section is subject to the condition that the peace officer may not enter the dwelling-house without prior announcement despite being authorized to do so unless the peace officer has, immediately before entering the dwelling-house,
+ (a)  reasonable grounds to suspect that prior announcement of the entry would expose the peace officer or any other person to imminent bodily harm or death; or
+
+ (b)  reasonable grounds to believe that prior announcement of the entry would result in the imminent loss or imminent destruction of evidence relating to the commission of an indictable offence.
+
+ Marginal note: Exception
+ (3)  A peace officer who enters a dwelling-house without a warrant under section 529.3 may not enter the dwelling-house without prior announcement unless the peace officer has, immediately before entering the dwelling-house,
+ (a)  reasonable grounds to suspect that prior announcement of the entry would expose the peace officer or any other person to imminent bodily harm or death; or
+
+ (b)  reasonable grounds to believe that prior announcement of the entry would result in the imminent loss or imminent destruction of evidence relating to the commission of an indictable offence.
+
+ 1997, c. 39, s. 2
+
+ Marginal note: Telewarrant
+ 529.5  If a peace officer believes that it would be impracticable in the circumstances to appear personally before a judge or justice to make an application for a warrant under section 529.1 or an authorization under section 529 or 529.4, the warrant or authorization may be issued on an information submitted by telephone or other means of telecommunication and, for that purpose, section 487.1 applies, with any modifications that the circumstances require, to the warrant or authorization.
+ 1997, c. 39, s. 2
+
+ 

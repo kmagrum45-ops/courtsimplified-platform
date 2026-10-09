@@ -1094,6 +1094,23 @@ Human Rights Code, the Charter, Nelles, Miazga, Henry and Ward. Count
   current consolidation). A claim about events before 2019 may need its
   historical text; that is a decision about which period to cite, not a fetch.
 
+### Past versions of a law: where they are, and the URLs that work (2026-10-09)
+
+- **e-Laws historical versions of a repealed Act** resolve only with the
+  `elaws_statutes_` prefix: `elaws_statutes_90p27_ev002.doc` .. `_ev007` are the
+  Proceedings Against the Crown Act's versions (2004-2009); `90p27_ev001.doc`
+  without the prefix is HTTP 403. `_ev008` and later are 403 (none exist).
+- **Justice Laws point-in-time** full text is
+  `/eng/acts/C-46/<YYYYMMDD>/P1TT3xt3.html`, where the date is the START of a
+  version listed on `/eng/acts/C-46/PITIndex.html` (any other date is 404).
+  The Criminal Code's versions go back to 2005 there. `FullText.html` under a
+  date is 404.
+- The Vendor Sources `section` option cut the Criminal Code at the first
+  "PART XVI" it met -- a mention inside s. 20 -- not the heading. Fetch whole
+  and cut locally at "PART XVI Compelling Appearance".
+- Past versions go in `docs/sources/historical/`, never `corpus/`
+  (test:rules-corpus refuses a historical header there, rightly).
+
 ## Dead ends already ruled out
 
 ### Ontario Fault Determination Rules ≠ a route to sue the other driver

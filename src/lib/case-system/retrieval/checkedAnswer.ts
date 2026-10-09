@@ -32,6 +32,7 @@
  */
 
 import type { CheckedAnswerView } from "../intelligence/intelligenceTypes";
+import { historicalStatementOk, isHistoricalId } from "./historicalLaw";
 import { hasLegalContent } from "../intelligence/groundedCognition";
 import { MIN_QUOTE_CHARS, normalizeQuoteText, quoteAppearsIn } from "../intelligence/quoteMatch";
 import { loadCorpusIndex, readPassage, searchIndex, type LoadedIndex, type Passage } from "./corpusIndex";
@@ -120,7 +121,8 @@ Rules:
 - When the law gives the person more than one route (for example, sue in the Superior Court, or stay in Small Claims and give up the amount over the limit), name each route; never present one route as the only one.
 - Answer every part of the question, including the conditions and how amounts or thresholds are measured.
 - Use the figures, forms and procedures in force now, and the ones that fit this person's situation (the kind of tenancy, claim, court and party). Where the law gives a percentage or formula, work it out with their figures and say how.
-- Be complete the way a careful lawyer is: state the basic rule a section starts from (for example, that a will must be in writing), then its conditions, exceptions, how amounts are calculated and capped, deadlines and who must prove what, then the form or step and where it is filed. A point left out is as harmful as a wrong one.`;
+- Be complete the way a careful lawyer is: state the basic rule a section starts from (for example, that a will must be in writing), then its conditions, exceptions, how amounts are calculated and capped, deadlines and who must prove what, then the form or step and where it is filed. A point left out is as harmful as a wrong one.
+- When what happened was years ago and the law then matters (for example, what the law required at a past hearing), you may also state the law as it read at that time, citing the past version by its title ("Criminal Code, Part XVI (as it read December 14, 2006 to December 31, 2007), s. 515 (10)"). Every such statement names the year or says "at the time"; give today's rule as well when it is different. Never state a past version in the present tense.`;
 
 export const CHECK_SYSTEM_PROMPT = `You check statements of Ontario law against the official text. You are given numbered PASSAGES (the official text) and STATEMENTS. Use only the passages; ignore what you otherwise know.
 
@@ -139,6 +141,7 @@ For each statement return:
 - When a passage gives different periods, amounts or steps for different situations (clauses (a), (b)... such as "by the day or week" and "in all other cases"), the statement must use the one for the person's situation; a statement using another is wrong and must be corrected.
 - A rule that depends on a condition (the kind of tenancy, claim, party, amount, date or procedure) supports a statement only if that condition fits the person's situation; otherwise correct the statement to the rule that does fit, or mark it unsupported. Never accept an old or repealed figure.
 - The passages state the law; the person's situation gives the facts. A passage not repeating the person's facts is no reason to doubt a statement that applies its rule to them.
+- A passage whose source title says "(as it read <period>)" is a past version of the law. It supports a statement only if the statement says it is about that past time (names the year or says "at the time"); otherwise mark the statement unsupported.
 Return JSON: {"results": [ ... ]}`;
 
 // ---------------------------------------------------------------- parsing (pure)
@@ -575,7 +578,16 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
     const notConfirmed: string[] = [];
     const notConfirmedWhy: { topic: string; why: string }[] = [];
     for (const item of judged) {
-      if ("statement" in item) statements.push(item.statement);
+      if (!("statement" in item)) continue;
+      // A past version of a law supports only a statement about the past
+      // (historicalLaw.ts). Said in the present tense it would state old law
+      // as today's, so it is held back and listed as not confirmed.
+      if (item.statement.sources.some((source) => isHistoricalId(source.passageId)) && !historicalStatementOk(item.statement.text)) {
+        notConfirmed.push(item.topic);
+        notConfirmedWhy.push({ topic: item.topic, why: "It relied on a past version of the law without saying it was about the past." });
+        continue;
+      }
+      statements.push(item.statement);
     }
     // Two drafts can confirm the same point twice: keep the fuller one.
     const kept = statements.filter((statement, i) =>
