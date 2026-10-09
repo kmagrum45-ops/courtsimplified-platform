@@ -69,6 +69,9 @@ jobs:
       - name: Where the site cannot help, it points to a person who can
         run: npm run test:help-at-limits
 
+      - name: The ten held-back finish-line cases stay held back
+        run: npm run test:held-back-cases
+
       - name: Two-year limit counted from an injury under the s. 5 (2) presumption
         run: npm run test:presumed-limitation
 
