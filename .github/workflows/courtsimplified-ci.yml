@@ -322,7 +322,15 @@ jobs:
 
       - name: Safety pass regression (real OpenAI calls -- see file header)
         if: env.OPENAI_API_KEY != '' && steps.safety-passed.outputs.cache-hit != 'true' && steps.spend.outcome == 'success' && steps.credit.outputs.credit != 'no'
-        run: npm run test:safety-regression
+        # Its output is copied into the run's annotations when it fails: the
+        # job log is not readable from every place the result is checked
+        # (2026-10-09). The cases are fabricated stories; no key is printed.
+        run: |
+          set -o pipefail
+          npm run test:safety-regression 2>&1 | tee /tmp/safety.log || {
+            grep -E "FAIL|Error|error|429|quota|status" /tmp/safety.log | head -15 | sed 's/^/::error title=Safety regression::/'
+            exit 1
+          }
 
       - name: Record that the safety regression passed on this AI code
         if: env.OPENAI_API_KEY != '' && steps.safety-passed.outputs.cache-hit != 'true' && steps.spend.outcome == 'success' && steps.credit.outputs.credit != 'no'
