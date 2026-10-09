@@ -1636,7 +1636,13 @@ function BuilderPageContent() {
             <p className="mt-2 text-sm leading-6 text-[#4d675f]">
               CourtSimplified is saving this area&apos;s structured intake to the canonical case record before opening guided assistant.
             </p>
-            {saveError && <p className="mt-3 text-sm font-semibold text-[#a63b3b]">The core intake could not be saved. Review or edit the intake before continuing.</p>}
+            {saveError && (
+              <p data-testid="save-error" className="mt-3 text-sm font-semibold text-[#a63b3b]">
+                The core intake could not be saved. Review or edit the intake before continuing.
+                {/* The database's own reason, for support and the walkthrough (2026-10-08: two runs stopped here and the cause could not be seen). */}
+                <span className="mt-1 block text-xs font-normal text-[#7a5418]">Details: {saveError.slice(0, 200)}</span>
+              </p>
+            )}
           </section>
         )}
 

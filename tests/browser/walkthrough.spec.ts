@@ -357,7 +357,11 @@ async function visitCaseHome(page: Page, persona: Persona, steps: Step[]) {
  * workflow can play 20 personas in parallel jobs inside its time limit
  * (2026-10-07: 8 took ~2 hours on one runner). Unset runs them all.
  */
-function shardOf(personas: Persona[]): Persona[] {
+function shardOf(all: Persona[]): Persona[] {
+  // WALKTHROUGH_PERSONAS="id1,id2" plays only those (2026-10-08: re-running the
+  // cases a fix touches costs a fraction of all 20).
+  const only = (process.env.WALKTHROUGH_PERSONAS ?? "").split(",").map((id) => id.trim()).filter(Boolean);
+  const personas = only.length ? all.filter((persona) => only.includes(persona.id)) : all;
   const match = /^(\d+)\/(\d+)$/.exec(process.env.WALKTHROUGH_SHARD ?? "");
   if (!match) return personas;
   const index = Number(match[1]) - 1;
