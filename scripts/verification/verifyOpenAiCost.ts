@@ -150,7 +150,7 @@ async function main() {
   tokenUse.input = 2_000_000;
   let calledAfterCap = false;
   const capped = forceNoStore({
-    chat: { completions: { create: async () => { calledAfterCap = true; return { choices: [] }; } } },
+    chat: { completions: { create: async (_body: Record<string, unknown>) => { calledAfterCap = true; return { choices: [] }; } } },
   });
   const outcome = await capped.chat.completions.create({ model: "gpt-6.1-sol", messages: [] }).then(() => "made", (error: unknown) => (error instanceof SpendCapReached ? "stopped" : "other"));
   check("at the cap: the call is refused before it is made", outcome === "stopped" && !calledAfterCap);
