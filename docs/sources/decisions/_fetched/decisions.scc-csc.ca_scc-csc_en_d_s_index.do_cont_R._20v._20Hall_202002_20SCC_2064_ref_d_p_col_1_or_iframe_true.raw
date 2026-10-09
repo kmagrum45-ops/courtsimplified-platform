@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/en/d/s/index.do" />
+    <title>    Advanced Search - SCC Cases
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/fr/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+<ul class="decisia-search-tabs decisia-tabs">
+            <li>
+            <a id="decisia-search-tabs-all-databases" target="_parent" href="/scc-csc/en/a/s/index.do?cont=R.+v.+Hall+2002+SCC+64&amp;ref=&amp;p=&amp;col=1&amp;or=">All Databases (381)</a>
+        </li>
+
+        <li class="active">Decisions (169)</li>
+
+         <li>
+             <a id="decisia-search-tabs-news" target="_parent" href="/scc-csc/en/n/s/index.do?cont=R.+v.+Hall+2002+SCC+64&amp;ref=&amp;p=&amp;col=1&amp;or=">Resources (212)</a>
+         </li>
+</ul>
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="R. v. Hall 2002 SCC 64" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Report, Case number</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-parties-row">
+        <div class="label">
+            <label for="decisia-parties">Parties</label>
+        </div>
+        <div class="input">
+<input id="decisia-parties" class="decisia-text" type="text" name="p" value="" />
+        </div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abbott, Douglas Charles"
+         >Abbott, Douglas Charles</option>
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Anglin, Francis Alexander"
+         >Anglin, Francis Alexander</option>
+        <option value="Arbour, Louise"
+         >Arbour, Louise</option>
+        <option value="Armour, John Douglas"
+         >Armour, John Douglas</option>
+        <option value="Barclay"
+         >Barclay</option>
+        <option value="Bastarache, Michel"
+         >Bastarache, Michel</option>
+        <option value="Beetz, Jean"
+         >Beetz, Jean</option>
+        <option value="Bernier"
+         >Bernier</option>
+        <option value="Binnie, William Ian Corneil"
+         >Binnie, William Ian Corneil</option>
+        <option value="Bond"
+         >Bond</option>
+        <option value="Brodeur, Louis-Philippe"
+         >Brodeur, Louis-Philippe</option>
+        <option value="Brown, Russell"
+         >Brown, Russell</option>
+        <option value="Cannon, Lawrence Arthur Dumoulin"
+         >Cannon, Lawrence Arthur Dumoulin</option>
+        <option value="Cartwright, John Robert"
+         >Cartwright, John Robert</option>
+        <option value="Cassels"
+         >Cassels</option>
+        <option value="Charron, Louise"
+         >Charron, Louise</option>
+        <option value="Chouinard, Julien"
+         >Chouinard, Julien</option>
+        <option value="Cory, Peter deCarteret"
+         >Cory, Peter deCarteret</option>
+        <option value="Crocket, Oswald Smith"
+         >Crocket, Oswald Smith</option>
+        <option value="Cromwell, Thomas Albert"
+         >Cromwell, Thomas Albert</option>
+        <option value="Côté, Suzanne"
+         >Côté, Suzanne</option>
+        <option value="Davies, Louis Henry"
+         >Davies, Louis Henry</option>
+        <option value="Davis, Henry Hague"
+         >Davis, Henry Hague</option>
+        <option value="Deschamps, Marie"
+         >Deschamps, Marie</option>
+        <option value="Dickson, Robert George Brian"
+         >Dickson, Robert George Brian</option>
+        <option value="Dorion"
+         >Dorion</option>
+        <option value="Duff, Lyman Poore"
+         >Duff, Lyman Poore</option>
+        <option value="Dysart"
+         >Dysart</option>
+        <option value="Estey, James Wilfred"
+         >Estey, James Wilfred</option>
+        <option value="Estey, Willard Zebedee"
+         >Estey, Willard Zebedee</option>
+        <option value="Fauteux, Joseph Honoré Gérald"
+         >Fauteux, Joseph Honoré Gérald</option>
+        <option value="Fish, Morris J."
+         >Fish, Morris J.</option>
+        <option value="Fitzpatrick, Charles"
+         >Fitzpatrick, Charles</option>
+        <option value="Fournier, Télesphore"
+         >Fournier, Télesphore</option>
+        <option value="Galipault"
+         >Galipault</option>
+        <option value="Gascon, Clément"
+         >Gascon, Clément</option>
+        <option value="Gillanders"
+         >Gillanders</option>
+        <option value="Girouard, Désiré"
+         >Girouard, Désiré</option>
+        <option value="Gonthier, Charles Doherty"
+         >Gonthier, Charles Doherty</option>
+        <option value="Gwynne, John Wellington"
+         >Gwynne, John Wellington</option>
+        <option value="Hall, Emmett Matthew"
+         >Hall, Emmett Matthew</option>
+        <option value="Henry, William Alexander"
+         >Henry, William Alexander</option>
+        <option value="Howard"
+         >Howard</option>
+        <option value="Hudson, Albert Blellock"
+         >Hudson, Albert Blellock</option>
+        <option value="Hughes, Frank Joseph"
+         >Hughes, Frank Joseph</option>
+        <option value="Iacobucci, Frank"
+         >Iacobucci, Frank</option>
+        <option value="Idington, John"
+         >Idington, John</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Joyal, Glenn"
+         >Joyal, Glenn</option>
+        <option value="Judson, Wilfred"
+         >Judson, Wilfred</option>
+        <option value="Karakatsanis, Andromache"
+         >Karakatsanis, Andromache</option>
+        <option value="Kasirer, Nicholas"
+         >Kasirer, Nicholas</option>
+        <option value="Kellock, Roy Lindsay"
+         >Kellock, Roy Lindsay</option>
+        <option value="Kerwin, Patrick"
+         >Kerwin, Patrick</option>
+        <option value="Killam, Albert Clements"
+         >Killam, Albert Clements</option>
+        <option value="King, George Edwin"
+         >King, George Edwin</option>
+        <option value="L&#39;Heureux-Dubé, Claire"
+         >L&#39;Heureux-Dubé, Claire</option>
+        <option value="La Forest, Gérard V."
+         >La Forest, Gérard V.</option>
+        <option value="Lamer, Antonio"
+         >Lamer, Antonio</option>
+        <option value="Lamont, John Henderson"
+         >Lamont, John Henderson</option>
+        <option value="Laskin, Bora"
+         >Laskin, Bora</option>
+        <option value="Latchford"
+         >Latchford</option>
+        <option value="Lavergne"
+         >Lavergne</option>
+        <option value="Le Dain, Gerald Eric"
+         >Le Dain, Gerald Eric</option>
+        <option value="LeBel, Louis"
+         >LeBel, Louis</option>
+        <option value="Lemieux"
+         >Lemieux</option>
+        <option value="Locke, Charles Holland"
+         >Locke, Charles Holland</option>
+        <option value="Maclean"
+         >Maclean</option>
+        <option value="Maclennan, James"
+         >Maclennan, James</option>
+        <option value="Magee"
+         >Magee</option>
+        <option value="Major, John C."
+         >Major, John C.</option>
+        <option value="Malouin, Arthur Cyrille Albert"
+         >Malouin, Arthur Cyrille Albert</option>
+        <option value="Martin, Sheilah"
+         >Martin, Sheilah</option>
+        <option value="Martin, Sheilah L."
+         >Martin, Sheilah L.</option>
+        <option value="Martland, Ronald"
+         >Martland, Ronald</option>
+        <option value="Masten"
+         >Masten</option>
+        <option value="McIntyre, William Rogers"
+         >McIntyre, William Rogers</option>
+        <option value="McLachlin, Beverley"
+         >McLachlin, Beverley</option>
+        <option value="Middleton"
+         >Middleton</option>
+        <option value="Mignault, Pierre-Basile"
+         >Mignault, Pierre-Basile</option>
+        <option value="Mills, Davis"
+         >Mills, Davis</option>
+        <option value="Moldaver, Michael J."
+         >Moldaver, Michael J.</option>
+        <option value="Moreau, Mary"
+         >Moreau, Mary</option>
+        <option value="Nesbitt, Wallace"
+         >Nesbitt, Wallace</option>
+        <option value="Newcombe, Edmund Leslie"
+         >Newcombe, Edmund Leslie</option>
+        <option value="Nolan, Henry Grattan"
+         >Nolan, Henry Grattan</option>
+        <option value="Orde"
+         >Orde</option>
+        <option value="O’Bonsawin, Michelle"
+         >O’Bonsawin, Michelle</option>
+        <option value="Patterson, Christopher Salmon"
+         >Patterson, Christopher Salmon</option>
+        <option value="Pigeon, Louis-Philippe"
+         >Pigeon, Louis-Philippe</option>
+        <option value="Pratte, Yves"
+         >Pratte, Yves</option>
+        <option value="Rand, Ivan Cleveland"
+         >Rand, Ivan Cleveland</option>
+        <option value="Richards, William Buell"
+         >Richards, William Buell</option>
+        <option value="Rinfret, Thibaudeau"
+         >Rinfret, Thibaudeau</option>
+        <option value="Ritchie, Roland Almon"
+         >Ritchie, Roland Almon</option>
+        <option value="Ritchie, William Johnstone"
+         >Ritchie, William Johnstone</option>
+        <option value="Rivard"
+         >Rivard</option>
+        <option value="Rothstein, Marshall"
+         >Rothstein, Marshall</option>
+        <option value="Rowe, Malcolm"
+         >Rowe, Malcolm</option>
+        <option value="Sedgewick, Robert"
+         >Sedgewick, Robert</option>
+        <option value="Smith, Robert"
+         >Smith, Robert</option>
+        <option value="Sopinka, John"
+         >Sopinka, John</option>
+        <option value="Spence, Wishart Flett"
+         >Spence, Wishart Flett</option>
+        <option value="St. Germain"
+         >St. Germain</option>
+        <option value="St. Jacques"
+         >St. Jacques</option>
+        <option value="Stevenson, William"
+         >Stevenson, William</option>
+        <option value="Strong, Samuel Henry"
+         >Strong, Samuel Henry</option>
+        <option value="Taschereau, Henri-Elzéar"
+         >Taschereau, Henri-Elzéar</option>
+        <option value="Taschereau, Jean-Thomas"
+         >Taschereau, Jean-Thomas</option>
+        <option value="Taschereau, Robert"
+         >Taschereau, Robert</option>
+        <option value="Tessier"
+         >Tessier</option>
+        <option value="Thorson"
+         >Thorson</option>
+        <option value="Wagner, Richard"
+         >Wagner, Richard</option>
+        <option value="Wilson, Bertha"
+         >Wilson, Bertha</option>
+        <option value="de Grandpré, Louis-Philippe"
+         >de Grandpré, Louis-Philippe</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Status</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Granted</option>
+                <option value="2"
+                >Dismissed</option>
+                <option value="3"
+                >Oral Hearing</option>
+                <option value="4"
+                >Remanded</option>
+                <option value="5"
+                >Quashed</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-district-row">
+        <div class="label select">
+            <label for="decisia-district">On appeal from</label>
+        </div>
+        <div class="input">
+        <select id="decisia-district" name="d"  data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                  <option value="1"
+                       >Canada</option>
+                  <option value="2"
+                       >Federal Court of Appeal</option>
+                  <option value="3"
+                       >British Columbia</option>
+                  <option value="4"
+                       >Alberta</option>
+                  <option value="5"
+                       >Saskatchewan</option>
+                  <option value="6"
+                       >Manitoba</option>
+                  <option value="7"
+                       >Ontario</option>
+                  <option value="8"
+                       >Quebec</option>
+                  <option value="9"
+                       >New Brunswick</option>
+                  <option value="10"
+                       >Nova Scotia</option>
+                  <option value="11"
+                       >Prince Edward Island</option>
+                  <option value="12"
+                       >Newfoundland and Labrador</option>
+                  <option value="13"
+                       >Yukon</option>
+                  <option value="14"
+                       >Northwest Territories</option>
+                  <option value="15"
+                       >Nunavut</option>
+                  <option value="16"
+                       >Court Martial Appeal Court of Canada</option>
+                  <option value="18"
+                       >Saskatchewan, Ontario, Alberta</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-collection-row">
+        <div class="label select">
+            <label for="decisia-collection">Collection</label>
+        </div>
+        <div class="input">
+<select id="decisia-collection" name="col" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+    <option value="1"
+        selected="selected"
+    >
+        Supreme Court Judgments</option>
+    <option value="2"
+    >
+        Applications for Leave</option>
+</select>
+<div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="advanced-field decisia-subjects-row">
+        <div class="label select">
+            <label for="decisia-subjects">Subjects</label>
+        </div>
+        <div class="input">
+    <select id="decisia-subjects" name="su" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+            <option value="34"
+            >Aboriginal law</option>
+            <option value="5"
+            >Access to information</option>
+            <option value="2"
+            >Action</option>
+            <option value="51"
+            >Administrative law</option>
+            <option value="13"
+            >Agency</option>
+            <option value="40"
+            >Air law</option>
+            <option value="9"
+            >Appeal</option>
+            <option value="52"
+            >Arbitration</option>
+            <option value="37"
+            >Armed Forces</option>
+            <option value="30"
+            >Bankruptcy and insolvency</option>
+            <option value="53"
+            >Bills of exchange</option>
+            <option value="44"
+            >Civil law</option>
+            <option value="20"
+            >Civil procedure</option>
+            <option value="41"
+            >Commercial law</option>
+            <option value="29"
+            >Communications law</option>
+            <option value="19"
+            >Competition law</option>
+            <option value="27"
+            >Constitutional law</option>
+            <option value="55"
+            >Contract</option>
+            <option value="61"
+            >Contracts</option>
+            <option value="6"
+            >Courts</option>
+            <option value="16"
+            >Criminal law</option>
+            <option value="14"
+            >Customs and excise</option>
+            <option value="4"
+            >Education law</option>
+            <option value="10"
+            >Elections</option>
+            <option value="17"
+            >Environmental law</option>
+            <option value="57"
+            >Estates</option>
+            <option value="18"
+            >Evidence</option>
+            <option value="48"
+            >Expropriation</option>
+            <option value="7"
+            >Family law</option>
+            <option value="11"
+            >Financial institutions</option>
+            <option value="15"
+            >Fishery</option>
+            <option value="42"
+            >Food and drugs</option>
+            <option value="23"
+            >Guarantee and suretyship</option>
+            <option value="26"
+            >Immigration</option>
+            <option value="28"
+            >Insurance</option>
+            <option value="8"
+            >Intellectual property</option>
+            <option value="31"
+            >International law</option>
+            <option value="45"
+            >Labour law</option>
+            <option value="22"
+            >Lease</option>
+            <option value="25"
+            >Maritime law</option>
+            <option value="43"
+            >Mines and minerals</option>
+            <option value="38"
+            >Motor vehicles</option>
+            <option value="56"
+            >Municipal law</option>
+            <option value="24"
+            >Pensions</option>
+            <option value="35"
+            >Prerogative writs</option>
+            <option value="59"
+            >Prescription</option>
+            <option value="46"
+            >Priorities and hypothecs</option>
+            <option value="58"
+            >Private international law</option>
+            <option value="32"
+            >Professional law</option>
+            <option value="63"
+            >Property</option>
+            <option value="49"
+            >Property law</option>
+            <option value="50"
+            >Public utilities</option>
+            <option value="47"
+            >Sale</option>
+            <option value="36"
+            >Securities</option>
+            <option value="39"
+            >State</option>
+            <option value="62"
+            >Status of persons</option>
+            <option value="3"
+            >Statutes</option>
+            <option value="33"
+            >Taxation</option>
+            <option value="21"
+            >Torts</option>
+            <option value="12"
+            >Transportation</option>
+            <option value="54"
+            >Trust</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+    <ul class="pager">
+                <li class="active current">1</li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">2</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=3">3</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=4">4</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=5">5</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=6">6</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">&gt;</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=7">&gt;&gt;</a></li>
+    </ul>
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>169 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2006/index.do?q=R.+v.+Hall+2002+SCC+64">R. v. Hall</a></span>
+                        - <span class="citation">2002 SCC 64</span>
+                    - <span class="report-citation">[2002] 3 SCR 309</span>
+                - <span class="publicationDate">2002-10-10</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. <b>Hall</b>, <b>R</b>. c. <b>Hall</b>, <b>2002</b> <b>SCC</b> <b>64</b>, <b>2002</b> CSC <b>64</b>, 28223, [<b>2002</b>] 3 SCR 309, [<b>2002</b>] 3 RCS 309 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>R</b>. <b>v</b>. <b>Hall</b>, [<b>2002</b>] 3 S.C.R. 309, <b>2002</b> <b>SCC</b> <b>64</b> David Scott <b>Hall</b> Appellant &nbsp;&nbsp;[...]&nbsp;&nbsp;Indexed as: <b>R</b>. <b>v</b>. <b>Hall</b> Neutral citation: <b>2002</b> <b>SCC</b> <b>64</b>. File No.: 28223. <b>2002</b>: April 23; <b>2002</b>: October 10. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2006/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20102/index.do?q=R.+v.+Hall+2002+SCC+64">Reference re Impact Assessment Act</a></span>
+                        - <span class="citation">2023 SCC 23</span>
+                - <span class="publicationDate">2023-10-13</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Ltd. <b>v</b>. The Queen, [1976] 1 S.C.R. 477; Gould <b>v</b>. Yukon Order of Pioneers, [1996] 1 S.C.R. 571; Canadian Broadcasting Corp. <b>v</b>. SODRAC 2003 Inc., 2015 <b>SCC</b> 57, [2015] 3 S.C.R. 615; Krayzel Corp. <b>v</b>. Equitable Trust Co., 2016 <b>SCC</b> 18, [2016] 1 S.C.R. 273; <b>R</b>. <b>v</b>. Hinchey, [1996] 3 S.C.R. 1128; <b>R</b>. <b>v</b>. Khill, 2021 <b>SCC</b> 37; Fowler <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp; 2000 <b>SCC</b> 21, [2000] 1 S.C.R. 494; Ward <b>v</b>. Canada (Attorney General), <b>2002</b> <b>SCC</b> 17, [<b>2002</b>] 1 S.C.R. 569; Reference re Securities Act, 2011 <b>SCC</b> 66, [2011] 3 S.C.R. 837; <b>R</b>. <b>v</b>. Morgentaler, [1993] 3 S.C.R. 463; Kitkatla Band <b>v</b>. British Columbia (Minister of Small Business, Tourism and Culture), <b>2002</b> <b>SCC</b> 31, [<b>2002</b>] 2 S.C.R.&nbsp;&nbsp;[...]&nbsp;&nbsp; to “how the legislation as a whole affects the rights and liabilities of those subject to its terms” (<b>R</b>. <b>v</b>. Morgentaler, [1993] 3 S.C.R. 463, at p. 482; see also Kitkatla Band <b>v</b>. British Columbia (Minister of Small Business, Tourism and Culture), <b>2002</b> <b>SCC</b> 31, [<b>2002</b>] 2 S.C.R. 146, at para. 54; Murray-<b>Hall</b>, at para. 25). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20102/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/7861/index.do?q=R.+v.+Hall+2002+SCC+64">Toronto Star Newspapers Ltd. v. Canada</a></span>
+                        - <span class="citation">2010 SCC 21</span>
+                    - <span class="report-citation">[2010] 1 SCR 721</span>
+                - <span class="publicationDate">2010-06-10</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     <b>R</b>. <b>v</b>. Burlingham, [1995] 2 S.C.R. 206; <b>R</b>. <b>v</b>. Stillman, [1997] 1 S.C.R. 607; <b>R</b>. <b>v</b>. Big M Drug Mart Ltd., [1985] 1 S.C.R. 295; <b>R</b>. <b>v</b>. Butler, [1992] 1 S.C.R. 452; <b>R</b>. <b>v</b>. Keegstra, [1990] 3 S.C.R. 697; Canadian Newspapers Co. <b>v</b>. Canada (Attorney General), [1988] 2 S.C.R. 122; <b>R</b>. <b>v</b>. <b>Hall</b>, <b>2002</b> <b>SCC</b> <b>64</b>, [<b>2002</b>] 3 S.C.R. 309; <b>R</b>. <b>v</b>.&nbsp;&nbsp;[...]&nbsp;&nbsp; Ltd. <b>v</b>. Ontario, 2005 <b>SCC</b> 41, [2005] 2 S.C.R. 188; Named Person <b>v</b>. Vancouver Sun, 2007 <b>SCC</b> 43, [2007] 3 S.C.R. 253; Dagenais <b>v</b>. Canadian Broadcasting Corp., [1994] 3 S.C.R. 835; <b>R</b>. <b>v</b>. <b>Hall</b>, <b>2002</b> <b>SCC</b> <b>64</b>, [<b>2002</b>] 3 S.C.R. 309; <b>R</b>. <b>v</b>. Corbett, [1988] 1 S.C.R. 670; <b>R</b>. <b>v</b>. Vermette, [1988] 1 S.C.R. 985; <b>R</b>. <b>v</b>. White, 2005 &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>R</b>. <b>v</b>. <b>Hall</b>, <b>2002</b> <b>SCC</b> <b>64</b>, [<b>2002</b>] 3 S.C.R. 309, at para. 47, Iacobucci J. (dissenting, but not on this point) stated: 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/7861/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/14302/index.do?q=R.+v.+Hall+2002+SCC+64">Sattva Capital Corp. v. Creston Moly Corp.</a></span>
+                        - <span class="citation">2014 SCC 53</span>
+                    - <span class="report-citation">[2014] 2 SCR 633</span>
+                - <span class="publicationDate">2014-08-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Arbitration<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     <b>v</b>. Tropic International Ltd. (<b>2002</b>), 63 O.R. (3d) 63; Domtar Inc. <b>v</b>. Belkin Inc. (1989), 39 B.C.L.R. (2d) 257; Quan <b>v</b>. Cusson, 2009 <b>SCC</b> 62, [2009] 3 S.C.R. 712; Quick Auto Lease Inc. <b>v</b>. Nordin, 2014 MBCA 32, 303 Man. <b>R</b>. (2d) 262; <b>R</b>. <b>v</b>. Fedossenko, 2013 ABCA 164 (CanLII); Enns <b>v</b>. Hansey, 2013 MBCA 23 (CanLII); <b>R</b>. <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;2011 <b>SCC</b> 62, [2011] 3 S.C.R. 708; Immeubles Port Louis Ltée <b>v</b>. Lafontaine (Village), [1991] 1 S.C.R. 326; MiningWatch Canada <b>v</b>. Canada (Fisheries and Oceans), 2010 <b>SCC</b> 2, [2010] 1 S.C.R. 6; <b>R</b>. <b>v</b>. Bellusci, 2012 <b>SCC</b> 44, [2012] 2 S.C.R. 509; <b>R</b>. <b>v</b>. Bjelland, 2009 <b>SCC</b> 38, [2009] 2 S.C.R. 651; <b>R</b>. <b>v</b>. Regan, <b>2002</b> <b>SCC</b> 12, [<b>2002</b>] 1 &nbsp;&nbsp;[...]&nbsp;&nbsp;An appellate court is only justified in interfering with a lower court judge’s exercise of discretion if that judge misdirected himself or if his decision is so clearly wrong as to amount to an injustice (<b>R</b>. <b>v</b>. Bjelland, 2009 <b>SCC</b> 38, [2009] 2 S.C.R. 651, at para. 15; and <b>R</b>. <b>v</b>. Regan, <b>2002</b> <b>SCC</b> 12, [<b>2002</b>] 1 S.C.R. 297, at 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/14302/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2243/index.do?q=R.+v.+Hall+2002+SCC+64">Montréal (City) v. 2952-1366 Québec Inc.</a></span>
+                        - <span class="citation">2005 SCC 62</span>
+                    - <span class="report-citation">[2005] 3 SCR 141</span>
+                - <span class="publicationDate">2005-11-03</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Municipal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     Partnership <b>v</b>. Rex, [<b>2002</b>] 2 S.C.R. 559, <b>2002</b> <b>SCC</b> 42; Cheema <b>v</b>. Ross (1991), 82 D.L.R. (4th) 213; <b>R</b>. <b>v</b>. Luciano (1986), 34 M.P.L.R. 233; <b>R</b>. <b>v</b>. Hadden, [1983] 3 W.W.R. 661, aff’d [1984] 1 W.W.R. 384; Ontario <b>v</b>. Canadian Pacific Ltd., [1995] 2 S.C.R. 1031; <b>R</b>. <b>v</b>. Hydro‐Québec, [1997] 3 S.C.R. 213; McBratney <b>v</b>. McBratney &nbsp;&nbsp;[...]&nbsp;&nbsp;Q.B. 91; <b>R</b>. <b>v</b>. Greenbaum, [1993] 1 S.C.R. 674; Schachter <b>v</b>. Canada, [1992] 2 S.C.R. 679; <b>R</b>. <b>v</b>. Smith, [1987] 1 S.C.R. 1045; <b>R</b>. <b>v</b>. Cuerrier, [1998] 2 S.C.R. 371; <b>R</b>. <b>v</b>. Hinchey, [1996] 3 S.C.R. 1128; Canadian Foundation for Children, Youth and the Law <b>v</b>. Canada (Attorney General), [2004] 1 S.C.R. 76, 2004 <b>SCC</b> 4; <b>R</b>. <b>v</b>. Oakes, &nbsp;&nbsp;[...]&nbsp;&nbsp;See also Bell ExpressVu Limited Partnership <b>v</b>. Rex, [<b>2002</b>] 2 S.C.R. 559, <b>2002</b> <b>SCC</b> 42, at para. 37. 112 The provision in question is found in art. 9(1) of the by-law and reads as follows: 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2243/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/14438/index.do?q=R.+v.+Hall+2002+SCC+64">Bhasin v. Hrynew</a></span>
+                        - <span class="citation">2014 SCC 71</span>
+                    - <span class="report-citation">[2014] 3 SCR 494</span>
+                - <span class="publicationDate">2014-11-13</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Contract<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Citation: Bhasin <b>v</b>. Hrynew, 2014 <b>SCC</b> 71, [2014] 3 S.C.R. 494 Date: 20141113 Docket: 35380 &nbsp;&nbsp;[...]&nbsp;&nbsp; 558; <b>R</b>. <b>v</b>. Jones, [1994] 2 S.C.R. 229; <b>R</b>. <b>v</b>. Hart, 2014 <b>SCC</b> 52, [2014] 2 S.C.R. 544; Peel (Regional Municipality) <b>v</b>. Canada, [1992] 3 S.C.R. 762; A.I. Enterprises Ltd. <b>v</b>. Bram Enterprises Ltd., 2014 <b>SCC</b> 12, [2014] 1 S.C.R. 177; Bank of America Canada <b>v</b>. Mutual Trust Co., <b>2002</b> <b>SCC</b> 43, [<b>2002</b>] 2 S.C.R. 601; Greenberg <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>v</b>. Olafson, [1989] 2 S.C.R. 750, at pp. 760-<b>64</b>; Hill <b>v</b>. Church of Scientology of Toronto, [1995] 2 S.C.R. 1130, at para. 85; R.W.D.S.U., Local 558 <b>v</b>. Pepsi-Cola Canada Beverages (West) Ltd., <b>2002</b> <b>SCC</b> 8, [<b>2002</b>] 1 S.C.R. 156; British Columbia <b>v</b>. Imperial Tobacco Canada Ltd., 2005 <b>SCC</b> 49, [2005] 2 S.C.R. 473; Grant <b>v</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/14438/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/15358/index.do?q=R.+v.+Hall+2002+SCC+64">R. v. St-Cloud</a></span>
+                        - <span class="citation">2015 SCC 27</span>
+                    - <span class="report-citation">[2015] 2 SCR 328</span>
+                - <span class="publicationDate">2015-05-15</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. St-Cloud, <b>R</b>. c. St-Cloud, 2015 <b>SCC</b> 27, 2015 CSC 27, 35626, [2015] 2 SCR 328, [2015] 2 RCS 328 &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>R</b>. <b>v</b>. <b>Hall</b>, <b>2002</b> <b>SCC</b> <b>64</b>, [<b>2002</b>] 3 S.C.R. 309; referred to: <b>R</b>. <b>v</b>. Pearson, [1992] 3 S.C.R. 665; <b>R</b>. <b>v</b>. Morales, [1992] 3 S.C.R. 711; Valente <b>v</b>. The Queen, [1985] 2 S.C.R. 673; <b>R</b>. <b>v</b>. Thomson (2004), 21 C.R. (6th) 209; <b>R</b>. <b>v</b>. B. (A.) (2006), 204 C.C.C. (3d) 490; <b>R</b>. <b>v</b>. Pichler, 2009 ABPC 24; <b>R</b>. <b>v</b>. Teemotee, 2011 NUCJ 17; <b>R</b>. <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp; 759; <b>R</b>. <b>v</b>. Warsing, [1998] 3 S.C.R. 579; <b>R</b>. <b>v</b>. G.D.B., 2000 <b>SCC</b> 22, [2000] 1 S.C.R. 520; <b>R</b>. <b>v</b>. M. (P.S.) (1992), 77 C.C.C. (3d) 402; McMartin <b>v</b>. The Queen, [1964] S.C.R. 484; <b>R</b>. <b>v</b>. Price, [1993] 3 S.C.R. 633; <b>R</b>. <b>v</b>. Burns, [1994] 1 S.C.R. 656; Harper <b>v</b>. The Queen, [1982] 1 S.C.R. 2; <b>R</b>. <b>v</b>. Dagenais, 2012 QCCA 244; <b>R</b>. <b>v</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/15358/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20695/index.do?q=R.+v.+Hall+2002+SCC+64">Scott v. Golden Oaks Enterprises Inc.</a></span>
+                        - <span class="citation">2024 SCC 32</span>
+                - <span class="publicationDate">2024-10-11</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Bankruptcy and insolvency<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     of) <b>v</b>. Bank of Montreal, <b>2002</b> <b>SCC</b> 81, [<b>2002</b>] 4 S.C.R. 312; referred to: King Insurance Finance (Wines) Inc. <b>v</b>. 1557359 Ontario Inc., 2012 ONSC 4263, 99 C.B.R. (5th) 227; Grant Thornton LLP <b>v</b>. New Brunswick, 2021 <b>SCC</b> 31, [2021] 2 S.C.R. 704; Central Trust Co. <b>v</b>. Rafuse, [1986] 2 S.C.R. 147; Kamloops (City of) <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>v</b>. Letkeman, [1978] 1 S.C.R. 1097; Alexander <b>v</b>. Rayson, [1936] 1 K.B. 169; Hydro Electric Commission of Nepean <b>v</b>. Ontario Hydro, [1982] 1 S.C.R. 347; Canada Cement LaFarge Ltd. <b>v</b>. British Columbia Lightweight Aggregate Ltd., [1983] 1 S.C.R. 452; Housen <b>v</b>. Nikolaisen, <b>2002</b> <b>SCC</b> 33, [<b>2002</b>] 2 S.C.R. 235; Canada <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>v</b>. Bondfield Construction Co., 2024 <b>SCC</b> 31; Ridel <b>v</b>. Goldberg, 2019 ONCA 636, 147 O.R. (3d) 23; considered: Meridian Global Funds Management Asia Ltd. <b>v</b>. Securities Commission, [1995] 2 A.C. 500; 373409 Alberta Ltd. (Receiver of) <b>v</b>. Bank of Montreal, <b>2002</b> <b>SCC</b> 81, [<b>2002</b>] 4 S.C.R. 312; referred to: Husky Oil Operations Ltd. <b>v</b>
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20695/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/16649/index.do?q=R.+v.+Hall+2002+SCC+64">R. v. Antic</a></span>
+                        - <span class="citation">2017 SCC 27</span>
+                    - <span class="report-citation">[2017] 1 SCR 509</span>
+                - <span class="publicationDate">2017-06-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. Antic, <b>R</b>. c. Antic, 2017 <b>SCC</b> 27, 2017 CSC 27, 36783, [2017] 1 SCR 509, [2017] 1 RCS 509 &nbsp;&nbsp;[...]&nbsp;&nbsp;Referred to: <b>R</b>. <b>v</b>. Smith, 2003 SKCA 8, 171 C.C.C. (3d) 383; <b>R</b>. <b>v</b>. <b>Hall</b>, <b>2002</b> <b>SCC</b> <b>64</b>, [<b>2002</b>] 3 S.C.R. 309; <b>R</b>. <b>v</b>. St‐Cloud, 2015 <b>SCC</b> 27, [2015] 2 S.C.R. 328; <b>R</b>. <b>v</b>. Anoussis, 2008 QCCQ 8100, 242 C.C.C. (3d) 113; <b>R</b>. <b>v</b>. Pearson, [1992] 3 S.C.R. 665; <b>R</b>. <b>v</b>. Morales, [1992] 3 S.C.R. 711; Canada (Minister of Justice) <b>v</b>. Mirza, 2009 &nbsp;&nbsp;[...]&nbsp;&nbsp;1869 that made bail discretionary for all offences: see An Act respecting the duties of Justices of the Peace, out of Sessions, in relation to persons charged with Indictable Offences, S.C. 1869, c. 30; <b>R</b>. <b>v</b>. <b>Hall</b>, <b>2002</b> <b>SCC</b> <b>64</b>, [<b>2002</b>] 3 S.C.R. 309, at para. 14; <b>R</b>. <b>v</b>. St-Cloud, 2015 <b>SCC</b> 27, [2015] 2 S.C.R. 328, at para. 26. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16649/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20972/index.do?q=R.+v.+Hall+2002+SCC+64">R. v. Sheppard</a></span>
+                        - <span class="citation">2025 SCC 29</span>
+                - <span class="publicationDate">2025-09-26</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Applied: <b>R</b>. <b>v</b>. Friesen, 2020 <b>SCC</b> 9, [2020] 1 S.C.R. 424; <b>R</b>. <b>v</b>. Lacasse, 2015 <b>SCC</b> <b>64</b>, [2015] 3 S.C.R. 1089; Palmer <b>v</b>. The Queen, [1980] 1 S.C.R. 759; considered: <b>R</b>. <b>v</b>. Ferguson, 2008 <b>SCC</b> 6, [2008] 1 S.C.R. 96; <b>R</b>. <b>v</b>. M.A.C., 2023 ABCA 234, 91 C.R. (7th) 425; <b>R</b>. <b>v</b>. Bertrand Marchand, 2023 <b>SCC</b> 26; <b>R</b>. <b>v</b>. Parranto, 2021 <b>SCC</b> 46, &nbsp;&nbsp;[...]&nbsp;&nbsp;L.R. (6th) 63; <b>R</b>. <b>v</b>. Proulx, 2000 <b>SCC</b> 5, [2000] 1 S.C.R. 61; <b>R</b>. <b>v</b>. Nahanee, 2022 <b>SCC</b> 37; <b>R</b>. <b>v</b>. M. (C.A.), [1996] 1 S.C.R. 500; <b>R</b>. <b>v</b>. Ramage, 2010 ONCA 488, 257 C.C.C. (3d) 261; <b>R</b>. <b>v</b>. J.W., 2025 <b>SCC</b> 16; <b>R</b>. <b>v</b>. <b>V</b>. (W.), 2023 ONCA 655, 169 O.R. (3d) 68; <b>R</b>. <b>v</b>. Sheppard, <b>2002</b> <b>SCC</b> 26, [<b>2002</b>] 1 S.C.R. 869; <b>R</b>. <b>v</b>. G.F., 2021 <b>SCC</b> 20, &nbsp;&nbsp;[...]&nbsp;&nbsp; 271; <b>R</b>. <b>v</b>. R.O., 2023 BCCA 65; L.L. <b>v</b>. <b>R</b>., 2016 QCCA 1367; <b>R</b>. <b>v</b>. <b>Hall</b>, [2011] EWCA Crim 2753, [2012] 2 All E.R. 340; <b>R</b>. <b>v</b>. Scofield, 2019 BCCA 3, 52 C.R. (7th) 379; <b>R</b>. <b>v</b>. Vautour, 2016 BCCA 497; <b>R</b>. <b>v</b>. Smith, 2017 BCCA 112; <b>R</b>. <b>v</b>. Rayo, 2018 QCCA 824; Fruitier <b>v</b>. <b>R</b>., 2022 QCCA 1225; <b>R</b>. <b>v</b>. W.J., 2016 BCSC 161; <b>R</b>. <b>v</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20972/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2241/index.do?q=R.+v.+Hall+2002+SCC+64">E.B. v. Order of the Oblates of Mary Immaculate in the Province of British Columbia</a></span>
+                        - <span class="citation">2005 SCC 60</span>
+                    - <span class="report-citation">[2005] 3 SCR 45</span>
+                - <span class="publicationDate">2005-10-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     Jacobi <b>v</b>. Griffiths, [1999] 2 S.C.R. 570; referred to: K.L.B. <b>v</b>. British Columbia, [2003] 2 S.C.R. 403, 2003 <b>SCC</b> 51; John Doe <b>v</b>. Bennett, [2004] 1 S.C.R. 436, 2004 <b>SCC</b> 17, aff’g (<b>2002</b>), 218 D.L.R. (4th) 276, <b>2002</b> NFCA 47; H.L. <b>v</b>. Canada (Attorney General), [2005] 1 S.C.R. 401, 2005 <b>SCC</b> 25, rev’g in part (<b>2002</b>), 227 Sask. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>R</b>. 165, <b>2002</b> SKCA 131; G. (E.D.) <b>v</b>. Hammer (1998), 53 B.C.L.R. (3d) 89, aff’d (2001), 197 D.L.R. (4th) 454, 2001 BCCA 226, aff’d [2003] 2 S.C.R. 459, 2003 <b>SCC</b> 52; Housen <b>v</b>. Nikolaisen, [<b>2002</b>] 2 S.C.R. 235, <b>2002</b> <b>SCC</b> 33; Canadian Pacific Railway Co. <b>v</b>. Lockhart, [1942] A.C. 591; Lister <b>v</b>. Hesley <b>Hall</b> Ltd., [<b>2002</b>] 1 A.C. 215, &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>R</b>. 161, 1999 SKQB 180; G. (E.D.) <b>v</b>. Hammer (1998), 53 B.C.L.R. (3d) 89; Housen <b>v</b>. Nikolaisen, [<b>2002</b>] 2 S.C.R. 235, <b>2002</b> <b>SCC</b> 33. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2241/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">12.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/7890/index.do?q=R.+v.+Hall+2002+SCC+64">Bank of Montreal v. Innovation Credit Union</a></span>
+                        - <span class="citation">2010 SCC 47</span>
+                    - <span class="report-citation">[2010] 3 SCR 3</span>
+                - <span class="publicationDate">2010-11-05</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Commercial law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Citation : Bank of Montreal <b>v</b>. Innovation Credit Union, 2010 <b>SCC</b> 47, [2010] 3 S.C.R. 3 Date : 20101105 &nbsp;&nbsp;[...]&nbsp;&nbsp;Bank of Montreal <b>v</b>. Innovation Credit Union, 2010 <b>SCC</b> 47, [2010] 3 S.C.R. 3 Bank of Montreal Appellant &nbsp;&nbsp;[...]&nbsp;&nbsp;Applied: Bank of Montreal <b>v</b>. <b>Hall</b>, [1990] 1 S.C.R. 121; Royal Bank of Canada <b>v</b>. Sparrow Electric Corp., [1997] 1 S.C.R. 411; referred to: Royal Bank of Canada <b>v</b>. Radius Credit Union Ltd., 2010 <b>SCC</b> 48, [2010] 3 S.C.R. 38; Bell ExpressVu Limited Partnership <b>v</b>. Rex, <b>2002</b> <b>SCC</b> 42, [<b>2002</b>] 2 S.C.R. 559; Royal Bank of Canada <b>v</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/7890/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">13.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/17862/index.do?q=R.+v.+Hall+2002+SCC+64">R. v. Penunsi</a></span>
+                        - <span class="citation">2019 SCC 39</span>
+                    - <span class="report-citation">[2019] 3 SCR 91</span>
+                - <span class="publicationDate">2019-07-05</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. Penunsi, <b>R</b>. c. Penunsi, 2019 <b>SCC</b> 39, 2019 CSC 39, 38004, [2019] 3 SCR 91, [2019] 3 RCS 91 &nbsp;&nbsp;[...]&nbsp;&nbsp;S.C.R. 250; <b>R</b>. <b>v</b>. Smith, 2004 <b>SCC</b> 14, [2004] 1 S.C.R. 385; Goodyear Tire &amp; Rubber Co. of Canada <b>v</b>. The Queen, [1956] S.C.R. 303; <b>R</b>. <b>v</b>. S. (S.), [1990] 2 S.C.R. 254; Mackenzie <b>v</b>. Martin, [1954] S.C.R. 361; <b>R</b>. <b>v</b>. Parks, [1992] 2 S.C.R. 871; <b>R</b>. <b>v</b>. Woking Justices, Ex p. Gossage, [1973] 2 All ER 621; <b>R</b>. <b>v</b>. Forrest (1983), 8&nbsp;&nbsp;[...]&nbsp;&nbsp; Inc. <b>v</b>. Québec (Régie des permis d’alcool), [1996] 3 S.C.R. 919; <b>R</b>. <b>v</b>. Gill, [1991] B.C.J. No. 3255 (QL); <b>R</b>. <b>v</b>. Schafer, 2018 YKTC 12; <b>R</b>. <b>v</b>. Antic, 2017 <b>SCC</b> 27, [2017] 1 S.C.R. 509; <b>R</b>. <b>v</b>. Goikhberg, 2014 QCCS 3891; <b>R</b>. <b>v</b>. Hebert (1984), 54 N.B.R. (2d) 251; <b>R</b>. <b>v</b>. <b>Hall</b>, <b>2002</b> <b>SCC</b> <b>64</b>, [<b>2002</b>] 3 S.C.R. 309; <b>R</b>. <b>v</b>. <b>Hall</b> (1996), 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/17862/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">14.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21492/index.do?q=R.+v.+Hall+2002+SCC+64">Patrick Street Holdings Ltd. v. 11368 NL Inc.</a></span>
+                        - <span class="citation">2026 SCC 15</span>
+                - <span class="publicationDate">2026-05-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Civil procedure<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     <b>v</b>. Loblaw Companies Limited, 2025 ONCA 830; Grant McLeod Contracting Ltd. <b>v</b>. Forestech Industries Ltd., 2008 BCSC 756, 294 D.L.R. (4th) 290; M. Saarnok-Vuus, Executrix of the will of J.L. Saarnok <b>v</b>. G. Neufeld, 2003 BCSC 937; 420093 B.C. Ltd. <b>v</b>. Bank of Montreal, 1995 ABCA 328, 128 D.L.R. (4th) 488; <b>Hall</b> <b>v</b>. <b>Hall</b> and <b>Hall</b>&nbsp;&nbsp;[...]&nbsp;&nbsp; Ltd. <b>v</b>. Sylvan Lake Golf &amp; Tennis Club Ltd., <b>2002</b> <b>SCC</b> 19, [<b>2002</b>] 1 S.C.R. 678; Guindon <b>v</b>. Canada, 2015 <b>SCC</b> 41, [2015] 3 S.C.R. 3; Danyluk <b>v</b>. Ainsworth Technologies Inc., 2001 <b>SCC</b> 44, [2001] 2 S.C.R. 460; British Columbia (Workers’ Compensation Board) <b>v</b>. Figliola, 2011 <b>SCC</b> 52, [2011] 3 S.C.R. 422; Dhillon <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>v</b>. Green, 2015 <b>SCC</b> 60, [2015] 3 S.C.R. 801; Markevich <b>v</b>. Canada, 2003 <b>SCC</b> 9, [2003] 1 S.C.R. 94; Air Canada <b>v</b>. McDonnell Douglas Corp., [1989] 1 S.C.R. 1554; <b>Hall</b> <b>v</b>. <b>Hall</b> and <b>Hall</b>’s Feed &amp; Grain Ltd. (1958), 15 D.L.R. (2d) 638; Smode <b>v</b>. Deveaux (1996), 216 A.R. 20; McIntosh <b>v</b>. Parent, [1924] 4 D.L.R. 420; Angle <b>v</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21492/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">15.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/15329/index.do?q=R.+v.+Hall+2002+SCC+64">Henry v. British Columbia (Attorney General)</a></span>
+                        - <span class="citation">2015 SCC 24</span>
+                    - <span class="report-citation">[2015] 2 SCR 214</span>
+                - <span class="publicationDate">2015-05-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     <b>2002</b> <b>SCC</b> 13, [<b>2002</b>] 1 S.C.R. 405; <b>R</b>. <b>v</b>. Imperial Tobacco Canada Ltd., 2011 <b>SCC</b> 42, [2011] 3 S.C.R. 45; <b>R</b>. <b>v</b>. Anderson, 2014 <b>SCC</b> 41, [2014] 2 S.C.R. 167; Krieger <b>v</b>. Law Society of Alberta, <b>2002</b> <b>SCC</b> 65, [<b>2002</b>] 3 S.C.R. 372; <b>R</b>. <b>v</b>. Babos, 2014 <b>SCC</b> 16, [2014] 1 S.C.R. 309; <b>R</b>. <b>v</b>. Nixon, 2011 <b>SCC</b> 34, [2011] 2 S.C.R. 566; <b>R</b>. <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;to: <b>R</b>. <b>v</b>. Gamble, [1988] 2 S.C.R. 595; Mills <b>v</b>. The Queen, [1986] 1 S.C.R. 863; Mackin <b>v</b>. New Brunswick (Minister of Finance), <b>2002</b> <b>SCC</b> 13, [<b>2002</b>] 1 S.C.R. 405; Nelles <b>v</b>. Ontario, [1989] 2 S.C.R. 170; Miazga <b>v</b>. Kvello Estate, 2009 <b>SCC</b> 51, [2009] 3 S.C.R. 339; <b>R</b>. <b>v</b>. Stinchcombe, [1991] 3 S.C.R. 326; <b>R</b>. <b>v</b>. McNeil, 2009 <b>SCC</b> 3,&nbsp;&nbsp;[...]&nbsp;&nbsp;[49] It is a bedrock principle that the exercise of core prosecutorial discretion is immune from judicial review, subject only to the doctrine of abuse of process: see <b>R</b>. <b>v</b>. Anderson, 2014 <b>SCC</b> 41, [2014] 2 S.C.R. 167, at para. 48; Krieger <b>v</b>. Law Society of Alberta, <b>2002</b> <b>SCC</b> 65, [<b>2002</b>] 3 S.C.R. 372, at para. 32. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/15329/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">16.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19011/index.do?q=R.+v.+Hall+2002+SCC+64">Toronto (City) v. Ontario (Attorney General)</a></span>
+                        - <span class="citation">2021 SCC 34</span>
+                    - <span class="report-citation">[2021] 2 SCR 845</span>
+                - <span class="publicationDate">2021-10-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     <b>v</b>. Imperial Tobacco Canada Ltd., 2005 <b>SCC</b> 49, [2005] 2 S.C.R. 473; Trial Lawyers Association of British Columbia <b>v</b>. British Columbia (Attorney General), 2014 <b>SCC</b> 59, [2014] 3 S.C.R. 31; Babcock <b>v</b>. Canada (Attorney General), <b>2002</b> <b>SCC</b> 57, [<b>2002</b>] 3 S.C.R. 3; referred to: Public School Boards’ Assn. of Alberta <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;Switzman <b>v</b>. Elbling, [1957] S.C.R. 285; RWDSU <b>v</b>. Dolphin Delivery Ltd., [1986] 2 S.C.R. 573; <b>R</b>. <b>v</b>. Sharpe, 2001 <b>SCC</b> 2, [2001] 1 S.C.R. 45; Ford <b>v</b>. Quebec (Attorney General), [1988] 2 S.C.R. 712; Irwin Toy Ltd. <b>v</b>. Quebec (Attorney General), [1989] 1 S.C.R. 927; <b>R</b>. <b>v</b>. Keegstra, [1990] 3 S.C.R. 697; Edmonton Journal <b>v</b>. Alberta&nbsp;&nbsp;[...]&nbsp;&nbsp;[70] At issue in Babcock <b>v</b>. Canada (Attorney General), <b>2002</b> <b>SCC</b> 57, [<b>2002</b>] 3 S.C.R. 3, was the constitutionality of a provision of the Canada Evidence Act, R.S.C. 1985, c. C‐5, that allowed for an exception to disclosure, in litigation, based on Cabinet confidence. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19011/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">17.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1988/index.do?q=R.+v.+Hall+2002+SCC+64">Family Insurance Corp. v. Lombard Canada Ltd.</a></span>
+                        - <span class="citation">2002 SCC 48</span>
+                    - <span class="report-citation">[2002] 2 SCR 695</span>
+                - <span class="publicationDate">2002-05-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Insurance<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Family Insurance Corp. <b>v</b>. Lombard Canada Ltd., Family Insurance Corp. c. Lombard du Canada Ltée, <b>2002</b> <b>SCC</b> 48, <b>2002</b> CSC 48, 28093, [<b>2002</b>] 2 SCR 695, [<b>2002</b>] 2 RCS 695 &nbsp;&nbsp;[...]&nbsp;&nbsp;Family Insurance Corp. <b>v</b>. Lombard Canada Ltd., [<b>2002</b>] 2 S.C.R. 695, <b>2002</b> <b>SCC</b> 48 Family Insurance Corporation Appellant &nbsp;&nbsp;[...]&nbsp;&nbsp;Indexed as: Family Insurance Corp. <b>v</b>. Lombard Canada Ltd. Neutral citation: <b>2002</b> <b>SCC</b> 48. File No.: 28093. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1988/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">18.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/7998/index.do?q=R.+v.+Hall+2002+SCC+64">Doré v. Barreau du Québec</a></span>
+                        - <span class="citation">2012 SCC 12</span>
+                    - <span class="report-citation">[2012] 1 SCR 395</span>
+                - <span class="publicationDate">2012-03-22</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                            Professional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     2000 <b>SCC</b> 69, [2000] 2 S.C.R. 1120; United States <b>v</b>. Burns, 2001 <b>SCC</b> 7, [2001] 1 S.C.R. 283; <b>R</b>. <b>v</b>. Mentuck, 2001 <b>SCC</b> 76, [2001] 3 S.C.R. 442; Trinity Western University <b>v</b>. British Columbia College of Teachers, 2001 <b>SCC</b> 31, [2001] 1 S.C.R. 772; Ahani <b>v</b>. Canada (Minister of Citizenship and Immigration), <b>2002</b> <b>SCC</b> 2, [<b>2002</b>] 1 &nbsp;&nbsp;[...]&nbsp;&nbsp; University <b>v</b>. British Columbia College of Teachers, 2001 <b>SCC</b> 31, [2001] 1 S.C.R. 772; Chamberlain; Ahani <b>v</b>. Canada (Minister of Citizenship and Immigration), <b>2002</b> <b>SCC</b> 2, [<b>2002</b>] 1 S.C.R. 72; Pinet; Lake <b>v</b>. Canada (Minister of Justice), 2008 <b>SCC</b> 23, [2008] 1 S.C.R. 761; Canada (Prime Minister) <b>v</b>. Khadr, 2010 <b>SCC</b> 3, [2010] 1&nbsp;&nbsp;[...]&nbsp;&nbsp;Dunsmuir tells us this should attract deference (para. 53; see also Suresh <b>v</b>. Canada (Minister of Citizenship and Immigration), <b>2002</b> <b>SCC</b> 1, [<b>2002</b>] 1 S.C.R. 3, at para. 39). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/7998/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">19.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20480/index.do?q=R.+v.+Hall+2002+SCC+64">Earthco Soil Mixtures Inc. v. Pine Valley Enterprises Inc.</a></span>
+                        - <span class="citation">2024 SCC 20</span>
+                - <span class="publicationDate">2024-05-31</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                     Construction Ltd. <b>v</b>. Northbridge Indemnity Insurance Co., 2016 <b>SCC</b> 37, [2016] 2 S.C.R. 23; referred to: Jesuit Fathers of Upper Canada <b>v</b>. Guardian Insurance Co. of Canada, 2006 <b>SCC</b> 21, [2006] 1 S.C.R. 744; Housen <b>v</b>. Nikolaisen, <b>2002</b> <b>SCC</b> 33, [<b>2002</b>] 2 S.C.R. 235; Corner Brook (City) <b>v</b>. Bailey, 2021 <b>SCC</b> 29, [2021] 2 S.C.R. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>R</b>. 90; Baron <b>v</b>. Caragata, 2004 SKQB 43, 245 Sask. <b>R</b>. 208; Total Petroleum (N.A.) Ltd. <b>v</b>. AMF Tuboscope Inc. (1987), 54 Alta. &nbsp;&nbsp;[...]&nbsp;&nbsp; Ltd. <b>v</b>. British Columbia (Transportation and Highways), 2010 <b>SCC</b> 4, [2010] 1 S.C.R. 69; Sattva Capital Corp. <b>v</b>. Creston Moly Corp., 2014 <b>SCC</b> 53, [2014] 2 S.C.R. 633; Housen <b>v</b>. Nikolaisen, <b>2002</b> <b>SCC</b> 33, [<b>2002</b>] 2 S.C.R. 235; Teal Cedar Products Ltd. <b>v</b>. British Columbia, 2017 <b>SCC</b> 32, [2017] 1 S.C.R. 688; Bank of England <b>v</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20480/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">20.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/17634/index.do?q=R.+v.+Hall+2002+SCC+64">R. v. Myers</a></span>
+                        - <span class="citation">2019 SCC 18</span>
+                    - <span class="report-citation">[2019] 2 SCR 105</span>
+                - <span class="publicationDate">2019-03-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. Myers, <b>R</b>. c. Myers, 2019 <b>SCC</b> 18, 2019 CSC 18, 37869, [2019] 2 SCR 105, [2019] 2 RCS 105 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>R</b>. <b>v</b>. Myers, 2019 <b>SCC</b> 18, [2019] 2 S.C.R. 105 Corey Lee James Myers Appellant &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>R</b>. <b>v</b>. Pearson, [1992] 3 S.C.R. 665; <b>R</b>. <b>v</b>. Anoussis, 2008 QCCQ 8100, 242 C.C.C. (3d) 113; <b>R</b>. <b>v</b>. Summers, 2014 <b>SCC</b> 26, [2014] 1 S.C.R. 575; <b>R</b>. <b>v</b>. <b>Hall</b>, <b>2002</b> <b>SCC</b> <b>64</b>, [<b>2002</b>] 3 S.C.R. 309; Ell <b>v</b>. Alberta, 2003 <b>SCC</b> 35, [2003] 1 S.C.R. 857; <b>R</b>. <b>v</b>. Acera, 2017 ABQB 470; <b>R</b>. <b>v</b>. Saulnier, 2012 NSSC 45, 314 N.S.R. (2d) 203; <b>R</b>. <b>v</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/17634/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">21.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18510/index.do?q=R.+v.+Hall+2002+SCC+64">Fraser v. Canada (Attorney General)</a></span>
+                        - <span class="citation">2020 SCC 28</span>
+                    - <span class="report-citation">[2020] 3 SCR 113</span>
+                - <span class="publicationDate">2020-10-16</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     <b>v</b>. A, 2013 <b>SCC</b> 5, [2013] 1 S.C.R. 61; Snell <b>v</b>. Farrell, [1990] 2 S.C.R. 311; Blatch <b>v</b>. Archer (1774), 1 Cowp. 63, 98 E.R. 969; Auton (Guardian ad litem of) <b>v</b>. British Columbia (Attorney General), 2004 <b>SCC</b> 78, [2004] 3 S.C.R. 657; Gosselin <b>v</b>. Quebec (Attorney General), <b>2002</b> <b>SCC</b> 84, [<b>2002</b>] 4 S.C.R. 429; Corbiere <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>SCC</b> 17, [2018] 1 S.C.R. 464; Gosselin <b>v</b>. Quebec (Attorney General), <b>2002</b> <b>SCC</b> 84, [<b>2002</b>] 4 S.C.R. 429; Andrews <b>v</b>. Law Society of British Columbia, [1989] 1 S.C.R. 143; <b>R</b>. <b>v</b>. Kapp, 2008 <b>SCC</b> 41, [2008] 2 S.C.R. 483; Withler <b>v</b>. Canada (Attorney General), 2011 <b>SCC</b> 12, [2011] 1 S.C.R. 396; Quebec (Attorney General) <b>v</b>. A, 2013 <b>SCC</b>&nbsp;&nbsp;[...]&nbsp;&nbsp;In many contexts, subjective anecdotal evidence is simply incapable of meeting this objective onus (e.g. Taypotat, at paras. 33‐34; Auton (Guardian ad litem of) <b>v</b>. British Columbia (Attorney General), 2004 <b>SCC</b> 78, [2004] 3 S.C.R. 657, at paras. 58 and 62; Gosselin <b>v</b>. Quebec (Attorney General), <b>2002</b> <b>SCC</b> 84, [<b>2002</b>] 4 S.C.R. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18510/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">22.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1979/index.do?q=R.+v.+Hall+2002+SCC+64">R. v. Hibbert</a></span>
+                        - <span class="citation">2002 SCC 39</span>
+                    - <span class="report-citation">[2002] 2 SCR 445</span>
+                - <span class="publicationDate">2002-04-25</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. Hibbert, <b>R</b>. c. Hibbert, <b>2002</b> <b>SCC</b> 39, <b>2002</b> CSC 39, 28021, [<b>2002</b>] 2 SCR 445, [<b>2002</b>] 2 RCS 445 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>R</b>. <b>v</b>. Hibbert, [<b>2002</b>] 2 S.C.R. 445, <b>2002</b> <b>SCC</b> 39 Kenneth Roydon Hibbert Appellant &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>v</b>. Her Majesty The Queen Respondent Indexed as: <b>R</b>. <b>v</b>. Hibbert Neutral citation: <b>2002</b> <b>SCC</b> 39. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1979/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">23.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/16486/index.do?q=R.+v.+Hall+2002+SCC+64">R. v. Oland</a></span>
+                        - <span class="citation">2017 SCC 17</span>
+                    - <span class="report-citation">[2017] 1 SCR 250</span>
+                - <span class="publicationDate">2017-03-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. Oland, <b>R</b>. c. Oland, 2017 <b>SCC</b> 17, 2017 CSC 17, 36986, [2017] 1 SCR 250, [2017] 1 RCS 250 &nbsp;&nbsp;[...]&nbsp;&nbsp;Applied: Borowski <b>v</b>. Canada (Attorney General), [1989] 1 S.C.R. 342; <b>R</b>. <b>v</b>. Farinacci (1993), 86 C.C.C. (3d) 32; referred to: <b>R</b>. <b>v</b>. McNeil, 2009 <b>SCC</b> 3, [2009] 1 S.C.R. 66; <b>R</b>. <b>v</b>. Ponak, [1972] 4 W.W.R. 316; <b>R</b>. <b>v</b>. Iyer, 2016 ABCA 407; <b>R</b>. <b>v</b>. D’Amico, 2016 QCCA 183; <b>R</b>. <b>v</b>. Gill, 2015 SKCA 96, 465 Sask. &nbsp;&nbsp;[...]&nbsp;&nbsp;&amp; P.E.I.R. 69; <b>R</b>. <b>v</b>. <b>Hall</b>, <b>2002</b> <b>SCC</b> <b>64</b>, [<b>2002</b>] 3 S.C.R. 309; <b>R</b>. <b>v</b>. Rhyason, 2006 ABCA 120, 208 C.C.C. (3d) 193; <b>R</b>. <b>v</b>. Roussin, 2011 MBCA 103, 275 Man. <b>R</b>. (2d) 46; <b>R</b>. <b>v</b>. Allen, 2001 NFCA 44, 158 C.C.C. (3d) 225; <b>R</b>. <b>v</b>. Delisle, 2012 QCCA 1250; <b>R</b>. <b>v</b>. Meda (1981), 23 C.R. (3d) 174; <b>R</b>. <b>v</b>. Olsen (1996), 94 O.A.C. 62; <b>R</b>. <b>v</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16486/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">24.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18563/index.do?q=R.+v.+Hall+2002+SCC+64">Ontario (Attorney General) v. G</a></span>
+                        - <span class="citation">2020 SCC 38</span>
+                    - <span class="report-citation">[2020] 3 SCR 629</span>
+                - <span class="publicationDate">2020-11-20</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     <b>v</b>. Madison, 5 U.S. (1 Cranch) 137 (1803); <b>R</b>. <b>v</b>. Big M Drug Mart Ltd., [1985] 1 S.C.R. 295; Carter <b>v</b>. Canada (Attorney General), 2015 <b>SCC</b> 5, [2015] 1 S.C.R. 331; <b>R</b>. <b>v</b>. Sharpe, 2001 <b>SCC</b> 2, [2001] 1 S.C.R. 45; <b>R</b>. <b>v</b>. Barabash, 2015 <b>SCC</b> 29, [2015] 2 S.C.R. 522; <b>R</b>. <b>v</b>. Appulonappa, 2015 <b>SCC</b> 59, [2015] 3 S.C.R. 754; <b>R</b>. <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>R</b>. <b>v</b>. <b>Hall</b>, <b>2002</b> <b>SCC</b> <b>64</b>, [<b>2002</b>] 3 S.C.R. 309, McLachlin C.J. severed part of the tertiary ground for denying bail because the rest of the provision “is capable of standing alone without doing damage to Parliament’s intention” (para. 44). &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>R</b>. <b>v</b>. K.R.J., 2016 <b>SCC</b> 31, [2016] 1 S.C.R. 906; Canada (Attorney General) <b>v</b>. Chambre des notaires du Québec, 2016 <b>SCC</b> 20, [2016] 1 S.C.R. 336; <b>R</b>. <b>v</b>. Safarzadeh-Markhali, 2016 <b>SCC</b> 14, [2016] 1 S.C.R. 180; <b>R</b>. <b>v</b>. Lloyd, 2016 <b>SCC</b> 13, [2016] 1 S.C.R. 130; <b>R</b>. <b>v</b>. Appulonappa, 2015 <b>SCC</b> 59, [2015] 3 S.C.R. 754; <b>R</b>. <b>v</b>. Smith, 2015 <b>SCC</b>
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18563/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">25.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19829/index.do?q=R.+v.+Hall+2002+SCC+64">Murray‑Hall v. Quebec (Attorney General)</a></span>
+                        - <span class="citation">2023 SCC 10</span>
+                    - <span class="report-citation">[2023] 1 SCR 367</span>
+                - <span class="publicationDate">2023-04-14</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Murray‐<b>Hall</b> <b>v</b>. Quebec (Attorney General), Murray‐<b>Hall</b> c. Québec (Procureur général), 2023 <b>SCC</b> 10, 2023 CSC 10, 39906, [2023] 1 SCR 367, [2023] 1 RCS 367 &nbsp;&nbsp;[...]&nbsp;&nbsp;Citation: Murray‐<b>Hall</b> <b>v</b>. Quebec (Attorney General), 2023 <b>SCC</b> 10, [2023] 1 S.C.R. 367 Appeal Heard: September 15, 2022 &nbsp;&nbsp;[...]&nbsp;&nbsp;Indexed as: Murray‐<b>Hall</b> <b>v</b>. Quebec (Attorney General) 2023 <b>SCC</b> 10 File No.: 39906. 2022: September 15; 2023: April 14. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19829/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+            yearRangeString: "1877:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,777 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18&ref=&p=&col=1&or=] All Databases (70)
+ Decisions (25)
+ [LINK /scc-csc/en/n/s/index.do?cont=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18&ref=&p=&col=1&or=] Resources (45)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18&ref=&p=&col=1&or=date] Date
+ 25 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/18855/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] Ontario (Attorney General) v. Clark
+ - 2021 SCC 18
+ - [2021] 1 SCR 607
+ - 2021-04-30
+ Supreme Court Judgments
+ Ontario (Attorney General) v. Clark, Ontario (Procureur général) c. Clark, 2021 SCC 18, 2021 CSC 18, 38687, [2021] 1 SCR 607, [2021] 1 RCS 607 [...] Citation: Ontario (Attorney General) v. Clark, 2021 SCC 18, [2021] 1 S.C.R. 607 Appeal Heard: October 15, 2020 [...] Ontario Crown Attorneys’ Association Interveners Indexed as: Ontario (Attorney General) v. Clark 
+ [LINK /scc-csc/scc-csc/en/18855/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/21126/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] R. v. Varennes
+ - 2025 SCC 22
+ - 2025-07-11
+ Supreme Court Judgments
+ Criminal law
+ v. His Majesty The King Respondent and Attorney General of Ontario, [...] since Anderson (see, e.g., Henry v. British Columbia (Attorney General), 2015 SCC 24, [2015] 2 S.C.R. 214, at para. 62, per Moldaver J.; R. v. Nur, 2015 SCC 15, [2015] 1 S.C.R. 773, at para. 161, per Moldaver J.; Ontario (Attorney General) v. Clark, 2021 SCC 18, [2021] 1 S.C.R. 607, at paras. 126-30, per Côté J.). [...] “core prosecutorial discretion” is used in the three decisions cited (Henry v. British Columbia (Attorney General), 2015 SCC 24, [2015] 2 S.C.R. 214; R. v. Nur, 2015 SCC 15, [2015] 1 S.C.R. 773; Ontario (Attorney General) v. Clark, 2021 SCC 18, [2021] 1 S.C.R. 607), it was used in dissenting reasons in Nur and in Clark. 
+ [LINK /scc-csc/scc-csc/en/21126/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/20136/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] R. v. Bertrand Marchand
+ - 2023 SCC 26
+ - 2023-11-03
+ Supreme Court Judgments
+ Constitutional law
+ Criminal law
+ Attorney General of Ontario, Attorney General of Saskatchewan, Attorney General of Alberta, [...] Attorney General of Ontario, Attorney General of Saskatchewan, Attorney General of Alberta, [...] Solicitor for the intervener the Attorney General of Ontario: Attorney General of Ontario, Crown Law Office — Criminal, Toronto. 
+ [LINK /scc-csc/scc-csc/en/20136/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/20315/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] R. v. Kruk
+ - 2024 SCC 7
+ - 2024-03-08
+ Supreme Court Judgments
+ Criminal law
+ Citation: R. v. Kruk, 2024 SCC 7 Appeals Heard: May 18, 2023 Judgment Rendered: March 8, 2024 [...] v. Canada, [1996] 1 S.C.R. 254; H.L. v. Canada (Attorney General), 2005 SCC 25, [2005] 1 S.C.R. 401; Housen v. Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235; R. v. Chung, 2020 SCC 8, [2020] 1 S.C.R. 405; R. v. Morrissey (1995), 22 O.R. (3d) 514; R. v. Pastro, 2021 BCCA 149, 71 C.R. (7th) 296; R. v. Greif, 2021 BCCA 187; R. v [...] R. v. Chouhan, 2021 SCC 26, [2021] 2 S.C.R. 136; R. v. G.F., 2021 SCC 20, [2021] 1 S.C.R. 801; R. v. Chung, 2020 SCC 8, [2020] 1 S.C.R. 405; R. v. Sarrazin, 2011 SCC 54, [2011] 3 S.C.R. 505; R. v. Van, 2009 SCC 22, [2009] 1 S.C.R. 716; R. v. Khan, 2001 SCC 86, [2001] 3 S.C.R. 823; R. v. Samaniego, 2022 SCC 9; R. v. 
+ [LINK /scc-csc/scc-csc/en/20315/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/18895/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] Ethiopian Orthodox Tewahedo Church of Canada St. Mary Cathedral v. Aga
+ - 2021 SCC 22
+ - [2021] 1 SCR 868
+ - 2021-05-21
+ Supreme Court Judgments
+ Courts
+ Ethiopian Orthodox Tewahedo Church of Canada St. Mary Cathedral v. Aga, Ethiopian Orthodox Tewahedo Church of Canada St. Mary Cathedral c. Aga, 2021 SCC 22, 2021 CSC 22, 39094, [2021] 1 SCR 868, [2021] 1 RCS 868 [...] Citation: Ethiopian Orthodox Tewahedo Church of Canada St. Mary Cathedral v. Aga, 2021 SCC 22, [2021] 1 S.C.R. 868 Appeal Heard: December 9, 2020 [...] Indexed as: Ethiopian Orthodox Tewahedo Church of Canada St. Mary Cathedral v. Aga 2021 SCC 22 File No.: 39094. 2020: December 9; 2021: May 21. 
+ [LINK /scc-csc/scc-csc/en/18895/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/21347/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] R. v. Hussein
+ - 2026 SCC 2
+ - 2026-01-23
+ Supreme Court Judgments
+ Criminal law
+ Criminal Lawyers’ Association (Ontario) Interveners Indexed as: R. v. Hussein 2026 SCC 2 File No.: 41015. [...] Generally speaking, relevant evidence is prima facie admissible (R. v. Grant, 2015 SCC 9, [2015] 1 S.C.R. 475, at para. 18; R. v. Mohan, [1994] 2 S.C.R. 9, at p. 20). [...] Black people and individuals with mental disabilities are also often subjected to biased views (see R. v. Parks (1993), 15 O.R. (3d) 324 (C.A.), at p. 342; Ontario (Attorney General) v. G, 2020 SCC 38, [2020] 3 S.C.R. 629, at para. 1). 
+ [LINK /scc-csc/scc-csc/en/21347/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/19458/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] R. v. Kirkpatrick
+ - 2022 SCC 33
+ - [2022] 2 SCR 480
+ - 2022-07-29
+ Supreme Court Judgments
+ Criminal law
+ v. Her Majesty The Queen Respondent and Attorney General of Ontario, [...] Vertical stare decisis requires lower courts to follow decisions of higher courts, with limited exceptions (Canada (Attorney General) v. Bedford, 2013 SCC 72, [2013] 3 S.C.R. 1101, at paras. 42 and 44; Carter v. Canada (Attorney General), 2015 SCC 5, [2015] 1 S.C.R. 331, at para. 44; R. v. Comeau, 2018 SCC 15, [2018] 1 [...] Solicitor for the respondent: Attorney General of British Columbia, Vancouver. Solicitor for the intervener the Attorney General of Ontario: Attorney General of Ontario, Toronto. 
+ [LINK /scc-csc/scc-csc/en/19458/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/19911/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] Hansman v. Neufeld
+ - 2023 SCC 14
+ - [2023] 1 SCR 519
+ - 2023-05-19
+ Supreme Court Judgments
+ Courts
+ v. Barry Neufeld Respondent and Attorney General of British Columbia, [...] Rights Commission) v. Whatcott, 2013 SCC 11, [2013] 1 S.C.R. 467; R. v. Khawaja, 2012 SCC 69, [2012] 3 S.C.R. 555; R. v. Vice Media Canada Inc., 2018 SCC 53, [2018] 3 S.C.R. 374; R. v. Sharpe, 2001 SCC 2, [2001] 1 S.C.R. 45; Canadian Newspapers Co. v. Canada (Attorney General), [1988] 2 S.C.R. 122; R. v. Keegstra, [1990] 3 [...] v. Lucas, [1998] 1 S.C.R. 439; Grant v. Torstar Corp., 2009 SCC 61, [2009] 3 S.C.R. 640; Bent v. Platnick, 2020 SCC 23, [2020] 2 S.C.R. 645; 1704604 Ontario Ltd. v. Pointes Protection Association, 2020 SCC 22, [2020] 2 S.C.R. 587; Echelon Environmental Inc. v. Glassdoor Inc., 2022 ONCA 391; Housen v. Nikolaisen, 2002 SCC 
+ [LINK /scc-csc/scc-csc/en/19911/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/21546/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] Resler v. Anglin
+ - 2026 SCC 23
+ - 2026-06-19
+ Supreme Court Judgments
+ Civil procedure
+ Joseph V. Anglin Respondent - and - Attorney General of Ontario, Attorney General of British Columbia, [...] v. Joseph V. Anglin Respondent and Attorney General of Ontario, Attorney General of British Columbia, [...] Solicitor for the intervener Attorney General of Ontario: Attorney General of Ontario, Crown Law Office — Civil, Toronto. 
+ [LINK /scc-csc/scc-csc/en/21546/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/18680/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] Wastech Services Ltd. v. Greater Vancouver Sewerage and Drainage District
+ - 2021 SCC 7
+ - [2021] 1 SCR 32
+ - 2021-02-05
+ Supreme Court Judgments
+ Wastech Services Ltd. v. Greater Vancouver Sewerage and Drainage District, Wastech Services Ltd. c. Greater Vancouver Sewerage and Drainage District, 2021 SCC 7, 2021 CSC 7, 38601, [2021] 1 SCR 32, [2021] 1 RCS 32 [...] Citation: Wastech Services Ltd. v. Greater Vancouver Sewerage and Drainage District, 2021 SCC 7, [2021] 1 S.C.R. 32 [...] SCC 71, [2014] 3 S.C.R. 494; Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; Housen v. Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235; referred to: Northland Utilities (NWT) Limited v. Hay River (Town of), 2021 NWTCA 1; Ontario First Nations (2008) Limited Partnership v. Ontario
+ [LINK /scc-csc/scc-csc/en/18680/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/20907/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] John Howard Society of Saskatchewan v. Saskatchewan (Attorney General)
+ - 2025 SCC 6
+ - 2025-03-14
+ Supreme Court Judgments
+ Constitutional law
+ John Howard Society of Saskatchewan v. Saskatchewan (Attorney General), John Howard Society of Saskatchewan c. Saskatchewan (Procureur général), 2025 SCC 6, 2025 CSC 6, 40608 [...] Attorney General of Ontario, Attorney General of Quebec, Attorney General of British Columbia, [...] Attorney General of Canada, Attorney General of Ontario, Attorney General of Quebec, 
+ [LINK /scc-csc/scc-csc/en/20907/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/20546/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] Canada (Attorney General) v. Power
+ - 2024 SCC 26
+ - 2024-07-19
+ Supreme Court Judgments
+ Constitutional law
+ Canada (Attorney General) v. Power, Canada (Procureur général) c. Power, 2024 SCC 26, 2024 CSC 26, 40241 [...] Attorney General of Canada Appellant v. Joseph Power Respondent and Attorney General of Ontario, [...] My colleague Justice Côté wrote in Ontario (Attorney General) v. Clark, 2021 SCC 18, [2021] 1 S.C.R. 607, that “Roncarelli [v. Duplessis, [1959] S.C.R. 121,] is emblematic of a conception of the rule of law that is incompatible with absolute immunities. 
+ [LINK /scc-csc/scc-csc/en/20546/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/20493/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] Canadian Broadcasting Corp. v. Named Person
+ - 2024 SCC 21
+ - 2024-06-07
+ Supreme Court Judgments
+ Criminal law
+ Attorney General of Ontario, Attorney General of Alberta, Lucie Rondeau, in her capacity as Chief Judge of the Court of Québec, [...] Jim Clark and Katie Doherty, for the intervener the Attorney General of Ontario. [...] Solicitor for the intervener the Attorney General of Ontario: Ministry of the Attorney General of Ontario, Crown Law Office — Criminal, Toronto. 
+ [LINK /scc-csc/scc-csc/en/20493/1/document.do] 
+ 14.
+ [LINK /scc-csc/scc-csc/en/item/20723/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] R. v. Archambault
+ - 2024 SCC 35
+ - 2024-11-01
+ Supreme Court Judgments
+ Criminal law
+ Statutes
+ Attorney General of Canada, Attorney General of Ontario, Association québécoise des avocats et avocates de la défense, [...] v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; R. v. Bertrand Marchand, 2023 SCC 26; R. v. D.A.I., 2012 SCC 5, [2012] 1 S.C.R. 149; R. v. McColman, 2023 SCC 8; Reference re Impact Assessment Act, 2023 SCC 23; MediaQMI inc. v. Kamel, 2021 SCC 23, [2021] 1 S.C.R. 899; Sun Indalex Finance, LLC v. United Steelworkers, 2013 SCC [...] Solicitor for the intervener the Attorney General of Ontario: Attorney General of Ontario, Crown Law Office — Criminal, Toronto. 
+ [LINK /scc-csc/scc-csc/en/20723/1/document.do] 
+ 15.
+ [LINK /scc-csc/scc-csc/en/item/21267/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] R. v. Rousselle
+ - 2025 SCC 35
+ - 2025-11-14
+ Supreme Court Judgments
+ Criminal law
+ Attorney General of Ontario, Attorney General of British Columbia, Attorney General of Alberta and [...] v. His Majesty The King Respondent and Attorney General of Ontario, [...] Attorney General of British Columbia, Attorney General of Alberta and Criminal Lawyers’ Association (Ontario) Interveners 
+ [LINK /scc-csc/scc-csc/en/21267/1/document.do] 
+ 16.
+ [LINK /scc-csc/scc-csc/en/item/19439/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] Law Society of Saskatchewan v. Abrametz
+ - 2022 SCC 29
+ - [2022] 2 SCR 220
+ - 2022-07-08
+ Supreme Court Judgments
+ Administrative law
+ v. Peter V. Abrametz Respondent and Attorney General of Ontario, [...] Alexandra Clark and Matthew Chung, for the intervener the Attorney General of Ontario. [...] Solicitor for the intervener the Attorney General of Ontario: Attorney General of Ontario, Toronto. Solicitor for the intervener the Attorney General of Quebec: Attorney General of Quebec, Québec. 
+ [LINK /scc-csc/scc-csc/en/19439/1/document.do] 
+ 17.
+ [LINK /scc-csc/scc-csc/en/item/18904/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] MediaQMI inc. v. Kamel
+ - 2021 SCC 23
+ - [2021] 1 SCR 899
+ - 2021-05-28
+ Supreme Court Judgments
+ MediaQMI inc. v. Kamel, MédiaQMI inc. c. Kamel, 2021 SCC 23, 2021 CSC 23, 38755, [2021] 1 SCR 899, [2021] 1 RCS 899 [...] Citation: MediaQMI inc. v. Kamel, 2021 SCC 23, [2021] 1 S.C.R. 899 Appeal Heard: November 12, 2020 [...] Indexed as: MediaQMI inc. v. Kamel 2021 SCC 23 File No.: 38755. 2020: November 12; 2021: May 28. 
+ [LINK /scc-csc/scc-csc/en/18904/1/document.do] 
+ 18.
+ [LINK /scc-csc/scc-csc/en/item/19011/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] Toronto (City) v. Ontario (Attorney General)
+ - 2021 SCC 34
+ - [2021] 2 SCR 845
+ - 2021-10-01
+ Supreme Court Judgments
+ Constitutional law
+ Toronto (City) v. Ontario (Attorney General), Toronto (Cité) c. Ontario (Procureur général), 2021 SCC 34, 2021 CSC 34, 38921, [2021] 2 SCR 845, [2021] 2 RCS 845 [...] Citation: Toronto (City) v. Ontario (Attorney General), 2021 SCC 34, [2021] 2 S.C.R. 845 Appeal Heard: March 16, 2021 [...] Indexed as: Toronto (City) v. Ontario (Attorney General) 2021 SCC 34 File No.: 38921. 2021: March 16; 2021: October 1. 
+ [LINK /scc-csc/scc-csc/en/19011/1/document.do] 
+ 19.
+ [LINK /scc-csc/scc-csc/en/item/21505/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] Ahluwalia v. Ahluwalia
+ - 2026 SCC 16
+ - 2026-05-15
+ Supreme Court Judgments
+ Torts
+ v. Amrit Pal Singh Ahluwalia Respondent and Attorney General of Canada, [...] v. British Columbia (Attorney General), [1993] 3 S.C.R. 519; Hall v. Hebert, [1993] 2 S.C.R. 159; 1688782 Ontario Inc. v. Maple Leaf Foods Inc., 2020 SCC 35, [2020] 3 S.C.R. 504; Moge v. Moge, [1992] 3 S.C.R. 813; Miron v. Trudel, [1995] 2 S.C.R. 418; Quebec (Attorney General) v. A, 2013 SCC 5, [2013] 1 S.C.R. 61; M. (K.) v [...] SCC 11, [2022] 1 S.C.R. 169; R. v. Brown, 2022 SCC 18, [2022] 1 S.C.R. 374; R. v. Kirkpatrick, 2022 SCC 33, [2022] 2 S.C.R. 480; Jones v. Tsige, 2012 ONCA 32, 108 O.R. (3d) 241; Borowski v. Canada (Attorney General), [1989] 1 S.C.R. 342; R. v. Smith, 2004 SCC 14, [2004] 1 S.C.R. 385; R. v. Bouvette, 2025 SCC 18; Phillips v
+ [LINK /scc-csc/scc-csc/en/21505/1/document.do] 
+ 20.
+ [LINK /scc-csc/scc-csc/en/item/18933/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] Reference re Code of Civil Procedure (Que.), art. 35
+ - 2021 SCC 27
+ - [2021] 2 SCR 291
+ - 2021-06-30
+ Supreme Court Judgments
+ Constitutional law
+ Attorney General of Canada, Attorney General of Ontario, Attorney General of Quebec, [...] Attorney General of Canada, Attorney General of Ontario, Attorney General of Quebec, [...] Attorney General of Canada, Attorney General of Ontario, Attorney General of Quebec, 
+ [LINK /scc-csc/scc-csc/en/18933/1/document.do] 
+ 21.
+ [LINK /scc-csc/scc-csc/en/item/19541/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] Peace River Hydro Partners v. Petrowest Corp.
+ - 2022 SCC 41
+ - [2022] 3 SCR 265
+ - 2022-11-10
+ Supreme Court Judgments
+ Bankruptcy and insolvency
+ Inc. v. Heller, 2020 SCC 16, [2020] 2 S.C.R. 118; Dell Computer Corp. v. Union des consommateurs, 2007 SCC 34, [2007] 2 S.C.R. 801; TELUS Communications Inc. v. Wellman, 2019 SCC 19, [2019] 2 S.C.R. 144; Seidel v. TELUS Communications Inc., 2011 SCC 15, [2011] 1 S.C.R. 531; Rogers Wireless Inc. v. Muroff, 2007 SCC 35, [...] — Canada v. T.C.T. Logistics Inc., 2006 SCC 35, [2006] 2 S.C.R. 123; Orphan Well Association v. Grant Thornton Ltd., 2019 SCC 5, [2019] 1 S.C.R. 150; Endean v. British Columbia, 2016 SCC 42, [2016] 2 S.C.R. 162. [...] Referred to: Dell Computer Corp. v. Union des consommateurs, 2007 SCC 34, [2007] 2 S.C.R. 801; Seidel v. TELUS Communications Inc., 2011 SCC 15, [2011] 1 S.C.R. 531; Uber Technologies Inc. v. Heller, 2020 SCC 16, [2020] 2 S.C.R. 118. 
+ [LINK /scc-csc/scc-csc/en/19541/1/document.do] 
+ 22.
+ [LINK /scc-csc/scc-csc/en/item/21492/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] Patrick Street Holdings Ltd. v. 11368 NL Inc.
+ - 2026 SCC 15
+ - 2026-05-08
+ Supreme Court Judgments
+ Civil procedure
+ R. 47; Canam Enterprises Inc. v. Coles (2000), 51 O.R. (3d) 481; General Motors of Canada Ltd. v. Naken, [1983] 1 S.C.R. 72; Toronto (City) v. Canadian Union of Public Employees, Local 79 (2001), 55 O.R. (3d) 541; Schweneke v. Ontario (2000), 47 O.R. (3d) 97; Ontario (Attorney General) v. Bear Island Foundation (1999), [...] In this way, pleadings serve to define the points at issue in a proceeding and to give “opposing parties fair notice of the case to meet” (Lax Kw’alaams Indian Band v. Canada (Attorney General), 2011 SCC 56, [2011] 3 S.C.R. 535, at para. 43). [...] or rationale in Danyluk, General Motors of Canada Ltd. v. Naken, [1983] 1 S.C.R. 72, or Toronto (City) (Toronto (City) v. Canadian Union of Public Employees, Local 79 (2001), 55 O.R. (3d) 541 (C.A.), at para. 95; Schweneke v. Ontario (2000), 47 O.R. (3d) 97 (C.A.); Ontario (Attorney General) v. Bear Island Foundation 
+ [LINK /scc-csc/scc-csc/en/21492/1/document.do] 
+ 23.
+ [LINK /scc-csc/scc-csc/en/item/19275/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] R. v. Samaniego
+ - 2022 SCC 9
+ - [2022] 1 SCR 71
+ - 2022-03-25
+ Supreme Court Judgments
+ Criminal law
+ Citation: R. v. Samaniego, 2022 SCC 9, [2022] 1 S.C.R. 71 Appeal Heard: November 5, 2021 [...] Indexed as: R. v. Samaniego 2022 SCC 9 File No.: 39440. 2021: November 5; 2022: March 25. [...] R. v. Lyttle, 2004 SCC 5, [2004] 1 S.C.R. 193; considered: R. v. R.V., 2019 SCC 41, [2019] 3 S.C.R. 237; referred to: Fanjoy v. The Queen, [1985] 2 S.C.R. 233; R. v. Biniaris, 2000 SCC 15, [2000] 1 S.C.R. 381; R. v. Anderson, 2014 SCC 41, [2014] 2 S.C.R. 167; Ontario v. Criminal Lawyers’ Association of Ontario, 2013 SCC 
+ [LINK /scc-csc/scc-csc/en/19275/1/document.do] 
+ 24.
+ [LINK /scc-csc/scc-csc/en/item/20554/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] Ontario (Attorney General) v. Restoule
+ - 2024 SCC 27
+ - 2024-07-26
+ Supreme Court Judgments
+ Aboriginal law
+ Ontario (Attorney General) v. Restoule, Ontario (Procureur général) c. Restoule, 2024 SCC 27, 2024 CSC 27, 40024 [...] Citation: Ontario (Attorney General) v. Restoule, 2024 SCC 27 Appeals Heard: November 7 and 8, 2023 [...] Indexed as: Ontario (Attorney General) v. Restoule 2024 SCC 27 File No.: 40024. 2023: November 7, 8; 2024: July 26. 
+ [LINK /scc-csc/scc-csc/en/20554/1/document.do] 
+ 25.
+ [LINK /scc-csc/scc-csc/en/item/19939/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18] Deans Knight Income Corp. v. Canada
+ - 2023 SCC 16
+ - 2023-05-26
+ Supreme Court Judgments
+ Taxation
+ v. His Majesty The King Respondent and Attorney General of Ontario, [...] Alexandra Clark, Dona Salmon and Jennifer Boyczuk, for the intervener the Attorney General of Ontario. [...] Solicitor for the intervener the Attorney General of Ontario: Ministry of the Attorney General — Crown Law Office — Civil, Toronto. 
+ [LINK /scc-csc/scc-csc/en/19939/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

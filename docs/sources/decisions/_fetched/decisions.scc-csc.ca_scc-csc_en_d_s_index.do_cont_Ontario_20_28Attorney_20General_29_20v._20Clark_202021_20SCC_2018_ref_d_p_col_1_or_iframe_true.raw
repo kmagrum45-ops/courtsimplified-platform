@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/en/d/s/index.do" />
+    <title>    Advanced Search - SCC Cases
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/fr/d/s/index.do?cont=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+<ul class="decisia-search-tabs decisia-tabs">
+            <li>
+            <a id="decisia-search-tabs-all-databases" target="_parent" href="/scc-csc/en/a/s/index.do?cont=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18&amp;ref=&amp;p=&amp;col=1&amp;or=">All Databases (70)</a>
+        </li>
+
+        <li class="active">Decisions (25)</li>
+
+         <li>
+             <a id="decisia-search-tabs-news" target="_parent" href="/scc-csc/en/n/s/index.do?cont=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18&amp;ref=&amp;p=&amp;col=1&amp;or=">Resources (45)</a>
+         </li>
+</ul>
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="Ontario (Attorney General) v. Clark 2021 SCC 18" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Report, Case number</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-parties-row">
+        <div class="label">
+            <label for="decisia-parties">Parties</label>
+        </div>
+        <div class="input">
+<input id="decisia-parties" class="decisia-text" type="text" name="p" value="" />
+        </div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abbott, Douglas Charles"
+         >Abbott, Douglas Charles</option>
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Anglin, Francis Alexander"
+         >Anglin, Francis Alexander</option>
+        <option value="Arbour, Louise"
+         >Arbour, Louise</option>
+        <option value="Armour, John Douglas"
+         >Armour, John Douglas</option>
+        <option value="Barclay"
+         >Barclay</option>
+        <option value="Bastarache, Michel"
+         >Bastarache, Michel</option>
+        <option value="Beetz, Jean"
+         >Beetz, Jean</option>
+        <option value="Bernier"
+         >Bernier</option>
+        <option value="Binnie, William Ian Corneil"
+         >Binnie, William Ian Corneil</option>
+        <option value="Bond"
+         >Bond</option>
+        <option value="Brodeur, Louis-Philippe"
+         >Brodeur, Louis-Philippe</option>
+        <option value="Brown, Russell"
+         >Brown, Russell</option>
+        <option value="Cannon, Lawrence Arthur Dumoulin"
+         >Cannon, Lawrence Arthur Dumoulin</option>
+        <option value="Cartwright, John Robert"
+         >Cartwright, John Robert</option>
+        <option value="Cassels"
+         >Cassels</option>
+        <option value="Charron, Louise"
+         >Charron, Louise</option>
+        <option value="Chouinard, Julien"
+         >Chouinard, Julien</option>
+        <option value="Cory, Peter deCarteret"
+         >Cory, Peter deCarteret</option>
+        <option value="Crocket, Oswald Smith"
+         >Crocket, Oswald Smith</option>
+        <option value="Cromwell, Thomas Albert"
+         >Cromwell, Thomas Albert</option>
+        <option value="Côté, Suzanne"
+         >Côté, Suzanne</option>
+        <option value="Davies, Louis Henry"
+         >Davies, Louis Henry</option>
+        <option value="Davis, Henry Hague"
+         >Davis, Henry Hague</option>
+        <option value="Deschamps, Marie"
+         >Deschamps, Marie</option>
+        <option value="Dickson, Robert George Brian"
+         >Dickson, Robert George Brian</option>
+        <option value="Dorion"
+         >Dorion</option>
+        <option value="Duff, Lyman Poore"
+         >Duff, Lyman Poore</option>
+        <option value="Dysart"
+         >Dysart</option>
+        <option value="Estey, James Wilfred"
+         >Estey, James Wilfred</option>
+        <option value="Estey, Willard Zebedee"
+         >Estey, Willard Zebedee</option>
+        <option value="Fauteux, Joseph Honoré Gérald"
+         >Fauteux, Joseph Honoré Gérald</option>
+        <option value="Fish, Morris J."
+         >Fish, Morris J.</option>
+        <option value="Fitzpatrick, Charles"
+         >Fitzpatrick, Charles</option>
+        <option value="Fournier, Télesphore"
+         >Fournier, Télesphore</option>
+        <option value="Galipault"
+         >Galipault</option>
+        <option value="Gascon, Clément"
+         >Gascon, Clément</option>
+        <option value="Gillanders"
+         >Gillanders</option>
+        <option value="Girouard, Désiré"
+         >Girouard, Désiré</option>
+        <option value="Gonthier, Charles Doherty"
+         >Gonthier, Charles Doherty</option>
+        <option value="Gwynne, John Wellington"
+         >Gwynne, John Wellington</option>
+        <option value="Hall, Emmett Matthew"
+         >Hall, Emmett Matthew</option>
+        <option value="Henry, William Alexander"
+         >Henry, William Alexander</option>
+        <option value="Howard"
+         >Howard</option>
+        <option value="Hudson, Albert Blellock"
+         >Hudson, Albert Blellock</option>
+        <option value="Hughes, Frank Joseph"
+         >Hughes, Frank Joseph</option>
+        <option value="Iacobucci, Frank"
+         >Iacobucci, Frank</option>
+        <option value="Idington, John"
+         >Idington, John</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Joyal, Glenn"
+         >Joyal, Glenn</option>
+        <option value="Judson, Wilfred"
+         >Judson, Wilfred</option>
+        <option value="Karakatsanis, Andromache"
+         >Karakatsanis, Andromache</option>
+        <option value="Kasirer, Nicholas"
+         >Kasirer, Nicholas</option>
+        <option value="Kellock, Roy Lindsay"
+         >Kellock, Roy Lindsay</option>
+        <option value="Kerwin, Patrick"
+         >Kerwin, Patrick</option>
+        <option value="Killam, Albert Clements"
+         >Killam, Albert Clements</option>
+        <option value="King, George Edwin"
+         >King, George Edwin</option>
+        <option value="L&#39;Heureux-Dubé, Claire"
+         >L&#39;Heureux-Dubé, Claire</option>
+        <option value="La Forest, Gérard V."
+         >La Forest, Gérard V.</option>
+        <option value="Lamer, Antonio"
+         >Lamer, Antonio</option>
+        <option value="Lamont, John Henderson"
+         >Lamont, John Henderson</option>
+        <option value="Laskin, Bora"
+         >Laskin, Bora</option>
+        <option value="Latchford"
+         >Latchford</option>
+        <option value="Lavergne"
+         >Lavergne</option>
+        <option value="Le Dain, Gerald Eric"
+         >Le Dain, Gerald Eric</option>
+        <option value="LeBel, Louis"
+         >LeBel, Louis</option>
+        <option value="Lemieux"
+         >Lemieux</option>
+        <option value="Locke, Charles Holland"
+         >Locke, Charles Holland</option>
+        <option value="Maclean"
+         >Maclean</option>
+        <option value="Maclennan, James"
+         >Maclennan, James</option>
+        <option value="Magee"
+         >Magee</option>
+        <option value="Major, John C."
+         >Major, John C.</option>
+        <option value="Malouin, Arthur Cyrille Albert"
+         >Malouin, Arthur Cyrille Albert</option>
+        <option value="Martin, Sheilah"
+         >Martin, Sheilah</option>
+        <option value="Martin, Sheilah L."
+         >Martin, Sheilah L.</option>
+        <option value="Martland, Ronald"
+         >Martland, Ronald</option>
+        <option value="Masten"
+         >Masten</option>
+        <option value="McIntyre, William Rogers"
+         >McIntyre, William Rogers</option>
+        <option value="McLachlin, Beverley"
+         >McLachlin, Beverley</option>
+        <option value="Middleton"
+         >Middleton</option>
+        <option value="Mignault, Pierre-Basile"
+         >Mignault, Pierre-Basile</option>
+        <option value="Mills, Davis"
+         >Mills, Davis</option>
+        <option value="Moldaver, Michael J."
+         >Moldaver, Michael J.</option>
+        <option value="Moreau, Mary"
+         >Moreau, Mary</option>
+        <option value="Nesbitt, Wallace"
+         >Nesbitt, Wallace</option>
+        <option value="Newcombe, Edmund Leslie"
+         >Newcombe, Edmund Leslie</option>
+        <option value="Nolan, Henry Grattan"
+         >Nolan, Henry Grattan</option>
+        <option value="Orde"
+         >Orde</option>
+        <option value="O’Bonsawin, Michelle"
+         >O’Bonsawin, Michelle</option>
+        <option value="Patterson, Christopher Salmon"
+         >Patterson, Christopher Salmon</option>
+        <option value="Pigeon, Louis-Philippe"
+         >Pigeon, Louis-Philippe</option>
+        <option value="Pratte, Yves"
+         >Pratte, Yves</option>
+        <option value="Rand, Ivan Cleveland"
+         >Rand, Ivan Cleveland</option>
+        <option value="Richards, William Buell"
+         >Richards, William Buell</option>
+        <option value="Rinfret, Thibaudeau"
+         >Rinfret, Thibaudeau</option>
+        <option value="Ritchie, Roland Almon"
+         >Ritchie, Roland Almon</option>
+        <option value="Ritchie, William Johnstone"
+         >Ritchie, William Johnstone</option>
+        <option value="Rivard"
+         >Rivard</option>
+        <option value="Rothstein, Marshall"
+         >Rothstein, Marshall</option>
+        <option value="Rowe, Malcolm"
+         >Rowe, Malcolm</option>
+        <option value="Sedgewick, Robert"
+         >Sedgewick, Robert</option>
+        <option value="Smith, Robert"
+         >Smith, Robert</option>
+        <option value="Sopinka, John"
+         >Sopinka, John</option>
+        <option value="Spence, Wishart Flett"
+         >Spence, Wishart Flett</option>
+        <option value="St. Germain"
+         >St. Germain</option>
+        <option value="St. Jacques"
+         >St. Jacques</option>
+        <option value="Stevenson, William"
+         >Stevenson, William</option>
+        <option value="Strong, Samuel Henry"
+         >Strong, Samuel Henry</option>
+        <option value="Taschereau, Henri-Elzéar"
+         >Taschereau, Henri-Elzéar</option>
+        <option value="Taschereau, Jean-Thomas"
+         >Taschereau, Jean-Thomas</option>
+        <option value="Taschereau, Robert"
+         >Taschereau, Robert</option>
+        <option value="Tessier"
+         >Tessier</option>
+        <option value="Thorson"
+         >Thorson</option>
+        <option value="Wagner, Richard"
+         >Wagner, Richard</option>
+        <option value="Wilson, Bertha"
+         >Wilson, Bertha</option>
+        <option value="de Grandpré, Louis-Philippe"
+         >de Grandpré, Louis-Philippe</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Status</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Granted</option>
+                <option value="2"
+                >Dismissed</option>
+                <option value="3"
+                >Oral Hearing</option>
+                <option value="4"
+                >Remanded</option>
+                <option value="5"
+                >Quashed</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-district-row">
+        <div class="label select">
+            <label for="decisia-district">On appeal from</label>
+        </div>
+        <div class="input">
+        <select id="decisia-district" name="d"  data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                  <option value="1"
+                       >Canada</option>
+                  <option value="2"
+                       >Federal Court of Appeal</option>
+                  <option value="3"
+                       >British Columbia</option>
+                  <option value="4"
+                       >Alberta</option>
+                  <option value="5"
+                       >Saskatchewan</option>
+                  <option value="6"
+                       >Manitoba</option>
+                  <option value="7"
+                       >Ontario</option>
+                  <option value="8"
+                       >Quebec</option>
+                  <option value="9"
+                       >New Brunswick</option>
+                  <option value="10"
+                       >Nova Scotia</option>
+                  <option value="11"
+                       >Prince Edward Island</option>
+                  <option value="12"
+                       >Newfoundland and Labrador</option>
+                  <option value="13"
+                       >Yukon</option>
+                  <option value="14"
+                       >Northwest Territories</option>
+                  <option value="15"
+                       >Nunavut</option>
+                  <option value="16"
+                       >Court Martial Appeal Court of Canada</option>
+                  <option value="18"
+                       >Saskatchewan, Ontario, Alberta</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-collection-row">
+        <div class="label select">
+            <label for="decisia-collection">Collection</label>
+        </div>
+        <div class="input">
+<select id="decisia-collection" name="col" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+    <option value="1"
+        selected="selected"
+    >
+        Supreme Court Judgments</option>
+    <option value="2"
+    >
+        Applications for Leave</option>
+</select>
+<div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="advanced-field decisia-subjects-row">
+        <div class="label select">
+            <label for="decisia-subjects">Subjects</label>
+        </div>
+        <div class="input">
+    <select id="decisia-subjects" name="su" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+            <option value="34"
+            >Aboriginal law</option>
+            <option value="5"
+            >Access to information</option>
+            <option value="2"
+            >Action</option>
+            <option value="51"
+            >Administrative law</option>
+            <option value="13"
+            >Agency</option>
+            <option value="40"
+            >Air law</option>
+            <option value="9"
+            >Appeal</option>
+            <option value="52"
+            >Arbitration</option>
+            <option value="37"
+            >Armed Forces</option>
+            <option value="30"
+            >Bankruptcy and insolvency</option>
+            <option value="53"
+            >Bills of exchange</option>
+            <option value="44"
+            >Civil law</option>
+            <option value="20"
+            >Civil procedure</option>
+            <option value="41"
+            >Commercial law</option>
+            <option value="29"
+            >Communications law</option>
+            <option value="19"
+            >Competition law</option>
+            <option value="27"
+            >Constitutional law</option>
+            <option value="55"
+            >Contract</option>
+            <option value="61"
+            >Contracts</option>
+            <option value="6"
+            >Courts</option>
+            <option value="16"
+            >Criminal law</option>
+            <option value="14"
+            >Customs and excise</option>
+            <option value="4"
+            >Education law</option>
+            <option value="10"
+            >Elections</option>
+            <option value="17"
+            >Environmental law</option>
+            <option value="57"
+            >Estates</option>
+            <option value="18"
+            >Evidence</option>
+            <option value="48"
+            >Expropriation</option>
+            <option value="7"
+            >Family law</option>
+            <option value="11"
+            >Financial institutions</option>
+            <option value="15"
+            >Fishery</option>
+            <option value="42"
+            >Food and drugs</option>
+            <option value="23"
+            >Guarantee and suretyship</option>
+            <option value="26"
+            >Immigration</option>
+            <option value="28"
+            >Insurance</option>
+            <option value="8"
+            >Intellectual property</option>
+            <option value="31"
+            >International law</option>
+            <option value="45"
+            >Labour law</option>
+            <option value="22"
+            >Lease</option>
+            <option value="25"
+            >Maritime law</option>
+            <option value="43"
+            >Mines and minerals</option>
+            <option value="38"
+            >Motor vehicles</option>
+            <option value="56"
+            >Municipal law</option>
+            <option value="24"
+            >Pensions</option>
+            <option value="35"
+            >Prerogative writs</option>
+            <option value="59"
+            >Prescription</option>
+            <option value="46"
+            >Priorities and hypothecs</option>
+            <option value="58"
+            >Private international law</option>
+            <option value="32"
+            >Professional law</option>
+            <option value="63"
+            >Property</option>
+            <option value="49"
+            >Property law</option>
+            <option value="50"
+            >Public utilities</option>
+            <option value="47"
+            >Sale</option>
+            <option value="36"
+            >Securities</option>
+            <option value="39"
+            >State</option>
+            <option value="62"
+            >Status of persons</option>
+            <option value="3"
+            >Statutes</option>
+            <option value="33"
+            >Taxation</option>
+            <option value="21"
+            >Torts</option>
+            <option value="12"
+            >Transportation</option>
+            <option value="54"
+            >Trust</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/scc-csc/en/d/s/index.do?cont=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>25 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18855/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">Ontario (Attorney General) v. Clark</a></span>
+                        - <span class="citation">2021 SCC 18</span>
+                    - <span class="report-citation">[2021] 1 SCR 607</span>
+                - <span class="publicationDate">2021-04-30</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    <b>Ontario</b> (<b>Attorney</b> <b>General</b>) <b>v</b>. <b>Clark</b>, <b>Ontario</b> (Procureur <b>général</b>) c. <b>Clark</b>, <b>2021</b> <b>SCC</b> <b>18</b>, <b>2021</b> CSC <b>18</b>, 38687, [<b>2021</b>] 1 SCR 607, [<b>2021</b>] 1 RCS 607 &nbsp;&nbsp;[...]&nbsp;&nbsp;Citation: <b>Ontario</b> (<b>Attorney</b> <b>General</b>) <b>v</b>. <b>Clark</b>, <b>2021</b> <b>SCC</b> <b>18</b>, [<b>2021</b>] 1 S.C.R. 607 Appeal Heard: October 15, 2020 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Ontario</b> Crown <b>Attorneys</b>’ Association Interveners Indexed as: <b>Ontario</b> (<b>Attorney</b> <b>General</b>) <b>v</b>. <b>Clark</b> 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18855/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21126/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">R. v. Varennes</a></span>
+                        - <span class="citation">2025 SCC 22</span>
+                - <span class="publicationDate">2025-07-11</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>v</b>. His Majesty The King Respondent and <b>Attorney</b> <b>General</b> of <b>Ontario</b>, &nbsp;&nbsp;[...]&nbsp;&nbsp; since Anderson (see, e.g., Henry <b>v</b>. British Columbia (<b>Attorney</b> <b>General</b>), 2015 <b>SCC</b> 24, [2015] 2 S.C.R. 214, at para. 62, per Moldaver J.; R. <b>v</b>. Nur, 2015 <b>SCC</b> 15, [2015] 1 S.C.R. 773, at para. 161, per Moldaver J.; <b>Ontario</b> (<b>Attorney</b> <b>General</b>) <b>v</b>. <b>Clark</b>, <b>2021</b> <b>SCC</b> <b>18</b>, [<b>2021</b>] 1 S.C.R. 607, at paras. 126-30, per Côté J.). &nbsp;&nbsp;[...]&nbsp;&nbsp; “core prosecutorial discretion” is used in the three decisions cited (Henry <b>v</b>. British Columbia (<b>Attorney</b> <b>General</b>), 2015 <b>SCC</b> 24, [2015] 2 S.C.R. 214; R. <b>v</b>. Nur, 2015 <b>SCC</b> 15, [2015] 1 S.C.R. 773; <b>Ontario</b> (<b>Attorney</b> <b>General</b>) <b>v</b>. <b>Clark</b>, <b>2021</b> <b>SCC</b> <b>18</b>, [<b>2021</b>] 1 S.C.R. 607), it was used in dissenting reasons in Nur and in <b>Clark</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21126/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20136/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">R. v. Bertrand Marchand</a></span>
+                        - <span class="citation">2023 SCC 26</span>
+                - <span class="publicationDate">2023-11-03</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>Attorney</b> <b>General</b> of <b>Ontario</b>, <b>Attorney</b> <b>General</b> of Saskatchewan, <b>Attorney</b> <b>General</b> of Alberta, &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Attorney</b> <b>General</b> of <b>Ontario</b>, <b>Attorney</b> <b>General</b> of Saskatchewan, <b>Attorney</b> <b>General</b> of Alberta, &nbsp;&nbsp;[...]&nbsp;&nbsp;Solicitor for the intervener the <b>Attorney</b> <b>General</b> of <b>Ontario</b>: <b>Attorney</b> <b>General</b> of <b>Ontario</b>, Crown Law Office — Criminal, Toronto. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20136/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20315/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">R. v. Kruk</a></span>
+                        - <span class="citation">2024 SCC 7</span>
+                - <span class="publicationDate">2024-03-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Citation: R. <b>v</b>. Kruk, 2024 <b>SCC</b> 7 Appeals Heard: May <b>18</b>, 2023 Judgment Rendered: March 8, 2024 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>v</b>. Canada, [1996] 1 S.C.R. 254; H.L. <b>v</b>. Canada (<b>Attorney</b> <b>General</b>), 2005 <b>SCC</b> 25, [2005] 1 S.C.R. 401; Housen <b>v</b>. Nikolaisen, 2002 <b>SCC</b> 33, [2002] 2 S.C.R. 235; R. <b>v</b>. Chung, 2020 <b>SCC</b> 8, [2020] 1 S.C.R. 405; R. <b>v</b>. Morrissey (1995), 22 O.R. (3d) 514; R. <b>v</b>. Pastro, <b>2021</b> BCCA 149, 71 C.R. (7th) 296; R. <b>v</b>. Greif, <b>2021</b> BCCA 187; R. <b>v</b>&nbsp;&nbsp;[...]&nbsp;&nbsp; R. <b>v</b>. Chouhan, <b>2021</b> <b>SCC</b> 26, [<b>2021</b>] 2 S.C.R. 136; R. <b>v</b>. G.F., <b>2021</b> <b>SCC</b> 20, [<b>2021</b>] 1 S.C.R. 801; R. <b>v</b>. Chung, 2020 <b>SCC</b> 8, [2020] 1 S.C.R. 405; R. <b>v</b>. Sarrazin, 2011 <b>SCC</b> 54, [2011] 3 S.C.R. 505; R. <b>v</b>. Van, 2009 <b>SCC</b> 22, [2009] 1 S.C.R. 716; R. <b>v</b>. Khan, 2001 <b>SCC</b> 86, [2001] 3 S.C.R. 823; R. <b>v</b>. Samaniego, 2022 <b>SCC</b> 9; R. <b>v</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20315/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18895/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">Ethiopian Orthodox Tewahedo Church of Canada St. Mary Cathedral v. Aga</a></span>
+                        - <span class="citation">2021 SCC 22</span>
+                    - <span class="report-citation">[2021] 1 SCR 868</span>
+                - <span class="publicationDate">2021-05-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Courts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Ethiopian Orthodox Tewahedo Church of Canada St. Mary Cathedral <b>v</b>. Aga, Ethiopian Orthodox Tewahedo Church of Canada St. Mary Cathedral c. Aga, <b>2021</b> <b>SCC</b> 22, <b>2021</b> CSC 22, 39094, [<b>2021</b>] 1 SCR 868, [<b>2021</b>] 1 RCS 868 &nbsp;&nbsp;[...]&nbsp;&nbsp;Citation: Ethiopian Orthodox Tewahedo Church of Canada St. Mary Cathedral <b>v</b>. Aga, <b>2021</b> <b>SCC</b> 22, [<b>2021</b>] 1 S.C.R. 868 Appeal Heard: December 9, 2020 &nbsp;&nbsp;[...]&nbsp;&nbsp;Indexed as: Ethiopian Orthodox Tewahedo Church of Canada St. Mary Cathedral <b>v</b>. Aga <b>2021</b> <b>SCC</b> 22 File No.: 39094. 2020: December 9; <b>2021</b>: May 21. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18895/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21347/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">R. v. Hussein</a></span>
+                        - <span class="citation">2026 SCC 2</span>
+                - <span class="publicationDate">2026-01-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Criminal Lawyers’ Association (<b>Ontario</b>) Interveners Indexed as: R. <b>v</b>. Hussein 2026 <b>SCC</b> 2 File No.: 41015. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Generally</b> speaking, relevant evidence is prima facie admissible (R. <b>v</b>. Grant, 2015 <b>SCC</b> 9, [2015] 1 S.C.R. 475, at para. <b>18</b>; R. <b>v</b>. Mohan, [1994] 2 S.C.R. 9, at p. 20). &nbsp;&nbsp;[...]&nbsp;&nbsp;Black people and individuals with mental disabilities are also often subjected to biased views (see R. <b>v</b>. Parks (1993), 15 O.R. (3d) 324 (C.A.), at p. 342; <b>Ontario</b> (<b>Attorney</b> <b>General</b>) <b>v</b>. G, 2020 <b>SCC</b> 38, [2020] 3 S.C.R. 629, at para. 1). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21347/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19458/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">R. v. Kirkpatrick</a></span>
+                        - <span class="citation">2022 SCC 33</span>
+                    - <span class="report-citation">[2022] 2 SCR 480</span>
+                - <span class="publicationDate">2022-07-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>v</b>. Her Majesty The Queen Respondent and <b>Attorney</b> <b>General</b> of <b>Ontario</b>, &nbsp;&nbsp;[...]&nbsp;&nbsp;Vertical stare decisis requires lower courts to follow decisions of higher courts, with limited exceptions (Canada (<b>Attorney</b> <b>General</b>) <b>v</b>. Bedford, 2013 <b>SCC</b> 72, [2013] 3 S.C.R. 1101, at paras. 42 and 44; Carter <b>v</b>. Canada (<b>Attorney</b> <b>General</b>), 2015 <b>SCC</b> 5, [2015] 1 S.C.R. 331, at para. 44; R. <b>v</b>. Comeau, 2018 <b>SCC</b> 15, [2018] 1 &nbsp;&nbsp;[...]&nbsp;&nbsp;Solicitor for the respondent: <b>Attorney</b> <b>General</b> of British Columbia, Vancouver. Solicitor for the intervener the <b>Attorney</b> <b>General</b> of <b>Ontario</b>: <b>Attorney</b> <b>General</b> of <b>Ontario</b>, Toronto. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19458/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19911/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">Hansman v. Neufeld</a></span>
+                        - <span class="citation">2023 SCC 14</span>
+                    - <span class="report-citation">[2023] 1 SCR 519</span>
+                - <span class="publicationDate">2023-05-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Courts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>v</b>. Barry Neufeld Respondent and <b>Attorney</b> <b>General</b> of British Columbia, &nbsp;&nbsp;[...]&nbsp;&nbsp; Rights Commission) <b>v</b>. Whatcott, 2013 <b>SCC</b> 11, [2013] 1 S.C.R. 467; R. <b>v</b>. Khawaja, 2012 <b>SCC</b> 69, [2012] 3 S.C.R. 555; R. <b>v</b>. Vice Media Canada Inc., 2018 <b>SCC</b> 53, [2018] 3 S.C.R. 374; R. <b>v</b>. Sharpe, 2001 <b>SCC</b> 2, [2001] 1 S.C.R. 45; Canadian Newspapers Co. <b>v</b>. Canada (<b>Attorney</b> <b>General</b>), [1988] 2 S.C.R. 122; R. <b>v</b>. Keegstra, [1990] 3&nbsp;&nbsp;[...]&nbsp;&nbsp; <b>v</b>. Lucas, [1998] 1 S.C.R. 439; Grant <b>v</b>. Torstar Corp., 2009 <b>SCC</b> 61, [2009] 3 S.C.R. 640; Bent <b>v</b>. Platnick, 2020 <b>SCC</b> 23, [2020] 2 S.C.R. 645; 1704604 <b>Ontario</b> Ltd. <b>v</b>. Pointes Protection Association, 2020 <b>SCC</b> 22, [2020] 2 S.C.R. 587; Echelon Environmental Inc. <b>v</b>. Glassdoor Inc., 2022 ONCA 391; Housen <b>v</b>. Nikolaisen, 2002 <b>SCC</b> 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19911/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21546/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">Resler v. Anglin</a></span>
+                        - <span class="citation">2026 SCC 23</span>
+                - <span class="publicationDate">2026-06-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Civil procedure<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Joseph <b>V</b>. Anglin Respondent - and - <b>Attorney</b> <b>General</b> of <b>Ontario</b>, <b>Attorney</b> <b>General</b> of British Columbia, &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>v</b>. Joseph <b>V</b>. Anglin Respondent and <b>Attorney</b> <b>General</b> of <b>Ontario</b>, <b>Attorney</b> <b>General</b> of British Columbia, &nbsp;&nbsp;[...]&nbsp;&nbsp;Solicitor for the intervener <b>Attorney</b> <b>General</b> of <b>Ontario</b>: <b>Attorney</b> <b>General</b> of <b>Ontario</b>, Crown Law Office — Civil, Toronto. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21546/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18680/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">Wastech Services Ltd. v. Greater Vancouver Sewerage and Drainage District</a></span>
+                        - <span class="citation">2021 SCC 7</span>
+                    - <span class="report-citation">[2021] 1 SCR 32</span>
+                - <span class="publicationDate">2021-02-05</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Wastech Services Ltd. <b>v</b>. Greater Vancouver Sewerage and Drainage District, Wastech Services Ltd. c. Greater Vancouver Sewerage and Drainage District, <b>2021</b> <b>SCC</b> 7, <b>2021</b> CSC 7, 38601, [<b>2021</b>] 1 SCR 32, [<b>2021</b>] 1 RCS 32 &nbsp;&nbsp;[...]&nbsp;&nbsp;Citation: Wastech Services Ltd. <b>v</b>. Greater Vancouver Sewerage and Drainage District, <b>2021</b> <b>SCC</b> 7, [<b>2021</b>] 1 S.C.R. 32 &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>SCC</b> 71, [2014] 3 S.C.R. 494; Canada (Minister of Citizenship and Immigration) <b>v</b>. Vavilov, 2019 <b>SCC</b> 65, [2019] 4 S.C.R. 653; Housen <b>v</b>. Nikolaisen, 2002 <b>SCC</b> 33, [2002] 2 S.C.R. 235; referred to: Northland Utilities (NWT) Limited <b>v</b>. Hay River (Town of), <b>2021</b> NWTCA 1; <b>Ontario</b> First Nations (2008) Limited Partnership <b>v</b>. <b>Ontario</b>
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18680/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20907/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">John Howard Society of Saskatchewan v. Saskatchewan (Attorney General)</a></span>
+                        - <span class="citation">2025 SCC 6</span>
+                - <span class="publicationDate">2025-03-14</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    John Howard Society of Saskatchewan <b>v</b>. Saskatchewan (<b>Attorney</b> <b>General</b>), John Howard Society of Saskatchewan c. Saskatchewan (Procureur <b>général</b>), 2025 <b>SCC</b> 6, 2025 CSC 6, 40608 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Attorney</b> <b>General</b> of <b>Ontario</b>, <b>Attorney</b> <b>General</b> of Quebec, <b>Attorney</b> <b>General</b> of British Columbia, &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Attorney</b> <b>General</b> of Canada, <b>Attorney</b> <b>General</b> of <b>Ontario</b>, <b>Attorney</b> <b>General</b> of Quebec, 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20907/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">12.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20546/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">Canada (Attorney General) v. Power</a></span>
+                        - <span class="citation">2024 SCC 26</span>
+                - <span class="publicationDate">2024-07-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Canada (<b>Attorney</b> <b>General</b>) <b>v</b>. Power, Canada (Procureur <b>général</b>) c. Power, 2024 <b>SCC</b> 26, 2024 CSC 26, 40241 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Attorney</b> <b>General</b> of Canada Appellant <b>v</b>. Joseph Power Respondent and <b>Attorney</b> <b>General</b> of <b>Ontario</b>, &nbsp;&nbsp;[...]&nbsp;&nbsp;My colleague Justice Côté wrote in <b>Ontario</b> (<b>Attorney</b> <b>General</b>) <b>v</b>. <b>Clark</b>, <b>2021</b> <b>SCC</b> <b>18</b>, [<b>2021</b>] 1 S.C.R. 607, that “Roncarelli [<b>v</b>. Duplessis, [1959] S.C.R. 121,] is emblematic of a conception of the rule of law that is incompatible with absolute immunities. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20546/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">13.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20493/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">Canadian Broadcasting Corp. v. Named Person</a></span>
+                        - <span class="citation">2024 SCC 21</span>
+                - <span class="publicationDate">2024-06-07</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>Attorney</b> <b>General</b> of <b>Ontario</b>, <b>Attorney</b> <b>General</b> of Alberta, Lucie Rondeau, in her capacity as Chief Judge of the Court of Québec, &nbsp;&nbsp;[...]&nbsp;&nbsp;Jim <b>Clark</b> and Katie Doherty, for the intervener the <b>Attorney</b> <b>General</b> of <b>Ontario</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;Solicitor for the intervener the <b>Attorney</b> <b>General</b> of <b>Ontario</b>: Ministry of the <b>Attorney</b> <b>General</b> of <b>Ontario</b>, Crown Law Office — Criminal, Toronto. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20493/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">14.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20723/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">R. v. Archambault</a></span>
+                        - <span class="citation">2024 SCC 35</span>
+                - <span class="publicationDate">2024-11-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                            Statutes<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>Attorney</b> <b>General</b> of Canada, <b>Attorney</b> <b>General</b> of <b>Ontario</b>, Association québécoise des avocats et avocates de la défense, &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>v</b>. Vavilov, 2019 <b>SCC</b> 65, [2019] 4 S.C.R. 653; R. <b>v</b>. Bertrand Marchand, 2023 <b>SCC</b> 26; R. <b>v</b>. D.A.I., 2012 <b>SCC</b> 5, [2012] 1 S.C.R. 149; R. <b>v</b>. McColman, 2023 <b>SCC</b> 8; Reference re Impact Assessment Act, 2023 <b>SCC</b> 23; MediaQMI inc. <b>v</b>. Kamel, <b>2021</b> <b>SCC</b> 23, [<b>2021</b>] 1 S.C.R. 899; Sun Indalex Finance, LLC <b>v</b>. United Steelworkers, 2013 <b>SCC</b> &nbsp;&nbsp;[...]&nbsp;&nbsp;Solicitor for the intervener the <b>Attorney</b> <b>General</b> of <b>Ontario</b>: <b>Attorney</b> <b>General</b> of <b>Ontario</b>, Crown Law Office — Criminal, Toronto. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20723/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">15.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21267/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">R. v. Rousselle</a></span>
+                        - <span class="citation">2025 SCC 35</span>
+                - <span class="publicationDate">2025-11-14</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>Attorney</b> <b>General</b> of <b>Ontario</b>, <b>Attorney</b> <b>General</b> of British Columbia, <b>Attorney</b> <b>General</b> of Alberta and &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>v</b>. His Majesty The King Respondent and <b>Attorney</b> <b>General</b> of <b>Ontario</b>, &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Attorney</b> <b>General</b> of British Columbia, <b>Attorney</b> <b>General</b> of Alberta and Criminal Lawyers’ Association (<b>Ontario</b>) Interveners 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21267/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">16.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19439/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">Law Society of Saskatchewan v. Abrametz</a></span>
+                        - <span class="citation">2022 SCC 29</span>
+                    - <span class="report-citation">[2022] 2 SCR 220</span>
+                - <span class="publicationDate">2022-07-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>v</b>. Peter <b>V</b>. Abrametz Respondent and <b>Attorney</b> <b>General</b> of <b>Ontario</b>, &nbsp;&nbsp;[...]&nbsp;&nbsp;Alexandra <b>Clark</b> and Matthew Chung, for the intervener the <b>Attorney</b> <b>General</b> of <b>Ontario</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;Solicitor for the intervener the <b>Attorney</b> <b>General</b> of <b>Ontario</b>: <b>Attorney</b> <b>General</b> of <b>Ontario</b>, Toronto. Solicitor for the intervener the <b>Attorney</b> <b>General</b> of Quebec: <b>Attorney</b> <b>General</b> of Quebec, Québec. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19439/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">17.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18904/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">MediaQMI inc. v. Kamel</a></span>
+                        - <span class="citation">2021 SCC 23</span>
+                    - <span class="report-citation">[2021] 1 SCR 899</span>
+                - <span class="publicationDate">2021-05-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    MediaQMI inc. <b>v</b>. Kamel, MédiaQMI inc. c. Kamel, <b>2021</b> <b>SCC</b> 23, <b>2021</b> CSC 23, 38755, [<b>2021</b>] 1 SCR 899, [<b>2021</b>] 1 RCS 899 &nbsp;&nbsp;[...]&nbsp;&nbsp;Citation: MediaQMI inc. <b>v</b>. Kamel, <b>2021</b> <b>SCC</b> 23, [<b>2021</b>] 1 S.C.R. 899 Appeal Heard: November 12, 2020 &nbsp;&nbsp;[...]&nbsp;&nbsp;Indexed as: MediaQMI inc. <b>v</b>. Kamel <b>2021</b> <b>SCC</b> 23 File No.: 38755. 2020: November 12; <b>2021</b>: May 28. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18904/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">18.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19011/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">Toronto (City) v. Ontario (Attorney General)</a></span>
+                        - <span class="citation">2021 SCC 34</span>
+                    - <span class="report-citation">[2021] 2 SCR 845</span>
+                - <span class="publicationDate">2021-10-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Toronto (City) <b>v</b>. <b>Ontario</b> (<b>Attorney</b> <b>General</b>), Toronto (Cité) c. <b>Ontario</b> (Procureur <b>général</b>), <b>2021</b> <b>SCC</b> 34, <b>2021</b> CSC 34, 38921, [<b>2021</b>] 2 SCR 845, [<b>2021</b>] 2 RCS 845 &nbsp;&nbsp;[...]&nbsp;&nbsp;Citation: Toronto (City) <b>v</b>. <b>Ontario</b> (<b>Attorney</b> <b>General</b>), <b>2021</b> <b>SCC</b> 34, [<b>2021</b>] 2 S.C.R. 845 Appeal Heard: March 16, <b>2021</b> &nbsp;&nbsp;[...]&nbsp;&nbsp;Indexed as: Toronto (City) <b>v</b>. <b>Ontario</b> (<b>Attorney</b> <b>General</b>) <b>2021</b> <b>SCC</b> 34 File No.: 38921. <b>2021</b>: March 16; <b>2021</b>: October 1. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19011/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">19.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21505/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">Ahluwalia v. Ahluwalia</a></span>
+                        - <span class="citation">2026 SCC 16</span>
+                - <span class="publicationDate">2026-05-15</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>v</b>. Amrit Pal Singh Ahluwalia Respondent and <b>Attorney</b> <b>General</b> of Canada, &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>v</b>. British Columbia (<b>Attorney</b> <b>General</b>), [1993] 3 S.C.R. 519; Hall <b>v</b>. Hebert, [1993] 2 S.C.R. 159; 1688782 <b>Ontario</b> Inc. <b>v</b>. Maple Leaf Foods Inc., 2020 <b>SCC</b> 35, [2020] 3 S.C.R. 504; Moge <b>v</b>. Moge, [1992] 3 S.C.R. 813; Miron <b>v</b>. Trudel, [1995] 2 S.C.R. 418; Quebec (<b>Attorney</b> <b>General</b>) <b>v</b>. A, 2013 <b>SCC</b> 5, [2013] 1 S.C.R. 61; M. (K.) <b>v</b>&nbsp;&nbsp;[...]&nbsp;&nbsp; <b>SCC</b> 11, [2022] 1 S.C.R. 169; R. <b>v</b>. Brown, 2022 <b>SCC</b> <b>18</b>, [2022] 1 S.C.R. 374; R. <b>v</b>. Kirkpatrick, 2022 <b>SCC</b> 33, [2022] 2 S.C.R. 480; Jones <b>v</b>. Tsige, 2012 ONCA 32, 108 O.R. (3d) 241; Borowski <b>v</b>. Canada (<b>Attorney</b> <b>General</b>), [1989] 1 S.C.R. 342; R. <b>v</b>. Smith, 2004 <b>SCC</b> 14, [2004] 1 S.C.R. 385; R. <b>v</b>. Bouvette, 2025 <b>SCC</b> <b>18</b>; Phillips <b>v</b>
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21505/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">20.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18933/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">Reference re Code of Civil Procedure (Que.), art. 35</a></span>
+                        - <span class="citation">2021 SCC 27</span>
+                    - <span class="report-citation">[2021] 2 SCR 291</span>
+                - <span class="publicationDate">2021-06-30</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>Attorney</b> <b>General</b> of Canada, <b>Attorney</b> <b>General</b> of <b>Ontario</b>, <b>Attorney</b> <b>General</b> of Quebec, &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Attorney</b> <b>General</b> of Canada, <b>Attorney</b> <b>General</b> of <b>Ontario</b>, <b>Attorney</b> <b>General</b> of Quebec, &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Attorney</b> <b>General</b> of Canada, <b>Attorney</b> <b>General</b> of <b>Ontario</b>, <b>Attorney</b> <b>General</b> of Quebec, 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18933/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">21.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19541/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">Peace River Hydro Partners v. Petrowest Corp.</a></span>
+                        - <span class="citation">2022 SCC 41</span>
+                    - <span class="report-citation">[2022] 3 SCR 265</span>
+                - <span class="publicationDate">2022-11-10</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Bankruptcy and insolvency<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     Inc. <b>v</b>. Heller, 2020 <b>SCC</b> 16, [2020] 2 S.C.R. 118; Dell Computer Corp. <b>v</b>. Union des consommateurs, 2007 <b>SCC</b> 34, [2007] 2 S.C.R. 801; TELUS Communications Inc. <b>v</b>. Wellman, 2019 <b>SCC</b> 19, [2019] 2 S.C.R. 144; Seidel <b>v</b>. TELUS Communications Inc., 2011 <b>SCC</b> 15, [2011] 1 S.C.R. 531; Rogers Wireless Inc. <b>v</b>. Muroff, 2007 <b>SCC</b> 35, &nbsp;&nbsp;[...]&nbsp;&nbsp;— Canada <b>v</b>. T.C.T. Logistics Inc., 2006 <b>SCC</b> 35, [2006] 2 S.C.R. 123; Orphan Well Association <b>v</b>. Grant Thornton Ltd., 2019 <b>SCC</b> 5, [2019] 1 S.C.R. 150; Endean <b>v</b>. British Columbia, 2016 <b>SCC</b> 42, [2016] 2 S.C.R. 162. &nbsp;&nbsp;[...]&nbsp;&nbsp;Referred to: Dell Computer Corp. <b>v</b>. Union des consommateurs, 2007 <b>SCC</b> 34, [2007] 2 S.C.R. 801; Seidel <b>v</b>. TELUS Communications Inc., 2011 <b>SCC</b> 15, [2011] 1 S.C.R. 531; Uber Technologies Inc. <b>v</b>. Heller, 2020 <b>SCC</b> 16, [2020] 2 S.C.R. 118. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19541/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">22.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21492/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">Patrick Street Holdings Ltd. v. 11368 NL Inc.</a></span>
+                        - <span class="citation">2026 SCC 15</span>
+                - <span class="publicationDate">2026-05-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Civil procedure<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     R. 47; Canam Enterprises Inc. <b>v</b>. Coles (2000), 51 O.R. (3d) 481; <b>General</b> Motors of Canada Ltd. <b>v</b>. Naken, [1983] 1 S.C.R. 72; Toronto (City) <b>v</b>. Canadian Union of Public Employees, Local 79 (2001), 55 O.R. (3d) 541; Schweneke <b>v</b>. <b>Ontario</b> (2000), 47 O.R. (3d) 97; <b>Ontario</b> (<b>Attorney</b> <b>General</b>) <b>v</b>. Bear Island Foundation (1999), &nbsp;&nbsp;[...]&nbsp;&nbsp;In this way, pleadings serve to define the points at issue in a proceeding and to give “opposing parties fair notice of the case to meet” (Lax Kw’alaams Indian Band <b>v</b>. Canada (<b>Attorney</b> <b>General</b>), 2011 <b>SCC</b> 56, [2011] 3 S.C.R. 535, at para. 43). &nbsp;&nbsp;[...]&nbsp;&nbsp; or rationale in Danyluk, <b>General</b> Motors of Canada Ltd. <b>v</b>. Naken, [1983] 1 S.C.R. 72, or Toronto (City) (Toronto (City) <b>v</b>. Canadian Union of Public Employees, Local 79 (2001), 55 O.R. (3d) 541 (C.A.), at para. 95; Schweneke <b>v</b>. <b>Ontario</b> (2000), 47 O.R. (3d) 97 (C.A.); <b>Ontario</b> (<b>Attorney</b> <b>General</b>) <b>v</b>. Bear Island Foundation 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21492/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">23.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19275/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">R. v. Samaniego</a></span>
+                        - <span class="citation">2022 SCC 9</span>
+                    - <span class="report-citation">[2022] 1 SCR 71</span>
+                - <span class="publicationDate">2022-03-25</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Citation: R. <b>v</b>. Samaniego, 2022 <b>SCC</b> 9, [2022] 1 S.C.R. 71 Appeal Heard: November 5, <b>2021</b> &nbsp;&nbsp;[...]&nbsp;&nbsp;Indexed as: R. <b>v</b>. Samaniego 2022 <b>SCC</b> 9 File No.: 39440. <b>2021</b>: November 5; 2022: March 25. &nbsp;&nbsp;[...]&nbsp;&nbsp; R. <b>v</b>. Lyttle, 2004 <b>SCC</b> 5, [2004] 1 S.C.R. 193; considered: R. <b>v</b>. R.V., 2019 <b>SCC</b> 41, [2019] 3 S.C.R. 237; referred to: Fanjoy <b>v</b>. The Queen, [1985] 2 S.C.R. 233; R. <b>v</b>. Biniaris, 2000 <b>SCC</b> 15, [2000] 1 S.C.R. 381; R. <b>v</b>. Anderson, 2014 <b>SCC</b> 41, [2014] 2 S.C.R. 167; <b>Ontario</b> <b>v</b>. Criminal Lawyers’ Association of <b>Ontario</b>, 2013 <b>SCC</b> 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19275/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">24.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20554/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">Ontario (Attorney General) v. Restoule</a></span>
+                        - <span class="citation">2024 SCC 27</span>
+                - <span class="publicationDate">2024-07-26</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Aboriginal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>Ontario</b> (<b>Attorney</b> <b>General</b>) <b>v</b>. Restoule, <b>Ontario</b> (Procureur <b>général</b>) c. Restoule, 2024 <b>SCC</b> 27, 2024 CSC 27, 40024 &nbsp;&nbsp;[...]&nbsp;&nbsp;Citation: <b>Ontario</b> (<b>Attorney</b> <b>General</b>) <b>v</b>. Restoule, 2024 <b>SCC</b> 27 Appeals Heard: November 7 and 8, 2023 &nbsp;&nbsp;[...]&nbsp;&nbsp;Indexed as: <b>Ontario</b> (<b>Attorney</b> <b>General</b>) <b>v</b>. Restoule 2024 <b>SCC</b> 27 File No.: 40024. 2023: November 7, 8; 2024: July 26. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20554/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">25.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19939/index.do?q=Ontario+%28Attorney+General%29+v.+Clark+2021+SCC+18">Deans Knight Income Corp. v. Canada</a></span>
+                        - <span class="citation">2023 SCC 16</span>
+                - <span class="publicationDate">2023-05-26</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Taxation<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>v</b>. His Majesty The King Respondent and <b>Attorney</b> <b>General</b> of <b>Ontario</b>, &nbsp;&nbsp;[...]&nbsp;&nbsp;Alexandra <b>Clark</b>, Dona Salmon and Jennifer Boyczuk, for the intervener the <b>Attorney</b> <b>General</b> of <b>Ontario</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;Solicitor for the intervener the <b>Attorney</b> <b>General</b> of <b>Ontario</b>: Ministry of the <b>Attorney</b> <b>General</b> — Crown Law Office — Civil, Toronto. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19939/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+            yearRangeString: "1877:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>

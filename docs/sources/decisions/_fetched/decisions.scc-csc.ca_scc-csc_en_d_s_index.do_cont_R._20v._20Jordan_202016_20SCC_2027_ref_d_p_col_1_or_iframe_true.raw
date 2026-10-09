@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/en/d/s/index.do" />
+    <title>    Advanced Search - SCC Cases
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/fr/d/s/index.do?cont=R.+v.+Jordan+2016+SCC+27&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+<ul class="decisia-search-tabs decisia-tabs">
+            <li>
+            <a id="decisia-search-tabs-all-databases" target="_parent" href="/scc-csc/en/a/s/index.do?cont=R.+v.+Jordan+2016+SCC+27&amp;ref=&amp;p=&amp;col=1&amp;or=">All Databases (202)</a>
+        </li>
+
+        <li class="active">Decisions (56)</li>
+
+         <li>
+             <a id="decisia-search-tabs-news" target="_parent" href="/scc-csc/en/n/s/index.do?cont=R.+v.+Jordan+2016+SCC+27&amp;ref=&amp;p=&amp;col=1&amp;or=">Resources (146)</a>
+         </li>
+</ul>
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="R. v. Jordan 2016 SCC 27" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Report, Case number</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-parties-row">
+        <div class="label">
+            <label for="decisia-parties">Parties</label>
+        </div>
+        <div class="input">
+<input id="decisia-parties" class="decisia-text" type="text" name="p" value="" />
+        </div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abbott, Douglas Charles"
+         >Abbott, Douglas Charles</option>
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Anglin, Francis Alexander"
+         >Anglin, Francis Alexander</option>
+        <option value="Arbour, Louise"
+         >Arbour, Louise</option>
+        <option value="Armour, John Douglas"
+         >Armour, John Douglas</option>
+        <option value="Barclay"
+         >Barclay</option>
+        <option value="Bastarache, Michel"
+         >Bastarache, Michel</option>
+        <option value="Beetz, Jean"
+         >Beetz, Jean</option>
+        <option value="Bernier"
+         >Bernier</option>
+        <option value="Binnie, William Ian Corneil"
+         >Binnie, William Ian Corneil</option>
+        <option value="Bond"
+         >Bond</option>
+        <option value="Brodeur, Louis-Philippe"
+         >Brodeur, Louis-Philippe</option>
+        <option value="Brown, Russell"
+         >Brown, Russell</option>
+        <option value="Cannon, Lawrence Arthur Dumoulin"
+         >Cannon, Lawrence Arthur Dumoulin</option>
+        <option value="Cartwright, John Robert"
+         >Cartwright, John Robert</option>
+        <option value="Cassels"
+         >Cassels</option>
+        <option value="Charron, Louise"
+         >Charron, Louise</option>
+        <option value="Chouinard, Julien"
+         >Chouinard, Julien</option>
+        <option value="Cory, Peter deCarteret"
+         >Cory, Peter deCarteret</option>
+        <option value="Crocket, Oswald Smith"
+         >Crocket, Oswald Smith</option>
+        <option value="Cromwell, Thomas Albert"
+         >Cromwell, Thomas Albert</option>
+        <option value="Côté, Suzanne"
+         >Côté, Suzanne</option>
+        <option value="Davies, Louis Henry"
+         >Davies, Louis Henry</option>
+        <option value="Davis, Henry Hague"
+         >Davis, Henry Hague</option>
+        <option value="Deschamps, Marie"
+         >Deschamps, Marie</option>
+        <option value="Dickson, Robert George Brian"
+         >Dickson, Robert George Brian</option>
+        <option value="Dorion"
+         >Dorion</option>
+        <option value="Duff, Lyman Poore"
+         >Duff, Lyman Poore</option>
+        <option value="Dysart"
+         >Dysart</option>
+        <option value="Estey, James Wilfred"
+         >Estey, James Wilfred</option>
+        <option value="Estey, Willard Zebedee"
+         >Estey, Willard Zebedee</option>
+        <option value="Fauteux, Joseph Honoré Gérald"
+         >Fauteux, Joseph Honoré Gérald</option>
+        <option value="Fish, Morris J."
+         >Fish, Morris J.</option>
+        <option value="Fitzpatrick, Charles"
+         >Fitzpatrick, Charles</option>
+        <option value="Fournier, Télesphore"
+         >Fournier, Télesphore</option>
+        <option value="Galipault"
+         >Galipault</option>
+        <option value="Gascon, Clément"
+         >Gascon, Clément</option>
+        <option value="Gillanders"
+         >Gillanders</option>
+        <option value="Girouard, Désiré"
+         >Girouard, Désiré</option>
+        <option value="Gonthier, Charles Doherty"
+         >Gonthier, Charles Doherty</option>
+        <option value="Gwynne, John Wellington"
+         >Gwynne, John Wellington</option>
+        <option value="Hall, Emmett Matthew"
+         >Hall, Emmett Matthew</option>
+        <option value="Henry, William Alexander"
+         >Henry, William Alexander</option>
+        <option value="Howard"
+         >Howard</option>
+        <option value="Hudson, Albert Blellock"
+         >Hudson, Albert Blellock</option>
+        <option value="Hughes, Frank Joseph"
+         >Hughes, Frank Joseph</option>
+        <option value="Iacobucci, Frank"
+         >Iacobucci, Frank</option>
+        <option value="Idington, John"
+         >Idington, John</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Joyal, Glenn"
+         >Joyal, Glenn</option>
+        <option value="Judson, Wilfred"
+         >Judson, Wilfred</option>
+        <option value="Karakatsanis, Andromache"
+         >Karakatsanis, Andromache</option>
+        <option value="Kasirer, Nicholas"
+         >Kasirer, Nicholas</option>
+        <option value="Kellock, Roy Lindsay"
+         >Kellock, Roy Lindsay</option>
+        <option value="Kerwin, Patrick"
+         >Kerwin, Patrick</option>
+        <option value="Killam, Albert Clements"
+         >Killam, Albert Clements</option>
+        <option value="King, George Edwin"
+         >King, George Edwin</option>
+        <option value="L&#39;Heureux-Dubé, Claire"
+         >L&#39;Heureux-Dubé, Claire</option>
+        <option value="La Forest, Gérard V."
+         >La Forest, Gérard V.</option>
+        <option value="Lamer, Antonio"
+         >Lamer, Antonio</option>
+        <option value="Lamont, John Henderson"
+         >Lamont, John Henderson</option>
+        <option value="Laskin, Bora"
+         >Laskin, Bora</option>
+        <option value="Latchford"
+         >Latchford</option>
+        <option value="Lavergne"
+         >Lavergne</option>
+        <option value="Le Dain, Gerald Eric"
+         >Le Dain, Gerald Eric</option>
+        <option value="LeBel, Louis"
+         >LeBel, Louis</option>
+        <option value="Lemieux"
+         >Lemieux</option>
+        <option value="Locke, Charles Holland"
+         >Locke, Charles Holland</option>
+        <option value="Maclean"
+         >Maclean</option>
+        <option value="Maclennan, James"
+         >Maclennan, James</option>
+        <option value="Magee"
+         >Magee</option>
+        <option value="Major, John C."
+         >Major, John C.</option>
+        <option value="Malouin, Arthur Cyrille Albert"
+         >Malouin, Arthur Cyrille Albert</option>
+        <option value="Martin, Sheilah"
+         >Martin, Sheilah</option>
+        <option value="Martin, Sheilah L."
+         >Martin, Sheilah L.</option>
+        <option value="Martland, Ronald"
+         >Martland, Ronald</option>
+        <option value="Masten"
+         >Masten</option>
+        <option value="McIntyre, William Rogers"
+         >McIntyre, William Rogers</option>
+        <option value="McLachlin, Beverley"
+         >McLachlin, Beverley</option>
+        <option value="Middleton"
+         >Middleton</option>
+        <option value="Mignault, Pierre-Basile"
+         >Mignault, Pierre-Basile</option>
+        <option value="Mills, Davis"
+         >Mills, Davis</option>
+        <option value="Moldaver, Michael J."
+         >Moldaver, Michael J.</option>
+        <option value="Moreau, Mary"
+         >Moreau, Mary</option>
+        <option value="Nesbitt, Wallace"
+         >Nesbitt, Wallace</option>
+        <option value="Newcombe, Edmund Leslie"
+         >Newcombe, Edmund Leslie</option>
+        <option value="Nolan, Henry Grattan"
+         >Nolan, Henry Grattan</option>
+        <option value="Orde"
+         >Orde</option>
+        <option value="O’Bonsawin, Michelle"
+         >O’Bonsawin, Michelle</option>
+        <option value="Patterson, Christopher Salmon"
+         >Patterson, Christopher Salmon</option>
+        <option value="Pigeon, Louis-Philippe"
+         >Pigeon, Louis-Philippe</option>
+        <option value="Pratte, Yves"
+         >Pratte, Yves</option>
+        <option value="Rand, Ivan Cleveland"
+         >Rand, Ivan Cleveland</option>
+        <option value="Richards, William Buell"
+         >Richards, William Buell</option>
+        <option value="Rinfret, Thibaudeau"
+         >Rinfret, Thibaudeau</option>
+        <option value="Ritchie, Roland Almon"
+         >Ritchie, Roland Almon</option>
+        <option value="Ritchie, William Johnstone"
+         >Ritchie, William Johnstone</option>
+        <option value="Rivard"
+         >Rivard</option>
+        <option value="Rothstein, Marshall"
+         >Rothstein, Marshall</option>
+        <option value="Rowe, Malcolm"
+         >Rowe, Malcolm</option>
+        <option value="Sedgewick, Robert"
+         >Sedgewick, Robert</option>
+        <option value="Smith, Robert"
+         >Smith, Robert</option>
+        <option value="Sopinka, John"
+         >Sopinka, John</option>
+        <option value="Spence, Wishart Flett"
+         >Spence, Wishart Flett</option>
+        <option value="St. Germain"
+         >St. Germain</option>
+        <option value="St. Jacques"
+         >St. Jacques</option>
+        <option value="Stevenson, William"
+         >Stevenson, William</option>
+        <option value="Strong, Samuel Henry"
+         >Strong, Samuel Henry</option>
+        <option value="Taschereau, Henri-Elzéar"
+         >Taschereau, Henri-Elzéar</option>
+        <option value="Taschereau, Jean-Thomas"
+         >Taschereau, Jean-Thomas</option>
+        <option value="Taschereau, Robert"
+         >Taschereau, Robert</option>
+        <option value="Tessier"
+         >Tessier</option>
+        <option value="Thorson"
+         >Thorson</option>
+        <option value="Wagner, Richard"
+         >Wagner, Richard</option>
+        <option value="Wilson, Bertha"
+         >Wilson, Bertha</option>
+        <option value="de Grandpré, Louis-Philippe"
+         >de Grandpré, Louis-Philippe</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Status</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Granted</option>
+                <option value="2"
+                >Dismissed</option>
+                <option value="3"
+                >Oral Hearing</option>
+                <option value="4"
+                >Remanded</option>
+                <option value="5"
+                >Quashed</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-district-row">
+        <div class="label select">
+            <label for="decisia-district">On appeal from</label>
+        </div>
+        <div class="input">
+        <select id="decisia-district" name="d"  data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                  <option value="1"
+                       >Canada</option>
+                  <option value="2"
+                       >Federal Court of Appeal</option>
+                  <option value="3"
+                       >British Columbia</option>
+                  <option value="4"
+                       >Alberta</option>
+                  <option value="5"
+                       >Saskatchewan</option>
+                  <option value="6"
+                       >Manitoba</option>
+                  <option value="7"
+                       >Ontario</option>
+                  <option value="8"
+                       >Quebec</option>
+                  <option value="9"
+                       >New Brunswick</option>
+                  <option value="10"
+                       >Nova Scotia</option>
+                  <option value="11"
+                       >Prince Edward Island</option>
+                  <option value="12"
+                       >Newfoundland and Labrador</option>
+                  <option value="13"
+                       >Yukon</option>
+                  <option value="14"
+                       >Northwest Territories</option>
+                  <option value="15"
+                       >Nunavut</option>
+                  <option value="16"
+                       >Court Martial Appeal Court of Canada</option>
+                  <option value="18"
+                       >Saskatchewan, Ontario, Alberta</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-collection-row">
+        <div class="label select">
+            <label for="decisia-collection">Collection</label>
+        </div>
+        <div class="input">
+<select id="decisia-collection" name="col" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+    <option value="1"
+        selected="selected"
+    >
+        Supreme Court Judgments</option>
+    <option value="2"
+    >
+        Applications for Leave</option>
+</select>
+<div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="advanced-field decisia-subjects-row">
+        <div class="label select">
+            <label for="decisia-subjects">Subjects</label>
+        </div>
+        <div class="input">
+    <select id="decisia-subjects" name="su" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+            <option value="34"
+            >Aboriginal law</option>
+            <option value="5"
+            >Access to information</option>
+            <option value="2"
+            >Action</option>
+            <option value="51"
+            >Administrative law</option>
+            <option value="13"
+            >Agency</option>
+            <option value="40"
+            >Air law</option>
+            <option value="9"
+            >Appeal</option>
+            <option value="52"
+            >Arbitration</option>
+            <option value="37"
+            >Armed Forces</option>
+            <option value="30"
+            >Bankruptcy and insolvency</option>
+            <option value="53"
+            >Bills of exchange</option>
+            <option value="44"
+            >Civil law</option>
+            <option value="20"
+            >Civil procedure</option>
+            <option value="41"
+            >Commercial law</option>
+            <option value="29"
+            >Communications law</option>
+            <option value="19"
+            >Competition law</option>
+            <option value="27"
+            >Constitutional law</option>
+            <option value="55"
+            >Contract</option>
+            <option value="61"
+            >Contracts</option>
+            <option value="6"
+            >Courts</option>
+            <option value="16"
+            >Criminal law</option>
+            <option value="14"
+            >Customs and excise</option>
+            <option value="4"
+            >Education law</option>
+            <option value="10"
+            >Elections</option>
+            <option value="17"
+            >Environmental law</option>
+            <option value="57"
+            >Estates</option>
+            <option value="18"
+            >Evidence</option>
+            <option value="48"
+            >Expropriation</option>
+            <option value="7"
+            >Family law</option>
+            <option value="11"
+            >Financial institutions</option>
+            <option value="15"
+            >Fishery</option>
+            <option value="42"
+            >Food and drugs</option>
+            <option value="23"
+            >Guarantee and suretyship</option>
+            <option value="26"
+            >Immigration</option>
+            <option value="28"
+            >Insurance</option>
+            <option value="8"
+            >Intellectual property</option>
+            <option value="31"
+            >International law</option>
+            <option value="45"
+            >Labour law</option>
+            <option value="22"
+            >Lease</option>
+            <option value="25"
+            >Maritime law</option>
+            <option value="43"
+            >Mines and minerals</option>
+            <option value="38"
+            >Motor vehicles</option>
+            <option value="56"
+            >Municipal law</option>
+            <option value="24"
+            >Pensions</option>
+            <option value="35"
+            >Prerogative writs</option>
+            <option value="59"
+            >Prescription</option>
+            <option value="46"
+            >Priorities and hypothecs</option>
+            <option value="58"
+            >Private international law</option>
+            <option value="32"
+            >Professional law</option>
+            <option value="63"
+            >Property</option>
+            <option value="49"
+            >Property law</option>
+            <option value="50"
+            >Public utilities</option>
+            <option value="47"
+            >Sale</option>
+            <option value="36"
+            >Securities</option>
+            <option value="39"
+            >State</option>
+            <option value="62"
+            >Status of persons</option>
+            <option value="3"
+            >Statutes</option>
+            <option value="33"
+            >Taxation</option>
+            <option value="21"
+            >Torts</option>
+            <option value="12"
+            >Transportation</option>
+            <option value="54"
+            >Trust</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+    <ul class="pager">
+                <li class="active current">1</li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=R.+v.+Jordan+2016+SCC+27&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">2</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=R.+v.+Jordan+2016+SCC+27&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=3">3</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=R.+v.+Jordan+2016+SCC+27&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">&gt;</a></li>
+    </ul>
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/scc-csc/en/d/s/index.do?cont=R.+v.+Jordan+2016+SCC+27&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>56 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/16057/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Jordan</a></span>
+                        - <span class="citation">2016 SCC 27</span>
+                    - <span class="report-citation">[2016] 1 SCR 631</span>
+                - <span class="publicationDate">2016-07-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>R</b>. c. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, <b>2016</b> CSC <b>27</b>, 36068, [<b>2016</b>] 1 SCR 631, [<b>2016</b>] 1 RCS 631 &nbsp;&nbsp;[...]&nbsp;&nbsp;Citation: <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631 Appeal heard: October 7, 2015 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631 Barrett Richard <b>Jordan</b> Appellant 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16057/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18035/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. K.J.M.</a></span>
+                        - <span class="citation">2019 SCC 55</span>
+                    - <span class="report-citation">[2019] 4 SCR 39</span>
+                - <span class="publicationDate">2019-11-15</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    The trial judge found that the total delay exceeded the 18‐month ceiling set out in <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631, and was therefore presumptively unreasonable. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. Cody, 2017 <b>SCC</b> 31, [2017] 1 S.C.R. 659; <b>R</b>. <b>v</b>. Morin, [1992] 1 S.C.R. 771; <b>R</b>. <b>v</b>. S.J.L., 2009 <b>SCC</b> 14, [2009] 1 S.C.R. 426; <b>R</b>. <b>v</b>. D.B., 2008 <b>SCC</b> 25, [2008] 2 S.C.R. 3; <b>R</b>. <b>v</b>. R.C., 2005 <b>SCC</b> 61, [2005] 3 S.C.R. 99; <b>R</b>. <b>v</b>. L.T.H., 2008 <b>SCC</b> 49, [2008] 2 S.C.R. 739; <b>R</b>. <b>v</b>. M. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. D. (S.), [1992] 2 S.C.R. 161; <b>R</b>. <b>v</b>. Askov, [1990] 2 S.C.R. 1199; <b>R</b>. <b>v</b>. Morin, [1992] 1 S.C.R. 771; <b>R</b>. <b>v</b>. M. (G.C.) (1991), 3 O.R. (3d) 223; <b>R</b>. <b>v</b>. L.B., 2014 ONCA 748, 325 O.A.C. 371. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18035/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21532/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Jacques-Taylor</a></span>
+                        - <span class="citation">2026 SCC 20</span>
+                - <span class="publicationDate">2026-05-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Applied: <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. Tran, 2023 ONCA 532, 429 C.C.C. (3d) 55; considered: <b>R</b>. <b>v</b>. Vassell, <b>2016</b> <b>SCC</b> 26, [<b>2016</b>] 1 S.C.R. 625; <b>R</b>. <b>v</b>. Singh, 2025 ONCA 843; <b>R</b>. <b>v</b>. Singh, <b>2016</b> BCCA 427, 344 C.C.C. (3d) 516; referred to: <b>R</b>. <b>v</b>. Gopie, 2017 ONCA 728, 140 O.R. (3d) 171; <b>R</b>. <b>v</b>. Yusuf, 2021 <b>SCC</b> &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. Askov, [1990] 2 S.C.R. 1199; <b>R</b>. <b>v</b>. Vassell, <b>2016</b> <b>SCC</b> 26, [<b>2016</b>] 1 S.C.R. 625; <b>R</b>. <b>v</b>. Tran, 2023 ONCA 532, 429 C.C.C. (3d) 55; <b>R</b>. <b>v</b>. Chow, 2005 <b>SCC</b> 24, [2005] 1 S.C.R. 384; <b>R</b>. <b>v</b>. Dos Santos, 2025 ONCA 598, 178 O.R. (3d) 481; <b>R</b>. <b>v</b>. J.F., 2022 <b>SCC</b> 17, [2022] 1 S.C.R. 330; <b>R</b>.&nbsp;&nbsp;[...]&nbsp;&nbsp;[1] In <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631, the Court emphasized that all actors in the criminal justice system have a duty to participate in reforming the culture of complacency. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21532/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21302/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Vrbanic</a></span>
+                        - <span class="citation">2026 SCC 19</span>
+                - <span class="publicationDate">2026-05-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     1421; <b>R</b>. <b>v</b>. Morin, [1992] 1 S.C.R. 771; <b>R</b>. <b>v</b>. K.G.K., 2020 <b>SCC</b> 7, [2020] 1 S.C.R. 364; <b>R</b>. <b>v</b>. Varennes, 2025 <b>SCC</b> 22; <b>R</b>. <b>v</b>. Jacques-Taylor, 2026 <b>SCC</b> 20; <b>R</b>. <b>v</b>. Cody, 2017 <b>SCC</b> 31, [2017] 1 S.C.R. 659; <b>R</b>. <b>v</b>. Marakah, 2017 <b>SCC</b> 59, [2017] 2 S.C.R. 608; <b>R</b>. <b>v</b>. Bykovets, 2024 <b>SCC</b> 6; <b>R</b>. <b>v</b>. Kinamore, 2025 <b>SCC</b> 19; <b>R</b>. <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp; 2018 <b>SCC</b> <b>27</b>, [2018] 1 S.C.R. 772; <b>R</b>. <b>v</b>. Fraser, 2022 ONCJ 580; Lapointe <b>v</b>. <b>R</b>., 2019 QCCQ 3099; <b>R</b>. <b>v</b>. Martell, 2022 QCCQ 9333; <b>R</b>. <b>v</b>. Oakes, [1986] 1 S.C.R. 103; <b>R</b>. <b>v</b>. Grant, 2009 <b>SCC</b> 32, [2009] 2 S.C.R. 353; <b>R</b>. <b>v</b>. Haevischer, 2023 <b>SCC</b> 11, [2023] 1 S.C.R. 416; <b>R</b>. <b>v</b>. J.J., 2022 <b>SCC</b> 28, [2022] 2 S.C.R. 3; <b>R</b>. <b>v</b>. Rahey, &nbsp;&nbsp;[...]&nbsp;&nbsp;[1] In the decade since this Court rendered its decision in <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631, the principles it expounded have not diminished in salience. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21302/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/16060/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Williamson</a></span>
+                        - <span class="citation">2016 SCC 28</span>
+                    - <span class="report-citation">[2016] 1 SCR 741</span>
+                - <span class="publicationDate">2016-07-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. Williamson, <b>R</b>. c. Williamson, <b>2016</b> <b>SCC</b> 28, <b>2016</b> CSC 28, 36112, [<b>2016</b>] 1 SCR 741, [<b>2016</b>] 1 RCS 741 &nbsp;&nbsp;[...]&nbsp;&nbsp;Applied: <b>R</b>. <b>v</b>. Morin, [1992] 1 S.C.R. 771; referred to: <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. Morin, [1992] 1 S.C.R. 771; <b>R</b>. <b>v</b>. Ralph, 2014 ONCA 3, 299 C.R.R. (2d) 1; <b>R</b>. <b>v</b>. Steele, 2012 ONCA 383, 288 C.C.C. (3d) 255. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16060/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19349/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. J.F.</a></span>
+                        - <span class="citation">2022 SCC 17</span>
+                    - <span class="report-citation">[2022] 1 SCR 330</span>
+                - <span class="publicationDate">2022-05-06</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. J.F., <b>R</b>. c. J.F., 2022 <b>SCC</b> 17, 2022 CSC 17, 39267, [2022] 1 SCR 330, [2022] 1 RCS 330 &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; considered: <b>R</b>. <b>v</b>. Morin, [1992] 1 S.C.R. 771; <b>R</b>. <b>v</b>. K.J.M., 2019 <b>SCC</b> 55, [2019] 4 S.C.R. 39; <b>R</b>. <b>v</b>. Potvin, [1993] 2 S.C.R. 880; <b>R</b>. <b>v</b>. Rabba (1991), 64 C.C.C. (3d) 445; <b>R</b>. <b>v</b>. Collins, [1995] 2 S.C.R. 1104; referred to: <b>R</b>. <b>v</b>. K.G.K., 2020 <b>SCC</b> 7, [2020] 1 S.C.R. 364; <b>R</b>. <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. Rahey, [1987] 1 S.C.R. 588; <b>R</b>. <b>v</b>. Cody, 2017 <b>SCC</b> 31, [2017] 1 S.C.R. 659; <b>R</b>. <b>v</b>. Morin, [1992] 1 S.C.R. 771; <b>R</b>. <b>v</b>. Rabba (1991), 64 C.C.C. (3d) 445; M.G. <b>v</b>. <b>R</b>., 2019 QCCA 1170. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19349/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18217/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. K.G.K.</a></span>
+                        - <span class="citation">2020 SCC 7</span>
+                    - <span class="report-citation">[2020] 1 SCR 364</span>
+                - <span class="publicationDate">2020-03-20</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. K.G.K., <b>R</b>. c. K.G.K., 2020 <b>SCC</b> 7, 2020 CSC 7, 38532, [2020] 1 SCR 364, [2020] 1 RCS 364 &nbsp;&nbsp;[...]&nbsp;&nbsp;Considered: <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. Rahey, [1987] 1 S.C.R. 588; <b>R</b>. <b>v</b>. MacDougall, [1998] 3 S.C.R. 45; referred to: <b>R</b>. <b>v</b>. K.J.M., 2019 <b>SCC</b> 55, [2019] 4 S.C.R. 39; <b>R</b>. <b>v</b>. Morin, [1992] 1 S.C.R. 771; <b>R</b>. <b>v</b>. Godin, 2009 <b>SCC</b> 26, [2009] 2 S.C.R. 3; <b>R</b>. <b>v</b>. Henry, 2005 <b>SCC</b> 76, [2005] 3 S.C.R. 609; <b>R</b>. <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;Considered: <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; referred to: Cojocaru <b>v</b>. British Columbia Women’s Hospital and Health Centre, 2013 <b>SCC</b> 30, [2013] 2 S.C.R. 357; <b>R</b>. <b>v</b>. Teskey, 2007 <b>SCC</b> 25, [2007] 2 S.C.R. 267; <b>R</b>. <b>v</b>. Chan, 2019 ABCA 82, 82 Alta. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18217/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21126/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Varennes</a></span>
+                        - <span class="citation">2025 SCC 22</span>
+                - <span class="publicationDate">2025-07-11</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. Brunelle, 2024 <b>SCC</b> 3; <b>R</b>. <b>v</b>. Babos, 2014 <b>SCC</b> 16, [2014] 1 S.C.R. 309; <b>R</b>. <b>v</b>. Mahalingan, 2008 <b>SCC</b> 63, [2008] 3 S.C.R. 316; <b>R</b>. <b>v</b>. Keyowski, [1988] 1 S.C.R. 657; <b>R</b>. <b>v</b>. Jolivet, 2000 <b>SCC</b> 29, [2000] 1 S.C.R. 751; Smythe <b>v</b>. The Queen, [1971] S.C.R. 680; <b>R</b>. <b>v</b>. Beare, [1988] 2 S.C.R. 387; <b>R</b>. <b>v</b>. Cook, [1997] 1 S.C.R. 1113; <b>R</b>. <b>v</b>&nbsp;&nbsp;[...]&nbsp;&nbsp; 1254; Cocker <b>v</b>. Tempest (1841), 7 M. &amp; W. 502, 151 E.R. 864; <b>R</b>. <b>v</b>. Potvin, [1993] 2 S.C.R. 880; <b>R</b>. <b>v</b>. La, [1997] 2 S.C.R. 680; <b>R</b>. <b>v</b>. Vassell, <b>2016</b> <b>SCC</b> 26, [<b>2016</b>] 1 S.C.R. 625; <b>R</b>. <b>v</b>. K.J.M., 2019 <b>SCC</b> 55, [2019] 4 S.C.R. 39; <b>R</b>. <b>v</b>. Thanabalasingham, 2020 <b>SCC</b> 18, [2020] 2 S.C.R. 413; <b>R</b>. <b>v</b>. J.M.H., 2011 <b>SCC</b> 45, [2011] 3 &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>R</b>. <b>v</b>. Hanan, 2023 <b>SCC</b> 12; considered: <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; referred to: <b>R</b>. <b>v</b>. Dixon, [1998] 1 S.C.R. 244; <b>R</b>. <b>v</b>. O’Connor, [1995] 4 S.C.R. 411; <b>R</b>. <b>v</b>. Turpin, [1989] 1 S.C.R. 1296; <b>R</b>. <b>v</b>. L. (W.K.), [1991] 1 S.C.R. 1091; A. (L.L.) <b>v</b>. B. (A.), [1995] 4 S.C.R. 536; <b>R</b>. <b>v</b>. Hanan, 2019 ONSC 320; <b>R</b>. <b>v</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21126/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/16693/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Cody</a></span>
+                        - <span class="citation">2017 SCC 31</span>
+                    - <span class="report-citation">[2017] 1 SCR 659</span>
+                - <span class="publicationDate">2017-06-16</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Because the application pre‐dated the release of <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631, the trial judge applied the former framework set out in <b>R</b>. <b>v</b>. Morin, [1992] 1 S.C.R. 771. &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; referred to: <b>R</b>. <b>v</b>. Morin, [1992] 1 S.C.R. 771; Canada (Attorney General) <b>v</b>. Bedford, 2013 <b>SCC</b> 72, [2013] 3 S.C.R. 1101; Carter <b>v</b>. Canada (Attorney General), 2015 <b>SCC</b> 5, [2015] 1 S.C.R. 331; <b>R</b>. <b>v</b>. McNeil, 2009 <b>SCC</b> 3, [2009] 1 S.C.R. 66; <b>R</b>. <b>v</b>. Dixon, [1998] 1 S.C.R. 244; <b>R</b>. <b>v</b>.&nbsp;&nbsp;[...]&nbsp;&nbsp;[1] In <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631, this Court identified a culture of complacency towards delay in the criminal justice system. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16693/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21654/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. R.B.-C.</a></span>
+                        - <span class="citation">2026 SCC 30</span>
+                - <span class="publicationDate">2026-09-11</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. R.B.-C., <b>R</b>. c. R.B.-C., 2026 <b>SCC</b> 30, 2026 CSC 30, 41677 SUPREME COURT OF CANADA &nbsp;&nbsp;[...]&nbsp;&nbsp;However, the presumptive ceilings established in <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631, that require trials to be conducted within 18 months in provincial courts and 30 months in superior courts do not govern the entire period to which s. 11(b) applies. &nbsp;&nbsp;[...]&nbsp;&nbsp;considered: <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. K.G.K., 2020 <b>SCC</b> 7, [2020] 1 S.C.R. 364; referred to: <b>R</b>. <b>v</b>. MacDougall, [1998] 3 S.C.R. 45; <b>R</b>. <b>v</b>. Morin, [1992] 1 S.C.R. 771; <b>R</b>. <b>v</b>. Jacques-Taylor, 2026 <b>SCC</b> 20; <b>R</b>. <b>v</b>. Vrbanic, 2026 <b>SCC</b> 19; Quebec (Attorney General) <b>v</b>. Senneville, 2025 <b>SCC</b> 33; <b>R</b>. <b>v</b>. Gardiner, 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21654/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18421/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Thanabalasingham</a></span>
+                        - <span class="citation">2020 SCC 18</span>
+                    - <span class="report-citation">[2020] 2 SCR 413</span>
+                - <span class="publicationDate">2020-07-17</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. Thanabalasingham, <b>R</b>. c. Thanabalasingham, 2020 <b>SCC</b> 18, 2020 CSC 18, 37984, [2020] 2 SCR 413, [2020] 2 RCS 413 &nbsp;&nbsp;[...]&nbsp;&nbsp;Citation: <b>R</b>. <b>v</b>. Thanabalasingham, 2020 <b>SCC</b> 18, [2020] 2 S.C.R. 413 Appeal Heard: June 10, 2020 &nbsp;&nbsp;[...]&nbsp;&nbsp;Applied: <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; referred to: <b>R</b>. <b>v</b>. Cody, 2017 <b>SCC</b> 31, [2017] 1 S.C.R. 659; <b>R</b>. <b>v</b>. Morin, [1992] 1 S.C.R. 771; <b>R</b>. <b>v</b>. Williamson, <b>2016</b> <b>SCC</b> 28, [<b>2016</b>] 1 S.C.R. 741. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18421/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">12.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19830/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Hanan</a></span>
+                        - <span class="citation">2023 SCC 12</span>
+                    - <span class="report-citation">[2023] 1 SCR 467</span>
+                - <span class="publicationDate">2023-05-05</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. Hanan, <b>R</b>. c. Hanan, 2023 <b>SCC</b> 12, 2023 CSC 12, 40097, [2023] 1 SCR 467, [2023] 1 RCS 467 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>v</b>. His Majesty The King Respondent Indexed as: <b>R</b>. <b>v</b>. Hanan 2023 <b>SCC</b> 12 &nbsp;&nbsp;[...]&nbsp;&nbsp;Referred to: <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. Cody, 2017 <b>SCC</b> 31, [2017] 1 S.C.R. 659; <b>R</b>. <b>v</b>. Boulanger, 2022 <b>SCC</b> 2, [2022] 1 S.C.R. 9. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19830/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">13.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/17058/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Magoon</a></span>
+                        - <span class="citation">2018 SCC 14</span>
+                    - <span class="report-citation">[2018] 1 SCR 309</span>
+                - <span class="publicationDate">2018-04-13</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. Magoon, <b>R</b>. c. Magoon, 2018 <b>SCC</b> 14, 2018 CSC 14, 37416, 37479, [2018] 1 SCR 309, [2018] 1 RCS 309 &nbsp;&nbsp;[...]&nbsp;&nbsp;Citation: <b>R</b>. <b>v</b>. Magoon, 2018 <b>SCC</b> 14, [2018] 1 S.C.R. 309 Appeals Heard and Judgments Rendered: November <b>27</b>, 2017 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>v</b>. Her Majesty The Queen Respondent Indexed as: <b>R</b>. <b>v</b>. Magoon 2018 <b>SCC</b> 14 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/17058/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">14.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19170/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Boulanger</a></span>
+                        - <span class="citation">2022 SCC 2</span>
+                    - <span class="report-citation">[2022] 1 SCR 9</span>
+                - <span class="publicationDate">2022-02-09</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. Boulanger, <b>R</b>. c. Boulanger, 2022 <b>SCC</b> 2, 2022 CSC 2, 39710, [2022] 1 SCR 9, [2022] 1 RCS 9 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>v</b>. Marc-André Boulanger Respondent Indexed as: <b>R</b>. <b>v</b>. Boulanger 2022 <b>SCC</b> 2 &nbsp;&nbsp;[...]&nbsp;&nbsp;Applied: <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; referred to: <b>R</b>. <b>v</b>. G.F., 2021 <b>SCC</b> 20, [2021] 1 S.C.R. 801; <b>R</b>. <b>v</b>. Rice, 2018 QCCA 198; <b>R</b>. <b>v</b>. Cody, 2017 <b>SCC</b> 31, [2017] 1 S.C.R. 659; <b>R</b>. <b>v</b>. K.G.K., 2020 <b>SCC</b> 7, [2020] 1 S.C.R. 364; <b>R</b>. <b>v</b>. K.J.M., 2019 <b>SCC</b> 55, [2019] 4 S.C.R. 39. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19170/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">15.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18656/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Yusuf</a></span>
+                        - <span class="citation">2021 SCC 2</span>
+                    - <span class="report-citation">[2021] 1 SCR 5</span>
+                - <span class="publicationDate">2021-01-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. Yusuf, <b>R</b>. c. Yusuf, 2021 <b>SCC</b> 2, 2021 CSC 2, 39110, [2021] 1 SCR 5, [2021] 1 RCS 5 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>v</b>. Her Majesty The Queen Respondent Indexed as: <b>R</b>. <b>v</b>. Yusuf 2021 <b>SCC</b> 2 &nbsp;&nbsp;[...]&nbsp;&nbsp;Referred to: <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. Cody, 2017 <b>SCC</b> 31, [2017] 1 S.C.R. 659. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18656/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">16.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/17504/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Calnen</a></span>
+                        - <span class="citation">2019 SCC 6</span>
+                    - <span class="report-citation">[2019] 1 SCR 301</span>
+                - <span class="publicationDate">2019-02-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Referred to: <b>R</b>. <b>v</b>. Mack, 2014 <b>SCC</b> 58, [2014] 3 S.C.R. 3; <b>R</b>. <b>v</b>. Jaw, 2009 <b>SCC</b> 42, [2009] 3 S.C.R. 26; <b>R</b>. <b>v</b>. Daley, 2007 <b>SCC</b> 53, [2007] 3 S.C.R. 523; <b>R</b>. <b>v</b>. Jacquard, [1997] 1 S.C.R. 314; <b>R</b>. <b>v</b>. White, 2011 <b>SCC</b> 13, [2011] 1 S.C.R. 433; <b>R</b>. <b>v</b>. White, [1998] 2 S.C.R. 72; <b>R</b>. <b>v</b>. W. (D.), [1991] 1 S.C.R. 742; <b>R</b>. <b>v</b>. Kociuk, 2011 MBCA &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>R</b>. <b>v</b>. Jaw, 2009 <b>SCC</b> 42, [2009] 3 S.C.R. 26; <b>R</b>. <b>v</b>. Cooper, [1993] 1 S.C.R. 146; <b>R</b>. <b>v</b>. Khela, 2009 <b>SCC</b> 4, [2009] 1 S.C.R. 104; <b>R</b>. <b>v</b>. Daley, 2007 <b>SCC</b> 53, [2007] 3 S.C.R. 523; <b>R</b>. <b>v</b>. Mack, 2014 <b>SCC</b> 58, [2014] 3 S.C.R. 3; <b>R</b>. <b>v</b>. W.H., 2013 <b>SCC</b> 22, [2013] 2 S.C.R. 180; <b>R</b>. <b>v</b>. Yebes, [1987] 2 S.C.R. 168; <b>R</b>. <b>v</b>. Biniaris, 2000 <b>SCC</b> &nbsp;&nbsp;[...]&nbsp;&nbsp;L.R. (4th) 327; <b>R</b>. <b>v</b>. G. (S.G.), [1997] 2 S.C.R. 716; <b>R</b>. <b>v</b>. G.D.B., 2000 <b>SCC</b> 22, [2000] 1 S.C.R. 520; <b>R</b>. <b>v</b>. St‐Cloud, 2015 <b>SCC</b> <b>27</b>, [2015] 2 S.C.R. 328; Palmer <b>v</b>. The Queen, [1980] 1 S.C.R. 759; McMartin <b>v</b>. The Queen, [1964] S.C.R. 484; <b>R</b>. <b>v</b>. Wong, 2018 <b>SCC</b> 25, [2018] 1 S.C.R. 696; <b>R</b>. <b>v</b>. Leipert, [1997] 1 S.C.R. 281; <b>R</b>. <b>v</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/17504/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">17.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19171/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Ste-Marie</a></span>
+                        - <span class="citation">2022 SCC 3</span>
+                    - <span class="report-citation">[2022] 1 SCR 14</span>
+                - <span class="publicationDate">2022-02-10</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. Ste-Marie, <b>R</b>. c. Ste-Marie, 2022 <b>SCC</b> 3, 2022 CSC 3, 39381, [2022] 1 SCR 14, [2022] 1 RCS 14 &nbsp;&nbsp;[...]&nbsp;&nbsp;Referred to: <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. Rahey, [1987] 1 S.C.R. 588; <b>R</b>. <b>v</b>. Morin, [1992] 1 S.C.R. 771; <b>R</b>. <b>v</b>. Bryant, 2021 QCCA 1807; <b>R</b>. <b>v</b>. Askov, [1990] 2 S.C.R. 1199; <b>R</b>. <b>v</b>. Cody, 2017 <b>SCC</b> 31, [2017] 1 S.C.R. 659; <b>R</b>. <b>v</b>. Rice, 2018 QCCA 198. &nbsp;&nbsp;[...]&nbsp;&nbsp;On September 17, 2015, before this Court rendered its decision in <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631, the Court of Québec dismissed the motions, finding that a stay of proceedings was not an appropriate remedy. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19171/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">18.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/17634/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Myers</a></span>
+                        - <span class="citation">2019 SCC 18</span>
+                    - <span class="report-citation">[2019] 2 SCR 105</span>
+                - <span class="publicationDate">2019-03-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. Myers, <b>R</b>. c. Myers, 2019 <b>SCC</b> 18, 2019 CSC 18, 37869, [2019] 2 SCR 105, [2019] 2 RCS 105 &nbsp;&nbsp;[...]&nbsp;&nbsp; 22214; <b>R</b>. <b>v</b>. Kissoon, 2006 CanLII 40493; <b>R</b>. <b>v</b>. Jerace, 2012 BCSC 2007; <b>R</b>. <b>v</b>. Whiteside, <b>2016</b> BCSC 131; <b>R</b>. <b>v</b>. Elmi, <b>2016</b> BCSC 376; <b>R</b>. <b>v</b>. Russell, <b>2016</b> NLTD(G) 208, 34 C.R. (7th) 262; <b>R</b>. <b>v</b>. Cheeseman, 2017 NLTD(G) 114; <b>R</b>. <b>v</b>. Thorsteinson, 2006 MBQB 184, 206 Man. <b>R</b>. (2d) 188; <b>R</b>. <b>v</b>. Sawrenko, 2008 YKSC <b>27</b>; <b>R</b>. <b>v</b>. Sarkozi, &nbsp;&nbsp;[...]&nbsp;&nbsp; basis of the grounds set out in s. 515(10): see, e.g., <b>R</b>. <b>v</b>. Gill, 2005 CanLII 22214 (Ont. S.C.J.); <b>R</b>. <b>v</b>. Kissoon, 2006 CanLII 40493 (Ont. S.C.J.); <b>R</b>. <b>v</b>. Jerace, 2012 BCSC 2007; <b>R</b>. <b>v</b>. Whiteside, <b>2016</b> BCSC 131; <b>R</b>. <b>v</b>. Elmi, <b>2016</b> BCSC 376; <b>R</b>. <b>v</b>. Russell, <b>2016</b> NLTD(G) 208, 34 C.R. (7th) 262; <b>R</b>. <b>v</b>. Cheeseman, 2017 NLTD(G) 114. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/17634/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">19.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/17326/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Awashish</a></span>
+                        - <span class="citation">2018 SCC 45</span>
+                    - <span class="report-citation">[2018] 3 SCR 87</span>
+                - <span class="publicationDate">2018-10-26</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    <b>R</b>. <b>v</b>. Awashish, <b>R</b>. c. Awashish, 2018 <b>SCC</b> 45, 2018 CSC 45, 37207, [2018] 3 SCR 87, [2018] 3 RCS 87 &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>v</b>. The Queen, [1980] 2 S.C.R. 268; Dubois <b>v</b>. The Queen, [1986] 1 S.C.R. 366; <b>R</b>. <b>v</b>. Deschamplain, 2004 <b>SCC</b> 76, [2004] 3 S.C.R. 601; <b>R</b>. <b>v</b>. Cunningham, 2010 <b>SCC</b> 10, [2010] 1 S.C.R. 331; <b>R</b>. <b>v</b>. Primeau, [1995] 2 S.C.R. 60; <b>R</b>. <b>v</b>. Black, 2011 ABCA 349, 286 C.C.C. (3d) 432; <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;Such a rule would be in direct tension with the approach set out in <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631, to achieve prompt justice in criminal cases. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/17326/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">20.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19851/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Haevischer</a></span>
+                        - <span class="citation">2023 SCC 11</span>
+                    - <span class="report-citation">[2023] 1 SCR 416</span>
+                - <span class="publicationDate">2023-04-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     <b>R</b>. <b>v</b>. Garnier, 2017 NSSC 239; <b>R</b>. <b>v</b>. Wilder, 2004 BCSC 304; <b>R</b>. <b>v</b>. Hamill (1984), 14 C.C.C. (3d) 338; <b>R</b>. <b>v</b>. Regan, 2002 <b>SCC</b> 12, [2002] 1 S.C.R. 297; <b>R</b>. <b>v</b>. Kutynec (1992), 70 C.C.C. (3d) 289; <b>R</b>. <b>v</b>. Garofoli, [1990] 2 S.C.R. 1421; <b>R</b>. <b>v</b>. Biring, 2021 BCSC 2678; <b>R</b>. <b>v</b>. Kuntz‐Angel, 2020 BCSC 1777; <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>&nbsp;&nbsp;[...]&nbsp;&nbsp;L.R. (4th) 152; <b>R</b>. <b>v</b>. Felderhof (2003), 68 O.R. (3d) 481; <b>R</b>. <b>v</b>. J.J., 2022 <b>SCC</b> 28, [2022] 2 S.C.R. 3; <b>R</b>. <b>v</b>. Rice, 2018 QCCA 198; <b>R</b>. <b>v</b>. Lyttle, 2004 <b>SCC</b> 5, [2004] 1 S.C.R. 193; <b>R</b>. <b>v</b>. Osolin, [1993] 4 S.C.R. 595; <b>R</b>. <b>v</b>. Shearing, 2002 <b>SCC</b> 58, [2002] 3 S.C.R. 33; <b>R</b>. <b>v</b>. N.S., 2012 <b>SCC</b> 72, [2012] 3 S.C.R. 726. &nbsp;&nbsp;[...]&nbsp;&nbsp;These values coexist and “both must be pursued in order for each to be realised: they are, in practice, interdependent” (<b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631, at para. <b>27</b>, quoting B.C. Justice Reform Initiative, A Criminal Justice System for the 21st Century (2012), at p. 75). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19851/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">21.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19439/index.do?q=R.+v.+Jordan+2016+SCC+27">Law Society of Saskatchewan v. Abrametz</a></span>
+                        - <span class="citation">2022 SCC 29</span>
+                    - <span class="report-citation">[2022] 2 SCR 220</span>
+                - <span class="publicationDate">2022-07-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     <b>SCC</b> 63, [2002] 3 S.C.R. 307; <b>R</b>. <b>v</b>. Conway, [1989] 1 S.C.R. 1659; <b>R</b>. <b>v</b>. Scott, [1990] 3 S.C.R. 979; British Columbia (Workers’ Compensation Board) <b>v</b>. Figliola, 2011 <b>SCC</b> 52, [2011] 3 S.C.R. 422; Danyluk <b>v</b>. Ainsworth Technologies Inc., 2001 <b>SCC</b> 44, [2001] 2 S.C.R. 460; <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>v</b>. Harkat, 2014 <b>SCC</b> 37, [2014] 2 S.C.R. 33; <b>R</b>. <b>v</b>. Nixon, 2011 <b>SCC</b> 34, [2011] 2 S.C.R. 566; <b>R</b>. <b>v</b>. Anderson, 2014 <b>SCC</b> 41, [2014] 2 S.C.R. 167; <b>R</b>. <b>v</b>. Babos, 2014 <b>SCC</b> 16, [2014] 1 S.C.R. 309; United States of America <b>v</b>. Cobb, 2001 <b>SCC</b> 19, [2001] 1 S.C.R. 587; <b>R</b>. <b>v</b>. Scott, [1990] 3 S.C.R. 979; <b>R</b>. <b>v</b>. Power, [1994] 1 S.C.R. 601; <b>R</b>&nbsp;&nbsp;[...]&nbsp;&nbsp;(4) Calls to “<b>Jordanize</b>” Blencoe [45] The Court received submissions to the effect that since Blencoe, it has become more active in addressing institutional delays in criminal proceedings: see <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19439/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">22.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20086/index.do?q=R.+v.+Jordan+2016+SCC+27">La Presse inc. v. Quebec</a></span>
+                        - <span class="citation">2023 SCC 22</span>
+                - <span class="publicationDate">2023-10-06</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     1 S.C.R. <b>27</b>; <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. Haevischer, 2023 <b>SCC</b> 11; <b>R</b>. <b>v</b>. D.L.W., <b>2016</b> <b>SCC</b> 22, [<b>2016</b>] 1 S.C.R. 402; <b>R</b>. <b>v</b>. Breault, 2023 <b>SCC</b> 9; <b>R</b>. <b>v</b>. Mabior, 2012 <b>SCC</b> 47, [2012] 2 S.C.R. 584; <b>R</b>. <b>v</b>. A.D.H., 2013 <b>SCC</b> 28, [2013] 2 S.C.R. 269; <b>R</b>. <b>v</b>. Sault Ste. Marie, [1978] 2 S.C.R. 1299; <b>R</b>. <b>v</b>. Lalo, &nbsp;&nbsp;[...]&nbsp;&nbsp;Such a result would be antithetical to the objective of efficiency pursued by Parliament in enacting s. 648(1) and completely at odds with the teachings of this Court in <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631. [56] Conversely, an interpretation of s. 648(1) as applying before the jury is empanelled can be expected &nbsp;&nbsp;[...]&nbsp;&nbsp;More recently, in <b>R</b>. <b>v</b>. Haevischer, 2023 <b>SCC</b> 11, at para. 46, this Court built on the <b>Jordan</b> vocabulary and presented trial fairness and trial efficiency as “interdependent” values. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20086/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">23.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20723/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Archambault</a></span>
+                        - <span class="citation">2024 SCC 35</span>
+                - <span class="publicationDate">2024-11-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                            Statutes<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     <b>R</b>. <b>v</b>. Egger, [1993] 2 S.C.R. 451; <b>R</b>. <b>v</b>. O’Connor, [1995] 4 S.C.R. 411; <b>R</b>. <b>v</b>. La, [1997] 2 S.C.R. 680; <b>R</b>. <b>v</b>. Dixon, [1998] 1 S.C.R. 244; <b>R</b>. <b>v</b>. Taillefer, 2003 <b>SCC</b> 70, [2003] 3 S.C.R. 307; <b>R</b>. <b>v</b>. Gubbins, 2018 <b>SCC</b> 44, [2018] 3 S.C.R. 35; <b>R</b>. <b>v</b>. M. (P.), 2007 QCCA 414, 222 C.C.C. (3d) 393; <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1&nbsp;&nbsp;[...]&nbsp;&nbsp; 2005 <b>SCC</b> 73, [2005] 3 S.C.R. 530; <b>R</b>. <b>v</b>. Dineley, 2012 <b>SCC</b> 58, [2012] 3 S.C.R. 272; <b>R</b>. <b>v</b>. Chrétien-Barrette, 2023 QCCQ 5857; Aucoin <b>v</b>. <b>R</b>., 2023 QCCS 3024; <b>R</b>. <b>v</b>. Lamoureux, 2019 QCCQ 6616; <b>R</b>. <b>v</b>. R.S., 2019 ONCA 906; Ciecierski <b>v</b>. Fenning, 2005 MBCA 52, 258 D.L.R. (4th) 103; <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631. &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>R</b>. <b>v</b>. White, 2022 <b>SCC</b> 7; <b>R</b>. <b>v</b>. W. (<b>R</b>.), 2023 ONCA 250, 167 O.R. (3d) 1; <b>R</b>. <b>v</b>. L. (L.), 2023 ONCA 52, 166 O.R. (3d) 561; <b>R</b>. <b>v</b>. Stinchcombe, [1991] 3 S.C.R. 326; <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. Stuckless, 2019 ONCA 504, 146 O.R. (3d) 752; <b>R</b>. <b>v</b>. Fones, 2012 MBCA 110, 288 Man. <b>R</b>. (2d) 86; L.L. <b>v</b>. <b>R</b>., <b>2016</b>
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20723/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">24.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19458/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. Kirkpatrick</a></span>
+                        - <span class="citation">2022 SCC 33</span>
+                    - <span class="report-citation">[2022] 2 SCR 480</span>
+                - <span class="publicationDate">2022-07-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     <b>R</b>. <b>v</b>. Charemski, [1998] 1 S.C.R. 679; <b>R</b>. <b>v</b>. Barros, 2011 <b>SCC</b> 51, [2011] 3 S.C.R. 368; <b>R</b>. <b>v</b>. Ewanchuk, [1999] 1 S.C.R. 330; <b>R</b>. <b>v</b>. Barton, 2019 <b>SCC</b> 33, [2019] 2 S.C.R. 579; <b>R</b>. <b>v</b>. J.A., 2011 <b>SCC</b> 28, [2011] 2 S.C.R. 440; <b>R</b>. <b>v</b>. G.F., 2021 <b>SCC</b> 20, [2021] 1 S.C.R. 801; <b>R</b>. <b>v</b>. Cuerrier, [1998] 2 S.C.R. 371; <b>R</b>. <b>v</b>. Mabior, 2012 <b>SCC</b> &nbsp;&nbsp;[...]&nbsp;&nbsp; 653; <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; Hamstra (Guardian ad litem of) <b>v</b>. British Columbia Rugby Union, [1997] 1 S.C.R. 1092; Nishi <b>v</b>. Rascal Trucking Ltd., 2013 <b>SCC</b> 33, [2013] 2 S.C.R. 438; <b>R</b>. <b>v</b>. B. (K.G.), [1993] 1 S.C.R. 740; Teva Canada Ltd. <b>v</b>. TD Canada Trust, 2017 <b>SCC</b> 51, [2017] 2 S.C.R. 317; <b>R</b>. <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;Such re‐litigation contributes to delay and a waste of judicial resources (Hryniak <b>v</b>. Mauldin, 2014 <b>SCC</b> 7, [2014] 1 S.C.R. 87; <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19458/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">25.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21061/index.do?q=R.+v.+Jordan+2016+SCC+27">R. v. J.W.</a></span>
+                        - <span class="citation">2025 SCC 16</span>
+                - <span class="publicationDate">2025-05-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    119; <b>R</b>. <b>v</b>. Hills, 2023 <b>SCC</b> 2; <b>R</b>. <b>v</b>. Hamilton (2004), 72 O.R. (3d) 1; <b>R</b>. <b>v</b>. Parranto, 2021 <b>SCC</b> 46, [2021] 3 S.C.R. 366; <b>R</b>. <b>v</b>. Nasogaluak, 2010 <b>SCC</b> 6, [2010] 1 S.C.R. 206; <b>R</b>. <b>v</b>. K.R.J., <b>2016</b> <b>SCC</b> 31, [<b>2016</b>] 1 S.C.R. 906; <b>R</b>. <b>v</b>. Lacasse, 2015 <b>SCC</b> 64, [2015] 3 S.C.R. 1089; <b>R</b>. <b>v</b>. Ipeelee, 2012 <b>SCC</b> 13, [2012] 1 S.C.R. 433; <b>R</b>. <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;593; <b>R</b>. <b>v</b>. McBeath, 2014 BCCA 305, 341 C.C.C. (3d) 531; <b>R</b>. <b>v</b>. Boutilier, 2018 NSCA 65, 30 M.V.R. (7th) 31; <b>R</b>. <b>v</b>. Morris, 2013 ONCA 223, 305 O.A.C. 47; <b>R</b>. <b>v</b>. Campbell, 2017 ONSC 26; <b>R</b>. <b>v</b>. Bonneteau, <b>2016</b> MBCA 72, 330 Man. <b>R</b>. (2d) 139; <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631; <b>R</b>. <b>v</b>. Askov, [1990] 2 S.C.R. 1199; <b>R</b>. <b>v</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;While Moldaver J.’s observations in <b>R</b>. <b>v</b>. <b>Jordan</b>, <b>2016</b> <b>SCC</b> <b>27</b>, [<b>2016</b>] 1 S.C.R. 631, relate to the impact of delays on s. 11(b) of the Canadian Charter of Rights and Freedoms, I find them apt in this context as well. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21061/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+            yearRangeString: "1877:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>

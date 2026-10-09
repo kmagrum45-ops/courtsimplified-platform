@@ -1,0 +1,798 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=R.+v.+Hall+2002+SCC+64&ref=&p=&col=1&or=] All Databases (381)
+ Decisions (169)
+ [LINK /scc-csc/en/n/s/index.do?cont=R.+v.+Hall+2002+SCC+64&ref=&p=&col=1&or=] Resources (212)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ 1
+ [LINK /scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&ref=&d=&p=&col=1&or=&page=2] 2
+ [LINK /scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&ref=&d=&p=&col=1&or=&page=3] 3
+ [LINK /scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&ref=&d=&p=&col=1&or=&page=4] 4
+ [LINK /scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&ref=&d=&p=&col=1&or=&page=5] 5
+ [LINK /scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&ref=&d=&p=&col=1&or=&page=6] 6
+ [LINK /scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&ref=&d=&p=&col=1&or=&page=2] &gt;
+ [LINK /scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&ref=&d=&p=&col=1&or=&page=7] &gt;&gt;
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=R.+v.+Hall+2002+SCC+64&ref=&p=&col=1&or=date] Date
+ 169 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/2006/index.do?q=R.+v.+Hall+2002+SCC+64] R. v. Hall
+ - 2002 SCC 64
+ - [2002] 3 SCR 309
+ - 2002-10-10
+ Supreme Court Judgments
+ Constitutional law
+ Criminal law
+ R. v. Hall, R. c. Hall, 2002 SCC 64, 2002 CSC 64, 28223, [2002] 3 SCR 309, [2002] 3 RCS 309 [...] R. v. Hall, [2002] 3 S.C.R. 309, 2002 SCC 64 David Scott Hall Appellant [...] Indexed as: R. v. Hall Neutral citation: 2002 SCC 64. File No.: 28223. 2002: April 23; 2002: October 10. 
+ [LINK /scc-csc/scc-csc/en/2006/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/20102/index.do?q=R.+v.+Hall+2002+SCC+64] Reference re Impact Assessment Act
+ - 2023 SCC 23
+ - 2023-10-13
+ Supreme Court Judgments
+ Constitutional law
+ Ltd. v. The Queen, [1976] 1 S.C.R. 477; Gould v. Yukon Order of Pioneers, [1996] 1 S.C.R. 571; Canadian Broadcasting Corp. v. SODRAC 2003 Inc., 2015 SCC 57, [2015] 3 S.C.R. 615; Krayzel Corp. v. Equitable Trust Co., 2016 SCC 18, [2016] 1 S.C.R. 273; R. v. Hinchey, [1996] 3 S.C.R. 1128; R. v. Khill, 2021 SCC 37; Fowler v. [...] 2000 SCC 21, [2000] 1 S.C.R. 494; Ward v. Canada (Attorney General), 2002 SCC 17, [2002] 1 S.C.R. 569; Reference re Securities Act, 2011 SCC 66, [2011] 3 S.C.R. 837; R. v. Morgentaler, [1993] 3 S.C.R. 463; Kitkatla Band v. British Columbia (Minister of Small Business, Tourism and Culture), 2002 SCC 31, [2002] 2 S.C.R. [...] to “how the legislation as a whole affects the rights and liabilities of those subject to its terms” (R. v. Morgentaler, [1993] 3 S.C.R. 463, at p. 482; see also Kitkatla Band v. British Columbia (Minister of Small Business, Tourism and Culture), 2002 SCC 31, [2002] 2 S.C.R. 146, at para. 54; Murray-Hall, at para. 25). 
+ [LINK /scc-csc/scc-csc/en/20102/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/7861/index.do?q=R.+v.+Hall+2002+SCC+64] Toronto Star Newspapers Ltd. v. Canada
+ - 2010 SCC 21
+ - [2010] 1 SCR 721
+ - 2010-06-10
+ Supreme Court Judgments
+ Constitutional law
+ R. v. Burlingham, [1995] 2 S.C.R. 206; R. v. Stillman, [1997] 1 S.C.R. 607; R. v. Big M Drug Mart Ltd., [1985] 1 S.C.R. 295; R. v. Butler, [1992] 1 S.C.R. 452; R. v. Keegstra, [1990] 3 S.C.R. 697; Canadian Newspapers Co. v. Canada (Attorney General), [1988] 2 S.C.R. 122; R. v. Hall, 2002 SCC 64, [2002] 3 S.C.R. 309; R. v. [...] Ltd. v. Ontario, 2005 SCC 41, [2005] 2 S.C.R. 188; Named Person v. Vancouver Sun, 2007 SCC 43, [2007] 3 S.C.R. 253; Dagenais v. Canadian Broadcasting Corp., [1994] 3 S.C.R. 835; R. v. Hall, 2002 SCC 64, [2002] 3 S.C.R. 309; R. v. Corbett, [1988] 1 S.C.R. 670; R. v. Vermette, [1988] 1 S.C.R. 985; R. v. White, 2005 [...] In R. v. Hall, 2002 SCC 64, [2002] 3 S.C.R. 309, at para. 47, Iacobucci J. (dissenting, but not on this point) stated: 
+ [LINK /scc-csc/scc-csc/en/7861/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/14302/index.do?q=R.+v.+Hall+2002+SCC+64] Sattva Capital Corp. v. Creston Moly Corp.
+ - 2014 SCC 53
+ - [2014] 2 SCR 633
+ - 2014-08-01
+ Supreme Court Judgments
+ Arbitration
+ v. Tropic International Ltd. (2002), 63 O.R. (3d) 63; Domtar Inc. v. Belkin Inc. (1989), 39 B.C.L.R. (2d) 257; Quan v. Cusson, 2009 SCC 62, [2009] 3 S.C.R. 712; Quick Auto Lease Inc. v. Nordin, 2014 MBCA 32, 303 Man. R. (2d) 262; R. v. Fedossenko, 2013 ABCA 164 (CanLII); Enns v. Hansey, 2013 MBCA 23 (CanLII); R. v. [...] 2011 SCC 62, [2011] 3 S.C.R. 708; Immeubles Port Louis Ltée v. Lafontaine (Village), [1991] 1 S.C.R. 326; MiningWatch Canada v. Canada (Fisheries and Oceans), 2010 SCC 2, [2010] 1 S.C.R. 6; R. v. Bellusci, 2012 SCC 44, [2012] 2 S.C.R. 509; R. v. Bjelland, 2009 SCC 38, [2009] 2 S.C.R. 651; R. v. Regan, 2002 SCC 12, [2002] 1 [...] An appellate court is only justified in interfering with a lower court judge’s exercise of discretion if that judge misdirected himself or if his decision is so clearly wrong as to amount to an injustice (R. v. Bjelland, 2009 SCC 38, [2009] 2 S.C.R. 651, at para. 15; and R. v. Regan, 2002 SCC 12, [2002] 1 S.C.R. 297, at 
+ [LINK /scc-csc/scc-csc/en/14302/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/2243/index.do?q=R.+v.+Hall+2002+SCC+64] Montréal (City) v. 2952-1366 Québec Inc.
+ - 2005 SCC 62
+ - [2005] 3 SCR 141
+ - 2005-11-03
+ Supreme Court Judgments
+ Constitutional law
+ Municipal law
+ Partnership v. Rex, [2002] 2 S.C.R. 559, 2002 SCC 42; Cheema v. Ross (1991), 82 D.L.R. (4th) 213; R. v. Luciano (1986), 34 M.P.L.R. 233; R. v. Hadden, [1983] 3 W.W.R. 661, aff’d [1984] 1 W.W.R. 384; Ontario v. Canadian Pacific Ltd., [1995] 2 S.C.R. 1031; R. v. Hydro‐Québec, [1997] 3 S.C.R. 213; McBratney v. McBratney [...] Q.B. 91; R. v. Greenbaum, [1993] 1 S.C.R. 674; Schachter v. Canada, [1992] 2 S.C.R. 679; R. v. Smith, [1987] 1 S.C.R. 1045; R. v. Cuerrier, [1998] 2 S.C.R. 371; R. v. Hinchey, [1996] 3 S.C.R. 1128; Canadian Foundation for Children, Youth and the Law v. Canada (Attorney General), [2004] 1 S.C.R. 76, 2004 SCC 4; R. v. Oakes, [...] See also Bell ExpressVu Limited Partnership v. Rex, [2002] 2 S.C.R. 559, 2002 SCC 42, at para. 37. 112 The provision in question is found in art. 9(1) of the by-law and reads as follows: 
+ [LINK /scc-csc/scc-csc/en/2243/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/14438/index.do?q=R.+v.+Hall+2002+SCC+64] Bhasin v. Hrynew
+ - 2014 SCC 71
+ - [2014] 3 SCR 494
+ - 2014-11-13
+ Supreme Court Judgments
+ Contract
+ Citation: Bhasin v. Hrynew, 2014 SCC 71, [2014] 3 S.C.R. 494 Date: 20141113 Docket: 35380 [...] 558; R. v. Jones, [1994] 2 S.C.R. 229; R. v. Hart, 2014 SCC 52, [2014] 2 S.C.R. 544; Peel (Regional Municipality) v. Canada, [1992] 3 S.C.R. 762; A.I. Enterprises Ltd. v. Bram Enterprises Ltd., 2014 SCC 12, [2014] 1 S.C.R. 177; Bank of America Canada v. Mutual Trust Co., 2002 SCC 43, [2002] 2 S.C.R. 601; Greenberg v. [...] v. Olafson, [1989] 2 S.C.R. 750, at pp. 760-64; Hill v. Church of Scientology of Toronto, [1995] 2 S.C.R. 1130, at para. 85; R.W.D.S.U., Local 558 v. Pepsi-Cola Canada Beverages (West) Ltd., 2002 SCC 8, [2002] 1 S.C.R. 156; British Columbia v. Imperial Tobacco Canada Ltd., 2005 SCC 49, [2005] 2 S.C.R. 473; Grant v. 
+ [LINK /scc-csc/scc-csc/en/14438/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/15358/index.do?q=R.+v.+Hall+2002+SCC+64] R. v. St-Cloud
+ - 2015 SCC 27
+ - [2015] 2 SCR 328
+ - 2015-05-15
+ Supreme Court Judgments
+ Criminal law
+ R. v. St-Cloud, R. c. St-Cloud, 2015 SCC 27, 2015 CSC 27, 35626, [2015] 2 SCR 328, [2015] 2 RCS 328 [...] R. v. Hall, 2002 SCC 64, [2002] 3 S.C.R. 309; referred to: R. v. Pearson, [1992] 3 S.C.R. 665; R. v. Morales, [1992] 3 S.C.R. 711; Valente v. The Queen, [1985] 2 S.C.R. 673; R. v. Thomson (2004), 21 C.R. (6th) 209; R. v. B. (A.) (2006), 204 C.C.C. (3d) 490; R. v. Pichler, 2009 ABPC 24; R. v. Teemotee, 2011 NUCJ 17; R. v. [...] 759; R. v. Warsing, [1998] 3 S.C.R. 579; R. v. G.D.B., 2000 SCC 22, [2000] 1 S.C.R. 520; R. v. M. (P.S.) (1992), 77 C.C.C. (3d) 402; McMartin v. The Queen, [1964] S.C.R. 484; R. v. Price, [1993] 3 S.C.R. 633; R. v. Burns, [1994] 1 S.C.R. 656; Harper v. The Queen, [1982] 1 S.C.R. 2; R. v. Dagenais, 2012 QCCA 244; R. v. 
+ [LINK /scc-csc/scc-csc/en/15358/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/20695/index.do?q=R.+v.+Hall+2002+SCC+64] Scott v. Golden Oaks Enterprises Inc.
+ - 2024 SCC 32
+ - 2024-10-11
+ Supreme Court Judgments
+ Bankruptcy and insolvency
+ of) v. Bank of Montreal, 2002 SCC 81, [2002] 4 S.C.R. 312; referred to: King Insurance Finance (Wines) Inc. v. 1557359 Ontario Inc., 2012 ONSC 4263, 99 C.B.R. (5th) 227; Grant Thornton LLP v. New Brunswick, 2021 SCC 31, [2021] 2 S.C.R. 704; Central Trust Co. v. Rafuse, [1986] 2 S.C.R. 147; Kamloops (City of) v. [...] v. Letkeman, [1978] 1 S.C.R. 1097; Alexander v. Rayson, [1936] 1 K.B. 169; Hydro Electric Commission of Nepean v. Ontario Hydro, [1982] 1 S.C.R. 347; Canada Cement LaFarge Ltd. v. British Columbia Lightweight Aggregate Ltd., [1983] 1 S.C.R. 452; Housen v. Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235; Canada v. [...] v. Bondfield Construction Co., 2024 SCC 31; Ridel v. Goldberg, 2019 ONCA 636, 147 O.R. (3d) 23; considered: Meridian Global Funds Management Asia Ltd. v. Securities Commission, [1995] 2 A.C. 500; 373409 Alberta Ltd. (Receiver of) v. Bank of Montreal, 2002 SCC 81, [2002] 4 S.C.R. 312; referred to: Husky Oil Operations Ltd. v
+ [LINK /scc-csc/scc-csc/en/20695/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/16649/index.do?q=R.+v.+Hall+2002+SCC+64] R. v. Antic
+ - 2017 SCC 27
+ - [2017] 1 SCR 509
+ - 2017-06-01
+ Supreme Court Judgments
+ Constitutional law
+ Criminal law
+ R. v. Antic, R. c. Antic, 2017 SCC 27, 2017 CSC 27, 36783, [2017] 1 SCR 509, [2017] 1 RCS 509 [...] Referred to: R. v. Smith, 2003 SKCA 8, 171 C.C.C. (3d) 383; R. v. Hall, 2002 SCC 64, [2002] 3 S.C.R. 309; R. v. St‐Cloud, 2015 SCC 27, [2015] 2 S.C.R. 328; R. v. Anoussis, 2008 QCCQ 8100, 242 C.C.C. (3d) 113; R. v. Pearson, [1992] 3 S.C.R. 665; R. v. Morales, [1992] 3 S.C.R. 711; Canada (Minister of Justice) v. Mirza, 2009 [...] 1869 that made bail discretionary for all offences: see An Act respecting the duties of Justices of the Peace, out of Sessions, in relation to persons charged with Indictable Offences, S.C. 1869, c. 30; R. v. Hall, 2002 SCC 64, [2002] 3 S.C.R. 309, at para. 14; R. v. St-Cloud, 2015 SCC 27, [2015] 2 S.C.R. 328, at para. 26. 
+ [LINK /scc-csc/scc-csc/en/16649/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/20972/index.do?q=R.+v.+Hall+2002+SCC+64] R. v. Sheppard
+ - 2025 SCC 29
+ - 2025-09-26
+ Supreme Court Judgments
+ Criminal law
+ Applied: R. v. Friesen, 2020 SCC 9, [2020] 1 S.C.R. 424; R. v. Lacasse, 2015 SCC 64, [2015] 3 S.C.R. 1089; Palmer v. The Queen, [1980] 1 S.C.R. 759; considered: R. v. Ferguson, 2008 SCC 6, [2008] 1 S.C.R. 96; R. v. M.A.C., 2023 ABCA 234, 91 C.R. (7th) 425; R. v. Bertrand Marchand, 2023 SCC 26; R. v. Parranto, 2021 SCC 46, [...] L.R. (6th) 63; R. v. Proulx, 2000 SCC 5, [2000] 1 S.C.R. 61; R. v. Nahanee, 2022 SCC 37; R. v. M. (C.A.), [1996] 1 S.C.R. 500; R. v. Ramage, 2010 ONCA 488, 257 C.C.C. (3d) 261; R. v. J.W., 2025 SCC 16; R. v. V. (W.), 2023 ONCA 655, 169 O.R. (3d) 68; R. v. Sheppard, 2002 SCC 26, [2002] 1 S.C.R. 869; R. v. G.F., 2021 SCC 20, [...] 271; R. v. R.O., 2023 BCCA 65; L.L. v. R., 2016 QCCA 1367; R. v. Hall, [2011] EWCA Crim 2753, [2012] 2 All E.R. 340; R. v. Scofield, 2019 BCCA 3, 52 C.R. (7th) 379; R. v. Vautour, 2016 BCCA 497; R. v. Smith, 2017 BCCA 112; R. v. Rayo, 2018 QCCA 824; Fruitier v. R., 2022 QCCA 1225; R. v. W.J., 2016 BCSC 161; R. v. 
+ [LINK /scc-csc/scc-csc/en/20972/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/2241/index.do?q=R.+v.+Hall+2002+SCC+64] E.B. v. Order of the Oblates of Mary Immaculate in the Province of British Columbia
+ - 2005 SCC 60
+ - [2005] 3 SCR 45
+ - 2005-10-28
+ Supreme Court Judgments
+ Torts
+ Jacobi v. Griffiths, [1999] 2 S.C.R. 570; referred to: K.L.B. v. British Columbia, [2003] 2 S.C.R. 403, 2003 SCC 51; John Doe v. Bennett, [2004] 1 S.C.R. 436, 2004 SCC 17, aff’g (2002), 218 D.L.R. (4th) 276, 2002 NFCA 47; H.L. v. Canada (Attorney General), [2005] 1 S.C.R. 401, 2005 SCC 25, rev’g in part (2002), 227 Sask. [...] R. 165, 2002 SKCA 131; G. (E.D.) v. Hammer (1998), 53 B.C.L.R. (3d) 89, aff’d (2001), 197 D.L.R. (4th) 454, 2001 BCCA 226, aff’d [2003] 2 S.C.R. 459, 2003 SCC 52; Housen v. Nikolaisen, [2002] 2 S.C.R. 235, 2002 SCC 33; Canadian Pacific Railway Co. v. Lockhart, [1942] A.C. 591; Lister v. Hesley Hall Ltd., [2002] 1 A.C. 215, [...] R. 161, 1999 SKQB 180; G. (E.D.) v. Hammer (1998), 53 B.C.L.R. (3d) 89; Housen v. Nikolaisen, [2002] 2 S.C.R. 235, 2002 SCC 33. 
+ [LINK /scc-csc/scc-csc/en/2241/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/7890/index.do?q=R.+v.+Hall+2002+SCC+64] Bank of Montreal v. Innovation Credit Union
+ - 2010 SCC 47
+ - [2010] 3 SCR 3
+ - 2010-11-05
+ Supreme Court Judgments
+ Commercial law
+ Citation : Bank of Montreal v. Innovation Credit Union, 2010 SCC 47, [2010] 3 S.C.R. 3 Date : 20101105 [...] Bank of Montreal v. Innovation Credit Union, 2010 SCC 47, [2010] 3 S.C.R. 3 Bank of Montreal Appellant [...] Applied: Bank of Montreal v. Hall, [1990] 1 S.C.R. 121; Royal Bank of Canada v. Sparrow Electric Corp., [1997] 1 S.C.R. 411; referred to: Royal Bank of Canada v. Radius Credit Union Ltd., 2010 SCC 48, [2010] 3 S.C.R. 38; Bell ExpressVu Limited Partnership v. Rex, 2002 SCC 42, [2002] 2 S.C.R. 559; Royal Bank of Canada v. 
+ [LINK /scc-csc/scc-csc/en/7890/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/17862/index.do?q=R.+v.+Hall+2002+SCC+64] R. v. Penunsi
+ - 2019 SCC 39
+ - [2019] 3 SCR 91
+ - 2019-07-05
+ Supreme Court Judgments
+ Criminal law
+ R. v. Penunsi, R. c. Penunsi, 2019 SCC 39, 2019 CSC 39, 38004, [2019] 3 SCR 91, [2019] 3 RCS 91 [...] S.C.R. 250; R. v. Smith, 2004 SCC 14, [2004] 1 S.C.R. 385; Goodyear Tire & Rubber Co. of Canada v. The Queen, [1956] S.C.R. 303; R. v. S. (S.), [1990] 2 S.C.R. 254; Mackenzie v. Martin, [1954] S.C.R. 361; R. v. Parks, [1992] 2 S.C.R. 871; R. v. Woking Justices, Ex p. Gossage, [1973] 2 All ER 621; R. v. Forrest (1983), 8 [...] Inc. v. Québec (Régie des permis d’alcool), [1996] 3 S.C.R. 919; R. v. Gill, [1991] B.C.J. No. 3255 (QL); R. v. Schafer, 2018 YKTC 12; R. v. Antic, 2017 SCC 27, [2017] 1 S.C.R. 509; R. v. Goikhberg, 2014 QCCS 3891; R. v. Hebert (1984), 54 N.B.R. (2d) 251; R. v. Hall, 2002 SCC 64, [2002] 3 S.C.R. 309; R. v. Hall (1996), 
+ [LINK /scc-csc/scc-csc/en/17862/1/document.do] 
+ 14.
+ [LINK /scc-csc/scc-csc/en/item/21492/index.do?q=R.+v.+Hall+2002+SCC+64] Patrick Street Holdings Ltd. v. 11368 NL Inc.
+ - 2026 SCC 15
+ - 2026-05-08
+ Supreme Court Judgments
+ Civil procedure
+ v. Loblaw Companies Limited, 2025 ONCA 830; Grant McLeod Contracting Ltd. v. Forestech Industries Ltd., 2008 BCSC 756, 294 D.L.R. (4th) 290; M. Saarnok-Vuus, Executrix of the will of J.L. Saarnok v. G. Neufeld, 2003 BCSC 937; 420093 B.C. Ltd. v. Bank of Montreal, 1995 ABCA 328, 128 D.L.R. (4th) 488; Hall v. Hall and Hall [...] Ltd. v. Sylvan Lake Golf & Tennis Club Ltd., 2002 SCC 19, [2002] 1 S.C.R. 678; Guindon v. Canada, 2015 SCC 41, [2015] 3 S.C.R. 3; Danyluk v. Ainsworth Technologies Inc., 2001 SCC 44, [2001] 2 S.C.R. 460; British Columbia (Workers’ Compensation Board) v. Figliola, 2011 SCC 52, [2011] 3 S.C.R. 422; Dhillon v. [...] v. Green, 2015 SCC 60, [2015] 3 S.C.R. 801; Markevich v. Canada, 2003 SCC 9, [2003] 1 S.C.R. 94; Air Canada v. McDonnell Douglas Corp., [1989] 1 S.C.R. 1554; Hall v. Hall and Hall’s Feed & Grain Ltd. (1958), 15 D.L.R. (2d) 638; Smode v. Deveaux (1996), 216 A.R. 20; McIntosh v. Parent, [1924] 4 D.L.R. 420; Angle v. 
+ [LINK /scc-csc/scc-csc/en/21492/1/document.do] 
+ 15.
+ [LINK /scc-csc/scc-csc/en/item/15329/index.do?q=R.+v.+Hall+2002+SCC+64] Henry v. British Columbia (Attorney General)
+ - 2015 SCC 24
+ - [2015] 2 SCR 214
+ - 2015-05-01
+ Supreme Court Judgments
+ Constitutional law
+ 2002 SCC 13, [2002] 1 S.C.R. 405; R. v. Imperial Tobacco Canada Ltd., 2011 SCC 42, [2011] 3 S.C.R. 45; R. v. Anderson, 2014 SCC 41, [2014] 2 S.C.R. 167; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; R. v. Babos, 2014 SCC 16, [2014] 1 S.C.R. 309; R. v. Nixon, 2011 SCC 34, [2011] 2 S.C.R. 566; R. v. [...] to: R. v. Gamble, [1988] 2 S.C.R. 595; Mills v. The Queen, [1986] 1 S.C.R. 863; Mackin v. New Brunswick (Minister of Finance), 2002 SCC 13, [2002] 1 S.C.R. 405; Nelles v. Ontario, [1989] 2 S.C.R. 170; Miazga v. Kvello Estate, 2009 SCC 51, [2009] 3 S.C.R. 339; R. v. Stinchcombe, [1991] 3 S.C.R. 326; R. v. McNeil, 2009 SCC 3, [...] [49] It is a bedrock principle that the exercise of core prosecutorial discretion is immune from judicial review, subject only to the doctrine of abuse of process: see R. v. Anderson, 2014 SCC 41, [2014] 2 S.C.R. 167, at para. 48; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372, at para. 32. 
+ [LINK /scc-csc/scc-csc/en/15329/1/document.do] 
+ 16.
+ [LINK /scc-csc/scc-csc/en/item/19011/index.do?q=R.+v.+Hall+2002+SCC+64] Toronto (City) v. Ontario (Attorney General)
+ - 2021 SCC 34
+ - [2021] 2 SCR 845
+ - 2021-10-01
+ Supreme Court Judgments
+ Constitutional law
+ v. Imperial Tobacco Canada Ltd., 2005 SCC 49, [2005] 2 S.C.R. 473; Trial Lawyers Association of British Columbia v. British Columbia (Attorney General), 2014 SCC 59, [2014] 3 S.C.R. 31; Babcock v. Canada (Attorney General), 2002 SCC 57, [2002] 3 S.C.R. 3; referred to: Public School Boards’ Assn. of Alberta v. [...] Switzman v. Elbling, [1957] S.C.R. 285; RWDSU v. Dolphin Delivery Ltd., [1986] 2 S.C.R. 573; R. v. Sharpe, 2001 SCC 2, [2001] 1 S.C.R. 45; Ford v. Quebec (Attorney General), [1988] 2 S.C.R. 712; Irwin Toy Ltd. v. Quebec (Attorney General), [1989] 1 S.C.R. 927; R. v. Keegstra, [1990] 3 S.C.R. 697; Edmonton Journal v. Alberta [...] [70] At issue in Babcock v. Canada (Attorney General), 2002 SCC 57, [2002] 3 S.C.R. 3, was the constitutionality of a provision of the Canada Evidence Act, R.S.C. 1985, c. C‐5, that allowed for an exception to disclosure, in litigation, based on Cabinet confidence. 
+ [LINK /scc-csc/scc-csc/en/19011/1/document.do] 
+ 17.
+ [LINK /scc-csc/scc-csc/en/item/1988/index.do?q=R.+v.+Hall+2002+SCC+64] Family Insurance Corp. v. Lombard Canada Ltd.
+ - 2002 SCC 48
+ - [2002] 2 SCR 695
+ - 2002-05-23
+ Supreme Court Judgments
+ Insurance
+ Family Insurance Corp. v. Lombard Canada Ltd., Family Insurance Corp. c. Lombard du Canada Ltée, 2002 SCC 48, 2002 CSC 48, 28093, [2002] 2 SCR 695, [2002] 2 RCS 695 [...] Family Insurance Corp. v. Lombard Canada Ltd., [2002] 2 S.C.R. 695, 2002 SCC 48 Family Insurance Corporation Appellant [...] Indexed as: Family Insurance Corp. v. Lombard Canada Ltd. Neutral citation: 2002 SCC 48. File No.: 28093. 
+ [LINK /scc-csc/scc-csc/en/1988/1/document.do] 
+ 18.
+ [LINK /scc-csc/scc-csc/en/item/7998/index.do?q=R.+v.+Hall+2002+SCC+64] Doré v. Barreau du Québec
+ - 2012 SCC 12
+ - [2012] 1 SCR 395
+ - 2012-03-22
+ Supreme Court Judgments
+ Administrative law
+ Professional law
+ 2000 SCC 69, [2000] 2 S.C.R. 1120; United States v. Burns, 2001 SCC 7, [2001] 1 S.C.R. 283; R. v. Mentuck, 2001 SCC 76, [2001] 3 S.C.R. 442; Trinity Western University v. British Columbia College of Teachers, 2001 SCC 31, [2001] 1 S.C.R. 772; Ahani v. Canada (Minister of Citizenship and Immigration), 2002 SCC 2, [2002] 1 [...] University v. British Columbia College of Teachers, 2001 SCC 31, [2001] 1 S.C.R. 772; Chamberlain; Ahani v. Canada (Minister of Citizenship and Immigration), 2002 SCC 2, [2002] 1 S.C.R. 72; Pinet; Lake v. Canada (Minister of Justice), 2008 SCC 23, [2008] 1 S.C.R. 761; Canada (Prime Minister) v. Khadr, 2010 SCC 3, [2010] 1 [...] Dunsmuir tells us this should attract deference (para. 53; see also Suresh v. Canada (Minister of Citizenship and Immigration), 2002 SCC 1, [2002] 1 S.C.R. 3, at para. 39). 
+ [LINK /scc-csc/scc-csc/en/7998/1/document.do] 
+ 19.
+ [LINK /scc-csc/scc-csc/en/item/20480/index.do?q=R.+v.+Hall+2002+SCC+64] Earthco Soil Mixtures Inc. v. Pine Valley Enterprises Inc.
+ - 2024 SCC 20
+ - 2024-05-31
+ Supreme Court Judgments
+ Construction Ltd. v. Northbridge Indemnity Insurance Co., 2016 SCC 37, [2016] 2 S.C.R. 23; referred to: Jesuit Fathers of Upper Canada v. Guardian Insurance Co. of Canada, 2006 SCC 21, [2006] 1 S.C.R. 744; Housen v. Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235; Corner Brook (City) v. Bailey, 2021 SCC 29, [2021] 2 S.C.R. [...] R. 90; Baron v. Caragata, 2004 SKQB 43, 245 Sask. R. 208; Total Petroleum (N.A.) Ltd. v. AMF Tuboscope Inc. (1987), 54 Alta. [...] Ltd. v. British Columbia (Transportation and Highways), 2010 SCC 4, [2010] 1 S.C.R. 69; Sattva Capital Corp. v. Creston Moly Corp., 2014 SCC 53, [2014] 2 S.C.R. 633; Housen v. Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235; Teal Cedar Products Ltd. v. British Columbia, 2017 SCC 32, [2017] 1 S.C.R. 688; Bank of England v. 
+ [LINK /scc-csc/scc-csc/en/20480/1/document.do] 
+ 20.
+ [LINK /scc-csc/scc-csc/en/item/17634/index.do?q=R.+v.+Hall+2002+SCC+64] R. v. Myers
+ - 2019 SCC 18
+ - [2019] 2 SCR 105
+ - 2019-03-28
+ Supreme Court Judgments
+ Criminal law
+ R. v. Myers, R. c. Myers, 2019 SCC 18, 2019 CSC 18, 37869, [2019] 2 SCR 105, [2019] 2 RCS 105 [...] R. v. Myers, 2019 SCC 18, [2019] 2 S.C.R. 105 Corey Lee James Myers Appellant [...] R. v. Pearson, [1992] 3 S.C.R. 665; R. v. Anoussis, 2008 QCCQ 8100, 242 C.C.C. (3d) 113; R. v. Summers, 2014 SCC 26, [2014] 1 S.C.R. 575; R. v. Hall, 2002 SCC 64, [2002] 3 S.C.R. 309; Ell v. Alberta, 2003 SCC 35, [2003] 1 S.C.R. 857; R. v. Acera, 2017 ABQB 470; R. v. Saulnier, 2012 NSSC 45, 314 N.S.R. (2d) 203; R. v. 
+ [LINK /scc-csc/scc-csc/en/17634/1/document.do] 
+ 21.
+ [LINK /scc-csc/scc-csc/en/item/18510/index.do?q=R.+v.+Hall+2002+SCC+64] Fraser v. Canada (Attorney General)
+ - 2020 SCC 28
+ - [2020] 3 SCR 113
+ - 2020-10-16
+ Supreme Court Judgments
+ Constitutional law
+ v. A, 2013 SCC 5, [2013] 1 S.C.R. 61; Snell v. Farrell, [1990] 2 S.C.R. 311; Blatch v. Archer (1774), 1 Cowp. 63, 98 E.R. 969; Auton (Guardian ad litem of) v. British Columbia (Attorney General), 2004 SCC 78, [2004] 3 S.C.R. 657; Gosselin v. Quebec (Attorney General), 2002 SCC 84, [2002] 4 S.C.R. 429; Corbiere v. [...] SCC 17, [2018] 1 S.C.R. 464; Gosselin v. Quebec (Attorney General), 2002 SCC 84, [2002] 4 S.C.R. 429; Andrews v. Law Society of British Columbia, [1989] 1 S.C.R. 143; R. v. Kapp, 2008 SCC 41, [2008] 2 S.C.R. 483; Withler v. Canada (Attorney General), 2011 SCC 12, [2011] 1 S.C.R. 396; Quebec (Attorney General) v. A, 2013 SCC [...] In many contexts, subjective anecdotal evidence is simply incapable of meeting this objective onus (e.g. Taypotat, at paras. 33‐34; Auton (Guardian ad litem of) v. British Columbia (Attorney General), 2004 SCC 78, [2004] 3 S.C.R. 657, at paras. 58 and 62; Gosselin v. Quebec (Attorney General), 2002 SCC 84, [2002] 4 S.C.R. 
+ [LINK /scc-csc/scc-csc/en/18510/1/document.do] 
+ 22.
+ [LINK /scc-csc/scc-csc/en/item/1979/index.do?q=R.+v.+Hall+2002+SCC+64] R. v. Hibbert
+ - 2002 SCC 39
+ - [2002] 2 SCR 445
+ - 2002-04-25
+ Supreme Court Judgments
+ Criminal law
+ R. v. Hibbert, R. c. Hibbert, 2002 SCC 39, 2002 CSC 39, 28021, [2002] 2 SCR 445, [2002] 2 RCS 445 [...] R. v. Hibbert, [2002] 2 S.C.R. 445, 2002 SCC 39 Kenneth Roydon Hibbert Appellant [...] v. Her Majesty The Queen Respondent Indexed as: R. v. Hibbert Neutral citation: 2002 SCC 39. 
+ [LINK /scc-csc/scc-csc/en/1979/1/document.do] 
+ 23.
+ [LINK /scc-csc/scc-csc/en/item/16486/index.do?q=R.+v.+Hall+2002+SCC+64] R. v. Oland
+ - 2017 SCC 17
+ - [2017] 1 SCR 250
+ - 2017-03-23
+ Supreme Court Judgments
+ Criminal law
+ R. v. Oland, R. c. Oland, 2017 SCC 17, 2017 CSC 17, 36986, [2017] 1 SCR 250, [2017] 1 RCS 250 [...] Applied: Borowski v. Canada (Attorney General), [1989] 1 S.C.R. 342; R. v. Farinacci (1993), 86 C.C.C. (3d) 32; referred to: R. v. McNeil, 2009 SCC 3, [2009] 1 S.C.R. 66; R. v. Ponak, [1972] 4 W.W.R. 316; R. v. Iyer, 2016 ABCA 407; R. v. D’Amico, 2016 QCCA 183; R. v. Gill, 2015 SKCA 96, 465 Sask. [...] & P.E.I.R. 69; R. v. Hall, 2002 SCC 64, [2002] 3 S.C.R. 309; R. v. Rhyason, 2006 ABCA 120, 208 C.C.C. (3d) 193; R. v. Roussin, 2011 MBCA 103, 275 Man. R. (2d) 46; R. v. Allen, 2001 NFCA 44, 158 C.C.C. (3d) 225; R. v. Delisle, 2012 QCCA 1250; R. v. Meda (1981), 23 C.R. (3d) 174; R. v. Olsen (1996), 94 O.A.C. 62; R. v. 
+ [LINK /scc-csc/scc-csc/en/16486/1/document.do] 
+ 24.
+ [LINK /scc-csc/scc-csc/en/item/18563/index.do?q=R.+v.+Hall+2002+SCC+64] Ontario (Attorney General) v. G
+ - 2020 SCC 38
+ - [2020] 3 SCR 629
+ - 2020-11-20
+ Supreme Court Judgments
+ Constitutional law
+ v. Madison, 5 U.S. (1 Cranch) 137 (1803); R. v. Big M Drug Mart Ltd., [1985] 1 S.C.R. 295; Carter v. Canada (Attorney General), 2015 SCC 5, [2015] 1 S.C.R. 331; R. v. Sharpe, 2001 SCC 2, [2001] 1 S.C.R. 45; R. v. Barabash, 2015 SCC 29, [2015] 2 S.C.R. 522; R. v. Appulonappa, 2015 SCC 59, [2015] 3 S.C.R. 754; R. v. [...] In R. v. Hall, 2002 SCC 64, [2002] 3 S.C.R. 309, McLachlin C.J. severed part of the tertiary ground for denying bail because the rest of the provision “is capable of standing alone without doing damage to Parliament’s intention” (para. 44). [...] R. v. K.R.J., 2016 SCC 31, [2016] 1 S.C.R. 906; Canada (Attorney General) v. Chambre des notaires du Québec, 2016 SCC 20, [2016] 1 S.C.R. 336; R. v. Safarzadeh-Markhali, 2016 SCC 14, [2016] 1 S.C.R. 180; R. v. Lloyd, 2016 SCC 13, [2016] 1 S.C.R. 130; R. v. Appulonappa, 2015 SCC 59, [2015] 3 S.C.R. 754; R. v. Smith, 2015 SCC
+ [LINK /scc-csc/scc-csc/en/18563/1/document.do] 
+ 25.
+ [LINK /scc-csc/scc-csc/en/item/19829/index.do?q=R.+v.+Hall+2002+SCC+64] Murray‑Hall v. Quebec (Attorney General)
+ - 2023 SCC 10
+ - [2023] 1 SCR 367
+ - 2023-04-14
+ Supreme Court Judgments
+ Constitutional law
+ Murray‐Hall v. Quebec (Attorney General), Murray‐Hall c. Québec (Procureur général), 2023 SCC 10, 2023 CSC 10, 39906, [2023] 1 SCR 367, [2023] 1 RCS 367 [...] Citation: Murray‐Hall v. Quebec (Attorney General), 2023 SCC 10, [2023] 1 S.C.R. 367 Appeal Heard: September 15, 2022 [...] Indexed as: Murray‐Hall v. Quebec (Attorney General) 2023 SCC 10 File No.: 39906. 2022: September 15; 2023: April 14. 
+ [LINK /scc-csc/scc-csc/en/19829/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

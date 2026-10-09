@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/en/d/s/index.do" />
+    <title>    Advanced Search - SCC Cases
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/fr/d/s/index.do?cont=Kazemi+Estate+v.+Islamic+Republic+of+Iran+2014+SCC+62&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+<ul class="decisia-search-tabs decisia-tabs">
+            <li>
+            <a id="decisia-search-tabs-all-databases" target="_parent" href="/scc-csc/en/a/s/index.do?cont=Kazemi+Estate+v.+Islamic+Republic+of+Iran+2014+SCC+62&amp;ref=&amp;p=&amp;col=1&amp;or=">All Databases (27)</a>
+        </li>
+
+        <li class="active">Decisions (11)</li>
+
+         <li>
+             <a id="decisia-search-tabs-news" target="_parent" href="/scc-csc/en/n/s/index.do?cont=Kazemi+Estate+v.+Islamic+Republic+of+Iran+2014+SCC+62&amp;ref=&amp;p=&amp;col=1&amp;or=">Resources (16)</a>
+         </li>
+</ul>
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="Kazemi Estate v. Islamic Republic of Iran 2014 SCC 62" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Report, Case number</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-parties-row">
+        <div class="label">
+            <label for="decisia-parties">Parties</label>
+        </div>
+        <div class="input">
+<input id="decisia-parties" class="decisia-text" type="text" name="p" value="" />
+        </div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abbott, Douglas Charles"
+         >Abbott, Douglas Charles</option>
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Anglin, Francis Alexander"
+         >Anglin, Francis Alexander</option>
+        <option value="Arbour, Louise"
+         >Arbour, Louise</option>
+        <option value="Armour, John Douglas"
+         >Armour, John Douglas</option>
+        <option value="Barclay"
+         >Barclay</option>
+        <option value="Bastarache, Michel"
+         >Bastarache, Michel</option>
+        <option value="Beetz, Jean"
+         >Beetz, Jean</option>
+        <option value="Bernier"
+         >Bernier</option>
+        <option value="Binnie, William Ian Corneil"
+         >Binnie, William Ian Corneil</option>
+        <option value="Bond"
+         >Bond</option>
+        <option value="Brodeur, Louis-Philippe"
+         >Brodeur, Louis-Philippe</option>
+        <option value="Brown, Russell"
+         >Brown, Russell</option>
+        <option value="Cannon, Lawrence Arthur Dumoulin"
+         >Cannon, Lawrence Arthur Dumoulin</option>
+        <option value="Cartwright, John Robert"
+         >Cartwright, John Robert</option>
+        <option value="Cassels"
+         >Cassels</option>
+        <option value="Charron, Louise"
+         >Charron, Louise</option>
+        <option value="Chouinard, Julien"
+         >Chouinard, Julien</option>
+        <option value="Cory, Peter deCarteret"
+         >Cory, Peter deCarteret</option>
+        <option value="Crocket, Oswald Smith"
+         >Crocket, Oswald Smith</option>
+        <option value="Cromwell, Thomas Albert"
+         >Cromwell, Thomas Albert</option>
+        <option value="Côté, Suzanne"
+         >Côté, Suzanne</option>
+        <option value="Davies, Louis Henry"
+         >Davies, Louis Henry</option>
+        <option value="Davis, Henry Hague"
+         >Davis, Henry Hague</option>
+        <option value="Deschamps, Marie"
+         >Deschamps, Marie</option>
+        <option value="Dickson, Robert George Brian"
+         >Dickson, Robert George Brian</option>
+        <option value="Dorion"
+         >Dorion</option>
+        <option value="Duff, Lyman Poore"
+         >Duff, Lyman Poore</option>
+        <option value="Dysart"
+         >Dysart</option>
+        <option value="Estey, James Wilfred"
+         >Estey, James Wilfred</option>
+        <option value="Estey, Willard Zebedee"
+         >Estey, Willard Zebedee</option>
+        <option value="Fauteux, Joseph Honoré Gérald"
+         >Fauteux, Joseph Honoré Gérald</option>
+        <option value="Fish, Morris J."
+         >Fish, Morris J.</option>
+        <option value="Fitzpatrick, Charles"
+         >Fitzpatrick, Charles</option>
+        <option value="Fournier, Télesphore"
+         >Fournier, Télesphore</option>
+        <option value="Galipault"
+         >Galipault</option>
+        <option value="Gascon, Clément"
+         >Gascon, Clément</option>
+        <option value="Gillanders"
+         >Gillanders</option>
+        <option value="Girouard, Désiré"
+         >Girouard, Désiré</option>
+        <option value="Gonthier, Charles Doherty"
+         >Gonthier, Charles Doherty</option>
+        <option value="Gwynne, John Wellington"
+         >Gwynne, John Wellington</option>
+        <option value="Hall, Emmett Matthew"
+         >Hall, Emmett Matthew</option>
+        <option value="Henry, William Alexander"
+         >Henry, William Alexander</option>
+        <option value="Howard"
+         >Howard</option>
+        <option value="Hudson, Albert Blellock"
+         >Hudson, Albert Blellock</option>
+        <option value="Hughes, Frank Joseph"
+         >Hughes, Frank Joseph</option>
+        <option value="Iacobucci, Frank"
+         >Iacobucci, Frank</option>
+        <option value="Idington, John"
+         >Idington, John</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Joyal, Glenn"
+         >Joyal, Glenn</option>
+        <option value="Judson, Wilfred"
+         >Judson, Wilfred</option>
+        <option value="Karakatsanis, Andromache"
+         >Karakatsanis, Andromache</option>
+        <option value="Kasirer, Nicholas"
+         >Kasirer, Nicholas</option>
+        <option value="Kellock, Roy Lindsay"
+         >Kellock, Roy Lindsay</option>
+        <option value="Kerwin, Patrick"
+         >Kerwin, Patrick</option>
+        <option value="Killam, Albert Clements"
+         >Killam, Albert Clements</option>
+        <option value="King, George Edwin"
+         >King, George Edwin</option>
+        <option value="L&#39;Heureux-Dubé, Claire"
+         >L&#39;Heureux-Dubé, Claire</option>
+        <option value="La Forest, Gérard V."
+         >La Forest, Gérard V.</option>
+        <option value="Lamer, Antonio"
+         >Lamer, Antonio</option>
+        <option value="Lamont, John Henderson"
+         >Lamont, John Henderson</option>
+        <option value="Laskin, Bora"
+         >Laskin, Bora</option>
+        <option value="Latchford"
+         >Latchford</option>
+        <option value="Lavergne"
+         >Lavergne</option>
+        <option value="Le Dain, Gerald Eric"
+         >Le Dain, Gerald Eric</option>
+        <option value="LeBel, Louis"
+         >LeBel, Louis</option>
+        <option value="Lemieux"
+         >Lemieux</option>
+        <option value="Locke, Charles Holland"
+         >Locke, Charles Holland</option>
+        <option value="Maclean"
+         >Maclean</option>
+        <option value="Maclennan, James"
+         >Maclennan, James</option>
+        <option value="Magee"
+         >Magee</option>
+        <option value="Major, John C."
+         >Major, John C.</option>
+        <option value="Malouin, Arthur Cyrille Albert"
+         >Malouin, Arthur Cyrille Albert</option>
+        <option value="Martin, Sheilah"
+         >Martin, Sheilah</option>
+        <option value="Martin, Sheilah L."
+         >Martin, Sheilah L.</option>
+        <option value="Martland, Ronald"
+         >Martland, Ronald</option>
+        <option value="Masten"
+         >Masten</option>
+        <option value="McIntyre, William Rogers"
+         >McIntyre, William Rogers</option>
+        <option value="McLachlin, Beverley"
+         >McLachlin, Beverley</option>
+        <option value="Middleton"
+         >Middleton</option>
+        <option value="Mignault, Pierre-Basile"
+         >Mignault, Pierre-Basile</option>
+        <option value="Mills, Davis"
+         >Mills, Davis</option>
+        <option value="Moldaver, Michael J."
+         >Moldaver, Michael J.</option>
+        <option value="Moreau, Mary"
+         >Moreau, Mary</option>
+        <option value="Nesbitt, Wallace"
+         >Nesbitt, Wallace</option>
+        <option value="Newcombe, Edmund Leslie"
+         >Newcombe, Edmund Leslie</option>
+        <option value="Nolan, Henry Grattan"
+         >Nolan, Henry Grattan</option>
+        <option value="Orde"
+         >Orde</option>
+        <option value="O’Bonsawin, Michelle"
+         >O’Bonsawin, Michelle</option>
+        <option value="Patterson, Christopher Salmon"
+         >Patterson, Christopher Salmon</option>
+        <option value="Pigeon, Louis-Philippe"
+         >Pigeon, Louis-Philippe</option>
+        <option value="Pratte, Yves"
+         >Pratte, Yves</option>
+        <option value="Rand, Ivan Cleveland"
+         >Rand, Ivan Cleveland</option>
+        <option value="Richards, William Buell"
+         >Richards, William Buell</option>
+        <option value="Rinfret, Thibaudeau"
+         >Rinfret, Thibaudeau</option>
+        <option value="Ritchie, Roland Almon"
+         >Ritchie, Roland Almon</option>
+        <option value="Ritchie, William Johnstone"
+         >Ritchie, William Johnstone</option>
+        <option value="Rivard"
+         >Rivard</option>
+        <option value="Rothstein, Marshall"
+         >Rothstein, Marshall</option>
+        <option value="Rowe, Malcolm"
+         >Rowe, Malcolm</option>
+        <option value="Sedgewick, Robert"
+         >Sedgewick, Robert</option>
+        <option value="Smith, Robert"
+         >Smith, Robert</option>
+        <option value="Sopinka, John"
+         >Sopinka, John</option>
+        <option value="Spence, Wishart Flett"
+         >Spence, Wishart Flett</option>
+        <option value="St. Germain"
+         >St. Germain</option>
+        <option value="St. Jacques"
+         >St. Jacques</option>
+        <option value="Stevenson, William"
+         >Stevenson, William</option>
+        <option value="Strong, Samuel Henry"
+         >Strong, Samuel Henry</option>
+        <option value="Taschereau, Henri-Elzéar"
+         >Taschereau, Henri-Elzéar</option>
+        <option value="Taschereau, Jean-Thomas"
+         >Taschereau, Jean-Thomas</option>
+        <option value="Taschereau, Robert"
+         >Taschereau, Robert</option>
+        <option value="Tessier"
+         >Tessier</option>
+        <option value="Thorson"
+         >Thorson</option>
+        <option value="Wagner, Richard"
+         >Wagner, Richard</option>
+        <option value="Wilson, Bertha"
+         >Wilson, Bertha</option>
+        <option value="de Grandpré, Louis-Philippe"
+         >de Grandpré, Louis-Philippe</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Status</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Granted</option>
+                <option value="2"
+                >Dismissed</option>
+                <option value="3"
+                >Oral Hearing</option>
+                <option value="4"
+                >Remanded</option>
+                <option value="5"
+                >Quashed</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-district-row">
+        <div class="label select">
+            <label for="decisia-district">On appeal from</label>
+        </div>
+        <div class="input">
+        <select id="decisia-district" name="d"  data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                  <option value="1"
+                       >Canada</option>
+                  <option value="2"
+                       >Federal Court of Appeal</option>
+                  <option value="3"
+                       >British Columbia</option>
+                  <option value="4"
+                       >Alberta</option>
+                  <option value="5"
+                       >Saskatchewan</option>
+                  <option value="6"
+                       >Manitoba</option>
+                  <option value="7"
+                       >Ontario</option>
+                  <option value="8"
+                       >Quebec</option>
+                  <option value="9"
+                       >New Brunswick</option>
+                  <option value="10"
+                       >Nova Scotia</option>
+                  <option value="11"
+                       >Prince Edward Island</option>
+                  <option value="12"
+                       >Newfoundland and Labrador</option>
+                  <option value="13"
+                       >Yukon</option>
+                  <option value="14"
+                       >Northwest Territories</option>
+                  <option value="15"
+                       >Nunavut</option>
+                  <option value="16"
+                       >Court Martial Appeal Court of Canada</option>
+                  <option value="18"
+                       >Saskatchewan, Ontario, Alberta</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-collection-row">
+        <div class="label select">
+            <label for="decisia-collection">Collection</label>
+        </div>
+        <div class="input">
+<select id="decisia-collection" name="col" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+    <option value="1"
+        selected="selected"
+    >
+        Supreme Court Judgments</option>
+    <option value="2"
+    >
+        Applications for Leave</option>
+</select>
+<div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="advanced-field decisia-subjects-row">
+        <div class="label select">
+            <label for="decisia-subjects">Subjects</label>
+        </div>
+        <div class="input">
+    <select id="decisia-subjects" name="su" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+            <option value="34"
+            >Aboriginal law</option>
+            <option value="5"
+            >Access to information</option>
+            <option value="2"
+            >Action</option>
+            <option value="51"
+            >Administrative law</option>
+            <option value="13"
+            >Agency</option>
+            <option value="40"
+            >Air law</option>
+            <option value="9"
+            >Appeal</option>
+            <option value="52"
+            >Arbitration</option>
+            <option value="37"
+            >Armed Forces</option>
+            <option value="30"
+            >Bankruptcy and insolvency</option>
+            <option value="53"
+            >Bills of exchange</option>
+            <option value="44"
+            >Civil law</option>
+            <option value="20"
+            >Civil procedure</option>
+            <option value="41"
+            >Commercial law</option>
+            <option value="29"
+            >Communications law</option>
+            <option value="19"
+            >Competition law</option>
+            <option value="27"
+            >Constitutional law</option>
+            <option value="55"
+            >Contract</option>
+            <option value="61"
+            >Contracts</option>
+            <option value="6"
+            >Courts</option>
+            <option value="16"
+            >Criminal law</option>
+            <option value="14"
+            >Customs and excise</option>
+            <option value="4"
+            >Education law</option>
+            <option value="10"
+            >Elections</option>
+            <option value="17"
+            >Environmental law</option>
+            <option value="57"
+            >Estates</option>
+            <option value="18"
+            >Evidence</option>
+            <option value="48"
+            >Expropriation</option>
+            <option value="7"
+            >Family law</option>
+            <option value="11"
+            >Financial institutions</option>
+            <option value="15"
+            >Fishery</option>
+            <option value="42"
+            >Food and drugs</option>
+            <option value="23"
+            >Guarantee and suretyship</option>
+            <option value="26"
+            >Immigration</option>
+            <option value="28"
+            >Insurance</option>
+            <option value="8"
+            >Intellectual property</option>
+            <option value="31"
+            >International law</option>
+            <option value="45"
+            >Labour law</option>
+            <option value="22"
+            >Lease</option>
+            <option value="25"
+            >Maritime law</option>
+            <option value="43"
+            >Mines and minerals</option>
+            <option value="38"
+            >Motor vehicles</option>
+            <option value="56"
+            >Municipal law</option>
+            <option value="24"
+            >Pensions</option>
+            <option value="35"
+            >Prerogative writs</option>
+            <option value="59"
+            >Prescription</option>
+            <option value="46"
+            >Priorities and hypothecs</option>
+            <option value="58"
+            >Private international law</option>
+            <option value="32"
+            >Professional law</option>
+            <option value="63"
+            >Property</option>
+            <option value="49"
+            >Property law</option>
+            <option value="50"
+            >Public utilities</option>
+            <option value="47"
+            >Sale</option>
+            <option value="36"
+            >Securities</option>
+            <option value="39"
+            >State</option>
+            <option value="62"
+            >Status of persons</option>
+            <option value="3"
+            >Statutes</option>
+            <option value="33"
+            >Taxation</option>
+            <option value="21"
+            >Torts</option>
+            <option value="12"
+            >Transportation</option>
+            <option value="54"
+            >Trust</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/scc-csc/en/d/s/index.do?cont=Kazemi+Estate+v.+Islamic+Republic+of+Iran+2014+SCC+62&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>11 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/14384/index.do?q=Kazemi+Estate+v.+Islamic+Republic+of+Iran+2014+SCC+62">Kazemi Estate v. Islamic Republic of Iran</a></span>
+                        - <span class="citation">2014 SCC 62</span>
+                    - <span class="report-citation">[2014] 3 SCR 176</span>
+                - <span class="publicationDate">2014-10-10</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>Kazemi</b> (Succession) c. République islamique d’<b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, <b>2014</b> CSC <b>62</b>, 35034, [<b>2014</b>] 3 SCR 176, [<b>2014</b>] 3 RCS 176 &nbsp;&nbsp;[...]&nbsp;&nbsp;Citation: <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>kazemi</b> <b>estate</b> <b>v</b>. <b>iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176 <b>Estate</b> of the Late Zahra (Ziba) <b>Kazemi</b> and 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/14384/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/16801/index.do?q=Kazemi+Estate+v.+Islamic+Republic+of+Iran+2014+SCC+62">Montréal (City) v. Dorval</a></span>
+                        - <span class="citation">2017 SCC 48</span>
+                    - <span class="report-citation">[2017] 2 SCR 250</span>
+                - <span class="publicationDate">2017-10-13</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                     <b>v</b>. Canada (Attorney General), 2002 <b>SCC</b> <b>62</b>, [2002] 3 S.C.R. 269; <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176; referred to: Andrusiak <b>v</b>. Montréal (Ville), [2004] R.J.Q. 2655; <b>Islamic</b> <b>Republic</b> of <b>Iran</b> <b>v</b>. Hashemi, 2012 QCCA 1449, [2012] R.J.Q. 1567; Cinar Corp. <b>v</b>. Robinson, 2013 <b>SCC</b> 73, &nbsp;&nbsp;[...]&nbsp;&nbsp;Gauthier <b>v</b>. Beaumont, [1998] 2 S.C.R. 3; Schreiber <b>v</b>. Canada (Attorney General), 2002 <b>SCC</b> <b>62</b>, [2002] 3 S.C.R. 269; <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176, aff’g 2012 QCCA 1449, [2012] R.J.Q. 1567; Montréal (Ville) <b>v</b>. Tarquini, [2001] R.J.Q. 1405; Canadian Broadcasting Corp. <b>v</b>. SODRAC &nbsp;&nbsp;[...]&nbsp;&nbsp;[66] Schreiber was followed in <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176, which resembles this case even more closely. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16801/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18169/index.do?q=Kazemi+Estate+v.+Islamic+Republic+of+Iran+2014+SCC+62">Nevsun Resources Ltd. v. Araya</a></span>
+                        - <span class="citation">2020 SCC 5</span>
+                    - <span class="report-citation">[2020] 1 SCR 166</span>
+                - <span class="publicationDate">2020-02-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    R. <b>v</b>. Imperial Tobacco Canada Ltd., 2011 <b>SCC</b> 42, [2011] 3 S.C.R. 45; Hryniak <b>v</b>. Mauldin, <b>2014</b> <b>SCC</b> 7, [<b>2014</b>] 1 S.C.R. 87; R. <b>v</b>. Hape, 2007 <b>SCC</b> 26, [2007] 2 S.C.R. 292; Canada (Minister of Citizenship and Immigration) <b>v</b>. Vavilov, 2019 <b>SCC</b> 65, [2019] 4 S.C.R. 465, <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] &nbsp;&nbsp;[...]&nbsp;&nbsp;In the case that has come closest, <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176, this Court found that Canada was not under an obligation to provide a private law civil remedy for violations of a norm: &nbsp;&nbsp;[...]&nbsp;&nbsp;[297] The executive is responsible for conducting international relations: Canada (Prime Minister) <b>v</b>. Khadr, 2010 <b>SCC</b> 3, [2010] 1 S.C.R. 44, at para. 39. In <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176, this Court observed that creating a universal civil jurisdiction allowing torture claims 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18169/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18529/index.do?q=Kazemi+Estate+v.+Islamic+Republic+of+Iran+2014+SCC+62">Quebec (Attorney General) v. 9147-0732 Québec inc.</a></span>
+                        - <span class="citation">2020 SCC 32</span>
+                    - <span class="report-citation">[2020] 3 SCR 426</span>
+                - <span class="publicationDate">2020-11-05</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     General) <b>v</b>. Canada (Attorney General), [1994] 2 S.C.R. 41; R. <b>v</b>. Stillman, 2019 <b>SCC</b> 40, [2019] 3 S.C.R. 144; R. <b>v</b>. Blais, 2003 <b>SCC</b> 44, [2003] 2 S.C.R. 236; Hunter <b>v</b>. Southam Inc., [1984] 2 S.C.R. 145; R. <b>v</b>. Boudreault, 2018 <b>SCC</b> 58, [2018] 3 S.C.R. 599; <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R.&nbsp;&nbsp;[...]&nbsp;&nbsp; Assn. <b>v</b>. British Columbia, 2007 <b>SCC</b> 27, [2007] 2 S.C.R. 391; <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176; Saskatchewan Federation of Labour <b>v</b>. Saskatchewan, 2015 <b>SCC</b> 4, [2015] 1 S.C.R. 245; Ktunaxa Nation <b>v</b>. British Columbia (Forests, Lands and Natural Resource Operations), 2017 <b>SCC</b> 54, &nbsp;&nbsp;[...]&nbsp;&nbsp;As this Court cautioned in <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176, “[t]he interaction between domestic and international law must be managed carefully in light of the principles governing what remains a dualist system of application of international law and a constitutional and 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18529/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19441/index.do?q=Kazemi+Estate+v.+Islamic+Republic+of+Iran+2014+SCC+62">Society of Composers, Authors and Music Publishers of Canada v. Entertainment Software Association</a></span>
+                        - <span class="citation">2022 SCC 30</span>
+                    - <span class="report-citation">[2022] 2 SCR 303</span>
+                - <span class="publicationDate">2022-07-15</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                            Intellectual property<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     Lawyer <b>v</b>. Balev, 2018 <b>SCC</b> 16, [2018] 1 S.C.R. 398; Rahaman <b>v</b>. Canada (Minister of Citizenship and Immigration), 2002 FCA 89, [2002] 3 F.C. 537; R. <b>v</b>. Hape, 2007 <b>SCC</b> 26, [2007] 2 S.C.R. 292; Németh <b>v</b>. Canada (Justice), 2010 <b>SCC</b> 56, [2010] 3 S.C.R. 281; <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>v</b>. Rex, 2002 <b>SCC</b> 42, [2002] 2 S.C.R. 559; Uber Technologies Inc. <b>v</b>. Heller, 2020 <b>SCC</b> 16, [2020] 2 S.C.R. 118; TELUS Communications Inc. <b>v</b>. Wellman, 2019 <b>SCC</b> 19, [2019] 2 S.C.R. 144; Law Society of New Brunswick <b>v</b>. Ryan, 2003 <b>SCC</b> 20, [2003] 1 S.C.R. 247; Construction Labour Relations <b>v</b>. Driver Iron Inc., 2012 <b>SCC</b> 65, &nbsp;&nbsp;[...]&nbsp;&nbsp;It is always the domestic statute that governs because “[i]nternational law cannot be used to support an interpretation that is not permitted by the words of the statute”: <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176, at para. 60. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19441/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19957/index.do?q=Kazemi+Estate+v.+Islamic+Republic+of+Iran+2014+SCC+62">Canadian Council for Refugees v. Canada (Citizenship and Immigration)</a></span>
+                        - <span class="citation">2023 SCC 17</span>
+                - <span class="publicationDate">2023-06-16</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Immigration<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     Carter <b>v</b>. Canada (Attorney General), 2015 <b>SCC</b> 5, [2015] 1 S.C.R. 331; Little Sisters Book and Art Emporium <b>v</b>. Canada (Minister of Justice), 2000 <b>SCC</b> 69, [2000] 2 S.C.R. 1120; National Corn Growers Assn. <b>v</b>. Canada (Import Tribunal), [1990] 2 S.C.R. 1324; <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 &nbsp;&nbsp;[...]&nbsp;&nbsp;This, I think, rests on a misunderstanding of Febles <b>v</b>. Canada (Citizenship and Immigration), <b>2014</b> <b>SCC</b> 68, [<b>2014</b>] 3 S.C.R. 431, and is inconsistent with this Court’s approach to s. 7 set out in Canada (Attorney General) <b>v</b>. Bedford, 2013 <b>SCC</b> 72, [2013] 3 S.C.R. 1101. &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>v</b>. Canada (Import Tribunal), [1990] 2 S.C.R. 1324, at p. 1371). It is useful to examine the treaty and the legislation in turn, as they remain substantively distinct under Canada’s “dualist system” for the application of international legal instruments (<b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19957/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20798/index.do?q=Kazemi+Estate+v.+Islamic+Republic+of+Iran+2014+SCC+62">Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Directrice de la protection de la jeunesse du CISSS A</a></span>
+                        - <span class="citation">2024 SCC 43</span>
+                - <span class="publicationDate">2024-12-20</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                     of Canada <b>v</b>. Entertainment Software Association, 2022 <b>SCC</b> 30; <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176; R. <b>v</b>. Hape, 2007 <b>SCC</b> 26, [2007] 2 S.C.R. 292; Michel <b>v</b>. Graydon, 2020 <b>SCC</b> 24, [2020] 2 S.C.R. 763; Ontario <b>v</b>. Criminal Lawyers’ Association of Ontario, 2013 <b>SCC</b> 43, [2013] 3 &nbsp;&nbsp;[...]&nbsp;&nbsp;’” (R. <b>v</b>. Breault, 2023 <b>SCC</b> 9, at para. 26, quoting MediaQMI inc. <b>v</b>. Kamel, 2021 <b>SCC</b> 23, [2021] 1 S.C.R. 899, at para. 39; see also Quebec (Attorney General) <b>v</b>. 9147‐0732 Québec inc., 2020 <b>SCC</b> 32, [2020] 3 S.C.R. 426, at para. 10). &nbsp;&nbsp;[...]&nbsp;&nbsp; Music Publishers of Canada <b>v</b>. Entertainment Software Association, 2022 <b>SCC</b> 30, at para. 48; see also paras. 45‐47; <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176, at para. 60; R. <b>v</b>. Hape, 2007 <b>SCC</b> 26, [2007] 2 S.C.R. 292, at paras. 53‐54; Michel <b>v</b>. Graydon, 2020 <b>SCC</b> 24, [2020] 2 S.C.R. 763, at
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20798/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19540/index.do?q=Kazemi+Estate+v.+Islamic+Republic+of+Iran+2014+SCC+62">R. v. Sharma</a></span>
+                        - <span class="citation">2022 SCC 39</span>
+                    - <span class="report-citation">[2022] 3 SCR 147</span>
+                - <span class="publicationDate">2022-11-04</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     General) <b>v</b>. Bedford, 2013 <b>SCC</b> 72, [2013] 3 S.C.R. 1101; <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176; R. <b>v</b>. Kokopenace, 2015 <b>SCC</b> 28, [2015] 2 S.C.R. 398; Griggs <b>v</b>. Duke Power Co., 401 U.S. 424 (1971); R. <b>v</b>. J.‐L.J., 2000 <b>SCC</b> 51, [2000] 2 S.C.R. 600; R. <b>v</b>. Trochym, 2007 <b>SCC</b> 6, [2007] 1 &nbsp;&nbsp;[...]&nbsp;&nbsp; <b>v</b>. British Columbia (Human Rights Commission), 2000 <b>SCC</b> 44, [2000] 2 S.C.R. 307, at para. 60; Canada (Attorney General) <b>v</b>. Bedford, 2013 <b>SCC</b> 72, [2013] 3 S.C.R. 1101, at paras. 73‐78; <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176, at paras. 126 and 131‐34; R. <b>v</b>. Kokopenace, 2015 <b>SCC</b> 28, &nbsp;&nbsp;[...]&nbsp;&nbsp;See also Schachter <b>v</b>. Canada, [1992] 2 S.C.R. 679; Gosselin <b>v</b>. Quebec (Attorney General), 2002 <b>SCC</b> 84, [2002] 4 S.C.R. 429; and Auton, at paras. 61‐<b>62</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19540/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/15373/index.do?q=Kazemi+Estate+v.+Islamic+Republic+of+Iran+2014+SCC+62">R. v. Kokopenace</a></span>
+                        - <span class="citation">2015 SCC 28</span>
+                    - <span class="report-citation">[2015] 2 SCR 398</span>
+                - <span class="publicationDate">2015-05-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Indexed as: R. <b>v</b>. Kokopenace 2015 <b>SCC</b> 28 File No.: 35475. <b>2014</b>: October 6; 2015: May 21. &nbsp;&nbsp;[...]&nbsp;&nbsp; General) <b>v</b>. Bedford, 2013 <b>SCC</b> 72, [2013] 3 S.C.R. 1101; <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176; Symes <b>v</b>. Canada, [1993] 4 S.C.R. 695; Quebec (Attorney General) <b>v</b>. A, 2013 <b>SCC</b> 5, [2013] 1 S.C.R. 61; R. <b>v</b>. Askov, [1990] 2 S.C.R. 1199; R. <b>v</b>. Morin, [1992] 1 S.C.R. 771; Moore <b>v</b>. British &nbsp;&nbsp;[...]&nbsp;&nbsp;the conduct of the state and the limitation of the right such that the limitation can fairly be attributed to the state: see, e.g., Canada (Attorney General) <b>v</b>. Bedford, 2013 <b>SCC</b> 72, [2013] 3 S.C.R. 1101, at paras. 73-78; <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176, at paras. 126 and 131-34. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/15373/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21375/index.do?q=Kazemi+Estate+v.+Islamic+Republic+of+Iran+2014+SCC+62">Taylor v. Newfoundland and Labrador</a></span>
+                        - <span class="citation">2026 SCC 5</span>
+                - <span class="publicationDate">2026-02-13</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     597; Reference re Same-Sex Marriage, 2004 <b>SCC</b> 79, [2004] 3 S.C.R. 698; R. <b>v</b>. Blais, 2003 <b>SCC</b> 44, [2003] 2 S.C.R. 236; R. <b>v</b>. N.S., 2012 <b>SCC</b> 72, [2012] 3 S.C.R. 726; Reference re Public Service Employee Relations Act (Alta.), [1987] 1 S.C.R. 313; <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176. &nbsp;&nbsp;[...]&nbsp;&nbsp;[89] Second, if there is any discordance, courts must look for a meaning common to both versions (Daoust, at paras. 28-29; Schreiber <b>v</b>. Canada (Attorney General), 2002 <b>SCC</b> <b>62</b>, [2002] 3 S.C.R. 269, at para. 56; and R. <b>v</b>. Mac, 2002 <b>SCC</b> 24, [2002] 1 S.C.R. 856, at para. 5). &nbsp;&nbsp;[...]&nbsp;&nbsp;The presumption “operates principally as an interpretive tool in assisting the courts in delineating the breadth and scope of Charter rights” (9147-0732 Québec inc., at para. 34, citing <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176, at para. 150). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21375/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21505/index.do?q=Kazemi+Estate+v.+Islamic+Republic+of+Iran+2014+SCC+62">Ahluwalia v. Ahluwalia</a></span>
+                        - <span class="citation">2026 SCC 16</span>
+                - <span class="publicationDate">2026-05-15</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Torts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     <b>v</b>. Bhadauria, [1981] 2 S.C.R. 181; <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176; R. <b>v</b>. Basque, 2023 <b>SCC</b> 18; Leitch <b>v</b>. Novac, 2020 ONCA 257, 150 O.R. (3d) 587; Hill <b>v</b>. Church of Scientology of Toronto, [1995] 2 S.C.R. 1130; Hunter <b>v</b>. Southam Inc., [1984] 2 S.C.R. 145; R. <b>v</b>. Tessling, 2004 <b>SCC</b> &nbsp;&nbsp;[...]&nbsp;&nbsp;[79] Furthermore, the existence of a statutory scheme may render the recognition of a new tort unnecessary (see Seneca College of Applied Arts and Technology <b>v</b>. Bhadauria, [1981] 2 S.C.R. 181, at pp. 194-95; <b>Kazemi</b> <b>Estate</b> <b>v</b>. <b>Islamic</b> <b>Republic</b> of <b>Iran</b>, <b>2014</b> <b>SCC</b> <b>62</b>, [<b>2014</b>] 3 S.C.R. 176, at para. 60; Nevsun, at para. 238, per &nbsp;&nbsp;[...]&nbsp;&nbsp; and trauma (R. <b>v</b>. Lavallee, [1990] 1 S.C.R. 852, at p. 872; Michel <b>v</b>. Graydon, 2020 <b>SCC</b> 24, [2020] 2 S.C.R. 763, at para. 95; R. <b>v</b>. Stairs, 2022 <b>SCC</b> 11, [2022] 1 S.C.R. 169, at paras. 91-94; R. <b>v</b>. Brown, 2022 <b>SCC</b> 18, [2022] 1 S.C.R. 374, at para. 165; R. <b>v</b>. Kirkpatrick, 2022 <b>SCC</b> 33, [2022] 2 S.C.R. 480, at paras. 61-<b>62</b>). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21505/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+            yearRangeString: "1877:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>

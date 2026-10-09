@@ -1,0 +1,728 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=Odhavji+Estate+v.+Woodhouse+2003+SCC+69&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=Odhavji+Estate+v.+Woodhouse+2003+SCC+69&ref=&p=&col=1&or=] All Databases (42)
+ Decisions (18)
+ [LINK /scc-csc/en/n/s/index.do?cont=Odhavji+Estate+v.+Woodhouse+2003+SCC+69&ref=&p=&col=1&or=] Resources (24)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=Odhavji+Estate+v.+Woodhouse+2003+SCC+69&ref=&p=&col=1&or=date] Date
+ 18 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/2104/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] Odhavji Estate v. Woodhouse
+ - 2003 SCC 69
+ - [2003] 3 SCR 263
+ - 2003-12-05
+ Supreme Court Judgments
+ Action
+ Civil procedure
+ Torts
+ Odhavji Estate v. Woodhouse, Succession Odhavji c. Woodhouse, 2003 SCC 69, 2003 CSC 69, 28425, [2003] 3 SCR 263, [2003] 3 RCS 263 [...] Odhavji Estate v. Woodhouse, [2003] 3 S.C.R. 263, 2003 SCC 69 Estate of Manish Odhavji, deceased, Pramod Odhavji, [...] Indexed as: Odhavji Estate v. Woodhouse Neutral citation: 2003 SCC 69. File No.: 28425. 
+ [LINK /scc-csc/scc-csc/en/2104/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/18855/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] Ontario (Attorney General) v. Clark
+ - 2021 SCC 18
+ - [2021] 1 SCR 607
+ - 2021-04-30
+ Supreme Court Judgments
+ R. v. Singh , 2013 ONCA 750, 118 O.R. (3d) 253; Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263; Powder Mountain Resorts Ltd. v. British Columbia, 2001 BCCA 619, 94 B.C.L.R. (3d) 14; Three Rivers District Council v. Bank of England (No. 3) (2000), [2003] 2 A.C. 1; Miazga v. Kvello Estate, 2009 SCC 51, [...] v. Singh , 2012 ONSC 4429; R. v. Singh , 2013 ONCA 750, 118 O.R. (3d) 253; Nelles v. Ontario, [1989] 2 S.C.R. 170; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; R. v. Cawthorne, 2016 SCC 32, [2016] 1 S.C.R. 983; Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263; R. v. Anderson, 2014 SCC [...] [123] Second, I will explain that the liability threshold for misfeasance in public office, as defined in Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263, places the bar high enough to mitigate the twin policy concerns and preserve prosecutorial independence. 
+ [LINK /scc-csc/scc-csc/en/18855/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/2382/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] Hill v. Hamilton-Wentworth Regional Police Services Board
+ - 2007 SCC 41
+ - [2007] 3 SCR 129
+ - 2007-10-04
+ Supreme Court Judgments
+ Professional law
+ Torts
+ 728; Cooper v. Hobart, [2001] 3 S.C.R. 537, 2001 SCC 79; Donoghue v. Stevenson, [1932] A.C. 562; discussed: Childs v. Desormeaux, [2006] 1 S.C.R. 643, 2006 SCC 18; referred to: Edwards v. Law Society of Upper Canada, [2001] 3 S.C.R. 562, 2001 SCC 80; Odhavji Estate v. Woodhouse, [2003] 3 S.C.R. 263, 2003 SCC 69; Canadian [...] of cases (Cooper v. Hobart, [2001] 3 S.C.R. 537, 2001 SCC 79, at paras. 25 and 29-39; Edwards v. Law Society of Upper Canada, [2001] 3 S.C.R. 562, 2001 SCC 80, at para. 9; Odhavji Estate v. Woodhouse, [2003] 3 S.C.R. 263, 2003 SCC 69, at paras. 47-50; Childs v. Desormeaux, [2006] 1 S.C.R. 643, 2006 SCC 18, at para. 47).) [...] v. Merton London Borough Council, [1978] A.C. 728), as refined by this Court in Cooper v. Hobart, [2001] 3 S.C.R. 537, 2001 SCC 79; Edwards v. Law Society of Upper Canada, [2001] 3 S.C.R. 562, 2001 SCC 80; Odhavji Estate v. Woodhouse, [2003] 3 S.C.R. 263, 2003 SCC 69, and Childs v. Desormeaux, [2006] 1 S.C.R. 643, 2006 SCC
+ [LINK /scc-csc/scc-csc/en/2382/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/3/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] Childs v. Desormeaux
+ - 2006 SCC 18
+ - [2006] 1 SCR 643
+ - 2006-05-05
+ Supreme Court Judgments
+ Torts
+ Citation: Childs v. Desormeaux, [2006] 1 S.C.R. 643, 2006 SCC 18 Date: 20060505 Docket: 30472 [...] 321; Dunn v. Dominion Atlantic Railway Co. (1920), 60 S.C.R. 310; Jordan House Ltd. v. Menow, [1974] S.C.R. 239; Doe v. Metropolitan Toronto (Municipality) Commissioners of Police (1998), 39 O.R. (3d) 487; referred to: Donoghue v. Stevenson, [1932] A.C. 562; Odhavji Estate v. Woodhouse, [2003] 3 S.C.R. 263, 2003 SCC 69. [...] 12 In Odhavji Estate v. Woodhouse, [2003] 3 S.C.R. 263, 2003 SCC 69, the Court affirmed the Anns test and spoke, per Iacobucci J., of three requirements: reasonable foreseeability; sufficient proximity; and the absence of overriding policy considerations which negate a prima facie duty established by foreseeability and 
+ [LINK /scc-csc/scc-csc/en/3/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/21546/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] Resler v. Anglin
+ - 2026 SCC 23
+ - 2026-06-19
+ Supreme Court Judgments
+ Civil procedure
+ SCC 42, [2002] 2 S.C.R. 559; R. v. Wolfe, 2024 SCC 34; R. v. Imperial Tobacco Canada Ltd., 2011 SCC 42, [2011] 3 S.C.R. 45; Alberta v. Elder Advocates of Alberta Society, 2011 SCC 24, [2011] 2 S.C.R. 261; Elder Advocates of Alberta Society v. Alberta, 2008 ABQB 490, 453 A.R. 1; Odhavji Estate v. Woodhouse, 2003 SCC 69, [...] 2004 SCC 38, [2004] 2 S.C.R. 74; referred to: R. v. McGregor, 2023 SCC 4, [2023] 1 S.C.R. 198; R. v. Bouvette, 2025 SCC 18; R. v. Mian, 2014 SCC 54, [2014] 2 S.C.R. 689; Guindon v. Canada, 2015 SCC 41, [2015] 3 S.C.R. 3; John Howard Society of Saskatchewan v. Saskatchewan (Attorney General), 2025 SCC 6; Piekut v. Canada [...] than its early formulations in English cases and set the contours of its modern application in Canadian law (Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263, at paras. 18 and 19; H. Wruck, “The Continuing Evolution of the Tort of Misfeasance in Public Office” (2008), 41 U.B.C. L. Rev. 69, at pp. 72 and 74). 
+ [LINK /scc-csc/scc-csc/en/21546/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/4632/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] Design Services Ltd. v. Canada
+ - 2008 SCC 22
+ - [2008] 1 SCR 737
+ - 2008-05-08
+ Supreme Court Judgments
+ Torts
+ Citation: Design Services Ltd. v. Canada, [2008] 1 S.C.R. 737, 2008 SCC 22 Date: 20080508 Docket: 31618 [...] 2000 SCC 60; Kamloops (City of) v. Nielsen, [1984] 2 S.C.R. 2; Cooper v. Hobart, [2001] 3 S.C.R. 537, 2001 SCC 79; Edwards v. Law Society of Upper Canada, [2001] 3 S.C.R. 562, 2001 SCC 80; Odhavji Estate v. Woodhouse, [2003] 3 S.C.R. 263, 2003 SCC 69; Childs v. Desormeaux, [2006] 1 S.C.R. 643, 2006 SCC 18; Donoghue v. [...] See for example Kamloops (City of) v. Nielsen, [1984] 2 S.C.R. 2; Cooper v. Hobart, [2001] 3 S.C.R. 537, 2001 SCC 79; Edwards v. Law Society of Upper Canada, [2001] 3 S.C.R. 562, 2001 SCC 80; Odhavji Estate v. Woodhouse, [2003] 3 S.C.R. 263, 2003 SCC 69; Childs v. Desormeaux, [2006] 1 S.C.R. 643, 2006 SCC 18. 
+ [LINK /scc-csc/scc-csc/en/4632/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/16664/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] Saadati v. Moorhead
+ - 2017 SCC 28
+ - [2017] 1 SCR 543
+ - 2017-06-02
+ Supreme Court Judgments
+ Citation: Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543 Appeal Heard: January 16, 2017 [...] Rodaro v. Royal Bank of Canada (2002), 59 O.R. (3d) 74; Burgsteden v. Long, 2014 SKCA 115, 378 D.L.R. (4th) 562; R. v. E.M.W., 2011 SCC 31, [2011] 2 S.C.R. 542; Canada Trustco Mortgage Co. v. Renard, 2008 BCCA 343, 298 D.L.R. (4th) 216; Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263; McLoughlin v. O’Brian, [...] that it must answer (Canada Trustco Mortgage Co. v. Renard, 2008 BCCA 343, 298 D.L.R. (4th) 216, at paras. 38-39). [10] In claims for negligently caused mental injury, it is generally sufficient that the pleadings allege some form of such injury (Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263, at para. 74). 
+ [LINK /scc-csc/scc-csc/en/16664/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/7938/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] Alberta v. Elder Advocates of Alberta Society
+ - 2011 SCC 24
+ - [2011] 2 SCR 261
+ - 2011-05-12
+ Supreme Court Judgments
+ Civil procedure
+ Trust
+ Alberta v. Elder Advocates of Alberta Society, 2011 SCC 24, [2011] 2 S.C.R. 261 [...] 2003 SCC 39, [2003] 2 S.C.R. 40; Brewer Bros. v. Canada (Attorney General), [1992] 1 F.C. 25; Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263; Kingstreet Investments Ltd. v. New Brunswick (Finance), 2007 SCC 1, [2007] 1 S.C.R. 3; referred to: Hollick v. Toronto (City), 2001 SCC 68, [2001] 3 S.C.R. 158; Hunt v [...] [79] At the hearing, counsel for the plaintiffs sought to argue that we should read the plea of bad faith as disclosing the tort of misfeasance in public office: Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263. Notwithstanding the difficulty of raising this interpretation of the pleadings for the first time in
+ [LINK /scc-csc/scc-csc/en/7938/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/7851/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] Reference re Broome v. Prince Edward Island
+ - 2010 SCC 11
+ - [2010] 1 SCR 360
+ - 2010-04-01
+ Supreme Court Judgments
+ Torts
+ of) v. Nielsen, [1984] 2 S.C.R. 2; Cooper v. Hobart, 2001 SCC 79, [2001] 3 S.C.R. 537; Edwards v. Law Society of Upper Canada, 2001 SCC 80, [2001] 3 S.C.R. 562; Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263; Childs v. Desormeaux, 2006 SCC 18, [2006] 1 S.C.R. 643; Holland v. Saskatchewan, 2008 SCC 42, [...] v. Hobart, 2001 SCC 79, [2001] 3 S.C.R. 537, Edwards v. Law Society of Upper Canada, 2001 SCC 80, [2001] 3 S.C.R. 562, Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263, Childs v. Desormeaux, 2006 SCC 18, [2006] 1 S.C.R. 643, Holland v. Saskatchewan, 2008 SCC 42, [2008] 2 S.C.R. 551, and Design Services Ltd. v. [...] Although it may be delegated to another, the breach, no matter how committed, by the delegatee, will be treated as a breach by the delegator.” See also K.L.B. v. British Columbia, 2003 SCC 51, [2003] 2 S.C.R. 403, at paras. 30-32. 
+ [LINK /scc-csc/scc-csc/en/7851/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/16325/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] Ernst v. Alberta Energy Regulator
+ - 2017 SCC 1
+ - [2017] 1 SCR 3
+ - 2017-01-13
+ Supreme Court Judgments
+ Constitutional law
+ R. v. Imperial Tobacco Canada Ltd., 2011 SCC 42, [2011] 3 S.C.R. 45; Vancouver (City) v. Ward, 2010 SCC 27, [2010] 2 S.C.R. 28; Irwin Toy Ltd. v. Quebec (Attorney General), [1989] 1 S.C.R. 927; Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263; Henry v. British Columbia (Attorney General), 2015 SCC 24, [2015] 2 [...] A claim will only be struck if it is plain and obvious, assuming the facts pleaded to be true, that the pleading discloses no reasonable cause of action: Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263, at para. 15; Hunt v. Carey Canada Inc., [1990] 2 S.C.R. 959, at p. 980. [...] The test for granting an application to strike is stringent: it is “only if the statement of claim is certain to fail because it contains a ‘radical defect’ that the plaintiff should be driven from the judgment” (Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263, at para. 15). 
+ [LINK /scc-csc/scc-csc/en/16325/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/13445/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] A.I. Enterprises Ltd. v. Bram Enterprises Ltd.
+ - 2014 SCC 12
+ - [2014] 1 SCR 177
+ - 2014-01-31
+ Supreme Court Judgments
+ Torts
+ Citation: A.I. Enterprises Ltd. v. Bram Enterprises Ltd., 2014 SCC 12, [2014] 1 S.C.R. 177 Date: 20140131 [...] v. Therien, [1960] S.C.R. 265; The Queen in Right of Canada v. Saskatchewan Wheat Pool, [1983] 1 S.C.R. 205; Edwards v. Law Society of Upper Canada, 2001 SCC 80, [2001] 3 S.C.R. 562; Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263; Hill v. Hamilton‐Wentworth Regional Police Services Board, 2007 SCC 41, [...] see, e.g., The Queen in Right of Canada v. Saskatchewan Wheat Pool, [1983] 1 S.C.R. 205; Edwards v. Law Society of Upper Canada, 2001 SCC 80, [2001] 3 S.C.R. 562; Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263; Hill v. Hamilton-Wentworth Regional Police Services Board, 2007 SCC 41, [2007] 3 S.C.R. 129. 
+ [LINK /scc-csc/scc-csc/en/13445/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/16920/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] Deloitte & Touche v. Livent Inc. (Receiver of)
+ - 2017 SCC 63
+ - [2017] 2 SCR 855
+ - 2017-12-20
+ Supreme Court Judgments
+ Citation: Deloitte & Touche v. Livent Inc. (Receiver of), 2017 SCC 63 Appeal Heard: February 15, 2017 [...] SCC 80, [2001] 3 S.C.R. 562; Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263; Childs v. Desormeaux, 2006 SCC 18, [2006] 1 S.C.R. 643; Hill v. Hamilton‐Wentworth Regional Police Services Board, 2007 SCC 41, [2007] 3 S.C.R. 129; Fullowka v. Pinkerton’s of Canada Ltd., 2010 SCC 5, [2010] 1 S.C.R. 132; Saadati v. [...] (Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263, at paras. 47-48; Childs v. Desormeaux, 2006 SCC 18, [2006] 1 S.C.R. 643, at para. 12; Hill v. Hamilton-Wentworth Regional Police Services Board, 2007 SCC 41, [2007] 3 S.C.R. 129, at para. 23; and Fullowka v. Pinkerton’s of Canada Ltd., 2010 SCC 5, 
+ [LINK /scc-csc/scc-csc/en/16920/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/10006/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] Canada (Attorney General) v. Downtown Eastside Sex Workers United Against Violence Society
+ - 2012 SCC 45
+ - [2012] 2 SCR 524
+ - 2012-09-21
+ Supreme Court Judgments
+ Civil procedure
+ Indexed as: Canada (Attorney General) v. Downtown Eastside Sex Workers United Against Violence Society 2012 SCC 45 [...] Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263; discussed: Finlay v. Canada (Minister of Finance), [1986] 2 S.C.R. 607; Canadian Council of Churches v. Canada (Minister of Employment and Immigration), [1992] 1 S.C.R. 236; Minister of Justice of Canada v. Borowski, [1981] 2 S.C.R. 575; Hy and Zel’s Inc. v. [...] The Court of Appeal declined to do so (2011 BCCA 515, 314 B.C.A.C. 137) and we ought not to interfere with that exercise of discretion unless there are clear and compelling reasons to do so which in my view do not exist here: Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263, at para. 77. 
+ [LINK /scc-csc/scc-csc/en/10006/1/document.do] 
+ 14.
+ [LINK /scc-csc/scc-csc/en/item/2337/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] Little Sisters Book and Art Emporium v. Canada (Commissioner of Customs and Revenue)
+ - 2007 SCC 2
+ - [2007] 1 SCR 38
+ - 2007-01-19
+ Supreme Court Judgments
+ Civil procedure
+ v. Okanagan Indian Band, [2003] 3 S.C.R. 371, 2003 SCC 71; referred to: Little Sisters Book and Art Emporium v. Canada (Minister of Justice), [2000] 2 S.C.R. 1120, 2000 SCC 69; R. v. Butler, [1992] 1 S.C.R. 452; R. v. Sharpe, [2001] 1 S.C.R. 45, 2001 SCC 2; Odhavji Estate v. Woodhouse, [2003] 3 S.C.R. 263, 2003 SCC 69; [...] respect to costs: Odhavji Estate v. Woodhouse, [2003] 3 S.C.R. 263, 2003 SCC 69; Office and Professional Employees’ International Union, Local 378 v. British Columbia (Hydro and Power Authority), [2005] B.C.J. No. 9 (QL), 2005 BCSC 8; MacDonald v. University of British Columbia (2004), 26 B.C.L.R. (4th) 190, 2004 BCSC 412. [...] Doucet-Boudreau v. Nova Scotia (Minister of Education) [[2003] 3 S.C.R. 3, 2003 SCC 62]. 
+ [LINK /scc-csc/scc-csc/en/2337/1/document.do] 
+ 15.
+ [LINK /scc-csc/scc-csc/en/item/7844/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] Fullowka v. Pinkerton's of Canada Ltd.
+ - 2010 SCC 5
+ - [2010] 1 SCR 132
+ - 2010-02-18
+ Supreme Court Judgments
+ Torts
+ v. Sagaz Industries Canada Inc., 2001 SCC 59, [2001] 2 S.C.R. 983; Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263; Childs v. Desormeaux, 2006 SCC 18, [2006] 1 S.C.R. 643; Donoghue v. Stevenson, [1932] A.C. 562; Syl Apps Secure Treatment Centre v. B.D., 2007 SCC 38, [2007] 3 S.C.R. 83; Ultramares Corp. v. [...] Cooper v. Hobart, 2001 SCC 79, [2001] 3 S.C.R. 537; Edwards v. Law Society of Upper Canada, 2001 SCC 80, [2001] 3 S.C.R. 562; Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263; Childs v. Desormeaux, 2006 SCC 18, [2006] 1 S.C.R. 643; and Hill v. Hamilton-Wentworth Regional Police Services Board, 2007 SCC 41, [...] analysis for determining vicarious liability set out in the authorities such as Bazley; Jacobi v. Griffiths, [1999] 2 S.C.R. 570; K.L.B. v. British Columbia, 2003 SCC 51, [2003] 2 S.C.R. 403; Bennett and E.B. v. Order of the Oblates of Mary Immaculate in the Province of British Columbia, 2005 SCC 60, [2005] 3 S.C.R. 45. 
+ [LINK /scc-csc/scc-csc/en/7844/1/document.do] 
+ 16.
+ [LINK /scc-csc/scc-csc/en/item/7957/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] R. v. Imperial Tobacco Canada Ltd.
+ - 2011 SCC 42
+ - [2011] 3 SCR 45
+ - 2011-07-29
+ Supreme Court Judgments
+ Civil procedure
+ Torts
+ Applied: Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263; Hunt v. Carey Canada Inc., [1990] 2 S.C.R. 959; Anns v. Merton London Borough Council, [1978] A.C. 728; Cooper v. Hobart, 2001 SCC 79, [2001] 3 S.C.R. 537; Hercules Managements Ltd. v. Ernst & Young, [1997] 2 S.C.R. 165; referred to: Syl Apps Secure [...] A claim will only be struck if it is plain and obvious, assuming the facts pleaded to be true, that the pleading discloses no reasonable cause of action: Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263, at para. 15; Hunt v. Carey Canada Inc., [1990] 2 S.C.R. 959, at p. 980. [...] Where a reasonable prospect of success exists, the matter should be allowed to proceed to trial: see, generally, Syl Apps Secure Treatment Centre v. B.D., 2007 SCC 38, [2007] 3 S.C.R. 83; Odhavji Estate; Hunt; Attorney General of Canada v. Inuit Tapirisat of Canada, [1980] 2 S.C.R. 735. 
+ [LINK /scc-csc/scc-csc/en/7957/1/document.do] 
+ 17.
+ [LINK /scc-csc/scc-csc/en/item/18539/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] 1688782 Ontario Inc. v. Maple Leaf Foods Inc.
+ - 2020 SCC 35
+ - [2020] 3 SCR 504
+ - 2020-11-06
+ Supreme Court Judgments
+ Cooper v. Hobart, 2001 SCC 79, [2001] 3 S.C.R. 537; Martel Building Ltd. v. Canada, 2000 SCC 60, [2000] 2 S.C.R. 860; D’Amato v. Badger, [1996] 2 S.C.R. 1071; Saadati v. Moorhead, 2017 SCC 28, [2017] 1 S.C.R. 543; Palsgraf v. Long Island Railroad Co., 162 N.E. 99 (1928); Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 [...] Inc. v. Heller, 2020 SCC 16, [2020] 2 S.C.R. 118; Douez v. Facebook, Inc., 2017 SCC 33, [2017] 1 S.C.R. 751; Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, [2008] 2 S.C.R. 114; Athey v. Leonati, [1996] 3 S.C.R. 458; Janiak v. Ippolito, [1985] 1 S.C.R. 146; British Columbia v. Canadian Forest Products Ltd., 2004 SCC 38, [...] As Cardozo C.J. explained in Palsgraf v. Long Island Railroad Co., 162 N.E. 99 (N.Y. 1928), “[n]egligence is not actionable unless it involves the invasion of a legally protected interest, the violation of a right” (p. 99; see also Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263, at para. 45; Livent, at para. 
+ [LINK /scc-csc/scc-csc/en/18539/1/document.do] 
+ 18.
+ [LINK /scc-csc/scc-csc/en/item/18169/index.do?q=Odhavji+Estate+v.+Woodhouse+2003+SCC+69] Nevsun Resources Ltd. v. Araya
+ - 2020 SCC 5
+ - [2020] 1 SCR 166
+ - 2020-02-28
+ Supreme Court Judgments
+ States v. Burns, 2001 SCC 7, [2001] 1 S.C.R. 283; Suresh v. Canada (Minister of Citizenship and Immigration), 2002 SCC 1, [2002] 1 S.C.R. 3; India v. Badesha, 2017 SCC 44, [2017] 2 S.C.R. 127; R. v. Imperial Tobacco Canada Ltd., 2011 SCC 42, [2011] 3 S.C.R. 45; Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. [...] v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 465, Kazemi Estate v. Islamic Republic of Iran, 2014 SCC 62, [2014] 3 S.C.R. 176; R. v. Jones (Margaret), [2006] UKHL 16, [2007] 1 A.C. 136; R. v. Find, 2001 SCC 32, [2001] 1 S.C.R. 863; R. v. Spence, 2005 SCC 71, [2005] 3 S.C.R. 458; R. v. Finta, [1994] 1 S.C.R. 701; Khulumani v. [...] [64] A pleading will only be struck for disclosing no reasonable claim under rule 9-5(1)(a) if it is “plain and obvious” that the claim has no reasonable prospect of success (R. v. Imperial Tobacco Canada Ltd., [2011] 3 S.C.R. 45, at para. 17; Odhavji Estate v. Woodhouse, [2003] 3 S.C.R. 263, at paras. 14-15). 
+ [LINK /scc-csc/scc-csc/en/18169/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

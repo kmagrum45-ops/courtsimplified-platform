@@ -1,0 +1,784 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=R.+v.+Jordan+2016+SCC+27&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=R.+v.+Jordan+2016+SCC+27&ref=&p=&col=1&or=] All Databases (202)
+ Decisions (56)
+ [LINK /scc-csc/en/n/s/index.do?cont=R.+v.+Jordan+2016+SCC+27&ref=&p=&col=1&or=] Resources (146)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ 1
+ [LINK /scc-csc/en/d/s/index.do?cont=R.+v.+Jordan+2016+SCC+27&ref=&d=&p=&col=1&or=&page=2] 2
+ [LINK /scc-csc/en/d/s/index.do?cont=R.+v.+Jordan+2016+SCC+27&ref=&d=&p=&col=1&or=&page=3] 3
+ [LINK /scc-csc/en/d/s/index.do?cont=R.+v.+Jordan+2016+SCC+27&ref=&d=&p=&col=1&or=&page=2] &gt;
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=R.+v.+Jordan+2016+SCC+27&ref=&p=&col=1&or=date] Date
+ 56 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/16057/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Jordan
+ - 2016 SCC 27
+ - [2016] 1 SCR 631
+ - 2016-07-08
+ Supreme Court Judgments
+ Constitutional law
+ R. v. Jordan, R. c. Jordan, 2016 SCC 27, 2016 CSC 27, 36068, [2016] 1 SCR 631, [2016] 1 RCS 631 [...] Citation: R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631 Appeal heard: October 7, 2015 [...] R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631 Barrett Richard Jordan Appellant 
+ [LINK /scc-csc/scc-csc/en/16057/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/18035/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. K.J.M.
+ - 2019 SCC 55
+ - [2019] 4 SCR 39
+ - 2019-11-15
+ Supreme Court Judgments
+ Constitutional law
+ The trial judge found that the total delay exceeded the 18‐month ceiling set out in R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631, and was therefore presumptively unreasonable. [...] R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. Cody, 2017 SCC 31, [2017] 1 S.C.R. 659; R. v. Morin, [1992] 1 S.C.R. 771; R. v. S.J.L., 2009 SCC 14, [2009] 1 S.C.R. 426; R. v. D.B., 2008 SCC 25, [2008] 2 S.C.R. 3; R. v. R.C., 2005 SCC 61, [2005] 3 S.C.R. 99; R. v. L.T.H., 2008 SCC 49, [2008] 2 S.C.R. 739; R. v. M. [...] R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. D. (S.), [1992] 2 S.C.R. 161; R. v. Askov, [1990] 2 S.C.R. 1199; R. v. Morin, [1992] 1 S.C.R. 771; R. v. M. (G.C.) (1991), 3 O.R. (3d) 223; R. v. L.B., 2014 ONCA 748, 325 O.A.C. 371. 
+ [LINK /scc-csc/scc-csc/en/18035/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/21532/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Jacques-Taylor
+ - 2026 SCC 20
+ - 2026-05-29
+ Supreme Court Judgments
+ Constitutional law
+ Applied: R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. Tran, 2023 ONCA 532, 429 C.C.C. (3d) 55; considered: R. v. Vassell, 2016 SCC 26, [2016] 1 S.C.R. 625; R. v. Singh, 2025 ONCA 843; R. v. Singh, 2016 BCCA 427, 344 C.C.C. (3d) 516; referred to: R. v. Gopie, 2017 ONCA 728, 140 O.R. (3d) 171; R. v. Yusuf, 2021 SCC [...] R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. Askov, [1990] 2 S.C.R. 1199; R. v. Vassell, 2016 SCC 26, [2016] 1 S.C.R. 625; R. v. Tran, 2023 ONCA 532, 429 C.C.C. (3d) 55; R. v. Chow, 2005 SCC 24, [2005] 1 S.C.R. 384; R. v. Dos Santos, 2025 ONCA 598, 178 O.R. (3d) 481; R. v. J.F., 2022 SCC 17, [2022] 1 S.C.R. 330; R. [...] [1] In R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631, the Court emphasized that all actors in the criminal justice system have a duty to participate in reforming the culture of complacency. 
+ [LINK /scc-csc/scc-csc/en/21532/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/21302/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Vrbanic
+ - 2026 SCC 19
+ - 2026-05-29
+ Supreme Court Judgments
+ Constitutional law
+ 1421; R. v. Morin, [1992] 1 S.C.R. 771; R. v. K.G.K., 2020 SCC 7, [2020] 1 S.C.R. 364; R. v. Varennes, 2025 SCC 22; R. v. Jacques-Taylor, 2026 SCC 20; R. v. Cody, 2017 SCC 31, [2017] 1 S.C.R. 659; R. v. Marakah, 2017 SCC 59, [2017] 2 S.C.R. 608; R. v. Bykovets, 2024 SCC 6; R. v. Kinamore, 2025 SCC 19; R. v. [...] 2018 SCC 27, [2018] 1 S.C.R. 772; R. v. Fraser, 2022 ONCJ 580; Lapointe v. R., 2019 QCCQ 3099; R. v. Martell, 2022 QCCQ 9333; R. v. Oakes, [1986] 1 S.C.R. 103; R. v. Grant, 2009 SCC 32, [2009] 2 S.C.R. 353; R. v. Haevischer, 2023 SCC 11, [2023] 1 S.C.R. 416; R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3; R. v. Rahey, [...] [1] In the decade since this Court rendered its decision in R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631, the principles it expounded have not diminished in salience. 
+ [LINK /scc-csc/scc-csc/en/21302/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/16060/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Williamson
+ - 2016 SCC 28
+ - [2016] 1 SCR 741
+ - 2016-07-08
+ Supreme Court Judgments
+ Constitutional law
+ R. v. Williamson, R. c. Williamson, 2016 SCC 28, 2016 CSC 28, 36112, [2016] 1 SCR 741, [2016] 1 RCS 741 [...] Applied: R. v. Morin, [1992] 1 S.C.R. 771; referred to: R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631. [...] R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. Morin, [1992] 1 S.C.R. 771; R. v. Ralph, 2014 ONCA 3, 299 C.R.R. (2d) 1; R. v. Steele, 2012 ONCA 383, 288 C.C.C. (3d) 255. 
+ [LINK /scc-csc/scc-csc/en/16060/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/19349/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. J.F.
+ - 2022 SCC 17
+ - [2022] 1 SCR 330
+ - 2022-05-06
+ Supreme Court Judgments
+ Constitutional law
+ R. v. J.F., R. c. J.F., 2022 SCC 17, 2022 CSC 17, 39267, [2022] 1 SCR 330, [2022] 1 RCS 330 [...] R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; considered: R. v. Morin, [1992] 1 S.C.R. 771; R. v. K.J.M., 2019 SCC 55, [2019] 4 S.C.R. 39; R. v. Potvin, [1993] 2 S.C.R. 880; R. v. Rabba (1991), 64 C.C.C. (3d) 445; R. v. Collins, [1995] 2 S.C.R. 1104; referred to: R. v. K.G.K., 2020 SCC 7, [2020] 1 S.C.R. 364; R. v. [...] R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. Rahey, [1987] 1 S.C.R. 588; R. v. Cody, 2017 SCC 31, [2017] 1 S.C.R. 659; R. v. Morin, [1992] 1 S.C.R. 771; R. v. Rabba (1991), 64 C.C.C. (3d) 445; M.G. v. R., 2019 QCCA 1170. 
+ [LINK /scc-csc/scc-csc/en/19349/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/18217/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. K.G.K.
+ - 2020 SCC 7
+ - [2020] 1 SCR 364
+ - 2020-03-20
+ Supreme Court Judgments
+ Constitutional law
+ R. v. K.G.K., R. c. K.G.K., 2020 SCC 7, 2020 CSC 7, 38532, [2020] 1 SCR 364, [2020] 1 RCS 364 [...] Considered: R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. Rahey, [1987] 1 S.C.R. 588; R. v. MacDougall, [1998] 3 S.C.R. 45; referred to: R. v. K.J.M., 2019 SCC 55, [2019] 4 S.C.R. 39; R. v. Morin, [1992] 1 S.C.R. 771; R. v. Godin, 2009 SCC 26, [2009] 2 S.C.R. 3; R. v. Henry, 2005 SCC 76, [2005] 3 S.C.R. 609; R. v. [...] Considered: R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; referred to: Cojocaru v. British Columbia Women’s Hospital and Health Centre, 2013 SCC 30, [2013] 2 S.C.R. 357; R. v. Teskey, 2007 SCC 25, [2007] 2 S.C.R. 267; R. v. Chan, 2019 ABCA 82, 82 Alta. 
+ [LINK /scc-csc/scc-csc/en/18217/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/21126/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Varennes
+ - 2025 SCC 22
+ - 2025-07-11
+ Supreme Court Judgments
+ Criminal law
+ R. v. Brunelle, 2024 SCC 3; R. v. Babos, 2014 SCC 16, [2014] 1 S.C.R. 309; R. v. Mahalingan, 2008 SCC 63, [2008] 3 S.C.R. 316; R. v. Keyowski, [1988] 1 S.C.R. 657; R. v. Jolivet, 2000 SCC 29, [2000] 1 S.C.R. 751; Smythe v. The Queen, [1971] S.C.R. 680; R. v. Beare, [1988] 2 S.C.R. 387; R. v. Cook, [1997] 1 S.C.R. 1113; R. v [...] 1254; Cocker v. Tempest (1841), 7 M. & W. 502, 151 E.R. 864; R. v. Potvin, [1993] 2 S.C.R. 880; R. v. La, [1997] 2 S.C.R. 680; R. v. Vassell, 2016 SCC 26, [2016] 1 S.C.R. 625; R. v. K.J.M., 2019 SCC 55, [2019] 4 S.C.R. 39; R. v. Thanabalasingham, 2020 SCC 18, [2020] 2 S.C.R. 413; R. v. J.M.H., 2011 SCC 45, [2011] 3 [...] R. v. Hanan, 2023 SCC 12; considered: R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; referred to: R. v. Dixon, [1998] 1 S.C.R. 244; R. v. O’Connor, [1995] 4 S.C.R. 411; R. v. Turpin, [1989] 1 S.C.R. 1296; R. v. L. (W.K.), [1991] 1 S.C.R. 1091; A. (L.L.) v. B. (A.), [1995] 4 S.C.R. 536; R. v. Hanan, 2019 ONSC 320; R. v. 
+ [LINK /scc-csc/scc-csc/en/21126/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/16693/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Cody
+ - 2017 SCC 31
+ - [2017] 1 SCR 659
+ - 2017-06-16
+ Supreme Court Judgments
+ Constitutional law
+ Because the application pre‐dated the release of R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631, the trial judge applied the former framework set out in R. v. Morin, [1992] 1 S.C.R. 771. [...] R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; referred to: R. v. Morin, [1992] 1 S.C.R. 771; Canada (Attorney General) v. Bedford, 2013 SCC 72, [2013] 3 S.C.R. 1101; Carter v. Canada (Attorney General), 2015 SCC 5, [2015] 1 S.C.R. 331; R. v. McNeil, 2009 SCC 3, [2009] 1 S.C.R. 66; R. v. Dixon, [1998] 1 S.C.R. 244; R. v. [...] [1] In R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631, this Court identified a culture of complacency towards delay in the criminal justice system. 
+ [LINK /scc-csc/scc-csc/en/16693/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/21654/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. R.B.-C.
+ - 2026 SCC 30
+ - 2026-09-11
+ Supreme Court Judgments
+ Constitutional law
+ R. v. R.B.-C., R. c. R.B.-C., 2026 SCC 30, 2026 CSC 30, 41677 SUPREME COURT OF CANADA [...] However, the presumptive ceilings established in R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631, that require trials to be conducted within 18 months in provincial courts and 30 months in superior courts do not govern the entire period to which s. 11(b) applies. [...] considered: R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. K.G.K., 2020 SCC 7, [2020] 1 S.C.R. 364; referred to: R. v. MacDougall, [1998] 3 S.C.R. 45; R. v. Morin, [1992] 1 S.C.R. 771; R. v. Jacques-Taylor, 2026 SCC 20; R. v. Vrbanic, 2026 SCC 19; Quebec (Attorney General) v. Senneville, 2025 SCC 33; R. v. Gardiner, 
+ [LINK /scc-csc/scc-csc/en/21654/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/18421/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Thanabalasingham
+ - 2020 SCC 18
+ - [2020] 2 SCR 413
+ - 2020-07-17
+ Supreme Court Judgments
+ Constitutional law
+ R. v. Thanabalasingham, R. c. Thanabalasingham, 2020 SCC 18, 2020 CSC 18, 37984, [2020] 2 SCR 413, [2020] 2 RCS 413 [...] Citation: R. v. Thanabalasingham, 2020 SCC 18, [2020] 2 S.C.R. 413 Appeal Heard: June 10, 2020 [...] Applied: R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; referred to: R. v. Cody, 2017 SCC 31, [2017] 1 S.C.R. 659; R. v. Morin, [1992] 1 S.C.R. 771; R. v. Williamson, 2016 SCC 28, [2016] 1 S.C.R. 741. 
+ [LINK /scc-csc/scc-csc/en/18421/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/19830/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Hanan
+ - 2023 SCC 12
+ - [2023] 1 SCR 467
+ - 2023-05-05
+ Supreme Court Judgments
+ R. v. Hanan, R. c. Hanan, 2023 SCC 12, 2023 CSC 12, 40097, [2023] 1 SCR 467, [2023] 1 RCS 467 [...] v. His Majesty The King Respondent Indexed as: R. v. Hanan 2023 SCC 12 [...] Referred to: R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. Cody, 2017 SCC 31, [2017] 1 S.C.R. 659; R. v. Boulanger, 2022 SCC 2, [2022] 1 S.C.R. 9. 
+ [LINK /scc-csc/scc-csc/en/19830/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/17058/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Magoon
+ - 2018 SCC 14
+ - [2018] 1 SCR 309
+ - 2018-04-13
+ Supreme Court Judgments
+ R. v. Magoon, R. c. Magoon, 2018 SCC 14, 2018 CSC 14, 37416, 37479, [2018] 1 SCR 309, [2018] 1 RCS 309 [...] Citation: R. v. Magoon, 2018 SCC 14, [2018] 1 S.C.R. 309 Appeals Heard and Judgments Rendered: November 27, 2017 [...] v. Her Majesty The Queen Respondent Indexed as: R. v. Magoon 2018 SCC 14 
+ [LINK /scc-csc/scc-csc/en/17058/1/document.do] 
+ 14.
+ [LINK /scc-csc/scc-csc/en/item/19170/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Boulanger
+ - 2022 SCC 2
+ - [2022] 1 SCR 9
+ - 2022-02-09
+ Supreme Court Judgments
+ R. v. Boulanger, R. c. Boulanger, 2022 SCC 2, 2022 CSC 2, 39710, [2022] 1 SCR 9, [2022] 1 RCS 9 [...] v. Marc-André Boulanger Respondent Indexed as: R. v. Boulanger 2022 SCC 2 [...] Applied: R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; referred to: R. v. G.F., 2021 SCC 20, [2021] 1 S.C.R. 801; R. v. Rice, 2018 QCCA 198; R. v. Cody, 2017 SCC 31, [2017] 1 S.C.R. 659; R. v. K.G.K., 2020 SCC 7, [2020] 1 S.C.R. 364; R. v. K.J.M., 2019 SCC 55, [2019] 4 S.C.R. 39. 
+ [LINK /scc-csc/scc-csc/en/19170/1/document.do] 
+ 15.
+ [LINK /scc-csc/scc-csc/en/item/18656/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Yusuf
+ - 2021 SCC 2
+ - [2021] 1 SCR 5
+ - 2021-01-19
+ Supreme Court Judgments
+ R. v. Yusuf, R. c. Yusuf, 2021 SCC 2, 2021 CSC 2, 39110, [2021] 1 SCR 5, [2021] 1 RCS 5 [...] v. Her Majesty The Queen Respondent Indexed as: R. v. Yusuf 2021 SCC 2 [...] Referred to: R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. Cody, 2017 SCC 31, [2017] 1 S.C.R. 659. 
+ [LINK /scc-csc/scc-csc/en/18656/1/document.do] 
+ 16.
+ [LINK /scc-csc/scc-csc/en/item/17504/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Calnen
+ - 2019 SCC 6
+ - [2019] 1 SCR 301
+ - 2019-02-01
+ Supreme Court Judgments
+ Criminal law
+ Referred to: R. v. Mack, 2014 SCC 58, [2014] 3 S.C.R. 3; R. v. Jaw, 2009 SCC 42, [2009] 3 S.C.R. 26; R. v. Daley, 2007 SCC 53, [2007] 3 S.C.R. 523; R. v. Jacquard, [1997] 1 S.C.R. 314; R. v. White, 2011 SCC 13, [2011] 1 S.C.R. 433; R. v. White, [1998] 2 S.C.R. 72; R. v. W. (D.), [1991] 1 S.C.R. 742; R. v. Kociuk, 2011 MBCA [...] R. v. Jaw, 2009 SCC 42, [2009] 3 S.C.R. 26; R. v. Cooper, [1993] 1 S.C.R. 146; R. v. Khela, 2009 SCC 4, [2009] 1 S.C.R. 104; R. v. Daley, 2007 SCC 53, [2007] 3 S.C.R. 523; R. v. Mack, 2014 SCC 58, [2014] 3 S.C.R. 3; R. v. W.H., 2013 SCC 22, [2013] 2 S.C.R. 180; R. v. Yebes, [1987] 2 S.C.R. 168; R. v. Biniaris, 2000 SCC [...] L.R. (4th) 327; R. v. G. (S.G.), [1997] 2 S.C.R. 716; R. v. G.D.B., 2000 SCC 22, [2000] 1 S.C.R. 520; R. v. St‐Cloud, 2015 SCC 27, [2015] 2 S.C.R. 328; Palmer v. The Queen, [1980] 1 S.C.R. 759; McMartin v. The Queen, [1964] S.C.R. 484; R. v. Wong, 2018 SCC 25, [2018] 1 S.C.R. 696; R. v. Leipert, [1997] 1 S.C.R. 281; R. v. 
+ [LINK /scc-csc/scc-csc/en/17504/1/document.do] 
+ 17.
+ [LINK /scc-csc/scc-csc/en/item/19171/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Ste-Marie
+ - 2022 SCC 3
+ - [2022] 1 SCR 14
+ - 2022-02-10
+ Supreme Court Judgments
+ R. v. Ste-Marie, R. c. Ste-Marie, 2022 SCC 3, 2022 CSC 3, 39381, [2022] 1 SCR 14, [2022] 1 RCS 14 [...] Referred to: R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. Rahey, [1987] 1 S.C.R. 588; R. v. Morin, [1992] 1 S.C.R. 771; R. v. Bryant, 2021 QCCA 1807; R. v. Askov, [1990] 2 S.C.R. 1199; R. v. Cody, 2017 SCC 31, [2017] 1 S.C.R. 659; R. v. Rice, 2018 QCCA 198. [...] On September 17, 2015, before this Court rendered its decision in R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631, the Court of Québec dismissed the motions, finding that a stay of proceedings was not an appropriate remedy. 
+ [LINK /scc-csc/scc-csc/en/19171/1/document.do] 
+ 18.
+ [LINK /scc-csc/scc-csc/en/item/17634/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Myers
+ - 2019 SCC 18
+ - [2019] 2 SCR 105
+ - 2019-03-28
+ Supreme Court Judgments
+ Criminal law
+ R. v. Myers, R. c. Myers, 2019 SCC 18, 2019 CSC 18, 37869, [2019] 2 SCR 105, [2019] 2 RCS 105 [...] 22214; R. v. Kissoon, 2006 CanLII 40493; R. v. Jerace, 2012 BCSC 2007; R. v. Whiteside, 2016 BCSC 131; R. v. Elmi, 2016 BCSC 376; R. v. Russell, 2016 NLTD(G) 208, 34 C.R. (7th) 262; R. v. Cheeseman, 2017 NLTD(G) 114; R. v. Thorsteinson, 2006 MBQB 184, 206 Man. R. (2d) 188; R. v. Sawrenko, 2008 YKSC 27; R. v. Sarkozi, [...] basis of the grounds set out in s. 515(10): see, e.g., R. v. Gill, 2005 CanLII 22214 (Ont. S.C.J.); R. v. Kissoon, 2006 CanLII 40493 (Ont. S.C.J.); R. v. Jerace, 2012 BCSC 2007; R. v. Whiteside, 2016 BCSC 131; R. v. Elmi, 2016 BCSC 376; R. v. Russell, 2016 NLTD(G) 208, 34 C.R. (7th) 262; R. v. Cheeseman, 2017 NLTD(G) 114. 
+ [LINK /scc-csc/scc-csc/en/17634/1/document.do] 
+ 19.
+ [LINK /scc-csc/scc-csc/en/item/17326/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Awashish
+ - 2018 SCC 45
+ - [2018] 3 SCR 87
+ - 2018-10-26
+ Supreme Court Judgments
+ R. v. Awashish, R. c. Awashish, 2018 SCC 45, 2018 CSC 45, 37207, [2018] 3 SCR 87, [2018] 3 RCS 87 [...] v. The Queen, [1980] 2 S.C.R. 268; Dubois v. The Queen, [1986] 1 S.C.R. 366; R. v. Deschamplain, 2004 SCC 76, [2004] 3 S.C.R. 601; R. v. Cunningham, 2010 SCC 10, [2010] 1 S.C.R. 331; R. v. Primeau, [1995] 2 S.C.R. 60; R. v. Black, 2011 ABCA 349, 286 C.C.C. (3d) 432; R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. [...] Such a rule would be in direct tension with the approach set out in R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631, to achieve prompt justice in criminal cases. 
+ [LINK /scc-csc/scc-csc/en/17326/1/document.do] 
+ 20.
+ [LINK /scc-csc/scc-csc/en/item/19851/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Haevischer
+ - 2023 SCC 11
+ - [2023] 1 SCR 416
+ - 2023-04-28
+ Supreme Court Judgments
+ Criminal law
+ R. v. Garnier, 2017 NSSC 239; R. v. Wilder, 2004 BCSC 304; R. v. Hamill (1984), 14 C.C.C. (3d) 338; R. v. Regan, 2002 SCC 12, [2002] 1 S.C.R. 297; R. v. Kutynec (1992), 70 C.C.C. (3d) 289; R. v. Garofoli, [1990] 2 S.C.R. 1421; R. v. Biring, 2021 BCSC 2678; R. v. Kuntz‐Angel, 2020 BCSC 1777; R. v. Jordan, 2016 SCC 27, [2016 [...] L.R. (4th) 152; R. v. Felderhof (2003), 68 O.R. (3d) 481; R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3; R. v. Rice, 2018 QCCA 198; R. v. Lyttle, 2004 SCC 5, [2004] 1 S.C.R. 193; R. v. Osolin, [1993] 4 S.C.R. 595; R. v. Shearing, 2002 SCC 58, [2002] 3 S.C.R. 33; R. v. N.S., 2012 SCC 72, [2012] 3 S.C.R. 726. [...] These values coexist and “both must be pursued in order for each to be realised: they are, in practice, interdependent” (R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631, at para. 27, quoting B.C. Justice Reform Initiative, A Criminal Justice System for the 21st Century (2012), at p. 75). 
+ [LINK /scc-csc/scc-csc/en/19851/1/document.do] 
+ 21.
+ [LINK /scc-csc/scc-csc/en/item/19439/index.do?q=R.+v.+Jordan+2016+SCC+27] Law Society of Saskatchewan v. Abrametz
+ - 2022 SCC 29
+ - [2022] 2 SCR 220
+ - 2022-07-08
+ Supreme Court Judgments
+ Administrative law
+ SCC 63, [2002] 3 S.C.R. 307; R. v. Conway, [1989] 1 S.C.R. 1659; R. v. Scott, [1990] 3 S.C.R. 979; British Columbia (Workers’ Compensation Board) v. Figliola, 2011 SCC 52, [2011] 3 S.C.R. 422; Danyluk v. Ainsworth Technologies Inc., 2001 SCC 44, [2001] 2 S.C.R. 460; R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. [...] v. Harkat, 2014 SCC 37, [2014] 2 S.C.R. 33; R. v. Nixon, 2011 SCC 34, [2011] 2 S.C.R. 566; R. v. Anderson, 2014 SCC 41, [2014] 2 S.C.R. 167; R. v. Babos, 2014 SCC 16, [2014] 1 S.C.R. 309; United States of America v. Cobb, 2001 SCC 19, [2001] 1 S.C.R. 587; R. v. Scott, [1990] 3 S.C.R. 979; R. v. Power, [1994] 1 S.C.R. 601; R [...] (4) Calls to “Jordanize” Blencoe [45] The Court received submissions to the effect that since Blencoe, it has become more active in addressing institutional delays in criminal proceedings: see R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631. 
+ [LINK /scc-csc/scc-csc/en/19439/1/document.do] 
+ 22.
+ [LINK /scc-csc/scc-csc/en/item/20086/index.do?q=R.+v.+Jordan+2016+SCC+27] La Presse inc. v. Quebec
+ - 2023 SCC 22
+ - 2023-10-06
+ Supreme Court Judgments
+ Criminal law
+ 1 S.C.R. 27; R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. Haevischer, 2023 SCC 11; R. v. D.L.W., 2016 SCC 22, [2016] 1 S.C.R. 402; R. v. Breault, 2023 SCC 9; R. v. Mabior, 2012 SCC 47, [2012] 2 S.C.R. 584; R. v. A.D.H., 2013 SCC 28, [2013] 2 S.C.R. 269; R. v. Sault Ste. Marie, [1978] 2 S.C.R. 1299; R. v. Lalo, [...] Such a result would be antithetical to the objective of efficiency pursued by Parliament in enacting s. 648(1) and completely at odds with the teachings of this Court in R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631. [56] Conversely, an interpretation of s. 648(1) as applying before the jury is empanelled can be expected [...] More recently, in R. v. Haevischer, 2023 SCC 11, at para. 46, this Court built on the Jordan vocabulary and presented trial fairness and trial efficiency as “interdependent” values. 
+ [LINK /scc-csc/scc-csc/en/20086/1/document.do] 
+ 23.
+ [LINK /scc-csc/scc-csc/en/item/20723/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Archambault
+ - 2024 SCC 35
+ - 2024-11-01
+ Supreme Court Judgments
+ Criminal law
+ Statutes
+ R. v. Egger, [1993] 2 S.C.R. 451; R. v. O’Connor, [1995] 4 S.C.R. 411; R. v. La, [1997] 2 S.C.R. 680; R. v. Dixon, [1998] 1 S.C.R. 244; R. v. Taillefer, 2003 SCC 70, [2003] 3 S.C.R. 307; R. v. Gubbins, 2018 SCC 44, [2018] 3 S.C.R. 35; R. v. M. (P.), 2007 QCCA 414, 222 C.C.C. (3d) 393; R. v. Jordan, 2016 SCC 27, [2016] 1 [...] 2005 SCC 73, [2005] 3 S.C.R. 530; R. v. Dineley, 2012 SCC 58, [2012] 3 S.C.R. 272; R. v. Chrétien-Barrette, 2023 QCCQ 5857; Aucoin v. R., 2023 QCCS 3024; R. v. Lamoureux, 2019 QCCQ 6616; R. v. R.S., 2019 ONCA 906; Ciecierski v. Fenning, 2005 MBCA 52, 258 D.L.R. (4th) 103; R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631. [...] R. v. White, 2022 SCC 7; R. v. W. (R.), 2023 ONCA 250, 167 O.R. (3d) 1; R. v. L. (L.), 2023 ONCA 52, 166 O.R. (3d) 561; R. v. Stinchcombe, [1991] 3 S.C.R. 326; R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. Stuckless, 2019 ONCA 504, 146 O.R. (3d) 752; R. v. Fones, 2012 MBCA 110, 288 Man. R. (2d) 86; L.L. v. R., 2016
+ [LINK /scc-csc/scc-csc/en/20723/1/document.do] 
+ 24.
+ [LINK /scc-csc/scc-csc/en/item/19458/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. Kirkpatrick
+ - 2022 SCC 33
+ - [2022] 2 SCR 480
+ - 2022-07-29
+ Supreme Court Judgments
+ Criminal law
+ R. v. Charemski, [1998] 1 S.C.R. 679; R. v. Barros, 2011 SCC 51, [2011] 3 S.C.R. 368; R. v. Ewanchuk, [1999] 1 S.C.R. 330; R. v. Barton, 2019 SCC 33, [2019] 2 S.C.R. 579; R. v. J.A., 2011 SCC 28, [2011] 2 S.C.R. 440; R. v. G.F., 2021 SCC 20, [2021] 1 S.C.R. 801; R. v. Cuerrier, [1998] 2 S.C.R. 371; R. v. Mabior, 2012 SCC [...] 653; R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; Hamstra (Guardian ad litem of) v. British Columbia Rugby Union, [1997] 1 S.C.R. 1092; Nishi v. Rascal Trucking Ltd., 2013 SCC 33, [2013] 2 S.C.R. 438; R. v. B. (K.G.), [1993] 1 S.C.R. 740; Teva Canada Ltd. v. TD Canada Trust, 2017 SCC 51, [2017] 2 S.C.R. 317; R. v. [...] Such re‐litigation contributes to delay and a waste of judicial resources (Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631). 
+ [LINK /scc-csc/scc-csc/en/19458/1/document.do] 
+ 25.
+ [LINK /scc-csc/scc-csc/en/item/21061/index.do?q=R.+v.+Jordan+2016+SCC+27] R. v. J.W.
+ - 2025 SCC 16
+ - 2025-05-23
+ Supreme Court Judgments
+ Criminal law
+ 119; R. v. Hills, 2023 SCC 2; R. v. Hamilton (2004), 72 O.R. (3d) 1; R. v. Parranto, 2021 SCC 46, [2021] 3 S.C.R. 366; R. v. Nasogaluak, 2010 SCC 6, [2010] 1 S.C.R. 206; R. v. K.R.J., 2016 SCC 31, [2016] 1 S.C.R. 906; R. v. Lacasse, 2015 SCC 64, [2015] 3 S.C.R. 1089; R. v. Ipeelee, 2012 SCC 13, [2012] 1 S.C.R. 433; R. v. [...] 593; R. v. McBeath, 2014 BCCA 305, 341 C.C.C. (3d) 531; R. v. Boutilier, 2018 NSCA 65, 30 M.V.R. (7th) 31; R. v. Morris, 2013 ONCA 223, 305 O.A.C. 47; R. v. Campbell, 2017 ONSC 26; R. v. Bonneteau, 2016 MBCA 72, 330 Man. R. (2d) 139; R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; R. v. Askov, [1990] 2 S.C.R. 1199; R. v. [...] While Moldaver J.’s observations in R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631, relate to the impact of delays on s. 11(b) of the Canadian Charter of Rights and Freedoms, I find them apt in this context as well. 
+ [LINK /scc-csc/scc-csc/en/21061/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

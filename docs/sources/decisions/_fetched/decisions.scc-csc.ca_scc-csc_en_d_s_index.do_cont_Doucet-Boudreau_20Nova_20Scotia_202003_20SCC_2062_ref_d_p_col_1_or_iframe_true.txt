@@ -1,0 +1,795 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=Doucet-Boudreau+Nova+Scotia+2003+SCC+62&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=Doucet-Boudreau+Nova+Scotia+2003+SCC+62&ref=&p=&col=1&or=] All Databases (85)
+ Decisions (43)
+ [LINK /scc-csc/en/n/s/index.do?cont=Doucet-Boudreau+Nova+Scotia+2003+SCC+62&ref=&p=&col=1&or=] Resources (42)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ 1
+ [LINK /scc-csc/en/d/s/index.do?cont=Doucet-Boudreau+Nova+Scotia+2003+SCC+62&ref=&d=&p=&col=1&or=&page=2] 2
+ [LINK /scc-csc/en/d/s/index.do?cont=Doucet-Boudreau+Nova+Scotia+2003+SCC+62&ref=&d=&p=&col=1&or=&page=2] &gt;
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=Doucet-Boudreau+Nova+Scotia+2003+SCC+62&ref=&p=&col=1&or=date] Date
+ 43 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/2096/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Doucet-Boudreau v. Nova Scotia (Minister of Education)
+ - 2003 SCC 62
+ - [2003] 3 SCR 3
+ - 2003-11-06
+ Supreme Court Judgments
+ Appeal
+ Constitutional law
+ Doucet-Boudreau v. Nova Scotia (Minister of Education), Doucet-Boudreau c. Nouvelle-Écosse (Ministre de l'Éducation), 2003 SCC 62, 2003 CSC 62, 28807, [2003] 3 SCR 3, [2003] 3 RCS 3 [...] Doucet‐Boudreau v. Nova Scotia (Minister of Education), [2003] 3 S.C.R. 3, 2003 SCC 62 [...] Indexed as: Doucet‐Boudreau v. Nova Scotia (Minister of Education) Neutral citation: 2003 SCC 62. 
+ [LINK /scc-csc/scc-csc/en/2096/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/7810/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] R. v. Bjelland
+ - 2009 SCC 38
+ - [2009] 2 SCR 651
+ - 2009-07-30
+ Supreme Court Judgments
+ Constitutional law
+ Referred to: R. v. Regan, 2002 SCC 12, [2002] 1 S.C.R. 297; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; R. v. Stinchcombe, [1991] 3 S.C.R. 326; R. v. Horan, 2008 ONCA 589, 237 C.C.C. (3d) 514; R. v. O’Connor, [1995] 4 S.C.R. 411; R. v. Harrer, [1995] 3 S.C.R. 562; Re Regina and [...] [18] Remedies under s. 24(1) of the Charter are flexible and contextual: Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at paras. 41, 52 and 54-56. [...] Cited with approval in Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at paras. 24, 50 and 52; in R. v. Rahey, [1987] 1 S.C.R. 588, per La Forest J., at p. 640; and again in R. v. 974649 Ontario Inc., 2001 SCC 81, [2001] 3 S.C.R. 575.) 
+ [LINK /scc-csc/scc-csc/en/7810/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/20546/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Canada (Attorney General) v. Power
+ - 2024 SCC 26
+ - 2024-07-19
+ Supreme Court Judgments
+ Constitutional law
+ [32] It is well accepted that the need for a purposive and generous approach to Charter interpretation “holds equally true for Charter remedies as for Charter rights” (Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at para. 24). [...] at para. 52; Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at para. 107; Cooper v. Canada (Human Rights Commission), [1996] 3 S.C.R. 854, at paras. 3 and 10, all cited by Côté J. in References re Greenhouse Gas Pollution Pricing Act, 2021 SCC 11, [2021] 1 S.C.R. 175, at para. 279). [...] Solicitor for the intervener the Attorney General of Nova Scotia: Attorney General of Nova Scotia — Legal Services Division — Department of Justice, Halifax. 
+ [LINK /scc-csc/scc-csc/en/20546/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/18994/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Canadian Broadcasting Corp. v. Manitoba
+ - 2021 SCC 33
+ - [2021] 2 SCR 785
+ - 2021-09-24
+ Supreme Court Judgments
+ Courts
+ Adams, [1995] 4 S.C.R. 707; Nova Scotia Government and General Employees Union v. Capital District Health Authority, 2006 NSCA 85, 246 N.S.R. (2d) 104; Tsaoussis (Litigation Guardian of) v. Baetz (1998), 41 O.R. (3d) 257; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; R. v. Henry, [...] as a general rule, be reconsidered by the court that rendered that decision (see Chandler v. Alberta Association of Architects, [1989] 2 S.C.R. 848, at p. 860; Reekie v. Messervey, [1990] 1 S.C.R. 219, at pp. 222‐23; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at paras. 77‐79). [...] [112] Finality is important, in part, because it provides a stable basis for an appeal (Doucet-Boudreau v. Nova Scotia (Minister of Education), [2003] 3 S.C.R. 3, at para. 79). 
+ [LINK /scc-csc/scc-csc/en/18994/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/18563/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Ontario (Attorney General) v. G
+ - 2020 SCC 38
+ - [2020] 3 SCR 629
+ - 2020-11-20
+ Supreme Court Judgments
+ Constitutional law
+ “A Comment on Doucet‐Boudreau v. Nova Scotia (Minister of Education) and R. v. Demers” (2006), 64 U.T. Fac. L. Rev. 113. [...] [3] See Saskatchewan Federation of Labour v. Saskatchewan, 2015 SCC 4, [2015] 1 S.C.R. 246, at para. 97; Alberta (Information and Privacy Commissioner) v. United Food and Commercial Workers, Local 401, 2013 SCC 62, [2013] 3 S.C.R. 733, at para. 40; Nova Scotia (Workers’ Compensation Board) v. Martin, 2003 SCC 54, [2003] 2 [...] 2007 SCC 9, [2007] 1 S.C.R. 350; R. v. Demers, 2004 SCC 46, [2004] 2 S.C.R. 489; Nova Scotia (Worker’s Compensation Board) v. Martin, 2003 SCC 54, [2003] 2 S.C.R. 504; Figueroa v. Canada (Attorney General), 2003 SCC 37, [2003] 1 S.C.R. 912; Trociuk v. British Columbia (Attorney General), 2003 SCC 34, [2003] 1 S.C.R. 
+ [LINK /scc-csc/scc-csc/en/18563/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/2326/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Pro Swing Inc. v. Elta Golf Inc.
+ - 2006 SCC 52
+ - [2006] 2 SCR 612
+ - 2006-11-17
+ Supreme Court Judgments
+ International law
+ 2003 SCC 72; R. v. Salituro, [1991] 3 S.C.R. 654; Uniforêt Pâte Port‐Cartier Inc. v. Zerotech Technologies Inc., [1998] 9 W.W.R. 688; Barrick Gold Corp. v. Lopehandia (2004), 71 O.R. (3d) 416; Tolofson v. Jensen, [1994] 3 S.C.R. 1022; Doucet‐Boudreau v. Nova Scotia (Minister of Education), [2003] 3 S.C.R. 3, 2003 SCC 62; [...] Doucet-Boudreau v. Nova Scotia (Minister of Education), [2003] 3 S.C.R. 3, 2003 SCC 62, a case in which the judge retained jurisdiction to supervise compliance with an order enjoining the Government of Nova Scotia to use its best efforts to provide French language facilities and programs, demonstrates the possible extent of [...] Doucet‐Boudreau v. Nova Scotia (Minister of Education), [2003] 3 S.C.R. 3, 2003 SCC 62, is the best-known example, but search orders and freezing orders are part of the same general trend (see generally R. J. Sharpe, Injunctions and Specific Performance (2nd ed. 
+ [LINK /scc-csc/scc-csc/en/2326/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/15305/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Association des parents de l’école Rose‑des‑vents v. British Columbia (Education)
+ - 2015 SCC 21
+ - [2015] 2 SCR 139
+ - 2015-04-24
+ Supreme Court Judgments
+ Constitutional law
+ (3d) 83; Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; Arsenault-Cameron v. Prince Edward Island, 2000 SCC 1, [2000] 1 S.C.R. 3; Reference re Public Schools Act (Man.), s. 79(3), (4) and (7), [1993] 1 S.C.R. 839; Multani v. Commission scolaire Marguerite-Bourgeoys, 2006 SCC 6, [...] In doing so, he took into consideration the efficient use of judicial resources and the critical need for timely compliance in s. 23 cases to avoid the risks of assimilation caused by delay, relying on this Court’s decision in Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at para. [...] As this Court noted in Doucet-Boudreau, “[t]he assumption underlying this choice of remedy is that governments will comply with the declaration promptly and fully” (para. 62). 
+ [LINK /scc-csc/scc-csc/en/15305/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/21539/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Société de l’Acadie du Nouveau-Brunswick v. Canada (Prime Minister)
+ - 2026 SCC 22
+ - 2026-06-12
+ Supreme Court Judgments
+ Constitutional law
+ New Brunswick Broadcasting Co. v. Nova Scotia (Speaker of the House of Assembly), [1993] 1 S.C.R. 319; Reference re Prov. [...] The fact that such rights result from a political compromise does not affect their nature, and the strict construction that for a time characterized language rights has been definitively rejected (Beaulac, at para. 25; Arsenault-Cameron, at para. 27; Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003 [...] as Bastarache J. explained, “[l]anguage rights must in all cases be interpreted purposively” (para. 25 (emphasis in original); see also Arsenault-Cameron v. Prince Edward Island, 2000 SCC 1, [2000] 1 S.C.R. 3, at para. 27; Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at para. 27). 
+ [LINK /scc-csc/scc-csc/en/21539/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/13191/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Ontario v. Criminal Lawyers’ Association of Ontario
+ - 2013 SCC 43
+ - [2013] 3 SCR 3
+ - 2013-08-01
+ Supreme Court Judgments
+ Courts
+ Co. v. Nova Scotia (Speaker of the House of Assembly), [1993] 1 S.C.R. 319; R. v. Power, [1994] 1 S.C.R. 601; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; Newfoundland (Treasury Board) v. N.A.P.E., 2004 SCC 66, [2004] 3 S.C.R. 381; Canada (House of Commons) v. Vaid, 2005 SCC 30, [...] [67] However, this is not to say that an order fixing rates of remuneration under the Charter is precluded, as s. 24(1) “should be allowed to evolve to meet the challenges and circumstances of [the case]” (Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at para. 59). [...] See R. v. Power, [1994] 1 S.C.R. 601, at pp. 620-21; Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at paras. 33-34 and 106-11; Newfoundland (Treasury Board) v. N.A.P.E., 2004 SCC 66, [2004] 3 S.C.R. 381, at paras. 104-5; Canada (House of Commons) v. Vaid, 2005 SCC 30, [2005] 1 
+ [LINK /scc-csc/scc-csc/en/13191/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/18433/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] British Columbia (Attorney General) v. Provincial Court Judges’ Association of British Columbia
+ - 2020 SCC 20
+ - [2020] 2 SCR 506
+ - 2020-07-31
+ Supreme Court Judgments
+ Constitutional law
+ 2 S.C.R. 455; New Brunswick Broadcasting Co. v. Nova Scotia (Speaker of the House of Assembly), [1993] 1 S.C.R. 319; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; Ontario v. Criminal Lawyers’ Association of Ontario, 2013 SCC 43, [2013] 3 S.C.R. 3; MacKeigan v. Hickman, [1989] [...] branches of the state: Fraser v. Public Service Staff Relations Board, [1985] 2 S.C.R. 455, at pp. 469‐70; New Brunswick Broadcasting Co. v. Nova Scotia (Speaker of the House of Assembly), [1993] 1 S.C.R. 319, at p. 389; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at para. 33. [...] by the Nova Scotia courts in the proceedings that gave rise to the companion appeal, see also Nova Scotia Provincial Judges’ Association v. Nova Scotia (Attorney General), 2018 NSSC 13, 409 C.R.R. (2d) 117, at para. 144; Nova Scotia (Attorney General) v. Judges of the Provincial Court and Family Court of Nova Scotia, 2018 
+ [LINK /scc-csc/scc-csc/en/18433/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/7842/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Canada (Prime Minister) v. Khadr
+ - 2010 SCC 3
+ - [2010] 1 SCR 44
+ - 2010-01-29
+ Supreme Court Judgments
+ Constitutional law
+ Courts
+ 2002 SCC 1, [2002] 1 S.C.R. 3; United States of America v. Jawad, Military Commission, September 24, 2008, online: www.defense.gov/news/Ruling%20D-008.pdf; R. v. Collins, [1987] 1 S.C.R. 265; Re B.C. Motor Vehicle Act, [1985] 2 S.C.R. 486; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 [...] II, at p. 280); Interview Summary, Exhibit “AA” to Affidavit of Lt. Cdr. William Kuebler, February 24, 2003 (J.R., vol. III, at p. 289); Interview Summary, Exhibit “BB” to Affidavit of Lt. Cdr. William Kuebler, February 17, 2003 (J.R., vol. [...] [30] An appropriate and just remedy is “one that meaningfully vindicates the rights and freedoms of the claimants”: Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at para. 55. 
+ [LINK /scc-csc/scc-csc/en/7842/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/7863/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] R. v. Conway
+ - 2010 SCC 22
+ - [2010] 1 SCR 765
+ - 2010-06-11
+ Supreme Court Judgments
+ Administrative law
+ Constitutional law
+ Criminal law
+ (Nova Scotia (Workers’ Compensation Board) v. Martin, 2003 SCC 54, [2003] 2 S.C.R. 504; Paul v. British Columbia (Forest Appeals Commission), 2003 SCC 55, [2003] 2 S.C.R. 585; Quebec (Attorney General) v. Quebec (Human Rights Tribunal), 2004 SCC 40, [2004] 2 S.C.R. 223; Okwuobi v. Lester B. Pearson School Board, 2005 SCC [...] This is evidenced by the recent decisions of this Court in Nova Scotia (Workers’ Compensation Board) v. Martin, [2003] 2 S.C.R. 504, 2003 SCC 54, and Paul v. British Columbia (Forest Appeals Commission), [2003] 2 S.C.R. 585, 2003 SCC 55. [...] [103] Remedies granted to redress Charter wrongs are intended to meaningfully vindicate a claimant’s rights and freedoms (Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at para. 55; Canada (Prime Minister) v. Khadr, 2010 SCC 3, [2010] 1 S.C.R. 44, at para. 30). 
+ [LINK /scc-csc/scc-csc/en/7863/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/7868/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Vancouver (City) v. Ward
+ - 2010 SCC 27
+ - [2010] 2 SCR 28
+ - 2010-07-23
+ Supreme Court Judgments
+ Constitutional law
+ Citation: Vancouver (City) v. Ward, 2010 SCC 27, [2010] 2 S.C.R. 28 Date: 20100723 Docket: 33089 Between: City of Vancouver [...] Considered: Mackin v. New Brunswick (Minister of Finance), 2002 SCC 13, [2002] 1 S.C.R. 405; referred to: Mills v. The Queen, [1986] 1 S.C.R. 863; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; Dunlea v. Attorney‐General, [2000] NZCA 84, [2000] 3 N.Z.L.R. 136; Andrews v. Grand & [...] [20] The general considerations governing what constitutes an appropriate and just remedy under s. 24(1) were set out by Iacobucci and Arbour JJ. in Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3. 
+ [LINK /scc-csc/scc-csc/en/7868/1/document.do] 
+ 14.
+ [LINK /scc-csc/scc-csc/en/item/2214/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Solski (Tutor of) v. Quebec (Attorney General)
+ - 2005 SCC 14
+ - [2005] 1 SCR 201
+ - 2005-03-31
+ Supreme Court Judgments
+ Constitutional law
+ Education law
+ Citation: Solski (Tutor of) v. Quebec (Attorney General), [2005] 1 S.C.R. 201, 2005 SCC 14 Date: 20050331 Docket: 29297 Between: Edwidge Casimir Appellant [...] General), [1988] 2 S.C.R. 712; Doucet‐Boudreau v. Nova Scotia (Minister of Education), [2003] 3 S.C.R. 3, 2003 SCC 62; Arsenault‐Cameron v. Prince Edward Island, [2000] 1 S.C.R. 3, 2000 SCC 1; Lavigne v. Canada (Office of the Commissioner of Official Languages), [2002] 2 S.C.R. 773, 2002 SCC 53; Attorney General of Quebec [...] Indeed, “[m]inority language education rights are the means by which the goals of linguistic and cultural preservation are achieved”: Doucet-Boudreau v. Nova Scotia (Minister of Education), [2003] 3 S.C.R. 3, 2003 SCC 62, at para. 26; see also Arsenault-Cameron v. Prince Edward Island, [2000] 1 S.C.R. 3, 2000 SCC 1, at 
+ [LINK /scc-csc/scc-csc/en/2214/1/document.do] 
+ 15.
+ [LINK /scc-csc/scc-csc/en/item/2143/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Communauté urbaine de Montréal
+ - 2004 SCC 30
+ - [2004] 1 SCR 789
+ - 2004-05-14
+ Supreme Court Judgments
+ Constitutional law
+ Neutral citation: 2004 SCC 30. File No.: 29231. 2003: December 9; 2004: May 14. Present: McLachlin C.J. and Iacobucci, Major, Binnie, Arbour, LeBel and Fish JJ. [...] [1996] 2 S.C.R. 345; Québec (Procureur général) v. Deniso Lebel Inc., [1996] R.J.Q. 1821; Doucet-Boudreau v. Nova Scotia (Minister of Education), [2003] 3 S.C.R. 3, 2003 SCC 62. [...] although the law is undoubtedly still in its early stages of development in this area, stresses the need for flexibility and imagination in the crafting of remedies for infringements of fundamental human rights (Doucet-Boudreau v. Nova Scotia (Minister of Education), [2003] 3 S.C.R. 3, 2003 CSC 62, at paras. 24-25 and 94). 
+ [LINK /scc-csc/scc-csc/en/2143/1/document.do] 
+ 16.
+ [LINK /scc-csc/scc-csc/en/item/20177/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Commission scolaire francophone des Territoires du Nord-Ouest v. Northwest Territories (Education, Culture and Employment)
+ - 2023 SCC 31
+ - 2023-12-08
+ Supreme Court Judgments
+ Administrative law
+ Constitutional law
+ 2020 SCC 13, [2020] 1 S.C.R. 678; Mahe v. Alberta (1987), 42 D.L.R. (4th) 514; Solski (Tutor of) v. Quebec (Attorney General), 2005 SCC 14, [2005] 1 S.C.R. 201; Arsenault‐Cameron v. Prince Edward Island, 2000 SCC 1, [2000] 1 S.C.R. 3; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. [...] v. Prince Edward Island, 2000 SCC 1, [2000] 1 S.C.R. 3, at paras. 27 and 29; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at para. 23; Solski, at para. 33; Quebec (Education, Recreation and Sports) v. Nguyen, 2009 SCC 47, [2009] 3 S.C.R. 208, at para. 23; Conseil [...] 2002 SCC 1, [2002] 1 S.C.R. 3, at para. 38; Ahani v. Canada (Minister of Citizenship and Immigration), 2002 SCC 2, [2002] 1 S.C.R. 72, at para. 16; Dr. Q v. College of Physicians and Surgeons of British Columbia, 2003 SCC 19, [2003] 1 S.C.R. 226, at para. 42; Lake v. Canada (Minister of Justice), 2008 SCC 23, [2008] 
+ [LINK /scc-csc/scc-csc/en/20177/1/document.do] 
+ 17.
+ [LINK /scc-csc/scc-csc/en/item/20086/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] La Presse inc. v. Quebec
+ - 2023 SCC 22
+ - 2023-10-06
+ Supreme Court Judgments
+ Criminal law
+ 1326; R. v. Chouhan, 2021 SCC 26; R. v. Sherratt, [1991] 1 S.C.R. 509; R. v. Kokopenace, 2015 SCC 28, [2015] 2 S.C.R. 398; R. v. Church of Scientology (1997), 33 O.R. (3d) 65; R. v. Mentuck, 2001 SCC 76, [2001] 3 S.C.R. 442; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; R. v. [...] [5] The open court principle has been recognized by this Court as fundamental throughout the entirety of criminal proceedings, that is, both at the “pre-trial” or pre‐empanelment stage and during the trial (Vancouver Sun (Re), 2004 SCC 43, [2004] 2 S.C.R. 332, at para. 27, citing Attorney General of Nova Scotia v. [...] [18] The considerations in Borowski v. Canada (Attorney General), [1989] 1 S.C.R. 342, suggest that this Court should exercise its discretion to hear and decide the appeals, even though they are moot (see also Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at paras. 16-22). 
+ [LINK /scc-csc/scc-csc/en/20086/1/document.do] 
+ 18.
+ [LINK /scc-csc/scc-csc/en/item/19083/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] R. v. Albashir
+ - 2021 SCC 48
+ - [2021] 3 SCR 531
+ - 2021-11-19
+ Supreme Court Judgments
+ Constitutional law
+ SCC 4, [2016] 1 S.C.R. 13; referred to: R. v. Downey, [1992] 2 S.C.R. 10; R. v. Li, 2020 SCC 12, [2020] 1 S.C.R. 675; R. v. Magoon, 2018 SCC 14, [2018] 1 S.C.R. 309; R. v. Big M Drug Mart Ltd., [1985] 1 S.C.R. 295; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; R. v. Comeau, 2018 SCC [...] They must also be interpreted in a “generous and expansive” manner that is sensitive to evolving circumstances: Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at para. 24; see also R. v. Comeau, 2018 SCC 15, [2018] 1 S.C.R. 342, at para. 52. [...] In Nova Scotia (Workers’ Compensation Board) v. Martin, 2003 SCC 54, [2003] 2 S.C.R. 504, this Court explained that “[t]he invalidity of a legislative provision inconsistent with the [Canadian Charter of Rights and Freedoms] does not arise from the fact of its being declared unconstitutional by a court, but from the 
+ [LINK /scc-csc/scc-csc/en/19083/1/document.do] 
+ 19.
+ [LINK /scc-csc/scc-csc/en/item/21126/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] R. v. Varennes
+ - 2025 SCC 22
+ - 2025-07-11
+ Supreme Court Judgments
+ Criminal law
+ R. v. Varennes, R. c. Varennes, 2025 SCC 22, 2025 CSC 22, 40662 SUPREME COURT OF CANADA Citation: R. v. Varennes, 2025 SCC 22 [...] 2001 SCC 18, [2001] 1 S.C.R. 532; R. v. Turpin, [1989] 1 S.C.R. 1296; R. v. 974649 Ontario Inc., 2001 SCC 81, [2001] 3 S.C.R. 575; Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; Ontario (Attorney General) v. G, 2020 SCC 38, [2020] 3 S.C.R. 629; Vancouver (City) v. Ward, 2010 SCC 27, [...] and generous interpretation (R. v. 974649 Ontario Inc., 2001 SCC 81, [2001] 3 S.C.R. 575, at paras. 18-20). [75] Courts faced with prior, ongoing, or future Charter breaches must order responsive and effective remedies (Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at para. 25). 
+ [LINK /scc-csc/scc-csc/en/21126/1/document.do] 
+ 20.
+ [LINK /scc-csc/scc-csc/en/item/18390/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Conseil scolaire francophone de la Colombie‑Britannique v. British Columbia
+ - 2020 SCC 13
+ - [2020] 1 SCR 678
+ - 2020-06-12
+ Supreme Court Judgments
+ Constitutional law
+ 3; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; Vancouver (City) v. Ward, 2010 SCC 27, [2010] 2 S.C.R. 28; Henry v. British Columbia (Attorney General), 2015 SCC 24, [2015] 2 S.C.R. 214; Wynberg v. Ontario (2006), 82 O.R. (3d) 561; Carter v. Canada (Attorney General), 2015 SCC 5, [...] The result is that the actual effectiveness of s. 23 is particularly vulnerable to government inaction (Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at para. 29; Rose‐des‐vents, at para. 28). [...] As this Court explained in Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, as assimilation increases, the “numbers might cease to ‘warrant’”, thereby causing the cultural erosion s. 23 was designed to prevent and, if tolerated, allowing governments to avoid their obligations under s. 
+ [LINK /scc-csc/scc-csc/en/18390/1/document.do] 
+ 21.
+ [LINK /scc-csc/scc-csc/en/item/17862/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] R. v. Penunsi
+ - 2019 SCC 39
+ - [2019] 3 SCR 91
+ - 2019-07-05
+ Supreme Court Judgments
+ Criminal law
+ 18 C.C.C. (3d) 155; R. v. Wakelin (1991), 71 C.C.C. (3d) 115; R. v. Nowazek, 2018 YKCA 12, 366 C.C.C. (3d) 389; referred to: Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; Borowski v. Canada (Attorney General), [1989] 1 S.C.R. 342; International Brotherhood of Electrical Workers, [...] Revolving Door of Pre‐trial Detention, by Abby Deshman and Nicole Myers, 2014 (online: https://ccla.org/dev/v5/_doc/CCLA_set_up_to_fail.pdf; archived version: https://www.scc-csc.ca/cso-dce/2019SCC-CSC39_2_eng.pdf). Chewter, Cynthia L. “Violence Against Women and Children: Some Legal Issues” (2003), 20 Can. J. Fam. L. 99. [...] will or may actually affect the rights of the parties to the litigation except when the courts decide, in the exercise of their discretion, that it is nevertheless in the interest of justice that the appeal be heard” (Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at para. 17). 
+ [LINK /scc-csc/scc-csc/en/17862/1/document.do] 
+ 22.
+ [LINK /scc-csc/scc-csc/en/item/15471/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center)
+ - 2015 SCC 39
+ - [2015] 2 SCR 789
+ - 2015-07-23
+ Supreme Court Judgments
+ 1 S.C.R. 471; Mouvement laïque québécois v. Saguenay (City), 2015 SCC 16, [2015] 2 S.C.R. 3; Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Communauté urbaine de Montréal, 2004 SCC 30, [2004] 1 S.C.R. 789; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3. [...] In October 2003, DOJ issued him a security clearance. He then took his training in the United States with a company called Alteon and obtained his certification in December 2003. [...] infringements of fundamental human rights”: Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Communauté urbaine de Montréal, 2004 SCC 30, [2004] 1 S.C.R. 789, at para. 26; see also Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at paras. 24‐25 and 94. 
+ [LINK /scc-csc/scc-csc/en/15471/1/document.do] 
+ 23.
+ [LINK /scc-csc/scc-csc/en/item/20398/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Société des casinos du Québec inc. v. Association des cadres de la Société des casinos du Québec
+ - 2024 SCC 13
+ - 2024-04-19
+ Supreme Court Judgments
+ Administrative law
+ Constitutional law
+ SCC 42, [2017] 2 S.C.R. 3; Isidore Garon ltée v. Tremblay, 2006 SCC 2, [2006] 1 S.C.R. 27; Haig v. Canada, [1993] 2 S.C.R. 995; Canada v. Craig, 2012 SCC 43, [2012] 2 S.C.R. 489; Cuddy Chicks Ltd. v. Ontario (Labour Relations Board), [1991] 2 S.C.R. 5; Nova Scotia (Workers’ Compensation Board) v. Martin, 2003 SCC 54, [2003 [...] Board), [1991] 2 S.C.R. 5, at p. 17; Nova Scotia (Workers’ Compensation Board) v. Martin, 2003 SCC 54, [2003] 2 S.C.R. 504, at para. 33; Okwuobi v. Lester B. Pearson School Board, 2005 SCC 16, [2005] 1 S.C.R. 257, at paras. 44‐45; Mouvement laïque québécois v. Saguenay (City), 2015 SCC 16, [2015] 2 S.C.R. 3, at para. 153) [...] 863, at pp. 965‐66; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at paras. 24‐25, 55‐59 and 87; with regard to s. 49 of the Quebec Charter, see Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Communauté urbaine de Montréal, 2004 SCC 30, [2004] 1 S.C.R.
+ [LINK /scc-csc/scc-csc/en/20398/1/document.do] 
+ 24.
+ [LINK /scc-csc/scc-csc/en/item/15329/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Henry v. British Columbia (Attorney General)
+ - 2015 SCC 24
+ - [2015] 2 SCR 214
+ - 2015-05-01
+ Supreme Court Judgments
+ Constitutional law
+ Attorney General of Nova Scotia, Attorney General of New Brunswick, Attorney General of Manitoba, [...] Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; R. v. Babos, 2014 SCC 16, [2014] 1 S.C.R. 309; R. v. Nixon, 2011 SCC 34, [2011] 2 S.C.R. 566; R. v. Stinchcombe, [1991] 3 S.C.R. 326; R. v. Mills, [1999] 3 S.C.R. 668; Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; Elguzouli-Daf [...] [65] In Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, Iacobucci and Arbour JJ. stressed the importance of a purposive approach to remedies under s. 24(1): 
+ [LINK /scc-csc/scc-csc/en/15329/1/document.do] 
+ 25.
+ [LINK /scc-csc/scc-csc/en/item/7960/index.do?q=Doucet-Boudreau+Nova+Scotia+2003+SCC+62] Canada (Attorney General) v. PHS Community Services Society
+ - 2011 SCC 44
+ - [2011] 3 SCR 134
+ - 2011-09-30
+ Supreme Court Judgments
+ Constitutional law
+ R. v. Ormerod, [1969] 4 C.C.C. 3; Suresh v. Canada (Minister of Citizenship and Immigration), 2002 SCC 1, [2002] 1 S.C.R. 3; Doucet‐Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3; R. v. 974649 Ontario Inc., 2001 SCC 81, [2001] 3 S.C.R. 575; R. v. Ferguson, 2008 SCC 6, [2008] 1 S.C.R. 96. [...] The protection of public health and safety from the effects of addictive drugs is a valid criminal law purpose: R. v. Malmo-Levine, 2003 SCC 74, [2003] 3 S.C.R. 571, at paras. 77-78. Additionally, the prohibitions in ss. 4(1) and 5(1) are backed by penalties. [...] [142] What is required is a remedy that vindicates the respondents’ Charter rights in a responsive and effective manner: Doucet-Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at para. 25. 
+ [LINK /scc-csc/scc-csc/en/7960/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";
