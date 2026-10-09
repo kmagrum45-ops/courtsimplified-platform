@@ -311,6 +311,7 @@ async function main() {
       [".github/workflows/courtsimplified-forms-probe.yml", "runs probeOfficialForms.ts, which refuses CanLII"],
       [".github/workflows/courtsimplified-walkthrough.yml", "the site under test"],
       ["scripts/ai/spendGuard.mjs", "OpenAI's Costs API (api.openai.com)"],
+      ["scripts/ai/openaiCredit.mjs", "OpenAI's chat completions API (api.openai.com), one token to see whether the balance is empty"],
       ["scripts/diagnose-auth-email.mjs", "Supabase"],
       ["scripts/ensureStorageBuckets.mjs", "Supabase"],
       ["scripts/fix-smtp-and-verify.mjs", "Supabase"],

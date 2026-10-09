@@ -768,9 +768,10 @@ function CourtAssistantChatInner({
   const savedCaseId = caseId && SAVED_CASE_ID.test(caseId) ? caseId : "";
 
   // A conversation this browser does not have, but the case does, is brought
-  // back (another device, a cleared browser).
+  // back (another device, a cleared browser). Only when the page has no
+  // conversation of its own (checked inside the update, so a newer one wins).
   useEffect(() => {
-    if (!savedCaseId || messages.some((message) => message.role === "user")) return;
+    if (!savedCaseId) return;
     let active = true;
     void caseChatRequest("GET", savedCaseId).then((result) => {
       const saved = (result as { ok?: boolean; messages?: ChatMessage[] } | null)?.messages;
@@ -780,7 +781,6 @@ function CourtAssistantChatInner({
     return () => {
       active = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [savedCaseId]);
   const [caseMemory, setCaseMemory] = useState<unknown>(
     initialChatState.caseMemory,
