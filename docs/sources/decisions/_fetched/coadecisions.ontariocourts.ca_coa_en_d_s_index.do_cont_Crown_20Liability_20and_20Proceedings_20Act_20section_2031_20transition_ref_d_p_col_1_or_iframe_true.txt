@@ -1,0 +1,618 @@
+ Advanced Search - Court of Appeal for Ontario
+.decisia-content {
+ font-family: Arial, sans-serif;
+ font-size: 1rem;
+}
+.decisia-content a {
+ color: #0645ad;
+ text-decoration: underline;
+}
+.decisia-content a:visited {
+ color: purple;
+}
+.decisia-content a:hover {
+ color: #222;
+ text-decoration: none;
+}
+#decisia-footer a.outlink:after {
+ content: normal;
+	margin: 0;
+}
+.breadcrumb-separator > span {
+ display: none;
+}
+.breadcrumb-separator:after {
+ content: " » ";
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+ color: #0645ad;
+	text-decoration: underline;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+ text-decoration: none;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+ outline: 1px dashed #666;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+ outline: 0;
+}
+#solrHiBar {
+ line-height: normal;
+}
+.lexumSolrArrow {
+ line-height: 20px;
+}
+.wpml-ls-item-legacy-list-horizontal > span {
+ padding-top: 5px;
+ padding-right: 10px;
+ padding-bottom: 5px;
+ padding-left: 10px;
+	line-height: 1;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+ padding-bottom: 0;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content > #decisia-login-header {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+ margin-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager {
+ margin-bottom: 1.2em;
+}
+#document-content {
+ border-bottom: 2px solid black;
+}
+#decisia-footer {
+ margin-top: 10px;
+ padding-top: 10px;
+}
+#decisia-footer .decisia-lexum a {
+ top: 10px;
+}
+#decisia-footer img.decisia_logo {
+ width: 120px;
+ height: 42px;
+}
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ /coa/fr/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+31+transition&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /coa/en/q.do] Help
+ Advanced Search
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Docket numbers
+ Date between
+ and
+ Judges
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Aitken, Catherine D."
+ >Aitken, Catherine D.
+ <option value="Armstrong, Robert Patrick"
+ >Armstrong, Robert Patrick
+ <option value="Austin, Allan McNiece"
+ >Austin, Allan McNiece
+ <option value="Baltman, Deena"
+ >Baltman, Deena
+ <option value="Benotto, Mary Lou"
+ >Benotto, Mary Lou
+ <option value="Blair, Robert Ashley"
+ >Blair, Robert Ashley
+ <option value="Borins, Stephen"
+ >Borins, Stephen
+ <option value="Brooke, John Watson"
+ >Brooke, John Watson
+ <option value="Brown, David M."
+ >Brown, David M.
+ <option value="Brown, Michael F."
+ >Brown, Michael F.
+ <option value="Brownstone, Lisa"
+ >Brownstone, Lisa
+ <option value="Carthy, James Joseph"
+ >Carthy, James Joseph
+ <option value="Catzman, Marvin Adrian"
+ >Catzman, Marvin Adrian
+ <option value="Cavarzan, John Joseph"
+ >Cavarzan, John Joseph
+ <option value="Chapnik, Sandra"
+ >Chapnik, Sandra
+ <option value="Charron, Louise Vivianne"
+ >Charron, Louise Vivianne
+ <option value="Code, Michael A."
+ >Code, Michael A.
+ <option value="Copeland, Jill M."
+ >Copeland, Jill M.
+ <option value="Coroza, Steve A."
+ >Coroza, Steve A.
+ <option value="Cronk, Eleanore Ann"
+ >Cronk, Eleanore Ann
+ <option value="Cumming, Peter Allan"
+ >Cumming, Peter Allan
+ <option value="Cunningham, John Douglas"
+ >Cunningham, John Douglas
+ <option value="Daley, Peter A."
+ >Daley, Peter A.
+ <option value="Dambrot, Michael R."
+ >Dambrot, Michael R.
+ <option value="Dawe, Jonathan"
+ >Dawe, Jonathan
+ <option value="Doherty, David H."
+ >Doherty, David H.
+ <option value="Ducharme, Edward W."
+ >Ducharme, Edward W.
+ <option value="Dunnet, Tamarin M."
+ >Dunnet, Tamarin M.
+ <option value="Durno, Bruce"
+ >Durno, Bruce
+ <option value="Epstein, Gloria Jean"
+ >Epstein, Gloria Jean
+ <option value="Fairburn, J. Michal"
+ >Fairburn, J. Michal
+ <option value="Farley, James Montague"
+ >Farley, James Montague
+ <option value="Favreau, Lise G."
+ >Favreau, Lise G.
+ <option value="Feldman, Kathryn N."
+ >Feldman, Kathryn N.
+ <option value="Ferrier, Lee Kenneth"
+ >Ferrier, Lee Kenneth
+ <option value="Finlayson, George Duncan"
+ >Finlayson, George Duncan
+ <option value="Fragomeni, Joseph M."
+ >Fragomeni, Joseph M.
+ <option value="Gans, Arthur M."
+ >Gans, Arthur M.
+ <option value="George, Jonathon C."
+ >George, Jonathon C.
+ <option value="Gillese, Eileen E."
+ >Gillese, Eileen E.
+ <option value="Glithero, C. Stephen"
+ >Glithero, C. Stephen
+ <option value="Gomery, Sally A."
+ >Gomery, Sally A.
+ <option value="Goudge, Stephen Thomas"
+ >Goudge, Stephen Thomas
+ <option value="Gray, Douglas K."
+ >Gray, Douglas K.
+ <option value="Hackland, Charles T."
+ >Hackland, Charles T.
+ <option value="Harvison Young, Alison"
+ >Harvison Young, Alison
+ <option value="Hennessy, Patricia C."
+ >Hennessy, Patricia C.
+ <option value="Himel, Susan G."
+ >Himel, Susan G.
+ <option value="Hourigan, C. William"
+ >Hourigan, C. William
+ <option value="Hoy, Alexandra"
+ >Hoy, Alexandra
+ <option value="Huscroft, Grant"
+ >Huscroft, Grant
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Juriansz, Russell G."
+ >Juriansz, Russell G.
+ <option value="Karakatsanis, Andromache Rhea"
+ >Karakatsanis, Andromache Rhea
+ <option value="Kent, James C."
+ >Kent, James C.
+ <option value="Killeen, Gordon Patrick"
+ >Killeen, Gordon Patrick
+ <option value="Kozak, Lawrence Cyril"
+ >Kozak, Lawrence Cyril
+ <option value="Krever, Horace"
+ >Krever, Horace
+ <option value="LaForme, Harry Smith"
+ >LaForme, Harry Smith
+ <option value="Labrosse, Jean-Marc"
+ >Labrosse, Jean-Marc
+ <option value="Lane, George Dennis"
+ >Lane, George Dennis
+ <option value="Lang, Susan Elizabeth"
+ >Lang, Susan Elizabeth
+ <option value="Langdon, Kenneth Aylsworth"
+ >Langdon, Kenneth Aylsworth
+ <option value="Laskin, John Ivan"
+ >Laskin, John Ivan
+ <option value="Lauwers, Peter D."
+ >Lauwers, Peter D.
+ <option value="Lax, Joan L."
+ >Lax, Joan L.
+ <option value="Lederman, Sidney N."
+ >Lederman, Sidney N.
+ <option value="MacDonald, Cindy A.M."
+ >MacDonald, Cindy A.M.
+ <option value="MacFarland, Jean Louise"
+ >MacFarland, Jean Louise
+ <option value="MacKinnon, Jennifer"
+ >MacKinnon, Jennifer
+ <option value="MacPherson, James C."
+ >MacPherson, James C.
+ <option value="Madsen, Lene"
+ >Madsen, Lene
+ <option value="Maranger, Robert L."
+ >Maranger, Robert L.
+ <option value="Marrocco, Frank N."
+ >Marrocco, Frank N.
+ <option value="McCombs, John David"
+ >McCombs, John David
+ <option value="McKinlay, Hilda Margaret"
+ >McKinlay, Hilda Margaret
+ <option value="McKinnon, Colin"
+ >McKinnon, Colin
+ <option value="McMurtry, Roy"
+ >McMurtry, Roy
+ <option value="Melle, Francine Van"
+ >Melle, Francine Van
+ <option value="Miller, Bradley"
+ >Miller, Bradley
+ <option value="Moldaver, Michael James"
+ >Moldaver, Michael James
+ <option value="Monahan, Patrick J."
+ >Monahan, Patrick J.
+ <option value="Morden, John Wilson"
+ >Morden, John Wilson
+ <option value="Métivier, Monique"
+ >Métivier, Monique
+ <option value="Newbould, Frank"
+ >Newbould, Frank
+ <option value="Nordheimer, Ian V.B."
+ >Nordheimer, Ian V.B.
+ <option value="O'Driscoll, John Gerald Joseph"
+ >O'Driscoll, John Gerald Joseph
+ <option value="O'Marra, Alfred J."
+ >O'Marra, Alfred J.
+ <option value="O'Marra, Brian"
+ >O'Marra, Brian
+ <option value="Osborne, Coulter Arthur Anthony"
+ >Osborne, Coulter Arthur Anthony
+ <option value="Osborne, Peter J."
+ >Osborne, Peter J.
+ <option value="O’Connor, Dennis"
+ >O’Connor, Dennis
+ <option value="Paciocco, David M."
+ >Paciocco, David M.
+ <option value="Pardu, Gladys I."
+ >Pardu, Gladys I.
+ <option value="Pattillo, Laurence A."
+ >Pattillo, Laurence A.
+ <option value="Pepall, Sarah E."
+ >Pepall, Sarah E.
+ <option value="Perell, Paul M."
+ >Perell, Paul M.
+ <option value="Pitt, Romain William Michael"
+ >Pitt, Romain William Michael
+ <option value="Pomerance, Renee M."
+ >Pomerance, Renee M.
+ <option value="Rahman, Moiz"
+ >Rahman, Moiz
+ <option value="Ray, Timothy D."
+ >Ray, Timothy D.
+ <option value="Rivard, Paul U."
+ >Rivard, Paul U.
+ <option value="Roberts, Lois B."
+ >Roberts, Lois B.
+ <option value="Robins, Sydney Lewis"
+ >Robins, Sydney Lewis
+ <option value="Rosenberg, Marc"
+ >Rosenberg, Marc
+ <option value="Rouleau, Paul S."
+ >Rouleau, Paul S.
+ <option value="Sachs, Harriet E."
+ >Sachs, Harriet E.
+ <option value="Sharpe, Robert J."
+ >Sharpe, Robert J.
+ <option value="Simmons, Janet M."
+ >Simmons, Janet M.
+ <option value="Smith, G. Patrick"
+ >Smith, G. Patrick
+ <option value="Sossin, Lorne"
+ >Sossin, Lorne
+ <option value="Southey, James Bonham Strange"
+ >Southey, James Bonham Strange
+ <option value="Spence, James M."
+ >Spence, James M.
+ <option value="Speyer, Christopher M."
+ >Speyer, Christopher M.
+ <option value="Steep, R. Paul"
+ >Steep, R. Paul
+ <option value="Strathy, George R."
+ >Strathy, George R.
+ <option value="Swinton, Katherine E."
+ >Swinton, Katherine E.
+ <option value="Then, Edward F."
+ >Then, Edward F.
+ <option value="Theroulde, Sandra"
+ >Theroulde, Sandra
+ <option value="Thorburn, Julie"
+ >Thorburn, Julie
+ <option value="Trotter, Gary T."
+ >Trotter, Gary T.
+ <option value="Tulloch, Michael H."
+ >Tulloch, Michael H.
+ <option value="Turnbull, James R.H."
+ >Turnbull, James R.H.
+ <option value="Tzimas, E. Ria"
+ >Tzimas, E. Ria
+ <option value="Watt, David"
+ >Watt, David
+ <option value="Weiler, Karen Merle Magnuson"
+ >Weiler, Karen Merle Magnuson
+ <option value="Whalen, Lawrence"
+ >Whalen, Lawrence
+ <option value="Wilson, Darla A."
+ >Wilson, Darla A.
+ <option value="Wilton-Siegel, Herman J."
+ >Wilton-Siegel, Herman J.
+ <option value="Winkler, Warren Keith"
+ >Winkler, Warren Keith
+ <option value="Zarnett, Benjamin"
+ >Zarnett, Benjamin
+ <option value="van Rensburg, Katherine"
+ >van Rensburg, Katherine
+ Subject
+ <option value="1"
+ >Civil
+ <option value="2"
+ >Criminal
+ <option value="3"
+ >Family
+ Search 
+ 1
+ [LINK /coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+31+transition&ref=&d=&p=&col=1&or=&page=2] 2
+ [LINK /coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+31+transition&ref=&d=&p=&col=1&or=&page=2] &gt;
+ Sort by:
+ Relevance
+ [LINK /coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+31+transition&ref=&p=&col=1&or=date] Date
+ 47 result(s)
+ 1.
+ [LINK /coa/coa/en/item/17561/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] R. v. Tsega
+ - 2019 ONCA 111
+ - 2019-02-15
+ Decisions of the Court of Appeal
+ - Criminal
+ While liability for first degree murder under s. 231(5) is premised on active participation in the murder, that liability flows from the participant’s acts not any additional mental element. [...] There is also no suggestion that the Crown was acting in bad faith or that it was dilatory in proceeding with its application for certiorari. [...] To the contrary, the Crown acted responsibly and with due regard to the appellant’s constitutional rights in ultimately proceeding on second degree murder. 
+ [LINK /coa/coa/en/17561/1/document.do] 
+ 2.
+ [LINK /coa/coa/en/item/8671/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] Placzek v. Green
+ - 2009 ONCA 83
+ - 2009-01-28
+ Decisions of the Court of Appeal
+ - Civil
+ [26] The transition provisions in the new Act are set out in s. 24 (the “transition section”). [...] [28] Section 24(2) of the new Act stipulates that the transition section applies if two criteria are met: [...] [6] Although it may not be appropriate to apply all of the sections of the new Act when interpreting the transition section, in St. Jean, at paras. 57-59, this court held that it is appropriate to refer to other sections of the new Act that describe the meaning of words used in the transition section. 
+ [LINK /coa/coa/en/8671/1/document.do] 
+ 3.
+ [LINK /coa/coa/en/item/15748/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] R. v. Saikaley
+ - 2017 ONCA 374
+ - 2017-05-10
+ Decisions of the Court of Appeal
+ - Criminal
+ There was considerable argument on the issue of the delay attributable to the Crown. The defence argued that significant delay was caused by the Crown’s insistence in proceeding against the appellant’s wife. [...] [95] The Crown argues for liability without any fault requirement beyond knowledge of the terms of the agreement. [...] [98] Section 347(1), however, undoubtedly creates a true crime. The offence is punishable by up to five years in prison if, as in this case, the Crown proceeds by indictment. 
+ [LINK /coa/coa/en/15748/1/document.do] 
+ 4.
+ [LINK /coa/coa/en/item/19835/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] R. v. Pavao
+ - 2021 ONCA 527
+ - 2021-07-22
+ Decisions of the Court of Appeal
+ - Criminal
+ [115] The Crown’s submissions on the s. 11(b) issue focus primarily on the transitional exception. [...] The Crown urges that the defence was still preparing for the preliminary inquiry and therefore not ready to proceed until October 16, 2013. [...] [176] The Crown argues this 5.4-month period was all neutral time, not institutional delay, as the parties were not ready to proceed to trial. 
+ [LINK /coa/coa/en/19835/1/document.do] 
+ 5.
+ [LINK /coa/coa/en/item/19487/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] Francis v. Ontario
+ - 2021 ONCA 197
+ - 2021-03-31
+ Decisions of the Court of Appeal
+ - Civil
+ Further, s. 31(4) provides that “[s]ection 11 and the extinguishment of causes of action and dismissal of proceedings under that section apply with respect to proceedings commenced against the Crown or an officer, employee or agent of the Crown before the day this section came into force”. [...] (viii) The Proceedings Against the Crown Act [142] One last technical point needs to be addressed with respect to this issue. [...] Section 5(2) of the PACA simply says that no proceeding can be brought against the Crown “unless a proceeding in tort in respect of such act or omission may be brought against that servant or agent” (emphasis added). 
+ [LINK /coa/coa/en/19487/1/document.do] 
+ 6.
+ [LINK /coa/coa/en/item/2964/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] Murray v. Ontario
+ - 2003-08-20
+ Decisions of the Court of Appeal
+ - Civil
+ [3] Sections 27 and 28 of the 1963 Act were re-enacted as ss. 28 and 29 of the 1970 Act. However, ss. 28 and 29 were not included in either the Proceedings Against the Crown Act, R.S.O. 1980, c. 393 (the "1980 Act") or the Proceedings Against the Crown Act, R.S.O. 1990, c. P.27 (the "1990 Act"). [...] Section 8 of the Statutes Revision Act, 1989 is to the same effect. [35] I conclude that there is one Proceedings Against the Crown Act, and that the words "under this Act" in s. 28 of the 1970 Act refer to that Act. [...] [55] Section 3 was first enacted in the Proceedings Against the Crown Act, 1962-63. 
+ [LINK /coa/coa/en/2964/1/document.do] 
+ 7.
+ [LINK /coa/coa/en/item/15967/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] R. v. Dieckmann
+ - 2017 ONCA 575
+ - 2017-07-04
+ Decisions of the Court of Appeal
+ - Criminal
+ The application judge went on to find that the Crown did not act in bad faith or wilfully in initially providing inferior software to the defence. [...] [31] Ms. Dieckmann sought a stay of the criminal proceedings on the basis that a civil consent judgment resolved in her favour the same issue raised in the criminal proceeding. [...] The same question was not decided in the two proceedings. In the civil proceeding, the matter in issue was the appellant’s obligation under the Income Tax Act to remit funds to the CRA. In the criminal proceeding, the matter in issue was the appellant’s misappropriation of the remittances owing to the government. 
+ [LINK /coa/coa/en/15967/1/document.do] 
+ 8.
+ [LINK /coa/coa/en/item/22057/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] Flying E Ranche Ltd. v. Canada (Agriculture)
+ - 2024 ONCA 72
+ - 2024-01-31
+ Decisions of the Court of Appeal
+ - Civil
+ [2] In dismissing the claim, the trial judge found that s. 9 of the Crown Liability and Proceedings Act, R.S.C, 1985, c. C-50 barred the appellant’s claim. [...] The Federal Court of Appeal found that the claim was barred by subsection 4(1) of the Crown Liability Act, R.S.C. 1970, c. C-38 – the predecessor section to s. 9. [...] In our view, subsection 4(1) of the Crown Liability Act bars them from doing so. [42] In the end result, all of these cases make the same point. 
+ [LINK /coa/coa/en/22057/1/document.do] 
+ 9.
+ [LINK /coa/coa/en/item/18704/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] R. v. Pauls
+ - 2020 ONCA 220
+ - 2020-03-18
+ Decisions of the Court of Appeal
+ - Criminal
+ [31] Although the initial adjournment was requested by the respondents, the trial judge attributed the resulting delay to the Crown. [...] [36] The matter proceeded essentially uninterrupted in February 2017. Given the Crown’s gross misestimate of the required trial time, the trial judge rejected the Crown’s submission that the adjournment to April was caused by a discrete event. [...] Liability as an aider or abettor arises where an act or omission assists in the commission of an offence and the act or omission was committed for the purpose of assisting the perpetrator in the commission of the offence: R. v. Vu, 2012 SCC 40, [2012] 2 S.C.R. 411, at para. 58. 
+ [LINK /coa/coa/en/18704/1/document.do] 
+ 10.
+ [LINK /coa/coa/en/item/17945/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] Asghar v. Toronto Police Services Board
+ - 2019 ONCA 479
+ - 2019-06-11
+ Decisions of the Court of Appeal
+ - Civil
+ Toronto Transit Commission (TTC), Edwin Collins (TTC Driver) Defendants/Moving Parties [...] Sajjad Asghar, acting in person John Rosolak, for the respondents Toronto Transit Commission (TTC) and Edwin Collins (TTC Driver) [...] [T]here are no allegations of acts or omissions to support the allegation that Constable Verspeeten breached the standard of care. 
+ [LINK /coa/coa/en/17945/1/document.do] 
+ 11.
+ [LINK /coa/coa/en/item/19471/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] R. v. Chung
+ - 2021 ONCA 188
+ - 2021-03-31
+ Decisions of the Court of Appeal
+ - Criminal
+ The Crown alleged Jun-Chul and Kenneth stole 31 lottery tickets by pocketing one of the two free tickets won by a customer. [...] [98] Section 462.37(1) of the Criminal Code authorizes the Crown to seek the forfeiture of any property that is the proceeds of crime, obtained by the commission of a designated offence. [...] As a result, the application judge knew that the Crown bore the onus of justifying the delay and the Crown did so on the basis of the transitional exceptional circumstance provision outlined in Jordan. 
+ [LINK /coa/coa/en/19471/1/document.do] 
+ 12.
+ [LINK /coa/coa/en/item/15127/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] R. v. Manasseri
+ - 2016 ONCA 703
+ - 2016-09-28
+ Decisions of the Court of Appeal
+ - Criminal
+ Where the court and Crown are ready to proceed, but the defence is not, the defence will have directly caused the delay. [...] [329] The record does not reveal any occasion on which the court was available, the Crown and co-accused ready to proceed but Kenny was unavailable or not ready to proceed. [...] He sought to have the Crown proceed against Kenny on a separate information charging him with manslaughter. 
+ [LINK /coa/coa/en/15127/1/document.do] 
+ 13.
+ [LINK /coa/coa/en/item/19782/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] R. v. Debassige
+ - 2021 ONCA 484
+ - 2021-07-02
+ Decisions of the Court of Appeal
+ - Criminal
+ It replaced “[a] wrongful act or an insult” with “[c]onduct of the victim that would constitute an indictable offence under this Act that is punishable by five or more years of imprisonment”. [...] The amending legislation contained no transitional provisions with respect to s. 232: Zero Tolerance for Barbaric Cultural Practices Act, S.C. 2015, c. 29. [...] Whatever may be the outer reaches of “wrongful act”, the term would seem to include an unlawful act, a criminal offence under the Criminal Code. 
+ [LINK /coa/coa/en/19782/1/document.do] 
+ 14.
+ [LINK /coa/coa/en/item/20093/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] R. v. Okojie
+ - 2021 ONCA 773
+ - 2021-11-02
+ Decisions of the Court of Appeal
+ - Criminal
+ [26] The first issue the trial judge considered on the importing count was whether the Crown had proven beyond a reasonable doubt that the appellant had any involvement in the act of importing the heroin. [...] [53] Section 21(2) is a form of parasitic criminal liability capturing participants in a common unlawful purpose in specified circumstances. [...] Establishing Criminal Liability [54] To establish the essential elements of an offence, thus the criminal liability of an accused for its commission, the Crown introduces evidence that is relevant, material and admissible. 
+ [LINK /coa/coa/en/20093/1/document.do] 
+ 15.
+ [LINK /coa/coa/en/item/16103/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] Cobb v. Long Estate
+ - 2017 ONCA 717
+ - 2017-09-19
+ Decisions of the Court of Appeal
+ - Civil
+ 138 (4) Where a proceeding is commenced before this section comes into force, this section does not apply and section 36 of the Judicature Act, being chapter 223 of the Revised States of Ontario, 1980, continues to apply, notwithstanding section 187. [...] 8 (1) The amendments to the Courts of Justice Act, 1984, as enacted by this Act, except for the amendments enacted by section 1, section 4 and subsection 6(2), apply to causes of action arising after the 23rd day of October, 1989. [...] (2) The amendments to the Courts of Justice Act, 1984, as enacted by section 4 and subsection 6(2) of this Act, apply to, 
+ [LINK /coa/coa/en/16103/1/document.do] 
+ 16.
+ [LINK /coa/coa/en/item/20504/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] Jayco Inc. v. Canada (Revenue Agency)
+ - 2022 ONCA 277
+ - 2022-04-07
+ Decisions of the Court of Appeal
+ - Civil
+ [13] Finally, the court noted that any right to remuneration for the time and trouble involved in collecting the GST/HST would have to flow from the Act itself. The Act was silent on compensation, though it provided for a one-time transitional credit. [...] Section 221 does not provide a basis to infer a statutory entitlement to more costs and interest beyond that provided in the ETA and the Tax Court of Canada Act, R.S.C., 1985, c. T-2.[1] [...] Section 18.26 of the Tax Court of Canada Act allows that court to award costs to a taxpayer. 
+ [LINK /coa/coa/en/20504/1/document.do] 
+ 17.
+ [LINK /coa/coa/en/item/5961/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] Wynberg v. Ontario
+ - 2006-07-07
+ Decisions of the Court of Appeal
+ - Civil
+ a) Alleged Section 15 and Section 8(3) Violations para. 204 b) Damages Claim para. 207 [...] Section 8(3) of the Education Act requires this. Thus, we agree that they are proper comparators for the purposes of the s. 15(1) analysis. [...] However, if the official acts reasonably in the light of the current state of the law and it is only subsequently determined that the action was unconstitutional, there will be no liability. 
+ [LINK /coa/coa/en/5961/1/document.do] 
+ 18.
+ [LINK /coa/coa/en/item/16087/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] R. v. Niemi
+ - 2017 ONCA 720
+ - 2017-09-18
+ Decisions of the Court of Appeal
+ - Criminal
+ [40] Mr. Niemi’s contentions raise questions about the reach of liability under s. 231(5)(b). Specifically, the questions relate to the operation of the section when the victim’s death precedes the acts said to constitute the sexual assault. [...] [102] As well, immediately after describing the law the trial judge outlined the Crown position and the defence position. In each case the focus was not on time, but on whether the acts were linked. [...] These acts were not the beginning of the sexual interference. The cutting of Ms. Watson’s clothing was, and this act followed seamlessly on the immediate heels of the act of strangulation. 
+ [LINK /coa/coa/en/16087/1/document.do] 
+ 19.
+ [LINK /coa/coa/en/item/19508/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] R. v. Romano
+ - 2021 ONCA 211
+ - 2021-04-08
+ Decisions of the Court of Appeal
+ - Criminal
+ She proceeded to jaywalk across St. Clair toward its south side. She was wearing dark, non-reflective clothing. [...] The defence relied on the inability of the Crown’s expert to answer the question: “What is a safe speed to avoid an unexpected event”? [...] That said, Crown counsel does not have to prove that [the appellant] meant to cause death to, or endanger the life of, Ms. Abogado, or anyone else who was, or who might have been, there at the time. 
+ [LINK /coa/coa/en/19508/1/document.do] 
+ 20.
+ [LINK /coa/coa/en/item/10357/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] Indalex Limited (Re)
+ - 2011 ONCA 265
+ - 2011-04-07
+ Decisions of the Court of Appeal
+ - Civil
+ Sections 75(1)(a) and (b) read as follows: Liability of employer on wind up [...] Pension Benefits Act, Regulation 909, R.R.O. 1990, s. 31(1), (2) and (3) 31. (1) The liability to be funded under section 75 of the Act shall be funded by annual special payments commencing at the effective date of the wind up and made by the employer to the pension fund. [...] (a) the amount required in the year to fund the employer’s liabilities under section 75 of the Act in equal payments, payable annually in advance, over not more than five years; and 
+ [LINK /coa/coa/en/10357/1/document.do] 
+ 21.
+ [LINK /coa/coa/en/item/7551/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] St. Jean v. Cheung
+ - 2008 ONCA 815
+ - 2008-12-03
+ Decisions of the Court of Appeal
+ - Civil
+ [20] Section 24(2) of the new Limitations Act determines whether the transition provisions in s. 24 apply to a claim based on acts or omissions that took place before January 1, 2004.[5] Section 24(2) reads as follows: [...] SECTION 21 OF THE NEW LIMITATIONS ACT [61] Section 21(1) of the new Limitations Act reads as follows: [...] Transition Definitions s. 24. (1) In this section, “effective date” means the day on which this Act comes into force; 
+ [LINK /coa/coa/en/7551/1/document.do] 
+ 22.
+ [LINK /coa/coa/en/item/21432/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] Leroux v. Ontario
+ - 2023 ONCA 314
+ - 2023-05-04
+ Decisions of the Court of Appeal
+ - Civil
+ [28] Subsequent to the motion judge’s certification decision, the Ontario legislature passed the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (the “CLPA”). [...] There is no absolute requirement that the individual servants of the Crown, who undertake the negligent acts, must be named in the proceeding. [...] Section 5(2) of the PACA simply says that no proceeding can be brought against the Crown "unless a proceeding in tort in respect of such act or omission may be brought against that servant or agent" (emphasis added). 
+ [LINK /coa/coa/en/21432/1/document.do] 
+ 23.
+ [LINK /coa/coa/en/item/19895/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] R. v. W.G.
+ - 2021 ONCA 578
+ - 2021-08-24
+ Decisions of the Court of Appeal
+ - Criminal
+ The Crown advanced this as an alternative path to conviction and as the principal basis of liability. [...] [31] Considering the first basis of liability advanced by the Crown, the trial judge was not satisfied beyond a reasonable doubt that the sexual relationship of the appellant and L.S. continued after L.S. told the appellant that he was 15. [...] And the Crown may also demonstrate that the accused never turned their mind to the complainant’s age as they proceeded. 
+ [LINK /coa/coa/en/19895/1/document.do] 
+ 24.
+ [LINK /coa/coa/en/item/9386/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] R. v. R.D.
+ - 2010 ONCA 899
+ - 2011-08-24
+ Decisions of the Court of Appeal
+ - Criminal
+ The Section 31 Issue Introduction [25] Section 31 of the Youth Criminal Justice Act deals with the placement of young persons, who would otherwise be detained in custody, in the care of a responsible person. [...] [31] The legislative history reveals two further important facts. First, s. 7.1 of the Young Offenders Act provided less direction than does s. 31 of the Act. Section 7.1 merely provided that a young person “may” be placed in the care of a responsible person. [...] [41] Section 31 contributes to achieving the broader purpose of the Act, referred to earlier, to reduce reliance on incarceration for young persons at all stages of proceedings and to give the youth court alternatives to imprisonment. 
+ [LINK /coa/coa/en/9386/1/document.do] 
+ 25.
+ [LINK /coa/coa/en/item/18734/index.do?q=Crown+Liability+and+Proceedings+Act+section+31+transition] Curriculum Services Canada/Services Des Programmes D’Études Canada (Re)
+ - 2020 ONCA 267
+ - 2020-04-27
+ Decisions of the Court of Appeal
+ - Civil
+ 146. Subject to priority of ranking as provided by section 136 and subject to subsection 73(4) and section 84.1 [these sections are not relevant to this appeal], the rights of lessors are to be determined according to the law of the province in which the leased premises are situated. [...] At para. 47, she noted that “a strange asymmetry would arise if the interpretation giving the ETA priority over the CCAA urged by the Crown is adopted here: the Crown would retain priority over GST claims during CCAA proceedings but not in bankruptcy”. [...] The section was amended in 1997 to substitute the word “disclaim” for “repudiate”. 
+ [LINK /coa/coa/en/18734/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "coa",
+ yearRangeString: "1998:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

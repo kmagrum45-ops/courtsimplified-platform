@@ -1,0 +1,620 @@
+ Advanced Search - Court of Appeal for Ontario
+.decisia-content {
+ font-family: Arial, sans-serif;
+ font-size: 1rem;
+}
+.decisia-content a {
+ color: #0645ad;
+ text-decoration: underline;
+}
+.decisia-content a:visited {
+ color: purple;
+}
+.decisia-content a:hover {
+ color: #222;
+ text-decoration: none;
+}
+#decisia-footer a.outlink:after {
+ content: normal;
+	margin: 0;
+}
+.breadcrumb-separator > span {
+ display: none;
+}
+.breadcrumb-separator:after {
+ content: " » ";
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+ color: #0645ad;
+	text-decoration: underline;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+ text-decoration: none;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+ outline: 1px dashed #666;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+ outline: 0;
+}
+#solrHiBar {
+ line-height: normal;
+}
+.lexumSolrArrow {
+ line-height: 20px;
+}
+.wpml-ls-item-legacy-list-horizontal > span {
+ padding-top: 5px;
+ padding-right: 10px;
+ padding-bottom: 5px;
+ padding-left: 10px;
+	line-height: 1;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+ padding-bottom: 0;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content > #decisia-login-header {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+ margin-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager {
+ margin-bottom: 1.2em;
+}
+#document-content {
+ border-bottom: 2px solid black;
+}
+#decisia-footer {
+ margin-top: 10px;
+ padding-top: 10px;
+}
+#decisia-footer .decisia-lexum a {
+ top: 10px;
+}
+#decisia-footer img.decisia_logo {
+ width: 120px;
+ height: 42px;
+}
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ /coa/fr/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /coa/en/q.do] Help
+ Advanced Search
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Docket numbers
+ Date between
+ and
+ Judges
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Aitken, Catherine D."
+ >Aitken, Catherine D.
+ <option value="Armstrong, Robert Patrick"
+ >Armstrong, Robert Patrick
+ <option value="Austin, Allan McNiece"
+ >Austin, Allan McNiece
+ <option value="Baltman, Deena"
+ >Baltman, Deena
+ <option value="Benotto, Mary Lou"
+ >Benotto, Mary Lou
+ <option value="Blair, Robert Ashley"
+ >Blair, Robert Ashley
+ <option value="Borins, Stephen"
+ >Borins, Stephen
+ <option value="Brooke, John Watson"
+ >Brooke, John Watson
+ <option value="Brown, David M."
+ >Brown, David M.
+ <option value="Brown, Michael F."
+ >Brown, Michael F.
+ <option value="Brownstone, Lisa"
+ >Brownstone, Lisa
+ <option value="Carthy, James Joseph"
+ >Carthy, James Joseph
+ <option value="Catzman, Marvin Adrian"
+ >Catzman, Marvin Adrian
+ <option value="Cavarzan, John Joseph"
+ >Cavarzan, John Joseph
+ <option value="Chapnik, Sandra"
+ >Chapnik, Sandra
+ <option value="Charron, Louise Vivianne"
+ >Charron, Louise Vivianne
+ <option value="Code, Michael A."
+ >Code, Michael A.
+ <option value="Copeland, Jill M."
+ >Copeland, Jill M.
+ <option value="Coroza, Steve A."
+ >Coroza, Steve A.
+ <option value="Cronk, Eleanore Ann"
+ >Cronk, Eleanore Ann
+ <option value="Cumming, Peter Allan"
+ >Cumming, Peter Allan
+ <option value="Cunningham, John Douglas"
+ >Cunningham, John Douglas
+ <option value="Daley, Peter A."
+ >Daley, Peter A.
+ <option value="Dambrot, Michael R."
+ >Dambrot, Michael R.
+ <option value="Dawe, Jonathan"
+ >Dawe, Jonathan
+ <option value="Doherty, David H."
+ >Doherty, David H.
+ <option value="Ducharme, Edward W."
+ >Ducharme, Edward W.
+ <option value="Dunnet, Tamarin M."
+ >Dunnet, Tamarin M.
+ <option value="Durno, Bruce"
+ >Durno, Bruce
+ <option value="Epstein, Gloria Jean"
+ >Epstein, Gloria Jean
+ <option value="Fairburn, J. Michal"
+ >Fairburn, J. Michal
+ <option value="Farley, James Montague"
+ >Farley, James Montague
+ <option value="Favreau, Lise G."
+ >Favreau, Lise G.
+ <option value="Feldman, Kathryn N."
+ >Feldman, Kathryn N.
+ <option value="Ferrier, Lee Kenneth"
+ >Ferrier, Lee Kenneth
+ <option value="Finlayson, George Duncan"
+ >Finlayson, George Duncan
+ <option value="Fragomeni, Joseph M."
+ >Fragomeni, Joseph M.
+ <option value="Gans, Arthur M."
+ >Gans, Arthur M.
+ <option value="George, Jonathon C."
+ >George, Jonathon C.
+ <option value="Gillese, Eileen E."
+ >Gillese, Eileen E.
+ <option value="Glithero, C. Stephen"
+ >Glithero, C. Stephen
+ <option value="Gomery, Sally A."
+ >Gomery, Sally A.
+ <option value="Goudge, Stephen Thomas"
+ >Goudge, Stephen Thomas
+ <option value="Gray, Douglas K."
+ >Gray, Douglas K.
+ <option value="Hackland, Charles T."
+ >Hackland, Charles T.
+ <option value="Harvison Young, Alison"
+ >Harvison Young, Alison
+ <option value="Hennessy, Patricia C."
+ >Hennessy, Patricia C.
+ <option value="Himel, Susan G."
+ >Himel, Susan G.
+ <option value="Hourigan, C. William"
+ >Hourigan, C. William
+ <option value="Hoy, Alexandra"
+ >Hoy, Alexandra
+ <option value="Huscroft, Grant"
+ >Huscroft, Grant
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Juriansz, Russell G."
+ >Juriansz, Russell G.
+ <option value="Karakatsanis, Andromache Rhea"
+ >Karakatsanis, Andromache Rhea
+ <option value="Kent, James C."
+ >Kent, James C.
+ <option value="Killeen, Gordon Patrick"
+ >Killeen, Gordon Patrick
+ <option value="Kozak, Lawrence Cyril"
+ >Kozak, Lawrence Cyril
+ <option value="Krever, Horace"
+ >Krever, Horace
+ <option value="LaForme, Harry Smith"
+ >LaForme, Harry Smith
+ <option value="Labrosse, Jean-Marc"
+ >Labrosse, Jean-Marc
+ <option value="Lane, George Dennis"
+ >Lane, George Dennis
+ <option value="Lang, Susan Elizabeth"
+ >Lang, Susan Elizabeth
+ <option value="Langdon, Kenneth Aylsworth"
+ >Langdon, Kenneth Aylsworth
+ <option value="Laskin, John Ivan"
+ >Laskin, John Ivan
+ <option value="Lauwers, Peter D."
+ >Lauwers, Peter D.
+ <option value="Lax, Joan L."
+ >Lax, Joan L.
+ <option value="Lederman, Sidney N."
+ >Lederman, Sidney N.
+ <option value="MacDonald, Cindy A.M."
+ >MacDonald, Cindy A.M.
+ <option value="MacFarland, Jean Louise"
+ >MacFarland, Jean Louise
+ <option value="MacKinnon, Jennifer"
+ >MacKinnon, Jennifer
+ <option value="MacPherson, James C."
+ >MacPherson, James C.
+ <option value="Madsen, Lene"
+ >Madsen, Lene
+ <option value="Maranger, Robert L."
+ >Maranger, Robert L.
+ <option value="Marrocco, Frank N."
+ >Marrocco, Frank N.
+ <option value="McCombs, John David"
+ >McCombs, John David
+ <option value="McKinlay, Hilda Margaret"
+ >McKinlay, Hilda Margaret
+ <option value="McKinnon, Colin"
+ >McKinnon, Colin
+ <option value="McMurtry, Roy"
+ >McMurtry, Roy
+ <option value="Melle, Francine Van"
+ >Melle, Francine Van
+ <option value="Miller, Bradley"
+ >Miller, Bradley
+ <option value="Moldaver, Michael James"
+ >Moldaver, Michael James
+ <option value="Monahan, Patrick J."
+ >Monahan, Patrick J.
+ <option value="Morden, John Wilson"
+ >Morden, John Wilson
+ <option value="Métivier, Monique"
+ >Métivier, Monique
+ <option value="Newbould, Frank"
+ >Newbould, Frank
+ <option value="Nordheimer, Ian V.B."
+ >Nordheimer, Ian V.B.
+ <option value="O'Driscoll, John Gerald Joseph"
+ >O'Driscoll, John Gerald Joseph
+ <option value="O'Marra, Alfred J."
+ >O'Marra, Alfred J.
+ <option value="O'Marra, Brian"
+ >O'Marra, Brian
+ <option value="Osborne, Coulter Arthur Anthony"
+ >Osborne, Coulter Arthur Anthony
+ <option value="Osborne, Peter J."
+ >Osborne, Peter J.
+ <option value="O’Connor, Dennis"
+ >O’Connor, Dennis
+ <option value="Paciocco, David M."
+ >Paciocco, David M.
+ <option value="Pardu, Gladys I."
+ >Pardu, Gladys I.
+ <option value="Pattillo, Laurence A."
+ >Pattillo, Laurence A.
+ <option value="Pepall, Sarah E."
+ >Pepall, Sarah E.
+ <option value="Perell, Paul M."
+ >Perell, Paul M.
+ <option value="Pitt, Romain William Michael"
+ >Pitt, Romain William Michael
+ <option value="Pomerance, Renee M."
+ >Pomerance, Renee M.
+ <option value="Rahman, Moiz"
+ >Rahman, Moiz
+ <option value="Ray, Timothy D."
+ >Ray, Timothy D.
+ <option value="Rivard, Paul U."
+ >Rivard, Paul U.
+ <option value="Roberts, Lois B."
+ >Roberts, Lois B.
+ <option value="Robins, Sydney Lewis"
+ >Robins, Sydney Lewis
+ <option value="Rosenberg, Marc"
+ >Rosenberg, Marc
+ <option value="Rouleau, Paul S."
+ >Rouleau, Paul S.
+ <option value="Sachs, Harriet E."
+ >Sachs, Harriet E.
+ <option value="Sharpe, Robert J."
+ >Sharpe, Robert J.
+ <option value="Simmons, Janet M."
+ >Simmons, Janet M.
+ <option value="Smith, G. Patrick"
+ >Smith, G. Patrick
+ <option value="Sossin, Lorne"
+ >Sossin, Lorne
+ <option value="Southey, James Bonham Strange"
+ >Southey, James Bonham Strange
+ <option value="Spence, James M."
+ >Spence, James M.
+ <option value="Speyer, Christopher M."
+ >Speyer, Christopher M.
+ <option value="Steep, R. Paul"
+ >Steep, R. Paul
+ <option value="Strathy, George R."
+ >Strathy, George R.
+ <option value="Swinton, Katherine E."
+ >Swinton, Katherine E.
+ <option value="Then, Edward F."
+ >Then, Edward F.
+ <option value="Theroulde, Sandra"
+ >Theroulde, Sandra
+ <option value="Thorburn, Julie"
+ >Thorburn, Julie
+ <option value="Trotter, Gary T."
+ >Trotter, Gary T.
+ <option value="Tulloch, Michael H."
+ >Tulloch, Michael H.
+ <option value="Turnbull, James R.H."
+ >Turnbull, James R.H.
+ <option value="Tzimas, E. Ria"
+ >Tzimas, E. Ria
+ <option value="Watt, David"
+ >Watt, David
+ <option value="Weiler, Karen Merle Magnuson"
+ >Weiler, Karen Merle Magnuson
+ <option value="Whalen, Lawrence"
+ >Whalen, Lawrence
+ <option value="Wilson, Darla A."
+ >Wilson, Darla A.
+ <option value="Wilton-Siegel, Herman J."
+ >Wilton-Siegel, Herman J.
+ <option value="Winkler, Warren Keith"
+ >Winkler, Warren Keith
+ <option value="Zarnett, Benjamin"
+ >Zarnett, Benjamin
+ <option value="van Rensburg, Katherine"
+ >van Rensburg, Katherine
+ Subject
+ <option value="1"
+ >Civil
+ <option value="2"
+ >Criminal
+ <option value="3"
+ >Family
+ Search 
+ 1
+ [LINK /coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&ref=&d=&p=&col=1&or=&page=2] 2
+ [LINK /coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&ref=&d=&p=&col=1&or=&page=3] 3
+ [LINK /coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&ref=&d=&p=&col=1&or=&page=4] 4
+ [LINK /coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&ref=&d=&p=&col=1&or=&page=5] 5
+ [LINK /coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&ref=&d=&p=&col=1&or=&page=6] 6
+ [LINK /coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&ref=&d=&p=&col=1&or=&page=2] &gt;
+ [LINK /coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&ref=&d=&p=&col=1&or=&page=11] &gt;&gt;
+ Sort by:
+ Relevance
+ [LINK /coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&ref=&p=&col=1&or=date] Date
+ 252 result(s)
+ 1.
+ [LINK /coa/coa/en/item/19663/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Cirillo v. Ontario
+ - 2021 ONCA 353
+ - 2021-05-26
+ Decisions of the Court of Appeal
+ - Civil
+ She also appeals a second order dealing with the application of the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (“CLPA”). [...] Section 11(4) provides: (4) No cause of action arises against the Crown or an officer, employee or agent of the Crown in respect of any negligence or failure to take reasonable care in the making of a decision in good faith respecting a policy matter, or any negligence in a purported failure to make a decision respecting a [...] (e) Crown Liability and Proceedings Act [71] The Divisional Court remitted the matter to the motion judge for a decision on the impact of the CLPA. He concluded that his decision was unaffected by the enactment of the new statute. 
+ [LINK /coa/coa/en/19663/1/document.do] 
+ 2.
+ [LINK /coa/coa/en/item/19487/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Francis v. Ontario
+ - 2021 ONCA 197
+ - 2021-03-31
+ Decisions of the Court of Appeal
+ - Civil
+ a challenge to policy decisions that are immune from liability. · In addition to the common law principles relating to policy decisions, the respondent’s negligence claim was precluded by Crown immunity and was extinguished by s. 11 of the Crown Liability and Proceedings Act, 2019, S.O. 2019 c. 7, Sched. 17 (“CLPA”). [...] However, the Crown is not a person and must be free to govern and make true policy decisions without becoming subject to tort liability as a result of those decisions. [...] Such a result is beyond the reach of any expanded definition of policy contained in s. 11(5)(c) of the CLPA as we would interpret it. (viii) The Proceedings Against the Crown Act 
+ [LINK /coa/coa/en/19487/1/document.do] 
+ 3.
+ [LINK /coa/coa/en/item/18084/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Smith v. Ontario (Attorney General)
+ - 2019 ONCA 651
+ - 2019-08-12
+ Decisions of the Court of Appeal
+ - Civil
+ [34] However, this court did allow the officers’ claim for misfeasance in public office to proceed. It allowed this claim to proceed because it possessed a high liability threshold requiring the officers to prove that the Crown Attorneys acted in bad faith or for improper motives. [...] In contrast, the laying of charges is not enumerated in the list of the duties of Crown Attorneys found in s. 11 of the Crown Attorneys Act.[i] To the contrary, s. 11(a) of the Crown Attorneys Act seems to contemplate that Crown Attorneys only review an information after it has been sworn. [...] [i] Section 11 of the Crown Attorneys Act, R.S.O. 1990, c. C.49 reads as follows: 
+ [LINK /coa/coa/en/18084/1/document.do] 
+ 4.
+ [LINK /coa/coa/en/item/17757/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Clark v. Ontario (Attorney General)
+ - 2019 ONCA 311
+ - 2019-04-18
+ Decisions of the Court of Appeal
+ - Civil
+ of justice by undermining the public’s faith in the integrity of independent Crown decision-making. Moreover, exposing Crown attorneys to negligence claims by the police may result in prolonged court proceedings in which Crown attorneys make untenable prosecutorial decisions on Charter motions for fear of being sued. [...] [T]he officers have pleaded that the Crown Attorneys acted unlawfully by acting in breach of their statutory duties under the Crown Attorneys Act and by breaching their oath of office. [...] Crown attorneys are not immune from civil liability for misfeasance in public office 
+ [LINK /coa/coa/en/17757/1/document.do] 
+ 5.
+ [LINK /coa/coa/en/item/20691/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Bowman v. Ontario
+ - 2022 ONCA 477
+ - 2022-06-21
+ Decisions of the Court of Appeal
+ - Civil
+ from suit provided by s. 11(4) of the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (“CLPA”), which states that “[n]o cause of action arises against the Crown ... in respect of any negligence or failure to take reasonable care in the making of a decision in good faith respecting a policy matter ...” [...] Nonetheless, CLPA s. 31(4) provides that s. 11 of the Act applies to proceedings commenced against the Crown before s. 31 came into force, which was May 29, 2019. [...] [76] As mentioned, CLPA s. 11(4) provides that no cause of action arises against the Crown in respect of any negligence in the making of a decision in good faith respecting a policy matter. 
+ [LINK /coa/coa/en/20691/1/document.do] 
+ 6.
+ [LINK /coa/coa/en/item/12106/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Lantheus Medical Imaging Inc. v. Atomic Energy of Canada Ltd.
+ - 2013 ONCA 264
+ - 2013-04-29
+ Decisions of the Court of Appeal
+ - Civil
+ [15] Section 27 of Part 2 of the CLPA provides as follows: Except as otherwise provided by this Act or the regulations, the rules of practice and procedure of the court in which proceedings are taken apply in those proceedings. [...] In general terms, its purpose is to create liability on the federal Crown for certain causes of action where none existed at common law and to expand the jurisdiction of the courts of the provinces for proceedings involving the federal Crown. [...] Section 16 of the Interpretation Act then in effect is identical to s. 17 of the current Interpretation Act. 
+ [LINK /coa/coa/en/12106/1/document.do] 
+ 7.
+ [LINK /coa/coa/en/item/15925/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Grand River Enterprises Six Nations Ltd. v. Attorney General (Canada)
+ - 2017 ONCA 526
+ - 2017-06-23
+ Decisions of the Court of Appeal
+ - Civil
+ Determination of the tax liability or exemption under section 87, Indian Act, is not a perquisite in my view. [...] In short, the Crown submits that the motion judge failed to appreciate the complexity of considerations informing government policy and specific enforcement decisions. [...] [155] The Crown advances two residual policy reasons as to why a duty of care should not be recognized: (1) the actions challenged in this case constitute core policy decisions; and (2) doing so would result in indeterminate liability. 
+ [LINK /coa/coa/en/15925/1/document.do] 
+ 8.
+ [LINK /coa/coa/en/item/21432/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Leroux v. Ontario
+ - 2023 ONCA 314
+ - 2023-05-04
+ Decisions of the Court of Appeal
+ - Civil
+ [28] Subsequent to the motion judge’s certification decision, the Ontario legislature passed the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (the “CLPA”). [...] [68] With respect to the first argument, Ontario points to ss. 11(4)-(5) of the CLPA. Section 11(4) of the CLPA provides that there is no cause of action against the Crown “in respect of any negligence ... in the making of a decision in good faith respecting a policy matter”. [...] Section 5(2) of the PACA simply says that no proceeding can be brought against the Crown "unless a proceeding in tort in respect of such act or omission may be brought against that servant or agent" (emphasis added). 
+ [LINK /coa/coa/en/21432/1/document.do] 
+ 9.
+ [LINK /coa/coa/en/item/8284/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Attis v. Canada (Health)
+ - 2008 ONCA 660
+ - 2008-09-30
+ Decisions of the Court of Appeal
+ - Civil
+ Since a failure to govern or prohibit “is a manifest policy decision”, the motion judge concluded that Health Canada was immune from civil liability (para. 42). [...] In 1953, Canada enacted the Crown Liability Act, S.C. 1952-53, c. 30, which is now the Crown Liability and Proceedings Act, R.S.C. 1985, c. C-50. [...] Section 3(b)(i) of that Act provides that “[t]he Crown is liable for the damages for which, if it were a person, it would be liable ... in respect of a tort committed by a servant of the Crown.” 
+ [LINK /coa/coa/en/8284/1/document.do] 
+ 10.
+ [LINK /coa/coa/en/item/6871/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Authorson Estate v. Canada (Attorney General)
+ - 2007 ONCA 501
+ - 2007-07-04
+ Decisions of the Court of Appeal
+ - Civil
+ · Do s. 5.1(4) of the DVA Act, or s. 9 of the Crown Liability and Proceedings Act, R.S.C. 1985, c. C-50, retroactively bar or exempt the plaintiff’s claims? [...] 4. Section 9 of the Crown Liability and Proceedings Act does not bar or exempt the claims of the class members; [...] (e) If s. 5.1(4) of the Department of Veterans’ Affairs Act, or s. 9 of the Crown Liabilities and Proceedings Act, retroactively bar or exempt the plaintiff’s claims are they invalid and inoperative by reason of a conflict with section 1(a) or s. 2(e) of the Canadian Bill of Rights or section 7 or 15 of the Charter? 
+ [LINK /coa/coa/en/6871/1/document.do] 
+ 11.
+ [LINK /coa/coa/en/item/2640/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Authorson (Litigation Guardian of) v. Canada (Attorney General)
+ - 2002-03-13
+ Decisions of the Court of Appeal
+ - Civil
+ (b) Section 9 of the Crown Liability and Proceedings Act, R.S.C. 1985, c. C-50 is not a bar to this action. [...] (b) finding that the Crown breached its fiduciary duty to the members of the class; (c) finding that this action was not barred by the Crown Liability and Proceedings Act; [...] THE CROWN LIABILITY AND PROCEEDINGS ACT ISSUE [82] The Crown argued below that section 9 of the Crown Liability and Proceedings Act, R.S.C. 1985, c. 50, as amended ("CLPA"), barred this action. 
+ [LINK /coa/coa/en/2640/1/document.do] 
+ 12.
+ [LINK /coa/coa/en/item/20802/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Barker v. Barker
+ - 2022 ONCA 567
+ - 2022-07-29
+ Decisions of the Court of Appeal
+ - Civil
+ [1271] The wording of the statute indicates, however, that Crown immunity applies only to claims in tort, not in equity. Section 11(4) of [the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (“CLPA”)], which establishes (or reiterates) the immunity, refers only to negligence and the duty to take [...] [98] In any event, the trial judge considered whether the conduct of Ontario involved decisions relating to a policy matter as defined in the CLPA. He considered the definition of “policy matter” in s. 11(5)(a), as elaborated upon in ss. 11(5)(b) and (c) and the relevant case law, and concluded that these sections had no [...] [2] Ontario points out that under the Proceedings Against the Crown Act, R.S.O. 1990, c. P.27, as applicable to this proceeding, Ontario is subject to all liabilities in tort in respect of torts committed by its servants and agents. 
+ [LINK /coa/coa/en/20802/1/document.do] 
+ 13.
+ [LINK /coa/coa/en/item/12890/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] R. v. Tatton
+ - 2014 ONCA 273
+ - 2014-04-08
+ Decisions of the Court of Appeal
+ - Criminal
+ [47] If one were to apply the test set out in R. v. George, it would seem apt to describe arson as an offence requiring a specific intent – as requiring more than a voluntary act with an immediate end. It requires an awareness of the more distant consequences of that act, and a conscious decision to proceed in the face of [...] Subjective mens rea requires that the accused have intended the consequences of his or her acts, or that knowing of the probable consequences of those acts, the accused have proceeded recklessly in the face of the risk. [...] [72] This is a Crown appeal. Section 676(1)(a) of the Code provides that the Crown may appeal on a question of law. 
+ [LINK /coa/coa/en/12890/1/document.do] 
+ 14.
+ [LINK /coa/coa/en/item/16958/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Ontario (Finance) v. Traders General Insurance (Aviva Traders)
+ - 2018 ONCA 565
+ - 2018-06-21
+ Decisions of the Court of Appeal
+ - Civil
+ [40] The policy that the appellant purported to terminate is an owner’s policy, which is defined in s. 1 of the Insurance Act as: [...] [54] Section 11 of the Interpretation Act, R.S.O. 1990, c. I.11, which was in force until July 2007, provided that specific words were required for an act to bind the Crown: [...] [69] Second, the appellant’s first argument was that the Crown was obliged to bring its action using s. 258. That argument failed because of Crown immunity in respect of the Insurance Act (except for the specific sections already discussed). 
+ [LINK /coa/coa/en/16958/1/document.do] 
+ 15.
+ [LINK /coa/coa/en/item/7653/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] TeleZone Inc. v. Attorney General (Canada)
+ - 2008 ONCA 892
+ - 2008-12-24
+ Decisions of the Court of Appeal
+ - Civil
+ (c) there is a claim against the Crown for injurious affection; or (d) the claim is for damages under the Crown Liability and Proceedings Act. [...] . . . It is especially important not to allow a section 17 proceeding as a mechanism for reviewing the lawfulness of a federal agency’s decision when this indirect challenge to the decision is used to obviate the mandatory provisions of subsection 18(3) of the Federal Courts Act. [...] [101] At least five decisions of this court have routinely permitted actions in damages against the Crown to proceed in the Superior Court. 
+ [LINK /coa/coa/en/7653/1/document.do] 
+ 16.
+ [LINK /coa/coa/en/item/24435/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Minotar Holdings Inc. v. Ontario (Municipal Affairs and Housing)
+ - 2026 ONCA 606
+ - 2026-08-28
+ Decisions of the Court of Appeal
+ - Civil
+ That power would instead be exercised legislatively through the Amendment Act. [11] Accordingly, the amendments incorporated the legislature’s land use planning decisions. [...] 2. There are no policy reasons which would justify immunity for misfeasance and bad faith in the Greenbelt Act [...] of the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (the “CLPA”), which provides that any claim against the Crown or an officer or employee of the Crown that includes a claim for the tort of misfeasance in public office or a tort based on bad faith conduct may only proceed with leave of the court. 
+ [LINK /coa/coa/en/24435/1/document.do] 
+ 17.
+ [LINK /coa/coa/en/item/14544/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] R. v. Singh
+ - 2016 ONCA 108
+ - 2016-02-08
+ Decisions of the Court of Appeal
+ - Criminal
+ Given the policy concerns associated with exposing prosecutors to civil liability, it is necessary that the liability threshold be set near the high end of the blameworthiness spectrum. [...] [55] The purpose for awarding costs against the Crown in criminal proceedings is fundamentally different from those associated with costs in a civil proceeding. [...] I have already discussed the policy considerations at play in making a costs award against the Crown in a criminal context generally. 
+ [LINK /coa/coa/en/14544/1/document.do] 
+ 18.
+ [LINK /coa/coa/en/item/18687/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] J.B. v. Ontario (Child and Youth Services)
+ - 2020 ONCA 198
+ - 2020-03-11
+ Decisions of the Court of Appeal
+ - Civil
+ b. Section 35(1) of the Constitution Act, 1982. (1) Rule 21 test to determine an issue before trial [...] If there is a prima facie duty of care, the court will proceed to the next stage of the analysis and consider whether there are “residual policy considerations which justify denying liability”: Edwards v. Law Society of Upper Canada, 2001 SCC 80, [2001] 3 S.C.R. 562, at para. 10. [...] Section 7 of the Charter does not obligate it to establish specific policies and procedures. 
+ [LINK /coa/coa/en/18687/1/document.do] 
+ 19.
+ [LINK /coa/coa/en/item/19825/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Meekis v. Ontario
+ - 2021 ONCA 534
+ - 2021-07-26
+ Decisions of the Court of Appeal
+ - Civil
+ [11] On May 6, 2016, the appellants provided Ontario with their notice of claim, pursuant to s. 7 of the Proceedings Against the Crown Act, R.S.O. 1990, c. P.27. [...] Pursuant to section 26(3), the decision of the Chief Coroner on review is “final”. Good faith immunity clause [...] Far from a “chill” on policy-making, the potential for liability in this case may well act as a catalyst for paying greater attention to exercises of policy-making. 
+ [LINK /coa/coa/en/19825/1/document.do] 
+ 20.
+ [LINK /coa/coa/en/item/682/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Kennedy v. Waterloo County Board of Education
+ - 1999-06-21
+ Decisions of the Court of Appeal
+ - Civil
+ He then went on to examine the provisions of the Highway Act, R.S.B.C. 1979, c. 167, the Ministry of Transportation and Highways Act, R.S.B.C. 1979, c. 280 and the Crown Proceeding Act, R.S.B.C. 1979, c. 86. [...] The third Act limits the Crown’s liability as a highway authority to that of a municipality. [...] Section 2 of the Occupiers’ Liability Act states that the Act replaces the common law obligations of an occupier of premises to persons who enter on the premises and the liability in respect of those obligations. 
+ [LINK /coa/coa/en/682/1/document.do] 
+ 21.
+ [LINK /coa/coa/en/item/21572/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Kosicki v. Toronto (City)
+ - 2023 ONCA 450
+ - 2023-06-23
+ Decisions of the Court of Appeal
+ - Civil
+ Act, 2021, S.O. 2021, c. 34 amended the Public Lands Act, R.S.O. 1990, c. P.43, s. 17.1, and the Provincial Parks and Conservation Reserves Act, 2006, S.O. 2006, c. 12, s. 14.5, to establish immunities for Crown public land and provincial park land from adverse possession claims.[2] Section 17.1(1) of the Public Lands Act, [...] Sound public policy cannot be made in mysterious conditions. The Land Titles Act recognizes pre-conversion claims based on adverse possession [...] Section 44(1)-3 states: 44 (1) All registered land, unless the contrary is expressed on the register, is subject to such of the following liabilities, rights and interests as for the time being may be subsisting in reference thereto, and such liabilities, rights and interests shall not be deemed to be encumbrances within 
+ [LINK /coa/coa/en/21572/1/document.do] 
+ 22.
+ [LINK /coa/coa/en/item/3336/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Bonaparte et al v. Canada (Attorney General)
+ - 2003-03-27
+ Decisions of the Court of Appeal
+ - Civil
+ The appellants seemed at times to invoke the "fiduciary duty" as a source of plenary Crown liability covering all aspects of the Crown-Indian band relationship. [...] In this respect, we agree with the motions judge's conclusion that, with the implementation of the "residential school policy", the federal Crown "assumed a duty to act in a fiduciary capacity with respect to the education of aboriginal peoples." [...] [57] Where an action is statute-barred against the individual pursuant to the Trustee Act, it is also statute-barred against the Crown by virtue of ss. 3, 10 and 24 of the Crown Liability and Proceedings Act, R.S.C. 1985, c. C-50. 
+ [LINK /coa/coa/en/3336/1/document.do] 
+ 23.
+ [LINK /coa/coa/en/item/5900/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] D., B. et al v. Halton Region Children's Aid Society
+ - 2006-01-20
+ Decisions of the Court of Appeal
+ - Family
+ Section 1 states: (1) The paramount purpose of this Act is to promote the best interests, protection and well being of children. [...] Further, I conclude that, in any event, there are “residual policy considerations which justify denying liability”. The Course of Dealings between the Parties [...] Residual Policy Considerations [89] If I am wrong with respect to my reading of the statute and the court orders, I would hold that there are “residual policy considerations which justify denying liability”. 
+ [LINK /coa/coa/en/5900/1/document.do] 
+ 24.
+ [LINK /coa/coa/en/item/2064/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Black v. Chretien
+ - 2001-05-18
+ Decisions of the Court of Appeal
+ - Civil
+ The Crown may no longer act under the prerogative, but must act under and subject to the conditions imposed by the statute. [...] Here, Prime Minister Chrétien did not act under a statute; he therefore acted under the authority of the Crown prerogative. [...] [67] Under the recent amendments to the Federal Court Act and the Crown Liability and Proceedings Act, the general rule is that the Federal Court and the courts of the provinces have concurrent jurisdiction to entertain claims for relief against the Crown. 
+ [LINK /coa/coa/en/2064/1/document.do] 
+ 25.
+ [LINK /coa/coa/en/item/10606/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions] Ontario v. Imperial Tobacco Canada Limited
+ - 2011 ONCA 525
+ - 2011-07-20
+ Decisions of the Court of Appeal
+ - Civil
+ The Right to Escrow Payments in Section 7 of the Agreement [11] Section 7 of the Agreement gives ITCAN additional rights in the event that it incurs monetary liabilities “in any way relating to, arising out of or in connection with any Released Claims or Claims Over”. [...] Section 7 of that Act gives the court considerable latitude to refuse a stay of proceedings in favour of arbitration. [...] The Act directs me to hold them to their bargain. Section 2(1) of the International Commercial Arbitration Act makes the Convention part of the law of Alberta. 
+ [LINK /coa/coa/en/10606/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "coa",
+ yearRangeString: "1998:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

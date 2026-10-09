@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://coadecisions.ontariocourts.ca/coa/en/d/s/index.do" />
+    <title>    Advanced Search - Court of Appeal for Ontario
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/coa/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+}
+
+.decisia-content a {
+    color: #0645ad;
+    text-decoration: underline;
+}
+
+.decisia-content a:visited {
+    color: purple;
+}
+
+.decisia-content a:hover {
+    color: #222;
+    text-decoration: none;
+}
+
+#decisia-footer a.outlink:after {
+    content: normal;
+	margin: 0;
+}
+
+.breadcrumb-separator > span {
+    display: none;
+}
+
+.breadcrumb-separator:after {
+    content: " » ";
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+    color: #0645ad;
+	text-decoration: underline;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+    text-decoration: none;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+    outline: 1px dashed #666;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+    outline: 0;
+}
+
+#solrHiBar {
+    line-height: normal;
+}
+
+.lexumSolrArrow {
+    line-height: 20px;
+}
+
+.wpml-ls-item-legacy-list-horizontal > span {
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+	line-height: 1;
+}
+
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+    padding-bottom: 0;
+}
+
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+    padding-top: 0;
+}
+
+#decisia-main-content .decisia-content > #decisia-login-header {
+    padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+    margin-top: 0;
+}
+
+#decisia-main-content .decisia-content .resultControls ul.pager {
+    margin-bottom: 1.2em;
+}
+
+#document-content {
+    border-bottom: 2px solid black;
+}
+
+#decisia-footer {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+#decisia-footer .decisia-lexum a {
+    top: 10px;
+}
+
+#decisia-footer img.decisia_logo {
+    width: 120px;
+    height: 42px;
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/coa/en/nav.do">Decisions of the Court</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/coa/en/nav.do">Decisions of the Court</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/coa/fr/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/coa/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="Crown Liability and Proceedings Act section 11 policy decisions" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Docket numbers</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Aitken, Catherine D."
+         >Aitken, Catherine D.</option>
+        <option value="Armstrong, Robert Patrick"
+         >Armstrong, Robert Patrick</option>
+        <option value="Austin, Allan McNiece"
+         >Austin, Allan McNiece</option>
+        <option value="Baltman, Deena"
+         >Baltman, Deena</option>
+        <option value="Benotto, Mary Lou"
+         >Benotto, Mary Lou</option>
+        <option value="Blair, Robert Ashley"
+         >Blair, Robert Ashley</option>
+        <option value="Borins, Stephen"
+         >Borins, Stephen</option>
+        <option value="Brooke, John Watson"
+         >Brooke, John Watson</option>
+        <option value="Brown, David M."
+         >Brown, David M.</option>
+        <option value="Brown, Michael F."
+         >Brown, Michael F.</option>
+        <option value="Brownstone, Lisa"
+         >Brownstone, Lisa</option>
+        <option value="Carthy, James Joseph"
+         >Carthy, James Joseph</option>
+        <option value="Catzman, Marvin Adrian"
+         >Catzman, Marvin Adrian</option>
+        <option value="Cavarzan, John Joseph"
+         >Cavarzan, John Joseph</option>
+        <option value="Chapnik, Sandra"
+         >Chapnik, Sandra</option>
+        <option value="Charron, Louise Vivianne"
+         >Charron, Louise Vivianne</option>
+        <option value="Code, Michael A."
+         >Code, Michael A.</option>
+        <option value="Copeland, Jill M."
+         >Copeland, Jill M.</option>
+        <option value="Coroza, Steve A."
+         >Coroza, Steve A.</option>
+        <option value="Cronk, Eleanore Ann"
+         >Cronk, Eleanore Ann</option>
+        <option value="Cumming, Peter Allan"
+         >Cumming, Peter Allan</option>
+        <option value="Cunningham, John Douglas"
+         >Cunningham, John Douglas</option>
+        <option value="Daley, Peter A."
+         >Daley, Peter A.</option>
+        <option value="Dambrot, Michael R."
+         >Dambrot, Michael R.</option>
+        <option value="Dawe, Jonathan"
+         >Dawe, Jonathan</option>
+        <option value="Doherty, David H."
+         >Doherty, David H.</option>
+        <option value="Ducharme, Edward W."
+         >Ducharme, Edward W.</option>
+        <option value="Dunnet, Tamarin M."
+         >Dunnet, Tamarin M.</option>
+        <option value="Durno, Bruce"
+         >Durno, Bruce</option>
+        <option value="Epstein, Gloria Jean"
+         >Epstein, Gloria Jean</option>
+        <option value="Fairburn, J. Michal"
+         >Fairburn, J. Michal</option>
+        <option value="Farley, James Montague"
+         >Farley, James Montague</option>
+        <option value="Favreau, Lise G."
+         >Favreau, Lise G.</option>
+        <option value="Feldman, Kathryn N."
+         >Feldman, Kathryn N.</option>
+        <option value="Ferrier, Lee Kenneth"
+         >Ferrier, Lee Kenneth</option>
+        <option value="Finlayson, George Duncan"
+         >Finlayson, George Duncan</option>
+        <option value="Fragomeni, Joseph M."
+         >Fragomeni, Joseph M.</option>
+        <option value="Gans, Arthur M."
+         >Gans, Arthur M.</option>
+        <option value="George, Jonathon C."
+         >George, Jonathon C.</option>
+        <option value="Gillese, Eileen E."
+         >Gillese, Eileen E.</option>
+        <option value="Glithero, C. Stephen"
+         >Glithero, C. Stephen</option>
+        <option value="Gomery, Sally A."
+         >Gomery, Sally A.</option>
+        <option value="Goudge, Stephen Thomas"
+         >Goudge, Stephen Thomas</option>
+        <option value="Gray, Douglas K."
+         >Gray, Douglas K.</option>
+        <option value="Hackland, Charles T."
+         >Hackland, Charles T.</option>
+        <option value="Harvison Young, Alison"
+         >Harvison Young, Alison</option>
+        <option value="Hennessy, Patricia C."
+         >Hennessy, Patricia C.</option>
+        <option value="Himel, Susan G."
+         >Himel, Susan G.</option>
+        <option value="Hourigan, C. William"
+         >Hourigan, C. William</option>
+        <option value="Hoy, Alexandra"
+         >Hoy, Alexandra</option>
+        <option value="Huscroft, Grant"
+         >Huscroft, Grant</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Juriansz, Russell G."
+         >Juriansz, Russell G.</option>
+        <option value="Karakatsanis, Andromache Rhea"
+         >Karakatsanis, Andromache Rhea</option>
+        <option value="Kent, James C."
+         >Kent, James C.</option>
+        <option value="Killeen, Gordon Patrick"
+         >Killeen, Gordon Patrick</option>
+        <option value="Kozak, Lawrence Cyril"
+         >Kozak, Lawrence Cyril</option>
+        <option value="Krever, Horace"
+         >Krever, Horace</option>
+        <option value="LaForme, Harry Smith"
+         >LaForme, Harry Smith</option>
+        <option value="Labrosse, Jean-Marc"
+         >Labrosse, Jean-Marc</option>
+        <option value="Lane, George Dennis"
+         >Lane, George Dennis</option>
+        <option value="Lang, Susan Elizabeth"
+         >Lang, Susan Elizabeth</option>
+        <option value="Langdon, Kenneth Aylsworth"
+         >Langdon, Kenneth Aylsworth</option>
+        <option value="Laskin, John Ivan"
+         >Laskin, John Ivan</option>
+        <option value="Lauwers, Peter D."
+         >Lauwers, Peter D.</option>
+        <option value="Lax, Joan L."
+         >Lax, Joan L.</option>
+        <option value="Lederman, Sidney N."
+         >Lederman, Sidney N.</option>
+        <option value="MacDonald, Cindy A.M."
+         >MacDonald, Cindy A.M.</option>
+        <option value="MacFarland, Jean Louise"
+         >MacFarland, Jean Louise</option>
+        <option value="MacKinnon, Jennifer"
+         >MacKinnon, Jennifer</option>
+        <option value="MacPherson, James C."
+         >MacPherson, James C.</option>
+        <option value="Madsen, Lene"
+         >Madsen, Lene</option>
+        <option value="Maranger, Robert L."
+         >Maranger, Robert L.</option>
+        <option value="Marrocco, Frank N."
+         >Marrocco, Frank N.</option>
+        <option value="McCombs, John David"
+         >McCombs, John David</option>
+        <option value="McKinlay, Hilda Margaret"
+         >McKinlay, Hilda Margaret</option>
+        <option value="McKinnon, Colin"
+         >McKinnon, Colin</option>
+        <option value="McMurtry, Roy"
+         >McMurtry, Roy</option>
+        <option value="Melle, Francine Van"
+         >Melle, Francine Van</option>
+        <option value="Miller, Bradley"
+         >Miller, Bradley</option>
+        <option value="Moldaver, Michael James"
+         >Moldaver, Michael James</option>
+        <option value="Monahan, Patrick J."
+         >Monahan, Patrick J.</option>
+        <option value="Morden, John Wilson"
+         >Morden, John Wilson</option>
+        <option value="Métivier, Monique"
+         >Métivier, Monique</option>
+        <option value="Newbould, Frank"
+         >Newbould, Frank</option>
+        <option value="Nordheimer, Ian V.B."
+         >Nordheimer, Ian V.B.</option>
+        <option value="O&#39;Driscoll, John Gerald Joseph"
+         >O&#39;Driscoll, John Gerald Joseph</option>
+        <option value="O&#39;Marra, Alfred J."
+         >O&#39;Marra, Alfred J.</option>
+        <option value="O&#39;Marra, Brian"
+         >O&#39;Marra, Brian</option>
+        <option value="Osborne, Coulter Arthur Anthony"
+         >Osborne, Coulter Arthur Anthony</option>
+        <option value="Osborne, Peter J."
+         >Osborne, Peter J.</option>
+        <option value="O’Connor, Dennis"
+         >O’Connor, Dennis</option>
+        <option value="Paciocco, David M."
+         >Paciocco, David M.</option>
+        <option value="Pardu, Gladys I."
+         >Pardu, Gladys I.</option>
+        <option value="Pattillo, Laurence A."
+         >Pattillo, Laurence A.</option>
+        <option value="Pepall, Sarah E."
+         >Pepall, Sarah E.</option>
+        <option value="Perell, Paul M."
+         >Perell, Paul M.</option>
+        <option value="Pitt, Romain William Michael"
+         >Pitt, Romain William Michael</option>
+        <option value="Pomerance, Renee M."
+         >Pomerance, Renee M.</option>
+        <option value="Rahman, Moiz"
+         >Rahman, Moiz</option>
+        <option value="Ray, Timothy D."
+         >Ray, Timothy D.</option>
+        <option value="Rivard, Paul U."
+         >Rivard, Paul U.</option>
+        <option value="Roberts, Lois B."
+         >Roberts, Lois B.</option>
+        <option value="Robins, Sydney Lewis"
+         >Robins, Sydney Lewis</option>
+        <option value="Rosenberg, Marc"
+         >Rosenberg, Marc</option>
+        <option value="Rouleau, Paul S."
+         >Rouleau, Paul S.</option>
+        <option value="Sachs, Harriet E."
+         >Sachs, Harriet E.</option>
+        <option value="Sharpe, Robert J."
+         >Sharpe, Robert J.</option>
+        <option value="Simmons, Janet M."
+         >Simmons, Janet M.</option>
+        <option value="Smith, G. Patrick"
+         >Smith, G. Patrick</option>
+        <option value="Sossin, Lorne"
+         >Sossin, Lorne</option>
+        <option value="Southey, James Bonham Strange"
+         >Southey, James Bonham Strange</option>
+        <option value="Spence, James M."
+         >Spence, James M.</option>
+        <option value="Speyer, Christopher M."
+         >Speyer, Christopher M.</option>
+        <option value="Steep, R. Paul"
+         >Steep, R. Paul</option>
+        <option value="Strathy, George R."
+         >Strathy, George R.</option>
+        <option value="Swinton, Katherine E."
+         >Swinton, Katherine E.</option>
+        <option value="Then, Edward F."
+         >Then, Edward F.</option>
+        <option value="Theroulde, Sandra"
+         >Theroulde, Sandra</option>
+        <option value="Thorburn, Julie"
+         >Thorburn, Julie</option>
+        <option value="Trotter, Gary T."
+         >Trotter, Gary T.</option>
+        <option value="Tulloch, Michael H."
+         >Tulloch, Michael H.</option>
+        <option value="Turnbull, James R.H."
+         >Turnbull, James R.H.</option>
+        <option value="Tzimas, E. Ria"
+         >Tzimas, E. Ria</option>
+        <option value="Watt, David"
+         >Watt, David</option>
+        <option value="Weiler, Karen Merle Magnuson"
+         >Weiler, Karen Merle Magnuson</option>
+        <option value="Whalen, Lawrence"
+         >Whalen, Lawrence</option>
+        <option value="Wilson, Darla A."
+         >Wilson, Darla A.</option>
+        <option value="Wilton-Siegel, Herman J."
+         >Wilton-Siegel, Herman J.</option>
+        <option value="Winkler, Warren Keith"
+         >Winkler, Warren Keith</option>
+        <option value="Zarnett, Benjamin"
+         >Zarnett, Benjamin</option>
+        <option value="van Rensburg, Katherine"
+         >van Rensburg, Katherine</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Subject</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Civil</option>
+                <option value="2"
+                >Criminal</option>
+                <option value="3"
+                >Family</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+    <ul class="pager">
+                <li class="active current">1</li>
+                <li class="active"><a target="_parent" href="/coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">2</a></li>
+                <li class="active"><a target="_parent" href="/coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=3">3</a></li>
+                <li class="active"><a target="_parent" href="/coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=4">4</a></li>
+                <li class="active"><a target="_parent" href="/coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=5">5</a></li>
+                <li class="active"><a target="_parent" href="/coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=6">6</a></li>
+                <li class="active"><a target="_parent" href="/coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">&gt;</a></li>
+                <li class="active"><a target="_parent" href="/coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=11">&gt;&gt;</a></li>
+    </ul>
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/coa/en/d/s/index.do?cont=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>252 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/19663/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Cirillo v. Ontario</a></span>
+                        - <span class="citation">2021 ONCA 353</span>
+                - <span class="publicationDate">2021-05-26</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    She also appeals a second order dealing with the application of the <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b>, 2019, S.O. 2019, c. 7, Sched. 17 (“CLPA”). &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Section</b> <b>11</b>(4) provides: (4) No cause of action arises against the <b>Crown</b> or an officer, employee or agent of the <b>Crown</b> in respect of any negligence or failure to take reasonable care in the making of a <b>decision</b> in good faith respecting a <b>policy</b> matter, or any negligence in a purported failure to make a <b>decision</b> respecting a &nbsp;&nbsp;[...]&nbsp;&nbsp;(e) <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b> [71] The Divisional Court remitted the matter to the motion judge for a <b>decision</b> on the impact of the CLPA. He concluded that his <b>decision</b> was unaffected by the enactment of the new statute. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/19663/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/19487/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Francis v. Ontario</a></span>
+                        - <span class="citation">2021 ONCA 197</span>
+                - <span class="publicationDate">2021-03-31</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                     a challenge to <b>policy</b> <b>decisions</b> that are immune from <b>liability</b>. · In addition to the common law principles relating to <b>policy</b> <b>decisions</b>, the respondent’s negligence claim was precluded by <b>Crown</b> immunity and was extinguished by s. <b>11</b> of the <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b>, 2019, S.O. 2019 c. 7, Sched. 17 (“CLPA”). &nbsp;&nbsp;[...]&nbsp;&nbsp;However, the <b>Crown</b> is not a person and must be free to govern and make true <b>policy</b> <b>decisions</b> without becoming subject to tort <b>liability</b> as a result of those <b>decisions</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;Such a result is beyond the reach of any expanded definition of <b>policy</b> contained in s. <b>11</b>(5)(c) of the CLPA as we would interpret it. (viii) The <b>Proceedings</b> Against the <b>Crown</b> <b>Act</b> 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/19487/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/18084/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Smith v. Ontario (Attorney General)</a></span>
+                        - <span class="citation">2019 ONCA 651</span>
+                - <span class="publicationDate">2019-08-12</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [34] However, this court did allow the officers’ claim for misfeasance in public office to <b>proceed</b>. It allowed this claim to <b>proceed</b> because it possessed a high <b>liability</b> threshold requiring the officers to prove that the <b>Crown</b> Attorneys <b>acted</b> in bad faith or for improper motives. &nbsp;&nbsp;[...]&nbsp;&nbsp;In contrast, the laying of charges is not enumerated in the list of the duties of <b>Crown</b> Attorneys found in s. <b>11</b> of the <b>Crown</b> Attorneys <b>Act</b>.[i] To the contrary, s. <b>11</b>(a) of the <b>Crown</b> Attorneys <b>Act</b> seems to contemplate that <b>Crown</b> Attorneys only review an information after it has been sworn. &nbsp;&nbsp;[...]&nbsp;&nbsp;[i] <b>Section</b> <b>11</b> of the <b>Crown</b> Attorneys <b>Act</b>, R.S.O. 1990, c. C.49 reads as follows: 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/18084/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/17757/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Clark v. Ontario (Attorney General)</a></span>
+                        - <span class="citation">2019 ONCA 311</span>
+                - <span class="publicationDate">2019-04-18</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                     of justice by undermining the public’s faith in the integrity of independent <b>Crown</b> <b>decision</b>-making. Moreover, exposing <b>Crown</b> attorneys to negligence claims by the police may result in prolonged court <b>proceedings</b> in which <b>Crown</b> attorneys make untenable prosecutorial <b>decisions</b> on Charter motions for fear of being sued. &nbsp;&nbsp;[...]&nbsp;&nbsp;[T]he officers have pleaded that the <b>Crown</b> Attorneys <b>acted</b> unlawfully by <b>acting</b> in breach of their statutory duties under the <b>Crown</b> Attorneys <b>Act</b> and by breaching their oath of office. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Crown</b> attorneys are not immune from civil <b>liability</b> for misfeasance in public office 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/17757/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/20691/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Bowman v. Ontario</a></span>
+                        - <span class="citation">2022 ONCA 477</span>
+                - <span class="publicationDate">2022-06-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    from suit provided by s. <b>11</b>(4) of the <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b>, 2019, S.O. 2019, c. 7, Sched. 17 (“CLPA”), which states that “[n]o cause of action arises against the <b>Crown</b> ... in respect of any negligence or failure to take reasonable care in the making of a <b>decision</b> in good faith respecting a <b>policy</b> matter ...” &nbsp;&nbsp;[...]&nbsp;&nbsp;Nonetheless, CLPA s. 31(4) provides that s. <b>11</b> of the <b>Act</b> applies to <b>proceedings</b> commenced against the <b>Crown</b> before s. 31 came into force, which was May 29, 2019. &nbsp;&nbsp;[...]&nbsp;&nbsp;[76] As mentioned, CLPA s. <b>11</b>(4) provides that no cause of action arises against the <b>Crown</b> in respect of any negligence in the making of a <b>decision</b> in good faith respecting a <b>policy</b> matter. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/20691/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/12106/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Lantheus Medical Imaging Inc. v. Atomic Energy of Canada Ltd.</a></span>
+                        - <span class="citation">2013 ONCA 264</span>
+                - <span class="publicationDate">2013-04-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [15] <b>Section</b> 27 of Part 2 of the CLPA provides as follows: Except as otherwise provided by this <b>Act</b> or the regulations, the rules of practice and procedure of the court in which <b>proceedings</b> are taken apply in those <b>proceedings</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;In general terms, its purpose is to create <b>liability</b> on the federal <b>Crown</b> for certain causes of action where none existed at common law and to expand the jurisdiction of the courts of the provinces for <b>proceedings</b> involving the federal <b>Crown</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Section</b> 16 of the Interpretation <b>Act</b> then in effect is identical to s. 17 of the current Interpretation <b>Act</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/12106/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/15925/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Grand River Enterprises Six Nations Ltd. v. Attorney General (Canada)</a></span>
+                        - <span class="citation">2017 ONCA 526</span>
+                - <span class="publicationDate">2017-06-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Determination of the tax <b>liability</b> or exemption under <b>section</b> 87, Indian <b>Act</b>, is not a perquisite in my view. &nbsp;&nbsp;[...]&nbsp;&nbsp;In short, the <b>Crown</b> submits that the motion judge failed to appreciate the complexity of considerations informing government <b>policy</b> and specific enforcement <b>decisions</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;[155] The <b>Crown</b> advances two residual <b>policy</b> reasons as to why a duty of care should not be recognized: (1) the actions challenged in this case constitute core <b>policy</b> <b>decisions</b>; and (2) doing so would result in indeterminate <b>liability</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/15925/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/21432/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Leroux v. Ontario</a></span>
+                        - <span class="citation">2023 ONCA 314</span>
+                - <span class="publicationDate">2023-05-04</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [28] Subsequent to the motion judge’s certification <b>decision</b>, the Ontario legislature passed the <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b>, 2019, S.O. 2019, c. 7, Sched. 17 (the “CLPA”). &nbsp;&nbsp;[...]&nbsp;&nbsp;[68] With respect to the first argument, Ontario points to ss. <b>11</b>(4)-(5) of the CLPA. <b>Section</b> <b>11</b>(4) of the CLPA provides that there is no cause of action against the <b>Crown</b> “in respect of any negligence ... in the making of a <b>decision</b> in good faith respecting a <b>policy</b> matter”. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Section</b> 5(2) of the PACA simply says that no <b>proceeding</b> can be brought against the <b>Crown</b> "unless a <b>proceeding</b> in tort in respect of such <b>act</b> or omission may be brought against that servant or agent" (emphasis added). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/21432/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/8284/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Attis v. Canada (Health)</a></span>
+                        - <span class="citation">2008 ONCA 660</span>
+                - <span class="publicationDate">2008-09-30</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Since a failure to govern or prohibit “is a manifest <b>policy</b> <b>decision</b>”, the motion judge concluded that Health Canada was immune from civil <b>liability</b> (para. 42). &nbsp;&nbsp;[...]&nbsp;&nbsp;In 1953, Canada enacted the <b>Crown</b> <b>Liability</b> <b>Act</b>, S.C. 1952-53, c. 30, which is now the <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b>, R.S.C. 1985, c. C-50. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Section</b> 3(b)(i) of that <b>Act</b> provides that “[t]he <b>Crown</b> is liable for the damages for which, if it were a person, it would be liable ... in respect of a tort committed by a servant of the <b>Crown</b>.” 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/8284/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/6871/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Authorson Estate v. Canada (Attorney General)</a></span>
+                        - <span class="citation">2007 ONCA 501</span>
+                - <span class="publicationDate">2007-07-04</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    · Do s. 5.1(4) of the DVA <b>Act</b>, or s. 9 of the <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b>, R.S.C. 1985, c. C-50, retroactively bar or exempt the plaintiff’s claims? &nbsp;&nbsp;[...]&nbsp;&nbsp;4. <b>Section</b> 9 of the <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b> does not bar or exempt the claims of the class members; &nbsp;&nbsp;[...]&nbsp;&nbsp;(e) If s. 5.1(4) of the Department of Veterans’ Affairs <b>Act</b>, or s. 9 of the <b>Crown</b> <b>Liabilities</b> and <b>Proceedings</b> <b>Act</b>, retroactively bar or exempt the plaintiff’s claims are they invalid and inoperative by reason of a conflict with <b>section</b> 1(a) or s. 2(e) of the Canadian Bill of Rights or <b>section</b> 7 or 15 of the Charter? 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/6871/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/2640/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Authorson (Litigation Guardian of) v. Canada (Attorney General)</a></span>
+                - <span class="publicationDate">2002-03-13</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    (b) <b>Section</b> 9 of the <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b>, R.S.C. 1985, c. C-50 is not a bar to this action. &nbsp;&nbsp;[...]&nbsp;&nbsp;(b) finding that the <b>Crown</b> breached its fiduciary duty to the members of the class; (c) finding that this action was not barred by the <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b>; &nbsp;&nbsp;[...]&nbsp;&nbsp;THE <b>CROWN</b> <b>LIABILITY</b> AND <b>PROCEEDINGS</b> <b>ACT</b> ISSUE [82] The <b>Crown</b> argued below that <b>section</b> 9 of the <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b>, R.S.C. 1985, c. 50, as amended ("CLPA"), barred this action. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/2640/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">12.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/20802/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Barker v. Barker</a></span>
+                        - <span class="citation">2022 ONCA 567</span>
+                - <span class="publicationDate">2022-07-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [1271] The wording of the statute indicates, however, that <b>Crown</b> immunity applies only to claims in tort, not in equity. <b>Section</b> <b>11</b>(4) of [the <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b>, 2019, S.O. 2019, c. 7, Sched. 17 (“CLPA”)], which establishes (or reiterates) the immunity, refers only to negligence and the duty to take &nbsp;&nbsp;[...]&nbsp;&nbsp;[98] In any event, the trial judge considered whether the conduct of Ontario involved <b>decisions</b> relating to a <b>policy</b> matter as defined in the CLPA. He considered the definition of “<b>policy</b> matter” in s. <b>11</b>(5)(a), as elaborated upon in ss. <b>11</b>(5)(b) and (c) and the relevant case law, and concluded that these <b>sections</b> had no &nbsp;&nbsp;[...]&nbsp;&nbsp;[2] Ontario points out that under the <b>Proceedings</b> Against the <b>Crown</b> <b>Act</b>, R.S.O. 1990, c. P.27, as applicable to this <b>proceeding</b>, Ontario is subject to all <b>liabilities</b> in tort in respect of torts committed by its servants and agents. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/20802/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">13.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/12890/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">R. v. Tatton</a></span>
+                        - <span class="citation">2014 ONCA 273</span>
+                - <span class="publicationDate">2014-04-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Criminal</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [47] If one were to apply the test set out in R. v. George, it would seem apt to describe arson as an offence requiring a specific intent – as requiring more than a voluntary <b>act</b> with an immediate end. It requires an awareness of the more distant consequences of that <b>act</b>, and a conscious <b>decision</b> to <b>proceed</b> in the face of &nbsp;&nbsp;[...]&nbsp;&nbsp;Subjective mens rea requires that the accused have intended the consequences of his or her <b>acts</b>, or that knowing of the probable consequences of those <b>acts</b>, the accused have <b>proceeded</b> recklessly in the face of the risk. &nbsp;&nbsp;[...]&nbsp;&nbsp;[72] This is a <b>Crown</b> appeal. <b>Section</b> 676(1)(a) of the Code provides that the <b>Crown</b> may appeal on a question of law. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/12890/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">14.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/16958/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Ontario (Finance) v. Traders General Insurance (Aviva Traders)</a></span>
+                        - <span class="citation">2018 ONCA 565</span>
+                - <span class="publicationDate">2018-06-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [40] The <b>policy</b> that the appellant purported to terminate is an owner’s <b>policy</b>, which is defined in s. 1 of the Insurance <b>Act</b> as: &nbsp;&nbsp;[...]&nbsp;&nbsp;[54] <b>Section</b> <b>11</b> of the Interpretation <b>Act</b>, R.S.O. 1990, c. I.<b>11</b>, which was in force until July 2007, provided that specific words were required for an <b>act</b> to bind the <b>Crown</b>: &nbsp;&nbsp;[...]&nbsp;&nbsp;[69] Second, the appellant’s first argument was that the <b>Crown</b> was obliged to bring its action using s. 258. That argument failed because of <b>Crown</b> immunity in respect of the Insurance <b>Act</b> (except for the specific <b>sections</b> already discussed). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/16958/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">15.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/7653/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">TeleZone Inc. v. Attorney General (Canada)</a></span>
+                        - <span class="citation">2008 ONCA 892</span>
+                - <span class="publicationDate">2008-12-24</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    (c) there is a claim against the <b>Crown</b> for injurious affection; or (d) the claim is for damages under the <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;. . . It is especially important not to allow a <b>section</b> 17 <b>proceeding</b> as a mechanism for reviewing the lawfulness of a federal agency’s <b>decision</b> when this indirect challenge to the <b>decision</b> is used to obviate the mandatory provisions of subsection 18(3) of the Federal Courts <b>Act</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;[101] At least five <b>decisions</b> of this court have routinely permitted actions in damages against the <b>Crown</b> to <b>proceed</b> in the Superior Court. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/7653/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">16.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24435/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Minotar Holdings Inc. v. Ontario (Municipal Affairs and Housing)</a></span>
+                        - <span class="citation">2026 ONCA 606</span>
+                - <span class="publicationDate">2026-08-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    That power would instead be exercised legislatively through the Amendment <b>Act</b>. [<b>11</b>] Accordingly, the amendments incorporated the legislature’s land use planning <b>decisions</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;2. There are no <b>policy</b> reasons which would justify immunity for misfeasance and bad faith in the Greenbelt <b>Act</b> &nbsp;&nbsp;[...]&nbsp;&nbsp; of the <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b>, 2019, S.O. 2019, c. 7, Sched. 17 (the “CLPA”), which provides that any claim against the <b>Crown</b> or an officer or employee of the <b>Crown</b> that includes a claim for the tort of misfeasance in public office or a tort based on bad faith conduct may only <b>proceed</b> with leave of the court. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24435/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">17.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/14544/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">R. v. Singh</a></span>
+                        - <span class="citation">2016 ONCA 108</span>
+                - <span class="publicationDate">2016-02-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Criminal</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Given the <b>policy</b> concerns associated with exposing prosecutors to civil <b>liability</b>, it is necessary that the <b>liability</b> threshold be set near the high end of the blameworthiness spectrum. &nbsp;&nbsp;[...]&nbsp;&nbsp;[55] The purpose for awarding costs against the <b>Crown</b> in criminal <b>proceedings</b> is fundamentally different from those associated with costs in a civil <b>proceeding</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;I have already discussed the <b>policy</b> considerations at play in making a costs award against the <b>Crown</b> in a criminal context generally. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/14544/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">18.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/18687/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">J.B. v. Ontario (Child and Youth Services)</a></span>
+                        - <span class="citation">2020 ONCA 198</span>
+                - <span class="publicationDate">2020-03-11</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    b. <b>Section</b> 35(1) of the Constitution <b>Act</b>, 1982. (1) Rule 21 test to determine an issue before trial &nbsp;&nbsp;[...]&nbsp;&nbsp;If there is a prima facie duty of care, the court will <b>proceed</b> to the next stage of the analysis and consider whether there are “residual <b>policy</b> considerations which justify denying <b>liability</b>”: Edwards v. Law Society of Upper Canada, 2001 SCC 80, [2001] 3 S.C.R. 562, at para. 10. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Section</b> 7 of the Charter does not obligate it to establish specific <b>policies</b> and procedures. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/18687/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">19.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/19825/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Meekis v. Ontario</a></span>
+                        - <span class="citation">2021 ONCA 534</span>
+                - <span class="publicationDate">2021-07-26</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [<b>11</b>] On May 6, 2016, the appellants provided Ontario with their notice of claim, pursuant to s. 7 of the <b>Proceedings</b> Against the <b>Crown</b> <b>Act</b>, R.S.O. 1990, c. P.27. &nbsp;&nbsp;[...]&nbsp;&nbsp;Pursuant to <b>section</b> 26(3), the <b>decision</b> of the Chief Coroner on review is “final”. Good faith immunity clause &nbsp;&nbsp;[...]&nbsp;&nbsp;Far from a “chill” on <b>policy</b>-making, the potential for <b>liability</b> in this case may well <b>act</b> as a catalyst for paying greater attention to exercises of <b>policy</b>-making. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/19825/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">20.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/682/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Kennedy v. Waterloo County Board of Education</a></span>
+                - <span class="publicationDate">1999-06-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    He then went on to examine the provisions of the Highway <b>Act</b>, R.S.B.C. 1979, c. 167, the Ministry of Transportation and Highways <b>Act</b>, R.S.B.C. 1979, c. 280 and the <b>Crown</b> <b>Proceeding</b> <b>Act</b>, R.S.B.C. 1979, c. 86. &nbsp;&nbsp;[...]&nbsp;&nbsp;The third <b>Act</b> limits the <b>Crown</b>’s <b>liability</b> as a highway authority to that of a municipality. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Section</b> 2 of the Occupiers’ <b>Liability</b> <b>Act</b> states that the <b>Act</b> replaces the common law obligations of an occupier of premises to persons who enter on the premises and the <b>liability</b> in respect of those obligations. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/682/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">21.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/21572/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Kosicki v. Toronto (City)</a></span>
+                        - <span class="citation">2023 ONCA 450</span>
+                - <span class="publicationDate">2023-06-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                     <b>Act</b>, 2021, S.O. 2021, c. 34 amended the Public Lands <b>Act</b>, R.S.O. 1990, c. P.43, s. 17.1, and the Provincial Parks and Conservation Reserves <b>Act</b>, 2006, S.O. 2006, c. 12, s. 14.5, to establish immunities for <b>Crown</b> public land and provincial park land from adverse possession claims.[2] <b>Section</b> 17.1(1) of the Public Lands <b>Act</b>,&nbsp;&nbsp;[...]&nbsp;&nbsp;Sound public <b>policy</b> cannot be made in mysterious conditions. The Land Titles <b>Act</b> recognizes pre-conversion claims based on adverse possession &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Section</b> 44(1)-3 states: 44 (1) All registered land, unless the contrary is expressed on the register, is subject to such of the following <b>liabilities</b>, rights and interests as for the time being may be subsisting in reference thereto, and such <b>liabilities</b>, rights and interests shall not be deemed to be encumbrances within 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/21572/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">22.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/3336/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Bonaparte et al v. Canada (Attorney General)</a></span>
+                - <span class="publicationDate">2003-03-27</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    The appellants seemed at times to invoke the "fiduciary duty" as a source of plenary <b>Crown</b> <b>liability</b> covering all aspects of the <b>Crown</b>-Indian band relationship. &nbsp;&nbsp;[...]&nbsp;&nbsp;In this respect, we agree with the motions judge's conclusion that, with the implementation of the "residential school <b>policy</b>", the federal <b>Crown</b> "assumed a duty to <b>act</b> in a fiduciary capacity with respect to the education of aboriginal peoples." &nbsp;&nbsp;[...]&nbsp;&nbsp;[57] Where an action is statute-barred against the individual pursuant to the Trustee <b>Act</b>, it is also statute-barred against the <b>Crown</b> by virtue of ss. 3, 10 and 24 of the <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b>, R.S.C. 1985, c. C-50. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/3336/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">23.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/5900/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">D., B. et al v. Halton Region Children&#39;s Aid Society</a></span>
+                - <span class="publicationDate">2006-01-20</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    <b>Section</b> 1 states: (1) The paramount purpose of this <b>Act</b> is to promote the best interests, protection and well being of children. &nbsp;&nbsp;[...]&nbsp;&nbsp;Further, I conclude that, in any event, there are “residual <b>policy</b> considerations which justify denying <b>liability</b>”. The Course of Dealings between the Parties &nbsp;&nbsp;[...]&nbsp;&nbsp;Residual <b>Policy</b> Considerations [89] If I am wrong with respect to my reading of the statute and the court orders, I would hold that there are “residual <b>policy</b> considerations which justify denying <b>liability</b>”. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/5900/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">24.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/2064/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Black v. Chretien</a></span>
+                - <span class="publicationDate">2001-05-18</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    The <b>Crown</b> may no longer <b>act</b> under the prerogative, but must <b>act</b> under and subject to the conditions imposed by the statute. &nbsp;&nbsp;[...]&nbsp;&nbsp;Here, Prime Minister Chrétien did not <b>act</b> under a statute; he therefore <b>acted</b> under the authority of the <b>Crown</b> prerogative. &nbsp;&nbsp;[...]&nbsp;&nbsp;[67] Under the recent amendments to the Federal Court <b>Act</b> and the <b>Crown</b> <b>Liability</b> and <b>Proceedings</b> <b>Act</b>, the general rule is that the Federal Court and the courts of the provinces have concurrent jurisdiction to entertain claims for relief against the <b>Crown</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/2064/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">25.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/10606/index.do?q=Crown+Liability+and+Proceedings+Act+section+11+policy+decisions">Ontario v. Imperial Tobacco Canada Limited</a></span>
+                        - <span class="citation">2011 ONCA 525</span>
+                - <span class="publicationDate">2011-07-20</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    The Right to Escrow Payments in <b>Section</b> 7 of the Agreement [<b>11</b>] <b>Section</b> 7 of the Agreement gives ITCAN additional rights in the event that it incurs monetary <b>liabilities</b> “in any way relating to, arising out of or in connection with any Released Claims or Claims Over”. &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>Section</b> 7 of that <b>Act</b> gives the court considerable latitude to refuse a stay of <b>proceedings</b> in favour of arbitration. &nbsp;&nbsp;[...]&nbsp;&nbsp;The <b>Act</b> directs me to hold them to their bargain. <b>Section</b> 2(1) of the International Commercial Arbitration <b>Act</b> makes the Convention part of the law of Alberta. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/10606/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "coa",
+            yearRangeString: "1998:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=114" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>

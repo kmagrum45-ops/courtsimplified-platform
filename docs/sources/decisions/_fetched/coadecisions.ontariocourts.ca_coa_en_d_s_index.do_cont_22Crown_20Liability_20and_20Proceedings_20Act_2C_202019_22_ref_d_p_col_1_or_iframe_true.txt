@@ -1,0 +1,593 @@
+ Advanced Search - Court of Appeal for Ontario
+.decisia-content {
+ font-family: Arial, sans-serif;
+ font-size: 1rem;
+}
+.decisia-content a {
+ color: #0645ad;
+ text-decoration: underline;
+}
+.decisia-content a:visited {
+ color: purple;
+}
+.decisia-content a:hover {
+ color: #222;
+ text-decoration: none;
+}
+#decisia-footer a.outlink:after {
+ content: normal;
+	margin: 0;
+}
+.breadcrumb-separator > span {
+ display: none;
+}
+.breadcrumb-separator:after {
+ content: " » ";
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+ color: #0645ad;
+	text-decoration: underline;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+ text-decoration: none;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+ outline: 1px dashed #666;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+ outline: 0;
+}
+#solrHiBar {
+ line-height: normal;
+}
+.lexumSolrArrow {
+ line-height: 20px;
+}
+.wpml-ls-item-legacy-list-horizontal > span {
+ padding-top: 5px;
+ padding-right: 10px;
+ padding-bottom: 5px;
+ padding-left: 10px;
+	line-height: 1;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+ padding-bottom: 0;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content > #decisia-login-header {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+ margin-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager {
+ margin-bottom: 1.2em;
+}
+#document-content {
+ border-bottom: 2px solid black;
+}
+#decisia-footer {
+ margin-top: 10px;
+ padding-top: 10px;
+}
+#decisia-footer .decisia-lexum a {
+ top: 10px;
+}
+#decisia-footer img.decisia_logo {
+ width: 120px;
+ height: 42px;
+}
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ /coa/fr/d/s/index.do?cont=%22Crown+Liability+and+Proceedings+Act%2C+2019%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /coa/en/q.do] Help
+ Advanced Search
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Docket numbers
+ Date between
+ and
+ Judges
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Aitken, Catherine D."
+ >Aitken, Catherine D.
+ <option value="Armstrong, Robert Patrick"
+ >Armstrong, Robert Patrick
+ <option value="Austin, Allan McNiece"
+ >Austin, Allan McNiece
+ <option value="Baltman, Deena"
+ >Baltman, Deena
+ <option value="Benotto, Mary Lou"
+ >Benotto, Mary Lou
+ <option value="Blair, Robert Ashley"
+ >Blair, Robert Ashley
+ <option value="Borins, Stephen"
+ >Borins, Stephen
+ <option value="Brooke, John Watson"
+ >Brooke, John Watson
+ <option value="Brown, David M."
+ >Brown, David M.
+ <option value="Brown, Michael F."
+ >Brown, Michael F.
+ <option value="Brownstone, Lisa"
+ >Brownstone, Lisa
+ <option value="Carthy, James Joseph"
+ >Carthy, James Joseph
+ <option value="Catzman, Marvin Adrian"
+ >Catzman, Marvin Adrian
+ <option value="Cavarzan, John Joseph"
+ >Cavarzan, John Joseph
+ <option value="Chapnik, Sandra"
+ >Chapnik, Sandra
+ <option value="Charron, Louise Vivianne"
+ >Charron, Louise Vivianne
+ <option value="Code, Michael A."
+ >Code, Michael A.
+ <option value="Copeland, Jill M."
+ >Copeland, Jill M.
+ <option value="Coroza, Steve A."
+ >Coroza, Steve A.
+ <option value="Cronk, Eleanore Ann"
+ >Cronk, Eleanore Ann
+ <option value="Cumming, Peter Allan"
+ >Cumming, Peter Allan
+ <option value="Cunningham, John Douglas"
+ >Cunningham, John Douglas
+ <option value="Daley, Peter A."
+ >Daley, Peter A.
+ <option value="Dambrot, Michael R."
+ >Dambrot, Michael R.
+ <option value="Dawe, Jonathan"
+ >Dawe, Jonathan
+ <option value="Doherty, David H."
+ >Doherty, David H.
+ <option value="Ducharme, Edward W."
+ >Ducharme, Edward W.
+ <option value="Dunnet, Tamarin M."
+ >Dunnet, Tamarin M.
+ <option value="Durno, Bruce"
+ >Durno, Bruce
+ <option value="Epstein, Gloria Jean"
+ >Epstein, Gloria Jean
+ <option value="Fairburn, J. Michal"
+ >Fairburn, J. Michal
+ <option value="Farley, James Montague"
+ >Farley, James Montague
+ <option value="Favreau, Lise G."
+ >Favreau, Lise G.
+ <option value="Feldman, Kathryn N."
+ >Feldman, Kathryn N.
+ <option value="Ferrier, Lee Kenneth"
+ >Ferrier, Lee Kenneth
+ <option value="Finlayson, George Duncan"
+ >Finlayson, George Duncan
+ <option value="Fragomeni, Joseph M."
+ >Fragomeni, Joseph M.
+ <option value="Gans, Arthur M."
+ >Gans, Arthur M.
+ <option value="George, Jonathon C."
+ >George, Jonathon C.
+ <option value="Gillese, Eileen E."
+ >Gillese, Eileen E.
+ <option value="Glithero, C. Stephen"
+ >Glithero, C. Stephen
+ <option value="Gomery, Sally A."
+ >Gomery, Sally A.
+ <option value="Goudge, Stephen Thomas"
+ >Goudge, Stephen Thomas
+ <option value="Gray, Douglas K."
+ >Gray, Douglas K.
+ <option value="Hackland, Charles T."
+ >Hackland, Charles T.
+ <option value="Harvison Young, Alison"
+ >Harvison Young, Alison
+ <option value="Hennessy, Patricia C."
+ >Hennessy, Patricia C.
+ <option value="Himel, Susan G."
+ >Himel, Susan G.
+ <option value="Hourigan, C. William"
+ >Hourigan, C. William
+ <option value="Hoy, Alexandra"
+ >Hoy, Alexandra
+ <option value="Huscroft, Grant"
+ >Huscroft, Grant
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Juriansz, Russell G."
+ >Juriansz, Russell G.
+ <option value="Karakatsanis, Andromache Rhea"
+ >Karakatsanis, Andromache Rhea
+ <option value="Kent, James C."
+ >Kent, James C.
+ <option value="Killeen, Gordon Patrick"
+ >Killeen, Gordon Patrick
+ <option value="Kozak, Lawrence Cyril"
+ >Kozak, Lawrence Cyril
+ <option value="Krever, Horace"
+ >Krever, Horace
+ <option value="LaForme, Harry Smith"
+ >LaForme, Harry Smith
+ <option value="Labrosse, Jean-Marc"
+ >Labrosse, Jean-Marc
+ <option value="Lane, George Dennis"
+ >Lane, George Dennis
+ <option value="Lang, Susan Elizabeth"
+ >Lang, Susan Elizabeth
+ <option value="Langdon, Kenneth Aylsworth"
+ >Langdon, Kenneth Aylsworth
+ <option value="Laskin, John Ivan"
+ >Laskin, John Ivan
+ <option value="Lauwers, Peter D."
+ >Lauwers, Peter D.
+ <option value="Lax, Joan L."
+ >Lax, Joan L.
+ <option value="Lederman, Sidney N."
+ >Lederman, Sidney N.
+ <option value="MacDonald, Cindy A.M."
+ >MacDonald, Cindy A.M.
+ <option value="MacFarland, Jean Louise"
+ >MacFarland, Jean Louise
+ <option value="MacKinnon, Jennifer"
+ >MacKinnon, Jennifer
+ <option value="MacPherson, James C."
+ >MacPherson, James C.
+ <option value="Madsen, Lene"
+ >Madsen, Lene
+ <option value="Maranger, Robert L."
+ >Maranger, Robert L.
+ <option value="Marrocco, Frank N."
+ >Marrocco, Frank N.
+ <option value="McCombs, John David"
+ >McCombs, John David
+ <option value="McKinlay, Hilda Margaret"
+ >McKinlay, Hilda Margaret
+ <option value="McKinnon, Colin"
+ >McKinnon, Colin
+ <option value="McMurtry, Roy"
+ >McMurtry, Roy
+ <option value="Melle, Francine Van"
+ >Melle, Francine Van
+ <option value="Miller, Bradley"
+ >Miller, Bradley
+ <option value="Moldaver, Michael James"
+ >Moldaver, Michael James
+ <option value="Monahan, Patrick J."
+ >Monahan, Patrick J.
+ <option value="Morden, John Wilson"
+ >Morden, John Wilson
+ <option value="Métivier, Monique"
+ >Métivier, Monique
+ <option value="Newbould, Frank"
+ >Newbould, Frank
+ <option value="Nordheimer, Ian V.B."
+ >Nordheimer, Ian V.B.
+ <option value="O'Driscoll, John Gerald Joseph"
+ >O'Driscoll, John Gerald Joseph
+ <option value="O'Marra, Alfred J."
+ >O'Marra, Alfred J.
+ <option value="O'Marra, Brian"
+ >O'Marra, Brian
+ <option value="Osborne, Coulter Arthur Anthony"
+ >Osborne, Coulter Arthur Anthony
+ <option value="Osborne, Peter J."
+ >Osborne, Peter J.
+ <option value="O’Connor, Dennis"
+ >O’Connor, Dennis
+ <option value="Paciocco, David M."
+ >Paciocco, David M.
+ <option value="Pardu, Gladys I."
+ >Pardu, Gladys I.
+ <option value="Pattillo, Laurence A."
+ >Pattillo, Laurence A.
+ <option value="Pepall, Sarah E."
+ >Pepall, Sarah E.
+ <option value="Perell, Paul M."
+ >Perell, Paul M.
+ <option value="Pitt, Romain William Michael"
+ >Pitt, Romain William Michael
+ <option value="Pomerance, Renee M."
+ >Pomerance, Renee M.
+ <option value="Rahman, Moiz"
+ >Rahman, Moiz
+ <option value="Ray, Timothy D."
+ >Ray, Timothy D.
+ <option value="Rivard, Paul U."
+ >Rivard, Paul U.
+ <option value="Roberts, Lois B."
+ >Roberts, Lois B.
+ <option value="Robins, Sydney Lewis"
+ >Robins, Sydney Lewis
+ <option value="Rosenberg, Marc"
+ >Rosenberg, Marc
+ <option value="Rouleau, Paul S."
+ >Rouleau, Paul S.
+ <option value="Sachs, Harriet E."
+ >Sachs, Harriet E.
+ <option value="Sharpe, Robert J."
+ >Sharpe, Robert J.
+ <option value="Simmons, Janet M."
+ >Simmons, Janet M.
+ <option value="Smith, G. Patrick"
+ >Smith, G. Patrick
+ <option value="Sossin, Lorne"
+ >Sossin, Lorne
+ <option value="Southey, James Bonham Strange"
+ >Southey, James Bonham Strange
+ <option value="Spence, James M."
+ >Spence, James M.
+ <option value="Speyer, Christopher M."
+ >Speyer, Christopher M.
+ <option value="Steep, R. Paul"
+ >Steep, R. Paul
+ <option value="Strathy, George R."
+ >Strathy, George R.
+ <option value="Swinton, Katherine E."
+ >Swinton, Katherine E.
+ <option value="Then, Edward F."
+ >Then, Edward F.
+ <option value="Theroulde, Sandra"
+ >Theroulde, Sandra
+ <option value="Thorburn, Julie"
+ >Thorburn, Julie
+ <option value="Trotter, Gary T."
+ >Trotter, Gary T.
+ <option value="Tulloch, Michael H."
+ >Tulloch, Michael H.
+ <option value="Turnbull, James R.H."
+ >Turnbull, James R.H.
+ <option value="Tzimas, E. Ria"
+ >Tzimas, E. Ria
+ <option value="Watt, David"
+ >Watt, David
+ <option value="Weiler, Karen Merle Magnuson"
+ >Weiler, Karen Merle Magnuson
+ <option value="Whalen, Lawrence"
+ >Whalen, Lawrence
+ <option value="Wilson, Darla A."
+ >Wilson, Darla A.
+ <option value="Wilton-Siegel, Herman J."
+ >Wilton-Siegel, Herman J.
+ <option value="Winkler, Warren Keith"
+ >Winkler, Warren Keith
+ <option value="Zarnett, Benjamin"
+ >Zarnett, Benjamin
+ <option value="van Rensburg, Katherine"
+ >van Rensburg, Katherine
+ Subject
+ <option value="1"
+ >Civil
+ <option value="2"
+ >Criminal
+ <option value="3"
+ >Family
+ Search 
+ Sort by:
+ Relevance
+ [LINK /coa/en/d/s/index.do?cont=%22Crown+Liability+and+Proceedings+Act%2C+2019%22&ref=&p=&col=1&or=date] Date
+ 22 result(s)
+ 1.
+ [LINK /coa/coa/en/item/20409/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] The Catalyst Capital Group Inc. v. Dundee Kilmer
+ - 2022 ONCA 168
+ - 2022-02-28
+ Decisions of the Court of Appeal
+ - Civil
+ [9] The motion judge went on to find that, had he not struck the claim for disclosing no reasonable cause of action, he would have held that the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17, applied to Catalyst’s claim against HMQ and that, pursuant to s. 17, the claim would be stayed and leave to [...] [37] As I have concluded that the second amended statement of claim discloses no reasonable cause of action against HMQ, I need not address the appellant’s other ground of appeal: that the motion judge erred in applying the provisions of the Crown Liability and Proceedings Act, 2019, to Catalyst’s claims against HMQ. I 
+ [LINK /coa/coa/en/20409/1/document.do] 
+ 2.
+ [LINK /coa/coa/en/item/21223/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Corrigan v. Ontario
+ - 2023 ONCA 108
+ - 2023-02-15
+ Decisions of the Court of Appeal
+ - Civil
+ That result was entailed by the fact that the action had been commenced by the respondent without complying with the mandatory prior notice provisions in s. 18(1) of the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7 (“CLPA”): Corrigan v. Ontario, 2023 ONCA 39. 
+ [LINK /coa/coa/en/21223/1/document.do] 
+ 3.
+ [LINK /coa/coa/en/item/22713/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Swan v. Firearms Safety Education Service of Ontario
+ - 2024 ONCA 735
+ - 2024-10-03
+ Decisions of the Court of Appeal
+ - Civil
+ She struck the 2022 Action as against His Majesty the King in Right of Ontario because no notice was given to the Crown pursuant to the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17. Certain claims in the 2022 Action were found to be statute-barred and were struck as against the FSESO. The remaining 
+ [LINK /coa/coa/en/22713/1/document.do] 
+ 4.
+ [LINK /coa/coa/en/item/19622/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Fitzgerald v. Reaume
+ - 2021 ONCA 330
+ - 2021-05-18
+ Decisions of the Court of Appeal
+ - Civil
+ The judge considered the matter and stated that he would have dealt with the request pursuant to a different procedure if it were decided on the basis of a failure to comply with either the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 or the Limitations Act, 2002, S.O. 2002, c. 24, Sched. 
+ [LINK /coa/coa/en/19622/1/document.do] 
+ 5.
+ [LINK /coa/coa/en/item/21262/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Daly v. Ontario (Landlord and Tenant Board)
+ - 2023 ONCA 152
+ - 2023-03-02
+ Decisions of the Court of Appeal
+ - Civil
+ [7] Similarly, the Crown is not liable for anything done or omitted to be done by a person while discharging or purporting to discharge responsibilities of a judicial nature: Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sch. 17, s. 9(2)(b). The relationship between the Crown and members of quasi-judicial 
+ [LINK /coa/coa/en/21262/1/document.do] 
+ 6.
+ [LINK /coa/coa/en/item/22329/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Yadeta v. Peel (Municipality) Police Service Board
+ - 2024 ONCA 341
+ - 2024-05-03
+ Decisions of the Court of Appeal
+ - Civil
+ [6] First, the appellant brought a motion under s. 17 of the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17, for permission to pursue a claim for malicious prosecution, misfeasance in public office and bad faith against the Crown. 
+ [LINK /coa/coa/en/22329/1/document.do] 
+ 7.
+ [LINK /coa/coa/en/item/24278/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Berentschot v. Ontario
+ - 2026 ONCA 444
+ - 2026-06-19
+ Decisions of the Court of Appeal
+ - Civil
+ [10] Fourth, she challenges the constitutionality of s. 17 of the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (“CLPA”), arguing that it impermissibly restricts access to constitutional remedies against the Crown. 
+ [LINK /coa/coa/en/24278/1/document.do] 
+ 8.
+ [LINK /coa/coa/en/item/21292/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Poorkid Investments Inc. v. Ontario (Solicitor General)
+ - 2023 ONCA 172
+ - 2023-03-15
+ Decisions of the Court of Appeal
+ - Civil
+ [2] Proceedings brought against the Crown or an officer or employee of the Crown that include a claim for misfeasance in public office or bad faith in the exercise of public duties or functions are deemed to be stayed by operation of s. 17 of the Crown Liability and Proceedings Act, 2019, S.O. 2019 c. 7, Sch. 17 (“CLPA”), [...] The Crown Liability and Proceedings Act, 2019 [8] The CLPA replaced the Proceedings Against the Crown Act, R.S.O. 1990, c. P.27. 
+ [LINK /coa/coa/en/21292/1/document.do] 
+ 9.
+ [LINK /coa/coa/en/item/18255/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Reynolds v. Alcohol and Gaming (Registrar)
+ - 2019 ONCA 788
+ - 2019-10-08
+ Decisions of the Court of Appeal
+ - Civil
+ They point, in particular, to s. 11 of the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17, specifically s. 11(2) which reads: 
+ [LINK /coa/coa/en/18255/1/document.do] 
+ 10.
+ [LINK /coa/coa/en/item/21158/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Corrigan v. Ontario
+ - 2023 ONCA 39
+ - 2023-01-23
+ Decisions of the Court of Appeal
+ - Criminal
+ [1] The Crown appeals from the dismissal of its motion to have the respondent’s statement of claim struck out as a nullity due to the failure of the respondent to comply with provisions of the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7 (“CLPA”). Section 18(1) of the CLPA requires that notice of a claim be 
+ [LINK /coa/coa/en/21158/1/document.do] 
+ 11.
+ [LINK /coa/coa/en/item/18512/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Elliot v. Aviva Insurance Company of Canada
+ - 2020 ONCA 36
+ - 2020-01-21
+ Decisions of the Court of Appeal
+ - Civil
+ [1] PACA was repealed on July 1, 2019 and replaced by the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17, s. 18(1) of which states: “No proceeding that includes a claim for damages may be brought against the Crown unless, at least 60 days before the commencement of the proceeding, the claimant serves 
+ [LINK /coa/coa/en/18512/1/document.do] 
+ 12.
+ [LINK /coa/coa/en/item/23616/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] SBG-Skill Based Games Inc. v. Ontario (Alcohol and Gaming Commission)
+ - 2025 ONCA 692
+ - 2025-10-08
+ Decisions of the Court of Appeal
+ - Civil
+ The Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17, s. 11(2) likewise prevents any cause of action against a Crown officer, employee or agent “in respect of a regulatory decision made in good faith” by a person who has suffered any harm or loss as a result of that decision. 
+ [LINK /coa/coa/en/23616/1/document.do] 
+ 13.
+ [LINK /coa/coa/en/item/19487/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Francis v. Ontario
+ - 2021 ONCA 197
+ - 2021-03-31
+ Decisions of the Court of Appeal
+ - Civil
+ · In addition to the common law principles relating to policy decisions, the respondent’s negligence claim was precluded by Crown immunity and was extinguished by s. 11 of the Crown Liability and Proceedings Act, 2019, S.O. 2019 c. 7, Sched. 17 (“CLPA”). [23] The motion judge rejected each of Ontario’s submissions. [...] (vii) The Crown Liability and Proceedings Act, 2019 [111] Having determined that a claim of systemic negligence does lie in this case, we must address Ontario’s submission that any such claim is barred by virtue of the CLPA. 
+ [LINK /coa/coa/en/19487/1/document.do] 
+ 14.
+ [LINK /coa/coa/en/item/21132/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Ontario v. Madan
+ - 2023 ONCA 18
+ - 2023-01-11
+ Decisions of the Court of Appeal
+ - Civil
+ She held that under s. 8 of the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (the “Act”), the Crown could not be held directly liable in tort. 
+ [LINK /coa/coa/en/21132/1/document.do] 
+ 15.
+ [LINK /coa/coa/en/item/19663/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Cirillo v. Ontario
+ - 2021 ONCA 353
+ - 2021-05-26
+ Decisions of the Court of Appeal
+ - Civil
+ She also appeals a second order dealing with the application of the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (“CLPA”). [2] I would dismiss the appeal. 
+ [LINK /coa/coa/en/19663/1/document.do] 
+ 16.
+ [LINK /coa/coa/en/item/21432/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Leroux v. Ontario
+ - 2023 ONCA 314
+ - 2023-05-04
+ Decisions of the Court of Appeal
+ - Civil
+ [28] Subsequent to the motion judge’s certification decision, the Ontario legislature passed the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (the “CLPA”). The Divisional Court, to which Ontario had appealed the certification decision, referred the matter back to the motion judge to consider the 
+ [LINK /coa/coa/en/21432/1/document.do] 
+ 17.
+ [LINK /coa/coa/en/item/21472/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Moffitt v. TD Canada Trust
+ - 2023 ONCA 349
+ - 2023-05-17
+ Decisions of the Court of Appeal
+ - Civil
+ For example, a proceeding against the Crown or an officer or employee of the Crown must be tried without a jury: Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17, s. 20. As well, CJA s. 108(2) precludes jury trials in a large number of actions that seek specified relief [3] and in simplified proceedings
+ [LINK /coa/coa/en/21472/1/document.do] 
+ 18.
+ [LINK /coa/coa/en/item/20691/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Bowman v. Ontario
+ - 2022 ONCA 477
+ - 2022-06-21
+ Decisions of the Court of Appeal
+ - Civil
+ [61] In addition, Ontario argued that no cause of action could be asserted against it for the termination of the BI Program due to the immunity from suit provided by s. 11(4) of the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (“CLPA”), which states that “[n]o cause of action arises against the 
+ [LINK /coa/coa/en/20691/1/document.do] 
+ 19.
+ [LINK /coa/coa/en/item/18759/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] The Catalyst Capital Group Inc. v. Dundee Kilmer Developments Limited Partnership
+ - 2020 ONCA 272
+ - 2020-04-29
+ Decisions of the Court of Appeal
+ - Civil
+ [107] Given that conclusion, it is not necessary to address the submissions of the respondents that the enactment of s. 11 of the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17, extinguished in Ontario the kind of public law claim described by Stratas J.A. in Paradis Honey. 
+ [LINK /coa/coa/en/18759/1/document.do] 
+ 20.
+ [LINK /coa/coa/en/item/24435/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Minotar Holdings Inc. v. Ontario (Municipal Affairs and Housing)
+ - 2026 ONCA 606
+ - 2026-08-28
+ Decisions of the Court of Appeal
+ - Civil
+ [110] Poorkid considered the validity of s. 17 of the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (the “CLPA”), which provides that any claim against the Crown or an officer or employee of the Crown that includes a claim for the tort of misfeasance in public office or a tort based on bad faith 
+ [LINK /coa/coa/en/24435/1/document.do] 
+ 21.
+ [LINK /coa/coa/en/item/20802/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Barker v. Barker
+ - 2022 ONCA 567
+ - 2022-07-29
+ Decisions of the Court of Appeal
+ - Civil
+ Section 11(4) of [the Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (“CLPA”)], which establishes (or reiterates) the immunity, refers only to negligence and the duty to take reasonable care  i.e. the duty of care in negligence. 
+ [LINK /coa/coa/en/20802/1/document.do] 
+ 22.
+ [LINK /coa/coa/en/item/21689/index.do?q=%22Crown+Liability+and+Proceedings+Act%2C+2019%22] Chippewas of Nawash Unceded First Nation v. Canada (Attorney General)
+ - 2023 ONCA 565
+ - 2023-08-30
+ Decisions of the Court of Appeal
+ - Civil
+ The Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17 (“CLPA”), came into force on July 1, 2019, repealing the PACA. The repeal and replacement of the PACA does not imply anything about the previous state of the law: Legislation Act, 2006, S.O. 2006, c. 21, Sched. 
+ [LINK /coa/coa/en/21689/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "coa",
+ yearRangeString: "1998:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";
