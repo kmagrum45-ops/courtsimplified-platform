@@ -178,10 +178,22 @@ production's** (→ 401). `GET /` then returns 200 with the real homepage. Produ
 own site password is only 11 characters — short for a shared gate, and worth
 rotating deliberately rather than as a side effect of this work.
 
-**Staging's auth is deliberately NOT hardened.** `password_min_length` is 6 and
-`mailer_autoconfirm` is false there. The browser harness signs up real accounts, so
-a 12-character minimum or a confirmation requirement would break it. Production's
-hardening must not be copied to staging without fixing the harness first.
+**Staging's auth is deliberately NOT hardened.** `password_min_length` is 6. The
+browser harness signs up real accounts, so a 12-character minimum or a confirmation
+requirement would break it. Production's hardening must not be copied to staging
+without fixing the harness first.
+
+**Correction (2026-10-09): staging DOES require email confirmation.** Its public
+`/auth/v1/settings` reports `mailer_autoconfirm: false` -- and in Supabase that
+means confirmation is REQUIRED (`true` would mean accounts are confirmed
+automatically). The line above previously said "`mailer_autoconfirm` is false"
+as if that meant no confirmation. Found when an outside tester on the Preview site
+could sign up but not sign in: the signup sent a confirmation email (and then hit
+`over_email_send_rate_limit`), so the account was never confirmed and every
+sign-in returned `invalid_credentials`. Preview's bundle does point at staging
+(`icpvzwxyjsdgyqfkwycw`), so the projects match; the cause is this setting. To let
+people test Preview by signing up, turn "Confirm email" off in staging's
+Authentication settings (staging holds no user data).
 
 ---
 
