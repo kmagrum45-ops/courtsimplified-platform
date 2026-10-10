@@ -54,7 +54,22 @@ function unauthorized(request: NextRequest): NextResponse {
   );
 }
 
+/**
+ * TEMPORARY (site owner, 2026-10-09): Preview deployments open without the
+ * password, so an outside tester (ChatGPT agent mode) can walk the test site.
+ * Production keeps the gate: VERCEL_ENV is "production" there, and the check
+ * is for exactly "preview", so anything else -- unset, development, a typo --
+ * still fails closed. Preview uses the staging database, which holds no user
+ * data (CLAUDE.md section 6). To close Preview again, delete this function
+ * and its one use below.
+ */
+export function previewIsOpen(env: Record<string, string | undefined> = process.env): boolean {
+  return env.VERCEL_ENV === "preview";
+}
+
 export function middleware(request: NextRequest): NextResponse {
+  if (previewIsOpen()) return NextResponse.next();
+
   const configuredPassword = process.env.SITE_ACCESS_PASSWORD;
   if (!configuredPassword) return unauthorized(request);
 
