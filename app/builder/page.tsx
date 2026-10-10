@@ -1653,9 +1653,7 @@ function BuilderPageContent() {
                   onComplete={handleGuidedComplete}
                 />
                 {guidedAnalyzing ? (
-                  <p className="mt-4 text-sm font-semibold text-[#4d675f]" aria-live="polite">
-                    Analyzing your guided intake...
-                  </p>
+                  <AnalyzingNote />
                 ) : null}
                 {guidedAnalysisError ? (
                   <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
@@ -2005,5 +2003,27 @@ export default function BuilderPage() {
     >
       <BuilderPageContent />
     </Suspense>
+  );
+}
+
+/**
+ * What a person sees while their answers are analysed. The analysis researches
+ * the law before it writes and can take a few minutes; a bare "Analyzing..."
+ * read as frozen after 30 seconds (outside test, 2026-10-10). This says how
+ * long to expect and counts the time, so it is plainly still working.
+ */
+function AnalyzingNote() {
+  const [seconds, setSeconds] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => setSeconds((value) => value + 1), 1000);
+    return () => clearInterval(timer);
+  }, []);
+  const minutes = Math.floor(seconds / 60);
+  const elapsed = minutes > 0 ? `${minutes} min ${seconds % 60} s` : `${seconds} s`;
+  return (
+    <p data-testid="guided-analyzing" className="mt-4 text-sm font-semibold text-[#4d675f]" aria-live="polite">
+      Working out your next steps from the court rules. This usually takes one to three minutes; please keep this page
+      open. ({elapsed})
+    </p>
   );
 }

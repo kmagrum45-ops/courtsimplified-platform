@@ -522,9 +522,19 @@ export async function requestSmallClaimsAnalysis(
         : {}),
     },
     body: JSON.stringify(sendCaseId ? { input, caseId: sendCaseId } : { input }),
+    // Stops waiting just before the server's own limit, so a person is told
+    // something rather than left on "Analyzing..." (2026-10-10, outside test).
+    signal: AbortSignal.timeout(290_000),
+  }).catch((error: unknown) => {
+    throw new Error(
+      error instanceof Error && error.name === "TimeoutError"
+        ? "This is taking longer than it should. Your answers are still here; please press the button to try again."
+        : "CourtSimplified could not reach the server. Please check your connection and try again.",
+    );
   });
 
-  const data = (await response.json()) as SmallClaimsAnalysisResponse;
+  // A server that ran out of time answers with an HTML page, not JSON.
+  const data = (await response.json().catch(() => ({}))) as SmallClaimsAnalysisResponse;
 
   if (!response.ok || !data.ok || !data.result) {
     throw new Error(
