@@ -23,6 +23,7 @@
  */
 
 import { readFileSync } from "node:fs";
+import * as gateModule from "../../middleware";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -67,6 +68,14 @@ function main(): void {
     check(
       "owner live testing: the whole site is behind the password gate, which fails closed",
       middleware.includes("cs_site_access") && /SITE_ACCESS_PASSWORD/.test(middleware) && /[Ff]ails closed/.test(middleware),
+    );
+    // The temporary Preview opening (2026-10-09) never opens Production. A
+    // property, not today's code: with the opening removed, this still passes.
+    const gate = gateModule as { previewIsOpen?: (env: Record<string, string | undefined>) => boolean };
+    check(
+      "the password gate is never opened on Production (or with no environment set)",
+      !gate.previewIsOpen ||
+        (!gate.previewIsOpen({ VERCEL_ENV: "production" }) && !gate.previewIsOpen({}) && !gate.previewIsOpen({ VERCEL_ENV: "development" })),
     );
     const unapprovedOn = (Object.keys(A2I_SCOPE) as ScopeKey[]).filter((key) => {
       const c = A2I_SCOPE[key] as { tier: string; approval?: unknown };
