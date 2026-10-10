@@ -19,6 +19,9 @@ import { UUID_PATTERN } from "@/src/lib/case-system/events/caseEventRequest";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
 
 export const runtime = "nodejs";
+// The analysis researches before it writes; give it Vercel's full 300 s rather than the
+// platform default (2026-10-10: an outside tester saw it still running at 30 s).
+export const maxDuration = 300;
 
 const MAX_REQUEST_BYTES = 200_000;
 const MAX_TEXT_LENGTH = 20_000;
