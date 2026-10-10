@@ -1,0 +1,45 @@
+name: TEMP preview auth probe (remove before merge)
+on:
+  pull_request:
+    paths: [".github/workflows/tmp-preview-auth-probe.yml"]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe the Preview deployment's Supabase project (prints refs and flags only, never keys)
+        env:
+          PREVIEW: https://courtsimplified-platform-3rdzve9t5-kmagrum45-2765s-projects.vercel.app
+          STAGING_URL: ${{ secrets.STAGING_SUPABASE_URL }}
+          MAIN_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+        run: |
+          set -u
+          note(){ echo "::notice title=probe::$1"; echo "$1"; }
+          curl -sL "$PREVIEW/login" -o login.html
+          note "login page bytes: $(wc -c < login.html)"
+          grep -oE '/_next/static/chunks/[^"]+\.js' login.html | sort -u > chunks.txt
+          note "chunks: $(wc -l < chunks.txt)"
+          : > all.js
+          while read c; do curl -s "$PREVIEW$c" >> all.js; done < chunks.txt
+          refs=$(grep -oE 'https://[a-z0-9]{20}\.supabase\.co' all.js | sort -u | sed 's#https://##; s#\.supabase\.co##' | tr '\n' ' ')
+          note "supabase refs in preview bundle: ${refs:-none}"
+          sref=$(echo "$STAGING_URL" | sed -E 's#https://([a-z0-9]+)\.supabase\.co.*#\1#')
+          mref=$(echo "$MAIN_URL" | sed -E 's#https://([a-z0-9]+)\.supabase\.co.*#\1#')
+          note "staging secret ref: $sref ; NEXT_PUBLIC_SUPABASE_URL secret ref: $mref"
+          ref=$(echo $refs | awk '{print $1}')
+          [ -z "$ref" ] && exit 0
+          key=$(grep -oE '(sb_publishable_[A-Za-z0-9_-]+|eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)' all.js | head -1)
+          echo "::add-mask::$key"
+          [ -z "$key" ] && { note "no public key found in bundle"; exit 0; }
+          s=$(curl -s "https://$ref.supabase.co/auth/v1/settings" -H "apikey: $key")
+          note "auth settings: $(echo "$s" | python3 -c 'import json,sys; d=json.load(sys.stdin); print({k:d.get(k) for k in ["mailer_autoconfirm","disable_signup","phone_autoconfirm"]}, "email enabled:", d.get("external",{}).get("email"))' 2>&1)"
+          if [ "$ref" = "$sref" ]; then
+            email="probe-$(date +%s)@example.com"; pw="Probe-$(openssl rand -hex 8)"
+            r1=$(curl -s -w ' %{http_code}' "https://$ref.supabase.co/auth/v1/signup" -H "apikey: $key" -H 'Content-Type: application/json' -d "{\"email\":\"$email\",\"password\":\"$pw\"}")
+            note "signup: http $(echo "$r1" | awk '{print $NF}') session: $(echo "${r1% *}" | python3 -c 'import json,sys; d=json.load(sys.stdin); print(bool(d.get("access_token")), d.get("error_code") or d.get("code") or "", d.get("msg") or "")' 2>&1)"
+            r2=$(curl -s -w ' %{http_code}' "https://$ref.supabase.co/auth/v1/token?grant_type=password" -H "apikey: $key" -H 'Content-Type: application/json' -d "{\"email\":\"$email\",\"password\":\"$pw\"}")
+            note "login: http $(echo "$r2" | awk '{print $NF}') $(echo "${r2% *}" | python3 -c 'import json,sys; d=json.load(sys.stdin); print(bool(d.get("access_token")), d.get("error_code") or "", d.get("msg") or d.get("error_description") or "")' 2>&1)"
+          else
+            note "bundle ref is NOT staging; no test signup made"
+          fi
