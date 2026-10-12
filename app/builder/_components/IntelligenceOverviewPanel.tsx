@@ -31,6 +31,7 @@ import {
   SMALL_CLAIMS_RULES_URL,
 } from "../../../src/lib/case-system/intake/defaultProceedings";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
+import { sourceLinkLabel } from "../../../src/lib/content-library/sourceLinkLabel";
 import { userStory } from "@/src/lib/case-system/userStory";
 
 type Props = {
@@ -111,7 +112,7 @@ function SourcedList({ items }: { items: SourcedListItem[] }) {
       {items.map((item) => (
         <li key={item.text}>
           <LongText text={item.text} />
-          {item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={publicSourceUrl(item.sourceUrl)} target="_blank" rel="noreferrer">Source</a>)</> : null}
+          {item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={publicSourceUrl(item.sourceUrl)} target="_blank" rel="noreferrer">{sourceLinkLabel(item.sourceUrl, item.text)}</a>)</> : null}
         </li>
       ))}
     </ul>
@@ -388,7 +389,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
       {/* 2026-09-30: shown only when there are filed or served court documents to list. */}
       {documents.length > 0 && <Card title="Documents already recorded"><ul className="list-disc space-y-1 pl-5">{documents.map((document) => <li key={document}>{documentLabel(document)}</li>)}</ul></Card>}
       {/* 2026-09-30: "Evidence you have recorded" repeated the user's own answer back to them. Their words stay in "What you told us"; the upload card below is where the evidence itself goes. */}
-      {(recordedEvidence.length > 0 || evidenceToOrganize.length > 0) && <Card title="Evidence and proof to organize">{recordedEvidence.length > 0 && <><h3 className="font-semibold">Files you have added</h3><ul className="mt-2 list-disc space-y-1 pl-5">{recordedEvidence.map((item) => <li key={item}>{item}</li>)}</ul></>}{evidenceToOrganize.length > 0 && <><h3 className={recordedEvidence.length ? "mt-5 font-semibold" : "font-semibold"}>Evidence to organize or confirm</h3><ul className="mt-2 list-disc space-y-1 pl-5">{evidenceToOrganize.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={publicSourceUrl(item.sourceUrl)} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></>}</Card>}
+      {(recordedEvidence.length > 0 || evidenceToOrganize.length > 0) && <Card title="Evidence and proof to organize">{recordedEvidence.length > 0 && <><h3 className="font-semibold">Files you have added</h3><ul className="mt-2 list-disc space-y-1 pl-5">{recordedEvidence.map((item) => <li key={item}>{item}</li>)}</ul></>}{evidenceToOrganize.length > 0 && <><h3 className={recordedEvidence.length ? "mt-5 font-semibold" : "font-semibold"}>Evidence to organize or confirm</h3><ul className="mt-2 list-disc space-y-1 pl-5">{evidenceToOrganize.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={publicSourceUrl(item.sourceUrl)} target="_blank" rel="noreferrer">{sourceLinkLabel(item.sourceUrl, item.text)}</a>)</> : null}</li>)}</ul></>}</Card>}
       {/* 2026-10-05: the provisions the analysis rests on, found by meaning-based retrieval and quote-checked. Verbatim text only; see AppliedLawPanel. */}
       {/* 2026-10-07: the person's situation answered in plain words, each statement checked against the official text quoted with it (retrieval/checkedAnswer.ts). */}
       {analysis.checkedAnswer && analysis.checkedAnswer.status !== "unavailable" && <Card title="Your situation, answered"><CheckedAnswerPanel answer={analysis.checkedAnswer} /></Card>}
