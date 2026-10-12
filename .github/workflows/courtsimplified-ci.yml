@@ -389,3 +389,14 @@ jobs:
 
       - name: AI Case Partner context verification
         run: npm run test:assistant-context
+
+      # Last, because it edits source files on purpose (and restores them) to
+      # prove each check can fail. Build order Step 1, 2026-10-12.
+      # On failure the FAIL lines go up as annotations too, because the job
+      # log is not readable from a Claude session (only annotations are).
+      - name: Every check is proven able to fail (mutation tests)
+        run: |
+          set -o pipefail
+          if npm run test:mutations 2>&1 | tee mutations.log; then exit 0; fi
+          grep -A3 "^FAIL" mutations.log | head -60 | python3 -c "import sys; t=sys.stdin.read().replace('%','%25').replace('\r','').replace('\n','%0A'); print('::error title=Mutation tests failed::'+t)"
+          exit 1
