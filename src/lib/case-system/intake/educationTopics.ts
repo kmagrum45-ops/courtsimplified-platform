@@ -260,7 +260,8 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
     id: "sc-topic-filing-form-7a",
     courtArea: "small-claims",
     title: "What filing a claim involves (Form 7A)",
-    surfacedWhen: { field: "claimFiled", op: "notExists" },
+    // Not for a defendant: an outside tester defending at trial was shown it (2026-10-11).
+    surfacedWhen: { all: [{ field: "claimFiled", op: "notExists" }, { any: [{ field: "role", op: "notExists" }, { field: "role", op: "equals", value: "plaintiff" }] }] },
     plainExplanation:
       "Starting a Small Claims Court case means filling out and filing a Plaintiff's Claim, which is " +
       "Form 7A. It sets out who is suing whom, for how much, and why. Once it's filed, it generally has " +

@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-132 documented, 28 without a header.
+134 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -66,6 +66,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:harness-coverage` | **Which values of a branch-selecting harness parameter have actually been run.**<br>COSTS NOTHING. Reads the spec and harness sources off disk. No browser, no network. |
 | `npm run test:held-back-cases` | **The ten held-back finish-line cases stay held back**<br>(tests/browser/walkthrough/heldBackPersonas.ts; master plan decision log, 2026-10-08). |
 | `npm run test:help-at-limits` | **Where the site says it cannot do something, it points to a person who can**<br>(master plan finish line: "a case the site cannot fully handle says so and points to help"). |
+| `npm run test:historical-law` | **test:historical-law -- the "law as it read on a past date" shelf**<br>(scripts/retrieval/historicalSources.ts, 2026-10-09). |
 | `npm run test:intake-sequencing` | **Asserts that during intake nothing renders between the question and the**<br>answer box. |
 | `npm run test:inventory-coverage` | **Every body of live, user-facing legal content is in the review packet.**<br>COSTS NOTHING. Calls the inventory and reads source off disk. |
 | `npm run test:journey-battery` | **Journey regression battery runner — tranche 1.**<br>Categories A–D from docs/TEST_BATTERY_DESIGN.md §2: the four paths with ZERO prior coverage. |
@@ -115,6 +116,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:safety-regression` | **Permanent regression suite for safetyPass.ts -- the 11 cases from**<br>Sessions 4 and 5 plus three from the 2026-09-28 story review, wired into CI (npm run test:safety-regression), same pattern as test:intake-coverage. |
 | `npm run test:service-notices` | **Court-closure notices are real, traceable to the corpus, and warn at the right**<br>times. |
 | `npm run test:snapshot-provenance` | **Every human-supplied snapshot has provenance, is second-tier, and exists.**<br>WHAT THIS CATCHES: a snapshot used as though it were a fetched source. The snapshot type exists because ten pages cannot be fetched, and it is the only source type whose content nothing can re-verify against the live web. That makes it the one type where an un |
+| `npm run test:source-link-labels` | **test:source-link-labels -- source links name their law, and the name is the**<br>library's own. |
 | `npm run test:source-links` | **Every "Source" link a reader can click opens a public page.**<br>COSTS NOTHING. Pure functions over the content modules; no network. |
 | `npm run test:source-requests` | **Source requests: a law the research step says the library lacks becomes an**<br>issue, and the workflow turns the issue into a verified, indexed source. |
 | `npm run test:sourced-questions` | **Follow-up questions written from the law the research read**<br>(src/lib/case-system/retrieval/sourcedQuestions.ts), shown in all three intakes before the analysis. |

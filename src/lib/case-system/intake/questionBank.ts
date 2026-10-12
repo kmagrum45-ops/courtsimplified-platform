@@ -470,11 +470,12 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     // established that recording that silence beats inferring a default.
     id: "sc-defendant-service-method",
     courtArea: "small-claims",
-    appliesWhen: { field: "role", op: "equals", value: "defendant" },
+    // One question at a time, and only before a defence is filed: it is about the
+    // 20 days to defend, which a defendant at trial is long past (outside tester, 2026-10-11).
+    appliesWhen: { all: [{ field: "role", op: "equals", value: "defendant" }, { any: [{ field: "defenceFiled", op: "notExists" }, { field: "defenceFiled", op: "equals", value: false }] }] },
     text:
-      "How was the Plaintiff's Claim delivered to you -- handed to you in person, left with someone " +
-      "else, sent by registered mail or courier, by email, or another way? And what date did that " +
-      "happen?",
+      "How and when was the Plaintiff's Claim delivered to you (for example, handed to you in person, " +
+      "left with someone else, or sent by registered mail, courier or email)?",
     why:
       "A defendant who wants to dispute a claim has 20 days from being served to serve and file a " +
       "Defence. When service counts as effective depends on how it was done: in person, it is the day " +
@@ -509,8 +510,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     courtArea: "small-claims",
     appliesWhen: { field: "role", op: "equals", value: "defendant" },
     text:
-      "Do you believe the plaintiff -- or someone else -- owes you money or is responsible for part " +
-      "of what happened? And have you already started your own claim about it?",
+      "Do you believe the plaintiff, or someone else, owes you money or is responsible for part " +
+      "of what happened? (If you have already started your own claim about it, say so.)",
     why:
       "A defendant can bring their own claim against the plaintiff, or against someone else where it " +
       "arises out of the same transaction or occurrence or relates to the plaintiff's claim, as part of " +
@@ -542,10 +543,11 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     // and is theirs alone.
     id: "sc-defendant-admission-payment",
     courtArea: "small-claims",
-    appliesWhen: { field: "role", op: "equals", value: "defendant" },
+    // Payment terms are proposed IN the defence, so only before one is filed (2026-10-11).
+    appliesWhen: { all: [{ field: "role", op: "equals", value: "defendant" }, { any: [{ field: "defenceFiled", op: "notExists" }, { field: "defenceFiled", op: "equals", value: false }] }] },
     text:
-      "Is there any part of this claim you accept you owe? If there is, is the difficulty the amount " +
-      "itself, or being able to pay it all at once?",
+      "Is there any part of this claim you accept you owe? (If so, say whether the difficulty is the " +
+      "amount itself or paying it all at once.)",
     why:
       "The Rules provide a route for this. A defendant who admits liability for all or part of the " +
       "plaintiff's claim but wants to arrange terms of payment may, IN THE DEFENCE, admit liability and " +

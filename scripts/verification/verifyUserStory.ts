@@ -152,6 +152,10 @@ for (const file of ["app/builder/_components/IntelligenceOverviewPanel.tsx", "ap
     now,
   );
   check("a counterclaim served on a written date answers the claim-back question", counterclaim["sc-date-defendants-claim-served"]?.value === "2026-09-25");
+  // Two moments in one sentence: each date goes to its own clause (2026-10-11).
+  const twoMoments = storyHintsForDates("I was served with the claim on March 3, 2026 and filed my defence on March 20, 2026.", now);
+  check("two dated moments in one sentence each keep their own date",
+    twoMoments["sc-date-claim-served"]?.value === "2026-03-03" && twoMoments["sc-date-defence-filed"]?.value === "2026-03-20");
   const motion = storyHintsForDates("now they served a motion for summary judgment and the hearing is on december 3 2026.", now);
   check("the hearing date goes to the hearing question", motion["case-date-motion-hearing-date"]?.value === "2026-12-03");
   check("the hearing date is not offered as the day of service", !motion["sc-date-claim-served"]?.value);

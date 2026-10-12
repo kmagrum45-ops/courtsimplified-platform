@@ -87,6 +87,9 @@ jobs:
       - name: Law as it read on a past date
         run: npm run test:historical-law
 
+      - name: Source links name their law
+        run: npm run test:source-link-labels
+
       - name: Reasoning contract verification
         run: npm run test:reasoning-contract
 

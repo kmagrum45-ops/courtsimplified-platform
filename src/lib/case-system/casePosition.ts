@@ -505,6 +505,12 @@ function datedMention(sentences: string[], cue: Cue, moment: keyof typeof MOMENT
         // DIFFERENT moment's word between them disqualifies.
         const cleaned = cue.key.source.startsWith("(?=") ? between : between.replace(new RegExp(cue.key.source, "gi"), " ");
         if (other.test(cleaned.replace(/^\w+/, ""))) continue;
+        // A date BEFORE the cue that is followed straight away by "and" or
+        // "then" closes the clause before it: "served on March 3, 2026 and
+        // filed my defence on March 20" gives March 3 to the service, not the
+        // defence (2026-10-11). "On September 25 his lawyer served me with a
+        // defence and counterclaim" still gives the date to the counterclaim.
+        if (position > at && /^[\s,]*(?:and|then|but|later)\b/i.test(between)) continue;
         const distance = Math.abs(position - at);
         if (!best || distance < best.distance) best = { sentence, date: match[0], distance };
       }
