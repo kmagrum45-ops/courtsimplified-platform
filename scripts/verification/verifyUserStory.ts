@@ -36,6 +36,8 @@ import path from "node:path";
 import { sentenceFromRecord, storyFromRecord, userStory } from "../../src/lib/case-system/userStory";
 import { candidatesFromTimeline } from "../../src/lib/case-system/events/caseEventCandidates";
 import { dateInSentence, storyHintsForDates } from "../../src/lib/case-system/casePosition";
+import { storySuggestsDanger } from "../../src/lib/case-system/intake/orchestrateIntakeTurn";
+import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { storyAnswerFor, storyQuoteFor } from "../../src/lib/case-system/family/triageStoryQuote";
 
 let failures = 0;
@@ -161,6 +163,18 @@ for (const file of ["app/builder/_components/IntelligenceOverviewPanel.tsx", "ap
   check("the day someone was let go is the day the claim is based on", fired["case-date-act-or-omission"]?.value === "2026-06-30");
   check("a written date fills the timeline's date box", dateInSentence("Now the trial is on January 14 2027.")?.iso === "2027-01-14");
   check("a date without a year fills only the words", dateInSentence("The papers came on December 3.")?.iso === null);
+}
+
+// The safety question only when the person's words suggest danger (site owner, 2026-10-10).
+{
+  check("a threat in the story raises the safety question", storySuggestsDanger("He threatened me when I asked for the money back."));
+  check("fear for safety raises it", storySuggestsDanger("I'm scared he will come to my house."));
+  check(
+    "an ordinary money dispute does not",
+    !storySuggestsDanger("I'm being sued by a contractor for $4,100 he says I owe for a deck. The trial is on January 14 2027."),
+  );
+  const safety = QUESTION_BANK.find((question) => question.id === "sc-safety-check");
+  check("the safety question is asked only when that was raised", JSON.stringify(safety?.appliesWhen) === JSON.stringify({ field: "safetyConcernMentioned", op: "truthy" }));
 }
 
 if (failures > 0) {
