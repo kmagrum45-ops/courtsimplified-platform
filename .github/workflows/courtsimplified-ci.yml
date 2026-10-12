@@ -389,3 +389,8 @@ jobs:
 
       - name: AI Case Partner context verification
         run: npm run test:assistant-context
+
+      # Last, because it edits source files on purpose (and restores them) to
+      # prove each check can fail. Build order Step 1, 2026-10-12.
+      - name: Every check is proven able to fail (mutation tests)
+        run: npm run test:mutations

@@ -508,8 +508,9 @@ const CASES: MutationCase[] = [
     mutations: [
       {
         file: ANALYZE_ROUTE,
-        find: "      allowExternalCognition,\n      confirmedEvents,\n",
-        replace: "      allowExternalCognition,\n",
+        // Indentation follows the route (re-indented inside withAiCallIdentity).
+        find: "          allowExternalCognition,\n          confirmedEvents,\n",
+        replace: "          allowExternalCognition,\n",
       },
     ],
   },
@@ -528,9 +529,14 @@ const CASES: MutationCase[] = [
     suite: REACH_SUITE,
     mutations: [
       {
+        // sourceLinkLabel has exactly one importer, this panel, so cutting the
+        // import must drop it out of the reachable set. (The earlier target,
+        // familySafetyResources, gained other importers -- FamilyIntake and
+        // contentInventory -- so cutting one import no longer made it
+        // unreachable and the mutation stopped proving anything; 2026-10-12.)
         file: OVERVIEW_PANEL,
-        find: "import { FAMILY_RESOURCE_TOPICS } from \"../../../src/lib/case-system/intake/familySafetyResources\";",
-        replace: "const FAMILY_RESOURCE_TOPICS: never[] = [];",
+        find: "import { sourceLinkLabel } from \"../../../src/lib/content-library/sourceLinkLabel\";",
+        replace: "const sourceLinkLabel = (_url: unknown, _nearby?: unknown): string => \"source\";",
       },
     ],
   },
