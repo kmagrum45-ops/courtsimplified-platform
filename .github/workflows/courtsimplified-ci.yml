@@ -372,6 +372,15 @@ jobs:
       - name: Every page that renders library text guards it, and every guard is declared
         run: npm run test:guard-coverage
 
+      - name: Deadline engine counts every deadline correctly (holidays, weekends, month ends)
+        run: npm run test:deadlines
+
+      - name: Stage map quotes match the saved official text
+        run: npm run test:stage-map
+
+      - name: Every safety signal the intake can raise is covered
+        run: npm run test:safety-coverage
+
       - name: Production build
         run: npm run build
 
@@ -380,3 +389,8 @@ jobs:
 
       - name: AI Case Partner context verification
         run: npm run test:assistant-context
+
+      # Last, because it edits source files on purpose (and restores them) to
+      # prove each family check can fail. Build order Step 1, 2026-10-12.
+      - name: Every family check is proven able to fail (mutation tests)
+        run: npm run test:mutations
