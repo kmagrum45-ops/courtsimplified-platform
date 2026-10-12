@@ -1,0 +1,33 @@
+name: TEMP analysis probe (remove before merge)
+on:
+  pull_request:
+    paths: [".github/workflows/tmp-analysis-probe.yml"]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Time one Small Claims analysis on the Preview site (prints status and timing only)
+        env:
+          PREVIEW: https://courtsimplified-platform-1g6vucrk7-kmagrum45-2765s-projects.vercel.app
+          SURL: ${{ secrets.STAGING_SUPABASE_URL }}
+          SKEY: ${{ secrets.STAGING_SUPABASE_PUBLISHABLE_KEY }}
+          SROLE: ${{ secrets.STAGING_SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          set -u
+          note(){ echo "::notice title=probe::$1"; echo "$1"; }
+          email="probe-$(date +%s)@example.com"; pw="Probe-$(openssl rand -hex 8)"
+          c=$(curl -s -o /dev/null -w '%{http_code}' "$SURL/auth/v1/admin/users" -H "apikey: $SROLE" -H "Authorization: Bearer $SROLE" -H 'Content-Type: application/json' -d "{\"email\":\"$email\",\"password\":\"$pw\",\"email_confirm\":true}")
+          note "create confirmed staging user: http $c"
+          tok=$(curl -s "$SURL/auth/v1/token?grant_type=password" -H "apikey: $SKEY" -H 'Content-Type: application/json' -d "{\"email\":\"$email\",\"password\":\"$pw\"}" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("access_token",""))')
+          echo "::add-mask::$tok"
+          note "signed in: $([ -n "$tok" ] && echo yes || echo no)"
+          start=$(date +%s)
+          curl -s -m 320 -o out.json -w '%{http_code}' "$PREVIEW/api/small-claims/analyze" -H 'Content-Type: application/json' -H "Authorization: Bearer $tok" --data @.github/probe/input.json > code.txt || echo "curl exit $?" > code.txt
+          end=$(date +%s)
+          note "analyze: http $(cat code.txt) after $((end-start)) s"
+          note "response: $(python3 -c 'import json; d=json.load(open("out.json")); print({"ok":d.get("ok"),"error":d.get("error"),"hasResult":bool(d.get("result")),"mode":d.get("reasoningMode"),"available":d.get("analysisAvailable"),"auth":d.get("authenticated")})' 2>&1 | head -c 400)"
+          head -c 300 out.json | tr -d '\n' | sed 's/^/body start: /' | cut -c1-300
