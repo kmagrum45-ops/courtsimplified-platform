@@ -521,22 +521,22 @@ const CASES: MutationCase[] = [
   // prints only the user's own record.
   // The reachability check is the only thing standing between this codebase
   // and another "built correctly, nobody can reach it". If it cannot fail,
-  // nothing here is protected. This severs the import that made the family
-  // safety content reachable, which should put the module straight back into
-  // the unreachable set undeclared.
+  // nothing here is protected. This severs a module's only import, which
+  // should put it straight back into the unreachable set undeclared.
   {
     label: "a wired module falls back out of the reachable set",
     suite: REACH_SUITE,
     mutations: [
       {
-        // sourceLinkLabel has exactly one importer, this panel, so cutting the
-        // import must drop it out of the reachable set. (The earlier target,
-        // familySafetyResources, gained other importers -- FamilyIntake and
-        // contentInventory -- so cutting one import no longer made it
-        // unreachable and the mutation stopped proving anything; 2026-10-12.)
+        // format/previewText has exactly one importer, this panel, and lives
+        // under case-system (the only folder the reachability check covers),
+        // so cutting the import must drop it out of the reachable set. The
+        // earlier target, familySafetyResources, gained other importers
+        // (FamilyIntake, contentInventory), so the mutation stopped proving
+        // anything (2026-10-12).
         file: OVERVIEW_PANEL,
-        find: "import { sourceLinkLabel } from \"../../../src/lib/content-library/sourceLinkLabel\";",
-        replace: "const sourceLinkLabel = (_url: unknown, _nearby?: unknown): string => \"source\";",
+        find: "import { splitLead } from \"../../../src/lib/case-system/format/previewText\";",
+        replace: "const splitLead = (text: string): { lead: string; rest: string } => ({ lead: text, rest: \"\" });",
       },
     ],
   },
