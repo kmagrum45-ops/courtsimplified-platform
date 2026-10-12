@@ -372,6 +372,15 @@ jobs:
       - name: Every page that renders library text guards it, and every guard is declared
         run: npm run test:guard-coverage
 
+      - name: Deadline engine counts every deadline correctly (holidays, weekends, month ends)
+        run: npm run test:deadlines
+
+      - name: Stage map quotes match the saved official text
+        run: npm run test:stage-map
+
+      - name: Every safety signal the intake can raise is covered
+        run: npm run test:safety-coverage
+
       - name: Production build
         run: npm run build
 
