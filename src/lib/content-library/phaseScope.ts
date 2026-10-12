@@ -203,6 +203,23 @@ export function plainExplanationsEnabled(
 }
 
 /**
+ * How deep the intake analysis goes (site owner, 2026-10-11: "limit AI use";
+ * the full analysis took about 112 s and an outside tester gave up waiting).
+ *
+ * "fast" (the default): one meaning search over the library and one analysis
+ * call -- tens of seconds, a fraction of the cost. The checked answer and the
+ * multi-round research are still available on demand in the Court Assistant
+ * (/api/assistant/law), where a person asks for them.
+ * "full": the research step and the checked story answer run inside the
+ * analysis too, as before. Set ANALYSIS_DEPTH=full to bring it back.
+ */
+export function deepIntakeAnalysis(
+  env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+): boolean {
+  return env.ANALYSIS_DEPTH === "full";
+}
+
+/**
  * The research step before the analysis (retrieval/researchStory.ts): the
  * model chooses the legal questions for the story, reads what the library
  * has for each, and names what it lacks; code checks every quote. What the

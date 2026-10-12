@@ -47,7 +47,7 @@ import { buildElementProofAnalysis } from "./elementProofEngine";
 import { CLAIM_TYPES } from "../intake/claimTypes";
 import { isNoQuestionNeeded, questionsForElement } from "../intake/depth/elementQuestionRegistry";
 import { fillSlots } from "../intake/depth/slots";
-import { aiAnalysisTextToUsers, appliedLawEnabled, checkedAnswersEnabled, plainExplanationsEnabled, researchStepEnabled } from "../../content-library/phaseScope";
+import { aiAnalysisTextToUsers, appliedLawEnabled, checkedAnswersEnabled, plainExplanationsEnabled, researchStepEnabled, deepIntakeAnalysis } from "../../content-library/phaseScope";
 import { checkedAnswer, checkedAnswerView, STORY_ANSWER_TIME_MS, STORY_QUESTION, type CheckedAnswer } from "../retrieval/checkedAnswer";
 import {
   buildSourcePack,
@@ -2553,7 +2553,7 @@ export async function runCourtSimplifiedBrain(
   const retrieval: Promise<(RetrievalResult & Partial<ResearchResult>) | null> =
     input.allowExternalCognition === false
       ? Promise.resolve(null)
-      : (researchStepEnabled()
+      : (researchStepEnabled() && deepIntakeAnalysis()
           ? researchStory(retrievalInput).then((research) =>
               research.items.length > 0 ? research : retrieveForStory(retrievalInput),
             )
@@ -2564,7 +2564,7 @@ export async function runCourtSimplifiedBrain(
   // statement checked against the official text (retrieval/checkedAnswer.ts).
   // Runs beside the research step; never fails or holds up the analysis.
   const situationAnswer: Promise<CheckedAnswer | null> =
-    input.allowExternalCognition === false || !checkedAnswersEnabled()
+    input.allowExternalCognition === false || !checkedAnswersEnabled() || !deepIntakeAnalysis()
       ? Promise.resolve(null)
       : checkedAnswer({
           question: STORY_QUESTION,
