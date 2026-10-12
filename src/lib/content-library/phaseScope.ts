@@ -157,8 +157,16 @@ export const PATHWAY_UNAVAILABLE_HEADING = "We don't cover this yet";
 
 export function pathwayUnavailableMessage(pathway: KnownPathway): string {
   const label = PATHWAY_LABELS[pathway] ?? "this area";
+  // Names what is actually open (AVAILABLE_PATHWAYS), so the message can't go
+  // stale again when a court opens or closes (it said "Small Claims Court only"
+  // after all three courts opened on 2026-09-30).
+  const covered = AVAILABLE_PATHWAYS.map((p) => PATHWAY_LABELS[p]);
+  const coveredText =
+    covered.length <= 1
+      ? `${covered[0] ?? "Small Claims Court"} only`
+      : `${covered.slice(0, -1).join(", ")} and ${covered[covered.length - 1]} matters`;
   return (
-    `CourtSimplified currently covers Ontario Small Claims Court only. We can't ` +
+    `CourtSimplified currently covers Ontario ${coveredText}. We can't ` +
     `help with ${label} matters yet.\n\n` +
     `This is about what we have built so far. It is not a comment on your ` +
     `situation or on whether you have a case — we are not able to assess that. ` +

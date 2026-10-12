@@ -101,17 +101,16 @@ const PLACEHOLDER = (what: string) => `[NEEDS LICENSEE REVIEW: ${what}]`;
 /**
  * The monetary-limit source, used by the one block that states a dollar figure.
  *
- * Already relied on elsewhere in the codebase and verified there; repeated here
- * so the block carries its own citation into the review packet rather than
- * depending on a reader knowing where else it lives.
+ * The regulation itself (saved in docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt,
+ * in force from October 1, 2025). Until 2026-10-12 this cited an ontario.ca page
+ * written before the change ("will increase from $35,000 to $50,000"), which
+ * described a future change instead of stating the current limit.
  */
 const SMALL_CLAIMS_LIMIT_SOURCE: AssistantBlockCitation = {
-  sourceName: "Ontario.ca — Suing someone in Small Claims Court",
-  officialUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
-  verifiedAt: "2026-09-08",
-  quote:
-    "Effective October 1, 2025, the monetary jurisdiction of Small Claims Court " +
-    "will increase from $35,000 to $50,000.",
+  sourceName: "O. Reg. 626/00 (Small Claims Court Jurisdiction and Appeal Limit), s. 1 (1)",
+  officialUrl: "https://www.ontario.ca/laws/docs/000626_e.doc",
+  verifiedAt: "2026-10-12",
+  quote: "The maximum amount of a claim in the Small Claims Court is $50,000.",
 };
 
 export const ASSISTANT_BLOCKS: AssistantBlock[] = [
