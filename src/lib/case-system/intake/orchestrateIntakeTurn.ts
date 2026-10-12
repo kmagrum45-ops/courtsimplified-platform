@@ -64,6 +64,19 @@ import {
 // which bounds the whole turn's newStoryText, not one stored fact value.
 const MAX_CAPTURED_ANSWER_LENGTH = 1_000;
 
+
+/**
+ * Words that suggest the person may be in danger from someone: threats,
+ * violence, harassment, fear for their safety. A screen for whether to ask the
+ * safety question, never a finding about anyone.
+ */
+const DANGER_WORDS =
+  /\b(?:threat(?:en(?:ed|ing|s)?)?|unsafe|afraid|scared|frightened|in danger|harass(?:ed|ing|ment)?|stalk(?:ed|ing)?|hit me|hurt me|hits me|beat(?:s)? me|attack(?:ed)? me|assault(?:ed)? me|abus(?:e|ed|ive)|violen(?:t|ce)|weapon|knife|gun|kill|follow(?:s|ed|ing)? me|restraining order|peace bond)\b/i;
+
+export function storySuggestsDanger(text: string): boolean {
+  return DANGER_WORDS.test(text);
+}
+
 export type OrchestrateIntakeTurnResult = {
   /** Set only when newStoryText was provided this turn -- undefined otherwise. */
   safetyClassification?: SafetyClassification;
@@ -379,6 +392,11 @@ export async function orchestrateIntakeTurn(
     const merged = mergeFacts(facts, extracted, directFields);
     facts = merged.facts;
     possibleCorrections = merged.possibleCorrections;
+    // The safety question is asked only when the person's own words suggest
+    // danger (site owner, 2026-10-10). Once raised, it stays raised.
+    if (safety.classification === "distress" || storySuggestsDanger(newStoryText)) {
+      facts = { ...facts, safetyConcernMentioned: true };
+    }
 
     // Session 48. The exact matcher is gated to the opening story too, by the
     // same rule as the AI classifier below.

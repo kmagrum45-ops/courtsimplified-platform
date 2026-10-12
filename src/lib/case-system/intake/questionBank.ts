@@ -52,6 +52,10 @@ export const KNOWN_FACT_FIELDS = [
   // known with certainty, so there is nothing for an extractor to infer.
   "amountClaimedText",
   "timelineText",
+  // 2026-10-10 (site owner): set when the person's own words suggest they may
+  // be in danger (orchestrateIntakeTurn.ts, storySuggestsDanger), so the
+  // safety question is asked only then.
+  "safetyConcernMentioned",
   "evidenceText",
   "remedySoughtText",
   "serviceDetailsText",
@@ -895,7 +899,11 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     courtArea: "small-claims",
     // Reworded 2026-10-06 (page review): asked of a person hurt on store ice,
     // the old wording read as a question about how safe the entrance was.
-    // Still asked of everyone: it is a screen, not a legal question.
+    // Asked only when the person's words suggest they may be in danger (site
+    // owner, 2026-10-10: asked of a defendant in a deck dispute, it was out of
+    // place). Every turn's text still goes through the safety check, which
+    // stops the intake and shows help for immediate danger.
+    appliesWhen: { field: "safetyConcernMentioned", op: "truthy" },
     text:
       "Has the other party threatened you, or done anything that makes you feel unsafe? If not, you " +
       "can just say no.",
