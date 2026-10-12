@@ -203,14 +203,6 @@ export function plainExplanationsEnabled(
 }
 
 /**
- * The research step before the analysis (retrieval/researchStory.ts): the
- * model chooses the legal questions for the story, reads what the library
- * has for each, and names what it lacks; code checks every quote. What the
- * person sees from it ("What we looked into") is the questions and the
- * provisions' own words. Its own switch, per CLAUDE.md section 2:
- * RESEARCH_STEP=off returns the analysis to single-pass retrieval.
- */
-/**
  * How deep the intake analysis goes (site owner, 2026-10-11: "limit AI use";
  * the full analysis took about 112 s and an outside tester gave up waiting).
  *
@@ -227,6 +219,14 @@ export function deepIntakeAnalysis(
   return env.ANALYSIS_DEPTH === "full";
 }
 
+/**
+ * The research step before the analysis (retrieval/researchStory.ts): the
+ * model chooses the legal questions for the story, reads what the library
+ * has for each, and names what it lacks; code checks every quote. What the
+ * person sees from it ("What we looked into") is the questions and the
+ * provisions' own words. Its own switch, per CLAUDE.md section 2:
+ * RESEARCH_STEP=off returns the analysis to single-pass retrieval.
+ */
 export function researchStepEnabled(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
 ): boolean {
