@@ -85,10 +85,9 @@ Ontario's Small Claims Court limit. **Not expected here** — $8,400 is well und
 
 Legal citation for the limit itself (asserted here since the "no warning" expectation depends on
 knowing what the threshold actually is): Small Claims Court's monetary jurisdiction is **$50,000**
-(excluding interest and costs), effective October 1, 2025. Source: ontario.ca — "Suing someone in
-Small Claims Court" (https://www.ontario.ca/page/suing-someone-small-claims-court), verified by
-direct fetch 2026-09-08: "Effective October 1, 2025, the monetary jurisdiction of Small Claims
-Court will increase from $35,000 to $50,000."
+(excluding interest and costs), effective October 1, 2025. Source: O. Reg. 626/00, s. 1 (1)
+(https://www.ontario.ca/laws/docs/000626_e.doc), checked against the saved text 2026-10-12:
+"The maximum amount of a claim in the Small Claims Court is $50,000."
 
 ## 6. Turn-scoped guided-conversation `evidenceGuidance` — a known limitation, not a fresh finding
 

@@ -18,16 +18,17 @@ import { useCaseHome } from "../../_components/CaseHomeContext";
  */
 export default function CaseFormsSection() {
   // The step the user picked, or the one the overview suggests for their stage (CaseHome.stepId).
-  const { caseRecord, courtPath, position, stepId } = useCaseHome();
+  const { caseRecord, courtPath, position, stepId, record, responding } = useCaseHome();
   const [stepTexts, setStepTexts] = useState<string[] | null>(null);
   const userWords = userWordsOf((caseRecord.master_result ?? {}).intakeData);
-  const intakeExtra = ((caseRecord.master_result ?? {}).intakeData as { extra?: Record<string, unknown> } | undefined)?.extra ?? {};
-  const city = typeof intakeExtra.yourCity === "string" ? intakeExtra.yourCity : "";
+  // City and side from the one case record (2026-10-12), so the filing portal
+  // and "your side's forms first" match the overview's card.
+  const city = record.city;
   // The step's own forms, from the sourced next-step table (nextStepPractical.ts),
   // win over forms read out of the step's answer text: that text also names
   // forms for other cases ("Form 14B for a mortgage action") and for the other
   // side (walkthrough, 2026-10-08).
-  const practical = courtPath && stepId ? practicalFor(stepId, courtPath as PracticalCourt, city) : null;
+  const practical = courtPath && stepId ? practicalFor(stepId, courtPath as PracticalCourt, city, responding) : null;
 
   useEffect(() => {
     if (!courtPath || !position.confirmedStage) {
@@ -71,7 +72,7 @@ export default function CaseFormsSection() {
               Read that step
             </Link>
           </p>
-          <NextStepPractical stepId={stepId} court={courtPath} city={city} />
+          <NextStepPractical stepId={stepId} court={courtPath} city={city} responding={responding} />
         </section>
       ) : stepTexts &&
       courtPath &&

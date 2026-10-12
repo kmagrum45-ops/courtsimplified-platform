@@ -33,6 +33,7 @@ import { createClient } from "@supabase/supabase-js";
 import { getAuthenticatedUser, getAuthenticatedOwnedCase } from "@/src/lib/supabase/serverAuth";
 import { DOCUMENT_BUCKET, isUuid } from "@/src/lib/case-workspace/storagePaths";
 import { COURT_DECISION_TYPE } from "@/src/lib/case-workspace/courtDecision";
+import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
 import {
   proposeNumbering,
   proposeRenumberFromOne,
@@ -136,21 +137,28 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const master = (ownedCase.master_result ?? {}) as {
-      persistedRecord?: { title?: string };
-      caseContext?: { courtFileNumber?: string; plaintiff?: string; defendant?: string };
-    };
+    const master = (ownedCase.master_result ?? {}) as { persistedRecord?: { title?: string } };
+    /*
+     * Names and file number from the one case record (2026-10-12). They used to
+     * come from `caseContext`, which nothing writes, so the cover was always
+     * blank. Who is plaintiff and who is defendant follows the person's recorded
+     * side; with no recorded side, neither name is placed rather than guessed.
+     */
+    const record = readCaseRecord(ownedCase.master_result, ownedCase.court_path);
+    const side = record.side?.value ?? null;
+    const you = record.yourName || null;
+    const them = record.otherParty || null;
 
     const caseDetails = {
       title: master.persistedRecord?.title ?? "Untitled case",
-      courtFileNumber: master.caseContext?.courtFileNumber ?? null,
+      courtFileNumber: record.courtFileNumber || null,
       /*
        * Not invented. A case with no recorded court name gets no court line on the
        * cover rather than a guess at which court it is in.
        */
       courtName: null,
-      plaintiff: master.caseContext?.plaintiff ?? null,
-      defendant: master.caseContext?.defendant ?? null,
+      plaintiff: side === "starting" ? you : side === "responding" ? them : null,
+      defendant: side === "starting" ? them : side === "responding" ? you : null,
     };
 
     const documents: ExhibitBookDocument[] = rows.map((row) => ({

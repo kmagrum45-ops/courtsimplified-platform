@@ -144,7 +144,7 @@ function NextStepCard({
   /** The person's side, so an "either side" step leads with their own limit ("If you are responding ..."). */
   responding?: boolean;
 }) {
-  const practical = practicalFor(stepId, court as PracticalCourt, city);
+  const practical = practicalFor(stepId, court as PracticalCourt, city, responding);
   const today = todayIso();
   const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
   const firstParagraph = forThisPerson(toDo.split(/\n\s*\n/)[0]?.trim() ?? "", {

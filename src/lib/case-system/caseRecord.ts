@@ -42,6 +42,8 @@ export type CaseRecord = {
   claimTypeId: string | null;
   yourName: string;
   otherParty: string;
+  /** The court file number the person typed, if their case has one ("" if not). */
+  courtFileNumber: string;
   city: string;
   story: string;
   /** The documents the person recorded as filed or received, as they chose them. */
@@ -123,6 +125,7 @@ export function readCaseRecord(masterResult: unknown, courtPathColumn?: string |
     claimTypeId: text(extra.confirmedClaimTypeId) || null,
     yourName: text(intake.yourName) || text(extra.yourName) || text(civil.yourName),
     otherParty: text(intake.otherParty) || text(extra.otherParty) || text(civil.otherParty),
+    courtFileNumber: text(civil.courtFileNumber) || text(extra.courtFileNumber) || text(intake.courtFileNumber),
     city: text(extra.yourCity) || text(extra.city) || text(civil.city),
     story: userStory(intake),
     documents,
