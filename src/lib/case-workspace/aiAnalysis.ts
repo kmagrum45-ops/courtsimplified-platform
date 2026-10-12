@@ -1,5 +1,8 @@
 /**
- * Document analysis by a model: built, wired, tested — and OFF.
+ * Document analysis by a model: built, wired, tested. ON while the owner's live-testing
+ * switch (policy/a2iScope.ts OWNER_LIVE_TESTING) is on -- site owner, 2026-10-12, no real
+ * users and no saved cases. Turning that switch off before real users restores the
+ * two-key gate below, which stays OFF until ZDR is confirmed in writing.
  *
  * ############################################################################
  * ##  THE FLAG IS FALSE EVERYWHERE, INCLUDING STAGING, AND STAYS FALSE      ##
@@ -52,6 +55,7 @@
  * hold, the schema rejects anything that grades a case. The payload builder is a pure
  * function precisely so that can be tested without a flag and without a network.
  */
+import { OWNER_LIVE_TESTING } from "../case-system/policy/a2iScope";
 
 /**
  * The date OpenAI confirmed, in writing, that zero data retention and modified abuse
@@ -91,7 +95,18 @@ export function documentAnalysisEnabled(
    * irrelevant to what it is testing.
    */
   env: Record<string, string | undefined> = process.env,
+  /*
+   * The owner's live-testing switch (policy/a2iScope.ts). Site owner, 2026-10-12:
+   * "i want everything on, there are no saved cases and we are just testing plus
+   * nobody knows about or is useing the site". While it is on, analysis runs for
+   * testing even though ZDR_CONFIRMED_AT is still null (that stays an honest record:
+   * no confirmation yet). AI_DOCUMENT_ANALYSIS_ENABLED=false still turns it off.
+   * Turning OWNER_LIVE_TESTING off before real users restores the two-key gate.
+   */
+  ownerTesting: boolean = OWNER_LIVE_TESTING.enabled,
 ): boolean {
+  if (env.AI_DOCUMENT_ANALYSIS_ENABLED === "false") return false;
+  if (ownerTesting) return true;
   if (ZDR_CONFIRMED_AT === null) return false;
   return env.AI_DOCUMENT_ANALYSIS_ENABLED === "true";
 }

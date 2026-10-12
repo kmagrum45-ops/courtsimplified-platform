@@ -21,7 +21,7 @@ export const STRATEGY_INTRO =
 export default function StrategyPanel({ story, courtPath, side }: { story: string; courtPath: string; side: string }) {
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [sections, setSections] = useState<Section[]>([]);
-  if (process.env.NEXT_PUBLIC_STRATEGY !== "on") return null;
+  if (process.env.NEXT_PUBLIC_STRATEGY === "off") return null;
   if (!story || story.trim().length < 20 || !["small-claims", "civil", "family"].includes(courtPath)) return null;
   const role = /defend|respond/i.test(side) ? "defendant" : "plaintiff";
 

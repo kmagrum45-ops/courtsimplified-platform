@@ -206,17 +206,19 @@ export function plainExplanationsEnabled(
  * How deep the intake analysis goes (site owner, 2026-10-11: "limit AI use";
  * the full analysis took about 112 s and an outside tester gave up waiting).
  *
- * "fast" (the default): one meaning search over the library and one analysis
+ * Site owner, 2026-10-12: "i want everything on" -- "full" is the default again;
+ * set ANALYSIS_DEPTH=fast for the quicker, cheaper analysis.
+ * "fast": one meaning search over the library and one analysis
  * call -- tens of seconds, a fraction of the cost. The checked answer and the
  * multi-round research are still available on demand in the Court Assistant
  * (/api/assistant/law), where a person asks for them.
  * "full": the research step and the checked story answer run inside the
- * analysis too, as before. Set ANALYSIS_DEPTH=full to bring it back.
+ * analysis too (the default).
  */
 export function deepIntakeAnalysis(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
 ): boolean {
-  return env.ANALYSIS_DEPTH === "full";
+  return env.ANALYSIS_DEPTH !== "fast";
 }
 
 /**
@@ -279,28 +281,28 @@ export function checkedAnswersEnabled(
  * Case strategy (retrieval/strategy.ts, 2026-10-08): the matter from every seat
  * -- what must be proven, what the law gives the other side and the answer to
  * each, what the court must decide, and the procedural tools and timing.
- * OFF unless STRATEGY=on, so it stays off for real users until the Law
- * Society's A2I approval covers it (site owner, 2026-10-08). Needs checked
- * answers, since every statement in it is one. It never grades the case.
- * The page shows the button only when NEXT_PUBLIC_STRATEGY=on as well.
+ * ON unless STRATEGY=off (site owner, 2026-10-12: "turn anything off, to
+ * on"; earlier it was off until the Law Society's A2I approval covers it --
+ * set STRATEGY=off and NEXT_PUBLIC_STRATEGY=off to hide it from real users).
+ * Needs checked answers, since every statement in it is one. It never
+ * grades the case.
  */
 export function strategyEnabled(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
 ): boolean {
-  return env.STRATEGY === "on" && checkedAnswersEnabled(env);
+  return env.STRATEGY !== "off" && checkedAnswersEnabled(env);
 }
 
 
 /**
  * The case reader (intake/caseReader.ts, master plan Phase 3, 2026-10-08):
  * the AI reads the person's whole account and reports, with checked quotes,
- * their side, the procedural events and dates they describe. OFF unless
- * CASE_READER=on, until the walkthrough has been run with it on; the page
- * asks for it only with NEXT_PUBLIC_CASE_READER=on. Off, the site behaves as
- * before.
+ * their side, the procedural events and dates they describe. ON unless
+ * CASE_READER=off (site owner, 2026-10-12: "turn anything off, to on");
+ * the page skips it only with NEXT_PUBLIC_CASE_READER=off.
  */
 export function caseReaderEnabled(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
 ): boolean {
-  return env.CASE_READER === "on" && aiAnalysisTextToUsers(env);
+  return env.CASE_READER !== "off" && aiAnalysisTextToUsers(env);
 }
