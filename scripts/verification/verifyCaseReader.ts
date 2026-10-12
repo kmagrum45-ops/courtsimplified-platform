@@ -110,7 +110,7 @@ async function main() {
   check("a stored picture is re-checked for shape", readStoredPicture({ events: "x" }) === null && readStoredPicture(picture)?.events.length === picture.events.length);
 
   console.log("\n5. The route");
-  check("off unless CASE_READER=on", !caseReaderEnabled({}) && caseReaderEnabled({ CASE_READER: "on" }));
+  check("on unless CASE_READER=off", caseReaderEnabled({}) && !caseReaderEnabled({ CASE_READER: "off" }));
   let readWords = "";
   let savedPicture = null as Record<string, unknown> | null;
   const route = (overrides: Parameters<typeof createCaseReadPost>[0] = {}) =>
@@ -149,7 +149,7 @@ async function main() {
   check("the panel offers the reader's dates", /datesFromPicture\(picture\)/.test(panel));
   const builder = readFileSync(path.join(ROOT, "app/builder/page.tsx"), "utf8");
   check("the builder's re-save keeps the picture", /"intakeAnswers", "casePicture"\]/.test(builder));
-  check("the builder asks for a reading only when switched on", /NEXT_PUBLIC_CASE_READER === "on"/.test(builder));
+  check("the builder asks for a reading unless switched off", /NEXT_PUBLIC_CASE_READER !== "off"/.test(builder));
   // One save at a time (walkthrough 2026-10-09: overlapping saves of the same
   // case timed out in the database and stopped five runs).
   check(

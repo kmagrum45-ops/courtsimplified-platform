@@ -393,7 +393,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
       {/* 2026-10-05: the provisions the analysis rests on, found by meaning-based retrieval and quote-checked. Verbatim text only; see AppliedLawPanel. */}
       {/* 2026-10-07: the person's situation answered in plain words, each statement checked against the official text quoted with it (retrieval/checkedAnswer.ts). */}
       {analysis.checkedAnswer && analysis.checkedAnswer.status !== "unavailable" && <Card title="Your situation, answered"><CheckedAnswerPanel answer={analysis.checkedAnswer} /></Card>}
-      {process.env.NEXT_PUBLIC_STRATEGY === "on" && intake?.facts ? (
+      {process.env.NEXT_PUBLIC_STRATEGY !== "off" && intake?.facts ? (
         <Card title="Case strategy (beta)">
           <StrategyPanel
             story={intake.facts}

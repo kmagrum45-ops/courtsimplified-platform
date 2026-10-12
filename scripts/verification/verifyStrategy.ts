@@ -2,8 +2,8 @@
  * Case strategy stays switched off, sourced, and never grades a case.
  *
  * WHAT IT CATCHES (retrieval/strategy.ts, /api/case/strategy, 2026-10-08):
- *   - strategy answering on the live site: it must be off unless STRATEGY=on,
- *     and the page must not show it unless NEXT_PUBLIC_STRATEGY=on;
+ *   - strategy answering on the live site: on unless STRATEGY=off (site owner,
+ *     2026-10-12), and the page hides it only with NEXT_PUBLIC_STRATEGY=off;
  *   - the route answering someone not signed in, or a malformed request;
  *   - a seat missing (what must be proven, the other side, the court, the
  *     steps), or a seat's question that does not forbid grading the case;
@@ -41,11 +41,11 @@ const STORY = "I did renovation work on a client's kitchen in Ottawa and they ha
 
 async function main() {
   console.log("\n1. Off unless switched on");
-  check("off by default", !strategyEnabled({}));
-  check("on with STRATEGY=on", strategyEnabled({ STRATEGY: "on" }));
+  check("on by default", strategyEnabled({}));
+  check("off with STRATEGY=off", !strategyEnabled({ STRATEGY: "off" }));
   check("off when checked answers are off", !strategyEnabled({ STRATEGY: "on", CHECKED_ANSWERS: "off" }));
   const panel = readFileSync(path.join(ROOT, "app/_components/StrategyPanel.tsx"), "utf8");
-  check("the page shows it only with NEXT_PUBLIC_STRATEGY=on", panel.includes('process.env.NEXT_PUBLIC_STRATEGY !== "on"'));
+  check("the page hides it only with NEXT_PUBLIC_STRATEGY=off", panel.includes('process.env.NEXT_PUBLIC_STRATEGY === "off"'));
 
   console.log("\n2. Every seat, each forbidding any grading");
   for (const side of ["plaintiff", "defendant"] as const) {

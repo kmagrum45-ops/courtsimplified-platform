@@ -89,7 +89,7 @@ console.log("");
    * of them must still be false, because the second key is missing.
    */
   for (const value of ["true", "TRUE", "1", "yes", "on"]) {
-    if (documentAnalysisEnabled({ AI_DOCUMENT_ANALYSIS_ENABLED: value })) {
+    if (documentAnalysisEnabled({ AI_DOCUMENT_ANALYSIS_ENABLED: value }, false)) {
       problems.push(
         `setting AI_DOCUMENT_ANALYSIS_ENABLED="${value}" turned analysis ON with no ` +
           `recorded ZDR confirmation. The environment alone must never be enough.`,
@@ -97,12 +97,23 @@ console.log("");
     }
   }
 
-  if (documentAnalysisEnabled({})) {
+  if (documentAnalysisEnabled({}, false)) {
     problems.push("analysis is on with no environment variable at all");
   }
 
-  if (documentAnalysisEnabled()) {
-    problems.push("analysis is ON in this process");
+  /*
+   * The owner's live-testing switch (site owner, 2026-10-12) turns analysis on for
+   * testing while ZDR_CONFIRMED_AT stays an honest null; AI_DOCUMENT_ANALYSIS_ENABLED=false
+   * still turns it off. With the switch off, the two-key gate above is what applies.
+   */
+  if (!documentAnalysisEnabled({}, true)) {
+    problems.push("the owner's live-testing switch does not turn analysis on");
+  }
+  if (documentAnalysisEnabled({ AI_DOCUMENT_ANALYSIS_ENABLED: "false" }, true)) {
+    problems.push("AI_DOCUMENT_ANALYSIS_ENABLED=false does not turn analysis off during testing");
+  }
+  if (documentAnalysisEnabled({}, false)) {
+    problems.push("analysis is ON with the live-testing switch off and no confirmation");
   }
 
   if (!/zero data retention/i.test(ANALYSIS_DISABLED_REASON)) {

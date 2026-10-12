@@ -942,7 +942,7 @@ function BuilderPageContent() {
       // With the case saved, the case reader reads everything the person
       // wrote on it (master plan Phase 3). Off unless switched on; when it is
       // off or fails, nothing changes.
-      if (process.env.NEXT_PUBLIC_CASE_READER === "on" && user && activeId) {
+      if (process.env.NEXT_PUBLIC_CASE_READER !== "off" && user && activeId) {
         // Awaited, so the reading's own write is done before any next save.
         await (async () => {
           try {
