@@ -179,6 +179,14 @@ check(
     /EVENT_TO_DATE_QUESTION\[eventType\]/.test(read("app/builder/_components/EventCandidateSurface.tsx")),
 );
 check("both form intakes reopen with what the case holds", (builder.match(/storedValues=\{queryCaseId \? storedIntakeValues\(/g) ?? []).length === 2);
+// Key dates on the timeline for every court (Step 2A, 2026-10-12): civil and
+// family had none, because recording steps is Small Claims only.
+{
+  const timeline = readFileSync(path.join(process.cwd(), "app/cases/[id]/timeline/page.tsx"), "utf8");
+  check("the timeline lists the case's key dates for every court, from the one record", /<KeyDates record=\{record\} courtPath=\{courtPath\} \/>/.test(timeline) && /Object\.entries\(record\.dates\)/.test(timeline));
+  check("the key dates are not limited to Small Claims", !/canRecord \? \(\s*<KeyDates/.test(timeline));
+}
+
 // Family too (Step 2A, 2026-10-12): it opened blank on "Update your story".
 {
   const family = readFileSync(path.join(process.cwd(), "app/builder/_components/FamilyIntake.tsx"), "utf8");
