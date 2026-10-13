@@ -28,7 +28,7 @@ import * as CITATIONS from "../../src/lib/case-system/stage-map/citations";
 import { readFileSync } from "node:fs";
 import nodePath from "node:path";
 
-import { FINAL_STEPS, STAGE_MOVES, STARTING_POINTS, isSequenced, movesFrom, movesInto, nextStepsFor } from "../../src/lib/case-system/stage-map/stageSequence";
+import { FINAL_STEPS, STAGE_MOVES, STARTING_POINTS, isSequenced, movesFrom, movesInto, nextStepsFor, USUAL_NEXT } from "../../src/lib/case-system/stage-map/stageSequence";
 import { SOURCE_SAVED_ON } from "../../src/lib/content-library/nextStepPractical";
 import { validateCaseStrengthLanguage } from "../../src/lib/case-system/intelligence/caseStrengthLanguageValidator";
 
@@ -113,6 +113,10 @@ const blank = sequenced.flatMap((stage) => [false, true].filter((responding) => 
   return view.moves.length === 0 && !view.final;
 }).map((responding) => `${stage.id} (${responding ? "responding" : "starting"})`));
 check("\"What can happen next\" shows every step's moves, or why it stops, to either side", blank.length === 0, blank.join(", "));
+const crowded = sequenced.filter((stage) => movesFrom(stage.id).length > 4 && !(stage.id in USUAL_NEXT)).map((stage) => `${stage.id} (${movesFrom(stage.id).length})`);
+check("a step with more than four next steps says which come first (USUAL_NEXT), so the panel is not one long list", crowded.length === 0, crowded.join(", "));
+const badUsual = Object.entries(USUAL_NEXT).flatMap(([from, tos]) => tos.filter((to) => !movesFrom(from).some((m) => m.to === to)).map((to) => `${from} -> ${to}`));
+check("every usual next step is a real move from its step", badUsual.length === 0, badUsual.join(", "));
 const manifest = JSON.parse(readFileSync(nodePath.join(import.meta.dirname, "..", "..", "docs/sources/corpus/manifest.json"), "utf8")) as { entries: { id: string; retrievedAt: string }[] };
 const savedOn = new Map(manifest.entries.map((entry) => [entry.id, entry.retrievedAt.slice(0, 10)]));
 const chainSources = [...new Set([...STAGE_MOVES.flatMap((m) => m.rules), ...FINAL_STEPS.flatMap((f) => f.rules)].map((rule) => rule.sourceId))];

@@ -1,6 +1,6 @@
 import { SOURCE_SAVED_ON } from "@/src/lib/content-library/nextStepPractical";
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
-import { nextStepsFor } from "@/src/lib/case-system/stage-map/stageSequence";
+import { nextStepsFor, type NextStepView } from "@/src/lib/case-system/stage-map/stageSequence";
 
 /**
  * "What can happen next" on the step card: the steps this one can lead to,
@@ -8,53 +8,96 @@ import { nextStepsFor } from "@/src/lib/case-system/stage-map/stageSequence";
  * chain (src/lib/case-system/stage-map/stageSequence.ts, test:stage-sequence).
  * It says what the rules provide, never what will happen in this case
  * (CLAUDE.md s. 3). Folded, so the card still leads with the step itself.
+ *
+ * Where a step can lead to many places, the usual next steps come first and
+ * the rest fold under "Other things that can come up" (USUAL_NEXT).
  */
 
-function Rule({ cite }: { cite: RuleCitation }) {
-  const saved = SOURCE_SAVED_ON[cite.sourceId];
+/** "r. 17 (5)", "r. 17 (5) and r. 17 (10)", "r. 1, r. 2 and r. 3". */
+export function joinPinpoints(pinpoints: string[]): string {
+  return pinpoints.length <= 1 ? (pinpoints[0] ?? "") : `${pinpoints.slice(0, -1).join(", ")} and ${pinpoints[pinpoints.length - 1]}`;
+}
+
+/** The rules of one move, one line per source, so two subrules of the same rules do not stack up. */
+export function groupBySource(rules: RuleCitation[]): RuleCitation[][] {
+  const groups = new Map<string, RuleCitation[]>();
+  for (const rule of rules) groups.set(rule.sourceId, [...(groups.get(rule.sourceId) ?? []), rule]);
+  return [...groups.values()].map((group) => [...group].sort((a, b) => a.pinpoint.localeCompare(b.pinpoint, "en", { numeric: true })));
+}
+
+/** The mover label, left out when the sentence already starts with it ("You: You serve ..."). */
+export function moverLabel(move: Pick<NextStepView, "by" | "when">): string | null {
+  return move.when.toLowerCase().startsWith(`${move.by.toLowerCase()} `) ? null : move.by;
+}
+
+function Rules({ cites }: { cites: RuleCitation[] }) {
+  const first = cites[0];
+  const saved = SOURCE_SAVED_ON[first.sourceId];
   return (
     <details className="mt-1 text-xs leading-5 text-[#4d675f]">
       <summary className="cursor-pointer">
-        <a href={officialUrl(cite)} target="_blank" rel="noreferrer" className="underline">
-          {sourceName(cite)}
+        <a href={officialUrl(first)} target="_blank" rel="noreferrer" className="underline">
+          {sourceName(first)}
         </a>
-        , {cite.pinpoint}
+        , {joinPinpoints(cites.map((cite) => cite.pinpoint))}
         {saved ? ` · checked ${saved}` : ""}
       </summary>
-      <p className="mt-1 italic">“{cite.quote}”</p>
+      {cites.map((cite) => (
+        <p key={cite.pinpoint} className="mt-1 italic">
+          {cites.length > 1 ? `${cite.pinpoint}: ` : ""}“{cite.quote}”
+        </p>
+      ))}
     </details>
+  );
+}
+
+function Move({ move }: { move: NextStepView }) {
+  const label = moverLabel(move);
+  return (
+    <li data-testid="what-comes-next-move">
+      <span className="font-semibold">{move.title}.</span> {label ? <span className="text-[#4d675f]">{label}:</span> : null} {move.when}
+      {groupBySource(move.rules).map((cites) => (
+        <Rules key={cites[0].sourceId} cites={cites} />
+      ))}
+    </li>
   );
 }
 
 export default function WhatComesNext({ stepId, responding = false }: { stepId: string; responding?: boolean }) {
   const { moves, final } = nextStepsFor(stepId, responding);
   if (moves.length === 0 && !final) return null;
+  const usual = moves.filter((move) => move.usual);
+  const lead = usual.length > 0 ? usual : moves;
+  const others = usual.length > 0 ? moves.filter((move) => !move.usual) : [];
   return (
     <details data-testid="what-comes-next" className="mt-3 text-sm leading-6 text-[#16302b]">
-      <summary className="cursor-pointer font-semibold text-[#2f7d67]">
-        What can happen next{moves.length ? ` (${moves.length})` : ""}
-      </summary>
+      <summary className="cursor-pointer font-semibold text-[#2f7d67]">What can happen next</summary>
       <p className="mt-2 text-xs leading-5 text-[#4d675f]">
         What the rules provide can follow this step. It is not a prediction of what will happen in your case.
       </p>
       {final ? (
         <div data-testid="what-comes-next-final" className="mt-2">
           <p>{final.why}</p>
-          {final.rules.map((cite) => (
-            <Rule key={`${cite.sourceId}-${cite.pinpoint}`} cite={cite} />
+          {groupBySource(final.rules).map((cites) => (
+            <Rules key={cites[0].sourceId} cites={cites} />
           ))}
         </div>
       ) : null}
       <ul className="mt-2 space-y-3">
-        {moves.map((m) => (
-          <li key={m.to} data-testid="what-comes-next-move">
-            <span className="font-semibold">{m.title}.</span> <span className="text-[#4d675f]">{m.by}:</span> {m.when}
-            {m.rules.map((cite) => (
-              <Rule key={`${cite.sourceId}-${cite.pinpoint}`} cite={cite} />
-            ))}
-          </li>
+        {lead.map((move) => (
+          <Move key={move.to} move={move} />
         ))}
       </ul>
+      {others.length > 0 ? (
+        <details data-testid="what-comes-next-other" className="mt-3">
+          <summary className="cursor-pointer font-semibold text-[#2f7d67]">Other things that can come up ({others.length})</summary>
+          <ul className="mt-2 space-y-3">
+            {others.map((move) => (
+              <Move key={move.to} move={move} />
+            ))}
+          </ul>
+        </details>
+      ) : null}
     </details>
   );
 }

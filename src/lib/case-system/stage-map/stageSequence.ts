@@ -531,7 +531,26 @@ export const MOVER_WORDS: Record<Mover, string> = {
   time: "Time running out",
 };
 
-export type NextStepView = { to: string; title: string; when: string; by: string; rules: RuleCitation[] };
+/**
+ * Where a step can lead to many places, the next steps the rules lead to in
+ * the ordinary course, shown first; the rest are folded under "Other things
+ * that can come up". An empty list means the moves are alternatives of equal
+ * standing (such as the ways to enforce a support order) and are shown
+ * together. test:stage-sequence requires an entry for every step with more
+ * than four moves, and every entry to name real moves.
+ */
+export const USUAL_NEXT: Record<string, string[]> = {
+  "before-filing:deciding-whether-to-sue": ["plaintiff:claim-drafted-not-filed"],
+  "plaintiff:claim-issued-not-served": ["plaintiff:served-awaiting-defence", "plaintiff:service-attempted-failed"],
+  "plaintiff:defence-filed": ["plaintiff:awaiting-settlement-conference"],
+  "defendant:defence-filed": ["defendant:awaiting-settlement-conference"],
+  "civil:plaintiff:defence-received": ["civil:both:discovery", "civil:both:mandatory-mediation"],
+  "civil:defendant:defence-delivered": ["civil:both:discovery"],
+  "family:both:case-conference-scheduled": ["family:both:settlement-conference-scheduled", "family:both:bringing-a-motion"],
+  "family:both:support-order-not-paid": [],
+};
+
+export type NextStepView = { to: string; title: string; when: string; by: string; rules: RuleCitation[]; usual: boolean };
 
 /**
  * What can come next from a step, for the step panel ("What can happen next").
@@ -547,7 +566,14 @@ export function nextStepsFor(stageId: string, responding: boolean): { moves: Nex
   const own = all.filter((m) => !otherSides.includes(sideOf(m.to)));
   const shown = own.length > 0 ? own : all;
   return {
-    moves: shown.map((m) => ({ to: m.to, title: ALL_STAGES.find((stage) => stage.id === m.to)?.title ?? m.to, when: m.when, by: MOVER_WORDS[m.by], rules: m.rules })),
+    moves: shown.map((m) => ({
+      to: m.to,
+      title: ALL_STAGES.find((stage) => stage.id === m.to)?.title ?? m.to,
+      when: m.when,
+      by: MOVER_WORDS[m.by],
+      rules: m.rules,
+      usual: (USUAL_NEXT[stageId] ?? []).includes(m.to),
+    })),
     final: FINAL_STEPS.find((f) => f.stage === stageId) ?? null,
   };
 }
