@@ -2140,11 +2140,141 @@ const SPECIAL: CaseStage[] = [
   },
 ];
 
+
+/**
+ * Small Claims steps added from the law map (docs/law-map/small-claims.json,
+ * site owner 2026-10-13): motions, admitting the claim and proposing terms of
+ * payment, the trial management conference (O. Reg. 3/25), offers to settle,
+ * and enforcement from both sides. Every rule is quoted from the saved
+ * Small Claims Rules (citations.ts). Their timing rules are quoted; counted
+ * deadlines for them need date questions that do not exist yet.
+ */
+const LAW_MAP_STAGES: CaseStage[] = [
+  {
+    id: "both:bringing-a-motion",
+    side: "both",
+    wentWrong: false,
+    userQuestion: "I need to ask the court for an order before trial. How do I bring a motion in Small Claims Court?",
+    title: "Bringing a motion",
+    description: "A party wants the court to make an order during the case, such as more time, a change of trial place, setting aside a default, or another order the rules allow.",
+    cues: ["I want to bring a motion", "notice of motion", "Form 15A", "ask the judge for an order before trial", "I need more time from the court"],
+    distinguishedFrom: [
+      { stage: "both:responding-to-a-motion", by: "whether the person is the one asking for the order or the one served with someone else's motion" },
+      { stage: "defendant:noted-in-default", by: "whether the motion is to set aside a noting in default, which has its own step, or for another order" },
+    ],
+    rules: [C.R_15_01_MOTION_FORM, C.R_15_01_SERVE_FILE, C.R_15_02_HEARING, C.R_3_02_EXTEND],
+    deadlines: [],
+  },
+  {
+    id: "both:responding-to-a-motion",
+    side: "both",
+    wentWrong: false,
+    userQuestion: "I was served with a notice of motion in Small Claims Court. What do I do?",
+    title: "Responding to a motion",
+    description: "The other party served a notice of motion and supporting affidavit (Form 15A) asking the court for an order, and a hearing date is set.",
+    cues: ["I was served with a motion", "they brought a motion against me", "the other side wants an order", "affidavit in response", "Form 15B"],
+    distinguishedFrom: [
+      { stage: "both:bringing-a-motion", by: "whether the person was served with the motion or is bringing it" },
+    ],
+    rules: [C.R_15_01_RESPONSE, C.R_15_01_SERVE_FILE, C.R_15_02_HEARING],
+    deadlines: [],
+  },
+  {
+    id: "defendant:admitted-and-proposed-terms",
+    side: "defendant",
+    wentWrong: false,
+    userQuestion: "I owe some or all of the money but cannot pay it all at once. Can I offer to pay over time?",
+    title: "Admitting the claim and proposing terms of payment",
+    description: "The defendant admits all or part of the claim and, in the defence, proposes terms of payment.",
+    cues: ["I owe the money but can't pay all at once", "payment plan", "pay in instalments", "admit I owe part of it", "propose terms of payment"],
+    distinguishedFrom: [
+      { stage: "defendant:served-defence-period-running", by: "whether the defendant disputes the whole claim or admits some of it and wants to arrange payment" },
+      { stage: "plaintiff:defendant-proposed-terms", by: "which side the person is on: the defendant proposing the terms or the plaintiff receiving them" },
+    ],
+    rules: [C.R_9_03_ADMIT_PROPOSE, C.R_9_03_NO_DISPUTE, C.R_9_03_DISPUTE, C.R_9_03_FINANCIAL_FORM, C.R_9_01_DEFENCE],
+    deadlines: [],
+  },
+  {
+    id: "plaintiff:defendant-proposed-terms",
+    side: "plaintiff",
+    wentWrong: false,
+    userQuestion: "The defendant admitted owing me money but wants to pay in instalments. Do I have to accept?",
+    title: "Defence admits the claim and proposes terms of payment",
+    description: "The defence admits all or part of the claim and proposes terms of payment; the plaintiff decides whether to dispute the proposal.",
+    cues: ["they admit they owe me but want a payment plan", "the defence proposes instalments", "terms of payment hearing", "they offered to pay monthly"],
+    distinguishedFrom: [
+      { stage: "plaintiff:defence-filed", by: "whether the defence disputes the claim or admits it and proposes terms of payment" },
+      { stage: "defendant:admitted-and-proposed-terms", by: "which side the person is on: the plaintiff receiving the proposal or the defendant making it" },
+    ],
+    rules: [C.R_9_03_DISPUTE, C.R_9_03_NO_DISPUTE, C.R_9_03_ADMIT_PROPOSE],
+    deadlines: [],
+  },
+  {
+    id: "both:trial-management-conference",
+    side: "both",
+    wentWrong: false,
+    userQuestion: "The court scheduled a trial management conference. What is it and what do I need to do?",
+    title: "Trial management conference",
+    description: "After a request to fix a trial date was filed, the court directed a trial management conference before a judge.",
+    cues: ["trial management conference", "the court set a conference before trial", "notice of trial management conference"],
+    distinguishedFrom: [
+      { stage: "plaintiff:awaiting-settlement-conference", by: "whether the conference is the settlement conference held in every defended case, or a trial management conference directed after a trial date was requested" },
+      { stage: "plaintiff:trial-date-set", by: "whether a trial management conference was directed before the trial" },
+    ],
+    rules: [C.R_16_1_01_TMC, C.R_16_1_01_TMC_PARTICIPATE, C.R_16_1_02_TMC_PURPOSES, C.R_16_1_01_TMC_MISSED],
+    deadlines: [],
+  },
+  {
+    id: "both:offer-to-settle",
+    side: "both",
+    wentWrong: false,
+    userQuestion: "How do I make or accept an offer to settle in Small Claims Court, and what happens if it is refused?",
+    title: "Making or receiving an offer to settle",
+    description: "A party has made, or is thinking of making, a written offer to settle, or has received one.",
+    cues: ["offer to settle", "they offered to settle", "I want to make an offer", "Form 14A", "accept the offer"],
+    distinguishedFrom: [
+      { stage: "plaintiff:awaiting-settlement-conference", by: "whether the parties are exchanging written offers or attending the court's settlement conference" },
+    ],
+    rules: [C.R_14_01_1_FORMS, C.R_14_02_ANY_TIME, C.R_14_03_WITHDRAW, C.R_14_05_ACCEPT, C.R_14_06_BREACH, C.R_14_07_PLAINTIFF_OFFER, C.R_14_07_DEFENDANT_OFFER],
+    deadlines: [],
+  },
+  {
+    id: "plaintiff:debtor-examination",
+    side: "plaintiff",
+    wentWrong: false,
+    userQuestion: "I won but they will not pay. How do I find out what they own or earn?",
+    title: "Examining the debtor",
+    description: "There is a judgment for money that has not been paid, and the creditor asks for, or has, a notice of examination of the debtor.",
+    cues: ["examination hearing", "judgment debtor examination", "find out what they own", "notice of examination", "Form 20H"],
+    distinguishedFrom: [
+      { stage: "plaintiff:judgment-in-my-favour-unpaid", by: "whether the creditor has chosen to examine the debtor, or is still choosing how to enforce" },
+    ],
+    rules: [C.R_20_10_EXAMINATION, C.R_20_10_EXAM_TOPICS, C.R_20_10_ORDER_AS_TO_PAYMENT, C.R_20_04_CERTIFICATE],
+    deadlines: [],
+  },
+  {
+    id: "defendant:judgment-being-enforced",
+    side: "defendant",
+    wentWrong: false,
+    userQuestion: "A judgment was made against me and now they are garnishing my wages or want to examine me. What can I do?",
+    title: "Judgment being enforced against the debtor",
+    description: "There is a judgment against the person and the creditor has started enforcing it, for example by garnishment or a notice of examination.",
+    cues: ["they are garnishing my wages", "notice of garnishment", "I was served with a notice of examination", "my bank account was garnished", "the creditor wants to examine me"],
+    distinguishedFrom: [
+      { stage: "defendant:judgment-against-me", by: "whether the creditor has started enforcing the judgment or judgment was only just given" },
+      { stage: "defendant:default-judgment-against-me", by: "whether the person is dealing with enforcement or wants the default judgment set aside" },
+    ],
+    rules: [C.R_20_08_GARNISHMENT, C.R_20_10_EXAM_TOPICS, C.R_20_02_STAY_VARY, C.R_20_10_ORDER_AS_TO_PAYMENT],
+    deadlines: [],
+  },
+];
+
 export const CASE_STAGES = [
   ...BEFORE_FILING,
   ...PLAINTIFF,
   ...DEFENDANT,
   ...BOTH,
+  ...LAW_MAP_STAGES,
   ...SPECIAL,
 ] as const;
 

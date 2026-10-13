@@ -63,6 +63,21 @@ import {
   S_TORONTO_42_8_EXCUSE,
   S_CJA_23_1_1_LEAVE,
   S_CLPA_18_1_NOTICE,
+  R_15_01_MOTION_FORM,
+  R_15_01_SERVE_FILE,
+  R_15_02_HEARING,
+  R_9_03_ADMIT_PROPOSE,
+  R_9_03_NO_DISPUTE,
+  R_9_03_DISPUTE,
+  R_16_1_01_TMC,
+  R_16_1_02_TMC_PURPOSES,
+  R_14_02_ANY_TIME,
+  R_14_06_BREACH,
+  R_14_07_PLAINTIFF_OFFER,
+  R_20_08_GARNISHMENT,
+  R_20_10_EXAMINATION,
+  R_20_10_ORDER_AS_TO_PAYMENT,
+  R_20_02_STAY_VARY,
   type RuleCitation,
 } from "./citations";
 
@@ -157,6 +172,38 @@ const SMALL_CLAIMS_MOVES: StageMove[] = [
   move("both:filed-in-wrong-place", "plaintiff:claim-drafted-not-filed", "you", "An action is started in the territorial division where the claim arose or where a defendant lives or does business.", R_6_01_PLACE),
 ];
 
+/** Moves for the Small Claims steps added from the law map (2026-10-13). */
+const LAW_MAP_MOVES: StageMove[] = [
+  // Admitting the claim and proposing terms of payment (r. 9.03)
+  move("defendant:served-defence-period-running", "defendant:admitted-and-proposed-terms", "you", "You admit all or part of the claim and, in your defence, propose terms of payment.", R_9_03_ADMIT_PROPOSE),
+  move("plaintiff:served-awaiting-defence", "plaintiff:defendant-proposed-terms", "other-side", "The defendant's defence admits all or part of the claim and proposes terms of payment.", R_9_03_ADMIT_PROPOSE),
+  move("plaintiff:defendant-proposed-terms", "plaintiff:judgment-in-my-favour-unpaid", "other-side", "If you do not dispute the proposal within 20 days and the defendant misses payments, you may serve a notice of default of payment (Form 20L) and ask the clerk for judgment for the unpaid balance.", R_9_03_NO_DISPUTE),
+  move("defendant:admitted-and-proposed-terms", "defendant:judgment-being-enforced", "other-side", "If the plaintiff does not dispute the proposal, you pay as if it were a court order; if a payment is missed, the plaintiff may serve a notice of default of payment and get judgment for the unpaid balance.", R_9_03_NO_DISPUTE),
+  move("defendant:admitted-and-proposed-terms", "defendant:awaiting-settlement-conference", "other-side", "The plaintiff may dispute the proposal within 20 days by asking for a terms of payment hearing (Form 9B).", R_9_03_DISPUTE),
+  // Motions (r. 15)
+  move("plaintiff:defence-filed", "both:bringing-a-motion", "you", "You ask the court for an order before trial by a notice of motion and supporting affidavit (Form 15A).", R_15_01_MOTION_FORM),
+  move("defendant:defence-filed", "both:bringing-a-motion", "you", "You ask the court for an order before trial by a notice of motion and supporting affidavit (Form 15A).", R_15_01_MOTION_FORM),
+  move("plaintiff:defence-filed", "both:responding-to-a-motion", "other-side", "The other party serves a notice of motion at least seven days before the hearing date.", R_15_01_SERVE_FILE),
+  move("defendant:defence-filed", "both:responding-to-a-motion", "other-side", "The other party serves a notice of motion at least seven days before the hearing date.", R_15_01_SERVE_FILE),
+  move("both:bringing-a-motion", "plaintiff:awaiting-settlement-conference", "court", "The motion is heard, in person, by video or phone, or in writing, and the case goes on with whatever order is made.", R_15_02_HEARING),
+  move("both:bringing-a-motion", "defendant:awaiting-settlement-conference", "court", "The motion is heard, in person, by video or phone, or in writing, and the case goes on with whatever order is made.", R_15_02_HEARING),
+  move("both:responding-to-a-motion", "plaintiff:awaiting-settlement-conference", "court", "The motion is heard, in person, by video or phone, or in writing, and the case goes on with whatever order is made.", R_15_02_HEARING),
+  move("both:responding-to-a-motion", "defendant:awaiting-settlement-conference", "court", "The motion is heard, in person, by video or phone, or in writing, and the case goes on with whatever order is made.", R_15_02_HEARING),
+  // Trial management conference (r. 16.1)
+  move("plaintiff:settlement-conference-held", "both:trial-management-conference", "court", "After a request to fix a trial date is filed, the court may direct a trial management conference before a judge.", R_16_1_01_TMC),
+  move("both:trial-management-conference", "plaintiff:trial-date-set", "court", "The conference assesses readiness for trial and sets the trial date, if necessary.", R_16_1_02_TMC_PURPOSES),
+  move("both:trial-management-conference", "defendant:trial-date-set", "court", "The conference assesses readiness for trial and sets the trial date, if necessary.", R_16_1_02_TMC_PURPOSES),
+  // Offers to settle (r. 14)
+  move("plaintiff:defence-filed", "both:offer-to-settle", "either", "An offer to settle may be made at any time.", R_14_02_ANY_TIME),
+  move("defendant:defence-filed", "both:offer-to-settle", "either", "An offer to settle may be made at any time.", R_14_02_ANY_TIME),
+  move("both:offer-to-settle", "both:bringing-a-motion", "either", "If a party does not do what an accepted offer says, the other party may make a motion for judgment in its terms, or carry on as if there had been no offer.", R_14_06_BREACH),
+  move("both:offer-to-settle", "plaintiff:trial-date-set", "either", "If no offer is accepted, the case goes on; an offer made at least seven days before the trial can affect the costs the court awards.", R_14_07_PLAINTIFF_OFFER),
+  // Enforcement (r. 20)
+  move("plaintiff:judgment-in-my-favour-unpaid", "plaintiff:debtor-examination", "you", "If the judgment is not paid, the clerk issues a notice of examination (Form 20H) at your request.", R_20_10_EXAMINATION),
+  move("defendant:judgment-against-me", "defendant:judgment-being-enforced", "other-side", "If the judgment is not paid, the creditor may enforce it, for example by garnishment.", R_20_08_GARNISHMENT),
+  move("defendant:default-judgment-against-me", "defendant:judgment-being-enforced", "other-side", "If the judgment is not paid, the creditor may enforce it, for example by garnishment.", R_20_08_GARNISHMENT),
+];
+
 /**
  * A step that carries the two-year dismissal-for-delay deadline leads to the
  * dismissed step when that time runs out. Derived from the deadline itself,
@@ -176,12 +223,12 @@ const CIVIL_MOVES: StageMove[] = [
   move("civil:plaintiff:crown-misfeasance-leave-needed", "civil:plaintiff:claim-issued-not-served", "court", "Leave is granted, or the Crown waives it in writing: the stay is lifted and the proceeding goes on.", S_CLPA_17_9_GRANTED, S_CLPA_17_11_WAIVER),
 ];
 
-export const STAGE_MOVES: StageMove[] = [...SMALL_CLAIMS_MOVES, ...DISMISSAL_MOVES, ...CIVIL_MOVES];
+export const STAGE_MOVES: StageMove[] = [...SMALL_CLAIMS_MOVES, ...LAW_MAP_MOVES, ...DISMISSAL_MOVES, ...CIVIL_MOVES];
 
 /** Steps where this chain stops, and why. Each is a real end, or the next move belongs to a part of the map not yet built. */
 export const FINAL_STEPS: FinalStep[] = [
-  { stage: "plaintiff:judgment-in-my-favour-unpaid", why: "The judgment is enforced from here (writs and garnishment); enforcement steps are not yet steps in this map.", rules: [R_20_03_ENFORCEMENT] },
-  { stage: "defendant:judgment-against-me", why: "What follows is a motion for a new trial or an appeal to the Divisional Court; both are this step's own deadlines.", rules: [R_17_04_NEW_TRIAL] },
+  { stage: "plaintiff:debtor-examination", why: "After the examination the court may make an order as to payment; the other ways to enforce (garnishment, writs) are in this step's card.", rules: [R_20_10_ORDER_AS_TO_PAYMENT, R_20_03_ENFORCEMENT] },
+  { stage: "defendant:judgment-being-enforced", why: "The debtor may ask the court to stay enforcement or change the payments if their circumstances have changed; after an examination the court may make an order as to payment.", rules: [R_20_02_STAY_VARY, R_20_10_ORDER_AS_TO_PAYMENT] },
   { stage: "plaintiff:action-dismissed-for-delay", why: "If every party consents, the clerk can restore the action to the list (Form 11.2A); the case then picks up where it was.", rules: [R_11_2_01_RESTORE_ON_CONSENT] },
 ];
 

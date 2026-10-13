@@ -26,6 +26,7 @@
  */
 
 import type { RuleCitation } from "../case-system/stage-map/citations";
+import { R_15_01_MOTION_FORM } from "../case-system/stage-map/citations";
 
 export type PracticalCourt = "small-claims" | "civil" | "family";
 
@@ -627,6 +628,16 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "both:missed-settlement-conference": { forms: ["13A"], fees: [], files: true, serve: "ordinary", noFee: true },
   "both:missed-trial": { forms: ["15A", "15B"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
   "both:filed-in-wrong-place": { forms: ["9A", "15A"], fees: ["sc-defence", "sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
+  // ---- Small Claims: steps added from the law map (2026-10-13)
+  "both:bringing-a-motion": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
+  "both:responding-to-a-motion": { forms: ["15B"], fees: [], files: true, serve: "ordinary" },
+  "defendant:admitted-and-proposed-terms": { forms: ["9A"], fees: ["sc-defence"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
+  "plaintiff:defendant-proposed-terms": { forms: ["9B"], fees: [], files: true, serve: "ordinary" },
+  "both:trial-management-conference": NOTHING,
+  "both:offer-to-settle": { forms: ["14A", "14B", "14C"], fees: [], files: false, serve: "ordinary" },
+  // The notice of examination is served under r. 8.01 (10)-(12); no service line is shown for it here.
+  "plaintiff:debtor-examination": { forms: ["20H", "20P", "20A"], fees: ["sc-writ-exam"], files: true, serve: null },
+  "defendant:judgment-being-enforced": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [R_15_01_MOTION_FORM, SC_HEARING_DATE] },
 
   // ---- Civil: before filing
   "civil:before-filing:deciding-whether-to-sue": { forms: ["14A", "14C"], fees: ["civ-claim"], files: true, serve: null, also: [CIV_START] },

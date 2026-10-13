@@ -132,8 +132,10 @@ for (const stage of steps) {
   for (const form of entry.forms) {
     const [formCourt, number] = form.includes(":") ? form.split(":") : [court, form];
     if (!formGuideEntry(formCourt, number)) unknownForm.push(`${stage.id}: ${form}`);
-    // "Form 61A.2 (Court of Appeal) or 61A.3 (Divisional Court)" names both.
-    const named = new RegExp(`Forms?\\s+(?:[0-9A-Z.]+(?:\\s*\\([^)]*\\))?(?:,\\s*|\\s+(?:and|or)\\s+))*${number.replace(/\./g, "\\.")}(?![0-9A-Z.])`, "i");
+    // "Form 61A.2 (Court of Appeal) or 61A.3 (Divisional Court)" names both. A
+    // full stop that ends the sentence ("... may be in Form 14C.") is not part
+    // of the number; one followed by more of the number ("61A.3") is.
+    const named = new RegExp(`Forms?\\s+(?:[0-9A-Z.]+(?:\\s*\\([^)]*\\))?(?:,\\s*|\\s+(?:and|or)\\s+))*${number.replace(/\./g, "\\.")}(?![0-9A-Z]|\\.[0-9A-Z])`, "i");
     if (!named.test(own)) unnamed.push(`${stage.id}: Form ${number}`);
   }
   for (const id of entry.fees) {

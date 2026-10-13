@@ -431,6 +431,101 @@ export const R_11_2_01_RESTORE_ON_CONSENT = scc(
   "The clerk shall, on the filing of a request for clerk's order on consent (Form 11.2A), make an order granting the relief sought, including costs, if the following conditions are satisfied: 1. The relief sought is, ... iv. restoring a matter that was dismissed under rule 11.1 to the list",
 );
 
+
+// ---------------------------------------------------------------- Small Claims steps from the law map (2026-10-13)
+export const R_15_01_MOTION_FORM = scc(
+  "r. 15.01 (1)",
+  "A motion shall be made by a notice of motion and supporting affidavit (Form 15A).",
+);
+export const R_15_01_SERVE_FILE = scc(
+  "r. 15.01 (3)",
+  "The notice of motion and supporting affidavit, (a) shall be served on every party who has filed a claim and any defendant who has not been noted in default, at least seven days before the hearing date; and (b) shall be filed, with proof of service, at least three days before the hearing date.",
+);
+export const R_15_01_RESPONSE = scc(
+  "r. 15.01 (4)",
+  "A party who prepares an affidavit (Form 15B) in response to the moving party's notice of motion and supporting affidavit shall serve it on every party who has filed a claim or defence and file it, with proof of service, at least two days before the hearing date.",
+);
+export const R_15_02_HEARING = scc(
+  "r. 15.02",
+  "A motion may be conducted, (a) with the attendance of parties by a method determined under rule 1.07; or (b) in writing, (i) if these rules provide for the motion to be in writing, or (ii) if the judge determines that it is fair and reasonable for the motion to be in writing.",
+);
+export const R_9_03_ADMIT_PROPOSE = scc(
+  "r. 9.03 (1)",
+  "A defendant who admits liability for all or part of the plaintiff's claim but wishes to arrange terms of payment may in the defence admit liability and propose terms of payment.",
+);
+export const R_9_03_NO_DISPUTE = scc(
+  "r. 9.03 (2)",
+  "If the plaintiff does not dispute the proposal within the 20-day period referred to in subrule (3), (a) the defendant shall make payment in accordance with the proposal as if it were a court order; (b) the plaintiff may serve a notice of default of payment (Form 20L) on the defendant if the defendant fails to make payment in accordance with the proposal;",
+);
+export const R_9_03_DISPUTE = scc(
+  "r. 9.03 (3)",
+  "The plaintiff may dispute the proposal within 20 days after service of the defence by filing with the clerk and serving on the defendant a request to clerk (Form 9B) for a terms of payment hearing before a referee or other person appointed by the court.",
+);
+export const R_9_03_FINANCIAL_FORM = scc(
+  "r. 9.03 (4.3)",
+  "Where a defendant receives a financial information form under subrule (4.2), he or she shall complete it and serve it on the creditor before the hearing, but shall not file it with the court.",
+);
+export const R_16_1_01_TMC = scc(
+  "r. 16.1.01 (1)",
+  "At any time after the filing of a request to fix a date for trial, the court may, on its own initiative, direct that a trial management conference be held before a judge.",
+);
+export const R_16_1_01_TMC_PARTICIPATE = scc(
+  "r. 16.1.01 (2)",
+  "A party and the party's representative, if any, shall participate in the trial management conference, unless the court directs otherwise.",
+);
+export const R_16_1_01_TMC_MISSED = scc(
+  "r. 16.1.01 (4)",
+  "If a party who has received notice of the trial management conference fails to attend the conference, the court may impose appropriate sanctions, by way of costs or otherwise.",
+);
+export const R_16_1_02_TMC_PURPOSES = scc(
+  "r. 16.1.02 (1)",
+  "The purposes of a trial management conference are, (a) to assess the parties' readiness for trial; (b) to assist the parties in effective preparation for trial; (c) to provide full disclosure between the parties of the relevant facts and evidence; (d) to resolve or narrow the issues in the action; (e) to expedite the disposition of the action; (f) to encourage settlement of the action; and (g) to set the trial date, if necessary.",
+);
+export const R_14_01_1_FORMS = scc(
+  "r. 14.01.1 (2)",
+  "An offer to settle may be in Form 14A, an acceptance of an offer to settle may be in Form 14B and a notice of withdrawal of an offer to settle may be in Form 14C.",
+);
+export const R_14_02_ANY_TIME = scc(
+  "r. 14.02 (1)",
+  "An offer to settle may be made at any time.",
+);
+export const R_14_03_WITHDRAW = scc(
+  "r. 14.03 (1)",
+  "An offer to settle may be withdrawn at any time before it is accepted, by serving a notice of withdrawal of an offer to settle on the party to whom it was made.",
+);
+export const R_14_05_ACCEPT = scc(
+  "r. 14.05 (1)",
+  "An offer to settle may be accepted by serving an acceptance of an offer to settle on the party who made it, at any time before it is withdrawn or before the court disposes of the claim in respect of which it is made.",
+);
+export const R_14_06_BREACH = scc(
+  "r. 14.06",
+  "If a party to an accepted offer to settle fails to comply with the terms of the offer, the other party may, (a) make a motion to the court for judgment in the terms of the accepted offer; or (b) continue the proceeding as if there had been no offer to settle.",
+);
+export const R_14_07_PLAINTIFF_OFFER = scc(
+  "r. 14.07 (1)",
+  "When a plaintiff makes an offer to settle that is not accepted by the defendant, the court may award the plaintiff an amount not exceeding twice the costs of the action, other than disbursements, if the following conditions are met: 1. The plaintiff obtains a judgment as favourable as or more favourable than the terms of the offer. 2. The offer was made at least seven days before the trial. 3. The offer was not withdrawn and did not expire before the trial.",
+);
+export const R_14_07_DEFENDANT_OFFER = scc(
+  "r. 14.07 (2)",
+  "When a defendant makes an offer to settle that is not accepted by the plaintiff, the court may award the defendant an amount not exceeding twice the costs awardable to a successful party, other than disbursements, from the date the offer was served, if the following conditions are met: 1. The plaintiff obtains a judgment as favourable as or less favourable than the terms of the offer. 2. The offer was made at least seven days before the trial. 3. The offer was not withdrawn and did not expire before the trial.",
+);
+export const R_20_08_GARNISHMENT = scc(
+  "r. 20.08 (1)",
+  "A creditor may enforce an order for the payment or recovery of money by garnishment of debts payable to the debtor by other persons.",
+);
+export const R_20_10_EXAMINATION = scc(
+  "r. 20.10 (1)",
+  "If there is default under an order for the payment or recovery of money, the clerk of a court in the territorial division in which the debtor or other person to be examined resides or carries on business shall, at the creditor's request, issue a notice of examination (Form 20H) directed to the debtor or other person.",
+);
+export const R_20_10_EXAM_TOPICS = scc(
+  "r. 20.10 (4)",
+  "The debtor, any other persons to be examined and any witnesses whose evidence the court considers necessary may be examined in relation to, (a) the reason for nonpayment; (b) the debtor's income and property; (c) the debts owed to and by the debtor; (d) the disposal the debtor has made of any property either before or after the order was made; (e) the debtor's present, past and future means to satisfy the order; (f) whether the debtor intends to obey the order or has any reason for not doing so; and (g) any other matter pertinent to the enforcement of the order.",
+);
+export const R_20_04_CERTIFICATE = scc(
+  "r. 20.04 (1)",
+  "If there is default under an order for the payment or recovery of money, the clerk shall, at the creditor's request, supported by an affidavit for enforcement request (Form 20P) stating the amount still owing, issue a certificate of judgment (Form 20A) to the clerk at the court location specified by the creditor.",
+);
+
 export const S_CJA_31_APPEAL: RuleCitation = {
   sourceId: "cja-courts-of-justice-act",
   pinpoint: "s. 31",
