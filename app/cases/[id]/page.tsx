@@ -31,6 +31,7 @@ import {
   type SuggestedDate,
 } from "@/src/lib/case-system/casePosition";
 import { readCaseDrafts } from "@/src/lib/case-system/drafts/caseDrafts";
+import { savePositionQueued } from "../../builder/_components/positionSave";
 import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { authHeaders, builderHref, formatDate, useCaseHome } from "../_components/CaseHomeContext";
 import { suggestedNoticeStep } from "@/src/lib/case-system/claim-types/noticeStep";
@@ -92,15 +93,9 @@ export default function CaseOverviewPage() {
 
   async function confirmStage(stage: UniversalStage) {
     setStageError("");
-    const headers = await authHeaders();
-    const response = headers
-      ? await fetch("/api/cases/position", {
-          method: "POST",
-          headers,
-          body: JSON.stringify({ caseId, confirmedStage: stage }),
-        }).catch(() => null)
-      : null;
-    if (!response?.ok) {
+    // One save at a time with the deadline box's own saves (positionSave.ts).
+    const saved = await savePositionQueued(caseId, { confirmedStage: stage });
+    if (!saved) {
       setStageError("That could not be saved just now. Please try again.");
       return;
     }
